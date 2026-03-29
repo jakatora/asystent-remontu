@@ -1,0 +1,330 @@
+import Colors from "@/constants/colors";
+import { Lead, useLeads } from "@/context/LeadContext";
+import { Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
+import React, { useCallback, useState } from "react";
+import {
+  Alert,
+  FlatList,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+function LeadCard({ lead, onRemove }: { lead: Lead; onRemove: () => void }) {
+  const formatDate = (iso: string) =>
+    new Date(iso).toLocaleDateString("pl-PL", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+  const handleRemove = () => {
+    Alert.alert("Usuń lead", `Usunąć "${lead.companyName}"?`, [
+      { text: "Anuluj", style: "cancel" },
+      {
+        text: "Usuń",
+        style: "destructive",
+        onPress: async () => {
+          await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          onRemove();
+        },
+      },
+    ]);
+  };
+
+  return (
+    <View style={styles.card}>
+      <View style={styles.cardLeft}>
+        <View style={styles.cardIcon}>
+          <Feather name="briefcase" size={16} color={Colors.primary} />
+        </View>
+        <View style={styles.cardInfo}>
+          <Text style={styles.cardName} numberOfLines={1}>
+            {lead.companyName}
+          </Text>
+          <View style={styles.cardMetaRow}>
+            <Feather name="phone" size={11} color={Colors.primary} />
+            <Text style={styles.cardPhone}>{lead.phone}</Text>
+          </View>
+          <View style={styles.cardMetaRow}>
+            <Feather name="map-pin" size={11} color={Colors.textSecondary} />
+            <Text style={styles.cardMeta}>{lead.city}</Text>
+            <Text style={styles.cardDot}>·</Text>
+            <Feather name="tag" size={11} color={Colors.textSecondary} />
+            <Text style={styles.cardMeta}>{lead.category}</Text>
+          </View>
+          <Text style={styles.cardDate}>{formatDate(lead.discoveredAt)}</Text>
+        </View>
+      </View>
+      <Pressable
+        onPress={handleRemove}
+        hitSlop={12}
+        style={({ pressed }) => [styles.removeBtn, pressed && { opacity: 0.5 }]}
+      >
+        <Feather name="trash-2" size={16} color={Colors.textSecondary} />
+      </Pressable>
+    </View>
+  );
+}
+
+export default function LeadsScreen() {
+  const { leads, removeLead, clearLeads } = useLeads();
+  const [search, setSearch] = useState("");
+  const insets = useSafeAreaInsets();
+
+  const filtered = search.trim()
+    ? leads.filter(
+        (l) =>
+          l.companyName.toLowerCase().includes(search.toLowerCase()) ||
+          l.phone.includes(search) ||
+          l.city.toLowerCase().includes(search.toLowerCase()) ||
+          l.category.toLowerCase().includes(search.toLowerCase()),
+      )
+    : leads;
+
+  const handleClearAll = useCallback(() => {
+    Alert.alert(
+      "Wyczyść bazę",
+      `Usunąć wszystkie ${leads.length} leadów? Tej operacji nie można cofnąć.`,
+      [
+        { text: "Anuluj", style: "cancel" },
+        {
+          text: "Wyczyść",
+          style: "destructive",
+          onPress: async () => {
+            await Haptics.notificationAsync(
+              Haptics.NotificationFeedbackType.Warning,
+            );
+            clearLeads();
+          },
+        },
+      ],
+    );
+  }, [leads.length, clearLeads]);
+
+  const topPad = Platform.OS === "web" ? 67 : insets.top > 0 ? insets.top : 44;
+  const bottomPad = Platform.OS === "web" ? 34 : 90;
+
+  const renderLead = useCallback(
+    ({ item }: { item: Lead }) => (
+      <LeadCard lead={item} onRemove={() => removeLead(item.id)} />
+    ),
+    [removeLead],
+  );
+
+  const keyExtractor = useCallback((item: Lead) => item.id, []);
+
+  return (
+    <View style={styles.container}>
+      <View style={[styles.topBar, { paddingTop: topPad + 16 }]}>
+        <View>
+          <Text style={styles.screenTitle}>Baza Leadów</Text>
+          <Text style={styles.screenSub}>
+            {leads.length} firm bez strony www
+          </Text>
+        </View>
+        {leads.length > 0 && (
+          <Pressable
+            onPress={handleClearAll}
+            style={({ pressed }) => [
+              styles.clearBtn,
+              pressed && { opacity: 0.6 },
+            ]}
+          >
+            <Feather name="trash-2" size={16} color={Colors.danger} />
+          </Pressable>
+        )}
+      </View>
+
+      <View style={styles.searchBar}>
+        <Feather name="search" size={16} color={Colors.textSecondary} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Szukaj firm, telefonów, miast..."
+          placeholderTextColor={Colors.textSecondary}
+          value={search}
+          onChangeText={setSearch}
+          returnKeyType="search"
+        />
+        {search.length > 0 && (
+          <Pressable onPress={() => setSearch("")} hitSlop={8}>
+            <Feather name="x" size={16} color={Colors.textSecondary} />
+          </Pressable>
+        )}
+      </View>
+
+      <FlatList
+        data={filtered}
+        renderItem={renderLead}
+        keyExtractor={keyExtractor}
+        contentContainerStyle={[
+          styles.listContent,
+          { paddingBottom: bottomPad },
+        ]}
+        showsVerticalScrollIndicator={false}
+        scrollEnabled={true}
+        ListEmptyComponent={
+          <View style={styles.emptyState}>
+            <Feather name="inbox" size={40} color={Colors.textSecondary} />
+            <Text style={styles.emptyTitle}>
+              {search ? "Brak wyników" : "Baza jest pusta"}
+            </Text>
+            <Text style={styles.emptyText}>
+              {search
+                ? "Zmień kryteria wyszukiwania"
+                : "Uruchom automatyzację na ekranie głównym, aby zbierać leady"}
+            </Text>
+          </View>
+        }
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.dark,
+  },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
+    paddingBottom: 16,
+  },
+  screenTitle: {
+    fontSize: 26,
+    fontWeight: "700" as const,
+    color: Colors.text,
+    fontFamily: "Inter_700Bold",
+  },
+  screenSub: {
+    fontSize: 13,
+    color: Colors.textSecondary,
+    fontFamily: "Inter_400Regular",
+    marginTop: 2,
+  },
+  clearBtn: {
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Colors.darkCard,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.danger + "44",
+  },
+  searchBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginHorizontal: 20,
+    marginBottom: 12,
+    backgroundColor: Colors.darkCard,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: Colors.darkBorder,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    color: Colors.text,
+    fontFamily: "Inter_400Regular",
+  },
+  listContent: {
+    paddingHorizontal: 20,
+    gap: 10,
+  },
+  card: {
+    backgroundColor: Colors.darkCard,
+    borderRadius: 14,
+    padding: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: Colors.darkBorder,
+  },
+  cardLeft: {
+    flex: 1,
+    flexDirection: "row",
+    gap: 12,
+    alignItems: "flex-start",
+  },
+  cardIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: Colors.primary + "22",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+  },
+  cardInfo: {
+    flex: 1,
+    gap: 3,
+  },
+  cardName: {
+    fontSize: 15,
+    fontWeight: "600" as const,
+    color: Colors.text,
+    fontFamily: "Inter_600SemiBold",
+  },
+  cardPhone: {
+    fontSize: 13,
+    color: Colors.primary,
+    fontFamily: "Inter_500Medium",
+  },
+  cardMetaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  cardMeta: {
+    fontSize: 11,
+    color: Colors.textSecondary,
+    fontFamily: "Inter_400Regular",
+  },
+  cardDot: {
+    fontSize: 11,
+    color: Colors.textSecondary,
+  },
+  cardDate: {
+    fontSize: 10,
+    color: Colors.textSecondary + "88",
+    fontFamily: "Inter_400Regular",
+    marginTop: 2,
+  },
+  removeBtn: {
+    padding: 8,
+    marginLeft: 4,
+  },
+  emptyState: {
+    alignItems: "center",
+    paddingTop: 80,
+    gap: 12,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: "600" as const,
+    color: Colors.text,
+    fontFamily: "Inter_600SemiBold",
+  },
+  emptyText: {
+    fontSize: 13,
+    color: Colors.textSecondary,
+    fontFamily: "Inter_400Regular",
+    textAlign: "center",
+    paddingHorizontal: 40,
+    lineHeight: 20,
+  },
+});
