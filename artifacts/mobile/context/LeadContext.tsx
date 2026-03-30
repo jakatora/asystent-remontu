@@ -86,9 +86,14 @@ async function fetchPlaceLeads(
     `?keyword=${encodeURIComponent(keyword)}` +
     `&location=${encodeURIComponent(location)}`;
 
-  const resp = await fetch(url, {
-    signal: AbortSignal.timeout(30000),
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
+  let resp: Response;
+  try {
+    resp = await fetch(url, { signal: controller.signal });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!resp.ok) {
     const text = await resp.text();
