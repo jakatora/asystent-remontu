@@ -16,6 +16,21 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
 
+## Artifacts
+
+### `artifacts/mobile` — Lead Hunter PL (Expo mobile app)
+Mobile app that automatically finds Polish businesses without websites using Google Places API (New).
+- Searches Google Maps by category + city
+- Filters out businesses that have a website
+- Saves company name + phone to local leads database (AsyncStorage)
+- Deduplication by phone+name (never adds duplicates)
+- 3 tabs: Dashboard (automation control), Leads list, Settings
+
+### `artifacts/api-server` — Express API
+Backend that proxies Google Places API (New) securely (key never exposed to client).
+- `GET /api/places/search?keyword=X&location=Y` — searches Google Places, returns businesses without websites
+- Uses `GOOGLE_MAPS_API_KEY` secret (requires Places API New enabled in Google Cloud)
+
 ## Structure
 
 ```text

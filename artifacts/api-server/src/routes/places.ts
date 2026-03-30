@@ -4,75 +4,53 @@ const router: IRouter = Router();
 
 const GMAPS_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-interface PlaceSearchResult {
-  place_id: string;
-  name: string;
-  formatted_address?: string;
-  vicinity?: string;
+const PLACES_API_URL = "https://places.googleapis.com/v1/places:searchText";
+const FIELD_MASK =
+  "places.id,places.displayName,places.formattedAddress,places.internationalPhoneNumber,places.nationalPhoneNumber,places.websiteUri";
+
+interface PlaceResult {
+  id: string;
+  displayName?: { text: string };
+  formattedAddress?: string;
+  internationalPhoneNumber?: string;
+  nationalPhoneNumber?: string;
+  websiteUri?: string;
 }
 
-interface PlaceDetails {
-  name: string;
-  formatted_phone_number?: string;
-  international_phone_number?: string;
-  website?: string;
-  formatted_address?: string;
-  vicinity?: string;
+interface PlacesApiResponse {
+  places?: PlaceResult[];
+  error?: { code: number; message: string; status: string };
 }
 
-async function searchPlaces(
-  keyword: string,
-  location: string,
-  pagetoken?: string,
-): Promise<{ results: PlaceSearchResult[]; next_page_token?: string }> {
-  const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location + ", Polska")}&key=${GMAPS_KEY}`;
-  const geoResp = await fetch(geocodeUrl);
-  const geoData = (await geoResp.json()) as any;
-
-  if (!geoData.results?.[0]) {
-    return { results: [] };
-  }
-
-  const { lat, lng } = geoData.results[0].geometry.location;
-
-  let searchUrl =
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json` +
-    `?location=${lat},${lng}` +
-    `&radius=15000` +
-    `&keyword=${encodeURIComponent(keyword)}` +
-    `&language=pl` +
-    `&key=${GMAPS_KEY}`;
-
-  if (pagetoken) {
-    searchUrl =
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json` +
-      `?pagetoken=${encodeURIComponent(pagetoken)}` +
-      `&key=${GMAPS_KEY}`;
-  }
-
-  const resp = await fetch(searchUrl);
-  const data = (await resp.json()) as any;
-
-  return {
-    results: data.results ?? [],
-    next_page_token: data.next_page_token,
+async function searchPlacesNew(
+  query: string,
+  maxResults: number = 20,
+): Promise<PlaceResult[]> {
+  const body = {
+    textQuery: query,
+    languageCode: "pl",
+    regionCode: "PL",
+    maxResultCount: Math.min(maxResults, 20),
   };
-}
 
-async function getPlaceDetails(
-  placeId: string,
-): Promise<PlaceDetails | null> {
-  const url =
-    `https://maps.googleapis.com/maps/api/place/details/json` +
-    `?place_id=${encodeURIComponent(placeId)}` +
-    `&fields=name,formatted_phone_number,international_phone_number,website,formatted_address,vicinity` +
-    `&language=pl` +
-    `&key=${GMAPS_KEY}`;
+  const resp = await fetch(PLACES_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": GMAPS_KEY!,
+      "X-Goog-FieldMask": FIELD_MASK,
+    },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(15000),
+  });
 
-  const resp = await fetch(url);
-  const data = (await resp.json()) as any;
-  if (data.status !== "OK") return null;
-  return data.result as PlaceDetails;
+  const data = (await resp.json()) as PlacesApiResponse;
+
+  if (data.error) {
+    throw new Error(`Places API error ${data.error.code}: ${data.error.message}`);
+  }
+
+  return data.places ?? [];
 }
 
 router.get("/places/search", async (req, res) => {
@@ -81,10 +59,9 @@ router.get("/places/search", async (req, res) => {
     return;
   }
 
-  const { keyword, location, pagetoken } = req.query as {
+  const { keyword, location } = req.query as {
     keyword?: string;
     location?: string;
-    pagetoken?: string;
   };
 
   if (!keyword || !location) {
@@ -92,8 +69,10 @@ router.get("/places/search", async (req, res) => {
     return;
   }
 
+  const query = `${keyword} ${location} Polska`;
+
   try {
-    const searchResult = await searchPlaces(keyword, location, pagetoken);
+    const places = await searchPlacesNew(query, 20);
 
     const leads: Array<{
       placeId: string;
@@ -103,39 +82,34 @@ router.get("/places/search", async (req, res) => {
       hasWebsite: boolean;
     }> = [];
 
-    for (const place of searchResult.results) {
-      try {
-        const details = await getPlaceDetails(place.place_id);
-        if (!details) continue;
+    for (const place of places) {
+      const name = place.displayName?.text ?? "";
+      const phone =
+        place.internationalPhoneNumber ?? place.nationalPhoneNumber ?? "";
+      const address = place.formattedAddress ?? location;
+      const hasWebsite = !!place.websiteUri;
 
-        const phone =
-          details.formatted_phone_number ||
-          details.international_phone_number ||
-          "";
+      if (!name || !phone) continue;
 
-        if (!phone) continue;
-
-        if (!details.website) {
-          leads.push({
-            placeId: place.place_id,
-            companyName: details.name,
-            phone: phone.replace(/[\s-]/g, ""),
-            address: details.formatted_address || details.vicinity || location,
-            hasWebsite: false,
-          });
-        }
-      } catch {
+      if (!hasWebsite) {
+        leads.push({
+          placeId: place.id,
+          companyName: name,
+          phone: phone.replace(/\s/g, ""),
+          address,
+          hasWebsite: false,
+        });
       }
     }
 
     res.json({
       leads,
-      nextPageToken: searchResult.next_page_token ?? null,
-      total: searchResult.results.length,
+      total: places.length,
+      withoutWebsite: leads.length,
     });
-  } catch (err) {
+  } catch (err: any) {
     req.log.error({ err }, "Places search error");
-    res.status(500).json({ error: "Search failed" });
+    res.status(500).json({ error: err?.message ?? "Search failed" });
   }
 });
 
