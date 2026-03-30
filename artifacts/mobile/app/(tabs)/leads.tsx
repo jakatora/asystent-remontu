@@ -55,8 +55,11 @@ function LeadCard({ lead, onRemove }: { lead: Lead; onRemove: () => void }) {
           </View>
           <View style={styles.cardMetaRow}>
             <Feather name="map-pin" size={11} color={Colors.textSecondary} />
-            <Text style={styles.cardMeta}>{lead.city}</Text>
-            <Text style={styles.cardDot}>·</Text>
+            <Text style={styles.cardMeta} numberOfLines={1}>
+              {lead.address || lead.city}
+            </Text>
+          </View>
+          <View style={styles.cardMetaRow}>
             <Feather name="tag" size={11} color={Colors.textSecondary} />
             <Text style={styles.cardMeta}>{lead.category}</Text>
           </View>
