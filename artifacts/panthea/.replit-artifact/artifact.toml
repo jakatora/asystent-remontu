@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/panthea/"
+title = "Panthèa Atelier — strona www"
+version = "1.0.0"
+id = "artifacts/panthea"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/panthea/" ]
+localPort = 18401
+
+[services.development]
+run = "pnpm --filter @workspace/panthea run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/panthea", "run", "build" ]
+publicDir = "artifacts/panthea/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18401"
+BASE_PATH = "/panthea/"
