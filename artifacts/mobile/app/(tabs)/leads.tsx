@@ -19,28 +19,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const SALES_MESSAGE =
   "Dzień dobry, zajmuję się tworzeniem stron internetowych dla firm, które jeszcze ich nie posiadają. Dobrze wykonana strona pomaga zdobywać więcej klientów, budować zaufanie i pokazać ofertę w profesjonalny sposób. Mogę przygotować dla Państwa nowoczesną stronę z ofertą, galerią, mapą i formularzem kontaktowym. Czy są Państwo zainteresowani krótką wyceną?";
 
-function cleanPhone(raw: string): string {
-  let digits = raw.replace(/[\s\-().+]/g, "");
-  if (digits.startsWith("00")) digits = digits.slice(2);
-  if (digits.startsWith("48") && digits.length === 11) return "48" + digits.slice(2);
-  if (digits.length === 9) return "48" + digits;
-  return digits;
-}
-
 async function sendMessage(phone: string) {
-  const cleaned = cleanPhone(phone);
   const encoded = encodeURIComponent(SALES_MESSAGE);
-
-  const waUrl = `whatsapp://send?phone=${cleaned}&text=${encoded}`;
   const smsUrl = Platform.OS === "ios"
     ? `sms:${phone}&body=${encoded}`
     : `sms:${phone}?body=${encoded}`;
-
-  const canWA = await Linking.canOpenURL(waUrl);
-  if (canWA) {
-    await Linking.openURL(waUrl);
-    return "whatsapp";
-  }
   await Linking.openURL(smsUrl);
   return "sms";
 }
@@ -84,13 +67,10 @@ function LeadCard({
     setSending(true);
     try {
       await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-      const method = await sendMessage(lead.phone);
+      await sendMessage(lead.phone);
       onContact();
-      if (method === "sms") {
-        Alert.alert("SMS otwarty", "Wiadomość przygotowana w aplikacji SMS.");
-      }
     } catch {
-      Alert.alert("Błąd", "Nie udało się otworzyć WhatsApp ani SMS.");
+      Alert.alert("Błąd", "Nie udało się otworzyć aplikacji SMS.");
     } finally {
       setSending(false);
     }
