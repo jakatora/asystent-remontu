@@ -6,6 +6,7 @@ import React, { useCallback, useState } from "react";
 import {
   Alert,
   FlatList,
+  Linking,
   Platform,
   Pressable,
   StyleSheet,
@@ -15,7 +16,46 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-function LeadCard({ lead, onRemove }: { lead: Lead; onRemove: () => void }) {
+const SALES_MESSAGE =
+  "Dzień dobry, zajmuję się tworzeniem stron internetowych dla firm, które jeszcze ich nie posiadają. Dobrze wykonana strona pomaga zdobywać więcej klientów, budować zaufanie i pokazać ofertę w profesjonalny sposób. Mogę przygotować dla Państwa nowoczesną stronę z ofertą, galerią, mapą i formularzem kontaktowym. Czy są Państwo zainteresowani krótką wyceną?";
+
+function cleanPhone(raw: string): string {
+  let digits = raw.replace(/[\s\-().+]/g, "");
+  if (digits.startsWith("00")) digits = digits.slice(2);
+  if (digits.startsWith("48") && digits.length === 11) return "48" + digits.slice(2);
+  if (digits.length === 9) return "48" + digits;
+  return digits;
+}
+
+async function sendMessage(phone: string) {
+  const cleaned = cleanPhone(phone);
+  const encoded = encodeURIComponent(SALES_MESSAGE);
+
+  const waUrl = `whatsapp://send?phone=${cleaned}&text=${encoded}`;
+  const smsUrl = Platform.OS === "ios"
+    ? `sms:${phone}&body=${encoded}`
+    : `sms:${phone}?body=${encoded}`;
+
+  const canWA = await Linking.canOpenURL(waUrl);
+  if (canWA) {
+    await Linking.openURL(waUrl);
+    return "whatsapp";
+  }
+  await Linking.openURL(smsUrl);
+  return "sms";
+}
+
+function LeadCard({
+  lead,
+  onRemove,
+  onContact,
+}: {
+  lead: Lead;
+  onRemove: () => void;
+  onContact: () => void;
+}) {
+  const [sending, setSending] = useState(false);
+
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString("pl-PL", {
       day: "2-digit",
@@ -39,58 +79,121 @@ function LeadCard({ lead, onRemove }: { lead: Lead; onRemove: () => void }) {
     ]);
   };
 
+  const handleSend = async () => {
+    if (sending) return;
+    setSending(true);
+    try {
+      await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      const method = await sendMessage(lead.phone);
+      onContact();
+      if (method === "sms") {
+        Alert.alert("SMS otwarty", "Wiadomość przygotowana w aplikacji SMS.");
+      }
+    } catch {
+      Alert.alert("Błąd", "Nie udało się otworzyć WhatsApp ani SMS.");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
-    <View style={styles.card}>
-      <View style={styles.cardLeft}>
-        <View style={styles.cardIcon}>
-          <Feather name="briefcase" size={16} color={Colors.primary} />
+    <View style={[styles.card, lead.contacted && styles.cardContacted]}>
+      <View style={styles.cardTop}>
+        <View style={styles.cardLeft}>
+          <View style={[styles.cardIcon, lead.contacted && styles.cardIconContacted]}>
+            <Feather
+              name={lead.contacted ? "check" : "briefcase"}
+              size={16}
+              color={lead.contacted ? Colors.whatsapp : Colors.primary}
+            />
+          </View>
+          <View style={styles.cardInfo}>
+            <View style={styles.cardNameRow}>
+              <Text style={styles.cardName} numberOfLines={1}>
+                {lead.companyName}
+              </Text>
+              {lead.contacted && (
+                <View style={styles.contactedBadge}>
+                  <Feather name="check-circle" size={10} color={Colors.whatsapp} />
+                  <Text style={styles.contactedBadgeText}>Wysłano</Text>
+                </View>
+              )}
+            </View>
+            <View style={styles.cardMetaRow}>
+              <Feather name="phone" size={11} color={Colors.primary} />
+              <Text style={styles.cardPhone}>{lead.phone}</Text>
+            </View>
+            <View style={styles.cardMetaRow}>
+              <Feather name="map-pin" size={11} color={Colors.textSecondary} />
+              <Text style={styles.cardMeta} numberOfLines={1}>
+                {lead.address || lead.city}
+              </Text>
+            </View>
+            <View style={styles.cardMetaRow}>
+              <Feather name="tag" size={11} color={Colors.textSecondary} />
+              <Text style={styles.cardMeta}>{lead.category}</Text>
+            </View>
+            <Text style={styles.cardDate}>{formatDate(lead.discoveredAt)}</Text>
+          </View>
         </View>
-        <View style={styles.cardInfo}>
-          <Text style={styles.cardName} numberOfLines={1}>
-            {lead.companyName}
-          </Text>
-          <View style={styles.cardMetaRow}>
-            <Feather name="phone" size={11} color={Colors.primary} />
-            <Text style={styles.cardPhone}>{lead.phone}</Text>
-          </View>
-          <View style={styles.cardMetaRow}>
-            <Feather name="map-pin" size={11} color={Colors.textSecondary} />
-            <Text style={styles.cardMeta} numberOfLines={1}>
-              {lead.address || lead.city}
-            </Text>
-          </View>
-          <View style={styles.cardMetaRow}>
-            <Feather name="tag" size={11} color={Colors.textSecondary} />
-            <Text style={styles.cardMeta}>{lead.category}</Text>
-          </View>
-          <Text style={styles.cardDate}>{formatDate(lead.discoveredAt)}</Text>
-        </View>
+        <Pressable
+          onPress={handleRemove}
+          hitSlop={12}
+          style={({ pressed }) => [styles.removeBtn, pressed && { opacity: 0.5 }]}
+        >
+          <Feather name="trash-2" size={16} color={Colors.textSecondary} />
+        </Pressable>
       </View>
+
       <Pressable
-        onPress={handleRemove}
-        hitSlop={12}
-        style={({ pressed }) => [styles.removeBtn, pressed && { opacity: 0.5 }]}
+        onPress={handleSend}
+        disabled={sending}
+        style={({ pressed }) => [
+          styles.sendBtn,
+          lead.contacted && styles.sendBtnContacted,
+          (pressed || sending) && { opacity: 0.7 },
+        ]}
       >
-        <Feather name="trash-2" size={16} color={Colors.textSecondary} />
+        <Feather
+          name="message-circle"
+          size={15}
+          color={lead.contacted ? Colors.whatsapp : "#fff"}
+        />
+        <Text style={[styles.sendBtnText, lead.contacted && styles.sendBtnTextContacted]}>
+          {sending
+            ? "Otwieranie..."
+            : lead.contacted
+            ? "Wyślij ponownie"
+            : "Wyślij wiadomość"}
+        </Text>
       </Pressable>
     </View>
   );
 }
 
 export default function LeadsScreen() {
-  const { leads, removeLead, clearLeads } = useLeads();
+  const { leads, removeLead, clearLeads, markContacted } = useLeads();
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"all" | "new" | "contacted">("all");
   const insets = useSafeAreaInsets();
 
+  const baseFiltered = filter === "new"
+    ? leads.filter((l) => !l.contacted)
+    : filter === "contacted"
+    ? leads.filter((l) => l.contacted)
+    : leads;
+
   const filtered = search.trim()
-    ? leads.filter(
+    ? baseFiltered.filter(
         (l) =>
           l.companyName.toLowerCase().includes(search.toLowerCase()) ||
           l.phone.includes(search) ||
           l.city.toLowerCase().includes(search.toLowerCase()) ||
           l.category.toLowerCase().includes(search.toLowerCase()),
       )
-    : leads;
+    : baseFiltered;
+
+  const contactedCount = leads.filter((l) => l.contacted).length;
 
   const handleClearAll = useCallback(() => {
     Alert.alert(
@@ -117,9 +220,13 @@ export default function LeadsScreen() {
 
   const renderLead = useCallback(
     ({ item }: { item: Lead }) => (
-      <LeadCard lead={item} onRemove={() => removeLead(item.id)} />
+      <LeadCard
+        lead={item}
+        onRemove={() => removeLead(item.id)}
+        onContact={() => markContacted(item.id)}
+      />
     ),
-    [removeLead],
+    [removeLead, markContacted],
   );
 
   const keyExtractor = useCallback((item: Lead) => item.id, []);
@@ -130,7 +237,7 @@ export default function LeadsScreen() {
         <View>
           <Text style={styles.screenTitle}>Baza Leadów</Text>
           <Text style={styles.screenSub}>
-            {leads.length} firm bez strony www
+            {leads.length} firm · {contactedCount} skontaktowanych
           </Text>
         </View>
         {leads.length > 0 && (
@@ -144,6 +251,20 @@ export default function LeadsScreen() {
             <Feather name="trash-2" size={16} color={Colors.danger} />
           </Pressable>
         )}
+      </View>
+
+      <View style={styles.filterRow}>
+        {(["all", "new", "contacted"] as const).map((f) => (
+          <Pressable
+            key={f}
+            onPress={() => setFilter(f)}
+            style={[styles.filterChip, filter === f && styles.filterChipActive]}
+          >
+            <Text style={[styles.filterChipText, filter === f && styles.filterChipTextActive]}>
+              {f === "all" ? "Wszystkie" : f === "new" ? "Nowe" : "Skontaktowane"}
+            </Text>
+          </Pressable>
+        ))}
       </View>
 
       <View style={styles.searchBar}>
@@ -201,7 +322,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     paddingHorizontal: 20,
-    paddingBottom: 16,
+    paddingBottom: 12,
   },
   screenTitle: {
     fontSize: 26,
@@ -224,6 +345,32 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: Colors.danger + "44",
+  },
+  filterRow: {
+    flexDirection: "row",
+    gap: 8,
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  filterChip: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    backgroundColor: Colors.darkCard,
+    borderWidth: 1,
+    borderColor: Colors.darkBorder,
+  },
+  filterChipActive: {
+    backgroundColor: Colors.primary + "22",
+    borderColor: Colors.primary,
+  },
+  filterChipText: {
+    fontSize: 12,
+    color: Colors.textSecondary,
+    fontFamily: "Inter_500Medium",
+  },
+  filterChipTextActive: {
+    color: Colors.primary,
   },
   searchBar: {
     flexDirection: "row",
@@ -252,10 +399,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkCard,
     borderRadius: 14,
     padding: 14,
-    flexDirection: "row",
-    alignItems: "center",
     borderWidth: 1,
     borderColor: Colors.darkBorder,
+    gap: 10,
+  },
+  cardContacted: {
+    borderColor: Colors.whatsapp + "33",
+  },
+  cardTop: {
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   cardLeft: {
     flex: 1,
@@ -272,15 +425,39 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexShrink: 0,
   },
+  cardIconContacted: {
+    backgroundColor: Colors.whatsapp + "22",
+  },
   cardInfo: {
     flex: 1,
     gap: 3,
+  },
+  cardNameRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    flexWrap: "wrap",
   },
   cardName: {
     fontSize: 15,
     fontWeight: "600" as const,
     color: Colors.text,
     fontFamily: "Inter_600SemiBold",
+    flexShrink: 1,
+  },
+  contactedBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    backgroundColor: Colors.whatsapp + "22",
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 10,
+  },
+  contactedBadgeText: {
+    fontSize: 10,
+    color: Colors.whatsapp,
+    fontFamily: "Inter_500Medium",
   },
   cardPhone: {
     fontSize: 13,
@@ -297,10 +474,6 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     fontFamily: "Inter_400Regular",
   },
-  cardDot: {
-    fontSize: 11,
-    color: Colors.textSecondary,
-  },
   cardDate: {
     fontSize: 10,
     color: Colors.textSecondary + "88",
@@ -310,6 +483,30 @@ const styles = StyleSheet.create({
   removeBtn: {
     padding: 8,
     marginLeft: 4,
+  },
+  sendBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 7,
+    backgroundColor: Colors.whatsapp,
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+  },
+  sendBtnContacted: {
+    backgroundColor: Colors.whatsapp + "18",
+    borderWidth: 1,
+    borderColor: Colors.whatsapp + "55",
+  },
+  sendBtnText: {
+    fontSize: 14,
+    fontWeight: "600" as const,
+    color: "#fff",
+    fontFamily: "Inter_600SemiBold",
+  },
+  sendBtnTextContacted: {
+    color: Colors.whatsapp,
   },
   emptyState: {
     alignItems: "center",

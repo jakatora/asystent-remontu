@@ -16,6 +16,8 @@ export interface Lead {
   city: string;
   address: string;
   discoveredAt: string;
+  contacted?: boolean;
+  contactedAt?: string;
 }
 
 export interface SearchSettings {
@@ -35,6 +37,7 @@ interface LeadContextType {
   stopAutomation: () => void;
   clearLeads: () => void;
   removeLead: (id: string) => void;
+  markContacted: (id: string) => void;
   updateSettings: (s: Partial<SearchSettings>) => void;
   runOnce: () => Promise<void>;
   searchLog: string[];
@@ -272,6 +275,21 @@ export function LeadProvider({ children }: { children: React.ReactNode }) {
     [saveLeads],
   );
 
+  const markContacted = useCallback(
+    (id: string) => {
+      setLeads((prev) => {
+        const updated = prev.map((l) =>
+          l.id === id
+            ? { ...l, contacted: true, contactedAt: new Date().toISOString() }
+            : l,
+        );
+        saveLeads(updated);
+        return updated;
+      });
+    },
+    [saveLeads],
+  );
+
   const updateSettings = useCallback((partial: Partial<SearchSettings>) => {
     setSettings((prev) => {
       const next = { ...prev, ...partial };
@@ -299,6 +317,7 @@ export function LeadProvider({ children }: { children: React.ReactNode }) {
         stopAutomation,
         clearLeads,
         removeLead,
+        markContacted,
         updateSettings,
         runOnce,
         searchLog,

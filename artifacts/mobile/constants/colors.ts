@@ -8,6 +8,7 @@ const textSecondary = "#94A3B8";
 const danger = "#EF4444";
 const warning = "#F59E0B";
 const success = "#22C55E";
+const whatsapp = "#25D366";
 
 export default {
   primary,
@@ -20,6 +21,7 @@ export default {
   danger,
   warning,
   success,
+  whatsapp,
   light: {
     text: "#F1F5F9",
     background: dark,
