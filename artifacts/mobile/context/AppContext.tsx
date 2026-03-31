@@ -7,11 +7,23 @@ import React, {
   type PropsWithChildren,
 } from 'react';
 
-import type { Project, ShoppingItem, ShoppingTier, RenovationJob } from '@/types/domain';
+import type {
+  Project,
+  ShoppingItem,
+  ShoppingTier,
+  RenovationJob,
+  ProjectPhoto,
+  PhotoType,
+  ChecklistItem,
+  ProjectActivity,
+} from '@/types/domain';
 import type { CalculationResult } from '@/types/domain';
 import { projectsRepo } from '@/db/repositories/projects.repo';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import { onboardingRepo } from '@/db/repositories/onboarding.repo';
+import { photosRepo } from '@/db/repositories/photos.repo';
+import { checklistRepo } from '@/db/repositories/checklist.repo';
+import { activityRepo } from '@/db/repositories/activity.repo';
 import { generateShoppingItems, generateAllShoppingItems } from '@/features/calculator/shopping';
 
 interface AppContextValue {
@@ -36,6 +48,19 @@ interface AppContextValue {
   setItemTier: (id: string, tier: ShoppingTier) => Promise<void>;
   removeShoppingItem: (id: string) => Promise<void>;
   clearProjectShoppingItems: (projectId: string) => Promise<void>;
+
+  getProjectPhotos: (projectId: string) => Promise<ProjectPhoto[]>;
+  addPhoto: (data: Omit<ProjectPhoto, 'id' | 'createdAt'>) => Promise<string>;
+  removePhoto: (id: string) => Promise<void>;
+
+  getProjectChecklist: (projectId: string) => Promise<ChecklistItem[]>;
+  generateChecklist: (projectId: string, job: RenovationJob) => Promise<void>;
+  toggleChecklistItem: (id: string, completed: boolean) => Promise<void>;
+  getChecklistProgress: (projectId: string) => Promise<{ completed: number; total: number }>;
+
+  getProjectActivities: (projectId: string, limit?: number) => Promise<ProjectActivity[]>;
+  getRecentActivities: (limit?: number) => Promise<ProjectActivity[]>;
+  logActivity: (projectId: string, actionType: ProjectActivity['actionType'], description: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -47,7 +72,6 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     let mounted = true;
-
     async function init() {
       try {
         const [projs, done] = await Promise.all([
@@ -64,7 +88,6 @@ export function AppProvider({ children }: PropsWithChildren) {
         if (mounted) setIsLoading(false);
       }
     }
-
     init();
     return () => { mounted = false; };
   }, []);
@@ -81,6 +104,11 @@ export function AppProvider({ children }: PropsWithChildren) {
       if (created) {
         setProjects((prev) => [created, ...prev]);
       }
+      await activityRepo.insert({
+        projectId: id,
+        actionType: 'created',
+        description: `Utworzono projekt "${data.name}"`,
+      });
       return id;
     },
     []
@@ -105,16 +133,12 @@ export function AppProvider({ children }: PropsWithChildren) {
   }, []);
 
   const getProjectShoppingItems = useCallback(
-    async (projectId: string): Promise<ShoppingItem[]> => {
-      return shoppingRepo.findByProject(projectId);
-    },
+    async (projectId: string): Promise<ShoppingItem[]> => shoppingRepo.findByProject(projectId),
     []
   );
 
   const addShoppingItem = useCallback(
-    async (item: Omit<ShoppingItem, 'id'>): Promise<string> => {
-      return shoppingRepo.insert(item);
-    },
+    async (item: Omit<ShoppingItem, 'id'>): Promise<string> => shoppingRepo.insert(item),
     []
   );
 
@@ -124,7 +148,13 @@ export function AppProvider({ children }: PropsWithChildren) {
       const items = job
         ? generateAllShoppingItems(projectId, result, job)
         : generateShoppingItems(projectId, result);
-      return shoppingRepo.insertMany(items);
+      const ids = await shoppingRepo.insertMany(items);
+      await activityRepo.insert({
+        projectId,
+        actionType: 'shopping_generated',
+        description: `Wygenerowano listę zakupów (${items.length} pozycji)`,
+      });
+      return ids;
     },
     []
   );
@@ -157,6 +187,85 @@ export function AppProvider({ children }: PropsWithChildren) {
     await shoppingRepo.deleteByProject(projectId);
   }, []);
 
+  const getProjectPhotos = useCallback(
+    async (projectId: string): Promise<ProjectPhoto[]> => photosRepo.findByProject(projectId),
+    []
+  );
+
+  const addPhoto = useCallback(
+    async (data: Omit<ProjectPhoto, 'id' | 'createdAt'>): Promise<string> => {
+      const id = await photosRepo.insert(data);
+      const typeLabels: Record<PhotoType, string> = {
+        before: 'przed remontem',
+        during: 'w trakcie remontu',
+        after: 'po remoncie',
+      };
+      await activityRepo.insert({
+        projectId: data.projectId,
+        actionType: 'photo_added',
+        description: `Dodano zdjęcie: ${typeLabels[data.photoType]}`,
+      });
+      return id;
+    },
+    []
+  );
+
+  const removePhoto = useCallback(async (id: string): Promise<void> => {
+    await photosRepo.delete(id);
+  }, []);
+
+  const getProjectChecklist = useCallback(
+    async (projectId: string): Promise<ChecklistItem[]> => checklistRepo.findByProject(projectId),
+    []
+  );
+
+  const generateChecklist = useCallback(
+    async (projectId: string, job: RenovationJob): Promise<void> => {
+      await checklistRepo.deleteByProject(projectId);
+      const items: Omit<ChecklistItem, 'id' | 'createdAt'>[] = job.instructions.map((step) => ({
+        projectId,
+        stepIndex: step.step,
+        title: step.title,
+        description: step.description,
+        completed: false,
+      }));
+      await checklistRepo.insertMany(items);
+    },
+    []
+  );
+
+  const toggleChecklistItem = useCallback(
+    async (id: string, completed: boolean): Promise<void> => {
+      await checklistRepo.toggle(id, completed);
+    },
+    []
+  );
+
+  const getChecklistProgress = useCallback(
+    async (projectId: string): Promise<{ completed: number; total: number }> =>
+      checklistRepo.completedCount(projectId),
+    []
+  );
+
+  const getProjectActivities = useCallback(
+    async (projectId: string, limit = 20): Promise<ProjectActivity[]> =>
+      activityRepo.findByProject(projectId, limit),
+    []
+  );
+
+  const getRecentActivities = useCallback(
+    async (limit = 10): Promise<ProjectActivity[]> =>
+      activityRepo.findRecent(limit),
+    []
+  );
+
+  const logActivity = useCallback(
+    async (projectId: string, actionType: ProjectActivity['actionType'], description: string): Promise<void> => {
+      await activityRepo.insert({ projectId, actionType, description });
+    },
+    []
+  );
+
   const value: AppContextValue = {
     projects,
     onboardingDone,
@@ -176,6 +285,16 @@ export function AppProvider({ children }: PropsWithChildren) {
     setItemTier,
     removeShoppingItem,
     clearProjectShoppingItems,
+    getProjectPhotos,
+    addPhoto,
+    removePhoto,
+    getProjectChecklist,
+    generateChecklist,
+    toggleChecklistItem,
+    getChecklistProgress,
+    getProjectActivities,
+    getRecentActivities,
+    logActivity,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

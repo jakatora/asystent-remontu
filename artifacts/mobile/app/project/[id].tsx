@@ -7,13 +7,23 @@ import {
   Platform,
   TextInput,
   Share,
+  Image,
 } from 'react-native';
 import { useLocalSearchParams, router, Stack, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { useApp } from '@/context/AppContext';
 import { getJobById } from '@/data/jobs';
-import type { ShoppingItem, ShoppingTier, ToolItem } from '@/types/domain';
+import type {
+  ShoppingItem,
+  ShoppingTier,
+  ToolItem,
+  ProjectPhoto,
+  PhotoType,
+  ChecklistItem,
+  ProjectActivity,
+} from '@/types/domain';
 import { formatCurrency } from '@/utils/calculator';
 import { estimateBudget } from '@/features/calculator/budget';
 import { WarningBanner } from '@/components/ui/WarningBanner';
@@ -21,7 +31,7 @@ import { Button } from '@/components/ui/Button';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 
-type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping';
+type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'photos';
 
 const TAB_LABELS: Record<Tab, string> = {
   overview: 'Przegląd',
@@ -29,6 +39,7 @@ const TAB_LABELS: Record<Tab, string> = {
   tools: 'Narzędzia',
   guide: 'Instrukcja',
   shopping: 'Zakupy',
+  photos: 'Zdjęcia',
 };
 
 const STATUS_COLORS = {
@@ -44,6 +55,28 @@ const TIER_META: Record<ShoppingTier, { label: string; color: string; bg: string
 };
 
 const CONTINGENCY_RATE = 0.1;
+
+const PHOTO_TYPE_LABELS: Record<PhotoType, string> = {
+  before: 'Przed',
+  during: 'W trakcie',
+  after: 'Po',
+};
+
+const PHOTO_TYPE_COLORS: Record<PhotoType, { color: string; bg: string }> = {
+  before: { color: Colors.info, bg: Colors.infoBg },
+  during: { color: Colors.warning, bg: Colors.warningBg },
+  after:  { color: Colors.success, bg: Colors.successBg },
+};
+
+const ACTIVITY_ICONS: Record<string, string> = {
+  created: 'plus-circle',
+  status_changed: 'refresh-cw',
+  checklist_completed: 'check-square',
+  photo_added: 'camera',
+  shopping_generated: 'shopping-cart',
+  note_updated: 'edit-3',
+  edited: 'edit',
+};
 
 function diyAssessment(difficulty: string, hirePro: boolean) {
   if (hirePro || difficulty === 'hard') {
@@ -218,34 +251,42 @@ function buildShareText(
   totalTools: number,
   contingency: number
 ): string {
-  let text = `🛒 Lista zakupów: ${projectName}\n\n`;
-
+  let text = `Lista zakupów: ${projectName}\n\n`;
   if (materials.length > 0) {
-    text += '📦 MATERIAŁY:\n';
+    text += 'MATERIAŁY:\n';
     for (const item of materials) {
-      const check = item.purchased ? '✅' : (item.owned ? '🏠' : '⬜');
+      const check = item.purchased ? '[x]' : (item.owned ? '[mam]' : '[ ]');
       const qty = getEffectiveQuantity(item);
       const price = getEffectivePrice(item);
       text += `${check} ${item.name} — ${qty.toFixed(1)} ${item.unit} — ${formatCurrency(price)}\n`;
     }
     text += `Razem materiały: ${formatCurrency(totalMaterials)}\n\n`;
   }
-
   if (tools.length > 0) {
-    text += '🔧 NARZĘDZIA:\n';
+    text += 'NARZĘDZIA:\n';
     for (const item of tools) {
-      const check = item.purchased ? '✅' : (item.owned ? '🏠' : '⬜');
+      const check = item.purchased ? '[x]' : (item.owned ? '[mam]' : '[ ]');
       text += `${check} ${item.name} — ${formatCurrency(getEffectivePrice(item))}\n`;
     }
     text += `Razem narzędzia: ${formatCurrency(totalTools)}\n\n`;
   }
-
   const total = totalMaterials + totalTools;
-  text += `💰 SUMA: ${formatCurrency(total)}\n`;
-  text += `🔒 Rezerwa (${Math.round(CONTINGENCY_RATE * 100)}%): ${formatCurrency(contingency)}\n`;
-  text += `📊 Łącznie z rezerwą: ${formatCurrency(total + contingency)}\n`;
-
+  text += `SUMA: ${formatCurrency(total)}\n`;
+  text += `Rezerwa (${Math.round(CONTINGENCY_RATE * 100)}%): ${formatCurrency(contingency)}\n`;
+  text += `Łącznie z rezerwą: ${formatCurrency(total + contingency)}\n`;
   return text;
+}
+
+function timeAgo(isoDate: string): string {
+  const diff = Date.now() - new Date(isoDate).getTime();
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 1) return 'przed chwilą';
+  if (minutes < 60) return `${minutes} min temu`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h temu`;
+  const days = Math.floor(hours / 24);
+  if (days === 1) return 'wczoraj';
+  return `${days} dni temu`;
 }
 
 export default function ProjectDetailScreen() {
@@ -262,6 +303,15 @@ export default function ProjectDetailScreen() {
     updateItemPrice,
     updateItemQuantity,
     removeShoppingItem,
+    getProjectPhotos,
+    addPhoto,
+    removePhoto,
+    getProjectChecklist,
+    generateChecklist,
+    toggleChecklistItem,
+    getChecklistProgress,
+    getProjectActivities,
+    logActivity,
   } = useApp();
 
   const [tab, setTab] = useState<Tab>('overview');
@@ -270,28 +320,60 @@ export default function ProjectDetailScreen() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState('');
   const [editQty, setEditQty] = useState('');
+  const [photos, setPhotos] = useState<ProjectPhoto[]>([]);
+  const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
+  const [checklistProgress, setChecklistProgress] = useState({ completed: 0, total: 0 });
+  const [activities, setActivities] = useState<ProjectActivity[]>([]);
 
   const project = projects.find((p) => p.id === id);
   const job = project ? getJobById(project.jobId) : null;
 
-  const loadShopping = useCallback(async () => {
+  const loadAll = useCallback(async () => {
     if (!id) return;
-    const items = await getProjectShoppingItems(id);
+    const [items, ph, cl, prog, acts] = await Promise.all([
+      getProjectShoppingItems(id),
+      getProjectPhotos(id),
+      getProjectChecklist(id),
+      getChecklistProgress(id),
+      getProjectActivities(id),
+    ]);
     setShoppingItems(items);
-  }, [id, getProjectShoppingItems]);
+    setPhotos(ph);
+    setChecklist(cl);
+    setChecklistProgress(prog);
+    setActivities(acts);
+  }, [id, getProjectShoppingItems, getProjectPhotos, getProjectChecklist, getChecklistProgress, getProjectActivities]);
 
-  useFocusEffect(useCallback(() => { loadShopping(); }, [loadShopping]));
+  useFocusEffect(useCallback(() => { loadAll(); }, [loadAll]));
 
   const handleGenerateShoppingList = async () => {
     if (!project?.calculationResult || !job) return;
     await generateAndAddShoppingItems(project.id, project.calculationResult, job);
-    await loadShopping();
+    await loadAll();
     setTab('shopping');
+  };
+
+  const handleGenerateChecklist = async () => {
+    if (!project || !job) return;
+    await generateChecklist(project.id, job);
+    await logActivity(project.id, 'checklist_completed', 'Wygenerowano listę zadań');
+    await loadAll();
+  };
+
+  const handleToggleChecklist = async (item: ChecklistItem) => {
+    await toggleChecklistItem(item.id, !item.completed);
+    if (!item.completed) {
+      await logActivity(project!.id, 'checklist_completed', `Ukończono: ${item.title}`);
+    }
+    await loadAll();
   };
 
   const handleStatusChange = async (status: 'planning' | 'in-progress' | 'completed') => {
     if (!project) return;
     await updateProject({ ...project, status });
+    const labels = { planning: 'Planowanie', 'in-progress': 'W trakcie', completed: 'Ukończony' };
+    await logActivity(project.id, 'status_changed', `Status zmieniony na: ${labels[status]}`);
+    await loadAll();
   };
 
   const handleDelete = () => {
@@ -311,12 +393,12 @@ export default function ProjectDetailScreen() {
 
   const handleToggleOwned = async (item: ShoppingItem) => {
     await setItemOwned(item.id, !item.owned);
-    await loadShopping();
+    await loadAll();
   };
 
   const handleTogglePurchased = async (item: ShoppingItem) => {
     await toggleItem(item.id, !item.purchased);
-    await loadShopping();
+    await loadAll();
   };
 
   const handleStartEdit = (item: ShoppingItem) => {
@@ -335,7 +417,7 @@ export default function ProjectDetailScreen() {
       await updateItemQuantity(item.id, newQty);
     }
     setEditingId(null);
-    await loadShopping();
+    await loadAll();
   };
 
   const handleRemoveItem = (item: ShoppingItem) => {
@@ -344,7 +426,7 @@ export default function ProjectDetailScreen() {
       {
         text: 'Usuń',
         style: 'destructive',
-        onPress: async () => { await removeShoppingItem(item.id); await loadShopping(); },
+        onPress: async () => { await removeShoppingItem(item.id); await loadAll(); },
       },
     ]);
   };
@@ -357,10 +439,74 @@ export default function ProjectDetailScreen() {
     const totalTool = tools.reduce((s, i) => s + (i.owned ? 0 : getEffectivePrice(i)), 0);
     const contingency = (totalMat + totalTool) * CONTINGENCY_RATE;
     const text = buildShareText(project.name, materials, tools, totalMat, totalTool, contingency);
-
     try {
       await Share.share({ message: text, title: `Lista zakupów: ${project.name}` });
     } catch (_e) { /* ignore */ }
+  };
+
+  const handlePickPhoto = async (photoType: PhotoType) => {
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Brak uprawnień', 'Zezwól na dostęp do galerii w ustawieniach.');
+        return;
+      }
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        quality: 0.8,
+        allowsMultipleSelection: false,
+      });
+      if (result.canceled || !result.assets?.[0]) return;
+      await addPhoto({
+        projectId: project!.id,
+        uri: result.assets[0].uri,
+        photoType,
+      });
+      await loadAll();
+    } catch (err) {
+      console.error('[Photos] pick error:', err);
+    }
+  };
+
+  const handleTakePhoto = async (photoType: PhotoType) => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Brak uprawnień', 'Zezwól na dostęp do kamery w ustawieniach.');
+        return;
+      }
+      const result = await ImagePicker.launchCameraAsync({
+        quality: 0.8,
+      });
+      if (result.canceled || !result.assets?.[0]) return;
+      await addPhoto({
+        projectId: project!.id,
+        uri: result.assets[0].uri,
+        photoType,
+      });
+      await loadAll();
+    } catch (err) {
+      console.error('[Photos] camera error:', err);
+    }
+  };
+
+  const handleDeletePhoto = (photo: ProjectPhoto) => {
+    Alert.alert('Usuń zdjęcie', 'Na pewno usunąć to zdjęcie?', [
+      { text: 'Anuluj', style: 'cancel' },
+      {
+        text: 'Usuń',
+        style: 'destructive',
+        onPress: async () => { await removePhoto(photo.id); await loadAll(); },
+      },
+    ]);
+  };
+
+  const handleAddPhotoMenu = (photoType: PhotoType) => {
+    Alert.alert('Dodaj zdjęcie', `Zdjęcie: ${PHOTO_TYPE_LABELS[photoType]}`, [
+      { text: 'Aparat', onPress: () => handleTakePhoto(photoType) },
+      { text: 'Galeria', onPress: () => handlePickPhoto(photoType) },
+      { text: 'Anuluj', style: 'cancel' },
+    ]);
   };
 
   if (!project || !job) {
@@ -402,7 +548,11 @@ export default function ProjectDetailScreen() {
 
   const budget = calc ? estimateBudget(job, calc.totalCost) : null;
 
-  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping'];
+  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'photos'];
+
+  const roomArea = project.roomWidth && project.roomLength
+    ? (project.roomWidth * project.roomLength).toFixed(1)
+    : null;
 
   return (
     <>
@@ -414,9 +564,16 @@ export default function ProjectDetailScreen() {
           headerTintColor: Colors.text,
           headerShadowVisible: false,
           headerRight: () => (
-            <TouchableOpacity onPress={handleDelete} style={{ marginRight: 4 }}>
-              <Feather name="trash-2" size={20} color={Colors.danger} />
-            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', gap: 12, marginRight: 4 }}>
+              <TouchableOpacity
+                onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: project.id } })}
+              >
+                <Feather name="edit-3" size={20} color={Colors.primary} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDelete}>
+                <Feather name="trash-2" size={20} color={Colors.danger} />
+              </TouchableOpacity>
+            </View>
           ),
         }}
       />
@@ -444,13 +601,14 @@ export default function ProjectDetailScreen() {
             <Txt
               w={tab === t ? 'bold' : 'medium'}
               style={{
-                fontSize: 11,
+                fontSize: 10,
                 color: tab === t ? Colors.primary : Colors.textMuted,
                 textAlign: 'center',
               }}
             >
               {TAB_LABELS[t]}
               {t === 'shopping' && shoppingItems.length > 0 ? ` (${shoppingItems.length})` : ''}
+              {t === 'photos' && photos.length > 0 ? ` (${photos.length})` : ''}
             </Txt>
           </TouchableOpacity>
         ))}
@@ -507,7 +665,7 @@ export default function ProjectDetailScreen() {
                   onPress={() => setWelcomeDismissed(true)}
                   style={{ alignSelf: 'flex-end' }}
                 >
-                  <Txt style={{ fontSize: 13, color: Colors.primary }}>Zamknij ✕</Txt>
+                  <Txt style={{ fontSize: 13, color: Colors.primary }}>Zamknij</Txt>
                 </TouchableOpacity>
               </View>
             )}
@@ -549,6 +707,85 @@ export default function ProjectDetailScreen() {
               })}
             </View>
 
+            {(project.roomName || roomArea) && (
+              <View
+                style={{
+                  backgroundColor: Colors.surface,
+                  borderRadius: 16,
+                  borderWidth: 1,
+                  borderColor: Colors.border,
+                  padding: 14,
+                  gap: 8,
+                }}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Feather name="home" size={16} color={Colors.info} />
+                  <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>
+                    {project.roomName || 'Pomieszczenie'}
+                  </Txt>
+                </View>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+                  {roomArea && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                      <Feather name="grid" size={13} color={Colors.textMuted} />
+                      <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{roomArea} m²</Txt>
+                    </View>
+                  )}
+                  {project.roomWidth && project.roomLength && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                      <Feather name="maximize-2" size={13} color={Colors.textMuted} />
+                      <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
+                        {project.roomWidth} × {project.roomLength} m
+                      </Txt>
+                    </View>
+                  )}
+                  {project.roomHeight && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                      <Feather name="arrow-up" size={13} color={Colors.textMuted} />
+                      <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
+                        wys. {project.roomHeight} m
+                      </Txt>
+                    </View>
+                  )}
+                </View>
+              </View>
+            )}
+
+            {checklistProgress.total > 0 && (
+              <TouchableOpacity
+                onPress={() => setTab('guide')}
+                style={{
+                  backgroundColor: Colors.surface,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: Colors.border,
+                  padding: 14,
+                  gap: 8,
+                }}
+                activeOpacity={0.8}
+              >
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <Feather name="check-square" size={16} color={Colors.success} />
+                    <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Postęp prac</Txt>
+                  </View>
+                  <Txt w="bold" style={{ fontSize: 14, color: Colors.success }}>
+                    {checklistProgress.completed}/{checklistProgress.total}
+                  </Txt>
+                </View>
+                <View style={{ height: 6, borderRadius: 3, backgroundColor: Colors.border, overflow: 'hidden' }}>
+                  <View
+                    style={{
+                      height: 6,
+                      borderRadius: 3,
+                      backgroundColor: Colors.success,
+                      width: `${checklistProgress.total > 0 ? (checklistProgress.completed / checklistProgress.total) * 100 : 0}%`,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+            )}
+
             {calc && (
               <View
                 style={{
@@ -579,7 +816,7 @@ export default function ProjectDetailScreen() {
                     <SummaryRow
                       icon="shopping-cart"
                       label="Zakupy"
-                      value={`${purchasedCount}/${shoppingItems.length} kupionych`}
+                      value={`${purchasedCount}/${nonOwnedItems.length} kupionych`}
                       bold
                     />
                   </>
@@ -637,6 +874,57 @@ export default function ProjectDetailScreen() {
               </TouchableOpacity>
             )}
 
+            {project.notes && (
+              <View
+                style={{
+                  backgroundColor: Colors.surface,
+                  borderRadius: 14,
+                  borderWidth: 1,
+                  borderColor: Colors.border,
+                  padding: 14,
+                  gap: 6,
+                }}
+              >
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <Feather name="message-square" size={14} color={Colors.textSecondary} />
+                  <Txt w="semibold" style={{ fontSize: 13, color: Colors.textSecondary }}>Notatki</Txt>
+                </View>
+                <Txt style={{ fontSize: 14, color: Colors.text, lineHeight: 20 }}>{project.notes}</Txt>
+              </View>
+            )}
+
+            {activities.length > 0 && (
+              <View style={{ gap: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                  <Feather name="activity" size={14} color={Colors.textSecondary} />
+                  <Txt w="semibold" style={{ fontSize: 14, color: Colors.textSecondary }}>
+                    Ostatnia aktywność
+                  </Txt>
+                </View>
+                {activities.slice(0, 5).map((a) => (
+                  <View
+                    key={a.id}
+                    style={{
+                      flexDirection: 'row',
+                      gap: 10,
+                      alignItems: 'center',
+                      paddingVertical: 4,
+                    }}
+                  >
+                    <Feather
+                      name={(ACTIVITY_ICONS[a.actionType] ?? 'circle') as any}
+                      size={14}
+                      color={Colors.textMuted}
+                    />
+                    <View style={{ flex: 1 }}>
+                      <Txt style={{ fontSize: 13, color: Colors.text }}>{a.description}</Txt>
+                    </View>
+                    <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{timeAgo(a.createdAt)}</Txt>
+                  </View>
+                ))}
+              </View>
+            )}
+
             <View style={{ gap: 10 }}>
               <Button
                 label="Otwórz pełny opis pracy"
@@ -650,6 +938,15 @@ export default function ProjectDetailScreen() {
                   onPress={handleGenerateShoppingList}
                   fullWidth
                   icon={<Feather name="shopping-cart" size={16} color="#fff" />}
+                />
+              )}
+              {checklist.length === 0 && (
+                <Button
+                  label="Generuj listę zadań"
+                  variant="outline"
+                  onPress={handleGenerateChecklist}
+                  fullWidth
+                  icon={<Feather name="check-square" size={16} color={Colors.primary} />}
                 />
               )}
             </View>
@@ -780,7 +1077,7 @@ export default function ProjectDetailScreen() {
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                   <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: Colors.border }} />
                   <Txt w="semibold" style={{ fontSize: 14, color: Colors.textSecondary }}>
-                    Opcjonalne — ułatwiają pracę ({optionalTools.length})
+                    Opcjonalne ({optionalTools.length})
                   </Txt>
                 </View>
                 {optionalTools.map((tool) => (
@@ -822,122 +1119,275 @@ export default function ProjectDetailScreen() {
           </View>
         )}
 
-        {/* ═══ GUIDE TAB ═══ */}
+        {/* ═══ GUIDE / CHECKLIST TAB ═══ */}
         {tab === 'guide' && (
           <View style={{ gap: 12 }}>
-            <View>
-              <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
-                Instrukcja krok po kroku
-              </Txt>
-              <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginTop: 4 }}>
-                Wykonuj czynności w podanej kolejności.
-              </Txt>
-            </View>
-
-            {job.instructions.map((step) => {
-              const dur =
-                step.durationMin >= 60
-                  ? `${Math.round(step.durationMin / 60)}h`
-                  : `${step.durationMin}min`;
-              return (
-                <View
-                  key={step.step}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View>
+                <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
+                  {checklist.length > 0 ? 'Lista zadań' : 'Instrukcja krok po kroku'}
+                </Txt>
+                <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginTop: 4 }}>
+                  {checklist.length > 0
+                    ? `${checklistProgress.completed} z ${checklistProgress.total} ukończonych`
+                    : 'Wykonuj czynności w podanej kolejności.'}
+                </Txt>
+              </View>
+              {checklist.length === 0 && (
+                <TouchableOpacity
+                  onPress={handleGenerateChecklist}
                   style={{
-                    flexDirection: 'row',
-                    gap: 14,
-                    backgroundColor: Colors.surface,
-                    borderRadius: 16,
-                    padding: 14,
-                    borderWidth: 1,
-                    borderColor: Colors.border,
+                    paddingHorizontal: 12,
+                    paddingVertical: 8,
+                    backgroundColor: Colors.primaryBg,
+                    borderRadius: 10,
                   }}
                 >
-                  <View
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: 16,
-                      backgroundColor: Colors.primary,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Txt w="bold" style={{ fontSize: 14, color: '#fff' }}>{step.step}</Txt>
-                  </View>
+                  <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>
+                    Generuj listę
+                  </Txt>
+                </TouchableOpacity>
+              )}
+            </View>
 
-                  <View style={{ flex: 1, gap: 6 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                      <Txt w="bold" style={{ flex: 1, fontSize: 15, color: Colors.text }}>
-                        {step.title}
-                      </Txt>
+            {checklist.length > 0 && (
+              <View style={{ height: 6, borderRadius: 3, backgroundColor: Colors.border, overflow: 'hidden' }}>
+                <View
+                  style={{
+                    height: 6,
+                    borderRadius: 3,
+                    backgroundColor: Colors.success,
+                    width: `${checklistProgress.total > 0 ? (checklistProgress.completed / checklistProgress.total) * 100 : 0}%`,
+                  }}
+                />
+              </View>
+            )}
+
+            {checklist.length > 0
+              ? checklist.map((item) => {
+                  const step = job.instructions.find((s) => s.step === item.stepIndex);
+                  const dur = step && step.durationMin >= 60
+                    ? `${Math.round(step.durationMin / 60)}h`
+                    : step ? `${step.durationMin}min` : null;
+                  return (
+                    <TouchableOpacity
+                      key={item.id}
+                      onPress={() => handleToggleChecklist(item)}
+                      activeOpacity={0.7}
+                      style={{
+                        flexDirection: 'row',
+                        gap: 12,
+                        backgroundColor: item.completed ? Colors.successBg : Colors.surface,
+                        borderRadius: 16,
+                        padding: 14,
+                        borderWidth: 1,
+                        borderColor: item.completed ? '#BBF7D0' : Colors.border,
+                      }}
+                    >
                       <View
                         style={{
-                          flexDirection: 'row',
+                          width: 28,
+                          height: 28,
+                          borderRadius: 14,
+                          borderWidth: 2,
+                          borderColor: item.completed ? Colors.success : Colors.border,
+                          backgroundColor: item.completed ? Colors.success : 'transparent',
                           alignItems: 'center',
-                          gap: 4,
-                          backgroundColor: Colors.surfaceAlt,
-                          paddingHorizontal: 8,
-                          paddingVertical: 4,
-                          borderRadius: 8,
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: 2,
                         }}
                       >
-                        <Feather name="clock" size={11} color={Colors.textMuted} />
-                        <Txt w="medium" style={{ fontSize: 11, color: Colors.textMuted }}>~{dur}</Txt>
+                        {item.completed ? (
+                          <Feather name="check" size={14} color="#fff" />
+                        ) : (
+                          <Txt w="bold" style={{ fontSize: 12, color: Colors.textMuted }}>{item.stepIndex}</Txt>
+                        )}
+                      </View>
+
+                      <View style={{ flex: 1, gap: 4 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                          <Txt
+                            w="bold"
+                            style={{
+                              flex: 1,
+                              fontSize: 15,
+                              color: item.completed ? Colors.textSecondary : Colors.text,
+                              textDecorationLine: item.completed ? 'line-through' : 'none',
+                            }}
+                          >
+                            {item.title}
+                          </Txt>
+                          {dur && (
+                            <View
+                              style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: 4,
+                                backgroundColor: Colors.surfaceAlt,
+                                paddingHorizontal: 8,
+                                paddingVertical: 4,
+                                borderRadius: 8,
+                              }}
+                            >
+                              <Feather name="clock" size={11} color={Colors.textMuted} />
+                              <Txt w="medium" style={{ fontSize: 11, color: Colors.textMuted }}>~{dur}</Txt>
+                            </View>
+                          )}
+                        </View>
+
+                        {item.description && !item.completed && (
+                          <Txt style={{ fontSize: 14, color: Colors.textSecondary, lineHeight: 20 }}>
+                            {item.description}
+                          </Txt>
+                        )}
+
+                        {step?.tip && !item.completed && (
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              gap: 8,
+                              backgroundColor: Colors.warningBg,
+                              borderRadius: 10,
+                              padding: 10,
+                              alignItems: 'flex-start',
+                            }}
+                          >
+                            <Feather name="zap" size={13} color={Colors.warning} style={{ marginTop: 1 }} />
+                            <Txt style={{ flex: 1, fontSize: 13, lineHeight: 18, color: '#92400e' }}>
+                              {step.tip}
+                            </Txt>
+                          </View>
+                        )}
+
+                        {step?.warning && !item.completed && (
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              gap: 8,
+                              backgroundColor: Colors.dangerBg,
+                              borderRadius: 10,
+                              padding: 10,
+                              alignItems: 'flex-start',
+                            }}
+                          >
+                            <Feather name="alert-triangle" size={13} color={Colors.danger} style={{ marginTop: 1 }} />
+                            <Txt style={{ flex: 1, fontSize: 13, lineHeight: 18, color: '#991b1b' }}>
+                              {step.warning}
+                            </Txt>
+                          </View>
+                        )}
+
+                        {item.completed && item.completedAt && (
+                          <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+                            Ukończono {timeAgo(item.completedAt)}
+                          </Txt>
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })
+              : job.instructions.map((step) => {
+                  const dur = step.durationMin >= 60
+                    ? `${Math.round(step.durationMin / 60)}h`
+                    : `${step.durationMin}min`;
+                  return (
+                    <View
+                      key={step.step}
+                      style={{
+                        flexDirection: 'row',
+                        gap: 14,
+                        backgroundColor: Colors.surface,
+                        borderRadius: 16,
+                        padding: 14,
+                        borderWidth: 1,
+                        borderColor: Colors.border,
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 16,
+                          backgroundColor: Colors.primary,
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <Txt w="bold" style={{ fontSize: 14, color: '#fff' }}>{step.step}</Txt>
+                      </View>
+
+                      <View style={{ flex: 1, gap: 6 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                          <Txt w="bold" style={{ flex: 1, fontSize: 15, color: Colors.text }}>
+                            {step.title}
+                          </Txt>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              gap: 4,
+                              backgroundColor: Colors.surfaceAlt,
+                              paddingHorizontal: 8,
+                              paddingVertical: 4,
+                              borderRadius: 8,
+                            }}
+                          >
+                            <Feather name="clock" size={11} color={Colors.textMuted} />
+                            <Txt w="medium" style={{ fontSize: 11, color: Colors.textMuted }}>~{dur}</Txt>
+                          </View>
+                        </View>
+
+                        <Txt style={{ fontSize: 14, color: Colors.textSecondary, lineHeight: 20 }}>
+                          {step.description}
+                        </Txt>
+
+                        {step.tip && (
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              gap: 8,
+                              backgroundColor: Colors.warningBg,
+                              borderRadius: 10,
+                              padding: 10,
+                              alignItems: 'flex-start',
+                            }}
+                          >
+                            <Feather name="zap" size={13} color={Colors.warning} style={{ marginTop: 1 }} />
+                            <Txt style={{ flex: 1, fontSize: 13, lineHeight: 18, color: '#92400e' }}>
+                              {step.tip}
+                            </Txt>
+                          </View>
+                        )}
+
+                        {step.warning && (
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              gap: 8,
+                              backgroundColor: Colors.dangerBg,
+                              borderRadius: 10,
+                              padding: 10,
+                              alignItems: 'flex-start',
+                            }}
+                          >
+                            <Feather name="alert-triangle" size={13} color={Colors.danger} style={{ marginTop: 1 }} />
+                            <Txt style={{ flex: 1, fontSize: 13, lineHeight: 18, color: '#991b1b' }}>
+                              {step.warning}
+                            </Txt>
+                          </View>
+                        )}
                       </View>
                     </View>
-
-                    <Txt style={{ fontSize: 14, color: Colors.textSecondary, lineHeight: 20 }}>
-                      {step.description}
-                    </Txt>
-
-                    {step.tip && (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 8,
-                          backgroundColor: Colors.warningBg,
-                          borderRadius: 10,
-                          padding: 10,
-                          alignItems: 'flex-start',
-                        }}
-                      >
-                        <Feather name="zap" size={13} color={Colors.warning} style={{ marginTop: 1 }} />
-                        <Txt style={{ flex: 1, fontSize: 13, lineHeight: 18, color: '#92400e' }}>
-                          {step.tip}
-                        </Txt>
-                      </View>
-                    )}
-
-                    {step.warning && (
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 8,
-                          backgroundColor: Colors.dangerBg,
-                          borderRadius: 10,
-                          padding: 10,
-                          alignItems: 'flex-start',
-                        }}
-                      >
-                        <Feather name="alert-triangle" size={13} color={Colors.danger} style={{ marginTop: 1 }} />
-                        <Txt style={{ flex: 1, fontSize: 13, lineHeight: 18, color: '#991b1b' }}>
-                          {step.warning}
-                        </Txt>
-                      </View>
-                    )}
-                  </View>
-                </View>
-              );
-            })}
+                  );
+                })}
           </View>
         )}
 
         {/* ═══ SHOPPING TAB ═══ */}
         {tab === 'shopping' && (
           <View style={{ gap: 16 }}>
-
-            {/* Header with share button */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
                 Lista zakupów
@@ -978,38 +1428,25 @@ export default function ProjectDetailScreen() {
               </View>
             ) : (
               <>
-                {/* Progress bar */}
                 <View style={{ gap: 6 }}>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>
-                      Kupione
-                    </Txt>
+                    <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Kupione</Txt>
                     <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>
                       {purchasedCount} z {nonOwnedItems.length}
                     </Txt>
                   </View>
-                  <View
-                    style={{
-                      height: 8,
-                      borderRadius: 4,
-                      backgroundColor: Colors.border,
-                      overflow: 'hidden',
-                    }}
-                  >
+                  <View style={{ height: 8, borderRadius: 4, backgroundColor: Colors.border, overflow: 'hidden' }}>
                     <View
                       style={{
                         height: 8,
                         borderRadius: 4,
                         backgroundColor: Colors.success,
-                        width: `${nonOwnedItems.length > 0
-                          ? (purchasedCount / nonOwnedItems.length) * 100
-                          : 100}%`,
+                        width: `${nonOwnedItems.length > 0 ? (purchasedCount / nonOwnedItems.length) * 100 : 100}%`,
                       }}
                     />
                   </View>
                 </View>
 
-                {/* ── Materials section ── */}
                 {toBuyMaterials.length > 0 && (
                   <View style={{ gap: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -1018,7 +1455,6 @@ export default function ProjectDetailScreen() {
                         Materiały ({toBuyMaterials.length})
                       </Txt>
                     </View>
-
                     {toBuyMaterials.map((item) => (
                       <ShoppingItemCard
                         key={item.id}
@@ -1036,27 +1472,13 @@ export default function ProjectDetailScreen() {
                         onRemove={() => handleRemoveItem(item)}
                       />
                     ))}
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingHorizontal: 4,
-                        paddingVertical: 6,
-                      }}
-                    >
-                      <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>
-                        Materiały razem
-                      </Txt>
-                      <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>
-                        {formatCurrency(totalMaterials)}
-                      </Txt>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4, paddingVertical: 6 }}>
+                      <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Materiały razem</Txt>
+                      <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>{formatCurrency(totalMaterials)}</Txt>
                     </View>
                   </View>
                 )}
 
-                {/* ── Tools section ── */}
                 {toBuyTools.length > 0 && (
                   <View style={{ gap: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -1065,7 +1487,6 @@ export default function ProjectDetailScreen() {
                         Narzędzia ({toBuyTools.length})
                       </Txt>
                     </View>
-
                     {toBuyTools.map((item) => (
                       <ShoppingItemCard
                         key={item.id}
@@ -1083,27 +1504,13 @@ export default function ProjectDetailScreen() {
                         onRemove={() => handleRemoveItem(item)}
                       />
                     ))}
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingHorizontal: 4,
-                        paddingVertical: 6,
-                      }}
-                    >
-                      <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>
-                        Narzędzia razem
-                      </Txt>
-                      <Txt w="bold" style={{ fontSize: 15, color: Colors.info }}>
-                        {formatCurrency(totalTools)}
-                      </Txt>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4, paddingVertical: 6 }}>
+                      <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Narzędzia razem</Txt>
+                      <Txt w="bold" style={{ fontSize: 15, color: Colors.info }}>{formatCurrency(totalTools)}</Txt>
                     </View>
                   </View>
                 )}
 
-                {/* ── Owned items section ── */}
                 {ownedItems.length > 0 && (
                   <View style={{ gap: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -1112,7 +1519,6 @@ export default function ProjectDetailScreen() {
                         Mam już ({ownedItems.length})
                       </Txt>
                     </View>
-
                     {ownedItems.map((item) => (
                       <TouchableOpacity
                         key={item.id}
@@ -1132,26 +1538,17 @@ export default function ProjectDetailScreen() {
                       >
                         <Feather name="check-circle" size={20} color={Colors.success} />
                         <View style={{ flex: 1 }}>
-                          <Txt w="medium" style={{ fontSize: 14, color: Colors.textSecondary }}>
-                            {item.name}
-                          </Txt>
-                          <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-                            Dotknij, aby przywrócić do listy
-                          </Txt>
+                          <Txt w="medium" style={{ fontSize: 14, color: Colors.textSecondary }}>{item.name}</Txt>
+                          <Txt style={{ fontSize: 11, color: Colors.textMuted }}>Dotknij, aby przywrócić do listy</Txt>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-                          <Feather
-                            name={item.itemType === 'tool' ? 'tool' : 'package'}
-                            size={12}
-                            color={Colors.textMuted}
-                          />
+                          <Feather name={item.itemType === 'tool' ? 'tool' : 'package'} size={12} color={Colors.textMuted} />
                         </View>
                       </TouchableOpacity>
                     ))}
                   </View>
                 )}
 
-                {/* ── Budget summary ── */}
                 <View
                   style={{
                     backgroundColor: Colors.surface,
@@ -1163,11 +1560,8 @@ export default function ProjectDetailScreen() {
                   }}
                 >
                   <View style={{ padding: 14, backgroundColor: Colors.primaryBg }}>
-                    <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-                      Podsumowanie kosztów
-                    </Txt>
+                    <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>Podsumowanie kosztów</Txt>
                   </View>
-
                   <SummaryRow icon="package" label="Materiały" value={formatCurrency(totalMaterials)} />
                   <Divider />
                   <SummaryRow icon="tool" label="Narzędzia" value={formatCurrency(totalTools)} valueColor={Colors.info} />
@@ -1180,16 +1574,11 @@ export default function ProjectDetailScreen() {
                   />
                   <Divider />
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, backgroundColor: Colors.primaryBg }}>
-                    <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>
-                      Łącznie z rezerwą
-                    </Txt>
-                    <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
-                      {formatCurrency(grandTotal)}
-                    </Txt>
+                    <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>Łącznie z rezerwą</Txt>
+                    <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>{formatCurrency(grandTotal)}</Txt>
                   </View>
                 </View>
 
-                {/* ── DIY vs Pro comparison ── */}
                 {budget && (
                   <View
                     style={{
@@ -1201,11 +1590,8 @@ export default function ProjectDetailScreen() {
                     }}
                   >
                     <View style={{ padding: 14, backgroundColor: Colors.infoBg }}>
-                      <Txt w="bold" style={{ fontSize: 15, color: '#1e40af' }}>
-                        DIY vs Fachowiec
-                      </Txt>
+                      <Txt w="bold" style={{ fontSize: 15, color: '#1e40af' }}>DIY vs Fachowiec</Txt>
                     </View>
-
                     <View style={{ padding: 14, gap: 10 }}>
                       <View style={{ flexDirection: 'row', gap: 10 }}>
                         <View
@@ -1221,17 +1607,10 @@ export default function ProjectDetailScreen() {
                           }}
                         >
                           <Feather name="user" size={20} color={Colors.success} />
-                          <Txt w="semibold" style={{ fontSize: 12, color: Colors.success }}>
-                            Samodzielnie
-                          </Txt>
-                          <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
-                            {formatCurrency(grandTotal)}
-                          </Txt>
-                          <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>
-                            materiały + narzędzia + rezerwa
-                          </Txt>
+                          <Txt w="semibold" style={{ fontSize: 12, color: Colors.success }}>Samodzielnie</Txt>
+                          <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{formatCurrency(grandTotal)}</Txt>
+                          <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>materiały + narzędzia + rezerwa</Txt>
                         </View>
-
                         <View
                           style={{
                             flex: 1,
@@ -1245,44 +1624,22 @@ export default function ProjectDetailScreen() {
                           }}
                         >
                           <Feather name="users" size={20} color={Colors.warning} />
-                          <Txt w="semibold" style={{ fontSize: 12, color: Colors.warning }}>
-                            Z fachowcem
-                          </Txt>
+                          <Txt w="semibold" style={{ fontSize: 12, color: Colors.warning }}>Z fachowcem</Txt>
                           <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
                             {formatCurrency(budget.totalMin)}–{formatCurrency(budget.totalMax)}
                           </Txt>
-                          <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>
-                            materiały + robocizna
-                          </Txt>
+                          <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>materiały + robocizna</Txt>
                         </View>
                       </View>
-
                       {grandTotal < budget.totalMin && (
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            gap: 8,
-                            backgroundColor: Colors.successBg,
-                            borderRadius: 10,
-                            padding: 10,
-                            alignItems: 'flex-start',
-                          }}
-                        >
+                        <View style={{ flexDirection: 'row', gap: 8, backgroundColor: Colors.successBg, borderRadius: 10, padding: 10, alignItems: 'flex-start' }}>
                           <Feather name="trending-down" size={14} color={Colors.success} style={{ marginTop: 1 }} />
                           <Txt style={{ flex: 1, fontSize: 13, color: '#065f46', lineHeight: 18 }}>
                             Oszczędzasz ok. {formatCurrency(budget.totalMin - grandTotal)} robiąc to samodzielnie!
                           </Txt>
                         </View>
                       )}
-
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 8,
-                          alignItems: 'flex-start',
-                          padding: 4,
-                        }}
-                      >
+                      <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', padding: 4 }}>
                         <Feather name="clock" size={14} color={Colors.textMuted} style={{ marginTop: 1 }} />
                         <Txt style={{ flex: 1, fontSize: 12, color: Colors.textSecondary, lineHeight: 17 }}>
                           Szacowany czas pracy samodzielnej: {calc?.totalDays ?? job.estimatedDays}{' '}
@@ -1293,7 +1650,6 @@ export default function ProjectDetailScreen() {
                   </View>
                 )}
 
-                {/* Actions */}
                 <View style={{ gap: 10, marginTop: 4 }}>
                   <Button
                     label="Odśwież listę zakupów"
@@ -1303,6 +1659,120 @@ export default function ProjectDetailScreen() {
                   />
                 </View>
               </>
+            )}
+          </View>
+        )}
+
+        {/* ═══ PHOTOS TAB ═══ */}
+        {tab === 'photos' && (
+          <View style={{ gap: 16 }}>
+            <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
+              Dokumentacja zdjęciowa
+            </Txt>
+            <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
+              Dodaj zdjęcia przed, w trakcie i po remoncie.
+            </Txt>
+
+            {(['before', 'during', 'after'] as PhotoType[]).map((type) => {
+              const typePhotos = photos.filter((p) => p.photoType === type);
+              const tc = PHOTO_TYPE_COLORS[type];
+              return (
+                <View key={type} style={{ gap: 10 }}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                      <View style={{ paddingHorizontal: 10, paddingVertical: 4, backgroundColor: tc.bg, borderRadius: 8 }}>
+                        <Txt w="semibold" style={{ fontSize: 13, color: tc.color }}>
+                          {PHOTO_TYPE_LABELS[type]}
+                        </Txt>
+                      </View>
+                      <Txt style={{ fontSize: 13, color: Colors.textMuted }}>
+                        ({typePhotos.length})
+                      </Txt>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => handleAddPhotoMenu(type)}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 4,
+                        paddingHorizontal: 10,
+                        paddingVertical: 6,
+                        backgroundColor: Colors.surfaceAlt,
+                        borderRadius: 8,
+                      }}
+                    >
+                      <Feather name="plus" size={14} color={Colors.primary} />
+                      <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>Dodaj</Txt>
+                    </TouchableOpacity>
+                  </View>
+
+                  {typePhotos.length > 0 ? (
+                    <ScrollView
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{ gap: 10 }}
+                    >
+                      {typePhotos.map((photo) => (
+                        <TouchableOpacity
+                          key={photo.id}
+                          onLongPress={() => handleDeletePhoto(photo)}
+                          activeOpacity={0.9}
+                        >
+                          <Image
+                            source={{ uri: photo.uri }}
+                            style={{
+                              width: 140,
+                              height: 140,
+                              borderRadius: 12,
+                              backgroundColor: Colors.surfaceAlt,
+                            }}
+                            resizeMode="cover"
+                          />
+                          <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 4 }}>
+                            {timeAgo(photo.createdAt)}
+                          </Txt>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: Colors.surfaceAlt,
+                        borderRadius: 12,
+                        padding: 20,
+                        alignItems: 'center',
+                        gap: 6,
+                        borderWidth: 1,
+                        borderColor: Colors.border,
+                        borderStyle: 'dashed',
+                      }}
+                    >
+                      <Feather name="camera" size={24} color={Colors.textMuted} />
+                      <Txt style={{ fontSize: 13, color: Colors.textMuted }}>
+                        Brak zdjęć
+                      </Txt>
+                    </View>
+                  )}
+                </View>
+              );
+            })}
+
+            {photos.length > 0 && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 8,
+                  backgroundColor: Colors.infoBg,
+                  borderRadius: 10,
+                  padding: 10,
+                  alignItems: 'flex-start',
+                }}
+              >
+                <Feather name="info" size={14} color={Colors.info} style={{ marginTop: 1 }} />
+                <Txt style={{ flex: 1, fontSize: 12, color: '#1e40af', lineHeight: 17 }}>
+                  Przytrzymaj zdjęcie, aby je usunąć.
+                </Txt>
+              </View>
             )}
           </View>
         )}
@@ -1399,25 +1869,13 @@ function ShoppingItemCard({
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <TouchableOpacity
             onPress={onSaveEdit}
-            style={{
-              flex: 1,
-              paddingVertical: 10,
-              borderRadius: 10,
-              backgroundColor: Colors.primary,
-              alignItems: 'center',
-            }}
+            style={{ flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.primary, alignItems: 'center' }}
           >
             <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Zapisz</Txt>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onCancelEdit}
-            style={{
-              flex: 1,
-              paddingVertical: 10,
-              borderRadius: 10,
-              backgroundColor: Colors.surfaceAlt,
-              alignItems: 'center',
-            }}
+            style={{ flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.surfaceAlt, alignItems: 'center' }}
           >
             <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Anuluj</Txt>
           </TouchableOpacity>
@@ -1439,7 +1897,6 @@ function ShoppingItemCard({
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        {/* Checkbox */}
         <TouchableOpacity onPress={onTogglePurchased} activeOpacity={0.7}>
           <View
             style={{
@@ -1457,7 +1914,6 @@ function ShoppingItemCard({
           </View>
         </TouchableOpacity>
 
-        {/* Name + meta */}
         <View style={{ flex: 1, gap: 2 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
             <Txt
@@ -1482,26 +1938,20 @@ function ShoppingItemCard({
           </Txt>
         </View>
 
-        {/* Price */}
         <Txt
           w="semibold"
-          style={{
-            fontSize: 14,
-            color: item.purchased ? Colors.textMuted : Colors.primary,
-          }}
+          style={{ fontSize: 14, color: item.purchased ? Colors.textMuted : Colors.primary }}
         >
           {formatCurrency(effectivePrice)}
         </Txt>
       </View>
 
-      {/* Notes */}
       {item.notes && (
         <Txt style={{ fontSize: 11, color: Colors.textMuted, paddingLeft: 38, lineHeight: 15 }}>
           {item.notes}
         </Txt>
       )}
 
-      {/* Action buttons row */}
       <View style={{ flexDirection: 'row', gap: 6, paddingLeft: 38 }}>
         <TouchableOpacity
           onPress={onStartEdit}

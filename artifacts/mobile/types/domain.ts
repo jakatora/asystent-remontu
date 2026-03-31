@@ -212,6 +212,9 @@ export interface RenovationJob {
 
 // ─── Project ──────────────────────────────────────────────────────────────────
 
+export type PhotoType = 'before' | 'during' | 'after';
+export type ActivityAction = 'created' | 'status_changed' | 'checklist_completed' | 'photo_added' | 'shopping_generated' | 'note_updated' | 'edited';
+
 export interface Project {
   readonly id: string;
   readonly name: string;
@@ -227,6 +230,38 @@ export interface Project {
   readonly updatedAt: string;
   readonly notes?: string;
   readonly syncedAt?: string;
+  readonly roomName?: string;
+  readonly roomWidth?: number;
+  readonly roomLength?: number;
+  readonly roomHeight?: number;
+}
+
+export interface ProjectPhoto {
+  readonly id: string;
+  readonly projectId: string;
+  readonly uri: string;
+  readonly photoType: PhotoType;
+  readonly caption?: string;
+  readonly createdAt: string;
+}
+
+export interface ChecklistItem {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stepIndex: number;
+  readonly title: string;
+  readonly description?: string;
+  readonly completed: boolean;
+  readonly completedAt?: string;
+  readonly createdAt: string;
+}
+
+export interface ProjectActivity {
+  readonly id: string;
+  readonly projectId: string;
+  readonly actionType: ActivityAction;
+  readonly description: string;
+  readonly createdAt: string;
 }
 
 // ─── Calculation ──────────────────────────────────────────────────────────────

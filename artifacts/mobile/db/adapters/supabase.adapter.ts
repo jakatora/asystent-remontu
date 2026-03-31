@@ -23,6 +23,10 @@ interface SupabaseProjectRow {
   created_at:         string;
   updated_at:         string;
   synced_at:          string | null;
+  room_name:          string | null;
+  room_width:         number | null;
+  room_length:        number | null;
+  room_height:        number | null;
 }
 
 interface SupabaseShoppingRow {
@@ -63,6 +67,10 @@ function projectToRow(project: Project, userId: string): Omit<SupabaseProjectRow
     notes:              project.notes ?? null,
     created_at:         project.createdAt,
     updated_at:         project.updatedAt,
+    room_name:          project.roomName ?? null,
+    room_width:         project.roomWidth ?? null,
+    room_length:        project.roomLength ?? null,
+    room_height:        project.roomHeight ?? null,
   };
 }
 
@@ -82,6 +90,10 @@ function rowToProject(row: SupabaseProjectRow): Project {
     createdAt:         row.created_at,
     updatedAt:         row.updated_at,
     syncedAt:          row.synced_at ?? undefined,
+    roomName:          row.room_name ?? undefined,
+    roomWidth:         row.room_width ?? undefined,
+    roomLength:        row.room_length ?? undefined,
+    roomHeight:        row.room_height ?? undefined,
   };
 }
 

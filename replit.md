@@ -27,6 +27,9 @@ Production-ready, scalable renovation assistant app for Polish users. Offline-fi
 - Wizard result auto-generates shopping list (materials + tools) immediately on save
 - **Rich shopping list**: grouped by materials/tools, mark items as owned, inline price/quantity editing, tier badges (economy/standard/premium), progress bar, contingency reserve (10%), share/export as text
 - **Budget comparison**: DIY total vs professional estimate side-by-side, savings indicator
+- **Project management**: room info (name, dimensions, area), edit project screen, checklist from job instructions (toggle completion), photo documentation (before/during/after via camera/gallery), activity log tracking all project changes
+- **Enhanced home screen**: quick resume banner for active projects, recent activity feed across all projects
+- **Enhanced project cards**: room name display, checklist progress bar with percentage
 - Calculates material quantities and costs (with waste factor + packaging) from user measurements
 - `calculateDetailed()` generates per-material Polish explanations of every formula step
 - Auto-generates shopping lists from calculation results
@@ -79,7 +82,7 @@ hooks/                   # TanStack Query data hooks (use in new components)
   useProjects.ts, useShopping.ts, useContent.ts, useCalculator.ts
   index.ts               # Barrel
 db/
-  client.ts, migrations/ (001_initial + 002_shopping_extended), repositories/, adapters/
+  client.ts, migrations/ (001_initial + 002_shopping_extended + 003_project_management), repositories/, adapters/
   adapters/sync.adapter.ts      # SyncAdapter interface + NullSyncAdapter
   adapters/supabase.adapter.ts  # SupabaseSyncAdapter (ready when env vars added)
 context/
@@ -114,7 +117,7 @@ lib/
 - `db/adapters/supabase.adapter.ts` is already fully implemented
 - Call `createSupabaseAdapter(userId)` and inject into AppContext
 
-**Dependencies:** expo-sqlite@~16.0.10, @tanstack/react-query@^5, zod, react-hook-form, @expo-google-fonts/inter
+**Dependencies:** expo-sqlite@~16.0.10, @tanstack/react-query@^5, zod, react-hook-form, @expo-google-fonts/inter, expo-image-picker@~17.0.9
 
 ### `artifacts/api-server` — Express API
 Backend Express server (PostgreSQL + Drizzle ORM). Used by other artifacts if needed.

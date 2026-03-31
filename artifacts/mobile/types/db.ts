@@ -17,6 +17,10 @@ export interface ProjectRow {
   created_at: string;
   updated_at: string;
   synced_at: string | null;
+  room_name: string | null;
+  room_width: number | null;
+  room_length: number | null;
+  room_height: number | null;
 }
 
 export interface ShoppingItemRow {
@@ -41,6 +45,34 @@ export interface ShoppingItemRow {
 export interface OnboardingRow {
   id: number;
   completed_at: string;
+}
+
+export interface ProjectPhotoRow {
+  id: string;
+  project_id: string;
+  uri: string;
+  photo_type: string;
+  caption: string | null;
+  created_at: string;
+}
+
+export interface ProjectChecklistRow {
+  id: string;
+  project_id: string;
+  step_index: number;
+  title: string;
+  description: string | null;
+  completed: number;
+  completed_at: string | null;
+  created_at: string;
+}
+
+export interface ProjectActivityRow {
+  id: string;
+  project_id: string;
+  action_type: string;
+  description: string;
+  created_at: string;
 }
 
 export interface SchemaVersionRow {
