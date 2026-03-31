@@ -19,17 +19,66 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 ## Artifacts
 
 ### `artifacts/mobile` — Remont Asystent (Expo mobile app)
-Production-ready, beginner-friendly renovation assistant app for Polish users.
-- Guides users step-by-step through 16+ renovation jobs across 6 categories (paint, walls, flooring, bathroom, finishing, risky)
-- Calculates material quantities and costs based on user-provided measurements
-- Generates shopping lists (with checkboxes) from calculated materials
-- Step-by-step illustrated instructions with tips and warnings
-- Clearly warns about high-risk work (gas, electricity, structural) and recommends professionals
-- All data stored offline-first via SQLite (expo-sqlite)
-- 4 tabs: Start (dashboard), Odkryj (browse categories/jobs), Projekty (saved projects), Ustawienia (settings)
-- Key screens: onboarding, wizard (multi-step project creator), project detail (overview/materials/guide/shopping), hire-pro
-- Theme: light background, primary orange #F97316, Inter font, fully Polish language
-- Dependencies: expo-sqlite, react-hook-form, @expo-google-fonts/inter
+Production-ready, scalable renovation assistant app for Polish users. Refactored for long-term maintainability.
+
+**Features:**
+- Guides users step-by-step through 16+ renovation jobs across 6 categories
+- Calculates material quantities and costs (with waste factor) from user measurements
+- Auto-generates shopping lists from calculation results
+- Step-by-step instructions with tips and warnings per step
+- Clearly warns about high-risk work and recommends professionals
+- All data stored offline-first via SQLite (expo-sqlite v16)
+
+**Architecture (scalable layers):**
+```
+app/                     # Expo Router screens only — no business logic
+types/
+  domain.ts              # Strict domain types (readonly, no any)
+  db.ts                  # SQLite row shapes (typed, no any)
+  calculator.ts          # Calculator/warning/generator interfaces
+  renovation.ts          # Backward-compat barrel (re-exports domain)
+shared/
+  schemas/               # Zod validation (project, shopping, wizard, measurement)
+  lib/                   # id.ts, currency.ts, date.ts utilities
+features/
+  calculator/
+    formulas.ts          # Formula registry (Record<key, FormulaFn>)
+    engine.ts            # Pure CalculatorEngine class
+    shopping.ts          # ShoppingListGenerator class
+    budget.ts            # BudgetEstimator class
+  warnings/
+    resolver.ts          # WarningResolver with condition evaluator map
+    difficulty.ts        # Difficulty/risk label+color maps
+  content/
+    registry.ts          # Auto-assembled job+category registry
+db/
+  client.ts              # SQLite singleton
+  migrations/            # Versioned migration runner (001_initial.ts)
+  repositories/
+    projects.repo.ts     # Typed project CRUD (no any)
+    shopping.repo.ts     # Typed shopping item CRUD (no any)
+    onboarding.repo.ts   # Onboarding state
+  adapters/
+    sync.adapter.ts      # SyncAdapter interface (ready for Supabase)
+context/
+  AppContext.tsx          # Thin wiring layer (repos + features → React state)
+data/jobs/               # One file per job group (add jobs here)
+components/              # Reusable UI components
+```
+
+**How to add a new renovation job:**
+1. Create (or extend) a file in `data/jobs/`
+2. Add the job to `JOB_REGISTRY` in `features/content/registry.ts`
+3. Done — categories, job counts, search, and screens auto-update
+
+**How to add a new formula:**
+- Add a key+function to `FORMULA_REGISTRY` in `features/calculator/formulas.ts`
+
+**Future Supabase sync:**
+- Implement `SyncAdapter` interface from `db/adapters/sync.adapter.ts`
+- Inject into AppContext
+
+**Dependencies:** expo-sqlite@~16.0.10, zod, react-hook-form, @expo-google-fonts/inter
 
 ### `artifacts/api-server` — Express API
 Backend Express server (PostgreSQL + Drizzle ORM). Used by other artifacts if needed.

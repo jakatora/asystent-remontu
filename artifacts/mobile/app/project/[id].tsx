@@ -25,7 +25,7 @@ type Tab = 'overview' | 'materials' | 'guide' | 'shopping';
 export default function ProjectDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
-  const { projects, updateProject, removeProject, getProjectShoppingItems, addShoppingItem, toggleItem, removeShoppingItem } = useApp();
+  const { projects, updateProject, removeProject, getProjectShoppingItems, generateAndAddShoppingItems, toggleItem, removeShoppingItem } = useApp();
   const [tab, setTab] = useState<Tab>('overview');
   const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
 
@@ -42,18 +42,7 @@ export default function ProjectDetailScreen() {
 
   const handleGenerateShoppingList = async () => {
     if (!project?.calculationResult) return;
-    for (const m of project.calculationResult.materials) {
-      await addShoppingItem({
-        projectId: project.id,
-        materialId: m.material.id,
-        name: m.material.name,
-        quantity: m.quantity,
-        unit: m.material.unit,
-        estimatedPrice: m.cost,
-        purchased: false,
-        createdAt: new Date().toISOString(),
-      });
-    }
+    await generateAndAddShoppingItems(project.id, project.calculationResult);
     await loadShopping();
     setTab('shopping');
   };

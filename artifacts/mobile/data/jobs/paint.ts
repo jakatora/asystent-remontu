@@ -1,4 +1,4 @@
-import { RenovationJob } from '@/types/renovation';
+import { RenovationJob } from '@/types/domain';
 
 export const paintJob: RenovationJob = {
   id: 'paint-walls',

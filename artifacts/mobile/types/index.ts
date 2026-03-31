@@ -1,8 +1,3 @@
-/**
- * Backward-compatibility barrel.
- * All domain types now live in types/domain.ts.
- * Screens and components continue to import from '@/types/renovation'.
- */
 export type {
   Difficulty,
   RiskLevel,
@@ -25,5 +20,13 @@ export type {
   BudgetEstimate,
 } from './domain';
 
-// Legacy alias
-export type { MaterialLineItem as CalcMaterialItem } from './domain';
+export type {
+  MeasurementMap,
+  FormulaFn,
+  FormulaRegistry,
+  CalculatorEngine,
+  ShoppingListGenerator,
+  BudgetEstimator,
+  WarningResolver,
+  WarningContext,
+} from './calculator';

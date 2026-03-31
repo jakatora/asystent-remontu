@@ -1,4 +1,4 @@
-import { RenovationJob } from '@/types/renovation';
+import { RenovationJob } from '@/types/domain';
 
 export const minorPlumbingJob: RenovationJob = {
   id: 'minor-plumbing',
