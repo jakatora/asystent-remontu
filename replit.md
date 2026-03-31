@@ -98,7 +98,24 @@ data/jobs/               # ONE FILE PER JOB GROUP — reference impl: paint.ts
 utils/
   format.ts              # Shared formatting: timeAgo, ACTIVITY_ICONS, PHOTO_TYPE_LABELS, STATUS_LABELS, formatDuration, pluralize
   calculator.ts          # formatCurrency helper
-components/ui/           # Reusable UI: Txt, Button, Badge, Card, EmptyState (with action), SectionHeader, WarningBanner, LoadingState, ProgressBar
+components/
+  ui/                    # Generic UI: Txt, Button, Badge, Card, EmptyState, SectionHeader, WarningBanner, LoadingState, ProgressBar
+  project/               # Project detail decomposed components (barrel: index.ts)
+    types.ts             # Tab, constants (TAB_LABELS, STATUS_COLORS, TIER_META, CONTINGENCY_RATE), shared interfaces
+    helpers.ts           # diyAssessment, getEffectivePrice, getEffectiveQuantity, buildShareText
+    OverviewTab.tsx      # Overview tab
+    MaterialsTab.tsx     # Materials tab
+    ToolsTab.tsx         # Tools tab
+    GuideTab.tsx         # Guide/checklist tab
+    ShoppingTab.tsx      # Shopping tab with budget comparison
+    PhotosTab.tsx        # Photo documentation tab
+    ToolCard.tsx         # Reusable tool card
+    ShoppingItemCard.tsx # Reusable shopping item card (view + edit mode)
+    TierBadge.tsx        # Economy/Standard/Premium badge
+    SummaryRow.tsx       # Summary row + Divider
+    ActivityFeed.tsx     # Recent activity feed (used in project overview)
+    DiyBanner.tsx        # DIY assessment banner (compact + full)
+  CategoryCard.tsx, ProjectCard.tsx, JobCard.tsx, ErrorBoundary.tsx, ErrorFallback.tsx
 constants/
   colors.ts              # Full color palette incl. difficulty/risk/category colors
   design.ts, app.ts
@@ -107,12 +124,15 @@ lib/
 ```
 
 **How to add a new renovation job:**
-1. Create (or extend) a file in `data/jobs/`
+1. Create (or extend) a file in `data/jobs/` — use `paint.ts` as the canonical reference
 2. Import it in `features/content/registry.ts` and add to `JOB_REGISTRY`
-3. Done — categories, job counts, search, and screens auto-update
+3. If needed, add a new category to `CATEGORY_META` in the same file
+4. Done — categories, job counts, search, wizard, and all screens auto-update
+5. In `__DEV__`, the registry validates jobs on startup and warns about missing fields or unknown categories
 
 **How to add a new formula:**
 - Add a key+function to `FORMULA_REGISTRY` in `features/calculator/formulas.ts`
+- Or use inline `formula: (m, w) => ...` directly in the material definition
 - Convenience aliases: `byArea` = `mesh` (area × waste), `byPerimeter` = `skirting` (perimeter × waste)
 
 **Adding Supabase sync:**

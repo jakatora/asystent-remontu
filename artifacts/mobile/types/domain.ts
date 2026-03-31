@@ -4,7 +4,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 export type RiskLevel = 'low' | 'medium' | 'high';
 export type ProjectStatus = 'planning' | 'in-progress' | 'completed';
 export type WarningLevel = 'info' | 'warning' | 'danger';
-export type WarningCondition = 'always' | 'beginner' | 'large-area' | 'high-humidity' | string;
+export type WarningCondition = 'always' | 'beginner' | 'large-area' | 'high-humidity' | 'large-cracks' | 'validation';
 export type FormulaKey = string;
 
 // ─── Category ─────────────────────────────────────────────────────────────────

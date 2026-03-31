@@ -292,6 +292,62 @@ function buildCategories(): RenovationCategory[] {
     .filter((cat) => cat.jobCount > 0 || cat.id === 'high-risk');
 }
 
+// ─── Dev-mode validation ─────────────────────────────────────────────────────
+// Catches common mistakes when adding new jobs (missing fields, duplicate IDs).
+
+function validateRegistry(jobs: readonly RenovationJob[]): void {
+  const ids = new Set<string>();
+  for (const job of jobs) {
+    if (ids.has(job.id)) {
+      console.warn(`[JobRegistry] Duplicate job id: "${job.id}"`);
+    }
+    ids.add(job.id);
+
+    if (!job.name || !job.categoryId) {
+      console.warn(`[JobRegistry] Job "${job.id}" is missing name or categoryId`);
+    }
+    if (!job.description) {
+      console.warn(`[JobRegistry] Job "${job.id}" has no description`);
+    }
+    if (!job.instructions || job.instructions.length === 0) {
+      console.warn(`[JobRegistry] Job "${job.id}" has no instructions`);
+    }
+    if (!job.materials || job.materials.length === 0) {
+      console.warn(`[JobRegistry] Job "${job.id}" has no materials — intentional?`);
+    }
+    if (!job.measurementInputs || job.measurementInputs.length === 0) {
+      console.warn(`[JobRegistry] Job "${job.id}" has no measurementInputs`);
+    }
+    if (job.estimatedDays <= 0) {
+      console.warn(`[JobRegistry] Job "${job.id}" has invalid estimatedDays: ${job.estimatedDays}`);
+    }
+
+    const catExists = CATEGORY_META.some((c) => c.id === job.categoryId);
+    if (!catExists) {
+      console.warn(`[JobRegistry] Job "${job.id}" references unknown category "${job.categoryId}"`);
+    }
+
+    const stepNumbers = job.instructions.map((s) => s.step);
+    if (new Set(stepNumbers).size !== stepNumbers.length) {
+      console.warn(`[JobRegistry] Job "${job.id}" has duplicate step numbers in instructions`);
+    }
+
+    const matIds = job.materials.map((m) => m.id);
+    if (new Set(matIds).size !== matIds.length) {
+      console.warn(`[JobRegistry] Job "${job.id}" has duplicate material ids`);
+    }
+
+    const toolIds = job.tools.map((t) => t.id);
+    if (new Set(toolIds).size !== toolIds.length) {
+      console.warn(`[JobRegistry] Job "${job.id}" has duplicate tool ids`);
+    }
+  }
+}
+
+if (__DEV__) {
+  validateRegistry(JOB_REGISTRY);
+}
+
 // ─── Singletons ───────────────────────────────────────────────────────────────
 
 export const ALL_JOBS: readonly RenovationJob[] = JOB_REGISTRY;
