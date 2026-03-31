@@ -248,7 +248,8 @@ export interface CalculationResult {
   readonly warnings: readonly WarningRule[];
 }
 
-// ─── Shopping ─────────────────────────────────────────────────────────────────
+export type ShoppingItemType = 'material' | 'tool';
+export type ShoppingTier = 'economy' | 'standard' | 'premium';
 
 export interface ShoppingItem {
   readonly id: string;
@@ -257,11 +258,16 @@ export interface ShoppingItem {
   readonly name: string;
   readonly quantity: number;
   readonly unit: string;
-  /** How many packs/bags/tubes to actually buy. */
   readonly packs?: number;
   readonly purchaseUnit?: string;
   readonly estimatedPrice: number;
   readonly purchased: boolean;
+  readonly owned: boolean;
+  readonly itemType: ShoppingItemType;
+  readonly tier: ShoppingTier;
+  readonly category?: string;
+  readonly customPrice?: number;
+  readonly customQuantity?: number;
   readonly notes?: string;
   readonly createdAt: string;
 }

@@ -37,6 +37,12 @@ interface SupabaseShoppingRow {
   purchased:       boolean;
   notes:           string | null;
   created_at:      string;
+  owned:           boolean;
+  item_type:       string;
+  tier:            string;
+  category:        string | null;
+  custom_price:    number | null;
+  custom_quantity:  number | null;
 }
 
 // ─── Mappers ──────────────────────────────────────────────────────────────────
@@ -92,6 +98,12 @@ function shoppingToRow(item: ShoppingItem, userId: string): SupabaseShoppingRow 
     purchased:       item.purchased,
     notes:           item.notes ?? null,
     created_at:      item.createdAt,
+    owned:           item.owned,
+    item_type:       item.itemType,
+    tier:            item.tier,
+    category:        item.category ?? null,
+    custom_price:    item.customPrice ?? null,
+    custom_quantity: item.customQuantity ?? null,
   };
 }
 
@@ -105,6 +117,12 @@ function rowToShoppingItem(row: SupabaseShoppingRow): ShoppingItem {
     unit:           row.unit,
     estimatedPrice: row.estimated_price,
     purchased:      row.purchased,
+    owned:          row.owned ?? false,
+    itemType:       (row.item_type as ShoppingItem['itemType']) ?? 'material',
+    tier:           (row.tier as ShoppingItem['tier']) ?? 'standard',
+    category:       row.category ?? undefined,
+    customPrice:    row.custom_price ?? undefined,
+    customQuantity: row.custom_quantity ?? undefined,
     notes:          row.notes ?? undefined,
     createdAt:      row.created_at,
   };

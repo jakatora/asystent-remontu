@@ -7,43 +7,38 @@ import React, {
   type PropsWithChildren,
 } from 'react';
 
-import type { Project, ShoppingItem } from '@/types/domain';
+import type { Project, ShoppingItem, ShoppingTier, RenovationJob } from '@/types/domain';
+import type { CalculationResult } from '@/types/domain';
 import { projectsRepo } from '@/db/repositories/projects.repo';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import { onboardingRepo } from '@/db/repositories/onboarding.repo';
-import { generateShoppingItems } from '@/features/calculator/shopping';
-import type { CalculationResult } from '@/types/domain';
-
-// ─── Context value contract ──────────────────────────────────────────────────
+import { generateShoppingItems, generateAllShoppingItems } from '@/features/calculator/shopping';
 
 interface AppContextValue {
   readonly projects: Project[];
   readonly onboardingDone: boolean;
   readonly isLoading: boolean;
 
-  // Projects
   createProject: (data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>) => Promise<string>;
   updateProject: (project: Project) => Promise<void>;
   removeProject: (id: string) => Promise<void>;
   refreshProjects: () => Promise<void>;
 
-  // Onboarding
   completeOnboarding: () => Promise<void>;
 
-  // Shopping
   getProjectShoppingItems: (projectId: string) => Promise<ShoppingItem[]>;
   addShoppingItem: (item: Omit<ShoppingItem, 'id'>) => Promise<string>;
-  generateAndAddShoppingItems: (projectId: string, result: CalculationResult) => Promise<string[]>;
+  generateAndAddShoppingItems: (projectId: string, result: CalculationResult, job?: RenovationJob) => Promise<string[]>;
   toggleItem: (id: string, purchased: boolean) => Promise<void>;
+  setItemOwned: (id: string, owned: boolean) => Promise<void>;
+  updateItemPrice: (id: string, price: number) => Promise<void>;
+  updateItemQuantity: (id: string, quantity: number) => Promise<void>;
+  setItemTier: (id: string, tier: ShoppingTier) => Promise<void>;
   removeShoppingItem: (id: string) => Promise<void>;
   clearProjectShoppingItems: (projectId: string) => Promise<void>;
 }
 
-// ─── Context ─────────────────────────────────────────────────────────────────
-
 const AppContext = createContext<AppContextValue | null>(null);
-
-// ─── Provider ────────────────────────────────────────────────────────────────
 
 export function AppProvider({ children }: PropsWithChildren) {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -124,10 +119,11 @@ export function AppProvider({ children }: PropsWithChildren) {
   );
 
   const generateAndAddShoppingItems = useCallback(
-    async (projectId: string, result: CalculationResult): Promise<string[]> => {
-      // Clear existing items first (idempotent regeneration)
+    async (projectId: string, result: CalculationResult, job?: RenovationJob): Promise<string[]> => {
       await shoppingRepo.deleteByProject(projectId);
-      const items = generateShoppingItems(projectId, result);
+      const items = job
+        ? generateAllShoppingItems(projectId, result, job)
+        : generateShoppingItems(projectId, result);
       return shoppingRepo.insertMany(items);
     },
     []
@@ -135,6 +131,22 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   const toggleItem = useCallback(async (id: string, purchased: boolean): Promise<void> => {
     await shoppingRepo.toggle(id, purchased);
+  }, []);
+
+  const setItemOwned = useCallback(async (id: string, owned: boolean): Promise<void> => {
+    await shoppingRepo.setOwned(id, owned);
+  }, []);
+
+  const updateItemPrice = useCallback(async (id: string, price: number): Promise<void> => {
+    await shoppingRepo.updatePrice(id, price);
+  }, []);
+
+  const updateItemQuantity = useCallback(async (id: string, quantity: number): Promise<void> => {
+    await shoppingRepo.updateQuantity(id, quantity);
+  }, []);
+
+  const setItemTier = useCallback(async (id: string, tier: ShoppingTier): Promise<void> => {
+    await shoppingRepo.setTier(id, tier);
   }, []);
 
   const removeShoppingItem = useCallback(async (id: string): Promise<void> => {
@@ -158,14 +170,16 @@ export function AppProvider({ children }: PropsWithChildren) {
     addShoppingItem,
     generateAndAddShoppingItems,
     toggleItem,
+    setItemOwned,
+    updateItemPrice,
+    updateItemQuantity,
+    setItemTier,
     removeShoppingItem,
     clearProjectShoppingItems,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
-
-// ─── Hook ─────────────────────────────────────────────────────────────────────
 
 export function useApp(): AppContextValue {
   const ctx = useContext(AppContext);

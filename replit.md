@@ -24,7 +24,9 @@ Production-ready, scalable renovation assistant app for Polish users. Offline-fi
 **Features:**
 - 30+ renovation jobs across 20 categories (paint, walls, flooring, bathroom, kitchen, gypsum/drywall, windows, doors, electrical, plumbing)
 - **9-step beginner wizard** — category → room → job → condition → desired result → budget → DIY mode → measurements → summary. Big tap targets, icons, plain Polish language, helper hints, progress bar, back button, auto-saves draft via AsyncStorage.
-- Wizard result auto-generates shopping list immediately on save
+- Wizard result auto-generates shopping list (materials + tools) immediately on save
+- **Rich shopping list**: grouped by materials/tools, mark items as owned, inline price/quantity editing, tier badges (economy/standard/premium), progress bar, contingency reserve (10%), share/export as text
+- **Budget comparison**: DIY total vs professional estimate side-by-side, savings indicator
 - Calculates material quantities and costs (with waste factor + packaging) from user measurements
 - `calculateDetailed()` generates per-material Polish explanations of every formula step
 - Auto-generates shopping lists from calculation results
@@ -65,8 +67,8 @@ features/
                          #   + resolveSpec(FormulaSpec) for declarative config
     engine.ts            # Calculator engine: resolves inline formula fn OR registry key;
                          #   supports PackagingInfo (auto-convert qty → packs), RoundingRule
-    shopping.ts          # ShoppingListGenerator (packs/purchaseUnit aware)
-    budget.ts            # BudgetEstimator class
+    shopping.ts          # ShoppingListGenerator: materials + tools, dedup, owned/tier/itemType fields
+    budget.ts            # BudgetEstimator class (DIY vs Pro comparison)
     index.ts             # Barrel
   warnings/
     resolver.ts          # WarningResolver with condition evaluator map
@@ -77,7 +79,7 @@ hooks/                   # TanStack Query data hooks (use in new components)
   useProjects.ts, useShopping.ts, useContent.ts, useCalculator.ts
   index.ts               # Barrel
 db/
-  client.ts, migrations/, repositories/, adapters/
+  client.ts, migrations/ (001_initial + 002_shopping_extended), repositories/, adapters/
   adapters/sync.adapter.ts      # SyncAdapter interface + NullSyncAdapter
   adapters/supabase.adapter.ts  # SupabaseSyncAdapter (ready when env vars added)
 context/

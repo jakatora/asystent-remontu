@@ -1,14 +1,13 @@
 import type * as SQLite from 'expo-sqlite';
 import { migration_001 } from './001_initial';
-
-// ─── Migration registry ──────────────────────────────────────────────────────
-// To add a migration: append { version, run } here.
+import { migration_002 } from './002_shopping_extended';
 
 const MIGRATIONS: Array<{
   version: number;
   run: (db: SQLite.SQLiteDatabase) => Promise<void>;
 }> = [
   { version: 1, run: migration_001 },
+  { version: 2, run: migration_002 },
 ];
 
 export async function runMigrations(db: SQLite.SQLiteDatabase): Promise<void> {

@@ -30,6 +30,12 @@ export interface ShoppingItemRow {
   purchased: number;
   notes: string | null;
   created_at: string;
+  owned: number;
+  item_type: string;
+  tier: string;
+  category: string | null;
+  custom_price: number | null;
+  custom_quantity: number | null;
 }
 
 export interface OnboardingRow {
