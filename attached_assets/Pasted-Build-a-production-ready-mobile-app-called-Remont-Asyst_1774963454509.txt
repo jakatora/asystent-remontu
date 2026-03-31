@@ -1,0 +1,43 @@
+Build a production-ready mobile app called "Remont Asystent" for complete home renovation guidance for beginners who have no experience.
+
+Tech stack:
+- React Native with Expo
+- TypeScript
+- clean modular architecture
+- local persistence first (SQLite or local JSON + storage), designed so backend can be added later
+- polished modern UI
+- responsive mobile-first design
+- icons for categories
+- offline-first for saved projects
+
+Main product goal:
+The app should guide a beginner step by step through renovation jobs, calculate needed materials, suggest what materials to buy, show required tools, estimate cost and time, and generate a shopping list.
+
+Critical product rules:
+1. The user may know nothing about renovation.
+2. The app must always use very simple language.
+3. The app must guide the user like a wizard, one decision at a time.
+4. The app must support many renovation categories through a scalable data-driven architecture, not hardcoded separate screens for every task.
+5. For risky jobs, show a warning that hiring a professional is recommended, but still show a general overview, project preparation, materials, tools, sequence of work, and red flags.
+6. The app must be built as a reusable renovation engine with categories, job templates, calculators, material rules, tool rules, warnings, and step-by-step content.
+
+Create these core screens:
+- Welcome / onboarding
+- Home dashboard
+- New renovation project wizard
+- Room/project details
+- Renovation category selection
+- Renovation job detail
+- Material calculator result
+- Tools list
+- Shopping list
+- Budget/cost estimate
+- Step-by-step guide
+- Warnings / when to hire a professional
+- Saved projects
+- Settings
+
+Create a clean folder structure and implement navigation.
+Seed the project with a few example categories and placeholder content, but structure it for hundreds of renovation jobs later.
+
+Do not stop at partial scaffolding. Build the actual working app shell with navigation, reusable components, types, sample data, and state management.
