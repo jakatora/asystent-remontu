@@ -17,7 +17,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const SALES_MESSAGE =
-  "Dzień dobry, zajmuję się tworzeniem stron internetowych dla firm, które jeszcze ich nie posiadają. Dobrze wykonana strona pomaga zdobywać więcej klientów, budować zaufanie i pokazać ofertę w profesjonalny sposób. Mogę przygotować dla Państwa nowoczesną stronę z ofertą, galerią, mapą i formularzem kontaktowym. Czy są Państwo zainteresowani krótką wyceną?";
+  "Dzień dobry, zajmuję się tworzeniem stron internetowych dla firm, które jeszcze ich nie posiadają. Dobrze wykonana strona pomaga zdobywać więcej klientów, budować zaufanie i pokazać ofertę w profesjonalny sposób. Mogę przygotować dla Państwa nowoczesną stronę z ofertą, galerią, mapą i formularzem kontaktowym. Czy są Państwo zainteresowani krótką wyceną? Cena usługi wynosi 500 zł.";
 
 async function sendMessage(phone: string) {
   const encoded = encodeURIComponent(SALES_MESSAGE);
