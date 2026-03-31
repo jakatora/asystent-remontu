@@ -23,10 +23,14 @@ Production-ready, scalable renovation assistant app for Polish users. Offline-fi
 
 **Features:**
 - 30+ renovation jobs across 20 categories (paint, walls, flooring, bathroom, kitchen, gypsum/drywall, windows, doors, electrical, plumbing)
+- **9-step beginner wizard** — category → room → job → condition → desired result → budget → DIY mode → measurements → summary. Big tap targets, icons, plain Polish language, helper hints, progress bar, back button, auto-saves draft via AsyncStorage.
+- Wizard result auto-generates shopping list immediately on save
 - Calculates material quantities and costs (with waste factor + packaging) from user measurements
 - `calculateDetailed()` generates per-material Polish explanations of every formula step
 - Auto-generates shopping lists from calculation results
 - Step-by-step instructions with tips and warnings per step
+- **Tools tab** in project detail — shows required/optional tools, rent vs buy cost hints, safety notes
+- **DIY recommendation banner** — assesses job difficulty and recommends DIY or professional
 - Clearly warns about high-risk work and recommends professionals
 - All data stored offline-first via SQLite (expo-sqlite v16)
 - TanStack Query v5 data layer (hooks/) ready for background sync
