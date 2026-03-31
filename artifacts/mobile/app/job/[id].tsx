@@ -138,7 +138,7 @@ export default function JobDetailScreen() {
           activeOpacity={0.85}
           style={{ shadowColor: '#F97316', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }}
         >
-          <Feather name="calculator" size={20} color="#fff" />
+          <Feather name="hash" size={20} color="#fff" />
           <Txt w="bold" className="text-base text-white">Oblicz materiały i koszty</Txt>
         </TouchableOpacity>
       </View>

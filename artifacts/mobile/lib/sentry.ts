@@ -2,11 +2,13 @@ const DSN = process.env.EXPO_PUBLIC_SENTRY_DSN;
 
 export const isSentryConfigured = Boolean(DSN);
 
-let _Sentry: typeof import('@sentry/react-native') | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _Sentry: any = null;
 
 async function loadSentry() {
   if (!DSN || _Sentry) return;
   try {
+    // @ts-ignore — optional peer dependency, may not be installed
     _Sentry = await import('@sentry/react-native');
   } catch {
     // Sentry native module not available — graceful fallback

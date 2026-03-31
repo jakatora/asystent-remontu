@@ -36,14 +36,18 @@ export const Colors = {
   riskMedium: '#F59E0B',
   riskHigh: '#EF4444',
 
-  categoryPaint: '#A78BFA',
-  categoryWall: '#60A5FA',
-  categoryFloor: '#34D399',
-  categoryBath: '#38BDF8',
+  // Category accent colours
+  categoryPaint:    '#A78BFA',
+  categoryWall:     '#60A5FA',
+  categoryFloor:    '#34D399',
+  categoryBath:     '#38BDF8',
   categoryElectric: '#FBBF24',
   categoryPlumbing: '#F472B6',
-  categoryDoors: '#FB923C',
-  categoryOther: '#94A3B8',
+  categoryDoors:    '#FB923C',
+  categoryKitchen:  '#E879F9',
+  categoryGypsum:   '#94A3B8',
+  categoryWindows:  '#67E8F9',
+  categoryOther:    '#94A3B8',
 } as const;
 
 export type ColorKey = keyof typeof Colors;

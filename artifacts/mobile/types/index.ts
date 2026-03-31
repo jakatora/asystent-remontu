@@ -30,3 +30,10 @@ export type {
   WarningResolver,
   WarningContext,
 } from './calculator';
+
+export type {
+  ProjectRow,
+  ShoppingItemRow,
+  OnboardingRow,
+  SchemaVersionRow,
+} from './db';

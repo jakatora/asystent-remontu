@@ -142,6 +142,12 @@ function round1(n: number): number {
   return Math.round(n * 10) / 10;
 }
 
+// ─── Aliases (for readability in job data files) ─────────────────────────────
+// These map intuitive names to existing implementations.
+
+const byAreaFormula: FormulaFn   = meshFormula;       // area(m) × waste — generic area coverage
+const byPerimeterFormula: FormulaFn = skirtingFormula; // perimeter(m) × waste — generic linear
+
 // ─── Registry ────────────────────────────────────────────────────────────────
 // To add a new formula: add a key + implementation here.
 // No other file needs to change.
@@ -173,6 +179,9 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   sockets: socketsFormula,
   constant: constantFormula,
   linearMeters: linearMetersFormula,
+  // Aliases — preferred names for new job files
+  byArea:      byAreaFormula,
+  byPerimeter: byPerimeterFormula,
 } as const;
 
 export function resolveFormula(key: string): FormulaFn {

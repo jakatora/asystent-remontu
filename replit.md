@@ -19,15 +19,16 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 ## Artifacts
 
 ### `artifacts/mobile` — Remont Asystent (Expo mobile app)
-Production-ready, scalable renovation assistant app for Polish users. Refactored for long-term maintainability.
+Production-ready, scalable renovation assistant app for Polish users. Offline-first, Polish language, beginner-friendly.
 
 **Features:**
-- Guides users step-by-step through 16+ renovation jobs across 6 categories
+- 22+ renovation jobs across 13 categories (paint, walls, flooring, bathroom, kitchen, gypsum/drywall, windows, doors, electrical, plumbing)
 - Calculates material quantities and costs (with waste factor) from user measurements
 - Auto-generates shopping lists from calculation results
 - Step-by-step instructions with tips and warnings per step
 - Clearly warns about high-risk work and recommends professionals
 - All data stored offline-first via SQLite (expo-sqlite v16)
+- TanStack Query v5 data layer (hooks/) ready for background sync
 
 **Architecture (scalable layers):**
 ```
@@ -36,13 +37,13 @@ types/
   domain.ts              # Strict domain types (readonly, no any)
   db.ts                  # SQLite row shapes (typed, no any)
   calculator.ts          # Calculator/warning/generator interfaces
-  renovation.ts          # Backward-compat barrel (re-exports domain)
+  index.ts               # Re-exports all types — import from here
 shared/
   schemas/               # Zod validation (project, shopping, wizard, measurement)
   lib/                   # id.ts, currency.ts, date.ts utilities
 features/
   calculator/
-    formulas.ts          # Formula registry (Record<key, FormulaFn>)
+    formulas.ts          # Formula registry (Record<key, FormulaFn>); byArea/byPerimeter aliases
     engine.ts            # Pure CalculatorEngine class
     shopping.ts          # ShoppingListGenerator class
     budget.ts            # BudgetEstimator class
@@ -50,7 +51,12 @@ features/
     resolver.ts          # WarningResolver with condition evaluator map
     difficulty.ts        # Difficulty/risk label+color maps
   content/
-    registry.ts          # Auto-assembled job+category registry
+    registry.ts          # Auto-assembled job+category registry (single source of truth)
+hooks/                   # TanStack Query data hooks (new — use in new components)
+  useProjects.ts         # useProjects, useProject, useCreateProject, useUpdateProject, ...
+  useShopping.ts         # useShoppingItems, useToggleShoppingItem, useGenerateShoppingList, ...
+  useContent.ts          # useAllJobs, useJob, useJobsByCategory, useJobSearch (synchronous)
+  useCalculator.ts       # useCalculation, useBudgetEstimate, useResolvedWarnings, useFullEstimate
 db/
   client.ts              # SQLite singleton
   migrations/            # Versioned migration runner (001_initial.ts)
@@ -59,26 +65,39 @@ db/
     shopping.repo.ts     # Typed shopping item CRUD (no any)
     onboarding.repo.ts   # Onboarding state
   adapters/
-    sync.adapter.ts      # SyncAdapter interface (ready for Supabase)
+    sync.adapter.ts      # SyncAdapter interface + NullSyncAdapter
+    supabase.adapter.ts  # SupabaseSyncAdapter (full impl, ready when Supabase creds added)
 context/
-  AppContext.tsx          # Thin wiring layer (repos + features → React state)
-data/jobs/               # One file per job group (add jobs here)
-components/              # Reusable UI components
+  AppContext.tsx          # Thin wiring layer (repos + features → React state; backward compat)
+data/jobs/               # One file per job group (add new jobs here)
+  paint.ts, walls.ts, flooring.ts, bathroom.ts, finishing.ts, risky.ts
+  kitchen.ts, gypsum.ts, windows.ts
+components/ui/           # Reusable UI; index.ts barrel
+constants/
+  colors.ts              # Full color palette incl. all category colors
+  design.ts              # Spacing, Radius, FontSize, etc.
+  app.ts                 # APP_NAME, DB_NAME, CACHE_TTL, LIMITS, SUPABASE_TABLES
+lib/
+  query-client.ts        # TanStack Query client + queryKeys
+  sentry.ts              # Optional Sentry wrapper (graceful no-op without DSN)
+  supabase.ts            # Supabase client factory (lazy, env-gated)
 ```
 
 **How to add a new renovation job:**
 1. Create (or extend) a file in `data/jobs/`
-2. Add the job to `JOB_REGISTRY` in `features/content/registry.ts`
+2. Import it in `features/content/registry.ts` and add to `JOB_REGISTRY`
 3. Done — categories, job counts, search, and screens auto-update
 
 **How to add a new formula:**
 - Add a key+function to `FORMULA_REGISTRY` in `features/calculator/formulas.ts`
+- Convenience aliases: `byArea` = `mesh` (area × waste), `byPerimeter` = `skirting` (perimeter × waste)
 
-**Future Supabase sync:**
-- Implement `SyncAdapter` interface from `db/adapters/sync.adapter.ts`
-- Inject into AppContext
+**Adding Supabase sync:**
+- Set `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY` env vars
+- `db/adapters/supabase.adapter.ts` is already fully implemented
+- Call `createSupabaseAdapter(userId)` and inject into AppContext
 
-**Dependencies:** expo-sqlite@~16.0.10, zod, react-hook-form, @expo-google-fonts/inter
+**Dependencies:** expo-sqlite@~16.0.10, @tanstack/react-query@^5, zod, react-hook-form, @expo-google-fonts/inter
 
 ### `artifacts/api-server` — Express API
 Backend Express server (PostgreSQL + Drizzle ORM). Used by other artifacts if needed.

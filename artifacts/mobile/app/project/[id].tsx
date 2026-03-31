@@ -239,7 +239,7 @@ export default function ProjectDetailScreen() {
                     <Txt className="text-sm text-slate leading-5">{step.description}</Txt>
                     {step.tip && (
                       <View className="flex-row gap-2 bg-warning-bg rounded-lg p-2.5 items-start">
-                        <Feather name="lightbulb" size={13} color="#F59E0B" style={{ marginTop: 1 }} />
+                        <Feather name="zap" size={13} color="#F59E0B" style={{ marginTop: 1 }} />
                         <Txt className="flex-1 text-[13px] leading-[18px]" style={{ color: '#92400e' }}>{step.tip}</Txt>
                       </View>
                     )}
