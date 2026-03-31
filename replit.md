@@ -18,18 +18,23 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 
 ## Artifacts
 
-### `artifacts/mobile` — Lead Hunter PL (Expo mobile app)
-Mobile app that automatically finds Polish businesses without websites using Google Places API (New).
-- Searches Google Maps by category + city
-- Filters out businesses that have a website
-- Saves company name + phone to local leads database (AsyncStorage)
-- Deduplication by phone+name (never adds duplicates)
-- 3 tabs: Dashboard (automation control), Leads list, Settings
+### `artifacts/mobile` — Remont Asystent (Expo mobile app)
+Production-ready, beginner-friendly renovation assistant app for Polish users.
+- Guides users step-by-step through 16+ renovation jobs across 6 categories (paint, walls, flooring, bathroom, finishing, risky)
+- Calculates material quantities and costs based on user-provided measurements
+- Generates shopping lists (with checkboxes) from calculated materials
+- Step-by-step illustrated instructions with tips and warnings
+- Clearly warns about high-risk work (gas, electricity, structural) and recommends professionals
+- All data stored offline-first via SQLite (expo-sqlite)
+- 4 tabs: Start (dashboard), Odkryj (browse categories/jobs), Projekty (saved projects), Ustawienia (settings)
+- Key screens: onboarding, wizard (multi-step project creator), project detail (overview/materials/guide/shopping), hire-pro
+- Theme: light background, primary orange #F97316, Inter font, fully Polish language
+- Dependencies: expo-sqlite, react-hook-form, @expo-google-fonts/inter
 
 ### `artifacts/api-server` — Express API
-Backend that proxies Google Places API (New) securely (key never exposed to client).
-- `GET /api/places/search?keyword=X&location=Y` — searches Google Places, returns businesses without websites
-- Uses `GOOGLE_MAPS_API_KEY` secret (requires Places API New enabled in Google Cloud)
+Backend Express server (PostgreSQL + Drizzle ORM). Used by other artifacts if needed.
+- Health endpoint: `GET /api/health`
+- Uses `DATABASE_URL` secret (auto-provided by Replit PostgreSQL integration)
 
 ## Structure
 

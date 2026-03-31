@@ -1,0 +1,305 @@
+import { RenovationJob } from '@/types/renovation';
+
+export const primerJob: RenovationJob = {
+  id: 'primer-walls',
+  categoryId: 'primer',
+  name: 'Gruntowanie ścian',
+  description: 'Przygotuj ściany pod malowanie lub tapetowanie.',
+  difficulty: 'easy',
+  riskLevel: 'low',
+  estimatedDays: 1,
+  coverIcon: 'layers',
+  warningRules: [
+    {
+      condition: 'always',
+      message: 'Wietrz pomieszczenie — grunt ma nieprzyjemny zapach.',
+      level: 'info',
+    },
+  ],
+  measurementInputs: [
+    {
+      id: 'wallArea',
+      label: 'Powierzchnia ścian do gruntowania',
+      unit: 'm²',
+      placeholder: 'np. 30',
+      min: 1,
+      max: 500,
+      hint: 'Długość ściany × wysokość. Zsumuj wszystkie ściany.',
+    },
+  ],
+  materials: [
+    {
+      id: 'primer',
+      name: 'Grunt głęboko penetrujący',
+      unit: 'litr',
+      formulaKey: 'primer',
+      pricePerUnit: 15,
+      notes: 'Na tynkach chłonnych użyj gruntu wzmacniającego. Na gipsie — pod farbę.',
+    },
+  ],
+  tools: [
+    { id: 'roller', name: 'Wałek malarski', icon: 'edit-2', required: true },
+    { id: 'brush', name: 'Pędzel 5 cm', icon: 'edit-3', required: true },
+    { id: 'tray', name: 'Kuweta', icon: 'square', required: true },
+  ],
+  instructions: [
+    {
+      step: 1,
+      title: 'Oczyść ścianę',
+      description: 'Odkurz ścianę szczotką lub odkurzaczem. Usuń luźne kawałki tynku.',
+      durationMin: 20,
+    },
+    {
+      step: 2,
+      title: 'Nanieś grunt',
+      description: 'Wałkiem lub pędzlem nanieś równomierną warstwę gruntu na ścianę. Zrób to spokojnie, bez pośpiechu.',
+      tip: 'Grunt powinien wsiąkać — to znak, że działa.',
+      durationMin: 45,
+    },
+    {
+      step: 3,
+      title: 'Czekaj na wyschnięcie',
+      description: 'Poczekaj minimum 2-4 godziny. W zimie lub przy dużej wilgotności — dłużej.',
+      durationMin: 180,
+    },
+  ],
+  commonMistakes: [
+    'Gruntowanie mokrej ściany — grunt nie wnika głęboko',
+    'Zbyt cienka warstwa — chłonne tynki potrzebują więcej',
+  ],
+  qualityChecklist: [
+    { id: 'q1', description: 'Cała powierzchnia jest jednolicie pokryta' },
+    { id: 'q2', description: 'Grunt jest suchy w dotyku przed kolejnym krokiem' },
+  ],
+  hireProfessionalRecommended: false,
+};
+
+export const wallRepairJob: RenovationJob = {
+  id: 'wall-repair',
+  categoryId: 'wall-repair',
+  name: 'Naprawa pęknięć i ubytków',
+  description: 'Napraw dziury, rysy i odpryski na ścianie przed malowaniem.',
+  difficulty: 'easy',
+  riskLevel: 'low',
+  estimatedDays: 1,
+  coverIcon: 'tool',
+  warningRules: [
+    {
+      condition: 'large-cracks',
+      message: 'Jeśli pęknięcia są szerokie (ponad 3 mm) i ciągną się przez całą ścianę — to może być problem konstrukcyjny. Zadzwoń do inspektora budowlanego.',
+      level: 'danger',
+    },
+    {
+      condition: 'always',
+      message: 'Wilgoć na ścianie: jeśli widzisz zacieki lub grzyb — najpierw znajdź i usuń przyczynę wilgoci.',
+      level: 'warning',
+    },
+  ],
+  measurementInputs: [
+    {
+      id: 'wallArea',
+      label: 'Orientacyjna powierzchnia ściany',
+      unit: 'm²',
+      placeholder: 'np. 10',
+      min: 1,
+      max: 200,
+      hint: 'Podaj powierzchnię całej ściany, nie tylko ubytków.',
+    },
+  ],
+  materials: [
+    {
+      id: 'filler',
+      name: 'Masa szpachlowa do napraw (szpachla)',
+      unit: 'kg',
+      formulaKey: 'filler',
+      pricePerUnit: 12,
+      notes: 'Do małych ubytków — szpachla polimerowa lub gipsowa.',
+    },
+    {
+      id: 'mesh-tape',
+      name: 'Taśma zbrojąca siatkowa',
+      unit: 'm',
+      formulaKey: 'mesh',
+      pricePerUnit: 2,
+      notes: 'Na rysy — zapobiega ponownemu pękaniu.',
+    },
+  ],
+  tools: [
+    { id: 'spatula', name: 'Szpachelka 10 cm', icon: 'minus', required: true },
+    { id: 'sandpaper', name: 'Papier ścierny 120 i 240', icon: 'layers', required: true },
+    { id: 'brush', name: 'Pędzelek do gruntowania', icon: 'edit-3', required: true },
+  ],
+  instructions: [
+    {
+      step: 1,
+      title: 'Oczyść ubytek',
+      description: 'Nożem lub szpachelką usuń luźne kawałki tynku wokół dziury. Odkurz.',
+      durationMin: 10,
+    },
+    {
+      step: 2,
+      title: 'Zwilż ubytek',
+      description: 'Pędzlem zwilż ubytek wodą — szpachla lepiej przyczepi się do wilgotnego podłoża.',
+      durationMin: 5,
+    },
+    {
+      step: 3,
+      title: 'Wypełnij masą szpachlową',
+      description: 'Szpachelką wciśnij masę w ubytek, wyrównaj z powierzchnią ściany. Na duże dziury nakładaj warstwy po 5-8 mm.',
+      tip: 'Nie nakładaj od razu grubej warstwy — będzie pękać.',
+      durationMin: 30,
+    },
+    {
+      step: 4,
+      title: 'Czekaj na wyschnięcie',
+      description: 'Poczekaj 2-8 godzin (zależy od grubości i produktu). Masa zmieni kolor z ciemnego na jasny.',
+      durationMin: 240,
+    },
+    {
+      step: 5,
+      title: 'Szlifuj na gładko',
+      description: 'Papierem 120 zgrubnie, potem 240 na gładko. Cel: wyrównać z resztą ściany.',
+      tip: 'Szlif robimy okrężnymi ruchami. Wyczuj palcami czy jest równo.',
+      durationMin: 20,
+    },
+    {
+      step: 6,
+      title: 'Zagruntuj i maluj',
+      description: 'Na naprawione miejsca nanieś grunt, poczekaj na wyschnięcie, a potem maluj.',
+      durationMin: 30,
+    },
+  ],
+  commonMistakes: [
+    'Szpachlowanie bez oczyszczenia ubytku — masa odpada',
+    'Za gruba warstwa na raz — masa pęka podczas schnięcia',
+    'Brak gruntowania naprawionych miejsc — farba inaczej wsiąka',
+  ],
+  qualityChecklist: [
+    { id: 'q1', description: 'Naprawione miejsca są równe ze ścianą — brak wybrzuszeń' },
+    { id: 'q2', description: 'Po zagruntowaniu kolor jest jednolity' },
+  ],
+  hireProfessionalRecommended: false,
+};
+
+export const skimCoatJob: RenovationJob = {
+  id: 'skim-coat',
+  categoryId: 'skim-coat',
+  name: 'Szpachlowanie ścian',
+  description: 'Wyrównaj ściany masą szpachlową przed malowaniem.',
+  difficulty: 'medium',
+  riskLevel: 'low',
+  estimatedDays: 2,
+  coverIcon: 'edit-3',
+  warningRules: [
+    {
+      condition: 'always',
+      message: 'Szpachlowanie całych ścian wymaga wprawy. Przy dużej powierzchni rozważ zatrudnienie fachowca.',
+      level: 'info',
+    },
+  ],
+  measurementInputs: [
+    {
+      id: 'wallArea',
+      label: 'Powierzchnia ścian do szpachlowania',
+      unit: 'm²',
+      placeholder: 'np. 40',
+      min: 1,
+      max: 500,
+      hint: 'Długość × wysokość każdej ściany. Zsumuj wszystkie.',
+    },
+    {
+      id: 'layers',
+      label: 'Liczba warstw szpachli',
+      unit: 'warstwy',
+      placeholder: '2',
+      min: 1,
+      max: 4,
+      hint: 'Zwykle 2-3 warstwy dla ściany gotowej pod malowanie.',
+    },
+  ],
+  materials: [
+    {
+      id: 'skim-coat',
+      name: 'Masa szpachlowa wykończeniowa',
+      unit: 'kg',
+      formulaKey: 'skimCoat',
+      pricePerUnit: 8,
+      notes: 'Np. Knauf Multifinish, Atlas Gips Sprint lub odpowiednik.',
+    },
+    {
+      id: 'primer-skim',
+      name: 'Grunt pod szpachlę',
+      unit: 'litr',
+      formulaKey: 'primer',
+      pricePerUnit: 15,
+    },
+    {
+      id: 'sandpaper',
+      name: 'Papier ścierny 150 i 240',
+      unit: 'arkusze',
+      formulaKey: 'sandpaper',
+      pricePerUnit: 3,
+    },
+  ],
+  tools: [
+    { id: 'trowel-large', name: 'Paca stalowa 40-60 cm', icon: 'minus', required: true, notes: 'Do rozkładania masy na dużej powierzchni' },
+    { id: 'trowel-small', name: 'Szpachelka 15-20 cm', icon: 'minus', required: true },
+    { id: 'bucket', name: 'Wiadro 10-20 litrów', icon: 'circle', required: true },
+    { id: 'drill-mixer', name: 'Wiertarka z mieszadłem', icon: 'settings', required: true, rentable: true },
+    { id: 'sander', name: 'Szlifierka rotacyjna lub papier', icon: 'layers', required: true, rentable: true },
+    { id: 'lamp', name: 'Lampa robocza', icon: 'sun', required: false, notes: 'Boczne światło pokaże nierówności' },
+  ],
+  instructions: [
+    {
+      step: 1,
+      title: 'Przygotuj ścianę',
+      description: 'Oczyść ścianę, napraw duże ubytki, nanieś grunt. Poczekaj na wyschnięcie.',
+      durationMin: 60,
+    },
+    {
+      step: 2,
+      title: 'Wymieszaj masę szpachlową',
+      description: 'Wsyp suchą masę do wody (nie odwrotnie!) i wymieszaj mieszadłem na gładką pastę bez grudek. Konsystencja jak gęsta śmietana.',
+      tip: 'Używaj czystego sprzętu — resztki starej masy psują nową.',
+      durationMin: 15,
+    },
+    {
+      step: 3,
+      title: 'Pierwsza warstwa',
+      description: 'Pacą nanieś równomierną cienką warstwę (1-2 mm) na ścianę. Rób pasy poziome lub pionowe. Nie poprawiaj gdy zaczyna schnąć.',
+      tip: 'Lepiej za mało niż za dużo — za gruba warstwa pęka.',
+      durationMin: 120,
+    },
+    {
+      step: 4,
+      title: 'Czekaj na wyschnięcie',
+      description: 'Pierwsza warstwa musi być sucha w dotyku — zazwyczaj 4-8 godzin.',
+      durationMin: 300,
+    },
+    {
+      step: 5,
+      title: 'Kolejne warstwy',
+      description: 'Lekko przeszlifuj papierem 150, zdmuchnij pył, nanieś kolejną warstwę. Powtórz tyle razy ile zakładałeś.',
+      durationMin: 120,
+    },
+    {
+      step: 6,
+      title: 'Finalne szlifowanie',
+      description: 'Papierem 240 wyszlifuj na gładko. Sprawdzaj ścianę pod kątem — boczne światło pokaże nierówności.',
+      tip: 'Gładką ścianę czuć i widać. Czas poświęcony na szlifowanie procentuje przy malowaniu.',
+      durationMin: 180,
+    },
+  ],
+  commonMistakes: [
+    'Za gruba warstwa na raz — masa pęka podczas schnięcia',
+    'Szpachlowanie na mokrym gruncie — masa się nie trzyma',
+    'Niedomiesana masa z grudkami — widać je przez farbę',
+    'Brak finalnego szlifowania — farba uwydatni każdą nierówność',
+  ],
+  qualityChecklist: [
+    { id: 'q1', description: 'Ściana jest gładka w dotyku — brak grudek i nierówności' },
+    { id: 'q2', description: 'Brak pęknięć w masie szpachlowej' },
+    { id: 'q3', description: 'Pod bocznym światłem nie widać wyraźnych fal' },
+  ],
+  hireProfessionalRecommended: false,
+};

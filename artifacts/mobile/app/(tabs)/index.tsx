@@ -1,376 +1,188 @@
-import Colors from "@/constants/colors";
-import { useLeads } from "@/context/LeadContext";
-import { Feather } from "@expo/vector-icons";
-import * as Haptics from "expo-haptics";
-import React, { useCallback } from "react";
+import React from 'react';
 import {
-  ActivityIndicator,
-  Animated,
-  Platform,
-  Pressable,
+  View,
+  Text,
   ScrollView,
   StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
+import { router } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Feather } from '@expo/vector-icons';
+import { Colors } from '@/constants/colors';
+import { useApp } from '@/context/AppContext';
+import { CATEGORIES } from '@/data/categories';
+import { ProjectCard } from '@/components/ProjectCard';
+import { CategoryCard } from '@/components/CategoryCard';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { EmptyState } from '@/components/ui/EmptyState';
 
-function StatCard({
-  label,
-  value,
-  icon,
-  color,
-}: {
-  label: string;
-  value: string | number;
-  icon: string;
-  color: string;
-}) {
-  return (
-    <View style={styles.statCard}>
-      <View style={[styles.statIcon, { backgroundColor: color + "22" }]}>
-        <Feather name={icon as any} size={20} color={color} />
-      </View>
-      <Text style={styles.statValue}>{value}</Text>
-      <Text style={styles.statLabel}>{label}</Text>
-    </View>
-  );
-}
-
-export default function DashboardScreen() {
-  const {
-    leads,
-    isRunning,
-    isSearching,
-    totalScanned,
-    lastSearchAt,
-    startAutomation,
-    stopAutomation,
-    runOnce,
-    searchLog,
-    settings,
-  } = useLeads();
+export default function HomeScreen() {
   const insets = useSafeAreaInsets();
+  const { projects } = useApp();
 
-  const handleToggle = useCallback(async () => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-    if (isRunning) {
-      stopAutomation();
-    } else {
-      startAutomation();
-    }
-  }, [isRunning, startAutomation, stopAutomation]);
+  const recentProjects = projects.slice(0, 3);
+  const activeCount = projects.filter((p) => p.status === 'in-progress').length;
+  const completedCount = projects.filter((p) => p.status === 'completed').length;
 
-  const handleRunOnce = useCallback(async () => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    runOnce();
-  }, [runOnce]);
-
-  const formatDate = (iso: string | null) => {
-    if (!iso) return "Nigdy";
-    return new Date(iso).toLocaleString("pl-PL", {
-      day: "2-digit",
-      month: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const topPad = Platform.OS === "web" ? 67 : insets.top > 0 ? insets.top : 44;
+  const topPadding = Platform.OS === 'web' ? 67 : insets.top;
+  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={[
-          styles.content,
-          { paddingTop: topPad + 16, paddingBottom: Platform.OS === "web" ? 34 : 100 },
-        ]}
-        showsVerticalScrollIndicator={false}
+    <ScrollView
+      style={styles.scroll}
+      contentContainerStyle={{ paddingTop: topPadding + 16, paddingBottom: bottomPadding }}
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={styles.headerContainer}>
+        <View>
+          <Text style={styles.greeting}>Remont Asystent</Text>
+          <Text style={styles.subGreeting}>Czym dziś się zajmiemy?</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.newProjectBtn}
+          onPress={() => router.push('/wizard')}
+          activeOpacity={0.8}
+          testID="new-project-btn"
+        >
+          <Feather name="plus" size={22} color={Colors.white} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.statsRow}>
+        <View style={styles.statCard}>
+          <Text style={styles.statNumber}>{projects.length}</Text>
+          <Text style={styles.statLabel}>Projekty</Text>
+        </View>
+        <View style={[styles.statCard, styles.statCardOrange]}>
+          <Text style={[styles.statNumber, { color: Colors.primary }]}>{activeCount}</Text>
+          <Text style={styles.statLabel}>W trakcie</Text>
+        </View>
+        <View style={[styles.statCard, styles.statCardGreen]}>
+          <Text style={[styles.statNumber, { color: Colors.success }]}>{completedCount}</Text>
+          <Text style={styles.statLabel}>Ukończone</Text>
+        </View>
+      </View>
+
+      <TouchableOpacity
+        style={styles.quickStartBanner}
+        onPress={() => router.push('/wizard')}
+        activeOpacity={0.85}
+        testID="quick-start-banner"
       >
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.headerTitle}>Lead Hunter PL</Text>
-            <Text style={styles.headerSub}>Automatyczne wyszukiwanie firm</Text>
-          </View>
-          {isSearching && (
-            <ActivityIndicator color={Colors.primary} size="small" />
-          )}
+        <View style={styles.quickStartLeft}>
+          <Text style={styles.quickStartTitle}>Nowy projekt remontu</Text>
+          <Text style={styles.quickStartSub}>Wybierz rodzaj pracy i zacznij</Text>
         </View>
-
-        <Pressable
-          onPress={handleToggle}
-          style={({ pressed }) => [
-            styles.mainBtn,
-            isRunning ? styles.mainBtnStop : styles.mainBtnStart,
-            pressed && { opacity: 0.85, transform: [{ scale: 0.97 }] },
-          ]}
-        >
-          <Feather
-            name={isRunning ? "square" : "play"}
-            size={28}
-            color={isRunning ? Colors.danger : Colors.dark}
-          />
-          <Text
-            style={[
-              styles.mainBtnText,
-              { color: isRunning ? Colors.danger : Colors.dark },
-            ]}
-          >
-            {isRunning ? "ZATRZYMAJ AUTOMATYZACJĘ" : "URUCHOM AUTOMATYZACJĘ"}
-          </Text>
-        </Pressable>
-
-        <View style={styles.statusRow}>
-          <View
-            style={[
-              styles.statusDot,
-              {
-                backgroundColor: isRunning
-                  ? Colors.success
-                  : isSearching
-                  ? Colors.warning
-                  : Colors.textSecondary,
-              },
-            ]}
-          />
-          <Text style={styles.statusText}>
-            {isRunning
-              ? `Aktywna • co ${settings.intervalMinutes} min`
-              : isSearching
-              ? "Wyszukiwanie..."
-              : "Nieaktywna"}
-          </Text>
+        <View style={styles.quickStartIcon}>
+          <Feather name="arrow-right" size={22} color={Colors.primary} />
         </View>
+      </TouchableOpacity>
 
-        <View style={styles.statsRow}>
-          <StatCard
-            label="Leady"
-            value={leads.length}
-            icon="users"
-            color={Colors.primary}
+      <View style={styles.section}>
+        <SectionHeader
+          title="Twoje projekty"
+          actionLabel={projects.length > 3 ? 'Wszystkie' : undefined}
+          onAction={() => router.push('/(tabs)/projects')}
+        />
+        {recentProjects.length === 0 ? (
+          <EmptyState
+            icon="folder"
+            title="Brak projektów"
+            description="Naciśnij + aby dodać pierwszy projekt remontu"
           />
-          <StatCard
-            label="Przeszukano"
-            value={totalScanned}
-            icon="search"
-            color={Colors.warning}
-          />
-          <StatCard
-            label="Kategorie"
-            value={settings.categories.length}
-            icon="tag"
-            color="#818CF8"
-          />
-        </View>
+        ) : (
+          recentProjects.map((p) => (
+            <ProjectCard
+              key={p.id}
+              project={p}
+              onPress={() => router.push({ pathname: '/project/[id]', params: { id: p.id } })}
+            />
+          ))
+        )}
+      </View>
 
-        <View style={styles.infoCard}>
-          <Feather name="clock" size={14} color={Colors.textSecondary} />
-          <Text style={styles.infoText}>
-            Ostatnie wyszukiwanie: {formatDate(lastSearchAt)}
-          </Text>
+      <View style={styles.section}>
+        <SectionHeader
+          title="Rodzaje prac"
+          actionLabel="Wszystkie"
+          onAction={() => router.push('/(tabs)/explore')}
+        />
+        <View style={styles.categoriesGrid}>
+          {CATEGORIES.slice(0, 6).map((cat) => (
+            <CategoryCard
+              key={cat.id}
+              category={cat}
+              onPress={() => router.push({ pathname: '/category/[id]', params: { id: cat.id } })}
+            />
+          ))}
         </View>
-
-        <Pressable
-          onPress={handleRunOnce}
-          disabled={isSearching}
-          style={({ pressed }) => [
-            styles.onceBtn,
-            isSearching && { opacity: 0.4 },
-            pressed && { opacity: 0.7 },
-          ]}
-        >
-          <Feather name="refresh-cw" size={16} color={Colors.primary} />
-          <Text style={styles.onceBtnText}>Wyszukaj teraz (jednorazowo)</Text>
-        </Pressable>
-
-        <View style={styles.logSection}>
-          <Text style={styles.logTitle}>Dziennik aktywności</Text>
-          {searchLog.length === 0 ? (
-            <View style={styles.logEmpty}>
-              <Feather name="terminal" size={20} color={Colors.textSecondary} />
-              <Text style={styles.logEmptyText}>
-                Uruchom automatyzację, aby zobaczyć logi
-              </Text>
-            </View>
-          ) : (
-            searchLog.slice(0, 15).map((log, idx) => (
-              <View key={idx} style={styles.logRow}>
-                <Text style={styles.logText}>{log}</Text>
-              </View>
-            ))
-          )}
-        </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.dark,
+  scroll: { flex: 1, backgroundColor: Colors.background },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
-  scroll: { flex: 1 },
-  content: { paddingHorizontal: 20, gap: 16 },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 8,
-  },
-  headerTitle: {
-    fontSize: 26,
-    fontWeight: "700" as const,
-    color: Colors.text,
-    fontFamily: "Inter_700Bold",
-  },
-  headerSub: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    marginTop: 2,
-  },
-  mainBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 12,
-    paddingVertical: 18,
-    borderRadius: 16,
-    borderWidth: 2,
-  },
-  mainBtnStart: {
+  greeting: { fontSize: 26, fontFamily: 'Inter_700Bold', color: Colors.text },
+  subGreeting: { fontSize: 15, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, marginTop: 2 },
+  newProjectBtn: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
-  mainBtnStop: {
-    backgroundColor: "transparent",
-    borderColor: Colors.danger,
-  },
-  mainBtnText: {
-    fontSize: 15,
-    fontWeight: "700" as const,
-    fontFamily: "Inter_700Bold",
-    letterSpacing: 0.5,
-  },
-  statusRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    justifyContent: "center",
-  },
-  statusDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  statusText: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-  },
-  statsRow: {
-    flexDirection: "row",
-    gap: 12,
-  },
+  statsRow: { flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 20 },
   statCard: {
     flex: 1,
-    backgroundColor: Colors.darkCard,
+    backgroundColor: Colors.surface,
     borderRadius: 14,
-    padding: 16,
-    alignItems: "center",
-    gap: 8,
+    padding: 14,
     borderWidth: 1,
-    borderColor: Colors.darkBorder,
+    borderColor: Colors.border,
+    alignItems: 'center',
   },
-  statIcon: {
+  statCardOrange: { borderColor: Colors.primaryLight },
+  statCardGreen: { borderColor: '#bbf7d0' },
+  statNumber: { fontSize: 24, fontFamily: 'Inter_700Bold', color: Colors.text },
+  statLabel: { fontSize: 11, fontFamily: 'Inter_400Regular', color: Colors.textMuted, textAlign: 'center', marginTop: 2 },
+  quickStartBanner: {
+    marginHorizontal: 20,
+    marginBottom: 24,
+    backgroundColor: Colors.primaryBg,
+    borderRadius: 16,
+    padding: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.primaryLight,
+  },
+  quickStartLeft: { flex: 1 },
+  quickStartTitle: { fontSize: 16, fontFamily: 'Inter_700Bold', color: Colors.primaryDark },
+  quickStartSub: { fontSize: 13, fontFamily: 'Inter_400Regular', color: Colors.primary, marginTop: 2 },
+  quickStartIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: Colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  statValue: {
-    fontSize: 22,
-    fontWeight: "700" as const,
-    color: Colors.text,
-    fontFamily: "Inter_700Bold",
-  },
-  statLabel: {
-    fontSize: 11,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    textAlign: "center",
-  },
-  infoCard: {
-    flexDirection: "row",
-    gap: 8,
-    alignItems: "center",
-    backgroundColor: Colors.darkCard,
-    borderRadius: 10,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: Colors.darkBorder,
-  },
-  infoText: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-  },
-  onceBtn: {
-    flexDirection: "row",
-    gap: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.primary,
-  },
-  onceBtnText: {
-    fontSize: 14,
-    color: Colors.primary,
-    fontFamily: "Inter_500Medium",
-  },
-  logSection: {
-    backgroundColor: Colors.darkCard,
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: Colors.darkBorder,
-    gap: 8,
-  },
-  logTitle: {
-    fontSize: 13,
-    fontWeight: "600" as const,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_600SemiBold",
-    marginBottom: 4,
-    textTransform: "uppercase",
-    letterSpacing: 0.8,
-  },
-  logEmpty: {
-    alignItems: "center",
-    gap: 8,
-    paddingVertical: 16,
-  },
-  logEmptyText: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    textAlign: "center",
-  },
-  logRow: {
-    borderTopWidth: 1,
-    borderTopColor: Colors.darkBorder,
-    paddingTop: 6,
-  },
-  logText: {
-    fontSize: 11,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 16,
-  },
+  section: { paddingHorizontal: 20, marginBottom: 24 },
+  categoriesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
 });

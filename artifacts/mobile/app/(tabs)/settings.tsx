@@ -1,435 +1,200 @@
-import Colors from "@/constants/colors";
-import { useLeads } from "@/context/LeadContext";
-import { Feather } from "@expo/vector-icons";
-import * as Haptics from "expo-haptics";
-import React, { useCallback, useState } from "react";
+import React from 'react';
 import {
-  Alert,
-  Platform,
-  Pressable,
+  View,
+  Text,
   ScrollView,
   StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+  TouchableOpacity,
+  Alert,
+  Platform,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Feather } from '@expo/vector-icons';
+import { Colors } from '@/constants/colors';
+import { useApp } from '@/context/AppContext';
 
-const PRESET_CATEGORIES = [
-  "restauracja",
-  "fryzjer",
-  "sklep",
-  "mechanik",
-  "dentysta",
-  "prawnik",
-  "księgowość",
-  "hotel",
-  "kawiarnia",
-  "gabinet lekarski",
-  "warsztat",
-  "kwiaciarnia",
-  "piekarnia",
-  "hydraulik",
-  "elektryk",
-  "malarz",
-  "stolarz",
-  "fotograf",
-  "kosmetyczka",
-  "spa",
-];
-
-const PRESET_REGIONS = [
-  "Warszawa",
-  "Kraków",
-  "Wrocław",
-  "Gdańsk",
-  "Poznań",
-  "Łódź",
-  "Katowice",
-  "Lublin",
-  "Bydgoszcz",
-  "Białystok",
-  "Rzeszów",
-  "Toruń",
-  "Olsztyn",
-  "Szczecin",
-  "Kielce",
-];
-
-const INTERVALS = [
-  { label: "15 min", value: 15 },
-  { label: "30 min", value: 30 },
-  { label: "1 h", value: 60 },
-  { label: "2 h", value: 120 },
-  { label: "6 h", value: 360 },
-];
-
-function SectionHeader({ title }: { title: string }) {
-  return <Text style={styles.sectionHeader}>{title}</Text>;
+interface SettingRowProps {
+  icon: string;
+  title: string;
+  subtitle?: string;
+  onPress?: () => void;
+  tint?: string;
+  danger?: boolean;
 }
 
-function TagToggle({
-  label,
-  selected,
-  onToggle,
-}: {
-  label: string;
-  selected: boolean;
-  onToggle: () => void;
-}) {
+function SettingRow({ icon, title, subtitle, onPress, tint = Colors.primary, danger = false }: SettingRowProps) {
   return (
-    <Pressable
-      onPress={() => {
-        Haptics.selectionAsync();
-        onToggle();
-      }}
-      style={[styles.tag, selected && styles.tagSelected]}
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={onPress ? 0.7 : 1}
+      style={styles.settingRow}
     >
-      <Text style={[styles.tagText, selected && styles.tagTextSelected]}>
-        {label}
-      </Text>
-    </Pressable>
+      <View style={[styles.settingIcon, { backgroundColor: (danger ? Colors.danger : tint) + '18' }]}>
+        <Feather name={icon as any} size={18} color={danger ? Colors.danger : tint} />
+      </View>
+      <View style={styles.settingText}>
+        <Text style={[styles.settingTitle, danger && { color: Colors.danger }]}>{title}</Text>
+        {subtitle && <Text style={styles.settingSubtitle}>{subtitle}</Text>}
+      </View>
+      {onPress && <Feather name="chevron-right" size={18} color={Colors.textMuted} />}
+    </TouchableOpacity>
   );
 }
 
 export default function SettingsScreen() {
-  const { settings, updateSettings } = useLeads();
   const insets = useSafeAreaInsets();
-  const [newCategory, setNewCategory] = useState("");
-  const [newRegion, setNewRegion] = useState("");
+  const { projects } = useApp();
 
-  const topPad = Platform.OS === "web" ? 67 : insets.top > 0 ? insets.top : 44;
+  const topPadding = Platform.OS === 'web' ? 67 : insets.top;
+  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
-  const toggleCategory = useCallback(
-    (cat: string) => {
-      const cats = settings.categories.includes(cat)
-        ? settings.categories.filter((c) => c !== cat)
-        : [...settings.categories, cat];
-      updateSettings({ categories: cats });
-    },
-    [settings.categories, updateSettings],
-  );
-
-  const toggleRegion = useCallback(
-    (reg: string) => {
-      const regs = settings.regions.includes(reg)
-        ? settings.regions.filter((r) => r !== reg)
-        : [...settings.regions, reg];
-      updateSettings({ regions: regs });
-    },
-    [settings.regions, updateSettings],
-  );
-
-  const addCustomCategory = useCallback(() => {
-    const val = newCategory.trim().toLowerCase();
-    if (!val) return;
-    if (settings.categories.includes(val)) {
-      Alert.alert("Ta kategoria już istnieje");
-      return;
-    }
-    updateSettings({ categories: [...settings.categories, val] });
-    setNewCategory("");
-  }, [newCategory, settings.categories, updateSettings]);
-
-  const addCustomRegion = useCallback(() => {
-    const val = newRegion.trim();
-    if (!val) return;
-    if (settings.regions.includes(val)) {
-      Alert.alert("To miasto już jest na liście");
-      return;
-    }
-    updateSettings({ regions: [...settings.regions, val] });
-    setNewRegion("");
-  }, [newRegion, settings.regions, updateSettings]);
+  const handleAbout = () => {
+    Alert.alert(
+      'Remont Asystent',
+      'Wersja 1.0.0\n\nTwój przewodnik po remontach. Prowadzi krok po kroku, oblicza materiały i pomaga zaplanować każdy remont.',
+      [{ text: 'OK' }]
+    );
+  };
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={[
-          styles.content,
-          {
-            paddingTop: topPad + 16,
-            paddingBottom: Platform.OS === "web" ? 34 : 100,
-          },
-        ]}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
-        <Text style={styles.screenTitle}>Ustawienia</Text>
-        <Text style={styles.screenSub}>Skonfiguruj automatyczne wyszukiwanie</Text>
+    <ScrollView
+      style={styles.scroll}
+      contentContainerStyle={{ paddingTop: topPadding + 16, paddingBottom: bottomPadding }}
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={styles.header}>
+        <Text style={styles.title}>Ustawienia</Text>
+      </View>
 
-        <View style={styles.card}>
-          <SectionHeader title="Interwał wyszukiwania" />
-          <View style={styles.intervalRow}>
-            {INTERVALS.map((intv) => (
-              <Pressable
-                key={intv.value}
-                onPress={() => {
-                  Haptics.selectionAsync();
-                  updateSettings({ intervalMinutes: intv.value });
-                }}
-                style={[
-                  styles.intervalBtn,
-                  settings.intervalMinutes === intv.value &&
-                    styles.intervalBtnSelected,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.intervalText,
-                    settings.intervalMinutes === intv.value &&
-                      styles.intervalTextSelected,
-                  ]}
-                >
-                  {intv.label}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
+      <View style={styles.profileCard}>
+        <View style={styles.profileIcon}>
+          <Feather name="home" size={28} color={Colors.primary} />
         </View>
+        <View>
+          <Text style={styles.profileName}>Remont Asystent</Text>
+          <Text style={styles.profileSub}>{projects.length} projektów zapisanych</Text>
+        </View>
+      </View>
 
-        <View style={styles.card}>
-          <SectionHeader title="Kategorie firm" />
-          <Text style={styles.cardSub}>
-            Wybrano: {settings.categories.length}
-          </Text>
-          <View style={styles.tagsWrap}>
-            {PRESET_CATEGORIES.map((cat) => (
-              <TagToggle
-                key={cat}
-                label={cat}
-                selected={settings.categories.includes(cat)}
-                onToggle={() => toggleCategory(cat)}
-              />
-            ))}
-            {settings.categories
-              .filter((c) => !PRESET_CATEGORIES.includes(c))
-              .map((cat) => (
-                <TagToggle
-                  key={cat}
-                  label={cat}
-                  selected={true}
-                  onToggle={() => toggleCategory(cat)}
-                />
-              ))}
-          </View>
-          <View style={styles.addRow}>
-            <TextInput
-              style={styles.addInput}
-              placeholder="Dodaj kategorię..."
-              placeholderTextColor={Colors.textSecondary}
-              value={newCategory}
-              onChangeText={setNewCategory}
-              returnKeyType="done"
-              onSubmitEditing={addCustomCategory}
-            />
-            <Pressable
-              onPress={addCustomCategory}
-              style={({ pressed }) => [
-                styles.addBtn,
-                pressed && { opacity: 0.7 },
-              ]}
-            >
-              <Feather name="plus" size={18} color={Colors.dark} />
-            </Pressable>
-          </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Dane</Text>
+        <View style={styles.sectionCard}>
+          <SettingRow
+            icon="folder"
+            title="Moje projekty"
+            subtitle={`${projects.length} projektów w pamięci urządzenia`}
+            tint={Colors.info}
+          />
+          <View style={styles.divider} />
+          <SettingRow
+            icon="shield"
+            title="Dane offline"
+            subtitle="Wszystkie dane są na Twoim urządzeniu"
+            tint={Colors.success}
+          />
         </View>
+      </View>
 
-        <View style={styles.card}>
-          <SectionHeader title="Miasta / Regiony" />
-          <Text style={styles.cardSub}>Wybrano: {settings.regions.length}</Text>
-          <View style={styles.tagsWrap}>
-            {PRESET_REGIONS.map((reg) => (
-              <TagToggle
-                key={reg}
-                label={reg}
-                selected={settings.regions.includes(reg)}
-                onToggle={() => toggleRegion(reg)}
-              />
-            ))}
-            {settings.regions
-              .filter((r) => !PRESET_REGIONS.includes(r))
-              .map((reg) => (
-                <TagToggle
-                  key={reg}
-                  label={reg}
-                  selected={true}
-                  onToggle={() => toggleRegion(reg)}
-                />
-              ))}
-          </View>
-          <View style={styles.addRow}>
-            <TextInput
-              style={styles.addInput}
-              placeholder="Dodaj miasto..."
-              placeholderTextColor={Colors.textSecondary}
-              value={newRegion}
-              onChangeText={setNewRegion}
-              returnKeyType="done"
-              onSubmitEditing={addCustomRegion}
-            />
-            <Pressable
-              onPress={addCustomRegion}
-              style={({ pressed }) => [
-                styles.addBtn,
-                pressed && { opacity: 0.7 },
-              ]}
-            >
-              <Feather name="plus" size={18} color={Colors.dark} />
-            </Pressable>
-          </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Aplikacja</Text>
+        <View style={styles.sectionCard}>
+          <SettingRow
+            icon="info"
+            title="O aplikacji"
+            subtitle="Wersja 1.0.0"
+            onPress={handleAbout}
+            tint={Colors.secondary}
+          />
+          <View style={styles.divider} />
+          <SettingRow
+            icon="book-open"
+            title="Jak korzystać z aplikacji"
+            subtitle="Przewodnik po funkcjach"
+            onPress={() => Alert.alert('Pomoc', '1. Wybierz rodzaj pracy z listy\n2. Podaj wymiary\n3. Oblicz potrzebne materiały\n4. Zapisz projekt\n5. Korzystaj z listy zakupów')}
+            tint={Colors.info}
+          />
         </View>
+      </View>
 
-        <View style={[styles.card, styles.infoCard]}>
-          <Feather name="info" size={16} color={Colors.warning} />
-          <Text style={styles.infoText}>
-            Aplikacja automatycznie przeszukuje polskie katalogi firm i
-            zapisuje tylko firmy bez wykrytej strony internetowej. Każda firma
-            jest dodawana do bazy tylko raz.
-          </Text>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Bezpieczeństwo</Text>
+        <View style={styles.sectionCard}>
+          <SettingRow
+            icon="alert-triangle"
+            title="Zasady bezpieczeństwa"
+            subtitle="Ważne informacje przed pracami"
+            onPress={() => Alert.alert(
+              'Bezpieczeństwo',
+              '⚠️ Przed każdą pracą:\n\n• Przy elektryce — zawsze wyłącz bezpiecznik\n• Przy hydraulice — zakręć wodę\n• Przy gazownicy lub nośnych ścianach — zadzwoń do fachowca\n• Używaj sprzętu ochronnego\n• Czytaj instrukcje produktów',
+              [{ text: 'Rozumiem' }]
+            )}
+            tint={Colors.warning}
+          />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+
+      <Text style={styles.footer}>Remont Asystent v1.0.0 • Dane offline</Text>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.dark,
-  },
-  scroll: { flex: 1 },
-  content: {
-    paddingHorizontal: 20,
-    gap: 16,
-  },
-  screenTitle: {
-    fontSize: 26,
-    fontWeight: "700" as const,
-    color: Colors.text,
-    fontFamily: "Inter_700Bold",
-  },
-  screenSub: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    marginTop: 2,
-    marginBottom: 4,
-  },
-  sectionHeader: {
-    fontSize: 12,
-    fontWeight: "600" as const,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_600SemiBold",
-    textTransform: "uppercase",
-    letterSpacing: 0.8,
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: Colors.darkCard,
-    borderRadius: 14,
+  scroll: { flex: 1, backgroundColor: Colors.background },
+  header: { paddingHorizontal: 20, marginBottom: 16 },
+  title: { fontSize: 26, fontFamily: 'Inter_700Bold', color: Colors.text },
+  profileCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    marginHorizontal: 20,
+    marginBottom: 24,
+    backgroundColor: Colors.surface,
+    borderRadius: 16,
     padding: 16,
     borderWidth: 1,
-    borderColor: Colors.darkBorder,
-    gap: 0,
+    borderColor: Colors.border,
   },
-  cardSub: {
-    fontSize: 12,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    marginBottom: 12,
-    marginTop: -8,
+  profileIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.primaryBg,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  intervalRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-  },
-  intervalBtn: {
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 10,
+  profileName: { fontSize: 18, fontFamily: 'Inter_700Bold', color: Colors.text },
+  profileSub: { fontSize: 13, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, marginTop: 2 },
+  section: { paddingHorizontal: 20, marginBottom: 24 },
+  sectionTitle: { fontSize: 13, fontFamily: 'Inter_600SemiBold', color: Colors.textMuted, marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
+  sectionCard: {
+    backgroundColor: Colors.surface,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: Colors.darkBorder,
+    borderColor: Colors.border,
+    overflow: 'hidden',
   },
-  intervalBtnSelected: {
-    backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
+  settingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    gap: 14,
   },
-  intervalText: {
-    fontSize: 13,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_500Medium",
-  },
-  intervalTextSelected: {
-    color: Colors.dark,
-    fontFamily: "Inter_600SemiBold",
-  },
-  tagsWrap: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginBottom: 12,
-  },
-  tag: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: Colors.darkBorder,
-  },
-  tagSelected: {
-    backgroundColor: Colors.primary + "22",
-    borderColor: Colors.primary,
-  },
-  tagText: {
-    fontSize: 12,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-  },
-  tagTextSelected: {
-    color: Colors.primary,
-    fontFamily: "Inter_500Medium",
-  },
-  addRow: {
-    flexDirection: "row",
-    gap: 8,
-    marginTop: 4,
-  },
-  addInput: {
-    flex: 1,
-    backgroundColor: Colors.dark,
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    fontSize: 13,
-    color: Colors.text,
-    fontFamily: "Inter_400Regular",
-    borderWidth: 1,
-    borderColor: Colors.darkBorder,
-  },
-  addBtn: {
+  settingIcon: {
     width: 38,
     height: 38,
-    backgroundColor: Colors.primary,
     borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  infoCard: {
-    flexDirection: "row",
-    gap: 12,
-    alignItems: "flex-start",
-    backgroundColor: Colors.warning + "11",
-    borderColor: Colors.warning + "33",
-  },
-  infoText: {
-    flex: 1,
+  settingText: { flex: 1 },
+  settingTitle: { fontSize: 15, fontFamily: 'Inter_500Medium', color: Colors.text },
+  settingSubtitle: { fontSize: 12, fontFamily: 'Inter_400Regular', color: Colors.textMuted, marginTop: 2 },
+  divider: { height: 1, backgroundColor: Colors.borderLight, marginLeft: 66 },
+  footer: {
+    textAlign: 'center',
     fontSize: 12,
-    color: Colors.textSecondary,
-    fontFamily: "Inter_400Regular",
-    lineHeight: 18,
+    fontFamily: 'Inter_400Regular',
+    color: Colors.textMuted,
+    marginBottom: 20,
   },
 });

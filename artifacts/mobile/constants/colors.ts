@@ -1,32 +1,49 @@
-const primary = "#00E676";
-const primaryDark = "#00B248";
-const dark = "#0A0F1E";
-const darkCard = "#111827";
-const darkBorder = "#1F2D40";
-const text = "#F1F5F9";
-const textSecondary = "#94A3B8";
-const danger = "#EF4444";
-const warning = "#F59E0B";
-const success = "#22C55E";
-const whatsapp = "#25D366";
+export const Colors = {
+  primary: '#F97316',
+  primaryDark: '#EA6800',
+  primaryLight: '#FED7AA',
+  primaryBg: '#FFF7ED',
 
-export default {
-  primary,
-  primaryDark,
-  dark,
-  darkCard,
-  darkBorder,
-  text,
-  textSecondary,
-  danger,
-  warning,
-  success,
-  whatsapp,
-  light: {
-    text: "#F1F5F9",
-    background: dark,
-    tint: primary,
-    tabIconDefault: "#475569",
-    tabIconSelected: primary,
-  },
-};
+  secondary: '#1E293B',
+  secondaryLight: '#334155',
+
+  success: '#22C55E',
+  successBg: '#F0FDF4',
+  warning: '#F59E0B',
+  warningBg: '#FFFBEB',
+  danger: '#EF4444',
+  dangerBg: '#FEF2F2',
+  info: '#3B82F6',
+  infoBg: '#EFF6FF',
+
+  white: '#FFFFFF',
+  background: '#F8FAFC',
+  surface: '#FFFFFF',
+  surfaceAlt: '#F1F5F9',
+  border: '#E2E8F0',
+  borderLight: '#F1F5F9',
+
+  text: '#0F172A',
+  textSecondary: '#64748B',
+  textMuted: '#94A3B8',
+  textOnPrimary: '#FFFFFF',
+
+  difficultyEasy: '#22C55E',
+  difficultyMedium: '#F59E0B',
+  difficultyHard: '#EF4444',
+
+  riskLow: '#22C55E',
+  riskMedium: '#F59E0B',
+  riskHigh: '#EF4444',
+
+  categoryPaint: '#A78BFA',
+  categoryWall: '#60A5FA',
+  categoryFloor: '#34D399',
+  categoryBath: '#38BDF8',
+  categoryElectric: '#FBBF24',
+  categoryPlumbing: '#F472B6',
+  categoryDoors: '#FB923C',
+  categoryOther: '#94A3B8',
+} as const;
+
+export type ColorKey = keyof typeof Colors;

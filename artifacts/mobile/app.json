@@ -1,23 +1,23 @@
 {
   "expo": {
-    "name": "Lead Hunter PL",
+    "name": "Remont Asystent",
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
-    "userInterfaceStyle": "dark",
+    "scheme": "remont",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0A0F1E"
+      "backgroundColor": "#F97316"
     },
     "ios": {
       "supportsTablet": false
     },
     "android": {
-      "backgroundColor": "#0A0F1E"
+      "backgroundColor": "#F97316"
     },
     "web": {
       "favicon": "./assets/images/icon.png"

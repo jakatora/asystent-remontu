@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "q6MelpVPOgHVkZIbk3Ovm"
+uri = "file://artifacts/remont-asystent/assets/images/icon.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "gxDeMTDDeEuXWTmDu85Rh"
+uri = "file://artifacts/remont-asystent/assets/images/splash-icon.png"
+type = "image"
+title = "generated_image"

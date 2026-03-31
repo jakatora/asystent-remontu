@@ -4,26 +4,43 @@ import {
   Inter_600SemiBold,
   Inter_700Bold,
   useFonts,
-} from "@expo-google-fonts/inter";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { KeyboardProvider } from "react-native-keyboard-controller";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+} from '@expo-google-fonts/inter';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { router, Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { LeadProvider } from "@/context/LeadContext";
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { AppProvider, useApp } from '@/context/AppContext';
 
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
 
 function RootLayoutNav() {
+  const { onboardingDone, isLoading } = useApp();
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (!onboardingDone) {
+        router.replace('/onboarding');
+      }
+    }
+  }, [onboardingDone, isLoading]);
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="onboarding" options={{ headerShown: false, gestureEnabled: false }} />
+      <Stack.Screen name="wizard" options={{ headerShown: true, presentation: 'modal' }} />
+      <Stack.Screen name="category/[id]" options={{ headerShown: true }} />
+      <Stack.Screen name="job/[id]" options={{ headerShown: true }} />
+      <Stack.Screen name="project/[id]" options={{ headerShown: true }} />
+      <Stack.Screen name="hire-pro" options={{ headerShown: true, presentation: 'modal' }} />
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }
@@ -50,9 +67,9 @@ export default function RootLayout() {
         <QueryClientProvider client={queryClient}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
-              <LeadProvider>
+              <AppProvider>
                 <RootLayoutNav />
-              </LeadProvider>
+              </AppProvider>
             </KeyboardProvider>
           </GestureHandlerRootView>
         </QueryClientProvider>
