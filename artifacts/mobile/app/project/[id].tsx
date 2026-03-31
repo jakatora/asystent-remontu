@@ -25,10 +25,13 @@ import type {
   ProjectActivity,
 } from '@/types/domain';
 import { formatCurrency } from '@/utils/calculator';
+import { timeAgo, ACTIVITY_ICONS, PHOTO_TYPE_LABELS, PHOTO_TYPE_COLORS, STATUS_LABELS, formatDuration } from '@/utils/format';
 import { estimateBudget } from '@/features/calculator/budget';
 import { WarningBanner } from '@/components/ui/WarningBanner';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { Txt } from '@/components/ui/Txt';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Colors } from '@/constants/colors';
 
 type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'photos';
@@ -56,27 +59,6 @@ const TIER_META: Record<ShoppingTier, { label: string; color: string; bg: string
 
 const CONTINGENCY_RATE = 0.1;
 
-const PHOTO_TYPE_LABELS: Record<PhotoType, string> = {
-  before: 'Przed',
-  during: 'W trakcie',
-  after: 'Po',
-};
-
-const PHOTO_TYPE_COLORS: Record<PhotoType, { color: string; bg: string }> = {
-  before: { color: Colors.info, bg: Colors.infoBg },
-  during: { color: Colors.warning, bg: Colors.warningBg },
-  after:  { color: Colors.success, bg: Colors.successBg },
-};
-
-const ACTIVITY_ICONS: Record<string, string> = {
-  created: 'plus-circle',
-  status_changed: 'refresh-cw',
-  checklist_completed: 'check-square',
-  photo_added: 'camera',
-  shopping_generated: 'shopping-cart',
-  note_updated: 'edit-3',
-  edited: 'edit',
-};
 
 function diyAssessment(difficulty: string, hirePro: boolean) {
   if (hirePro || difficulty === 'hard') {
@@ -277,17 +259,6 @@ function buildShareText(
   return text;
 }
 
-function timeAgo(isoDate: string): string {
-  const diff = Date.now() - new Date(isoDate).getTime();
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 1) return 'przed chwilą';
-  if (minutes < 60) return `${minutes} min temu`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h temu`;
-  const days = Math.floor(hours / 24);
-  if (days === 1) return 'wczoraj';
-  return `${days} dni temu`;
-}
 
 export default function ProjectDetailScreen() {
   const { id, fromWizard } = useLocalSearchParams<{ id: string; fromWizard?: string }>();
@@ -371,8 +342,7 @@ export default function ProjectDetailScreen() {
   const handleStatusChange = async (status: 'planning' | 'in-progress' | 'completed') => {
     if (!project) return;
     await updateProject({ ...project, status });
-    const labels = { planning: 'Planowanie', 'in-progress': 'W trakcie', completed: 'Ukończony' };
-    await logActivity(project.id, 'status_changed', `Status zmieniony na: ${labels[status]}`);
+    await logActivity(project.id, 'status_changed', `Status zmieniony na: ${STATUS_LABELS[status]}`);
     await loadAll();
   };
 
@@ -1166,9 +1136,7 @@ export default function ProjectDetailScreen() {
             {checklist.length > 0
               ? checklist.map((item) => {
                   const step = job.instructions.find((s) => s.step === item.stepIndex);
-                  const dur = step && step.durationMin >= 60
-                    ? `${Math.round(step.durationMin / 60)}h`
-                    : step ? `${step.durationMin}min` : null;
+                  const dur = step ? formatDuration(step.durationMin) : null;
                   return (
                     <TouchableOpacity
                       key={item.id}
@@ -1288,9 +1256,7 @@ export default function ProjectDetailScreen() {
                   );
                 })
               : job.instructions.map((step) => {
-                  const dur = step.durationMin >= 60
-                    ? `${Math.round(step.durationMin / 60)}h`
-                    : `${step.durationMin}min`;
+                  const dur = formatDuration(step.durationMin);
                   return (
                     <View
                       key={step.step}

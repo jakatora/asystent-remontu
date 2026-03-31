@@ -4,8 +4,10 @@ import { Feather } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
 import type { Project } from '@/types/domain';
 import { Txt } from '@/components/ui/Txt';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import { formatCurrency } from '@/utils/calculator';
 import { checklistRepo } from '@/db/repositories/checklist.repo';
+import { Colors } from '@/constants/colors';
 
 interface ProjectCardProps {
   project: Project;
@@ -13,9 +15,9 @@ interface ProjectCardProps {
 }
 
 const statusConfig = {
-  planning:      { label: 'Planowanie', color: '#3B82F6', bg: '#EFF6FF', icon: 'edit-3' },
-  'in-progress': { label: 'W trakcie',  color: '#F59E0B', bg: '#FFFBEB', icon: 'tool' },
-  completed:     { label: 'Ukończony',  color: '#22C55E', bg: '#F0FDF4', icon: 'check-circle' },
+  planning:      { label: 'Planowanie', color: Colors.info,    bg: Colors.infoBg,    icon: 'edit-3' },
+  'in-progress': { label: 'W trakcie',  color: Colors.warning, bg: Colors.warningBg, icon: 'tool' },
+  completed:     { label: 'Ukończony',  color: Colors.success, bg: Colors.successBg, icon: 'check-circle' },
 } as const;
 
 export function ProjectCard({ project, onPress }: ProjectCardProps) {
@@ -35,59 +37,71 @@ export function ProjectCard({ project, onPress }: ProjectCardProps) {
     }, [project.id])
   );
 
-  const progressPct = progress && progress.total > 0
-    ? Math.round((progress.completed / progress.total) * 100)
-    : null;
-
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8} className="bg-surface rounded-2xl p-4 border border-stroke mb-3">
-      <View className="flex-row justify-between items-start mb-2">
-        <View className="flex-1 mr-3">
-          <Txt w="bold" className="text-[17px] text-ink mb-0.5" numberOfLines={1}>{project.name}</Txt>
-          <Txt className="text-[13px] text-slate">{project.jobName}</Txt>
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.8}
+      style={{
+        backgroundColor: Colors.surface,
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: Colors.border,
+        marginBottom: 12,
+      }}
+      accessibilityLabel={`Projekt ${project.name}, ${cfg.label}`}
+      accessibilityRole="button"
+    >
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+        <View style={{ flex: 1, marginRight: 12 }}>
+          <Txt w="bold" style={{ fontSize: 17, color: Colors.text, marginBottom: 2 }} numberOfLines={1}>
+            {project.name}
+          </Txt>
+          <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{project.jobName}</Txt>
           {project.roomName && (
-            <View className="flex-row items-center gap-1 mt-1">
-              <Feather name="home" size={11} color="#94A3B8" />
-              <Txt className="text-xs text-muted">{project.roomName}</Txt>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 }}>
+              <Feather name="home" size={11} color={Colors.textMuted} />
+              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{project.roomName}</Txt>
             </View>
           )}
         </View>
-        <View className="flex-row items-center gap-1 px-2.5 py-1.5 rounded-full" style={{ backgroundColor: cfg.bg }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+            paddingHorizontal: 10,
+            paddingVertical: 6,
+            borderRadius: 20,
+            backgroundColor: cfg.bg,
+          }}
+        >
           <Feather name={cfg.icon as any} size={12} color={cfg.color} />
-          <Txt w="semibold" className="text-xs" style={{ color: cfg.color }}>{cfg.label}</Txt>
+          <Txt w="semibold" style={{ fontSize: 12, color: cfg.color }}>{cfg.label}</Txt>
         </View>
       </View>
 
-      {progressPct !== null && (
-        <View className="mb-2" style={{ gap: 4 }}>
-          <View className="flex-row justify-between items-center">
-            <Txt className="text-[11px] text-muted">Postęp</Txt>
-            <Txt w="semibold" className="text-[11px]" style={{ color: progressPct === 100 ? '#22C55E' : '#F59E0B' }}>
-              {progressPct}%
-            </Txt>
-          </View>
-          <View style={{ height: 4, borderRadius: 2, backgroundColor: '#E2E8F0', overflow: 'hidden' }}>
-            <View
-              style={{
-                height: 4,
-                borderRadius: 2,
-                backgroundColor: progressPct === 100 ? '#22C55E' : '#F97316',
-                width: `${progressPct}%`,
-              }}
-            />
-          </View>
+      {progress && progress.total > 0 && (
+        <View style={{ marginBottom: 8 }}>
+          <ProgressBar
+            completed={progress.completed}
+            total={progress.total}
+            height={4}
+            showLabel
+            label="Postęp"
+          />
         </View>
       )}
 
-      <View className="flex-row gap-4">
-        <View className="flex-row items-center gap-1.5">
-          <Feather name="calendar" size={13} color="#94A3B8" />
-          <Txt w="medium" className="text-xs text-muted">{date}</Txt>
+      <View style={{ flexDirection: 'row', gap: 16 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <Feather name="calendar" size={13} color={Colors.textMuted} />
+          <Txt w="medium" style={{ fontSize: 12, color: Colors.textMuted }}>{date}</Txt>
         </View>
         {cost !== undefined && (
-          <View className="flex-row items-center gap-1.5">
-            <Feather name="shopping-cart" size={13} color="#94A3B8" />
-            <Txt w="medium" className="text-xs text-muted">~{formatCurrency(cost)}</Txt>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Feather name="shopping-cart" size={13} color={Colors.textMuted} />
+            <Txt w="medium" style={{ fontSize: 12, color: Colors.textMuted }}>~{formatCurrency(cost)}</Txt>
           </View>
         )}
       </View>

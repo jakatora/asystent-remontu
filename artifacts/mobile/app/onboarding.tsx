@@ -6,37 +6,46 @@ import { Feather } from '@expo/vector-icons';
 import { Button } from '@/components/ui/Button';
 import { Txt } from '@/components/ui/Txt';
 import { useApp } from '@/context/AppContext';
+import { Colors } from '@/constants/colors';
 
 const { width } = Dimensions.get('window');
 
 const SLIDES = [
   {
     id: '1',
-    icon: 'home',
+    icon: 'home' as const,
     title: 'Witaj w Remont Asystent',
-    description: 'Twój przewodnik po remontach. Prowadzimy Cię krok po kroku — nawet jeśli nigdy nie robiłeś remontu.',
-    color: '#F97316',
+    description:
+      'Twój przewodnik po remontach.\nProwadzimy Cię krok po kroku — nawet jeśli nigdy nie robiłeś remontu.',
+    color: Colors.primary,
+    bgColor: Colors.primaryBg,
   },
   {
     id: '2',
-    icon: 'list',
-    title: 'Oblicz ile materiałów potrzebujesz',
-    description: 'Podaj wymiary — my obliczymy ile farby, paneli czy kleju kupić. Zero zgadywania.',
-    color: '#3B82F6',
+    icon: 'bar-chart-2' as const,
+    title: 'Precyzyjne obliczenia',
+    description:
+      'Podaj wymiary pokoju — my obliczymy ile farby, paneli czy kleju potrzebujesz. Zero zgadywania, zero marnowania.',
+    color: Colors.info,
+    bgColor: Colors.infoBg,
   },
   {
     id: '3',
-    icon: 'shopping-cart',
-    title: 'Lista zakupów w jednym miejscu',
-    description: 'Gotowa lista wszystkiego co potrzebujesz. Odhaczaj produkty w sklepie — nic nie zapomnisz.',
-    color: '#22C55E',
+    icon: 'shopping-cart' as const,
+    title: 'Gotowa lista zakupów',
+    description:
+      'Lista zakupów z cenami i ilościami. Odhaczaj produkty w sklepie — niczego nie zapomnisz.',
+    color: Colors.success,
+    bgColor: Colors.successBg,
   },
   {
     id: '4',
-    icon: 'alert-triangle',
-    title: 'Bezpieczeństwo na pierwszym miejscu',
-    description: 'Wyraźnie zaznaczymy kiedy praca jest niebezpieczna i kiedy lepiej zadzwonić do fachowca.',
-    color: '#F59E0B',
+    icon: 'shield' as const,
+    title: 'Bezpieczeństwo',
+    description:
+      'Wyraźnie pokażemy co możesz zrobić sam, a kiedy lepiej wezwać fachowca. Twoje bezpieczeństwo jest najważniejsze.',
+    color: Colors.warning,
+    bgColor: Colors.warningBg,
   },
 ];
 
@@ -65,15 +74,25 @@ export default function OnboardingScreen() {
 
   return (
     <View
-      className="flex-1 bg-bg"
-      style={{ paddingTop: Platform.OS === 'web' ? 0 : insets.top, paddingBottom: insets.bottom + 24 }}
+      style={{
+        flex: 1,
+        backgroundColor: Colors.background,
+        paddingTop: Platform.OS === 'web' ? 16 : insets.top,
+        paddingBottom: insets.bottom + 24,
+      }}
     >
-      {/* Skip */}
-      <View className="px-4 items-end justify-center" style={{ height: 48 }}>
-        {!isLast && <Button label="Pomiń" variant="ghost" size="sm" onPress={handleSkip} />}
+      <View style={{ paddingHorizontal: 16, height: 48, alignItems: 'flex-end', justifyContent: 'center' }}>
+        {!isLast && (
+          <Button
+            label="Pomiń"
+            variant="ghost"
+            size="sm"
+            onPress={handleSkip}
+            testID="onboarding-skip"
+          />
+        )}
       </View>
 
-      {/* Slides */}
       <Animated.FlatList
         ref={flatListRef}
         data={SLIDES}
@@ -81,42 +100,81 @@ export default function OnboardingScreen() {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false })}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: false }
+        )}
         onMomentumScrollEnd={(e) => {
           const idx = Math.round(e.nativeEvent.contentOffset.x / width);
           setCurrentIndex(idx);
         }}
         renderItem={({ item }) => (
-          <View style={{ width }} className="items-center justify-center px-8 flex-1">
+          <View
+            style={{ width, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, flex: 1 }}
+            accessibilityRole="text"
+            accessibilityLabel={`${item.title}. ${item.description}`}
+          >
             <View
-              className="items-center justify-center mb-10"
-              style={{ width: 140, height: 140, borderRadius: 70, backgroundColor: item.color + '18' }}
+              style={{
+                width: 120,
+                height: 120,
+                borderRadius: 32,
+                backgroundColor: item.bgColor,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 32,
+              }}
             >
-              <Feather name={item.icon as any} size={60} color={item.color} />
+              <Feather name={item.icon} size={48} color={item.color} />
             </View>
-            <Txt w="bold" className="text-[26px] text-ink text-center mb-4" style={{ lineHeight: 34 }}>{item.title}</Txt>
-            <Txt className="text-base text-slate text-center leading-6">{item.description}</Txt>
+            <Txt
+              w="bold"
+              style={{
+                fontSize: 26,
+                color: Colors.text,
+                textAlign: 'center',
+                marginBottom: 12,
+                lineHeight: 34,
+              }}
+            >
+              {item.title}
+            </Txt>
+            <Txt
+              style={{
+                fontSize: 16,
+                color: Colors.textSecondary,
+                textAlign: 'center',
+                lineHeight: 24,
+                maxWidth: 320,
+              }}
+            >
+              {item.description}
+            </Txt>
           </View>
         )}
       />
 
-      {/* Dots */}
-      <View className="flex-row justify-center gap-1.5 mb-8">
+      <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 6, marginBottom: 24 }}>
         {SLIDES.map((_, i) => {
           const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-          const dotWidth = scrollX.interpolate({ inputRange, outputRange: [8, 24, 8], extrapolate: 'clamp' });
-          const opacity = scrollX.interpolate({ inputRange, outputRange: [0.3, 1, 0.3], extrapolate: 'clamp' });
+          const dotWidth = scrollX.interpolate({ inputRange, outputRange: [8, 28, 8], extrapolate: 'clamp' });
+          const opacity = scrollX.interpolate({ inputRange, outputRange: [0.25, 1, 0.25], extrapolate: 'clamp' });
           return (
             <Animated.View
               key={i}
-              style={{ width: dotWidth, height: 8, borderRadius: 4, opacity, backgroundColor: '#F97316' }}
+              style={{
+                width: dotWidth,
+                height: 8,
+                borderRadius: 4,
+                opacity,
+                backgroundColor: Colors.primary,
+              }}
             />
           );
         })}
       </View>
 
-      {/* Button */}
-      <View className="px-6">
+      <View style={{ paddingHorizontal: 24 }}>
         <Button
           label={isLast ? 'Zacznij korzystać' : 'Dalej'}
           onPress={handleNext}

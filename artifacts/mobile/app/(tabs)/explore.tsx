@@ -5,7 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { CATEGORIES } from '@/data/categories';
 import { CategoryCard } from '@/components/CategoryCard';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { Txt } from '@/components/ui/Txt';
+import { Colors } from '@/constants/colors';
 
 export default function ExploreScreen() {
   const insets = useSafeAreaInsets();
@@ -21,31 +23,58 @@ export default function ExploreScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: Colors.background }}
       contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View className="px-5 mb-4">
-        <Txt w="bold" className="text-[26px] text-ink">Odkryj prace remontowe</Txt>
-        <Txt className="text-[15px] text-slate mt-1">Wybierz kategorię żeby zobaczyć szczegóły</Txt>
+      <View style={{ paddingHorizontal: 20, marginBottom: 16 }}>
+        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Odkryj prace remontowe</Txt>
+        <Txt style={{ fontSize: 15, color: Colors.textSecondary, marginTop: 4 }}>
+          Wybierz kategorię żeby zobaczyć szczegóły
+        </Txt>
       </View>
 
-      <View className="flex-row items-center bg-surface mx-5 mb-5 rounded-2xl border border-stroke px-3.5 h-12">
-        <Feather name="search" size={18} color="#94A3B8" style={{ marginRight: 10 }} />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: Colors.surface,
+          marginHorizontal: 20,
+          marginBottom: 20,
+          borderRadius: 16,
+          borderWidth: 1,
+          borderColor: Colors.border,
+          paddingHorizontal: 14,
+          height: 48,
+        }}
+      >
+        <Feather name="search" size={18} color={Colors.textMuted} style={{ marginRight: 10 }} />
         <TextInput
-          className="flex-1 text-[15px] text-ink"
+          style={{
+            flex: 1,
+            fontSize: 15,
+            color: Colors.text,
+            fontFamily: 'Inter_400Regular',
+          }}
           placeholder="Szukaj rodzaju pracy..."
-          placeholderTextColor="#94A3B8"
+          placeholderTextColor={Colors.textMuted}
           value={search}
           onChangeText={setSearch}
-          style={{ fontFamily: 'Inter_400Regular' }}
+          accessibilityLabel="Wyszukaj rodzaj pracy remontowej"
+          returnKeyType="search"
         />
         {search.length > 0 && (
-          <Feather name="x" size={16} color="#94A3B8" onPress={() => setSearch('')} />
+          <Feather
+            name="x"
+            size={16}
+            color={Colors.textMuted}
+            onPress={() => setSearch('')}
+            accessibilityLabel="Wyczyść wyszukiwanie"
+          />
         )}
       </View>
 
-      <View className="flex-row flex-wrap gap-3 px-5">
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12, paddingHorizontal: 20 }}>
         {filtered.map((cat) => (
           <CategoryCard
             key={cat.id}
@@ -56,10 +85,11 @@ export default function ExploreScreen() {
       </View>
 
       {filtered.length === 0 && (
-        <View className="items-center pt-10 gap-3">
-          <Feather name="search" size={32} color="#94A3B8" />
-          <Txt w="medium" className="text-[15px] text-muted">Brak wyników dla "{search}"</Txt>
-        </View>
+        <EmptyState
+          icon="search"
+          title={`Brak wyników dla "${search}"`}
+          description="Spróbuj innej frazy"
+        />
       )}
     </ScrollView>
   );

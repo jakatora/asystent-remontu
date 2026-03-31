@@ -12,27 +12,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { Txt } from '@/components/ui/Txt';
 import type { ProjectActivity } from '@/types/domain';
 import { Colors } from '@/constants/colors';
-
-const ACTIVITY_ICONS: Record<string, string> = {
-  created: 'plus-circle',
-  status_changed: 'refresh-cw',
-  checklist_completed: 'check-square',
-  photo_added: 'camera',
-  shopping_generated: 'shopping-cart',
-  note_updated: 'edit-3',
-  edited: 'edit',
-};
-
-function timeAgo(isoDate: string): string {
-  const diff = Date.now() - new Date(isoDate).getTime();
-  const minutes = Math.floor(diff / 60000);
-  if (minutes < 1) return 'teraz';
-  if (minutes < 60) return `${minutes} min`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h`;
-  const days = Math.floor(hours / 24);
-  return `${days}d`;
-}
+import { ACTIVITY_ICONS, timeAgoShort } from '@/utils/format';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -55,54 +35,65 @@ export default function HomeScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: Colors.background }}
       contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View className="flex-row justify-between items-center px-5 mb-5">
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginBottom: 20 }}>
         <View>
-          <Txt w="bold" className="text-[26px] text-ink">Remont Asystent</Txt>
-          <Txt className="text-[15px] text-slate mt-0.5">Czym dziś się zajmiemy?</Txt>
+          <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Remont Asystent</Txt>
+          <Txt style={{ fontSize: 15, color: Colors.textSecondary, marginTop: 2 }}>Czym dziś się zajmiemy?</Txt>
         </View>
         <TouchableOpacity
-          className="w-[46px] h-[46px] rounded-full bg-primary items-center justify-center"
+          style={{
+            width: 46,
+            height: 46,
+            borderRadius: 23,
+            backgroundColor: Colors.primary,
+            alignItems: 'center',
+            justifyContent: 'center',
+            ...shadowPrimary,
+          }}
           onPress={() => router.push('/wizard')}
           activeOpacity={0.8}
           testID="new-project-btn"
-          style={{ shadowColor: '#F97316', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }}
+          accessibilityLabel="Nowy projekt"
+          accessibilityRole="button"
         >
           <Feather name="plus" size={22} color="#fff" />
         </TouchableOpacity>
       </View>
 
-      <View className="flex-row gap-2.5 px-5 mb-5">
-        <View className="flex-1 bg-surface rounded-2xl p-3.5 border border-stroke items-center">
-          <Txt w="bold" className="text-2xl text-ink">{projects.length}</Txt>
-          <Txt className="text-[11px] text-muted text-center mt-0.5">Projekty</Txt>
-        </View>
-        <View className="flex-1 bg-surface rounded-2xl p-3.5 border border-primary-light items-center">
-          <Txt w="bold" className="text-2xl text-primary">{activeCount}</Txt>
-          <Txt className="text-[11px] text-muted text-center mt-0.5">W trakcie</Txt>
-        </View>
-        <View className="flex-1 bg-surface rounded-2xl p-3.5 items-center" style={{ borderWidth: 1, borderColor: '#bbf7d0' }}>
-          <Txt w="bold" className="text-2xl text-success">{completedCount}</Txt>
-          <Txt className="text-[11px] text-muted text-center mt-0.5">Ukończone</Txt>
-        </View>
+      <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 20 }}>
+        <StatBadge value={projects.length} label="Projekty" color={Colors.text} borderColor={Colors.border} />
+        <StatBadge value={activeCount} label="W trakcie" color={Colors.primary} borderColor={Colors.primaryLight} />
+        <StatBadge value={completedCount} label="Ukończone" color={Colors.success} borderColor="#BBF7D0" />
       </View>
 
       {activeProject && (
         <TouchableOpacity
-          className="mx-5 mb-4 bg-surface rounded-2xl p-4 border flex-row items-center"
-          style={{ borderColor: '#FDE68A', backgroundColor: '#FFFBEB' }}
+          style={{
+            marginHorizontal: 20,
+            marginBottom: 16,
+            backgroundColor: Colors.warningBg,
+            borderRadius: 16,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: '#FDE68A',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
           onPress={() => router.push({ pathname: '/project/[id]', params: { id: activeProject.id } })}
           activeOpacity={0.85}
+          accessibilityLabel={`Kontynuuj projekt ${activeProject.name}`}
+          accessibilityRole="button"
         >
           <View
             style={{
               width: 40,
               height: 40,
               borderRadius: 20,
-              backgroundColor: '#F59E0B',
+              backgroundColor: Colors.warning,
               alignItems: 'center',
               justifyContent: 'center',
               marginRight: 12,
@@ -110,36 +101,48 @@ export default function HomeScreen() {
           >
             <Feather name="play" size={18} color="#fff" />
           </View>
-          <View className="flex-1">
-            <Txt w="bold" className="text-[15px]" style={{ color: '#92400E' }}>
+          <View style={{ flex: 1 }}>
+            <Txt w="bold" style={{ fontSize: 15, color: '#92400E' }}>
               Kontynuuj: {activeProject.name}
             </Txt>
-            <Txt className="text-[12px]" style={{ color: '#B45309' }}>
+            <Txt style={{ fontSize: 12, color: '#B45309' }}>
               {activeProject.jobName}
               {activeProject.roomName ? ` · ${activeProject.roomName}` : ''}
             </Txt>
           </View>
-          <Feather name="chevron-right" size={20} color="#F59E0B" />
+          <Feather name="chevron-right" size={20} color={Colors.warning} />
         </TouchableOpacity>
       )}
 
       <TouchableOpacity
-        className="mx-5 mb-6 bg-primary-bg rounded-2xl p-[18px] flex-row items-center border border-primary-light"
+        style={{
+          marginHorizontal: 20,
+          marginBottom: 24,
+          backgroundColor: Colors.primaryBg,
+          borderRadius: 16,
+          padding: 18,
+          flexDirection: 'row',
+          alignItems: 'center',
+          borderWidth: 1,
+          borderColor: Colors.primaryLight,
+        }}
         onPress={() => router.push('/wizard')}
         activeOpacity={0.85}
         testID="quick-start-banner"
+        accessibilityLabel="Rozpocznij nowy projekt remontu"
+        accessibilityRole="button"
       >
-        <View className="flex-1">
-          <Txt w="bold" className="text-base text-primary-dark">Nowy projekt remontu</Txt>
-          <Txt className="text-[13px] text-primary mt-0.5">Wybierz rodzaj pracy i zacznij</Txt>
+        <View style={{ flex: 1 }}>
+          <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>Nowy projekt remontu</Txt>
+          <Txt style={{ fontSize: 13, color: Colors.primary, marginTop: 2 }}>Wybierz rodzaj pracy i zacznij</Txt>
         </View>
-        <View className="w-10 h-10 rounded-full bg-white items-center justify-center">
-          <Feather name="arrow-right" size={22} color="#F97316" />
+        <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
+          <Feather name="arrow-right" size={22} color={Colors.primary} />
         </View>
       </TouchableOpacity>
 
       {recentActivities.length > 0 && (
-        <View className="px-5 mb-6">
+        <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
           <SectionHeader title="Ostatnia aktywność" />
           <View
             style={{
@@ -159,9 +162,10 @@ export default function HomeScreen() {
                   onPress={() => proj && router.push({ pathname: '/project/[id]', params: { id: proj.id } })}
                   activeOpacity={0.8}
                   style={{ flexDirection: 'row', gap: 10, alignItems: 'center', paddingVertical: 2 }}
+                  accessibilityLabel={`${a.description}${proj ? `, projekt ${proj.name}` : ''}`}
                 >
                   <Feather
-                    name={(ACTIVITY_ICONS[a.actionType] ?? 'circle') as any}
+                    name={(ACTIVITY_ICONS[a.actionType as keyof typeof ACTIVITY_ICONS] ?? 'circle') as any}
                     size={14}
                     color={Colors.textMuted}
                   />
@@ -173,7 +177,7 @@ export default function HomeScreen() {
                       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{proj.name}</Txt>
                     )}
                   </View>
-                  <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{timeAgo(a.createdAt)}</Txt>
+                  <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{timeAgoShort(a.createdAt)}</Txt>
                 </TouchableOpacity>
               );
             })}
@@ -181,14 +185,18 @@ export default function HomeScreen() {
         </View>
       )}
 
-      <View className="px-5 mb-6">
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
         <SectionHeader
           title="Twoje projekty"
           actionLabel={projects.length > 3 ? 'Wszystkie' : undefined}
           onAction={() => router.push('/(tabs)/projects')}
         />
         {recentProjects.length === 0 ? (
-          <EmptyState icon="folder" title="Brak projektów" description="Naciśnij + aby dodać pierwszy projekt remontu" />
+          <EmptyState
+            icon="folder"
+            title="Brak projektów"
+            description="Naciśnij + aby dodać pierwszy projekt remontu"
+          />
         ) : (
           recentProjects.map((p) => (
             <ProjectCard
@@ -200,13 +208,13 @@ export default function HomeScreen() {
         )}
       </View>
 
-      <View className="px-5 mb-6">
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
         <SectionHeader
           title="Rodzaje prac"
           actionLabel="Wszystkie"
           onAction={() => router.push('/(tabs)/explore')}
         />
-        <View className="flex-row flex-wrap gap-3">
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
           {CATEGORIES.slice(0, 6).map((cat) => (
             <CategoryCard
               key={cat.id}
@@ -217,5 +225,33 @@ export default function HomeScreen() {
         </View>
       </View>
     </ScrollView>
+  );
+}
+
+const shadowPrimary = {
+  shadowColor: Colors.primary,
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.3,
+  shadowRadius: 8,
+  elevation: 4,
+};
+
+function StatBadge({ value, label, color, borderColor }: { value: number; label: string; color: string; borderColor: string }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colors.surface,
+        borderRadius: 16,
+        padding: 14,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor,
+      }}
+      accessibilityLabel={`${value} ${label}`}
+    >
+      <Txt w="bold" style={{ fontSize: 22, color }}>{value}</Txt>
+      <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center', marginTop: 2 }}>{label}</Txt>
+    </View>
   );
 }

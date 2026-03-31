@@ -9,6 +9,7 @@ import {
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
+import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -16,9 +17,15 @@ import { QueryClientProvider } from '@tanstack/react-query';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AppProvider, useApp } from '@/context/AppContext';
+import { LoadingState } from '@/components/ui/LoadingState';
+import { Txt } from '@/components/ui/Txt';
+import { Colors } from '@/constants/colors';
 import { queryClient } from '@/lib/query-client';
+import { initSentry } from '@/lib/sentry';
 
 SplashScreen.preventAutoHideAsync();
+
+initSentry().catch(() => {});
 
 function RootLayoutNav() {
   const { onboardingDone, isLoading } = useApp();
@@ -30,6 +37,29 @@ function RootLayoutNav() {
       }
     }
   }, [onboardingDone, isLoading]);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: Colors.background }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <View
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 18,
+              backgroundColor: Colors.primaryBg,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 16,
+            }}
+          >
+            <Txt w="bold" style={{ fontSize: 28, color: Colors.primary }}>RA</Txt>
+          </View>
+          <LoadingState message="Przygotowuję dane..." />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <Stack screenOptions={{ headerShown: false }}>

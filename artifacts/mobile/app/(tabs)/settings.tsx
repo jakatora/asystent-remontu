@@ -6,6 +6,8 @@ import { useApp } from '@/context/AppContext';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { isSentryConfigured } from '@/lib/sentry';
 import { Txt } from '@/components/ui/Txt';
+import { Colors } from '@/constants/colors';
+import { pluralize } from '@/utils/format';
 
 interface SettingRowProps {
   icon: string;
@@ -18,34 +20,73 @@ interface SettingRowProps {
   badge?: string;
 }
 
-function SettingRow({ icon, title, subtitle, onPress, iconColor = '#F97316', iconBg = '#FFF7ED', danger = false, badge }: SettingRowProps) {
-  const color = danger ? '#EF4444' : iconColor;
-  const bg = danger ? '#FEF2F2' : iconBg;
+function SettingRow({ icon, title, subtitle, onPress, iconColor = Colors.primary, iconBg = Colors.primaryBg, danger = false, badge }: SettingRowProps) {
+  const color = danger ? Colors.danger : iconColor;
+  const bg = danger ? Colors.dangerBg : iconBg;
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={onPress ? 0.7 : 1}
-      className="flex-row items-center p-3.5 gap-3.5"
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 14,
+        gap: 14,
+      }}
+      accessibilityLabel={`${title}${subtitle ? `. ${subtitle}` : ''}`}
+      accessibilityRole={onPress ? 'button' : 'text'}
     >
-      <View className="w-[38px] h-[38px] rounded-[10px] items-center justify-center" style={{ backgroundColor: bg }}>
+      <View
+        style={{
+          width: 38,
+          height: 38,
+          borderRadius: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: bg,
+        }}
+      >
         <Feather name={icon as any} size={18} color={color} />
       </View>
-      <View className="flex-1">
-        <Txt w="medium" className="text-[15px]" style={{ color: danger ? '#EF4444' : '#0F172A' }}>{title}</Txt>
-        {subtitle && <Txt className="text-xs text-muted mt-0.5">{subtitle}</Txt>}
+      <View style={{ flex: 1 }}>
+        <Txt w="medium" style={{ fontSize: 15, color: danger ? Colors.danger : Colors.text }}>
+          {title}
+        </Txt>
+        {subtitle && (
+          <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 2 }}>
+            {subtitle}
+          </Txt>
+        )}
       </View>
       {badge && (
-        <View className="px-2 py-0.5 rounded-full bg-success-bg">
-          <Txt w="semibold" className="text-xs text-success">{badge}</Txt>
+        <View style={{ paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10, backgroundColor: Colors.successBg }}>
+          <Txt w="semibold" style={{ fontSize: 12, color: Colors.success }}>{badge}</Txt>
         </View>
       )}
-      {onPress && <Feather name="chevron-right" size={18} color="#94A3B8" />}
+      {onPress && <Feather name="chevron-right" size={18} color={Colors.textMuted} />}
     </TouchableOpacity>
   );
 }
 
-function Divider() {
-  return <View className="h-px bg-stroke-light" style={{ marginLeft: 66 }} />;
+function SettingDivider() {
+  return <View style={{ height: 1, backgroundColor: Colors.borderLight, marginLeft: 66 }} />;
+}
+
+function SectionLabel({ label }: { label: string }) {
+  return (
+    <Txt
+      w="semibold"
+      style={{
+        fontSize: 13,
+        color: Colors.textMuted,
+        marginBottom: 8,
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+      }}
+    >
+      {label}
+    </Txt>
+  );
 }
 
 export default function SettingsScreen() {
@@ -54,6 +95,8 @@ export default function SettingsScreen() {
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+
+  const projectWord = pluralize(projects.length, 'projekt zapisany', 'projekty zapisane', 'projektów zapisanych');
 
   const handleAbout = () => {
     Alert.alert(
@@ -81,60 +124,82 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: Colors.background }}
       contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View className="px-5 mb-4">
-        <Txt w="bold" className="text-[26px] text-ink">Ustawienia</Txt>
+      <View style={{ paddingHorizontal: 20, marginBottom: 16 }}>
+        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Ustawienia</Txt>
       </View>
 
-      {/* Profile card */}
-      <View className="flex-row items-center gap-3.5 mx-5 mb-6 bg-surface rounded-2xl p-4 border border-stroke">
-        <View className="w-14 h-14 rounded-full bg-primary-bg items-center justify-center">
-          <Feather name="home" size={28} color="#F97316" />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 14,
+          marginHorizontal: 20,
+          marginBottom: 24,
+          backgroundColor: Colors.surface,
+          borderRadius: 16,
+          padding: 16,
+          borderWidth: 1,
+          borderColor: Colors.border,
+        }}
+        accessibilityLabel={`${projects.length} ${projectWord}`}
+      >
+        <View
+          style={{
+            width: 56,
+            height: 56,
+            borderRadius: 28,
+            backgroundColor: Colors.primaryBg,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Feather name="home" size={28} color={Colors.primary} />
         </View>
         <View>
-          <Txt w="bold" className="text-[18px] text-ink">Remont Asystent</Txt>
-          <Txt className="text-[13px] text-slate mt-0.5">{projects.length} projektów zapisanych</Txt>
+          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>Remont Asystent</Txt>
+          <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 2 }}>
+            {projects.length} {projectWord}
+          </Txt>
         </View>
       </View>
 
-      {/* Dane */}
-      <View className="px-5 mb-6">
-        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Dane</Txt>
-        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <SectionLabel label="Dane" />
+        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="folder"
             title="Moje projekty"
-            subtitle={`${projects.length} projektów w pamięci urządzenia`}
-            iconColor="#3B82F6"
-            iconBg="#EFF6FF"
+            subtitle={`${projects.length} ${projectWord} w pamięci urządzenia`}
+            iconColor={Colors.info}
+            iconBg={Colors.infoBg}
           />
-          <Divider />
+          <SettingDivider />
           <SettingRow
             icon="shield"
             title="Dane offline"
             subtitle="Wszystkie dane są na Twoim urządzeniu"
-            iconColor="#22C55E"
-            iconBg="#F0FDF4"
+            iconColor={Colors.success}
+            iconBg={Colors.successBg}
             badge="Aktywne"
           />
         </View>
       </View>
 
-      {/* Sync */}
-      <View className="px-5 mb-6">
-        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Synchronizacja</Txt>
-        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <SectionLabel label="Synchronizacja" />
+        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="cloud"
             title="Synchronizacja z chmurą"
             subtitle={isSupabaseConfigured ? 'Połączone z Supabase' : 'Niedostępne — brak konfiguracji'}
-            iconColor="#3B82F6"
-            iconBg="#EFF6FF"
+            iconColor={Colors.info}
+            iconBg={Colors.infoBg}
           />
-          <Divider />
+          <SettingDivider />
           <SettingRow
             icon="user"
             title="Konto użytkownika"
@@ -145,55 +210,53 @@ export default function SettingsScreen() {
         </View>
       </View>
 
-      {/* Aplikacja */}
-      <View className="px-5 mb-6">
-        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Aplikacja</Txt>
-        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <SectionLabel label="Aplikacja" />
+        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="info"
             title="O aplikacji"
             subtitle="Wersja 1.0.0"
             onPress={handleAbout}
-            iconColor="#1E293B"
-            iconBg="#F1F5F9"
+            iconColor={Colors.secondary}
+            iconBg={Colors.surfaceAlt}
           />
-          <Divider />
+          <SettingDivider />
           <SettingRow
             icon="book-open"
             title="Jak korzystać z aplikacji"
             subtitle="Przewodnik po funkcjach"
             onPress={handleHelp}
-            iconColor="#3B82F6"
-            iconBg="#EFF6FF"
+            iconColor={Colors.info}
+            iconBg={Colors.infoBg}
           />
-          <Divider />
+          <SettingDivider />
           <SettingRow
             icon="activity"
             title="Raportowanie błędów"
             subtitle={isSentryConfigured ? 'Sentry aktywne' : 'Wyłączone'}
-            iconColor="#F59E0B"
-            iconBg="#FFFBEB"
+            iconColor={Colors.warning}
+            iconBg={Colors.warningBg}
           />
         </View>
       </View>
 
-      {/* Bezpieczeństwo */}
-      <View className="px-5 mb-6">
-        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Bezpieczeństwo</Txt>
-        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <SectionLabel label="Bezpieczeństwo" />
+        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="alert-triangle"
             title="Zasady bezpieczeństwa"
             subtitle="Ważne informacje przed pracami"
             onPress={handleSafety}
-            iconColor="#F59E0B"
-            iconBg="#FFFBEB"
+            iconColor={Colors.warning}
+            iconBg={Colors.warningBg}
           />
         </View>
       </View>
 
-      <Txt className="text-center text-xs text-muted mb-5">
-        Remont Asystent v1.0.0 • Dane offline
+      <Txt style={{ textAlign: 'center', fontSize: 12, color: Colors.textMuted, marginBottom: 20 }}>
+        Remont Asystent v1.0.0 · Dane offline
       </Txt>
     </ScrollView>
   );

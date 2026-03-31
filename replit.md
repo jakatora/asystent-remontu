@@ -95,12 +95,15 @@ data/jobs/               # ONE FILE PER JOB GROUP — reference impl: paint.ts
   windows.ts             # window-sealing, windowsill, paint-frames, trim-finishing
   finishing.ts, risky.ts, kitchen.ts, gypsum.ts
   index.ts               # Barrel → re-exports from features/content/registry.ts
-components/ui/           # Reusable UI components; index.ts barrel
+utils/
+  format.ts              # Shared formatting: timeAgo, ACTIVITY_ICONS, PHOTO_TYPE_LABELS, STATUS_LABELS, formatDuration, pluralize
+  calculator.ts          # formatCurrency helper
+components/ui/           # Reusable UI: Txt, Button, Badge, Card, EmptyState (with action), SectionHeader, WarningBanner, LoadingState, ProgressBar
 constants/
-  colors.ts              # Full color palette incl. all category colors
+  colors.ts              # Full color palette incl. difficulty/risk/category colors
   design.ts, app.ts
 lib/
-  query-client.ts, sentry.ts, supabase.ts
+  query-client.ts, sentry.ts (guarded init), supabase.ts (optional/modular)
 ```
 
 **How to add a new renovation job:**
