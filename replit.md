@@ -34,53 +34,60 @@ Production-ready, scalable renovation assistant app for Polish users. Offline-fi
 ```
 app/                     # Expo Router screens only — no business logic
 types/
-  domain.ts              # Strict domain types (readonly, no any)
-  db.ts                  # SQLite row shapes (typed, no any)
+  domain.ts              # Core domain types — extended with all new engine fields
+  engine.ts              # Rich engine types: MeasurementInputDefinition, MaterialRequirement,
+                         #   ToolRequirement, StepGuide, DryingTime, CostRule, VisibilityMode, etc.
+  user.ts                # User entities: Room, UserPreference, SavedCalculation
   calculator.ts          # Calculator/warning/generator interfaces
-  index.ts               # Re-exports all types — import from here
+  db.ts                  # SQLite row shapes (typed, no any)
+  index.ts               # Re-exports ALL types — always import from here
 shared/
-  schemas/               # Zod validation (project, shopping, wizard, measurement)
+  schemas/               # Zod validation schemas
+    engine.schema.ts     # Zod schemas for all engine types (MaterialRequirement, Room, etc.)
+    project.schema.ts    # Project CRUD schema
+    shopping.schema.ts   # Shopping item schema
+    wizard.schema.ts     # Wizard form schema
+    measurement.schema.ts # Runtime measurement builder
   lib/                   # id.ts, currency.ts, date.ts utilities
 features/
   calculator/
-    formulas.ts          # Formula registry (Record<key, FormulaFn>); byArea/byPerimeter aliases
-    engine.ts            # Pure CalculatorEngine class
-    shopping.ts          # ShoppingListGenerator class
+    formulas.ts          # Formula registry (30+ formulas); byArea/byPerimeter aliases
+                         #   New: tilePieces (uses tileWidthCm/tileHeightCm), panelPacks,
+                         #        grout (precise from groutWidthMm), paintLiters
+    formula-builder.ts   # Parameterized formula factories:
+                         #   coverage(litersPerM2), kgPerSqm(), packs(), tilePieces(),
+                         #   panelPacks(), linear(), fixed(), perItem(), grout(), siliconeTubes()
+                         #   + resolveSpec(FormulaSpec) for declarative config
+    engine.ts            # Calculator engine: resolves inline formula fn OR registry key;
+                         #   supports PackagingInfo (auto-convert qty → packs), RoundingRule
+    shopping.ts          # ShoppingListGenerator (packs/purchaseUnit aware)
     budget.ts            # BudgetEstimator class
+    index.ts             # Barrel
   warnings/
     resolver.ts          # WarningResolver with condition evaluator map
     difficulty.ts        # Difficulty/risk label+color maps
   content/
     registry.ts          # Auto-assembled job+category registry (single source of truth)
-hooks/                   # TanStack Query data hooks (new — use in new components)
-  useProjects.ts         # useProjects, useProject, useCreateProject, useUpdateProject, ...
-  useShopping.ts         # useShoppingItems, useToggleShoppingItem, useGenerateShoppingList, ...
-  useContent.ts          # useAllJobs, useJob, useJobsByCategory, useJobSearch (synchronous)
-  useCalculator.ts       # useCalculation, useBudgetEstimate, useResolvedWarnings, useFullEstimate
+hooks/                   # TanStack Query data hooks (use in new components)
+  useProjects.ts, useShopping.ts, useContent.ts, useCalculator.ts
+  index.ts               # Barrel
 db/
-  client.ts              # SQLite singleton
-  migrations/            # Versioned migration runner (001_initial.ts)
-  repositories/
-    projects.repo.ts     # Typed project CRUD (no any)
-    shopping.repo.ts     # Typed shopping item CRUD (no any)
-    onboarding.repo.ts   # Onboarding state
-  adapters/
-    sync.adapter.ts      # SyncAdapter interface + NullSyncAdapter
-    supabase.adapter.ts  # SupabaseSyncAdapter (full impl, ready when Supabase creds added)
+  client.ts, migrations/, repositories/, adapters/
+  adapters/sync.adapter.ts      # SyncAdapter interface + NullSyncAdapter
+  adapters/supabase.adapter.ts  # SupabaseSyncAdapter (ready when env vars added)
 context/
-  AppContext.tsx          # Thin wiring layer (repos + features → React state; backward compat)
-data/jobs/               # One file per job group (add new jobs here)
-  paint.ts, walls.ts, flooring.ts, bathroom.ts, finishing.ts, risky.ts
+  AppContext.tsx          # Backward-compat wiring layer (existing screens use this)
+data/jobs/               # ONE FILE PER JOB GROUP — reference impl: paint.ts
+  paint.ts               # CANONICAL REFERENCE: showcases ALL new engine fields
+  walls.ts, flooring.ts, bathroom.ts, finishing.ts, risky.ts
   kitchen.ts, gypsum.ts, windows.ts
-components/ui/           # Reusable UI; index.ts barrel
+  index.ts               # Barrel
+components/ui/           # Reusable UI components; index.ts barrel
 constants/
   colors.ts              # Full color palette incl. all category colors
-  design.ts              # Spacing, Radius, FontSize, etc.
-  app.ts                 # APP_NAME, DB_NAME, CACHE_TTL, LIMITS, SUPABASE_TABLES
+  design.ts, app.ts
 lib/
-  query-client.ts        # TanStack Query client + queryKeys
-  sentry.ts              # Optional Sentry wrapper (graceful no-op without DSN)
-  supabase.ts            # Supabase client factory (lazy, env-gated)
+  query-client.ts, sentry.ts, supabase.ts
 ```
 
 **How to add a new renovation job:**

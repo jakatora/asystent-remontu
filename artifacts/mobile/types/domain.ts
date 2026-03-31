@@ -1,4 +1,4 @@
-// ─── Primitive domain types ────────────────────────────────────────────────
+// ─── Primitive domain types ───────────────────────────────────────────────────
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type RiskLevel = 'low' | 'medium' | 'high';
@@ -7,7 +7,7 @@ export type WarningLevel = 'info' | 'warning' | 'danger';
 export type WarningCondition = 'always' | 'beginner' | 'large-area' | 'high-humidity' | string;
 export type FormulaKey = string;
 
-// ─── Category ──────────────────────────────────────────────────────────────
+// ─── Category ─────────────────────────────────────────────────────────────────
 
 export interface RenovationCategory {
   readonly id: string;
@@ -18,8 +18,12 @@ export interface RenovationCategory {
   readonly jobCount: number;
 }
 
-// ─── Measurement input ─────────────────────────────────────────────────────
+// ─── Measurement input ────────────────────────────────────────────────────────
 
+/**
+ * Basic measurement input (backward-compatible).
+ * For richer type info use `MeasurementInputDefinition` from types/engine.
+ */
 export interface MeasurementInput {
   readonly id: string;
   readonly label: string;
@@ -27,25 +31,52 @@ export interface MeasurementInput {
   readonly placeholder: string;
   readonly min?: number;
   readonly max?: number;
+  readonly step?: number;
+  readonly defaultValue?: number;
   readonly hint?: string;
   readonly required?: boolean;
 }
 
-// ─── Material ──────────────────────────────────────────────────────────────
+// ─── Material item ────────────────────────────────────────────────────────────
 
+import type { FormulaFn } from './calculator';
+import type {
+  RoundingRule,
+  PackagingInfo,
+  VisibilityMode,
+  MessLevel,
+  SafetyEquipment,
+  StepGuide,
+  DryingTime,
+  CostRule,
+  MaterialRequirement,
+  ToolRequirement,
+  MeasurementInputDefinition,
+} from './engine';
+
+/**
+ * Basic material definition (backward-compatible).
+ * For richer control use `MaterialRequirement` from types/engine.
+ */
 export interface MaterialItem {
   readonly id: string;
   readonly name: string;
   readonly unit: string;
+  readonly purchaseUnit?: string;
   readonly formulaKey: FormulaKey;
+  /** Inline formula (overrides formulaKey if provided). */
+  readonly formula?: FormulaFn;
   readonly pricePerUnit: number;
   readonly wasteFactor?: number;
+  readonly roundingRule?: RoundingRule;
+  readonly packaging?: PackagingInfo;
   readonly notes?: string;
   readonly brand?: string;
   readonly category?: string;
+  readonly optional?: boolean;
 }
 
-// ─── Tool ──────────────────────────────────────────────────────────────────
+// ─── Tool item ────────────────────────────────────────────────────────────────
 
 export interface ToolItem {
   readonly id: string;
@@ -53,10 +84,13 @@ export interface ToolItem {
   readonly icon: string;
   readonly required: boolean;
   readonly rentable?: boolean;
+  readonly estimatedRentCostPLN?: number;
+  readonly estimatedBuyCostPLN?: number;
   readonly notes?: string;
+  readonly safetyNote?: string;
 }
 
-// ─── Instruction step ──────────────────────────────────────────────────────
+// ─── Instruction step ─────────────────────────────────────────────────────────
 
 export interface InstructionStep {
   readonly step: number;
@@ -65,10 +99,14 @@ export interface InstructionStep {
   readonly tip?: string;
   readonly warning?: string;
   readonly durationMin: number;
+  readonly durationMaxMin?: number;
   readonly requiresTool?: string;
+  readonly requiresMaterial?: string;
+  /** Mini checklist of things to verify before moving on. */
+  readonly checkpoints?: readonly string[];
 }
 
-// ─── Warning rule ──────────────────────────────────────────────────────────
+// ─── Warning rule ─────────────────────────────────────────────────────────────
 
 export interface WarningRule {
   readonly condition: WarningCondition;
@@ -76,7 +114,7 @@ export interface WarningRule {
   readonly level: WarningLevel;
 }
 
-// ─── Quality check ─────────────────────────────────────────────────────────
+// ─── Quality check ────────────────────────────────────────────────────────────
 
 export interface QualityCheck {
   readonly id: string;
@@ -84,30 +122,95 @@ export interface QualityCheck {
   readonly critical?: boolean;
 }
 
-// ─── Renovation job ────────────────────────────────────────────────────────
+// ─── Renovation job ───────────────────────────────────────────────────────────
 
 export interface RenovationJob {
+  // ── Identity ──────────────────────────────────────────────────────────────
   readonly id: string;
+  /** URL-safe slug, e.g. "malowanie-scian". Defaults to id if not provided. */
+  readonly slug?: string;
   readonly categoryId: string;
+  readonly subcategory?: string;
+
+  // ── Display ───────────────────────────────────────────────────────────────
   readonly name: string;
+  /** Legacy full description (used in existing job files). */
   readonly description: string;
+  /** ≤ 100 chars — shown in job list cards. */
+  readonly shortDescription?: string;
+  /** Plain-language explanation for complete beginners. */
+  readonly beginnerFriendlyDescription?: string;
+  readonly coverIcon: string;
+
+  // ── Classification ────────────────────────────────────────────────────────
   readonly difficulty: Difficulty;
   readonly riskLevel: RiskLevel;
+  /**
+   * Controls what the app shows:
+   *  safe_diy     — all steps, full guidance
+   *  caution      — steps shown with prominent warnings
+   *  overview_only — no step guide; recommend professional
+   */
+  readonly visibilityMode?: VisibilityMode;
+
+  // ── Estimates ─────────────────────────────────────────────────────────────
+  /** Approximate duration in working days for a DIY beginner. */
   readonly estimatedDays: number;
-  readonly coverIcon: string;
+  /** How messy this job gets: 1=low, 2=moderate, 3=heavy (dust, debris, fumes). */
+  readonly estimatedMessLevel?: MessLevel;
+
+  // ── Warnings & safety ─────────────────────────────────────────────────────
   readonly warningRules: readonly WarningRule[];
-  readonly measurementInputs: readonly MeasurementInput[];
-  readonly materials: readonly MaterialItem[];
-  readonly tools: readonly ToolItem[];
+  readonly safetyEquipment?: readonly SafetyEquipment[];
+
+  // ── Measurement inputs ────────────────────────────────────────────────────
+  /**
+   * Measurement inputs — use `MeasurementInputDefinition[]` for rich type info,
+   * or `MeasurementInput[]` for backward compat. Both are assignable.
+   */
+  readonly measurementInputs: readonly (MeasurementInput | MeasurementInputDefinition)[];
+
+  // ── Materials & tools ─────────────────────────────────────────────────────
+  /**
+   * Use `MaterialRequirement[]` for new jobs (supports inline formulas, packaging,
+   * rounding). `MaterialItem[]` accepted for backward compat.
+   */
+  readonly materials: readonly (MaterialItem | MaterialRequirement)[];
+
+  /**
+   * Use `ToolRequirement[]` for new jobs. `ToolItem[]` accepted for backward compat.
+   */
+  readonly tools: readonly (ToolItem | ToolRequirement)[];
+
+  // ── Steps ─────────────────────────────────────────────────────────────────
+  /** Legacy step list (existing job files). New jobs should use workSteps + preparationSteps. */
   readonly instructions: readonly InstructionStep[];
+  /** Rich preparation steps (new). */
+  readonly preparationSteps?: readonly StepGuide[];
+  /** Rich main work steps (new). */
+  readonly workSteps?: readonly StepGuide[];
+  /** Cleanup instructions after work is done. */
+  readonly cleanupSteps?: readonly string[];
+  /** Drying/waiting times between steps. */
+  readonly dryingTimes?: readonly DryingTime[];
+
+  // ── Quality ───────────────────────────────────────────────────────────────
   readonly commonMistakes: readonly string[];
   readonly qualityChecklist: readonly QualityCheck[];
+
+  // ── Cost ──────────────────────────────────────────────────────────────────
+  /** Supplemental cost rules (labor rates, rental costs, etc.). */
+  readonly costRules?: readonly CostRule[];
+
+  // ── Professional ──────────────────────────────────────────────────────────
   readonly hireProfessionalRecommended: boolean;
   readonly hireProfessionalReason?: string;
+
+  // ── Metadata ──────────────────────────────────────────────────────────────
   readonly tags?: readonly string[];
 }
 
-// ─── Project ───────────────────────────────────────────────────────────────
+// ─── Project ──────────────────────────────────────────────────────────────────
 
 export interface Project {
   readonly id: string;
@@ -126,11 +229,13 @@ export interface Project {
   readonly syncedAt?: string;
 }
 
-// ─── Calculation ───────────────────────────────────────────────────────────
+// ─── Calculation ──────────────────────────────────────────────────────────────
 
 export interface MaterialLineItem {
-  readonly material: MaterialItem;
+  readonly material: MaterialItem | MaterialRequirement;
   readonly quantity: number;
+  /** Quantity converted to purchase units (packages), if packaging is defined. */
+  readonly packs?: number;
   readonly cost: number;
 }
 
@@ -143,7 +248,7 @@ export interface CalculationResult {
   readonly warnings: readonly WarningRule[];
 }
 
-// ─── Shopping ──────────────────────────────────────────────────────────────
+// ─── Shopping ─────────────────────────────────────────────────────────────────
 
 export interface ShoppingItem {
   readonly id: string;
@@ -152,13 +257,16 @@ export interface ShoppingItem {
   readonly name: string;
   readonly quantity: number;
   readonly unit: string;
+  /** How many packs/bags/tubes to actually buy. */
+  readonly packs?: number;
+  readonly purchaseUnit?: string;
   readonly estimatedPrice: number;
   readonly purchased: boolean;
   readonly notes?: string;
   readonly createdAt: string;
 }
 
-// ─── Budget ────────────────────────────────────────────────────────────────
+// ─── Budget ───────────────────────────────────────────────────────────────────
 
 export interface BudgetEstimate {
   readonly materialsMin: number;
