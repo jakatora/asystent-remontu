@@ -22,8 +22,9 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 Production-ready, scalable renovation assistant app for Polish users. Offline-first, Polish language, beginner-friendly.
 
 **Features:**
-- 22+ renovation jobs across 13 categories (paint, walls, flooring, bathroom, kitchen, gypsum/drywall, windows, doors, electrical, plumbing)
-- Calculates material quantities and costs (with waste factor) from user measurements
+- 30+ renovation jobs across 20 categories (paint, walls, flooring, bathroom, kitchen, gypsum/drywall, windows, doors, electrical, plumbing)
+- Calculates material quantities and costs (with waste factor + packaging) from user measurements
+- `calculateDetailed()` generates per-material Polish explanations of every formula step
 - Auto-generates shopping lists from calculation results
 - Step-by-step instructions with tips and warnings per step
 - Clearly warns about high-risk work and recommends professionals
@@ -79,9 +80,12 @@ context/
   AppContext.tsx          # Backward-compat wiring layer (existing screens use this)
 data/jobs/               # ONE FILE PER JOB GROUP — reference impl: paint.ts
   paint.ts               # CANONICAL REFERENCE: showcases ALL new engine fields
-  walls.ts, flooring.ts, bathroom.ts, finishing.ts, risky.ts
-  kitchen.ts, gypsum.ts, windows.ts
-  index.ts               # Barrel
+  walls.ts               # primer, repaint, wall-repair, skim-coat, wallpaper-install, wallpaper-remove
+  flooring.ts            # underlay, laminate, vinyl-click, vinyl-glued, floor-tiles, skirting-boards
+  bathroom.ts            # waterproofing, wall-tiles-bathroom, grout-only, silicone-sealing
+  windows.ts             # window-sealing, windowsill, paint-frames, trim-finishing
+  finishing.ts, risky.ts, kitchen.ts, gypsum.ts
+  index.ts               # Barrel → re-exports from features/content/registry.ts
 components/ui/           # Reusable UI components; index.ts barrel
 constants/
   colors.ts              # Full color palette incl. all category colors

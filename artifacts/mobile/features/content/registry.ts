@@ -4,15 +4,17 @@ import type { RenovationJob, RenovationCategory } from '@/types/domain';
 // Adding a new renovation type = one new job file + one entry here.
 // No app screen changes needed.
 
-import { paintJob, paintCeilingJob }                    from '@/data/jobs/paint';
-import { primerJob, wallRepairJob, skimCoatJob }         from '@/data/jobs/walls';
-import { laminateJob, vinylJob, floorTilesJob }          from '@/data/jobs/flooring';
-import { waterproofingJob, siliconeJob }                 from '@/data/jobs/bathroom';
-import { wallpaperJob, skirtingJob, doorsJob }           from '@/data/jobs/finishing';
-import { minorPlumbingJob, electricalOverviewJob, highRiskJob } from '@/data/jobs/risky';
-import { backsplashTilesJob, countertopInstallJob }      from '@/data/jobs/kitchen';
-import { gypsumWallJob, gypsumCeilingJob }               from '@/data/jobs/gypsum';
-import { windowSealingJob, windowsillJob }               from '@/data/jobs/windows';
+import { paintJob, paintCeilingJob }                                          from '@/data/jobs/paint';
+import { primerJob, wallRepairJob, skimCoatJob,
+         repaintJob, wallpaperInstallJob, wallpaperRemoveJob }                from '@/data/jobs/walls';
+import { underlayJob, laminateJob, vinylJob, vinylGluedJob,
+         floorTilesJob, skirtingBoardsJob }                                   from '@/data/jobs/flooring';
+import { waterproofingJob, bathroomWallTilesJob, groutJob, siliconeJob }      from '@/data/jobs/bathroom';
+import { wallpaperJob, doorsJob }                                             from '@/data/jobs/finishing';
+import { minorPlumbingJob, electricalOverviewJob, highRiskJob }               from '@/data/jobs/risky';
+import { backsplashTilesJob, countertopInstallJob }                           from '@/data/jobs/kitchen';
+import { gypsumWallJob, gypsumCeilingJob }                                    from '@/data/jobs/gypsum';
+import { windowSealingJob, windowsillJob, paintFramesJob, trimFinishingJob }  from '@/data/jobs/windows';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // THE SINGLE SOURCE OF TRUTH FOR ALL RENOVATION JOBS
@@ -20,34 +22,42 @@ import { windowSealingJob, windowsillJob }               from '@/data/jobs/windo
 // ─────────────────────────────────────────────────────────────────────────────
 
 const JOB_REGISTRY: readonly RenovationJob[] = Object.freeze([
-  // Painting
+  // ── Painting & walls ──────────────────────────────────────────────────────
   paintJob,
   paintCeilingJob,
-  // Walls
+  repaintJob,
   primerJob,
   wallRepairJob,
   skimCoatJob,
-  // Wallpaper & finishing
-  wallpaperJob,
-  skirtingJob,
-  doorsJob,
-  // Flooring
+  // ── Wallpaper ─────────────────────────────────────────────────────────────
+  wallpaperJob,          // legacy (id: 'wallpaper') — kept for existing saved projects
+  wallpaperInstallJob,   // rich (id: 'wallpaper-install')
+  wallpaperRemoveJob,
+  // ── Flooring ──────────────────────────────────────────────────────────────
+  underlayJob,
   laminateJob,
   vinylJob,
+  vinylGluedJob,
   floorTilesJob,
-  // Bathroom
+  skirtingBoardsJob,     // replaces old skirtingJob (same id: 'skirting-boards')
+  // ── Bathroom & wet areas ───────────────────────────────────────────────────
   waterproofingJob,
+  bathroomWallTilesJob,
+  groutJob,
   siliconeJob,
-  // Kitchen
+  // ── Kitchen ──────────────────────────────────────────────────────────────
   backsplashTilesJob,
   countertopInstallJob,
-  // Gypsum / drywall
+  // ── Gypsum / drywall ────────────────────────────────────────────────────
   gypsumWallJob,
   gypsumCeilingJob,
-  // Windows
+  // ── Doors & windows ──────────────────────────────────────────────────────
   windowSealingJob,
   windowsillJob,
-  // Risky / specialist
+  paintFramesJob,
+  trimFinishingJob,
+  doorsJob,
+  // ── Risky / specialist ────────────────────────────────────────────────────
   minorPlumbingJob,
   electricalOverviewJob,
   highRiskJob,
@@ -62,14 +72,14 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
   {
     id: 'paint',
     name: 'Malowanie',
-    description: 'Malowanie ścian i sufitów',
+    description: 'Malowanie i przemalowanie ścian i sufitów',
     icon: 'droplet',
     color: Colors.categoryPaint,
   },
   {
     id: 'primer',
     name: 'Gruntowanie',
-    description: 'Przygotowanie powierzchni pod malowanie',
+    description: 'Przygotowanie powierzchni pod malowanie lub tapety',
     icon: 'layers',
     color: Colors.categoryWall,
   },
@@ -90,13 +100,20 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
   {
     id: 'wallpaper',
     name: 'Tapetowanie',
-    description: 'Naklejanie tapet na ściany',
+    description: 'Naklejanie i zrywanie tapet',
     icon: 'image',
     color: Colors.categoryPaint,
   },
   {
+    id: 'underlay',
+    name: 'Podkład podłogowy',
+    description: 'Podkład i folia przed panelami',
+    icon: 'layers',
+    color: Colors.categoryFloor,
+  },
+  {
     id: 'laminate',
-    name: 'Panele podłogowe',
+    name: 'Panele laminowane',
     description: 'Układanie paneli laminowanych',
     icon: 'grid',
     color: Colors.categoryFloor,
@@ -104,16 +121,23 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
   {
     id: 'vinyl',
     name: 'Panele winylowe',
-    description: 'Układanie paneli winylowych LVT/SPC',
+    description: 'Panele winylowe LVT/SPC i wykładziny klejone',
     icon: 'square',
     color: Colors.categoryFloor,
   },
   {
     id: 'floor-tiles',
     name: 'Płytki podłogowe',
-    description: 'Układanie płytek ceramicznych',
+    description: 'Układanie płytek ceramicznych na podłodze',
     icon: 'grid',
     color: Colors.categoryFloor,
+  },
+  {
+    id: 'skirting',
+    name: 'Listwy przypodłogowe',
+    description: 'Montaż listew przypodłogowych',
+    icon: 'align-left',
+    color: Colors.categoryDoors,
   },
   {
     id: 'waterproofing',
@@ -123,9 +147,23 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
     color: Colors.categoryBath,
   },
   {
+    id: 'wall-tiles',
+    name: 'Płytki ścienne',
+    description: 'Układanie płytek ceramicznych na ścianach',
+    icon: 'grid',
+    color: Colors.categoryBath,
+  },
+  {
+    id: 'grout',
+    name: 'Fugowanie',
+    description: 'Wypełnianie spoin między płytkami',
+    icon: 'grid',
+    color: Colors.categoryBath,
+  },
+  {
     id: 'silicone',
     name: 'Silikonowanie',
-    description: 'Uszczelnianie fug silikonem',
+    description: 'Uszczelnianie fug silikonem sanitarnym',
     icon: 'minus',
     color: Colors.categoryBath,
   },
@@ -145,21 +183,14 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
   },
   {
     id: 'windows',
-    name: 'Okna i parapety',
-    description: 'Uszczelnianie okien i montaż parapetów',
+    name: 'Okna, drzwi i parapety',
+    description: 'Uszczelnianie, malowanie i wykończenie okien i drzwi',
     icon: 'wind',
     color: Colors.categoryWindows,
   },
   {
-    id: 'skirting',
-    name: 'Listwy przypodłogowe',
-    description: 'Montaż listew przypodłogowych',
-    icon: 'align-left',
-    color: Colors.categoryDoors,
-  },
-  {
     id: 'doors',
-    name: 'Drzwi i ościeżnice',
+    name: 'Drzwi wewnętrzne',
     description: 'Montaż drzwi wewnętrznych',
     icon: 'home',
     color: Colors.categoryDoors,

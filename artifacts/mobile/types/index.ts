@@ -70,3 +70,12 @@ export type {
 } from './user';
 
 export { DEFAULT_USER_PREFERENCES } from './user';
+
+export type {
+  MaterialExplanationContext,
+  MaterialExplanationFn,
+  MaterialExplanation,
+  MaterialLineItemDetail,
+  CalculationResultDetail,
+  JobCalculatorConfig,
+} from './calculation';
