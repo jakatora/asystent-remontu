@@ -11,10 +11,22 @@ import { underlayJob, laminateJob, vinylJob, vinylGluedJob,
          floorTilesJob, skirtingBoardsJob }                                   from '@/data/jobs/flooring';
 import { waterproofingJob, bathroomWallTilesJob, groutJob, siliconeJob }      from '@/data/jobs/bathroom';
 import { wallpaperJob, doorsJob }                                             from '@/data/jobs/finishing';
-import { minorPlumbingJob, electricalOverviewJob, highRiskJob }               from '@/data/jobs/risky';
-import { backsplashTilesJob, countertopInstallJob }                           from '@/data/jobs/kitchen';
+import { minorPlumbingJob, electricalOverviewJob, highRiskJob,
+         gasInstallationJob, structuralDemolitionJob, mainElectricalJob,
+         roofRepairJob, chimneyWorkJob }                                      from '@/data/jobs/risky';
+import { backsplashTilesJob, countertopInstallJob,
+         kitchenCabinetPaintJob, kitchenHardwareJob,
+         kitchenHoodJob }                                                     from '@/data/jobs/kitchen';
 import { gypsumWallJob, gypsumCeilingJob }                                    from '@/data/jobs/gypsum';
 import { windowSealingJob, windowsillJob, paintFramesJob, trimFinishingJob }  from '@/data/jobs/windows';
+import { shelfMountingJob, curtainRodJob, bathroomAccessoriesJob,
+         mirrorInstallJob, furnitureAssemblyJob,
+         pictureHangingJob }                                                  from '@/data/jobs/fixtures';
+import { doorPaintingJob, doorHandleReplaceJob, doorSealReplaceJob,
+         toiletSeatReplaceJob, sinkTrapReplaceJob, drainUnblockJob,
+         lightFixtureJob, socketFrameReplaceJob,
+         siliconeRefreshJob }                                                 from '@/data/jobs/small-repairs';
+import { selfLevelingJob, epoxFloorJob, parquetSandingJob }                  from '@/data/jobs/floor-prep';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // THE SINGLE SOURCE OF TRUTH FOR ALL RENOVATION JOBS
@@ -40,14 +52,22 @@ const JOB_REGISTRY: readonly RenovationJob[] = Object.freeze([
   vinylGluedJob,
   floorTilesJob,
   skirtingBoardsJob,     // replaces old skirtingJob (same id: 'skirting-boards')
+  // ── Floor preparation ─────────────────────────────────────────────────────
+  selfLevelingJob,
+  epoxFloorJob,
+  parquetSandingJob,
   // ── Bathroom & wet areas ───────────────────────────────────────────────────
   waterproofingJob,
   bathroomWallTilesJob,
   groutJob,
   siliconeJob,
+  siliconeRefreshJob,
   // ── Kitchen ──────────────────────────────────────────────────────────────
   backsplashTilesJob,
   countertopInstallJob,
+  kitchenCabinetPaintJob,
+  kitchenHardwareJob,
+  kitchenHoodJob,
   // ── Gypsum / drywall ────────────────────────────────────────────────────
   gypsumWallJob,
   gypsumCeilingJob,
@@ -57,9 +77,30 @@ const JOB_REGISTRY: readonly RenovationJob[] = Object.freeze([
   paintFramesJob,
   trimFinishingJob,
   doorsJob,
+  doorPaintingJob,
+  doorHandleReplaceJob,
+  doorSealReplaceJob,
+  // ── Fixtures & small mounting ─────────────────────────────────────────────
+  shelfMountingJob,
+  curtainRodJob,
+  bathroomAccessoriesJob,
+  mirrorInstallJob,
+  furnitureAssemblyJob,
+  pictureHangingJob,
+  // ── Small repairs ─────────────────────────────────────────────────────────
+  toiletSeatReplaceJob,
+  sinkTrapReplaceJob,
+  drainUnblockJob,
+  lightFixtureJob,
+  socketFrameReplaceJob,
   // ── Risky / specialist ────────────────────────────────────────────────────
   minorPlumbingJob,
   electricalOverviewJob,
+  gasInstallationJob,
+  structuralDemolitionJob,
+  mainElectricalJob,
+  roofRepairJob,
+  chimneyWorkJob,
   highRiskJob,
 ]);
 
@@ -133,6 +174,13 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
     color: Colors.categoryFloor,
   },
   {
+    id: 'floor-prep',
+    name: 'Przygotowanie podłoży',
+    description: 'Wylewki samopoziomujące, epoksyd, cyklinowanie',
+    icon: 'layers',
+    color: Colors.categoryFloor,
+  },
+  {
     id: 'skirting',
     name: 'Listwy przypodłogowe',
     description: 'Montaż listew przypodłogowych',
@@ -169,8 +217,8 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
   },
   {
     id: 'kitchen-tiles',
-    name: 'Kuchnia — płytki i blaty',
-    description: 'Backsplash, blaty i wykończenie kuchni',
+    name: 'Kuchnia — płytki i wykończenie',
+    description: 'Backsplash, blaty, szafki i akcesoria kuchenne',
     icon: 'coffee',
     color: Colors.categoryKitchen,
   },
@@ -183,36 +231,43 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
   },
   {
     id: 'windows',
-    name: 'Okna, drzwi i parapety',
-    description: 'Uszczelnianie, malowanie i wykończenie okien i drzwi',
+    name: 'Okna i parapety',
+    description: 'Uszczelnianie, malowanie i wykończenie okien',
     icon: 'wind',
     color: Colors.categoryWindows,
   },
   {
     id: 'doors',
     name: 'Drzwi wewnętrzne',
-    description: 'Montaż drzwi wewnętrznych',
+    description: 'Montaż, malowanie i naprawa drzwi wewnętrznych',
     icon: 'home',
+    color: Colors.categoryDoors,
+  },
+  {
+    id: 'fixtures',
+    name: 'Drobne montaże',
+    description: 'Półki, karniszе, lustra, meble i dekoracje',
+    icon: 'anchor',
     color: Colors.categoryDoors,
   },
   {
     id: 'plumbing',
     name: 'Prosta hydraulika',
-    description: 'Wymiana kranów, uszczelek, syfonu',
+    description: 'Wymiana kranów, uszczelek, syfonu, udrożnianie',
     icon: 'droplet',
     color: Colors.categoryPlumbing,
   },
   {
     id: 'electrical',
     name: 'Instalacja elektryczna',
-    description: 'Wymiana gniazdek i wyłączników',
+    description: 'Wymiana gniazdek, wyłączników i opraw',
     icon: 'zap',
     color: Colors.categoryElectric,
   },
   {
     id: 'high-risk',
     name: 'Prace niebezpieczne',
-    description: 'Prąd, gaz, konstrukcja — tylko fachowiec',
+    description: 'Prąd, gaz, konstrukcja, dach — tylko fachowiec',
     icon: 'alert-triangle',
     color: Colors.danger,
   },
