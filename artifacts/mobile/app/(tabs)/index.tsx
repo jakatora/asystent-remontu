@@ -1,22 +1,15 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
 import { useApp } from '@/context/AppContext';
 import { CATEGORIES } from '@/data/categories';
 import { ProjectCard } from '@/components/ProjectCard';
 import { CategoryCard } from '@/components/CategoryCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { Txt } from '@/components/ui/Txt';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -26,72 +19,73 @@ export default function HomeScreen() {
   const activeCount = projects.filter((p) => p.status === 'in-progress').length;
   const completedCount = projects.filter((p) => p.status === 'completed').length;
 
-  const topPadding = Platform.OS === 'web' ? 67 : insets.top;
-  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+  const topPad = Platform.OS === 'web' ? 67 : insets.top;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   return (
     <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={{ paddingTop: topPadding + 16, paddingBottom: bottomPadding }}
+      className="flex-1 bg-bg"
+      contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.headerContainer}>
+      {/* Header */}
+      <View className="flex-row justify-between items-center px-5 mb-5">
         <View>
-          <Text style={styles.greeting}>Remont Asystent</Text>
-          <Text style={styles.subGreeting}>Czym dziś się zajmiemy?</Text>
+          <Txt w="bold" className="text-[26px] text-ink">Remont Asystent</Txt>
+          <Txt className="text-[15px] text-slate mt-0.5">Czym dziś się zajmiemy?</Txt>
         </View>
         <TouchableOpacity
-          style={styles.newProjectBtn}
+          className="w-[46px] h-[46px] rounded-full bg-primary items-center justify-center"
           onPress={() => router.push('/wizard')}
           activeOpacity={0.8}
           testID="new-project-btn"
+          style={{ shadowColor: '#F97316', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }}
         >
-          <Feather name="plus" size={22} color={Colors.white} />
+          <Feather name="plus" size={22} color="#fff" />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.statsRow}>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>{projects.length}</Text>
-          <Text style={styles.statLabel}>Projekty</Text>
+      {/* Stats */}
+      <View className="flex-row gap-2.5 px-5 mb-5">
+        <View className="flex-1 bg-surface rounded-2xl p-3.5 border border-stroke items-center">
+          <Txt w="bold" className="text-2xl text-ink">{projects.length}</Txt>
+          <Txt className="text-[11px] text-muted text-center mt-0.5">Projekty</Txt>
         </View>
-        <View style={[styles.statCard, styles.statCardOrange]}>
-          <Text style={[styles.statNumber, { color: Colors.primary }]}>{activeCount}</Text>
-          <Text style={styles.statLabel}>W trakcie</Text>
+        <View className="flex-1 bg-surface rounded-2xl p-3.5 border border-primary-light items-center">
+          <Txt w="bold" className="text-2xl text-primary">{activeCount}</Txt>
+          <Txt className="text-[11px] text-muted text-center mt-0.5">W trakcie</Txt>
         </View>
-        <View style={[styles.statCard, styles.statCardGreen]}>
-          <Text style={[styles.statNumber, { color: Colors.success }]}>{completedCount}</Text>
-          <Text style={styles.statLabel}>Ukończone</Text>
+        <View className="flex-1 bg-surface rounded-2xl p-3.5 items-center" style={{ borderWidth: 1, borderColor: '#bbf7d0' }}>
+          <Txt w="bold" className="text-2xl text-success">{completedCount}</Txt>
+          <Txt className="text-[11px] text-muted text-center mt-0.5">Ukończone</Txt>
         </View>
       </View>
 
+      {/* Quick start banner */}
       <TouchableOpacity
-        style={styles.quickStartBanner}
+        className="mx-5 mb-6 bg-primary-bg rounded-2xl p-[18px] flex-row items-center border border-primary-light"
         onPress={() => router.push('/wizard')}
         activeOpacity={0.85}
         testID="quick-start-banner"
       >
-        <View style={styles.quickStartLeft}>
-          <Text style={styles.quickStartTitle}>Nowy projekt remontu</Text>
-          <Text style={styles.quickStartSub}>Wybierz rodzaj pracy i zacznij</Text>
+        <View className="flex-1">
+          <Txt w="bold" className="text-base text-primary-dark">Nowy projekt remontu</Txt>
+          <Txt className="text-[13px] text-primary mt-0.5">Wybierz rodzaj pracy i zacznij</Txt>
         </View>
-        <View style={styles.quickStartIcon}>
-          <Feather name="arrow-right" size={22} color={Colors.primary} />
+        <View className="w-10 h-10 rounded-full bg-white items-center justify-center">
+          <Feather name="arrow-right" size={22} color="#F97316" />
         </View>
       </TouchableOpacity>
 
-      <View style={styles.section}>
+      {/* Recent projects */}
+      <View className="px-5 mb-6">
         <SectionHeader
           title="Twoje projekty"
           actionLabel={projects.length > 3 ? 'Wszystkie' : undefined}
           onAction={() => router.push('/(tabs)/projects')}
         />
         {recentProjects.length === 0 ? (
-          <EmptyState
-            icon="folder"
-            title="Brak projektów"
-            description="Naciśnij + aby dodać pierwszy projekt remontu"
-          />
+          <EmptyState icon="folder" title="Brak projektów" description="Naciśnij + aby dodać pierwszy projekt remontu" />
         ) : (
           recentProjects.map((p) => (
             <ProjectCard
@@ -103,13 +97,14 @@ export default function HomeScreen() {
         )}
       </View>
 
-      <View style={styles.section}>
+      {/* Categories */}
+      <View className="px-5 mb-6">
         <SectionHeader
           title="Rodzaje prac"
           actionLabel="Wszystkie"
           onAction={() => router.push('/(tabs)/explore')}
         />
-        <View style={styles.categoriesGrid}>
+        <View className="flex-row flex-wrap gap-3">
           {CATEGORIES.slice(0, 6).map((cat) => (
             <CategoryCard
               key={cat.id}
@@ -122,67 +117,3 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: Colors.background },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 20,
-  },
-  greeting: { fontSize: 26, fontFamily: 'Inter_700Bold', color: Colors.text },
-  subGreeting: { fontSize: 15, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, marginTop: 2 },
-  newProjectBtn: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: Colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  statsRow: { flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 20 },
-  statCard: {
-    flex: 1,
-    backgroundColor: Colors.surface,
-    borderRadius: 14,
-    padding: 14,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    alignItems: 'center',
-  },
-  statCardOrange: { borderColor: Colors.primaryLight },
-  statCardGreen: { borderColor: '#bbf7d0' },
-  statNumber: { fontSize: 24, fontFamily: 'Inter_700Bold', color: Colors.text },
-  statLabel: { fontSize: 11, fontFamily: 'Inter_400Regular', color: Colors.textMuted, textAlign: 'center', marginTop: 2 },
-  quickStartBanner: {
-    marginHorizontal: 20,
-    marginBottom: 24,
-    backgroundColor: Colors.primaryBg,
-    borderRadius: 16,
-    padding: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.primaryLight,
-  },
-  quickStartLeft: { flex: 1 },
-  quickStartTitle: { fontSize: 16, fontFamily: 'Inter_700Bold', color: Colors.primaryDark },
-  quickStartSub: { fontSize: 13, fontFamily: 'Inter_400Regular', color: Colors.primary, marginTop: 2 },
-  quickStartIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  section: { paddingHorizontal: 20, marginBottom: 24 },
-  categoriesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-});

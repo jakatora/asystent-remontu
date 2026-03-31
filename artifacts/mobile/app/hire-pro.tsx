@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Linking,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { useLocalSearchParams, router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
 import { getJobById } from '@/data/jobs';
+import { Txt } from '@/components/ui/Txt';
 
 const TIPS = [
   {
@@ -52,8 +44,7 @@ export default function HireProScreen() {
   const { jobId } = useLocalSearchParams<{ jobId?: string }>();
   const insets = useSafeAreaInsets();
   const job = jobId ? getJobById(jobId) : null;
-
-  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 16;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
 
   return (
     <>
@@ -61,131 +52,64 @@ export default function HireProScreen() {
         options={{
           title: 'Zatrudnij fachowca',
           headerBackTitle: 'Wróć',
-          headerStyle: { backgroundColor: Colors.background },
-          headerTintColor: Colors.text,
+          headerStyle: { backgroundColor: '#F8FAFC' },
+          headerTintColor: '#0F172A',
           headerShadowVisible: false,
         }}
       />
       <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{ paddingBottom: bottomPadding }}
+        className="flex-1 bg-bg"
+        contentContainerStyle={{ paddingBottom: bottomPad }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Warning Header */}
-        <View style={styles.warningHeader}>
-          <View style={styles.warningIconContainer}>
-            <Feather name="shield" size={40} color={Colors.danger} />
+        {/* Warning header */}
+        <View className="bg-danger-bg p-8 items-center border-b border-red-200">
+          <View className="w-[88px] h-[88px] rounded-full bg-red-100 items-center justify-center mb-4">
+            <Feather name="shield" size={40} color="#EF4444" />
           </View>
-          <Text style={styles.warningTitle}>Ta praca wymaga fachowca</Text>
+          <Txt w="bold" className="text-[22px] text-danger text-center mb-2">Ta praca wymaga fachowca</Txt>
           {job?.hireProfessionalReason && (
-            <Text style={styles.warningDesc}>{job.hireProfessionalReason}</Text>
+            <Txt className="text-[15px] text-red-700 text-center leading-6">{job.hireProfessionalReason}</Txt>
           )}
         </View>
 
-        <View style={styles.content}>
+        <View className="p-5 gap-4">
           {TIPS.map((tip, ti) => (
-            <View key={ti} style={styles.tipCard}>
-              <View style={styles.tipHeader}>
-                <View style={styles.tipIcon}>
-                  <Feather name={tip.icon} size={20} color={Colors.primary} />
+            <View key={ti} className="bg-surface rounded-2xl p-[18px] border border-stroke gap-3">
+              <View className="flex-row items-center gap-3">
+                <View className="w-10 h-10 rounded-xl bg-primary-bg items-center justify-center">
+                  <Feather name={tip.icon} size={20} color="#F97316" />
                 </View>
-                <Text style={styles.tipTitle}>{tip.title}</Text>
+                <Txt w="bold" className="flex-1 text-base text-ink">{tip.title}</Txt>
               </View>
               {tip.items.map((item, ii) => (
-                <View key={ii} style={styles.tipItem}>
-                  <View style={styles.dot} />
-                  <Text style={styles.tipItemText}>{item}</Text>
+                <View key={ii} className="flex-row gap-2.5 items-start">
+                  <View className="w-1.5 h-1.5 rounded-full bg-primary mt-[7px] shrink-0" />
+                  <Txt className="flex-1 text-sm text-slate leading-5">{item}</Txt>
                 </View>
               ))}
             </View>
           ))}
 
-          <View style={styles.emergencyCard}>
-            <Feather name="phone-call" size={20} color={Colors.danger} />
-            <View style={styles.emergencyText}>
-              <Text style={styles.emergencyTitle}>Nagłe przypadki</Text>
-              <Text style={styles.emergencyDesc}>Awaria gazu, zalanie, brak prądu</Text>
+          {/* Emergency */}
+          <View className="flex-row items-center gap-3.5 bg-danger-bg rounded-2xl p-4 border border-red-200">
+            <Feather name="phone-call" size={20} color="#EF4444" />
+            <View className="flex-1">
+              <Txt w="bold" className="text-[15px] text-danger">Nagłe przypadki</Txt>
+              <Txt className="text-[13px] text-red-700 mt-0.5">Awaria gazu, zalanie, brak prądu</Txt>
             </View>
           </View>
 
           <TouchableOpacity
-            style={styles.backBtn}
+            className="bg-primary rounded-2xl py-4 items-center"
             onPress={() => router.back()}
             activeOpacity={0.8}
+            style={{ shadowColor: '#F97316', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }}
           >
-            <Text style={styles.backBtnText}>Wróć do projektu</Text>
+            <Txt w="bold" className="text-base text-white">Wróć do projektu</Txt>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: Colors.background },
-  warningHeader: {
-    backgroundColor: Colors.dangerBg,
-    padding: 32,
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#fca5a5',
-  },
-  warningIconContainer: {
-    width: 88,
-    height: 88,
-    borderRadius: 44,
-    backgroundColor: '#fee2e2',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  warningTitle: { fontSize: 22, fontFamily: 'Inter_700Bold', color: Colors.danger, textAlign: 'center', marginBottom: 8 },
-  warningDesc: { fontSize: 15, fontFamily: 'Inter_400Regular', color: '#b91c1c', textAlign: 'center', lineHeight: 22 },
-  content: { padding: 20, gap: 16 },
-  tipCard: {
-    backgroundColor: Colors.surface,
-    borderRadius: 16,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    gap: 12,
-  },
-  tipHeader: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  tipIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: Colors.primaryBg,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tipTitle: { flex: 1, fontSize: 16, fontFamily: 'Inter_700Bold', color: Colors.text },
-  tipItem: { flexDirection: 'row', gap: 10, alignItems: 'flex-start' },
-  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: Colors.primary, marginTop: 7, flexShrink: 0 },
-  tipItemText: { flex: 1, fontSize: 14, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, lineHeight: 20 },
-  emergencyCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-    backgroundColor: Colors.dangerBg,
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: '#fca5a5',
-  },
-  emergencyText: { flex: 1 },
-  emergencyTitle: { fontSize: 15, fontFamily: 'Inter_700Bold', color: Colors.danger },
-  emergencyDesc: { fontSize: 13, fontFamily: 'Inter_400Regular', color: '#b91c1c', marginTop: 2 },
-  backBtn: {
-    backgroundColor: Colors.primary,
-    borderRadius: 14,
-    paddingVertical: 16,
-    alignItems: 'center',
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  backBtnText: { fontSize: 16, fontFamily: 'Inter_700Bold', color: Colors.white },
-});

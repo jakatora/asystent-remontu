@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, Platform } from 'react-native';
 import { useLocalSearchParams, router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
 import { CATEGORIES } from '@/data/categories';
 import { getJobsByCategory } from '@/data/jobs';
 import { JobCard } from '@/components/JobCard';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { Txt } from '@/components/ui/Txt';
 
 export default function CategoryScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -21,16 +15,17 @@ export default function CategoryScreen() {
 
   const category = CATEGORIES.find((c) => c.id === id);
   const jobs = getJobsByCategory(id || '');
-
-  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 16;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
 
   if (!category) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.notFound}>Nie znaleziono kategorii</Text>
+      <View className="flex-1 items-center justify-center bg-bg">
+        <Txt w="medium" className="text-base text-slate">Nie znaleziono kategorii</Txt>
       </View>
     );
   }
+
+  const jobWord = jobs.length === 1 ? 'rodzaj pracy' : 'rodzaje prac';
 
   return (
     <>
@@ -38,28 +33,32 @@ export default function CategoryScreen() {
         options={{
           title: category.name,
           headerBackTitle: 'Wróć',
-          headerStyle: { backgroundColor: Colors.background },
-          headerTintColor: Colors.text,
+          headerStyle: { backgroundColor: '#F8FAFC' },
+          headerTintColor: '#0F172A',
           headerShadowVisible: false,
         }}
       />
       <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{ paddingBottom: bottomPadding }}
+        className="flex-1 bg-bg"
+        contentContainerStyle={{ paddingBottom: bottomPad }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={[styles.hero, { backgroundColor: category.color + '15' }]}>
-          <View style={[styles.heroIcon, { backgroundColor: category.color + '25' }]}>
+        {/* Hero */}
+        <View className="items-center py-8 px-6 mb-2" style={{ backgroundColor: category.color + '15' }}>
+          <View
+            className="w-20 h-20 items-center justify-center mb-4"
+            style={{ borderRadius: 24, backgroundColor: category.color + '25' }}
+          >
             <Feather name={category.icon as any} size={36} color={category.color} />
           </View>
-          <Text style={styles.heroTitle}>{category.name}</Text>
-          <Text style={styles.heroDesc}>{category.description}</Text>
-          <View style={styles.jobCount}>
-            <Text style={styles.jobCountText}>{jobs.length} {jobs.length === 1 ? 'rodzaj pracy' : 'rodzaje prac'}</Text>
+          <Txt w="bold" className="text-2xl text-ink mb-2 text-center">{category.name}</Txt>
+          <Txt className="text-[15px] text-slate text-center mb-3">{category.description}</Txt>
+          <View className="px-4 py-1.5 rounded-full bg-white">
+            <Txt w="semibold" className="text-[13px] text-slate">{jobs.length} {jobWord}</Txt>
           </View>
         </View>
 
-        <View style={styles.content}>
+        <View className="px-5 pt-4">
           {jobs.length === 0 ? (
             <EmptyState icon="tool" title="Brak dostępnych prac" description="Wkrótce dodamy więcej rodzajów prac." />
           ) : (
@@ -76,33 +75,3 @@ export default function CategoryScreen() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: Colors.background },
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.background },
-  notFound: { fontSize: 16, fontFamily: 'Inter_500Medium', color: Colors.textSecondary },
-  hero: {
-    alignItems: 'center',
-    paddingVertical: 32,
-    paddingHorizontal: 24,
-    marginBottom: 8,
-  },
-  heroIcon: {
-    width: 80,
-    height: 80,
-    borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  heroTitle: { fontSize: 24, fontFamily: 'Inter_700Bold', color: Colors.text, marginBottom: 8, textAlign: 'center' },
-  heroDesc: { fontSize: 15, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, textAlign: 'center', marginBottom: 12 },
-  jobCount: {
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 20,
-    backgroundColor: Colors.white,
-  },
-  jobCountText: { fontSize: 13, fontFamily: 'Inter_600SemiBold', color: Colors.textSecondary },
-  content: { paddingHorizontal: 20, paddingTop: 16 },
-});

@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Colors } from '@/constants/colors';
+import { View, TouchableOpacity } from 'react-native';
+import { Txt } from './Txt';
 
 interface SectionHeaderProps {
   title: string;
@@ -11,42 +11,16 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ title, subtitle, actionLabel, onAction }: SectionHeaderProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.textGroup}>
-        <Text style={styles.title}>{title}</Text>
-        {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+    <View className="flex-row items-end justify-between mb-3">
+      <View className="flex-1">
+        <Txt w="bold" className="text-xl text-ink">{title}</Txt>
+        {subtitle && <Txt className="text-sm text-slate mt-0.5">{subtitle}</Txt>}
       </View>
       {actionLabel && onAction && (
         <TouchableOpacity onPress={onAction}>
-          <Text style={styles.action}>{actionLabel}</Text>
+          <Txt w="semibold" className="text-sm text-primary">{actionLabel}</Txt>
         </TouchableOpacity>
       )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  textGroup: { flex: 1 },
-  title: {
-    fontSize: 20,
-    fontFamily: 'Inter_700Bold',
-    color: Colors.text,
-  },
-  subtitle: {
-    fontSize: 14,
-    fontFamily: 'Inter_400Regular',
-    color: Colors.textSecondary,
-    marginTop: 2,
-  },
-  action: {
-    fontSize: 14,
-    fontFamily: 'Inter_600SemiBold',
-    color: Colors.primary,
-  },
-});

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
+import { Txt } from './Txt';
 
 interface EmptyStateProps {
   icon: string;
@@ -11,44 +11,14 @@ interface EmptyStateProps {
 
 export function EmptyState({ icon, title, description }: EmptyStateProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Feather name={icon as any} size={32} color={Colors.textMuted} />
+    <View className="items-center justify-center p-10">
+      <View className="w-18 h-18 rounded-full bg-surface-alt items-center justify-center mb-4" style={{ width: 72, height: 72, borderRadius: 36 }}>
+        <Feather name={icon as any} size={32} color="#94A3B8" />
       </View>
-      <Text style={styles.title}>{title}</Text>
-      {description && <Text style={styles.description}>{description}</Text>}
+      <Txt w="semibold" className="text-lg text-slate text-center mb-2">{title}</Txt>
+      {description && (
+        <Txt className="text-sm text-muted text-center leading-5" style={{ maxWidth: 280 }}>{description}</Txt>
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 40,
-  },
-  iconContainer: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    backgroundColor: Colors.surfaceAlt,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 18,
-    fontFamily: 'Inter_600SemiBold',
-    color: Colors.textSecondary,
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 14,
-    fontFamily: 'Inter_400Regular',
-    color: Colors.textMuted,
-    textAlign: 'center',
-    lineHeight: 20,
-    maxWidth: 280,
-  },
-});

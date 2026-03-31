@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, TextInput, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
 import { CATEGORIES } from '@/data/categories';
 import { CategoryCard } from '@/components/CategoryCard';
+import { Txt } from '@/components/ui/Txt';
 
 export default function ExploreScreen() {
   const insets = useSafeAreaInsets();
@@ -23,32 +16,36 @@ export default function ExploreScreen() {
     c.description.toLowerCase().includes(search.toLowerCase())
   );
 
-  const topPadding = Platform.OS === 'web' ? 67 : insets.top;
-  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+  const topPad = Platform.OS === 'web' ? 67 : insets.top;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   return (
     <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={{ paddingTop: topPadding + 16, paddingBottom: bottomPadding }}
+      className="flex-1 bg-bg"
+      contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.header}>
-        <Text style={styles.title}>Odkryj prace remontowe</Text>
-        <Text style={styles.subtitle}>Wybierz kategorię żeby zobaczyć szczegóły</Text>
+      <View className="px-5 mb-4">
+        <Txt w="bold" className="text-[26px] text-ink">Odkryj prace remontowe</Txt>
+        <Txt className="text-[15px] text-slate mt-1">Wybierz kategorię żeby zobaczyć szczegóły</Txt>
       </View>
 
-      <View style={styles.searchContainer}>
-        <Feather name="search" size={18} color={Colors.textMuted} style={styles.searchIcon} />
+      <View className="flex-row items-center bg-surface mx-5 mb-5 rounded-2xl border border-stroke px-3.5 h-12">
+        <Feather name="search" size={18} color="#94A3B8" style={{ marginRight: 10 }} />
         <TextInput
-          style={styles.searchInput}
+          className="flex-1 text-[15px] text-ink"
           placeholder="Szukaj rodzaju pracy..."
-          placeholderTextColor={Colors.textMuted}
+          placeholderTextColor="#94A3B8"
           value={search}
           onChangeText={setSearch}
+          style={{ fontFamily: 'Inter_400Regular' }}
         />
+        {search.length > 0 && (
+          <Feather name="x" size={16} color="#94A3B8" onPress={() => setSearch('')} />
+        )}
       </View>
 
-      <View style={styles.grid}>
+      <View className="flex-row flex-wrap gap-3 px-5">
         {filtered.map((cat) => (
           <CategoryCard
             key={cat.id}
@@ -59,40 +56,11 @@ export default function ExploreScreen() {
       </View>
 
       {filtered.length === 0 && (
-        <View style={styles.empty}>
-          <Feather name="search" size={32} color={Colors.textMuted} />
-          <Text style={styles.emptyText}>Brak wyników dla "{search}"</Text>
+        <View className="items-center pt-10 gap-3">
+          <Feather name="search" size={32} color="#94A3B8" />
+          <Txt w="medium" className="text-[15px] text-muted">Brak wyników dla "{search}"</Txt>
         </View>
       )}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: Colors.background },
-  header: { paddingHorizontal: 20, marginBottom: 16 },
-  title: { fontSize: 26, fontFamily: 'Inter_700Bold', color: Colors.text },
-  subtitle: { fontSize: 15, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, marginTop: 4 },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.surface,
-    marginHorizontal: 20,
-    marginBottom: 20,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingHorizontal: 14,
-    height: 48,
-  },
-  searchIcon: { marginRight: 10 },
-  searchInput: {
-    flex: 1,
-    fontSize: 15,
-    fontFamily: 'Inter_400Regular',
-    color: Colors.text,
-  },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, paddingHorizontal: 20 },
-  empty: { alignItems: 'center', paddingTop: 40, gap: 12 },
-  emptyText: { fontSize: 15, fontFamily: 'Inter_500Medium', color: Colors.textMuted },
-});

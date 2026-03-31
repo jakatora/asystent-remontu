@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '@/constants/colors';
+import { View } from 'react-native';
+import { Txt } from './Txt';
 
 type BadgeVariant = 'easy' | 'medium' | 'hard' | 'low' | 'high' | 'warning' | 'info' | 'success';
 
@@ -9,40 +9,22 @@ interface BadgeProps {
   variant?: BadgeVariant;
 }
 
+const variantClasses: Record<BadgeVariant, { bg: string; text: string }> = {
+  easy:    { bg: 'bg-success-bg',  text: 'text-success' },
+  medium:  { bg: 'bg-warning-bg',  text: 'text-warning' },
+  hard:    { bg: 'bg-danger-bg',   text: 'text-danger' },
+  low:     { bg: 'bg-success-bg',  text: 'text-success' },
+  high:    { bg: 'bg-danger-bg',   text: 'text-danger' },
+  warning: { bg: 'bg-warning-bg',  text: 'text-warning' },
+  info:    { bg: 'bg-info-bg',     text: 'text-info' },
+  success: { bg: 'bg-success-bg',  text: 'text-success' },
+};
+
 export function Badge({ label, variant = 'info' }: BadgeProps) {
+  const cls = variantClasses[variant];
   return (
-    <View style={[styles.badge, styles[`bg_${variant}`]]}>
-      <Text style={[styles.text, styles[`text_${variant}`]]}>{label}</Text>
+    <View className={`px-3 py-1 rounded-full self-start ${cls.bg}`}>
+      <Txt w="semibold" className={`text-xs ${cls.text}`}>{label}</Txt>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  badge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 20,
-    alignSelf: 'flex-start',
-  },
-  text: {
-    fontSize: 12,
-    fontFamily: 'Inter_600SemiBold',
-  },
-  bg_easy: { backgroundColor: Colors.successBg },
-  bg_medium: { backgroundColor: Colors.warningBg },
-  bg_hard: { backgroundColor: Colors.dangerBg },
-  bg_low: { backgroundColor: Colors.successBg },
-  bg_high: { backgroundColor: Colors.dangerBg },
-  bg_warning: { backgroundColor: Colors.warningBg },
-  bg_info: { backgroundColor: Colors.infoBg },
-  bg_success: { backgroundColor: Colors.successBg },
-
-  text_easy: { color: Colors.success },
-  text_medium: { color: Colors.warning },
-  text_hard: { color: Colors.danger },
-  text_low: { color: Colors.success },
-  text_high: { color: Colors.danger },
-  text_warning: { color: Colors.warning },
-  text_info: { color: Colors.info },
-  text_success: { color: Colors.success },
-});

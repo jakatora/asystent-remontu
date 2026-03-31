@@ -1,46 +1,35 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
-import { Colors } from '@/constants/colors';
+import { View, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface CardProps {
   children: React.ReactNode;
   style?: ViewStyle;
   onPress?: () => void;
   padding?: 'none' | 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
-export function Card({ children, style, onPress, padding = 'md' }: CardProps) {
-  const inner = (
-    <View style={[styles.card, styles[`padding_${padding}`], style]}>
-      {children}
-    </View>
-  );
+const paddingClasses = {
+  none: '',
+  sm:   'p-3',
+  md:   'p-4',
+  lg:   'p-5',
+};
+
+export function Card({ children, style, onPress, padding = 'md', className = '' }: CardProps) {
+  const base = `bg-surface rounded-2xl border border-stroke ${paddingClasses[padding]} ${className}`;
 
   if (onPress) {
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
-        {inner}
+      <TouchableOpacity onPress={onPress} activeOpacity={0.8} className={base} style={style}>
+        {children}
       </TouchableOpacity>
     );
   }
 
-  return inner;
+  return (
+    <View className={base} style={style}>
+      {children}
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: Colors.surface,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  padding_none: { padding: 0 },
-  padding_sm: { padding: 12 },
-  padding_md: { padding: 16 },
-  padding_lg: { padding: 20 },
-});

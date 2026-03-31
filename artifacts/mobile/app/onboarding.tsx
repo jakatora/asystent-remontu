@@ -1,18 +1,10 @@
 import React, { useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Dimensions,
-  Animated,
-  Platform,
-} from 'react-native';
+import { View, Animated, FlatList, Dimensions, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
 import { Button } from '@/components/ui/Button';
+import { Txt } from '@/components/ui/Txt';
 import { useApp } from '@/context/AppContext';
 
 const { width } = Dimensions.get('window');
@@ -23,28 +15,28 @@ const SLIDES = [
     icon: 'home',
     title: 'Witaj w Remont Asystent',
     description: 'Twój przewodnik po remontach. Prowadzimy Cię krok po kroku — nawet jeśli nigdy nie robiłeś remontu.',
-    color: Colors.primary,
+    color: '#F97316',
   },
   {
     id: '2',
     icon: 'list',
     title: 'Oblicz ile materiałów potrzebujesz',
     description: 'Podaj wymiary — my obliczymy ile farby, paneli czy kleju kupić. Zero zgadywania.',
-    color: Colors.info,
+    color: '#3B82F6',
   },
   {
     id: '3',
     icon: 'shopping-cart',
     title: 'Lista zakupów w jednym miejscu',
     description: 'Gotowa lista wszystkiego co potrzebujesz. Odhaczaj produkty w sklepie — nic nie zapomnisz.',
-    color: Colors.success,
+    color: '#22C55E',
   },
   {
     id: '4',
     icon: 'alert-triangle',
     title: 'Bezpieczeństwo na pierwszym miejscu',
     description: 'Wyraźnie zaznaczymy kiedy praca jest niebezpieczna i kiedy lepiej zadzwonić do fachowca.',
-    color: Colors.warning,
+    color: '#F59E0B',
   },
 ];
 
@@ -72,13 +64,16 @@ export default function OnboardingScreen() {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom + 24 }]}>
-      <View style={styles.skipRow}>
-        {!isLast && (
-          <Button label="Pomiń" variant="ghost" size="sm" onPress={handleSkip} />
-        )}
+    <View
+      className="flex-1 bg-bg"
+      style={{ paddingTop: Platform.OS === 'web' ? 0 : insets.top, paddingBottom: insets.bottom + 24 }}
+    >
+      {/* Skip */}
+      <View className="px-4 items-end justify-center" style={{ height: 48 }}>
+        {!isLast && <Button label="Pomiń" variant="ghost" size="sm" onPress={handleSkip} />}
       </View>
 
+      {/* Slides */}
       <Animated.FlatList
         ref={flatListRef}
         data={SLIDES}
@@ -92,39 +87,36 @@ export default function OnboardingScreen() {
           setCurrentIndex(idx);
         }}
         renderItem={({ item }) => (
-          <View style={[styles.slide, { width }]}>
-            <View style={[styles.iconCircle, { backgroundColor: item.color + '18' }]}>
+          <View style={{ width }} className="items-center justify-center px-8 flex-1">
+            <View
+              className="items-center justify-center mb-10"
+              style={{ width: 140, height: 140, borderRadius: 70, backgroundColor: item.color + '18' }}
+            >
               <Feather name={item.icon as any} size={60} color={item.color} />
             </View>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+            <Txt w="bold" className="text-[26px] text-ink text-center mb-4" style={{ lineHeight: 34 }}>{item.title}</Txt>
+            <Txt className="text-base text-slate text-center leading-6">{item.description}</Txt>
           </View>
         )}
       />
 
-      <View style={styles.dotsRow}>
+      {/* Dots */}
+      <View className="flex-row justify-center gap-1.5 mb-8">
         {SLIDES.map((_, i) => {
           const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
-          const dotWidth = scrollX.interpolate({
-            inputRange,
-            outputRange: [8, 24, 8],
-            extrapolate: 'clamp',
-          });
-          const opacity = scrollX.interpolate({
-            inputRange,
-            outputRange: [0.3, 1, 0.3],
-            extrapolate: 'clamp',
-          });
+          const dotWidth = scrollX.interpolate({ inputRange, outputRange: [8, 24, 8], extrapolate: 'clamp' });
+          const opacity = scrollX.interpolate({ inputRange, outputRange: [0.3, 1, 0.3], extrapolate: 'clamp' });
           return (
             <Animated.View
               key={i}
-              style={[styles.dot, { width: dotWidth, opacity, backgroundColor: Colors.primary }]}
+              style={{ width: dotWidth, height: 8, borderRadius: 4, opacity, backgroundColor: '#F97316' }}
             />
           );
         })}
       </View>
 
-      <View style={styles.buttonContainer}>
+      {/* Button */}
+      <View className="px-6">
         <Button
           label={isLast ? 'Zacznij korzystać' : 'Dalej'}
           onPress={handleNext}
@@ -136,58 +128,3 @@ export default function OnboardingScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  skipRow: {
-    paddingHorizontal: 16,
-    alignItems: 'flex-end',
-    height: 48,
-    justifyContent: 'center',
-  },
-  slide: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 32,
-    flex: 1,
-  },
-  iconCircle: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 40,
-  },
-  title: {
-    fontSize: 26,
-    fontFamily: 'Inter_700Bold',
-    color: Colors.text,
-    textAlign: 'center',
-    marginBottom: 16,
-    lineHeight: 34,
-  },
-  description: {
-    fontSize: 16,
-    fontFamily: 'Inter_400Regular',
-    color: Colors.textSecondary,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-  dotsRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 6,
-    marginBottom: 32,
-  },
-  dot: {
-    height: 8,
-    borderRadius: 4,
-  },
-  buttonContainer: {
-    paddingHorizontal: 24,
-  },
-});

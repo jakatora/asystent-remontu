@@ -1,200 +1,200 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, TouchableOpacity, Alert, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/colors';
 import { useApp } from '@/context/AppContext';
+import { isSupabaseConfigured } from '@/lib/supabase';
+import { isSentryConfigured } from '@/lib/sentry';
+import { Txt } from '@/components/ui/Txt';
 
 interface SettingRowProps {
   icon: string;
   title: string;
   subtitle?: string;
   onPress?: () => void;
-  tint?: string;
+  iconColor?: string;
+  iconBg?: string;
   danger?: boolean;
+  badge?: string;
 }
 
-function SettingRow({ icon, title, subtitle, onPress, tint = Colors.primary, danger = false }: SettingRowProps) {
+function SettingRow({ icon, title, subtitle, onPress, iconColor = '#F97316', iconBg = '#FFF7ED', danger = false, badge }: SettingRowProps) {
+  const color = danger ? '#EF4444' : iconColor;
+  const bg = danger ? '#FEF2F2' : iconBg;
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={onPress ? 0.7 : 1}
-      style={styles.settingRow}
+      className="flex-row items-center p-3.5 gap-3.5"
     >
-      <View style={[styles.settingIcon, { backgroundColor: (danger ? Colors.danger : tint) + '18' }]}>
-        <Feather name={icon as any} size={18} color={danger ? Colors.danger : tint} />
+      <View className="w-[38px] h-[38px] rounded-[10px] items-center justify-center" style={{ backgroundColor: bg }}>
+        <Feather name={icon as any} size={18} color={color} />
       </View>
-      <View style={styles.settingText}>
-        <Text style={[styles.settingTitle, danger && { color: Colors.danger }]}>{title}</Text>
-        {subtitle && <Text style={styles.settingSubtitle}>{subtitle}</Text>}
+      <View className="flex-1">
+        <Txt w="medium" className="text-[15px]" style={{ color: danger ? '#EF4444' : '#0F172A' }}>{title}</Txt>
+        {subtitle && <Txt className="text-xs text-muted mt-0.5">{subtitle}</Txt>}
       </View>
-      {onPress && <Feather name="chevron-right" size={18} color={Colors.textMuted} />}
+      {badge && (
+        <View className="px-2 py-0.5 rounded-full bg-success-bg">
+          <Txt w="semibold" className="text-xs text-success">{badge}</Txt>
+        </View>
+      )}
+      {onPress && <Feather name="chevron-right" size={18} color="#94A3B8" />}
     </TouchableOpacity>
   );
+}
+
+function Divider() {
+  return <View className="h-px bg-stroke-light" style={{ marginLeft: 66 }} />;
 }
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const { projects } = useApp();
 
-  const topPadding = Platform.OS === 'web' ? 67 : insets.top;
-  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+  const topPad = Platform.OS === 'web' ? 67 : insets.top;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const handleAbout = () => {
     Alert.alert(
       'Remont Asystent',
-      'Wersja 1.0.0\n\nTwój przewodnik po remontach. Prowadzi krok po kroku, oblicza materiały i pomaga zaplanować każdy remont.',
+      'Wersja 1.0.0\n\nTwój przewodnik po remontach. Prowadzi krok po kroku, oblicza materiały i pomaga zaplanować każdy remont.\n\nDane przechowywane lokalnie na urządzeniu.',
       [{ text: 'OK' }]
+    );
+  };
+
+  const handleHelp = () => {
+    Alert.alert(
+      'Jak korzystać z aplikacji',
+      '1. Wybierz kategorię pracy z listy\n2. Podaj wymiary pomieszczenia\n3. Aplikacja obliczy potrzebne materiały\n4. Skorzystaj z listy zakupów\n5. Śledź postęp projektu',
+      [{ text: 'Rozumiem' }]
+    );
+  };
+
+  const handleSafety = () => {
+    Alert.alert(
+      'Zasady bezpieczeństwa',
+      '⚠️ Przed każdą pracą:\n\n• Przy elektryce — zawsze wyłącz bezpiecznik\n• Przy hydraulice — zakręć wodę\n• Przy gazie lub nośnych ścianach — zadzwoń do fachowca\n• Używaj okularów i rękawic ochronnych\n• Czytaj instrukcje produktów',
+      [{ text: 'Rozumiem' }]
     );
   };
 
   return (
     <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={{ paddingTop: topPadding + 16, paddingBottom: bottomPadding }}
+      className="flex-1 bg-bg"
+      contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.header}>
-        <Text style={styles.title}>Ustawienia</Text>
+      <View className="px-5 mb-4">
+        <Txt w="bold" className="text-[26px] text-ink">Ustawienia</Txt>
       </View>
 
-      <View style={styles.profileCard}>
-        <View style={styles.profileIcon}>
-          <Feather name="home" size={28} color={Colors.primary} />
+      {/* Profile card */}
+      <View className="flex-row items-center gap-3.5 mx-5 mb-6 bg-surface rounded-2xl p-4 border border-stroke">
+        <View className="w-14 h-14 rounded-full bg-primary-bg items-center justify-center">
+          <Feather name="home" size={28} color="#F97316" />
         </View>
         <View>
-          <Text style={styles.profileName}>Remont Asystent</Text>
-          <Text style={styles.profileSub}>{projects.length} projektów zapisanych</Text>
+          <Txt w="bold" className="text-[18px] text-ink">Remont Asystent</Txt>
+          <Txt className="text-[13px] text-slate mt-0.5">{projects.length} projektów zapisanych</Txt>
         </View>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Dane</Text>
-        <View style={styles.sectionCard}>
+      {/* Dane */}
+      <View className="px-5 mb-6">
+        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Dane</Txt>
+        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
           <SettingRow
             icon="folder"
             title="Moje projekty"
             subtitle={`${projects.length} projektów w pamięci urządzenia`}
-            tint={Colors.info}
+            iconColor="#3B82F6"
+            iconBg="#EFF6FF"
           />
-          <View style={styles.divider} />
+          <Divider />
           <SettingRow
             icon="shield"
             title="Dane offline"
             subtitle="Wszystkie dane są na Twoim urządzeniu"
-            tint={Colors.success}
+            iconColor="#22C55E"
+            iconBg="#F0FDF4"
+            badge="Aktywne"
           />
         </View>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Aplikacja</Text>
-        <View style={styles.sectionCard}>
+      {/* Sync */}
+      <View className="px-5 mb-6">
+        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Synchronizacja</Txt>
+        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
+          <SettingRow
+            icon="cloud"
+            title="Synchronizacja z chmurą"
+            subtitle={isSupabaseConfigured ? 'Połączone z Supabase' : 'Niedostępne — brak konfiguracji'}
+            iconColor="#3B82F6"
+            iconBg="#EFF6FF"
+          />
+          <Divider />
+          <SettingRow
+            icon="user"
+            title="Konto użytkownika"
+            subtitle="Zaloguj się aby synchronizować projekty"
+            iconColor="#8B5CF6"
+            iconBg="#F5F3FF"
+          />
+        </View>
+      </View>
+
+      {/* Aplikacja */}
+      <View className="px-5 mb-6">
+        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Aplikacja</Txt>
+        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
           <SettingRow
             icon="info"
             title="O aplikacji"
             subtitle="Wersja 1.0.0"
             onPress={handleAbout}
-            tint={Colors.secondary}
+            iconColor="#1E293B"
+            iconBg="#F1F5F9"
           />
-          <View style={styles.divider} />
+          <Divider />
           <SettingRow
             icon="book-open"
             title="Jak korzystać z aplikacji"
             subtitle="Przewodnik po funkcjach"
-            onPress={() => Alert.alert('Pomoc', '1. Wybierz rodzaj pracy z listy\n2. Podaj wymiary\n3. Oblicz potrzebne materiały\n4. Zapisz projekt\n5. Korzystaj z listy zakupów')}
-            tint={Colors.info}
+            onPress={handleHelp}
+            iconColor="#3B82F6"
+            iconBg="#EFF6FF"
+          />
+          <Divider />
+          <SettingRow
+            icon="activity"
+            title="Raportowanie błędów"
+            subtitle={isSentryConfigured ? 'Sentry aktywne' : 'Wyłączone'}
+            iconColor="#F59E0B"
+            iconBg="#FFFBEB"
           />
         </View>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Bezpieczeństwo</Text>
-        <View style={styles.sectionCard}>
+      {/* Bezpieczeństwo */}
+      <View className="px-5 mb-6">
+        <Txt w="semibold" className="text-[13px] text-muted mb-2 uppercase tracking-wide">Bezpieczeństwo</Txt>
+        <View className="bg-surface rounded-2xl border border-stroke overflow-hidden">
           <SettingRow
             icon="alert-triangle"
             title="Zasady bezpieczeństwa"
             subtitle="Ważne informacje przed pracami"
-            onPress={() => Alert.alert(
-              'Bezpieczeństwo',
-              '⚠️ Przed każdą pracą:\n\n• Przy elektryce — zawsze wyłącz bezpiecznik\n• Przy hydraulice — zakręć wodę\n• Przy gazownicy lub nośnych ścianach — zadzwoń do fachowca\n• Używaj sprzętu ochronnego\n• Czytaj instrukcje produktów',
-              [{ text: 'Rozumiem' }]
-            )}
-            tint={Colors.warning}
+            onPress={handleSafety}
+            iconColor="#F59E0B"
+            iconBg="#FFFBEB"
           />
         </View>
       </View>
 
-      <Text style={styles.footer}>Remont Asystent v1.0.0 • Dane offline</Text>
+      <Txt className="text-center text-xs text-muted mb-5">
+        Remont Asystent v1.0.0 • Dane offline
+      </Txt>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: Colors.background },
-  header: { paddingHorizontal: 20, marginBottom: 16 },
-  title: { fontSize: 26, fontFamily: 'Inter_700Bold', color: Colors.text },
-  profileCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 14,
-    marginHorizontal: 20,
-    marginBottom: 24,
-    backgroundColor: Colors.surface,
-    borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: Colors.border,
-  },
-  profileIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: Colors.primaryBg,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  profileName: { fontSize: 18, fontFamily: 'Inter_700Bold', color: Colors.text },
-  profileSub: { fontSize: 13, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, marginTop: 2 },
-  section: { paddingHorizontal: 20, marginBottom: 24 },
-  sectionTitle: { fontSize: 13, fontFamily: 'Inter_600SemiBold', color: Colors.textMuted, marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
-  sectionCard: {
-    backgroundColor: Colors.surface,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    overflow: 'hidden',
-  },
-  settingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 14,
-    gap: 14,
-  },
-  settingIcon: {
-    width: 38,
-    height: 38,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  settingText: { flex: 1 },
-  settingTitle: { fontSize: 15, fontFamily: 'Inter_500Medium', color: Colors.text },
-  settingSubtitle: { fontSize: 12, fontFamily: 'Inter_400Regular', color: Colors.textMuted, marginTop: 2 },
-  divider: { height: 1, backgroundColor: Colors.borderLight, marginLeft: 66 },
-  footer: {
-    textAlign: 'center',
-    fontSize: 12,
-    fontFamily: 'Inter_400Regular',
-    color: Colors.textMuted,
-    marginBottom: 20,
-  },
-});

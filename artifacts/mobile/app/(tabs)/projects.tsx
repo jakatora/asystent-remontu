@@ -1,27 +1,20 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Colors } from '@/constants/colors';
 import { useApp } from '@/context/AppContext';
 import { ProjectCard } from '@/components/ProjectCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
+import { Txt } from '@/components/ui/Txt';
 
 type Filter = 'all' | 'planning' | 'in-progress' | 'completed';
 
 const FILTERS: { id: Filter; label: string }[] = [
-  { id: 'all', label: 'Wszystkie' },
-  { id: 'planning', label: 'Planowanie' },
+  { id: 'all',        label: 'Wszystkie' },
+  { id: 'planning',   label: 'Planowanie' },
   { id: 'in-progress', label: 'W trakcie' },
-  { id: 'completed', label: 'Ukończone' },
+  { id: 'completed',  label: 'Ukończone' },
 ];
 
 export default function ProjectsScreen() {
@@ -31,53 +24,51 @@ export default function ProjectsScreen() {
 
   const filtered = filter === 'all' ? projects : projects.filter((p) => p.status === filter);
 
-  const topPadding = Platform.OS === 'web' ? 67 : insets.top;
-  const bottomPadding = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+  const topPad = Platform.OS === 'web' ? 67 : insets.top;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+
+  const projectWord = projects.length === 1 ? 'projekt' : 'projektów';
 
   return (
     <ScrollView
-      style={styles.scroll}
-      contentContainerStyle={{ paddingTop: topPadding + 16, paddingBottom: bottomPadding }}
+      className="flex-1 bg-bg"
+      contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.header}>
-        <Text style={styles.title}>Twoje projekty</Text>
-        <Text style={styles.subtitle}>{projects.length} {projects.length === 1 ? 'projekt' : 'projektów'}</Text>
+      <View className="px-5 mb-4">
+        <Txt w="bold" className="text-[26px] text-ink">Twoje projekty</Txt>
+        <Txt className="text-[15px] text-slate mt-1">{projects.length} {projectWord}</Txt>
       </View>
 
+      {/* Filters */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.filtersContainer}
-        style={styles.filtersScroll}
+        contentContainerStyle={{ paddingHorizontal: 20, gap: 8 }}
+        className="mb-4"
       >
         {FILTERS.map((f) => (
           <TouchableOpacity
             key={f.id}
             onPress={() => setFilter(f.id)}
-            style={[styles.filterBtn, filter === f.id && styles.filterBtnActive]}
+            className={`px-4 py-2 rounded-full border ${filter === f.id ? 'bg-primary border-primary' : 'bg-surface border-stroke'}`}
           >
-            <Text style={[styles.filterText, filter === f.id && styles.filterTextActive]}>
-              {f.label}
-            </Text>
+            <Txt w="medium" className={`text-sm ${filter === f.id ? 'text-white' : 'text-slate'}`}>{f.label}</Txt>
           </TouchableOpacity>
         ))}
       </ScrollView>
 
-      <View style={styles.list}>
+      {/* List */}
+      <View className="px-5">
         {filtered.length === 0 ? (
-          <View style={styles.emptyWrapper}>
+          <View className="items-center gap-4">
             <EmptyState
               icon="folder"
               title={filter === 'all' ? 'Brak projektów' : 'Brak projektów w tej kategorii'}
               description={filter === 'all' ? 'Zacznij od nowego projektu remontu' : undefined}
             />
             {filter === 'all' && (
-              <Button
-                label="Utwórz pierwszy projekt"
-                onPress={() => router.push('/wizard')}
-                size="md"
-              />
+              <Button label="Utwórz pierwszy projekt" onPress={() => router.push('/wizard')} />
             )}
           </View>
         ) : (
@@ -93,28 +84,3 @@ export default function ProjectsScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  scroll: { flex: 1, backgroundColor: Colors.background },
-  header: { paddingHorizontal: 20, marginBottom: 16 },
-  title: { fontSize: 26, fontFamily: 'Inter_700Bold', color: Colors.text },
-  subtitle: { fontSize: 15, fontFamily: 'Inter_400Regular', color: Colors.textSecondary, marginTop: 4 },
-  filtersScroll: { marginBottom: 16 },
-  filtersContainer: { paddingHorizontal: 20, gap: 8 },
-  filterBtn: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: Colors.surface,
-    borderWidth: 1,
-    borderColor: Colors.border,
-  },
-  filterBtnActive: {
-    backgroundColor: Colors.primary,
-    borderColor: Colors.primary,
-  },
-  filterText: { fontSize: 14, fontFamily: 'Inter_500Medium', color: Colors.textSecondary },
-  filterTextActive: { color: Colors.white },
-  list: { paddingHorizontal: 20 },
-  emptyWrapper: { alignItems: 'center', gap: 16 },
-});

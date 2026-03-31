@@ -1,14 +1,12 @@
 import React from 'react';
 import {
   TouchableOpacity,
-  Text,
-  StyleSheet,
   ActivityIndicator,
   View,
   Platform,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { Colors } from '@/constants/colors';
+import { Txt } from './Txt';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -25,6 +23,34 @@ interface ButtonProps {
   fullWidth?: boolean;
   testID?: string;
 }
+
+const variantStyle: Record<ButtonVariant, string> = {
+  primary:   'bg-primary',
+  secondary: 'bg-slate-800',
+  outline:   'bg-transparent border-[1.5px] border-primary',
+  ghost:     'bg-transparent',
+  danger:    'bg-danger',
+};
+
+const textStyle: Record<ButtonVariant, string> = {
+  primary:   'text-white',
+  secondary: 'text-white',
+  outline:   'text-primary',
+  ghost:     'text-primary',
+  danger:    'text-white',
+};
+
+const sizeStyle: Record<ButtonSize, string> = {
+  sm: 'px-4 py-2.5 rounded-xl',
+  md: 'px-6 py-4 rounded-2xl',
+  lg: 'px-7 py-[18px] rounded-2xl',
+};
+
+const textSizeStyle: Record<ButtonSize, string> = {
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
+};
 
 export function Button({
   label,
@@ -51,88 +77,19 @@ export function Button({
       onPress={handlePress}
       disabled={disabled || loading}
       activeOpacity={0.75}
-      style={[
-        styles.base,
-        styles[`variant_${variant}`],
-        styles[`size_${size}`],
-        fullWidth && styles.fullWidth,
-        (disabled || loading) && styles.disabled,
-      ]}
+      className={`items-center justify-center ${variantStyle[variant]} ${sizeStyle[size]} ${fullWidth ? 'w-full' : ''} ${disabled || loading ? 'opacity-45' : ''}`}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? Colors.white : Colors.primary} size="small" />
+        <ActivityIndicator color={variant === 'primary' ? '#fff' : '#F97316'} size="small" />
       ) : (
-        <View style={styles.content}>
-          {icon && <View style={styles.iconLeft}>{icon}</View>}
-          <Text style={[styles.label, styles[`label_${variant}`], styles[`labelSize_${size}`]]}>
+        <View className="flex-row items-center justify-center">
+          {icon && <View className="mr-2">{icon}</View>}
+          <Txt w="semibold" className={`text-center ${textStyle[variant]} ${textSizeStyle[size]}`}>
             {label}
-          </Text>
-          {iconRight && <View style={styles.iconRight}>{iconRight}</View>}
+          </Txt>
+          {iconRight && <View className="ml-2">{iconRight}</View>}
         </View>
       )}
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  base: {
-    borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  disabled: {
-    opacity: 0.45,
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  iconLeft: { marginRight: 8 },
-  iconRight: { marginLeft: 8 },
-  label: {
-    fontFamily: 'Inter_600SemiBold',
-    textAlign: 'center',
-  },
-
-  variant_primary: {
-    backgroundColor: Colors.primary,
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  variant_secondary: {
-    backgroundColor: Colors.secondary,
-  },
-  variant_outline: {
-    backgroundColor: 'transparent',
-    borderWidth: 1.5,
-    borderColor: Colors.primary,
-  },
-  variant_ghost: {
-    backgroundColor: 'transparent',
-  },
-  variant_danger: {
-    backgroundColor: Colors.danger,
-  },
-
-  label_primary: { color: Colors.white },
-  label_secondary: { color: Colors.white },
-  label_outline: { color: Colors.primary },
-  label_ghost: { color: Colors.primary },
-  label_danger: { color: Colors.white },
-
-  size_sm: { paddingHorizontal: 16, paddingVertical: 10, borderRadius: 10 },
-  size_md: { paddingHorizontal: 24, paddingVertical: 15 },
-  size_lg: { paddingHorizontal: 28, paddingVertical: 18 },
-
-  labelSize_sm: { fontSize: 14 },
-  labelSize_md: { fontSize: 16 },
-  labelSize_lg: { fontSize: 18 },
-});
