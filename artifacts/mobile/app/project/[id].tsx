@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { View, ScrollView, TouchableOpacity, Alert, Platform, Share } from 'react-native';
 import { useLocalSearchParams, router, Stack, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,11 +7,13 @@ import * as ImagePicker from 'expo-image-picker';
 import { useApp } from '@/context/AppContext';
 import { getJobById } from '@/data/jobs';
 import { estimateBudget } from '@/features/calculator/budget';
+import { computePricedBudget } from '@/features/pricing';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { STATUS_LABELS, PHOTO_TYPE_LABELS } from '@/utils/format';
 import type { ShoppingItem, PhotoType, ChecklistItem } from '@/types/domain';
+import type { PriceOverride, PricedBudgetEstimate } from '@/types/pricing';
 import {
   OverviewTab,
   MaterialsTab,
@@ -19,6 +21,7 @@ import {
   GuideTab,
   ShoppingTab,
   PhotosTab,
+  PricingSummary,
   diyAssessment,
   getEffectivePrice,
   getEffectiveQuantity,
@@ -51,6 +54,12 @@ export default function ProjectDetailScreen() {
     getChecklistProgress,
     getProjectActivities,
     logActivity,
+    selectedRegion,
+    selectedQualityTier,
+    setSelectedQualityTier,
+    getProjectOverrides,
+    upsertOverride,
+    resetOverride,
   } = useApp();
 
   const [tab, setTab] = useState<Tab>('overview');
@@ -63,25 +72,28 @@ export default function ProjectDetailScreen() {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const [checklistProgress, setChecklistProgress] = useState({ completed: 0, total: 0 });
   const [activities, setActivities] = useState<import('@/types/domain').ProjectActivity[]>([]);
+  const [priceOverrides, setPriceOverrides] = useState<PriceOverride[]>([]);
 
   const project = projects.find((p) => p.id === id);
   const job = project ? getJobById(project.jobId) : null;
 
   const loadAll = useCallback(async () => {
     if (!id) return;
-    const [items, ph, cl, prog, acts] = await Promise.all([
+    const [items, ph, cl, prog, acts, ovr] = await Promise.all([
       getProjectShoppingItems(id),
       getProjectPhotos(id),
       getProjectChecklist(id),
       getChecklistProgress(id),
       getProjectActivities(id),
+      getProjectOverrides(id),
     ]);
     setShoppingItems(items);
     setPhotos(ph);
     setChecklist(cl);
     setChecklistProgress(prog);
     setActivities(acts);
-  }, [id, getProjectShoppingItems, getProjectPhotos, getProjectChecklist, getChecklistProgress, getProjectActivities]);
+    setPriceOverrides(ovr);
+  }, [id, getProjectShoppingItems, getProjectPhotos, getProjectChecklist, getChecklistProgress, getProjectActivities, getProjectOverrides]);
 
   useFocusEffect(useCallback(() => { loadAll(); }, [loadAll]));
 
@@ -252,7 +264,65 @@ export default function ProjectDetailScreen() {
   const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended);
   const budget = calc ? estimateBudget(job, calc.totalCost) : null;
 
-  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'photos'];
+  const pricedBudget: PricedBudgetEstimate | null = useMemo(() => {
+    if (!calc || !job) return null;
+    try {
+      return computePricedBudget({
+        job,
+        calc,
+        regionCode: selectedRegion,
+        qualityTier: selectedQualityTier,
+        overrides: priceOverrides,
+      });
+    } catch (e) {
+      console.warn('[Pricing] compute error:', e);
+      return null;
+    }
+  }, [job, calc, selectedRegion, selectedQualityTier, priceOverrides]);
+
+  const handleOverrideLabor = async (laborId: string, pricePerUnit: number) => {
+    if (!id) return;
+    try {
+      await upsertOverride(id, 'labor', laborId, pricePerUnit);
+      await loadAll();
+    } catch (e) {
+      console.error('[Pricing] override labor error:', e);
+      Alert.alert('Błąd', 'Nie udało się zapisać ceny robocizny.');
+    }
+  };
+
+  const handleResetLabor = async (laborId: string) => {
+    if (!id) return;
+    try {
+      await resetOverride(id, 'labor', laborId);
+      await loadAll();
+    } catch (e) {
+      console.error('[Pricing] reset labor error:', e);
+    }
+  };
+
+  const handleOverrideMaterial = async (materialId: string, pricePerPackage: number) => {
+    if (!id) return;
+    try {
+      await upsertOverride(id, 'material', materialId, pricePerPackage);
+      await loadAll();
+    } catch (e) {
+      console.error('[Pricing] override material error:', e);
+      Alert.alert('Błąd', 'Nie udało się zapisać ceny materiału.');
+    }
+  };
+
+  const handleResetMaterial = async (materialId: string) => {
+    if (!id) return;
+    try {
+      await resetOverride(id, 'material', materialId);
+      await loadAll();
+    } catch (e) {
+      console.error('[Pricing] reset material error:', e);
+    }
+  };
+
+  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'budget', 'photos'];
 
   const data = {
     project,
@@ -406,6 +476,28 @@ export default function ProjectDetailScreen() {
             onRemoveItem={handleRemoveItem}
             onShare={handleShare}
           />
+        )}
+
+        {tab === 'budget' && calc && pricedBudget && (
+          <PricingSummary
+            estimate={pricedBudget}
+            jobId={job.id}
+            qualityTier={selectedQualityTier}
+            onSelectTier={setSelectedQualityTier}
+            onOverrideLabor={handleOverrideLabor}
+            onResetLabor={handleResetLabor}
+            onOverrideMaterial={handleOverrideMaterial}
+            onResetMaterial={handleResetMaterial}
+          />
+        )}
+
+        {tab === 'budget' && !calc && (
+          <View style={{ alignItems: 'center', paddingVertical: 40, gap: 12 }}>
+            <Feather name="dollar-sign" size={32} color={Colors.textMuted} />
+            <Txt w="medium" style={{ fontSize: 14, color: Colors.textSecondary, textAlign: 'center' }}>
+              Kosztorys będzie dostępny po obliczeniu kalkulacji materiałów.
+            </Txt>
+          </View>
         )}
 
         {tab === 'photos' && (

@@ -75,6 +75,32 @@ export interface ProjectActivityRow {
   created_at: string;
 }
 
+export interface PriceOverrideRow {
+  id: string;
+  project_id: string;
+  target_type: string;
+  target_id: string;
+  override_price: number;
+  notes: string | null;
+  created_at: string;
+}
+
+export interface ProjectPriceSnapshotRow {
+  id: string;
+  project_id: string;
+  region_code: string;
+  quality_tier: string;
+  labor_estimate_min: number;
+  labor_estimate_max: number;
+  material_estimate: number;
+  tools_estimate: number;
+  total_estimate_min: number;
+  total_estimate_max: number;
+  currency: string;
+  snapshot_date: string;
+  created_at: string;
+}
+
 export interface SchemaVersionRow {
   version: number;
   applied_at: string;

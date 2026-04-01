@@ -18,13 +18,16 @@ import type {
   ProjectActivity,
 } from '@/types/domain';
 import type { CalculationResult } from '@/types/domain';
+import type { PriceOverride, QualityTier } from '@/types/pricing';
 import { projectsRepo } from '@/db/repositories/projects.repo';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import { onboardingRepo } from '@/db/repositories/onboarding.repo';
 import { photosRepo } from '@/db/repositories/photos.repo';
 import { checklistRepo } from '@/db/repositories/checklist.repo';
 import { activityRepo } from '@/db/repositories/activity.repo';
+import { priceOverridesRepo } from '@/db/repositories/price-overrides.repo';
 import { generateShoppingItems, generateAllShoppingItems } from '@/features/calculator/shopping';
+import { BASELINE_REGION } from '@/data/prices/regions';
 
 interface AppContextValue {
   readonly projects: Project[];
@@ -61,6 +64,16 @@ interface AppContextValue {
   getProjectActivities: (projectId: string, limit?: number) => Promise<ProjectActivity[]>;
   getRecentActivities: (limit?: number) => Promise<ProjectActivity[]>;
   logActivity: (projectId: string, actionType: ProjectActivity['actionType'], description: string) => Promise<void>;
+
+  readonly selectedRegion: string;
+  readonly selectedQualityTier: QualityTier;
+  setSelectedRegion: (code: string) => void;
+  setSelectedQualityTier: (tier: QualityTier) => void;
+  getProjectOverrides: (projectId: string) => Promise<PriceOverride[]>;
+  upsertOverride: (projectId: string, targetType: PriceOverride['targetType'], targetId: string, price: number, notes?: string) => Promise<string>;
+  removeOverride: (id: string) => Promise<void>;
+  resetOverride: (projectId: string, targetType: PriceOverride['targetType'], targetId: string) => Promise<void>;
+  clearProjectOverrides: (projectId: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -69,6 +82,8 @@ export function AppProvider({ children }: PropsWithChildren) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [onboardingDone, setOnboardingDone] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedRegion, setSelectedRegion] = useState(BASELINE_REGION.code);
+  const [selectedQualityTier, setSelectedQualityTier] = useState<QualityTier>('standard');
 
   useEffect(() => {
     let mounted = true;
@@ -266,6 +281,38 @@ export function AppProvider({ children }: PropsWithChildren) {
     []
   );
 
+  const getProjectOverrides = useCallback(
+    async (projectId: string): Promise<PriceOverride[]> => priceOverridesRepo.findByProject(projectId),
+    []
+  );
+
+  const upsertOverride = useCallback(
+    async (
+      projectId: string,
+      targetType: PriceOverride['targetType'],
+      targetId: string,
+      price: number,
+      notes?: string
+    ): Promise<string> => priceOverridesRepo.upsert(projectId, targetType, targetId, price, notes),
+    []
+  );
+
+  const removeOverride = useCallback(
+    async (id: string): Promise<void> => priceOverridesRepo.remove(id),
+    []
+  );
+
+  const resetOverride = useCallback(
+    async (projectId: string, targetType: PriceOverride['targetType'], targetId: string): Promise<void> =>
+      priceOverridesRepo.removeByTarget(projectId, targetType, targetId),
+    []
+  );
+
+  const clearProjectOverrides = useCallback(
+    async (projectId: string): Promise<void> => priceOverridesRepo.clearProject(projectId),
+    []
+  );
+
   const value: AppContextValue = {
     projects,
     onboardingDone,
@@ -295,6 +342,15 @@ export function AppProvider({ children }: PropsWithChildren) {
     getProjectActivities,
     getRecentActivities,
     logActivity,
+    selectedRegion,
+    selectedQualityTier,
+    setSelectedRegion,
+    setSelectedQualityTier,
+    getProjectOverrides,
+    upsertOverride,
+    removeOverride,
+    resetOverride,
+    clearProjectOverrides,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

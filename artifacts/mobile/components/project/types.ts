@@ -12,7 +12,7 @@ import type {
   BudgetEstimate,
 } from '@/types/domain';
 
-export type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'photos';
+export type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'budget' | 'photos';
 
 export const TAB_LABELS: Record<Tab, string> = {
   overview: 'Przegląd',
@@ -20,6 +20,7 @@ export const TAB_LABELS: Record<Tab, string> = {
   tools: 'Narzędzia',
   guide: 'Instrukcja',
   shopping: 'Zakupy',
+  budget: 'Kosztorys',
   photos: 'Zdjęcia',
 };
 
