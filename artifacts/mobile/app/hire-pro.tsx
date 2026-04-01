@@ -101,12 +101,23 @@ export default function HireProScreen() {
           </View>
 
           <TouchableOpacity
-            className="bg-primary rounded-2xl py-4 items-center"
-            onPress={() => router.back()}
+            className="bg-primary rounded-2xl py-4 items-center mb-3"
+            onPress={() => router.push({
+              pathname: '/contractor',
+              params: jobId ? { prefillCategoryId: job?.categoryId, prefillJobId: jobId, prefillJobName: job?.name } : {},
+            })}
             activeOpacity={0.8}
             style={{ shadowColor: '#F97316', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }}
           >
-            <Txt w="bold" className="text-base text-white">Wróć do projektu</Txt>
+            <Txt w="bold" className="text-base text-white">Znajdź fachowca w aplikacji</Txt>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="bg-surface rounded-2xl py-4 items-center border border-stroke"
+            onPress={() => router.back()}
+            activeOpacity={0.8}
+          >
+            <Txt w="bold" className="text-base text-ink">Wróć do projektu</Txt>
           </TouchableOpacity>
         </View>
       </ScrollView>

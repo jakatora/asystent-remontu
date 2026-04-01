@@ -48,6 +48,14 @@ The project is structured as a pnpm workspace monorepo using Node.js 24 and Type
     - `context/CommerceContext.tsx`: React context providing commerce state (store config, cart drafts, product mappings, checkout handoffs). Provider factory keyed by `selectedCommerceProvider` (currently all route to MockCommerceProvider). Mappings are context-managed and injected into cart/readiness logic.
     - `components/commerce/`: UI components — `MappingStatusChip`, `CartDraftPreview`, `ToolCartToggle`, `CommerceReadinessSummary`, `BundleSuggestionCard`.
     - `types/commerce.ts`: All commerce domain types — `StoreConfig`, `ProductMapping`, `CartDraft`, `CartDraftLine`, `BundleDefinition`, `CheckoutHandoff`, `CommerceProduct`, `CommerceCart`, provider types.
+    - `features/contractor/`: "Find a Contractor" module — mock contractor data (8 profiles), search/filter/sort logic, text search. Pure functions, no side effects.
+    - `types/contractor.ts`: All contractor domain types — `ContractorProfile`, `ContractorRequest`, `ContractorSearchFilters`, `ContractorSortOption`, `ContractorRegistration`, `ContractorPaymentConfig`, listing tiers, budget ranges, request statuses. Payment config is feature-flagged (`enabled: false`).
+    - `context/ContractorContext.tsx`: React context providing contractor state — filtered results, requests (draft/sent), saved contractors, search/filter/sort controls. Persists requests and saves to SQLite via repositories.
+    - `db/migrations/005_contractor.ts`: SQLite tables for `contractor_requests` and `saved_contractors` with indexes.
+    - `db/repositories/contractor-requests.repo.ts`: CRUD for contractor requests with status management.
+    - `db/repositories/saved-contractors.repo.ts`: Save/unsave contractors locally.
+    - `components/contractor/`: UI components — `ContractorCard` (with promoted label, verification badge, specialties, rating), `FilterBar` (filter modal + sort modal), `RequestSummaryCard` (status-colored request cards).
+    - `app/contractor/`: 6 screens — request wizard (8-step: category → room → description → location → date → budget → offers → summary), results list (search + filter + sort), contractor profile (full detail + report + save), send request, my requests (drafts + sent + saved contractors), contractor registration (6-step wizard).
 - **Project Structure**:
     - `app/`: Expo Router screens.
     - `types/`: Core domain, engine, user, calculator, and DB types.

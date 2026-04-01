@@ -208,6 +208,105 @@ export default function HomeScreen() {
         )}
       </View>
 
+      <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 24 }}>
+        <TouchableOpacity
+          onPress={() => router.push('/contractor')}
+          style={{
+            flex: 1,
+            backgroundColor: Colors.surface,
+            borderRadius: 16,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: Colors.border,
+            alignItems: 'center',
+            gap: 8,
+          }}
+          activeOpacity={0.85}
+          accessibilityLabel="Znajdź fachowca"
+          accessibilityRole="button"
+        >
+          <View
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              backgroundColor: Colors.primaryBg,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Feather name="search" size={20} color={Colors.primary} />
+          </View>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
+            Znajdź fachowca
+          </Txt>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push('/contractor/my-requests')}
+          style={{
+            flex: 1,
+            backgroundColor: Colors.surface,
+            borderRadius: 16,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: Colors.border,
+            alignItems: 'center',
+            gap: 8,
+          }}
+          activeOpacity={0.85}
+          accessibilityLabel="Moje zapytania"
+          accessibilityRole="button"
+        >
+          <View
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              backgroundColor: Colors.infoBg,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Feather name="file-text" size={20} color={Colors.info} />
+          </View>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
+            Moje zapytania
+          </Txt>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push('/contractor/register')}
+          style={{
+            flex: 1,
+            backgroundColor: Colors.surface,
+            borderRadius: 16,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: Colors.border,
+            alignItems: 'center',
+            gap: 8,
+          }}
+          activeOpacity={0.85}
+          accessibilityLabel="Dołącz jako fachowiec"
+          accessibilityRole="button"
+        >
+          <View
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              backgroundColor: Colors.successBg,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Feather name="user-plus" size={20} color={Colors.success} />
+          </View>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
+            Jestem fachowcem
+          </Txt>
+        </TouchableOpacity>
+      </View>
+
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
         <SectionHeader
           title="Rodzaje prac"

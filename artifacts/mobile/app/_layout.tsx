@@ -18,6 +18,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AppProvider, useApp } from '@/context/AppContext';
 import { CommerceProvider } from '@/context/CommerceContext';
+import { ContractorProvider } from '@/context/ContractorContext';
 import { LoadingState } from '@/components/ui/LoadingState';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
@@ -71,6 +72,7 @@ function RootLayoutNav() {
       <Stack.Screen name="job/[id]" options={{ headerShown: true }} />
       <Stack.Screen name="project/[id]" options={{ headerShown: true }} />
       <Stack.Screen name="hire-pro" options={{ headerShown: true, presentation: 'modal' }} />
+      <Stack.Screen name="contractor" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );
@@ -100,7 +102,9 @@ export default function RootLayout() {
             <KeyboardProvider>
               <AppProvider>
                 <CommerceProvider>
-                  <RootLayoutNav />
+                  <ContractorProvider>
+                    <RootLayoutNav />
+                  </ContractorProvider>
                 </CommerceProvider>
               </AppProvider>
             </KeyboardProvider>
