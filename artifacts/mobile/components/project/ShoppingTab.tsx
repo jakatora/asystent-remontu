@@ -12,6 +12,7 @@ import { SummaryRow, Divider } from './SummaryRow';
 import { CONTINGENCY_RATE } from './types';
 import { getEffectivePrice } from './helpers';
 import type { ShoppingEditState } from './types';
+import { CommerceReadinessSummary } from '@/components/commerce';
 
 interface ShoppingTabProps {
   shoppingItems: ShoppingItem[];
@@ -221,6 +222,10 @@ export function ShoppingTab({
               budget={budget}
               totalDays={calc?.totalDays ?? job.estimatedDays}
             />
+          )}
+
+          {nonOwnedItems.length > 0 && (
+            <CommerceReadinessSummary shoppingItems={shoppingItems} />
           )}
 
           <View style={{ gap: 10, marginTop: 4 }}>

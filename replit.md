@@ -43,6 +43,11 @@ The project is structured as a pnpm workspace monorepo using Node.js 24 and Type
     - `features/calculator/`: Contains formula registry, formula builder, calculator engine, shopping list generator, and budget estimator.
     - `features/warnings/`: Resolves warnings based on conditions and provides difficulty/risk labels.
     - `features/content/`: Manages job and category registries, acting as a single source of truth.
+    - `features/commerce/`: Provider-agnostic commerce preparation layer for future Shopify integration. Includes `CommerceProviderInterface` abstraction, `MockCommerceProvider`, `StoreConfig` validation, `CartDraft` builder (from shopping items + context-managed mappings), `CheckoutHandoff` builder, and mapping import/export. All mock-only, no live API calls.
+    - `data/commerce/`: Product mappings (15 entries covering all 11 materials + 4 tool types) and bundle definitions (4 kits). Static seed data for commerce layer.
+    - `context/CommerceContext.tsx`: React context providing commerce state (store config, cart drafts, product mappings, checkout handoffs). Provider factory keyed by `selectedCommerceProvider` (currently all route to MockCommerceProvider). Mappings are context-managed and injected into cart/readiness logic.
+    - `components/commerce/`: UI components — `MappingStatusChip`, `CartDraftPreview`, `ToolCartToggle`, `CommerceReadinessSummary`, `BundleSuggestionCard`.
+    - `types/commerce.ts`: All commerce domain types — `StoreConfig`, `ProductMapping`, `CartDraft`, `CartDraftLine`, `BundleDefinition`, `CheckoutHandoff`, `CommerceProduct`, `CommerceCart`, provider types.
 - **Project Structure**:
     - `app/`: Expo Router screens.
     - `types/`: Core domain, engine, user, calculator, and DB types.

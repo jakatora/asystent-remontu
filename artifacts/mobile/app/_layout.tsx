@@ -17,6 +17,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AppProvider, useApp } from '@/context/AppContext';
+import { CommerceProvider } from '@/context/CommerceContext';
 import { LoadingState } from '@/components/ui/LoadingState';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
@@ -98,7 +99,9 @@ export default function RootLayout() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
               <AppProvider>
-                <RootLayoutNav />
+                <CommerceProvider>
+                  <RootLayoutNav />
+                </CommerceProvider>
               </AppProvider>
             </KeyboardProvider>
           </GestureHandlerRootView>
