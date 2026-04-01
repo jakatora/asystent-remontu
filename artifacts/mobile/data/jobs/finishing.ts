@@ -3,8 +3,11 @@ import { RenovationJob } from '@/types/domain';
 export const wallpaperJob: RenovationJob = {
   id: 'wallpaper',
   categoryId: 'wallpaper',
-  name: 'Tapetowanie ścian',
-  description: 'Nałóż tapetę na ściany — wymaga precyzji i cierpliwości.',
+  name: 'Tapetowanie ścian (uproszczone)',
+  description: 'Nałóż tapetę na ściany — wymaga precyzji i cierpliwości. Szczegółowa wersja tego zadania dostępna jest jako "Tapetowanie ścian" (wallpaper-install).',
+  deprecated: true,
+  deprecatedReason: 'Zastąpione przez wallpaper-install z pełną instrukcją, w tym rozróżnieniem tapety flizelinowej i papierowej.',
+  supersededBy: 'wallpaper-install',
   difficulty: 'medium',
   riskLevel: 'low',
   estimatedDays: 1,

@@ -133,7 +133,7 @@ export const paintJob: RenovationJob = {
       pricePerUnit: 18,
       category:     'grunt',
       optional:     true,
-      notes:        'Niezbędny na nowych ścianach lub gdy zmieniasz kolor z ciemnego na jasny.',
+      notes:        'Wymagany na: nowych ścianach, naprawianych miejscach, ścianach po zeskrobaniu, pylących/kredujących/bardzo chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie NIE jest konieczny.',
     },
     {
       id:           'painters-tape',
@@ -239,10 +239,10 @@ export const paintJob: RenovationJob = {
     {
       step:             3,
       phase:            'preparation',
-      title:            'Nanieś grunt',
+      title:            'Nanieś grunt (jeśli potrzebny)',
       description:      'Wałkiem nanieś jednolitą warstwę gruntu na całą ścianę. Zacznij od góry, idź w dół. Grunt musi całkowicie wyschnąć (2–4 h) przed farbą.',
-      tip:              'Grunt pomaga farbie równomiernie wsiąkać i lepiej kryć — szczególnie na chłonnych powierzchniach.',
-      warning:          'Nie pomijaj gruntu na nowych ścianach lub przy dużej zmianie koloru.',
+      tip:              'Grunt jest wymagany na: nowych ścianach, po naprawach, po zeskrobaniu starej farby, na pylących lub bardzo chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie grunt NIE jest konieczny.',
+      warning:          'Nie pomijaj gruntu na nowych ścianach, naprawianych miejscach lub przy dużej zmianie koloru.',
       durationMin:      45,
       durationMaxMin:   75,
       requiresTool:     'roller',
@@ -304,8 +304,8 @@ export const paintJob: RenovationJob = {
       tip: 'Im lepiej zabezpieczysz, tym mniej sprzątania później.', durationMin: 30,
     },
     {
-      step: 2, title: 'Nanieś grunt',
-      description: 'Wałkiem nanieś jednolitą warstwę gruntu na całą ścianę. Zacznij od góry, idź w dół. Poczekaj 2–4 godziny do wyschnięcia.',
+      step: 2, title: 'Nanieś grunt (jeśli potrzebny)',
+      description: 'Grunt jest wymagany na nowych ścianach, naprawianych miejscach, po zeskrobaniu, na pylących/chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie nie jest konieczny. Wałkiem nanieś jednolitą warstwę i poczekaj 2–4 godziny.',
       tip: 'Grunt pomaga farbie równomiernie wsiąkać i lepiej kryć.', durationMin: 60,
     },
     {

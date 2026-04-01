@@ -55,7 +55,7 @@ The project is structured as a pnpm workspace monorepo using Node.js 24 and Type
     - `hooks/`: TanStack Query data hooks.
     - `db/`: SQLite client, migrations, repositories, and adapters.
     - `data/prices/`: Reference pricing seed data for labor, materials, regions, and mappings.
-    - `data/jobs/`: Definition files for various renovation jobs, serving as canonical references.
+    - `data/jobs/`: Definition files for various renovation jobs, serving as canonical references. Content reviewed for technical accuracy with: correct primer guidance (not always required), crack repair flow (widen → clean → fill → dry → sand → dust → prime), skim coat product-dependent rules, wallpaper adhesive mode differentiation (fleece vs paper), laminate expansion gap at ALL perimeter elements, vinyl click vs glued separation, tile combined method for large format, waterproofing product-dependent thickness/curing, silicone backer rod for deep joints. Legacy wallpaper job in finishing.ts marked deprecated (superseded by wallpaper-install).
     - `utils/`: Formatting and calculator helpers.
     - `components/`: Reusable UI and project-specific components.
     - `constants/`: Color palettes and design constants.

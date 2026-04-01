@@ -98,7 +98,7 @@ export const laminateJob: RenovationJob = {
   coverIcon: 'grid',
   warningRules: [
     { condition: 'always', message: 'Panele muszą aklimatyzować przez 48 godzin w pomieszczeniu przed układaniem.', level: 'warning' },
-    { condition: 'always', message: 'Zostaw szczelinę dylatacyjną 8–10 mm od ścian — panele rozszerzają się od ciepła i wilgoci.', level: 'warning' },
+    { condition: 'always', message: 'Zostaw szczelinę dylatacyjną 8–10 mm od WSZYSTKICH elementów obwodowych: ścian, drzwi, rur, progów, ciężkich mebli stałych. Panele rozszerzają się od ciepła i wilgoci.', level: 'warning' },
   ],
   measurementInputs: [
     { id: 'floorArea', label: 'Powierzchnia podłogi', unit: 'm²', inputType: 'area',
@@ -171,12 +171,13 @@ export const laminateJob: RenovationJob = {
   instructions: [
     { step: 1, title: 'Przygotuj podłoże', description: 'Podłoga musi być sucha, czysta i równa. Nierówności >3 mm na 2 m wymagają wyrównania masą samopoziomującą.', tip: 'Sprawdź czy podłoga „skrzypi" — to może wymagać naprawy przed układaniem.', durationMin: 30 },
     { step: 2, title: 'Rozłóż folię i podkład', description: 'Na betonowej podłodze rozłóż folię paroizolacyjną z 15 cm zakładem na ściany. Na niej rozłóż podkład.', durationMin: 30 },
-    { step: 3, title: 'Pierwszy rząd', description: 'Zacznij od okna. Wstaw kliny 8–10 mm od ściany. Pierwszy rząd ustaw rowną krawędzią do ściany.', tip: 'Pierwszy rząd decyduje o całości — poświęć czas by był idealnie prosty.', durationMin: 60 },
+    { step: 3, title: 'Pierwszy rząd', description: 'Zacznij od okna. Wstaw kliny 8–10 mm od ściany. Pierwszy rząd ustaw rowną krawędzią do ściany. Szczelinę 8–10 mm zachowaj też przy rurach, progach, drzwiach i ciężkich stałych elementach.', tip: 'Pierwszy rząd decyduje o całości — poświęć czas by był idealnie prosty.', durationMin: 60 },
     { step: 4, title: 'Kolejne rzędy', description: 'Każdy rząd zaczynaj od kawałka pozostałego z poprzedniego (min. 30 cm różnica spoin). Połącz panel pod kątem, kliknij i dobij klockiem.', durationMin: 180 },
     { step: 5, title: 'Ostatni rząd', description: 'Zmierz i przytnij panele na szerokość. Użyj haka do dobijania przy ścianie.', durationMin: 60 },
     { step: 6, title: 'Montaż listew', description: 'Zdejmij kliny. Zamontuj listwy przypodłogowe — zakryją szczelinę dylatacyjną.', durationMin: 60 },
   ],
-  commonMistakes: ['Brak aklimatyzacji paneli — pęcznieją po ułożeniu', 'Brak szczeliny dylatacyjnej — podłoga się wybrzusza', 'Panele leżą na mokrym betonie bez folii'],
+  expansionGapNote: 'Szczelina dylatacyjna 8–10 mm wymagana przy WSZYSTKICH elementach obwodowych: ścianach, ościeżnicach drzwi, rurach C.O., progach, ciężkich meblach stałych. Brak szczeliny przy dowolnym elemencie = wybrzuszenie podłogi.',
+  commonMistakes: ['Brak aklimatyzacji paneli — pęcznieją po ułożeniu', 'Brak szczeliny dylatacyjnej przy ścianach — podłoga się wybrzusza', 'Brak szczeliny przy rurach i drzwiach — panele napierają i pękają', 'Panele leżą na mokrym betonie bez folii'],
   qualityChecklist: [
     { id: 'q1', description: 'Połączenia paneli są szczelne — brak szpar', critical: true },
     { id: 'q2', description: 'Podłoga nie „chodzi" ani nie skrzypi po przejściu' },
@@ -203,7 +204,7 @@ export const vinylJob: RenovationJob = {
   coverIcon: 'square',
   warningRules: [
     { condition: 'always', message: 'Panele winylowe SPC nie wymagają aklimatyzacji, ale muszą leżeć płasko kilka godzin przed układaniem.', level: 'info' },
-    { condition: 'always', message: 'Zostaw szczelinę dylatacyjną 5–8 mm od ścian.', level: 'warning' },
+    { condition: 'always', message: 'Zostaw szczelinę dylatacyjną 5–8 mm od ścian i innych stałych elementów. Panele SPC mają mniejszą rozszerzalność niż laminat, ale szczelina jest nadal wymagana.', level: 'warning' },
   ],
   measurementInputs: [
     { id: 'floorArea', label: 'Powierzchnia podłogi', unit: 'm²', inputType: 'area',
@@ -260,7 +261,8 @@ export const vinylJob: RenovationJob = {
     { step: 4, title: 'Cięcia i ostatni rząd', description: 'Vinyl tnie się nożem — zaznacz linię, przełam po linii. Ostatni rząd przycinaj do potrzebnej szerokości.', tip: 'Cięcie nożem jest dużo łatwiejsze niż w przypadku laminatu!', durationMin: 60 },
     { step: 5, title: 'Wykończenie', description: 'Zdejmij kliny. Zamontuj listwy przypodłogowe lub profile zaciskowe przy progach.', durationMin: 45 },
   ],
-  commonMistakes: ['Układanie na nierównej podłodze', 'Za mała szczelina dylatacyjna', 'Za cienki vinyl (poniżej 5 mm) — słyszy się kroki'],
+  manufacturerPriorityNote: 'Panele SPC i LVT różnią się właściwościami — SPC (rdzeń kamienny) są sztywniejsze i bardziej odporne na temperaturę, LVT (rdzeń winylowy) są elastyczniejsze. Sprawdź wymagania producenta.',
+  commonMistakes: ['Układanie na nierównej podłodze', 'Za mała szczelina dylatacyjna', 'Za cienki vinyl (poniżej 5 mm) — słyszy się kroki', 'Mylenie instrukcji dla click i klejonej wykładziny — to zupełnie różne produkty'],
   qualityChecklist: [
     { id: 'q1', description: 'Podłoga leży stabilnie — brak kiwania paneli', critical: true },
     { id: 'q2', description: 'Połączenia są szczelne' },
@@ -473,8 +475,8 @@ export const floorTilesJob: RenovationJob = {
   instructions: [
     { step: 1, title: 'Przygotuj podłoże', description: 'Podłoga musi być sucha, równa i czysta. Nanieś grunt. Poczekaj 2–4 godziny.', durationMin: 60 },
     { step: 2, title: 'Wyznacz linie i punkt startowy', description: 'Znajdź środek pomieszczenia. Zaplanuj układ — brzegi powinny być symetryczne. Ułóż kilka rzędów na sucho i sprawdź układ.', tip: 'Suchy układ ujawni problemy zanim użyjesz kleju.', durationMin: 45 },
-    { step: 3, title: 'Nałóż klej i układaj płytki', description: 'Pacą zębatą nanieś klej na ok. 1 m². Połóż płytkę, dociśnij gumowym młotkiem. Wstaw krzyżyki. Sprawdzaj poziomnicą.', tip: 'Pracuj małymi sekcjami — klej nie może schnąć pod płytką.', durationMin: 240 },
-    { step: 4, title: 'Czekaj 24 godziny', description: 'Klej musi całkowicie wyschnąć. Nie chodź po płytkach.', durationMin: 1440 },
+    { step: 3, title: 'Nałóż klej i układaj płytki', description: 'Pacą zębatą nanieś klej na ok. 1 m². Na duże płytki (powyżej 30×30 cm) stosuj metodę kombinowaną: klej na podłogę I na płytkę. Połóż płytkę, dociśnij gumowym młotkiem. Wstaw krzyżyki. Sprawdzaj poziomnicą.', tip: 'Klej musi pokrywać min. 80% powierzchni płytki (w strefach mokrych 100%). Pracuj małymi sekcjami — klej nie może schnąć pod płytką.', durationMin: 240 },
+    { step: 4, title: 'Czekaj 24 godziny — NIE chodź po płytkach', description: 'Klej musi całkowicie wyschnąć. Nie chodź po płytkach i nie stawiaj na nich przedmiotów. Czas schnięcia zależy od produktu — sprawdź instrukcję.', durationMin: 1440, surfaceMustBeDry: true, warning: 'Chodzenie po płytkach przed wyschnięciem kleju powoduje ich przesunięcie i trwałe uszkodzenie.' },
     { step: 5, title: 'Fugowanie', description: 'Usuń krzyżyki. Pacą gumową wciśnij fugę w spoiny pod kątem 45°. Po 15–20 min zetrzyj nadmiar wilgotną gąbką.', tip: 'Często czyść gąbkę i zmieniaj wodę — resztki fugi zaschną na płytkach.', durationMin: 120 },
     { step: 6, title: 'Końcowe czyszczenie', description: 'Po 24 godzinach wypoleruj płytki suchą szmatką. W narożnikach nanieś silikon zamiast fugi.', durationMin: 60 },
   ],
@@ -482,7 +484,8 @@ export const floorTilesJob: RenovationJob = {
     { afterStep: 3, description: 'Klej do płytek', minHours: 24, maxHours: 48 },
     { afterStep: 5, description: 'Fuga cementowa', minHours: 24, maxHours: 48 },
   ],
-  commonMistakes: ['Pusta płytka pod spodem — sprawdzaj stukając', 'Chodzenie po kleju przed wyschnięciem', 'Sztywna fuga w narożnikach — powinna być elastyczna', 'Za szybkie czyszczenie fugi'],
+  manufacturerPriorityNote: 'Czas schnięcia kleju i fugi zależy od produktu — zawsze sprawdź instrukcję producenta.',
+  commonMistakes: ['Pusta płytka pod spodem — sprawdzaj stukając', 'Chodzenie po kleju przed wyschnięciem — płytki się przesuwają', 'Sztywna fuga w narożnikach — powinna być elastyczna', 'Za szybkie czyszczenie fugi', 'Brak metody kombinowanej na duże płytki — klej nie pokrywa całej powierzchni'],
   qualityChecklist: [
     { id: 'q1', description: 'Płytki leżą równo — brak kiwania', critical: true },
     { id: 'q2', description: 'Spoiny są równe i jednakowej grubości' },

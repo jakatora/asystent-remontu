@@ -104,6 +104,8 @@ export interface InstructionStep {
   readonly requiresMaterial?: string;
   /** Mini checklist of things to verify before moving on. */
   readonly checkpoints?: readonly string[];
+  readonly surfaceMustBeDry?: boolean;
+  readonly removeDustBeforeNext?: boolean;
 }
 
 // ─── Warning rule ─────────────────────────────────────────────────────────────
@@ -206,8 +208,19 @@ export interface RenovationJob {
   readonly hireProfessionalRecommended: boolean;
   readonly hireProfessionalReason?: string;
 
+  // ── Content extensions ───────────────────────────────────────────────────
+  readonly manufacturerPriorityNote?: string;
+  readonly productDependentRules?: readonly string[];
+  readonly adhesiveApplicationMode?: string;
+  readonly expansionGapNote?: string;
+  readonly surfaceMustBeDryNote?: string;
+  readonly removeDustBeforeFinishNote?: string;
+
   // ── Metadata ──────────────────────────────────────────────────────────────
   readonly tags?: readonly string[];
+  readonly deprecated?: boolean;
+  readonly deprecatedReason?: string;
+  readonly supersededBy?: string;
 }
 
 // ─── Project ──────────────────────────────────────────────────────────────────
