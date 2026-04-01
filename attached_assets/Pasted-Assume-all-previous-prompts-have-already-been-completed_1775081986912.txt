@@ -1,0 +1,108 @@
+Assume all previous prompts have already been completed.
+
+Do not rebuild or rename:
+- the renovation catalog
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- Shopify-ready architecture
+- existing route structure
+- existing onboarding and dashboard
+- existing admin/pricing maintenance features
+
+Only inspect and fix the current implementation.
+
+BUG TO FIX
+When the user clicks “Delete project”, the app throws an error instead of deleting the project correctly.
+
+Your task is to find the root cause and fix the delete project flow safely.
+
+IMPORTANT RULES
+- Do not redesign the app
+- Do not rewrite unrelated modules
+- Do not duplicate project logic
+- Do not replace working architecture
+- Only fix the delete project behavior and any directly related broken references
+- Keep the implementation production-style and maintainable
+
+INVESTIGATE THESE POSSIBLE CAUSES
+1. local database deletion issue
+2. foreign key / related records issue
+3. project snapshot / shopping list / budget / request / price override references preventing deletion
+4. UI state updating after delete
+5. navigation trying to open a deleted project
+6. cached or memoized project list not refreshing
+7. async delete race condition
+8. missing confirmation modal handling
+9. missing null checks after deletion
+10. delete action removing parent project but leaving child records in inconsistent state
+
+REQUIRED FIX
+Implement a safe delete project flow.
+
+The delete action should:
+- ask for confirmation before deletion
+- delete the selected project and all directly related local records safely
+- remove or clean related child data correctly
+- refresh project lists immediately
+- close any open project detail screen safely
+- redirect the user to the correct screen after deletion
+- show success feedback after delete
+- show friendly error feedback if delete fails
+- never leave the UI in a broken state
+
+IF SQLITE OR LOCAL DATABASE IS USED
+- inspect schema and relations
+- fix foreign key issues
+- add cascade delete logic or explicit child record cleanup where appropriate
+- ensure transactions are used if needed
+- prevent partial deletion
+
+CHECK RELATED DATA
+Make sure deletion handles or cleans related records such as:
+- saved calculations
+- shopping lists
+- budget snapshots
+- price snapshots
+- user price overrides
+- room data
+- contractor request drafts linked to the project if such relation exists
+- local images or image references if linked to the project
+- commerce cart drafts linked to the project if such relation exists
+
+UI / STATE FIXES
+After deleting a project:
+- project list must refresh correctly
+- deleted project must disappear immediately
+- no screen should still try to read the deleted project
+- any selected project state must be cleared
+- navigation params referencing deleted project must be cleared
+- empty state should render correctly if it was the last project
+
+ERROR HANDLING
+- log the real cause in developer-friendly form
+- show user-friendly message in the UI
+- prevent app crash
+- add defensive null checks where needed
+
+TEST CASES TO VERIFY
+1. delete project from saved projects list
+2. delete project from project detail screen
+3. delete last remaining project
+4. delete project with shopping list and budget data
+5. delete project with photos
+6. delete project with local overrides or snapshots
+7. cancel deletion from confirmation dialog
+8. repeated rapid tap on delete button
+9. app restart after deletion
+10. project list still consistent after deletion
+
+FINAL STEP
+After fixing:
+- review the entire delete project flow
+- confirm no duplicate project logic was created
+- confirm related records are cleaned correctly
+- confirm project list and navigation are stable
+- keep the fix minimal and targeted

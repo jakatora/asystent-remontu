@@ -1,0 +1,138 @@
+Assume all previous prompts have already been completed.
+
+Do not rebuild or rename:
+- the renovation catalog
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- Shopify-ready architecture
+- existing route structure
+- existing onboarding and dashboard
+- existing admin/pricing maintenance features
+
+Only inspect and fix the current implementation.
+
+BUG CONTEXT
+After deleting a project, the app crashes on the Project Detail screen.
+
+Observed errors:
+1. "The action 'GO_BACK' was not handled by any navigator."
+2. "Rendered fewer hooks than expected. This may be caused by an accidental early return statement."
+3. The stack points to the Project Detail route file: [id].tsx, around the top of the component where route params and hooks are used.
+
+LIKELY ROOT CAUSE
+After the project is deleted:
+- the Project Detail screen still renders briefly with a now-missing project id
+- the screen likely tries to call goBack/router.back when there is no back stack
+- the component likely conditionally returns early after project becomes null/undefined
+- this changes the number/order of hooks between renders and causes the React hooks error
+
+YOUR TASK
+Fix the delete-project flow and the Project Detail screen safely and minimally.
+
+REQUIRED FIXES
+
+1. FIX HOOK ORDER IN [id].tsx
+- Inspect the Project Detail component in [id].tsx
+- Ensure all hooks are called unconditionally and always in the same order
+- Do not allow any early return before all hooks have been declared
+- If the file currently has logic like:
+  - if (!project) return ...
+  - if (!id) return ...
+  before all hooks are declared
+  then refactor it
+- Move all hook declarations to the top level of the component
+- Only render fallback UI after hooks are declared
+
+2. HANDLE MISSING/DELETED PROJECT SAFELY
+- If the project id exists in route params but the project is no longer found in state/database:
+  - do not crash
+  - do not keep rendering broken detail content
+  - show a very lightweight temporary fallback/loading state
+  - trigger a safe redirect in an effect
+
+3. REPLACE BROKEN GO_BACK LOGIC
+- Find where the delete flow or missing-project flow calls goBack/router.back
+- Do not call back navigation blindly
+- Use safe navigation logic:
+  - if navigation/router can go back, go back
+  - otherwise replace or navigate to a safe screen such as the saved projects screen or dashboard
+- Use the actual navigation API used in this project (Expo Router / React Navigation), but make the behavior deterministic
+
+4. FIX DELETE FLOW FROM PROJECT DETAIL
+- When deleting a project from the detail screen:
+  - set a local deleting state to prevent double taps
+  - await delete completion
+  - clean related local records if needed
+  - clear any selected project state if such state exists
+  - navigate away safely after deletion
+  - do not leave the screen trying to render the deleted project
+
+5. FIX DELETE FLOW FROM PROJECT LIST
+- When deleting from the saved projects list:
+  - refresh the list immediately
+  - remove the item from UI state
+  - ensure no stale selected project reference remains
+
+6. DEFENSIVE NULL CHECKS
+- Add safe guards for:
+  - missing route param id
+  - missing project after data refresh
+  - deleted project while detail screen is still mounted
+  - pending async delete
+- These guards must not change hook order
+
+7. ASYNC / STATE SAFETY
+- Prevent race conditions during delete
+- Prevent repeated delete taps
+- Ensure the UI does not try to re-read the deleted project during redirect
+- If memoized selectors or derived values depend on project, guard them safely after hooks are initialized
+
+8. SQLITE / DATA CLEANUP
+- If the delete flow already removes related child records, keep it
+- If needed, clean related records safely
+- But do not rewrite unrelated storage architecture
+- Keep the fix minimal and targeted
+
+9. USER EXPERIENCE
+- After successful delete:
+  - show a success toast/snackbar/alert
+  - redirect safely
+- If delete fails:
+  - show a friendly error
+  - keep the user on a stable screen
+  - do not crash
+
+SPECIFIC FILES TO INSPECT FIRST
+- the Project Detail route file [id].tsx
+- the delete-project action/service/hook used by the detail screen
+- any navigation handler triggered after deletion
+- any selector/hook that reads the current project by id
+
+IMPORTANT IMPLEMENTATION RULES
+- Do not rebuild the app
+- Do not create duplicate project logic
+- Do not move large parts of architecture unnecessarily
+- Fix only what is needed for:
+  - hooks order stability
+  - safe missing-project handling
+  - safe navigation after deletion
+
+TEST CASES TO PASS
+1. delete project from Project Detail screen
+2. delete project from Saved Projects list
+3. delete the last remaining project
+4. rapid double-tap on delete
+5. app should not show hooks error
+6. app should not show GO_BACK warning
+7. deleted project route should resolve safely
+8. after deletion, reopening the app should show consistent project data
+
+FINAL STEP
+After fixing:
+- explain briefly what caused the bug
+- confirm which file(s) were changed
+- confirm how missing/deleted project handling now works
+- confirm no duplicate project logic was created

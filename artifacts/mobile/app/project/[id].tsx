@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Alert, Platform, Share } from 'react-native';
 import { useLocalSearchParams, router, Stack, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -30,6 +30,14 @@ import {
   CONTINGENCY_RATE,
 } from '@/components/project';
 import type { Tab } from '@/components/project';
+
+function safeNavigateAway() {
+  if (router.canGoBack()) {
+    router.back();
+  } else {
+    router.replace('/(tabs)/projects');
+  }
+}
 
 export default function ProjectDetailScreen() {
   const { id, fromWizard } = useLocalSearchParams<{ id: string; fromWizard?: string }>();
@@ -73,26 +81,56 @@ export default function ProjectDetailScreen() {
   const [checklistProgress, setChecklistProgress] = useState({ completed: 0, total: 0 });
   const [activities, setActivities] = useState<import('@/types/domain').ProjectActivity[]>([]);
   const [priceOverrides, setPriceOverrides] = useState<PriceOverride[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const deletedRef = useRef(false);
 
   const project = projects.find((p) => p.id === id);
   const job = project ? getJobById(project.jobId) : null;
 
+  const pricedBudget: PricedBudgetEstimate | null = useMemo(() => {
+    if (!project?.calculationResult || !job) return null;
+    try {
+      return computePricedBudget({
+        job,
+        calc: project.calculationResult,
+        regionCode: selectedRegion,
+        qualityTier: selectedQualityTier,
+        overrides: priceOverrides,
+      });
+    } catch (e) {
+      console.warn('[Pricing] compute error:', e);
+      return null;
+    }
+  }, [job, project?.calculationResult, selectedRegion, selectedQualityTier, priceOverrides]);
+
+  useEffect(() => {
+    if (!project && !deletedRef.current) {
+      const timer = setTimeout(() => safeNavigateAway(), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [project]);
+
   const loadAll = useCallback(async () => {
-    if (!id) return;
-    const [items, ph, cl, prog, acts, ovr] = await Promise.all([
-      getProjectShoppingItems(id),
-      getProjectPhotos(id),
-      getProjectChecklist(id),
-      getChecklistProgress(id),
-      getProjectActivities(id),
-      getProjectOverrides(id),
-    ]);
-    setShoppingItems(items);
-    setPhotos(ph);
-    setChecklist(cl);
-    setChecklistProgress(prog);
-    setActivities(acts);
-    setPriceOverrides(ovr);
+    if (!id || deletedRef.current) return;
+    try {
+      const [items, ph, cl, prog, acts, ovr] = await Promise.all([
+        getProjectShoppingItems(id),
+        getProjectPhotos(id),
+        getProjectChecklist(id),
+        getChecklistProgress(id),
+        getProjectActivities(id),
+        getProjectOverrides(id),
+      ]);
+      if (deletedRef.current) return;
+      setShoppingItems(items);
+      setPhotos(ph);
+      setChecklist(cl);
+      setChecklistProgress(prog);
+      setActivities(acts);
+      setPriceOverrides(ovr);
+    } catch (e) {
+      if (!deletedRef.current) console.warn('[ProjectDetail] loadAll error:', e);
+    }
   }, [id, getProjectShoppingItems, getProjectPhotos, getProjectChecklist, getChecklistProgress, getProjectActivities, getProjectOverrides]);
 
   useFocusEffect(useCallback(() => { loadAll(); }, [loadAll]));
@@ -113,8 +151,8 @@ export default function ProjectDetailScreen() {
 
   const handleToggleChecklist = async (item: ChecklistItem) => {
     await toggleChecklistItem(item.id, !item.completed);
-    if (!item.completed) {
-      await logActivity(project!.id, 'checklist_completed', `Ukończono: ${item.title}`);
+    if (!item.completed && project) {
+      await logActivity(project.id, 'checklist_completed', `Ukończono: ${item.title}`);
     }
     await loadAll();
   };
@@ -127,15 +165,29 @@ export default function ProjectDetailScreen() {
   };
 
   const handleDelete = () => {
+    if (isDeleting || !project) return;
     Alert.alert(
       'Usuń projekt',
-      `Usunąć projekt "${project?.name}"? Tej operacji nie można cofnąć.`,
+      `Usunąć projekt "${project.name}"? Tej operacji nie można cofnąć.`,
       [
         { text: 'Anuluj', style: 'cancel' },
         {
           text: 'Usuń',
           style: 'destructive',
-          onPress: async () => { await removeProject(id!); router.back(); },
+          onPress: async () => {
+            if (isDeleting) return;
+            setIsDeleting(true);
+            deletedRef.current = true;
+            try {
+              await removeProject(project.id);
+              Alert.alert('Gotowe', 'Projekt został usunięty.');
+              safeNavigateAway();
+            } catch (e) {
+              deletedRef.current = false;
+              setIsDeleting(false);
+              Alert.alert('Błąd', 'Nie udało się usunąć projektu. Spróbuj ponownie.');
+            }
+          },
         },
       ]
     );
@@ -191,6 +243,7 @@ export default function ProjectDetailScreen() {
   };
 
   const handlePickPhoto = async (photoType: PhotoType) => {
+    if (!project) return;
     try {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -203,7 +256,7 @@ export default function ProjectDetailScreen() {
         allowsMultipleSelection: false,
       });
       if (result.canceled || !result.assets?.[0]) return;
-      await addPhoto({ projectId: project!.id, uri: result.assets[0].uri, photoType });
+      await addPhoto({ projectId: project.id, uri: result.assets[0].uri, photoType });
       await loadAll();
     } catch (err) {
       console.error('[Photos] pick error:', err);
@@ -211,6 +264,7 @@ export default function ProjectDetailScreen() {
   };
 
   const handleTakePhoto = async (photoType: PhotoType) => {
+    if (!project) return;
     try {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== 'granted') {
@@ -219,7 +273,7 @@ export default function ProjectDetailScreen() {
       }
       const result = await ImagePicker.launchCameraAsync({ quality: 0.8 });
       if (result.canceled || !result.assets?.[0]) return;
-      await addPhoto({ projectId: project!.id, uri: result.assets[0].uri, photoType });
+      await addPhoto({ projectId: project.id, uri: result.assets[0].uri, photoType });
       await loadAll();
     } catch (err) {
       console.error('[Photos] camera error:', err);
@@ -244,41 +298,6 @@ export default function ProjectDetailScreen() {
       { text: 'Anuluj', style: 'cancel' },
     ]);
   };
-
-  if (!project || !job) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.background, gap: 16 }}>
-        <Txt w="medium" style={{ fontSize: 16, color: Colors.textSecondary }}>
-          Projekt nie znaleziony
-        </Txt>
-        <Button label="Wróć" onPress={() => router.back()} variant="outline" />
-      </View>
-    );
-  }
-
-  const calc = project.calculationResult;
-  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
-  const nonOwnedItems = shoppingItems.filter((i) => !i.owned);
-  const purchasedCount = nonOwnedItems.filter((i) => i.purchased).length;
-  const isFirstTime = fromWizard === '1' && !welcomeDismissed;
-  const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended);
-  const budget = calc ? estimateBudget(job, calc.totalCost) : null;
-
-  const pricedBudget: PricedBudgetEstimate | null = useMemo(() => {
-    if (!calc || !job) return null;
-    try {
-      return computePricedBudget({
-        job,
-        calc,
-        regionCode: selectedRegion,
-        qualityTier: selectedQualityTier,
-        overrides: priceOverrides,
-      });
-    } catch (e) {
-      console.warn('[Pricing] compute error:', e);
-      return null;
-    }
-  }, [job, calc, selectedRegion, selectedQualityTier, priceOverrides]);
 
   const handleOverrideLabor = async (laborId: string, pricePerUnit: number) => {
     if (!id) return;
@@ -321,6 +340,31 @@ export default function ProjectDetailScreen() {
       console.error('[Pricing] reset material error:', e);
     }
   };
+
+  if (!project || !job) {
+    return (
+      <>
+        <Stack.Screen options={{ title: '', headerBackTitle: 'Wróć', headerStyle: { backgroundColor: Colors.background }, headerShadowVisible: false }} />
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.background, gap: 16 }}>
+          <Feather name="folder" size={40} color={Colors.textMuted} />
+          <Txt w="medium" style={{ fontSize: 16, color: Colors.textSecondary }}>
+            {isDeleting ? 'Usuwanie projektu…' : 'Projekt nie znaleziony'}
+          </Txt>
+          {!isDeleting && (
+            <Button label="Wróć do listy" onPress={safeNavigateAway} variant="outline" />
+          )}
+        </View>
+      </>
+    );
+  }
+
+  const calc = project.calculationResult;
+  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
+  const nonOwnedItems = shoppingItems.filter((i) => !i.owned);
+  const purchasedCount = nonOwnedItems.filter((i) => i.purchased).length;
+  const isFirstTime = fromWizard === '1' && !welcomeDismissed;
+  const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended);
+  const budget = calc ? estimateBudget(job, calc.totalCost) : null;
 
   const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'budget', 'photos'];
 
@@ -379,8 +423,8 @@ export default function ProjectDetailScreen() {
               >
                 <Feather name="edit-3" size={20} color={Colors.primary} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleDelete}>
-                <Feather name="trash-2" size={20} color={Colors.danger} />
+              <TouchableOpacity onPress={handleDelete} disabled={isDeleting}>
+                <Feather name="trash-2" size={20} color={isDeleting ? Colors.textMuted : Colors.danger} />
               </TouchableOpacity>
             </View>
           ),
