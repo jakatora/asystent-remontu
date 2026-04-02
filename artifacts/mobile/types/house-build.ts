@@ -20,6 +20,36 @@ export type BuildProjectStatus =
 
 export type BuildStageStatus = 'not-started' | 'in-progress' | 'completed' | 'skipped';
 
+export type StageGateStatus =
+  | 'not-started'
+  | 'in-progress'
+  | 'waiting-for-verification'
+  | 'ready-for-next-stage'
+  | 'blocked'
+  | 'warning';
+
+export interface StageCompletionCriteria {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly isRequired: boolean;
+}
+
+export interface BeforeNextStageCheck {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly severity: 'required' | 'recommended';
+}
+
+export interface EnergyPlanningData {
+  readonly targetEP: string;
+  readonly wallUTarget: string;
+  readonly roofUTarget: string;
+  readonly floorUTarget: string;
+  readonly heatingVentilationNotes: string;
+}
+
 export type DocumentStatus = 'missing' | 'in-progress' | 'obtained' | 'not-needed';
 
 export type ChecklistItemPriority = 'low' | 'normal' | 'high' | 'critical';

@@ -25,6 +25,7 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="start-works" options={{ title: 'Rozpoczecie robót' }} />
       <Stack.Screen name="edb" options={{ title: 'Elektroniczny Dziennik Budowy' }} />
       <Stack.Screen name="completion" options={{ title: 'Zakonczenie budowy' }} />
+      <Stack.Screen name="energy-planning" options={{ title: 'Planowanie energetyczne' }} />
     </Stack>
   );
 }

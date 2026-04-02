@@ -56,7 +56,7 @@ export const BUILD_WARNINGS: readonly BuildWarningDefinition[] = [
     description: 'Wszelkie prace budowlane musza byc wykonywane zgodnie z zatwierdzonym projektem budowlanym. Zmiany wymagaja zgody projektanta.',
     warningCategory: 'technical-documentation',
     warningLevel: 'warning',
-    stageKeys: ['foundation', 'structural-walls', 'roof', 'installations'],
+    stageKeys: ['foundation', 'structural-walls', 'roof', 'installations', 'insulation-energy'],
   },
   {
     id: 'bw-height-safety',
@@ -64,7 +64,7 @@ export const BUILD_WARNINGS: readonly BuildWarningDefinition[] = [
     description: 'Montaz dachu, wiezby dachowej i prace na rusztowaniach wymagaja doswiadczenia i zabezpieczen BHP.',
     warningCategory: 'safety',
     warningLevel: 'danger',
-    stageKeys: ['roof', 'exterior-finishing'],
+    stageKeys: ['roof', 'exterior-finishing', 'insulation-energy'],
   },
   {
     id: 'bw-final-inspections',

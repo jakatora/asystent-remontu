@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform } from 'react-native';
-import { useLocalSearchParams, Stack, useFocusEffect } from 'expo-router';
+import { useLocalSearchParams, Stack, useFocusEffect, router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useHouseBuild } from '@/context/HouseBuildContext';
-import { getStageByKey } from '@/features/house-build/stages';
+import { getStageByKey, GLOBAL_BUILD_NOTES } from '@/features/house-build/stages';
 import { getWarningsForStage } from '@/features/house-build/warnings';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
@@ -37,6 +37,7 @@ export default function StageDetail() {
 
   const [checklist, setChecklist] = useState<ChecklistItemRecord[]>([]);
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
+  const [showGlobalNotes, setShowGlobalNotes] = useState(false);
 
   const loadData = useCallback(async () => {
     const [cl, docs] = await Promise.all([
@@ -113,6 +114,20 @@ export default function StageDetail() {
             )}
           </View>
 
+          {stage.whyItMatters ? (
+            <View style={{
+              backgroundColor: Colors.surface,
+              borderRadius: 12,
+              padding: 14,
+              marginBottom: 16,
+              borderWidth: 1,
+              borderColor: Colors.border,
+            }}>
+              <Txt w="semibold" style={{ fontSize: 13, color: HB_ACCENT, marginBottom: 4 }}>Dlaczego to wazne</Txt>
+              <Txt style={{ fontSize: 13, color: Colors.textSecondary, lineHeight: 20 }}>{stage.whyItMatters}</Txt>
+            </View>
+          ) : null}
+
           {warnings.length > 0 && (
             <View style={{ marginBottom: 16 }}>
               {warnings.map((w) => (
@@ -141,7 +156,26 @@ export default function StageDetail() {
             </View>
           )}
 
-          {stage.requiredProfessionals.length > 0 && (
+          {stage.investorNotes.length > 0 && (
+            <View style={{
+              backgroundColor: '#FFF7ED',
+              borderRadius: 12,
+              padding: 14,
+              marginBottom: 16,
+              borderWidth: 1,
+              borderColor: '#FED7AA',
+            }}>
+              <Txt w="semibold" style={{ fontSize: 13, color: '#C2410C', marginBottom: 8 }}>Wskazowki dla inwestora</Txt>
+              {stage.investorNotes.map((note, i) => (
+                <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
+                  <Feather name="info" size={12} color="#C2410C" style={{ marginTop: 3 }} />
+                  <Txt style={{ fontSize: 12, color: '#9A3412', flex: 1, lineHeight: 18 }}>{note}</Txt>
+                </View>
+              ))}
+            </View>
+          )}
+
+          {stage.professionalLabels.length > 0 && (
             <View style={{
               backgroundColor: '#F5F3FF',
               borderRadius: 12,
@@ -150,16 +184,18 @@ export default function StageDetail() {
               borderWidth: 1,
               borderColor: '#DDD6FE',
             }}>
-              <Txt w="semibold" style={{ fontSize: 13, color: '#6D28D9', marginBottom: 6 }}>
-                Wymagani specjalisci
+              <Txt w="semibold" style={{ fontSize: 13, color: '#6D28D9', marginBottom: 8 }}>
+                Uczestnicy etapu
               </Txt>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
-                {stage.requiredProfessionals.map((role) => (
-                  <View key={role} style={{ backgroundColor: '#EDE9FE', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 4 }}>
-                    <Txt style={{ fontSize: 11, color: '#6D28D9' }}>{role}</Txt>
+              {stage.professionalLabels.map((p, i) => (
+                <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <Feather name="user" size={12} color="#6D28D9" />
+                  <Txt style={{ fontSize: 12, color: '#6D28D9', flex: 1 }}>{p.label}</Txt>
+                  <View style={{ backgroundColor: p.isRequired ? '#EDE9FE' : '#F8FAFC', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
+                    <Txt style={{ fontSize: 9, color: p.isRequired ? '#6D28D9' : Colors.textMuted }}>{p.isRequired ? 'wymagany' : 'opcjonalny'}</Txt>
                   </View>
-                ))}
-              </View>
+                </View>
+              ))}
             </View>
           )}
 
@@ -262,6 +298,117 @@ export default function StageDetail() {
               })}
             </View>
           )}
+
+          {stage.completionCriteria.length > 0 && (
+            <View style={{
+              backgroundColor: '#F0FDF4',
+              borderRadius: 12,
+              padding: 14,
+              marginBottom: 16,
+              borderWidth: 1,
+              borderColor: '#BBF7D0',
+            }}>
+              <Txt w="semibold" style={{ fontSize: 13, color: '#16A34A', marginBottom: 8 }}>Kryteria zakonczenia etapu</Txt>
+              {stage.completionCriteria.map((c, i) => (
+                <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 4 }}>
+                  <Feather name={c.isRequired ? 'check-circle' : 'circle'} size={14} color={c.isRequired ? '#16A34A' : Colors.textMuted} style={{ marginTop: 2 }} />
+                  <Txt style={{ fontSize: 12, color: Colors.text, flex: 1 }}>{c.title}</Txt>
+                </View>
+              ))}
+            </View>
+          )}
+
+          {stage.beforeNextStage.length > 0 && (
+            <View style={{
+              backgroundColor: '#FEF2F2',
+              borderRadius: 12,
+              padding: 14,
+              marginBottom: 16,
+              borderWidth: 1,
+              borderColor: '#FECACA',
+            }}>
+              <Txt w="semibold" style={{ fontSize: 13, color: '#DC2626', marginBottom: 8 }}>
+                Przed przejsciem do nastepnego etapu
+              </Txt>
+              {stage.beforeNextStage.map((c, i) => (
+                <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 4, alignItems: 'flex-start' }}>
+                  <Feather
+                    name={c.severity === 'required' ? 'alert-circle' : 'info'}
+                    size={14}
+                    color={c.severity === 'required' ? '#DC2626' : Colors.textMuted}
+                    style={{ marginTop: 2 }}
+                  />
+                  <Txt style={{ fontSize: 12, color: c.severity === 'required' ? '#991B1B' : Colors.text, flex: 1 }}>{c.title}</Txt>
+                  <View style={{ backgroundColor: c.severity === 'required' ? '#FEE2E2' : '#F8FAFC', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
+                    <Txt style={{ fontSize: 9, color: c.severity === 'required' ? '#DC2626' : Colors.textMuted }}>
+                      {c.severity === 'required' ? 'wymagane' : 'zalecane'}
+                    </Txt>
+                  </View>
+                </View>
+              ))}
+            </View>
+          )}
+
+          {stageKey === 'insulation-energy' && (
+            <TouchableOpacity
+              style={{
+                backgroundColor: HB_ACCENT,
+                borderRadius: 14,
+                padding: 16,
+                alignItems: 'center',
+                marginBottom: 16,
+              }}
+              onPress={() => router.push('/house-build/energy-planning')}
+            >
+              <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>Arkusz planowania energetycznego</Txt>
+            </TouchableOpacity>
+          )}
+
+          {stageKey === 'final-inspections' && (
+            <TouchableOpacity
+              style={{
+                backgroundColor: HB_ACCENT,
+                borderRadius: 14,
+                padding: 16,
+                alignItems: 'center',
+                marginBottom: 16,
+              }}
+              onPress={() => router.push('/house-build/completion')}
+            >
+              <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>Modul formalny — zakonczenie budowy</Txt>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity
+            style={{ paddingVertical: 10, alignItems: 'center' }}
+            onPress={() => setShowGlobalNotes(v => !v)}
+          >
+            <Txt style={{ fontSize: 12, color: HB_ACCENT }}>{showGlobalNotes ? 'Ukryj ogólne zasady' : 'Ogólne zasady budowy'}</Txt>
+          </TouchableOpacity>
+
+          {showGlobalNotes && (
+            <View style={{
+              backgroundColor: '#F8FAFC',
+              borderRadius: 10,
+              padding: 12,
+              marginTop: 4,
+              borderWidth: 1,
+              borderColor: '#E2E8F0',
+            }}>
+              {GLOBAL_BUILD_NOTES.map((note, i) => (
+                <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 4 }}>
+                  <Feather name="chevron-right" size={12} color={Colors.textMuted} style={{ marginTop: 2 }} />
+                  <Txt style={{ fontSize: 11, color: Colors.textMuted, flex: 1 }}>{note}</Txt>
+                </View>
+              ))}
+            </View>
+          )}
+
+          <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Zrodlo: {stage.source.sourceLabel}</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Ostatnia weryfikacja: {stage.source.lastReviewedDate}</Txt>
+            {stage.source.notes && <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{stage.source.notes}</Txt>}
+          </View>
         </View>
       </ScrollView>
     </>

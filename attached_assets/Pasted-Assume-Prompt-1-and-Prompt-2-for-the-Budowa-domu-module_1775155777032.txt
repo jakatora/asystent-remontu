@@ -1,0 +1,289 @@
+Assume Prompt 1 and Prompt 2 for the "Budowa domu" module have already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- the House Build module shell
+- the formal/legal path module
+- existing route structure
+
+Only extend the current implementation.
+
+Your task now is to implement the "Build Stages" layer for the Poland-first House Build module.
+
+GOAL
+Create a practical investor-oriented stage planner for building a single-family house in Poland.
+
+IMPORTANT PRODUCT RULES
+- This module must not act like a universal structural DIY manual.
+- It must act as an investor assistant:
+  - stage overview
+  - sequencing guidance
+  - site-readiness checks
+  - role-of-professional checks
+  - warning states
+  - energy/quality reminders
+  - documentation reminders
+- For foundations, structure, roof, waterproofing, installations, and envelope works:
+  - do not present product-independent execution details as absolute rules
+  - add a strong note that the project documentation and selected system/product technical documentation have priority
+- Keep beginner-friendly language.
+
+BUILD THESE FEATURES
+
+1. BUILD STAGES OVERVIEW
+Add a full "Build Stages" section inside the House Build module.
+
+Create these main stages:
+- Plot and site preparation
+- Foundations and foundation waterproofing
+- Structural walls / structural shell
+- Roof structure and roof covering
+- Windows and exterior doors
+- Internal rough installations
+- Insulation / airtightness / energy standard planning
+- Facade and external finishing
+- Internal finishing and fit-out
+- Completion readiness
+
+Each stage should have:
+- short summary
+- why it matters
+- investor checklist
+- required professionals
+- key documents / verifications
+- warning notes
+- stage completion criteria
+- source metadata
+
+2. PLOT AND SITE PREPARATION STAGE
+Create a stage for pre-build site readiness.
+
+Include investor-oriented checks such as:
+- plot/building position prepared for geodetic staking
+- geodetic staking completed
+- terrain leveling / site prep considered
+- water and power access prepared
+- site organization considered
+- access for works and materials considered
+- before-start dependencies linked to the formal module
+
+Do not turn this into a contractor field manual.
+Keep it investor-focused.
+
+3. FOUNDATIONS STAGE
+Create an investor checklist for foundations.
+
+The app should explain in simple language:
+- foundations must follow the project design and site conditions
+- waterproofing and ground-moisture/water conditions matter
+- this stage should not be treated as generic one-size-fits-all execution
+- investor should verify:
+  - excavation readiness
+  - reinforcement/design compliance responsibility
+  - waterproofing system selection responsibility
+  - curing/waiting and inspection checkpoints
+  - backfilling only after the appropriate stage checks
+
+Add warning notes:
+- foundation errors are difficult and expensive to correct later
+- waterproofing choice depends on site and design conditions
+- project/system documents have priority
+
+4. STRUCTURAL WALLS / SHELL STAGE
+Create an investor stage for structural walls and shell progression.
+
+Include guidance such as:
+- first structural layers and geometry accuracy are critical
+- wall system rules depend on selected technology/system
+- openings, lintels, ring beams, floor/slab interfaces, and structural continuity must follow the project
+- do not present wall execution as a universal single recipe
+
+Add investor checks like:
+- confirm selected wall technology/system
+- confirm team familiarity with the selected system
+- confirm stage acceptance before moving to next structural stage
+- confirm moisture/weather protection for unfinished structure where relevant
+
+5. ROOF STAGE
+Create an investor stage for roof structure and roof covering.
+
+Include practical investor topics:
+- verify project-specific roof solution
+- verify sequencing between structure, membrane/layers, ventilation concept, and covering
+- verify weather protection planning
+- verify roof details are not treated as universal without system documentation
+- include checkpoints before closing the roof
+
+Add warning notes:
+- roof system details vary by product/system
+- ventilation and detailing should not be guessed
+- project/system documentation has priority
+
+6. WINDOWS AND EXTERIOR DOORS STAGE
+Create an investor stage for exterior closure of the building.
+
+Include:
+- coordination with wall/roof opening readiness
+- installation sequencing awareness
+- weather-tightness and insulation continuity awareness
+- check that selected products match the energy/comfort target
+- reminder to verify exact installation method with the selected system and product documentation
+
+7. INTERNAL ROUGH INSTALLATIONS STAGE
+Create an investor stage for rough internal installations.
+
+Cover planning and coordination for:
+- electrical
+- plumbing/water
+- heating
+- ventilation
+- gas if applicable
+
+Important:
+- do not provide dangerous installation instructions
+- instead provide:
+  - coordination checklists
+  - route/space planning awareness
+  - conflict checks between systems
+  - professional role guidance
+  - stage acceptance reminders before covering installations
+
+8. INSULATION / AIRTIGHTNESS / ENERGY STAGE
+Create a dedicated stage for energy-performance planning.
+
+The app should explain in simple language:
+- insulation continuity matters
+- the house should be planned as one thermal envelope
+- details around walls, roof, floor, windows and penetrations should not create easy thermal bridges
+- energy targets should be treated as part of planning, not as an optional afterthought
+
+Add investor checklists for:
+- wall insulation planning
+- roof/attic insulation planning
+- floor/slab insulation planning
+- window/door thermal continuity awareness
+- ventilation/heating concept awareness
+- stage note that product thickness and system choice must follow verified calculations/project requirements
+
+Add a simple “Energy Requirements” info block with placeholders/fields for:
+- target EP
+- selected wall U target
+- selected roof U target
+- selected floor U target
+- heating/ventilation concept notes
+
+Do not turn this into a full energy calculation engine yet.
+
+9. FACADE AND EXTERNAL FINISHING STAGE
+Create an investor checklist for facade/external finishing.
+
+Include:
+- substrate readiness awareness
+- weather/time sequencing awareness
+- insulation/render/system compatibility note
+- completion and quality checkpoint
+- reminder that facade system rules depend on selected products/system documentation
+
+10. INTERNAL FINISHING STAGE
+Create an investor-level stage for internal finishing.
+
+Include:
+- rough-to-finish sequencing awareness
+- moisture/drying readiness awareness
+- order of interior finishing trades
+- dependency checks before final finishing layers
+- note that internal finishing should not begin too early if preceding wet works are not ready
+
+11. COMPLETION READINESS STAGE
+Create a final stage summary before build completion.
+
+Include:
+- key outstanding works checklist
+- document reminder block
+- defects/snagging placeholder
+- readiness for formal completion flow
+- handoff to the formal module completion/occupancy stage
+
+12. REQUIRED PROFESSIONALS PER STAGE
+For each stage, add a structured “Typical professionals involved” block.
+
+Examples:
+- geodetic specialist
+- designer / project author
+- site manager
+- structural team
+- roofing team
+- window installer
+- electrician
+- plumber / heating installer
+- ventilation specialist
+- facade team
+- finishing team
+
+Do not present every professional as mandatory in every case.
+Keep it stage-appropriate and informational.
+
+13. STAGE GATES / CHECKPOINTS
+Add reusable stage-gate logic.
+
+Each stage should support:
+- not started
+- in progress
+- waiting for verification
+- ready for next stage
+- blocked
+- warning
+
+Add “Do not continue before checking” type checkpoints where appropriate.
+
+14. SOURCE-AWARE CONTENT
+Store source metadata for each stage block.
+Support:
+- official source
+- technical source
+- market/industry source
+- internal app guidance summary
+
+15. GLOBAL HOUSE-BUILD CONTENT RULES
+Add recurring notes across the module:
+- project documentation has priority
+- selected system/product technical documentation has priority
+- structural and installation works require qualified professionals where appropriate
+- energy and insulation decisions should be planned early, not added at the end
+- avoid moving to the next stage before the current one is accepted/verified
+
+16. UI / UX RULES
+Keep the stage module practical and clear.
+
+Use:
+- stage cards
+- progress states
+- checklists
+- warning boxes
+- “who is involved” blocks
+- “before next stage” blocks
+- source/update labels
+
+Do not clutter the app with long walls of text.
+
+17. IMPLEMENTATION QUALITY RULES
+- do not rebuild the House Build module shell
+- do not rebuild the formal module
+- only extend the current implementation
+- keep everything modular and data-driven
+- prepare the stage system for later budget and contractor integration
+- preserve strong TypeScript typing
+- preserve route stability
+
+18. FINAL STEP
+After implementation:
+- list all stage screens/sections added
+- confirm the sequence of stages implemented
+- confirm project/system-document-priority notes were added
+- confirm energy-planning blocks were added
+- confirm nothing in the renovation module was rebuilt

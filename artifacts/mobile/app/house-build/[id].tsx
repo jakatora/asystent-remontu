@@ -212,13 +212,19 @@ export default function HouseBuildProjectDetail() {
           </View>
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
             <QuickAction
+              icon="thermometer"
+              label="Energia"
+              color="#0891B2"
+              bg="#ECFEFF"
+              onPress={() => router.push('/house-build/energy-planning')}
+            />
+            <QuickAction
               icon="check-circle"
               label="Zakonczenie"
               color="#DC2626"
               bg="#FEF2F2"
               onPress={() => router.push('/house-build/completion')}
             />
-            <View style={{ flex: 1 }} />
             <View style={{ flex: 1 }} />
           </View>
 
