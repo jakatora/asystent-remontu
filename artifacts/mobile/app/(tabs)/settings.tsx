@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, TouchableOpacity, Alert, Platform } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Alert, Platform, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
@@ -8,6 +8,7 @@ import { isSentryConfigured } from '@/lib/sentry';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
+import { APP_CONFIG } from '@/config/contact';
 
 interface SettingRowProps {
   icon: string;
@@ -100,8 +101,8 @@ export default function SettingsScreen() {
 
   const handleAbout = () => {
     Alert.alert(
-      'Remont Asystent',
-      'Wersja 1.0.0\n\nTwój przewodnik po remontach. Prowadzi krok po kroku, oblicza materiały i pomaga zaplanować każdy remont.\n\nDane przechowywane lokalnie na urządzeniu.',
+      APP_CONFIG.appName,
+      `Wersja ${APP_CONFIG.version}\n\nTwój przewodnik po remontach. Prowadzi krok po kroku, oblicza materiały i pomaga zaplanować każdy remont.\n\nDane przechowywane lokalnie na urządzeniu.`,
       [{ text: 'OK' }]
     );
   };
@@ -120,6 +121,12 @@ export default function SettingsScreen() {
       '⚠️ Przed każdą pracą:\n\n• Przy elektryce — zawsze wyłącz bezpiecznik\n• Przy hydraulice — zakręć wodę\n• Przy gazie lub nośnych ścianach — zadzwoń do fachowca\n• Używaj okularów i rękawic ochronnych\n• Czytaj instrukcje produktów',
       [{ text: 'Rozumiem' }]
     );
+  };
+
+  const openUrl = (url: string) => {
+    Linking.openURL(url).catch(() => {
+      Alert.alert('Błąd', 'Nie udało się otworzyć linku.');
+    });
   };
 
   return (
@@ -160,7 +167,7 @@ export default function SettingsScreen() {
           <Feather name="home" size={28} color={Colors.primary} />
         </View>
         <View>
-          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>Remont Asystent</Txt>
+          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{APP_CONFIG.appName}</Txt>
           <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 2 }}>
             {projects.length} {projectWord}
           </Txt>
@@ -216,7 +223,7 @@ export default function SettingsScreen() {
           <SettingRow
             icon="info"
             title="O aplikacji"
-            subtitle="Wersja 1.0.0"
+            subtitle={`Wersja ${APP_CONFIG.version}`}
             onPress={handleAbout}
             iconColor={Colors.secondary}
             iconBg={Colors.surfaceAlt}
@@ -242,6 +249,38 @@ export default function SettingsScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <SectionLabel label="Pomoc i prawne" />
+        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
+          <SettingRow
+            icon="help-circle"
+            title="Pomoc i wsparcie"
+            subtitle="FAQ, poradniki, kontakt"
+            onPress={() => openUrl(APP_CONFIG.supportUrl)}
+            iconColor={Colors.info}
+            iconBg={Colors.infoBg}
+          />
+          <SettingDivider />
+          <SettingRow
+            icon="lock"
+            title="Polityka prywatności"
+            subtitle="Jak chronimy Twoje dane"
+            onPress={() => openUrl(APP_CONFIG.privacyUrl)}
+            iconColor="#8B5CF6"
+            iconBg="#F5F3FF"
+          />
+          <SettingDivider />
+          <SettingRow
+            icon="mail"
+            title="Kontakt"
+            subtitle={APP_CONFIG.supportEmail}
+            onPress={() => openUrl(`mailto:${APP_CONFIG.supportEmail}`)}
+            iconColor={Colors.primary}
+            iconBg={Colors.primaryBg}
+          />
+        </View>
+      </View>
+
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
         <SectionLabel label="Bezpieczeństwo" />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
@@ -256,7 +295,7 @@ export default function SettingsScreen() {
       </View>
 
       <Txt style={{ textAlign: 'center', fontSize: 12, color: Colors.textMuted, marginBottom: 20 }}>
-        Remont Asystent v1.0.0 · Dane offline
+        {APP_CONFIG.appName} v{APP_CONFIG.version} · Dane offline
       </Txt>
     </ScrollView>
   );

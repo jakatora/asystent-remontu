@@ -1,0 +1,177 @@
+Assume the mobile app already exists and core features are already implemented.
+
+Do not rebuild the app.
+Do not redesign unrelated screens.
+Do not duplicate existing business logic.
+
+Your task now is to prepare all remaining App Store release assets and support pages needed for iOS App Store submission for a Polish-first renovation app called "Asystent Remontu".
+
+GOAL
+Create the missing release-readiness assets, pages, and in-app links required or strongly recommended for App Store submission.
+
+IMPORTANT CONTEXT
+- The app is mainly for Polish users.
+- All public-facing website pages should be in Polish.
+- Keep the visual style clean, trustworthy, simple, and consistent with the app.
+- Use the existing branding if present.
+- If branding is incomplete, create a neutral professional style.
+
+DO NOT
+- rebuild the calculator system
+- rebuild project logic
+- rebuild pricing logic
+- rebuild contractor module
+- change routing unless needed to add release/compliance links
+- break current app flows
+
+BUILD THESE THINGS
+
+1. SUPPORT PAGE
+Create a Polish support page for the app at:
+- /pomoc
+
+This page should include:
+- app name
+- short description of what the app does
+- support contact email placeholder
+- FAQ section
+- help for material calculations
+- help for project saving
+- help for contractor module if present
+- help for pricing/reference price explanation
+- response time note
+- simple contact section
+
+2. PRIVACY POLICY PAGE
+Create a Polish privacy policy page at:
+- /polityka-prywatnosci
+
+The page should be realistic and production-style for this app.
+It should cover:
+- what data may be collected
+- saved projects
+- optional account data if account system exists
+- optional contractor account/profile data if that module exists
+- analytics/crash reporting placeholders if present
+- contact email
+- user rights
+- deletion/contact request section
+
+3. MARKETING / LANDING PAGE
+Create a Polish marketing page for the app at:
+- /asystent-remontu
+
+This page should be suitable as the App Store Marketing URL.
+
+Include:
+- strong headline
+- what the app helps with
+- main features
+- screenshots section placeholders
+- why it is useful for beginners
+- pricing/reference cost explanation
+- shopping list and material calculator explanation
+- contractor module section if present
+- support link
+- privacy policy link
+- call-to-action section for App Store availability
+
+4. ACCOUNT DELETION SUPPORT
+Inspect whether the app currently supports account creation.
+
+If account creation exists:
+- add a visible in-app path to initiate account deletion
+- add a matching explanation on the privacy/support pages
+- do not fake deletion; implement a real deletion request initiation flow if backend exists
+- if backend is not ready, create a clearly labeled deletion request flow prepared for backend completion without misleading the user
+
+If account creation does not exist:
+- do not invent it
+- do not add unnecessary account complexity
+
+5. SETTINGS / LEGAL LINKS IN APP
+Add or verify a clear place inside the app where users can open:
+- Support
+- Privacy Policy
+- App version
+- Contact email
+
+Use the existing settings/help area if present.
+If missing, extend the existing settings/help screen minimally.
+
+6. APP STORE METADATA HELPER FILE
+Create a release folder in the project with a simple text or markdown file containing ready-to-copy App Store metadata in Polish:
+- app name
+- promotional text
+- description
+- keywords
+- support URL
+- marketing URL
+- copyright
+- app review notes draft
+
+Use these exact values as defaults unless better existing branding is already present:
+
+App name:
+Asystent Remontu
+
+Promotional text:
+Asystent Remontu pomaga zaplanować remont, obliczyć materiały, przygotować listę zakupów i porównać koszty przed rozpoczęciem prac.
+
+Support URL:
+https://twojadomena.pl/pomoc
+
+Marketing URL:
+https://twojadomena.pl/asystent-remontu
+
+Copyright:
+Copyright © 2026 [OWNER_NAME]
+
+Also generate clean Polish keywords and a polished Polish description suitable for App Store Connect.
+
+7. APP REVIEW HELPER
+Create a reviewer notes draft file containing:
+- what the app does
+- whether login is required
+- where support/privacy links are located
+- whether contractor features are mock/demo/live
+- whether prices are reference estimates
+- whether account deletion exists and where to find it
+
+8. PLACEHOLDER CONTACT CONFIG
+Create one simple config file for public contact information so support email and legal contact data can be changed later in one place.
+
+Use placeholders such as:
+- kontakt@twojadomena.pl
+- https://twojadomena.pl
+- https://twojadomena.pl/pomoc
+- https://twojadomena.pl/polityka-prywatnosci
+
+9. RELEASE CHECKLIST FILE
+Create a concise release checklist file covering:
+- privacy policy ready
+- support page ready
+- marketing page ready
+- in-app links working
+- account deletion checked if accounts exist
+- App Store metadata prepared
+- screenshots pending
+- build selection pending
+- review contact info pending
+
+10. IMPLEMENTATION QUALITY RULES
+- Keep everything modular
+- Do not hardcode legal text in many places
+- Reuse config/constants where possible
+- Keep pages mobile-friendly
+- Make all links functional within the project
+- Use Polish text for public-facing pages
+- Keep the work focused on App Store submission readiness
+
+FINAL STEP
+After implementation:
+- list exactly which files/pages were created
+- list which in-app screens were extended
+- confirm whether account deletion was added, not needed, or prepared
+- confirm the final Support URL, Privacy Policy URL, and Marketing URL paths
+- do not rebuild unrelated features

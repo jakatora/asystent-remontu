@@ -90,3 +90,21 @@ The project is structured as a pnpm workspace monorepo using Node.js 24 and Type
 - **Form Management**: `react-hook-form`
 - **Fonts**: `@expo-google-fonts/inter`
 - **Optional Backend Integration**: Supabase (via `supabase.adapter.ts` and environment variables)
+
+**Web Support Pages (`artifacts/asystent-remontu-web`):**
+- React + Vite + Tailwind CSS web app with wouter routing
+- `/asystent-remontu` — Marketing/landing page (App Store Marketing URL)
+- `/pomoc` — Support page with FAQ (App Store Support URL)
+- `/polityka-prywatnosci` — Privacy policy page
+- Orange-branded (#F97316) to match the mobile app
+- All content in Polish
+
+**App Store Release Assets (`artifacts/mobile/release/`):**
+- `app-store-metadata.md` — Ready-to-copy App Store Connect fields
+- `app-review-notes.md` — Reviewer notes explaining features, login, data handling
+- `release-checklist.md` — Pre-submission checklist with placeholder tracking
+
+**Contact Config (`artifacts/mobile/config/contact.ts`):**
+- Centralized contact/URL config with placeholder values
+- Used by Settings screen for support/privacy/contact links
+- Placeholder values to be replaced before submission: email, domain, owner name
