@@ -3,12 +3,14 @@ import type {
   ContractorSearchFilters,
   ContractorSortOption,
 } from '@/types/contractor';
+import { isContractorVerified, computeQualityScore, separateOrganicAndPromoted } from './contractor-trust';
 
 export function filterContractors(
   contractors: readonly ContractorProfile[],
   filters: ContractorSearchFilters,
 ): ContractorProfile[] {
   return contractors.filter((c) => {
+    if (c.verificationStatus === 'suspended') return false;
     if (filters.categoryId) {
       const match = c.specialties.some((s) => s.categoryId === filters.categoryId);
       if (!match) return false;
@@ -21,11 +23,14 @@ export function filterContractors(
         return false;
       }
     }
-    if (filters.verifiedOnly && c.verificationStatus !== 'verified') return false;
+    if (filters.verifiedOnly && !isContractorVerified(c.verificationStatus)) return false;
     if (filters.availableSoon && !c.availableSoon) return false;
     if (filters.minRating && (c.rating ?? 0) < filters.minRating) return false;
     if (filters.showPromoted === false && c.isPromoted) return false;
     if (filters.jobScale && !c.jobScales.includes(filters.jobScale)) return false;
+    if (filters.houseBuildStageKey) {
+      if (!c.suitableForHouseBuildStages || !c.suitableForHouseBuildStages.includes(filters.houseBuildStageKey)) return false;
+    }
     return true;
   });
 }
@@ -33,10 +38,19 @@ export function filterContractors(
 export function sortContractors(
   contractors: ContractorProfile[],
   sort: ContractorSortOption,
+  context?: { categoryId?: string; city?: string; stageKey?: string },
 ): ContractorProfile[] {
   const copy = [...contractors];
 
   switch (sort) {
+    case 'quality-score': {
+      const scored = copy.map((c) => ({
+        contractor: c,
+        score: computeQualityScore(c, context),
+      }));
+      scored.sort((a, b) => b.score.totalScore - a.score.totalScore);
+      return scored.map((s) => s.contractor);
+    }
     case 'promoted':
       return copy.sort((a, b) => {
         if (a.isPromoted !== b.isPromoted) return a.isPromoted ? -1 : 1;
@@ -46,8 +60,8 @@ export function sortContractors(
       return copy.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
     case 'verified-first':
       return copy.sort((a, b) => {
-        const av = a.verificationStatus === 'verified' ? 0 : 1;
-        const bv = b.verificationStatus === 'verified' ? 0 : 1;
+        const av = isContractorVerified(a.verificationStatus) ? 0 : 1;
+        const bv = isContractorVerified(b.verificationStatus) ? 0 : 1;
         if (av !== bv) return av - bv;
         return (b.rating ?? 0) - (a.rating ?? 0);
       });
@@ -56,18 +70,19 @@ export function sortContractors(
     case 'nearest':
       return copy.sort((a, b) => (a.serviceArea.radiusKm ?? 999) - (b.serviceArea.radiusKm ?? 999));
     case 'best-match':
-    default:
-      return copy.sort((a, b) => {
-        let scoreA = (a.rating ?? 0) * 10 + a.reviewCount;
-        let scoreB = (b.rating ?? 0) * 10 + b.reviewCount;
-        if (a.verificationStatus === 'verified') scoreA += 20;
-        if (b.verificationStatus === 'verified') scoreB += 20;
-        if (a.availableSoon) scoreA += 10;
-        if (b.availableSoon) scoreB += 10;
-        if (a.isPromoted) scoreA += 15;
-        if (b.isPromoted) scoreB += 15;
-        return scoreB - scoreA;
+    default: {
+      const scored = copy.map((c) => ({
+        contractor: c,
+        score: computeQualityScore(c, context),
+      }));
+      scored.sort((a, b) => {
+        if (a.contractor.isPromoted !== b.contractor.isPromoted) {
+          return a.contractor.isPromoted ? -1 : 1;
+        }
+        return b.score.totalScore - a.score.totalScore;
       });
+      return scored.map((s) => s.contractor);
+    }
   }
 }
 
@@ -92,6 +107,7 @@ export function countMatchingContractors(
   city?: string,
 ): number {
   return contractors.filter((c) => {
+    if (c.verificationStatus === 'suspended') return false;
     if (categoryId && !c.specialties.some((s) => s.categoryId === categoryId)) return false;
     if (city) {
       const q = city.toLowerCase();
@@ -100,4 +116,33 @@ export function countMatchingContractors(
     }
     return true;
   }).length;
+}
+
+export function filterAndSeparateResults(
+  contractors: readonly ContractorProfile[],
+  filters: ContractorSearchFilters,
+  sort: ContractorSortOption,
+  searchQuery: string,
+  blockedIds?: Set<string>,
+) {
+  let result = searchContractorsByText(contractors, searchQuery);
+  result = filterContractors(result, filters);
+
+  if (blockedIds && blockedIds.size > 0 && filters.excludeBlocked !== false) {
+    result = result.filter((c) => !blockedIds.has(c.id));
+  }
+
+  const separated = separateOrganicAndPromoted(result);
+  const context = {
+    categoryId: filters.categoryId,
+    city: filters.city,
+    stageKey: filters.houseBuildStageKey,
+  };
+
+  return {
+    promoted: sortContractors([...separated.promoted], sort, context),
+    featured: sortContractors([...separated.featured], sort, context),
+    organic: sortContractors([...separated.organic], sort, context),
+    totalCount: result.length,
+  };
 }

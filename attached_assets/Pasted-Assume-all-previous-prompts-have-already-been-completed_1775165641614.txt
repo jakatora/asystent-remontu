@@ -1,0 +1,297 @@
+Assume all previous prompts have already been completed, including:
+- the renovation module
+- the contractor module ("Find a Contractor")
+- the House Build module
+- the connection between House Build and the contractor module
+- saved contractor flows
+- contractor request flows
+- contractor profile flows
+- existing route structure
+- existing project flows
+
+Do not rebuild or rename:
+- the renovation module
+- the House Build module
+- the contractor search module
+- contractor request logic that already works
+- existing route structure
+- existing pricing logic
+- existing shopping list logic
+- existing saved project flows
+
+Only extend the current implementation.
+
+Your task now is to implement the "Contractor Trust + Ranking + Moderation + Promoted Listings" layer.
+
+GOAL
+Make the contractor module trustworthy, scalable, moderation-ready, and prepared for future paid visibility without breaking the current user flow.
+
+IMPORTANT PRODUCT RULES
+- Do not create a second contractor directory
+- Do not create a second review system if one already exists
+- Do not create a second request system if one already exists
+- Reuse existing contractor profiles, specialties, and request structures wherever possible
+- Promoted contractors must always be clearly labeled
+- Organic ranking and promoted ranking must remain distinct
+- Add strong moderation and trust architecture
+- Keep the UI practical and transparent
+
+BUILD THESE FEATURES
+
+1. TRUST AND VERIFICATION SYSTEM
+Extend contractor profiles with structured trust states:
+- unverified
+- phone verified
+- email verified
+- basic verified
+- business verified
+- featured
+- promoted
+- suspended
+
+Add badge logic and visible explanations for each state.
+
+Add profile completeness scoring based on:
+- profile description
+- specialties selected
+- service area defined
+- contact info present
+- gallery present
+- verification state
+- review count placeholder
+- response/readiness placeholder
+
+2. CONTRACTOR QUALITY SCORE
+Create a transparent internal quality/relevance score.
+
+The score should combine factors such as:
+- specialty match
+- service area match
+- verification level
+- profile completeness
+- review placeholder score
+- recent activity placeholder
+- house-build suitability placeholder
+- response readiness placeholder
+
+Important:
+- this score supports organic ranking only
+- promoted status must not silently replace all organic logic
+- keep ranking understandable and maintainable
+
+3. ORGANIC VS PROMOTED RESULTS
+Extend the contractor results logic to clearly separate:
+- organic results
+- promoted results
+
+Promoted contractors must:
+- be visibly labeled as promoted / sponsored
+- use a dedicated badge or chip
+- stay transparent in sorting and display logic
+- not remove all useful organic discovery
+
+Create feature flags for:
+- enablePromotedListings
+- enableFeaturedProfiles
+- enableSponsoredCategories
+- enableCitySponsorSlots
+
+Do not implement real payments in this step.
+Only prepare the ranking and display architecture.
+
+4. MODERATION / SAFETY LAYER
+Create a robust moderation-ready structure for contractor content and interactions.
+
+Support reporting of:
+- fake contractor profile
+- misleading company information
+- spam
+- abusive messages placeholder
+- inappropriate images placeholder
+- suspicious review placeholder
+- duplicate business profile
+- scam/fraud suspicion
+
+Add structures such as:
+- ContractorModerationRecord
+- ContractorModerationAction
+- ContractorContentReport
+- ContractorAccountState
+- ContractorSafetyFlag
+
+Add moderation states:
+- open
+- under review
+- action taken
+- dismissed
+- escalated
+
+5. IN-APP REPORTING AND BLOCKING PREPARATION
+Add visible in-app support for:
+- report contractor profile
+- report review placeholder
+- block contractor profile from user view
+- hide contractor from future results for that user
+- report abusive behavior placeholder
+
+If user blocking/reporting flows already exist, extend them rather than rebuilding them.
+
+6. REVIEW / OPINION ARCHITECTURE IMPROVEMENT
+Extend or create a contractor review system that is moderation-ready.
+
+Each review should support:
+- contractorId
+- rating
+- title optional
+- text
+- createdAt
+- reviewer type placeholder
+- verified job / verified request placeholder
+- moderation status
+- visible/hidden state
+- flagged state
+
+Add trust distinctions such as:
+- verified request review
+- unverified review placeholder
+- moderated review
+- hidden review
+
+Do not fake review verification if the app cannot verify it yet.
+Use placeholders and honest status labels.
+
+7. REVIEW DISPLAY RULES
+Add clear display rules:
+- average rating
+- review count
+- verified review count placeholder
+- review distribution placeholder
+- recent reviews block
+- hidden/flagged review handling
+- no-review empty state
+
+8. CONTRACTOR AVAILABILITY / FIT PLACEHOLDERS
+Extend contractor profiles with optional fields/placeholders such as:
+- acceptsSmallJobs
+- acceptsMediumJobs
+- acceptsLargeJobs
+- suitableForHouseBuildStages
+- availableSoon
+- currentLeadCapacity placeholder
+- typicalProjectType
+- materialsIncludedPossible placeholder
+
+Do not present unavailable data as confirmed.
+Use clear placeholder states where needed.
+
+9. PROFILE HEALTH / ADMIN AUDIT
+Add an internal contractor-profile health check.
+
+It should detect:
+- profiles missing specialties
+- profiles missing service area
+- profiles missing description
+- profiles missing verification fields
+- profiles with unresolved moderation reports
+- duplicate-like profiles
+- profiles marked active but too incomplete to rank well
+
+10. CONTRACTOR ADMIN / INTERNAL REVIEW BOARD
+Create an internal admin-style board for contractor oversight.
+
+Add sections for:
+- reported profiles
+- pending verification
+- promoted listings overview
+- suspended accounts
+- flagged reviews
+- incomplete profiles
+- duplicate candidates
+- moderation queue
+
+Do not redesign the whole admin system.
+Extend existing admin/internal tools if they already exist.
+
+11. RANKING CONTROLS
+Create configurable ranking controls for internal use.
+
+Support:
+- weighting of specialty match
+- weighting of service area match
+- weighting of verification
+- weighting of completeness
+- weighting of review score placeholder
+- weighting of recent activity placeholder
+- promoted slot count
+- featured slot count
+
+Keep these settings internal only.
+
+12. CITY / CATEGORY PROMOTION PREPARATION
+Prepare structures for future paid visibility such as:
+- promoted in city
+- promoted in category
+- promoted in stage specialty
+- featured profile
+- sponsored stage recommendation
+
+Each should support:
+- active/inactive
+- start date
+- end date
+- label
+- visibility scope
+- priority
+
+Do not implement real billing in this step.
+Only prepare the architecture and UI states.
+
+13. USER TRUST UX
+Improve the user-facing contractor cards and profiles with trust elements:
+- verification badges
+- promoted labels
+- completeness/trust hints
+- review summary
+- report action
+- save/hide/block action
+- caution note if data is incomplete
+
+Keep the UI simple and not overcrowded.
+
+14. HOUSE BUILD INTEGRATION
+Extend the House Build stage contractor flows so they can benefit from the new trust/ranking logic.
+
+When a user searches from a House Build stage:
+- prioritize stage-specialty relevance
+- show verification more prominently
+- show promoted labels clearly
+- show whether the contractor appears suitable for that stage
+- preserve saved/shortlist-per-stage logic
+
+15. SOURCE / CONTACT TRANSPARENCY
+Add clear public-facing support/contact reference for trust and moderation.
+
+The contractor module should be ready to display:
+- support contact info
+- reporting route
+- moderation/help note
+- explanation of promoted listings
+- explanation of verification badges
+
+16. IMPLEMENTATION QUALITY RULES
+- do not rebuild previous modules
+- do not duplicate contractor profiles, requests, or specialties
+- only extend and connect the existing implementation
+- keep everything modular and data-driven
+- preserve strong TypeScript typing
+- preserve route stability
+- make the system ready for future real billing and real review verification
+
+17. FINAL STEP
+After implementation:
+- list the contractor screens/sections that were extended
+- confirm verification states were added
+- confirm organic vs promoted logic was added
+- confirm reporting/blocking/moderation preparation was added
+- confirm review moderation architecture was added
+- confirm no unrelated modules were rebuilt

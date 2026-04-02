@@ -22,7 +22,9 @@ export default function ContractorResultsScreen() {
   const isHouseBuild = fromHouseBuild === '1' && !!stageKey;
   const insets = useSafeAreaInsets();
   const {
-    filteredContractors,
+    promotedContractors,
+    organicContractors,
+    featuredContractors,
     filters,
     sortOption,
     searchQuery,
@@ -42,16 +44,61 @@ export default function ContractorResultsScreen() {
         ...filters,
         categoryId: categoryId || undefined,
         city: city || undefined,
+        ...(stageKey ? { houseBuildStageKey: stageKey } : {}),
       });
     }
   }, []);
+
+  const allResults = [...promotedContractors, ...featuredContractors, ...organicContractors];
+  const totalCount = allResults.length;
+
+  const renderItem = ({ item, index }: { item: (typeof allResults)[0]; index: number }) => {
+    const promotedEnd = promotedContractors.length;
+    const featuredEnd = promotedEnd + featuredContractors.length;
+    const isFirstFeatured = featuredContractors.length > 0 && index === promotedEnd;
+    const isFirstOrganic = organicContractors.length > 0 && index === featuredEnd && (promotedEnd > 0 || featuredContractors.length > 0);
+
+    return (
+      <>
+        {isFirstFeatured && (
+          <View style={{ paddingVertical: 6, marginBottom: 4 }}>
+            <Txt w="semibold" style={{ fontSize: 11, color: '#D97706' }}>Wyroznieni</Txt>
+          </View>
+        )}
+        {isFirstOrganic && (
+          <View style={{ paddingVertical: 6, marginBottom: 4 }}>
+            <Txt w="semibold" style={{ fontSize: 11, color: Colors.textMuted }}>Wyniki organiczne</Txt>
+          </View>
+        )}
+        <ContractorCard
+          contractor={item}
+          onPress={() => router.push({
+            pathname: '/contractor/[id]',
+            params: {
+              id: item.id,
+              requestId,
+              ...(isHouseBuild ? { fromHouseBuild: '1', stageKey, projectId } : {}),
+            },
+          })}
+          onSendRequest={() =>
+            router.push({
+              pathname: '/contractor/send-request',
+              params: { contractorId: item.id, requestId },
+            })
+          }
+          isSaved={isContractorSaved(item.id)}
+          onToggleSave={() => toggleSaveContractor(item.id)}
+        />
+      </>
+    );
+  };
 
   return (
     <>
       <Stack.Screen
         options={{
           title: 'Fachowcy',
-          headerBackTitle: 'Wróć',
+          headerBackTitle: 'Wroc',
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -61,13 +108,9 @@ export default function ContractorResultsScreen() {
         <View style={{ paddingHorizontal: 20, paddingTop: 8, paddingBottom: 4 }}>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              backgroundColor: Colors.surface,
-              borderRadius: 12,
-              paddingHorizontal: 12,
-              borderWidth: 1,
-              borderColor: Colors.border,
+              flexDirection: 'row', alignItems: 'center',
+              backgroundColor: Colors.surface, borderRadius: 12,
+              paddingHorizontal: 12, borderWidth: 1, borderColor: Colors.border,
             }}
           >
             <Feather name="search" size={18} color={Colors.textMuted} />
@@ -77,16 +120,26 @@ export default function ContractorResultsScreen() {
               placeholder="Szukaj fachowca..."
               placeholderTextColor={Colors.textMuted}
               style={{
-                flex: 1,
-                paddingVertical: 12,
-                paddingHorizontal: 8,
-                fontSize: 14,
-                color: Colors.text,
-                fontFamily: 'Inter_400Regular',
+                flex: 1, paddingVertical: 12, paddingHorizontal: 8,
+                fontSize: 14, color: Colors.text, fontFamily: 'Inter_400Regular',
               }}
             />
           </View>
         </View>
+
+        {promotedContractors.length > 0 && (
+          <View style={{ paddingHorizontal: 20, paddingTop: 4 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <Feather name="star" size={10} color="#7C3AED" />
+              <Txt style={{ fontSize: 10, color: '#7C3AED' }}>
+                {promotedContractors.length} promowanych
+              </Txt>
+              <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
+                | {organicContractors.length + featuredContractors.length} organicznych
+              </Txt>
+            </View>
+          </View>
+        )}
 
         <FilterBar
           filters={filters}
@@ -94,42 +147,22 @@ export default function ContractorResultsScreen() {
           onFiltersChange={setFilters}
           onSortChange={setSortOption}
           onReset={resetFilters}
-          resultCount={filteredContractors.length}
+          resultCount={totalCount}
         />
 
         <FlatList
-          data={filteredContractors}
+          data={allResults}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ padding: 20, paddingBottom: bottomPad }}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <EmptyState
               icon="users"
-              title="Brak wyników"
-              description="Spróbuj zmienić filtry lub wyszukiwanie"
+              title="Brak wynikow"
+              description="Sprobuj zmienic filtry lub wyszukiwanie"
             />
           }
-          renderItem={({ item }) => (
-            <ContractorCard
-              contractor={item}
-              onPress={() => router.push({
-                pathname: '/contractor/[id]',
-                params: {
-                  id: item.id,
-                  requestId,
-                  ...(isHouseBuild ? { fromHouseBuild: '1', stageKey, projectId } : {}),
-                },
-              })}
-              onSendRequest={() =>
-                router.push({
-                  pathname: '/contractor/send-request',
-                  params: { contractorId: item.id, requestId },
-                })
-              }
-              isSaved={isContractorSaved(item.id)}
-              onToggleSave={() => toggleSaveContractor(item.id)}
-            />
-          )}
+          renderItem={renderItem}
         />
       </View>
     </>

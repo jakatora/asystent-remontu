@@ -12,7 +12,6 @@ import type {
   ContractorRequest,
   ContractorSearchFilters,
   ContractorSortOption,
-  SavedContractor,
   RequestStatus,
 } from '@/types/contractor';
 
@@ -22,16 +21,22 @@ import {
   sortContractors,
   searchContractorsByText,
   countMatchingContractors,
+  filterAndSeparateResults,
 } from '@/features/contractor';
 
 import { contractorRequestsRepo } from '@/db/repositories/contractor-requests.repo';
 import { savedContractorsRepo } from '@/db/repositories/saved-contractors.repo';
+import { contractorBlocksRepo } from '@/db/repositories/contractor-blocks.repo';
 
 interface ContractorContextValue {
   readonly contractors: ContractorProfile[];
   readonly filteredContractors: ContractorProfile[];
+  readonly promotedContractors: ContractorProfile[];
+  readonly organicContractors: ContractorProfile[];
+  readonly featuredContractors: ContractorProfile[];
   readonly requests: ContractorRequest[];
   readonly savedContractorIds: Set<string>;
+  readonly blockedIds: Set<string>;
   readonly filters: ContractorSearchFilters;
   readonly sortOption: ContractorSortOption;
   readonly searchQuery: string;
@@ -52,6 +57,8 @@ interface ContractorContextValue {
 
   toggleSaveContractor: (contractorId: string) => Promise<void>;
   isContractorSaved: (contractorId: string) => boolean;
+
+  refreshBlockedIds: () => Promise<void>;
 }
 
 const ContractorContext = createContext<ContractorContextValue | null>(null);
@@ -62,6 +69,7 @@ export function ContractorProvider({ children }: PropsWithChildren) {
   const [contractors] = useState<ContractorProfile[]>(MOCK_CONTRACTORS);
   const [requests, setRequests] = useState<ContractorRequest[]>([]);
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
+  const [blockedIds, setBlockedIds] = useState<Set<string>>(new Set());
   const [filters, setFilters] = useState<ContractorSearchFilters>(EMPTY_FILTERS);
   const [sortOption, setSortOption] = useState<ContractorSortOption>('best-match');
   const [searchQuery, setSearchQuery] = useState('');
@@ -70,12 +78,14 @@ export function ContractorProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     (async () => {
       try {
-        const [reqs, saved] = await Promise.all([
+        const [reqs, saved, blocked] = await Promise.all([
           contractorRequestsRepo.findAll(),
           savedContractorsRepo.findAll(),
+          contractorBlocksRepo.getBlockedIds(),
         ]);
         setRequests(reqs);
         setSavedIds(new Set(saved.map((s) => s.contractorId)));
+        setBlockedIds(new Set(blocked));
       } catch {
       } finally {
         setIsLoading(false);
@@ -83,12 +93,13 @@ export function ContractorProvider({ children }: PropsWithChildren) {
     })();
   }, []);
 
+  const separated = React.useMemo(() => {
+    return filterAndSeparateResults(contractors, filters, sortOption, searchQuery, blockedIds);
+  }, [contractors, filters, sortOption, searchQuery, blockedIds]);
+
   const filteredContractors = React.useMemo(() => {
-    let result = searchContractorsByText(contractors, searchQuery);
-    result = filterContractors(result, filters);
-    result = sortContractors(result, sortOption);
-    return result;
-  }, [contractors, filters, sortOption, searchQuery]);
+    return [...separated.promoted, ...separated.featured, ...separated.organic];
+  }, [separated]);
 
   const getContractorById = useCallback(
     (id: string) => contractors.find((c) => c.id === id),
@@ -153,11 +164,20 @@ export function ContractorProvider({ children }: PropsWithChildren) {
     [savedIds],
   );
 
+  const refreshBlockedIds = useCallback(async () => {
+    const blocked = await contractorBlocksRepo.getBlockedIds();
+    setBlockedIds(new Set(blocked));
+  }, []);
+
   const value: ContractorContextValue = {
     contractors,
     filteredContractors,
+    promotedContractors: separated.promoted,
+    organicContractors: separated.organic,
+    featuredContractors: separated.featured,
     requests,
     savedContractorIds: savedIds,
+    blockedIds,
     filters,
     sortOption,
     searchQuery,
@@ -174,6 +194,7 @@ export function ContractorProvider({ children }: PropsWithChildren) {
     refreshRequests,
     toggleSaveContractor,
     isContractorSaved,
+    refreshBlockedIds,
   };
 
   return (

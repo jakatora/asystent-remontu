@@ -4,4 +4,15 @@ export {
   sortContractors,
   searchContractorsByText,
   countMatchingContractors,
+  filterAndSeparateResults,
 } from './search';
+export {
+  computeProfileCompleteness,
+  computeQualityScore,
+  separateOrganicAndPromoted,
+  rankContractorsByQuality,
+  checkProfileHealth,
+  getVerificationTrustLevel,
+  isContractorVerified,
+  getCompletionHint,
+} from './contractor-trust';

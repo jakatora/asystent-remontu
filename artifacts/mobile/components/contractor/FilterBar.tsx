@@ -9,11 +9,12 @@ import type { ContractorSearchFilters, ContractorSortOption } from '@/types/cont
 
 const SORT_OPTIONS: { value: ContractorSortOption; label: string }[] = [
   { value: 'best-match', label: 'Najlepsze dopasowanie' },
-  { value: 'nearest', label: 'Najbliżej' },
+  { value: 'quality-score', label: 'Wynik jakosci' },
+  { value: 'nearest', label: 'Najblizej' },
   { value: 'verified-first', label: 'Zweryfikowani' },
   { value: 'newest', label: 'Najnowsi' },
   { value: 'promoted', label: 'Promowani' },
-  { value: 'rating', label: 'Najwyższa ocena' },
+  { value: 'rating', label: 'Najwyzsza ocena' },
 ];
 
 interface Props {

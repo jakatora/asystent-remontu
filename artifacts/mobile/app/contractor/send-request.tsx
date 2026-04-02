@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useContractor } from '@/context/ContractorContext';
+import { isContractorVerified as isContractorVerifiedFn } from '@/features/contractor/contractor-trust';
 
 export default function SendRequestScreen() {
   const { contractorId, requestId } = useLocalSearchParams<{
@@ -175,7 +176,7 @@ export default function SendRequestScreen() {
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                 <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>{contractor.displayName}</Txt>
-                {contractor.verificationStatus === 'verified' && (
+                {isContractorVerifiedFn(contractor.verificationStatus) && (
                   <Feather name="check-circle" size={14} color={Colors.success} />
                 )}
               </View>
