@@ -44,6 +44,19 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="utility-internet" options={{ title: 'Internet / telekomunikacja' }} />
       <Stack.Screen name="utility-alternatives" options={{ title: 'Rozwiazania alternatywne' }} />
       <Stack.Screen name="pricing-references" options={{ title: 'Ceny referencyjne' }} />
+      <Stack.Screen name="content-admin-hub" options={{ title: 'Administracja tresci' }} />
+      <Stack.Screen name="content-dashboard" options={{ title: 'Panel tresci' }} />
+      <Stack.Screen name="content-stages" options={{ title: 'Etapy - tresc' }} />
+      <Stack.Screen name="content-formal" options={{ title: 'Wytyczne formalne' }} />
+      <Stack.Screen name="content-utilities" options={{ title: 'Przylacza - tresc' }} />
+      <Stack.Screen name="content-decisions" options={{ title: 'Szablony decyzji' }} />
+      <Stack.Screen name="content-questions" options={{ title: 'Szablony pytan' }} />
+      <Stack.Screen name="content-warnings" options={{ title: 'Ostrzezenia' }} />
+      <Stack.Screen name="content-sources" options={{ title: 'Rejestr zrodel' }} />
+      <Stack.Screen name="content-import-export" options={{ title: 'Import / Eksport' }} />
+      <Stack.Screen name="content-snapshots" options={{ title: 'Wersjonowanie' }} />
+      <Stack.Screen name="content-health" options={{ title: 'Kontrola jakosci' }} />
+      <Stack.Screen name="content-disclaimers" options={{ title: 'Zastrzezenia' }} />
     </Stack>
   );
 }

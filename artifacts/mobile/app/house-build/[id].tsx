@@ -278,6 +278,13 @@ export default function HouseBuildProjectDetail() {
               bg="#ECFDF5"
               onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId: project.id } })}
             />
+            <QuickAction
+              icon="settings"
+              label="Admin tresci"
+              color="#7C3AED"
+              bg="#F5F3FF"
+              onPress={() => router.push({ pathname: '/house-build/content-admin-hub' as any })}
+            />
           </View>
 
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>Etapy budowy</Txt>

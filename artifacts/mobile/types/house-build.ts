@@ -708,3 +708,108 @@ export interface HouseBuildPriceSummary {
   readonly hasRegionalData: boolean;
   readonly lastUpdated: string;
 }
+
+export type AdminContentType =
+  | 'stage-description'
+  | 'formal-guidance'
+  | 'utility-guidance'
+  | 'decision-template'
+  | 'question-template'
+  | 'warning-note'
+  | 'checklist-group'
+  | 'completion-criteria'
+  | 'milestone'
+  | 'role-guidance';
+
+export type AdminSourceType =
+  | 'official'
+  | 'technical'
+  | 'operator'
+  | 'market'
+  | 'internal-guidance'
+  | 'other';
+
+export type AdminReliabilityLevel = 'high' | 'medium' | 'low';
+
+export type AdminContentStatus = 'active' | 'inactive' | 'outdated' | 'review-soon';
+
+export interface AdminContentItem {
+  readonly id: string;
+  readonly contentType: AdminContentType;
+  readonly contentKey: string;
+  readonly title: string;
+  readonly summary: string;
+  readonly body: string;
+  readonly stageId: string;
+  readonly category: string;
+  readonly targetRole: string;
+  readonly severity: string;
+  readonly sourceId: string;
+  readonly sourceText: string;
+  readonly active: number;
+  readonly lastReviewed: string;
+  readonly lastUpdated: string;
+  readonly createdAt: string;
+  readonly notes: string;
+}
+
+export interface AdminSourceRegistryEntry {
+  readonly id: string;
+  readonly sourceName: string;
+  readonly sourceType: AdminSourceType;
+  readonly sourceUrl: string;
+  readonly regionRelevance: string;
+  readonly reliabilityLevel: AdminReliabilityLevel;
+  readonly notes: string;
+  readonly lastChecked: string;
+  readonly active: number;
+  readonly createdAt: string;
+}
+
+export interface AdminTrustDisclaimer {
+  readonly id: string;
+  readonly disclaimerKey: string;
+  readonly text: string;
+  readonly category: string;
+  readonly active: number;
+  readonly lastUpdated: string;
+  readonly createdAt: string;
+}
+
+export interface AdminContentSnapshot {
+  readonly id: string;
+  readonly label: string;
+  readonly notes: string;
+  readonly createdAt: string;
+  readonly snapshotData?: string;
+  readonly stageCount: number;
+  readonly formalCount: number;
+  readonly utilitiesCount: number;
+  readonly decisionCount: number;
+  readonly questionCount: number;
+  readonly warningCount: number;
+  readonly active: number;
+}
+
+export interface AdminContentDashboardStats {
+  readonly totalContentRecords: number;
+  readonly totalChecklistGroups: number;
+  readonly totalWarningNotes: number;
+  readonly totalDecisionTemplates: number;
+  readonly totalQuestionTemplates: number;
+  readonly totalSourceRecords: number;
+  readonly newestUpdate: string;
+  readonly oldestUpdate: string;
+  readonly missingSourceMetadata: number;
+  readonly missingLastReviewed: number;
+  readonly inactiveRecords: number;
+  readonly outdatedRecords: number;
+}
+
+export interface AdminContentHealthIssue {
+  readonly type: string;
+  readonly severity: 'error' | 'warning' | 'info';
+  readonly message: string;
+  readonly contentKey: string;
+  readonly contentType: AdminContentType;
+}
