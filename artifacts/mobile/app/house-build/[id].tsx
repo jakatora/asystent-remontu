@@ -193,7 +193,7 @@ export default function HouseBuildProjectDetail() {
               label="Przylacza"
               color={Colors.warning}
               bg={Colors.warningBg}
-              onPress={() => router.push({ pathname: '/house-build/utilities', params: { projectId: project.id } })}
+              onPress={() => router.push({ pathname: '/house-build/utility-hub', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="flag"

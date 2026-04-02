@@ -9,3 +9,5 @@ export { OFFICIAL_FORM_DEFINITIONS, getOfficialFormByKey } from './official-form
 export { QUESTION_TEMPLATES, getTemplatesForStage, getTemplatesForRole } from './question-templates';
 export { COMPLETION_PACKAGE_ITEMS, getCompletionItemByKey } from './completion-package';
 export { DEFAULT_DECISION_TEMPLATES, getDecisionTemplates } from './decision-defaults';
+export { UTILITY_GUIDANCE, getUtilityGuidance, ALTERNATIVE_DEFINITIONS } from './utility-checklists';
+export { UTILITY_QUESTION_TEMPLATES } from './utility-questions';

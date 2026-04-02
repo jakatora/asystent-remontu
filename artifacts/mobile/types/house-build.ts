@@ -571,3 +571,72 @@ export interface DocDashboardSummary {
   readonly completionTotal: number;
   readonly highPriorityUnresolved: number;
 }
+
+export type UtilityConnectionStatus =
+  | 'not-planned'
+  | 'planning'
+  | 'application-prepared'
+  | 'conditions-received'
+  | 'agreement-signed'
+  | 'in-progress'
+  | 'connected'
+  | 'not-applicable';
+
+export type GasPurpose =
+  | 'heating'
+  | 'cooking'
+  | 'both'
+  | 'not-planned';
+
+export interface UtilityConnectionPlan {
+  readonly id: string;
+  readonly projectId: string;
+  readonly utilityType: UtilityType;
+  readonly status: UtilityConnectionStatus;
+  readonly providerName: string;
+  readonly connectionPower: string;
+  readonly gasPurpose: GasPurpose;
+  readonly temporarySupply: boolean;
+  readonly alternativeNeeded: boolean;
+  readonly applicationDate: string | null;
+  readonly conditionsDate: string | null;
+  readonly connectionDate: string | null;
+  readonly notes: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface UtilityChecklistItem {
+  readonly id: string;
+  readonly projectId: string;
+  readonly utilityType: UtilityType;
+  readonly itemKey: string;
+  readonly title: string;
+  readonly completed: boolean;
+  readonly notes: string;
+  readonly sortOrder: number;
+  readonly createdAt: string;
+}
+
+export interface UtilityAlternative {
+  readonly id: string;
+  readonly projectId: string;
+  readonly utilityType: UtilityType;
+  readonly title: string;
+  readonly description: string;
+  readonly status: InvestorDocStatus;
+  readonly notes: string;
+  readonly createdAt: string;
+}
+
+export interface UtilityReadinessSummary {
+  readonly electricityStatus: UtilityConnectionStatus;
+  readonly waterStatus: UtilityConnectionStatus;
+  readonly sewerStatus: UtilityConnectionStatus;
+  readonly gasStatus: UtilityConnectionStatus;
+  readonly internetStatus: UtilityConnectionStatus;
+  readonly totalPlanned: number;
+  readonly totalConnected: number;
+  readonly blockedItems: number;
+  readonly unresolvedDecisions: number;
+}

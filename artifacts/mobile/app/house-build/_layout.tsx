@@ -36,6 +36,13 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="questions" options={{ title: 'Pytania do specjalistow' }} />
       <Stack.Screen name="completion-package" options={{ title: 'Pakiet zakonczeniowy' }} />
       <Stack.Screen name="investor-docs" options={{ title: 'Dokumenty projektu' }} />
+      <Stack.Screen name="utility-hub" options={{ title: 'Przylacza i media' }} />
+      <Stack.Screen name="utility-electricity" options={{ title: 'Przylacze elektryczne' }} />
+      <Stack.Screen name="utility-water" options={{ title: 'Przylacze wodociagowe' }} />
+      <Stack.Screen name="utility-sewer" options={{ title: 'Przylacze kanalizacyjne' }} />
+      <Stack.Screen name="utility-gas" options={{ title: 'Przylacze gazowe' }} />
+      <Stack.Screen name="utility-internet" options={{ title: 'Internet / telekomunikacja' }} />
+      <Stack.Screen name="utility-alternatives" options={{ title: 'Rozwiazania alternatywne' }} />
     </Stack>
   );
 }

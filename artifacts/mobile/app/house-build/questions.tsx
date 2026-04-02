@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { investorDocsRepo } from '@/db/repositories/investor-docs.repo';
 import { QUESTION_TEMPLATES } from '@/features/house-build/question-templates';
+import { UTILITY_QUESTION_TEMPLATES } from '@/features/house-build/utility-questions';
 import { PROFESSIONAL_ROLES } from '@/features/house-build/stages';
 import type { BuildQuestionRecord, QuestionPriority } from '@/types/house-build';
 
@@ -235,7 +236,7 @@ export default function QuestionsScreen() {
           {showTemplates && (
             <View style={{ backgroundColor: '#F5F3FF', borderRadius: 12, padding: 12, marginBottom: 12, borderWidth: 1, borderColor: '#DDD6FE' }}>
               <Txt w="semibold" style={{ fontSize: 13, color: '#6D28D9', marginBottom: 8 }}>Szablony pytan</Txt>
-              {QUESTION_TEMPLATES.map((tpl, i) => (
+              {[...QUESTION_TEMPLATES, ...UTILITY_QUESTION_TEMPLATES].map((tpl, i) => (
                 <TouchableOpacity
                   key={i}
                   style={{ backgroundColor: '#fff', borderRadius: 8, padding: 10, marginBottom: 4, flexDirection: 'row', alignItems: 'center', gap: 8 }}

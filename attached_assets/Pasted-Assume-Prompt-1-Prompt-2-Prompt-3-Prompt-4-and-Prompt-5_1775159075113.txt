@@ -1,0 +1,272 @@
+Assume Prompt 1, Prompt 2, Prompt 3, Prompt 4 and Prompt 5 for the "Budowa domu" module have already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- the House Build module shell
+- the formal/legal path module
+- the build stages module
+- the timeline / stage budget / team planning module
+- the investor documents / decisions / questions module
+- existing route structure
+
+Only extend the current implementation.
+
+Your task now is to implement the "Utilities and Media" layer for the Poland-first House Build module.
+
+GOAL
+Create a practical investor-oriented module for planning house connections and media:
+- electricity
+- water
+- sewer
+- gas
+- internet / telecom
+- optional alternative solutions placeholders
+
+IMPORTANT PRODUCT RULES
+- This module must be planning-oriented, not an engineering design tool.
+- Do not present provider-specific procedures as identical everywhere in Poland.
+- Do not promise one universal connection path.
+- Always use language such as:
+  - "usually"
+  - "commonly"
+  - "verify with your local operator/provider"
+  - "depends on local network conditions and provider requirements"
+- Keep beginner-friendly language.
+- Keep strong separation between:
+  - investor planning and checklists
+  - provider-specific technical requirements
+- Do not generate official applications; prepare planning and readiness flows only.
+
+BUILD THESE FEATURES
+
+1. UTILITIES / MEDIA HUB
+Create a dedicated "Utilities and Media" section inside the House Build module.
+
+Add separate sections for:
+- Electricity connection
+- Water connection
+- Sewer connection
+- Gas connection
+- Internet / telecom
+- Alternative / fallback options placeholder
+
+2. ELECTRICITY CONNECTION SECTION
+Create an electricity-planning screen/flow.
+
+Include investor-friendly content such as:
+- check whether a grid connection is needed for the house
+- reminder that the process usually starts with an application for connection conditions
+- reminder that the user should prepare title/right to use the plot/property
+- reminder that connection power should be planned with the house design and expected simultaneous loads
+- reminder that conditions may have validity limits and should not be treated as indefinitely open
+- distinction between:
+  - target house supply
+  - temporary construction-site supply placeholder
+- provider verification note
+
+Add structured tracking items for:
+- chosen operator/provider
+- required connection power note
+- application prepared
+- conditions received
+- agreement status placeholder
+- implementation status
+- target supply contract placeholder
+- custom notes
+
+3. WATER CONNECTION SECTION
+Create a water-connection planning screen.
+
+Include investor-friendly content such as:
+- verify whether public water network is available
+- remind the user that local utility company conditions are typically required
+- remind the user that a plan or site sketch is commonly needed to show the route relative to the existing network and site utilities
+- explain that timing and exact requirements depend on the local water utility
+- track whether the investor needs:
+  - public water connection
+  - temporary water source placeholder
+  - alternative source placeholder
+
+Add structured tracking items for:
+- local utility identified
+- application prepared
+- site sketch/plan prepared
+- conditions received
+- route decision placeholder
+- implementation status
+- acceptance/commissioning placeholder
+- notes
+
+4. SEWER CONNECTION SECTION
+Create a sewer-connection planning screen.
+
+Include:
+- verify whether public sewer network is available
+- if not available, allow alternative solution placeholder states
+- remind the user that local utility conditions and local requirements matter
+- track whether the investor plans:
+  - public sewer connection
+  - temporary solution placeholder
+  - alternative final solution placeholder
+
+Add structured tracking items similar to water connection.
+
+5. GAS CONNECTION SECTION
+Create a gas-connection planning screen.
+
+Include investor-friendly content such as:
+- verify whether gas is actually planned for the house
+- do not assume gas is always needed
+- if gas is planned, remind the user that connection conditions and provider process are usually required
+- add a note that conditions/decision timing and implementation depend on local gas operator rules and technical/economic conditions
+- track whether gas is planned for:
+  - heating
+  - cooking
+  - both
+  - not planned
+
+Add structured tracking items for:
+- gas planned yes/no
+- operator identified
+- application prepared
+- conditions received
+- agreement status placeholder
+- installation timing note
+- readiness status
+- notes
+
+6. INTERNET / TELECOM SECTION
+Create an internet/telecom planning screen.
+
+Include investor-friendly content such as:
+- check service availability for the address/location
+- remind the user that internet.gov.pl can be used to check operators and planned investments
+- explain the difference between available/likely available/planned connection in simple language
+- remind the user to think about telecom route planning during construction
+- add a note that preparing a path/microrura/duct from the property boundary to the building can make later connection easier
+
+Add structured tracking items for:
+- availability checked
+- providers identified
+- route/path prepared placeholder
+- telecom entry point planned
+- agreement/provider selection placeholder
+- installation timing note
+- notes
+
+7. ALTERNATIVE / FALLBACK OPTIONS
+Create a general fallback area for cases where a public network is not yet available.
+
+Examples of structured placeholders:
+- alternative water source placeholder
+- alternative sewage solution placeholder
+- alternative heating concept placeholder
+- mobile / wireless internet placeholder
+
+Important:
+- do not turn this into technical design instructions
+- only provide planning placeholders and “consult specialist/local authority” warnings
+
+8. UTILITIES READINESS DASHBOARD
+Create a summary dashboard showing:
+- electricity status
+- water status
+- sewer status
+- gas status
+- internet status
+- blocked items
+- unresolved decisions
+- provider contact/status placeholders
+- readiness score for utilities before later build stages
+
+9. STAGE LINKING
+Link utilities/media to existing build stages and timeline.
+
+Examples:
+- plot and site preparation -> utilities planning visibility
+- rough installations -> stronger connection to utilities decisions
+- completion readiness -> utility status review
+
+Do not rebuild stage logic.
+Only extend it with utilities dependencies.
+
+10. QUESTIONS FOR PROVIDERS / INSTALLERS
+Add a dedicated question template set for utilities and media.
+
+Seed useful beginner-friendly questions such as:
+- Electricity:
+  - What connection power is appropriate for the house and planned equipment?
+  - What is the likely timeline for the connection process?
+- Water/sewer:
+  - Is the network available directly at the plot or will route extension be needed?
+  - What drawing/plan is required for the application?
+- Gas:
+  - Is a gas connection technically and economically available here?
+  - What timeline should the investor assume for this process?
+- Internet:
+  - Which providers serve this location now?
+  - Is a telecom route to the house worth preparing during construction?
+
+11. SOURCE-AWARE CONTENT
+Store source metadata for utilities/media guidance.
+
+Support:
+- source label
+- source type (official / operator / internal guidance)
+- last reviewed date
+- notes
+
+12. DATA MODELS
+Add or extend structured entities such as:
+- UtilityConnectionPlan
+- UtilityProviderRecord
+- UtilityStatus
+- UtilityQuestionTemplate
+- UtilityRequirementItem
+- UtilityDecisionState
+- UtilityReadinessSummary
+- UtilityAlternativePlaceholder
+
+13. UI / UX RULES
+Keep the utilities/media module practical and simple.
+
+Add or extend:
+- utility cards
+- status chips
+- provider placeholders
+- notes
+- question cards
+- blocked/unresolved warning boxes
+- readiness summary
+
+Do not clutter the user with heavy legal or engineering text.
+
+14. IMPLEMENTATION QUALITY RULES
+- do not rebuild previous House Build flows
+- only extend the module
+- keep everything modular and data-driven
+- preserve strong TypeScript typing
+- prepare for future real provider data and future contractor/provider handoff
+- preserve route stability
+
+15. CONTENT RULES TO ENCODE
+Use wording that reflects these principles:
+- local operator/provider requirements matter
+- electricity connection power should be aligned with the house design and expected loads
+- water/sewer applications commonly need a site sketch/plan showing route context
+- gas should not be assumed as always needed
+- telecom availability should be checked, and route planning during construction can reduce later difficulties
+- alternative solutions may be needed when a public network is unavailable
+
+16. FINAL STEP
+After implementation:
+- list the new utilities/media screens or sections added
+- confirm utility readiness dashboard was added
+- confirm provider question templates were added
+- confirm utilities were linked to the build stages/timeline
+- confirm no unrelated modules were rebuilt

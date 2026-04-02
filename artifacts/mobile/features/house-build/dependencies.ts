@@ -61,6 +61,7 @@ export const STAGE_DEPENDENCIES: readonly StageDependency[] = [
     softDependencies: ['roof', 'windows-doors'],
     warningIfBefore: [
       { stage: 'structural-walls', message: 'Instalacje wymagaja gotowej konstrukcji scian.' },
+      { stage: 'site-preparation', message: 'Wnioski o przylacza mediow (prad, woda, gaz) powinny byc zlozone przed rozpoczeciem instalacji.' },
     ],
   },
   {
@@ -100,6 +101,7 @@ export const STAGE_DEPENDENCIES: readonly StageDependency[] = [
     softDependencies: ['exterior-finishing', 'landscaping'],
     warningIfBefore: [
       { stage: 'interior-finishing', message: 'Odbiory wymagaja zakonczenia prac wykonczeniowych.' },
+      { stage: 'installations', message: 'Wszystkie przylacza mediow powinny byc podlaczone i odebrane przed odbiorem koncowym.' },
     ],
   },
 ];
