@@ -43,6 +43,7 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="utility-gas" options={{ title: 'Przylacze gazowe' }} />
       <Stack.Screen name="utility-internet" options={{ title: 'Internet / telekomunikacja' }} />
       <Stack.Screen name="utility-alternatives" options={{ title: 'Rozwiazania alternatywne' }} />
+      <Stack.Screen name="pricing-references" options={{ title: 'Ceny referencyjne' }} />
     </Stack>
   );
 }

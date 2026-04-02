@@ -11,3 +11,4 @@ export { COMPLETION_PACKAGE_ITEMS, getCompletionItemByKey } from './completion-p
 export { DEFAULT_DECISION_TEMPLATES, getDecisionTemplates } from './decision-defaults';
 export { UTILITY_GUIDANCE, getUtilityGuidance, ALTERNATIVE_DEFINITIONS } from './utility-checklists';
 export { UTILITY_QUESTION_TEMPLATES } from './utility-questions';
+export { HOUSE_BUILD_PRICE_SEEDS, PRICE_CATEGORY_LABELS, PRICE_CATEGORY_ORDER, PRICE_DISCLAIMER, LAST_PRICE_UPDATE } from './house-build-prices';

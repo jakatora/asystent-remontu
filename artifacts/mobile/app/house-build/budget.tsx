@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform, TextInput, Alert } from 'react-native';
-import { useLocalSearchParams, Stack, useFocusEffect } from 'expo-router';
+import { useLocalSearchParams, Stack, useFocusEffect, router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
@@ -149,7 +149,7 @@ export default function BudgetScreen() {
           </View>
 
           <View style={{
-            backgroundColor: '#FFFBEB', borderRadius: 12, padding: 12, marginBottom: 16,
+            backgroundColor: '#FFFBEB', borderRadius: 12, padding: 12, marginBottom: 12,
             borderWidth: 1, borderColor: '#FDE68A', flexDirection: 'row', gap: 8,
           }}>
             <Feather name="info" size={14} color="#92400E" style={{ marginTop: 2 }} />
@@ -157,6 +157,22 @@ export default function BudgetScreen() {
               To planistyczny szacunek budzetowy — nie stanowi oferty ani gwarancji kosztu. Ostateczne kwoty zaleza od projektu, lokalizacji, wykonawcy i aktualnych cen.
             </Txt>
           </View>
+
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#ECFDF5', borderRadius: 10, padding: 12, marginBottom: 16,
+              borderWidth: 1, borderColor: '#A7F3D0', flexDirection: 'row', alignItems: 'center', gap: 8,
+            }}
+            onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId } })}
+            activeOpacity={0.85}
+          >
+            <Feather name="tag" size={14} color="#059669" />
+            <View style={{ flex: 1 }}>
+              <Txt w="semibold" style={{ fontSize: 12, color: '#059669' }}>Przegladaj ceny referencyjne</Txt>
+              <Txt style={{ fontSize: 10, color: '#064E3B' }}>Referencyjne zakresy cenowe, stawki regionalne, koszty przylacz</Txt>
+            </View>
+            <Feather name="chevron-right" size={14} color="#059669" />
+          </TouchableOpacity>
 
           {stageSummaries.map(({ stage, items, totalLow, totalHigh, completeness }) => {
             const isExpanded = expandedStage === stage.key;

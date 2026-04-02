@@ -271,7 +271,13 @@ export default function HouseBuildProjectDetail() {
               bg="#ECFEFF"
               onPress={() => router.push({ pathname: '/house-build/questions', params: { projectId: project.id } })}
             />
-            <View style={{ flex: 1 }} />
+            <QuickAction
+              icon="tag"
+              label="Cennik ref."
+              color="#059669"
+              bg="#ECFDF5"
+              onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId: project.id } })}
+            />
           </View>
 
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>Etapy budowy</Txt>

@@ -9,6 +9,8 @@ import { getStageByKey } from '@/features/house-build/stages';
 import { getDependenciesForStage, getBlockingStages } from '@/features/house-build/dependencies';
 import { getContractorMappingForStage } from '@/features/house-build/contractor-mapping';
 import { timelineBudgetRepo } from '@/db/repositories/timeline-budget.repo';
+import { houseBuildPricingRepo } from '@/db/repositories/house-build-pricing.repo';
+import type { HouseBuildPriceReference, HouseBuildPriceOverride } from '@/types/house-build';
 import type {
   TimelineStageRecord,
   TimelineStageStatus,
@@ -74,6 +76,8 @@ export default function StagePlanScreen() {
   const [showAddNote, setShowAddNote] = useState(false);
   const [newNoteType, setNewNoteType] = useState<TimelineNoteType>('custom');
   const [newNoteText, setNewNoteText] = useState('');
+  const [stageRefs, setStageRefs] = useState<HouseBuildPriceReference[]>([]);
+  const [stageOverrides, setStageOverrides] = useState<HouseBuildPriceOverride[]>([]);
 
   const loadData = useCallback(async () => {
     if (!projectId || !stageKey) return;
@@ -88,6 +92,11 @@ export default function StagePlanScreen() {
     setBudgetItems(items);
     setProfPlans(plans);
     setNotes(n);
+    await houseBuildPricingRepo.seedReferences();
+    const refs = await houseBuildPricingRepo.getReferencesByStage(stageKey);
+    setStageRefs(refs);
+    const ovs = await houseBuildPricingRepo.getOverrides(projectId);
+    setStageOverrides(ovs);
     setCustomName(tl?.customName ?? '');
     setCustomWeeks(tl?.estimatedWeeks?.toString() ?? '');
     setStageNotes(tl?.notes ?? '');
@@ -354,6 +363,67 @@ export default function StagePlanScreen() {
             <Feather name="dollar-sign" size={16} color={HB_ACCENT} />
             <Txt w="semibold" style={{ fontSize: 13, color: HB_ACCENT }}>Otworz budzet etapu</Txt>
           </TouchableOpacity>
+
+          <View style={{ marginBottom: 16 }}>
+            <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Ceny referencyjne dla etapu</Txt>
+            {stageRefs.length > 0 ? (
+              <>
+                {stageRefs.map((ref) => {
+                  const ov = stageOverrides.find((o) => o.referenceId === ref.id);
+                  const dMin = ov?.overrideMin ?? ref.priceMin;
+                  const dMax = ov?.overrideMax ?? ref.priceMax;
+                  const isRegional = ref.regionCode !== 'PL';
+                  return (
+                    <View key={ref.id} style={{
+                      backgroundColor: ov ? '#F0FDF4' : '#F8FAFC',
+                      borderRadius: 8, padding: 10, marginBottom: 4,
+                      borderWidth: 1, borderColor: ov ? '#BBF7D0' : '#E2E8F0',
+                    }}>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <View style={{ flex: 1, marginRight: 8 }}>
+                          <Txt style={{ fontSize: 11, color: Colors.text }}>{ref.label}</Txt>
+                          <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{ref.unit} | {ref.regionLabel}</Txt>
+                        </View>
+                        <Txt w="semibold" style={{ fontSize: 12, color: ov ? '#16A34A' : HB_ACCENT }}>
+                          {dMin === dMax
+                            ? dMin.toLocaleString('pl-PL', { maximumFractionDigits: 2 })
+                            : `${dMin.toLocaleString('pl-PL', { maximumFractionDigits: 0 })} - ${dMax.toLocaleString('pl-PL', { maximumFractionDigits: 0 })}`
+                          } zl
+                        </Txt>
+                      </View>
+                      {isRegional && (
+                        <Txt style={{ fontSize: 8, color: '#D97706', marginTop: 2 }}>
+                          Stawka regionalna ({ref.regionLabel}) - lokalne warunki rynkowe moga sie roznic.
+                        </Txt>
+                      )}
+                    </View>
+                  );
+                })}
+                <TouchableOpacity
+                  style={{ alignItems: 'center', paddingVertical: 6 }}
+                  onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId } })}
+                >
+                  <Txt style={{ fontSize: 11, color: HB_ACCENT }}>Zobacz pelna baze cenowa</Txt>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <View style={{
+                backgroundColor: '#F8FAFC', borderRadius: 8, padding: 12,
+                borderWidth: 1, borderColor: '#E2E8F0', alignItems: 'center',
+              }}>
+                <Feather name="database" size={16} color={Colors.textMuted} />
+                <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 4 }}>
+                  Brak danych cenowych przypisanych do tego etapu.
+                </Txt>
+                <TouchableOpacity
+                  style={{ marginTop: 6 }}
+                  onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId } })}
+                >
+                  <Txt style={{ fontSize: 11, color: HB_ACCENT }}>Przegladaj pelna baze cenowa</Txt>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
 
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Notatki i ryzyka</Txt>
           {notes.map((n) => (

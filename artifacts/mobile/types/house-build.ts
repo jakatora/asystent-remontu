@@ -640,3 +640,71 @@ export interface UtilityReadinessSummary {
   readonly blockedItems: number;
   readonly unresolvedDecisions: number;
 }
+
+export type PriceSourceType = 'market-planning' | 'regional-estimate' | 'operator-tariff-reference';
+
+export type PriceCategory =
+  | 'full-house'
+  | 'example-case'
+  | 'pre-build'
+  | 'foundation'
+  | 'structural-walls'
+  | 'roof'
+  | 'facade-insulation'
+  | 'installations'
+  | 'interior'
+  | 'utility-connections';
+
+export interface HouseBuildPriceReference {
+  readonly id: string;
+  readonly category: PriceCategory;
+  readonly stageKey: string | null;
+  readonly itemKey: string;
+  readonly label: string;
+  readonly unit: string;
+  readonly priceMin: number;
+  readonly priceMax: number;
+  readonly baselinePrice: number;
+  readonly currency: string;
+  readonly regionCode: string;
+  readonly regionLabel: string;
+  readonly sourceName: string;
+  readonly sourceType: PriceSourceType;
+  readonly sourceUrl: string;
+  readonly lastUpdated: string;
+  readonly notes: string;
+  readonly confidenceNote: string;
+  readonly active: boolean;
+}
+
+export interface HouseBuildPriceOverride {
+  readonly id: string;
+  readonly projectId: string;
+  readonly referenceId: string;
+  readonly itemKey: string;
+  readonly overrideMin: number | null;
+  readonly overrideMax: number | null;
+  readonly overrideBaseline: number | null;
+  readonly label: string;
+  readonly notes: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface HouseBuildCostAssumption {
+  readonly id: string;
+  readonly projectId: string;
+  readonly assumptionKey: string;
+  readonly label: string;
+  readonly value: string;
+  readonly notes: string;
+  readonly createdAt: string;
+}
+
+export interface HouseBuildPriceSummary {
+  readonly totalReferences: number;
+  readonly totalOverrides: number;
+  readonly categoryCounts: Record<PriceCategory, number>;
+  readonly hasRegionalData: boolean;
+  readonly lastUpdated: string;
+}

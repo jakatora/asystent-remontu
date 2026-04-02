@@ -1,0 +1,440 @@
+Assume Prompt 1, Prompt 2, Prompt 3, Prompt 4, Prompt 5 and Prompt 6 for the "Budowa domu" module have already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- the House Build module shell
+- the formal/legal path module
+- the build stages module
+- the timeline / stage budget / team planning module
+- the investor documents / decisions / questions module
+- the utilities and media module
+- existing route structure
+
+Only extend the current implementation.
+
+Your task now is to implement the "House Build Reference Pricing" layer for the Poland-first House Build module.
+
+GOAL
+Add a practical stage-based pricing system for house building in Poland using reference price ranges and editable investor planning estimates.
+
+IMPORTANT PRODUCT RULES
+- Do not present prices as guaranteed final build costs.
+- Do not present the module as a contractual estimator.
+- All pricing must be shown as:
+  - reference pricing
+  - planning ranges
+  - editable investor estimates
+- Prices may vary by:
+  - region
+  - contractor
+  - project complexity
+  - selected technology/system
+  - market changes
+  - selected product quality
+- Keep strong separation between:
+  - reference pricing datasets
+  - user overrides
+  - project-specific estimates
+- Keep beginner-friendly language.
+
+BUILD THESE FEATURES
+
+1. HOUSE BUILD PRICING MODULE
+Create a dedicated pricing layer inside the House Build module.
+
+It should support:
+- full-house reference ranges
+- stage-by-stage reference ranges
+- labor-oriented ranges
+- material-oriented ranges
+- unit-based reference pricing
+- source metadata
+- update dates
+- region baseline
+- user overrides
+
+2. DATA MODELS
+Add or extend structured entities/types/schemas such as:
+- HouseBuildPriceProfile
+- HouseBuildStagePriceReference
+- HouseBuildUnitPriceReference
+- HouseBuildRegionalBaseline
+- HouseBuildPriceSource
+- HouseBuildPriceSnapshot
+- HouseBuildPriceOverride
+- HouseBuildReferenceRange
+- HouseBuildCostAssumption
+
+Each reference entry should support:
+- id
+- category
+- stageId
+- itemType
+- regionCode
+- regionLabel
+- unit
+- priceMin
+- priceMax
+- baselinePrice
+- currency
+- sourceName
+- sourceType
+- sourceUrl
+- lastUpdated
+- notes
+- confidenceNote
+- active/inactive
+
+3. FULL-HOUSE PRICE REFERENCES
+Seed full-house planning references using Poland baseline planning values.
+
+Use currency: PLN
+Use lastUpdated: 2026-04-02
+Use baseline region: Poland planning baseline
+
+Seed these references:
+- house_sso_per_m2:
+  - label: Stan surowy otwarty
+  - unit: m2
+  - min: 2800
+  - max: 3500
+  - baseline: 3150
+- house_ssz_per_m2:
+  - label: Stan surowy zamknięty
+  - unit: m2
+  - min: 3700
+  - max: 4500
+  - baseline: 4100
+- house_developer_per_m2:
+  - label: Stan deweloperski
+  - unit: m2
+  - min: 5000
+  - max: 6500
+  - baseline: 5750
+- house_turnkey_per_m2:
+  - label: Pod klucz
+  - unit: m2
+  - min: 6000
+  - max: 9000
+  - baseline: 7500
+
+Add source metadata and note that these are broad planning ranges.
+
+4. EXAMPLE HOUSE REFERENCE CASES
+Seed example whole-house references for common sizes.
+
+Add these example planning cases:
+- house_100m2_developer_reference:
+  - total: 441000
+  - notes: reference example
+- house_120m2_total_reference_low_high:
+  - totalMin: 391000
+  - totalMax: 663000
+  - notes: total build estimate without plot and extra costs
+- house_120m2_developer_reference_low_high:
+  - totalMin: 540000
+  - totalMax: 720000
+  - notes: deweloperski range planning reference
+- house_140m2_developer_reference:
+  - total: 535000
+
+Use these as dashboard/planning anchors only, not hard promises.
+
+5. PRE-BUILD / DESIGN PRICE REFERENCES
+Seed planning references for pre-build and design preparation:
+- ready_house_project:
+  - unit: szt
+  - min: 3500
+  - max: 9000
+  - baseline: 5500
+- project_adaptation:
+  - unit: szt
+  - min: 2500
+  - max: 5000
+  - baseline: 3500
+
+6. FOUNDATIONS PRICE REFERENCES
+Seed foundation-related references:
+- foundation_walls_without_insulation:
+  - unit: m2
+  - min: 161
+  - max: 161
+  - baseline: 161
+  - note: combined average reference
+- foundation_wall_materials_component:
+  - unit: m2
+  - min: 90
+  - max: 90
+  - baseline: 90
+- foundation_wall_labor_component:
+  - unit: m2
+  - min: 71
+  - max: 71
+  - baseline: 71
+- strip_foundations_total_reference:
+  - unit: m2
+  - min: 300
+  - max: 440
+  - baseline: 370
+- slab_foundation_total_reference:
+  - unit: m2
+  - min: 500
+  - max: 700
+  - baseline: 600
+- slab_foundation_higher_spec_reference:
+  - unit: m2
+  - min: 700
+  - max: 1000
+  - baseline: 850
+
+Add notes that exact foundation solution depends on design and site conditions.
+
+7. STRUCTURAL WALLS PRICE REFERENCES
+Use Lodz/lodzkie as the first regional baseline for masonry labor references.
+
+Seed:
+- aerated_concrete_24cm_labor_lodzkie:
+  - unit: m2
+  - min: 92.00
+  - max: 98.10
+  - baseline: 95.00
+- ceramic_block_25cm_labor_lodzkie:
+  - unit: m2
+  - min: 162
+  - max: 177
+  - baseline: 169.50
+- silicate_18cm_labor_lodzkie:
+  - unit: m2
+  - min: 66.10
+  - max: 72.70
+  - baseline: 69.40
+
+Add note:
+- labor references are regional estimates
+- actual contractor quotes may differ
+- selected wall system and project matter
+
+8. ROOF PRICE REFERENCES
+Seed roof references:
+- roof_truss_simple_total:
+  - unit: m2
+  - min: 158
+  - max: 158
+  - baseline: 158
+- roof_truss_heavier_system_total:
+  - unit: m2
+  - min: 263
+  - max: 263
+  - baseline: 263
+- roofing_membrane_material:
+  - unit: m2
+  - min: 5.50
+  - max: 5.50
+  - baseline: 5.50
+- roofing_membrane_labor:
+  - unit: m2
+  - min: 18
+  - max: 18
+  - baseline: 18
+- boarding_and_felt_material:
+  - unit: m2
+  - min: 61
+  - max: 61
+  - baseline: 61
+- boarding_and_felt_labor:
+  - unit: m2
+  - min: 41
+  - max: 41
+  - baseline: 41
+
+Add project/system-priority notes.
+
+9. FACADE / INSULATION PRICE REFERENCES
+Seed:
+- facade_insulation_eps_labor_lodzkie:
+  - unit: m2
+  - min: 131
+  - max: 144
+  - baseline: 137.5
+- facade_insulation_mineral_wool_labor_lodzkie:
+  - unit: m2
+  - min: 165
+  - max: 178
+  - baseline: 171.5
+- wooden_ceiling_insulation_labor_lodzkie:
+  - unit: m2
+  - min: 50.60
+  - max: 57.20
+  - baseline: 53.90
+- clinker_brick_installation_lodzkie:
+  - unit: m2
+  - min: 173
+  - max: 190
+  - baseline: 181.5
+
+10. INSTALLATION PRICE REFERENCES
+Seed:
+- electrical_point_reference:
+  - unit: point
+  - min: 185.17
+  - max: 228.86
+  - baseline: 201.06
+- electrical_new_point_reference:
+  - unit: point
+  - min: 180
+  - max: 250
+  - baseline: 215
+- water_sewer_point_reference:
+  - unit: point
+  - min: 770
+  - max: 770
+  - baseline: 770
+- central_heating_point_reference:
+  - unit: point
+  - min: 240
+  - max: 280
+  - baseline: 258
+- hydronic_underfloor_heating_reference:
+  - unit: m2
+  - min: 170
+  - max: 220
+  - baseline: 195
+- hydronic_underfloor_heating_complex_reference:
+  - unit: m2
+  - min: 180
+  - max: 260
+  - baseline: 220
+
+11. INTERIOR DEVELOPMENT REFERENCES
+Seed:
+- gypsum_plaster_labor_reference:
+  - unit: m2
+  - min: 43
+  - max: 45
+  - baseline: 44
+- gypsum_plaster_full_service_reference:
+  - unit: m2
+  - min: 67
+  - max: 70
+  - baseline: 68.5
+
+12. UTILITIES / CONNECTION COST REFERENCES
+Add a separate utility-connections planning price group.
+
+Seed:
+- electricity_connection_over_200m_cable_extra:
+  - unit: mb
+  - min: 43.73
+  - max: 43.73
+  - baseline: 43.73
+  - note: extra length reference
+- electricity_connection_over_200m_overhead_extra:
+  - unit: mb
+  - min: 32.30
+  - max: 32.30
+  - baseline: 32.30
+  - note: extra length reference
+- gas_connection_up_to_15m_reference:
+  - unit: szt
+  - min: 3588.70
+  - max: 3588.70
+  - baseline: 3588.70
+- gas_connection_over_15m_extra_reference:
+  - unit: mb
+  - min: 128.25
+  - max: 128.25
+  - baseline: 128.25
+- water_connection_reference:
+  - unit: mb
+  - min: 120
+  - max: 250
+  - baseline: 185
+- sewer_connection_reference:
+  - unit: mb
+  - min: 120
+  - max: 220
+  - baseline: 170
+- water_or_sewer_connection_design_reference:
+  - unit: szt
+  - min: 1100
+  - max: 2500
+  - baseline: 1800
+
+Add strong notes:
+- utilities are highly local
+- operator/provider conditions have priority
+- these are planning references only
+
+13. SOURCE METADATA
+For every seeded dataset add:
+- sourceName
+- sourceType
+- sourceUrl
+- lastUpdated
+- confidenceNote
+
+Use source types such as:
+- market-planning
+- regional-estimate
+- operator-tariff-reference
+
+14. UI INTEGRATION
+Extend the existing House Build budget views and stage views.
+
+Show:
+- stage reference ranges
+- whole-house planning references
+- editable values
+- source/update labels
+- warning note that these are reference prices
+- confidence note
+- missing data state if no price mapping exists
+
+Do not redesign the previous budget/timeline module.
+Only extend it.
+
+15. USER OVERRIDES
+Allow the user to:
+- edit any reference price
+- replace range with a contractor quote
+- add local supplier quote
+- save project-specific overrides
+- reset to reference pricing
+
+Do not overwrite the seed dataset globally when the user edits a project.
+
+16. REGION LOGIC
+Implement baseline region logic:
+- Poland planning baseline for whole-house ranges
+- Lodz/lodzkie baseline for selected labor references already seeded
+
+If no local region profile exists:
+- use the baseline
+- show a note that local market conditions may differ
+
+Prepare the architecture for more regions later.
+
+17. TRUST / DISCLAIMER LOGIC
+Always show a short note such as:
+"These are reference planning prices based on selected public sources and regional estimates. Actual costs may differ depending on project, region, contractor, system, materials, timing, and site conditions."
+
+18. IMPLEMENTATION QUALITY RULES
+- do not rebuild earlier House Build flows
+- only extend the current implementation
+- keep everything modular and data-driven
+- preserve strong TypeScript typing
+- make it easy to update these references later
+- do not create duplicate category or stage systems
+- preserve route stability
+
+19. FINAL STEP
+After implementation:
+- list which pricing screens/sections were extended
+- confirm which seed datasets were added
+- confirm user overrides work
+- confirm source metadata is visible
+- confirm no unrelated modules were rebuilt
