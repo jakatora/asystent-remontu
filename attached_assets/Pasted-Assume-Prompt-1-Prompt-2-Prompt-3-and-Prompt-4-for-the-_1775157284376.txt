@@ -1,0 +1,274 @@
+Assume Prompt 1, Prompt 2, Prompt 3 and Prompt 4 for the "Budowa domu" module have already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- the House Build module shell
+- the formal/legal path module
+- the build stages module
+- the timeline / stage budget / team planning module
+- existing route structure
+
+Only extend the current implementation.
+
+Your task now is to implement the "Investor Documents + Decisions + Questions" layer for the Poland-first House Build module.
+
+GOAL
+Create a practical investor command center for:
+- document tracking
+- important form reminders
+- build file storage placeholders
+- decision tracking
+- structured questions for professionals
+- completion package readiness
+
+IMPORTANT PRODUCT RULES
+- This is not a legal office system and not a substitute for official filing.
+- The module must be informational, organized, and checklist-driven.
+- Do not claim legal certainty.
+- Do not present generated app content as official documents.
+- Keep strong separation between:
+  - official forms / official process reminders
+  - user notes and planning content
+- Keep beginner-friendly language.
+
+BUILD THESE FEATURES
+
+1. INVESTOR DOCUMENTS HUB
+Create a dedicated "Documents" section inside the House Build module.
+
+Add groups such as:
+- Official forms and process reminders
+- Project and design files
+- Site/build documents
+- Energy/performance documents
+- Completion package
+- Personal notes and attachments placeholders
+
+2. OFFICIAL FORM TRACKER
+Create a structured official form tracker for the house build process.
+
+Support at least these tracked items as official-process entries:
+- PB-12 start-of-works notice
+- PB-16 build completion notice
+- PB-16a single-family house completion notice
+- PB-17 occupancy permit application
+- PB-17a occupancy permit before full completion
+- declaration of right to use property for building purposes
+- electronic construction log related task
+- energy certificate attachment task where applicable
+
+Each official item should support:
+- title
+- short explanation
+- when it usually appears in the process
+- likely required / maybe required / not applicable
+- status
+- planned date
+- completed date
+- notes
+- source metadata
+- official-link placeholder
+
+Do not generate legal conclusions automatically.
+Use planning language such as:
+- likely needed
+- verify locally
+- depends on your path/project
+
+3. PROJECT / DESIGN FILES SECTION
+Create a project files area with placeholder support for storing or tracking:
+- project documentation
+- plot/site documents
+- utility-related files
+- geodetic files
+- technical sheets placeholder
+- contractor quotes placeholder
+- photos
+- custom investor files
+
+If real file upload already exists in the app architecture, extend it.
+If not, create a clean placeholder/document-record structure ready for future upload support.
+
+4. COMPLETION PACKAGE SECTION
+Create a "Completion Package" area.
+
+This should help the user organize what is needed before build completion or occupancy flow.
+
+Include checklist-oriented items such as:
+- completion notice readiness
+- occupancy permit readiness
+- energy certificate status
+- geodetic completion info placeholder
+- construction log status
+- required declarations placeholder
+- missing items summary
+
+Do not hardcode every attachment as universally required in every case.
+Use planning language and applicability states.
+
+5. DECISION TRACKER
+Create a structured "Important Decisions" system.
+
+The user should be able to track key house-build decisions such as:
+- house technology/system
+- wall system
+- roof system
+- window standard
+- heating concept
+- ventilation concept
+- insulation strategy
+- facade system
+- contractor selection approach
+- self-managed vs contractor-managed stage choice
+
+Each decision should support:
+- decision title
+- decision category
+- stage relevance
+- current status
+- options considered
+- selected option
+- why it was selected
+- decision date
+- follow-up questions
+- warning note if unresolved
+
+6. QUESTIONS FOR PROFESSIONALS
+Create a dedicated "Questions" layer.
+
+The user should be able to prepare and save structured questions for:
+- designer
+- site manager
+- geodetic specialist
+- structural team
+- roofing team
+- electrician
+- plumber / heating installer
+- ventilation specialist
+- facade/insulation team
+- finishing team
+- authority/office placeholder
+
+For each question support:
+- question text
+- related stage
+- target professional role
+- priority
+- answered / unanswered state
+- answer placeholder
+- follow-up needed
+- linked decision optional
+
+7. SMART QUESTION TEMPLATES
+Seed the app with useful question templates per stage.
+
+Examples:
+- Foundations:
+  - What waterproofing system is planned and why?
+  - What site conditions most affect this stage?
+- Structural shell:
+  - Which wall system is selected and what are the key execution tolerances?
+- Roof:
+  - Which roof-layer system is planned and what details are critical?
+- Installations:
+  - Are there any conflicts between electrical, plumbing, heating, and ventilation routes?
+- Energy:
+  - How does the selected heating and ventilation concept affect energy performance?
+- Completion:
+  - What documents are still missing before completion notice or occupancy path?
+
+Keep them beginner-friendly and practical.
+
+8. APPLICABILITY / NOT-APPLICABLE LOGIC
+Add applicability states to documents and checklist items:
+- required
+- likely required
+- maybe required
+- not applicable
+- still unknown
+
+This must work for:
+- official forms
+- completion items
+- energy-related items
+- stage-linked documents
+
+9. ENERGY DOCUMENT LINK
+Add a dedicated energy-document block.
+
+Support:
+- energy certificate status
+- exempt/not-exempt placeholder
+- note that new builds commonly require certificate attachment at completion or occupancy flow
+- note that certain <=70 m2 own-housing cases may be excluded
+- source metadata
+
+Do not calculate the certificate.
+Only track planning/readiness.
+
+10. EDB / CONSTRUCTION LOG LINK
+Extend the existing EDB-related content into the documents hub.
+
+Allow the user to track:
+- EDB status
+- whether access/setup is done
+- whether participants are planned
+- whether completion submission readiness is noted
+
+Do not replace the official system.
+Treat this as a planning/control panel.
+
+11. DOCUMENT STATUS DASHBOARD
+Create a summary dashboard for investor documentation.
+
+Show:
+- official items pending
+- official items completed
+- decisions unresolved
+- open questions
+- completion package readiness
+- missing energy/completion items
+- high-priority unresolved items
+
+12. SOURCE-AWARE CONTENT
+All official-process reminders in this module must support source metadata:
+- source label
+- official / technical / internal guidance type
+- last reviewed date
+- notes
+
+13. UI / UX RULES
+Keep the module practical and organized.
+
+Add or extend:
+- document cards
+- completion readiness cards
+- decision cards
+- question cards
+- unresolved warning chips
+- stage-linked document lists
+- quick-add note/question actions
+
+Do not clutter the app with large legal text blocks.
+
+14. IMPLEMENTATION QUALITY RULES
+- do not rebuild previous House Build flows
+- only extend the module
+- keep everything modular and data-driven
+- preserve strong TypeScript typing
+- prepare for future real file upload and backend sync
+- preserve route stability
+
+15. FINAL STEP
+After implementation:
+- list which new document/decision/question screens or sections were added
+- confirm official form tracker was added
+- confirm decision tracker was added
+- confirm question templates were seeded
+- confirm completion package readiness was added
+- confirm unrelated modules were not rebuilt

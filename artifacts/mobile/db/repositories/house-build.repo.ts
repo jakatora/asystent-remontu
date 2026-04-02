@@ -197,6 +197,11 @@ export const houseBuildRepo = {
 
   async deleteProject(id: string): Promise<void> {
     const db = await getDb();
+    await db.runAsync('DELETE FROM build_official_forms WHERE project_id = ?', [id]);
+    await db.runAsync('DELETE FROM build_investor_docs WHERE project_id = ?', [id]);
+    await db.runAsync('DELETE FROM build_decisions WHERE project_id = ?', [id]);
+    await db.runAsync('DELETE FROM build_questions WHERE project_id = ?', [id]);
+    await db.runAsync('DELETE FROM build_completion_items WHERE project_id = ?', [id]);
     await db.runAsync('DELETE FROM build_timeline_stages WHERE project_id = ?', [id]);
     await db.runAsync('DELETE FROM build_budget_items WHERE project_id = ?', [id]);
     await db.runAsync('DELETE FROM build_budget_notes WHERE project_id = ?', [id]);

@@ -30,6 +30,12 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="budget" options={{ title: 'Budzet budowy' }} />
       <Stack.Screen name="milestones" options={{ title: 'Kamienie milowe' }} />
       <Stack.Screen name="stage-plan" options={{ title: 'Plan etapu' }} />
+      <Stack.Screen name="doc-dashboard" options={{ title: 'Centrum dokumentow' }} />
+      <Stack.Screen name="official-forms" options={{ title: 'Formularze urzedowe' }} />
+      <Stack.Screen name="decisions" options={{ title: 'Decyzje inwestora' }} />
+      <Stack.Screen name="questions" options={{ title: 'Pytania do specjalistow' }} />
+      <Stack.Screen name="completion-package" options={{ title: 'Pakiet zakonczeniowy' }} />
+      <Stack.Screen name="investor-docs" options={{ title: 'Dokumenty projektu' }} />
     </Stack>
   );
 }

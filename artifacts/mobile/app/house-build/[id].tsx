@@ -233,7 +233,7 @@ export default function HouseBuildProjectDetail() {
               onPress={() => router.push({ pathname: '/house-build/timeline', params: { projectId: project.id } })}
             />
           </View>
-          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
             <QuickAction
               icon="dollar-sign"
               label="Budzet"
@@ -247,6 +247,29 @@ export default function HouseBuildProjectDetail() {
               color="#D97706"
               bg="#FFFBEB"
               onPress={() => router.push({ pathname: '/house-build/milestones', params: { projectId: project.id } })}
+            />
+            <QuickAction
+              icon="archive"
+              label="Centrum dok."
+              color="#7C3AED"
+              bg="#F5F3FF"
+              onPress={() => router.push({ pathname: '/house-build/doc-dashboard', params: { projectId: project.id } })}
+            />
+          </View>
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
+            <QuickAction
+              icon="compass"
+              label="Decyzje"
+              color="#DC2626"
+              bg="#FEF2F2"
+              onPress={() => router.push({ pathname: '/house-build/decisions', params: { projectId: project.id } })}
+            />
+            <QuickAction
+              icon="help-circle"
+              label="Pytania"
+              color="#0891B2"
+              bg="#ECFEFF"
+              onPress={() => router.push({ pathname: '/house-build/questions', params: { projectId: project.id } })}
             />
             <View style={{ flex: 1 }} />
           </View>

@@ -439,3 +439,135 @@ export interface StageBudgetSummary {
   readonly completeness: BudgetCompletenessState;
   readonly itemCount: number;
 }
+
+export type ApplicabilityState =
+  | 'required'
+  | 'likely-required'
+  | 'maybe-required'
+  | 'not-applicable'
+  | 'unknown';
+
+export type OfficialFormStatus =
+  | 'not-started'
+  | 'in-progress'
+  | 'submitted'
+  | 'completed'
+  | 'not-applicable';
+
+export type InvestorDocGroup =
+  | 'official-forms'
+  | 'project-design'
+  | 'site-build'
+  | 'energy-performance'
+  | 'completion-package'
+  | 'personal-notes';
+
+export type InvestorDocStatus =
+  | 'missing'
+  | 'in-progress'
+  | 'ready'
+  | 'not-needed';
+
+export type DecisionCategory =
+  | 'technology'
+  | 'structure'
+  | 'energy'
+  | 'finishing'
+  | 'management'
+  | 'other';
+
+export type DecisionStatus =
+  | 'open'
+  | 'considering'
+  | 'decided'
+  | 'revisiting';
+
+export type QuestionPriority =
+  | 'low'
+  | 'normal'
+  | 'high'
+  | 'urgent';
+
+export interface OfficialFormRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly formKey: string;
+  readonly title: string;
+  readonly explanation: string;
+  readonly processPhase: string;
+  readonly applicability: ApplicabilityState;
+  readonly status: OfficialFormStatus;
+  readonly plannedDate: string | null;
+  readonly completedDate: string | null;
+  readonly notes: string;
+  readonly officialLink: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface InvestorDocRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly group: InvestorDocGroup;
+  readonly title: string;
+  readonly description: string;
+  readonly status: InvestorDocStatus;
+  readonly stageKey: string | null;
+  readonly fileRef: string | null;
+  readonly notes: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface BuildDecisionRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly title: string;
+  readonly category: DecisionCategory;
+  readonly stageKey: string | null;
+  readonly status: DecisionStatus;
+  readonly optionsConsidered: string;
+  readonly selectedOption: string;
+  readonly reasoning: string;
+  readonly decisionDate: string | null;
+  readonly followUpQuestions: string;
+  readonly warningNote: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface BuildQuestionRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly questionText: string;
+  readonly stageKey: string | null;
+  readonly targetRole: ProfessionalRole | string;
+  readonly priority: QuestionPriority;
+  readonly isAnswered: boolean;
+  readonly answerText: string;
+  readonly followUpNeeded: boolean;
+  readonly linkedDecisionId: string | null;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface CompletionPackageItem {
+  readonly id: string;
+  readonly projectId: string;
+  readonly itemKey: string;
+  readonly title: string;
+  readonly applicability: ApplicabilityState;
+  readonly status: InvestorDocStatus;
+  readonly notes: string;
+  readonly createdAt: string;
+}
+
+export interface DocDashboardSummary {
+  readonly officialPending: number;
+  readonly officialCompleted: number;
+  readonly decisionsUnresolved: number;
+  readonly questionsOpen: number;
+  readonly completionReady: number;
+  readonly completionTotal: number;
+  readonly highPriorityUnresolved: number;
+}
