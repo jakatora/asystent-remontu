@@ -57,6 +57,9 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="content-snapshots" options={{ title: 'Wersjonowanie' }} />
       <Stack.Screen name="content-health" options={{ title: 'Kontrola jakosci' }} />
       <Stack.Screen name="content-disclaimers" options={{ title: 'Zastrzezenia' }} />
+      <Stack.Screen name="contractor-board" options={{ title: 'Tablica wykonawcow' }} />
+      <Stack.Screen name="stage-contractors" options={{ title: 'Wykonawcy etapu' }} />
+      <Stack.Screen name="stage-request-prep" options={{ title: 'Przygotuj zapytanie' }} />
     </Stack>
   );
 }

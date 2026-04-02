@@ -216,6 +216,8 @@ export const houseBuildRepo = {
     await db.runAsync('DELETE FROM build_utilities WHERE project_id = ?', [id]);
     await db.runAsync('DELETE FROM build_documents WHERE project_id = ?', [id]);
     await db.runAsync('DELETE FROM build_checklist_items WHERE project_id = ?', [id]);
+    await db.runAsync('DELETE FROM hb_stage_contractor_needs WHERE project_id = ?', [id]);
+    await db.runAsync('DELETE FROM hb_stage_contractor_shortlist WHERE project_id = ?', [id]);
     await db.runAsync('DELETE FROM house_build_projects WHERE id = ?', [id]);
   },
 

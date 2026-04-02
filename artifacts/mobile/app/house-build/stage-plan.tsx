@@ -315,21 +315,38 @@ export default function StagePlanScreen() {
           )}
 
           {contractorMapping && (
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#F5F3FF', borderRadius: 12, padding: 14, marginBottom: 16,
+            <View style={{ marginBottom: 16 }}>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Wykonawca</Txt>
+              <View style={{
+                backgroundColor: '#F5F3FF', borderRadius: 12, padding: 14,
                 borderWidth: 1, borderColor: '#DDD6FE',
-                flexDirection: 'row', alignItems: 'center', gap: 10,
-              }}
-              onPress={() => router.push({ pathname: '/contractor', params: { specialty: contractorMapping.specialties[0], stageKey } })}
-            >
-              <Feather name="search" size={16} color="#6D28D9" />
-              <View style={{ flex: 1 }}>
-                <Txt w="semibold" style={{ fontSize: 13, color: '#6D28D9' }}>Szukaj wykonawcy</Txt>
-                <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{contractorMapping.label}</Txt>
+              }}>
+                <Txt style={{ fontSize: 11, color: Colors.textMuted, marginBottom: 8 }}>{contractorMapping.label}</Txt>
+                <View style={{ flexDirection: 'row', gap: 6 }}>
+                  <TouchableOpacity
+                    style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, paddingVertical: 8, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 4 }}
+                    onPress={() => router.push({ pathname: '/house-build/stage-contractors' as any, params: { projectId, stageKey } })}
+                  >
+                    <Feather name="users" size={12} color="#FFFFFF" />
+                    <Txt style={{ fontSize: 10, color: '#FFFFFF' }}>Planowanie</Txt>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{ flex: 1, backgroundColor: '#059669', borderRadius: 8, paddingVertical: 8, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 4 }}
+                    onPress={() => router.push({ pathname: '/contractor/results' as any, params: { fromHouseBuild: '1', stageKey, projectId } })}
+                  >
+                    <Feather name="search" size={12} color="#FFFFFF" />
+                    <Txt style={{ fontSize: 10, color: '#FFFFFF' }}>Szukaj</Txt>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{ flex: 1, backgroundColor: '#7C3AED', borderRadius: 8, paddingVertical: 8, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 4 }}
+                    onPress={() => router.push({ pathname: '/house-build/stage-request-prep' as any, params: { projectId, stageKey } })}
+                  >
+                    <Feather name="edit-3" size={12} color="#FFFFFF" />
+                    <Txt style={{ fontSize: 10, color: '#FFFFFF' }}>Zapytanie</Txt>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <Feather name="chevron-right" size={16} color="#6D28D9" />
-            </TouchableOpacity>
+            </View>
           )}
 
           {budgetItems.length > 0 && (

@@ -272,6 +272,13 @@ export default function HouseBuildProjectDetail() {
               onPress={() => router.push({ pathname: '/house-build/questions', params: { projectId: project.id } })}
             />
             <QuickAction
+              icon="briefcase"
+              label="Wykonawcy"
+              color="#2563EB"
+              bg="#EFF6FF"
+              onPress={() => router.push({ pathname: '/house-build/contractor-board' as any, params: { projectId: project.id } })}
+            />
+            <QuickAction
               icon="tag"
               label="Cennik ref."
               color="#059669"

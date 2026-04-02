@@ -8,9 +8,17 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useContractor } from '@/context/ContractorContext';
 import { LISTING_TIER_LABELS } from '@/types/contractor';
+import { houseBuildContractorsRepo } from '@/db/repositories/house-build-contractors.repo';
 
 export default function ContractorProfileScreen() {
-  const { id, requestId } = useLocalSearchParams<{ id: string; requestId?: string }>();
+  const { id, requestId, fromHouseBuild, stageKey, projectId } = useLocalSearchParams<{
+    id: string;
+    requestId?: string;
+    fromHouseBuild?: string;
+    stageKey?: string;
+    projectId?: string;
+  }>();
+  const isHouseBuild = fromHouseBuild === '1' && !!stageKey && !!projectId;
   const insets = useSafeAreaInsets();
   const { getContractorById, isContractorSaved, toggleSaveContractor } = useContractor();
   const c = getContractorById(id);
@@ -280,8 +288,27 @@ export default function ContractorProfileScreen() {
           paddingBottom: bottomPad,
         }}
       >
+        {isHouseBuild && (
+          <View style={{ marginBottom: 8 }}>
+            <Button
+              label="Dodaj do krotkiej listy etapu"
+              variant="secondary"
+              onPress={async () => {
+                try {
+                  await houseBuildContractorsRepo.addToShortlist(
+                    projectId!, stageKey!, c.id, c.displayName, ''
+                  );
+                  Alert.alert('Dodano', `${c.displayName} dodany do krotkiej listy etapu.`);
+                } catch (err) {
+                  console.error('Add to shortlist error:', err);
+                  Alert.alert('Blad', 'Nie udalo sie dodac do listy.');
+                }
+              }}
+            />
+          </View>
+        )}
         <Button
-          label="Wyślij zapytanie"
+          label="Wyslij zapytanie"
           variant="primary"
           onPress={() =>
             router.push({

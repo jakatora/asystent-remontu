@@ -813,3 +813,105 @@ export interface AdminContentHealthIssue {
   readonly contentKey: string;
   readonly contentType: AdminContentType;
 }
+
+export type ContractorNeedStatus =
+  | 'not-needed'
+  | 'needed'
+  | 'browsing'
+  | 'request-prepared'
+  | 'request-sent'
+  | 'shortlisted'
+  | 'selected'
+  | 'unresolved';
+
+export const CONTRACTOR_NEED_STATUS_LABELS: Record<ContractorNeedStatus, string> = {
+  'not-needed': 'Niepotrzebny na tym etapie',
+  'needed': 'Potrzebny wykonawca',
+  'browsing': 'Przegladam oferty',
+  'request-prepared': 'Zapytanie przygotowane',
+  'request-sent': 'Zapytanie wyslane',
+  'shortlisted': 'Na krotka liste',
+  'selected': 'Wykonawca wybrany',
+  'unresolved': 'Do rozwiazania',
+};
+
+export const CONTRACTOR_NEED_STATUS_COLORS: Record<ContractorNeedStatus, string> = {
+  'not-needed': '#94A3B8',
+  'needed': '#D97706',
+  'browsing': '#2563EB',
+  'request-prepared': '#7C3AED',
+  'request-sent': '#0891B2',
+  'shortlisted': '#059669',
+  'selected': '#16A34A',
+  'unresolved': '#DC2626',
+};
+
+export interface StageContractorNeed {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly status: ContractorNeedStatus;
+  readonly requestId: string | null;
+  readonly selectedContractorId: string | null;
+  readonly selectedContractorName: string | null;
+  readonly notes: string;
+  readonly updatedAt: string;
+  readonly createdAt: string;
+}
+
+export interface StageContractorShortlistEntry {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly contractorId: string;
+  readonly contractorName: string;
+  readonly note: string;
+  readonly createdAt: string;
+}
+
+export interface StageContractorBoardRow {
+  readonly stageKey: string;
+  readonly stageName: string;
+  readonly status: ContractorNeedStatus;
+  readonly shortlistedCount: number;
+  readonly requestCount: number;
+  readonly selectedContractorName: string | null;
+  readonly notes: string;
+}
+
+export interface StageRequestPreset {
+  readonly stageKey: string;
+  readonly templateText: string;
+  readonly workCategory: string;
+  readonly summaryPrefix: string;
+}
+
+export interface ContractorHiringQuestion {
+  readonly stageKey: string;
+  readonly question: string;
+  readonly priority: 'high' | 'normal';
+}
+
+export interface ContractorSpecialtyAlias {
+  readonly specialtyKey: string;
+  readonly label: string;
+  readonly categoryIds: readonly string[];
+}
+
+export interface StageContractorMappingExtended {
+  readonly stageKey: string;
+  readonly specialties: readonly string[];
+  readonly label: string;
+  readonly aliases: readonly ContractorSpecialtyAlias[];
+  readonly requestPreset: StageRequestPreset;
+  readonly hiringQuestions: readonly ContractorHiringQuestion[];
+  readonly professionalGuidance: StageProfessionalGuidance;
+}
+
+export interface StageProfessionalGuidance {
+  readonly stageKey: string;
+  readonly commonRoles: readonly string[];
+  readonly whenToStartLooking: string;
+  readonly whenToCollectOffers: string;
+  readonly whatToConfirm: string;
+}

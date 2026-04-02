@@ -1,0 +1,251 @@
+Assume all previous prompts have already been completed, including:
+- the renovation module
+- the contractor module ("Find a Contractor")
+- the House Build module
+- the formal/legal path module
+- the build stages module
+- the timeline / stage budget / team planning module
+- the investor documents / decisions / questions module
+- the utilities and media module
+- the House Build pricing layer
+- the House Build pricing maintenance/admin module
+- the House Build content maintenance/admin module
+
+Do not rebuild or rename:
+- the renovation module
+- the contractor module
+- the House Build module
+- request flows that already work
+- existing route structure
+- existing pricing logic
+- existing shopping list logic
+- existing timeline logic
+- existing saved project flows
+
+Only extend the current implementation.
+
+Your task now is to connect the "House Build" module with the existing "Find a Contractor" module.
+
+GOAL
+Allow the user to move naturally from house-build planning into contractor discovery and request preparation, stage by stage.
+
+IMPORTANT RULES
+- Do not create a second contractor directory
+- Do not duplicate contractor profile models if they already exist
+- Do not create a second request system if one already exists
+- Reuse the existing contractor search, contractor profile, contractor request, and contractor account architecture wherever possible
+- Only extend and connect the existing systems
+- Keep the implementation modular, scalable, and beginner-friendly
+
+BUILD THESE FEATURES
+
+1. STAGE-TO-CONTRACTOR LINKING
+Add contractor handoff points inside the House Build module.
+
+For each relevant stage, add a clear action such as:
+- Find contractor for this stage
+- Prepare contractor request
+- Save contractor need for later
+
+Support at least these stage mappings:
+- Plot and site preparation -> geodetic specialist / site preparation team
+- Foundations -> foundation / structural works team
+- Structural shell -> masonry / structural team
+- Roof -> roofing team
+- Windows and exterior doors -> window/door installation team
+- Internal rough installations -> electrician / plumber / heating installer / ventilation specialist
+- Insulation / facade -> insulation / facade team
+- Internal finishing -> finishing team
+- Utilities/media -> utility-related contractors or installers where appropriate
+
+2. SPECIALTY MAPPING LAYER
+Create a structured mapping layer between House Build stages and contractor specialties.
+
+Add entities such as:
+- HouseBuildStageSpecialtyMapping
+- ContractorSpecialtyAlias
+- ContractorNeedProfile
+- StageContractorRequestPreset
+
+The mapping should:
+- reuse existing contractor specialties where possible
+- avoid duplicate specialty systems
+- support one-to-many mapping
+- allow future editing in admin tools
+
+3. PRE-FILLED CONTRACTOR REQUESTS
+When the user starts a contractor search from a House Build stage, prefill the request form using current project data where available.
+
+Prefill fields such as:
+- project type: house build
+- related stage
+- work category
+- short summary
+- city / area
+- preferred timing placeholder
+- stage-specific description template
+- urgency placeholder
+- whether materials are expected to be handled by the contractor or investor placeholder
+
+Do not force a live request if the user only wants to browse.
+
+4. STAGE-SPECIFIC REQUEST TEMPLATES
+Create useful preset request templates for key build stages.
+
+Examples:
+- Foundations:
+  - I am looking for a contractor for foundation works for a single-family house. I want to discuss scope, timing, waterproofing-related coordination, and readiness for the next stage.
+- Structural shell:
+  - I am looking for a team for structural wall/shell works for a single-family house. I want to confirm system familiarity, timing, and stage handoff readiness.
+- Roof:
+  - I am looking for a roofing contractor for a single-family house build. I want to discuss structure/covering scope, timing, and key system details.
+- Electrical/plumbing/heating/ventilation:
+  - I am looking for an installer/contractor for internal rough installations in a single-family house. I want to discuss scope, routing coordination, and timing.
+
+Keep the text simple and editable by the user.
+
+5. CONTRACTOR MATCH VIEW FOR HOUSE BUILD
+Extend the contractor results logic so it can work well for House Build requests.
+
+When launched from the House Build module:
+- prioritize stage-relevant specialties
+- show service area relevance
+- show verification status
+- show whether the contractor handles small/medium/large jobs placeholder
+- show whether the contractor appears suitable for house-build stages placeholder
+
+Do not break the normal contractor search flow used by the renovation module.
+
+6. CONTRACTOR NEEDS TRACKER
+Add a new planning layer inside the House Build module:
+- contractor needed
+- contractor browsing only
+- request prepared
+- request sent
+- contractor shortlisted
+- contractor selected
+- contractor not needed for this stage
+- unresolved
+
+Each build stage should be able to store its own contractor need status.
+
+7. SHORTLIST / SAVED CONTRACTORS PER STAGE
+Allow the user to:
+- save contractors to a specific House Build stage
+- shortlist one or more contractors for a stage
+- add notes such as:
+  - waiting for quote
+  - call back later
+  - compare with another company
+  - verify references
+  - materials included?
+  - timeline acceptable?
+
+Do not create a separate saved contractor system if one already exists.
+Extend it to support stage context.
+
+8. STAGE CONTRACTOR BOARD
+Create a "Contractor Planning" board inside the House Build module.
+
+For each stage show:
+- contractor status
+- prepared request count
+- sent request count
+- shortlisted contractors
+- selected contractor placeholder
+- notes
+- unresolved issues
+
+This should feel like an investor planning board, not a CRM.
+
+9. PROFESSIONAL ROLE GUIDANCE
+For each stage, show lightweight guidance such as:
+- who is commonly involved
+- when to start looking for a contractor
+- when to collect offers
+- what to confirm before selecting a contractor
+
+Do not turn this into legal advice or technical certification advice.
+Keep it practical.
+
+10. QUESTIONS TO ASK BEFORE HIRING
+For each stage, add a reusable block:
+- questions to ask the contractor before choosing them
+
+Examples:
+- Have you worked with this type of house/system before?
+- What is included in your scope?
+- What is not included?
+- When could you start?
+- How long will the stage likely take?
+- Who coordinates handoff to the next stage?
+- Are materials included or not?
+- What do you need from the investor before starting?
+
+Reuse existing question-template architecture if possible.
+
+11. HOUSE BUILD TO CONTRACTOR ROUTING
+Add safe routing so the user can move from:
+- build stage -> contractor search
+- build stage -> prepared request
+- build stage -> shortlisted contractors
+- build stage -> selected contractor summary
+
+Do not create unstable navigation or duplicate screens.
+
+12. CONTRACTOR PROFILE EXTENSION
+If the contractor profile already exists, extend it minimally to support House Build context.
+
+Add optional fields/placeholders such as:
+- suitableForHouseBuildStages
+- typicalProjectSize
+- handlesStructuralStages placeholder
+- handlesInstallations placeholder
+- handlesEnvelopeFacade placeholder
+- handlesFinishStages placeholder
+
+Do not rebuild the contractor profile.
+Only extend it if needed.
+
+13. ADMIN / CONTENT READINESS
+Prepare the system so stage-to-specialty mappings and request presets can be updated later in admin tools.
+
+Support:
+- import/export of stage-specialty mappings
+- import/export of stage request presets
+- editable labels and notes
+- active/inactive states
+
+Do not build a full new admin module if the current admin structure can be extended.
+
+14. UI / UX RULES
+Keep all House Build contractor integration simple and clear.
+
+Add or extend:
+- Find contractor button on stage screens
+- Prepare request button
+- Save for later button
+- stage contractor status chips
+- shortlist cards
+- selected contractor summary card
+- empty states for “no contractor selected yet”
+
+Do not clutter the beginner investor flow.
+
+15. IMPLEMENTATION QUALITY RULES
+- do not rebuild previous modules
+- do not duplicate contractor request logic
+- do not create duplicate specialties or profiles
+- only extend and connect the existing implementation
+- keep everything modular and data-driven
+- preserve strong TypeScript typing
+- preserve route stability
+- make the integration ready for future real backend data and real paid contractor flows
+
+16. FINAL STEP
+After implementation:
+- list the House Build screens/sections that were extended
+- confirm stage-to-contractor mapping was added
+- confirm prefilled contractor requests work from House Build stages
+- confirm shortlist/save-per-stage works
+- confirm no unrelated modules were rebuilt

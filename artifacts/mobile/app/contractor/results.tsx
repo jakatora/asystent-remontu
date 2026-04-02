@@ -11,11 +11,15 @@ import { FilterBar } from '@/components/contractor/FilterBar';
 import { useContractor } from '@/context/ContractorContext';
 
 export default function ContractorResultsScreen() {
-  const { categoryId, city, requestId } = useLocalSearchParams<{
+  const { categoryId, city, requestId, fromHouseBuild, stageKey, projectId } = useLocalSearchParams<{
     categoryId?: string;
     city?: string;
     requestId?: string;
+    fromHouseBuild?: string;
+    stageKey?: string;
+    projectId?: string;
   }>();
+  const isHouseBuild = fromHouseBuild === '1' && !!stageKey;
   const insets = useSafeAreaInsets();
   const {
     filteredContractors,
@@ -108,7 +112,14 @@ export default function ContractorResultsScreen() {
           renderItem={({ item }) => (
             <ContractorCard
               contractor={item}
-              onPress={() => router.push({ pathname: '/contractor/[id]', params: { id: item.id, requestId } })}
+              onPress={() => router.push({
+                pathname: '/contractor/[id]',
+                params: {
+                  id: item.id,
+                  requestId,
+                  ...(isHouseBuild ? { fromHouseBuild: '1', stageKey, projectId } : {}),
+                },
+              })}
               onSendRequest={() =>
                 router.push({
                   pathname: '/contractor/send-request',
