@@ -164,7 +164,14 @@ export default function HouseBuildProjectDetail() {
             </View>
           )}
 
-          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
+            <QuickAction
+              icon="clipboard"
+              label="Sciezka formalna"
+              color={HB_ACCENT}
+              bg={HB_ACCENT_BG}
+              onPress={() => router.push('/house-build/formal-path')}
+            />
             <QuickAction
               icon="file-text"
               label="Dokumenty"
@@ -179,6 +186,8 @@ export default function HouseBuildProjectDetail() {
               bg="#F5F3FF"
               onPress={() => router.push('/house-build/professionals')}
             />
+          </View>
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
             <QuickAction
               icon="zap"
               label="Przylacza"
@@ -186,6 +195,31 @@ export default function HouseBuildProjectDetail() {
               bg={Colors.warningBg}
               onPress={() => router.push({ pathname: '/house-build/utilities', params: { projectId: project.id } })}
             />
+            <QuickAction
+              icon="flag"
+              label="Przed budowa"
+              color="#059669"
+              bg="#ECFDF5"
+              onPress={() => router.push('/house-build/before-works')}
+            />
+            <QuickAction
+              icon="book"
+              label="EDB"
+              color="#7C3AED"
+              bg="#F5F3FF"
+              onPress={() => router.push('/house-build/edb')}
+            />
+          </View>
+          <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
+            <QuickAction
+              icon="check-circle"
+              label="Zakonczenie"
+              color="#DC2626"
+              bg="#FEF2F2"
+              onPress={() => router.push('/house-build/completion')}
+            />
+            <View style={{ flex: 1 }} />
+            <View style={{ flex: 1 }} />
           </View>
 
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>Etapy budowy</Txt>

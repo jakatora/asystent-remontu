@@ -186,3 +186,83 @@ export interface BuildProjectTimelineItem {
   readonly actualEnd?: string;
   readonly notes: string;
 }
+
+export type FormalPathId =
+  | 'building-permit'
+  | 'notification-with-design'
+  | 'simplified-70m2';
+
+export interface FormalPathAssessment {
+  readonly hasMpzp: boolean | null;
+  readonly hasWz: boolean | null;
+  readonly isSingleFamily: boolean;
+  readonly isFreeStanding: boolean;
+  readonly footprintArea: number | null;
+  readonly floorsAboveGround: number;
+  readonly forOwnHousing: boolean;
+  readonly isFirstTimeInvestor: boolean;
+  readonly prefersConservativePath: boolean;
+  readonly recommendedPath: FormalPathId;
+  readonly alternativePaths: readonly FormalPathId[];
+  readonly cautionNotes: readonly FormalCautionNote[];
+}
+
+export interface FormalCautionNote {
+  readonly id: string;
+  readonly text: string;
+  readonly level: 'info' | 'caution' | 'important';
+  readonly source?: SourceMetadata;
+}
+
+export interface FormalQuestion {
+  readonly id: string;
+  readonly text: string;
+  readonly helpText?: string;
+  readonly type: 'boolean' | 'number' | 'choice';
+  readonly options?: readonly { value: string; label: string }[];
+}
+
+export interface FormalRequirementItem {
+  readonly id: string;
+  readonly groupId: string;
+  readonly title: string;
+  readonly description: string;
+  readonly isRequired: boolean;
+  readonly order: number;
+  readonly source?: SourceMetadata;
+}
+
+export interface OfficialChecklistGroup {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly items: readonly FormalRequirementItem[];
+  readonly pathIds: readonly FormalPathId[];
+  readonly source?: SourceMetadata;
+}
+
+export interface StartWorksChecklistItem {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly isRequired: boolean;
+  readonly category: 'formal' | 'site' | 'utility';
+  readonly source?: SourceMetadata;
+}
+
+export interface CompletionChecklistItem {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly isRequired: boolean;
+  readonly path: 'notice' | 'permit' | 'both';
+  readonly source?: SourceMetadata;
+}
+
+export interface OfficialSourceLink {
+  readonly id: string;
+  readonly label: string;
+  readonly url: string;
+  readonly description: string;
+  readonly lastVerified: string;
+}

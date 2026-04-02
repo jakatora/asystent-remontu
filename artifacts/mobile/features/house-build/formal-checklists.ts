@@ -1,0 +1,301 @@
+import type {
+  OfficialChecklistGroup,
+  StartWorksChecklistItem,
+  CompletionChecklistItem,
+  OfficialSourceLink,
+  SourceMetadata,
+} from '@/types/house-build';
+
+const PB_SOURCE: SourceMetadata = {
+  sourceLabel: 'Prawo budowlane (Dz.U. 2024 poz. 725 t.j.)',
+  sourceType: 'official',
+  lastReviewedDate: '2025-01-15',
+  classification: 'official',
+};
+
+const UPZP_SOURCE: SourceMetadata = {
+  sourceLabel: 'Ustawa o planowaniu i zagospodarowaniu przestrzennym',
+  sourceType: 'official',
+  lastReviewedDate: '2025-01-15',
+  classification: 'official',
+};
+
+export const OFFICIAL_CHECKLIST_GROUPS: readonly OfficialChecklistGroup[] = [
+  {
+    id: 'ocg-mpzp',
+    title: 'Sprawdzenie MPZP',
+    description: 'Ustal, czy dzialka jest objeta Miejscowym Planem Zagospodarowania Przestrzennego.',
+    pathIds: ['building-permit', 'notification-with-design', 'simplified-70m2'],
+    source: UPZP_SOURCE,
+    items: [
+      { id: 'ocg-mpzp-1', groupId: 'ocg-mpzp', title: 'Sprawdz MPZP w urzedzie gminy lub na geoportalu', description: 'Mozesz sprawdzic online (geoportal lub e-uslugi gminy) lub zlozye wniosek o wypis i wyrys.', isRequired: true, order: 1, source: UPZP_SOURCE },
+      { id: 'ocg-mpzp-2', groupId: 'ocg-mpzp', title: 'Zamów wypis i wyrys z MPZP', description: 'Oficjalny dokument potwierdzajacy przeznaczenie dzialki i warunki zabudowy.', isRequired: true, order: 2, source: UPZP_SOURCE },
+      { id: 'ocg-mpzp-3', groupId: 'ocg-mpzp', title: 'Sprawdz dopuszczalna zabudowe', description: 'MPZP okresla m.in. powierzchnie zabudowy, wysokosc, linie zabudowy, intensywnosc.', isRequired: true, order: 3, source: UPZP_SOURCE },
+    ],
+  },
+  {
+    id: 'ocg-wz',
+    title: 'Uzyskanie decyzji WZ',
+    description: 'Jesli dzialka nie ma MPZP, potrzebna moze byc decyzja o Warunkach Zabudowy.',
+    pathIds: ['building-permit', 'notification-with-design', 'simplified-70m2'],
+    source: UPZP_SOURCE,
+    items: [
+      { id: 'ocg-wz-1', groupId: 'ocg-wz', title: 'Zloz wniosek o WZ w urzedzie gminy', description: 'Wniosek zawiera dane dzialki, planowana inwestycje i parametry zabudowy.', isRequired: true, order: 1, source: UPZP_SOURCE },
+      { id: 'ocg-wz-2', groupId: 'ocg-wz', title: 'Dolacz mape zasadnicza', description: 'Kopia mapy zasadniczej z zaznaczonym terenem inwestycji i obszarem analizowanym.', isRequired: true, order: 2, source: UPZP_SOURCE },
+      { id: 'ocg-wz-3', groupId: 'ocg-wz', title: 'Oczekuj na decyzje (ok. 60-90 dni)', description: 'Czas ustawowy to 65 dni, ale w praktyce moze byc dluzszy.', isRequired: true, order: 3, source: UPZP_SOURCE },
+    ],
+  },
+  {
+    id: 'ocg-design',
+    title: 'Przygotowanie dokumentacji projektowej',
+    description: 'Projekt budowlany to podstawowy dokument wymagany do uzyskania pozwolenia lub zgloszenia budowy.',
+    pathIds: ['building-permit', 'notification-with-design'],
+    source: PB_SOURCE,
+    items: [
+      { id: 'ocg-design-1', groupId: 'ocg-design', title: 'Wybierz projekt domu (gotowy lub indywidualny)', description: 'Projekt gotowy wymaga adaptacji do dzialki. Projekt indywidualny jest tworzony od podstaw.', isRequired: true, order: 1, source: PB_SOURCE },
+      { id: 'ocg-design-2', groupId: 'ocg-design', title: 'Zlec adaptacje projektu uprawnionemu architektowi', description: 'Architekt adaptuje projekt do warunków dzialki, MPZP/WZ i warunków technicznych.', isRequired: true, order: 2, source: PB_SOURCE },
+      { id: 'ocg-design-3', groupId: 'ocg-design', title: 'Uzyskaj projekt zagospodarowania dzialki', description: 'Czesc projektu budowlanego — pokazuje usytuowanie budynku na dzialce.', isRequired: true, order: 3, source: PB_SOURCE },
+      { id: 'ocg-design-4', groupId: 'ocg-design', title: 'Sprawdz uprawnienia projektanta', description: 'Projektant musi miec aktualne uprawnienia budowlane i przynaleznosc do izby.', isRequired: true, order: 4, source: PB_SOURCE },
+    ],
+  },
+  {
+    id: 'ocg-property-right',
+    title: 'Prawo do dysponowania nieruchomoscia',
+    description: 'Oswiadczenie o prawie do dysponowania nieruchomoscia na cele budowlane.',
+    pathIds: ['building-permit', 'notification-with-design', 'simplified-70m2'],
+    source: PB_SOURCE,
+    items: [
+      { id: 'ocg-pr-1', groupId: 'ocg-property-right', title: 'Przygotuj oswiadczenie o prawie do dysponowania nieruchomoscia', description: 'Standardowy formularz — oswiadczenie pod rygorem odpowiedzialnosci karnej.', isRequired: true, order: 1, source: PB_SOURCE },
+      { id: 'ocg-pr-2', groupId: 'ocg-property-right', title: 'Sprawdz KW dzialki', description: 'Zweryfikuj stan prawny dzialki w ksiedze wieczystej.', isRequired: true, order: 2, source: PB_SOURCE },
+    ],
+  },
+  {
+    id: 'ocg-opinions',
+    title: 'Uzgodnienia i opinie',
+    description: 'W zaleznosci od lokalizacji moga byc wymagane dodatkowe uzgodnienia.',
+    pathIds: ['building-permit', 'notification-with-design'],
+    source: PB_SOURCE,
+    items: [
+      { id: 'ocg-op-1', groupId: 'ocg-opinions', title: 'Warunki przylaczeniowe mediow', description: 'Uzyskaj warunki od dostawców pradu, wody, gazu, kanalizacji.', isRequired: true, order: 1, source: PB_SOURCE },
+      { id: 'ocg-op-2', groupId: 'ocg-opinions', title: 'Zjazd z drogi publicznej', description: 'Jesli wymagany — uzgodnienie z zarzadca drogi.', isRequired: false, order: 2, source: PB_SOURCE },
+      { id: 'ocg-op-3', groupId: 'ocg-opinions', title: 'Uzgodnienia konserwatorskie (jesli dotyczy)', description: 'Dla dzialek w strefie ochrony zabytkow lub krajobrazowej.', isRequired: false, order: 3, source: PB_SOURCE },
+      { id: 'ocg-op-4', groupId: 'ocg-opinions', title: 'Uzgodnienia srodowiskowe (jesli dotyczy)', description: 'Dla dzialek w strefie ochrony przyrody, Natura 2000 itp.', isRequired: false, order: 4, source: PB_SOURCE },
+    ],
+  },
+  {
+    id: 'ocg-e-budownictwo',
+    title: 'e-Budownictwo — skladanie wnioskow online',
+    description: 'Wiekszosc wnioskow budowlanych mozna zlozyc elektronicznie przez platforme e-Budownictwo.',
+    pathIds: ['building-permit', 'notification-with-design', 'simplified-70m2'],
+    source: {
+      sourceLabel: 'e-Budownictwo (e-budownictwo.gunb.gov.pl)',
+      sourceType: 'official',
+      lastReviewedDate: '2025-01-15',
+      classification: 'official',
+    },
+    items: [
+      { id: 'ocg-eb-1', groupId: 'ocg-e-budownictwo', title: 'Zaloz konto na e-Budownictwo', description: 'Logowanie przez Profil Zaufany, e-dowod lub bankowosc elektroniczna.', isRequired: false, order: 1 },
+      { id: 'ocg-eb-2', groupId: 'ocg-e-budownictwo', title: 'Przygotuj dokumenty w formacie elektronicznym', description: 'Projekt budowlany, mapy, oswiadczenia — w formie elektronicznej z podpisem.', isRequired: false, order: 2 },
+      { id: 'ocg-eb-3', groupId: 'ocg-e-budownictwo', title: 'Zloz wniosek online', description: 'Wniosek o pozwolenie, zgloszenie lub zawiadomienie — mozna zlozyc elektronicznie.', isRequired: false, order: 3 },
+    ],
+  },
+];
+
+export const START_WORKS_CHECKLIST: readonly StartWorksChecklistItem[] = [
+  {
+    id: 'sw-notification',
+    title: 'Zawiadomienie o zamierzonym terminie rozpoczecia robót',
+    description: 'Inwestor musi zawiadomic organ nadzoru budowlanego (PINB) oraz projektanta o planowanym rozpoczeciu robót co najmniej 7 dni przed rozpoczeciem. Mozna zlozyc przez e-Budownictwo.',
+    isRequired: true,
+    category: 'formal',
+    source: { ...PB_SOURCE, notes: 'Art. 41 Prawa budowlanego — zawiadomienie o rozpoczeciu robót' },
+  },
+  {
+    id: 'sw-manager',
+    title: 'Wyznaczenie kierownika budowy',
+    description: 'Przed rozpoczeciem robót nalezy wyznaczyc kierownika budowy z odpowiednimi uprawnieniami. Dane kierownika podaje sie w zawiadomieniu.',
+    isRequired: true,
+    category: 'formal',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'sw-log',
+    title: 'Zalozenie dziennika budowy (EDB)',
+    description: 'Elektroniczny Dziennik Budowy (EDB) mozna zalozyc online. Jest obowiazkowy od 2023 r. dla nowych budów.',
+    isRequired: true,
+    category: 'formal',
+    source: { ...PB_SOURCE, notes: 'Art. 47a-47w — Elektroniczny Dziennik Budowy' },
+  },
+  {
+    id: 'sw-geodetic',
+    title: 'Geodezyjne wytyczenie budynku na dzialce',
+    description: 'Uprawniony geodeta wytycza budynek na dzialce zgodnie z projektem zagospodarowania. Wymagane przed rozpoczeciem fundamentów.',
+    isRequired: true,
+    category: 'site',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'sw-terrain',
+    title: 'Przygotowanie terenu i niwelacja',
+    description: 'Ewentualne wyrównanie terenu, usuniecie drzew (jesli zezwolenie), przygotowanie podloza.',
+    isRequired: false,
+    category: 'site',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'sw-fencing',
+    title: 'Ogrodzenie i oznaczenie placu budowy',
+    description: 'Zabezpieczenie terenu budowy, tablica informacyjna (dane inwestora, kierownika, nr pozwolenia).',
+    isRequired: true,
+    category: 'site',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'sw-power',
+    title: 'Tymczasowe przylacze energetyczne',
+    description: 'Zorganizuj tymczasowe zasilanie placu budowy w energie elektryczna.',
+    isRequired: false,
+    category: 'utility',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'sw-water',
+    title: 'Dostep do wody na placu budowy',
+    description: 'Tymczasowe przylacze wodne lub zbiornik na wode — niezbedne do prac budowlanych.',
+    isRequired: false,
+    category: 'utility',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'sw-facilities',
+    title: 'Zaplecze socjalne',
+    description: 'Kontener socjalny lub wyznaczone miejsce dla pracowników budowy (toaleta, szatnia).',
+    isRequired: false,
+    category: 'site',
+    source: PB_SOURCE,
+  },
+];
+
+export const COMPLETION_CHECKLIST: readonly CompletionChecklistItem[] = [
+  {
+    id: 'cc-geodetic-survey',
+    title: 'Geodezyjny pomiar powykonawczy',
+    description: 'Uprawniony geodeta wykonuje pomiar powykonawczy i zglosza go do zasobu geodezyjnego.',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-chimney',
+    title: 'Protokol kominiarski',
+    description: 'Odbiór przewodów kominowych, dymowych i wentylacyjnych przez uprawnionego kominiarza.',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-energy',
+    title: 'Swiadectwo charakterystyki energetycznej',
+    description: 'Obowiazkowy dokument okreslajacy zapotrzebowanie budynku na energie.',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-electrical',
+    title: 'Protokol instalacji elektrycznej',
+    description: 'Pomiary i protokoly od elektryka z uprawnieniami — wymagane do odbioru.',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-gas',
+    title: 'Protokol instalacji gazowej (jesli dotyczy)',
+    description: 'Próba szczelnosci instalacji gazowej — wymagana jesli dom ma instalacje gazowa.',
+    isRequired: false,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-water',
+    title: 'Protokol instalacji wodno-kanalizacyjnej',
+    description: 'Protokoly prób cisnieniowych i szczelnosci instalacji.',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-manager-statement',
+    title: 'Oswiadczenie kierownika budowy',
+    description: 'Kierownik budowy oswiadcza o zgodnosci wykonania z projektem i warunkami pozwolenia.',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-log-close',
+    title: 'Zamkniecie dziennika budowy',
+    description: 'Kierownik budowy dokonuje ostatniego wpisu i zamyka dziennik (EDB).',
+    isRequired: true,
+    path: 'both',
+    source: PB_SOURCE,
+  },
+  {
+    id: 'cc-notice',
+    title: 'Zawiadomienie o zakonczeniu budowy',
+    description: 'Inwestor zawiadamia PINB o zakonczeniu budowy. Jesli organ nie wniesie sprzeciwu w 14 dni, mozna rozpoczac uzytkowanie. Mozna zlozyc przez e-Budownictwo.',
+    isRequired: true,
+    path: 'notice',
+    source: { ...PB_SOURCE, notes: 'Art. 54 — zawiadomienie o zakonczeniu budowy' },
+  },
+  {
+    id: 'cc-occupancy-permit',
+    title: 'Pozwolenie na uzytkowanie',
+    description: 'Wymagane w okreslonych przypadkach (np. zmiana sposobu uzytkowania, odstepstwa od projektu). Inwestor sklada wniosek, PINB przeprowadza kontrole.',
+    isRequired: false,
+    path: 'permit',
+    source: { ...PB_SOURCE, notes: 'Art. 55 — pozwolenie na uzytkowanie' },
+  },
+];
+
+export const EDB_INFO = {
+  title: 'Elektroniczny Dziennik Budowy (EDB)',
+  description: 'Od 2023 r. dziennik budowy prowadzi sie w formie elektronicznej. System jest dostepny online i pozwala na wygodne zarzadzanie wpisami.',
+  whatIs: 'EDB to oficjalny dokument prowadzony w formie elektronicznej, w którym rejestrowane sa wszystkie istotne wydarzenia na budowie — wpisy kierownika budowy, inspektora nadzoru, projektanta.',
+  whoUses: 'Z EDB korzysta inwestor (zakladajacy dziennik), kierownik budowy (wpisy codzienne), inspektor nadzoru inwestorskiego, projektant sprawujacy nadzór autorski.',
+  howToCreate: 'Inwestor zaklada EDB online na platformie e-Budownictwo (e-budownictwo.gunb.gov.pl). Wymagane jest konto z Profilem Zaufanym.',
+  participants: 'Po zalozeniu EDB inwestor dodaje uczestników: kierownika budowy, inspektora nadzoru (jesli powolany), projektanta. Kazdy uczestnik loguje sie do systemu.',
+  closing: 'Po zakonczeniu budowy kierownik budowy dokonuje ostatniego wpisu, a inwestor zamyka EDB. Zamkniety dziennik dolacza sie do zawiadomienia o zakonczeniu budowy.',
+  source: {
+    sourceLabel: 'Elektroniczny Dziennik Budowy — GUNB',
+    sourceType: 'official' as const,
+    lastReviewedDate: '2025-01-15',
+    classification: 'official' as const,
+    notes: 'Art. 47a-47w Prawa budowlanego, System EDB (e-budownictwo.gunb.gov.pl)',
+  },
+};
+
+export const OFFICIAL_SOURCES: readonly OfficialSourceLink[] = [
+  {
+    id: 'src-prawo-budowlane',
+    label: 'Prawo budowlane',
+    url: 'https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20240000725',
+    description: 'Ustawa z dnia 7 lipca 1994 r. — Prawo budowlane (tekst jednolity)',
+    lastVerified: '2025-01-15',
+  },
+  {
+    id: 'src-e-budownictwo',
+    label: 'e-Budownictwo',
+    url: 'https://e-budownictwo.gunb.gov.pl',
+    description: 'Platforma do elektronicznego skladania wnioskow budowlanych i prowadzenia EDB',
+    lastVerified: '2025-01-15',
+  },
+  {
+    id: 'src-free-projects',
+    label: 'Darmowe projekty domów do 70 m2',
+    url: 'https://www.gov.pl/web/rozwoj-technologia/projekty-domow-do-70m2',
+    description: 'Darmowe projekty domów jednorodzinnych do 70 m2 zabudowy udostepnione przez rzad',
+    lastVerified: '2025-01-15',
+  },
+];

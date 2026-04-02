@@ -1,0 +1,161 @@
+Assume Prompt 1 for the "Budowa domu" module has already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- the new House Build module shell from Prompt 1
+- existing route structure
+
+Only extend the current implementation.
+
+Your task now is to implement the Poland-first formalities and legal-path planning layer for the "Budowa domu" module.
+
+GOAL
+Help the user understand which formal path they may need to follow when planning a single-family house in Poland, what documents are typically required, what must happen before works begin, and what formal closing steps may be needed.
+
+IMPORTANT RULES
+- This module must be informational and planning-oriented, not legal advice.
+- Do not present one path as universally correct for every case.
+- Always show a note that the investor should verify the final path with the local authority, designer, and project documentation.
+- Keep the wording beginner-friendly.
+- Preserve a strong separation between:
+  - official/formal process guidance
+  - technical construction guidance
+- Store official-source metadata for each rule or checklist block.
+
+BUILD THESE FEATURES
+
+1. FORMAL PATH WIZARD
+Create a step-by-step wizard that asks:
+- Is there an MPZP for the plot? (yes / no / unknown)
+- If no or unknown, does the user already have WZ? (yes / no / unknown)
+- Is the house a single-family house?
+- Is it free-standing?
+- Planned footprint area
+- Number of above-ground floors
+- Is the build for own housing purpose?
+- Is the user a first-time investor?
+- Does the user want the app to show a more conservative recommended path?
+
+2. PATH OUTPUT LOGIC
+Based on the answers, show one of the following planning paths:
+- Building permit path
+- Notification with building design path
+- Simplified <=70 m2 path (only when conditions appear to match)
+
+Important:
+- For the <=70 m2 path, add a clear caution note that the simplified path is not always the best practical choice for first-time investors
+- If the user marks “first-time investor”, the app may recommend the more conservative path explanation
+- Do not claim legal certainty; explain likely path and required verification
+
+3. OFFICIAL PROCESS CHECKLISTS
+Add official-style checklist content for:
+- checking MPZP
+- obtaining WZ if MPZP does not apply
+- preparing design documentation
+- preparing the declaration of right to use the property for building purposes
+- collecting required opinions/agreements/permits if applicable
+- confirming designer authorization / professional entitlement documentation
+- using e-Budownictwo for online filing
+- preparing for start of works
+- construction log / EDB
+- completion notice or occupancy permit
+
+4. BEFORE-WORKS CHECKLIST
+Create a “Before works begin” section that includes planning checks such as:
+- geodetic staking out of the house on the plot
+- terrain leveling / surveying and site preparation
+- arranging temporary or target power and water access
+- organizing the site (for example fencing/site preparation/worker facilities as appropriate)
+- planned start date notification flow
+
+Do not turn this into a heavy contractor manual.
+Keep it investor-oriented.
+
+5. START-OF-WORKS FORMAL STEP
+Add a dedicated section for:
+- planned start-of-works notification
+- required basic data
+- reminder that works should not start before the indicated start date process is completed
+- e-Budownictwo compatibility
+- source metadata
+
+6. ELECTRONIC CONSTRUCTION LOG (EDB)
+Create a section for the electronic construction log:
+- what it is
+- who uses it
+- that the investor can apply for it online
+- that participants such as site manager / designer / inspector can be added
+- that it can be submitted at the end of the build
+- keep this practical and simple
+
+7. BUILD COMPLETION / OCCUPANCY
+Create a final formal stage section:
+- completion notice path
+- occupancy permit path
+- simple explanation when the app should display one or both as possibilities
+- closing checklist
+- document preparation reminders
+- source metadata
+
+8. FREE GOVERNMENT HOUSE PROJECTS NOTE
+For the <=70 m2 informational path, add a note that free government house projects exist and can be treated as optional starting references.
+Do not hardcode external links in many places.
+Store this as source-aware informational content.
+
+9. DATA STRUCTURE
+Extend the module models with structured entities such as:
+- FormalPathAssessment
+- FormalRequirementItem
+- FormalQuestion
+- OfficialChecklistGroup
+- StartWorksChecklist
+- CompletionChecklist
+- OfficialSourceLink
+- FormalCautionNote
+
+10. UI
+Add or extend screens:
+- Formal path result summary
+- Required documents
+- Before works begin
+- Start of works
+- Electronic construction log
+- Completion / occupancy
+
+Use:
+- cards
+- progress blocks
+- checklist groups
+- “verify locally” warning boxes
+- source/update labels
+
+11. CONTENT RULES TO ENCODE
+Use wording that reflects these principles:
+- first verify planning conditions for the plot
+- if there is no MPZP, WZ may be needed
+- some houses can follow a notification path
+- some investors may choose the more conservative permit path
+- the <=70 m2 simplified path should not be presented as automatically best for everyone
+- before works, the user should prepare formal and site-start steps
+- planned start notification and construction log topics should be visible in the process
+- completion notice / occupancy handling should be included as a closing stage
+
+12. IMPLEMENTATION QUALITY RULES
+- do not rebuild the House Build module shell
+- only extend it
+- keep all content source-aware
+- keep strong TypeScript typing
+- do not create duplicate route systems
+- keep this fully compatible with later contractor and budget integration
+
+13. FINAL STEP
+After implementation:
+- list which formal screens were added
+- explain the path-assessment logic briefly
+- confirm source metadata was attached to the formal content
+- confirm the app still does not present legal certainty or unsafe universal instructions
