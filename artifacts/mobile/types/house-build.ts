@@ -296,3 +296,146 @@ export interface OfficialSourceLink {
   readonly description: string;
   readonly lastVerified: string;
 }
+
+export type TimelineStageStatus =
+  | 'not-started'
+  | 'in-progress'
+  | 'waiting-for-verification'
+  | 'ready-for-next-stage'
+  | 'blocked'
+  | 'completed'
+  | 'skipped';
+
+export type TimelineNoteType =
+  | 'weather-sensitive'
+  | 'waiting-for-inspection'
+  | 'waiting-for-materials'
+  | 'waiting-for-contractor'
+  | 'blocked-by-earlier-stage'
+  | 'decision-required'
+  | 'custom';
+
+export type StageCostCategory =
+  | 'design-formal'
+  | 'labor'
+  | 'materials'
+  | 'equipment-transport'
+  | 'contingency'
+  | 'custom';
+
+export type BudgetCompletenessState =
+  | 'no-estimate'
+  | 'partial'
+  | 'complete-planning'
+  | 'user-confirmed';
+
+export type ProfessionalNeedState =
+  | 'not-decided'
+  | 'has-contractor'
+  | 'search-later'
+  | 'owner-managed';
+
+export type StageManagementMode = 'self' | 'contractor' | 'mixed';
+
+export interface TimelineStageRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly status: TimelineStageStatus;
+  readonly customName: string | null;
+  readonly sortOrder: number;
+  readonly estimatedWeeks: number | null;
+  readonly plannedStart: string | null;
+  readonly plannedEnd: string | null;
+  readonly actualStart: string | null;
+  readonly actualEnd: string | null;
+  readonly managementMode: StageManagementMode;
+  readonly notes: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+
+export interface StageBudgetItem {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly category: StageCostCategory;
+  readonly label: string;
+  readonly amountLow: number | null;
+  readonly amountHigh: number | null;
+  readonly userOverride: number | null;
+  readonly notes: string;
+  readonly createdAt: string;
+}
+
+export interface StageBudgetNote {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly text: string;
+  readonly createdAt: string;
+}
+
+export interface BuildTimelineMilestone {
+  readonly id: string;
+  readonly projectId: string;
+  readonly key: string;
+  readonly label: string;
+  readonly status: 'pending' | 'reached' | 'skipped';
+  readonly plannedDate: string | null;
+  readonly completedDate: string | null;
+  readonly notes: string;
+  readonly sortOrder: number;
+  readonly createdAt: string;
+}
+
+export interface TimelineNoteRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly noteType: TimelineNoteType;
+  readonly text: string;
+  readonly createdAt: string;
+}
+
+export interface StageProfessionalPlan {
+  readonly id: string;
+  readonly projectId: string;
+  readonly stageKey: string;
+  readonly role: ProfessionalRole;
+  readonly needState: ProfessionalNeedState;
+  readonly contractorName: string | null;
+  readonly notes: string;
+  readonly createdAt: string;
+}
+
+export interface EnergyStrategyRecord {
+  readonly id: string;
+  readonly projectId: string;
+  readonly heatingConcept: string;
+  readonly ventilationConcept: string;
+  readonly insulationNotes: string;
+  readonly windowStandard: string;
+  readonly isDecided: boolean;
+  readonly updatedAt: string;
+}
+
+export interface HouseBuildBudget {
+  readonly projectId: string;
+  readonly items: readonly StageBudgetItem[];
+  readonly totalLow: number;
+  readonly totalHigh: number;
+  readonly totalUserOverride: number;
+  readonly contingencyPercent: number;
+  readonly completeness: BudgetCompletenessState;
+}
+
+export interface StageBudgetSummary {
+  readonly stageKey: string;
+  readonly stageName: string;
+  readonly totalLow: number;
+  readonly totalHigh: number;
+  readonly totalUserOverride: number;
+  readonly completeness: BudgetCompletenessState;
+  readonly itemCount: number;
+}

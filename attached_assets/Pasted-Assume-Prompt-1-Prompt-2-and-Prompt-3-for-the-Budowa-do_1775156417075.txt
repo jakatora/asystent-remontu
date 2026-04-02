@@ -1,0 +1,265 @@
+Assume Prompt 1, Prompt 2 and Prompt 3 for the "Budowa domu" module have already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- the House Build module shell
+- the formal/legal path module
+- the build stages module
+- existing route structure
+
+Only extend the current implementation.
+
+Your task now is to implement the "House Build Timeline + Stage Budget + Team Planning" layer for the Poland-first House Build module.
+
+GOAL
+Create a practical investor-oriented planning layer that helps the user:
+- understand the likely order of house-building stages
+- estimate stage-by-stage budget structure
+- plan when to involve professionals
+- track dependencies and delays
+- connect future contractor-search logic to build stages
+- keep everything separate from strict formal/legal path logic
+
+IMPORTANT PRODUCT RULES
+- This is not a bank-grade cost estimator and not a contractual quote tool.
+- Budgets must be presented as planning estimates, ranges, or placeholders for investor organization.
+- The module must not promise exact final construction cost.
+- Labor and material amounts for house-building stages should be designed as reference planning blocks, not as final execution quantities unless already backed by project-specific data.
+- The app should help the user think in stages, dependencies, and decisions.
+- Keep beginner-friendly language.
+
+BUILD THESE FEATURES
+
+1. HOUSE BUILD TIMELINE MODULE
+Create a dedicated timeline/planning layer inside the House Build module.
+
+The timeline should support:
+- project start planning
+- stage ordering
+- estimated stage duration placeholders
+- dependency chains
+- blocked / waiting / ready states
+- delay notes
+- milestone markers
+- stage completion tracking
+
+Create a timeline view and a stage list view.
+
+2. DEFAULT STAGE ORDER
+Use the existing build stages and connect them into a planning sequence.
+
+At minimum support this default order:
+- Plot and site preparation
+- Foundations and foundation waterproofing
+- Structural shell / walls
+- Roof structure and covering
+- Windows and exterior doors
+- Internal rough installations
+- Insulation / airtightness / energy stage
+- Facade and external finishing
+- Internal finishing and fit-out
+- Completion readiness
+
+Allow the user to:
+- reorder only where safe/custom planning is needed
+- keep the default recommended order visible
+- see dependency warnings if they try to move a stage too early
+
+3. STAGE DEPENDENCY LOGIC
+Add stage dependency rules.
+
+Examples:
+- foundations should not be marked ready to close until key checks are complete
+- structural shell should precede roof closure
+- windows/exterior doors should not appear too early in the sequence without shell/roof context
+- rough installations should not be planned after interior finish completion
+- internal finishing should be blocked until prerequisite wet/rough stages are sufficiently complete
+- completion readiness depends on earlier stages and formal completion flow
+
+Keep this practical, not over-engineered.
+
+4. STAGE BUDGET MODEL
+Add a stage-based budget system for the House Build module.
+
+Create structured entities/types/schemas such as:
+- HouseBuildBudget
+- StageBudgetItem
+- StageBudgetRange
+- StageBudgetNote
+- StageCostCategory
+- StageBudgetSnapshot
+- BudgetAssumption
+- BuildTimelineMilestone
+
+Each stage should support estimated cost sections like:
+- design/formal preparation placeholder
+- labor estimate placeholder
+- materials estimate placeholder
+- equipment/transport placeholder
+- contingency placeholder
+- user custom note
+
+Important:
+- do not import hardcoded market prices yet in this step
+- this step prepares the architecture and investor planning UX
+- use planning ranges/placeholders and user-editable fields
+- keep it ready for future region-aware price datasets
+
+5. BUDGET SUMMARY VIEW
+Create a budget summary screen for the House Build module.
+
+Show:
+- total estimated house-build budget
+- stage-by-stage cost blocks
+- budget split by categories
+- contingency reserve
+- unknown/not-yet-estimated items
+- user overrides
+- budget completeness state
+
+Add a note that:
+- this is a planning estimate
+- exact costs depend on project, location, system, contractor, and market conditions
+
+6. STAGE COST COMPLETENESS
+Add a completeness system.
+
+Each stage should show:
+- no estimate yet
+- partial estimate
+- complete planning estimate
+- user-confirmed estimate
+
+Add warnings for:
+- stage scheduled but not budgeted
+- budgeted stage but missing dependencies
+- stage marked complete but without confirmation note
+
+7. TEAM / PROFESSIONAL PLANNING
+Add a stage-linked team planning layer.
+
+For each stage, support:
+- typical professional roles involved
+- whether the user already has a contractor/team
+- whether the user wants to search for a contractor later
+- whether the stage is planned as owner-managed only
+- optional notes about timing of contractor selection
+
+Create structures such as:
+- StageProfessionalPlan
+- ProfessionalNeedState
+- ContractorSearchPreparation
+- TeamAssignmentPlaceholder
+
+This must connect conceptually to the existing contractor module without fully integrating live contractor selection yet.
+
+8. CONTRACTOR PREPARATION LINK
+Extend the House Build module so each stage can later hand off into the contractor module.
+
+For each stage add:
+- “Need a contractor for this stage?” placeholder
+- “Prepare contractor request” action placeholder
+- stage specialty mapping
+
+Example stage-to-specialty mapping:
+- foundations -> structural/foundation works
+- shell -> masonry/structural works
+- roof -> roofing
+- windows/doors -> installation
+- rough installations -> electrician/plumber/heating/ventilation
+- facade -> facade/insulation team
+- internal finishing -> finishing team
+
+Do not implement full live handoff yet if it would duplicate existing contractor work.
+Prepare clean data hooks and routing placeholders only.
+
+9. MILESTONES
+Add investor milestones such as:
+- formal path ready
+- before-start preparation ready
+- foundations accepted
+- shell closed
+- building enclosed
+- rough installations complete
+- energy/insulation planning confirmed
+- interior finish ready
+- completion-ready package
+
+Allow milestones to show:
+- status
+- note
+- date planned
+- date completed
+
+10. TIMELINE NOTES / RISKS
+Add a risk-aware timeline note system.
+
+Examples:
+- weather-sensitive stage
+- waiting for inspection/verification
+- waiting for materials
+- waiting for contractor
+- blocked by earlier stage
+- decision required
+
+These should be visible in the timeline UI.
+
+11. ENERGY PLANNING LINK
+Extend the energy section from Prompt 3 into the timeline/budget system.
+
+Allow the user to note:
+- selected heating concept
+- ventilation concept
+- insulation target notes
+- window standard notes
+- whether the energy strategy is already decided or still pending
+
+Add a warning if the user plans facade/finish choices before key energy-envelope decisions are captured.
+
+12. USER OVERRIDES
+Allow the user to:
+- edit stage names for their own project view
+- edit duration
+- edit cost range
+- add custom milestone
+- add notes
+- mark stage as self-managed / contractor-managed / mixed
+
+Do not overwrite the default recommended planning structure.
+Store customizations at project level.
+
+13. UI / UX RULES
+Keep the new planning layer practical and calm.
+
+Add or extend:
+- stage cards
+- timeline progress view
+- milestone chips
+- blocked/waiting warning states
+- budget summary cards
+- stage planning detail screen
+- “needs contractor later” indicators
+
+Do not clutter the module with excessive technical detail.
+
+14. IMPLEMENTATION QUALITY RULES
+- do not rebuild the formal module
+- do not rebuild the stage-content module
+- only extend the current House Build implementation
+- keep everything modular and data-driven
+- prepare the system for future real price datasets and future contractor matching
+- preserve strong TypeScript typing
+- preserve route stability
+
+15. FINAL STEP
+After implementation:
+- list the new timeline/budget/team planning screens or sections added
+- confirm stage dependency logic was implemented
+- confirm stage budget architecture was added
+- confirm contractor preparation hooks were added
+- confirm no unrelated features were rebuilt

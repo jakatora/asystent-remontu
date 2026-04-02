@@ -26,6 +26,10 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="edb" options={{ title: 'Elektroniczny Dziennik Budowy' }} />
       <Stack.Screen name="completion" options={{ title: 'Zakonczenie budowy' }} />
       <Stack.Screen name="energy-planning" options={{ title: 'Planowanie energetyczne' }} />
+      <Stack.Screen name="timeline" options={{ title: 'Harmonogram budowy' }} />
+      <Stack.Screen name="budget" options={{ title: 'Budzet budowy' }} />
+      <Stack.Screen name="milestones" options={{ title: 'Kamienie milowe' }} />
+      <Stack.Screen name="stage-plan" options={{ title: 'Plan etapu' }} />
     </Stack>
   );
 }
