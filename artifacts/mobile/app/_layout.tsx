@@ -19,6 +19,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AppProvider, useApp } from '@/context/AppContext';
 import { CommerceProvider } from '@/context/CommerceContext';
 import { ContractorProvider } from '@/context/ContractorContext';
+import { HouseBuildProvider } from '@/context/HouseBuildContext';
 import { LoadingState } from '@/components/ui/LoadingState';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
@@ -73,6 +74,7 @@ function RootLayoutNav() {
       <Stack.Screen name="project/[id]" options={{ headerShown: true }} />
       <Stack.Screen name="hire-pro" options={{ headerShown: true, presentation: 'modal' }} />
       <Stack.Screen name="contractor" options={{ headerShown: false }} />
+      <Stack.Screen name="house-build" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
   );
@@ -103,7 +105,9 @@ export default function RootLayout() {
               <AppProvider>
                 <CommerceProvider>
                   <ContractorProvider>
-                    <RootLayoutNav />
+                    <HouseBuildProvider>
+                      <RootLayoutNav />
+                    </HouseBuildProvider>
                   </ContractorProvider>
                 </CommerceProvider>
               </AppProvider>

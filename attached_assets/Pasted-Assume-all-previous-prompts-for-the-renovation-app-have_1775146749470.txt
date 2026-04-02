@@ -1,0 +1,133 @@
+Assume all previous prompts for the renovation app have already been completed.
+
+Do not rebuild or rename:
+- the renovation module
+- calculators
+- pricing system
+- shopping list logic
+- contractor module
+- commerce preparation layer
+- Shopify-ready architecture
+- existing route structure
+- existing onboarding and dashboard
+- existing admin/pricing maintenance features
+
+Only extend the current implementation.
+
+Your task now is to add a new top-level module called "Budowa domu" ("House Build Assistant") to the existing app.
+
+GOAL
+Create a separate Poland-first investor module for planning and organizing the construction of a single-family house.
+
+IMPORTANT PRODUCT RULES
+- This is not a full DIY structural engineering manual.
+- The module must act as an investor assistant, planning tool, checklist system, and formal process guide.
+- Do not present high-risk structural or installation work as universal step-by-step execution instructions.
+- For structural, foundation, roof, electrical, gas, chimney, waterproofing, and installation topics, provide:
+  - investor checklists
+  - sequencing guidance
+  - role-of-professional guidance
+  - warning states
+  - "project and technical documentation has priority" notes
+- Keep beginner-friendly language.
+
+BUILD THESE FEATURES
+
+1. NEW MODULE ENTRY
+Add a new top-level module entry:
+- Budowa domu
+- accessible from the dashboard/home screen
+- clearly separate it from the renovation/remodel module
+
+2. MODULE STRUCTURE
+Create a dedicated feature/module structure for house-building flows.
+
+Suggested sections:
+- Build Home Overview
+- New House Build Project
+- Formalities
+- Documents
+- Build Stages
+- Utilities / Connections
+- Professionals
+- Timeline
+- Budget placeholder
+- Notes / Files placeholder
+
+3. DATA MODELS
+Add structured data models/types/schemas such as:
+- HouseBuildProject
+- LandContext
+- PlanningContext
+- LegalPathType
+- BuildStage
+- BuildChecklistItem
+- DocumentRequirement
+- OfficialProcessStep
+- UtilityRequirement
+- ProfessionalRoleRequirement
+- ConstructionRiskNotice
+- BuildProjectTimelineItem
+- SourceMetadata
+
+4. BUILD PROJECT CREATION
+Create a flow for creating a new house build project.
+
+Collect at least:
+- project name
+- plot/city label
+- whether MPZP is known
+- whether WZ exists
+- target house type
+- approximate footprint
+- number of above-ground floors
+- whether this is for own housing purpose
+- user confidence level
+- whether the user wants planning only or planning + contractor support
+
+5. HOUSE BUILD HOME SCREEN
+Create a module home screen showing:
+- project summary
+- current legal/formal stage
+- current build stage
+- urgent next actions
+- missing documents
+- key warnings
+- shortcut buttons
+
+6. SOURCE-AWARE CONTENT SYSTEM
+Add source metadata support for this module so formal and guidance content can store:
+- source label
+- source type
+- last reviewed date
+- official / technical / market classification
+- notes
+
+7. WARNING SYSTEM
+Create a build-specific warning system.
+
+Warnings should clearly mark:
+- formal/legal tasks
+- technical tasks requiring project-specific documentation
+- tasks where a qualified professional is strongly recommended
+- tasks that should not be treated as universal DIY instructions
+
+8. UI / UX RULES
+Keep the UI practical, calm, and checklist-oriented.
+Do not overload the user.
+Use cards, progress blocks, step groups, and concise summaries.
+
+9. IMPLEMENTATION RULES
+- Reuse existing app patterns where possible
+- Do not create a second unrelated category system if existing category abstractions can be reused
+- Keep the module data-driven and scalable
+- Prepare it for future integration with the contractor module and budget module
+- Do not implement deep legal content yet; just build the shell and data model with a few placeholder examples
+- Do not rebuild unrelated screens
+
+10. FINAL STEP
+After implementation:
+- list what new routes/screens were created
+- list what new models were added
+- confirm nothing in the renovation app was rebuilt
+- confirm the module is ready for formal/legal content in the next step

@@ -56,6 +56,12 @@ The project is structured as a pnpm workspace monorepo using Node.js 24 and Type
     - `db/repositories/saved-contractors.repo.ts`: Save/unsave contractors locally.
     - `components/contractor/`: UI components — `ContractorCard` (with promoted label, verification badge, specialties, rating), `FilterBar` (filter modal + sort modal), `RequestSummaryCard` (status-colored request cards).
     - `app/contractor/`: 6 screens — request wizard (8-step: category → room → description → location → date → budget → offers → summary), results list (search + filter + sort), contractor profile (full detail + report + save), send request, my requests (drafts + sent + saved contractors), contractor registration (6-step wizard).
+    - `features/house-build/`: "House Build Assistant" module — build stages (12 stages from land purchase to final inspections), professional roles (12 roles), construction risk warnings (8 warnings), source metadata support.
+    - `types/house-build.ts`: All house-build domain types — `HouseBuildProject`, `LandContext`, `PlanningContext`, `BuildStage`, `BuildChecklistItem`, `DocumentRequirement`, `OfficialProcessStep`, `UtilityRequirement`, `ProfessionalRoleRequirement`, `ConstructionRiskNotice`, `BuildProjectTimelineItem`, `SourceMetadata`.
+    - `context/HouseBuildContext.tsx`: React context providing house-build state — projects, checklists, documents, utilities. Persists to SQLite via house-build repository. Auto-seeds stage checklists and documents from stage definitions.
+    - `db/migrations/006_house_build.ts`: SQLite tables for `house_build_projects`, `build_checklist_items`, `build_documents`, `build_utilities` with indexes.
+    - `db/repositories/house-build.repo.ts`: Full CRUD for house-build projects, checklists, documents, and utilities.
+    - `app/house-build/`: 7 screens — module home (project list + stage overview), create wizard (6-step: name → location → legal → house type → experience → summary), project detail (stages with progress, warnings, quick actions), stage detail (checklist with toggle, documents with status cycling, warnings, required professionals), documents overview (all docs by stage with status tracking), professionals guide (required vs optional roles), utilities tracker (add/track utility connections).
 - **Project Structure**:
     - `app/`: Expo Router screens.
     - `types/`: Core domain, engine, user, calculator, and DB types.

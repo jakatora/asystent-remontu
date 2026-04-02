@@ -308,6 +308,33 @@ export default function HomeScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#EFF6FF',
+            borderRadius: 16,
+            padding: 18,
+            flexDirection: 'row',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderColor: '#BFDBFE',
+          }}
+          onPress={() => router.push('/house-build')}
+          activeOpacity={0.85}
+          testID="house-build-banner"
+          accessibilityLabel="Budowa domu — asystent inwestora"
+          accessibilityRole="button"
+        >
+          <View style={{ flex: 1 }}>
+            <Txt w="bold" style={{ fontSize: 16, color: '#2563EB' }}>Budowa domu</Txt>
+            <Txt style={{ fontSize: 13, color: '#3B82F6', marginTop: 2 }}>Asystent inwestora — od dzialki po odbiór</Txt>
+          </View>
+          <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
+            <Feather name="home" size={22} color="#2563EB" />
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
         <SectionHeader
           title="Rodzaje prac"
           actionLabel="Wszystkie"

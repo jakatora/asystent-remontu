@@ -4,6 +4,7 @@ import { migration_002 } from './002_shopping_extended';
 import { migration_003 } from './003_project_management';
 import { migration_004 } from './004_pricing';
 import { migration_005 } from './005_contractor';
+import { migration_006 } from './006_house_build';
 
 const MIGRATIONS: Array<{
   version: number;
@@ -14,6 +15,7 @@ const MIGRATIONS: Array<{
   { version: 3, run: migration_003 },
   { version: 4, run: migration_004 },
   { version: 5, run: migration_005 },
+  { version: 6, run: migration_006 },
 ];
 
 export async function runMigrations(db: SQLite.SQLiteDatabase): Promise<void> {
