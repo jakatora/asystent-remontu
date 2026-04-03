@@ -79,5 +79,6 @@ The project is structured as a pnpm workspace monorepo using Node.js 24 and Type
 - **Fonts**: `@expo-google-fonts/inter`
 - **Optional Backend Integration**: Supabase (via `supabase.adapter.ts`)
 - **Web Support Pages**: React + Vite + Tailwind CSS web app for marketing, support, and privacy policies.
+- **Contractor Web Portal** (Prompt 13): Full web-first contractor portal at `/portal/contractor` with sidebar navigation, 10 pages (dashboard, profile, plans & visibility, billing, promotions, usage & limits, support, settings, checkout flow, admin inspect). Uses wouter routing, PortalProvider context with mock data, test billing/checkout simulation (success/failure/cancel). Admin panel at `/portal/contractor/admin` for inspecting accounts and manual plan assignment. All Polish UI. Files: `src/lib/portal-types.ts`, `src/lib/portal-mock-data.ts`, `src/lib/portal-context.tsx`, `src/components/portal/PortalLayout.tsx`, `src/pages/portal/*.tsx`.
 - **App Store Release Assets**: `app-store-metadata.md`, `app-review-notes.md`, `release-checklist.md`.
 - **Contact Configuration**: Centralized contact/URL config (`artifacts/mobile/config/contact.ts`).
