@@ -1,0 +1,310 @@
+Assume all previous prompts have already been completed, including:
+- the renovation module
+- the contractor module ("Find a Contractor")
+- the House Build module
+- the House Build -> contractor integration
+- contractor trust + ranking + moderation + promoted listing preparation
+- contractor plans + entitlements + billing preparation
+- existing route structure
+- existing saved project and request flows
+- existing admin/internal tools
+
+Do not rebuild or rename:
+- the renovation module
+- the House Build module
+- the contractor search module
+- contractor profile models that already exist
+- contractor request logic that already works
+- contractor moderation/reporting logic that already exists
+- contractor plans, entitlements, and promotion slot logic already implemented
+- existing route structure
+- existing pricing logic
+- existing saved project flows
+
+Only extend the current implementation.
+
+Your task now is to implement a dedicated "Contractor Web Portal" for plan management, visibility management, account tools, and billing flow preparation.
+
+GOAL
+Create a web-friendly contractor portal where contractors can:
+- manage their profile
+- manage visibility and promotions
+- compare plans
+- upgrade/downgrade plans
+- review entitlement usage
+- view billing history placeholders
+- access invoices/placeholders
+- start web-based payment/checkout preparation flows
+- manage account and support settings
+
+IMPORTANT RULES
+- Do not rebuild the existing contractor module
+- Do not duplicate contractor accounts or contractor profiles
+- Do not create a second plan/entitlement system
+- Reuse existing contractor profile, plan, entitlement, moderation, and promotion logic wherever possible
+- This portal should be web-first and desktop-friendly, but still responsive
+- Do not implement final live production payment processing unless a payment provider adapter already exists
+- If provider integration is still placeholder-only, build the real portal UX and data structures with mock/testable flows
+- Keep paid visibility transparent and clearly labeled
+- Keep the portal separate from the normal consumer-facing app experience
+
+BUILD THESE FEATURES
+
+1. CONTRACTOR WEB PORTAL ENTRY
+Create a dedicated contractor web portal entry point.
+
+Examples:
+- /portal/contractor
+- /contractor-portal
+- another clean dedicated route
+
+This portal should be clearly separated from the consumer app flow.
+
+2. CONTRACTOR PORTAL AUTH CONTEXT
+Reuse the existing contractor account/auth architecture if it already exists.
+
+Add web-portal-ready account access flow for contractors:
+- sign in
+- sign out
+- account status check
+- access denied state if not a contractor
+- suspended/inactive state handling
+- pending activation state handling
+
+Do not create a duplicate auth system if one already exists.
+
+3. PORTAL DASHBOARD
+Create a contractor dashboard home for the web portal.
+
+Show:
+- current plan
+- profile status
+- verification status
+- promoted/featured status
+- profile completeness
+- usage vs entitlement limits
+- active service areas
+- active specialties
+- incoming request summary placeholder
+- recent activity placeholder
+- billing summary placeholder
+- support/contact shortcut
+
+4. PROFILE MANAGEMENT
+Create a web-friendly contractor profile management area.
+
+Allow the contractor to manage:
+- business/display name
+- description
+- specialties
+- service areas
+- gallery placeholder or current gallery
+- contact info
+- company details placeholder
+- profile visibility state
+- house-build suitability fields if already supported
+- materials included / project size placeholders if already supported
+
+Reuse the existing contractor profile model.
+Do not create a second contractor profile schema.
+
+5. PLANS AND VISIBILITY AREA
+Create a dedicated "Plans and Visibility" page in the web portal.
+
+Show:
+- current plan
+- plan comparison cards
+- entitlements by plan
+- unavailable features
+- current promoted slots
+- featured status
+- city/category/stage promotion placeholders
+- usage counters and plan limits
+
+Add actions such as:
+- upgrade plan
+- downgrade plan
+- compare plans
+- request support
+- view billing history
+- manage visibility
+
+If real checkout is not live yet, use clearly labeled placeholder/test actions.
+
+6. BILLING PORTAL AREA
+Create a billing area in the contractor web portal.
+
+Support:
+- billing summary
+- current plan price placeholder
+- billing state
+- next renewal placeholder
+- invoice history placeholder
+- payment history placeholder
+- failed payment placeholder
+- grace period state
+- manual assignment state
+- downloadable invoice placeholder
+- billing contact placeholder
+
+Add structures such as:
+- WebBillingSession
+- BillingHistoryItem
+- InvoiceHistoryItem
+- PaymentAttemptPlaceholder
+- ContractorBillingContact
+
+7. WEB CHECKOUT PREPARATION FLOW
+Create a web-based checkout preparation flow for contractor plans.
+
+The flow should support:
+- selecting a plan
+- selecting billing period placeholder (monthly/yearly)
+- reviewing included entitlements
+- reviewing promoted/visibility options
+- reviewing estimated total placeholder
+- confirming the upgrade intent
+- creating a billing session placeholder
+- redirecting to payment-provider placeholder
+- success/failure/cancel return routes
+
+Important:
+- if live payment provider is not integrated yet, create a realistic test/mock flow
+- do not fake a real payment success without a clearly marked test/mock state
+
+8. PLAN CHANGE FLOW
+Support plan changes:
+- upgrade
+- downgrade
+- cancel auto-renew placeholder
+- manual support-request fallback
+- grace period handling
+- future plan change effective date placeholder
+
+Add clear entitlement-change previews:
+- what becomes available
+- what becomes limited
+- what promoted features are affected
+
+9. PROMOTION MANAGEMENT
+Create a dedicated section for promotion/visibility management.
+
+Allow the contractor to:
+- review current promotion slots
+- see city/category/stage promotions
+- see start/end dates
+- see which promotions are active or expired
+- request/activate placeholder promotion packages
+- review transparency labels shown to users
+
+Do not break the public “promoted/sponsored/featured” labels.
+
+10. USAGE / LIMITS PAGE
+Create a page for entitlement usage and limits.
+
+Show:
+- specialties used vs limit
+- service areas used vs limit
+- gallery items used vs limit
+- promoted slots used vs limit
+- advanced features available/unavailable
+- plan-based restriction messages
+
+This page should help contractors understand why something is locked.
+
+11. SUPPORT / CONTACT AREA
+Create a web portal support/help area for contractors.
+
+Show:
+- support email placeholder
+- billing support placeholder
+- verification help placeholder
+- moderation/reporting help placeholder
+- FAQ placeholder
+- contact/legal links placeholder
+
+12. ACCOUNT SETTINGS
+Create contractor account settings pages/sections for:
+- account details
+- notification preferences placeholder
+- billing contact placeholder
+- profile visibility defaults
+- delete/deactivate contractor account placeholder
+- sign-out
+- support/legal links
+
+If account deletion is already supported elsewhere, reuse it.
+Do not create a conflicting account lifecycle flow.
+
+13. INTERNAL ADMIN / SUPPORT HOOKS
+Extend internal/admin logic so support or admin can:
+- inspect contractor portal account state
+- inspect plan assignment
+- inspect billing state placeholder
+- inspect billing session placeholder
+- manually assign plan
+- manually grant/revoke entitlement
+- suspend billing-related visibility
+- note manual support actions
+
+Do not rebuild the broader admin system.
+Extend it minimally.
+
+14. BILLING PROVIDER ABSTRACTION CONNECTION
+Connect this portal to the billing abstraction layer from the previous prompt.
+
+Reuse existing models such as:
+- BillingProviderInterface
+- BillingPlanDefinition
+- BillingEvent
+- BillingRecordPlaceholder
+- BillingPortalLinkPlaceholder
+- PaymentMethodPlaceholder
+- AccessGrantReason
+
+If they do not yet exist exactly with these names, reuse the already implemented equivalent structures instead of rebuilding.
+
+15. WEB-FIRST UI / UX RULES
+The contractor portal should feel like a real account dashboard.
+
+Use:
+- sidebar or clean top navigation
+- responsive cards
+- compact tables for billing/invoices
+- clear status chips
+- plan comparison layout
+- usage bars
+- empty states
+- suspended/inactive states
+- upgrade CTA blocks
+- clear separation between account, billing, profile, and promotions
+
+Do not redesign the consumer-facing app UI.
+
+16. TECHNICAL RULES
+- keep everything modular
+- preserve strong TypeScript typing
+- preserve route stability
+- keep the billing logic isolated from unrelated contractor logic
+- keep the portal ready for future real provider integration
+- do not duplicate contractor profile/account/plan systems
+- do not break mobile app flows
+- make this work in local/mock mode if live provider is not yet available
+
+17. TEST / MOCK FLOW
+If no real payment backend exists yet, create a clear mock/test billing flow:
+- start test checkout
+- simulate success
+- simulate cancel
+- simulate failure
+- update portal state accordingly in a test-safe way
+- clearly label test/mock mode
+
+18. FINAL STEP
+After implementation:
+- list the new contractor web portal routes/pages added
+- confirm which existing systems were reused
+- confirm plan and billing pages work
+- confirm mock/test checkout flow works if live billing is not available
+- confirm no duplicate contractor/account systems were created
+- confirm no unrelated modules were rebuilt
