@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform, Alert } from 'react-native';
 import { router, useLocalSearchParams, useFocusEffect, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,6 +21,14 @@ const STATUS_LABELS: Record<string, string> = {
   completed: 'Zakonczony',
 };
 
+function safeNavigateAway() {
+  if (router.canGoBack()) {
+    router.back();
+  } else {
+    router.replace('/house-build' as any);
+  }
+}
+
 export default function HouseBuildProjectDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
@@ -28,17 +36,25 @@ export default function HouseBuildProjectDetail() {
 
   const [checklistCounts, setChecklistCounts] = useState<Record<string, { done: number; total: number }>>({});
   const [isDeleting, setIsDeleting] = useState(false);
+  const deletedRef = useRef(false);
 
   const project = getProjectById(id);
 
+  useEffect(() => {
+    if (!project && !deletedRef.current) {
+      const timer = setTimeout(() => safeNavigateAway(), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [project]);
+
   useFocusEffect(
     useCallback(() => {
-      refreshProjects();
+      if (!deletedRef.current) refreshProjects();
     }, [refreshProjects])
   );
 
   useEffect(() => {
-    if (!project) return;
+    if (!project || deletedRef.current) return;
     (async () => {
       const allItems = await getChecklist(project.id);
       const counts: Record<string, { done: number; total: number }> = {};
@@ -62,9 +78,17 @@ export default function HouseBuildProjectDetail() {
           text: 'Usun',
           style: 'destructive',
           onPress: async () => {
+            if (isDeleting) return;
             setIsDeleting(true);
-            await deleteProject(project.id);
-            router.back();
+            deletedRef.current = true;
+            try {
+              await deleteProject(project.id);
+              safeNavigateAway();
+            } catch {
+              deletedRef.current = false;
+              setIsDeleting(false);
+              Alert.alert('Blad', 'Nie udalo sie usunac projektu.');
+            }
           },
         },
       ]

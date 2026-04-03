@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Alert, Platform, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
@@ -92,7 +92,8 @@ function SectionLabel({ label }: { label: string }) {
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
-  const { projects } = useApp();
+  const { projects, refreshProjects } = useApp();
+  const [isDeletingData, setIsDeletingData] = useState(false);
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
@@ -270,6 +271,15 @@ export default function SettingsScreen() {
           />
           <SettingDivider />
           <SettingRow
+            icon="file-text"
+            title="Regulamin"
+            subtitle="Warunki korzystania z aplikacji"
+            onPress={() => openUrl(APP_CONFIG.termsUrl)}
+            iconColor="#0EA5E9"
+            iconBg="#F0F9FF"
+          />
+          <SettingDivider />
+          <SettingRow
             icon="mail"
             title="Kontakt"
             subtitle={APP_CONFIG.supportEmail}
@@ -290,6 +300,65 @@ export default function SettingsScreen() {
             onPress={handleSafety}
             iconColor={Colors.warning}
             iconBg={Colors.warningBg}
+          />
+        </View>
+      </View>
+
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <SectionLabel label="Konto" />
+        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
+          <SettingRow
+            icon="trash-2"
+            title="Usun wszystkie dane"
+            subtitle="Wyczysc wszystkie projekty i dane aplikacji"
+            onPress={() => {
+              if (isDeletingData) return;
+              Alert.alert(
+                'Usun dane',
+                'Czy na pewno chcesz usunac wszystkie projekty i dane aplikacji? Tej operacji nie mozna cofnac.',
+                [
+                  { text: 'Anuluj', style: 'cancel' },
+                  {
+                    text: 'Usun dane',
+                    style: 'destructive',
+                    onPress: async () => {
+                      setIsDeletingData(true);
+                      try {
+                        const { getDb } = await import('@/db/client');
+                        const db = await getDb();
+                        await db.execAsync(`
+                          DELETE FROM project_activities;
+                          DELETE FROM price_overrides;
+                          DELETE FROM checklist_items;
+                          DELETE FROM project_photos;
+                          DELETE FROM shopping_items;
+                          DELETE FROM projects;
+                          DELETE FROM contractor_requests;
+                          DELETE FROM saved_contractors;
+                          DELETE FROM contractor_blocks;
+                          DELETE FROM contractor_reports;
+                          DELETE FROM contractor_reviews;
+                          DELETE FROM hb_stage_contractor_shortlist;
+                          DELETE FROM hb_stage_contractor_needs;
+                          DELETE FROM hb_checklist_items;
+                          DELETE FROM hb_documents;
+                          DELETE FROM hb_utilities;
+                          DELETE FROM house_build_projects;
+                        `);
+                        await refreshProjects();
+                        Alert.alert('Gotowe', 'Wszystkie dane zostaly usuniete.');
+                      } catch (err) {
+                        console.error('[Settings] delete all data error:', err);
+                        Alert.alert('Blad', 'Nie udalo sie usunac danych. Sprobuj ponownie.');
+                      } finally {
+                        setIsDeletingData(false);
+                      }
+                    },
+                  },
+                ]
+              );
+            }}
+            danger
           />
         </View>
       </View>

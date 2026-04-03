@@ -86,7 +86,8 @@ export function ContractorProvider({ children }: PropsWithChildren) {
         setRequests(reqs);
         setSavedIds(new Set(saved.map((s) => s.contractorId)));
         setBlockedIds(new Set(blocked));
-      } catch {
+      } catch (err) {
+        console.error('[ContractorContext] init error:', err);
       } finally {
         setIsLoading(false);
       }

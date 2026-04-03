@@ -1,0 +1,279 @@
+Assume the current app and all previously completed features already exist.
+
+Do not rebuild the app from scratch.
+Do not redesign unrelated screens.
+Do not duplicate existing modules.
+Do not replace working architecture unless absolutely necessary.
+
+Your task now is to perform a full production-hardening and publication-readiness pass on the existing app.
+
+MAIN GOAL
+Inspect the current codebase for errors, fix the highest-impact issues, and prepare the app for:
+1. reliable startup in Expo Go where possible
+2. reliable Android build/release readiness
+3. App Store / Google Play publication readiness
+4. stable production-oriented architecture
+
+IMPORTANT RULES
+- Reuse the current architecture
+- Only fix, harden, and improve the existing implementation
+- Do not rebuild already working features
+- Do not create duplicate logic
+- Keep strong typing and modular structure
+- Prefer targeted fixes over broad rewrites
+- If some feature is not ready for release, keep it behind a safe placeholder/disabled state instead of leaving it broken
+- Produce a final release-readiness report
+
+WORK IN THIS ORDER
+
+PHASE 1 — FULL PROJECT SCAN
+1. Inspect the entire project structure, dependencies, config, routes, storage, and feature modules.
+2. Identify the highest-risk issues first:
+   - app startup failures
+   - runtime crashes
+   - broken navigation
+   - broken storage/state flows
+   - Expo Go incompatibilities
+   - release blockers
+3. Create a concise internal action plan before applying major fixes.
+
+PHASE 2 — EXPO GO COMPATIBILITY AUDIT
+Check whether the app can realistically run in Expo Go.
+
+Inspect:
+- unsupported third-party libraries requiring custom native code
+- config plugins that imply native build requirements
+- native-only packages
+- modules that require development build instead of Expo Go
+- Expo SDK / React Native compatibility
+- Babel / Metro / Expo Router config
+- environment/config issues that break startup
+
+Run appropriate checks such as:
+- expo-doctor
+- dependency compatibility checks
+- startup/config validation
+
+Then:
+- fix all issues that can be fixed while preserving the current architecture
+- clearly separate:
+  - Expo Go compatible
+  - requires development build
+- if some functionality cannot work in Expo Go, do not fake compatibility
+- add a developer-facing compatibility note/report in the project
+
+PHASE 3 — TYPESCRIPT / IMPORT / HOOK / LOGIC AUDIT
+Inspect and fix:
+- TypeScript errors
+- missing imports
+- duplicate definitions
+- wrong types
+- invalid props
+- unsafe null/undefined usage
+- hook order violations
+- early return hook bugs
+- broken async handling
+- stale references
+- incorrect derived state
+- invalid memo/useEffect dependencies where high impact
+- broken form validation or schema mismatches
+
+PHASE 4 — RUNTIME AND STATE STABILITY
+Inspect and fix:
+- crashes after navigation
+- screens failing when data is missing
+- broken loading states
+- broken empty states
+- race conditions
+- repeated taps causing duplicate actions
+- delete/edit flows causing invalid UI state
+- stale route params after entity deletion
+- broken list refreshes
+- unsafe storage/database reads
+- missing defensive guards after async changes
+
+PHASE 5 — STORAGE / DATABASE INTEGRITY
+Inspect all local persistence.
+
+Check and fix:
+- project save/load
+- delete flows
+- child record cleanup
+- stale references
+- corrupted snapshots
+- shopping list persistence
+- budget persistence
+- contractor request persistence
+- house build project persistence
+- price override persistence
+- local file/image references if used
+
+If SQLite or local DB is used:
+- inspect schema safety
+- inspect foreign key consistency
+- inspect cascade/cleanup logic
+- use transactions where needed
+- prevent partial writes
+- ensure restart-safe persistence
+
+PHASE 6 — NAVIGATION / ROUTING HARDENING
+Inspect and fix:
+- broken back navigation
+- bad redirect logic
+- routes opening missing data
+- invalid route params
+- unsafe entity detail routes after delete
+- nested navigation problems if present
+- route guards / fallback screens
+- unstable deep-link-like flows if present
+
+Ensure:
+- deleted entity screens redirect safely
+- missing entity routes do not crash
+- no GO_BACK misuse
+- no route keeps rendering removed data
+
+PHASE 7 — FEATURE-BY-FEATURE HEALTH CHECK
+Audit these existing modules without rebuilding them:
+- renovation module
+- budget / pricing module
+- shopping lists
+- contractor module
+- House Build module
+- admin / internal tools
+- Shopify-ready commerce preparation
+- settings / help / privacy / legal screens
+- saved projects
+
+For each module:
+- detect broken flows
+- detect incomplete release blockers
+- fix the highest-impact issues
+- preserve working logic
+- keep unfinished risky features behind safe placeholders if needed
+
+PHASE 8 — ANDROID BUILD / RELEASE READINESS
+Prepare the app for Android build/release readiness.
+
+Inspect and fix:
+- Android-specific startup issues
+- app config / package issues
+- release config placeholders
+- icon/splash/config consistency
+- permission declarations that are missing or unnecessary
+- unsupported or risky development-only dependencies
+- environment separation for dev vs release
+- build-breaking config/plugin issues
+- crash-prone production defaults
+
+If possible in the current environment:
+- prepare the project so Android release build is more likely to pass cleanly
+- document any remaining Android blockers
+- create a clear Android release checklist in the project
+
+PHASE 9 — APP STORE / GOOGLE PLAY PUBLICATION READINESS
+Prepare the app for store submission as much as possible.
+
+Check and improve:
+- support/privacy/settings/legal links visibility
+- account deletion readiness if accounts exist
+- moderation/report/block readiness if user-generated content exists
+- trust and disclaimer visibility where needed
+- safe handling of unfinished paid features
+- production-safe metadata placeholders in project release files
+- clear separation of digital-feature placeholders vs physical-service flows
+- no misleading UI for unsupported features
+- no test/demo states exposed without clear labeling
+
+Review the app against these practical release-risk areas:
+- crashes or broken screens
+- misleading feature claims
+- missing legal/support/privacy links
+- account lifecycle issues
+- incomplete user-generated-content safety features
+- payment/billing placeholders that could confuse store review
+
+Create:
+- App Store readiness checklist
+- Google Play readiness checklist
+- release blocker report
+- recommended temporary feature flags for risky unfinished features
+
+PHASE 10 — BILLING / MONETIZATION SAFETY PASS
+Inspect monetization-related flows and harden them for release safety.
+
+Check:
+- contractor plans
+- promoted listings
+- billing placeholders
+- paid visibility labels
+- commerce/store preparation
+- Shopify-preparation areas
+- any paid or premium states
+
+Ensure:
+- promoted/sponsored labels remain transparent
+- unfinished billing is clearly placeholder/test/internal-only
+- no fake payment success states are exposed publicly
+- platform-sensitive billing logic is isolated and not scattered across the app
+- risky monetization features can be safely disabled by feature flags
+
+PHASE 11 — PERFORMANCE / CLEANUP
+Improve practical maintainability:
+- remove dead code where safe
+- centralize repeated helpers where useful
+- improve error handling
+- improve defensive guards
+- reduce obvious duplicate logic
+- keep fixes minimal and targeted
+- avoid unnecessary rerenders where easy and safe
+
+PHASE 12 — TEST SCENARIO VERIFICATION
+Verify at minimum:
+- app startup
+- dashboard load
+- saved project open
+- create project
+- edit project
+- delete project
+- delete last project
+- shopping list open
+- pricing/budget open
+- contractor module open
+- House Build module open
+- safe back navigation
+- app restart after saving data
+- empty states after deletion
+- any feature-flagged placeholder remains stable
+- Expo Go startup path if compatible
+- fallback behavior if development build is required instead of Expo Go
+
+PHASE 13 — OUTPUT / REPORT
+After finishing:
+1. List the main issues found
+2. List exactly what was fixed
+3. List what still remains blocked
+4. List which files were changed
+5. List what still prevents:
+   - Expo Go startup
+   - Android release readiness
+   - App Store readiness
+   - Google Play readiness
+6. Create these files inside the project:
+   - release-readiness-report.md
+   - expo-go-compatibility-report.md
+   - android-release-checklist.md
+   - app-store-checklist.md
+   - google-play-checklist.md
+   - known-blockers.md
+
+FINAL QUALITY RULES
+- do not rebuild unrelated features
+- do not create duplicate route systems
+- do not create duplicate profile/project/price logic
+- keep the final app more stable than before
+- keep the final app more publication-ready than before
+- prefer targeted hardening over large rewrites
+- if some feature is not ready, disable or isolate it safely instead of leaving it broken
+
+Start by scanning the entire current project, then fix the highest-impact issues first, then complete a final Expo Go + Android + store-readiness pass.

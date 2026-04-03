@@ -62,7 +62,9 @@ export function HouseBuildProvider({ children }: PropsWithChildren) {
     try {
       const all = await houseBuildRepo.findAllProjects();
       setProjects(all);
-    } catch {}
+    } catch (err) {
+      console.error('[HouseBuildContext] refresh error:', err);
+    }
   }, []);
 
   useEffect(() => {

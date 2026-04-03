@@ -50,11 +50,19 @@ export async function runMigrations(db: SQLite.SQLiteDatabase): Promise<void> {
     );
 
     if (!existing) {
-      await migration.run(db);
-      await db.runAsync(
-        'INSERT OR IGNORE INTO schema_versions (version, applied_at) VALUES (?, ?)',
-        [migration.version, new Date().toISOString()]
-      );
+      try {
+        await db.execAsync('BEGIN TRANSACTION;');
+        await migration.run(db);
+        await db.runAsync(
+          'INSERT OR IGNORE INTO schema_versions (version, applied_at) VALUES (?, ?)',
+          [migration.version, new Date().toISOString()]
+        );
+        await db.execAsync('COMMIT;');
+      } catch (error) {
+        await db.execAsync('ROLLBACK;').catch(() => {});
+        console.error(`[Migration] Failed at version ${migration.version}:`, error);
+        throw error;
+      }
     }
   }
 }
