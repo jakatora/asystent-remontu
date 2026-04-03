@@ -351,6 +351,13 @@ export interface ContractorFeatureFlags {
   readonly enableFeaturedProfiles: boolean;
   readonly enableSponsoredCategories: boolean;
   readonly enableCitySponsorSlots: boolean;
+  readonly enableContractorPlans: boolean;
+  readonly enablePlanBasedLimits: boolean;
+  readonly enableBillingPortalPlaceholder: boolean;
+  readonly enableLeadUnlockPlaceholder: boolean;
+  readonly enableCityPromotion: boolean;
+  readonly enableCategoryPromotion: boolean;
+  readonly enableStagePromotion: boolean;
 }
 
 export const DEFAULT_FEATURE_FLAGS: ContractorFeatureFlags = {
@@ -358,6 +365,13 @@ export const DEFAULT_FEATURE_FLAGS: ContractorFeatureFlags = {
   enableFeaturedProfiles: true,
   enableSponsoredCategories: false,
   enableCitySponsorSlots: false,
+  enableContractorPlans: true,
+  enablePlanBasedLimits: true,
+  enableBillingPortalPlaceholder: false,
+  enableLeadUnlockPlaceholder: false,
+  enableCityPromotion: false,
+  enableCategoryPromotion: false,
+  enableStagePromotion: false,
 };
 
 export type ReportReason =

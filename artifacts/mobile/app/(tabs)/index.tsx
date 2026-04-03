@@ -307,6 +307,51 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
+      <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 16 }}>
+        <TouchableOpacity
+          onPress={() => router.push('/contractor/plans' as any)}
+          style={{
+            flex: 1,
+            backgroundColor: '#FFFBEB',
+            borderRadius: 16,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: '#FDE68A',
+            alignItems: 'center',
+            gap: 8,
+          }}
+          activeOpacity={0.85}
+        >
+          <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: '#FEF3C7', alignItems: 'center', justifyContent: 'center' }}>
+            <Feather name="award" size={20} color="#D97706" />
+          </View>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
+            Plany i Widocznosc
+          </Txt>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push('/contractor/admin-plans' as any)}
+          style={{
+            flex: 1,
+            backgroundColor: '#F5F3FF',
+            borderRadius: 16,
+            padding: 16,
+            borderWidth: 1,
+            borderColor: '#DDD6FE',
+            alignItems: 'center',
+            gap: 8,
+          }}
+          activeOpacity={0.85}
+        >
+          <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: '#EDE9FE', alignItems: 'center', justifyContent: 'center' }}>
+            <Feather name="settings" size={20} color="#7C3AED" />
+          </View>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
+            Admin planow
+          </Txt>
+        </TouchableOpacity>
+      </View>
+
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
         <TouchableOpacity
           style={{

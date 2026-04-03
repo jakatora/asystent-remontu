@@ -1,0 +1,276 @@
+Assume all previous prompts have already been completed, including:
+- the renovation module
+- the contractor module ("Find a Contractor")
+- the House Build module
+- the House Build -> contractor integration
+- contractor trust + ranking + moderation + promoted listing preparation
+- existing route structure
+- existing saved project and request flows
+
+Do not rebuild or rename:
+- the renovation module
+- the House Build module
+- the contractor search module
+- contractor profile models that already exist
+- contractor request logic that already works
+- contractor moderation/reporting logic that already exists
+- existing route structure
+- existing pricing logic
+- existing saved project flows
+
+Only extend the current implementation.
+
+Your task now is to implement the "Contractor Plans + Entitlements + Billing Preparation" layer.
+
+GOAL
+Prepare the contractor module for future monetization in a scalable and app-store-safe way, without implementing final real mobile payments yet.
+
+IMPORTANT RULES
+- Do not implement final live mobile payment checkout in this step
+- Do not hardcode Apple or Google billing logic into the whole contractor module yet
+- Do not create a second contractor directory
+- Do not create a second request/lead system
+- Reuse existing contractor profiles, moderation states, trust states, ranking logic, and promoted-label logic
+- Keep the system modular so billing can be connected later without rebuilding the contractor module
+- Promoted or paid features must remain transparent to users
+
+BUILD THESE FEATURES
+
+1. CONTRACTOR PLAN SYSTEM
+Create a plan/membership system for contractors.
+
+Support plan concepts such as:
+- free
+- starter
+- pro
+- featured
+- enterprise placeholder
+
+Each plan should support:
+- id
+- name
+- short description
+- monthly/yearly placeholder
+- active/inactive
+- entitlement set
+- notes
+- display order
+
+2. ENTITLEMENT MODEL
+Create a reusable entitlement system for contractor accounts.
+
+Support entitlements such as:
+- canAppearInSearch
+- canReceiveRequests
+- maxActiveRequestsPlaceholder
+- canBeFeatured
+- canBePromoted
+- canUseCityPromotion
+- canUseCategoryPromotion
+- canUseStagePromotion
+- maxProfileGalleryItemsPlaceholder
+- maxServiceAreasPlaceholder
+- maxSpecialtiesPlaceholder
+- canAccessLeadDetailsPlaceholder
+- canSeeAdvancedStatsPlaceholder
+- canUsePrioritySupportPlaceholder
+
+Do not assume all entitlements are active yet.
+Use feature flags and placeholders where needed.
+
+3. CONTRACTOR SUBSCRIPTION / ACCESS STATE
+Extend contractor accounts with plan/access state.
+
+Add structures such as:
+- ContractorPlanAssignment
+- ContractorEntitlementSnapshot
+- ContractorAccessState
+- ContractorBillingStatePlaceholder
+- ContractorPromotionSlot
+- ContractorUsageCounter
+
+Support states such as:
+- active
+- trial
+- grace_period
+- inactive
+- suspended
+- expired
+- pending_activation
+- manually_assigned
+
+4. PLAN LIMITS AND USAGE
+Add usage tracking placeholders for plan-based limits.
+
+Examples:
+- number of promoted slots used
+- number of categories sponsored
+- number of saved lead unlocks placeholder
+- number of visible service areas
+- number of gallery images
+- number of open request responses placeholder
+
+Show internal usage vs limit states.
+Do not implement final billing collection yet.
+
+5. FEATURE FLAGS
+Add feature flags for monetization rollout, such as:
+- enableContractorPlans
+- enableFeaturedProfiles
+- enablePromotedProfiles
+- enableCityPromotion
+- enableCategoryPromotion
+- enableStagePromotion
+- enableLeadUnlockPlaceholder
+- enablePlanBasedLimits
+- enableBillingPortalPlaceholder
+
+These must be configurable without breaking the public app flow.
+
+6. PLAN UI FOR CONTRACTORS
+Create a contractor-facing “Plans and Visibility” area.
+
+Show:
+- current plan
+- active entitlements
+- unavailable features
+- usage vs limits
+- promoted status
+- featured status
+- plan comparison cards
+- upgrade placeholder action
+- billing/history placeholder action
+- support/contact placeholder action
+
+Keep the UI practical.
+Do not implement real checkout yet.
+
+7. INTERNAL PLAN ADMIN
+Create an internal/admin management area for contractor plans.
+
+Allow:
+- create/edit/deactivate plans
+- edit entitlements per plan
+- manually assign plan to contractor
+- manually revoke/suspend plan
+- assign promotional states
+- set start/end dates for promoted visibility
+- inspect usage counters
+- inspect access state
+
+Do not rebuild the broader admin system.
+Extend it if internal tools already exist.
+
+8. PROMOTION SLOTS
+Create structured promotion slot logic.
+
+Support slots such as:
+- city slot
+- category slot
+- stage slot
+- featured global slot placeholder
+
+Each slot should support:
+- id
+- scope
+- priority
+- start date
+- end date
+- contractor assignment
+- label
+- active/inactive
+
+Promoted display must remain clearly labeled in user-facing results.
+
+9. BILLING PREPARATION LAYER
+Create a billing abstraction layer without real final payment implementation.
+
+Add modules such as:
+- BillingProviderInterface
+- BillingPlanDefinition
+- BillingEvent
+- BillingRecordPlaceholder
+- BillingPortalLinkPlaceholder
+- InvoiceRecordPlaceholder
+- PaymentMethodPlaceholder
+- AccessGrantReason
+
+Support future providers/modes such as:
+- app_store_billing_placeholder
+- google_play_billing_placeholder
+- web_billing_placeholder
+- admin_manual_assignment
+
+Do not connect to a live processor yet.
+
+10. ENTITLEMENT ENFORCEMENT
+Connect plan entitlements to the existing contractor module behavior.
+
+Examples:
+- if the contractor plan does not allow promotion, promoted controls stay unavailable
+- if the plan limits specialties or service areas, show UI states accordingly
+- if the plan is inactive, contractor can remain visible or hidden depending on rules you define
+- if suspended, contractor should not use paid visibility features
+
+Keep the enforcement modular and explainable.
+
+11. TRANSPARENCY FOR USERS
+Ensure user-facing transparency remains clear.
+
+If a contractor has paid visibility, keep labels such as:
+- promoted
+- sponsored
+- featured
+
+Do not hide sponsored status.
+Do not mix it invisibly with organic ranking.
+
+12. BILLING / COMPLIANCE NOTES
+Create internal developer notes/config comments explaining:
+- mobile in-app billing may be required later for digital in-app benefits depending on store/platform rules
+- physical-service exceptions and platform-specific decisions must be evaluated before launching real checkout
+- this step intentionally prepares entitlements and billing architecture without final checkout implementation
+
+Keep these notes internal/developer-facing, not end-user-facing.
+
+13. IMPORT / EXPORT PREPARATION
+Add import/export support for:
+- plan definitions
+- entitlement definitions
+- promotion slots
+- contractor plan assignments
+
+Support JSON import/export with:
+- duplicate detection
+- validation
+- preview changes
+- safe apply
+
+14. UI / UX RULES
+Keep all new UI simple and clearly separated.
+
+Add or extend:
+- contractor dashboard -> Plans and Visibility
+- contractor profile internal controls -> promoted/featured status
+- admin tools -> plan management / promotion slots
+- internal status chips for access state, plan, usage, entitlement availability
+
+Do not clutter the normal consumer flow.
+
+15. IMPLEMENTATION QUALITY RULES
+- do not rebuild previous modules
+- do not duplicate contractor profiles, requests, specialties, reviews, or moderation
+- only extend and connect the existing implementation
+- keep everything modular and data-driven
+- preserve strong TypeScript typing
+- preserve route stability
+- make the system ready for future real billing connection without major refactor
+
+16. FINAL STEP
+After implementation:
+- list the contractor/account/admin screens that were extended
+- confirm plan definitions were added
+- confirm entitlement enforcement works
+- confirm promotion slots were added
+- confirm billing abstraction was added without real live checkout
+- confirm no unrelated modules were rebuilt

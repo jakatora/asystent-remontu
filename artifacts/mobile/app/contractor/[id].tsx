@@ -13,9 +13,13 @@ import { houseBuildContractorsRepo } from '@/db/repositories/house-build-contrac
 import { contractorReportsRepo } from '@/db/repositories/contractor-reports.repo';
 import { contractorBlocksRepo } from '@/db/repositories/contractor-blocks.repo';
 import { contractorReviewsRepo } from '@/db/repositories/contractor-reviews.repo';
+import { contractorPlansRepo } from '@/db/repositories/contractor-plans.repo';
 import { TrustBadge, PromotedLabel } from '@/components/contractor/TrustBadge';
 import { ReviewSection } from '@/components/contractor/ReviewSection';
 import { isContractorVerified, computeProfileCompleteness } from '@/features/contractor/contractor-trust';
+import { resolveAccessState } from '@/features/contractor/contractor-plans';
+import { PLAN_LABELS, PLAN_COLORS, ASSIGNMENT_STATE_LABELS, ASSIGNMENT_STATE_COLORS } from '@/types/contractor-plans';
+import type { ContractorAccessState } from '@/types/contractor-plans';
 
 export default function ContractorProfileScreen() {
   const { id, requestId, fromHouseBuild, stageKey, projectId } = useLocalSearchParams<{
@@ -37,16 +41,25 @@ export default function ContractorProfileScreen() {
   const [reportNote, setReportNote] = useState('');
   const [isBlocked, setIsBlocked] = useState(false);
   const [reviewSummary, setReviewSummary] = useState<ContractorReviewSummary | null>(null);
+  const [planAccess, setPlanAccess] = useState<ContractorAccessState | null>(null);
 
   const loadExtras = useCallback(async () => {
     if (!id) return;
     try {
-      const [blocked, summary] = await Promise.all([
+      const [blocked, summary, assignment] = await Promise.all([
         contractorBlocksRepo.isBlocked(id),
         contractorReviewsRepo.getSummary(id),
+        contractorPlansRepo.getAssignment(id),
       ]);
       setIsBlocked(blocked);
       setReviewSummary(summary);
+
+      if (assignment) {
+        const plan = await contractorPlansRepo.getPlanById(assignment.planId);
+        setPlanAccess(resolveAccessState(assignment, plan));
+      } else {
+        setPlanAccess(resolveAccessState(null, null));
+      }
     } catch (err) {
       console.error('Load extras error:', err);
     }
@@ -178,6 +191,30 @@ export default function ContractorProfileScreen() {
             )}
           </View>
         </View>
+
+        {planAccess && (
+          <View style={{ marginHorizontal: 20, marginBottom: 16, backgroundColor: '#FFFFFF', borderRadius: 12, padding: 14, borderWidth: 1, borderColor: PLAN_COLORS[planAccess.currentPlanId] + '40' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <Feather name="layers" size={14} color={PLAN_COLORS[planAccess.currentPlanId]} />
+              <Txt w="semibold" style={{ fontSize: 12, color: PLAN_COLORS[planAccess.currentPlanId] }}>
+                Plan: {PLAN_LABELS[planAccess.currentPlanId]}
+              </Txt>
+              <View style={{ backgroundColor: ASSIGNMENT_STATE_COLORS[planAccess.assignmentState] + '15', borderRadius: 4, paddingHorizontal: 6, paddingVertical: 1 }}>
+                <Txt style={{ fontSize: 9, color: ASSIGNMENT_STATE_COLORS[planAccess.assignmentState] }}>
+                  {ASSIGNMENT_STATE_LABELS[planAccess.assignmentState]}
+                </Txt>
+              </View>
+            </View>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+              <PlanChip label="Widocznosc" active={planAccess.canUseVisibilityFeatures} />
+              <PlanChip label="Platne" active={planAccess.canUsePaidFeatures} />
+              <PlanChip label="Aktywny" active={planAccess.isFullyActive} />
+            </View>
+            {planAccess.suspensionReason && (
+              <Txt style={{ fontSize: 10, color: '#DC2626', marginTop: 4 }}>{planAccess.suspensionReason}</Txt>
+            )}
+          </View>
+        )}
 
         <View style={{ paddingHorizontal: 20, gap: 16 }}>
           <Section title="Opis">
@@ -396,6 +433,14 @@ function InfoRow({ icon, text, color }: { icon: string; text: string; color?: st
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
       <Feather name={icon as any} size={14} color={color ?? Colors.textMuted} />
       <Txt style={{ fontSize: 13, color: Colors.text, flex: 1 }}>{text}</Txt>
+    </View>
+  );
+}
+
+function PlanChip({ label, active }: { label: string; active: boolean }) {
+  return (
+    <View style={{ backgroundColor: active ? '#ECFDF5' : '#FEF2F2', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 }}>
+      <Txt style={{ fontSize: 9, color: active ? '#059669' : '#DC2626' }}>{label}</Txt>
     </View>
   );
 }

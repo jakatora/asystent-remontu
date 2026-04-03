@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
@@ -95,6 +95,13 @@ export default function ContractorAdminBoardScreen() {
               <StatBox label="Promowane" value={promotions.length} color="#7C3AED" />
               <StatBox label="Zawieszone" value={suspended.length} color="#D97706" />
             </View>
+
+            <TouchableOpacity
+              onPress={() => router.push('/contractor/admin-plans' as any)}
+              style={{ backgroundColor: '#F5F3FF', borderRadius: 10, paddingVertical: 10, alignItems: 'center', marginTop: 12, borderWidth: 1, borderColor: '#DDD6FE' }}
+            >
+              <Txt w="semibold" style={{ fontSize: 12, color: '#7C3AED' }}>Zarzadzanie planami i rozliczeniami</Txt>
+            </TouchableOpacity>
           </View>
 
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
