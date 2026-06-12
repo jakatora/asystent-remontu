@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "pl.asystentremontu.app",
-      "buildNumber": "5",
+      "buildNumber": "6",
       "infoPlist": {
         "NSCameraUsageDescription": "Aplikacja potrzebuje dostepu do kamery aby robic zdjecia remontu.",
         "NSPhotoLibraryUsageDescription": "Aplikacja potrzebuje dostepu do galerii aby dodawac zdjecia remontu.",
@@ -48,7 +48,8 @@
       [
         "expo-router",
         {
-          "origin": "https://asystentremontu.pl/"
+          "origin": "https://asystentremontu.pl/",
+          "root": "./app"
         }
       ],
       "expo-font",
