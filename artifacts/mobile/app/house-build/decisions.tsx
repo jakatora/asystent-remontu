@@ -7,30 +7,33 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { investorDocsRepo } from '@/db/repositories/investor-docs.repo';
 import { DEFAULT_DECISION_TEMPLATES } from '@/features/house-build/decision-defaults';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/translations';
 import type { BuildDecisionRecord, DecisionStatus, DecisionCategory } from '@/types/house-build';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const STATUS_CONFIG: Record<DecisionStatus, { label: string; color: string; bg: string; icon: string }> = {
-  'open': { label: 'Otwarta', color: '#DC2626', bg: '#FEF2F2', icon: 'alert-circle' },
-  'considering': { label: 'Rozważam', color: '#D97706', bg: '#FFFBEB', icon: 'help-circle' },
-  'decided': { label: 'Zdecydowano', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
-  'revisiting': { label: 'Ponowna ocena', color: '#7C3AED', bg: '#F5F3FF', icon: 'refresh-cw' },
+const STATUS_VISUAL: Record<DecisionStatus, { labelKey: TranslationKey; color: string; bg: string; icon: string }> = {
+  'open': { labelKey: 'hb.decisions.status.open', color: '#DC2626', bg: '#FEF2F2', icon: 'alert-circle' },
+  'considering': { labelKey: 'hb.decisions.status.considering', color: '#D97706', bg: '#FFFBEB', icon: 'help-circle' },
+  'decided': { labelKey: 'hb.decisions.status.decided', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
+  'revisiting': { labelKey: 'hb.decisions.status.revisiting', color: '#7C3AED', bg: '#F5F3FF', icon: 'refresh-cw' },
 };
 
-const CATEGORY_LABELS: Record<DecisionCategory, string> = {
-  'technology': 'Technologia',
-  'structure': 'Konstrukcja',
-  'energy': 'Energia',
-  'finishing': 'Wykonczenie',
-  'management': 'Zarzadzanie',
-  'other': 'Inne',
+const CATEGORY_LABEL_KEYS: Record<DecisionCategory, TranslationKey> = {
+  'technology': 'hb.decisions.cat.technology',
+  'structure': 'hb.decisions.cat.structure',
+  'energy': 'hb.decisions.cat.energy',
+  'finishing': 'hb.decisions.cat.finishing',
+  'management': 'hb.decisions.cat.management',
+  'other': 'hb.decisions.cat.other',
 };
 
 export default function DecisionsScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [decisions, setDecisions] = useState<BuildDecisionRecord[]>([]);
@@ -120,13 +123,13 @@ export default function DecisionsScreen() {
             {unresolved > 0 && (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 }}>
                 <Feather name="alert-circle" size={12} color="#DC2626" />
-                <Txt style={{ fontSize: 12, color: '#DC2626' }}>{unresolved} nierozstrzygniętych</Txt>
+                <Txt style={{ fontSize: 12, color: '#DC2626' }}>{t('hb.decisions.unresolved', { count: unresolved })}</Txt>
               </View>
             )}
           </View>
 
           {decisions.map((d) => {
-            const sc = STATUS_CONFIG[d.status] ?? STATUS_CONFIG.open;
+            const sc = STATUS_VISUAL[d.status] ?? STATUS_VISUAL.open;
             const isExpanded = expandedId === d.id;
             const isEditing = editingId === d.id;
 
@@ -152,9 +155,9 @@ export default function DecisionsScreen() {
                       <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{d.title}</Txt>
                       <View style={{ flexDirection: 'row', gap: 6, marginTop: 2 }}>
                         <View style={{ backgroundColor: sc.bg, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                          <Txt style={{ fontSize: 9, color: sc.color }}>{sc.label}</Txt>
+                          <Txt style={{ fontSize: 9, color: sc.color }}>{t(sc.labelKey)}</Txt>
                         </View>
-                        <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{CATEGORY_LABELS[d.category]}</Txt>
+                        <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{t(CATEGORY_LABEL_KEYS[d.category])}</Txt>
                       </View>
                     </View>
                     <TouchableOpacity onPress={() => handleStatusCycle(d)} style={{ padding: 6 }}>
@@ -242,7 +245,7 @@ export default function DecisionsScreen() {
               />
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 8 }}>
                 <View style={{ flexDirection: 'row', gap: 6 }}>
-                  {(Object.keys(CATEGORY_LABELS) as DecisionCategory[]).map((cat) => (
+                  {(Object.keys(CATEGORY_LABEL_KEYS) as DecisionCategory[]).map((cat) => (
                     <TouchableOpacity
                       key={cat}
                       style={{
@@ -251,7 +254,7 @@ export default function DecisionsScreen() {
                       }}
                       onPress={() => setNewCategory(cat)}
                     >
-                      <Txt style={{ fontSize: 10, color: newCategory === cat ? '#fff' : Colors.text }}>{CATEGORY_LABELS[cat]}</Txt>
+                      <Txt style={{ fontSize: 10, color: newCategory === cat ? '#fff' : Colors.text }}>{t(CATEGORY_LABEL_KEYS[cat])}</Txt>
                     </TouchableOpacity>
                   ))}
                 </View>

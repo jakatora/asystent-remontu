@@ -8,6 +8,7 @@ import { getStageByKey, GLOBAL_BUILD_NOTES } from '@/features/house-build/stages
 import { getWarningsForStage } from '@/features/house-build/warnings';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 import type { ChecklistItemRecord, DocumentRecord } from '@/db/repositories/house-build.repo';
 
 const HB_ACCENT = '#2563EB';
@@ -30,6 +31,7 @@ const DOC_STATUS_COLORS: Record<string, { bg: string; fg: string }> = {
 export default function StageDetail() {
   const { projectId, stageKey } = useLocalSearchParams<{ projectId: string; stageKey: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const { getChecklist, toggleChecklistItem, getDocuments, updateDocumentStatus } = useHouseBuild();
 
   const stage = getStageByKey(stageKey);
@@ -383,7 +385,7 @@ export default function StageDetail() {
             style={{ paddingVertical: 10, alignItems: 'center' }}
             onPress={() => setShowGlobalNotes(v => !v)}
           >
-            <Txt style={{ fontSize: 12, color: HB_ACCENT }}>{showGlobalNotes ? 'Ukryj ogólne zasady' : 'Ogólne zasady budowy'}</Txt>
+            <Txt style={{ fontSize: 12, color: HB_ACCENT }}>{showGlobalNotes ? t('hb.stage.hideGlobalNotes') : t('hb.stage.showGlobalNotes')}</Txt>
           </TouchableOpacity>
 
           {showGlobalNotes && (

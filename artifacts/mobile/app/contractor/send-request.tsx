@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useContractor } from '@/context/ContractorContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { isContractorVerified as isContractorVerifiedFn } from '@/features/contractor/contractor-trust';
 
 export default function SendRequestScreen() {
@@ -15,6 +16,7 @@ export default function SendRequestScreen() {
     requestId?: string;
   }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const { getContractorById, requests, saveRequest, updateRequestStatus } = useContractor();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
 
@@ -70,8 +72,8 @@ export default function SendRequestScreen() {
       <>
         <Stack.Screen
           options={{
-            title: 'Zapytanie wysłane',
-            headerBackTitle: 'Wróć',
+            title: t('contractor.sendRequest.screenTitleSent'),
+            headerBackTitle: t('contractor.sendRequest.headerBack'),
             headerStyle: { backgroundColor: Colors.background },
             headerTintColor: Colors.text,
             headerShadowVisible: false,
@@ -100,16 +102,16 @@ export default function SendRequestScreen() {
             <Feather name="check" size={36} color={Colors.success} />
           </View>
           <Txt w="bold" style={{ fontSize: 22, color: Colors.text, textAlign: 'center', marginBottom: 8 }}>
-            Zapytanie wysłane!
+            {t('contractor.sendRequest.sentTitle')}
           </Txt>
           <Txt style={{ fontSize: 15, color: Colors.textSecondary, textAlign: 'center', marginBottom: 32, lineHeight: 22 }}>
             {contractor
-              ? `Twoje zapytanie zostało wysłane do ${contractor.displayName}. Oczekuj na odpowiedź.`
-              : 'Twoje zapytanie zostało zapisane. Fachowcy skontaktują się z Tobą.'}
+              ? t('contractor.sendRequest.sentBodyWithName', { name: contractor.displayName })
+              : t('contractor.sendRequest.sentBodyGeneric')}
           </Txt>
           <View style={{ width: '100%', marginBottom: 12 }}>
             <Button
-              label="Moje zapytania"
+              label={t('contractor.sendRequest.myRequests')}
               variant="primary"
               onPress={() => router.replace('/contractor/my-requests')}
               fullWidth
@@ -117,7 +119,7 @@ export default function SendRequestScreen() {
           </View>
           <View style={{ width: '100%' }}>
             <Button
-              label="Wróć na stronę główną"
+              label={t('contractor.sendRequest.backHome')}
               variant="secondary"
               onPress={() => router.replace('/(tabs)')}
               fullWidth
@@ -132,8 +134,8 @@ export default function SendRequestScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Wyślij zapytanie',
-          headerBackTitle: 'Wróć',
+          title: t('contractor.sendRequest.screenTitle'),
+          headerBackTitle: t('contractor.sendRequest.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -186,39 +188,39 @@ export default function SendRequestScreen() {
         )}
 
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text, marginBottom: 4 }}>
-          Opisz swoje potrzeby
+          {t('contractor.sendRequest.title')}
         </Txt>
         <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginBottom: 16 }}>
-          Im dokładniej opiszesz, tym lepsza oferta
+          {t('contractor.sendRequest.subtitle')}
         </Txt>
 
         <LabeledInput
-          label="Co chcesz zrobić? *"
+          label={t('contractor.sendRequest.workLabel')}
           value={workDescription}
           onChangeText={setWorkDescription}
-          placeholder="np. malowanie 3 pokoi, wymiana paneli w salonie..."
+          placeholder={t('contractor.sendRequest.workPlaceholder')}
           multiline
         />
 
         <LabeledInput
-          label="Miasto *"
+          label={t('contractor.sendRequest.cityLabel')}
           value={city}
           onChangeText={setCity}
-          placeholder="np. Warszawa"
+          placeholder={t('contractor.sendRequest.cityPlaceholder')}
         />
 
         <LabeledInput
-          label="Preferowany termin (opcjonalne)"
+          label={t('contractor.sendRequest.dateLabel')}
           value={preferredDate}
           onChangeText={setPreferredDate}
-          placeholder="np. marzec 2026"
+          placeholder={t('contractor.sendRequest.datePlaceholder')}
         />
 
         <LabeledInput
-          label="Dodatkowe uwagi (opcjonalne)"
+          label={t('contractor.sendRequest.notesLabel')}
           value={notes}
           onChangeText={setNotes}
-          placeholder="np. klucze do odbioru od sąsiada, pies w domu..."
+          placeholder={t('contractor.sendRequest.notesPlaceholder')}
           multiline
         />
 
@@ -238,7 +240,7 @@ export default function SendRequestScreen() {
           activeOpacity={0.7}
         >
           <Feather name="camera" size={20} color={Colors.textMuted} />
-          <Txt style={{ fontSize: 14, color: Colors.textMuted }}>Dodaj zdjęcia (wkrótce)</Txt>
+          <Txt style={{ fontSize: 14, color: Colors.textMuted }}>{t('contractor.sendRequest.addPhotos')}</Txt>
         </TouchableOpacity>
       </ScrollView>
 
@@ -257,7 +259,7 @@ export default function SendRequestScreen() {
         }}
       >
         <Button
-          label="Wyślij zapytanie"
+          label={t('contractor.sendRequest.sendCta')}
           variant="primary"
           onPress={handleSend}
           loading={isSending}

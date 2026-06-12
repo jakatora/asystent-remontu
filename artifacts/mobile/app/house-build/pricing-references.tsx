@@ -8,19 +8,22 @@ import { Colors } from '@/constants/colors';
 import { houseBuildPricingRepo } from '@/db/repositories/house-build-pricing.repo';
 import { PRICE_CATEGORY_LABELS, PRICE_CATEGORY_ORDER, PRICE_DISCLAIMER } from '@/features/house-build/house-build-prices';
 import type { HouseBuildPriceReference, HouseBuildPriceOverride, PriceCategory, PriceSourceType } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const SOURCE_TYPE_LABELS: Record<PriceSourceType, string> = {
-  'market-planning': 'Rynkowe planistyczne',
-  'regional-estimate': 'Szacunek regionalny',
-  'operator-tariff-reference': 'Cennik operatora',
+const SOURCE_TYPE_LABEL_KEYS: Record<PriceSourceType, TranslationKey> = {
+  'market-planning': 'hb.pricingReferences.sourceType.marketPlanning',
+  'regional-estimate': 'hb.pricingReferences.sourceType.regionalEstimate',
+  'operator-tariff-reference': 'hb.pricingReferences.sourceType.operatorTariff',
 };
 
 export default function PricingReferencesScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [references, setReferences] = useState<HouseBuildPriceReference[]>([]);
@@ -77,25 +80,25 @@ export default function PricingReferencesScreen() {
   }, [projectId, editMin, editMax, editNotes, loadData]);
 
   const handleDeleteOverride = useCallback(async (overrideId: string) => {
-    Alert.alert('Przywroc cene referencyjna', 'Usunac nadpisanie i przywrocic cene referencyjna?', [
-      { text: 'Anuluj', style: 'cancel' },
-      { text: 'Przywroc', style: 'destructive', onPress: async () => {
+    Alert.alert(t('hb.pricingReferences.restoreTitle'), t('hb.pricingReferences.restoreBody'), [
+      { text: t('hb.pricingReferences.cancelCta'), style: 'cancel' },
+      { text: t('hb.pricingReferences.restoreConfirm'), style: 'destructive', onPress: async () => {
         await houseBuildPricingRepo.deleteOverride(overrideId);
         await loadData();
       }},
     ]);
-  }, [loadData]);
+  }, [loadData, t]);
 
   const handleResetAll = useCallback(() => {
     if (!projectId) return;
-    Alert.alert('Resetuj wszystkie nadpisania', 'Przywrocic wszystkie ceny do wartosci referencyjnych?', [
-      { text: 'Anuluj', style: 'cancel' },
-      { text: 'Resetuj', style: 'destructive', onPress: async () => {
+    Alert.alert(t('hb.pricingReferences.resetTitle'), t('hb.pricingReferences.resetBody'), [
+      { text: t('hb.pricingReferences.cancelCta'), style: 'cancel' },
+      { text: t('hb.pricingReferences.resetConfirm'), style: 'destructive', onPress: async () => {
         await houseBuildPricingRepo.resetOverrides(projectId);
         await loadData();
       }},
     ]);
-  }, [projectId, loadData]);
+  }, [projectId, loadData, t]);
 
   const startEdit = (ref: HouseBuildPriceReference) => {
     const ov = overrideMap.get(ref.id);
@@ -107,7 +110,7 @@ export default function PricingReferencesScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Ceny referencyjne' }} />
+      <Stack.Screen options={{ title: t('hb.pricingReferences.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -119,13 +122,13 @@ export default function PricingReferencesScreen() {
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Ceny referencyjne</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.pricingReferences.heroTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              Referencyjne zakresy cenowe do planowania budowy
+              {t('hb.pricingReferences.heroSubtitle')}
             </Txt>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
-              <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{references.length} pozycji referencyjnych</Txt>
-              <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{overrides.length} nadpisanych</Txt>
+              <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('hb.pricingReferences.refCount', { count: references.length })}</Txt>
+              <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('hb.pricingReferences.overrideCount', { count: overrides.length })}</Txt>
             </View>
           </View>
 
@@ -143,7 +146,7 @@ export default function PricingReferencesScreen() {
           }}>
             <Feather name="map-pin" size={12} color={HB_ACCENT} style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 10, color: '#1E40AF', flex: 1 }}>
-              Ceny bazowe: Polska (planistyczne). Wybrane stawki robocizny: woj. lodzkie. Jesli Twoj region nie jest jeszcze uwzgledniony, korzystaj z wartosci bazowych - lokalne warunki rynkowe moga sie roznic.
+              {t('hb.pricingReferences.regionNote')}
             </Txt>
           </View>
 
@@ -157,7 +160,7 @@ export default function PricingReferencesScreen() {
               onPress={handleResetAll}
             >
               <Feather name="refresh-cw" size={12} color="#DC2626" />
-              <Txt style={{ fontSize: 11, color: '#DC2626' }}>Resetuj wszystkie nadpisania ({overrides.length})</Txt>
+              <Txt style={{ fontSize: 11, color: '#DC2626' }}>{t('hb.pricingReferences.resetAll', { count: overrides.length })}</Txt>
             </TouchableOpacity>
           )}
 
@@ -181,7 +184,7 @@ export default function PricingReferencesScreen() {
                     <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>
                       {PRICE_CATEGORY_LABELS[cat]}
                     </Txt>
-                    <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{items.length} pozycji</Txt>
+                    <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('hb.pricingReferences.itemCount', { count: items.length })}</Txt>
                   </View>
                   <Feather name={isExpanded ? 'chevron-up' : 'chevron-down'} size={16} color={Colors.textMuted} />
                 </TouchableOpacity>
@@ -219,7 +222,7 @@ export default function PricingReferencesScreen() {
                             </Txt>
                           )}
                           {hasOverride && (
-                            <Txt style={{ fontSize: 9, color: '#16A34A' }}>nadpisana</Txt>
+                            <Txt style={{ fontSize: 9, color: '#16A34A' }}>{t('hb.pricingReferences.overriddenBadge')}</Txt>
                           )}
                         </View>
                       </View>
@@ -231,15 +234,15 @@ export default function PricingReferencesScreen() {
                       <View style={{ flexDirection: 'row', gap: 4, marginTop: 4, flexWrap: 'wrap' }}>
                         <View style={{ backgroundColor: '#F1F5F9', borderRadius: 4, paddingHorizontal: 4, paddingVertical: 1 }}>
                           <Txt style={{ fontSize: 8, color: Colors.textMuted }}>
-                            {SOURCE_TYPE_LABELS[ref.sourceType]}
+                            {t(SOURCE_TYPE_LABEL_KEYS[ref.sourceType])}
                           </Txt>
                         </View>
                         <View style={{ backgroundColor: '#F1F5F9', borderRadius: 4, paddingHorizontal: 4, paddingVertical: 1 }}>
-                          <Txt style={{ fontSize: 8, color: Colors.textMuted }}>Akt. {ref.lastUpdated}</Txt>
+                          <Txt style={{ fontSize: 8, color: Colors.textMuted }}>{t('hb.pricingReferences.updatedShort', { date: ref.lastUpdated })}</Txt>
                         </View>
                       </View>
                       {ref.sourceName ? (
-                        <Txt style={{ fontSize: 8, color: Colors.textMuted, marginTop: 2 }}>Zrodlo: {ref.sourceName}</Txt>
+                        <Txt style={{ fontSize: 8, color: Colors.textMuted, marginTop: 2 }}>{t('hb.pricingReferences.sourceName', { name: ref.sourceName })}</Txt>
                       ) : null}
                       {ref.confidenceNote ? (
                         <Txt style={{ fontSize: 8, color: '#92400E', marginTop: 1 }}>{ref.confidenceNote}</Txt>
@@ -249,7 +252,7 @@ export default function PricingReferencesScreen() {
                         <View style={{ marginTop: 8, gap: 6 }}>
                           <View style={{ flexDirection: 'row', gap: 8 }}>
                             <View style={{ flex: 1 }}>
-                              <Txt style={{ fontSize: 10, color: Colors.textMuted, marginBottom: 2 }}>Min (zl)</Txt>
+                              <Txt style={{ fontSize: 10, color: Colors.textMuted, marginBottom: 2 }}>{t('hb.pricingReferences.minLabel')}</Txt>
                               <TextInput
                                 style={{ backgroundColor: '#fff', borderRadius: 6, padding: 8, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                                 value={editMin} onChangeText={setEditMin}
@@ -258,7 +261,7 @@ export default function PricingReferencesScreen() {
                               />
                             </View>
                             <View style={{ flex: 1 }}>
-                              <Txt style={{ fontSize: 10, color: Colors.textMuted, marginBottom: 2 }}>Max (zl)</Txt>
+                              <Txt style={{ fontSize: 10, color: Colors.textMuted, marginBottom: 2 }}>{t('hb.pricingReferences.maxLabel')}</Txt>
                               <TextInput
                                 style={{ backgroundColor: '#fff', borderRadius: 6, padding: 8, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                                 value={editMax} onChangeText={setEditMax}
@@ -270,7 +273,7 @@ export default function PricingReferencesScreen() {
                           <TextInput
                             style={{ backgroundColor: '#fff', borderRadius: 6, padding: 8, fontSize: 12, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                             value={editNotes} onChangeText={setEditNotes}
-                            placeholder="Notatka (np. wycena wykonawcy, cytat dostawcy)"
+                            placeholder={t('hb.pricingReferences.notesPlaceholder')}
                             placeholderTextColor={Colors.textMuted}
                           />
                           <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -278,13 +281,13 @@ export default function PricingReferencesScreen() {
                               style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }}
                               onPress={() => handleSaveOverride(ref)}
                             >
-                              <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>Zapisz</Txt>
+                              <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('hb.pricingReferences.saveCta')}</Txt>
                             </TouchableOpacity>
                             <TouchableOpacity
                               style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 8, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }}
                               onPress={() => setEditingRef(null)}
                             >
-                              <Txt style={{ fontSize: 12, color: Colors.text }}>Anuluj</Txt>
+                              <Txt style={{ fontSize: 12, color: Colors.text }}>{t('hb.pricingReferences.cancelCta')}</Txt>
                             </TouchableOpacity>
                           </View>
                         </View>
@@ -295,7 +298,7 @@ export default function PricingReferencesScreen() {
                             onPress={() => startEdit(ref)}
                           >
                             <Feather name="edit-2" size={10} color={HB_ACCENT} />
-                            <Txt style={{ fontSize: 10, color: HB_ACCENT }}>Edytuj</Txt>
+                            <Txt style={{ fontSize: 10, color: HB_ACCENT }}>{t('hb.pricingReferences.editCta')}</Txt>
                           </TouchableOpacity>
                           {hasOverride && ov && (
                             <TouchableOpacity
@@ -303,7 +306,7 @@ export default function PricingReferencesScreen() {
                               onPress={() => handleDeleteOverride(ov.id)}
                             >
                               <Feather name="rotate-ccw" size={10} color="#DC2626" />
-                              <Txt style={{ fontSize: 10, color: '#DC2626' }}>Przywroc</Txt>
+                              <Txt style={{ fontSize: 10, color: '#DC2626' }}>{t('hb.pricingReferences.restoreCta')}</Txt>
                             </TouchableOpacity>
                           )}
                         </View>
@@ -317,10 +320,10 @@ export default function PricingReferencesScreen() {
 
           <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-              Baza danych: {references.length} pozycji | Ostatnia aktualizacja: 2026-04-02 | Waluta: PLN
+              {t('hb.pricingReferences.dbFootnote', { count: references.length })}
             </Txt>
             <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 2 }}>
-              Regiony: Polska (bazowe), Lodzkie (wybrane stawki robocizny)
+              {t('hb.pricingReferences.regionsFootnote')}
             </Txt>
           </View>
         </View>

@@ -8,10 +8,12 @@ import { getJobsByCategory } from '@/data/jobs';
 import { JobCard } from '@/components/JobCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Txt } from '@/components/ui/Txt';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function CategoryScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
 
   const category = CATEGORIES.find((c) => c.id === id);
   const jobs = getJobsByCategory(id || '');
@@ -20,19 +22,19 @@ export default function CategoryScreen() {
   if (!category) {
     return (
       <View className="flex-1 items-center justify-center bg-bg">
-        <Txt w="medium" className="text-base text-slate">Nie znaleziono kategorii</Txt>
+        <Txt w="medium" className="text-base text-slate">{t('category.detail.notFound')}</Txt>
       </View>
     );
   }
 
-  const jobWord = jobs.length === 1 ? 'rodzaj pracy' : 'rodzaje prac';
+  const jobWord = jobs.length === 1 ? t('category.detail.jobWordOne') : t('category.detail.jobWordMany');
 
   return (
     <>
       <Stack.Screen
         options={{
           title: category.name,
-          headerBackTitle: 'Wróć',
+          headerBackTitle: t('category.detail.headerBack'),
           headerStyle: { backgroundColor: '#F8FAFC' },
           headerTintColor: '#0F172A',
           headerShadowVisible: false,
@@ -60,7 +62,7 @@ export default function CategoryScreen() {
 
         <View className="px-5 pt-4">
           {jobs.length === 0 ? (
-            <EmptyState icon="tool" title="Brak dostępnych prac" description="Wkrótce dodamy więcej rodzajów prac." />
+            <EmptyState icon="tool" title={t('category.detail.emptyTitle')} description={t('category.detail.emptyBody')} />
           ) : (
             jobs.map((job) => (
               <JobCard

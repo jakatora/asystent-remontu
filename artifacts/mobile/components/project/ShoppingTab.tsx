@@ -13,6 +13,7 @@ import { CONTINGENCY_RATE } from './types';
 import { getEffectivePrice } from './helpers';
 import type { ShoppingEditState } from './types';
 import { CommerceReadinessSummary } from '@/components/commerce';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ShoppingTabProps {
   shoppingItems: ShoppingItem[];
@@ -43,6 +44,7 @@ export function ShoppingTab({
   onRemoveItem,
   onShare,
 }: ShoppingTabProps) {
+  const { t } = useLanguage();
   const materialItems = shoppingItems.filter((i) => i.itemType === 'material');
   const toolItems = shoppingItems.filter((i) => i.itemType === 'tool');
   const toBuyMaterials = materialItems.filter((i) => !i.owned);
@@ -61,7 +63,7 @@ export function ShoppingTab({
     <View style={{ gap: 16 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
-          Lista zakupów
+          {t('cmp.ShoppingTab.title')}
         </Txt>
         {shoppingItems.length > 0 && (
           <TouchableOpacity
@@ -77,7 +79,7 @@ export function ShoppingTab({
             }}
           >
             <Feather name="share" size={14} color={Colors.textSecondary} />
-            <Txt w="medium" style={{ fontSize: 12, color: Colors.textSecondary }}>Udostępnij</Txt>
+            <Txt w="medium" style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingTab.share')}</Txt>
           </TouchableOpacity>
         )}
       </View>
@@ -86,13 +88,13 @@ export function ShoppingTab({
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 32 }}>
           <Feather name="shopping-cart" size={40} color={Colors.textMuted} />
           <Txt w="semibold" style={{ fontSize: 18, color: Colors.textSecondary }}>
-            Brak listy zakupów
+            {t('cmp.ShoppingTab.emptyTitle')}
           </Txt>
           <Txt style={{ fontSize: 14, color: Colors.textMuted, textAlign: 'center', maxWidth: 260 }}>
-            Wygeneruj listę zakupów na podstawie obliczonych materiałów i narzędzi.
+            {t('cmp.ShoppingTab.emptyBody')}
           </Txt>
           <Button
-            label="Generuj listę zakupów"
+            label={t('cmp.ShoppingTab.generateList')}
             onPress={onGenerateShoppingList}
             icon={<Feather name="shopping-cart" size={16} color="#fff" />}
           />
@@ -101,9 +103,9 @@ export function ShoppingTab({
         <>
           <View style={{ gap: 6 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Kupione</Txt>
+              <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.ShoppingTab.purchased')}</Txt>
               <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>
-                {purchasedCount} z {nonOwnedItems.length}
+                {t('cmp.ShoppingTab.purchasedCount', { purchased: purchasedCount, total: nonOwnedItems.length })}
               </Txt>
             </View>
             <View style={{ height: 8, borderRadius: 4, backgroundColor: Colors.border, overflow: 'hidden' }}>
@@ -121,7 +123,7 @@ export function ShoppingTab({
           <ShoppingSection
             icon="package"
             iconColor={Colors.primary}
-            title="Materiały"
+            title={t('cmp.ShoppingTab.materials')}
             items={toBuyMaterials}
             total={totalMaterials}
             totalColor={Colors.text}
@@ -136,7 +138,7 @@ export function ShoppingTab({
           <ShoppingSection
             icon="tool"
             iconColor={Colors.info}
-            title="Narzędzia"
+            title={t('cmp.ShoppingTab.tools')}
             items={toBuyTools}
             total={totalTools}
             totalColor={Colors.info}
@@ -153,7 +155,7 @@ export function ShoppingTab({
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <Feather name="home" size={16} color={Colors.success} />
                 <Txt w="semibold" style={{ fontSize: 15, color: Colors.textSecondary }}>
-                  Mam już ({ownedItems.length})
+                  {t('cmp.ShoppingTab.alreadyHave', { count: ownedItems.length })}
                 </Txt>
               </View>
               {ownedItems.map((item) => (
@@ -176,7 +178,7 @@ export function ShoppingTab({
                   <Feather name="check-circle" size={20} color={Colors.success} />
                   <View style={{ flex: 1 }}>
                     <Txt w="medium" style={{ fontSize: 14, color: Colors.textSecondary }}>{item.name}</Txt>
-                    <Txt style={{ fontSize: 11, color: Colors.textMuted }}>Dotknij, aby przywrócić do listy</Txt>
+                    <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('cmp.ShoppingTab.tapToRestore')}</Txt>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                     <Feather name={item.itemType === 'tool' ? 'tool' : 'package'} size={12} color={Colors.textMuted} />
@@ -197,21 +199,21 @@ export function ShoppingTab({
             }}
           >
             <View style={{ padding: 14, backgroundColor: Colors.primaryBg }}>
-              <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>Podsumowanie kosztów</Txt>
+              <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('cmp.ShoppingTab.costSummary')}</Txt>
             </View>
-            <SummaryRow icon="package" label="Materiały" value={formatCurrency(totalMaterials)} />
+            <SummaryRow icon="package" label={t('cmp.ShoppingTab.materials')} value={formatCurrency(totalMaterials)} />
             <Divider />
-            <SummaryRow icon="tool" label="Narzędzia" value={formatCurrency(totalTools)} valueColor={Colors.info} />
+            <SummaryRow icon="tool" label={t('cmp.ShoppingTab.tools')} value={formatCurrency(totalTools)} valueColor={Colors.info} />
             <Divider />
             <SummaryRow
               icon="shield"
-              label={`Rezerwa (${Math.round(CONTINGENCY_RATE * 100)}%)`}
+              label={t('cmp.ShoppingTab.reserve', { percent: Math.round(CONTINGENCY_RATE * 100) })}
               value={`+${formatCurrency(contingency)}`}
               valueColor={Colors.warning}
             />
             <Divider />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, backgroundColor: Colors.primaryBg }}>
-              <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>Łącznie z rezerwą</Txt>
+              <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>{t('cmp.ShoppingTab.totalWithReserve')}</Txt>
               <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>{formatCurrency(grandTotal)}</Txt>
             </View>
           </View>
@@ -230,7 +232,7 @@ export function ShoppingTab({
 
           <View style={{ gap: 10, marginTop: 4 }}>
             <Button
-              label="Odśwież listę zakupów"
+              label={t('cmp.ShoppingTab.refreshList')}
               variant="outline"
               onPress={onGenerateShoppingList}
               fullWidth
@@ -269,6 +271,7 @@ function ShoppingSection({
   onSaveEdit: (item: ShoppingItem) => Promise<void>;
   onRemoveItem: (item: ShoppingItem) => void;
 }) {
+  const { t } = useLanguage();
   if (items.length === 0) return null;
 
   return (
@@ -297,7 +300,7 @@ function ShoppingSection({
         />
       ))}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4, paddingVertical: 6 }}>
-        <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{title} razem</Txt>
+        <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.ShoppingTab.sectionTotal', { title })}</Txt>
         <Txt w="bold" style={{ fontSize: 15, color: totalColor }}>{formatCurrency(total)}</Txt>
       </View>
     </View>
@@ -305,6 +308,7 @@ function ShoppingSection({
 }
 
 function BudgetComparison({ grandTotal, budget, totalDays }: { grandTotal: number; budget: BudgetEstimate; totalDays: number }) {
+  const { t } = useLanguage();
   return (
     <View
       style={{
@@ -316,7 +320,7 @@ function BudgetComparison({ grandTotal, budget, totalDays }: { grandTotal: numbe
       }}
     >
       <View style={{ padding: 14, backgroundColor: Colors.infoBg }}>
-        <Txt w="bold" style={{ fontSize: 15, color: '#1e40af' }}>DIY vs Fachowiec</Txt>
+        <Txt w="bold" style={{ fontSize: 15, color: '#1e40af' }}>{t('cmp.ShoppingTab.diyVsPro')}</Txt>
       </View>
       <View style={{ padding: 14, gap: 10 }}>
         <View style={{ flexDirection: 'row', gap: 10 }}>
@@ -333,9 +337,9 @@ function BudgetComparison({ grandTotal, budget, totalDays }: { grandTotal: numbe
             }}
           >
             <Feather name="user" size={20} color={Colors.success} />
-            <Txt w="semibold" style={{ fontSize: 12, color: Colors.success }}>Samodzielnie</Txt>
+            <Txt w="semibold" style={{ fontSize: 12, color: Colors.success }}>{t('cmp.ShoppingTab.diy')}</Txt>
             <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{formatCurrency(grandTotal)}</Txt>
-            <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>materiały + narzędzia + rezerwa</Txt>
+            <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>{t('cmp.ShoppingTab.diyBreakdown')}</Txt>
           </View>
           <View
             style={{
@@ -354,22 +358,24 @@ function BudgetComparison({ grandTotal, budget, totalDays }: { grandTotal: numbe
             <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
               {formatCurrency(budget.totalMin)}–{formatCurrency(budget.totalMax)}
             </Txt>
-            <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>materiały + robocizna</Txt>
+            <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>{t('cmp.ShoppingTab.proBreakdown')}</Txt>
           </View>
         </View>
         {grandTotal < budget.totalMin && (
           <View style={{ flexDirection: 'row', gap: 8, backgroundColor: Colors.successBg, borderRadius: 10, padding: 10, alignItems: 'flex-start' }}>
             <Feather name="trending-down" size={14} color={Colors.success} style={{ marginTop: 1 }} />
             <Txt style={{ flex: 1, fontSize: 13, color: '#065f46', lineHeight: 18 }}>
-              Oszczędzasz ok. {formatCurrency(budget.totalMin - grandTotal)} robiąc to samodzielnie!
+              {t('cmp.ShoppingTab.savings', { amount: formatCurrency(budget.totalMin - grandTotal) })}
             </Txt>
           </View>
         )}
         <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', padding: 4 }}>
           <Feather name="clock" size={14} color={Colors.textMuted} style={{ marginTop: 1 }} />
           <Txt style={{ flex: 1, fontSize: 12, color: Colors.textSecondary, lineHeight: 17 }}>
-            Szacowany czas pracy samodzielnej: {totalDays}{' '}
-            {totalDays === 1 ? 'dzień' : 'dni'}
+            {t('cmp.ShoppingTab.estimatedTime', {
+              days: totalDays,
+              word: totalDays === 1 ? t('cmp.ShoppingTab.dayOne') : t('cmp.ShoppingTab.dayMany'),
+            })}
           </Txt>
         </View>
       </View>

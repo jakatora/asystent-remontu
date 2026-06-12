@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "started_at": "2026-05-06T00:00:00Z",
+  "global": {
+    "setup_tests_done": false,
+    "map_codebase_done": false,
+    "extend_types_done": false,
+    "state_synced_with_registry": false
+  },
+  "modules": {},
+  "discovered_to_add": [],
+  "stats": {
+    "total_runs": 0,
+    "total_modules_done": 0,
+    "last_run_at": null,
+    "expected_total_jobs": 57
+  },
+  "_note": "Lista 57 jobów zostanie automatycznie wypełniona przez scripts/sync-state.sh po fazie map_codebase, która wyczyta JOB_REGISTRY z artifacts/mobile/features/content/registry.ts"
+}

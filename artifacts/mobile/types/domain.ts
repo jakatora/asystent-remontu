@@ -74,6 +74,10 @@ export interface MaterialItem {
   readonly brand?: string;
   readonly category?: string;
   readonly optional?: boolean;
+  /** Per-shop prices (Phase 1+). pricePerUnit stays as the baseline/median. */
+  readonly shopPrices?: readonly ShopPrice[];
+  /** Canva-generated thumbnail showing what the material looks like. */
+  readonly thumbnailUrl?: string;
 }
 
 // ─── Tool item ────────────────────────────────────────────────────────────────
@@ -88,6 +92,10 @@ export interface ToolItem {
   readonly estimatedBuyCostPLN?: number;
   readonly notes?: string;
   readonly safetyNote?: string;
+  /** Per-shop buy prices (Phase 1+). */
+  readonly shopPrices?: readonly ShopPrice[];
+  /** Canva-generated thumbnail showing what the tool looks like. */
+  readonly thumbnailUrl?: string;
 }
 
 // ─── Instruction step ─────────────────────────────────────────────────────────
@@ -221,6 +229,55 @@ export interface RenovationJob {
   readonly deprecated?: boolean;
   readonly deprecatedReason?: string;
   readonly supersededBy?: string;
+
+  // ── Verified content (Phase 1+) ───────────────────────────────────────────
+  /** ISO date the content of this job was last verified from authoritative PL sources. */
+  readonly verifiedAt?: string;
+  /** Sources we cross-referenced (forum/article URLs). Shown to users for trust. */
+  readonly verifiedSources?: readonly VerifiedSource[];
+  /** Cover image (Canva-generated thumbnail). */
+  readonly thumbnailUrl?: string;
+}
+
+// ─── Shop reference (Phase 1+) ────────────────────────────────────────────────
+
+/** Polish DIY shops we compare prices across. Add a new one here + everywhere it's used. */
+export type ShopId = 'castorama' | 'leroyMerlin' | 'obi' | 'bricomarche';
+
+export const SHOP_DISPLAY_NAMES: Record<ShopId, string> = {
+  castorama:   'Castorama',
+  leroyMerlin: 'Leroy Merlin',
+  obi:         'OBI',
+  bricomarche: 'Bricomarche',
+};
+
+/**
+ * Single price observation at one shop, with provenance.
+ *
+ * `pricePLN` is OPTIONAL: shops block automated price scraping, so the UI must
+ * tolerate "url-only" entries and surface a "Sprawdź aktualną cenę" link. When
+ * we have a manually-verified price we include both, with `verifiedAt`.
+ */
+export interface ShopPrice {
+  readonly shop: ShopId;
+  /** Price in PLN for the canonical `purchaseUnit` of the parent material/tool. */
+  readonly pricePLN?: number;
+  /** Deep-link to the product page (or shop search URL as fallback). */
+  readonly url: string;
+  /** ISO date the price (or URL, if pricePLN is undefined) was last verified. */
+  readonly verifiedAt: string;
+  /** Optional: SKU or product code for stable referencing. */
+  readonly sku?: string;
+}
+
+/** External info source (article, video, forum thread) used to verify content. */
+export interface VerifiedSource {
+  readonly title: string;
+  readonly url: string;
+  /** Domain shorthand for the badge: muratordom, budujemydom, youtube, etc. */
+  readonly domain: string;
+  /** ISO date the source was consulted. */
+  readonly consultedAt: string;
 }
 
 // ─── Project ──────────────────────────────────────────────────────────────────

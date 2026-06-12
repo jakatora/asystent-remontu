@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 import { formatCurrency } from '@/utils/calculator';
 import type { ToolItem } from '@/types/domain';
 import type { ToolRequirement } from '@/types/engine';
@@ -10,6 +11,7 @@ import type { ToolRequirement } from '@/types/engine';
 type AnyTool = ToolItem | ToolRequirement;
 
 export function ToolCard({ tool }: { tool: AnyTool }) {
+  const { t } = useLanguage();
   return (
     <View
       style={{
@@ -48,12 +50,12 @@ export function ToolCard({ tool }: { tool: AnyTool }) {
           </Txt>
           {!tool.required && (
             <View style={{ paddingHorizontal: 7, paddingVertical: 2, backgroundColor: Colors.surfaceAlt, borderRadius: 6 }}>
-              <Txt style={{ fontSize: 11, color: Colors.textMuted }}>opcjonalne</Txt>
+              <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('cmp.ToolCard.optional')}</Txt>
             </View>
           )}
           {tool.rentable && (
             <View style={{ paddingHorizontal: 7, paddingVertical: 2, backgroundColor: Colors.infoBg, borderRadius: 6 }}>
-              <Txt style={{ fontSize: 11, color: Colors.info }}>do wynajęcia</Txt>
+              <Txt style={{ fontSize: 11, color: Colors.info }}>{t('cmp.ToolCard.rentable')}</Txt>
             </View>
           )}
         </View>
@@ -68,12 +70,12 @@ export function ToolCard({ tool }: { tool: AnyTool }) {
           <View style={{ flexDirection: 'row', gap: 10, marginTop: 2 }}>
             {tool.estimatedBuyCostPLN && (
               <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-                Kup: ~{formatCurrency(tool.estimatedBuyCostPLN)}
+                {t('cmp.ToolCard.buy', { price: formatCurrency(tool.estimatedBuyCostPLN) })}
               </Txt>
             )}
             {tool.estimatedRentCostPLN && (
               <Txt style={{ fontSize: 12, color: Colors.info }}>
-                Wynajmij: ~{formatCurrency(tool.estimatedRentCostPLN)}
+                {t('cmp.ToolCard.rent', { price: formatCurrency(tool.estimatedRentCostPLN) })}
               </Txt>
             )}
           </View>

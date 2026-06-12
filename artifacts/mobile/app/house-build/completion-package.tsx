@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 import { investorDocsRepo } from '@/db/repositories/investor-docs.repo';
 import { COMPLETION_PACKAGE_ITEMS } from '@/features/house-build/completion-package';
 import type { CompletionPackageItem, InvestorDocStatus, ApplicabilityState } from '@/types/house-build';
@@ -12,25 +13,26 @@ import type { CompletionPackageItem, InvestorDocStatus, ApplicabilityState } fro
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const STATUS_CONFIG: Record<InvestorDocStatus, { label: string; color: string; bg: string; icon: string }> = {
-  'missing': { label: 'Brakuje', color: '#DC2626', bg: '#FEF2F2', icon: 'x-circle' },
-  'in-progress': { label: 'W trakcie', color: '#D97706', bg: '#FFFBEB', icon: 'clock' },
-  'ready': { label: 'Gotowe', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
-  'not-needed': { label: 'Nie dotyczy', color: Colors.textMuted, bg: '#F1F5F9', icon: 'minus-circle' },
-};
-
-const APPLICABILITY_LABELS: Record<ApplicabilityState, { label: string; color: string }> = {
-  'required': { label: 'Wymagane', color: '#DC2626' },
-  'likely-required': { label: 'Prawdopodobnie wymagane', color: '#D97706' },
-  'maybe-required': { label: 'Moze byc wymagane', color: '#7C3AED' },
-  'not-applicable': { label: 'Nie dotyczy', color: Colors.textMuted },
-  'unknown': { label: 'Do ustalenia', color: Colors.textMuted },
-};
-
 export default function CompletionPackageScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+
+  const STATUS_CONFIG: Record<InvestorDocStatus, { label: string; color: string; bg: string; icon: string }> = {
+    'missing': { label: t('hb.completionPackage.status.missing'), color: '#DC2626', bg: '#FEF2F2', icon: 'x-circle' },
+    'in-progress': { label: t('hb.completionPackage.status.inProgress'), color: '#D97706', bg: '#FFFBEB', icon: 'clock' },
+    'ready': { label: t('hb.completionPackage.status.ready'), color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
+    'not-needed': { label: t('hb.completionPackage.status.notNeeded'), color: Colors.textMuted, bg: '#F1F5F9', icon: 'minus-circle' },
+  };
+
+  const APPLICABILITY_LABELS: Record<ApplicabilityState, { label: string; color: string }> = {
+    'required': { label: t('hb.completionPackage.app.required'), color: '#DC2626' },
+    'likely-required': { label: t('hb.completionPackage.app.likelyRequired'), color: '#D97706' },
+    'maybe-required': { label: t('hb.completionPackage.app.maybeRequired'), color: '#7C3AED' },
+    'not-applicable': { label: t('hb.completionPackage.app.notApplicable'), color: Colors.textMuted },
+    'unknown': { label: t('hb.completionPackage.app.unknown'), color: Colors.textMuted },
+  };
 
   const [items, setItems] = useState<CompletionPackageItem[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -67,7 +69,7 @@ export default function CompletionPackageScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Pakiet zakonczeniowy' }} />
+      <Stack.Screen options={{ title: t('hb.completionPackage.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -78,13 +80,13 @@ export default function CompletionPackageScreen() {
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Pakiet zakonczeniowy</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.completionPackage.title')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              Co potrzebujesz przed zakonczeniem budowy lub wnioskiem o uzytkowanie
+              {t('hb.completionPackage.subtitle')}
             </Txt>
             <View style={{ marginTop: 10 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>Gotowosc</Txt>
+                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('hb.completionPackage.readiness')}</Txt>
                 <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT }}>{ready}/{total}</Txt>
               </View>
               <View style={{ height: 6, backgroundColor: '#DBEAFE', borderRadius: 3 }}>
@@ -94,7 +96,7 @@ export default function CompletionPackageScreen() {
             {missing > 0 && (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 }}>
                 <Feather name="alert-circle" size={12} color="#DC2626" />
-                <Txt style={{ fontSize: 11, color: '#DC2626' }}>{missing} brakujacych elementów</Txt>
+                <Txt style={{ fontSize: 11, color: '#DC2626' }}>{t('hb.completionPackage.missingCount', { count: missing })}</Txt>
               </View>
             )}
           </View>

@@ -7,6 +7,7 @@ import { formatCurrency } from '@/utils/calculator';
 import type { ShoppingItem } from '@/types/domain';
 import { TierBadge } from './TierBadge';
 import { getEffectivePrice, getEffectiveQuantity } from './helpers';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ShoppingItemCardProps {
   item: ShoppingItem;
@@ -37,6 +38,7 @@ export function ShoppingItemCard({
   onCancelEdit,
   onRemove,
 }: ShoppingItemCardProps) {
+  const { t } = useLanguage();
   const effectivePrice = getEffectivePrice(item);
   const effectiveQty = getEffectiveQuantity(item);
   const isCustomized = item.customPrice !== undefined || item.customQuantity !== undefined;
@@ -57,7 +59,7 @@ export function ShoppingItemCard({
 
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <View style={{ flex: 1, gap: 4 }}>
-            <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>Ilość ({item.unit})</Txt>
+            <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.quantity', { unit: item.unit })}</Txt>
             <TextInput
               value={editQty}
               onChangeText={onEditQty}
@@ -75,7 +77,7 @@ export function ShoppingItemCard({
             />
           </View>
           <View style={{ flex: 1, gap: 4 }}>
-            <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>Cena (PLN)</Txt>
+            <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.price')}</Txt>
             <TextInput
               value={editPrice}
               onChangeText={onEditPrice}
@@ -99,13 +101,13 @@ export function ShoppingItemCard({
             onPress={onSaveEdit}
             style={{ flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.primary, alignItems: 'center' }}
           >
-            <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Zapisz</Txt>
+            <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('cmp.ShoppingItemCard.save')}</Txt>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onCancelEdit}
             style={{ flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.surfaceAlt, alignItems: 'center' }}
           >
-            <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Anuluj</Txt>
+            <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.cancel')}</Txt>
           </TouchableOpacity>
         </View>
       </View>
@@ -157,7 +159,7 @@ export function ShoppingItemCard({
             <TierBadge tier={item.tier} />
             {isCustomized && (
               <View style={{ paddingHorizontal: 5, paddingVertical: 1, backgroundColor: Colors.warningBg, borderRadius: 4 }}>
-                <Txt style={{ fontSize: 9, color: Colors.warning }} w="semibold">edytowane</Txt>
+                <Txt style={{ fontSize: 9, color: Colors.warning }} w="semibold">{t('cmp.ShoppingItemCard.edited')}</Txt>
               </View>
             )}
           </View>
@@ -194,7 +196,7 @@ export function ShoppingItemCard({
           }}
         >
           <Feather name="edit-2" size={11} color={Colors.textSecondary} />
-          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>Edytuj</Txt>
+          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.edit')}</Txt>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -210,7 +212,7 @@ export function ShoppingItemCard({
           }}
         >
           <Feather name="home" size={11} color={Colors.textSecondary} />
-          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>Mam to</Txt>
+          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.haveIt')}</Txt>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -226,7 +228,7 @@ export function ShoppingItemCard({
           }}
         >
           <Feather name="x" size={11} color={Colors.danger} />
-          <Txt style={{ fontSize: 11, color: Colors.danger }}>Usuń</Txt>
+          <Txt style={{ fontSize: 11, color: Colors.danger }}>{t('cmp.ShoppingItemCard.remove')}</Txt>
         </TouchableOpacity>
       </View>
     </View>

@@ -4,6 +4,7 @@ import { router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useHouseBuild } from '@/context/HouseBuildContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import type {
@@ -31,6 +32,25 @@ const STEP_TITLES: Record<WizardStep, string> = {
 export default function CreateHouseBuildProject() {
   const insets = useSafeAreaInsets();
   const { createProject } = useHouseBuild();
+  const { t } = useLanguage();
+
+  const HOUSE_TYPE_OPTIONS: { value: HouseType; label: string }[] = [
+    { value: 'detached', label: t('hb.create.houseType.detached') },
+    { value: 'semi-detached', label: t('hb.create.houseType.semiDetached') },
+    { value: 'row-house', label: t('hb.create.houseType.rowHouse') },
+    { value: 'modular', label: t('hb.create.houseType.modular') },
+    { value: 'other', label: t('hb.create.houseType.other') },
+  ];
+  const CONFIDENCE_OPTIONS: { value: UserConfidenceLevel; label: string; description: string }[] = [
+    { value: 'beginner', label: t('hb.create.confidence.beginner'), description: t('hb.create.confidence.beginnerDesc') },
+    { value: 'some-experience', label: t('hb.create.confidence.someExperience'), description: t('hb.create.confidence.someExperienceDesc') },
+    { value: 'experienced', label: t('hb.create.confidence.experienced'), description: t('hb.create.confidence.experiencedDesc') },
+  ];
+  const PLANNING_MODE_OPTIONS: { value: PlanningMode; label: string; description: string }[] = [
+    { value: 'planning-only', label: t('hb.create.planningMode.planningOnly'), description: t('hb.create.planningMode.planningOnlyDesc') },
+    { value: 'planning-and-contractors', label: t('hb.create.planningMode.planningAndContractors'), description: t('hb.create.planningMode.planningAndContractorsDesc') },
+  ];
+
   const [step, setStep] = useState<WizardStep>('name');
 
   const [projectName, setProjectName] = useState('');
@@ -226,9 +246,9 @@ export default function CreateHouseBuildProject() {
           )}
 
           {step === 'confidence' && (
-            <StepCard title="Twoje doswiadczenie">
+            <StepCard title={t('hb.create.confidenceCard')}>
               <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginBottom: 16 }}>
-                Pomoze nam dostosowac wskazówki do Twojego poziomu
+                {t('hb.create.confidenceIntro')}
               </Txt>
               {CONFIDENCE_OPTIONS.map((opt) => (
                 <OptionCard
@@ -241,7 +261,7 @@ export default function CreateHouseBuildProject() {
               ))}
 
               <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginTop: 24, marginBottom: 10 }}>
-                Tryb planowania
+                {t('hb.create.planningModeLabel')}
               </Txt>
               {PLANNING_MODE_OPTIONS.map((opt) => (
                 <OptionCard
@@ -284,7 +304,7 @@ export default function CreateHouseBuildProject() {
             onPress={goBack}
             activeOpacity={0.8}
           >
-            <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>Wróc</Txt>
+            <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('hb.create.back')}</Txt>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -408,21 +428,3 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-const HOUSE_TYPE_OPTIONS: { value: HouseType; label: string }[] = [
-  { value: 'detached', label: 'Dom wolnostojacy' },
-  { value: 'semi-detached', label: 'Blizniak' },
-  { value: 'row-house', label: 'Szeregówka' },
-  { value: 'modular', label: 'Dom modulowy / prefabrykowany' },
-  { value: 'other', label: 'Inny' },
-];
-
-const CONFIDENCE_OPTIONS: { value: UserConfidenceLevel; label: string; description: string }[] = [
-  { value: 'beginner', label: 'Poczatkujacy', description: 'Buduje dom po raz pierwszy' },
-  { value: 'some-experience', label: 'Mam pewne doswiadczenie', description: 'Mam kontakt z budowa lub remontem' },
-  { value: 'experienced', label: 'Doswiadczony', description: 'Znam procesy budowlane' },
-];
-
-const PLANNING_MODE_OPTIONS: { value: PlanningMode; label: string; description: string }[] = [
-  { value: 'planning-only', label: 'Tylko planowanie', description: 'Chce planowac i sledzic etapy' },
-  { value: 'planning-and-contractors', label: 'Planowanie + wykonawcy', description: 'Chce tez szukac fachowców' },
-];

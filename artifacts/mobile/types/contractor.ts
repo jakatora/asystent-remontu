@@ -104,6 +104,12 @@ export interface ContractorProfile {
   readonly city: string;
   readonly serviceArea: ServiceArea;
   readonly specialties: ContractorSpecialty[];
+  /**
+   * Per-job specializations (Faza 5+). Optional — when present, FindProTab matches
+   * contractors against the renovation job's id; otherwise it falls back to category-level
+   * matching via `specialties[*].categoryId`.
+   */
+  readonly specializedJobIds?: readonly string[];
   readonly shortDescription: string;
   readonly longDescription?: string;
   readonly yearsExperience?: number;
@@ -233,6 +239,8 @@ export interface ContractorRegistration {
   readonly city: string;
   readonly serviceArea: ServiceArea;
   readonly specialties: ContractorSpecialty[];
+  /** Per-job specializations (Faza 5+). Mirrors ContractorProfile.specializedJobIds. */
+  readonly specializedJobIds?: readonly string[];
   readonly shortDescription: string;
   readonly longDescription?: string;
   readonly taxId?: string;

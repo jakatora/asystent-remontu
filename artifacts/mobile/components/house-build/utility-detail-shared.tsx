@@ -8,27 +8,29 @@ import { Colors } from '@/constants/colors';
 import { utilityPlansRepo } from '@/db/repositories/utility-plans.repo';
 import { UTILITY_GUIDANCE } from '@/features/house-build/utility-checklists';
 import type { UtilityType, UtilityConnectionPlan, UtilityConnectionStatus, UtilityChecklistItem, GasPurpose } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
 const STATUS_ORDER: UtilityConnectionStatus[] = ['not-planned', 'planning', 'application-prepared', 'conditions-received', 'agreement-signed', 'in-progress', 'connected', 'not-applicable'];
-const STATUS_LABELS: Record<UtilityConnectionStatus, string> = {
-  'not-planned': 'Nie zaplanowane',
-  'planning': 'Planowanie',
-  'application-prepared': 'Wniosek gotowy',
-  'conditions-received': 'Warunki otrzymane',
-  'agreement-signed': 'Umowa podpisana',
-  'in-progress': 'W realizacji',
-  'connected': 'Podlaczone',
-  'not-applicable': 'Nie dotyczy',
+const STATUS_LABEL_KEYS: Record<UtilityConnectionStatus, TranslationKey> = {
+  'not-planned': 'cmp.UtilityDetail.status.notPlanned',
+  'planning': 'cmp.UtilityDetail.status.planning',
+  'application-prepared': 'cmp.UtilityDetail.status.applicationPrepared',
+  'conditions-received': 'cmp.UtilityDetail.status.conditionsReceived',
+  'agreement-signed': 'cmp.UtilityDetail.status.agreementSigned',
+  'in-progress': 'cmp.UtilityDetail.status.inProgress',
+  'connected': 'cmp.UtilityDetail.status.connected',
+  'not-applicable': 'cmp.UtilityDetail.status.notApplicable',
 };
 
-const GAS_PURPOSE_LABELS: Record<GasPurpose, string> = {
-  'heating': 'Ogrzewanie',
-  'cooking': 'Gotowanie',
-  'both': 'Ogrzewanie i gotowanie',
-  'not-planned': 'Gaz nie jest planowany',
+const GAS_PURPOSE_KEYS: Record<GasPurpose, TranslationKey> = {
+  'heating': 'cmp.UtilityDetail.gas.heating',
+  'cooking': 'cmp.UtilityDetail.gas.cooking',
+  'both': 'cmp.UtilityDetail.gas.both',
+  'not-planned': 'cmp.UtilityDetail.gas.notPlanned',
 };
 
 export interface UtilityDetailConfig {
@@ -40,6 +42,7 @@ export interface UtilityDetailConfig {
 }
 
 export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig }) {
+  const { t } = useLanguage();
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
@@ -126,7 +129,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
   }, [projectId, plan, config.utilityType, loadData]);
 
   const completedCount = checklist.filter((c) => c.completed).length;
-  const statusLabel = plan ? STATUS_LABELS[plan.status] : 'Ladowanie...';
+  const statusLabel = plan ? t(STATUS_LABEL_KEYS[plan.status]) : t('cmp.UtilityDetail.loading');
 
   return (
     <>
@@ -158,7 +161,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
                 </Txt>
               </View>
               <Feather name="refresh-cw" size={12} color={Colors.textMuted} />
-              <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Stuknij, aby zmienic</Txt>
+              <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('cmp.UtilityDetail.tapToChange')}</Txt>
             </TouchableOpacity>
           </View>
 
@@ -167,7 +170,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
               backgroundColor: '#FFFBEB', borderRadius: 12, padding: 12, marginBottom: 16,
               borderWidth: 1, borderColor: '#FDE68A',
             }}>
-              <Txt w="semibold" style={{ fontSize: 12, color: '#92400E', marginBottom: 6 }}>Wskazowki dla inwestora</Txt>
+              <Txt w="semibold" style={{ fontSize: 12, color: '#92400E', marginBottom: 6 }}>{t('cmp.UtilityDetail.investorTips')}</Txt>
               {guidance.tips.map((tip, i) => (
                 <View key={i} style={{ flexDirection: 'row', gap: 6, marginBottom: 3 }}>
                   <Txt style={{ fontSize: 11, color: '#92400E' }}>-</Txt>
@@ -182,7 +185,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
             borderWidth: 1, borderColor: Colors.border,
           }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Dostawca / operator</Txt>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.UtilityDetail.provider')}</Txt>
               <TouchableOpacity onPress={() => { setProviderText(plan?.providerName ?? ''); setShowProviderEdit(true); }}>
                 <Feather name="edit-2" size={14} color={HB_ACCENT} />
               </TouchableOpacity>
@@ -191,21 +194,21 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
               <View>
                 <TextInput
                   style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border, marginBottom: 8 }}
-                  placeholder="Nazwa dostawcy..." placeholderTextColor={Colors.textMuted}
+                  placeholder={t('cmp.UtilityDetail.providerPlaceholder')} placeholderTextColor={Colors.textMuted}
                   value={providerText} onChangeText={setProviderText}
                 />
                 <View style={{ flexDirection: 'row', gap: 8 }}>
                   <TouchableOpacity style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }} onPress={handleSaveProvider}>
-                    <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>Zapisz</Txt>
+                    <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('cmp.UtilityDetail.save')}</Txt>
                   </TouchableOpacity>
                   <TouchableOpacity style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 8, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }} onPress={() => setShowProviderEdit(false)}>
-                    <Txt style={{ fontSize: 12, color: Colors.text }}>Anuluj</Txt>
+                    <Txt style={{ fontSize: 12, color: Colors.text }}>{t('cmp.UtilityDetail.cancel')}</Txt>
                   </TouchableOpacity>
                 </View>
               </View>
             ) : (
               <Txt style={{ fontSize: 13, color: plan?.providerName ? Colors.text : Colors.textMuted }}>
-                {plan?.providerName || 'Nie ustawiono — stuknij ikone edycji'}
+                {plan?.providerName || t('cmp.UtilityDetail.providerEmpty')}
               </Txt>
             )}
           </View>
@@ -216,7 +219,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
               borderWidth: 1, borderColor: Colors.border,
             }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Moc przylaczeniowa</Txt>
+                <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.UtilityDetail.connectionPower')}</Txt>
                 <TouchableOpacity onPress={() => { setPowerText(plan?.connectionPower ?? ''); setShowPowerEdit(true); }}>
                   <Feather name="edit-2" size={14} color={HB_ACCENT} />
                 </TouchableOpacity>
@@ -225,21 +228,21 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
                 <View>
                   <TextInput
                     style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border, marginBottom: 8 }}
-                    placeholder="np. 15 kW..." placeholderTextColor={Colors.textMuted}
+                    placeholder={t('cmp.UtilityDetail.powerPlaceholder')} placeholderTextColor={Colors.textMuted}
                     value={powerText} onChangeText={setPowerText}
                   />
                   <View style={{ flexDirection: 'row', gap: 8 }}>
                     <TouchableOpacity style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }} onPress={handleSavePower}>
-                      <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>Zapisz</Txt>
+                      <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('cmp.UtilityDetail.save')}</Txt>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 8, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }} onPress={() => setShowPowerEdit(false)}>
-                      <Txt style={{ fontSize: 12, color: Colors.text }}>Anuluj</Txt>
+                      <Txt style={{ fontSize: 12, color: Colors.text }}>{t('cmp.UtilityDetail.cancel')}</Txt>
                     </TouchableOpacity>
                   </View>
                 </View>
               ) : (
                 <Txt style={{ fontSize: 13, color: plan?.connectionPower ? Colors.text : Colors.textMuted }}>
-                  {plan?.connectionPower || 'Nie ustawiono'}
+                  {plan?.connectionPower || t('cmp.UtilityDetail.notSet')}
                 </Txt>
               )}
             </View>
@@ -250,9 +253,9 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
               backgroundColor: Colors.surface, borderRadius: 14, padding: 14, marginBottom: 12,
               borderWidth: 1, borderColor: Colors.border,
             }}>
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Cel przylacza gazowego</Txt>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>{t('cmp.UtilityDetail.gasPurpose')}</Txt>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
-                {(Object.keys(GAS_PURPOSE_LABELS) as GasPurpose[]).map((purpose) => (
+                {(Object.keys(GAS_PURPOSE_KEYS) as GasPurpose[]).map((purpose) => (
                   <TouchableOpacity
                     key={purpose}
                     style={{
@@ -262,7 +265,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
                     onPress={() => handleGasPurpose(purpose)}
                   >
                     <Txt style={{ fontSize: 11, color: plan?.gasPurpose === purpose ? '#fff' : Colors.text }}>
-                      {GAS_PURPOSE_LABELS[purpose]}
+                      {t(GAS_PURPOSE_KEYS[purpose])}
                     </Txt>
                   </TouchableOpacity>
                 ))}
@@ -281,15 +284,15 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
             >
               <Feather name={plan?.temporarySupply ? 'check-square' : 'square'} size={18} color={plan?.temporarySupply ? '#16A34A' : Colors.textMuted} />
               <View style={{ flex: 1 }}>
-                <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>Zasilanie tymczasowe placu budowy</Txt>
-                <Txt style={{ fontSize: 11, color: Colors.textMuted }}>Osobne od docelowego zasilania domu</Txt>
+                <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{t('cmp.UtilityDetail.temporarySupply')}</Txt>
+                <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('cmp.UtilityDetail.temporarySupplyHint')}</Txt>
               </View>
             </TouchableOpacity>
           )}
 
           <View style={{ marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Lista kontrolna</Txt>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.UtilityDetail.checklist')}</Txt>
               <Txt style={{ fontSize: 11, color: HB_ACCENT }}>{completedCount}/{checklist.length}</Txt>
             </View>
             {checklist.map((item) => (
@@ -313,7 +316,7 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
             borderWidth: 1, borderColor: Colors.border,
           }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Notatki</Txt>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.UtilityDetail.notes')}</Txt>
               <TouchableOpacity onPress={() => { setNotesText(plan?.notes ?? ''); setShowNotesEdit(true); }}>
                 <Feather name="edit-2" size={14} color={HB_ACCENT} />
               </TouchableOpacity>
@@ -322,28 +325,28 @@ export function UtilityDetailScreen({ config }: { config: UtilityDetailConfig })
               <View>
                 <TextInput
                   style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border, marginBottom: 8, minHeight: 60, textAlignVertical: 'top' }}
-                  placeholder="Notatki..." placeholderTextColor={Colors.textMuted}
+                  placeholder={t('cmp.UtilityDetail.notesPlaceholder')} placeholderTextColor={Colors.textMuted}
                   multiline value={notesText} onChangeText={setNotesText}
                 />
                 <View style={{ flexDirection: 'row', gap: 8 }}>
                   <TouchableOpacity style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }} onPress={handleSaveNotes}>
-                    <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>Zapisz</Txt>
+                    <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('cmp.UtilityDetail.save')}</Txt>
                   </TouchableOpacity>
                   <TouchableOpacity style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 8, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }} onPress={() => setShowNotesEdit(false)}>
-                    <Txt style={{ fontSize: 12, color: Colors.text }}>Anuluj</Txt>
+                    <Txt style={{ fontSize: 12, color: Colors.text }}>{t('cmp.UtilityDetail.cancel')}</Txt>
                   </TouchableOpacity>
                 </View>
               </View>
             ) : (
               <Txt style={{ fontSize: 13, color: plan?.notes ? Colors.text : Colors.textMuted }}>
-                {plan?.notes || 'Brak notatek'}
+                {plan?.notes || t('cmp.UtilityDetail.notesEmpty')}
               </Txt>
             )}
           </View>
 
           <View style={{ padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-              Wymagania i procedury zaleza od lokalnego operatora/dostawcy. Zweryfikuj szczegoly u swojego dostawcy.
+              {t('cmp.UtilityDetail.disclaimer')}
             </Txt>
           </View>
         </View>

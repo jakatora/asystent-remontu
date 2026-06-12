@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { MaterialLineItemPriced } from '@/types/pricing';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface MaterialPriceCardProps {
   item: MaterialLineItemPriced;
@@ -13,6 +14,7 @@ interface MaterialPriceCardProps {
 }
 
 export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCardProps) {
+  const { t } = useLanguage();
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const ref = item.materialRef;
@@ -27,9 +29,9 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
   };
 
   const categoryLabels: Record<string, string> = {
-    economy: 'Ekonom',
-    standard: 'Standard',
-    better: 'Premium',
+    economy: t('cmp.MaterialPriceCard.economy'),
+    standard: t('cmp.MaterialPriceCard.standard'),
+    better: t('cmp.MaterialPriceCard.premium'),
   };
 
   return (
@@ -81,7 +83,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
           {ref.pricePerPackage.toFixed(2)} PLN / {ref.packageSize} {ref.packageUnit}
         </Txt>
         <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-          × {item.packagesNeeded} op.
+          {t('cmp.MaterialPriceCard.packagesShort', { count: item.packagesNeeded })}
         </Txt>
       </View>
 
@@ -101,7 +103,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
               color: Colors.text,
               backgroundColor: Colors.surface,
             }}
-            placeholder="PLN/opakowanie"
+            placeholder={t('cmp.MaterialPriceCard.pricePlaceholder')}
           />
           <TouchableOpacity onPress={handleSave} style={{ padding: 8 }}>
             <Feather name="check" size={18} color={Colors.success} />
@@ -117,7 +119,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
           </Txt>
           {hasOverride && (
             <TouchableOpacity onPress={() => onReset(ref.id)} hitSlop={8}>
-              <Txt style={{ fontSize: 11, color: Colors.primary }}>Resetuj</Txt>
+              <Txt style={{ fontSize: 11, color: Colors.primary }}>{t('cmp.MaterialPriceCard.reset')}</Txt>
             </TouchableOpacity>
           )}
         </View>
@@ -125,12 +127,12 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
 
       <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-          {ref.storeName} · akt. {ref.lastUpdated}
+          {t('cmp.MaterialPriceCard.storeUpdated', { store: ref.storeName, date: ref.lastUpdated })}
         </Txt>
         {hasOverride && (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
             <Feather name="edit-3" size={9} color={Colors.primary} />
-            <Txt style={{ fontSize: 10, color: Colors.primary }}>Własna cena</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.primary }}>{t('cmp.MaterialPriceCard.customPrice')}</Txt>
           </View>
         )}
       </View>

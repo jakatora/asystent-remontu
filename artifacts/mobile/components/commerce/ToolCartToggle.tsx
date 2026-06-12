@@ -4,22 +4,23 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import type { ToolCartPreference } from '@/types/commerce';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ToolCartToggleProps {
   selected: ToolCartPreference;
   onSelect: (pref: ToolCartPreference) => void;
 }
 
-const OPTIONS: { key: ToolCartPreference; label: string; icon: string }[] = [
-  { key: 'materials_only', label: 'Tylko materiały', icon: 'package' },
-  { key: 'materials_and_required_tools', label: '+ wymagane narzędzia', icon: 'tool' },
-  { key: 'materials_and_all_tools', label: '+ wszystkie narzędzia', icon: 'layers' },
-];
-
 export function ToolCartToggle({ selected, onSelect }: ToolCartToggleProps) {
+  const { t } = useLanguage();
+  const OPTIONS: { key: ToolCartPreference; label: string; icon: string }[] = [
+    { key: 'materials_only', label: t('cmp.ToolCartToggle.materialsOnly'), icon: 'package' },
+    { key: 'materials_and_required_tools', label: t('cmp.ToolCartToggle.requiredTools'), icon: 'tool' },
+    { key: 'materials_and_all_tools', label: t('cmp.ToolCartToggle.allTools'), icon: 'layers' },
+  ];
   return (
     <View style={{ gap: 6 }}>
-      <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>Co dodać do koszyka?</Txt>
+      <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{t('cmp.ToolCartToggle.heading')}</Txt>
       <View style={{ gap: 6 }}>
         {OPTIONS.map((opt) => {
           const active = selected === opt.key;

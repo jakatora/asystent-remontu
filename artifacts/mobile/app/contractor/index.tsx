@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { CATEGORIES } from '@/data/categories';
 import { useContractor } from '@/context/ContractorContext';
+import { useLanguage } from '@/context/LanguageContext';
 import type { BudgetRange, OfferMode } from '@/types/contractor';
 import { BUDGET_RANGE_LABELS } from '@/types/contractor';
 
@@ -30,6 +31,7 @@ export default function ContractorRequestWizard() {
   }>();
   const insets = useSafeAreaInsets();
   const { getMatchCount, saveRequest } = useContractor();
+  const { t } = useLanguage();
 
   const [stepIdx, setStepIdx] = useState(0);
   const [categoryId, setCategoryId] = useState(prefillCategoryId ?? '');
@@ -84,8 +86,8 @@ export default function ContractorRequestWizard() {
         jobId: prefillJobId || undefined,
         jobName: jobName || undefined,
         roomDescription: roomDescription || undefined,
-        workDescription: workDescription || 'Szkic zapytania',
-        city: city || 'Nie podano',
+        workDescription: workDescription || t('contractor.index.draftWorkDescription'),
+        city: city || t('contractor.index.draftCity'),
         postalCode: postalCode || undefined,
         preferredDate: preferredDate || undefined,
         budgetRange,
@@ -139,14 +141,14 @@ export default function ContractorRequestWizard() {
     <>
       <Stack.Screen
         options={{
-          title: 'Znajdź fachowca',
-          headerBackTitle: 'Wróć',
+          title: t('contractor.index.screenTitle'),
+          headerBackTitle: t('contractor.index.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
           headerRight: () => (
             <TouchableOpacity onPress={handleSaveDraft} style={{ marginRight: 8 }}>
-              <Txt w="medium" style={{ fontSize: 14, color: Colors.primary }}>Zapisz szkic</Txt>
+              <Txt w="medium" style={{ fontSize: 14, color: Colors.primary }}>{t('contractor.index.saveDraft')}</Txt>
             </TouchableOpacity>
           ),
         }}
@@ -174,7 +176,7 @@ export default function ContractorRequestWizard() {
             />
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 4, textAlign: 'right' }}>
-            Krok {stepIdx + 1} z {STEPS.length}
+            {t('contractor.index.stepCounter', { current: stepIdx + 1, total: STEPS.length })}
           </Txt>
         </View>
 
@@ -192,20 +194,20 @@ export default function ContractorRequestWizard() {
           )}
           {step === 'room' && (
             <StepText
-              title="Jaki pokój lub obszar?"
-              hint="np. łazienka, kuchnia, salon, cały dom (opcjonalne)"
+              title={t('contractor.index.room.title')}
+              hint={t('contractor.index.room.hint')}
               value={roomDescription}
               onChangeText={setRoomDescription}
-              placeholder="Opisz pomieszczenie..."
+              placeholder={t('contractor.index.room.placeholder')}
             />
           )}
           {step === 'description' && (
             <StepText
-              title="Opisz co chcesz zrobić"
-              hint="Napisz krótko, np.: malowanie ścian i sufitu, wymiana paneli, remont łazienki"
+              title={t('contractor.index.description.title')}
+              hint={t('contractor.index.description.hint')}
               value={workDescription}
               onChangeText={setWorkDescription}
-              placeholder="Opisz zakres prac..."
+              placeholder={t('contractor.index.description.placeholder')}
               multiline
               minLength={10}
             />
@@ -220,11 +222,11 @@ export default function ContractorRequestWizard() {
           )}
           {step === 'date' && (
             <StepText
-              title="Preferowany termin (opcjonalne)"
-              hint="Wpisz orientacyjny termin rozpoczęcia prac"
+              title={t('contractor.index.date.title')}
+              hint={t('contractor.index.date.hint')}
               value={preferredDate}
               onChangeText={setPreferredDate}
-              placeholder="np. styczeń 2026, jak najszybciej..."
+              placeholder={t('contractor.index.date.placeholder')}
             />
           )}
           {step === 'budget' && (
@@ -282,7 +284,7 @@ export default function ContractorRequestWizard() {
             <View style={{ flex: 1, flexDirection: 'row', gap: 8 }}>
               <View style={{ flex: 1 }}>
                 <Button
-                  label="Pokaż fachowców"
+                  label={t('contractor.index.showContractors')}
                   variant="secondary"
                   onPress={handleShowResults}
                   fullWidth
@@ -290,7 +292,7 @@ export default function ContractorRequestWizard() {
               </View>
               <View style={{ flex: 1 }}>
                 <Button
-                  label="Wyślij zapytanie"
+                  label={t('contractor.index.sendRequest')}
                   variant="primary"
                   onPress={handleSendRequest}
                   loading={isSaving}
@@ -301,7 +303,7 @@ export default function ContractorRequestWizard() {
           ) : (
             <View style={{ flex: 1 }}>
               <Button
-                label="Dalej"
+                label={t('contractor.index.next')}
                 variant="primary"
                 onPress={handleNext}
                 disabled={!canGoNext()}
@@ -316,13 +318,14 @@ export default function ContractorRequestWizard() {
 }
 
 function StepCategory({ selected, onSelect }: { selected: string; onSelect: (id: string, name: string) => void }) {
+  const { t } = useLanguage();
   return (
     <View>
       <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>
-        Jakiego rodzaju pracy szukasz?
+        {t('contractor.index.category.title')}
       </Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        Wybierz kategorię, a my dopasujemy fachowców
+        {t('contractor.index.category.subtitle')}
       </Txt>
       <View style={{ gap: 8 }}>
         {CATEGORIES.map((cat) => (
@@ -386,6 +389,7 @@ function StepText({
   multiline?: boolean;
   minLength?: number;
 }) {
+  const { t } = useLanguage();
   return (
     <View>
       <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{title}</Txt>
@@ -411,7 +415,7 @@ function StepText({
       />
       {minLength !== undefined && value.length > 0 && value.length < minLength && (
         <Txt style={{ fontSize: 12, color: Colors.warning, marginTop: 6 }}>
-          Minimum {minLength} znaków ({value.length}/{minLength})
+          {t('contractor.index.minChars', { min: minLength, current: value.length })}
         </Txt>
       )}
     </View>
@@ -429,16 +433,17 @@ function StepLocation({
   onCityChange: (t: string) => void;
   onPostalChange: (t: string) => void;
 }) {
+  const { t } = useLanguage();
   return (
     <View>
-      <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Gdzie szukasz fachowca?</Txt>
+      <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.index.location.title')}</Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        Podaj miasto, abyśmy znaleźli fachowców w Twojej okolicy
+        {t('contractor.index.location.subtitle')}
       </Txt>
       <TextInput
         value={city}
         onChangeText={onCityChange}
-        placeholder="Miasto"
+        placeholder={t('contractor.index.location.cityPlaceholder')}
         placeholderTextColor={Colors.textMuted}
         style={{
           backgroundColor: Colors.surface,
@@ -455,7 +460,7 @@ function StepLocation({
       <TextInput
         value={postalCode}
         onChangeText={onPostalChange}
-        placeholder="Kod pocztowy (opcjonalnie)"
+        placeholder={t('contractor.index.location.postalPlaceholder')}
         placeholderTextColor={Colors.textMuted}
         keyboardType="numeric"
         style={{
@@ -474,12 +479,13 @@ function StepLocation({
 }
 
 function StepBudget({ selected, onSelect }: { selected: BudgetRange; onSelect: (b: BudgetRange) => void }) {
+  const { t } = useLanguage();
   const options: BudgetRange[] = ['any', 'low', 'medium', 'high'];
   return (
     <View>
-      <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Orientacyjny budżet</Txt>
+      <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.index.budget.title')}</Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        Pomoże to dopasować fachowców do Twoich oczekiwań (opcjonalne)
+        {t('contractor.index.budget.subtitle')}
       </Txt>
       <View style={{ gap: 8 }}>
         {options.map((b) => (
@@ -510,13 +516,14 @@ function StepBudget({ selected, onSelect }: { selected: BudgetRange; onSelect: (
 }
 
 function StepOfferMode({ selected, onSelect }: { selected: OfferMode; onSelect: (m: OfferMode) => void }) {
+  const { t } = useLanguage();
   return (
     <View>
       <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>
-        Jeden fachowiec czy kilka ofert?
+        {t('contractor.index.offers.title')}
       </Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        Możesz wybrać jednego fachowca lub poprosić o oferty od kilku
+        {t('contractor.index.offers.subtitle')}
       </Txt>
       <View style={{ gap: 8 }}>
         <TouchableOpacity
@@ -533,8 +540,8 @@ function StepOfferMode({ selected, onSelect }: { selected: OfferMode; onSelect: 
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
             <Feather name="user" size={20} color={selected === 'single' ? Colors.primary : Colors.textSecondary} />
             <View style={{ flex: 1 }}>
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>Jeden fachowiec</Txt>
-              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>Wybiorę sam/a z listy</Txt>
+              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('contractor.index.offers.singleTitle')}</Txt>
+              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('contractor.index.offers.singleDesc')}</Txt>
             </View>
             {selected === 'single' && <Feather name="check-circle" size={20} color={Colors.primary} />}
           </View>
@@ -553,8 +560,8 @@ function StepOfferMode({ selected, onSelect }: { selected: OfferMode; onSelect: 
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
             <Feather name="users" size={20} color={selected === 'multiple' ? Colors.primary : Colors.textSecondary} />
             <View style={{ flex: 1 }}>
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>Kilka ofert</Txt>
-              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>Wyślij zapytanie do wielu i porównaj</Txt>
+              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('contractor.index.offers.multipleTitle')}</Txt>
+              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('contractor.index.offers.multipleDesc')}</Txt>
             </View>
             {selected === 'multiple' && <Feather name="check-circle" size={20} color={Colors.primary} />}
           </View>
@@ -583,23 +590,24 @@ function StepSummary({
   offerMode: OfferMode;
   matchCount: number;
 }) {
+  const { t } = useLanguage();
   return (
     <View>
       <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>
-        Podsumowanie zapytania
+        {t('contractor.index.summary.title')}
       </Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        Sprawdź czy wszystko się zgadza
+        {t('contractor.index.summary.subtitle')}
       </Txt>
 
       <View style={{ backgroundColor: Colors.surface, borderRadius: 16, padding: 16, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
-        <SummaryRow label="Rodzaj pracy" value={categoryName || 'Nie wybrano'} />
-        {roomDescription ? <SummaryRow label="Pomieszczenie" value={roomDescription} /> : null}
-        <SummaryRow label="Opis" value={workDescription} />
-        <SummaryRow label="Lokalizacja" value={city} />
-        {preferredDate ? <SummaryRow label="Termin" value={preferredDate} /> : null}
-        <SummaryRow label="Budżet" value={BUDGET_RANGE_LABELS[budgetRange]} />
-        <SummaryRow label="Tryb" value={offerMode === 'single' ? 'Jeden fachowiec' : 'Kilka ofert'} />
+        <SummaryRow label={t('contractor.index.summary.workType')} value={categoryName || t('contractor.index.summary.notSelected')} />
+        {roomDescription ? <SummaryRow label={t('contractor.index.summary.room')} value={roomDescription} /> : null}
+        <SummaryRow label={t('contractor.index.summary.description')} value={workDescription} />
+        <SummaryRow label={t('contractor.index.summary.location')} value={city} />
+        {preferredDate ? <SummaryRow label={t('contractor.index.summary.date')} value={preferredDate} /> : null}
+        <SummaryRow label={t('contractor.index.summary.budget')} value={BUDGET_RANGE_LABELS[budgetRange]} />
+        <SummaryRow label={t('contractor.index.summary.mode')} value={offerMode === 'single' ? t('contractor.index.summary.modeSingle') : t('contractor.index.summary.modeMultiple')} />
       </View>
 
       <View
@@ -627,12 +635,12 @@ function StepSummary({
         </View>
         <View style={{ flex: 1 }}>
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-            {matchCount === 0 ? 'Brak dopasowań' : `Pasujących fachowców: ${matchCount}`}
+            {matchCount === 0 ? t('contractor.index.summary.noMatches') : t('contractor.index.summary.matchCount', { count: matchCount })}
           </Txt>
           <Txt style={{ fontSize: 12, color: Colors.primary }}>
             {matchCount === 0
-              ? 'Spróbuj zmienić kategorię lub lokalizację'
-              : 'Gotowi do przyjęcia Twojego zapytania'}
+              ? t('contractor.index.summary.noMatchesHint')
+              : t('contractor.index.summary.matchesHint')}
           </Txt>
         </View>
       </View>

@@ -5,12 +5,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
 export default function EnergyPlanningScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [targetEP, setTargetEP] = useState('');
@@ -21,7 +23,7 @@ export default function EnergyPlanningScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Planowanie energetyczne' }} />
+      <Stack.Screen options={{ title: t('hb.energyPlanning.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -39,10 +41,10 @@ export default function EnergyPlanningScreen() {
           }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
               <Feather name="thermometer" size={20} color={HB_ACCENT} />
-              <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>Standard energetyczny</Txt>
+              <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{t('hb.energyPlanning.heroTitle')}</Txt>
             </View>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, lineHeight: 20 }}>
-              Uzupelnij orientacyjne parametry energetyczne Twojego projektu. Wartosci powinny wynikac z obliczen projektanta.
+              {t('hb.energyPlanning.heroBody')}
             </Txt>
           </View>
 
@@ -58,56 +60,56 @@ export default function EnergyPlanningScreen() {
           }}>
             <Feather name="info" size={16} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 12, color: '#92400E', flex: 1 }}>
-              To arkusz pomocniczy — nie zastepuje obliczen energetycznych. Wartosci U i EP musza wynikac z projektu i obowiazujacych przepisów.
+              {t('hb.energyPlanning.disclaimer')}
             </Txt>
           </View>
 
           <EnergyField
-            label="Docelowy wskaznik EP [kWh/(m2*rok)]"
-            help="Wskaznik rocznego zapotrzebowania na energie pierwotna. Wymagania okreslone sa w WT."
+            label={t('hb.energyPlanning.epLabel')}
+            help={t('hb.energyPlanning.epHelp')}
             value={targetEP}
             onChange={setTargetEP}
-            placeholder="np. 70"
+            placeholder={t('hb.energyPlanning.epPlaceholder')}
             keyboardType="numeric"
           />
 
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginTop: 20, marginBottom: 12 }}>
-            Docelowe wspolczynniki U
+            {t('hb.energyPlanning.uSection')}
           </Txt>
 
           <EnergyField
-            label="Sciany zewnetrzne U [W/(m2*K)]"
-            help="Wspolczynnik przenikania ciepla scian. WT 2021: maks. 0,20."
+            label={t('hb.energyPlanning.wallLabel')}
+            help={t('hb.energyPlanning.wallHelp')}
             value={wallU}
             onChange={setWallU}
-            placeholder="np. 0.18"
+            placeholder={t('hb.energyPlanning.wallPlaceholder')}
             keyboardType="decimal-pad"
           />
 
           <EnergyField
-            label="Dach / stropodach U [W/(m2*K)]"
-            help="WT 2021: maks. 0,15 dla dachow."
+            label={t('hb.energyPlanning.roofLabel')}
+            help={t('hb.energyPlanning.roofHelp')}
             value={roofU}
             onChange={setRoofU}
-            placeholder="np. 0.12"
+            placeholder={t('hb.energyPlanning.roofPlaceholder')}
             keyboardType="decimal-pad"
           />
 
           <EnergyField
-            label="Podloga na gruncie U [W/(m2*K)]"
-            help="WT 2021: maks. 0,30."
+            label={t('hb.energyPlanning.floorLabel')}
+            help={t('hb.energyPlanning.floorHelp')}
             value={floorU}
             onChange={setFloorU}
-            placeholder="np. 0.25"
+            placeholder={t('hb.energyPlanning.floorPlaceholder')}
             keyboardType="decimal-pad"
           />
 
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginTop: 20, marginBottom: 12 }}>
-            Koncepcja ogrzewania i wentylacji
+            {t('hb.energyPlanning.heatingSection')}
           </Txt>
 
           <View style={{ marginBottom: 16 }}>
-            <Txt style={{ fontSize: 13, color: Colors.text, marginBottom: 6 }}>Notatki</Txt>
+            <Txt style={{ fontSize: 13, color: Colors.text, marginBottom: 6 }}>{t('hb.energyPlanning.notesLabel')}</Txt>
             <TextInput
               style={{
                 backgroundColor: Colors.surface,
@@ -123,7 +125,7 @@ export default function EnergyPlanningScreen() {
               multiline
               value={heatingNotes}
               onChangeText={setHeatingNotes}
-              placeholder="Np. pompa ciepla + rekuperacja, ogrzewanie podlogowe..."
+              placeholder={t('hb.energyPlanning.notesPlaceholder')}
               placeholderTextColor={Colors.textMuted}
             />
           </View>
@@ -136,13 +138,13 @@ export default function EnergyPlanningScreen() {
             borderWidth: 1,
             borderColor: '#BBF7D0',
           }}>
-            <Txt w="semibold" style={{ fontSize: 13, color: '#16A34A', marginBottom: 8 }}>Kluczowe zasady</Txt>
+            <Txt w="semibold" style={{ fontSize: 13, color: '#16A34A', marginBottom: 8 }}>{t('hb.energyPlanning.rulesTitle')}</Txt>
             {[
-              'Dom to jednolita powloka cieplna — ciaglоsc izolacji jest kluczowa.',
-              'Sciany, dach, podloga, okna i przejscia musza tworzyc ciagla izolacje.',
-              'Mostki cieplne (balkony, wience, okna) wymagaja swiadomych detali.',
-              'Decyzje dot. izolacji, ogrzewania i wentylacji planuj razem.',
-              'Grubosc izolacji musi wynikac z obliczen, nie z ogólnych porad.',
+              t('hb.energyPlanning.rule1'),
+              t('hb.energyPlanning.rule2'),
+              t('hb.energyPlanning.rule3'),
+              t('hb.energyPlanning.rule4'),
+              t('hb.energyPlanning.rule5'),
             ].map((note, i) => (
               <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 4 }}>
                 <Feather name="check" size={12} color="#16A34A" style={{ marginTop: 2 }} />
@@ -162,13 +164,13 @@ export default function EnergyPlanningScreen() {
           }}>
             <Feather name="shield" size={14} color={Colors.textMuted} style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 11, color: Colors.textMuted, flex: 1 }}>
-              Wartosci orientacyjne — szczególy potwierdz z projektem i obowiazujacymi Warunkami Technicznymi (WT).
+              {t('hb.energyPlanning.footnote')}
             </Txt>
           </View>
 
           <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Zrodlo: Warunki techniczne (WT 2021), Prawo budowlane</Txt>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Ostatnia weryfikacja: 2025-01-15</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.energyPlanning.source')}</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.energyPlanning.lastReviewed')}</Txt>
           </View>
         </View>
       </ScrollView>

@@ -21,45 +21,48 @@ import type {
   TimelineNoteType,
   ProfessionalNeedState,
 } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const STATUS_OPTIONS: { value: TimelineStageStatus; label: string; color: string }[] = [
-  { value: 'not-started', label: 'Nie rozpoczety', color: Colors.textMuted },
-  { value: 'in-progress', label: 'W trakcie', color: HB_ACCENT },
-  { value: 'waiting-for-verification', label: 'Oczekuje weryfikacji', color: '#D97706' },
-  { value: 'ready-for-next-stage', label: 'Gotowy do nastepnego', color: '#16A34A' },
-  { value: 'blocked', label: 'Zablokowany', color: '#DC2626' },
-  { value: 'completed', label: 'Zakonczony', color: '#16A34A' },
-  { value: 'skipped', label: 'Pominiety', color: Colors.textMuted },
+const STATUS_OPTIONS: { value: TimelineStageStatus; labelKey: TranslationKey; color: string }[] = [
+  { value: 'not-started', labelKey: 'hb.stagePlan.status.notStarted', color: Colors.textMuted },
+  { value: 'in-progress', labelKey: 'hb.stagePlan.status.inProgress', color: HB_ACCENT },
+  { value: 'waiting-for-verification', labelKey: 'hb.stagePlan.status.waitingForVerification', color: '#D97706' },
+  { value: 'ready-for-next-stage', labelKey: 'hb.stagePlan.status.readyForNextStage', color: '#16A34A' },
+  { value: 'blocked', labelKey: 'hb.stagePlan.status.blocked', color: '#DC2626' },
+  { value: 'completed', labelKey: 'hb.stagePlan.status.completed', color: '#16A34A' },
+  { value: 'skipped', labelKey: 'hb.stagePlan.status.skipped', color: Colors.textMuted },
 ];
 
-const MGMT_OPTIONS: { value: StageManagementMode; label: string }[] = [
-  { value: 'self', label: 'Wlasne zarzadzanie' },
-  { value: 'contractor', label: 'Wykonawca' },
-  { value: 'mixed', label: 'Mieszane' },
+const MGMT_OPTIONS: { value: StageManagementMode; labelKey: TranslationKey }[] = [
+  { value: 'self', labelKey: 'hb.stagePlan.mgmt.self' },
+  { value: 'contractor', labelKey: 'hb.stagePlan.mgmt.contractor' },
+  { value: 'mixed', labelKey: 'hb.stagePlan.mgmt.mixed' },
 ];
 
-const NEED_LABELS: Record<ProfessionalNeedState, { label: string; color: string }> = {
-  'not-decided': { label: 'Niezdecydowany', color: Colors.textMuted },
-  'has-contractor': { label: 'Mam wykonawce', color: '#16A34A' },
-  'search-later': { label: 'Szukam pózniej', color: '#D97706' },
-  'owner-managed': { label: 'Sam zarzadzam', color: HB_ACCENT },
+const NEED_LABELS: Record<ProfessionalNeedState, { labelKey: TranslationKey; color: string }> = {
+  'not-decided': { labelKey: 'hb.stagePlan.need.notDecided', color: Colors.textMuted },
+  'has-contractor': { labelKey: 'hb.stagePlan.need.hasContractor', color: '#16A34A' },
+  'search-later': { labelKey: 'hb.stagePlan.need.searchLater', color: '#D97706' },
+  'owner-managed': { labelKey: 'hb.stagePlan.need.ownerManaged', color: HB_ACCENT },
 };
 
-const NOTE_TYPES: { value: TimelineNoteType; label: string }[] = [
-  { value: 'weather-sensitive', label: 'Pogoda' },
-  { value: 'waiting-for-inspection', label: 'Inspekcja' },
-  { value: 'waiting-for-materials', label: 'Materialy' },
-  { value: 'waiting-for-contractor', label: 'Wykonawca' },
-  { value: 'decision-required', label: 'Decyzja' },
-  { value: 'custom', label: 'Inne' },
+const NOTE_TYPES: { value: TimelineNoteType; labelKey: TranslationKey }[] = [
+  { value: 'weather-sensitive', labelKey: 'hb.stagePlan.noteType.weather' },
+  { value: 'waiting-for-inspection', labelKey: 'hb.stagePlan.noteType.inspection' },
+  { value: 'waiting-for-materials', labelKey: 'hb.stagePlan.noteType.materials' },
+  { value: 'waiting-for-contractor', labelKey: 'hb.stagePlan.noteType.contractor' },
+  { value: 'decision-required', labelKey: 'hb.stagePlan.noteType.decision' },
+  { value: 'custom', labelKey: 'hb.stagePlan.noteType.custom' },
 ];
 
 export default function StagePlanScreen() {
   const { projectId, stageKey } = useLocalSearchParams<{ projectId: string; stageKey: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const stage = getStageByKey(stageKey);
@@ -113,13 +116,13 @@ export default function StagePlanScreen() {
         .map((s) => s.stageKey);
       const blocking = getBlockingStages(stageKey, done);
       if (blocking.length > 0) {
-        Alert.alert('Etap zablokowany', 'Najpierw zakoncz wczesniejsze etapy: ' + blocking.join(', '));
+        Alert.alert(t('hb.stagePlan.blockedTitle'), t('hb.stagePlan.blockedBody', { stages: blocking.join(', ') }));
         return;
       }
     }
     await timelineBudgetRepo.upsertTimelineStage(projectId, stageKey, { status });
     await loadData();
-  }, [projectId, stageKey, loadData]);
+  }, [projectId, stageKey, loadData, t]);
 
   const handleMgmtChange = useCallback(async (mode: StageManagementMode) => {
     if (!projectId) return;
@@ -208,7 +211,7 @@ export default function StagePlanScreen() {
                   }}
                   onPress={() => handleStatusChange(opt.value)}
                 >
-                  <Txt style={{ fontSize: 11, color: currentStatus === opt.value ? '#fff' : Colors.text }}>{opt.label}</Txt>
+                  <Txt style={{ fontSize: 11, color: currentStatus === opt.value ? '#fff' : Colors.text }}>{t(opt.labelKey)}</Txt>
                 </TouchableOpacity>
               ))}
             </View>
@@ -227,7 +230,7 @@ export default function StagePlanScreen() {
                 }}
                 onPress={() => handleMgmtChange(opt.value)}
               >
-                <Txt style={{ fontSize: 11, color: currentMgmt === opt.value ? '#fff' : Colors.text }}>{opt.label}</Txt>
+                <Txt style={{ fontSize: 11, color: currentMgmt === opt.value ? '#fff' : Colors.text }}>{t(opt.labelKey)}</Txt>
               </TouchableOpacity>
             ))}
           </View>
@@ -306,7 +309,7 @@ export default function StagePlanScreen() {
                       <Txt w="semibold" style={{ fontSize: 12, color: Colors.text }}>{p.label}</Txt>
                     </View>
                     <View style={{ backgroundColor: '#F8FAFC', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }}>
-                      <Txt style={{ fontSize: 9, color: needInfo.color }}>{needInfo.label}</Txt>
+                      <Txt style={{ fontSize: 9, color: needInfo.color }}>{t(needInfo.labelKey)}</Txt>
                     </View>
                   </TouchableOpacity>
                 );
@@ -474,7 +477,7 @@ export default function StagePlanScreen() {
                       }}
                       onPress={() => setNewNoteType(nt.value)}
                     >
-                      <Txt style={{ fontSize: 10, color: newNoteType === nt.value ? '#fff' : Colors.text }}>{nt.label}</Txt>
+                      <Txt style={{ fontSize: 10, color: newNoteType === nt.value ? '#fff' : Colors.text }}>{t(nt.labelKey)}</Txt>
                     </TouchableOpacity>
                   ))}
                 </View>

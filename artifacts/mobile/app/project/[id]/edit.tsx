@@ -11,6 +11,7 @@ import { useLocalSearchParams, router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/Button';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
@@ -74,6 +75,7 @@ export default function EditProjectScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
   const { projects, updateProject, logActivity } = useApp();
+  const { t } = useLanguage();
 
   const project = projects.find((p) => p.id === id);
 
@@ -98,7 +100,7 @@ export default function EditProjectScreen() {
   const handleSave = async () => {
     if (!project) return;
     if (!name.trim()) {
-      Alert.alert('Błąd', 'Nazwa projektu nie może być pusta.');
+      Alert.alert(t('project.edit.errorTitle'), t('project.edit.emptyNameError'));
       return;
     }
 
@@ -118,11 +120,11 @@ export default function EditProjectScreen() {
         notes: notes.trim() || undefined,
       });
 
-      await logActivity(project.id, 'edited', 'Edytowano dane projektu');
+      await logActivity(project.id, 'edited', t('project.edit.activityEdited'));
       router.back();
     } catch (err) {
       console.error('[EditProject] save error:', err);
-      Alert.alert('Błąd', 'Nie udało się zapisać zmian.');
+      Alert.alert(t('project.edit.errorTitle'), t('project.edit.saveError'));
     } finally {
       setSaving(false);
     }
@@ -132,7 +134,7 @@ export default function EditProjectScreen() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.background }}>
         <Txt w="medium" style={{ fontSize: 16, color: Colors.textSecondary }}>
-          Projekt nie znaleziony
+          {t('project.edit.notFound')}
         </Txt>
       </View>
     );
@@ -144,8 +146,8 @@ export default function EditProjectScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Edytuj projekt',
-          headerBackTitle: 'Wróć',
+          title: t('project.edit.title'),
+          headerBackTitle: t('project.edit.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -173,23 +175,23 @@ export default function EditProjectScreen() {
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
               <Feather name="edit-3" size={18} color={Colors.primary} />
-              <Txt w="bold" style={{ fontSize: 17, color: Colors.text }}>Informacje</Txt>
+              <Txt w="bold" style={{ fontSize: 17, color: Colors.text }}>{t('project.edit.infoSection')}</Txt>
             </View>
 
             <Field
-              label="Nazwa projektu"
+              label={t('project.edit.nameLabel')}
               icon="file-text"
               value={name}
               onChangeText={setName}
-              placeholder="np. Remont łazienki"
+              placeholder={t('project.edit.namePlaceholder')}
             />
 
             <Field
-              label="Notatki"
+              label={t('project.edit.notesLabel')}
               icon="message-square"
               value={notes}
               onChangeText={setNotes}
-              placeholder="Dodatkowe uwagi..."
+              placeholder={t('project.edit.notesPlaceholder')}
               multiline
             />
           </View>
@@ -206,21 +208,21 @@ export default function EditProjectScreen() {
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
               <Feather name="home" size={18} color={Colors.info} />
-              <Txt w="bold" style={{ fontSize: 17, color: Colors.text }}>Pomieszczenie</Txt>
+              <Txt w="bold" style={{ fontSize: 17, color: Colors.text }}>{t('project.edit.roomSection')}</Txt>
             </View>
 
             <Field
-              label="Nazwa pomieszczenia"
+              label={t('project.edit.roomNameLabel')}
               icon="map-pin"
               value={roomName}
               onChangeText={setRoomName}
-              placeholder="np. Łazienka, Salon, Kuchnia"
+              placeholder={t('project.edit.roomNamePlaceholder')}
             />
 
             <View style={{ flexDirection: 'row', gap: 12 }}>
               <View style={{ flex: 1 }}>
                 <Field
-                  label="Szerokość (m)"
+                  label={t('project.edit.widthLabel')}
                   icon="maximize-2"
                   value={roomWidth}
                   onChangeText={setRoomWidth}
@@ -230,7 +232,7 @@ export default function EditProjectScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <Field
-                  label="Długość (m)"
+                  label={t('project.edit.lengthLabel')}
                   icon="maximize-2"
                   value={roomLength}
                   onChangeText={setRoomLength}
@@ -241,11 +243,11 @@ export default function EditProjectScreen() {
             </View>
 
             <Field
-              label="Wysokość (m)"
+              label={t('project.edit.heightLabel')}
               icon="arrow-up"
               value={roomHeight}
               onChangeText={setRoomHeight}
-              placeholder="np. 2.5"
+              placeholder={t('project.edit.heightPlaceholder')}
               keyboardType="decimal-pad"
             />
 
@@ -265,7 +267,7 @@ export default function EditProjectScreen() {
                 >
                   <Feather name="grid" size={14} color={Colors.info} />
                   <Txt w="medium" style={{ fontSize: 13, color: Colors.info }}>
-                    Powierzchnia: {(parseFloat(roomWidth) * parseFloat(roomLength)).toFixed(1)} m²
+                    {t('project.edit.areaLabel', { area: (parseFloat(roomWidth) * parseFloat(roomLength)).toFixed(1) })}
                   </Txt>
                 </View>
               )}
@@ -273,13 +275,13 @@ export default function EditProjectScreen() {
 
           <View style={{ gap: 10 }}>
             <Button
-              label={saving ? 'Zapisywanie...' : 'Zapisz zmiany'}
+              label={saving ? t('project.edit.saving') : t('project.edit.saveCta')}
               onPress={handleSave}
               fullWidth
               icon={<Feather name="check" size={16} color="#fff" />}
             />
             <Button
-              label="Anuluj"
+              label={t('project.edit.cancelCta')}
               variant="outline"
               onPress={() => router.back()}
               fullWidth

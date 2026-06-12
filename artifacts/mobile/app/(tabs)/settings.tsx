@@ -3,12 +3,14 @@ import { View, ScrollView, TouchableOpacity, Alert, Platform, Linking } from 're
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { isSentryConfigured } from '@/lib/sentry';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
 import { APP_CONFIG } from '@/config/contact';
+import { LANGUAGES } from '@/constants/translations';
 
 interface SettingRowProps {
   icon: string;
@@ -90,43 +92,88 @@ function SectionLabel({ label }: { label: string }) {
   );
 }
 
+function LanguageRow({
+  nativeLabel,
+  label,
+  active,
+  onPress,
+}: {
+  nativeLabel: string;
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.7}
+      style={{ flexDirection: 'row', alignItems: 'center', padding: 14, gap: 14 }}
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+      accessibilityLabel={nativeLabel}
+    >
+      <View
+        style={{
+          width: 38,
+          height: 38,
+          borderRadius: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: active ? Colors.primaryBg : Colors.surfaceAlt,
+        }}
+      >
+        <Feather name="globe" size={18} color={active ? Colors.primary : Colors.textMuted} />
+      </View>
+      <View style={{ flex: 1 }}>
+        <Txt w="medium" style={{ fontSize: 15, color: Colors.text }}>
+          {nativeLabel}
+        </Txt>
+        <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 2 }}>{label}</Txt>
+      </View>
+      {active && <Feather name="check" size={18} color={Colors.primary} />}
+    </TouchableOpacity>
+  );
+}
+
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const { projects, refreshProjects } = useApp();
+  const { t, language, setLanguage } = useLanguage();
   const [isDeletingData, setIsDeletingData] = useState(false);
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
-  const projectWord = pluralize(projects.length, 'projekt zapisany', 'projekty zapisane', 'projektów zapisanych');
+  const projectWord = pluralize(
+    projects.length,
+    t('settings.projectWord.one'),
+    t('settings.projectWord.few'),
+    t('settings.projectWord.many')
+  );
 
   const handleAbout = () => {
     Alert.alert(
       APP_CONFIG.appName,
-      `Wersja ${APP_CONFIG.version}\n\nTwój przewodnik po remontach. Prowadzi krok po kroku, oblicza materiały i pomaga zaplanować każdy remont.\n\nDane przechowywane lokalnie na urządzeniu.`,
-      [{ text: 'OK' }]
+      t('settings.alert.about', { version: APP_CONFIG.version }),
+      [{ text: t('common.ok') }]
     );
   };
 
   const handleHelp = () => {
-    Alert.alert(
-      'Jak korzystać z aplikacji',
-      '1. Wybierz kategorię pracy z listy\n2. Podaj wymiary pomieszczenia\n3. Aplikacja obliczy potrzebne materiały\n4. Skorzystaj z listy zakupów\n5. Śledź postęp projektu',
-      [{ text: 'Rozumiem' }]
-    );
+    Alert.alert(t('settings.help.title'), t('settings.alert.help'), [
+      { text: t('common.understood') },
+    ]);
   };
 
   const handleSafety = () => {
-    Alert.alert(
-      'Zasady bezpieczeństwa',
-      '⚠️ Przed każdą pracą:\n\n• Przy elektryce — zawsze wyłącz bezpiecznik\n• Przy hydraulice — zakręć wodę\n• Przy gazie lub nośnych ścianach — zadzwoń do fachowca\n• Używaj okularów i rękawic ochronnych\n• Czytaj instrukcje produktów',
-      [{ text: 'Rozumiem' }]
-    );
+    Alert.alert(t('settings.safety.title'), t('settings.alert.safety'), [
+      { text: t('common.understood') },
+    ]);
   };
 
   const openUrl = (url: string) => {
     Linking.openURL(url).catch(() => {
-      Alert.alert('Błąd', 'Nie udało się otworzyć linku.');
+      Alert.alert(t('common.error'), t('settings.alert.openLinkError'));
     });
   };
 
@@ -137,7 +184,7 @@ export default function SettingsScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={{ paddingHorizontal: 20, marginBottom: 16 }}>
-        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Ustawienia</Txt>
+        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>{t('settings.title')}</Txt>
       </View>
 
       <View
@@ -175,43 +222,62 @@ export default function SettingsScreen() {
         </View>
       </View>
 
+      {LANGUAGES.length > 1 && (
+        <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+          <SectionLabel label={t('settings.section.language')} />
+          <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
+            {LANGUAGES.map((lang, idx) => (
+              <React.Fragment key={lang.code}>
+                {idx > 0 && <SettingDivider />}
+                <LanguageRow
+                  nativeLabel={lang.nativeLabel}
+                  label={lang.label}
+                  active={language === lang.code}
+                  onPress={() => setLanguage(lang.code)}
+                />
+              </React.Fragment>
+            ))}
+          </View>
+        </View>
+      )}
+
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label="Dane" />
+        <SectionLabel label={t('settings.section.data')} />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="folder"
-            title="Moje projekty"
-            subtitle={`${projects.length} ${projectWord} w pamięci urządzenia`}
+            title={t('settings.projects.title')}
+            subtitle={t('settings.projects.subtitle', { count: projects.length, word: projectWord })}
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
           />
           <SettingDivider />
           <SettingRow
             icon="shield"
-            title="Dane offline"
-            subtitle="Wszystkie dane są na Twoim urządzeniu"
+            title={t('settings.offline.title')}
+            subtitle={t('settings.offline.subtitle')}
             iconColor={Colors.success}
             iconBg={Colors.successBg}
-            badge="Aktywne"
+            badge={t('settings.offline.badge')}
           />
         </View>
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label="Synchronizacja" />
+        <SectionLabel label={t('settings.section.sync')} />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="cloud"
-            title="Synchronizacja z chmurą"
-            subtitle={isSupabaseConfigured ? 'Połączone z Supabase' : 'Niedostępne — brak konfiguracji'}
+            title={t('settings.cloud.title')}
+            subtitle={isSupabaseConfigured ? t('settings.cloud.connected') : t('settings.cloud.unavailable')}
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
           />
           <SettingDivider />
           <SettingRow
             icon="user"
-            title="Konto użytkownika"
-            subtitle="Zaloguj się aby synchronizować projekty"
+            title={t('settings.account.title')}
+            subtitle={t('settings.account.subtitle')}
             iconColor="#8B5CF6"
             iconBg="#F5F3FF"
           />
@@ -219,12 +285,12 @@ export default function SettingsScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label="Aplikacja" />
+        <SectionLabel label={t('settings.section.app')} />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="info"
-            title="O aplikacji"
-            subtitle={`Wersja ${APP_CONFIG.version}`}
+            title={t('settings.about.title')}
+            subtitle={t('settings.about.subtitle', { version: APP_CONFIG.version })}
             onPress={handleAbout}
             iconColor={Colors.secondary}
             iconBg={Colors.surfaceAlt}
@@ -232,8 +298,8 @@ export default function SettingsScreen() {
           <SettingDivider />
           <SettingRow
             icon="book-open"
-            title="Jak korzystać z aplikacji"
-            subtitle="Przewodnik po funkcjach"
+            title={t('settings.help.title')}
+            subtitle={t('settings.help.subtitle')}
             onPress={handleHelp}
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
@@ -241,8 +307,8 @@ export default function SettingsScreen() {
           <SettingDivider />
           <SettingRow
             icon="activity"
-            title="Raportowanie błędów"
-            subtitle={isSentryConfigured ? 'Sentry aktywne' : 'Wyłączone'}
+            title={t('settings.errors.title')}
+            subtitle={isSentryConfigured ? t('settings.errors.on') : t('settings.errors.off')}
             iconColor={Colors.warning}
             iconBg={Colors.warningBg}
           />
@@ -250,12 +316,12 @@ export default function SettingsScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label="Pomoc i prawne" />
+        <SectionLabel label={t('settings.section.helpLegal')} />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="help-circle"
-            title="Pomoc i wsparcie"
-            subtitle="FAQ, poradniki, kontakt"
+            title={t('settings.support.title')}
+            subtitle={t('settings.support.subtitle')}
             onPress={() => openUrl(APP_CONFIG.supportUrl)}
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
@@ -263,8 +329,8 @@ export default function SettingsScreen() {
           <SettingDivider />
           <SettingRow
             icon="lock"
-            title="Polityka prywatności"
-            subtitle="Jak chronimy Twoje dane"
+            title={t('settings.privacy.title')}
+            subtitle={t('settings.privacy.subtitle')}
             onPress={() => openUrl(APP_CONFIG.privacyUrl)}
             iconColor="#8B5CF6"
             iconBg="#F5F3FF"
@@ -272,8 +338,8 @@ export default function SettingsScreen() {
           <SettingDivider />
           <SettingRow
             icon="file-text"
-            title="Regulamin"
-            subtitle="Warunki korzystania z aplikacji"
+            title={t('settings.terms.title')}
+            subtitle={t('settings.terms.subtitle')}
             onPress={() => openUrl(APP_CONFIG.termsUrl)}
             iconColor="#0EA5E9"
             iconBg="#F0F9FF"
@@ -281,7 +347,7 @@ export default function SettingsScreen() {
           <SettingDivider />
           <SettingRow
             icon="mail"
-            title="Kontakt"
+            title={t('settings.contact.title')}
             subtitle={APP_CONFIG.supportEmail}
             onPress={() => openUrl(`mailto:${APP_CONFIG.supportEmail}`)}
             iconColor={Colors.primary}
@@ -291,12 +357,12 @@ export default function SettingsScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label="Bezpieczeństwo" />
+        <SectionLabel label={t('settings.section.safety')} />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="alert-triangle"
-            title="Zasady bezpieczeństwa"
-            subtitle="Ważne informacje przed pracami"
+            title={t('settings.safety.title')}
+            subtitle={t('settings.safety.subtitle')}
             onPress={handleSafety}
             iconColor={Colors.warning}
             iconBg={Colors.warningBg}
@@ -305,21 +371,21 @@ export default function SettingsScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label="Konto" />
+        <SectionLabel label={t('settings.section.account')} />
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="trash-2"
-            title="Usun wszystkie dane"
-            subtitle="Wyczysc wszystkie projekty i dane aplikacji"
+            title={t('settings.delete.title')}
+            subtitle={t('settings.delete.subtitle')}
             onPress={() => {
               if (isDeletingData) return;
               Alert.alert(
-                'Usun dane',
-                'Czy na pewno chcesz usunac wszystkie projekty i dane aplikacji? Tej operacji nie mozna cofnac.',
+                t('settings.delete.confirmTitle'),
+                t('settings.delete.confirmBody'),
                 [
-                  { text: 'Anuluj', style: 'cancel' },
+                  { text: t('common.cancel'), style: 'cancel' },
                   {
-                    text: 'Usun dane',
+                    text: t('settings.delete.confirmCta'),
                     style: 'destructive',
                     onPress: async () => {
                       setIsDeletingData(true);
@@ -346,10 +412,10 @@ export default function SettingsScreen() {
                           DELETE FROM house_build_projects;
                         `);
                         await refreshProjects();
-                        Alert.alert('Gotowe', 'Wszystkie dane zostaly usuniete.');
+                        Alert.alert(t('common.done'), t('settings.delete.successBody'));
                       } catch (err) {
                         console.error('[Settings] delete all data error:', err);
-                        Alert.alert('Blad', 'Nie udalo sie usunac danych. Sprobuj ponownie.');
+                        Alert.alert(t('common.error'), t('settings.delete.errorBody'));
                       } finally {
                         setIsDeletingData(false);
                       }
@@ -364,7 +430,7 @@ export default function SettingsScreen() {
       </View>
 
       <Txt style={{ textAlign: 'center', fontSize: 12, color: Colors.textMuted, marginBottom: 20 }}>
-        {APP_CONFIG.appName} v{APP_CONFIG.version} · Dane offline
+        {t('settings.footer', { appName: APP_CONFIG.appName, version: APP_CONFIG.version })}
       </Txt>
     </ScrollView>
   );

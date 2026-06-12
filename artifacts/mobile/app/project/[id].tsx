@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useApp } from '@/context/AppContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { getJobById } from '@/data/jobs';
 import { estimateBudget } from '@/features/calculator/budget';
 import { computePricedBudget } from '@/features/pricing';
@@ -26,7 +27,7 @@ import {
   getEffectivePrice,
   getEffectiveQuantity,
   buildShareText,
-  TAB_LABELS,
+  TAB_LABEL_KEYS,
   CONTINGENCY_RATE,
 } from '@/components/project';
 import type { Tab } from '@/components/project';
@@ -42,6 +43,7 @@ function safeNavigateAway() {
 export default function ProjectDetailScreen() {
   const { id, fromWizard } = useLocalSearchParams<{ id: string; fromWizard?: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const {
     projects,
     updateProject,
@@ -145,14 +147,14 @@ export default function ProjectDetailScreen() {
   const handleGenerateChecklist = async () => {
     if (!project || !job) return;
     await generateChecklist(project.id, job);
-    await logActivity(project.id, 'checklist_completed', 'Wygenerowano listę zadań');
+    await logActivity(project.id, 'checklist_completed', t('project.detail.activityChecklistGenerated'));
     await loadAll();
   };
 
   const handleToggleChecklist = async (item: ChecklistItem) => {
     await toggleChecklistItem(item.id, !item.completed);
     if (!item.completed && project) {
-      await logActivity(project.id, 'checklist_completed', `Ukończono: ${item.title}`);
+      await logActivity(project.id, 'checklist_completed', t('project.detail.activityChecklistDone', { title: item.title }));
     }
     await loadAll();
   };
@@ -160,19 +162,19 @@ export default function ProjectDetailScreen() {
   const handleStatusChange = async (status: 'planning' | 'in-progress' | 'completed') => {
     if (!project) return;
     await updateProject({ ...project, status });
-    await logActivity(project.id, 'status_changed', `Status zmieniony na: ${STATUS_LABELS[status]}`);
+    await logActivity(project.id, 'status_changed', t('project.detail.activityStatusChanged', { status: STATUS_LABELS[status] }));
     await loadAll();
   };
 
   const handleDelete = () => {
     if (isDeleting || !project) return;
     Alert.alert(
-      'Usuń projekt',
-      `Usunąć projekt "${project.name}"? Tej operacji nie można cofnąć.`,
+      t('project.detail.deleteTitle'),
+      t('project.detail.deleteBody', { name: project.name }),
       [
-        { text: 'Anuluj', style: 'cancel' },
+        { text: t('project.detail.deleteCancel'), style: 'cancel' },
         {
-          text: 'Usuń',
+          text: t('project.detail.deleteCta'),
           style: 'destructive',
           onPress: async () => {
             if (isDeleting) return;
@@ -180,12 +182,12 @@ export default function ProjectDetailScreen() {
             deletedRef.current = true;
             try {
               await removeProject(project.id);
-              Alert.alert('Gotowe', 'Projekt został usunięty.');
+              Alert.alert(t('project.detail.deleteSuccessTitle'), t('project.detail.deleteSuccessBody'));
               safeNavigateAway();
             } catch (e) {
               deletedRef.current = false;
               setIsDeleting(false);
-              Alert.alert('Błąd', 'Nie udało się usunąć projektu. Spróbuj ponownie.');
+              Alert.alert(t('project.detail.deleteErrorTitle'), t('project.detail.deleteErrorBody'));
             }
           },
         },
@@ -219,10 +221,10 @@ export default function ProjectDetailScreen() {
   };
 
   const handleRemoveItem = (item: ShoppingItem) => {
-    Alert.alert('Usuń', `Usunąć "${item.name}" z listy?`, [
-      { text: 'Anuluj', style: 'cancel' },
+    Alert.alert(t('project.detail.removeItemTitle'), t('project.detail.removeItemBody', { name: item.name }), [
+      { text: t('project.detail.removeItemCancel'), style: 'cancel' },
       {
-        text: 'Usuń',
+        text: t('project.detail.removeItemCta'),
         style: 'destructive',
         onPress: async () => { await removeShoppingItem(item.id); await loadAll(); },
       },
@@ -236,9 +238,9 @@ export default function ProjectDetailScreen() {
     const totalMat = materials.filter((i) => !i.owned).reduce((s, i) => s + getEffectivePrice(i), 0);
     const totalTool = tools.filter((i) => !i.owned).reduce((s, i) => s + getEffectivePrice(i), 0);
     const contingency = (totalMat + totalTool) * CONTINGENCY_RATE;
-    const text = buildShareText(project.name, materials, tools, totalMat, totalTool, contingency);
+    const text = buildShareText(project.name, materials, tools, totalMat, totalTool, contingency, t);
     try {
-      await Share.share({ message: text, title: `Lista zakupów: ${project.name}` });
+      await Share.share({ message: text, title: t('project.detail.shareTitle', { name: project.name }) });
     } catch (_e) { /* ignore */ }
   };
 
@@ -247,7 +249,7 @@ export default function ProjectDetailScreen() {
     try {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert('Brak uprawnień', 'Zezwól na dostęp do galerii w ustawieniach.');
+        Alert.alert(t('project.detail.noPermissionTitle'), t('project.detail.galleryPermission'));
         return;
       }
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -268,7 +270,7 @@ export default function ProjectDetailScreen() {
     try {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert('Brak uprawnień', 'Zezwól na dostęp do kamery w ustawieniach.');
+        Alert.alert(t('project.detail.noPermissionTitle'), t('project.detail.cameraPermission'));
         return;
       }
       const result = await ImagePicker.launchCameraAsync({ quality: 0.8 });
@@ -281,10 +283,10 @@ export default function ProjectDetailScreen() {
   };
 
   const handleDeletePhoto = (photo: import('@/types/domain').ProjectPhoto) => {
-    Alert.alert('Usuń zdjęcie', 'Na pewno usunąć to zdjęcie?', [
-      { text: 'Anuluj', style: 'cancel' },
+    Alert.alert(t('project.detail.deletePhotoTitle'), t('project.detail.deletePhotoBody'), [
+      { text: t('project.detail.deletePhotoCancel'), style: 'cancel' },
       {
-        text: 'Usuń',
+        text: t('project.detail.deletePhotoCta'),
         style: 'destructive',
         onPress: async () => { await removePhoto(photo.id); await loadAll(); },
       },
@@ -292,10 +294,10 @@ export default function ProjectDetailScreen() {
   };
 
   const handleAddPhotoMenu = (photoType: PhotoType) => {
-    Alert.alert('Dodaj zdjęcie', `Zdjęcie: ${PHOTO_TYPE_LABELS[photoType]}`, [
-      { text: 'Aparat', onPress: () => handleTakePhoto(photoType) },
-      { text: 'Galeria', onPress: () => handlePickPhoto(photoType) },
-      { text: 'Anuluj', style: 'cancel' },
+    Alert.alert(t('project.detail.addPhotoTitle'), t('project.detail.addPhotoBody', { type: PHOTO_TYPE_LABELS[photoType] }), [
+      { text: t('project.detail.addPhotoCamera'), onPress: () => handleTakePhoto(photoType) },
+      { text: t('project.detail.addPhotoGallery'), onPress: () => handlePickPhoto(photoType) },
+      { text: t('project.detail.addPhotoCancel'), style: 'cancel' },
     ]);
   };
 
@@ -306,7 +308,7 @@ export default function ProjectDetailScreen() {
       await loadAll();
     } catch (e) {
       console.error('[Pricing] override labor error:', e);
-      Alert.alert('Błąd', 'Nie udało się zapisać ceny robocizny.');
+      Alert.alert(t('project.detail.priceErrorTitle'), t('project.detail.laborPriceError'));
     }
   };
 
@@ -327,7 +329,7 @@ export default function ProjectDetailScreen() {
       await loadAll();
     } catch (e) {
       console.error('[Pricing] override material error:', e);
-      Alert.alert('Błąd', 'Nie udało się zapisać ceny materiału.');
+      Alert.alert(t('project.detail.priceErrorTitle'), t('project.detail.materialPriceError'));
     }
   };
 
@@ -344,14 +346,14 @@ export default function ProjectDetailScreen() {
   if (!project || !job) {
     return (
       <>
-        <Stack.Screen options={{ title: '', headerBackTitle: 'Wróć', headerStyle: { backgroundColor: Colors.background }, headerShadowVisible: false }} />
+        <Stack.Screen options={{ title: '', headerBackTitle: t('project.detail.headerBack'), headerStyle: { backgroundColor: Colors.background }, headerShadowVisible: false }} />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.background, gap: 16 }}>
           <Feather name="folder" size={40} color={Colors.textMuted} />
           <Txt w="medium" style={{ fontSize: 16, color: Colors.textSecondary }}>
-            {isDeleting ? 'Usuwanie projektu…' : 'Projekt nie znaleziony'}
+            {isDeleting ? t('project.detail.deleting') : t('project.detail.notFound')}
           </Txt>
           {!isDeleting && (
-            <Button label="Wróć do listy" onPress={safeNavigateAway} variant="outline" />
+            <Button label={t('project.detail.backToList')} onPress={safeNavigateAway} variant="outline" />
           )}
         </View>
       </>
@@ -363,7 +365,7 @@ export default function ProjectDetailScreen() {
   const nonOwnedItems = shoppingItems.filter((i) => !i.owned);
   const purchasedCount = nonOwnedItems.filter((i) => i.purchased).length;
   const isFirstTime = fromWizard === '1' && !welcomeDismissed;
-  const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended);
+  const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended, t);
   const budget = calc ? estimateBudget(job, calc.totalCost) : null;
 
   const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'budget', 'photos'];
@@ -412,7 +414,7 @@ export default function ProjectDetailScreen() {
       <Stack.Screen
         options={{
           title: project.name,
-          headerBackTitle: 'Wróć',
+          headerBackTitle: t('project.detail.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -439,29 +441,29 @@ export default function ProjectDetailScreen() {
           borderBottomColor: Colors.border,
         }}
       >
-        {TABS.map((t) => (
+        {TABS.map((tabId) => (
           <TouchableOpacity
-            key={t}
-            onPress={() => setTab(t)}
+            key={tabId}
+            onPress={() => setTab(tabId)}
             style={{
               flex: 1,
               paddingVertical: 12,
               alignItems: 'center',
               borderBottomWidth: 2,
-              borderBottomColor: tab === t ? Colors.primary : 'transparent',
+              borderBottomColor: tab === tabId ? Colors.primary : 'transparent',
             }}
           >
             <Txt
-              w={tab === t ? 'bold' : 'medium'}
+              w={tab === tabId ? 'bold' : 'medium'}
               style={{
                 fontSize: 10,
-                color: tab === t ? Colors.primary : Colors.textMuted,
+                color: tab === tabId ? Colors.primary : Colors.textMuted,
                 textAlign: 'center',
               }}
             >
-              {TAB_LABELS[t]}
-              {t === 'shopping' && shoppingItems.length > 0 ? ` (${shoppingItems.length})` : ''}
-              {t === 'photos' && photos.length > 0 ? ` (${photos.length})` : ''}
+              {t(TAB_LABEL_KEYS[tabId])}
+              {tabId === 'shopping' && shoppingItems.length > 0 ? ` (${shoppingItems.length})` : ''}
+              {tabId === 'photos' && photos.length > 0 ? ` (${photos.length})` : ''}
             </Txt>
           </TouchableOpacity>
         ))}
@@ -539,7 +541,7 @@ export default function ProjectDetailScreen() {
           <View style={{ alignItems: 'center', paddingVertical: 40, gap: 12 }}>
             <Feather name="dollar-sign" size={32} color={Colors.textMuted} />
             <Txt w="medium" style={{ fontSize: 14, color: Colors.textSecondary, textAlign: 'center' }}>
-              Kosztorys będzie dostępny po obliczeniu kalkulacji materiałów.
+              {t('project.detail.budgetEmpty')}
             </Txt>
           </View>
         )}

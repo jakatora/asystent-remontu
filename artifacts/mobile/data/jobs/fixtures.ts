@@ -1,4 +1,5 @@
 import type { RenovationJob } from '@/types/domain';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─── Shelf mounting ───────────────────────────────────────────────────────────
 
@@ -71,7 +72,7 @@ export const shelfMountingJob: RenovationJob = {
     },
   ],
   tools: [
-    { id: 'drill', name: 'Wiertarka z udarem', icon: 'tool', required: true },
+    { id: 'drill', name: 'Wiertarka z udarem (SDS)', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill },
     { id: 'level', name: 'Poziomica', icon: 'minus', required: true },
     { id: 'pencil', name: 'Ołówek i miarka', icon: 'edit-2', required: true },
     { id: 'detector', name: 'Detektor instalacji (przed wierceniem)', icon: 'radio', required: false, rentable: true, notes: 'Chroni przed przecięciem kabla lub rury' },
@@ -96,6 +97,16 @@ export const shelfMountingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['półka', 'montaż', 'wiercenie', 'wspornik'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Jak zamontować półkę na ścianie',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Curtain rod mounting ─────────────────────────────────────────────────────
@@ -153,7 +164,7 @@ export const curtainRodJob: RenovationJob = {
     },
   ],
   tools: [
-    { id: 'drill-rod', name: 'Wiertarka', icon: 'tool', required: true },
+    { id: 'drill-rod', name: 'Wiertarka (SDS-plus)', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill },
     { id: 'level-rod', name: 'Poziomica', icon: 'minus', required: true },
     { id: 'tape-measure', name: 'Miarka', icon: 'minus', required: true },
     { id: 'screwdriver-rod', name: 'Wkrętarka lub wkrętak', icon: 'tool', required: true },
@@ -175,6 +186,16 @@ export const curtainRodJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['karnisz', 'roleta', 'żaluzja', 'okno', 'zasłony'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Montaż karniszy i rolet — przewodnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Bathroom accessories ─────────────────────────────────────────────────────
@@ -231,9 +252,11 @@ export const bathroomAccessoriesJob: RenovationJob = {
     {
       id: 'silicone-accs',
       name: 'Silikon bezbarwny (uszczelnienie)',
+      brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
       unit: 'kartusze',
       formulaKey: 'constant',
       pricePerUnit: 18,
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
   ],
   tools: [
@@ -260,6 +283,16 @@ export const bathroomAccessoriesJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['łazienka', 'akcesoria', 'wieszak', 'uchwyt', 'montaż'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Akcesoria łazienkowe — montaż na płytkach',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Mirror installation ──────────────────────────────────────────────────────
@@ -324,7 +357,7 @@ export const mirrorInstallJob: RenovationJob = {
     },
   ],
   tools: [
-    { id: 'drill-mirror', name: 'Wiertarka', icon: 'tool', required: true },
+    { id: 'drill-mirror', name: 'Wiertarka (SDS-plus)', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill },
     { id: 'level-mirror', name: 'Poziomica', icon: 'minus', required: true },
     { id: 'caulk-gun-mirror', name: 'Pistolet do kleju (jeśli montaż klejem)', icon: 'tool', required: false },
     { id: 'suction-cup', name: 'Przyssawki do przenoszenia lustra', icon: 'circle', required: false, notes: 'Ułatwiają bezpieczne trzymanie dużych luster' },
@@ -347,6 +380,16 @@ export const mirrorInstallJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['lustro', 'montaż', 'łazienka', 'dekoracja'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Jak zamontować lustro w łazience',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Furniture assembly ───────────────────────────────────────────────────────
@@ -398,7 +441,7 @@ export const furnitureAssemblyJob: RenovationJob = {
     { id: 'hammer-furn', name: 'Młotek gumowy', icon: 'tool', required: false },
     { id: 'screwdriver-furn', name: 'Wkrętarka (przyspiesza pracę)', icon: 'tool', required: false, notes: 'Uważaj na moment — wkrętarki mogą rozkruszyć płytę wiórową' },
     { id: 'level-furn', name: 'Poziomica', icon: 'minus', required: true },
-    { id: 'drill-furn', name: 'Wiertarka (do mocowania do ściany)', icon: 'tool', required: true },
+    { id: 'drill-furn', name: 'Wiertarka (SDS-plus)', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill },
   ],
   instructions: [
     { step: 1, title: 'Sprawdź kompletność paczki', description: 'Policz wszystkie elementy i akcesoria wg listy w instrukcji. Stwórz „stację montażową" — wyłóż elementy na podłodze.', durationMin: 20 },
@@ -419,6 +462,16 @@ export const furnitureAssemblyJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['meble', 'montaż', 'szafa', 'komoda', 'ikea'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Montaż mebli z paczki — najlepsze praktyki',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Picture / decoration hanging ────────────────────────────────────────────
@@ -493,4 +546,14 @@ export const pictureHangingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['obraz', 'dekoracja', 'ściana', 'haczyk', 'wieszanie'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wieszanie obrazów — porady',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { LaborLineItem } from '@/types/pricing';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface LaborPriceCardProps {
   item: LaborLineItem;
@@ -13,6 +14,7 @@ interface LaborPriceCardProps {
 }
 
 export function LaborPriceCard({ item, onOverride, onReset }: LaborPriceCardProps) {
+  const { t } = useLanguage();
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const ref = item.laborRef;
@@ -41,7 +43,7 @@ export function LaborPriceCard({ item, onOverride, onReset }: LaborPriceCardProp
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1 }}>
           <Feather name="users" size={14} color={Colors.warning} />
           <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, flex: 1 }} numberOfLines={1}>
-            Robocizna
+            {t('cmp.LaborPriceCard.labor')}
           </Txt>
         </View>
         {!editing && (
@@ -95,7 +97,7 @@ export function LaborPriceCard({ item, onOverride, onReset }: LaborPriceCardProp
           </Txt>
           {hasOverride && (
             <TouchableOpacity onPress={() => onReset(ref.id)} hitSlop={8}>
-              <Txt style={{ fontSize: 11, color: Colors.primary }}>Resetuj</Txt>
+              <Txt style={{ fontSize: 11, color: Colors.primary }}>{t('cmp.LaborPriceCard.reset')}</Txt>
             </TouchableOpacity>
           )}
         </View>
@@ -103,12 +105,12 @@ export function LaborPriceCard({ item, onOverride, onReset }: LaborPriceCardProp
 
       <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-          Źródło: {ref.sourceName}
+          {t('cmp.LaborPriceCard.source', { name: ref.sourceName })}
         </Txt>
         {hasOverride && (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
             <Feather name="edit-3" size={9} color={Colors.primary} />
-            <Txt style={{ fontSize: 10, color: Colors.primary }}>Własna cena</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.primary }}>{t('cmp.LaborPriceCard.customPrice')}</Txt>
           </View>
         )}
       </View>

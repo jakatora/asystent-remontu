@@ -5,21 +5,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 import { BUILD_STAGES } from '@/features/house-build/stages';
 import { timelineBudgetRepo } from '@/db/repositories/timeline-budget.repo';
 import type { StageBudgetItem, StageCostCategory, BudgetCompletenessState } from '@/types/house-build';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
-
-const CATEGORY_LABELS: Record<StageCostCategory, string> = {
-  'design-formal': 'Projekt / formalnosci',
-  'labor': 'Robocizna',
-  'materials': 'Materialy',
-  'equipment-transport': 'Sprzet / transport',
-  'contingency': 'Rezerwa',
-  'custom': 'Inne',
-};
 
 const CATEGORY_COLORS: Record<StageCostCategory, string> = {
   'design-formal': '#7C3AED',
@@ -28,13 +20,6 @@ const CATEGORY_COLORS: Record<StageCostCategory, string> = {
   'equipment-transport': '#D97706',
   'contingency': '#DC2626',
   'custom': '#64748B',
-};
-
-const COMPLETENESS_LABELS: Record<BudgetCompletenessState, { label: string; color: string; bg: string }> = {
-  'no-estimate': { label: 'Brak wyceny', color: Colors.textMuted, bg: '#F1F5F9' },
-  'partial': { label: 'Czesciowa', color: '#D97706', bg: '#FFFBEB' },
-  'complete-planning': { label: 'Kompletna (planowanie)', color: '#2563EB', bg: '#EFF6FF' },
-  'user-confirmed': { label: 'Potwierdzona', color: '#16A34A', bg: '#F0FDF4' },
 };
 
 function getStageCompleteness(items: StageBudgetItem[]): BudgetCompletenessState {
@@ -49,7 +34,24 @@ function getStageCompleteness(items: StageBudgetItem[]): BudgetCompletenessState
 export default function BudgetScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+
+  const CATEGORY_LABELS: Record<StageCostCategory, string> = {
+    'design-formal': t('hb.budget.cat.designFormal'),
+    'labor': t('hb.budget.cat.labor'),
+    'materials': t('hb.budget.cat.materials'),
+    'equipment-transport': t('hb.budget.cat.equipmentTransport'),
+    'contingency': t('hb.budget.cat.contingency'),
+    'custom': t('hb.budget.cat.custom'),
+  };
+
+  const COMPLETENESS_LABELS: Record<BudgetCompletenessState, { label: string; color: string; bg: string }> = {
+    'no-estimate': { label: t('hb.budget.completeness.noEstimate'), color: Colors.textMuted, bg: '#F1F5F9' },
+    'partial': { label: t('hb.budget.completeness.partial'), color: '#D97706', bg: '#FFFBEB' },
+    'complete-planning': { label: t('hb.budget.completeness.completePlanning'), color: '#2563EB', bg: '#EFF6FF' },
+    'user-confirmed': { label: t('hb.budget.completeness.userConfirmed'), color: '#16A34A', bg: '#F0FDF4' },
+  };
 
   const [budgetItems, setBudgetItems] = useState<StageBudgetItem[]>([]);
   const [expandedStage, setExpandedStage] = useState<string | null>(null);
@@ -98,9 +100,9 @@ export default function BudgetScreen() {
   }, [projectId, addingTo, newLabel, newLow, newHigh, newCategory, loadData]);
 
   const handleDeleteItem = useCallback(async (id: string) => {
-    Alert.alert('Usun pozycje', 'Czy na pewno?', [
-      { text: 'Anuluj', style: 'cancel' },
-      { text: 'Usun', style: 'destructive', onPress: async () => {
+    Alert.alert(t('hb.budget.deleteItemTitle'), t('hb.budget.deleteItemBody'), [
+      { text: t('hb.budget.cancelCta'), style: 'cancel' },
+      { text: t('hb.budget.deleteCta'), style: 'destructive', onPress: async () => {
         await timelineBudgetRepo.deleteBudgetItem(id);
         await loadData();
       }},
@@ -111,7 +113,7 @@ export default function BudgetScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Budzet budowy' }} />
+      <Stack.Screen options={{ title: t('hb.budget.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -127,22 +129,22 @@ export default function BudgetScreen() {
             borderColor: '#BFDBFE',
             marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Budzet budowy</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.budget.title')}</Txt>
             <View style={{ marginTop: 12, gap: 6 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>Szacowany zakres</Txt>
+                <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{t('hb.budget.estimatedRange')}</Txt>
                 <Txt w="bold" style={{ fontSize: 15, color: HB_ACCENT }}>
                   {formatAmount(grandTotalLow)} - {formatAmount(grandTotalHigh)} zl
                 </Txt>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>Etapów z wycena</Txt>
-                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{estimatedStages} z {BUILD_STAGES.length}</Txt>
+                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('hb.budget.stagesWithEstimate')}</Txt>
+                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('hb.budget.estimatedOf', { done: estimatedStages, total: BUILD_STAGES.length })}</Txt>
               </View>
               {unestimatedStages > 0 && (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 4 }}>
                   <Feather name="alert-circle" size={12} color="#D97706" />
-                  <Txt style={{ fontSize: 11, color: '#D97706' }}>{unestimatedStages} etapów bez wyceny</Txt>
+                  <Txt style={{ fontSize: 11, color: '#D97706' }}>{t('hb.budget.unestimated', { count: unestimatedStages })}</Txt>
                 </View>
               )}
             </View>
@@ -154,7 +156,7 @@ export default function BudgetScreen() {
           }}>
             <Feather name="info" size={14} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 11, color: '#92400E', flex: 1 }}>
-              To planistyczny szacunek budzetowy — nie stanowi oferty ani gwarancji kosztu. Ostateczne kwoty zaleza od projektu, lokalizacji, wykonawcy i aktualnych cen.
+              {t('hb.budget.disclaimerTop')}
             </Txt>
           </View>
 
@@ -168,8 +170,8 @@ export default function BudgetScreen() {
           >
             <Feather name="tag" size={14} color="#059669" />
             <View style={{ flex: 1 }}>
-              <Txt w="semibold" style={{ fontSize: 12, color: '#059669' }}>Przegladaj ceny referencyjne</Txt>
-              <Txt style={{ fontSize: 10, color: '#064E3B' }}>Referencyjne zakresy cenowe, stawki regionalne, koszty przylacz</Txt>
+              <Txt w="semibold" style={{ fontSize: 12, color: '#059669' }}>{t('hb.budget.pricingCta')}</Txt>
+              <Txt style={{ fontSize: 10, color: '#064E3B' }}>{t('hb.budget.pricingSubtitle')}</Txt>
             </View>
             <Feather name="chevron-right" size={14} color="#059669" />
           </TouchableOpacity>
@@ -200,7 +202,7 @@ export default function BudgetScreen() {
                           <Txt style={{ fontSize: 9, color: ci.color }}>{ci.label}</Txt>
                         </View>
                         {items.length > 0 && (
-                          <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{items.length} pozycji</Txt>
+                          <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.budget.itemsCount', { count: items.length })}</Txt>
                         )}
                       </View>
                     </View>
@@ -259,7 +261,7 @@ export default function BudgetScreen() {
                       }}>
                         <TextInput
                           style={{ backgroundColor: '#fff', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, marginBottom: 8, borderWidth: 1, borderColor: Colors.border }}
-                          placeholder="Nazwa pozycji"
+                          placeholder={t('hb.budget.newLabelPlaceholder')}
                           placeholderTextColor={Colors.textMuted}
                           value={newLabel}
                           onChangeText={setNewLabel}
@@ -267,7 +269,7 @@ export default function BudgetScreen() {
                         <View style={{ flexDirection: 'row', gap: 8, marginBottom: 8 }}>
                           <TextInput
                             style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
-                            placeholder="Od (zl)"
+                            placeholder={t('hb.budget.fromPlaceholder')}
                             placeholderTextColor={Colors.textMuted}
                             keyboardType="numeric"
                             value={newLow}
@@ -275,7 +277,7 @@ export default function BudgetScreen() {
                           />
                           <TextInput
                             style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
-                            placeholder="Do (zl)"
+                            placeholder={t('hb.budget.toPlaceholder')}
                             placeholderTextColor={Colors.textMuted}
                             keyboardType="numeric"
                             value={newHigh}
@@ -305,13 +307,13 @@ export default function BudgetScreen() {
                             style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center' }}
                             onPress={handleAddItem}
                           >
-                            <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Dodaj</Txt>
+                            <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.budget.addCta')}</Txt>
                           </TouchableOpacity>
                           <TouchableOpacity
                             style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }}
                             onPress={() => setAddingTo(null)}
                           >
-                            <Txt style={{ fontSize: 13, color: Colors.text }}>Anuluj</Txt>
+                            <Txt style={{ fontSize: 13, color: Colors.text }}>{t('hb.budget.cancelCta')}</Txt>
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -322,7 +324,7 @@ export default function BudgetScreen() {
                       >
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                           <Feather name="plus" size={14} color={HB_ACCENT} />
-                          <Txt style={{ fontSize: 12, color: HB_ACCENT }}>Dodaj pozycje kosztowa</Txt>
+                          <Txt style={{ fontSize: 12, color: HB_ACCENT }}>{t('hb.budget.addCostItem')}</Txt>
                         </View>
                       </TouchableOpacity>
                     )}
@@ -334,7 +336,7 @@ export default function BudgetScreen() {
 
           <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-              Szacunki kosztowe sa orientacyjne. Dokaldne ceny zaleza od projektu, regionu, wykonawcy i aktualnych cen materialów. Przytrzymaj pozycje, aby ja usunac.
+              {t('hb.budget.disclaimerBottom')}
             </Txt>
           </View>
         </View>

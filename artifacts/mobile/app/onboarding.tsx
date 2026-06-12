@@ -6,55 +6,53 @@ import { Feather } from '@expo/vector-icons';
 import { Button } from '@/components/ui/Button';
 import { Txt } from '@/components/ui/Txt';
 import { useApp } from '@/context/AppContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { Colors } from '@/constants/colors';
 
 const { width } = Dimensions.get('window');
 
-const SLIDES = [
-  {
-    id: '1',
-    icon: 'home' as const,
-    title: 'Witaj w Remont Asystent',
-    description:
-      'Twój przewodnik po remontach.\nProwadzimy Cię krok po kroku — nawet jeśli nigdy nie robiłeś remontu.',
-    color: Colors.primary,
-    bgColor: Colors.primaryBg,
-  },
-  {
-    id: '2',
-    icon: 'bar-chart-2' as const,
-    title: 'Precyzyjne obliczenia',
-    description:
-      'Podaj wymiary pokoju — my obliczymy ile farby, paneli czy kleju potrzebujesz. Zero zgadywania, zero marnowania.',
-    color: Colors.info,
-    bgColor: Colors.infoBg,
-  },
-  {
-    id: '3',
-    icon: 'shopping-cart' as const,
-    title: 'Gotowa lista zakupów',
-    description:
-      'Lista zakupów z cenami i ilościami. Odhaczaj produkty w sklepie — niczego nie zapomnisz.',
-    color: Colors.success,
-    bgColor: Colors.successBg,
-  },
-  {
-    id: '4',
-    icon: 'shield' as const,
-    title: 'Bezpieczeństwo',
-    description:
-      'Wyraźnie pokażemy co możesz zrobić sam, a kiedy lepiej wezwać fachowca. Twoje bezpieczeństwo jest najważniejsze.',
-    color: Colors.warning,
-    bgColor: Colors.warningBg,
-  },
-];
-
 export default function OnboardingScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const { completeOnboarding } = useApp();
+
+  const SLIDES = [
+    {
+      id: '1',
+      icon: 'home' as const,
+      title: t('onboarding.slide1.title'),
+      description: t('onboarding.slide1.description'),
+      color: Colors.primary,
+      bgColor: Colors.primaryBg,
+    },
+    {
+      id: '2',
+      icon: 'bar-chart-2' as const,
+      title: t('onboarding.slide2.title'),
+      description: t('onboarding.slide2.description'),
+      color: Colors.info,
+      bgColor: Colors.infoBg,
+    },
+    {
+      id: '3',
+      icon: 'shopping-cart' as const,
+      title: t('onboarding.slide3.title'),
+      description: t('onboarding.slide3.description'),
+      color: Colors.success,
+      bgColor: Colors.successBg,
+    },
+    {
+      id: '4',
+      icon: 'shield' as const,
+      title: t('onboarding.slide4.title'),
+      description: t('onboarding.slide4.description'),
+      color: Colors.warning,
+      bgColor: Colors.warningBg,
+    },
+  ];
 
   const isLast = currentIndex === SLIDES.length - 1;
 
@@ -84,7 +82,7 @@ export default function OnboardingScreen() {
       <View style={{ paddingHorizontal: 16, height: 48, alignItems: 'flex-end', justifyContent: 'center' }}>
         {!isLast && (
           <Button
-            label="Pomiń"
+            label={t('onboarding.skip')}
             variant="ghost"
             size="sm"
             onPress={handleSkip}
@@ -176,7 +174,7 @@ export default function OnboardingScreen() {
 
       <View style={{ paddingHorizontal: 24 }}>
         <Button
-          label={isLast ? 'Zacznij korzystać' : 'Dalej'}
+          label={isLast ? t('onboarding.start') : t('onboarding.next')}
           onPress={handleNext}
           size="lg"
           fullWidth

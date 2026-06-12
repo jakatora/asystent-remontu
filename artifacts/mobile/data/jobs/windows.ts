@@ -1,5 +1,6 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DOORS & WINDOWS JOB GROUP
@@ -54,11 +55,13 @@ export const windowSealingJob: RenovationJob = {
     {
       id: 'silicone-window',
       name: 'Silikon akrylowy biały (do wnętrza)',
+      brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
       unit: 'kartusze',
       formulaKey: 'silicone',
       pricePerUnit: 18,
       category: 'uszczelnienie',
       notes: 'Do uszczelnienia styku ościeżnicy ze ścianą od wewnątrz.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'window-tape',
@@ -96,6 +99,16 @@ export const windowSealingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['okna', 'uszczelnienie', 'pianka', 'izolacja', 'przeciągi'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Uszczelnienie okien — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Parapet wewnętrzny ───────────────────────────────────────────────────────
@@ -143,11 +156,13 @@ export const windowsillJob: RenovationJob = {
     },
     {
       id: 'windowsill-silicone',
-      name: 'Silikon akrylowy (uszczelnienie krawędzi)',
+      name: 'Silikon akrylowy biały (uszczelnienie krawędzi)',
+      brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
       unit: 'kartusze',
       formula: formulaBuilder.fixed(1),
       pricePerUnit: 18,
       category: 'uszczelnienie',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'windowsill-endcap',
@@ -179,6 +194,16 @@ export const windowsillJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['okna', 'parapet', 'PVC', 'montaż'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Montaż parapetu wewnętrznego — krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Malowanie ościeżnic i ram ────────────────────────────────────────────────
@@ -247,16 +272,18 @@ export const paintFramesJob: RenovationJob = {
     {
       id: 'frame-tape',
       name: 'Taśma malarska',
+      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
       unit: 'rolka',
       formula: formulaBuilder.fixed(1),
       pricePerUnit: 8,
       category: 'akcesoria',
       notes: 'Do zabezpieczenia ściany i szyb.',
+      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
     },
   ],
   tools: [
     { id: 'brush-narrow', name: 'Pędzel wąski 2,5–4 cm', icon: 'edit-3', required: true, notes: 'Do ościeżnic i profili', estimatedBuyCostPLN: 15 },
-    { id: 'brush-flat', name: 'Pędzel płaski 5 cm', icon: 'edit-2', required: true },
+    { id: 'brush-flat', name: 'Pędzel płaski 5 cm', icon: 'edit-2', required: true, shopPrices: SHARED_SHOP_PRICES.brush50mm },
     { id: 'sandpaper-frame', name: 'Papier ścierny 120 i 240', icon: 'layers', required: true },
     { id: 'masking-tape-frame', name: 'Taśma malarska', icon: 'minus', required: true },
     { id: 'rag', name: 'Szmata do ścierania pyłu', icon: 'square', required: true },
@@ -294,6 +321,16 @@ export const paintFramesJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['ościeżnica', 'malowanie', 'lakier', 'drzwi', 'okna'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Malowanie ościeżnic — instrukcja',
+      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Wykończenie progu i maskownicy ───────────────────────────────────────────
@@ -323,6 +360,7 @@ export const trimFinishingJob: RenovationJob = {
     {
       id: 'door-trim',
       name: 'Maskownica/obudowa ościeżnicy MDF',
+      brand: 'Arbiton Laque MDF 60 mm × 2.4 m biała (referencja, można użyć takich samych listew co przypodłogowe)',
       unit: 'm.b.',
       formulaKey: 'byPerimeter',
       wasteFactor: 1.1,
@@ -331,6 +369,7 @@ export const trimFinishingJob: RenovationJob = {
       pricePerUnit: 12,
       category: 'maskownice',
       notes: 'Nakrywka zakrywa szczelinę między ościeżnicą a ścianą.',
+      shopPrices: SHARED_SHOP_PRICES.baseboardMDF60mm,
     },
     {
       id: 'door-threshold',
@@ -352,12 +391,14 @@ export const trimFinishingJob: RenovationJob = {
     {
       id: 'trim-silicone',
       name: 'Silikon akrylowy (do malowania)',
+      brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
       unit: 'kartusze',
       formula: formulaBuilder.fixed(1),
       pricePerUnit: 15,
       category: 'uszczelnienie',
       optional: true,
       notes: 'Do malowania — możesz pomalować razem ze ścianą.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
   ],
   tools: [
@@ -384,4 +425,14 @@ export const trimFinishingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['maskownica', 'próg', 'ościeżnica', 'wykończenie', 'drzwi'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wykończenie ościeżnic i progów drzwiowych',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { FORMAL_PATHS } from '@/features/house-build/formal-path';
 import type { FormalPathAssessment, FormalPathId } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
@@ -20,6 +21,7 @@ const CAUTION_STYLES = {
 export default function FormalResultScreen() {
   const { assessment: assessmentStr } = useLocalSearchParams<{ assessment: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
 
   const assessment: FormalPathAssessment | null = useMemo(() => {
     try { return JSON.parse(assessmentStr || ''); } catch { return null; }
@@ -30,7 +32,7 @@ export default function FormalResultScreen() {
   if (!assessment) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
-        <Txt style={{ color: Colors.textMuted }}>Brak danych oceny</Txt>
+        <Txt style={{ color: Colors.textMuted }}>{t('hb.formalResult.noData')}</Txt>
       </View>
     );
   }
@@ -40,7 +42,7 @@ export default function FormalResultScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Wynik oceny formalnej' }} />
+      <Stack.Screen options={{ title: t('hb.formalResult.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -55,7 +57,7 @@ export default function FormalResultScreen() {
             borderColor: '#BFDBFE',
             marginBottom: 20,
           }}>
-            <Txt style={{ fontSize: 12, color: HB_ACCENT, marginBottom: 4 }}>REKOMENDOWANA SCIEZKA</Txt>
+            <Txt style={{ fontSize: 12, color: HB_ACCENT, marginBottom: 4 }}>{t('hb.formalResult.recommendedLabel')}</Txt>
             <Txt w="bold" style={{ fontSize: 20, color: Colors.text, marginBottom: 6 }}>{mainPath.name}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{mainPath.shortDescription}</Txt>
           </View>
@@ -65,7 +67,7 @@ export default function FormalResultScreen() {
           </Txt>
 
           <View style={{ marginBottom: 20 }}>
-            <Txt w="semibold" style={{ fontSize: 14, color: '#16A34A', marginBottom: 8 }}>Zalety</Txt>
+            <Txt w="semibold" style={{ fontSize: 14, color: '#16A34A', marginBottom: 8 }}>{t('hb.formalResult.prosTitle')}</Txt>
             {mainPath.pros.map((p, i) => (
               <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
                 <Feather name="check" size={14} color="#16A34A" style={{ marginTop: 2 }} />
@@ -75,7 +77,7 @@ export default function FormalResultScreen() {
           </View>
 
           <View style={{ marginBottom: 24 }}>
-            <Txt w="semibold" style={{ fontSize: 14, color: '#DC2626', marginBottom: 8 }}>Ograniczenia</Txt>
+            <Txt w="semibold" style={{ fontSize: 14, color: '#DC2626', marginBottom: 8 }}>{t('hb.formalResult.consTitle')}</Txt>
             {mainPath.cons.map((c, i) => (
               <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
                 <Feather name="minus" size={14} color="#DC2626" style={{ marginTop: 2 }} />
@@ -105,7 +107,7 @@ export default function FormalResultScreen() {
                   <Txt style={{ fontSize: 12, color: style.color }}>{note.text}</Txt>
                   {note.source && (
                     <Txt style={{ fontSize: 10, color: style.color, opacity: 0.7, marginTop: 4 }}>
-                      Zrodlo: {note.source.sourceLabel}
+                      {t('hb.formalResult.source', { label: note.source.sourceLabel })}
                     </Txt>
                   )}
                 </View>
@@ -115,7 +117,7 @@ export default function FormalResultScreen() {
 
           {altPaths.length > 0 && (
             <View style={{ marginTop: 14 }}>
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>Alternatywne sciezki</Txt>
+              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>{t('hb.formalResult.altTitle')}</Txt>
               {altPaths.map(alt => (
                 <View
                   key={alt.id}
@@ -147,7 +149,7 @@ export default function FormalResultScreen() {
               }}
               onPress={() => router.push('/house-build/formal-documents')}
             >
-              <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>Zobacz wymagane dokumenty</Txt>
+              <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>{t('hb.formalResult.seeDocuments')}</Txt>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -161,7 +163,7 @@ export default function FormalResultScreen() {
               }}
               onPress={() => router.back()}
             >
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>Zmien odpowiedzi</Txt>
+              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('hb.formalResult.changeAnswers')}</Txt>
             </TouchableOpacity>
           </View>
         </View>
@@ -171,10 +173,11 @@ export default function FormalResultScreen() {
 }
 
 function SourceLabel({ text, date }: { text: string; date: string }) {
+  const { t } = useLanguage();
   return (
     <View style={{ marginTop: 16, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
-      <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Zrodlo: {text}</Txt>
-      <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Ostatnia weryfikacja: {date}</Txt>
+      <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.formalResult.sourceLabel', { text })}</Txt>
+      <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.formalResult.lastReviewed', { date })}</Txt>
     </View>
   );
 }

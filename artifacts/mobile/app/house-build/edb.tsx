@@ -6,6 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { EDB_INFO } from '@/features/house-build/formal-checklists';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
@@ -18,6 +19,7 @@ interface SectionData {
 
 export default function EdbScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const sections: SectionData[] = [
@@ -90,7 +92,7 @@ export default function EdbScreen() {
           }}>
             <Feather name="info" size={16} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 12, color: '#92400E', flex: 1 }}>
-              EDB jest obowiazkowy od 2023 r. dla nowych inwestycji. Szczególy dot. Twojej budowy potwierdz z kierownikiem budowy, urzedem i projektantem.
+              {t('hb.edb.warning')}
             </Txt>
           </View>
 

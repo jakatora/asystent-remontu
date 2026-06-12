@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { BundleDefinition } from '@/types/commerce';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface BundleSuggestionCardProps {
   bundle: BundleDefinition;
@@ -12,6 +13,7 @@ interface BundleSuggestionCardProps {
 }
 
 export function BundleSuggestionCard({ bundle, onSelect }: BundleSuggestionCardProps) {
+  const { t } = useLanguage();
   return (
     <View
       style={{
@@ -70,7 +72,7 @@ export function BundleSuggestionCard({ bundle, onSelect }: BundleSuggestionCardP
             }}
           >
             <Txt style={{ fontSize: 9, color: Colors.textMuted }}>
-              +{bundle.items.length - 4} więcej
+              {t('cmp.BundleSuggestionCard.more', { count: bundle.items.length - 4 })}
             </Txt>
           </View>
         )}
@@ -95,14 +97,14 @@ export function BundleSuggestionCard({ bundle, onSelect }: BundleSuggestionCardP
             activeOpacity={0.7}
           >
             <Feather name="plus" size={14} color={Colors.primary} />
-            <Txt w="semibold" style={{ fontSize: 12, color: Colors.primary }}>Wybierz</Txt>
+            <Txt w="semibold" style={{ fontSize: 12, color: Colors.primary }}>{t('cmp.BundleSuggestionCard.select')}</Txt>
           </TouchableOpacity>
         )}
       </View>
 
       {bundle.optionalUpgrades.length > 0 && (
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-          + {bundle.optionalUpgrades.length} opcjonalnych ulepszeń
+          {t('cmp.BundleSuggestionCard.optionalUpgrades', { count: bundle.optionalUpgrades.length })}
         </Txt>
       )}
     </View>

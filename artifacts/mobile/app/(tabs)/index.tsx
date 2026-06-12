@@ -13,10 +13,12 @@ import { Txt } from '@/components/ui/Txt';
 import type { ProjectActivity } from '@/types/domain';
 import { Colors } from '@/constants/colors';
 import { ACTIVITY_ICONS, timeAgoShort } from '@/utils/format';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { projects, getRecentActivities } = useApp();
+  const { t } = useLanguage();
   const [recentActivities, setRecentActivities] = useState<ProjectActivity[]>([]);
 
   useFocusEffect(
@@ -36,40 +38,28 @@ export default function HomeScreen() {
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: Colors.background }}
-      contentContainerStyle={{ paddingTop: topPad + 16, paddingBottom: bottomPad }}
+      contentContainerStyle={{ paddingTop: topPad + 12, paddingBottom: bottomPad }}
       showsVerticalScrollIndicator={false}
     >
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginBottom: 20 }}>
-        <View>
-          <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Remont Asystent</Txt>
-          <Txt style={{ fontSize: 15, color: Colors.textSecondary, marginTop: 2 }}>Czym dziś się zajmiemy?</Txt>
+      {/* ── Header ─────────────────────────────────────────────────────────── */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, marginBottom: 16 }}>
+        <View style={{ flex: 1 }}>
+          <Txt w="bold" style={{ fontSize: 24, color: Colors.text }}>Remont Asystent</Txt>
+          <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 2 }}>{t('home.subtitle')}</Txt>
         </View>
         <TouchableOpacity
-          style={{
-            width: 46,
-            height: 46,
-            borderRadius: 23,
-            backgroundColor: Colors.primary,
-            alignItems: 'center',
-            justifyContent: 'center',
-            ...shadowPrimary,
-          }}
+          style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.primary, alignItems: 'center', justifyContent: 'center', ...shadowPrimary }}
           onPress={() => router.push('/wizard')}
           activeOpacity={0.8}
           testID="new-project-btn"
-          accessibilityLabel="Nowy projekt"
+          accessibilityLabel={t('home.newProjectA11y')}
           accessibilityRole="button"
         >
           <Feather name="plus" size={22} color="#fff" />
         </TouchableOpacity>
       </View>
 
-      <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 20 }}>
-        <StatBadge value={projects.length} label="Projekty" color={Colors.text} borderColor={Colors.border} />
-        <StatBadge value={activeCount} label="W trakcie" color={Colors.primary} borderColor={Colors.primaryLight} />
-        <StatBadge value={completedCount} label="Ukończone" color={Colors.success} borderColor="#BBF7D0" />
-      </View>
-
+      {/* ── Continue active project (priority) ─────────────────────────────── */}
       {activeProject && (
         <TouchableOpacity
           style={{
@@ -77,7 +67,7 @@ export default function HomeScreen() {
             marginBottom: 16,
             backgroundColor: Colors.warningBg,
             borderRadius: 16,
-            padding: 16,
+            padding: 14,
             borderWidth: 1,
             borderColor: '#FDE68A',
             flexDirection: 'row',
@@ -85,42 +75,59 @@ export default function HomeScreen() {
           }}
           onPress={() => router.push({ pathname: '/project/[id]', params: { id: activeProject.id } })}
           activeOpacity={0.85}
-          accessibilityLabel={`Kontynuuj projekt ${activeProject.name}`}
-          accessibilityRole="button"
+          accessibilityLabel={t('home.continue.a11y', { name: activeProject.name })}
         >
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: Colors.warning,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginRight: 12,
-            }}
-          >
-            <Feather name="play" size={18} color="#fff" />
+          <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: Colors.warning, alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
+            <Feather name="play" size={16} color="#fff" />
           </View>
           <View style={{ flex: 1 }}>
-            <Txt w="bold" style={{ fontSize: 15, color: '#92400E' }}>
-              Kontynuuj: {activeProject.name}
+            <Txt w="bold" style={{ fontSize: 14, color: '#92400E' }}>
+              {t('home.continue.label', { name: activeProject.name })}
             </Txt>
             <Txt style={{ fontSize: 12, color: '#B45309' }}>
               {activeProject.jobName}
               {activeProject.roomName ? ` · ${activeProject.roomName}` : ''}
             </Txt>
           </View>
-          <Feather name="chevron-right" size={20} color={Colors.warning} />
+          <Feather name="chevron-right" size={18} color={Colors.warning} />
         </TouchableOpacity>
       )}
 
+      {/* ── HERO: Browse renovations (PRIMARY CONTENT) ─────────────────────── */}
+      <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
+        <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{t('home.hero.title')}</Txt>
+        <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4, lineHeight: 19 }}>
+          {t('home.hero.subtitle')}
+        </Txt>
+      </View>
+
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+          {CATEGORIES.map((cat) => (
+            <CategoryCard
+              key={cat.id}
+              category={cat}
+              onPress={() => router.push({ pathname: '/category/[id]', params: { id: cat.id } })}
+            />
+          ))}
+        </View>
+      </View>
+
+      {/* ── Stats badges (compact) ─────────────────────────────────────────── */}
+      <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 20, marginBottom: 18 }}>
+        <StatBadge value={projects.length} label={t('home.stat.projects')} color={Colors.text} borderColor={Colors.border} />
+        <StatBadge value={activeCount} label={t('home.stat.inProgress')} color={Colors.primary} borderColor={Colors.primaryLight} />
+        <StatBadge value={completedCount} label={t('home.stat.completed')} color={Colors.success} borderColor="#BBF7D0" />
+      </View>
+
+      {/* ── Quick-start wizard (secondary CTA) ─────────────────────────────── */}
       <TouchableOpacity
         style={{
           marginHorizontal: 20,
-          marginBottom: 24,
+          marginBottom: 18,
           backgroundColor: Colors.primaryBg,
           borderRadius: 16,
-          padding: 18,
+          padding: 16,
           flexDirection: 'row',
           alignItems: 'center',
           borderWidth: 1,
@@ -129,31 +136,59 @@ export default function HomeScreen() {
         onPress={() => router.push('/wizard')}
         activeOpacity={0.85}
         testID="quick-start-banner"
-        accessibilityLabel="Rozpocznij nowy projekt remontu"
-        accessibilityRole="button"
+        accessibilityLabel={t('home.quickStart.a11y')}
       >
         <View style={{ flex: 1 }}>
-          <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>Nowy projekt remontu</Txt>
-          <Txt style={{ fontSize: 13, color: Colors.primary, marginTop: 2 }}>Wybierz rodzaj pracy i zacznij</Txt>
+          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('home.quickStart.title')}</Txt>
+          <Txt style={{ fontSize: 12, color: Colors.primary, marginTop: 2 }}>{t('home.quickStart.subtitle')}</Txt>
         </View>
-        <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
-          <Feather name="arrow-right" size={22} color={Colors.primary} />
+        <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
+          <Feather name="arrow-right" size={20} color={Colors.primary} />
         </View>
       </TouchableOpacity>
 
+      {/* ── House build banner ─────────────────────────────────────────────── */}
+      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+        <TouchableOpacity
+          style={{ backgroundColor: '#EFF6FF', borderRadius: 16, padding: 16, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#BFDBFE' }}
+          onPress={() => router.push('/house-build')}
+          activeOpacity={0.85}
+          testID="house-build-banner"
+          accessibilityLabel={t('home.houseBuild.a11y')}
+        >
+          <View style={{ flex: 1 }}>
+            <Txt w="bold" style={{ fontSize: 15, color: '#2563EB' }}>{t('home.houseBuild.title')}</Txt>
+            <Txt style={{ fontSize: 12, color: '#3B82F6', marginTop: 2 }}>{t('home.houseBuild.subtitle')}</Txt>
+          </View>
+          <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
+            <Feather name="home" size={20} color="#2563EB" />
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {/* ── Your projects ──────────────────────────────────────────────────── */}
+      {recentProjects.length > 0 && (
+        <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
+          <SectionHeader
+            title={t('home.section.yourProjects')}
+            actionLabel={projects.length > 3 ? t('home.yourProjects.all') : undefined}
+            onAction={() => router.push('/(tabs)/projects')}
+          />
+          {recentProjects.map((p) => (
+            <ProjectCard
+              key={p.id}
+              project={p}
+              onPress={() => router.push({ pathname: '/project/[id]', params: { id: p.id } })}
+            />
+          ))}
+        </View>
+      )}
+
+      {/* ── Recent activity ────────────────────────────────────────────────── */}
       {recentActivities.length > 0 && (
         <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-          <SectionHeader title="Ostatnia aktywność" />
-          <View
-            style={{
-              backgroundColor: Colors.surface,
-              borderRadius: 16,
-              borderWidth: 1,
-              borderColor: Colors.border,
-              padding: 12,
-              gap: 10,
-            }}
-          >
+          <SectionHeader title={t('home.section.recentActivity')} />
+          <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, padding: 12, gap: 10 }}>
             {recentActivities.map((a) => {
               const proj = projects.find((p) => p.id === a.projectId);
               return (
@@ -162,7 +197,11 @@ export default function HomeScreen() {
                   onPress={() => proj && router.push({ pathname: '/project/[id]', params: { id: proj.id } })}
                   activeOpacity={0.8}
                   style={{ flexDirection: 'row', gap: 10, alignItems: 'center', paddingVertical: 2 }}
-                  accessibilityLabel={`${a.description}${proj ? `, projekt ${proj.name}` : ''}`}
+                  accessibilityLabel={
+                    proj
+                      ? t('home.activity.a11yWithProject', { description: a.description, project: proj.name })
+                      : t('home.activity.a11y', { description: a.description })
+                  }
                 >
                   <Feather
                     name={(ACTIVITY_ICONS[a.actionType as keyof typeof ACTIVITY_ICONS] ?? 'circle') as any}
@@ -170,12 +209,8 @@ export default function HomeScreen() {
                     color={Colors.textMuted}
                   />
                   <View style={{ flex: 1 }}>
-                    <Txt style={{ fontSize: 13, color: Colors.text }} numberOfLines={1}>
-                      {a.description}
-                    </Txt>
-                    {proj && (
-                      <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{proj.name}</Txt>
-                    )}
+                    <Txt style={{ fontSize: 13, color: Colors.text }} numberOfLines={1}>{a.description}</Txt>
+                    {proj && <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{proj.name}</Txt>}
                   </View>
                   <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{timeAgoShort(a.createdAt)}</Txt>
                 </TouchableOpacity>
@@ -185,216 +220,60 @@ export default function HomeScreen() {
         </View>
       )}
 
-      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionHeader
-          title="Twoje projekty"
-          actionLabel={projects.length > 3 ? 'Wszystkie' : undefined}
-          onAction={() => router.push('/(tabs)/projects')}
-        />
-        {recentProjects.length === 0 ? (
-          <EmptyState
-            icon="folder"
-            title="Brak projektów"
-            description="Naciśnij + aby dodać pierwszy projekt remontu"
+      {/* ── Contractor tiles (fast tools) ──────────────────────────────────── */}
+      <View style={{ paddingHorizontal: 20, marginBottom: 12 }}>
+        <SectionHeader title={t('home.section.fastTools')} />
+        <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
+          <ActionTile
+            icon="search"
+            label={t('home.action.findPro')}
+            bg={Colors.primaryBg}
+            fg={Colors.primary}
+            onPress={() => router.push('/contractor')}
           />
-        ) : (
-          recentProjects.map((p) => (
-            <ProjectCard
-              key={p.id}
-              project={p}
-              onPress={() => router.push({ pathname: '/project/[id]', params: { id: p.id } })}
-            />
-          ))
-        )}
-      </View>
-
-      <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 24 }}>
-        <TouchableOpacity
-          onPress={() => router.push('/contractor')}
-          style={{
-            flex: 1,
-            backgroundColor: Colors.surface,
-            borderRadius: 16,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: Colors.border,
-            alignItems: 'center',
-            gap: 8,
-          }}
-          activeOpacity={0.85}
-          accessibilityLabel="Znajdź fachowca"
-          accessibilityRole="button"
-        >
-          <View
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 22,
-              backgroundColor: Colors.primaryBg,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Feather name="search" size={20} color={Colors.primary} />
-          </View>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
-            Znajdź fachowca
-          </Txt>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push('/contractor/my-requests')}
-          style={{
-            flex: 1,
-            backgroundColor: Colors.surface,
-            borderRadius: 16,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: Colors.border,
-            alignItems: 'center',
-            gap: 8,
-          }}
-          activeOpacity={0.85}
-          accessibilityLabel="Moje zapytania"
-          accessibilityRole="button"
-        >
-          <View
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 22,
-              backgroundColor: Colors.infoBg,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Feather name="file-text" size={20} color={Colors.info} />
-          </View>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
-            Moje zapytania
-          </Txt>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push('/contractor/register')}
-          style={{
-            flex: 1,
-            backgroundColor: Colors.surface,
-            borderRadius: 16,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: Colors.border,
-            alignItems: 'center',
-            gap: 8,
-          }}
-          activeOpacity={0.85}
-          accessibilityLabel="Dołącz jako fachowiec"
-          accessibilityRole="button"
-        >
-          <View
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 22,
-              backgroundColor: Colors.successBg,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Feather name="user-plus" size={20} color={Colors.success} />
-          </View>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
-            Jestem fachowcem
-          </Txt>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 20, marginBottom: 16 }}>
-        <TouchableOpacity
-          onPress={() => router.push('/contractor/plans' as any)}
-          style={{
-            flex: 1,
-            backgroundColor: '#FFFBEB',
-            borderRadius: 16,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: '#FDE68A',
-            alignItems: 'center',
-            gap: 8,
-          }}
-          activeOpacity={0.85}
-        >
-          <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: '#FEF3C7', alignItems: 'center', justifyContent: 'center' }}>
-            <Feather name="award" size={20} color="#D97706" />
-          </View>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
-            Plany i Widocznosc
-          </Txt>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push('/contractor/admin-plans' as any)}
-          style={{
-            flex: 1,
-            backgroundColor: '#F5F3FF',
-            borderRadius: 16,
-            padding: 16,
-            borderWidth: 1,
-            borderColor: '#DDD6FE',
-            alignItems: 'center',
-            gap: 8,
-          }}
-          activeOpacity={0.85}
-        >
-          <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: '#EDE9FE', alignItems: 'center', justifyContent: 'center' }}>
-            <Feather name="settings" size={20} color="#7C3AED" />
-          </View>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text, textAlign: 'center' }}>
-            Admin planow
-          </Txt>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#EFF6FF',
-            borderRadius: 16,
-            padding: 18,
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: '#BFDBFE',
-          }}
-          onPress={() => router.push('/house-build')}
-          activeOpacity={0.85}
-          testID="house-build-banner"
-          accessibilityLabel="Budowa domu — asystent inwestora"
-          accessibilityRole="button"
-        >
-          <View style={{ flex: 1 }}>
-            <Txt w="bold" style={{ fontSize: 16, color: '#2563EB' }}>Budowa domu</Txt>
-            <Txt style={{ fontSize: 13, color: '#3B82F6', marginTop: 2 }}>Asystent inwestora — od dzialki po odbiór</Txt>
-          </View>
-          <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
-            <Feather name="home" size={22} color="#2563EB" />
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionHeader
-          title="Rodzaje prac"
-          actionLabel="Wszystkie"
-          onAction={() => router.push('/(tabs)/explore')}
-        />
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
-          {CATEGORIES.slice(0, 6).map((cat) => (
-            <CategoryCard
-              key={cat.id}
-              category={cat}
-              onPress={() => router.push({ pathname: '/category/[id]', params: { id: cat.id } })}
-            />
-          ))}
+          <ActionTile
+            icon="file-text"
+            label={t('home.action.myRequests')}
+            bg={Colors.infoBg}
+            fg={Colors.info}
+            onPress={() => router.push('/contractor/my-requests')}
+          />
+          <ActionTile
+            icon="user-plus"
+            label={t('home.action.iAmPro')}
+            bg={Colors.successBg}
+            fg={Colors.success}
+            onPress={() => router.push('/contractor/register')}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', gap: 10 }}>
+          <ActionTile
+            icon="award"
+            label={t('home.action.plans')}
+            bg="#FEF3C7"
+            fg="#D97706"
+            onPress={() => router.push('/contractor/plans' as any)}
+          />
+          <ActionTile
+            icon="settings"
+            label={t('home.action.adminPlans')}
+            bg="#EDE9FE"
+            fg="#7C3AED"
+            onPress={() => router.push('/contractor/admin-plans' as any)}
+          />
         </View>
       </View>
+
+      {/* ── Empty projects empty state ─────────────────────────────────────── */}
+      {recentProjects.length === 0 && (
+        <View style={{ paddingHorizontal: 20, marginBottom: 24, marginTop: 12 }}>
+          <EmptyState
+            icon="folder"
+            title={t('home.empty.title')}
+            description={t('home.empty.description')}
+          />
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -413,16 +292,54 @@ function StatBadge({ value, label, color, borderColor }: { value: number; label:
       style={{
         flex: 1,
         backgroundColor: Colors.surface,
-        borderRadius: 16,
-        padding: 14,
+        borderRadius: 12,
+        paddingVertical: 10,
         alignItems: 'center',
         borderWidth: 1,
         borderColor,
       }}
-      accessibilityLabel={`${value} ${label}`}
     >
-      <Txt w="bold" style={{ fontSize: 22, color }}>{value}</Txt>
-      <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center', marginTop: 2 }}>{label}</Txt>
+      <Txt w="bold" style={{ fontSize: 18, color }}>{value}</Txt>
+      <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 2 }}>{label}</Txt>
     </View>
+  );
+}
+
+function ActionTile({
+  icon,
+  label,
+  bg,
+  fg,
+  onPress,
+}: {
+  icon: keyof typeof Feather.glyphMap;
+  label: string;
+  bg: string;
+  fg: string;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.85}
+      style={{
+        flex: 1,
+        backgroundColor: Colors.surface,
+        borderRadius: 14,
+        padding: 12,
+        borderWidth: 1,
+        borderColor: Colors.border,
+        alignItems: 'center',
+        gap: 6,
+      }}
+      accessibilityLabel={label}
+    >
+      <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: bg, alignItems: 'center', justifyContent: 'center' }}>
+        <Feather name={icon} size={18} color={fg} />
+      </View>
+      <Txt w="semibold" style={{ fontSize: 11, color: Colors.text, textAlign: 'center' }} numberOfLines={2}>
+        {label}
+      </Txt>
+    </TouchableOpacity>
   );
 }

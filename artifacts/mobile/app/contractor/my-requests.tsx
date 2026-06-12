@@ -9,10 +9,12 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { RequestSummaryCard } from '@/components/contractor/RequestSummary';
 import { useContractor } from '@/context/ContractorContext';
+import { useLanguage } from '@/context/LanguageContext';
 import type { ContractorRequest } from '@/types/contractor';
 
 export default function MyRequestsScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const { requests, refreshRequests, removeRequest, contractors, savedContractorIds, isContractorSaved } = useContractor();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
 
@@ -28,11 +30,11 @@ export default function MyRequestsScreen() {
 
   const handleDeleteRequest = (req: ContractorRequest) => {
     Alert.alert(
-      'Usuń zapytanie',
-      'Czy na pewno chcesz usunąć to zapytanie?',
+      t('contractor.myRequests.deleteTitle'),
+      t('contractor.myRequests.deleteBody'),
       [
-        { text: 'Anuluj', style: 'cancel' },
-        { text: 'Usuń', style: 'destructive', onPress: () => removeRequest(req.id) },
+        { text: t('contractor.myRequests.cancel'), style: 'cancel' },
+        { text: t('contractor.myRequests.delete'), style: 'destructive', onPress: () => removeRequest(req.id) },
       ],
     );
   };
@@ -41,8 +43,8 @@ export default function MyRequestsScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Moje zapytania',
-          headerBackTitle: 'Wróć',
+          title: t('contractor.myRequests.screenTitle'),
+          headerBackTitle: t('contractor.myRequests.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -58,7 +60,7 @@ export default function MyRequestsScreen() {
                 <View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                     <Feather name="edit" size={16} color={Colors.textSecondary} />
-                    <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>Szkice ({drafts.length})</Txt>
+                    <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('contractor.myRequests.drafts', { count: drafts.length })}</Txt>
                   </View>
                   {drafts.map((req) => (
                     <RequestSummaryCard
@@ -74,7 +76,7 @@ export default function MyRequestsScreen() {
                 <View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                     <Feather name="send" size={16} color={Colors.textSecondary} />
-                    <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>Wysłane ({sentRequests.length})</Txt>
+                    <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('contractor.myRequests.sent', { count: sentRequests.length })}</Txt>
                   </View>
                   {sentRequests.map((req) => (
                     <RequestSummaryCard key={req.id} request={req} />
@@ -87,7 +89,7 @@ export default function MyRequestsScreen() {
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                     <Feather name="heart" size={16} color={Colors.danger} />
                     <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
-                      Zapisani fachowcy ({savedContractors.length})
+                      {t('contractor.myRequests.savedContractors', { count: savedContractors.length })}
                     </Txt>
                   </View>
                   {savedContractors.map((c) => (
@@ -134,8 +136,8 @@ export default function MyRequestsScreen() {
               {requests.length === 0 && savedContractors.length === 0 && (
                 <EmptyState
                   icon="search"
-                  title="Brak zapytań"
-                  description="Nie masz jeszcze żadnych zapytań do fachowców. Zacznij od wyszukania fachowca."
+                  title={t('contractor.myRequests.emptyTitle')}
+                  description={t('contractor.myRequests.emptyDescription')}
                 />
               )}
             </View>
@@ -159,7 +161,7 @@ export default function MyRequestsScreen() {
           }}
         >
           <Button
-            label="Znajdź fachowca"
+            label={t('contractor.myRequests.findContractor')}
             variant="primary"
             onPress={() => router.push('/contractor')}
           />

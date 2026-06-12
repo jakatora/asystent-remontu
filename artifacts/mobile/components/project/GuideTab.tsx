@@ -6,6 +6,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Colors } from '@/constants/colors';
 import { formatDuration, timeAgo } from '@/utils/format';
 import type { ChecklistItem, RenovationJob } from '@/types/domain';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface GuideTabProps {
   job: RenovationJob;
@@ -16,17 +17,18 @@ interface GuideTabProps {
 }
 
 export function GuideTab({ job, checklist, checklistProgress, onGenerateChecklist, onToggleChecklist }: GuideTabProps) {
+  const { t } = useLanguage();
   return (
     <View style={{ gap: 12 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <View>
           <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
-            {checklist.length > 0 ? 'Lista zadań' : 'Instrukcja krok po kroku'}
+            {checklist.length > 0 ? t('cmp.GuideTab.taskList') : t('cmp.GuideTab.stepByStep')}
           </Txt>
           <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginTop: 4 }}>
             {checklist.length > 0
-              ? `${checklistProgress.completed} z ${checklistProgress.total} ukończonych`
-              : 'Wykonuj czynności w podanej kolejności.'}
+              ? t('cmp.GuideTab.completedCount', { completed: checklistProgress.completed, total: checklistProgress.total })
+              : t('cmp.GuideTab.followOrder')}
           </Txt>
         </View>
         {checklist.length === 0 && (
@@ -40,7 +42,7 @@ export function GuideTab({ job, checklist, checklistProgress, onGenerateChecklis
             }}
           >
             <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>
-              Generuj listę
+              {t('cmp.GuideTab.generateList')}
             </Txt>
           </TouchableOpacity>
         )}
@@ -85,6 +87,7 @@ function ChecklistRow({
   warning?: string;
   onToggle: () => void;
 }) {
+  const { t } = useLanguage();
   return (
     <TouchableOpacity
       onPress={onToggle}
@@ -171,7 +174,7 @@ function ChecklistRow({
 
         {item.completed && item.completedAt && (
           <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-            Ukończono {timeAgo(item.completedAt)}
+            {t('cmp.GuideTab.completedAt', { time: timeAgo(item.completedAt) })}
           </Txt>
         )}
       </View>

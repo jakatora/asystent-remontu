@@ -5,21 +5,23 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 import { START_WORKS_CHECKLIST } from '@/features/house-build/formal-checklists';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const CATEGORY_LABELS = {
-  formal: { label: 'Formalne', color: '#2563EB', bg: '#EFF6FF' },
-  site: { label: 'Plac budowy', color: '#D97706', bg: '#FFFBEB' },
-  utility: { label: 'Media', color: '#16A34A', bg: '#F0FDF4' },
-};
-
 export default function BeforeWorksScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const [completed, setCompleted] = useState<Set<string>>(new Set());
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+
+  const CATEGORY_LABELS = {
+    formal: { label: t('hb.beforeWorks.cat.formal'), color: '#2563EB', bg: '#EFF6FF' },
+    site: { label: t('hb.beforeWorks.cat.site'), color: '#D97706', bg: '#FFFBEB' },
+    utility: { label: t('hb.beforeWorks.cat.utility'), color: '#16A34A', bg: '#F0FDF4' },
+  };
 
   const toggle = (id: string) => {
     setCompleted(prev => {
@@ -36,16 +38,16 @@ export default function BeforeWorksScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Przed rozpoczeciem robót' }} />
+      <Stack.Screen options={{ title: t('hb.beforeWorks.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
         showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
-          <Txt w="bold" style={{ fontSize: 20, color: Colors.text, marginBottom: 4 }}>Przed rozpoczeciem robót</Txt>
+          <Txt w="bold" style={{ fontSize: 20, color: Colors.text, marginBottom: 4 }}>{t('hb.beforeWorks.title')}</Txt>
           <Txt style={{ fontSize: 13, color: Colors.textMuted, marginBottom: 16 }}>
-            Lista kroków, które warto wykonac przed faktycznym rozpoczeciem prac budowlanych.
+            {t('hb.beforeWorks.subtitle')}
           </Txt>
 
           <View style={{
@@ -60,7 +62,7 @@ export default function BeforeWorksScreen() {
           }}>
             <Feather name="alert-circle" size={16} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 12, color: '#92400E', flex: 1 }}>
-              Roboty budowlane nie powinny sie rozpoczac przed zakonczeniem wymaganych kroków formalnych (w tym zawiadomienia o terminie rozpoczecia robót).
+              {t('hb.beforeWorks.warning')}
             </Txt>
           </View>
 
@@ -73,7 +75,7 @@ export default function BeforeWorksScreen() {
             borderColor: '#BFDBFE',
           }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
-              <Txt w="semibold" style={{ fontSize: 13, color: HB_ACCENT }}>Wymagane kroki</Txt>
+              <Txt w="semibold" style={{ fontSize: 13, color: HB_ACCENT }}>{t('hb.beforeWorks.requiredSteps')}</Txt>
               <Txt w="semibold" style={{ fontSize: 13, color: HB_ACCENT }}>{doneRequired}/{totalRequired}</Txt>
             </View>
             <View style={{ height: 5, backgroundColor: '#BFDBFE', borderRadius: 3 }}>
@@ -123,14 +125,14 @@ export default function BeforeWorksScreen() {
                           </Txt>
                           {item.isRequired && (
                             <View style={{ backgroundColor: '#FEE2E2', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                              <Txt style={{ fontSize: 9, color: '#DC2626' }}>wymagane</Txt>
+                              <Txt style={{ fontSize: 9, color: '#DC2626' }}>{t('hb.beforeWorks.required')}</Txt>
                             </View>
                           )}
                         </View>
                         <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 4, lineHeight: 18 }}>{item.description}</Txt>
                         {item.source && (
                           <Txt style={{ fontSize: 10, color: Colors.textMuted, opacity: 0.7, marginTop: 4 }}>
-                            Zrodlo: {item.source.sourceLabel}
+                            {t('hb.beforeWorks.source', { label: item.source.sourceLabel })}
                           </Txt>
                         )}
                       </View>
@@ -153,7 +155,7 @@ export default function BeforeWorksScreen() {
           }}>
             <Feather name="shield" size={14} color={Colors.textMuted} style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 11, color: Colors.textMuted, flex: 1 }}>
-              To lista orientacyjna. Szczególowe wymagania potwierdz z urzedem, projektantem i kierownikiem budowy.
+              {t('hb.beforeWorks.disclaimer')}
             </Txt>
           </View>
 
@@ -167,7 +169,7 @@ export default function BeforeWorksScreen() {
             }}
             onPress={() => router.push('/house-build/start-works')}
           >
-            <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>Rozpoczecie robót</Txt>
+            <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>{t('hb.beforeWorks.startCta')}</Txt>
           </TouchableOpacity>
         </View>
       </ScrollView>

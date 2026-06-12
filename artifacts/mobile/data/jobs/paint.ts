@@ -102,6 +102,7 @@ export const paintJob: RenovationJob = {
     {
       id:           'paint',
       name:         'Farba do ścian (zmywalna)',
+      brand:        'Magnat Ceramic C45 5 L (referencja)',
       unit:         'litr',
       purchaseUnit: 'litr',
       // Inline formula: reads m.coveragePerLiter from user input
@@ -115,11 +116,18 @@ export const paintJob: RenovationJob = {
       },
       pricePerUnit: 25,
       category:     'farba',
-      notes:        'Wybierz farbę zmywalną klasy A lub B. Do kuchni/łazienki — zmywalna łatwa.',
+      notes:        'Wybierz farbę zmywalną klasy A lub B. Do kuchni/łazienki — zmywalna łatwa. Referencyjny produkt: Magnat Ceramic C45 5L (biały).',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/farba-magnat-ceramic-c45-bialy-5-l/5903973153214_CAPL.prd',                  verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/farba-magnat-ceramic-bialy-5-l-45615171.html',                   verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/biale-farby-do-scian/farba-magnat-ceramic-biala-5-l/p/3136363',                   verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/farba-ceramiczna-bialy-c45-5-l-magnat',                                   verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:           'primer-paint',
       name:         'Grunt pod farbę',
+      brand:        'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit:         'litr',
       purchaseUnit: 'litr',
       formulaKey:   'primer',
@@ -134,10 +142,17 @@ export const paintJob: RenovationJob = {
       category:     'grunt',
       optional:     true,
       notes:        'Wymagany na: nowych ścianach, naprawianych miejscach, ścianach po zeskrobaniu, pylących/kredujących/bardzo chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie NIE jest konieczny.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/grunt-g-boko-penetruj-cy-akrylowy-dragon-5l/5903649007612_CAPL.prd',                          verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/grunt-do-malowania-gleboko-penetrujacy-akrylowy-dragon-5-litrow-94230442.html',             verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/srodki-do-glebokiego-gruntowania/dragon-grunt-blauer-gleboko-penetrujacy-5l/p/7000094',                       verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/grunt-gleboko-penetrujacy-akrylowy-5-l-dragon',                                                       verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:           'painters-tape',
       name:         'Taśma malarska',
+      brand:        'Tesa Taśma malarska Standard 25 mm × 50 m (51023) (referencja)',
       unit:         'rolka',
       formulaKey:   'tape',
       wasteFactor:  1.0,
@@ -145,10 +160,17 @@ export const paintJob: RenovationJob = {
       pricePerUnit: 8,
       category:     'akcesoria',
       notes:        'Do zabezpieczenia listew, okien i narożników. Zdejmuj gdy farba lekko wilgotna.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/ta-ma-papierowa-malarska-tesa-51023-25mm-50m-1-szt-/5903719436465_CAPL.prd',                verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/artykuly-gospodarcze/tasmy-folie-ochronne/tasmy-malarskie/tasma-malarska-blue-25-mm-x-50-m,p573830,l2047.html', verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/tasmy-klejace/tesa-tasma-malarska-standard-50-m-x-25-mm/p/4153656',                                           verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/tasma-malarska-maskujaca-standard-50m-25mm-bezowa-tesa',                                              verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:           'drop-cloth',
       name:         'Folia malarska (podłoga)',
+      brand:        'Folia malarska 4 × 5 m LDPE/OPP (referencja: Topex / Dexter / LUX / GO/ON!)',
       unit:         'm²',
       formula:      formulaBuilder.fixed(1),
       roundingRule: 'ceil',
@@ -160,6 +182,12 @@ export const paintJob: RenovationJob = {
       pricePerUnit: 12,
       category:     'akcesoria',
       notes:        'Rozłóż na całej podłodze. Zbyt mała folia = więcej sprzątania.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/folia-ochronna-opp-cienka-4-x-5-m/5059340989747_CAPL.prd',                                              verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/folia-malarska-medium-4-x-3-m-dexter-82261733.html',                                         verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/zabezpieczenie-przed-malowaniem/lux-folia-malarska-przezroczysta-4-m-x-5-m/p/1397900',                        verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/folia-malarska-standard-4-x-5-m-go-on',                                                               verifiedAt: '2026-06-09' },
+      ],
     },
   ],
 
@@ -171,7 +199,13 @@ export const paintJob: RenovationJob = {
       icon:                'edit-2',
       required:            true,
       estimatedBuyCostPLN: 25,
-      notes:               'Wełna 12mm do gładkich ścian, 18mm do fakturowych.',
+      notes:               'Wełna 10–12 mm do farb akrylowych/lateksowych. Szerokość 18 cm na typowe ściany. Referencja: Motive / LUX Basic / Hardy Maxprofi.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/wa-ek-motive-malarski-nylon-czerwony-pasek-18cm-w-os-12mm-1-szt/5905033135338_CAPL.prd', verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/zestaw-malarski-do-farb-emulsyjnych-walek-18-cm-zapas-kuweta-45878546.html',              verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/walki-malarskie/lux-walek-malarski-basic-180-mm-12-mm/p/2498491',                                          verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/walek-malarski-gelbfaden-18-cm-rdzen-48-mm-poliakryl-12-mm-rota',                                  verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:                  'brush',
@@ -179,7 +213,13 @@ export const paintJob: RenovationJob = {
       icon:                'edit-3',
       required:            true,
       estimatedBuyCostPLN: 15,
-      notes:               'Do narożników i krawędzi — wałek tam nie dochodzi.',
+      notes:               'Do narożników i krawędzi — wałek tam nie dochodzi. Płaski 50 mm. Referencja: Diall / Dexter / LUX Profi / NINJA.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/pedzel-plaski-diall-50-mm-id-1091492.html',                                                          verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/narzedzia-reczne/pedzle-walki-kuwety/pedzle/pedzel-plaski-uniwersalny-50-mm-dexter,p587218,l754.html', verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/pedzle/lux-pedzel-plaski-do-emalii-uniwersalny-profi-50-mm/p/5693205',                                     verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/pedzel-ninja-50-mm-angular',                                                                       verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:       'tray',
@@ -187,6 +227,13 @@ export const paintJob: RenovationJob = {
       icon:     'square',
       required: true,
       estimatedBuyCostPLN: 8,
+      notes:    'Plastikowa, dopasowana do szerokości wałka 18 cm. Referencja: FEINZ 32×34 cm / LUX 33×26 cm / HARDY 37×34 cm.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/kuweta-malarska-feinz-32x34-cm-big-do-wa-ka-25-cm-1-szt-/5907900015552_CAPL.prd', verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/kuweta-malarska-180-mm-czarna-dexter-82840998.html',                              verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/wiadra-i-kratki-do-odsaczania/lux-kuweta-malarska-33-x-26-cm-szara/p/7000110',                     verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/kuweta-malarska-37-x-34-cm-hardy',                                                          verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:                  'ladder',
@@ -196,7 +243,13 @@ export const paintJob: RenovationJob = {
       rentable:            true,
       estimatedRentCostPLN: 30,
       estimatedBuyCostPLN:  150,
-      notes:               'Wystarczy 5-stopniowa drabinka.',
+      notes:               'Wystarczy 4–5 stopniowa drabina aluminiowa. Referencja: Drabest 4-stop / Bayersystem 4-stop.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/drabina-aluminiowa-jednostronna-4-stopniowa-z-p-k-i-por-czami-drabest-150kg-1-szt/5904680990086_CAPL.prd', verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/drabina-aluminiowa-4-stopnie-1-stronna-45981124.html',                                                       verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/drabiny-domowe/bayersystem-drabina-aluminiowa-4-stopniowa-125-kg/p/6640700',                                                  verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/drabina-aluminiowa-4-stopniowa-125-kg-eco-drabest',                                                                   verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:       'foil',
@@ -204,6 +257,13 @@ export const paintJob: RenovationJob = {
       icon:     'layers',
       required: true,
       estimatedBuyCostPLN: 10,
+      notes:    'Cienka folia LDPE 4 × 5 m, jednorazowa. Referencja: Topex / Dexter / LUX / GO/ON!.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/folia-malarska-topex-ldpe-0-02-mm-4-x-5-m-1-szt/5902062121660_CAPL.prd',                          verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/narzedzia-reczne/pedzle-walki-kuwety/folie-ochronne/folia-malarska-4-x-5-m-dexter,p604098,l2048.html',     verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/zabezpieczenie-przed-malowaniem/lux-folia-malarska-przezroczysta-4-m-x-5-m/p/1397900',                              verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/folia-malarska-standard-4-x-5-m-go-on',                                                                     verifiedAt: '2026-06-09' },
+      ],
     },
   ],
 
@@ -400,6 +460,29 @@ export const paintJob: RenovationJob = {
 
   // ── Metadata ─────────────────────────────────────────────────────────────
   tags: ['malowanie', 'ściany', 'farba', 'grunt', 'wałek', 'interior', 'łatwe'],
+
+  // ── Content provenance (Phase 1+) ─────────────────────────────────────────
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Przed malowaniem ścian: gruntowanie ścian i przygotowanie podłoża',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+    {
+      title:       'Jak krok po kroku poprawnie przygotować ściany do malowania (Murator Remontuje)',
+      url:         'https://muratordom.pl/murator-remontuje/jak-krok-po-kroku-poprawnie-przygotowac-sciany-do-malowania-jakich-materialow-i-narzedzi-uzyc-do-wyrownania-powierzchni-wideo-murator-remontuje-aa-RvBv-GFB3-PiDQ.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+    {
+      title:       'Malowanie ścian — instrukcja dla początkujących',
+      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -470,6 +553,7 @@ export const paintCeilingJob: RenovationJob = {
     {
       id:           'ceiling-paint',
       name:         'Farba do sufitów (biała, matowa)',
+      brand:        'Magnat Ceramic C45 5 L lub Dekoral Akrylit Sufitowy 5 L (referencja)',
       unit:         'litr',
       formula:      formulaBuilder.coverage(10),
       wasteFactor:  1.05,
@@ -478,10 +562,17 @@ export const paintCeilingJob: RenovationJob = {
       pricePerUnit: 22,
       category:     'farba',
       notes:        'Farba sufitowa jest gęstsza i mniej się leje podczas malowania.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/farba-magnat-ceramic-c45-bialy-5-l/5903973153214_CAPL.prd',                                             verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/farba-magnat-ceramic-bialy-5-l-45615171.html',                                              verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/biale-farby-do-scian/farba-magnat-ceramic-biala-5-l/p/3136363',                                              verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/farba-ceramiczna-bialy-c45-5-l-magnat',                                                              verifiedAt: '2026-06-09' },
+      ],
     },
     {
       id:           'primer-ceiling',
       name:         'Grunt pod farbę',
+      brand:        'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit:         'litr',
       formulaKey:   'primer',
       wasteFactor:  1.0,
@@ -490,17 +581,85 @@ export const paintCeilingJob: RenovationJob = {
       pricePerUnit: 18,
       category:     'grunt',
       optional:     true,
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/grunt-g-boko-penetruj-cy-akrylowy-dragon-5l/5903649007612_CAPL.prd',                       verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/grunt-do-malowania-gleboko-penetrujacy-akrylowy-dragon-5-litrow-94230442.html',            verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/srodki-do-glebokiego-gruntowania/dragon-grunt-blauer-gleboko-penetrujacy-5l/p/7000094',                      verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/grunt-gleboko-penetrujacy-akrylowy-5-l-dragon',                                                      verifiedAt: '2026-06-09' },
+      ],
     },
   ],
 
   tools: [
-    { id: 'roller-ext', name: 'Wałek z przedłużką (teleskopową)', icon: 'edit-2', required: true,
-      notes: 'Umożliwia malowanie sufitu bez wchodzenia na drabinę co chwilę.', estimatedBuyCostPLN: 40 },
-    { id: 'ladder', name: 'Drabina', icon: 'chevrons-up', required: true,
-      rentable: true, estimatedRentCostPLN: 30 },
-    { id: 'brush', name: 'Pędzel 5 cm', icon: 'edit-3', required: true, estimatedBuyCostPLN: 15 },
-    { id: 'foil', name: 'Folia ochronna (całą podłogę i meble!)', icon: 'layers', required: true },
-    { id: 'tape', name: 'Taśma malarska', icon: 'minus', required: true },
+    {
+      id:                  'roller-ext',
+      name:                'Wałek z przedłużką (teleskopową)',
+      icon:                'edit-2',
+      required:            true,
+      notes:               'Umożliwia malowanie sufitu bez wchodzenia na drabinę co chwilę. Wałek 18 cm + drążek teleskopowy 1–2 m.',
+      estimatedBuyCostPLN: 40,
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/wa-ek-motive-malarski-nylon-czerwony-pasek-18cm-w-os-12mm-1-szt/5905033135338_CAPL.prd', verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/zestaw-malarski-do-farb-emulsyjnych-walek-18-cm-zapas-kuweta-45878546.html',              verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/walki-malarskie/lux-walek-malarski-basic-180-mm-12-mm/p/2498491',                                          verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/walek-malarski-gelbfaden-18-cm-rdzen-48-mm-poliakryl-12-mm-rota',                                  verifiedAt: '2026-06-09' },
+      ],
+    },
+    {
+      id:                  'ladder',
+      name:                'Drabina',
+      icon:                'chevrons-up',
+      required:            true,
+      rentable:            true,
+      estimatedRentCostPLN: 30,
+      notes:               'Wystarczy 4–5 stopniowa drabina aluminiowa. Referencja: Drabest / Bayersystem.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/drabina-aluminiowa-jednostronna-4-stopniowa-z-p-k-i-por-czami-drabest-150kg-1-szt/5904680990086_CAPL.prd', verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/drabina-aluminiowa-4-stopnie-1-stronna-45981124.html',                                                       verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/drabiny-domowe/bayersystem-drabina-aluminiowa-4-stopniowa-125-kg/p/6640700',                                                  verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/drabina-aluminiowa-4-stopniowa-125-kg-eco-drabest',                                                                   verifiedAt: '2026-06-09' },
+      ],
+    },
+    {
+      id:                  'brush',
+      name:                'Pędzel 5 cm',
+      icon:                'edit-3',
+      required:            true,
+      estimatedBuyCostPLN: 15,
+      notes:               'Płaski 50 mm do narożników sufit-ściana.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/pedzel-plaski-diall-50-mm-id-1091492.html',                                                          verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/narzedzia-reczne/pedzle-walki-kuwety/pedzle/pedzel-plaski-uniwersalny-50-mm-dexter,p587218,l754.html', verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/pedzle/lux-pedzel-plaski-do-emalii-uniwersalny-profi-50-mm/p/5693205',                                     verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/pedzel-ninja-50-mm-angular',                                                                       verifiedAt: '2026-06-09' },
+      ],
+    },
+    {
+      id:       'foil',
+      name:     'Folia ochronna (całą podłogę i meble!)',
+      icon:     'layers',
+      required: true,
+      notes:    'Cienka folia LDPE 4 × 5 m. Sufit kapie mocno — koniecznie cała podłoga.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/folia-malarska-topex-ldpe-0-02-mm-4-x-5-m-1-szt/5902062121660_CAPL.prd',                          verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/narzedzia-reczne/pedzle-walki-kuwety/folie-ochronne/folia-malarska-4-x-5-m-dexter,p604098,l2048.html',     verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/zabezpieczenie-przed-malowaniem/lux-folia-malarska-przezroczysta-4-m-x-5-m/p/1397900',                              verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/folia-malarska-standard-4-x-5-m-go-on',                                                                     verifiedAt: '2026-06-09' },
+      ],
+    },
+    {
+      id:       'tape',
+      name:     'Taśma malarska',
+      icon:     'minus',
+      required: true,
+      notes:    'Tesa Standard 25 mm × 50 m — do styku sufit-ściana.',
+      shopPrices: [
+        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/ta-ma-papierowa-malarska-tesa-51023-25mm-50m-1-szt-/5903719436465_CAPL.prd',                verifiedAt: '2026-06-09' },
+        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/artykuly-gospodarcze/tasmy-folie-ochronne/tasmy-malarskie/tasma-malarska-blue-25-mm-x-50-m,p573830,l2047.html', verifiedAt: '2026-06-09' },
+        { shop: 'obi',         url: 'https://www.obi.pl/tasmy-klejace/tesa-tasma-malarska-standard-50-m-x-25-mm/p/4153656',                                           verifiedAt: '2026-06-09' },
+        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/tasma-malarska-maskujaca-standard-50m-25mm-bezowa-tesa',                                              verifiedAt: '2026-06-09' },
+      ],
+    },
     { id: 'goggles', name: 'Okulary ochronne', icon: 'eye', required: true,
       safetyNote: 'Farba kapie z sufitu — niezbędne.' },
   ],
@@ -582,4 +741,21 @@ export const paintCeilingJob: RenovationJob = {
 
   hireProfessionalRecommended: false,
   tags: ['malowanie', 'sufit', 'farba', 'interior'],
+
+  // ── Content provenance ────────────────────────────────────────────────────
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak pomalować sufit krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+    {
+      title:       'Malowanie ścian — instrukcja dla początkujących',
+      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };

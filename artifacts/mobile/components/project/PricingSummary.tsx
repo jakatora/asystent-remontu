@@ -11,6 +11,7 @@ import { MaterialPriceCard } from './MaterialPriceCard';
 import { QualityTierSelector } from './QualityTierSelector';
 import type { PricedBudgetEstimate, QualityTier } from '@/types/pricing';
 import { hasLaborData, hasMaterialData } from '@/features/pricing';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface PricingSummaryProps {
   estimate: PricedBudgetEstimate;
@@ -33,21 +34,28 @@ export function PricingSummary({
   onOverrideMaterial,
   onResetMaterial,
 }: PricingSummaryProps) {
+  const { t } = useLanguage();
   const hasLabor = hasLaborData(jobId);
   const hasMaterial = hasMaterialData(jobId);
+
+  const tierLabel =
+    qualityTier === 'custom' ? t('cmp.PricingSummary.tier.custom') :
+    qualityTier === 'better' ? t('cmp.PricingSummary.tier.better') :
+    qualityTier === 'economy' ? t('cmp.PricingSummary.tier.economy') :
+    t('cmp.PricingSummary.tier.standard');
 
   return (
     <View style={{ gap: 14 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Feather name="dollar-sign" size={18} color={Colors.primary} />
-        <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>Kosztorys referencyjny</Txt>
+        <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{t('cmp.PricingSummary.title')}</Txt>
       </View>
 
       <QualityTierSelector selected={qualityTier} onSelect={onSelectTier} />
 
       {hasLabor && estimate.laborDetails.length > 0 && (
         <View style={{ gap: 8 }}>
-          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Robocizna (fachowiec)</Txt>
+          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.PricingSummary.laborProfessional')}</Txt>
           {estimate.laborDetails.map((l) => (
             <LaborPriceCard
               key={l.laborRef.id}
@@ -62,7 +70,7 @@ export function PricingSummary({
       {hasMaterial && estimate.materialDetails.length > 0 && (
         <View style={{ gap: 8 }}>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>
-            Materiały referencyjne ({qualityTier === 'custom' ? 'własne' : qualityTier === 'better' ? 'premium' : qualityTier === 'economy' ? 'ekonom' : 'standard'})
+            {t('cmp.PricingSummary.referenceMaterials', { tier: tierLabel })}
           </Txt>
           {estimate.materialDetails.map((m) => (
             <MaterialPriceCard
@@ -79,10 +87,10 @@ export function PricingSummary({
         <View style={{ backgroundColor: Colors.surfaceAlt, borderRadius: 12, padding: 12, gap: 4 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Feather name="users" size={14} color={Colors.textMuted} />
-            <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Robocizna</Txt>
+            <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.PricingSummary.labor')}</Txt>
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-            Dane o robociźnie dla tej pracy nie są jeszcze dostępne. Możesz wprowadzić własną cenę ręcznie.
+            {t('cmp.PricingSummary.laborUnavailable')}
           </Txt>
         </View>
       )}
@@ -91,10 +99,10 @@ export function PricingSummary({
         <View style={{ backgroundColor: Colors.surfaceAlt, borderRadius: 12, padding: 12, gap: 4 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Feather name="package" size={14} color={Colors.textMuted} />
-            <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Materiały referencyjne</Txt>
+            <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.PricingSummary.referenceMaterialsShort')}</Txt>
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-            Ceny referencyjne materiałów dla tej pracy nie są jeszcze zmapowane. Korzystaj z listy zakupów kalkulatora.
+            {t('cmp.PricingSummary.materialsUnavailable')}
           </Txt>
         </View>
       )}
@@ -109,17 +117,17 @@ export function PricingSummary({
         }}
       >
         <View style={{ padding: 14, backgroundColor: Colors.primaryBg }}>
-          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>Podsumowanie kosztorysu</Txt>
+          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('cmp.PricingSummary.summaryTitle')}</Txt>
         </View>
         <SummaryRow
           icon="package"
-          label="Materiały (referencyjne)"
+          label={t('cmp.PricingSummary.materialsReference')}
           value={formatCurrency(estimate.materialsSubtotal)}
         />
         <Divider />
         <SummaryRow
           icon="users"
-          label="Robocizna"
+          label={t('cmp.PricingSummary.labor')}
           value={estimate.laborSubtotalMin === estimate.laborSubtotalMax
             ? formatCurrency(estimate.laborSubtotalMin)
             : `${formatCurrency(estimate.laborSubtotalMin)}–${formatCurrency(estimate.laborSubtotalMax)}`
@@ -131,7 +139,7 @@ export function PricingSummary({
             <Divider />
             <SummaryRow
               icon="tool"
-              label="Narzędzia"
+              label={t('cmp.PricingSummary.tools')}
               value={formatCurrency(estimate.toolsSubtotal)}
               valueColor={Colors.info}
             />
@@ -139,7 +147,7 @@ export function PricingSummary({
         )}
         <Divider />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, backgroundColor: Colors.primaryBg }}>
-          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>Łączny szacunek</Txt>
+          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('cmp.PricingSummary.totalEstimate')}</Txt>
           <Txt w="bold" style={{ fontSize: 18, color: Colors.primary }}>
             {estimate.totalEstimateMin === estimate.totalEstimateMax
               ? formatCurrency(estimate.totalEstimateMin)
@@ -152,7 +160,7 @@ export function PricingSummary({
       <View style={{ flexDirection: 'row', gap: 6, alignItems: 'center' }}>
         <Feather name="map-pin" size={12} color={Colors.textMuted} />
         <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-          Region bazowy: {estimate.regionLabel}
+          {t('cmp.PricingSummary.baseRegion', { region: estimate.regionLabel })}
         </Txt>
       </View>
 

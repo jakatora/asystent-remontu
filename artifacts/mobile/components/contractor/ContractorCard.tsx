@@ -6,6 +6,7 @@ import { Colors } from '@/constants/colors';
 import type { ContractorProfile } from '@/types/contractor';
 import { TrustBadge, PromotedLabel } from './TrustBadge';
 import { isContractorVerified, getCompletionHint } from '@/features/contractor/contractor-trust';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface Props {
   contractor: ContractorProfile;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export function ContractorCard({ contractor, onPress, onSendRequest, isSaved, onToggleSave }: Props) {
+  const { t } = useLanguage();
   const c = contractor;
   const verified = isContractorVerified(c.verificationStatus);
   const completionHint = getCompletionHint(c);
@@ -38,7 +40,7 @@ export function ContractorCard({ contractor, onPress, onSendRequest, isSaved, on
         <PromotedLabel isPromoted={c.isPromoted} listingTier={c.listingTier} size="small" />
         {c.listingTier === 'basic' && (
           <View style={{ backgroundColor: Colors.infoBg, borderRadius: 6, paddingHorizontal: 5, paddingVertical: 2 }}>
-            <Txt style={{ fontSize: 8, color: Colors.info }}>Podstawowy</Txt>
+            <Txt style={{ fontSize: 8, color: Colors.info }}>{t('cmp.ContractorCard.basic')}</Txt>
           </View>
         )}
       </View>
@@ -101,7 +103,7 @@ export function ContractorCard({ contractor, onPress, onSendRequest, isSaved, on
             {c.availableSoon && (
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
                 <Feather name="clock" size={12} color={Colors.success} />
-                <Txt style={{ fontSize: 12, color: Colors.success }}>Dostepny</Txt>
+                <Txt style={{ fontSize: 12, color: Colors.success }}>{t('cmp.ContractorCard.available')}</Txt>
               </View>
             )}
           </View>
@@ -127,7 +129,7 @@ export function ContractorCard({ contractor, onPress, onSendRequest, isSaved, on
           style={{ marginTop: 12, backgroundColor: Colors.primaryBg, borderRadius: 10, paddingVertical: 10, alignItems: 'center' }}
           activeOpacity={0.8}
         >
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.primary }}>Wyslij zapytanie</Txt>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.primary }}>{t('cmp.ContractorCard.sendRequest')}</Txt>
         </TouchableOpacity>
       )}
     </TouchableOpacity>

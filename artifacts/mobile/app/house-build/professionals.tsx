@@ -6,9 +6,11 @@ import { Feather } from '@expo/vector-icons';
 import { PROFESSIONAL_ROLES } from '@/features/house-build/stages';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ProfessionalsScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const required = PROFESSIONAL_ROLES.filter((r) => r.isRequired);
@@ -16,7 +18,7 @@ export default function ProfessionalsScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Specjalisci' }} />
+      <Stack.Screen options={{ title: t('hb.professionals.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -31,18 +33,18 @@ export default function ProfessionalsScreen() {
             borderWidth: 1,
             borderColor: '#DDD6FE',
           }}>
-            <Txt w="bold" style={{ fontSize: 16, color: '#6D28D9' }}>Kogo bedziesz potrzebowac?</Txt>
+            <Txt w="bold" style={{ fontSize: 16, color: '#6D28D9' }}>{t('hb.professionals.heroTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: '#7C3AED', marginTop: 4 }}>
-              Budowa domu wymaga wspolpracy z wieloma specjalistami. Ponizej znajdziesz przewodnik.
+              {t('hb.professionals.heroSubtitle')}
             </Txt>
           </View>
 
-          <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>Wymagani specjalisci</Txt>
+          <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>{t('hb.professionals.requiredSection')}</Txt>
           {required.map((role) => (
             <ProfessionalCard key={role.role} role={role} />
           ))}
 
-          <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginTop: 16, marginBottom: 12 }}>Opcjonalni specjalisci</Txt>
+          <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginTop: 16, marginBottom: 12 }}>{t('hb.professionals.optionalSection')}</Txt>
           {optional.map((role) => (
             <ProfessionalCard key={role.role} role={role} />
           ))}
@@ -57,10 +59,10 @@ export default function ProfessionalsScreen() {
           }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
               <Feather name="alert-triangle" size={14} color={Colors.warning} />
-              <Txt w="semibold" style={{ fontSize: 13, color: '#92400E' }}>Wazna wskazówka</Txt>
+              <Txt w="semibold" style={{ fontSize: 13, color: '#92400E' }}>{t('hb.professionals.tipTitle')}</Txt>
             </View>
             <Txt style={{ fontSize: 12, color: '#92400E' }}>
-              Zawsze sprawdzaj uprawnienia specjalistów przed zleceniem prac. Wymagaj protokolów i wpisów do dziennika budowy.
+              {t('hb.professionals.tipBody')}
             </Txt>
           </View>
         </View>
@@ -70,6 +72,7 @@ export default function ProfessionalsScreen() {
 }
 
 function ProfessionalCard({ role }: { role: typeof PROFESSIONAL_ROLES[number] }) {
+  const { t } = useLanguage();
   return (
     <View style={{
       backgroundColor: Colors.surface,
@@ -95,12 +98,12 @@ function ProfessionalCard({ role }: { role: typeof PROFESSIONAL_ROLES[number] })
             <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{role.label}</Txt>
             {role.isRequired && (
               <View style={{ backgroundColor: Colors.dangerBg, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                <Txt style={{ fontSize: 9, color: Colors.danger }}>Wymagany</Txt>
+                <Txt style={{ fontSize: 9, color: Colors.danger }}>{t('hb.professionals.requiredBadge')}</Txt>
               </View>
             )}
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textSecondary, marginTop: 2 }}>{role.description}</Txt>
-          <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 2 }}>Kiedy: {role.whenNeeded}</Txt>
+          <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 2 }}>{t('hb.professionals.whenLabel', { when: role.whenNeeded })}</Txt>
         </View>
       </View>
     </View>

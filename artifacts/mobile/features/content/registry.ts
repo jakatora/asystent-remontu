@@ -27,6 +27,9 @@ import { doorPaintingJob, doorHandleReplaceJob, doorSealReplaceJob,
          lightFixtureJob, socketFrameReplaceJob,
          siliconeRefreshJob }                                                 from '@/data/jobs/small-repairs';
 import { selfLevelingJob, epoxFloorJob, parquetSandingJob }                  from '@/data/jobs/floor-prep';
+import { airConditioningSplitJob }                                            from '@/data/jobs/hvac';
+import { epsInsulationBsoJob, acousticSuspendedCeilingJob, fireplaceInstallationJob,
+         interiorWoodenStairsJob, mechanicalVentilationMvhrJob }              from '@/data/jobs/new-additions';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // THE SINGLE SOURCE OF TRUTH FOR ALL RENOVATION JOBS
@@ -102,6 +105,14 @@ const JOB_REGISTRY: readonly RenovationJob[] = Object.freeze([
   roofRepairJob,
   chimneyWorkJob,
   highRiskJob,
+  // ── HVAC (Faza 4) ─────────────────────────────────────────────────────────
+  airConditioningSplitJob,
+  mechanicalVentilationMvhrJob,
+  // ── Insulation / Ceiling / Fireplace / Stairs (Faza 4) ───────────────────
+  epsInsulationBsoJob,
+  acousticSuspendedCeilingJob,
+  fireplaceInstallationJob,
+  interiorWoodenStairsJob,
 ]);
 
 // ─── Category metadata ────────────────────────────────────────────────────────
@@ -270,6 +281,41 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
     description: 'Prąd, gaz, konstrukcja, dach — tylko fachowiec',
     icon: 'alert-triangle',
     color: Colors.danger,
+  },
+  {
+    id: 'hvac',
+    name: 'Klimatyzacja i wentylacja',
+    description: 'Klimatyzacja split, wentylacja mechaniczna, rekuperacja',
+    icon: 'wind',
+    color: Colors.info,
+  },
+  {
+    id: 'insulation',
+    name: 'Ocieplenie elewacji',
+    description: 'BSO/ETICS — styropian + siatka + tynk cienkowarstwowy',
+    icon: 'shield',
+    color: Colors.categoryWall,
+  },
+  {
+    id: 'ceiling-acoustic',
+    name: 'Sufit podwieszany akustyczny',
+    description: 'Panele rastrowe 60×60 na ruszcie T-15/T-24',
+    icon: 'grid',
+    color: Colors.categoryGypsum,
+  },
+  {
+    id: 'fireplace',
+    name: 'Kominek',
+    description: 'Wkład kominkowy, izolacja, obudowa, odbiór kominiarski',
+    icon: 'thermometer',
+    color: Colors.danger,
+  },
+  {
+    id: 'stairs',
+    name: 'Schody',
+    description: 'Schody drewniane wewnętrzne — montaż i balustrada',
+    icon: 'corner-up-right',
+    color: Colors.categoryWindows,
   },
 ];
 

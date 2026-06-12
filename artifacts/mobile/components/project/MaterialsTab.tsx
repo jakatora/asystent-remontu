@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { CalculationResult } from '@/types/domain';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface MaterialsTabProps {
   calc: CalculationResult;
@@ -14,13 +15,14 @@ interface MaterialsTabProps {
 }
 
 export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }: MaterialsTabProps) {
+  const { t } = useLanguage();
   return (
     <View style={{ gap: 12 }}>
       <Txt w="bold" style={{ fontSize: 18, color: Colors.text, marginBottom: 4 }}>
-        Lista materiałów
+        {t('cmp.MaterialsTab.title')}
       </Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
-        Ilości uwzględniają 10% zapasu na straty i docięcia.
+        {t('cmp.MaterialsTab.subtitle')}
       </Txt>
 
       {calc.materials.map((m, i) => (
@@ -74,7 +76,7 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
         }}
       >
         <Txt w="semibold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-          Łączny koszt materiałów
+          {t('cmp.MaterialsTab.totalCost')}
         </Txt>
         <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
           {formatCurrency(calc.totalCost)}
@@ -82,7 +84,7 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
       </View>
 
       <Button
-        label={hasShoppingItems ? 'Odśwież listę zakupów' : 'Generuj listę zakupów'}
+        label={hasShoppingItems ? t('cmp.MaterialsTab.refreshList') : t('cmp.MaterialsTab.generateList')}
         onPress={onGenerateShoppingList}
         fullWidth
         icon={<Feather name="shopping-cart" size={16} color="#fff" />}

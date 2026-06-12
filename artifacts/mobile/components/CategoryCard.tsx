@@ -5,6 +5,7 @@ import { RenovationCategory } from '@/types/renovation';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface CategoryCardProps {
   category: RenovationCategory;
@@ -12,7 +13,13 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ category, onPress }: CategoryCardProps) {
-  const jobWord = pluralize(category.jobCount, 'rodzaj', 'rodzaje', 'rodzajów');
+  const { t } = useLanguage();
+  const jobWord = pluralize(
+    category.jobCount,
+    t('cmp.CategoryCard.jobWord.one'),
+    t('cmp.CategoryCard.jobWord.few'),
+    t('cmp.CategoryCard.jobWord.many')
+  );
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -25,7 +32,7 @@ export function CategoryCard({ category, onPress }: CategoryCardProps) {
         borderColor: Colors.border,
         width: '47%',
       }}
-      accessibilityLabel={`${category.name}, ${category.jobCount} ${jobWord} prac`}
+      accessibilityLabel={t('cmp.CategoryCard.a11y', { name: category.name, count: category.jobCount, word: jobWord })}
       accessibilityRole="button"
     >
       <View

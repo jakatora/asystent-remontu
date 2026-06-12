@@ -10,35 +10,38 @@ import { QUESTION_TEMPLATES } from '@/features/house-build/question-templates';
 import { UTILITY_QUESTION_TEMPLATES } from '@/features/house-build/utility-questions';
 import { PROFESSIONAL_ROLES } from '@/features/house-build/stages';
 import type { BuildQuestionRecord, QuestionPriority } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const PRIORITY_CONFIG: Record<QuestionPriority, { label: string; color: string; bg: string }> = {
-  'low': { label: 'Niski', color: Colors.textMuted, bg: '#F1F5F9' },
-  'normal': { label: 'Normalny', color: HB_ACCENT, bg: HB_ACCENT_BG },
-  'high': { label: 'Wysoki', color: '#D97706', bg: '#FFFBEB' },
-  'urgent': { label: 'Pilny', color: '#DC2626', bg: '#FEF2F2' },
+const PRIORITY_CONFIG: Record<QuestionPriority, { labelKey: TranslationKey; color: string; bg: string }> = {
+  'low': { labelKey: 'hb.questions.priority.low', color: Colors.textMuted, bg: '#F1F5F9' },
+  'normal': { labelKey: 'hb.questions.priority.normal', color: HB_ACCENT, bg: HB_ACCENT_BG },
+  'high': { labelKey: 'hb.questions.priority.high', color: '#D97706', bg: '#FFFBEB' },
+  'urgent': { labelKey: 'hb.questions.priority.urgent', color: '#DC2626', bg: '#FEF2F2' },
 };
 
-const ROLE_LABELS: Record<string, string> = {
-  'architect': 'Architekt',
-  'structural-engineer': 'Konstruktor',
-  'geodesist': 'Geodeta',
-  'electrician': 'Elektryk',
-  'plumber': 'Hydraulik',
-  'gas-installer': 'Instalator gazu',
-  'roofer': 'Dekarz',
-  'general-contractor': 'Generalny wykonawca',
-  'building-inspector': 'Inspektor budowy',
-  'interior-designer': 'Projektant wnetrz',
-  'chimney-sweep': 'Kominiarz',
-  'energy-auditor': 'Audytor energetyczny',
+const ROLE_LABEL_KEYS: Record<string, TranslationKey> = {
+  'architect': 'hb.questions.role.architect',
+  'structural-engineer': 'hb.questions.role.structuralEngineer',
+  'geodesist': 'hb.questions.role.geodesist',
+  'electrician': 'hb.questions.role.electrician',
+  'plumber': 'hb.questions.role.plumber',
+  'gas-installer': 'hb.questions.role.gasInstaller',
+  'roofer': 'hb.questions.role.roofer',
+  'general-contractor': 'hb.questions.role.generalContractor',
+  'building-inspector': 'hb.questions.role.buildingInspector',
+  'interior-designer': 'hb.questions.role.interiorDesigner',
+  'chimney-sweep': 'hb.questions.role.chimneySweep',
+  'energy-auditor': 'hb.questions.role.energyAuditor',
 };
 
 export default function QuestionsScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [questions, setQuestions] = useState<BuildQuestionRecord[]>([]);
@@ -102,20 +105,20 @@ export default function QuestionsScreen() {
   }, [answeringId, answerText, loadData]);
 
   const handleDelete = useCallback(async (id: string) => {
-    Alert.alert('Usun pytanie', 'Czy na pewno?', [
-      { text: 'Anuluj', style: 'cancel' },
-      { text: 'Usun', style: 'destructive', onPress: async () => {
+    Alert.alert(t('hb.questions.deleteTitle'), t('hb.questions.deleteBody'), [
+      { text: t('hb.questions.deleteCancel'), style: 'cancel' },
+      { text: t('hb.questions.deleteConfirm'), style: 'destructive', onPress: async () => {
         await investorDocsRepo.deleteQuestion(id);
         await loadData();
       }},
     ]);
-  }, [loadData]);
+  }, [loadData, t]);
 
   const open = questions.filter((q) => !q.isAnswered).length;
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Pytania do specjalistow' }} />
+      <Stack.Screen options={{ title: t('hb.questions.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -127,13 +130,13 @@ export default function QuestionsScreen() {
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Pytania do specjalistow</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.questions.heroTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              Przygotuj pytania do projektanta, kierownika i wykonawcow
+              {t('hb.questions.heroSubtitle')}
             </Txt>
             {open > 0 && (
               <Txt w="semibold" style={{ fontSize: 12, color: '#D97706', marginTop: 8 }}>
-                {open} bez odpowiedzi
+                {t('hb.questions.unanswered', { count: open })}
               </Txt>
             )}
           </View>
@@ -144,15 +147,15 @@ export default function QuestionsScreen() {
                 style={{ backgroundColor: filterRole === null ? HB_ACCENT : '#F1F5F9', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 4 }}
                 onPress={() => setFilterRole(null)}
               >
-                <Txt style={{ fontSize: 10, color: filterRole === null ? '#fff' : Colors.text }}>Wszystkie</Txt>
+                <Txt style={{ fontSize: 10, color: filterRole === null ? '#fff' : Colors.text }}>{t('hb.questions.filterAll')}</Txt>
               </TouchableOpacity>
-              {Object.entries(ROLE_LABELS).map(([key, label]) => (
+              {Object.entries(ROLE_LABEL_KEYS).map(([key, labelKey]) => (
                 <TouchableOpacity
                   key={key}
                   style={{ backgroundColor: filterRole === key ? HB_ACCENT : '#F1F5F9', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 4 }}
                   onPress={() => setFilterRole(filterRole === key ? null : key)}
                 >
-                  <Txt style={{ fontSize: 10, color: filterRole === key ? '#fff' : Colors.text }}>{label}</Txt>
+                  <Txt style={{ fontSize: 10, color: filterRole === key ? '#fff' : Colors.text }}>{t(labelKey)}</Txt>
                 </TouchableOpacity>
               ))}
             </View>
@@ -183,12 +186,12 @@ export default function QuestionsScreen() {
                       <Txt style={{ fontSize: 13, color: Colors.text, textDecorationLine: q.isAnswered ? 'line-through' : 'none' }}>{q.questionText}</Txt>
                       <View style={{ flexDirection: 'row', gap: 6, marginTop: 4 }}>
                         <View style={{ backgroundColor: pc.bg, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                          <Txt style={{ fontSize: 9, color: pc.color }}>{pc.label}</Txt>
+                          <Txt style={{ fontSize: 9, color: pc.color }}>{t(pc.labelKey)}</Txt>
                         </View>
-                        {q.targetRole && <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{ROLE_LABELS[q.targetRole] ?? q.targetRole}</Txt>}
+                        {q.targetRole && <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{ROLE_LABEL_KEYS[q.targetRole] ? t(ROLE_LABEL_KEYS[q.targetRole]) : q.targetRole}</Txt>}
                         {q.followUpNeeded && (
                           <View style={{ backgroundColor: '#FFFBEB', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                            <Txt style={{ fontSize: 9, color: '#D97706' }}>Wymaga follow-up</Txt>
+                            <Txt style={{ fontSize: 9, color: '#D97706' }}>{t('hb.questions.followUp')}</Txt>
                           </View>
                         )}
                       </View>
@@ -199,15 +202,15 @@ export default function QuestionsScreen() {
                 {isExpanded && !isAnswering && (
                   <View style={{ backgroundColor: '#F8FAFC', borderRadius: 10, padding: 12, marginTop: 4, borderWidth: 1, borderColor: '#E2E8F0' }}>
                     {q.answerText ? (
-                      <Txt style={{ fontSize: 12, color: Colors.text, marginBottom: 6 }}>Odpowiedz: {q.answerText}</Txt>
+                      <Txt style={{ fontSize: 12, color: Colors.text, marginBottom: 6 }}>{t('hb.questions.answerLabel', { answer: q.answerText })}</Txt>
                     ) : (
-                      <Txt style={{ fontSize: 12, color: Colors.textMuted, marginBottom: 6 }}>Brak odpowiedzi</Txt>
+                      <Txt style={{ fontSize: 12, color: Colors.textMuted, marginBottom: 6 }}>{t('hb.questions.noAnswer')}</Txt>
                     )}
                     <TouchableOpacity
                       style={{ backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }}
                       onPress={() => { setAnsweringId(q.id); setAnswerText(q.answerText); }}
                     >
-                      <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>Zapisz odpowiedz</Txt>
+                      <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('hb.questions.saveAnswerCta')}</Txt>
                     </TouchableOpacity>
                   </View>
                 )}
@@ -216,15 +219,15 @@ export default function QuestionsScreen() {
                   <View style={{ backgroundColor: Colors.surface, borderRadius: 10, padding: 12, marginTop: 4, borderWidth: 1, borderColor: '#BFDBFE' }}>
                     <TextInput
                       style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border, marginBottom: 8, minHeight: 60, textAlignVertical: 'top' }}
-                      multiline placeholder="Odpowiedz..." placeholderTextColor={Colors.textMuted}
+                      multiline placeholder={t('hb.questions.answerPlaceholder')} placeholderTextColor={Colors.textMuted}
                       value={answerText} onChangeText={setAnswerText}
                     />
                     <View style={{ flexDirection: 'row', gap: 8 }}>
                       <TouchableOpacity style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center' }} onPress={handleSaveAnswer}>
-                        <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Zapisz</Txt>
+                        <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.questions.saveCta')}</Txt>
                       </TouchableOpacity>
                       <TouchableOpacity style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }} onPress={() => setAnsweringId(null)}>
-                        <Txt style={{ fontSize: 13, color: Colors.text }}>Anuluj</Txt>
+                        <Txt style={{ fontSize: 13, color: Colors.text }}>{t('hb.questions.cancelCta')}</Txt>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -235,7 +238,7 @@ export default function QuestionsScreen() {
 
           {showTemplates && (
             <View style={{ backgroundColor: '#F5F3FF', borderRadius: 12, padding: 12, marginBottom: 12, borderWidth: 1, borderColor: '#DDD6FE' }}>
-              <Txt w="semibold" style={{ fontSize: 13, color: '#6D28D9', marginBottom: 8 }}>Szablony pytan</Txt>
+              <Txt w="semibold" style={{ fontSize: 13, color: '#6D28D9', marginBottom: 8 }}>{t('hb.questions.templatesTitle')}</Txt>
               {[...QUESTION_TEMPLATES, ...UTILITY_QUESTION_TEMPLATES].map((tpl, i) => (
                 <TouchableOpacity
                   key={i}
@@ -245,12 +248,12 @@ export default function QuestionsScreen() {
                   <Feather name="plus-circle" size={14} color="#6D28D9" />
                   <View style={{ flex: 1 }}>
                     <Txt style={{ fontSize: 11, color: Colors.text }}>{tpl.questionText}</Txt>
-                    <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{ROLE_LABELS[tpl.targetRole] ?? tpl.targetRole} | {tpl.stageKey}</Txt>
+                    <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{ROLE_LABEL_KEYS[tpl.targetRole] ? t(ROLE_LABEL_KEYS[tpl.targetRole]) : tpl.targetRole} | {tpl.stageKey}</Txt>
                   </View>
                 </TouchableOpacity>
               ))}
               <TouchableOpacity style={{ alignItems: 'center', paddingVertical: 6 }} onPress={() => setShowTemplates(false)}>
-                <Txt style={{ fontSize: 11, color: '#6D28D9' }}>Zamknij szablony</Txt>
+                <Txt style={{ fontSize: 11, color: '#6D28D9' }}>{t('hb.questions.closeTemplates')}</Txt>
               </TouchableOpacity>
             </View>
           )}
@@ -259,28 +262,28 @@ export default function QuestionsScreen() {
             <View style={{ backgroundColor: Colors.surface, borderRadius: 12, padding: 14, marginBottom: 16, borderWidth: 1, borderColor: '#BFDBFE' }}>
               <TextInput
                 style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, marginBottom: 8, borderWidth: 1, borderColor: Colors.border }}
-                placeholder="Tresc pytania..."
+                placeholder={t('hb.questions.textPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 value={newText} onChangeText={setNewText} multiline
               />
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 8 }}>
                 <View style={{ flexDirection: 'row', gap: 6 }}>
-                  {Object.entries(ROLE_LABELS).map(([key, label]) => (
+                  {Object.entries(ROLE_LABEL_KEYS).map(([key, labelKey]) => (
                     <TouchableOpacity key={key}
                       style={{ backgroundColor: newRole === key ? HB_ACCENT : '#F1F5F9', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 4 }}
                       onPress={() => setNewRole(newRole === key ? '' : key)}
                     >
-                      <Txt style={{ fontSize: 10, color: newRole === key ? '#fff' : Colors.text }}>{label}</Txt>
+                      <Txt style={{ fontSize: 10, color: newRole === key ? '#fff' : Colors.text }}>{t(labelKey)}</Txt>
                     </TouchableOpacity>
                   ))}
                 </View>
               </ScrollView>
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <TouchableOpacity style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center' }} onPress={handleAddQuestion}>
-                  <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Dodaj</Txt>
+                  <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.questions.addCta')}</Txt>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }} onPress={() => setShowAdd(false)}>
-                  <Txt style={{ fontSize: 13, color: Colors.text }}>Anuluj</Txt>
+                  <Txt style={{ fontSize: 13, color: Colors.text }}>{t('hb.questions.cancelCta')}</Txt>
                 </TouchableOpacity>
               </View>
             </View>
@@ -288,18 +291,18 @@ export default function QuestionsScreen() {
             <View style={{ flexDirection: 'row', gap: 12, justifyContent: 'center', marginBottom: 12 }}>
               <TouchableOpacity onPress={() => setShowAdd(true)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                 <Feather name="plus" size={14} color={HB_ACCENT} />
-                <Txt style={{ fontSize: 12, color: HB_ACCENT }}>Nowe pytanie</Txt>
+                <Txt style={{ fontSize: 12, color: HB_ACCENT }}>{t('hb.questions.newQuestion')}</Txt>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setShowTemplates(!showTemplates)} style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                 <Feather name="list" size={14} color="#6D28D9" />
-                <Txt style={{ fontSize: 12, color: '#6D28D9' }}>Szablony</Txt>
+                <Txt style={{ fontSize: 12, color: '#6D28D9' }}>{t('hb.questions.templates')}</Txt>
               </TouchableOpacity>
             </View>
           )}
 
           <View style={{ marginTop: 8, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-              Przytrzymaj pytanie, aby je usunac. Dotknij okrag, aby oznaczyc jako odpowiedziane.
+              {t('hb.questions.footnote')}
             </Txt>
           </View>
         </View>

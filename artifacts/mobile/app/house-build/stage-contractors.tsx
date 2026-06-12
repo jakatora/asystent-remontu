@@ -6,6 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { getStageByKey } from '@/features/house-build/stages';
+import { useLanguage } from '@/context/LanguageContext';
 import {
   getExtendedMappingForStage,
   getHiringQuestionsForStage,
@@ -29,6 +30,7 @@ const STATUS_CYCLE: ContractorNeedStatus[] = [
 export default function StageContractorsScreen() {
   const { projectId, stageKey } = useLocalSearchParams<{ projectId: string; stageKey: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const stage = getStageByKey(stageKey);
   const mapping = getExtendedMappingForStage(stageKey);
   const guidance = getProfessionalGuidanceForStage(stageKey);
@@ -80,9 +82,9 @@ export default function StageContractorsScreen() {
   };
 
   const handleRemoveShortlist = (entry: StageContractorShortlistEntry) => {
-    Alert.alert('Usun z listy', `Usunac "${entry.contractorName}" z krotkiej listy?`, [
-      { text: 'Anuluj', style: 'cancel' },
-      { text: 'Usun', style: 'destructive', onPress: async () => {
+    Alert.alert(t('hb.stageContractors.removeTitle'), t('hb.stageContractors.removeBody', { name: entry.contractorName }), [
+      { text: t('hb.stageContractors.removeCancel'), style: 'cancel' },
+      { text: t('hb.stageContractors.removeConfirm'), style: 'destructive', onPress: async () => {
         try {
           await houseBuildContractorsRepo.removeFromShortlist(entry.id);
           await load();
@@ -106,7 +108,7 @@ export default function StageContractorsScreen() {
         <Txt w="bold" style={{ fontSize: 15, color: HB_ACCENT }}>{stage?.name ?? stageKey}</Txt>
         {mapping && <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 2 }}>{mapping.label}</Txt>}
 
-        <Txt w="semibold" style={{ fontSize: 12, color: Colors.text, marginTop: 12, marginBottom: 6 }}>Status wykonawcy</Txt>
+        <Txt w="semibold" style={{ fontSize: 12, color: Colors.text, marginTop: 12, marginBottom: 6 }}>{t('hb.stageContractors.statusSection')}</Txt>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
           {STATUS_CYCLE.map((s) => (
             <TouchableOpacity
@@ -132,34 +134,34 @@ export default function StageContractorsScreen() {
           style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 10, padding: 12, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 6 }}
         >
           <Feather name="edit-3" size={14} color="#FFFFFF" />
-          <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>Przygotuj zapytanie</Txt>
+          <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>{t('hb.stageContractors.prepRequest')}</Txt>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push({ pathname: '/contractor/results' as any, params: { fromHouseBuild: '1', stageKey, projectId } })}
           style={{ flex: 1, backgroundColor: '#059669', borderRadius: 10, padding: 12, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 6 }}
         >
           <Feather name="search" size={14} color="#FFFFFF" />
-          <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>Szukaj wykonawcy</Txt>
+          <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>{t('hb.stageContractors.searchContractor')}</Txt>
         </TouchableOpacity>
       </View>
 
       {guidance && (
         <View style={{ backgroundColor: '#EFF6FF', borderRadius: 10, padding: 12, borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 12 }}>
-          <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT, marginBottom: 6 }}>Wskazowki dla inwestora</Txt>
+          <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT, marginBottom: 6 }}>{t('hb.stageContractors.guidanceTitle')}</Txt>
           <View style={{ marginBottom: 6 }}>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Kto zazwyczaj jest potrzebny:</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.stageContractors.commonRoles')}</Txt>
             <Txt style={{ fontSize: 11, color: Colors.text }}>{guidance.commonRoles.join(', ')}</Txt>
           </View>
           <View style={{ marginBottom: 6 }}>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Kiedy zaczac szukac:</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.stageContractors.whenToStart')}</Txt>
             <Txt style={{ fontSize: 11, color: Colors.text }}>{guidance.whenToStartLooking}</Txt>
           </View>
           <View style={{ marginBottom: 6 }}>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Oferty:</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.stageContractors.offers')}</Txt>
             <Txt style={{ fontSize: 11, color: Colors.text }}>{guidance.whenToCollectOffers}</Txt>
           </View>
           <View>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Co potwierdzic:</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.stageContractors.whatToConfirm')}</Txt>
             <Txt style={{ fontSize: 11, color: Colors.text }}>{guidance.whatToConfirm}</Txt>
           </View>
         </View>
@@ -167,7 +169,7 @@ export default function StageContractorsScreen() {
 
       <View style={{ backgroundColor: '#FFFFFF', borderRadius: 10, padding: 12, borderWidth: 1, borderColor: '#E2E8F0', marginBottom: 12 }}>
         <TouchableOpacity onPress={() => setShowQuestions(!showQuestions)} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Txt w="semibold" style={{ fontSize: 12, color: Colors.text }}>Pytania przed zatrudnieniem ({hiringQs.length})</Txt>
+          <Txt w="semibold" style={{ fontSize: 12, color: Colors.text }}>{t('hb.stageContractors.hiringQuestions', { count: hiringQs.length })}</Txt>
           <Feather name={showQuestions ? 'chevron-up' : 'chevron-down'} size={16} color={Colors.textMuted} />
         </TouchableOpacity>
         {showQuestions && (
@@ -183,12 +185,12 @@ export default function StageContractorsScreen() {
       </View>
 
       <View style={{ backgroundColor: '#FFFFFF', borderRadius: 10, padding: 12, borderWidth: 1, borderColor: '#E2E8F0', marginBottom: 12 }}>
-        <Txt w="semibold" style={{ fontSize: 12, color: Colors.text, marginBottom: 6 }}>Krotka lista ({shortlist.length})</Txt>
+        <Txt w="semibold" style={{ fontSize: 12, color: Colors.text, marginBottom: 6 }}>{t('hb.stageContractors.shortlist', { count: shortlist.length })}</Txt>
         {shortlist.length === 0 ? (
           <View style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 12, alignItems: 'center' }}>
             <Feather name="user-plus" size={16} color={Colors.textMuted} />
-            <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 4 }}>Brak wykonawcow na liscie</Txt>
-            <Txt style={{ fontSize: 9, color: Colors.textMuted }}>Znajdz wykonawce i dodaj go do etapu</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 4 }}>{t('hb.stageContractors.emptyShortlist')}</Txt>
+            <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{t('hb.stageContractors.emptyShortlistHint')}</Txt>
           </View>
         ) : (
           shortlist.map((entry) => (
@@ -207,17 +209,17 @@ export default function StageContractorsScreen() {
       </View>
 
       <View style={{ backgroundColor: '#FFFFFF', borderRadius: 10, padding: 12, borderWidth: 1, borderColor: '#E2E8F0', marginBottom: 12 }}>
-        <Txt w="semibold" style={{ fontSize: 12, color: Colors.text, marginBottom: 6 }}>Notatki</Txt>
+        <Txt w="semibold" style={{ fontSize: 12, color: Colors.text, marginBottom: 6 }}>{t('hb.stageContractors.notesSection')}</Txt>
         <TextInput
           style={{ backgroundColor: '#F8FAFC', borderRadius: 6, padding: 8, fontSize: 12, borderWidth: 1, borderColor: '#E2E8F0', minHeight: 60, textAlignVertical: 'top' }}
           value={editNote}
           onChangeText={setEditNote}
           multiline
-          placeholder="Notatki dotyczace wykonawcy na tym etapie..."
+          placeholder={t('hb.stageContractors.notesPlaceholder')}
           placeholderTextColor={Colors.textMuted}
         />
         <TouchableOpacity onPress={handleSaveNotes} style={{ backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center', marginTop: 8 }}>
-          <Txt style={{ fontSize: 11, color: '#FFFFFF' }}>Zapisz notatki</Txt>
+          <Txt style={{ fontSize: 11, color: '#FFFFFF' }}>{t('hb.stageContractors.saveNotes')}</Txt>
         </TouchableOpacity>
       </View>
 
@@ -225,7 +227,7 @@ export default function StageContractorsScreen() {
         <View style={{ backgroundColor: '#F0FDF4', borderRadius: 10, padding: 12, borderWidth: 1, borderColor: '#BBF7D0' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Feather name="check-circle" size={16} color="#16A34A" />
-            <Txt w="semibold" style={{ fontSize: 13, color: '#16A34A' }}>Wybrany wykonawca</Txt>
+            <Txt w="semibold" style={{ fontSize: 13, color: '#16A34A' }}>{t('hb.stageContractors.selectedTitle')}</Txt>
           </View>
           <Txt style={{ fontSize: 12, color: Colors.text, marginTop: 4 }}>{need.selectedContractorName}</Txt>
         </View>

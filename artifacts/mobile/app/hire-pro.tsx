@@ -5,53 +5,55 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { getJobById } from '@/data/jobs';
 import { Txt } from '@/components/ui/Txt';
-
-const TIPS = [
-  {
-    icon: 'search' as const,
-    title: 'Jak znaleźć dobrego fachowca?',
-    items: [
-      'Poproś znajomych i rodzinę o polecenie',
-      'Sprawdź opinie w internecie (Google, Oferto)',
-      'Zadzwoń do kilku firm i porównaj oferty',
-      'Poproś o referencje od poprzednich klientów',
-    ],
-  },
-  {
-    icon: 'file-text' as const,
-    title: 'Co sprawdzić przed zatrudnieniem?',
-    items: [
-      'Poproś o pisemną wycenę z wyszczególnionymi kosztami',
-      'Sprawdź uprawnienia (elektryka, gaz — wymagane prawem)',
-      'Sprawdź wpis do działalności (CEIDG)',
-      'Omów termin rozpoczęcia i zakończenia prac',
-      'Zapytaj o gwarancję na wykonane prace',
-    ],
-  },
-  {
-    icon: 'clipboard' as const,
-    title: 'Podpisz umowę!',
-    items: [
-      'Umowa powinna zawierać: zakres prac, termin, cenę',
-      'Nie płać całości z góry — max 30% zaliczki',
-      'Resztę płać po odbiorze i sprawdzeniu jakości',
-      'Żądaj faktury lub rachunku',
-    ],
-  },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function HireProScreen() {
   const { jobId } = useLocalSearchParams<{ jobId?: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const job = jobId ? getJobById(jobId) : null;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
+
+  const TIPS = [
+    {
+      icon: 'search' as const,
+      title: t('hirePro.tip1.title'),
+      items: [
+        t('hirePro.tip1.item1'),
+        t('hirePro.tip1.item2'),
+        t('hirePro.tip1.item3'),
+        t('hirePro.tip1.item4'),
+      ],
+    },
+    {
+      icon: 'file-text' as const,
+      title: t('hirePro.tip2.title'),
+      items: [
+        t('hirePro.tip2.item1'),
+        t('hirePro.tip2.item2'),
+        t('hirePro.tip2.item3'),
+        t('hirePro.tip2.item4'),
+        t('hirePro.tip2.item5'),
+      ],
+    },
+    {
+      icon: 'clipboard' as const,
+      title: t('hirePro.tip3.title'),
+      items: [
+        t('hirePro.tip3.item1'),
+        t('hirePro.tip3.item2'),
+        t('hirePro.tip3.item3'),
+        t('hirePro.tip3.item4'),
+      ],
+    },
+  ];
 
   return (
     <>
       <Stack.Screen
         options={{
-          title: 'Zatrudnij fachowca',
-          headerBackTitle: 'Wróć',
+          title: t('hirePro.title'),
+          headerBackTitle: t('hirePro.headerBack'),
           headerStyle: { backgroundColor: '#F8FAFC' },
           headerTintColor: '#0F172A',
           headerShadowVisible: false,
@@ -67,7 +69,7 @@ export default function HireProScreen() {
           <View className="w-[88px] h-[88px] rounded-full bg-red-100 items-center justify-center mb-4">
             <Feather name="shield" size={40} color="#EF4444" />
           </View>
-          <Txt w="bold" className="text-[22px] text-danger text-center mb-2">Ta praca wymaga fachowca</Txt>
+          <Txt w="bold" className="text-[22px] text-danger text-center mb-2">{t('hirePro.warningTitle')}</Txt>
           {job?.hireProfessionalReason && (
             <Txt className="text-[15px] text-red-700 text-center leading-6">{job.hireProfessionalReason}</Txt>
           )}
@@ -95,8 +97,8 @@ export default function HireProScreen() {
           <View className="flex-row items-center gap-3.5 bg-danger-bg rounded-2xl p-4 border border-red-200">
             <Feather name="phone-call" size={20} color="#EF4444" />
             <View className="flex-1">
-              <Txt w="bold" className="text-[15px] text-danger">Nagłe przypadki</Txt>
-              <Txt className="text-[13px] text-red-700 mt-0.5">Awaria gazu, zalanie, brak prądu</Txt>
+              <Txt w="bold" className="text-[15px] text-danger">{t('hirePro.emergency.title')}</Txt>
+              <Txt className="text-[13px] text-red-700 mt-0.5">{t('hirePro.emergency.subtitle')}</Txt>
             </View>
           </View>
 
@@ -109,7 +111,7 @@ export default function HireProScreen() {
             activeOpacity={0.8}
             style={{ shadowColor: '#F97316', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }}
           >
-            <Txt w="bold" className="text-base text-white">Znajdź fachowca w aplikacji</Txt>
+            <Txt w="bold" className="text-base text-white">{t('hirePro.findCta')}</Txt>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -117,7 +119,7 @@ export default function HireProScreen() {
             onPress={() => router.back()}
             activeOpacity={0.8}
           >
-            <Txt w="bold" className="text-base text-ink">Wróć do projektu</Txt>
+            <Txt w="bold" className="text-base text-ink">{t('hirePro.backCta')}</Txt>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -7,24 +7,26 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { investorDocsRepo } from '@/db/repositories/investor-docs.repo';
 import type { InvestorDocRecord, InvestorDocGroup, InvestorDocStatus } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const GROUP_CONFIG: Record<InvestorDocGroup, { label: string; icon: string; color: string }> = {
-  'official-forms': { label: 'Formularze urzedowe', icon: 'file-text', color: '#DC2626' },
-  'project-design': { label: 'Projekt i dokumentacja', icon: 'layers', color: HB_ACCENT },
-  'site-build': { label: 'Plac budowy', icon: 'map', color: '#059669' },
-  'energy-performance': { label: 'Energia i efektywnosc', icon: 'zap', color: '#D97706' },
-  'completion-package': { label: 'Pakiet zakonczeniowy', icon: 'package', color: '#7C3AED' },
-  'personal-notes': { label: 'Notatki i pliki', icon: 'edit-3', color: Colors.textMuted },
+const GROUP_CONFIG: Record<InvestorDocGroup, { labelKey: TranslationKey; icon: string; color: string }> = {
+  'official-forms': { labelKey: 'hb.investorDocs.group.officialForms', icon: 'file-text', color: '#DC2626' },
+  'project-design': { labelKey: 'hb.investorDocs.group.projectDesign', icon: 'layers', color: HB_ACCENT },
+  'site-build': { labelKey: 'hb.investorDocs.group.siteBuild', icon: 'map', color: '#059669' },
+  'energy-performance': { labelKey: 'hb.investorDocs.group.energyPerformance', icon: 'zap', color: '#D97706' },
+  'completion-package': { labelKey: 'hb.investorDocs.group.completionPackage', icon: 'package', color: '#7C3AED' },
+  'personal-notes': { labelKey: 'hb.investorDocs.group.personalNotes', icon: 'edit-3', color: Colors.textMuted },
 };
 
-const STATUS_CONFIG: Record<InvestorDocStatus, { label: string; color: string; icon: string }> = {
-  'missing': { label: 'Brakuje', color: '#DC2626', icon: 'x-circle' },
-  'in-progress': { label: 'W trakcie', color: '#D97706', icon: 'clock' },
-  'ready': { label: 'Gotowe', color: '#16A34A', icon: 'check-circle' },
-  'not-needed': { label: 'Nie potrzebne', color: Colors.textMuted, icon: 'minus-circle' },
+const STATUS_CONFIG: Record<InvestorDocStatus, { labelKey: TranslationKey; color: string; icon: string }> = {
+  'missing': { labelKey: 'hb.investorDocs.status.missing', color: '#DC2626', icon: 'x-circle' },
+  'in-progress': { labelKey: 'hb.investorDocs.status.inProgress', color: '#D97706', icon: 'clock' },
+  'ready': { labelKey: 'hb.investorDocs.status.ready', color: '#16A34A', icon: 'check-circle' },
+  'not-needed': { labelKey: 'hb.investorDocs.status.notNeeded', color: Colors.textMuted, icon: 'minus-circle' },
 };
 
 const DOC_GROUPS: InvestorDocGroup[] = ['project-design', 'site-build', 'energy-performance', 'completion-package', 'personal-notes'];
@@ -32,6 +34,7 @@ const DOC_GROUPS: InvestorDocGroup[] = ['project-design', 'site-build', 'energy-
 export default function InvestorDocsScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [docs, setDocs] = useState<InvestorDocRecord[]>([]);
@@ -65,18 +68,18 @@ export default function InvestorDocsScreen() {
   }, [projectId, newTitle, newGroup, loadData]);
 
   const handleDelete = useCallback(async (id: string) => {
-    Alert.alert('Usun dokument', 'Czy na pewno?', [
-      { text: 'Anuluj', style: 'cancel' },
-      { text: 'Usun', style: 'destructive', onPress: async () => {
+    Alert.alert(t('hb.investorDocs.deleteTitle'), t('hb.investorDocs.deleteBody'), [
+      { text: t('hb.investorDocs.deleteCancel'), style: 'cancel' },
+      { text: t('hb.investorDocs.deleteConfirm'), style: 'destructive', onPress: async () => {
         await investorDocsRepo.deleteInvestorDoc(id);
         await loadData();
       }},
     ]);
-  }, [loadData]);
+  }, [loadData, t]);
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Dokumenty projektu' }} />
+      <Stack.Screen options={{ title: t('hb.investorDocs.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -88,9 +91,9 @@ export default function InvestorDocsScreen() {
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Dokumenty projektu</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.investorDocs.heroTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              Organizacja plikow, notatek i dokumentacji budowy
+              {t('hb.investorDocs.heroSubtitle')}
             </Txt>
           </View>
 
@@ -100,7 +103,7 @@ export default function InvestorDocsScreen() {
           }}>
             <Feather name="info" size={14} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 11, color: '#92400E', flex: 1 }}>
-              Przechowuj informacje o dokumentach w jednym miejscu. Przyszla wersja umozliwi dolaczanie plikow i zdjec.
+              {t('hb.investorDocs.disclaimer')}
             </Txt>
           </View>
 
@@ -122,8 +125,8 @@ export default function InvestorDocsScreen() {
                 >
                   <Feather name={gc.icon as any} size={16} color={gc.color} />
                   <View style={{ flex: 1 }}>
-                    <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{gc.label}</Txt>
-                    <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{groupDocs.length} elementów</Txt>
+                    <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{t(gc.labelKey)}</Txt>
+                    <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.investorDocs.itemCount', { count: groupDocs.length })}</Txt>
                   </View>
                   <Feather name={isExpanded ? 'chevron-up' : 'chevron-down'} size={16} color={Colors.textMuted} />
                 </TouchableOpacity>
@@ -148,13 +151,13 @@ export default function InvestorDocsScreen() {
                             {doc.description ? <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{doc.description}</Txt> : null}
                           </View>
                           <View style={{ backgroundColor: sc.color + '18', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                            <Txt style={{ fontSize: 9, color: sc.color }}>{sc.label}</Txt>
+                            <Txt style={{ fontSize: 9, color: sc.color }}>{t(sc.labelKey)}</Txt>
                           </View>
                         </TouchableOpacity>
                       );
                     })}
                     {groupDocs.length === 0 && (
-                      <Txt style={{ fontSize: 11, color: Colors.textMuted, paddingVertical: 8, textAlign: 'center' }}>Brak dokumentow w tej grupie</Txt>
+                      <Txt style={{ fontSize: 11, color: Colors.textMuted, paddingVertical: 8, textAlign: 'center' }}>{t('hb.investorDocs.emptyGroup')}</Txt>
                     )}
                   </View>
                 )}
@@ -166,7 +169,7 @@ export default function InvestorDocsScreen() {
             <View style={{ backgroundColor: Colors.surface, borderRadius: 12, padding: 14, marginBottom: 16, borderWidth: 1, borderColor: '#BFDBFE' }}>
               <TextInput
                 style={{ backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, marginBottom: 8, borderWidth: 1, borderColor: Colors.border }}
-                placeholder="Nazwa dokumentu..."
+                placeholder={t('hb.investorDocs.namePlaceholder')}
                 placeholderTextColor={Colors.textMuted}
                 value={newTitle} onChangeText={setNewTitle}
               />
@@ -177,17 +180,17 @@ export default function InvestorDocsScreen() {
                       style={{ backgroundColor: newGroup === g ? HB_ACCENT : '#F1F5F9', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 4 }}
                       onPress={() => setNewGroup(g)}
                     >
-                      <Txt style={{ fontSize: 10, color: newGroup === g ? '#fff' : Colors.text }}>{GROUP_CONFIG[g].label}</Txt>
+                      <Txt style={{ fontSize: 10, color: newGroup === g ? '#fff' : Colors.text }}>{t(GROUP_CONFIG[g].labelKey)}</Txt>
                     </TouchableOpacity>
                   ))}
                 </View>
               </ScrollView>
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 <TouchableOpacity style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center' }} onPress={handleAdd}>
-                  <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Dodaj</Txt>
+                  <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.investorDocs.addCta')}</Txt>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }} onPress={() => setShowAdd(false)}>
-                  <Txt style={{ fontSize: 13, color: Colors.text }}>Anuluj</Txt>
+                  <Txt style={{ fontSize: 13, color: Colors.text }}>{t('hb.investorDocs.cancelCta')}</Txt>
                 </TouchableOpacity>
               </View>
             </View>
@@ -195,14 +198,14 @@ export default function InvestorDocsScreen() {
             <TouchableOpacity style={{ alignItems: 'center', paddingVertical: 12 }} onPress={() => setShowAdd(true)}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                 <Feather name="plus" size={14} color={HB_ACCENT} />
-                <Txt style={{ fontSize: 12, color: HB_ACCENT }}>Dodaj dokument</Txt>
+                <Txt style={{ fontSize: 12, color: HB_ACCENT }}>{t('hb.investorDocs.addLink')}</Txt>
               </View>
             </TouchableOpacity>
           )}
 
           <View style={{ marginTop: 8, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-              Dotknij dokument, aby zmienic status. Przytrzymaj, aby usunac.
+              {t('hb.investorDocs.footnote')}
             </Txt>
           </View>
         </View>

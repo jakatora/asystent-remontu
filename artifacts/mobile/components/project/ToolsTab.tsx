@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 import type { RenovationJob } from '@/types/domain';
 import { ToolCard } from './ToolCard';
 import { DiyBanner } from './DiyBanner';
@@ -14,6 +15,7 @@ interface ToolsTabProps {
 }
 
 export function ToolsTab({ job, diy }: ToolsTabProps) {
+  const { t } = useLanguage();
   const requiredTools = job.tools.filter((t) => t.required);
   const optionalTools = job.tools.filter((t) => !t.required);
 
@@ -21,10 +23,10 @@ export function ToolsTab({ job, diy }: ToolsTabProps) {
     <View style={{ gap: 16 }}>
       <View>
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
-          Potrzebne narzędzia
+          {t('cmp.ToolsTab.title')}
         </Txt>
         <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginTop: 4 }}>
-          Upewnij się, że masz wszystkie obowiązkowe narzędzia przed rozpoczęciem.
+          {t('cmp.ToolsTab.subtitle')}
         </Txt>
       </View>
 
@@ -35,7 +37,7 @@ export function ToolsTab({ job, diy }: ToolsTabProps) {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: Colors.primary }} />
             <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>
-              Obowiązkowe ({requiredTools.length})
+              {t('cmp.ToolsTab.required', { count: requiredTools.length })}
             </Txt>
           </View>
           {requiredTools.map((tool) => (
@@ -49,7 +51,7 @@ export function ToolsTab({ job, diy }: ToolsTabProps) {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: Colors.border }} />
             <Txt w="semibold" style={{ fontSize: 14, color: Colors.textSecondary }}>
-              Opcjonalne ({optionalTools.length})
+              {t('cmp.ToolsTab.optional', { count: optionalTools.length })}
             </Txt>
           </View>
           {optionalTools.map((tool) => (
@@ -62,10 +64,10 @@ export function ToolsTab({ job, diy }: ToolsTabProps) {
         <View style={{ alignItems: 'center', paddingVertical: 32, gap: 8 }}>
           <Feather name="tool" size={32} color={Colors.textMuted} />
           <Txt w="semibold" style={{ fontSize: 16, color: Colors.textSecondary }}>
-            Brak specjalnych narzędzi
+            {t('cmp.ToolsTab.emptyTitle')}
           </Txt>
           <Txt style={{ fontSize: 14, color: Colors.textMuted, textAlign: 'center' }}>
-            Ta praca nie wymaga specjalistycznego sprzętu.
+            {t('cmp.ToolsTab.emptyBody')}
           </Txt>
         </View>
       )}
@@ -83,8 +85,7 @@ export function ToolsTab({ job, diy }: ToolsTabProps) {
         >
           <Feather name="info" size={16} color={Colors.info} style={{ marginTop: 1 }} />
           <Txt style={{ flex: 1, fontSize: 13, color: '#1e40af', lineHeight: 18 }}>
-            Narzędzia oznaczone "do wynajęcia" możesz wypożyczyć w sklepach budowlanych
-            (np. Leroy Merlin, Castorama). Często taniej niż kupno.
+            {t('cmp.ToolsTab.rentInfo')}
           </Txt>
         </View>
       )}

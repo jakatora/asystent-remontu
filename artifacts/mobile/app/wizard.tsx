@@ -24,6 +24,8 @@ import { useWizardDraft } from '@/hooks/useWizardDraft';
 import type { WizardCondition, WizardDesired, WizardBudget, WizardDiyMode } from '@/hooks/useWizardDraft';
 import { ROOM_OPTIONS } from '@/shared/schemas/wizard.schema';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/translations';
 
 // ─── Step types ───────────────────────────────────────────────────────────────
 
@@ -42,19 +44,19 @@ const STEPS: WizardStep[] = [
   'category', 'room', 'job', 'condition', 'desired', 'budget', 'diy', 'measure', 'summary',
 ];
 
-const STEP_LABELS: Record<WizardStep, string> = {
-  category:  'Co remontujesz?',
-  room:      'Które pomieszczenie?',
-  job:       'Jaki rodzaj pracy?',
-  condition: 'Aktualny stan',
-  desired:   'Oczekiwany efekt',
-  budget:    'Budżet',
-  diy:       'Kto wykona pracę?',
-  measure:   'Wymiary',
-  summary:   'Podsumowanie',
+const STEP_LABEL_KEYS: Record<WizardStep, TranslationKey> = {
+  category:  'wizard.step.category',
+  room:      'wizard.step.room',
+  job:       'wizard.step.job',
+  condition: 'wizard.step.condition',
+  desired:   'wizard.step.desired',
+  budget:    'wizard.step.budget',
+  diy:       'wizard.step.diy',
+  measure:   'wizard.step.measure',
+  summary:   'wizard.step.summary',
 };
 
-// ─── Condition options ─────────────────────────────────────────────────────────
+// ─── Pick option type ──────────────────────────────────────────────────────────
 
 interface PickOption<T> {
   id: T;
@@ -64,120 +66,6 @@ interface PickOption<T> {
   iconColor: string;
   iconBg: string;
 }
-
-const CONDITION_OPTIONS: PickOption<WizardCondition>[] = [
-  {
-    id: 'poor',
-    label: 'Zły stan',
-    subtitle: 'Widoczne ubytki, pęknięcia, odpryski, wilgoć lub grzyb.',
-    icon: 'alert-triangle',
-    iconColor: Colors.danger,
-    iconBg: Colors.dangerBg,
-  },
-  {
-    id: 'fair',
-    label: 'Średni stan',
-    subtitle: 'Drobne usterki, stara farba, lekkie zarysowania. Ogólnie w porządku.',
-    icon: 'minus-circle',
-    iconColor: Colors.warning,
-    iconBg: Colors.warningBg,
-  },
-  {
-    id: 'good',
-    label: 'Dobry stan',
-    subtitle: 'Tylko kosmetyczne zmiany — chcę zmienić kolor lub styl.',
-    icon: 'check-circle',
-    iconColor: Colors.success,
-    iconBg: Colors.successBg,
-  },
-];
-
-// ─── Desired result options ────────────────────────────────────────────────────
-
-const DESIRED_OPTIONS: PickOption<WizardDesired>[] = [
-  {
-    id: 'refresh',
-    label: 'Szybkie odświeżenie',
-    subtitle: 'Minimum prac, jeden weekend. Chcę poprawić wygląd bez dużego remontu.',
-    icon: 'wind',
-    iconColor: Colors.info,
-    iconBg: Colors.infoBg,
-  },
-  {
-    id: 'standard',
-    label: 'Standardowy remont',
-    subtitle: 'Solidna robota, dobre materiały, efekt na kilka lat.',
-    icon: 'star',
-    iconColor: Colors.warning,
-    iconBg: Colors.warningBg,
-  },
-  {
-    id: 'complete',
-    label: 'Gruntowny remont',
-    subtitle: 'Chcę zrobić to porządnie, raz a dobrze. Najlepsza jakość i trwałość.',
-    icon: 'award',
-    iconColor: Colors.primary,
-    iconBg: Colors.primaryBg,
-  },
-];
-
-// ─── Budget options ────────────────────────────────────────────────────────────
-
-const BUDGET_OPTIONS: PickOption<WizardBudget>[] = [
-  {
-    id: 'economy',
-    label: 'Ekonomiczny',
-    subtitle: 'Najtańsze materiały, które wystarczą na kilka lat. Oszczędność ponad wszystko.',
-    icon: 'tag',
-    iconColor: Colors.success,
-    iconBg: Colors.successBg,
-  },
-  {
-    id: 'standard',
-    label: 'Standardowy',
-    subtitle: 'Dobry balans ceny i jakości. Materiały sprawdzonej marki.',
-    icon: 'bar-chart-2',
-    iconColor: Colors.info,
-    iconBg: Colors.infoBg,
-  },
-  {
-    id: 'premium',
-    label: 'Premium',
-    subtitle: 'Najlepsza jakość, długa gwarancja. Nie oszczędzam na materiałach.',
-    icon: 'award',
-    iconColor: Colors.primary,
-    iconBg: Colors.primaryBg,
-  },
-];
-
-// ─── DIY mode options ──────────────────────────────────────────────────────────
-
-const DIY_OPTIONS: PickOption<WizardDiyMode>[] = [
-  {
-    id: 'diy',
-    label: 'Zrobię sam',
-    subtitle: 'Chcę to zrobić samodzielnie. Potrzebuję listy materiałów i instrukcji.',
-    icon: 'tool',
-    iconColor: Colors.primary,
-    iconBg: Colors.primaryBg,
-  },
-  {
-    id: 'compare',
-    label: 'Porównaj koszty',
-    subtitle: 'Chcę zobaczyć co taniej — zrobić samemu czy zatrudnić fachowca.',
-    icon: 'bar-chart',
-    iconColor: Colors.info,
-    iconBg: Colors.infoBg,
-  },
-  {
-    id: 'hire',
-    label: 'Zatrudnię fachowca',
-    subtitle: 'Wolę zlecić pracę profesjonaliście. Chcę wiedzieć czego wymagać.',
-    icon: 'phone',
-    iconColor: Colors.success,
-    iconBg: Colors.successBg,
-  },
-];
 
 // ─── Screen width for responsive layout ───────────────────────────────────────
 
@@ -291,11 +179,13 @@ function SummaryRow({
   value,
   icon,
   onEdit,
+  editLabel,
 }: {
   label: string;
   value: string;
   icon: string;
   onEdit: () => void;
+  editLabel: string;
 }) {
   return (
     <View
@@ -339,7 +229,7 @@ function SummaryRow({
         }}
       >
         <Txt w="semibold" style={{ fontSize: 13, color: Colors.primary }}>
-          Edytuj
+          {editLabel}
         </Txt>
       </TouchableOpacity>
     </View>
@@ -352,6 +242,116 @@ export default function WizardScreen() {
   const { jobId: initialJobId } = useLocalSearchParams<{ jobId?: string }>();
   const insets = useSafeAreaInsets();
   const { createProject, generateAndAddShoppingItems } = useApp();
+  const { t } = useLanguage();
+
+  // ── Option lists (built inside component for translation) ───────────────────
+  const CONDITION_OPTIONS: PickOption<WizardCondition>[] = [
+    {
+      id: 'poor',
+      label: t('wizard.condition.poor.label'),
+      subtitle: t('wizard.condition.poor.subtitle'),
+      icon: 'alert-triangle',
+      iconColor: Colors.danger,
+      iconBg: Colors.dangerBg,
+    },
+    {
+      id: 'fair',
+      label: t('wizard.condition.fair.label'),
+      subtitle: t('wizard.condition.fair.subtitle'),
+      icon: 'minus-circle',
+      iconColor: Colors.warning,
+      iconBg: Colors.warningBg,
+    },
+    {
+      id: 'good',
+      label: t('wizard.condition.good.label'),
+      subtitle: t('wizard.condition.good.subtitle'),
+      icon: 'check-circle',
+      iconColor: Colors.success,
+      iconBg: Colors.successBg,
+    },
+  ];
+
+  const DESIRED_OPTIONS: PickOption<WizardDesired>[] = [
+    {
+      id: 'refresh',
+      label: t('wizard.desired.refresh.label'),
+      subtitle: t('wizard.desired.refresh.subtitle'),
+      icon: 'wind',
+      iconColor: Colors.info,
+      iconBg: Colors.infoBg,
+    },
+    {
+      id: 'standard',
+      label: t('wizard.desired.standard.label'),
+      subtitle: t('wizard.desired.standard.subtitle'),
+      icon: 'star',
+      iconColor: Colors.warning,
+      iconBg: Colors.warningBg,
+    },
+    {
+      id: 'complete',
+      label: t('wizard.desired.complete.label'),
+      subtitle: t('wizard.desired.complete.subtitle'),
+      icon: 'award',
+      iconColor: Colors.primary,
+      iconBg: Colors.primaryBg,
+    },
+  ];
+
+  const BUDGET_OPTIONS: PickOption<WizardBudget>[] = [
+    {
+      id: 'economy',
+      label: t('wizard.budget.economy.label'),
+      subtitle: t('wizard.budget.economy.subtitle'),
+      icon: 'tag',
+      iconColor: Colors.success,
+      iconBg: Colors.successBg,
+    },
+    {
+      id: 'standard',
+      label: t('wizard.budget.standard.label'),
+      subtitle: t('wizard.budget.standard.subtitle'),
+      icon: 'bar-chart-2',
+      iconColor: Colors.info,
+      iconBg: Colors.infoBg,
+    },
+    {
+      id: 'premium',
+      label: t('wizard.budget.premium.label'),
+      subtitle: t('wizard.budget.premium.subtitle'),
+      icon: 'award',
+      iconColor: Colors.primary,
+      iconBg: Colors.primaryBg,
+    },
+  ];
+
+  const DIY_OPTIONS: PickOption<WizardDiyMode>[] = [
+    {
+      id: 'diy',
+      label: t('wizard.diy.diy.label'),
+      subtitle: t('wizard.diy.diy.subtitle'),
+      icon: 'tool',
+      iconColor: Colors.primary,
+      iconBg: Colors.primaryBg,
+    },
+    {
+      id: 'compare',
+      label: t('wizard.diy.compare.label'),
+      subtitle: t('wizard.diy.compare.subtitle'),
+      icon: 'bar-chart',
+      iconColor: Colors.info,
+      iconBg: Colors.infoBg,
+    },
+    {
+      id: 'hire',
+      label: t('wizard.diy.hire.label'),
+      subtitle: t('wizard.diy.hire.subtitle'),
+      icon: 'phone',
+      iconColor: Colors.success,
+      iconBg: Colors.successBg,
+    },
+  ];
 
   // ── Draft state ──────────────────────────────────────────────────────────────
   const { draft, patchDraft, clearDraft } = useWizardDraft();
@@ -398,27 +398,27 @@ export default function WizardScreen() {
 
   const validateStep = useCallback((): string | null => {
     switch (step) {
-      case 'category':  return draft.categoryId    ? null : 'Wybierz kategorię, by kontynuować.';
-      case 'room':      return draft.room           ? null : 'Wybierz pomieszczenie.';
-      case 'job':       return draft.jobId          ? null : 'Wybierz rodzaj pracy.';
-      case 'condition': return draft.condition      ? null : 'Powiedz nam w jakim stanie jest pomieszczenie.';
-      case 'desired':   return draft.desiredResult  ? null : 'Powiedz nam co chcesz osiągnąć.';
-      case 'budget':    return draft.budgetLevel    ? null : 'Wybierz poziom budżetu.';
-      case 'diy':       return draft.diyMode        ? null : 'Wybierz kto wykona pracę.';
+      case 'category':  return draft.categoryId    ? null : t('wizard.error.category');
+      case 'room':      return draft.room           ? null : t('wizard.error.room');
+      case 'job':       return draft.jobId          ? null : t('wizard.error.job');
+      case 'condition': return draft.condition      ? null : t('wizard.error.condition');
+      case 'desired':   return draft.desiredResult  ? null : t('wizard.error.desired');
+      case 'budget':    return draft.budgetLevel    ? null : t('wizard.error.budget');
+      case 'diy':       return draft.diyMode        ? null : t('wizard.error.diy');
       case 'measure': {
         if (!selectedJob) return null;
         const required = selectedJob.measurementInputs.filter((i) => i.required !== false && !i.defaultValue);
         for (const inp of required) {
           const val = parseFloat(draft.measurements[inp.id] ?? '');
           if (isNaN(val) || val <= 0) {
-            return `Podaj wartość dla "${inp.label}".`;
+            return t('wizard.error.measureValue', { label: inp.label });
           }
         }
         return null;
       }
       default: return null;
     }
-  }, [step, draft, selectedJob]);
+  }, [step, draft, selectedJob, t]);
 
   const handleNext = useCallback(() => {
     // Special: if hire → redirect to hire-pro immediately
@@ -453,7 +453,7 @@ export default function WizardScreen() {
       const calcResult = calculateMaterials(selectedJob, meas);
 
       const autoName = draft.projectName.trim() ||
-        `${selectedJob.name} — ${draft.room ?? 'pomieszczenie'}`;
+        `${selectedJob.name} — ${draft.room ?? t('wizard.summary.fallbackRoom')}`;
 
       const projectId = await createProject({
         name: autoName,
@@ -472,25 +472,33 @@ export default function WizardScreen() {
       router.replace({ pathname: '/project/[id]', params: { id: projectId, fromWizard: '1' } });
     } catch (err) {
       console.error('[Wizard] save error:', err);
-      Alert.alert('Błąd', 'Nie udało się zapisać projektu. Spróbuj ponownie.');
+      Alert.alert(t('wizard.saveError.title'), t('wizard.saveError.body'));
     } finally {
       setSaving(false);
     }
-  }, [selectedJob, draft, createProject, generateAndAddShoppingItems, clearDraft]);
+  }, [selectedJob, draft, createProject, generateAndAddShoppingItems, clearDraft, t]);
 
   // ── Helper labels ────────────────────────────────────────────────────────────
 
   const conditionLabel: Record<WizardCondition, string> = {
-    poor: 'Zły stan', fair: 'Średni stan', good: 'Dobry stan',
+    poor: t('wizard.condition.poor.label'),
+    fair: t('wizard.condition.fair.label'),
+    good: t('wizard.condition.good.label'),
   };
   const desiredLabel: Record<WizardDesired, string> = {
-    refresh: 'Szybkie odświeżenie', standard: 'Standardowy remont', complete: 'Gruntowny remont',
+    refresh: t('wizard.desired.refresh.label'),
+    standard: t('wizard.desired.standard.label'),
+    complete: t('wizard.desired.complete.label'),
   };
   const budgetLabel: Record<WizardBudget, string> = {
-    economy: 'Ekonomiczny', standard: 'Standardowy', premium: 'Premium',
+    economy: t('wizard.budget.economy.label'),
+    standard: t('wizard.budget.standard.label'),
+    premium: t('wizard.budget.premium.label'),
   };
   const diyLabel: Record<WizardDiyMode, string> = {
-    diy: 'Zrobię sam', compare: 'Porównaj koszty', hire: 'Zatrudnię fachowca',
+    diy: t('wizard.diy.diy.label'),
+    compare: t('wizard.diy.compare.label'),
+    hire: t('wizard.diy.hire.label'),
   };
 
   const roomLabel = ROOM_OPTIONS.find((r) => r.id === draft.room)?.label ?? draft.room ?? '';
@@ -503,7 +511,9 @@ export default function WizardScreen() {
     easy: Colors.success, medium: Colors.warning, hard: Colors.danger,
   };
   const difficultyLabel: Record<string, string> = {
-    easy: 'Łatwe', medium: 'Średnie', hard: 'Trudne',
+    easy: t('wizard.difficulty.easy'),
+    medium: t('wizard.difficulty.medium'),
+    hard: t('wizard.difficulty.hard'),
   };
 
   // ── Pro cost estimate (rough: 2× material cost) ────────────────────────────
@@ -516,7 +526,7 @@ export default function WizardScreen() {
     <>
       <Stack.Screen
         options={{
-          title: STEP_LABELS[step],
+          title: t(STEP_LABEL_KEYS[step]),
           headerBackVisible: false,
           headerLeft: () => (
             <TouchableOpacity
@@ -577,10 +587,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Co chcesz wyremontować?
+                    {t('wizard.category.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Wybierz rodzaj pracy, który chcesz wykonać.
+                    {t('wizard.category.subtitle')}
                   </Txt>
                 </View>
 
@@ -627,7 +637,7 @@ export default function WizardScreen() {
                             {cat.name}
                           </Txt>
                           <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-                            {cat.jobCount} {cat.jobCount === 1 ? 'praca' : 'prace'}
+                            {cat.jobCount} {cat.jobCount === 1 ? t('wizard.category.jobsOne') : t('wizard.category.jobsMany')}
                           </Txt>
                         </View>
                         {selected && (
@@ -647,7 +657,7 @@ export default function WizardScreen() {
                 )}
 
                 <Button
-                  label="Dalej"
+                  label={t('wizard.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -664,10 +674,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    W którym pomieszczeniu?
+                    {t('wizard.room.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    To pomoże nam dopasować wskazówki do Twojej sytuacji.
+                    {t('wizard.room.subtitle')}
                   </Txt>
                 </View>
 
@@ -731,7 +741,7 @@ export default function WizardScreen() {
                 )}
 
                 <Button
-                  label="Dalej"
+                  label={t('wizard.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -748,10 +758,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Jaki rodzaj pracy?
+                    {t('wizard.job.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Wybierz konkretną czynność, którą chcesz wykonać.
+                    {t('wizard.job.subtitle')}
                   </Txt>
                 </View>
 
@@ -816,7 +826,7 @@ export default function WizardScreen() {
                                 </View>
                                 {job.estimatedDays && (
                                   <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-                                    · ~{job.estimatedDays} {job.estimatedDays === 1 ? 'dzień' : 'dni'}
+                                    · ~{job.estimatedDays} {job.estimatedDays === 1 ? t('wizard.job.dayOne') : t('wizard.job.dayMany')}
                                   </Txt>
                                 )}
                               </View>
@@ -844,7 +854,7 @@ export default function WizardScreen() {
 
                 {availJobs.length === 0 && (
                   <HintBox
-                    text="Brak prac w tej kategorii. Wróć i wybierz inną kategorię."
+                    text={t('wizard.job.emptyCategory')}
                   />
                 )}
 
@@ -854,7 +864,7 @@ export default function WizardScreen() {
 
                 {draft.jobId && (
                   <Button
-                    label="Dalej"
+                    label={t('wizard.next')}
                     onPress={handleNext}
                     size="lg"
                     fullWidth
@@ -871,10 +881,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Jaki jest aktualny stan?
+                    {t('wizard.conditionStep.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Oceń pomieszczenie, które chcesz remontować.
+                    {t('wizard.conditionStep.subtitle')}
                   </Txt>
                 </View>
 
@@ -890,7 +900,7 @@ export default function WizardScreen() {
                 </View>
 
                 {draft.condition === 'poor' && (
-                  <WarnBox text="Zły stan może wymagać dodatkowych prac przygotowawczych (np. naprawy pęknięć, gruntowania wzmacniającego). Uwzględnimy to w wskazówkach." />
+                  <WarnBox text={t('wizard.conditionStep.poorWarning')} />
                 )}
 
                 {validationError && (
@@ -898,7 +908,7 @@ export default function WizardScreen() {
                 )}
 
                 <Button
-                  label="Dalej"
+                  label={t('wizard.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -915,10 +925,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Czego oczekujesz?
+                    {t('wizard.desiredStep.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Powiedz nam jaki efekt chcesz osiągnąć.
+                    {t('wizard.desiredStep.subtitle')}
                   </Txt>
                 </View>
 
@@ -938,7 +948,7 @@ export default function WizardScreen() {
                 )}
 
                 <Button
-                  label="Dalej"
+                  label={t('wizard.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -955,10 +965,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Jaki masz budżet?
+                    {t('wizard.budgetStep.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Pomożemy dobrać materiały w Twoim przedziale cenowym.
+                    {t('wizard.budgetStep.subtitle')}
                   </Txt>
                 </View>
 
@@ -973,14 +983,14 @@ export default function WizardScreen() {
                   ))}
                 </View>
 
-                <HintBox text="Podasz dokładne wymiary w następnym kroku — wtedy obliczymy szacunkowy koszt." />
+                <HintBox text={t('wizard.budgetStep.hint')} />
 
                 {validationError && (
                   <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
                 )}
 
                 <Button
-                  label="Dalej"
+                  label={t('wizard.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -997,10 +1007,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Kto wykona tę pracę?
+                    {t('wizard.diyStep.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Możemy przygotować kalkulację dla Ciebie lub dla fachowca.
+                    {t('wizard.diyStep.subtitle')}
                   </Txt>
                 </View>
 
@@ -1017,14 +1027,14 @@ export default function WizardScreen() {
 
                 {selectedJob?.hireProfessionalRecommended && (
                   <WarnBox
-                    text={`Ta praca (${selectedJob.name}) jest technicznie wymagająca. Rozważ zatrudnienie fachowca.`}
+                    text={t('wizard.diyStep.proWarning', { jobName: selectedJob.name })}
                   />
                 )}
 
                 {draft.diyMode === 'hire' && (
                   <HintBox
                     icon="phone"
-                    text='Naciśnij "Dalej" — przeniesiemy Cię do wskazówek jak znaleźć dobrego fachowca i czego od niego wymagać.'
+                    text={t('wizard.diyStep.hireHint')}
                   />
                 )}
 
@@ -1033,7 +1043,7 @@ export default function WizardScreen() {
                 )}
 
                 <Button
-                  label={draft.diyMode === 'hire' ? 'Szukaj fachowca →' : 'Dalej'}
+                  label={draft.diyMode === 'hire' ? t('wizard.diyStep.hireCta') : t('wizard.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -1051,16 +1061,16 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Podaj wymiary
+                    {t('wizard.measure.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Na ich podstawie obliczymy ile materiałów potrzebujesz i ile to kosztuje.
+                    {t('wizard.measure.subtitle')}
                   </Txt>
                 </View>
 
                 <HintBox
                   icon="ruler"
-                  text="Nie masz taśmy mierniczej? Krok dorosłego człowieka to ok. 75 cm. Możesz też podać przybliżone wartości — dokładność wystarczy na zakupy."
+                  text={t('wizard.measure.tapeHint')}
                 />
 
                 <View style={{ gap: 16 }}>
@@ -1150,13 +1160,13 @@ export default function WizardScreen() {
 
                         {hasError && (
                           <Txt style={{ fontSize: 12, color: Colors.danger }}>
-                            Podaj wartość większą od zera.
+                            {t('wizard.measure.positiveValue')}
                           </Txt>
                         )}
 
                         {inp.defaultValue !== undefined && !val && (
                           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-                            Domyślna wartość: {inp.defaultValue} {inp.unit}
+                            {t('wizard.measure.defaultValue', { value: inp.defaultValue, unit: inp.unit })}
                           </Txt>
                         )}
                       </View>
@@ -1166,7 +1176,7 @@ export default function WizardScreen() {
                   {selectedJob.measurementInputs.length === 0 && (
                     <HintBox
                       icon="info"
-                      text="Ta praca nie wymaga podawania wymiarów — materiały zostaną oszacowane inaczej."
+                      text={t('wizard.measure.noInputs')}
                     />
                   )}
                 </View>
@@ -1178,7 +1188,7 @@ export default function WizardScreen() {
                 )}
 
                 <Button
-                  label="Dalej — sprawdź podsumowanie"
+                  label={t('wizard.measure.next')}
                   onPress={handleNext}
                   size="lg"
                   fullWidth
@@ -1190,7 +1200,7 @@ export default function WizardScreen() {
                   style={{ alignItems: 'center', paddingVertical: 8 }}
                 >
                   <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
-                    Pomiń — oblicz z przybliżonymi wartościami
+                    {t('wizard.measure.skip')}
                   </Txt>
                 </TouchableOpacity>
               </>
@@ -1203,10 +1213,10 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    Sprawdź swoje odpowiedzi
+                    {t('wizard.summary.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    Możesz edytować każdą odpowiedź przed obliczeniem.
+                    {t('wizard.summary.subtitle')}
                   </Txt>
                 </View>
 
@@ -1223,46 +1233,53 @@ export default function WizardScreen() {
                   }}
                 >
                   <SummaryRow
-                    label="Co remontujesz"
-                    value={CATEGORIES.find((c) => c.id === draft.categoryId)?.name ?? '—'}
+                    label={t('wizard.summary.rowCategory')}
+                    value={CATEGORIES.find((c) => c.id === draft.categoryId)?.name ?? t('wizard.summary.dash')}
                     icon="layers"
                     onEdit={() => goTo('category')}
+                    editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
-                    label="Pomieszczenie"
+                    label={t('wizard.summary.rowRoom')}
                     value={roomLabel}
                     icon="home"
                     onEdit={() => goTo('room')}
+                    editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
-                    label="Rodzaj pracy"
-                    value={selectedJob?.name ?? '—'}
+                    label={t('wizard.summary.rowJob')}
+                    value={selectedJob?.name ?? t('wizard.summary.dash')}
                     icon={selectedJob?.coverIcon ?? 'tool'}
                     onEdit={() => goTo('job')}
+                    editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
-                    label="Aktualny stan"
-                    value={draft.condition ? conditionLabel[draft.condition] : '—'}
+                    label={t('wizard.summary.rowCondition')}
+                    value={draft.condition ? conditionLabel[draft.condition] : t('wizard.summary.dash')}
                     icon="activity"
                     onEdit={() => goTo('condition')}
+                    editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
-                    label="Oczekiwany efekt"
-                    value={draft.desiredResult ? desiredLabel[draft.desiredResult] : '—'}
+                    label={t('wizard.summary.rowDesired')}
+                    value={draft.desiredResult ? desiredLabel[draft.desiredResult] : t('wizard.summary.dash')}
                     icon="star"
                     onEdit={() => goTo('desired')}
+                    editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
-                    label="Budżet"
-                    value={draft.budgetLevel ? budgetLabel[draft.budgetLevel] : '—'}
+                    label={t('wizard.summary.rowBudget')}
+                    value={draft.budgetLevel ? budgetLabel[draft.budgetLevel] : t('wizard.summary.dash')}
                     icon="tag"
                     onEdit={() => goTo('budget')}
+                    editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
-                    label="Sposób realizacji"
-                    value={draft.diyMode ? diyLabel[draft.diyMode] : '—'}
+                    label={t('wizard.summary.rowDiy')}
+                    value={draft.diyMode ? diyLabel[draft.diyMode] : t('wizard.summary.dash')}
                     icon="tool"
                     onEdit={() => goTo('diy')}
+                    editLabel={t('wizard.edit')}
                   />
 
                   {/* Measurements */}
@@ -1273,8 +1290,8 @@ export default function WizardScreen() {
                         const displayVal = val
                           ? `${val} ${inp.unit}`
                           : inp.defaultValue
-                          ? `${inp.defaultValue} ${inp.unit} (domyślna)`
-                          : `— (${inp.unit})`;
+                          ? t('wizard.summary.defaultSuffix', { value: inp.defaultValue, unit: inp.unit })
+                          : t('wizard.summary.dashUnit', { unit: inp.unit });
                         return (
                           <SummaryRow
                             key={inp.id}
@@ -1282,6 +1299,7 @@ export default function WizardScreen() {
                             value={displayVal}
                             icon="maximize-2"
                             onEdit={() => goTo('measure')}
+                            editLabel={t('wizard.edit')}
                           />
                         );
                       })}
@@ -1292,10 +1310,10 @@ export default function WizardScreen() {
                 {/* Project name input (optional customization) */}
                 <View style={{ gap: 8 }}>
                   <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>
-                    Nazwa projektu
+                    {t('wizard.summary.nameLabel')}
                   </Txt>
                   <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
-                    Możesz zostawić automatyczną lub wpisać własną.
+                    {t('wizard.summary.nameHint')}
                   </Txt>
                   <TextInput
                     style={{
@@ -1309,7 +1327,10 @@ export default function WizardScreen() {
                       borderWidth: 1.5,
                       borderColor: Colors.border,
                     }}
-                    placeholder={`${selectedJob?.name ?? 'Mój projekt'} — ${roomLabel || 'pomieszczenie'}`}
+                    placeholder={t('wizard.summary.namePlaceholder', {
+                      job: selectedJob?.name ?? t('wizard.summary.fallbackProjectName'),
+                      room: roomLabel || t('wizard.summary.fallbackRoom'),
+                    })}
                     placeholderTextColor={Colors.textMuted}
                     value={draft.projectName}
                     onChangeText={(v) => patchDraft({ projectName: v })}
@@ -1321,7 +1342,7 @@ export default function WizardScreen() {
                 {/* Professional recommendation warning */}
                 {selectedJob?.hireProfessionalRecommended && (
                   <WarnBox
-                    text={`Uwaga: "${selectedJob.name}" to praca wymagająca doświadczenia. Zdecydowanie rozważ zatrudnienie fachowca.`}
+                    text={t('wizard.summary.proWarning', { jobName: selectedJob.name })}
                   />
                 )}
 
@@ -1329,12 +1350,12 @@ export default function WizardScreen() {
                 {draft.diyMode === 'compare' && (
                   <HintBox
                     icon="bar-chart"
-                    text="W wynikach zobaczysz szacunkowy koszt materiałów (samemu) oraz orientacyjną wycenę fachowca."
+                    text={t('wizard.summary.compareHint')}
                   />
                 )}
 
                 <Button
-                  label={saving ? 'Obliczam…' : 'Oblicz i pokaż wynik'}
+                  label={saving ? t('wizard.summary.calculating') : t('wizard.summary.calculate')}
                   onPress={handleSave}
                   size="lg"
                   fullWidth
@@ -1343,7 +1364,7 @@ export default function WizardScreen() {
                 />
 
                 <Txt style={{ fontSize: 12, color: Colors.textMuted, textAlign: 'center' }}>
-                  Projekt zostanie zapisany — możesz do niego wrócić w każdej chwili.
+                  {t('wizard.summary.savedNote')}
                 </Txt>
               </>
             )}

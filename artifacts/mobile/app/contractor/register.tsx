@@ -15,13 +15,18 @@ import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { CATEGORIES } from '@/data/categories';
-import type { ContractorType, JobScale } from '@/types/contractor';
+import { ALL_JOBS } from '@/data/jobs';
+import { useLanguage } from '@/context/LanguageContext';
+import { useContractor } from '@/context/ContractorContext';
+import type { ContractorRegistration, ContractorType, JobScale } from '@/types/contractor';
 
 type RegStep = 'type' | 'info' | 'area' | 'specialties' | 'description' | 'confirm';
 const STEPS: RegStep[] = ['type', 'info', 'area', 'specialties', 'description', 'confirm'];
 
 export default function ContractorRegisterScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
+  const { registerContractor } = useContractor();
   const [stepIdx, setStepIdx] = useState(0);
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
 
@@ -81,9 +86,42 @@ export default function ContractorRegisterScreen() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setSubmitted(true);
+    try {
+      const specializedJobIds = ALL_JOBS
+        .filter((j) => selectedCategories.includes(j.categoryId))
+        .map((j) => j.id);
+
+      const registration: ContractorRegistration = {
+        type: contractorType,
+        displayName: displayName.trim(),
+        companyName: companyName.trim() || undefined,
+        email: email.trim(),
+        phone: phone.trim() || undefined,
+        city: city.trim(),
+        serviceArea: {
+          city: city.trim(),
+          radiusKm: parseInt(radiusKm, 10) || 20,
+        },
+        specialties: selectedCategories.map((catId) => {
+          const cat = CATEGORIES.find((c) => c.id === catId);
+          return { categoryId: catId, categoryName: cat?.name ?? catId };
+        }),
+        specializedJobIds,
+        shortDescription: shortDescription.trim(),
+        longDescription: longDescription.trim() || undefined,
+        materialsIncluded,
+        jobScales,
+        website: website.trim() || undefined,
+        taxId: taxId.trim() || undefined,
+      };
+
+      await registerContractor(registration);
+      setSubmitted(true);
+    } catch {
+      Alert.alert(t('common.error'), t('wizard.saveError.body'));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -91,7 +129,7 @@ export default function ContractorRegisterScreen() {
       <>
         <Stack.Screen
           options={{
-            title: 'Rejestracja',
+            title: t('contractor.register.screenTitleDone'),
             headerStyle: { backgroundColor: Colors.background },
             headerTintColor: Colors.text,
             headerShadowVisible: false,
@@ -112,14 +150,14 @@ export default function ContractorRegisterScreen() {
             <Feather name="check" size={36} color={Colors.success} />
           </View>
           <Txt w="bold" style={{ fontSize: 22, color: Colors.text, textAlign: 'center', marginBottom: 8 }}>
-            Profil zapisany!
+            {t('contractor.register.doneTitle')}
           </Txt>
           <Txt style={{ fontSize: 15, color: Colors.textSecondary, textAlign: 'center', marginBottom: 32, lineHeight: 22 }}>
-            Twój profil fachowca został utworzony. Po weryfikacji przez moderację będzie widoczny w katalogu.
+            {t('contractor.register.doneBody')}
           </Txt>
           <View style={{ width: '100%' }}>
             <Button
-              label="Wróć na stronę główną"
+              label={t('contractor.register.backHome')}
               variant="primary"
               onPress={() => router.replace('/(tabs)')}
               fullWidth
@@ -134,8 +172,8 @@ export default function ContractorRegisterScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Dołącz jako fachowiec',
-          headerBackTitle: 'Wróć',
+          title: t('contractor.register.screenTitle'),
+          headerBackTitle: t('contractor.register.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -150,7 +188,7 @@ export default function ContractorRegisterScreen() {
             <View style={{ width: `${progress * 100}%`, height: 4, backgroundColor: Colors.primary, borderRadius: 2 }} />
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 4, textAlign: 'right' }}>
-            Krok {stepIdx + 1} z {STEPS.length}
+            {t('contractor.register.stepCounter', { current: stepIdx + 1, total: STEPS.length })}
           </Txt>
         </View>
 
@@ -162,22 +200,22 @@ export default function ContractorRegisterScreen() {
         >
           {step === 'type' && (
             <View>
-              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Typ działalności</Txt>
+              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.register.type.title')}</Txt>
               <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-                Czy działasz jako osoba fizyczna czy firma?
+                {t('contractor.register.type.subtitle')}
               </Txt>
               <View style={{ gap: 8 }}>
                 <OptionCard
                   icon="user"
-                  title="Osoba fizyczna"
-                  description="Freelancer, rzemieślnik, jednoosobowa działalność"
+                  title={t('contractor.register.type.individualTitle')}
+                  description={t('contractor.register.type.individualDesc')}
                   selected={contractorType === 'individual'}
                   onPress={() => setContractorType('individual')}
                 />
                 <OptionCard
                   icon="briefcase"
-                  title="Firma"
-                  description="Spółka, ekipa remontowa, firma budowlana"
+                  title={t('contractor.register.type.companyTitle')}
+                  description={t('contractor.register.type.companyDesc')}
                   selected={contractorType === 'company'}
                   onPress={() => setContractorType('company')}
                 />
@@ -187,33 +225,33 @@ export default function ContractorRegisterScreen() {
 
           {step === 'info' && (
             <View>
-              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Dane kontaktowe</Txt>
+              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.register.info.title')}</Txt>
               <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-                Te dane będą widoczne w Twoim profilu
+                {t('contractor.register.info.subtitle')}
               </Txt>
-              <RegInput label="Nazwa wyświetlana *" value={displayName} onChangeText={setDisplayName} placeholder="np. Jan Kowalski — Remonty" />
+              <RegInput label={t('contractor.register.info.displayName')} value={displayName} onChangeText={setDisplayName} placeholder={t('contractor.register.info.displayNamePlaceholder')} />
               {contractorType === 'company' && (
-                <RegInput label="Nazwa firmy" value={companyName} onChangeText={setCompanyName} placeholder="np. Remonty Kowalski Sp. z o.o." />
+                <RegInput label={t('contractor.register.info.companyName')} value={companyName} onChangeText={setCompanyName} placeholder={t('contractor.register.info.companyNamePlaceholder')} />
               )}
-              <RegInput label="Email *" value={email} onChangeText={setEmail} placeholder="jan@email.pl" keyboardType="email-address" />
-              <RegInput label="Telefon (opcjonalnie)" value={phone} onChangeText={setPhone} placeholder="+48 600 100 200" keyboardType="phone-pad" />
-              <RegInput label="NIP / REGON (opcjonalnie)" value={taxId} onChangeText={setTaxId} placeholder="Numer identyfikacyjny" />
-              <RegInput label="Strona www (opcjonalnie)" value={website} onChangeText={setWebsite} placeholder="https://..." />
+              <RegInput label={t('contractor.register.info.email')} value={email} onChangeText={setEmail} placeholder={t('contractor.register.info.emailPlaceholder')} keyboardType="email-address" />
+              <RegInput label={t('contractor.register.info.phone')} value={phone} onChangeText={setPhone} placeholder={t('contractor.register.info.phonePlaceholder')} keyboardType="phone-pad" />
+              <RegInput label={t('contractor.register.info.taxId')} value={taxId} onChangeText={setTaxId} placeholder={t('contractor.register.info.taxIdPlaceholder')} />
+              <RegInput label={t('contractor.register.info.website')} value={website} onChangeText={setWebsite} placeholder={t('contractor.register.info.websitePlaceholder')} />
             </View>
           )}
 
           {step === 'area' && (
             <View>
-              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Obszar działania</Txt>
+              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.register.area.title')}</Txt>
               <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-                Gdzie świadczysz usługi?
+                {t('contractor.register.area.subtitle')}
               </Txt>
-              <RegInput label="Miasto *" value={city} onChangeText={setCity} placeholder="np. Warszawa" />
+              <RegInput label={t('contractor.register.area.city')} value={city} onChangeText={setCity} placeholder={t('contractor.register.area.cityPlaceholder')} />
               <RegInput
-                label="Zasięg (km)"
+                label={t('contractor.register.area.radius')}
                 value={radiusKm}
                 onChangeText={setRadiusKm}
-                placeholder="20"
+                placeholder={t('contractor.register.area.radiusPlaceholder')}
                 keyboardType="numeric"
               />
             </View>
@@ -221,9 +259,9 @@ export default function ContractorRegisterScreen() {
 
           {step === 'specialties' && (
             <View>
-              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Specjalizacje</Txt>
+              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.register.specialties.title')}</Txt>
               <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-                Wybierz rodzaje prac, które wykonujesz (minimum 1)
+                {t('contractor.register.specialties.subtitle')}
               </Txt>
               <View style={{ gap: 8 }}>
                 {CATEGORIES.map((cat) => (
@@ -255,11 +293,15 @@ export default function ContractorRegisterScreen() {
               </View>
 
               <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginTop: 20, marginBottom: 8 }}>
-                Skala zleceń
+                {t('contractor.register.specialties.jobScale')}
               </Txt>
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 {(['small', 'medium', 'large'] as JobScale[]).map((scale) => {
-                  const labels = { small: 'Małe', medium: 'Średnie', large: 'Duże' };
+                  const labels = {
+                    small: t('contractor.register.specialties.scaleSmall'),
+                    medium: t('contractor.register.specialties.scaleMedium'),
+                    large: t('contractor.register.specialties.scaleLarge'),
+                  };
                   const sel = jobScales.includes(scale);
                   return (
                     <TouchableOpacity
@@ -313,29 +355,29 @@ export default function ContractorRegisterScreen() {
                 >
                   {materialsIncluded && <Feather name="check" size={14} color="#fff" />}
                 </View>
-                <Txt style={{ fontSize: 14, color: Colors.text }}>Zapewniam materiały</Txt>
+                <Txt style={{ fontSize: 14, color: Colors.text }}>{t('contractor.register.specialties.materialsToggle')}</Txt>
               </TouchableOpacity>
             </View>
           )}
 
           {step === 'description' && (
             <View>
-              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Opis profilu</Txt>
+              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.register.description.title')}</Txt>
               <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-                Opisz swoje doświadczenie i oferowane usługi
+                {t('contractor.register.description.subtitle')}
               </Txt>
               <RegInput
-                label="Krótki opis (widoczny na liście) *"
+                label={t('contractor.register.description.short')}
                 value={shortDescription}
                 onChangeText={setShortDescription}
-                placeholder="np. Malowanie, szpachlowanie, tapetowanie — 10 lat doświadczenia"
+                placeholder={t('contractor.register.description.shortPlaceholder')}
                 multiline
               />
               <RegInput
-                label="Dłuższy opis (opcjonalnie)"
+                label={t('contractor.register.description.long')}
                 value={longDescription}
                 onChangeText={setLongDescription}
-                placeholder="Opisz swoją firmę, doświadczenie, referencje..."
+                placeholder={t('contractor.register.description.longPlaceholder')}
                 multiline
               />
             </View>
@@ -343,27 +385,27 @@ export default function ContractorRegisterScreen() {
 
           {step === 'confirm' && (
             <View>
-              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>Podsumowanie</Txt>
+              <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{t('contractor.register.confirm.title')}</Txt>
               <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-                Sprawdź dane przed zapisaniem
+                {t('contractor.register.confirm.subtitle')}
               </Txt>
               <View style={{ backgroundColor: Colors.surface, borderRadius: 16, padding: 16, borderWidth: 1, borderColor: Colors.border, gap: 10 }}>
-                <ConfirmRow label="Typ" value={contractorType === 'individual' ? 'Osoba fizyczna' : 'Firma'} />
-                <ConfirmRow label="Nazwa" value={displayName} />
-                {companyName ? <ConfirmRow label="Firma" value={companyName} /> : null}
-                <ConfirmRow label="Email" value={email} />
-                {phone ? <ConfirmRow label="Telefon" value={phone} /> : null}
-                <ConfirmRow label="Miasto" value={city} />
-                <ConfirmRow label="Zasięg" value={`${radiusKm} km`} />
-                <ConfirmRow label="Specjalizacje" value={selectedCategories.map((id) => CATEGORIES.find((c) => c.id === id)?.name ?? id).join(', ')} />
-                <ConfirmRow label="Materiały" value={materialsIncluded ? 'Tak' : 'Nie'} />
-                <ConfirmRow label="Opis" value={shortDescription} />
+                <ConfirmRow label={t('contractor.register.confirm.type')} value={contractorType === 'individual' ? t('contractor.register.confirm.typeIndividual') : t('contractor.register.confirm.typeCompany')} />
+                <ConfirmRow label={t('contractor.register.confirm.name')} value={displayName} />
+                {companyName ? <ConfirmRow label={t('contractor.register.confirm.company')} value={companyName} /> : null}
+                <ConfirmRow label={t('contractor.register.confirm.email')} value={email} />
+                {phone ? <ConfirmRow label={t('contractor.register.confirm.phone')} value={phone} /> : null}
+                <ConfirmRow label={t('contractor.register.confirm.city')} value={city} />
+                <ConfirmRow label={t('contractor.register.confirm.radius')} value={t('contractor.register.confirm.radiusValue', { radius: radiusKm })} />
+                <ConfirmRow label={t('contractor.register.confirm.specialties')} value={selectedCategories.map((id) => CATEGORIES.find((c) => c.id === id)?.name ?? id).join(', ')} />
+                <ConfirmRow label={t('contractor.register.confirm.materials')} value={materialsIncluded ? t('contractor.register.confirm.materialsYes') : t('contractor.register.confirm.materialsNo')} />
+                <ConfirmRow label={t('contractor.register.confirm.description')} value={shortDescription} />
               </View>
 
               <View style={{ backgroundColor: Colors.infoBg, borderRadius: 14, padding: 14, marginTop: 16, flexDirection: 'row', gap: 10 }}>
                 <Feather name="info" size={16} color={Colors.info} style={{ marginTop: 2 }} />
                 <Txt style={{ fontSize: 13, color: Colors.info, flex: 1, lineHeight: 20 }}>
-                  Twój profil zostanie sprawdzony przez moderację. Po weryfikacji będzie widoczny w katalogu fachowców.
+                  {t('contractor.register.confirm.note')}
                 </Txt>
               </View>
             </View>

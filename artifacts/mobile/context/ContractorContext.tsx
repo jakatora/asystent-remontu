@@ -9,6 +9,7 @@ import React, {
 
 import type {
   ContractorProfile,
+  ContractorRegistration,
   ContractorRequest,
   ContractorSearchFilters,
   ContractorSortOption,
@@ -59,6 +60,9 @@ interface ContractorContextValue {
   isContractorSaved: (contractorId: string) => boolean;
 
   refreshBlockedIds: () => Promise<void>;
+
+  /** Faza 5 — rejestracja kontraktora w lokalnym katalogu (in-memory). */
+  registerContractor: (registration: ContractorRegistration) => Promise<ContractorProfile>;
 }
 
 const ContractorContext = createContext<ContractorContextValue | null>(null);
@@ -66,7 +70,7 @@ const ContractorContext = createContext<ContractorContextValue | null>(null);
 const EMPTY_FILTERS: ContractorSearchFilters = {};
 
 export function ContractorProvider({ children }: PropsWithChildren) {
-  const [contractors] = useState<ContractorProfile[]>(MOCK_CONTRACTORS);
+  const [contractors, setContractors] = useState<ContractorProfile[]>(MOCK_CONTRACTORS);
   const [requests, setRequests] = useState<ContractorRequest[]>([]);
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
   const [blockedIds, setBlockedIds] = useState<Set<string>>(new Set());
@@ -170,6 +174,40 @@ export function ContractorProvider({ children }: PropsWithChildren) {
     setBlockedIds(new Set(blocked));
   }, []);
 
+  const registerContractor = useCallback(async (registration: ContractorRegistration): Promise<ContractorProfile> => {
+    const now = new Date().toISOString();
+    const profile: ContractorProfile = {
+      id: `c-${Math.random().toString(36).slice(2, 9)}`,
+      type: registration.type,
+      displayName: registration.displayName,
+      companyName: registration.companyName,
+      email: registration.email,
+      phone: registration.phone,
+      city: registration.city,
+      serviceArea: registration.serviceArea,
+      specialties: registration.specialties,
+      specializedJobIds: registration.specializedJobIds,
+      shortDescription: registration.shortDescription,
+      longDescription: registration.longDescription,
+      taxId: registration.taxId,
+      businessRegistration: registration.businessRegistration,
+      website: registration.website,
+      socialLinks: registration.socialLinks,
+      verificationStatus: 'unverified',
+      listingTier: 'free',
+      isPromoted: false,
+      materialsIncluded: registration.materialsIncluded,
+      jobScales: registration.jobScales,
+      availableSoon: true,
+      reviewCount: 0,
+      currentLeadCapacity: 'available',
+      createdAt: now,
+      updatedAt: now,
+    };
+    setContractors((prev) => [...prev, profile]);
+    return profile;
+  }, []);
+
   const value: ContractorContextValue = {
     contractors,
     filteredContractors,
@@ -196,6 +234,7 @@ export function ContractorProvider({ children }: PropsWithChildren) {
     toggleSaveContractor,
     isContractorSaved,
     refreshBlockedIds,
+    registerContractor,
   };
 
   return (

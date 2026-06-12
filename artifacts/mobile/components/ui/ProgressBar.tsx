@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ViewStyle } from 'react-native';
 import { Txt } from './Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ProgressBarProps {
   completed: number;
@@ -24,6 +25,7 @@ export function ProgressBar({
   trackColor = Colors.border,
   style,
 }: ProgressBarProps) {
+  const { t } = useLanguage();
   const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
   const barColor = color ?? (pct === 100 ? Colors.success : Colors.primary);
 
@@ -32,7 +34,7 @@ export function ProgressBar({
       {showLabel && (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-            {label ?? 'Postęp'}
+            {label ?? t('cmp.ProgressBar.default')}
           </Txt>
           <Txt
             w="semibold"

@@ -4,16 +4,18 @@ import { useLocalSearchParams, Stack, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useHouseBuild } from '@/context/HouseBuildContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { BUILD_STAGES } from '@/features/house-build/stages';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import type { TranslationKey } from '@/constants/translations';
 import type { DocumentRecord } from '@/db/repositories/house-build.repo';
 
-const DOC_STATUS_LABELS: Record<string, string> = {
-  missing: 'Brakujacy',
-  'in-progress': 'W trakcie',
-  obtained: 'Uzyskany',
-  'not-needed': 'Nie dotyczy',
+const DOC_STATUS_KEYS: Record<string, TranslationKey> = {
+  missing: 'hb.documents.status.missing',
+  'in-progress': 'hb.documents.status.inProgress',
+  obtained: 'hb.documents.status.obtained',
+  'not-needed': 'hb.documents.status.notNeeded',
 };
 
 const DOC_COLORS: Record<string, { bg: string; fg: string }> = {
@@ -26,6 +28,7 @@ const DOC_COLORS: Record<string, { bg: string; fg: string }> = {
 export default function DocumentsScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const { getDocuments, updateDocumentStatus, seedDocumentsForStage } = useHouseBuild();
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [seeded, setSeeded] = useState(false);
@@ -77,10 +80,10 @@ export default function DocumentsScreen() {
             borderColor: missingRequired > 0 ? '#FDE68A' : '#BBF7D0',
           }}>
             <Txt w="bold" style={{ fontSize: 16, color: missingRequired > 0 ? '#92400E' : '#166534' }}>
-              {missingRequired > 0 ? `${missingRequired} wymaganych dokumentów brakuje` : 'Wszystkie dokumenty kompletne!'}
+              {missingRequired > 0 ? t('hb.documents.missingRequired', { count: missingRequired }) : t('hb.documents.allComplete')}
             </Txt>
             <Txt style={{ fontSize: 13, color: missingRequired > 0 ? '#B45309' : '#15803D', marginTop: 4 }}>
-              Uzyskano {obtainedDocs} z {totalDocs} dokumentów
+              {t('hb.documents.obtainedOf', { obtained: obtainedDocs, total: totalDocs })}
             </Txt>
           </View>
 
@@ -115,7 +118,7 @@ export default function DocumentsScreen() {
                       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{doc.description}</Txt>
                     </View>
                     <View style={{ backgroundColor: c.bg, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 }}>
-                      <Txt style={{ fontSize: 10, color: c.fg }}>{DOC_STATUS_LABELS[doc.status]}</Txt>
+                      <Txt style={{ fontSize: 10, color: c.fg }}>{t(DOC_STATUS_KEYS[doc.status] ?? DOC_STATUS_KEYS.missing)}</Txt>
                     </View>
                   </TouchableOpacity>
                 );
@@ -126,7 +129,7 @@ export default function DocumentsScreen() {
           {grouped.length === 0 && (
             <View style={{ alignItems: 'center', paddingVertical: 40 }}>
               <Feather name="file" size={40} color={Colors.textMuted} />
-              <Txt style={{ fontSize: 14, color: Colors.textMuted, marginTop: 12 }}>Brak dokumentów do wyswietlenia</Txt>
+              <Txt style={{ fontSize: 14, color: Colors.textMuted, marginTop: 12 }}>{t('hb.documents.empty')}</Txt>
             </View>
           )}
 

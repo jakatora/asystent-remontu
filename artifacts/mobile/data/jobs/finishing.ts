@@ -1,4 +1,5 @@
 import { RenovationJob } from '@/types/domain';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 export const wallpaperJob: RenovationJob = {
   id: 'wallpaper',
@@ -109,10 +110,12 @@ export const skirtingJob: RenovationJob = {
     {
       id: 'skirting',
       name: 'Listwy przypodłogowe',
+      brand: 'Arbiton Laque MDF 60 mm × 2.4 m biała (referencja)',
       unit: 'mb',
       formulaKey: 'skirting',
       pricePerUnit: 8,
       notes: 'Kupuj z 10% naddatkiem. MDF lub drewno — do wyboru.',
+      shopPrices: SHARED_SHOP_PRICES.baseboardMDF60mm,
     },
     {
       id: 'skirting-glue',
@@ -154,6 +157,16 @@ export const skirtingJob: RenovationJob = {
     { id: 'q3', description: 'Kolor i wzór jest jednolity w całym pomieszczeniu' },
   ],
   hireProfessionalRecommended: false,
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Listwy przypodłogowe — montaż krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 export const doorsJob: RenovationJob = {
@@ -254,4 +267,14 @@ export const doorsJob: RenovationJob = {
   ],
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Montaż drzwi wymaga precyzji i doświadczenia. Błędy są trudne i kosztowne do naprawienia.',
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Montaż drzwi wewnętrznych — przewodnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

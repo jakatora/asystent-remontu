@@ -7,31 +7,34 @@ import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 function NativeTabLayout() {
+  const { t } = useLanguage();
   return (
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Icon sf={{ default: 'house', selected: 'house.fill' }} />
-        <Label>Start</Label>
+        <Label>{t('tabs.start')}</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="explore">
         <Icon sf={{ default: 'square.grid.2x2', selected: 'square.grid.2x2.fill' }} />
-        <Label>Odkryj</Label>
+        <Label>{t('tabs.explore')}</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="projects">
         <Icon sf={{ default: 'folder', selected: 'folder.fill' }} />
-        <Label>Projekty</Label>
+        <Label>{t('tabs.projects')}</Label>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="settings">
         <Icon sf={{ default: 'gearshape', selected: 'gearshape.fill' }} />
-        <Label>Ustawienia</Label>
+        <Label>{t('tabs.settings')}</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
 }
 
 function ClassicTabLayout() {
+  const { t } = useLanguage();
   const isIOS = Platform.OS === 'ios';
   const isWeb = Platform.OS === 'web';
 
@@ -60,7 +63,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Start',
+          title: t('tabs.start'),
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="house" tintColor={color} size={22} />
@@ -72,7 +75,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Odkryj',
+          title: t('tabs.explore'),
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="square.grid.2x2" tintColor={color} size={22} />
@@ -84,7 +87,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="projects"
         options={{
-          title: 'Projekty',
+          title: t('tabs.projects'),
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="folder" tintColor={color} size={22} />
@@ -96,7 +99,7 @@ function ClassicTabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Ustawienia',
+          title: t('tabs.settings'),
           tabBarIcon: ({ color }) =>
             isIOS ? (
               <SymbolView name="gearshape" tintColor={color} size={22} />

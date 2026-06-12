@@ -1,3 +1,4 @@
+import type { TranslationKey } from '@/constants/translations';
 import type {
   ShoppingItem,
   ShoppingTier,
@@ -14,14 +15,14 @@ import type {
 
 export type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'budget' | 'photos';
 
-export const TAB_LABELS: Record<Tab, string> = {
-  overview: 'Przegląd',
-  materials: 'Materiały',
-  tools: 'Narzędzia',
-  guide: 'Instrukcja',
-  shopping: 'Zakupy',
-  budget: 'Kosztorys',
-  photos: 'Zdjęcia',
+export const TAB_LABEL_KEYS: Record<Tab, TranslationKey> = {
+  overview: 'cmp.tab.overview',
+  materials: 'cmp.tab.materials',
+  tools: 'cmp.tab.tools',
+  guide: 'cmp.tab.guide',
+  shopping: 'cmp.tab.shopping',
+  budget: 'cmp.tab.budget',
+  photos: 'cmp.tab.photos',
 };
 
 export const STATUS_COLORS = {
@@ -30,10 +31,10 @@ export const STATUS_COLORS = {
   completed:     { active: '#22C55E', bg: '#F0FDF4',  border: '#BBF7D0' },
 } as const;
 
-export const TIER_META: Record<ShoppingTier, { label: string; color: string; bg: string }> = {
-  economy:  { label: 'Eko',      color: '#059669', bg: '#ECFDF5' },
-  standard: { label: 'Standard', color: '#3B82F6', bg: '#EFF6FF' },
-  premium:  { label: 'Premium',  color: '#7C3AED', bg: '#F5F3FF' },
+export const TIER_META: Record<ShoppingTier, { labelKey: TranslationKey; color: string; bg: string }> = {
+  economy:  { labelKey: 'cmp.TierBadge.economy',  color: '#059669', bg: '#ECFDF5' },
+  standard: { labelKey: 'cmp.TierBadge.standard', color: '#3B82F6', bg: '#EFF6FF' },
+  premium:  { labelKey: 'cmp.TierBadge.premium',  color: '#7C3AED', bg: '#F5F3FF' },
 };
 
 export const CONTINGENCY_RATE = 0.1;

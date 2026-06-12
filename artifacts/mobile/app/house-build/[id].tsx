@@ -4,6 +4,7 @@ import { router, useLocalSearchParams, useFocusEffect, Stack } from 'expo-router
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useHouseBuild } from '@/context/HouseBuildContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { BUILD_STAGES } from '@/features/house-build/stages';
 import { getWarningsForStage } from '@/features/house-build/warnings';
 import { Txt } from '@/components/ui/Txt';
@@ -12,14 +13,6 @@ import type { ChecklistItemRecord } from '@/db/repositories/house-build.repo';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
-
-const STATUS_LABELS: Record<string, string> = {
-  planning: 'Planowanie',
-  formalities: 'Formalnosci',
-  'in-progress': 'W budowie',
-  paused: 'Wstrzymany',
-  completed: 'Zakonczony',
-};
 
 function safeNavigateAway() {
   if (router.canGoBack()) {
@@ -32,7 +25,16 @@ function safeNavigateAway() {
 export default function HouseBuildProjectDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const { getProjectById, refreshProjects, deleteProject, getChecklist, seedChecklistForStage, seedDocumentsForStage } = useHouseBuild();
+
+  const STATUS_LABELS: Record<string, string> = {
+    planning: t('hb.id.status.planning'),
+    formalities: t('hb.id.status.formalities'),
+    'in-progress': t('hb.id.status.inProgress'),
+    paused: t('hb.id.status.paused'),
+    completed: t('hb.id.status.completed'),
+  };
 
   const [checklistCounts, setChecklistCounts] = useState<Record<string, { done: number; total: number }>>({});
   const [isDeleting, setIsDeleting] = useState(false);
@@ -70,12 +72,12 @@ export default function HouseBuildProjectDetail() {
   const handleDelete = useCallback(() => {
     if (isDeleting || !project) return;
     Alert.alert(
-      'Usun projekt',
-      `Czy na pewno chcesz usunac "${project.name}"? Tej operacji nie mozna cofnac.`,
+      t('hb.id.deleteTitle'),
+      t('hb.id.deleteBody', { name: project.name }),
       [
-        { text: 'Anuluj', style: 'cancel' },
+        { text: t('common.cancel'), style: 'cancel' },
         {
-          text: 'Usun',
+          text: t('hb.id.deleteCta'),
           style: 'destructive',
           onPress: async () => {
             if (isDeleting) return;
@@ -87,7 +89,7 @@ export default function HouseBuildProjectDetail() {
             } catch {
               deletedRef.current = false;
               setIsDeleting(false);
-              Alert.alert('Blad', 'Nie udalo sie usunac projektu.');
+              Alert.alert(t('common.error'), t('hb.id.deleteError'));
             }
           },
         },
@@ -118,7 +120,7 @@ export default function HouseBuildProjectDetail() {
   if (!project) {
     return (
       <View style={{ flex: 1, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
-        <Txt style={{ color: Colors.textMuted }}>Projekt nie znaleziony</Txt>
+        <Txt style={{ color: Colors.textMuted }}>{t('hb.id.notFound')}</Txt>
       </View>
     );
   }
@@ -126,7 +128,7 @@ export default function HouseBuildProjectDetail() {
   return (
     <>
       <Stack.Screen options={{ title: project.name, headerRight: () => (
-        <TouchableOpacity onPress={handleDelete} style={{ marginRight: 8 }} accessibilityLabel="Usun projekt">
+        <TouchableOpacity onPress={handleDelete} style={{ marginRight: 8 }} accessibilityLabel={t('hb.id.deleteA11y')}>
           <Feather name="trash-2" size={20} color={Colors.danger} />
         </TouchableOpacity>
       )}} />
@@ -146,20 +148,20 @@ export default function HouseBuildProjectDetail() {
           }}>
             <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{project.name}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              {project.landContext.plotCity || 'Brak lokalizacji'} · {STATUS_LABELS[project.status]}
+              {project.landContext.plotCity || t('hb.id.noLocation')} · {STATUS_LABELS[project.status]}
             </Txt>
             <View style={{ flexDirection: 'row', gap: 12, marginTop: 12 }}>
-              <InfoChip icon="home" label={project.planningContext.houseType === 'detached' ? 'Wolnostojacy' : project.planningContext.houseType} />
-              <InfoChip icon="layers" label={`${project.planningContext.floorsAboveGround} kond.`} />
+              <InfoChip icon="home" label={project.planningContext.houseType === 'detached' ? t('hb.id.houseDetached') : project.planningContext.houseType} />
+              <InfoChip icon="layers" label={t('hb.id.floorsChip', { n: project.planningContext.floorsAboveGround })} />
               {project.planningContext.approximateFootprint && (
-                <InfoChip icon="maximize" label={`${project.planningContext.approximateFootprint} m2`} />
+                <InfoChip icon="maximize" label={t('hb.id.footprintChip', { n: project.planningContext.approximateFootprint })} />
               )}
             </View>
           </View>
 
           {warnings.length > 0 && (
             <View style={{ marginBottom: 20 }}>
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 10 }}>Wazne ostrzezenia</Txt>
+              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 10 }}>{t('hb.id.warningsHeader')}</Txt>
               {warnings.map((w, i) => (
                 <View
                   key={i}
@@ -191,21 +193,21 @@ export default function HouseBuildProjectDetail() {
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
             <QuickAction
               icon="clipboard"
-              label="Sciezka formalna"
+              label={t('hb.id.action.formalPath')}
               color={HB_ACCENT}
               bg={HB_ACCENT_BG}
               onPress={() => router.push('/house-build/formal-path')}
             />
             <QuickAction
               icon="file-text"
-              label="Dokumenty"
+              label={t('hb.id.action.documents')}
               color={Colors.info}
               bg={Colors.infoBg}
               onPress={() => router.push({ pathname: '/house-build/documents', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="users"
-              label="Specjalisci"
+              label={t('hb.id.action.professionals')}
               color="#8B5CF6"
               bg="#F5F3FF"
               onPress={() => router.push('/house-build/professionals')}
@@ -214,21 +216,21 @@ export default function HouseBuildProjectDetail() {
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
             <QuickAction
               icon="zap"
-              label="Przylacza"
+              label={t('hb.id.action.utilities')}
               color={Colors.warning}
               bg={Colors.warningBg}
               onPress={() => router.push({ pathname: '/house-build/utility-hub', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="flag"
-              label="Przed budowa"
+              label={t('hb.id.action.beforeBuild')}
               color="#059669"
               bg="#ECFDF5"
               onPress={() => router.push('/house-build/before-works')}
             />
             <QuickAction
               icon="book"
-              label="EDB"
+              label={t('hb.id.action.edb')}
               color="#7C3AED"
               bg="#F5F3FF"
               onPress={() => router.push('/house-build/edb')}
@@ -237,21 +239,21 @@ export default function HouseBuildProjectDetail() {
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
             <QuickAction
               icon="thermometer"
-              label="Energia"
+              label={t('hb.id.action.energy')}
               color="#0891B2"
               bg="#ECFEFF"
               onPress={() => router.push('/house-build/energy-planning')}
             />
             <QuickAction
               icon="check-circle"
-              label="Zakonczenie"
+              label={t('hb.id.action.completion')}
               color="#DC2626"
               bg="#FEF2F2"
               onPress={() => router.push('/house-build/completion')}
             />
             <QuickAction
               icon="calendar"
-              label="Harmonogram"
+              label={t('hb.id.action.timeline')}
               color={HB_ACCENT}
               bg={HB_ACCENT_BG}
               onPress={() => router.push({ pathname: '/house-build/timeline', params: { projectId: project.id } })}
@@ -260,21 +262,21 @@ export default function HouseBuildProjectDetail() {
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
             <QuickAction
               icon="dollar-sign"
-              label="Budzet"
+              label={t('hb.id.action.budget')}
               color="#059669"
               bg="#ECFDF5"
               onPress={() => router.push({ pathname: '/house-build/budget', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="award"
-              label="Milestones"
+              label={t('hb.id.action.milestones')}
               color="#D97706"
               bg="#FFFBEB"
               onPress={() => router.push({ pathname: '/house-build/milestones', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="archive"
-              label="Centrum dok."
+              label={t('hb.id.action.docCenter')}
               color="#7C3AED"
               bg="#F5F3FF"
               onPress={() => router.push({ pathname: '/house-build/doc-dashboard', params: { projectId: project.id } })}
@@ -283,42 +285,42 @@ export default function HouseBuildProjectDetail() {
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
             <QuickAction
               icon="compass"
-              label="Decyzje"
+              label={t('hb.id.action.decisions')}
               color="#DC2626"
               bg="#FEF2F2"
               onPress={() => router.push({ pathname: '/house-build/decisions', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="help-circle"
-              label="Pytania"
+              label={t('hb.id.action.questions')}
               color="#0891B2"
               bg="#ECFEFF"
               onPress={() => router.push({ pathname: '/house-build/questions', params: { projectId: project.id } })}
             />
             <QuickAction
               icon="briefcase"
-              label="Wykonawcy"
+              label={t('hb.id.action.contractors')}
               color="#2563EB"
               bg="#EFF6FF"
               onPress={() => router.push({ pathname: '/house-build/contractor-board' as any, params: { projectId: project.id } })}
             />
             <QuickAction
               icon="tag"
-              label="Cennik ref."
+              label={t('hb.id.action.pricing')}
               color="#059669"
               bg="#ECFDF5"
               onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId: project.id } })}
             />
             <QuickAction
               icon="settings"
-              label="Admin tresci"
+              label={t('hb.id.action.contentAdmin')}
               color="#7C3AED"
               bg="#F5F3FF"
               onPress={() => router.push({ pathname: '/house-build/content-admin-hub' as any })}
             />
           </View>
 
-          <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>Etapy budowy</Txt>
+          <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>{t('hb.id.stagesHeader')}</Txt>
           {BUILD_STAGES.map((stage) => {
             const counts = checklistCounts[stage.key];
             const progress = counts && counts.total > 0 ? Math.round((counts.done / counts.total) * 100) : 0;

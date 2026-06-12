@@ -4,6 +4,8 @@ import { router, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useHouseBuild } from '@/context/HouseBuildContext';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 import { BUILD_STAGES } from '@/features/house-build/stages';
 import { Txt } from '@/components/ui/Txt';
 import { EmptyState } from '@/components/ui/EmptyState';
@@ -15,9 +17,18 @@ const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 const HB_ACCENT_LIGHT = '#BFDBFE';
 
+const STATUS_LABEL_KEYS: Record<string, TranslationKey> = {
+  planning: 'hb.index.status.planning',
+  formalities: 'hb.index.status.formalities',
+  'in-progress': 'hb.index.status.inProgress',
+  paused: 'hb.index.status.paused',
+  completed: 'hb.index.status.completed',
+};
+
 export default function HouseBuildHome() {
   const insets = useSafeAreaInsets();
   const { projects, refreshProjects } = useHouseBuild();
+  const { t } = useLanguage();
 
   useFocusEffect(
     useCallback(() => {
@@ -36,9 +47,9 @@ export default function HouseBuildHome() {
       <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <View style={{ flex: 1 }}>
-            <Txt w="bold" style={{ fontSize: 24, color: Colors.text }}>Budowa domu</Txt>
+            <Txt w="bold" style={{ fontSize: 24, color: Colors.text }}>{t('hb.index.title')}</Txt>
             <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginTop: 2 }}>
-              Asystent inwestora
+              {t('hb.index.subtitle')}
             </Txt>
           </View>
           <TouchableOpacity
@@ -52,7 +63,7 @@ export default function HouseBuildHome() {
             }}
             onPress={() => router.push('/house-build/create')}
             activeOpacity={0.8}
-            accessibilityLabel="Nowy projekt budowy"
+            accessibilityLabel={t('hb.index.newProjectA11y')}
             accessibilityRole="button"
           >
             <Feather name="plus" size={22} color="#fff" />
@@ -72,13 +83,13 @@ export default function HouseBuildHome() {
           }}
           onPress={() => router.push('/house-build/create')}
           activeOpacity={0.85}
-          accessibilityLabel="Rozpocznij planowanie budowy domu"
+          accessibilityLabel={t('hb.index.startPlanningA11y')}
           accessibilityRole="button"
         >
           <View style={{ flex: 1 }}>
-            <Txt w="bold" style={{ fontSize: 16, color: HB_ACCENT }}>Zaplanuj budowe domu</Txt>
+            <Txt w="bold" style={{ fontSize: 16, color: HB_ACCENT }}>{t('hb.index.planCardTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 2 }}>
-              Krok po kroku — od dzialki po odbiór
+              {t('hb.index.planCardSubtitle')}
             </Txt>
           </View>
           <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
@@ -88,12 +99,12 @@ export default function HouseBuildHome() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionHeader title="Twoje projekty budowy" />
+        <SectionHeader title={t('hb.index.projectsSection')} />
         {projects.length === 0 ? (
           <EmptyState
             icon="home"
-            title="Brak projektów budowy"
-            description="Rozpocznij planowanie budowy domu"
+            title={t('hb.index.emptyTitle')}
+            description={t('hb.index.emptyDescription')}
           />
         ) : (
           projects.map((p) => (
@@ -109,7 +120,7 @@ export default function HouseBuildHome() {
               }}
               onPress={() => router.push({ pathname: '/house-build/[id]', params: { id: p.id } })}
               activeOpacity={0.85}
-              accessibilityLabel={`Projekt: ${p.name}`}
+              accessibilityLabel={t('hb.index.projectA11y', { name: p.name })}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
                 <View style={{ width: 44, height: 44, borderRadius: 22, backgroundColor: HB_ACCENT_BG, alignItems: 'center', justifyContent: 'center' }}>
@@ -118,7 +129,7 @@ export default function HouseBuildHome() {
                 <View style={{ flex: 1 }}>
                   <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{p.name}</Txt>
                   <Txt style={{ fontSize: 12, color: Colors.textSecondary, marginTop: 2 }}>
-                    {p.landContext.plotCity || 'Brak lokalizacji'} · {STATUS_LABELS[p.status]}
+                    {p.landContext.plotCity || t('hb.index.noLocation')} · {STATUS_LABEL_KEYS[p.status] ? t(STATUS_LABEL_KEYS[p.status]) : p.status}
                   </Txt>
                 </View>
                 <StatusBadge status={p.status} />
@@ -129,7 +140,7 @@ export default function HouseBuildHome() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionHeader title="Etapy budowy" />
+        <SectionHeader title={t('hb.index.stagesSection')} />
         <View style={{ gap: 8 }}>
           {BUILD_STAGES.slice(0, 6).map((stage) => (
             <View
@@ -153,12 +164,12 @@ export default function HouseBuildHome() {
                 <Txt style={{ fontSize: 11, color: Colors.textMuted }} numberOfLines={1}>{stage.description}</Txt>
               </View>
               <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-                {stage.estimatedWeeks ? `~${stage.estimatedWeeks} tyg.` : ''}
+                {stage.estimatedWeeks ? t('hb.index.weeksShort', { weeks: stage.estimatedWeeks }) : ''}
               </Txt>
             </View>
           ))}
           <Txt style={{ fontSize: 12, color: Colors.textMuted, textAlign: 'center', marginTop: 4 }}>
-            + {BUILD_STAGES.length - 6} kolejnych etapów
+            {t('hb.index.moreStages', { count: BUILD_STAGES.length - 6 })}
           </Txt>
         </View>
       </View>
@@ -166,15 +177,8 @@ export default function HouseBuildHome() {
   );
 }
 
-const STATUS_LABELS: Record<string, string> = {
-  planning: 'Planowanie',
-  formalities: 'Formalnosci',
-  'in-progress': 'W budowie',
-  paused: 'Wstrzymany',
-  completed: 'Zakonczony',
-};
-
 function StatusBadge({ status }: { status: string }) {
+  const { t } = useLanguage();
   const colorMap: Record<string, { bg: string; fg: string }> = {
     planning: { bg: Colors.infoBg, fg: Colors.info },
     formalities: { bg: Colors.warningBg, fg: Colors.warning },
@@ -185,7 +189,7 @@ function StatusBadge({ status }: { status: string }) {
   const c = colorMap[status] ?? colorMap.planning;
   return (
     <View style={{ backgroundColor: c.bg, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 }}>
-      <Txt w="semibold" style={{ fontSize: 10, color: c.fg }}>{STATUS_LABELS[status] ?? status}</Txt>
+      <Txt w="semibold" style={{ fontSize: 10, color: c.fg }}>{STATUS_LABEL_KEYS[status] ? t(STATUS_LABEL_KEYS[status]) : status}</Txt>
     </View>
   );
 }

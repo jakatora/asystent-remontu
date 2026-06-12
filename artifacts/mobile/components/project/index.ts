@@ -16,5 +16,5 @@ export { LaborPriceCard } from './LaborPriceCard';
 export { MaterialPriceCard } from './MaterialPriceCard';
 export { PricingSummary } from './PricingSummary';
 export { diyAssessment, getEffectivePrice, getEffectiveQuantity, buildShareText } from './helpers';
-export { TAB_LABELS, STATUS_COLORS, TIER_META, CONTINGENCY_RATE } from './types';
+export { TAB_LABEL_KEYS, STATUS_COLORS, TIER_META, CONTINGENCY_RATE } from './types';
 export type { Tab, ProjectDetailData, ProjectDetailActions, DiyAssessmentResult, ShoppingEditState } from './types';

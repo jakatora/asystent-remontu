@@ -1,0 +1,47 @@
+{
+  "name": "@workspace/remont-asystent",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "build:renderer": "set \"PATH=%CD%\\tools;%PATH%\" && corepack pnpm --filter @workspace/asystent-remontu-web run build",
+    "start": "set \"PATH=%CD%\\tools;%PATH%\" && corepack pnpm run build:renderer && electron .",
+    "dist:win": "set \"PATH=%CD%\\tools;%PATH%\" && corepack pnpm run build:renderer && electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "pl.remontasystent.desktop",
+    "productName": "Remont Asystent",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "assets/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../asystent-remontu-web/dist/public",
+        "to": "web",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Remont-Asystent-${version}-Windows-Portable.${ext}"
+    }
+  }
+}

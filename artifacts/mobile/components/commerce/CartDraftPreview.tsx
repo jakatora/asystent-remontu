@@ -6,6 +6,7 @@ import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import { MappingStatusChip } from './MappingStatusChip';
 import type { CartDraft, CartDraftLine } from '@/types/commerce';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface CartDraftPreviewProps {
   draft: CartDraft;
@@ -22,13 +23,14 @@ export function CartDraftPreview({
   checkoutReady,
   checkoutReasons,
 }: CartDraftPreviewProps) {
+  const { t } = useLanguage();
   const { summary } = draft;
 
   return (
     <View style={{ gap: 14 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Feather name="shopping-cart" size={18} color={Colors.primary} />
-        <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>Koszyk sklepowy (wersja robocza)</Txt>
+        <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('cmp.CartDraftPreview.title')}</Txt>
       </View>
 
       <View
@@ -42,24 +44,24 @@ export function CartDraftPreview({
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>Produkty zmapowane</Txt>
+          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.CartDraftPreview.mappedProducts')}</Txt>
           <Txt w="semibold" style={{ fontSize: 12, color: '#059669' }}>
             {summary.mappedLines} / {summary.totalLines}
           </Txt>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>Materiały</Txt>
+          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.CartDraftPreview.materials')}</Txt>
           <Txt style={{ fontSize: 12, color: Colors.text }}>{summary.materialLines}</Txt>
         </View>
         {summary.toolsIncluded && (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>Narzędzia</Txt>
+            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.CartDraftPreview.tools')}</Txt>
             <Txt style={{ fontSize: 12, color: Colors.text }}>{summary.toolLines}</Txt>
           </View>
         )}
         {summary.unmappedLines > 0 && (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>Niezmapowane</Txt>
+            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.CartDraftPreview.unmapped')}</Txt>
             <Txt style={{ fontSize: 12, color: '#92400E' }}>{summary.unmappedLines}</Txt>
           </View>
         )}
@@ -72,7 +74,7 @@ export function CartDraftPreview({
             justifyContent: 'space-between',
           }}
         >
-          <Txt w="bold" style={{ fontSize: 14, color: Colors.text }}>Szacunkowa kwota</Txt>
+          <Txt w="bold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.CartDraftPreview.estimatedAmount')}</Txt>
           <Txt w="bold" style={{ fontSize: 14, color: Colors.primary }}>
             {formatCurrency(summary.estimatedSubtotal)}
           </Txt>
@@ -101,10 +103,10 @@ export function CartDraftPreview({
           }}
         >
           <Txt w="medium" style={{ fontSize: 11, color: '#92400E' }}>
-            {summary.unmappedLines} pozycji nie jest jeszcze zmapowanych do sklepu.
+            {t('cmp.CartDraftPreview.unmappedWarning', { count: summary.unmappedLines })}
           </Txt>
           <Txt style={{ fontSize: 10, color: '#78350F' }}>
-            Te produkty są uwzględnione w planie remontu, ale nie mają jeszcze odpowiedników w sklepie.
+            {t('cmp.CartDraftPreview.unmappedHint')}
           </Txt>
         </View>
       )}
@@ -122,7 +124,7 @@ export function CartDraftPreview({
         activeOpacity={0.8}
       >
         <Txt w="bold" style={{ fontSize: 15, color: Colors.textOnPrimary }}>
-          Przygotuj zamówienie
+          {t('cmp.CartDraftPreview.prepareOrder')}
         </Txt>
         {!checkoutReady && checkoutReasons.length > 0 && (
           <Txt style={{ fontSize: 10, color: Colors.textOnPrimary + 'AA' }}>

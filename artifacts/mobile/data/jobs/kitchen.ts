@@ -1,4 +1,5 @@
 import type { RenovationJob } from '@/types/domain';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─── Backsplash tiles ─────────────────────────────────────────────────────────
 
@@ -47,26 +48,32 @@ export const backsplashTilesJob: RenovationJob = {
     {
       id: 'tile-adhesive',
       name: 'Klej do płytek (biały, szybkoschnący)',
+      brand: 'Atlas Plus C2TE 25 kg (referencja, wybierz wariant biały)',
       unit: 'kg',
       formulaKey: 'tileAdhesive',
       pricePerUnit: 2.5,
       notes: 'Biały klej jest zalecany, by nie przebarwiał jasnych płytek.',
+      shopPrices: SHARED_SHOP_PRICES.tileAdhesiveAtlasPlus25kg,
     },
     {
       id: 'grout-kitchen',
       name: 'Fuga epoksydowa (odporna na tłuszcz)',
+      brand: 'Atlas Fuga ceramiczna 2 kg (referencja, idealnie epoksyd w kuchni)',
       unit: 'kg',
       formulaKey: 'grout',
       pricePerUnit: 30,
       notes: 'Fuga epoksydowa jest łatwiejsza do czyszczenia w kuchni.',
+      shopPrices: SHARED_SHOP_PRICES.tileGroutAtlas2kg,
     },
     {
       id: 'silicone-kitchen',
       name: 'Silikon sanitarny (krawędź blatu)',
+      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
       unit: 'kartusze',
       formulaKey: 'silicone',
       pricePerUnit: 22,
       notes: '1 kartusze na ok. 8 mb spoiny — uszczelnia styk blatu ze ścianą.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'tile-crosses-kitchen',
@@ -129,6 +136,16 @@ export const backsplashTilesJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'płytki', 'glazura', 'backsplash', 'ściana'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Glazura w kuchni — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Kitchen countertop installation ─────────────────────────────────────────
@@ -178,9 +195,11 @@ export const countertopInstallJob: RenovationJob = {
     {
       id: 'countertop-silicone',
       name: 'Silikon sanitarny (uszczelnienie)',
+      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
       unit: 'kartusze',
       formulaKey: 'silicone',
       pricePerUnit: 22,
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'countertop-screws',
@@ -235,6 +254,16 @@ export const countertopInstallJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'blat', 'zlew', 'montaż'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Montaż blatu kuchennego — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Kitchen cabinet door painting ───────────────────────────────────────────
@@ -282,11 +311,13 @@ export const kitchenCabinetPaintJob: RenovationJob = {
     {
       id: 'cabinet-paint',
       name: 'Farba do szafek kuchennych (emalia satynowa)',
+      brand: 'Magnat Ceramic C45 5 L lub specjalistyczna emalia akrylowa (referencja)',
       unit: 'litr',
       formulaKey: 'faucets',
       wasteFactor: 0.15,
       pricePerUnit: 55,
       notes: 'Ok. 0,12–0,15 L/front na warstwę (2 warstwy). Emalia satynowa lub półmat jest standardem.',
+      shopPrices: SHARED_SHOP_PRICES.paintMagnatCeramic5L,
     },
     {
       id: 'sandpaper-cabinet',
@@ -330,6 +361,16 @@ export const kitchenCabinetPaintJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'szafki', 'malowanie', 'fronty', 'odświeżenie'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Malowanie szafek kuchennych — instrukcja',
+      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Kitchen cabinet hardware replacement ─────────────────────────────────────
@@ -400,6 +441,16 @@ export const kitchenHardwareJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'uchwyty', 'gałki', 'szafki', 'wymiana'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana uchwytów w kuchni — szybki refresh',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Kitchen hood installation ────────────────────────────────────────────────
@@ -495,4 +546,14 @@ export const kitchenHoodJob: RenovationJob = {
   hireProfessionalRecommended: false,
   hireProfessionalReason: 'Przy okap. wyciągowym z nowym przewodem przez ścianę — rozważ pomoc elektryka i ewentualnie murarza.',
   tags: ['okap', 'kuchnia', 'wentylacja', 'montaż', 'elektryka'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Montaż okapu kuchennego — przewodnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

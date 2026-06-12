@@ -17,6 +17,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { AppProvider, useApp } from '@/context/AppContext';
+import { LanguageProvider, useLanguage } from '@/context/LanguageContext';
 import { CommerceProvider } from '@/context/CommerceContext';
 import { ContractorProvider } from '@/context/ContractorContext';
 import { HouseBuildProvider } from '@/context/HouseBuildContext';
@@ -32,6 +33,7 @@ initSentry().catch(() => {});
 
 function RootLayoutNav() {
   const { onboardingDone, isLoading } = useApp();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!isLoading) {
@@ -58,7 +60,7 @@ function RootLayoutNav() {
           >
             <Txt w="bold" style={{ fontSize: 28, color: Colors.primary }}>RA</Txt>
           </View>
-          <LoadingState message="Przygotowuję dane..." />
+          <LoadingState message={t('common.loading')} />
         </View>
       </View>
     );
@@ -102,15 +104,17 @@ export default function RootLayout() {
         <QueryClientProvider client={queryClient}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
-              <AppProvider>
-                <CommerceProvider>
-                  <ContractorProvider>
-                    <HouseBuildProvider>
-                      <RootLayoutNav />
-                    </HouseBuildProvider>
-                  </ContractorProvider>
-                </CommerceProvider>
-              </AppProvider>
+              <LanguageProvider>
+                <AppProvider>
+                  <CommerceProvider>
+                    <ContractorProvider>
+                      <HouseBuildProvider>
+                        <RootLayoutNav />
+                      </HouseBuildProvider>
+                    </ContractorProvider>
+                  </CommerceProvider>
+                </AppProvider>
+              </LanguageProvider>
             </KeyboardProvider>
           </GestureHandlerRootView>
         </QueryClientProvider>

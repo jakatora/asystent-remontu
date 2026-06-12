@@ -1,0 +1,125 @@
+workflows:
+  android-debug-apk:
+    name: Asystent Remontu — Android Debug APK
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      node: 20.18.0
+      java: 17
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $CM_BUILD_DIR/artifacts/mobile/node_modules
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile
+          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+      - name: Expo prebuild (Android)
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile
+          npx expo prebuild --platform android --clean --non-interactive
+      - name: Build Debug APK
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile/android
+          chmod +x ./gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+    artifacts:
+      - artifacts/mobile/android/app/build/outputs/apk/debug/*.apk
+      - artifacts/mobile/android/app/build/outputs/**/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - jakatora68@gmail.com
+        notify:
+          success: true
+          failure: true
+
+  android-release-apk:
+    name: Asystent Remontu — Android Release APK (signed)
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      android_signing:
+        - asystent_remontu_keystore
+      groups:
+        - asystent_remontu_signing
+      node: 20.18.0
+      java: 17
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $CM_BUILD_DIR/artifacts/mobile/node_modules
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile
+          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+      - name: Expo prebuild (Android)
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile
+          npx expo prebuild --platform android --clean --non-interactive
+      - name: Apply keystore signing config
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile/android
+          cat > keystore.properties <<EOF
+          storeFile=$CM_KEYSTORE_PATH
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          keyPassword=$CM_KEY_PASSWORD
+          EOF
+      - name: Build Release APK
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile/android
+          chmod +x ./gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+    artifacts:
+      - artifacts/mobile/android/app/build/outputs/apk/release/*.apk
+      - artifacts/mobile/android/app/build/outputs/**/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - jakatora68@gmail.com
+        notify:
+          success: true
+          failure: true
+
+  android-release-aab:
+    name: Asystent Remontu — Android Release AAB (Play Store)
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      android_signing:
+        - asystent_remontu_keystore
+      groups:
+        - asystent_remontu_signing
+      node: 20.18.0
+      java: 17
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $CM_BUILD_DIR/artifacts/mobile/node_modules
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile
+          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+      - name: Expo prebuild (Android)
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile
+          npx expo prebuild --platform android --clean --non-interactive
+      - name: Build Release AAB
+        script: |
+          cd $CM_BUILD_DIR/artifacts/mobile/android
+          chmod +x ./gradlew
+          ./gradlew bundleRelease --no-daemon --stacktrace
+    artifacts:
+      - artifacts/mobile/android/app/build/outputs/bundle/release/*.aab
+      - artifacts/mobile/android/app/build/outputs/**/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - jakatora68@gmail.com
+        notify:
+          success: true
+          failure: true

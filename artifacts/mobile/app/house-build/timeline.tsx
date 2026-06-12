@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/translations';
 import { BUILD_STAGES } from '@/features/house-build/stages';
 import { getDependenciesForStage, isStageBlocked, getBlockingStages } from '@/features/house-build/dependencies';
 import { timelineBudgetRepo } from '@/db/repositories/timeline-budget.repo';
@@ -14,29 +16,30 @@ import { DEFAULT_MILESTONES } from '@/features/house-build/milestones';
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const STATUS_LABELS: Record<string, { label: string; color: string; bg: string; icon: string }> = {
-  'not-started': { label: 'Nie rozpoczety', color: Colors.textMuted, bg: '#F1F5F9', icon: 'circle' },
-  'in-progress': { label: 'W trakcie', color: HB_ACCENT, bg: HB_ACCENT_BG, icon: 'play-circle' },
-  'waiting-for-verification': { label: 'Oczekuje weryfikacji', color: '#D97706', bg: '#FFFBEB', icon: 'clock' },
-  'ready-for-next-stage': { label: 'Gotowy', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
-  'blocked': { label: 'Zablokowany', color: '#DC2626', bg: '#FEF2F2', icon: 'x-circle' },
-  'completed': { label: 'Zakonczony', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
-  'skipped': { label: 'Pominiety', color: Colors.textMuted, bg: '#F1F5F9', icon: 'skip-forward' },
+const STATUS_VISUAL: Record<string, { labelKey: TranslationKey; color: string; bg: string; icon: string }> = {
+  'not-started': { labelKey: 'hb.timeline.status.notStarted', color: Colors.textMuted, bg: '#F1F5F9', icon: 'circle' },
+  'in-progress': { labelKey: 'hb.timeline.status.inProgress', color: HB_ACCENT, bg: HB_ACCENT_BG, icon: 'play-circle' },
+  'waiting-for-verification': { labelKey: 'hb.timeline.status.waitingForVerification', color: '#D97706', bg: '#FFFBEB', icon: 'clock' },
+  'ready-for-next-stage': { labelKey: 'hb.timeline.status.readyForNextStage', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
+  'blocked': { labelKey: 'hb.timeline.status.blocked', color: '#DC2626', bg: '#FEF2F2', icon: 'x-circle' },
+  'completed': { labelKey: 'hb.timeline.status.completed', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
+  'skipped': { labelKey: 'hb.timeline.status.skipped', color: Colors.textMuted, bg: '#F1F5F9', icon: 'skip-forward' },
 };
 
-const NOTE_TYPE_LABELS: Record<string, { label: string; icon: string; color: string }> = {
-  'weather-sensitive': { label: 'Pogoda', icon: 'cloud', color: '#0891B2' },
-  'waiting-for-inspection': { label: 'Inspekcja', icon: 'eye', color: '#D97706' },
-  'waiting-for-materials': { label: 'Materialy', icon: 'package', color: '#7C3AED' },
-  'waiting-for-contractor': { label: 'Wykonawca', icon: 'users', color: '#DC2626' },
-  'blocked-by-earlier-stage': { label: 'Blokada', icon: 'lock', color: '#DC2626' },
-  'decision-required': { label: 'Decyzja', icon: 'help-circle', color: '#D97706' },
-  'custom': { label: 'Notatka', icon: 'edit-3', color: Colors.textMuted },
+const NOTE_TYPE_VISUAL: Record<string, { labelKey: TranslationKey; icon: string; color: string }> = {
+  'weather-sensitive': { labelKey: 'hb.timeline.noteType.weather', icon: 'cloud', color: '#0891B2' },
+  'waiting-for-inspection': { labelKey: 'hb.timeline.noteType.inspection', icon: 'eye', color: '#D97706' },
+  'waiting-for-materials': { labelKey: 'hb.timeline.noteType.materials', icon: 'package', color: '#7C3AED' },
+  'waiting-for-contractor': { labelKey: 'hb.timeline.noteType.contractor', icon: 'users', color: '#DC2626' },
+  'blocked-by-earlier-stage': { labelKey: 'hb.timeline.noteType.blocked', icon: 'lock', color: '#DC2626' },
+  'decision-required': { labelKey: 'hb.timeline.noteType.decision', icon: 'help-circle', color: '#D97706' },
+  'custom': { labelKey: 'hb.timeline.noteType.custom', icon: 'edit-3', color: Colors.textMuted },
 };
 
 export default function TimelineScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [timelineStages, setTimelineStages] = useState<TimelineStageRecord[]>([]);
@@ -129,11 +132,11 @@ export default function TimelineScreen() {
             borderColor: '#BFDBFE',
             marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Harmonogram budowy</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.timeline.heroTitle')}</Txt>
             <View style={{ marginTop: 10 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>Postep ogólny</Txt>
-                <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT }}>{completedCount}/{totalCount} etapów ({overallProgress}%)</Txt>
+                <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('hb.timeline.overallProgress')}</Txt>
+                <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT }}>{t('hb.timeline.progressValue', { done: completedCount, total: totalCount, percent: overallProgress })}</Txt>
               </View>
               <View style={{ height: 6, backgroundColor: '#DBEAFE', borderRadius: 3 }}>
                 <View style={{ height: 6, backgroundColor: overallProgress === 100 ? Colors.success : HB_ACCENT, borderRadius: 3, width: `${overallProgress}%` }} />
@@ -150,7 +153,7 @@ export default function TimelineScreen() {
               }}
               onPress={() => setViewMode('timeline')}
             >
-              <Txt w="semibold" style={{ fontSize: 12, color: viewMode === 'timeline' ? '#fff' : Colors.text }}>Harmonogram</Txt>
+              <Txt w="semibold" style={{ fontSize: 12, color: viewMode === 'timeline' ? '#fff' : Colors.text }}>{t('hb.timeline.viewTimeline')}</Txt>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -160,13 +163,13 @@ export default function TimelineScreen() {
               }}
               onPress={() => setViewMode('list')}
             >
-              <Txt w="semibold" style={{ fontSize: 12, color: viewMode === 'list' ? '#fff' : Colors.text }}>Lista etapów</Txt>
+              <Txt w="semibold" style={{ fontSize: 12, color: viewMode === 'list' ? '#fff' : Colors.text }}>{t('hb.timeline.viewList')}</Txt>
             </TouchableOpacity>
           </View>
 
           {milestones.length > 0 && viewMode === 'timeline' && (
             <View style={{ marginBottom: 20 }}>
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Kamienie milowe</Txt>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>{t('hb.timeline.milestonesSection')}</Txt>
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={{ flexDirection: 'row', gap: 8 }}>
                   {milestones.map((m) => (
@@ -191,7 +194,7 @@ export default function TimelineScreen() {
 
           {stagesWithInfo.map(({ stage, timeline, blocked, deps, notes }, index) => {
             const status = timeline?.status ?? 'not-started';
-            const statusInfo = STATUS_LABELS[status] ?? STATUS_LABELS['not-started'];
+            const statusInfo = STATUS_VISUAL[status] ?? STATUS_VISUAL['not-started'];
             const displayName = timeline?.customName || stage.name;
             const weeks = timeline?.estimatedWeeks ?? stage.estimatedWeeks;
             const mgmt = timeline?.managementMode ?? 'self';
@@ -227,12 +230,12 @@ export default function TimelineScreen() {
                       <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{displayName}</Txt>
                       <View style={{ flexDirection: 'row', gap: 6, marginTop: 2, alignItems: 'center' }}>
                         <View style={{ backgroundColor: statusInfo.bg, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                          <Txt style={{ fontSize: 9, color: statusInfo.color }}>{statusInfo.label}</Txt>
+                          <Txt style={{ fontSize: 9, color: statusInfo.color }}>{t(statusInfo.labelKey)}</Txt>
                         </View>
-                        {weeks && <Txt style={{ fontSize: 10, color: Colors.textMuted }}>~{weeks} tyg.</Txt>}
+                        {weeks && <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.timeline.weeksShort', { weeks })}</Txt>}
                         {mgmt !== 'self' && (
                           <View style={{ backgroundColor: '#F5F3FF', borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                            <Txt style={{ fontSize: 9, color: '#6D28D9' }}>{mgmt === 'contractor' ? 'Wykonawca' : 'Mieszane'}</Txt>
+                            <Txt style={{ fontSize: 9, color: '#6D28D9' }}>{mgmt === 'contractor' ? t('hb.timeline.mgmtContractor') : t('hb.timeline.mgmtMixed')}</Txt>
                           </View>
                         )}
                       </View>
@@ -248,18 +251,18 @@ export default function TimelineScreen() {
                   {blocked && (
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8, paddingTop: 8, borderTopWidth: 1, borderTopColor: '#FEE2E2' }}>
                       <Feather name="lock" size={12} color="#DC2626" />
-                      <Txt style={{ fontSize: 11, color: '#DC2626' }}>Zablokowany — wymaga zakonczenia wczesniejszych etapów</Txt>
+                      <Txt style={{ fontSize: 11, color: '#DC2626' }}>{t('hb.timeline.blocked')}</Txt>
                     </View>
                   )}
 
                   {notes.length > 0 && (
                     <View style={{ marginTop: 8, gap: 4 }}>
                       {notes.slice(0, 2).map((n) => {
-                        const nt = NOTE_TYPE_LABELS[n.noteType] ?? NOTE_TYPE_LABELS.custom;
+                        const nt = NOTE_TYPE_VISUAL[n.noteType] ?? NOTE_TYPE_VISUAL.custom;
                         return (
                           <View key={n.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                             <Feather name={nt.icon as any} size={10} color={nt.color} />
-                            <Txt style={{ fontSize: 10, color: nt.color }} numberOfLines={1}>{n.text}</Txt>
+                            <Txt style={{ fontSize: 10, color: nt.color }} numberOfLines={1}>{n.text || t(nt.labelKey)}</Txt>
                           </View>
                         );
                       })}
@@ -272,7 +275,7 @@ export default function TimelineScreen() {
 
           <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-              Harmonogram jest narzedziem planistycznym. Rzeczywisty czas budowy zalezy od projektu, pogody, wykonawcy i dostepnosci materialów.
+              {t('hb.timeline.footnote')}
             </Txt>
           </View>
         </View>

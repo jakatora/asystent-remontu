@@ -5,12 +5,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
-
-const SOURCE_LABEL = 'Art. 41 Prawa budowlanego — zawiadomienie o rozpoczeciu robót';
-const SOURCE_DATE = '2025-01-15';
 
 interface InfoItem {
   icon: string;
@@ -18,45 +16,30 @@ interface InfoItem {
   description: string;
 }
 
-const NOTIFICATION_STEPS: InfoItem[] = [
-  {
-    icon: 'calendar',
-    title: 'Termin zawiadomienia',
-    description: 'Inwestor zawiadamia organ nadzoru budowlanego (PINB) oraz projektanta co najmniej 7 dni przed planowanym rozpoczeciem robót budowlanych.',
-  },
-  {
-    icon: 'user',
-    title: 'Wymagane dane',
-    description: 'W zawiadomieniu podaje sie dane inwestora, kierownika budowy (imie, nazwisko, nr uprawnien, przynaleznosc do izby), adres budowy, nr pozwolenia/zgloszenia.',
-  },
-  {
-    icon: 'file-text',
-    title: 'Dokumenty do dolaczenia',
-    description: 'Oswiadczenie kierownika budowy o przyjeciu obowiazków, plan BIOZ (jesli wymagany), potwierdzenie uprawnien kierownika budowy.',
-  },
-  {
-    icon: 'monitor',
-    title: 'e-Budownictwo',
-    description: 'Zawiadomienie mozna zlozyc online przez platforme e-Budownictwo (e-budownictwo.gunb.gov.pl) z Profilem Zaufanym.',
-  },
-];
-
 export default function StartWorksScreen() {
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
+  const { t } = useLanguage();
+
+  const NOTIFICATION_STEPS: InfoItem[] = [
+    { icon: 'calendar', title: t('hb.startWorks.step1Title'), description: t('hb.startWorks.step1Desc') },
+    { icon: 'user', title: t('hb.startWorks.step2Title'), description: t('hb.startWorks.step2Desc') },
+    { icon: 'file-text', title: t('hb.startWorks.step3Title'), description: t('hb.startWorks.step3Desc') },
+    { icon: 'monitor', title: t('hb.startWorks.step4Title'), description: t('hb.startWorks.step4Desc') },
+  ];
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Rozpoczecie robót' }} />
+      <Stack.Screen options={{ title: t('hb.startWorks.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
         showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
-          <Txt w="bold" style={{ fontSize: 20, color: Colors.text, marginBottom: 4 }}>Rozpoczecie robót budowlanych</Txt>
+          <Txt w="bold" style={{ fontSize: 20, color: Colors.text, marginBottom: 4 }}>{t('hb.startWorks.headerTitle')}</Txt>
           <Txt style={{ fontSize: 13, color: Colors.textMuted, marginBottom: 16 }}>
-            Formalne kroki zwiazane z zawiadomieniem o rozpoczeciu robót.
+            {t('hb.startWorks.headerSubtitle')}
           </Txt>
 
           <View style={{
@@ -71,7 +54,7 @@ export default function StartWorksScreen() {
           }}>
             <Feather name="alert-triangle" size={16} color="#991B1B" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 12, color: '#991B1B', flex: 1 }}>
-              Nie rozpoczynaj robót budowlanych przed zlozeniem wymaganego zawiadomienia i uplywie wymaganego terminu. Rozpoczecie robót bez dopelnienia formalnosci moze skutkowac konsekwencjami prawnymi.
+              {t('hb.startWorks.warning')}
             </Txt>
           </View>
 
@@ -87,10 +70,10 @@ export default function StartWorksScreen() {
               <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
                 <Feather name="send" size={18} color={HB_ACCENT} />
               </View>
-              <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>Zawiadomienie o rozpoczeciu robót</Txt>
+              <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('hb.startWorks.cardTitle')}</Txt>
             </View>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, lineHeight: 20 }}>
-              Przed rozpoczeciem budowy inwestor jest zobowiazany zawiadomic powiatowego inspektora nadzoru budowlanego (PINB) i projektanta o zamierzonym terminie rozpoczecia robót budowlanych.
+              {t('hb.startWorks.cardBody')}
             </Txt>
           </View>
 
@@ -138,13 +121,13 @@ export default function StartWorksScreen() {
           }}>
             <Feather name="info" size={16} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 12, color: '#92400E', flex: 1 }}>
-              Szczególowe wymagania moga sie róznic w zaleznosci od sciezki formalnej (pozwolenie vs zgloszenie vs dom do 70 m2). Szczególy potwierdz z urzedem.
+              {t('hb.startWorks.note')}
             </Txt>
           </View>
 
           <View style={{ marginTop: 16, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Zrodlo: {SOURCE_LABEL}</Txt>
-            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>Ostatnia weryfikacja: {SOURCE_DATE}</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.startWorks.source')}</Txt>
+            <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('hb.startWorks.lastReviewed')}</Txt>
           </View>
         </View>
       </ScrollView>

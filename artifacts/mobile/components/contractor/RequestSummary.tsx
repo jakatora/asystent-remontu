@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import type { ContractorRequest } from '@/types/contractor';
 import { REQUEST_STATUS_LABELS, BUDGET_RANGE_LABELS } from '@/types/contractor';
+import { useLanguage } from '@/context/LanguageContext';
 
 const STATUS_COLORS: Record<string, string> = {
   draft: Colors.textMuted,
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export function RequestSummaryCard({ request, onPress }: Props) {
+  const { t } = useLanguage();
   const statusColor = STATUS_COLORS[request.status] ?? Colors.textMuted;
 
   return (
@@ -40,7 +42,7 @@ export function RequestSummaryCard({ request, onPress }: Props) {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
         <View style={{ flex: 1, marginRight: 8 }}>
           <Txt w="bold" style={{ fontSize: 15, color: Colors.text }} numberOfLines={1}>
-            {request.categoryName ?? 'Zapytanie'}
+            {request.categoryName ?? t('cmp.RequestSummary.defaultTitle')}
           </Txt>
           {request.jobName && (
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 2 }}>{request.jobName}</Txt>
@@ -66,7 +68,7 @@ export function RequestSummaryCard({ request, onPress }: Props) {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Feather name="users" size={12} color={Colors.textMuted} />
             <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-              {request.selectedContractorIds.length} {request.selectedContractorIds.length === 1 ? 'wykonawca' : 'wykonawców'}
+              {request.selectedContractorIds.length} {request.selectedContractorIds.length === 1 ? t('cmp.RequestSummary.contractorOne') : t('cmp.RequestSummary.contractorMany')}
             </Txt>
           </View>
         )}

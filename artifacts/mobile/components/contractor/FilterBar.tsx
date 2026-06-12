@@ -6,15 +6,17 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { CATEGORIES } from '@/data/categories';
 import type { ContractorSearchFilters, ContractorSortOption } from '@/types/contractor';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
-const SORT_OPTIONS: { value: ContractorSortOption; label: string }[] = [
-  { value: 'best-match', label: 'Najlepsze dopasowanie' },
-  { value: 'quality-score', label: 'Wynik jakosci' },
-  { value: 'nearest', label: 'Najblizej' },
-  { value: 'verified-first', label: 'Zweryfikowani' },
-  { value: 'newest', label: 'Najnowsi' },
-  { value: 'promoted', label: 'Promowani' },
-  { value: 'rating', label: 'Najwyzsza ocena' },
+const SORT_OPTIONS: { value: ContractorSortOption; labelKey: TranslationKey }[] = [
+  { value: 'best-match', labelKey: 'cmp.FilterBar.sort.bestMatch' },
+  { value: 'quality-score', labelKey: 'cmp.FilterBar.sort.qualityScore' },
+  { value: 'nearest', labelKey: 'cmp.FilterBar.sort.nearest' },
+  { value: 'verified-first', labelKey: 'cmp.FilterBar.sort.verifiedFirst' },
+  { value: 'newest', labelKey: 'cmp.FilterBar.sort.newest' },
+  { value: 'promoted', labelKey: 'cmp.FilterBar.sort.promoted' },
+  { value: 'rating', labelKey: 'cmp.FilterBar.sort.rating' },
 ];
 
 interface Props {
@@ -27,6 +29,7 @@ interface Props {
 }
 
 export function FilterBar({ filters, sortOption, onFiltersChange, onSortChange, onReset, resultCount }: Props) {
+  const { t } = useLanguage();
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
   const hasFilters = !!(filters.categoryId || filters.city || filters.verifiedOnly || filters.availableSoon);
@@ -50,7 +53,7 @@ export function FilterBar({ filters, sortOption, onFiltersChange, onSortChange, 
         >
           <Feather name="sliders" size={14} color={hasFilters ? Colors.primary : Colors.textSecondary} />
           <Txt w="medium" style={{ fontSize: 13, color: hasFilters ? Colors.primary : Colors.textSecondary }}>
-            Filtry{hasFilters ? ' ●' : ''}
+            {t('cmp.FilterBar.filters')}{hasFilters ? ' ●' : ''}
           </Txt>
         </TouchableOpacity>
 
@@ -69,7 +72,7 @@ export function FilterBar({ filters, sortOption, onFiltersChange, onSortChange, 
           }}
         >
           <Feather name="bar-chart-2" size={14} color={Colors.textSecondary} />
-          <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>Sortuj</Txt>
+          <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.FilterBar.sort')}</Txt>
         </TouchableOpacity>
 
         {hasFilters && (
@@ -84,13 +87,13 @@ export function FilterBar({ filters, sortOption, onFiltersChange, onSortChange, 
             }}
           >
             <Feather name="x" size={14} color={Colors.danger} />
-            <Txt style={{ fontSize: 12, color: Colors.danger }}>Wyczyść</Txt>
+            <Txt style={{ fontSize: 12, color: Colors.danger }}>{t('cmp.FilterBar.clear')}</Txt>
           </TouchableOpacity>
         )}
 
         <View style={{ flex: 1 }} />
         <Txt style={{ fontSize: 12, color: Colors.textMuted, alignSelf: 'center' }}>
-          {resultCount} {resultCount === 1 ? 'wynik' : 'wyników'}
+          {resultCount} {resultCount === 1 ? t('cmp.FilterBar.resultOne') : t('cmp.FilterBar.resultMany')}
         </Txt>
       </View>
 
@@ -122,6 +125,7 @@ function FilterModal({
   onChange: (f: ContractorSearchFilters) => void;
   onClose: () => void;
 }) {
+  const { t } = useLanguage();
   const [local, setLocal] = useState(filters);
   const topPad = Platform.OS === 'web' ? 80 : 100;
 
@@ -139,18 +143,18 @@ function FilterModal({
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>Filtry</Txt>
+          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{t('cmp.FilterBar.filtersTitle')}</Txt>
           <TouchableOpacity onPress={onClose} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
             <Feather name="x" size={24} color={Colors.textSecondary} />
           </TouchableOpacity>
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Specjalność</Txt>
+          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>{t('cmp.FilterBar.specialty')}</Txt>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', gap: 8 }}>
               <ChipButton
-                label="Wszystkie"
+                label={t('cmp.FilterBar.all')}
                 selected={!local.categoryId}
                 onPress={() => setLocal({ ...local, categoryId: undefined })}
               />
@@ -165,14 +169,14 @@ function FilterModal({
             </View>
           </ScrollView>
 
-          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Opcje</Txt>
+          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>{t('cmp.FilterBar.options')}</Txt>
           <ToggleRow
-            label="Tylko zweryfikowani"
+            label={t('cmp.FilterBar.verifiedOnly')}
             value={!!local.verifiedOnly}
             onToggle={() => setLocal({ ...local, verifiedOnly: !local.verifiedOnly })}
           />
           <ToggleRow
-            label="Dostępni wkrótce"
+            label={t('cmp.FilterBar.availableSoon')}
             value={!!local.availableSoon}
             onToggle={() => setLocal({ ...local, availableSoon: !local.availableSoon })}
           />
@@ -180,7 +184,7 @@ function FilterModal({
 
         <View style={{ marginTop: 16 }}>
           <Button
-            label="Pokaż wyniki"
+            label={t('cmp.FilterBar.showResults')}
             variant="primary"
             onPress={() => { onChange(local); onClose(); }}
             fullWidth
@@ -200,6 +204,7 @@ function SortModal({
   onChange: (s: ContractorSortOption) => void;
   onClose: () => void;
 }) {
+  const { t } = useLanguage();
   return (
     <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' }}>
       <View
@@ -213,7 +218,7 @@ function SortModal({
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>Sortowanie</Txt>
+          <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{t('cmp.FilterBar.sortTitle')}</Txt>
           <TouchableOpacity onPress={onClose} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
             <Feather name="x" size={24} color={Colors.textSecondary} />
           </TouchableOpacity>
@@ -237,7 +242,7 @@ function SortModal({
               w={current === opt.value ? 'bold' : 'regular'}
               style={{ fontSize: 15, color: current === opt.value ? Colors.primary : Colors.text }}
             >
-              {opt.label}
+              {t(opt.labelKey)}
             </Txt>
             {current === opt.value && <Feather name="check" size={18} color={Colors.primary} />}
           </TouchableOpacity>

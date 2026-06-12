@@ -8,27 +8,34 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
+import { useLanguage } from '@/context/LanguageContext';
 
 type Filter = 'all' | 'planning' | 'in-progress' | 'completed';
-
-const FILTERS: { id: Filter; label: string }[] = [
-  { id: 'all',         label: 'Wszystkie' },
-  { id: 'planning',    label: 'Planowanie' },
-  { id: 'in-progress', label: 'W trakcie' },
-  { id: 'completed',   label: 'Ukończone' },
-];
 
 export default function ProjectsScreen() {
   const insets = useSafeAreaInsets();
   const { projects } = useApp();
+  const { t } = useLanguage();
   const [filter, setFilter] = useState<Filter>('all');
+
+  const FILTERS: { id: Filter; label: string }[] = [
+    { id: 'all',         label: t('projectsList.filter.all') },
+    { id: 'planning',    label: t('projectsList.filter.planning') },
+    { id: 'in-progress', label: t('projectsList.filter.inProgress') },
+    { id: 'completed',   label: t('projectsList.filter.completed') },
+  ];
 
   const filtered = filter === 'all' ? projects : projects.filter((p) => p.status === filter);
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
-  const projectWord = pluralize(projects.length, 'projekt', 'projekty', 'projektów');
+  const projectWord = pluralize(
+    projects.length,
+    t('projectsList.projectWord.one'),
+    t('projectsList.projectWord.few'),
+    t('projectsList.projectWord.many')
+  );
 
   return (
     <ScrollView
@@ -37,7 +44,7 @@ export default function ProjectsScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={{ paddingHorizontal: 20, marginBottom: 16 }}>
-        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Twoje projekty</Txt>
+        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>{t('projectsList.title')}</Txt>
         <Txt style={{ fontSize: 15, color: Colors.textSecondary, marginTop: 4 }}>
           {projects.length} {projectWord}
         </Txt>
@@ -63,7 +70,7 @@ export default function ProjectsScreen() {
                 backgroundColor: active ? Colors.primary : Colors.surface,
                 borderColor: active ? Colors.primary : Colors.border,
               }}
-              accessibilityLabel={`Filtruj: ${f.label}`}
+              accessibilityLabel={t('projectsList.filterA11y', { label: f.label })}
               accessibilityState={{ selected: active }}
             >
               <Txt
@@ -84,9 +91,9 @@ export default function ProjectsScreen() {
         {filtered.length === 0 ? (
           <EmptyState
             icon="folder"
-            title={filter === 'all' ? 'Brak projektów' : 'Brak projektów w tej kategorii'}
-            description={filter === 'all' ? 'Zacznij od nowego projektu remontu' : undefined}
-            actionLabel={filter === 'all' ? 'Utwórz pierwszy projekt' : undefined}
+            title={filter === 'all' ? t('projectsList.empty.title') : t('projectsList.empty.titleFiltered')}
+            description={filter === 'all' ? t('projectsList.empty.description') : undefined}
+            actionLabel={filter === 'all' ? t('projectsList.empty.action') : undefined}
             onAction={filter === 'all' ? () => router.push('/wizard') : undefined}
           />
         ) : (

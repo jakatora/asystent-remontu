@@ -1,4 +1,5 @@
 import type { RenovationJob } from '@/types/domain';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─── Interior door painting ───────────────────────────────────────────────────
 
@@ -37,10 +38,12 @@ export const doorPaintingJob: RenovationJob = {
     {
       id: 'door-primer',
       name: 'Grunt pod drewno lub PCV',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'constant',
       pricePerUnit: 20,
       notes: '1 litr wystarczy na 4–6 drzwi. Niezbędny na gładkich powierzchniach.',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
     {
       id: 'door-paint',
@@ -61,13 +64,15 @@ export const doorPaintingJob: RenovationJob = {
     {
       id: 'masking-tape-door',
       name: 'Taśma maskująca',
+      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
       unit: 'rolka',
       formulaKey: 'constant',
       pricePerUnit: 8,
+      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
     },
   ],
   tools: [
-    { id: 'brush-door', name: 'Pędzel 5 cm (do listew i wklęsłości)', icon: 'edit-2', required: true },
+    { id: 'brush-door', name: 'Pędzel 5 cm (do listew i wklęsłości)', icon: 'edit-2', required: true, shopPrices: SHARED_SHOP_PRICES.brush50mm },
     { id: 'mini-roller', name: 'Mini wałek gąbkowy (do płaskich powierzchni)', icon: 'tool', required: true },
     { id: 'sanding-block', name: 'Klocek szlifierski', icon: 'square', required: true },
     { id: 'tack-cloth', name: 'Ściereczka antystatyczna (do usuwania pyłu)', icon: 'square', required: false },
@@ -92,6 +97,16 @@ export const doorPaintingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['drzwi', 'malowanie', 'odświeżenie', 'emalia', 'farba'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Malowanie drzwi wewnętrznych — instrukcja',
+      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Door handle and lock replacement ────────────────────────────────────────
@@ -162,6 +177,16 @@ export const doorHandleReplaceJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['drzwi', 'klamka', 'zamek', 'wkładka', 'wymiana'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana klamki i wkładki — krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Door / window seal replacement ──────────────────────────────────────────
@@ -233,6 +258,16 @@ export const doorSealReplaceJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['uszczelka', 'okno', 'drzwi', 'przeciąg', 'izolacja'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana uszczelek w oknach i drzwiach',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Toilet seat replacement ──────────────────────────────────────────────────
@@ -294,6 +329,16 @@ export const toiletSeatReplaceJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['toaleta', 'deska', 'sedes', 'wymiana', 'łazienka'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana deski sedesowej',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Sink trap replacement ────────────────────────────────────────────────────
@@ -364,6 +409,16 @@ export const sinkTrapReplaceJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['syfon', 'zlew', 'umywalka', 'hydraulika', 'wymiana'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana syfonu — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Drain unblocking ─────────────────────────────────────────────────────────
@@ -429,6 +484,16 @@ export const drainUnblockJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['odpływ', 'zatkanie', 'hydraulika', 'udrożnienie', 'zlew'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Udrażnianie zatkanego odpływu',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Light fixture / bulb replacement ────────────────────────────────────────
@@ -509,6 +574,16 @@ export const lightFixtureJob: RenovationJob = {
   hireProfessionalRecommended: false,
   hireProfessionalReason: 'Jeśli nie jesteś pewien czy prąd jest wyłączony lub jak podłączyć przewody — zadzwoń do elektryka.',
   tags: ['lampa', 'oprawa', 'oświetlenie', 'elektryka', 'wymiana'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana lampy sufitowej — instrukcja bezpieczeństwa',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Socket / switch frame replacement ───────────────────────────────────────
@@ -569,6 +644,16 @@ export const socketFrameReplaceJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['ramka', 'gniazdko', 'włącznik', 'elektryka', 'wymiana'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana ramek gniazdek i włączników',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Silicone refresh / re-caulking ──────────────────────────────────────────
@@ -617,18 +702,22 @@ export const siliconeRefreshJob: RenovationJob = {
     {
       id: 'fresh-silicone',
       name: 'Silikon sanitarny antygrzybiczny',
+      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
       unit: 'kartusze',
       formulaKey: 'silicone',
       pricePerUnit: 22,
       notes: 'Jeden kartusze na ok. 8 mb spoiny. Wybierz kolor pasujący do fugi.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'masking-tape-sil',
       name: 'Taśma maskująca (do prostych krawędzi)',
+      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
       unit: 'rolka',
       formulaKey: 'constant',
       pricePerUnit: 8,
       notes: 'Naklejona po obu stronach fugi da idealne proste krawędzie.',
+      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
     },
   ],
   tools: [
@@ -656,4 +745,14 @@ export const siliconeRefreshJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['silikon', 'fuga', 'łazienka', 'odświeżenie', 'uszczelnienie'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana silikonu w łazience',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

@@ -1,4 +1,5 @@
 import type { RenovationJob } from '@/types/domain';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─── Self-leveling compound ────────────────────────────────────────────────────
 
@@ -61,10 +62,12 @@ export const selfLevelingJob: RenovationJob = {
     {
       id: 'primer-leveling',
       name: 'Grunt do podłoży (głęboko penetrujący)',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'primer',
       pricePerUnit: 12,
       notes: 'Konieczny — bez gruntu masa się odkleja od podłoża. Na chłonne podłoża (beton komórkowy) grunty 2 razy.',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
     {
       id: 'expansion-tape',
@@ -102,6 +105,16 @@ export const selfLevelingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['wylewka', 'samopoziomująca', 'podłoga', 'wyrównanie', 'przygotowanie'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wylewka samopoziomująca — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Epoxy floor coating ──────────────────────────────────────────────────────
@@ -199,6 +212,16 @@ export const epoxFloorJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['epoksyd', 'podłoga', 'garaż', 'beton', 'farba', 'piwnica'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Farba epoksydowa do garażu — przewodnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Parquet sanding / refinishing ───────────────────────────────────────────
@@ -295,4 +318,14 @@ export const parquetSandingJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Cyklinowanie wymaga wprawy — błędy są nieodwracalne. Dla pierwszego razu rozważ fachowca lub zacznij od mniej eksponowanego pomieszczenia.',
   tags: ['parkiet', 'cyklinowanie', 'lakierowanie', 'drewno', 'podłoga', 'renowacja'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Cyklinowanie parkietu krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

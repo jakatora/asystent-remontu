@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { PHOTO_TYPE_LABELS, PHOTO_TYPE_COLORS, timeAgo } from '@/utils/format';
 import type { ProjectPhoto, PhotoType } from '@/types/domain';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface PhotosTabProps {
   photos: ProjectPhoto[];
@@ -13,13 +14,14 @@ interface PhotosTabProps {
 }
 
 export function PhotosTab({ photos, onAddPhotoMenu, onDeletePhoto }: PhotosTabProps) {
+  const { t } = useLanguage();
   return (
     <View style={{ gap: 16 }}>
       <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
-        Dokumentacja zdjęciowa
+        {t('cmp.PhotosTab.title')}
       </Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
-        Dodaj zdjęcia przed, w trakcie i po remoncie.
+        {t('cmp.PhotosTab.subtitle')}
       </Txt>
 
       {(['before', 'during', 'after'] as PhotoType[]).map((type) => {
@@ -51,7 +53,7 @@ export function PhotosTab({ photos, onAddPhotoMenu, onDeletePhoto }: PhotosTabPr
                 }}
               >
                 <Feather name="plus" size={14} color={Colors.primary} />
-                <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>Dodaj</Txt>
+                <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>{t('cmp.PhotosTab.add')}</Txt>
               </TouchableOpacity>
             </View>
 
@@ -98,7 +100,7 @@ export function PhotosTab({ photos, onAddPhotoMenu, onDeletePhoto }: PhotosTabPr
               >
                 <Feather name="camera" size={24} color={Colors.textMuted} />
                 <Txt style={{ fontSize: 13, color: Colors.textMuted }}>
-                  Brak zdjęć
+                  {t('cmp.PhotosTab.noPhotos')}
                 </Txt>
               </View>
             )}
@@ -119,7 +121,7 @@ export function PhotosTab({ photos, onAddPhotoMenu, onDeletePhoto }: PhotosTabPr
         >
           <Feather name="info" size={14} color={Colors.info} style={{ marginTop: 1 }} />
           <Txt style={{ flex: 1, fontSize: 12, color: '#1e40af', lineHeight: 17 }}>
-            Przytrzymaj zdjęcie, aby je usunąć.
+            {t('cmp.PhotosTab.deleteHint')}
           </Txt>
         </View>
       )}

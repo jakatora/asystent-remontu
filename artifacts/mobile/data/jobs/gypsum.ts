@@ -1,4 +1,5 @@
 import type { RenovationJob } from '@/types/domain';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─── Gypsum board partition wall ──────────────────────────────────────────────
 
@@ -52,11 +53,13 @@ export const gypsumWallJob: RenovationJob = {
     {
       id: 'gk-board',
       name: 'Płyta gipsowo-kartonowa GKB 12,5mm',
+      brand: 'Norgips / Knauf GKB typ A 1200×2600 mm (referencja)',
       unit: 'm²',
       formulaKey: 'mesh',
       pricePerUnit: 22,
       wasteFactor: 1.1,
       notes: 'W pomieszczeniach mokrych używaj GKB zielony (odporny na wilgoć).',
+      shopPrices: SHARED_SHOP_PRICES.gypsumBoardGKB125,
     },
     {
       id: 'profile-cw',
@@ -102,9 +105,11 @@ export const gypsumWallJob: RenovationJob = {
     {
       id: 'gk-filler',
       name: 'Masa do spoin (szpachla GK)',
+      brand: 'Knauf MP Finish 20 kg lub odpowiednik (referencja)',
       unit: 'kg',
       formulaKey: 'filler',
       pricePerUnit: 2.5,
+      shopPrices: SHARED_SHOP_PRICES.fillerKnaufMpFinish20kg,
     },
     {
       id: 'dowels-uw',
@@ -120,7 +125,7 @@ export const gypsumWallJob: RenovationJob = {
     { id: 'screwdriver', name: 'Wkrętarka akumulatorowa', icon: 'tool', required: true },
     { id: 'level', name: 'Poziomica (120 cm)', icon: 'minus', required: true },
     { id: 'cutting-knife', name: 'Nóż stolarski do GK', icon: 'scissors', required: true },
-    { id: 'drill', name: 'Wiertarka z udarem', icon: 'tool', required: true },
+    { id: 'drill', name: 'Wiertarka z udarem (SDS)', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill },
     { id: 'metal-shears', name: 'Nożyce do metalu', icon: 'scissors', required: true },
     { id: 'gk-rasp', name: 'Rasp / tarka do krawędzi GK', icon: 'tool', required: false },
   ],
@@ -180,6 +185,16 @@ export const gypsumWallJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['gips-karton', 'ściana', 'działowa', 'GK', 'sucha zabudowa'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Płyty gipsowo-kartonowe i sucha zabudowa — przewodnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Gypsum board ceiling ─────────────────────────────────────────────────────
@@ -234,10 +249,12 @@ export const gypsumCeilingJob: RenovationJob = {
     {
       id: 'gk-ceiling',
       name: 'Płyta GKB 12,5mm (sufit)',
+      brand: 'Norgips / Knauf GKB typ A 1200×2600 mm (referencja)',
       unit: 'm²',
       formulaKey: 'floorPanels',
       pricePerUnit: 22,
       wasteFactor: 1.12,
+      shopPrices: SHARED_SHOP_PRICES.gypsumBoardGKB125,
     },
     {
       id: 'profile-cd',
@@ -273,9 +290,11 @@ export const gypsumCeilingJob: RenovationJob = {
     {
       id: 'ceiling-filler',
       name: 'Masa do spoin',
+      brand: 'Knauf MP Finish 20 kg lub odpowiednik (referencja)',
       unit: 'kg',
       formulaKey: 'filler',
       pricePerUnit: 2.5,
+      shopPrices: SHARED_SHOP_PRICES.fillerKnaufMpFinish20kg,
     },
     {
       id: 'ceiling-tape',
@@ -288,8 +307,8 @@ export const gypsumCeilingJob: RenovationJob = {
   tools: [
     { id: 'screwdriver-ceil', name: 'Wkrętarka akumulatorowa', icon: 'tool', required: true },
     { id: 'laser-level', name: 'Poziomica laserowa', icon: 'minus', required: true, notes: 'Niezbędna do wyznaczenia poziomej płaszczyzny sufitu' },
-    { id: 'drill-ceil', name: 'Wiertarka z udarem', icon: 'tool', required: true },
-    { id: 'scaffolding', name: 'Rusztowanie lub stabilna drabina', icon: 'chevrons-up', required: true, rentable: true },
+    { id: 'drill-ceil', name: 'Wiertarka z udarem (SDS)', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill },
+    { id: 'scaffolding', name: 'Rusztowanie lub stabilna drabina', icon: 'chevrons-up', required: true, rentable: true, shopPrices: SHARED_SHOP_PRICES.ladder4steps },
     { id: 'knife-ceil', name: 'Nóż do GK', icon: 'scissors', required: true },
     { id: 'goggles-ceil', name: 'Okulary ochronne', icon: 'eye', required: true, notes: 'Pył gipsowy jest szkodliwy dla oczu' },
     { id: 'respirator', name: 'Maska przeciwpyłowa', icon: 'shield', required: true },
@@ -344,4 +363,14 @@ export const gypsumCeilingJob: RenovationJob = {
   hireProfessionalRecommended: false,
   hireProfessionalReason: 'Sufit podwieszany wymaga precyzji i doświadczenia — błędy są kosztowne.',
   tags: ['gips-karton', 'sufit', 'podwieszany', 'GK', 'sucha zabudowa'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Sufit podwieszany z GK — instrukcja montażu',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };

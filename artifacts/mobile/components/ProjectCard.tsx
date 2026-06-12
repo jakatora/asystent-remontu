@@ -8,6 +8,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar';
 import { formatCurrency } from '@/utils/calculator';
 import { checklistRepo } from '@/db/repositories/checklist.repo';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ProjectCardProps {
   project: Project;
@@ -15,13 +16,15 @@ interface ProjectCardProps {
 }
 
 const statusConfig = {
-  planning:      { label: 'Planowanie', color: Colors.info,    bg: Colors.infoBg,    icon: 'edit-3' },
-  'in-progress': { label: 'W trakcie',  color: Colors.warning, bg: Colors.warningBg, icon: 'tool' },
-  completed:     { label: 'Ukończony',  color: Colors.success, bg: Colors.successBg, icon: 'check-circle' },
+  planning:      { labelKey: 'cmp.ProjectCard.status.planning',   color: Colors.info,    bg: Colors.infoBg,    icon: 'edit-3' },
+  'in-progress': { labelKey: 'cmp.ProjectCard.status.inProgress', color: Colors.warning, bg: Colors.warningBg, icon: 'tool' },
+  completed:     { labelKey: 'cmp.ProjectCard.status.completed',  color: Colors.success, bg: Colors.successBg, icon: 'check-circle' },
 } as const;
 
 export function ProjectCard({ project, onPress }: ProjectCardProps) {
+  const { t } = useLanguage();
   const cfg = statusConfig[project.status] ?? statusConfig.planning;
+  const statusLabel = t(cfg.labelKey);
   const cost = project.calculationResult?.totalCost;
   const date = new Date(project.createdAt).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short', year: 'numeric' });
 
@@ -49,7 +52,7 @@ export function ProjectCard({ project, onPress }: ProjectCardProps) {
         borderColor: Colors.border,
         marginBottom: 12,
       }}
-      accessibilityLabel={`Projekt ${project.name}, ${cfg.label}`}
+      accessibilityLabel={t('cmp.ProjectCard.a11y', { name: project.name, status: statusLabel })}
       accessibilityRole="button"
     >
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
@@ -77,7 +80,7 @@ export function ProjectCard({ project, onPress }: ProjectCardProps) {
           }}
         >
           <Feather name={cfg.icon as any} size={12} color={cfg.color} />
-          <Txt w="semibold" style={{ fontSize: 12, color: cfg.color }}>{cfg.label}</Txt>
+          <Txt w="semibold" style={{ fontSize: 12, color: cfg.color }}>{statusLabel}</Txt>
         </View>
       </View>
 
@@ -88,7 +91,7 @@ export function ProjectCard({ project, onPress }: ProjectCardProps) {
             total={progress.total}
             height={4}
             showLabel
-            label="Postęp"
+            label={t('cmp.ProjectCard.progress')}
           />
         </View>
       )}

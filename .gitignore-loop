@@ -1,0 +1,5 @@
+logs/
+.daily_counter
+state.json.bak
+.env
+.env.local

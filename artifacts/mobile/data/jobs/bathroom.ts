@@ -1,5 +1,6 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BATHROOM & WET AREAS JOB GROUP
@@ -107,6 +108,16 @@ export const waterproofingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['hydroizolacja', 'łazienka', 'uszczelnienie', 'masa'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Hydroizolacja łazienki — krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Płytki ścienne (łazienka) ────────────────────────────────────────────────
@@ -160,6 +171,7 @@ export const bathroomWallTilesJob: RenovationJob = {
     {
       id: 'wall-tile-adhesive',
       name: 'Klej do płytek ściennych C2TE',
+      brand: 'Atlas Plus C2TE S1 25 kg (referencja)',
       unit: 'kg',
       formulaKey: 'tileAdhesive',
       wasteFactor: 1.1,
@@ -168,10 +180,12 @@ export const bathroomWallTilesJob: RenovationJob = {
       pricePerUnit: 5,
       category: 'klej',
       notes: 'Klej elastyczny C2TE. Do prysznica stosuj klej do stref mokrych.',
+      shopPrices: SHARED_SHOP_PRICES.tileAdhesiveAtlasPlus25kg,
     },
     {
       id: 'wall-grout',
       name: 'Fuga do płytek ściennych',
+      brand: 'Atlas Fuga ceramiczna 2 kg (do spoin 2-7 mm) (referencja)',
       unit: 'kg',
       formulaKey: 'grout',
       wasteFactor: 1.1,
@@ -180,6 +194,7 @@ export const bathroomWallTilesJob: RenovationJob = {
       pricePerUnit: 18,
       category: 'fuga',
       notes: 'Na ściany wystarczy mniejsza paczka niż na podłogę.',
+      shopPrices: SHARED_SHOP_PRICES.tileGroutAtlas2kg,
     },
     {
       id: 'wall-crosses',
@@ -193,11 +208,13 @@ export const bathroomWallTilesJob: RenovationJob = {
     {
       id: 'wall-silicone',
       name: 'Silikon sanitarny (narożniki)',
+      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
       unit: 'kartusze',
       formula: formulaBuilder.fixed(2),
       pricePerUnit: 18,
       category: 'uszczelnienie',
       notes: 'W narożnikach ściana-ściana i ściana-podłoga zamiast fugi — elastyczność zapobiega pęknięciom.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'tile-trim',
@@ -241,6 +258,16 @@ export const bathroomWallTilesJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['płytki', 'ścienne', 'łazienka', 'prysznic'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak ułożyć płytki w łazience — krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Fugowanie (standalone) ───────────────────────────────────────────────────
@@ -277,6 +304,7 @@ export const groutJob: RenovationJob = {
     {
       id: 'grout',
       name: 'Fuga cementowa do płytek',
+      brand: 'Atlas Fuga ceramiczna 2 kg (referencja)',
       unit: 'kg',
       formulaKey: 'grout',
       wasteFactor: 1.1,
@@ -285,15 +313,18 @@ export const groutJob: RenovationJob = {
       pricePerUnit: 18,
       category: 'fuga',
       notes: 'Do spoin wąskich (1–6 mm) — fuga cementowa drobnoziarnista. Kolor dobierz do płytek.',
+      shopPrices: SHARED_SHOP_PRICES.tileGroutAtlas2kg,
     },
     {
       id: 'silicone-grout',
       name: 'Silikon sanitarny (narożniki)',
+      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
       unit: 'kartusze',
       formula: formulaBuilder.siliconeTubes(6, 'perimeter'),
       pricePerUnit: 18,
       category: 'uszczelnienie',
       notes: 'Użyj silikonu zamiast fugi we wszystkich narożnikach i przy wannie/brodziku.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'grout-cleaner',
@@ -337,6 +368,16 @@ export const groutJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['fuga', 'fugowanie', 'płytki', 'łazienka'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak fugować płytki — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Silikonowanie ────────────────────────────────────────────────────────────
@@ -367,11 +408,13 @@ export const siliconeJob: RenovationJob = {
     {
       id: 'silicone',
       name: 'Silikon sanitarny z fungicydem',
+      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
       unit: 'kartusze',
       formulaKey: 'silicone',
       pricePerUnit: 18,
       category: 'uszczelnienie',
       notes: 'Kolor: biały lub transparentny. 1 kartusze (300 ml) na ok. 8 mb fugi.',
+      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
       id: 'silicone-remover',
@@ -413,4 +456,14 @@ export const siliconeJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['silikon', 'silikonowanie', 'łazienka', 'uszczelnienie', 'wanna'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Silikonowanie wanny — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };

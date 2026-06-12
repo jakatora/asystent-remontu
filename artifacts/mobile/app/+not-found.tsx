@@ -1,15 +1,17 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function NotFoundScreen() {
+  const { t } = useLanguage();
   return (
     <>
-      <Stack.Screen options={{ title: 'Nie znaleziono' }} />
+      <Stack.Screen options={{ title: t('notFound.title') }} />
       <View style={styles.container}>
-        <Text style={styles.title}>Ta strona nie istnieje.</Text>
+        <Text style={styles.title}>{t('notFound.heading')}</Text>
         <Link href="/" style={styles.link}>
-          <Text style={styles.linkText}>Wróć do strony głównej</Text>
+          <Text style={styles.linkText}>{t('notFound.link')}</Text>
         </Link>
       </View>
     </>

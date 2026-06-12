@@ -1,5 +1,6 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // FLOORING JOB GROUP
@@ -79,6 +80,16 @@ export const underlayJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['podkład', 'panele', 'podłoga', 'folia'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Podkład pod panele — wybór i montaż',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Panele laminowane ────────────────────────────────────────────────────────
@@ -112,6 +123,7 @@ export const laminateJob: RenovationJob = {
     {
       id: 'laminate-panels',
       name: 'Panele laminowane',
+      brand: 'Kronospan / Swiss Krono AC4 8 mm (referencja)',
       unit: 'm²',
       formulaKey: 'panelPacks',
       wasteFactor: 1.1,
@@ -120,6 +132,7 @@ export const laminateJob: RenovationJob = {
       pricePerUnit: 45,
       category: 'panele',
       notes: 'Klasa AC4 lub wyższa. Kup z 10% naddatkiem na odpady i cięcia.',
+      shopPrices: SHARED_SHOP_PRICES.laminateFloorAc4_8mm,
     },
     {
       id: 'underlay',
@@ -185,6 +198,16 @@ export const laminateJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['panele', 'laminat', 'podłoga', 'click'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak ułożyć panele laminowane — krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Panele winylowe LVT/SPC (click) ─────────────────────────────────────────
@@ -217,6 +240,7 @@ export const vinylJob: RenovationJob = {
     {
       id: 'vinyl-panels',
       name: 'Panele winylowe LVT/SPC',
+      brand: 'Kronostep SPC 5 mm AC4 (referencja)',
       unit: 'm²',
       formulaKey: 'panelPacks',
       wasteFactor: 1.1,
@@ -225,6 +249,7 @@ export const vinylJob: RenovationJob = {
       pricePerUnit: 65,
       category: 'panele',
       notes: 'Kup z 10% naddatkiem. Grubość min. 5 mm, warstwa użytkowa 0,5 mm.',
+      shopPrices: SHARED_SHOP_PRICES.vinylFloorSPCAc4,
     },
     {
       id: 'underlay-vinyl',
@@ -270,6 +295,16 @@ export const vinylJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['vinyl', 'LVT', 'SPC', 'podłoga', 'wodoodporny'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Panele winylowe SPC/LVT — instrukcja montażu',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Wykładzina winylowa klejona ──────────────────────────────────────────────
@@ -370,6 +405,16 @@ export const vinylGluedJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['vinyl', 'wykładzina', 'klejona', 'podłoga'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wykładzina winylowa klejona — montaż',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 // ─── Płytki ceramiczne na podłodze ────────────────────────────────────────────
@@ -421,6 +466,7 @@ export const floorTilesJob: RenovationJob = {
     {
       id: 'tile-adhesive',
       name: 'Klej do płytek C2TE',
+      brand: 'Atlas Plus C2TE S1 25 kg (referencja)',
       unit: 'kg',
       formulaKey: 'tileAdhesive',
       wasteFactor: 1.1,
@@ -429,10 +475,12 @@ export const floorTilesJob: RenovationJob = {
       pricePerUnit: 5,
       category: 'klej',
       notes: 'C2TE lub C2S1 (elastyczny) — do podłóg ogrzewanych i łazienek.',
+      shopPrices: SHARED_SHOP_PRICES.tileAdhesiveAtlasPlus25kg,
     },
     {
       id: 'grout',
       name: 'Fuga do płytek',
+      brand: 'Atlas Fuga ceramiczna 2 kg (do spoin 2-7 mm) (referencja)',
       unit: 'kg',
       formulaKey: 'grout',
       wasteFactor: 1.1,
@@ -441,6 +489,7 @@ export const floorTilesJob: RenovationJob = {
       pricePerUnit: 15,
       category: 'fuga',
       notes: 'Kolor fugi zmienia wygląd całości. W narożnikach — elastyczna fuga lub silikon.',
+      shopPrices: SHARED_SHOP_PRICES.tileGroutAtlas2kg,
     },
     {
       id: 'tile-crosses',
@@ -454,12 +503,14 @@ export const floorTilesJob: RenovationJob = {
     {
       id: 'primer-tiles',
       name: 'Grunt pod klej',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'primer',
       wasteFactor: 1.0,
       packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
       pricePerUnit: 20,
       category: 'grunt',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
   ],
   tools: [
@@ -494,6 +545,16 @@ export const floorTilesJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['płytki', 'ceramika', 'podłoga', 'klej', 'fuga'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak ułożyć płytki podłogowe — przewodnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Listwy przypodłogowe ─────────────────────────────────────────────────────
@@ -523,6 +584,7 @@ export const skirtingBoardsJob: RenovationJob = {
     {
       id: 'skirting',
       name: 'Listwy przypodłogowe MDF/PVC',
+      brand: 'Arbiton Laque MDF 60 mm × 2.4 m biała (referencja)',
       unit: 'm.b.',
       formulaKey: 'byPerimeter',
       wasteFactor: 1.1,
@@ -531,6 +593,7 @@ export const skirtingBoardsJob: RenovationJob = {
       pricePerUnit: 8,
       category: 'listwy',
       notes: 'MDF — malowalna, drewno-podobna. PVC — wodoodporna, biała.',
+      shopPrices: SHARED_SHOP_PRICES.baseboardMDF60mm,
     },
     {
       id: 'skirting-glue',
@@ -581,4 +644,14 @@ export const skirtingBoardsJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['listwy', 'przypodłogowe', 'MDF', 'PVC', 'wykończenie'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Listwy przypodłogowe — montaż krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };

@@ -8,9 +8,11 @@ import { CategoryCard } from '@/components/CategoryCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ExploreScreen() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
 
   const filtered = CATEGORIES.filter((c) =>
@@ -28,9 +30,9 @@ export default function ExploreScreen() {
       showsVerticalScrollIndicator={false}
     >
       <View style={{ paddingHorizontal: 20, marginBottom: 16 }}>
-        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>Odkryj prace remontowe</Txt>
+        <Txt w="bold" style={{ fontSize: 26, color: Colors.text }}>{t('exploreScreen.title')}</Txt>
         <Txt style={{ fontSize: 15, color: Colors.textSecondary, marginTop: 4 }}>
-          Wybierz kategorię żeby zobaczyć szczegóły
+          {t('exploreScreen.subtitle')}
         </Txt>
       </View>
 
@@ -56,11 +58,11 @@ export default function ExploreScreen() {
             color: Colors.text,
             fontFamily: 'Inter_400Regular',
           }}
-          placeholder="Szukaj rodzaju pracy..."
+          placeholder={t('exploreScreen.searchPlaceholder')}
           placeholderTextColor={Colors.textMuted}
           value={search}
           onChangeText={setSearch}
-          accessibilityLabel="Wyszukaj rodzaj pracy remontowej"
+          accessibilityLabel={t('exploreScreen.searchA11y')}
           returnKeyType="search"
         />
         {search.length > 0 && (
@@ -69,7 +71,7 @@ export default function ExploreScreen() {
             size={16}
             color={Colors.textMuted}
             onPress={() => setSearch('')}
-            accessibilityLabel="Wyczyść wyszukiwanie"
+            accessibilityLabel={t('exploreScreen.clearSearchA11y')}
           />
         )}
       </View>
@@ -87,8 +89,8 @@ export default function ExploreScreen() {
       {filtered.length === 0 && (
         <EmptyState
           icon="search"
-          title={`Brak wyników dla "${search}"`}
-          description="Spróbuj innej frazy"
+          title={t('exploreScreen.empty.title', { query: search })}
+          description={t('exploreScreen.empty.description')}
         />
       )}
     </ScrollView>

@@ -8,12 +8,19 @@ import { WarningBanner } from '@/components/ui/WarningBanner';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
-import { STATUS_LABELS } from '@/utils/format';
 import { SummaryRow, Divider } from './SummaryRow';
 import { DiyBanner } from './DiyBanner';
 import { ActivityFeed } from './ActivityFeed';
 import { STATUS_COLORS } from './types';
 import type { ProjectDetailData, ProjectDetailActions, Tab } from './types';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
+
+const OVERVIEW_STATUS_LABEL_KEYS: Record<'planning' | 'in-progress' | 'completed', TranslationKey> = {
+  planning: 'cmp.OverviewTab.status.planning',
+  'in-progress': 'cmp.OverviewTab.status.inProgress',
+  completed: 'cmp.OverviewTab.status.completed',
+};
 
 interface OverviewTabProps {
   data: ProjectDetailData;
@@ -25,6 +32,7 @@ interface OverviewTabProps {
 }
 
 export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purchasedCount, nonOwnedCount }: OverviewTabProps) {
+  const { t } = useLanguage();
   const { project, job, calc, shoppingItems, checklist, checklistProgress, activities, diy } = data;
 
   const proLaborMultiplier = 1.8;
@@ -62,23 +70,25 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
             </View>
             <View style={{ flex: 1 }}>
               <Txt w="bold" style={{ fontSize: 16, color: Colors.primary }}>
-                Twój projekt jest gotowy!
+                {t('cmp.OverviewTab.readyTitle')}
               </Txt>
               <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 2 }}>
-                Obliczyliśmy materiały, koszt i czas realizacji.
+                {t('cmp.OverviewTab.readySubtitle')}
               </Txt>
             </View>
           </View>
           <Txt style={{ fontSize: 13, color: Colors.text, lineHeight: 19 }}>
-            Przejrzyj zakładki powyżej: <Txt w="semibold">Materiały</Txt> — co kupić,{' '}
-            <Txt w="semibold">Narzędzia</Txt> — czym pracować,{' '}
-            <Txt w="semibold">Instrukcja</Txt> — jak to zrobić krok po kroku.
+            <Txt w="semibold">{t('cmp.OverviewTab.tabsHintMaterials')}</Txt>
+            {' · '}
+            <Txt w="semibold">{t('cmp.OverviewTab.tabsHintTools')}</Txt>
+            {' · '}
+            <Txt w="semibold">{t('cmp.OverviewTab.tabsHintGuide')}</Txt>
           </Txt>
           <TouchableOpacity
             onPress={onDismissWelcome}
             style={{ alignSelf: 'flex-end' }}
           >
-            <Txt style={{ fontSize: 13, color: Colors.primary }}>Zamknij</Txt>
+            <Txt style={{ fontSize: 13, color: Colors.primary }}>{t('cmp.OverviewTab.dismiss')}</Txt>
           </TouchableOpacity>
         </View>
       )}
@@ -112,7 +122,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
                 w="semibold"
                 style={{ fontSize: 12, color: isActive ? cfg.active : Colors.textSecondary }}
               >
-                {STATUS_LABELS[s]}
+                {t(OVERVIEW_STATUS_LABEL_KEYS[s])}
               </Txt>
             </TouchableOpacity>
           );
@@ -133,7 +143,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Feather name="home" size={16} color={Colors.info} />
             <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>
-              {project.roomName || 'Pomieszczenie'}
+              {project.roomName || t('cmp.OverviewTab.room')}
             </Txt>
           </View>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
@@ -155,7 +165,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                 <Feather name="arrow-up" size={13} color={Colors.textMuted} />
                 <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
-                  wys. {project.roomHeight} m
+                  {t('cmp.OverviewTab.height', { value: project.roomHeight })}
                 </Txt>
               </View>
             )}
@@ -179,7 +189,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <Feather name="check-square" size={16} color={Colors.success} />
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>Postęp prac</Txt>
+              <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.OverviewTab.workProgress')}</Txt>
             </View>
             <Txt w="bold" style={{ fontSize: 14, color: Colors.success }}>
               {checklistProgress.completed}/{checklistProgress.total}
@@ -199,18 +209,18 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
             overflow: 'hidden',
           }}
         >
-          <SummaryRow icon="tool" label="Materiały (samemu)" value={formatCurrency(calc.totalCost)} bold />
+          <SummaryRow icon="tool" label={t('cmp.OverviewTab.materialsDiy')} value={formatCurrency(calc.totalCost)} bold />
           {proEstimate && (
             <>
               <Divider />
-              <SummaryRow icon="users" label="Z fachowcem (szacunek)" value={`~${formatCurrency(proEstimate)}`} valueColor={Colors.textSecondary} />
+              <SummaryRow icon="users" label={t('cmp.OverviewTab.withProfessional')} value={`~${formatCurrency(proEstimate)}`} valueColor={Colors.textSecondary} />
             </>
           )}
           <Divider />
           <SummaryRow
             icon="clock"
-            label="Czas realizacji"
-            value={`${calc.totalDays} ${calc.totalDays === 1 ? 'dzień' : 'dni'}`}
+            label={t('cmp.OverviewTab.duration')}
+            value={`${calc.totalDays} ${calc.totalDays === 1 ? t('cmp.OverviewTab.dayOne') : t('cmp.OverviewTab.dayMany')}`}
             bold
           />
           {shoppingItems.length > 0 && (
@@ -218,8 +228,8 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
               <Divider />
               <SummaryRow
                 icon="shopping-cart"
-                label="Zakupy"
-                value={`${purchasedCount}/${nonOwnedCount} kupionych`}
+                label={t('cmp.OverviewTab.shopping')}
+                value={t('cmp.OverviewTab.shoppingValue', { purchased: purchasedCount, total: nonOwnedCount })}
                 bold
               />
             </>
@@ -250,7 +260,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
         >
           <Feather name="phone" size={18} color={Colors.danger} />
           <Txt w="medium" style={{ flex: 1, fontSize: 14, color: Colors.danger }}>
-            Jak znaleźć dobrego fachowca?
+            {t('cmp.OverviewTab.findProfessional')}
           </Txt>
           <Feather name="chevron-right" size={16} color={Colors.danger} />
         </TouchableOpacity>
@@ -269,7 +279,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
         >
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Feather name="message-square" size={14} color={Colors.textSecondary} />
-            <Txt w="semibold" style={{ fontSize: 13, color: Colors.textSecondary }}>Notatki</Txt>
+            <Txt w="semibold" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.OverviewTab.notes')}</Txt>
           </View>
           <Txt style={{ fontSize: 14, color: Colors.text, lineHeight: 20 }}>{project.notes}</Txt>
         </View>
@@ -279,14 +289,14 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
 
       <View style={{ gap: 10 }}>
         <Button
-          label="Otwórz pełny opis pracy"
+          label={t('cmp.OverviewTab.openFullDescription')}
           variant="outline"
           onPress={() => router.push({ pathname: '/job/[id]', params: { id: job.id } })}
           fullWidth
         />
         {shoppingItems.length === 0 && calc && (
           <Button
-            label="Generuj listę zakupów"
+            label={t('cmp.OverviewTab.generateShoppingList')}
             onPress={actions.handleGenerateShoppingList}
             fullWidth
             icon={<Feather name="shopping-cart" size={16} color="#fff" />}
@@ -294,7 +304,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
         )}
         {checklist.length === 0 && (
           <Button
-            label="Generuj listę zadań"
+            label={t('cmp.OverviewTab.generateTaskList')}
             variant="outline"
             onPress={actions.handleGenerateChecklist}
             fullWidth

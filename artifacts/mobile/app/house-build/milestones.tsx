@@ -8,19 +8,22 @@ import { Colors } from '@/constants/colors';
 import { timelineBudgetRepo } from '@/db/repositories/timeline-budget.repo';
 import { DEFAULT_MILESTONES } from '@/features/house-build/milestones';
 import type { BuildTimelineMilestone } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; icon: string }> = {
-  pending: { label: 'Oczekuje', color: Colors.textMuted, bg: '#F1F5F9', icon: 'clock' },
-  reached: { label: 'Osiagniety', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
-  skipped: { label: 'Pominiety', color: Colors.textMuted, bg: '#F1F5F9', icon: 'skip-forward' },
+const STATUS_CONFIG: Record<string, { labelKey: TranslationKey; color: string; bg: string; icon: string }> = {
+  pending: { labelKey: 'hb.milestones.status.pending', color: Colors.textMuted, bg: '#F1F5F9', icon: 'clock' },
+  reached: { labelKey: 'hb.milestones.status.reached', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
+  skipped: { labelKey: 'hb.milestones.status.skipped', color: Colors.textMuted, bg: '#F1F5F9', icon: 'skip-forward' },
 };
 
 export default function MilestonesScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [milestones, setMilestones] = useState<BuildTimelineMilestone[]>([]);
@@ -73,7 +76,7 @@ export default function MilestonesScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Kamienie milowe' }} />
+      <Stack.Screen options={{ title: t('hb.milestones.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -85,12 +88,12 @@ export default function MilestonesScreen() {
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Kamienie milowe</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.milestones.heroTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              Kluczowe punkty kontrolne budowy
+              {t('hb.milestones.heroSubtitle')}
             </Txt>
             <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT, marginTop: 8 }}>
-              {reached} z {total} osiagnietych
+              {t('hb.milestones.reachedCount', { reached, total })}
             </Txt>
           </View>
 
@@ -133,7 +136,7 @@ export default function MilestonesScreen() {
                       )}
                     </View>
                     <View style={{ backgroundColor: sc.bg, borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }}>
-                      <Txt style={{ fontSize: 9, color: sc.color }}>{sc.label}</Txt>
+                      <Txt style={{ fontSize: 9, color: sc.color }}>{t(sc.labelKey)}</Txt>
                     </View>
                   </View>
 
@@ -153,7 +156,7 @@ export default function MilestonesScreen() {
                         minHeight: 60, textAlignVertical: 'top',
                       }}
                       multiline
-                      placeholder="Notatka do kamienia milowego..."
+                      placeholder={t('hb.milestones.notesPlaceholder')}
                       placeholderTextColor={Colors.textMuted}
                       value={editNotes}
                       onChangeText={setEditNotes}
@@ -163,13 +166,13 @@ export default function MilestonesScreen() {
                         style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center' }}
                         onPress={handleSaveNotes}
                       >
-                        <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Zapisz</Txt>
+                        <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.milestones.saveCta')}</Txt>
                       </TouchableOpacity>
                       <TouchableOpacity
                         style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }}
                         onPress={() => setEditingId(null)}
                       >
-                        <Txt style={{ fontSize: 13, color: Colors.text }}>Anuluj</Txt>
+                        <Txt style={{ fontSize: 13, color: Colors.text }}>{t('hb.milestones.cancelCta')}</Txt>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -180,7 +183,7 @@ export default function MilestonesScreen() {
 
           <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-              Dotknij kamien milowy, aby zmienic jego status. Przytrzymaj, aby dodac notatke.
+              {t('hb.milestones.footnote')}
             </Txt>
           </View>
         </View>

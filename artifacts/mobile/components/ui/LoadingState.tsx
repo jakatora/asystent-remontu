@@ -2,12 +2,15 @@ import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { Txt } from './Txt';
 import { Colors } from '@/constants/colors';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface LoadingStateProps {
   message?: string;
 }
 
-export function LoadingState({ message = 'Ładowanie...' }: LoadingStateProps) {
+export function LoadingState({ message }: LoadingStateProps) {
+  const { t } = useLanguage();
+  const resolvedMessage = message ?? t('cmp.LoadingState.default');
   return (
     <View
       style={{
@@ -18,11 +21,11 @@ export function LoadingState({ message = 'Ładowanie...' }: LoadingStateProps) {
         gap: 16,
       }}
       accessibilityRole="progressbar"
-      accessibilityLabel={message}
+      accessibilityLabel={resolvedMessage}
     >
       <ActivityIndicator size="large" color={Colors.primary} />
       <Txt w="medium" style={{ fontSize: 15, color: Colors.textSecondary }}>
-        {message}
+        {resolvedMessage}
       </Txt>
     </View>
   );

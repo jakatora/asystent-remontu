@@ -8,29 +8,32 @@ import { Colors } from '@/constants/colors';
 import { investorDocsRepo } from '@/db/repositories/investor-docs.repo';
 import { OFFICIAL_FORM_DEFINITIONS } from '@/features/house-build/official-forms';
 import type { OfficialFormRecord, OfficialFormStatus, ApplicabilityState } from '@/types/house-build';
+import { useLanguage } from '@/context/LanguageContext';
+import type { TranslationKey } from '@/constants/i18n';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
 
-const STATUS_CONFIG: Record<OfficialFormStatus, { label: string; color: string; bg: string; icon: string }> = {
-  'not-started': { label: 'Nie rozpoczety', color: Colors.textMuted, bg: '#F1F5F9', icon: 'circle' },
-  'in-progress': { label: 'W trakcie', color: '#D97706', bg: '#FFFBEB', icon: 'clock' },
-  'submitted': { label: 'Zlozony', color: HB_ACCENT, bg: HB_ACCENT_BG, icon: 'send' },
-  'completed': { label: 'Zakonczony', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
-  'not-applicable': { label: 'Nie dotyczy', color: Colors.textMuted, bg: '#F1F5F9', icon: 'minus-circle' },
+const STATUS_CONFIG: Record<OfficialFormStatus, { labelKey: TranslationKey; color: string; bg: string; icon: string }> = {
+  'not-started': { labelKey: 'hb.officialForms.status.notStarted', color: Colors.textMuted, bg: '#F1F5F9', icon: 'circle' },
+  'in-progress': { labelKey: 'hb.officialForms.status.inProgress', color: '#D97706', bg: '#FFFBEB', icon: 'clock' },
+  'submitted': { labelKey: 'hb.officialForms.status.submitted', color: HB_ACCENT, bg: HB_ACCENT_BG, icon: 'send' },
+  'completed': { labelKey: 'hb.officialForms.status.completed', color: '#16A34A', bg: '#F0FDF4', icon: 'check-circle' },
+  'not-applicable': { labelKey: 'hb.officialForms.status.notApplicable', color: Colors.textMuted, bg: '#F1F5F9', icon: 'minus-circle' },
 };
 
-const APPLICABILITY_LABELS: Record<ApplicabilityState, { label: string; color: string }> = {
-  'required': { label: 'Wymagane', color: '#DC2626' },
-  'likely-required': { label: 'Prawdopodobnie wymagane', color: '#D97706' },
-  'maybe-required': { label: 'Moze byc wymagane', color: '#7C3AED' },
-  'not-applicable': { label: 'Nie dotyczy', color: Colors.textMuted },
-  'unknown': { label: 'Do ustalenia', color: Colors.textMuted },
+const APPLICABILITY_LABELS: Record<ApplicabilityState, { labelKey: TranslationKey; color: string }> = {
+  'required': { labelKey: 'hb.officialForms.applicability.required', color: '#DC2626' },
+  'likely-required': { labelKey: 'hb.officialForms.applicability.likelyRequired', color: '#D97706' },
+  'maybe-required': { labelKey: 'hb.officialForms.applicability.maybeRequired', color: '#7C3AED' },
+  'not-applicable': { labelKey: 'hb.officialForms.applicability.notApplicable', color: Colors.textMuted },
+  'unknown': { labelKey: 'hb.officialForms.applicability.unknown', color: Colors.textMuted },
 };
 
 export default function OfficialFormsScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [forms, setForms] = useState<OfficialFormRecord[]>([]);
@@ -70,7 +73,7 @@ export default function OfficialFormsScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Formularze urzedowe' }} />
+      <Stack.Screen options={{ title: t('hb.officialForms.title') }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -81,12 +84,12 @@ export default function OfficialFormsScreen() {
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
           }}>
-            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>Formularze urzedowe</Txt>
+            <Txt w="bold" style={{ fontSize: 18, color: HB_ACCENT }}>{t('hb.officialForms.heroTitle')}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4 }}>
-              Sledzenie kluczowych formularzy i procesow budowlanych
+              {t('hb.officialForms.heroSubtitle')}
             </Txt>
             <Txt w="semibold" style={{ fontSize: 12, color: HB_ACCENT, marginTop: 8 }}>
-              {completed} z {forms.length} zakonczonych
+              {t('hb.officialForms.completedCount', { done: completed, total: forms.length })}
             </Txt>
           </View>
 
@@ -96,7 +99,7 @@ export default function OfficialFormsScreen() {
           }}>
             <Feather name="info" size={14} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 11, color: '#92400E', flex: 1 }}>
-              To narzedzie do organizacji i sledzenia. Nie generuje dokumentow urzedowych ani nie zastepuje konsultacji z urzedem.
+              {t('hb.officialForms.disclaimer')}
             </Txt>
           </View>
 
@@ -127,9 +130,9 @@ export default function OfficialFormsScreen() {
                       <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }} numberOfLines={2}>{form.title}</Txt>
                       <View style={{ flexDirection: 'row', gap: 6, marginTop: 2 }}>
                         <View style={{ backgroundColor: sc.bg, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 }}>
-                          <Txt style={{ fontSize: 9, color: sc.color }}>{sc.label}</Txt>
+                          <Txt style={{ fontSize: 9, color: sc.color }}>{t(sc.labelKey)}</Txt>
                         </View>
-                        <Txt style={{ fontSize: 9, color: app.color }}>{app.label}</Txt>
+                        <Txt style={{ fontSize: 9, color: app.color }}>{t(app.labelKey)}</Txt>
                       </View>
                     </View>
                     <Feather name={isExpanded ? 'chevron-up' : 'chevron-down'} size={16} color={Colors.textMuted} />
@@ -144,10 +147,10 @@ export default function OfficialFormsScreen() {
                     <Txt style={{ fontSize: 12, color: Colors.textSecondary, marginBottom: 6 }}>{form.explanation}</Txt>
                     <View style={{ flexDirection: 'row', gap: 4, alignItems: 'center', marginBottom: 4 }}>
                       <Feather name="clock" size={11} color={Colors.textMuted} />
-                      <Txt style={{ fontSize: 11, color: Colors.textMuted }}>Faza: {form.processPhase}</Txt>
+                      <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{t('hb.officialForms.phaseLabel', { phase: form.processPhase })}</Txt>
                     </View>
                     {form.completedDate && (
-                      <Txt style={{ fontSize: 10, color: '#16A34A' }}>Zakonczono: {form.completedDate}</Txt>
+                      <Txt style={{ fontSize: 10, color: '#16A34A' }}>{t('hb.officialForms.completedLabel', { date: form.completedDate })}</Txt>
                     )}
                     {form.notes ? (
                       <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 4 }}>{form.notes}</Txt>
@@ -156,7 +159,7 @@ export default function OfficialFormsScreen() {
                       style={{ marginTop: 8, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }}
                       onPress={() => handleStatusCycle(form)}
                     >
-                      <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>Zmien status</Txt>
+                      <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('hb.officialForms.changeStatus')}</Txt>
                     </TouchableOpacity>
                   </View>
                 )}
@@ -166,7 +169,7 @@ export default function OfficialFormsScreen() {
 
           <View style={{ marginTop: 12, padding: 12, backgroundColor: '#F8FAFC', borderRadius: 10, borderWidth: 1, borderColor: '#E2E8F0' }}>
             <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-              Przytrzymaj formularz, aby szybko zmienic status. Zastosowanie poszczegolnych formularzy zalezy od Twojego projektu i sciezki formalnej — zweryfikuj lokalnie.
+              {t('hb.officialForms.footnote')}
             </Txt>
           </View>
         </View>

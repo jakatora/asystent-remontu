@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { ACTIVITY_ICONS, timeAgo, timeAgoShort } from '@/utils/format';
 import type { ProjectActivity, ActivityAction } from '@/types/domain';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ActivityFeedProps {
   activities: ProjectActivity[];
@@ -13,6 +14,7 @@ interface ActivityFeedProps {
 }
 
 export function ActivityFeed({ activities, limit = 5, compact = false }: ActivityFeedProps) {
+  const { t } = useLanguage();
   const items = activities.slice(0, limit);
   if (items.length === 0) return null;
 
@@ -21,7 +23,7 @@ export function ActivityFeed({ activities, limit = 5, compact = false }: Activit
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
         <Feather name="activity" size={14} color={Colors.textSecondary} />
         <Txt w="semibold" style={{ fontSize: 14, color: Colors.textSecondary }}>
-          Ostatnia aktywność
+          {t('cmp.ActivityFeed.title')}
         </Txt>
       </View>
       {items.map((a) => (

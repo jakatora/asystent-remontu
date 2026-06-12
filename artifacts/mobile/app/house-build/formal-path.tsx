@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { assessFormalPath } from '@/features/house-build/formal-path';
 import type { FormalPathInput } from '@/features/house-build/formal-path';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
@@ -15,6 +16,7 @@ type TriState = true | false | null;
 
 export default function FormalPathWizard() {
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const [step, setStep] = useState(0);
 
   const [hasMpzp, setHasMpzp] = useState<TriState>(null);
@@ -28,9 +30,9 @@ export default function FormalPathWizard() {
   const [prefersConservativePath, setPrefersConservativePath] = useState(false);
 
   const steps = [
-    { title: 'Plan zagospodarowania', subtitle: 'MPZP i warunki zabudowy' },
-    { title: 'Typ budynku', subtitle: 'Parametry domu' },
-    { title: 'Dane inwestora', subtitle: 'Twoje doswiadczenie' },
+    { title: t('hb.formalPath.step1Title'), subtitle: t('hb.formalPath.step1Subtitle') },
+    { title: t('hb.formalPath.step2Title'), subtitle: t('hb.formalPath.step2Subtitle') },
+    { title: t('hb.formalPath.step3Title'), subtitle: t('hb.formalPath.step3Subtitle') },
   ];
 
   const handleFinish = useCallback(() => {
@@ -58,7 +60,7 @@ export default function FormalPathWizard() {
 
   return (
     <>
-      <Stack.Screen options={{ title: `Sciezka formalna (${step + 1}/${steps.length})` }} />
+      <Stack.Screen options={{ title: t('hb.formalPath.title', { step: step + 1, total: steps.length }) }} />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -86,23 +88,23 @@ export default function FormalPathWizard() {
           }}>
             <Feather name="info" size={16} color="#92400E" style={{ marginTop: 2 }} />
             <Txt style={{ fontSize: 12, color: '#92400E', flex: 1 }}>
-              To narzedzie pomoze Ci zorientowac sie w mozliwych sciezkach formalnych. Nie jest to porada prawna — koncowy wybór potwierdz z urzedem i projektantem.
+              {t('hb.formalPath.disclaimer')}
             </Txt>
           </View>
 
           {step === 0 && (
             <View style={{ gap: 16 }}>
               <QuestionBlock
-                label="Czy dzialka ma MPZP (Miejscowy Plan Zagospodarowania Przestrzennego)?"
-                help="MPZP okresla, co mozna wybudowac na danej dzialce. Sprawdz w urzedzie gminy lub na geoportalu."
+                label={t('hb.formalPath.q.mpzpLabel')}
+                help={t('hb.formalPath.q.mpzpHelp')}
                 value={hasMpzp}
                 onChange={setHasMpzp}
                 tristate
               />
               {hasMpzp !== true && (
                 <QuestionBlock
-                  label="Czy masz juz decyzje o Warunkach Zabudowy (WZ)?"
-                  help="Jesli nie ma MPZP, WZ okresla warunki zabudowy dla Twojej dzialki."
+                  label={t('hb.formalPath.q.wzLabel')}
+                  help={t('hb.formalPath.q.wzHelp')}
                   value={hasWz}
                   onChange={setHasWz}
                   tristate
@@ -114,18 +116,18 @@ export default function FormalPathWizard() {
           {step === 1 && (
             <View style={{ gap: 16 }}>
               <QuestionBlock
-                label="Czy planujesz dom jednorodzinny?"
+                label={t('hb.formalPath.q.singleFamilyLabel')}
                 value={isSingleFamily}
                 onChange={setIsSingleFamily}
               />
               <QuestionBlock
-                label="Czy dom bedzie wolnostojacy?"
-                help="Blizniak lub zabudowa szeregowa to nie dom wolnostojacy."
+                label={t('hb.formalPath.q.freeStandingLabel')}
+                help={t('hb.formalPath.q.freeStandingHelp')}
                 value={isFreeStanding}
                 onChange={setIsFreeStanding}
               />
               <View>
-                <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 6 }}>Planowana powierzchnia zabudowy (m2)</Txt>
+                <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 6 }}>{t('hb.formalPath.q.footprintLabel')}</Txt>
                 <TextInput
                   style={{
                     backgroundColor: Colors.surface,
@@ -139,12 +141,12 @@ export default function FormalPathWizard() {
                   keyboardType="numeric"
                   value={footprintArea}
                   onChangeText={setFootprintArea}
-                  placeholder="np. 120"
+                  placeholder={t('hb.formalPath.q.footprintPlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                 />
               </View>
               <View>
-                <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 6 }}>Liczba kondygnacji nadziemnych</Txt>
+                <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 6 }}>{t('hb.formalPath.q.floorsLabel')}</Txt>
                 <View style={{ flexDirection: 'row', gap: 10 }}>
                   {['1', '2', '3'].map(v => (
                     <TouchableOpacity
@@ -166,7 +168,7 @@ export default function FormalPathWizard() {
                 </View>
               </View>
               <QuestionBlock
-                label="Czy budowa jest na wlasne cele mieszkaniowe?"
+                label={t('hb.formalPath.q.ownHousingLabel')}
                 value={forOwnHousing}
                 onChange={setForOwnHousing}
               />
@@ -176,14 +178,14 @@ export default function FormalPathWizard() {
           {step === 2 && (
             <View style={{ gap: 16 }}>
               <QuestionBlock
-                label="Czy to Twoja pierwsza budowa domu?"
-                help="Poczatkujacym inwestorom moze byc bezpieczniej skorzystac z bardziej klasycznej sciezki formalnej."
+                label={t('hb.formalPath.q.firstTimeLabel')}
+                help={t('hb.formalPath.q.firstTimeHelp')}
                 value={isFirstTimeInvestor}
                 onChange={setIsFirstTimeInvestor}
               />
               <QuestionBlock
-                label="Czy wolisz bezpieczniejsza (bardziej konserwatywna) sciezke?"
-                help="Jesli tak, pokaze Ci klasyczne pozwolenie na budowe jako rekomendacje."
+                label={t('hb.formalPath.q.conservativeLabel')}
+                help={t('hb.formalPath.q.conservativeHelp')}
                 value={prefersConservativePath}
                 onChange={setPrefersConservativePath}
               />
@@ -204,7 +206,7 @@ export default function FormalPathWizard() {
                 }}
                 onPress={() => setStep(s => s - 1)}
               >
-                <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>Wstecz</Txt>
+                <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('hb.formalPath.back')}</Txt>
               </TouchableOpacity>
             )}
             <TouchableOpacity
@@ -218,7 +220,7 @@ export default function FormalPathWizard() {
               onPress={canFinish ? handleFinish : () => setStep(s => s + 1)}
             >
               <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>
-                {canFinish ? 'Zobacz wynik' : 'Dalej'}
+                {canFinish ? t('hb.formalPath.seeResult') : t('hb.formalPath.next')}
               </Txt>
             </TouchableOpacity>
           </View>
@@ -241,15 +243,16 @@ function QuestionBlock({
   onChange: (v: any) => void;
   tristate?: boolean;
 }) {
+  const { t } = useLanguage();
   const options: { label: string; val: boolean | null }[] = tristate
     ? [
-        { label: 'Tak', val: true },
-        { label: 'Nie', val: false },
-        { label: 'Nie wiem', val: null },
+        { label: t('hb.formalPath.opt.yes'), val: true },
+        { label: t('hb.formalPath.opt.no'), val: false },
+        { label: t('hb.formalPath.opt.dontKnow'), val: null },
       ]
     : [
-        { label: 'Tak', val: true },
-        { label: 'Nie', val: false },
+        { label: t('hb.formalPath.opt.yes'), val: true },
+        { label: t('hb.formalPath.opt.no'), val: false },
       ];
 
   return (

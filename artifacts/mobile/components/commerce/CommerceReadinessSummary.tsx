@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import type { ShoppingItem } from '@/types/domain';
 import { useCommerce } from '@/context/CommerceContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface CommerceReadinessSummaryProps {
   shoppingItems: readonly ShoppingItem[];
@@ -12,6 +13,7 @@ interface CommerceReadinessSummaryProps {
 }
 
 export function CommerceReadinessSummary({ shoppingItems, compact }: CommerceReadinessSummaryProps) {
+  const { t } = useLanguage();
   const { productMappings } = useCommerce();
   const mappingSet = useMemo(
     () => new Set(productMappings.filter((m) => m.activeForCommerce).map((m) => m.internalId)),
@@ -37,32 +39,32 @@ export function CommerceReadinessSummary({ shoppingItems, compact }: CommerceRea
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
         <Feather name="shopping-bag" size={compact ? 14 : 16} color={Colors.primary} />
         <Txt w="semibold" style={{ fontSize: compact ? 12 : 14, color: Colors.text }}>
-          Gotowość sklepowa
+          {t('cmp.CommerceReadinessSummary.title')}
         </Txt>
       </View>
 
       <View style={{ gap: 4 }}>
         <ReadinessRow
-          label="Gotowe do koszyka"
+          label={t('cmp.CommerceReadinessSummary.readyForCart')}
           value={`${mapped.length} / ${nonOwned.length}`}
           color="#059669"
           compact={compact}
         />
         <ReadinessRow
-          label="Materiały"
+          label={t('cmp.CommerceReadinessSummary.materials')}
           value={String(materials.length)}
           color={Colors.text}
           compact={compact}
         />
         <ReadinessRow
-          label="Narzędzia"
+          label={t('cmp.CommerceReadinessSummary.tools')}
           value={String(tools.length)}
           color={Colors.text}
           compact={compact}
         />
         {unmapped.length > 0 && (
           <ReadinessRow
-            label="Niezmapowane"
+            label={t('cmp.CommerceReadinessSummary.unmapped')}
             value={String(unmapped.length)}
             color="#92400E"
             compact={compact}

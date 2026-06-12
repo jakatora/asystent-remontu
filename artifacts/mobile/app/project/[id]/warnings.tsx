@@ -4,6 +4,7 @@ import { useLocalSearchParams, router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { getJobById } from '@/data/jobs';
 import { WarningBanner } from '@/components/ui/WarningBanner';
 import { Button } from '@/components/ui/Button';
@@ -13,6 +14,7 @@ export default function ProjectWarningsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
   const { projects } = useApp();
+  const { t } = useLanguage();
 
   const project = projects.find((p) => p.id === id);
   const job = project ? getJobById(project.jobId) : null;
@@ -22,7 +24,7 @@ export default function ProjectWarningsScreen() {
   if (!project || !job) {
     return (
       <View className="flex-1 items-center justify-center bg-bg">
-        <Txt w="medium" className="text-base text-slate">Projekt nie znaleziony</Txt>
+        <Txt w="medium" className="text-base text-slate">{t('project.warnings.notFound')}</Txt>
       </View>
     );
   }
@@ -39,8 +41,8 @@ export default function ProjectWarningsScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Ostrzeżenia',
-          headerBackTitle: 'Wróć',
+          title: t('project.warnings.title'),
+          headerBackTitle: t('project.warnings.headerBack'),
           headerStyle: { backgroundColor: '#F8FAFC' },
           headerTintColor: '#0F172A',
           headerShadowVisible: false,
@@ -56,25 +58,25 @@ export default function ProjectWarningsScreen() {
           {dangerCount > 0 && (
             <View className="flex-1 bg-danger-bg rounded-2xl p-3 border border-red-200 items-center">
               <Txt w="bold" className="text-2xl text-danger">{dangerCount}</Txt>
-              <Txt w="medium" className="text-xs text-danger text-center mt-0.5">Krytyczne</Txt>
+              <Txt w="medium" className="text-xs text-danger text-center mt-0.5">{t('project.warnings.critical')}</Txt>
             </View>
           )}
           {warningCount > 0 && (
             <View className="flex-1 bg-warning-bg rounded-2xl p-3 border border-yellow-200 items-center">
               <Txt w="bold" className="text-2xl text-warning">{warningCount}</Txt>
-              <Txt w="medium" className="text-xs text-warning text-center mt-0.5">Ostrzeżenia</Txt>
+              <Txt w="medium" className="text-xs text-warning text-center mt-0.5">{t('project.warnings.warnings')}</Txt>
             </View>
           )}
           {infoCount > 0 && (
             <View className="flex-1 bg-info-bg rounded-2xl p-3 border border-blue-200 items-center">
               <Txt w="bold" className="text-2xl text-info">{infoCount}</Txt>
-              <Txt w="medium" className="text-xs text-info text-center mt-0.5">Informacje</Txt>
+              <Txt w="medium" className="text-xs text-info text-center mt-0.5">{t('project.warnings.info')}</Txt>
             </View>
           )}
           {allWarnings.length === 0 && (
             <View className="flex-1 bg-success-bg rounded-2xl p-3 border border-green-200 items-center">
               <Feather name="check-circle" size={28} color="#22C55E" />
-              <Txt w="medium" className="text-xs text-success text-center mt-1">Brak ostrzeżeń</Txt>
+              <Txt w="medium" className="text-xs text-success text-center mt-1">{t('project.warnings.none')}</Txt>
             </View>
           )}
         </View>
@@ -82,7 +84,7 @@ export default function ProjectWarningsScreen() {
         {/* Calculation warnings */}
         {calcWarnings.length > 0 && (
           <View className="mb-5">
-            <Txt w="bold" className="text-base text-ink mb-3">Ostrzeżenia kalkulacji</Txt>
+            <Txt w="bold" className="text-base text-ink mb-3">{t('project.warnings.calcTitle')}</Txt>
             <WarningBanner warnings={calcWarnings} />
           </View>
         )}
@@ -90,7 +92,7 @@ export default function ProjectWarningsScreen() {
         {/* Job warnings */}
         {jobWarnings.length > 0 && (
           <View className="mb-5">
-            <Txt w="bold" className="text-base text-ink mb-3">Ostrzeżenia dla tej pracy</Txt>
+            <Txt w="bold" className="text-base text-ink mb-3">{t('project.warnings.jobTitle')}</Txt>
             <WarningBanner warnings={jobWarnings} />
           </View>
         )}
@@ -101,9 +103,9 @@ export default function ProjectWarningsScreen() {
             <View className="w-20 h-20 rounded-full bg-success-bg items-center justify-center" style={{ width: 80, height: 80, borderRadius: 40 }}>
               <Feather name="shield" size={36} color="#22C55E" />
             </View>
-            <Txt w="bold" className="text-lg text-ink">Praca bez ostrzeżeń</Txt>
+            <Txt w="bold" className="text-lg text-ink">{t('project.warnings.emptyTitle')}</Txt>
             <Txt className="text-sm text-slate text-center" style={{ maxWidth: 260 }}>
-              Ta praca remontowa nie zawiera szczególnych zagrożeń. Pamiętaj jednak o podstawowych zasadach bezpieczeństwa.
+              {t('project.warnings.emptyBody')}
             </Txt>
           </View>
         )}
@@ -114,14 +116,14 @@ export default function ProjectWarningsScreen() {
             <View className="w-9 h-9 rounded-xl bg-warning-bg items-center justify-center">
               <Feather name="shield" size={18} color="#F59E0B" />
             </View>
-            <Txt w="bold" className="text-base text-ink">Ogólne zasady bezpieczeństwa</Txt>
+            <Txt w="bold" className="text-base text-ink">{t('project.warnings.generalTitle')}</Txt>
           </View>
           {[
-            'Używaj odpowiednich środków ochrony osobistej',
-            'Sprawdź narzędzia przed użyciem',
-            'Zadbaj o odpowiednie oświetlenie stanowiska pracy',
-            'Nie pracuj sam przy ryzykownych zadaniach',
-            'Miej pod ręką apteczkę pierwszej pomocy',
+            t('project.warnings.tip1'),
+            t('project.warnings.tip2'),
+            t('project.warnings.tip3'),
+            t('project.warnings.tip4'),
+            t('project.warnings.tip5'),
           ].map((tip, i) => (
             <View key={i} className="flex-row gap-2.5 mb-2 items-start">
               <Feather name="check" size={14} color="#22C55E" style={{ marginTop: 2 }} />
@@ -133,7 +135,7 @@ export default function ProjectWarningsScreen() {
         {/* Hire professional CTA */}
         {job.hireProfessionalRecommended && (
           <Button
-            label="Zatrudnij fachowca — dowiedz się jak"
+            label={t('project.warnings.hirePro')}
             variant="danger"
             onPress={() => router.push({ pathname: '/hire-pro', params: { jobId: job.id } })}
             fullWidth

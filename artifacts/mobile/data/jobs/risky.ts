@@ -85,6 +85,16 @@ export const minorPlumbingJob: RenovationJob = {
     { id: 'q3', description: 'Kran jest stabilnie zamocowany, nie kiwają się' },
   ],
   hireProfessionalRecommended: false,
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana kranu lub uszczelek — instrukcja',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const electricalOverviewJob: RenovationJob = {
@@ -164,6 +174,16 @@ export const electricalOverviewJob: RenovationJob = {
   ],
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Elektryka jest niebezpieczna. Jeśli nie masz doświadczenia — zadzwoń do elektryka. Koszt wizyty jest mały w porównaniu z ryzykiem.',
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wymiana gniazdka — instrukcja bezpieczeństwa',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const gasInstallationJob: RenovationJob = {
@@ -245,6 +265,16 @@ export const gasInstallationJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Praca przy gazie wymaga uprawnień. Nie istnieje alternatywa DIY — to warunek prawny i kwestia życia.',
   tags: ['gaz', 'instalacja', 'gazownik', 'niebezpieczne', 'uprawnienia'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Instalacja gazowa — wymagania prawne',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const structuralDemolitionJob: RenovationJob = {
@@ -326,6 +356,16 @@ export const structuralDemolitionJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'To prace wymagające projektu budowlanego i uprawnień. Nie ma opcji DIY — ryzyko śmierci i odpowiedzialności prawnej.',
   tags: ['ściana nośna', 'wyburzenie', 'konstruktor', 'nadproże', 'niebezpieczne'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Wyburzanie ścian nośnych — wymagania prawne',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const mainElectricalJob: RenovationJob = {
@@ -406,6 +446,16 @@ export const mainElectricalJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Tablica elektryczna i instalacja to praca dla uprawnionego elektryka. Protokół pomiarów jest wymagany prawnie.',
   tags: ['elektryka', 'tablica', 'instalacja', 'SEP', 'niebezpieczne'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Instalacja elektryczna — wymagania prawne SEP',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const roofRepairJob: RenovationJob = {
@@ -495,6 +545,16 @@ export const roofRepairJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Praca na dachu to praca na wysokości. Wymaga doświadczenia, sprzętu i odwagi. Dekarz ma to wszystko.',
   tags: ['dach', 'dekarz', 'wysokość', 'naprawa', 'niebezpieczne'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Naprawy dachowe — kiedy dekarz',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const chimneyWorkJob: RenovationJob = {
@@ -574,8 +634,18 @@ export const chimneyWorkJob: RenovationJob = {
     { id: 'q3', description: 'Posiadam protokół od kominiarza' },
   ],
   hireProfessionalRecommended: true,
-  hireProfessionalReason: 'Komin czyści i naprawia kominiarz. Czujnik czadu chroniq Cię na co dzień. Nie negocjuj z tlenkiem węgla.',
+  hireProfessionalReason: 'Komin czyści i naprawia kominiarz. Czujnik czadu chroni Cię na co dzień. Nie negocjuj z tlenkiem węgla.',
   tags: ['komin', 'kominiarz', 'czad', 'piec', 'bezpieczeństwo'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Przeglądy kominów — kiedy kominiarz',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };
 
 export const highRiskJob: RenovationJob = {
@@ -645,4 +715,14 @@ export const highRiskJob: RenovationJob = {
   ],
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Te prace są objęte wymogami prawnymi i mogą być wykonywane tylko przez uprawnione osoby.',
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Prace wysokiego ryzyka — wymagania prawne',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

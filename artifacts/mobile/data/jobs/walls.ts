@@ -1,5 +1,6 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // WALLS & CEILINGS JOB GROUP
@@ -38,6 +39,7 @@ export const primerJob: RenovationJob = {
     {
       id: 'primer',
       name: 'Grunt głęboko penetrujący',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'primer',
       wasteFactor: 1.0,
@@ -46,12 +48,13 @@ export const primerJob: RenovationJob = {
       pricePerUnit: 15,
       category: 'grunt',
       notes: 'Na tynkach chłonnych użyj gruntu wzmacniającego. Na gipsie — pod farbę.',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
   ],
   tools: [
-    { id: 'roller', name: 'Wałek malarski', icon: 'edit-2', required: true },
-    { id: 'brush', name: 'Pędzel 5 cm', icon: 'edit-3', required: true },
-    { id: 'tray', name: 'Kuweta', icon: 'square', required: true },
+    { id: 'roller', name: 'Wałek malarski', icon: 'edit-2', required: true, shopPrices: SHARED_SHOP_PRICES.roller18cm },
+    { id: 'brush', name: 'Pędzel 5 cm', icon: 'edit-3', required: true, shopPrices: SHARED_SHOP_PRICES.brush50mm },
+    { id: 'tray', name: 'Kuweta', icon: 'square', required: true, shopPrices: SHARED_SHOP_PRICES.paintTray },
   ],
   instructions: [
     { step: 1, title: 'Oczyść ścianę', description: 'Odkurz ścianę szczotką lub odkurzaczem. Usuń luźne kawałki tynku.', durationMin: 20 },
@@ -64,6 +67,16 @@ export const primerJob: RenovationJob = {
     { id: 'q2', description: 'Grunt jest suchy i nie odkleja się przy dotknięciu' },
   ],
   hireProfessionalRecommended: false,
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Przed malowaniem ścian: gruntowanie ścian i przygotowanie podłoża',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Malowanie ponowne (repaint) ──────────────────────────────────────────────
@@ -103,6 +116,7 @@ export const repaintJob: RenovationJob = {
     {
       id: 'paint',
       name: 'Farba kryjąca (zmywalna)',
+      brand: 'Magnat Ceramic C45 5 L (referencja)',
       unit: 'litr',
       formula: formulaBuilder.coverage(8),
       wasteFactor: 1.05,
@@ -111,10 +125,12 @@ export const repaintJob: RenovationJob = {
       pricePerUnit: 28,
       category: 'farba',
       notes: 'Wybierz farbę z dobrą krycialnością. Klasa kryjąca F lub A2.',
+      shopPrices: SHARED_SHOP_PRICES.paintMagnatCeramic5L,
     },
     {
       id: 'primer-repaint',
       name: 'Grunt kryjący (biały/szary)',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'primer',
       wasteFactor: 1.0,
@@ -124,21 +140,24 @@ export const repaintJob: RenovationJob = {
       category: 'grunt',
       optional: true,
       notes: 'Niezbędny przy zmianie koloru z ciemnego na jasny. Zmniejsza zużycie farby.',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
     {
       id: 'painters-tape',
       name: 'Taśma malarska',
+      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
       unit: 'rolka',
       formulaKey: 'tape',
       pricePerUnit: 8,
       category: 'akcesoria',
+      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
     },
   ],
   tools: [
-    { id: 'roller', name: 'Wałek malarski 18–22 cm', icon: 'edit-2', required: true, estimatedBuyCostPLN: 25 },
-    { id: 'brush', name: 'Pędzel 5 cm (narożniki)', icon: 'edit-3', required: true, estimatedBuyCostPLN: 15 },
-    { id: 'tray', name: 'Kuweta do farby', icon: 'square', required: true },
-    { id: 'ladder', name: 'Drabina', icon: 'chevrons-up', required: true, rentable: true, estimatedRentCostPLN: 30 },
+    { id: 'roller', name: 'Wałek malarski 18–22 cm', icon: 'edit-2', required: true, estimatedBuyCostPLN: 25, shopPrices: SHARED_SHOP_PRICES.roller18cm },
+    { id: 'brush', name: 'Pędzel 5 cm (narożniki)', icon: 'edit-3', required: true, estimatedBuyCostPLN: 15, shopPrices: SHARED_SHOP_PRICES.brush50mm },
+    { id: 'tray', name: 'Kuweta do farby', icon: 'square', required: true, shopPrices: SHARED_SHOP_PRICES.paintTray },
+    { id: 'ladder', name: 'Drabina', icon: 'chevrons-up', required: true, rentable: true, estimatedRentCostPLN: 30, shopPrices: SHARED_SHOP_PRICES.ladder4steps },
   ],
   instructions: [
     { step: 1, title: 'Oceń stan starej farby', description: 'Sprawdź czy stara farba jest stabilna — dotknij i przeciągnij dłonią. Odchodząca farba (kredująca) musi być zmyta lub przeszlifowana.', tip: 'Jeśli stara farba "pudruje się" — zmyj ją mokrą szmatką i zagruntuj.', durationMin: 20 },
@@ -160,6 +179,22 @@ export const repaintJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['malowanie', 'przemalowanie', 'farba', 'ściany', 'interior'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Przed malowaniem ścian: gruntowanie ścian i przygotowanie podłoża',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+    {
+      title:       'Malowanie ścian — instrukcja dla początkujących',
+      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Naprawa pęknięć i ubytków ────────────────────────────────────────────────
@@ -230,7 +265,7 @@ export const wallRepairJob: RenovationJob = {
   tools: [
     { id: 'spatula', name: 'Szpachelka 10 cm', icon: 'minus', required: true, estimatedBuyCostPLN: 10 },
     { id: 'sandpaper', name: 'Papier ścierny 120 i 240', icon: 'layers', required: true },
-    { id: 'brush', name: 'Pędzelek do gruntowania', icon: 'edit-3', required: true },
+    { id: 'brush', name: 'Pędzelek do gruntowania', icon: 'edit-3', required: true, shopPrices: SHARED_SHOP_PRICES.brush50mm },
   ],
   instructions: [
     { step: 1, title: 'Powiększ i oczyść ubytek', description: 'Nożem lub szpachelką poszerz rysę do ok. 3–5 mm (klucz do trwałej naprawy). Usuń luźne kawałki tynku wokół dziury. Odkurz starannie z kurzu.', durationMin: 15 },
@@ -247,6 +282,16 @@ export const wallRepairJob: RenovationJob = {
     { id: 'q2', description: 'Po zagruntowaniu kolor jest jednolity' },
   ],
   hireProfessionalRecommended: false,
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak naprawić ubytki i pęknięcia na ścianach',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Szpachlowanie ────────────────────────────────────────────────────────────
@@ -292,12 +337,14 @@ export const skimCoatJob: RenovationJob = {
     {
       id: 'primer-skim',
       name: 'Grunt pod szpachlę (koncentrat)',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'primer',
       wasteFactor: 1.0,
       packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
       pricePerUnit: 15,
       category: 'grunt',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
     {
       id: 'sandpaper',
@@ -343,6 +390,16 @@ export const skimCoatJob: RenovationJob = {
     { id: 'q3', description: 'Pod bocznym światłem nie widać wyraźnych fal' },
   ],
   hireProfessionalRecommended: false,
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak przygotować i szpachlować ściany przed malowaniem',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Tapetowanie ──────────────────────────────────────────────────────────────
@@ -397,6 +454,7 @@ export const wallpaperInstallJob: RenovationJob = {
     {
       id: 'primer-wallpaper',
       name: 'Grunt pod tapety (Tiefengrund)',
+      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
       unit: 'litr',
       formulaKey: 'primer',
       wasteFactor: 1.0,
@@ -404,14 +462,17 @@ export const wallpaperInstallJob: RenovationJob = {
       pricePerUnit: 20,
       category: 'grunt',
       notes: 'Grunt pod tapety wyrównuje chłonność ściany i ułatwia późniejsze zdjęcie tapet.',
+      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
     {
       id: 'masking-tape-wallpaper',
       name: 'Taśma malarska (do zabezpieczenia)',
+      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
       unit: 'rolka',
       formulaKey: 'tape',
       pricePerUnit: 8,
       category: 'akcesoria',
+      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
     },
   ],
   tools: [
@@ -456,6 +517,16 @@ export const wallpaperInstallJob: RenovationJob = {
   manufacturerPriorityNote: 'Czas namaczania, typ kleju i sposób aplikacji zależą od rodzaju tapety — zawsze sprawdź instrukcję i symbole na opakowaniu.',
   hireProfessionalRecommended: false,
   tags: ['tapety', 'tapetowanie', 'klej', 'ściany'],
+
+  verifiedAt: '2026-06-09',
+  verifiedSources: [
+    {
+      title:       'Jak tapetować ściany — krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-09',
+    },
+  ],
 };
 
 // ─── Zrywanie tapet ───────────────────────────────────────────────────────────
@@ -549,4 +620,14 @@ export const wallpaperRemoveJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
   tags: ['tapety', 'zrywanie', 'ściany'],
+
+  verifiedAt: '2026-06-10',
+  verifiedSources: [
+    {
+      title:       'Zrywanie starych tapet — poradnik',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      domain:      'muratordom.pl',
+      consultedAt: '2026-06-10',
+    },
+  ],
 };

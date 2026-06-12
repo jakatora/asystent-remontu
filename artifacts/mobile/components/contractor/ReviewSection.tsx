@@ -5,6 +5,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import type { ContractorReviewSummary, ContractorReview } from '@/types/contractor';
 import { REVIEWER_TYPE_LABELS } from '@/types/contractor';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ReviewSectionProps {
   readonly summary: ContractorReviewSummary | null;
@@ -12,14 +13,15 @@ interface ReviewSectionProps {
 }
 
 export function ReviewSection({ summary, onFlagReview }: ReviewSectionProps) {
+  const { t } = useLanguage();
   const [showAll, setShowAll] = useState(false);
 
   if (!summary || summary.totalCount === 0) {
     return (
       <View style={{ backgroundColor: '#F8FAFC', borderRadius: 10, padding: 16, alignItems: 'center', borderWidth: 1, borderColor: '#E2E8F0' }}>
         <Feather name="message-square" size={20} color={Colors.textMuted} />
-        <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 6 }}>Brak opinii</Txt>
-        <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 2 }}>Ten wykonawca nie otrzymal jeszcze zadnej opinii.</Txt>
+        <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 6 }}>{t('cmp.ReviewSection.noReviewsTitle')}</Txt>
+        <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 2 }}>{t('cmp.ReviewSection.noReviewsBody')}</Txt>
       </View>
     );
   }
@@ -37,7 +39,7 @@ export function ReviewSection({ summary, onFlagReview }: ReviewSectionProps) {
             ))}
           </View>
           <Txt style={{ fontSize: 10, color: Colors.textMuted, marginTop: 1 }}>
-            {summary.totalCount} opinii{summary.verifiedCount > 0 ? ` (${summary.verifiedCount} zweryfikowanych)` : ''}
+            {t('cmp.ReviewSection.reviewsCount', { count: summary.totalCount })}{summary.verifiedCount > 0 ? t('cmp.ReviewSection.verifiedSuffix', { count: summary.verifiedCount }) : ''}
           </Txt>
         </View>
       </View>
@@ -62,7 +64,7 @@ export function ReviewSection({ summary, onFlagReview }: ReviewSectionProps) {
       {summary.hiddenCount > 0 && (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8 }}>
           <Feather name="eye-off" size={10} color={Colors.textMuted} />
-          <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{summary.hiddenCount} opinii ukrytych przez moderacje</Txt>
+          <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{t('cmp.ReviewSection.hiddenByModeration', { count: summary.hiddenCount })}</Txt>
         </View>
       )}
 
@@ -72,7 +74,7 @@ export function ReviewSection({ summary, onFlagReview }: ReviewSectionProps) {
 
       {summary.recentReviews.length > 3 && !showAll && (
         <TouchableOpacity onPress={() => setShowAll(true)} style={{ alignItems: 'center', paddingVertical: 8 }}>
-          <Txt style={{ fontSize: 11, color: '#2563EB' }}>Pokaz wszystkie ({summary.recentReviews.length})</Txt>
+          <Txt style={{ fontSize: 11, color: '#2563EB' }}>{t('cmp.ReviewSection.showAll', { count: summary.recentReviews.length })}</Txt>
         </TouchableOpacity>
       )}
     </View>
@@ -80,6 +82,7 @@ export function ReviewSection({ summary, onFlagReview }: ReviewSectionProps) {
 }
 
 function ReviewCard({ review, onFlag }: { review: ContractorReview; onFlag?: (id: string) => void }) {
+  const { t } = useLanguage();
   return (
     <View style={{
       backgroundColor: '#F8FAFC', borderRadius: 8, padding: 10, marginBottom: 6,
@@ -95,14 +98,14 @@ function ReviewCard({ review, onFlag }: { review: ContractorReview; onFlag?: (id
             </View>
             {(review.reviewerType === 'verified-request' || review.reviewerType === 'verified-job') && (
               <View style={{ backgroundColor: '#ECFDF5', borderRadius: 4, paddingHorizontal: 4, paddingVertical: 1 }}>
-                <Txt style={{ fontSize: 7, color: '#059669' }}>Zweryfikowana</Txt>
+                <Txt style={{ fontSize: 7, color: '#059669' }}>{t('cmp.ReviewSection.verified')}</Txt>
               </View>
             )}
           </View>
           {review.title && <Txt w="semibold" style={{ fontSize: 11, color: Colors.text, marginTop: 3 }}>{review.title}</Txt>}
           {review.comment && <Txt style={{ fontSize: 11, color: Colors.text, marginTop: 2 }}>{review.comment}</Txt>}
           <View style={{ flexDirection: 'row', gap: 6, marginTop: 4 }}>
-            <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{review.authorName ?? 'Anonimowy'}</Txt>
+            <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{review.authorName ?? t('cmp.ReviewSection.anonymous')}</Txt>
             <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{new Date(review.createdAt).toLocaleDateString('pl-PL')}</Txt>
           </View>
         </View>

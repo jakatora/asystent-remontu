@@ -3,6 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import type { VerificationStatus } from '@/types/contractor';
 import { VERIFICATION_BADGES } from '@/types/contractor';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface TrustBadgeProps {
   readonly status: VerificationStatus;
@@ -44,6 +45,7 @@ interface PromotedLabelProps {
 }
 
 export function PromotedLabel({ isPromoted, listingTier, size = 'small' }: PromotedLabelProps) {
+  const { t } = useLanguage();
   if (!isPromoted && listingTier !== 'premium') return null;
 
   const fontSize = size === 'medium' ? 10 : 8;
@@ -58,7 +60,7 @@ export function PromotedLabel({ isPromoted, listingTier, size = 'small' }: Promo
         borderWidth: 1, borderColor: '#DDD6FE',
       }}>
         <Feather name="star" size={fontSize + 2} color="#7C3AED" />
-        <Txt w="semibold" style={{ fontSize, color: '#7C3AED' }}>Promowany</Txt>
+        <Txt w="semibold" style={{ fontSize, color: '#7C3AED' }}>{t('cmp.TrustBadge.promoted')}</Txt>
       </View>
     );
   }
@@ -68,7 +70,7 @@ export function PromotedLabel({ isPromoted, listingTier, size = 'small' }: Promo
       <View style={{
         backgroundColor: '#F3E8FF', borderRadius: 6, paddingHorizontal: px, paddingVertical: py,
       }}>
-        <Txt w="semibold" style={{ fontSize, color: '#7C3AED' }}>Premium</Txt>
+        <Txt w="semibold" style={{ fontSize, color: '#7C3AED' }}>{t('cmp.TrustBadge.premium')}</Txt>
       </View>
     );
   }

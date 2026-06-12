@@ -9,6 +9,7 @@ import { Colors } from '@/constants/colors';
 import { ContractorCard } from '@/components/contractor/ContractorCard';
 import { FilterBar } from '@/components/contractor/FilterBar';
 import { useContractor } from '@/context/ContractorContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ContractorResultsScreen() {
   const { categoryId, city, requestId, fromHouseBuild, stageKey, projectId } = useLocalSearchParams<{
@@ -21,6 +22,7 @@ export default function ContractorResultsScreen() {
   }>();
   const isHouseBuild = fromHouseBuild === '1' && !!stageKey;
   const insets = useSafeAreaInsets();
+  const { t } = useLanguage();
   const {
     promotedContractors,
     organicContractors,
@@ -62,12 +64,12 @@ export default function ContractorResultsScreen() {
       <>
         {isFirstFeatured && (
           <View style={{ paddingVertical: 6, marginBottom: 4 }}>
-            <Txt w="semibold" style={{ fontSize: 11, color: '#D97706' }}>Wyroznieni</Txt>
+            <Txt w="semibold" style={{ fontSize: 11, color: '#D97706' }}>{t('contractor.results.featured')}</Txt>
           </View>
         )}
         {isFirstOrganic && (
           <View style={{ paddingVertical: 6, marginBottom: 4 }}>
-            <Txt w="semibold" style={{ fontSize: 11, color: Colors.textMuted }}>Wyniki organiczne</Txt>
+            <Txt w="semibold" style={{ fontSize: 11, color: Colors.textMuted }}>{t('contractor.results.organic')}</Txt>
           </View>
         )}
         <ContractorCard
@@ -97,8 +99,8 @@ export default function ContractorResultsScreen() {
     <>
       <Stack.Screen
         options={{
-          title: 'Fachowcy',
-          headerBackTitle: 'Wroc',
+          title: t('contractor.results.screenTitle'),
+          headerBackTitle: t('contractor.results.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
@@ -117,7 +119,7 @@ export default function ContractorResultsScreen() {
             <TextInput
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Szukaj fachowca..."
+              placeholder={t('contractor.results.searchPlaceholder')}
               placeholderTextColor={Colors.textMuted}
               style={{
                 flex: 1, paddingVertical: 12, paddingHorizontal: 8,
@@ -132,10 +134,10 @@ export default function ContractorResultsScreen() {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
               <Feather name="star" size={10} color="#7C3AED" />
               <Txt style={{ fontSize: 10, color: '#7C3AED' }}>
-                {promotedContractors.length} promowanych
+                {t('contractor.results.promotedCount', { count: promotedContractors.length })}
               </Txt>
               <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
-                | {organicContractors.length + featuredContractors.length} organicznych
+                {t('contractor.results.organicCount', { count: organicContractors.length + featuredContractors.length })}
               </Txt>
             </View>
           </View>
@@ -158,8 +160,8 @@ export default function ContractorResultsScreen() {
           ListEmptyComponent={
             <EmptyState
               icon="users"
-              title="Brak wynikow"
-              description="Sprobuj zmienic filtry lub wyszukiwanie"
+              title={t('contractor.results.emptyTitle')}
+              description={t('contractor.results.emptyDescription')}
             />
           }
           renderItem={renderItem}

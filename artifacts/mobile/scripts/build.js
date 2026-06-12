@@ -7,6 +7,7 @@ const { pipeline } = require("stream/promises");
 let metroProcess = null;
 
 const projectRoot = path.resolve(__dirname, "..");
+const localBuildDomain = "localhost";
 
 function findWorkspaceRoot(startDir) {
   let dir = startDir;
@@ -67,10 +68,24 @@ function getDeploymentDomain() {
     return stripProtocol(process.env.EXPO_PUBLIC_DOMAIN);
   }
 
-  console.error(
-    "ERROR: No deployment domain found. Set REPLIT_INTERNAL_APP_DOMAIN, REPLIT_DEV_DOMAIN, or EXPO_PUBLIC_DOMAIN",
+  console.warn(
+    `No deployment domain found. Falling back to ${localBuildDomain} for a local build.`,
   );
-  process.exit(1);
+  return localBuildDomain;
+}
+
+function getPackageManagerCommand() {
+  if (process.env.npm_execpath) {
+    return {
+      command: process.execPath,
+      args: [process.env.npm_execpath],
+    };
+  }
+
+  return {
+    command: "pnpm",
+    args: [],
+  };
 }
 
 function prepareDirectories(timestamp) {
@@ -146,9 +161,12 @@ async function startMetro(expoPublicDomain, expoPublicReplId) {
     console.log(`Setting EXPO_PUBLIC_REPL_ID=${expoPublicReplId}`);
   }
 
+  const packageManager = getPackageManagerCommand();
+
   metroProcess = spawn(
-    "pnpm",
+    packageManager.command,
     [
+      ...packageManager.args,
       "exec",
       "expo",
       "start",

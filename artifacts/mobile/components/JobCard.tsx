@@ -5,6 +5,7 @@ import { RenovationJob } from '@/types/renovation';
 import { Badge } from '@/components/ui/Badge';
 import { Txt } from '@/components/ui/Txt';
 import { getDifficultyLabel, getRiskLabel } from '@/utils/calculator';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface JobCardProps {
   job: RenovationJob;
@@ -12,7 +13,8 @@ interface JobCardProps {
 }
 
 export function JobCard({ job, onPress }: JobCardProps) {
-  const days = job.estimatedDays === 1 ? 'dzień' : 'dni';
+  const { t } = useLanguage();
+  const days = job.estimatedDays === 1 ? t('cmp.JobCard.dayOne') : t('cmp.JobCard.dayMany');
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8} className="bg-surface rounded-2xl p-4 border border-stroke mb-3">
       <View className="flex-row justify-between items-start mb-2.5">
@@ -21,7 +23,7 @@ export function JobCard({ job, onPress }: JobCardProps) {
         </View>
         <View className="flex-row gap-1.5 flex-wrap justify-end flex-1 ml-2">
           <Badge label={getDifficultyLabel(job.difficulty)} variant={job.difficulty} />
-          {job.hireProfessionalRecommended && <Badge label="Fachowiec" variant="high" />}
+          {job.hireProfessionalRecommended && <Badge label={t('cmp.JobCard.professional')} variant="high" />}
         </View>
       </View>
       <Txt w="bold" className="text-[17px] text-ink mb-1">{job.name}</Txt>
