@@ -17,11 +17,12 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "pl.asystentremontu.app",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "infoPlist": {
         "NSCameraUsageDescription": "Aplikacja potrzebuje dostepu do kamery aby robic zdjecia remontu.",
         "NSPhotoLibraryUsageDescription": "Aplikacja potrzebuje dostepu do galerii aby dodawac zdjecia remontu.",
-        "NSLocationWhenInUseUsageDescription": "Aplikacja moze uzyc lokalizacji do wyszukiwania fachowcow w Twojej okolicy."
+        "NSLocationWhenInUseUsageDescription": "Aplikacja moze uzyc lokalizacji do wyszukiwania fachowcow w Twojej okolicy.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
