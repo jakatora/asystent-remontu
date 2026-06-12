@@ -10,10 +10,11 @@ workflows:
         - $HOME/.gradle/caches
         - $CM_BUILD_DIR/artifacts/mobile/node_modules
     scripts:
-      - name: Install npm dependencies
+      - name: Install pnpm + workspace dependencies
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+          npm install -g pnpm@9
+          cd $CM_BUILD_DIR
+          pnpm install --frozen-lockfile || pnpm install
       - name: Expo prebuild (Android)
         script: |
           cd $CM_BUILD_DIR/artifacts/mobile
@@ -47,10 +48,11 @@ workflows:
         - $HOME/.gradle/caches
         - $CM_BUILD_DIR/artifacts/mobile/node_modules
     scripts:
-      - name: Install npm dependencies
+      - name: Install pnpm + workspace dependencies
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+          npm install -g pnpm@9
+          cd $CM_BUILD_DIR
+          pnpm install --frozen-lockfile || pnpm install
       - name: Expo prebuild (Android)
         script: |
           cd $CM_BUILD_DIR/artifacts/mobile
@@ -116,10 +118,11 @@ workflows:
         - $HOME/.gradle/caches
         - $CM_BUILD_DIR/artifacts/mobile/node_modules
     scripts:
-      - name: Install npm dependencies
+      - name: Install pnpm + workspace dependencies
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+          npm install -g pnpm@9
+          cd $CM_BUILD_DIR
+          pnpm install --frozen-lockfile || pnpm install
       - name: Expo prebuild (Android)
         script: |
           cd $CM_BUILD_DIR/artifacts/mobile
