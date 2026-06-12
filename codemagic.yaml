@@ -1,7 +1,6 @@
 workflows:
   android-debug-apk:
     name: Asystent Remontu — Android Debug APK
-    instance_type: linux_x2
     max_build_duration: 60
     environment:
       node: 20.18.0
@@ -37,7 +36,6 @@ workflows:
 
   android-release-apk:
     name: Asystent Remontu — Android Release APK (signed)
-    instance_type: linux_x2
     max_build_duration: 60
     environment:
       android_signing:
@@ -107,7 +105,6 @@ workflows:
 
   android-release-aab:
     name: Asystent Remontu — Android Release AAB (Play Store)
-    instance_type: linux_x2
     max_build_duration: 60
     environment:
       android_signing:
