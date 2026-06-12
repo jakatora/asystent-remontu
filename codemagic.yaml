@@ -180,13 +180,13 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: pl.asystentremontu.app
+        bundle_identifier: app.replit.remontasystent
       groups:
         - certificate_credentials
       vars:
         XCODE_WORKSPACE: AsystentRemontu.xcworkspace
         XCODE_SCHEME: AsystentRemontu
-        BUNDLE_ID: pl.asystentremontu.app
+        BUNDLE_ID: app.replit.remontasystent
       node: 20.18.0
       xcode: latest
       cocoapods: default
