@@ -187,7 +187,6 @@ workflows:
         XCODE_WORKSPACE: AsystentRemontu.xcworkspace
         XCODE_SCHEME: AsystentRemontu
         BUNDLE_ID: pl.asystentremontu.app
-        APP_STORE_APPLE_ID: ""
       node: 20.18.0
       xcode: latest
       cocoapods: default
@@ -215,12 +214,6 @@ workflows:
         script: |
           cd $CM_BUILD_DIR/artifacts/mobile/ios
           xcode-project use-profiles
-      - name: Increment build number
-        script: |
-          cd $CM_BUILD_DIR/artifacts/mobile/ios
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APP_ID" 2>/dev/null || echo "0")
-          cd $CM_BUILD_DIR/artifacts/mobile/ios
-          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Build .ipa
         script: |
           cd $CM_BUILD_DIR/artifacts/mobile/ios
