@@ -50,17 +50,17 @@ export const epsInsulationBsoJob: RenovationJob = {
 
   materials: [
     { id: 'eps-board-15cm', name: 'Styropian fasadowy EPS 70-040 gr. 15 cm', brand: 'Termo Organika / Swisspor / Austrotherm', unit: 'm²', purchaseUnit: 'paczka 3 m²', formulaKey: 'constant', pricePerUnit: 42, category: 'izolacja', notes: 'Standardowa grubość 15–20 cm. Lambda 0.040 W/(m·K).' },
-    { id: 'glue-k20', name: 'Klej do styropianu', brand: 'Atlas Stopter K-20 25 kg', unit: 'kg', purchaseUnit: 'worek 25 kg', formulaKey: 'constant', pricePerUnit: 4.2, category: 'klej', notes: 'Do klejenia płyt EPS metodą pasmowo-punktową.' },
+    { id: 'glue-k20', name: 'Klej do styropianu', brand: 'Atlas Stopter K-20 25 kg', unit: 'kg', purchaseUnit: 'worek 25 kg', formulaKey: 'constant', pricePerUnit: 2.2, category: 'klej', notes: 'Do klejenia płyt EPS metodą pasmowo-punktową. Worek 25 kg ok. 50–55 zł.' },
     { id: 'glue-k50', name: 'Klej do zatapiania siatki', brand: 'Atlas Stopter K-50 25 kg', unit: 'kg', purchaseUnit: 'worek 25 kg', formulaKey: 'constant', pricePerUnit: 4.5, category: 'klej' },
     { id: 'mesh-145', name: 'Siatka zbrojąca szklana 145 g/m²', brand: 'Atlas / Ceresit', unit: 'm²', purchaseUnit: 'rolka 55 m²', formulaKey: 'constant', pricePerUnit: 4, category: 'zbrojenie', notes: 'Zakłady min. 10 cm, pasy diagonalne w narożnikach otworów.' },
     { id: 'anchors-eps', name: 'Kołki rozporowe do styropianu', brand: 'Koelner KI-10 lub Fischer Termoz', unit: 'szt', formulaKey: 'constant', pricePerUnit: 1.2, category: 'mocowanie', notes: 'Min. 4 szt/m², w strefie narożnej 6–8 szt/m².' },
     { id: 'primer-ct16', name: 'Grunt podkładowy pod tynk', brand: 'Ceresit CT 16 / Atlas Cerplast 5 kg', unit: 'litr', purchaseUnit: 'wiadro 5 kg', formulaKey: 'constant', pricePerUnit: 22, category: 'grunt' },
-    { id: 'plaster-silicone', name: 'Tynk silikonowy cienkowarstwowy', brand: 'Ceresit CT 174 / Caparol Sylitol 25 kg', unit: 'kg', purchaseUnit: 'wiadro 25 kg', formulaKey: 'constant', pricePerUnit: 13, category: 'tynk', notes: 'Ziarno 1.5–2.0 mm. Kolor pigmentowany fabrycznie.' },
+    { id: 'plaster-silicone', name: 'Tynk silikatowo-silikonowy cienkowarstwowy', brand: 'Ceresit CT 174 / Caparol Sylitol 25 kg', unit: 'kg', purchaseUnit: 'wiadro 25 kg', formulaKey: 'constant', pricePerUnit: 8, category: 'tynk', notes: 'Ziarno 1.5–2.0 mm. Kolor pigmentowany fabrycznie. Wiadro 25 kg ok. 170–220 zł (baza i typowe kolory); kolory intensywne droższe.' },
     { id: 'profiles-start', name: 'Listwy startowe i narożnikowe + obróbki', brand: 'Protektor / Catnic', unit: 'm.b.', formulaKey: 'constant', pricePerUnit: 12, category: 'akcesoria', notes: 'Cokół startowy + narożniki + listwy okapowe nad oknami.' },
   ],
 
   tools: [
-    { id: 'scaffolding', name: 'Rusztowanie ramowe z certyfikatem UDT', icon: 'grid', required: true, rentable: true, estimatedBuyCostPLN: 8000, notes: 'Najczęściej wynajem — koszt ~50 zł/m²/miesiąc.' },
+    { id: 'scaffolding', name: 'Rusztowanie ramowe atestowane (PN-EN 12810), montaż przez montera z uprawnieniami (Łukasiewicz/IMBiGS)', icon: 'grid', required: true, rentable: true, estimatedBuyCostPLN: 8000, notes: 'Najczęściej wynajem — ok. 5–9 zł/m²/miesiąc + jednorazowo montaż i demontaż łącznie ok. 8–15 zł/m² (w dużych miastach drożej).' },
     { id: 'mixer-bso', name: 'Wiertarka udarowa z mieszadłem koszykowym', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill, notes: 'Mocna wiertarka >1100 W + mieszadło M14 do kleju.' },
     { id: 'trowel-bso', name: 'Paca zębata 10/12 mm + paca gładka stalowa', icon: 'minus', required: true, estimatedBuyCostPLN: 110, shopPrices: SHARED_SHOP_PRICES.steelTrowel50cm },
     { id: 'eps-saw', name: 'Piłka do styropianu z drobnym ostrzem', icon: 'scissors', required: true, estimatedBuyCostPLN: 25 },
@@ -78,7 +78,7 @@ export const epsInsulationBsoJob: RenovationJob = {
     { step: 3, title: 'Klejenie płyt EPS metodą pasmowo-punktową', description: 'Wymieszaj klej Atlas Stopter K-20 wg proporcji, odczekaj 5 min, ponownie wymieszaj. Nakładaj klej na płytę EPS pacą zębatą: obwodowo pas 4–6 cm + 3–8 placków na środek. Klej od cokołu w górę, naprzemienne układanie spoin (cegiełka). Sprawdzaj pion i poziom co 3 płyty.', tip: 'Nie nakładaj kleju tylko punktowo — wciąga powietrze i daje "sińce" w tynku.', durationMin: 1440 },
     { step: 4, title: 'Szlifowanie + kołkowanie', description: 'Po 24–48 h od klejenia przeszlifuj całą elewację tarką ze ścierną siatką. Pył odessij. Kołkuj: 4 szt/m² w polu, 6–8 szt/m² w strefie narożnej. Wbij kołki na wciśniecie (talerzyk zlicowany z płaszczyzną styropianu).', warning: 'Kołkowanie przed 48 h zrywa świeży klej, kołki za głęboko — talerzyki odbijają się jako "kropki" przez tynk.', durationMin: 960 },
     { step: 5, title: 'Warstwa zbrojona — siatka szklana', description: 'Nałóż klej Atlas Stopter K-50 pacą zębatą na pas styropianu szerokości rolki siatki (~110 cm). Wciśnij siatkę w mokry klej, rozprowadź pacą gładką stalową — siatka ma być w ŚRODKU warstwy (ledwo widoczna). Zakłady min. 10 cm, pasy diagonalne w narożnikach otworów.', warning: 'Siatka na powierzchni warstwy zamiast w środku → po latach pęka tynk wzdłuż linii siatki.', durationMin: 1440 },
-    { step: 6, title: 'Gruntowanie + tynk cienkowarstwowy', description: 'Po pełnym wyschnięciu warstwy zbrojonej (3–7 dni) — nanieś grunt Ceresit CT 16 (barwiony w kolorze tynku) wałkiem. Po 24h tynk silikonowy (Ceresit CT 174) pacą stalową, równo. Faktura: zacieraj pacą plastikową w jednym kierunku.', warning: 'Tynk w niewłaściwej pogodzie (<+5°C, pełne słońce, przed deszczem) → nie wiąże, kreda się, traci adhezję.', durationMin: 1440 },
+    { step: 6, title: 'Gruntowanie + tynk cienkowarstwowy', description: 'Po pełnym wyschnięciu warstwy zbrojonej (3–7 dni) — nanieś grunt Ceresit CT 16 (barwiony w kolorze tynku) wałkiem. Po 24h tynk silikatowo-silikonowy (Ceresit CT 174) pacą stalową, równo. Faktura: zacieraj pacą plastikową w jednym kierunku.', warning: 'Tynk w niewłaściwej pogodzie (<+5°C, pełne słońce, przed deszczem) → nie wiąże, kreda się, traci adhezję.', durationMin: 1440 },
     { step: 7, title: 'Detale wykończeniowe + odbiór', description: 'Zamontuj parapety zewnętrzne (aluminowe powlekane) z 4 cm wystawem i spadkiem 5°. Uszczelnij styk parapet/tynk silikonem dekarskim. Zamontuj rynny, opaski odprowadzające wodę. Demontaż rusztowania, sprzątanie. Odbiór końcowy z protokołem.', tip: 'Kamera termowizyjna podczas odbioru pokaże pominięte kołki i mostki termiczne.', durationMin: 720 },
   ],
 
@@ -140,7 +140,7 @@ export const acousticSuspendedCeilingJob: RenovationJob = {
   warningRules: [
     { condition: 'always', level: 'warning', message: 'Pył z płyt mineralnych jest drażniący — obowiązkowo maska FFP2 i okulary ochronne.' },
     { condition: 'always', level: 'danger',  message: 'Podłączenie opraw oświetleniowych do 230 V wymaga uprawnień SEP do 1 kV lub zlecenia elektrykowi.' },
-    { condition: 'always', level: 'info',    message: 'Minimalna wysokość pomieszczenia mieszkalnego po sufitem to 220 cm (Rozporządzenie MIiB, warunki techniczne).' },
+    { condition: 'always', level: 'warning', message: 'Minimalna wysokość pokoju mieszkalnego po podwieszeniu sufitu to 250 cm (§72 WT, Rozporządzenie Ministra Infrastruktury z 12.04.2002). Wyjątek 220 cm dotyczy tylko pokoi na poddaszu w budynkach jednorodzinnych i mieszkaniach dwupoziomowych (przy stropie pochyłym jako wysokość średnia, min. 190 cm w najniższym punkcie) oraz pomieszczeń nieprzeznaczonych na stały pobyt ludzi.' },
     { condition: 'always', level: 'warning', message: 'Każda oprawa cięższa niż 3 kg musi być podwieszona własnym drutem do stropu — nie obciążaj samej siatki T-24.' },
     { condition: 'always', level: 'info',    message: 'Praca na drabinie powyżej 1 m — upewnij się że ma stabilne podparcie, optymalnie pracuj we dwóch.' },
   ],
@@ -317,7 +317,7 @@ export const interiorWoodenStairsJob: RenovationJob = {
   name: 'Montaż schodów drewnianych wewnętrznych',
   shortDescription: 'Złożenie schodów drewnianych na policzkach zgodnie z normami PN-EN 1995-1-1.',
   description:
-    'Montaż obejmuje przygotowanie podłoża, ustawienie i mocowanie policzków nośnych, osadzenie stopnic w gniazdach lub na łącznikach oraz zamocowanie balustrady z poręczą. Konstrukcja musi spełniać Rozporządzenie WT 2021 dotyczące warunków technicznych budynków mieszkalnych: wysokość stopnia 17–19 cm, szerokość stopnia 25–30 cm, prześwit pionowy nad biegiem min. 2,0 m, rozstaw tralek max. 12 cm.',
+    'Montaż obejmuje przygotowanie podłoża, ustawienie i mocowanie policzków nośnych, osadzenie stopnic w gniazdach lub na łącznikach oraz zamocowanie balustrady z poręczą. Konstrukcja musi spełniać Rozporządzenie WT: max wysokość stopnia 19 cm (dom jednorodzinny), wzór wygody 2h+s = 60–65 cm oraz prześwit pionowy nad biegiem min. 2,0 m; praktyczne optimum to 17–19 cm wysokości i 25–30 cm szerokości stopnia. Rozstaw tralek max. 12 cm to zalecenie bezpieczeństwa dzieci (twardy wymóg WT §298 dotyczy budynków wielorodzinnych i użyteczności publicznej, nie domu jednorodzinnego).',
   beginnerFriendlyDescription:
     'Schody drewniane to konstrukcja, a nie dekoracja — błędy w geometrii skutkują odmową odbioru budynku. Drewno musi mieć odpowiednią wilgotność (8–12%), policzki muszą być solidnie zakotwione w ścianie i stropie, a balustrada wytrzymać 1 kN nacisku poziomego. Większość poważnych firm dostarcza schody w elementach z warsztatu — sam montaż wymaga 2 osób przez 2–3 dni.',
   coverIcon: 'corner-up-right',
@@ -379,12 +379,12 @@ export const interiorWoodenStairsJob: RenovationJob = {
     'Mocowanie policzków tylko w 2 punktach lub kołkami rozporowymi w pustakach — schody skrzypią i bujają się po roku.',
     'Zbyt suche drewno (<8%) lub zbyt mokre (>12%) — stopnie pękają wzdłuż słojów lub powodują luzy w policzkach.',
     'Brak prześwitu pionowego 2 m nad biegiem — kolizja z głową wymusza skrócenie biegu.',
-    'Rozstaw tralek w balustradzie >12 cm — niezgodność z WT, ryzyko dla dzieci, odmowa odbioru.',
+    'Rozstaw tralek w balustradzie >12 cm — w domu jednorodzinnym WT tego nie reguluje (§298 dotyczy budynków wielorodzinnych i użyteczności publicznej), ale 12 cm to zalecane maksimum ze względu na bezpieczeństwo dzieci.',
   ],
   qualityChecklist: [
     { id: 'uniform-rise',  description: 'Wysokość każdego stopnia identyczna (tolerancja max. 1 cm na cały bieg, optimum 17–19 cm).', critical: true },
     { id: 'tread-depth',   description: 'Szerokość stopnia 25–30 cm na całej szerokości biegu identyczna.', critical: true },
-    { id: 'balustrade-str', description: 'Balustrada nie ugina się więcej niż 1 cm pod siłą poziomą 1 kN. Rozstaw tralek max. 12 cm.', critical: true },
+    { id: 'balustrade-str', description: 'Balustrada nie ugina się więcej niż 1 cm pod siłą poziomą 1 kN, poręcz na wys. min. 0,9 m. Rozstaw tralek max. 12 cm (zalecenie bezpieczeństwa dzieci; twardy wymóg WT §298 tylko w budynkach wielorodzinnych).', critical: true },
     { id: 'headroom',      description: 'Prześwit pionowy nad biegiem min. 2,0 m, sprawdzony w każdym punkcie.', critical: true },
     { id: 'no-creaking',   description: 'Brak skrzypienia przy obciążeniu pojedynczych stopni ciałem dorosłego (~80 kg).' },
   ],
@@ -463,7 +463,7 @@ export const mechanicalVentilationMvhrJob: RenovationJob = {
   ],
 
   instructions: [
-    { step: 1, title: 'Projekt wentylacji i bilans powietrza', description: 'Zleć projekt projektantowi z uprawnieniami sanitarnymi. Wg PN-83/B-03430: kuchnia 70 m³/h, łazienka 50 m³/h, WC 30 m³/h, nawiew 20 m³/h na osobę w sypialniach i salonie. Bilans nawiew = wywiew (±5%).', durationMin: 240 },
+    { step: 1, title: 'Projekt wentylacji i bilans powietrza', description: 'Zleć projekt projektantowi z uprawnieniami sanitarnymi. Wg PN-83/B-03430: kuchnia z kuchenką gazową 70 m³/h (z elektryczną 30–50 m³/h zależnie od liczby osób), łazienka 50 m³/h, WC 30 m³/h, nawiew 20 m³/h na osobę w sypialniach i salonie. Bilans nawiew = wywiew (±5%).', durationMin: 240 },
     { step: 2, title: 'Lokalizacja centrali i przewierty zewnętrzne', description: 'Centralę umieść w pomieszczeniu ogrzewanym (kotłownia, pralnia) z dostępem serwisowym 60 cm. Wywierć przewiert pod czerpnię i wyrzutnię koronką fi 160–200 mm — odległości: czerpnia 2 m od wyrzutni, 8 m od komina, 10 m od śmietnika.', durationMin: 180 },
     { step: 3, title: 'Trasowanie i montaż magistral fi 160–200 mm', description: 'Wyznacz trasy magistral laserem. Prowadź w stropie podwieszanym, kasetonie podsufitki lub w warstwie ocieplenia stropu. Magistralę w strefie nieogrzewanej (poddasze, garaż) OBOWIĄZKOWO otulij wełną 50 mm + folia paroszczelna.', durationMin: 480 },
     { step: 4, title: 'Montaż rozdzielaczy i kanały fi 75–90 mm', description: 'Rozdzielacze nawiewu/wywiewu zamontuj blisko centrali. Od rozdzielaczy poprowadź pojedyncze kanały EPP/PE-FLEX fi 75 mm (40 m³/h) lub fi 90 mm (60 m³/h) do każdej kratki — system "promienisty" (każda kratka osobny kanał).', tip: 'System promienisty pozwala na regulację każdego pomieszczenia osobno bez wpływu na inne.', durationMin: 720 },

@@ -43,10 +43,11 @@ export const wallpaperJob: RenovationJob = {
     {
       id: 'wallpaper-glue',
       name: 'Klej do tapet',
-      unit: 'opak.',
+      unit: 'kg',
       formulaKey: 'wallpaperGlue',
+      packaging: { size: 0.2, label: 'opakowanie 200 g', purchaseUnit: 'opakowanie' },
       pricePerUnit: 15,
-      notes: 'Dobierz klej do rodzaju tapety (papierowe, winylowe, flizelinowe).',
+      notes: 'Dobierz klej do rodzaju tapety (papierowe, winylowe, flizelinowe). 1 opakowanie (200 g) na ok. 20–25 m².',
     },
     {
       id: 'primer-wallpaper',
@@ -123,7 +124,7 @@ export const skirtingJob: RenovationJob = {
       unit: 'tuba',
       formulaKey: 'skirtingGlue',
       pricePerUnit: 12,
-      notes: 'Np. Tytan 901 lub odpowiednik.',
+      notes: 'Np. Tytan SBS FIX (listwy, panele, profile) lub odpowiednik.',
     },
     {
       id: 'corner-pieces',
@@ -158,13 +159,13 @@ export const skirtingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Listwy przypodłogowe — montaż krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Montaż listew przypodłogowych krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/montaz-listew-przypodlogowych-krok-po-kroku-aa-WF7w-fTkS-6P9h.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -228,7 +229,7 @@ export const doorsJob: RenovationJob = {
       unit: 'puszka',
       formulaKey: 'constant',
       pricePerUnit: 20,
-      notes: '2-3 puszki na standardowe drzwi.',
+      notes: '1 puszka 750 ml wystarcza na standardowe drzwi (przy dużych szczelinach maks. 2). Użyj pianki niskoprężnej.',
     },
     {
       id: 'door-threshold',
@@ -268,13 +269,13 @@ export const doorsJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Montaż drzwi wymaga precyzji i doświadczenia. Błędy są trudne i kosztowne do naprawienia.',
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Montaż drzwi wewnętrznych — przewodnik',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Montaż ościeżnicy drzwi wewnętrznych pianką montażową',
+      url:         'https://www.soudal.pl/diy/aplikacje/montaz-oscieznicy-drzwi-wewnetrznych-pianka-montazowa',
+      domain:      'soudal.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };

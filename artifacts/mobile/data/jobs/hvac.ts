@@ -14,9 +14,9 @@ export const airConditioningSplitJob: RenovationJob = {
   name: 'Instalacja klimatyzacji split',
   shortDescription: 'Montaż jednostki wewn. i zewn. z instalacją Cu — wymaga uprawnień F-gazowych.',
   description:
-    'Klimatyzacja split składa się z jednostki wewnętrznej (parownik) i zewnętrznej (skraplacz) połączonych dwiema rurkami miedzianymi w izolacji termicznej, którymi krąży czynnik chłodniczy (najczęściej R32). Pełny montaż obejmuje rozwiercenie przejścia przez ścianę, ułożenie instalacji Cu + odprowadzenie skroplin + zasilanie elektryczne 3x1,5mm² z bezpiecznikiem 16A, kielichowanie połączeń, próżnowanie układu pompą próżni (min. 30 min, < 500 mikronów) i otwarcie zaworów czynnika. W Polsce kluczowe czynności (próżnia, napełnienie czynnikiem, uruchomienie) mogą być wykonane wyłącznie przez instalatora z certyfikatem F-GAZ wydanym przez UDT — wymóg rozporządzenia Min. Rozwoju Dz.U. 2017 poz. 2389.',
+    'Klimatyzacja split składa się z jednostki wewnętrznej (parownik) i zewnętrznej (skraplacz) połączonych dwiema rurkami miedzianymi w izolacji termicznej, którymi krąży czynnik chłodniczy (najczęściej R32). Pełny montaż obejmuje rozwiercenie przejścia przez ścianę, ułożenie instalacji Cu + odprowadzenie skroplin + zasilanie elektryczne 3x1,5mm² z bezpiecznikiem 16A, kielichowanie połączeń, próżnowanie układu pompą próżni (min. 30 min, < 500 mikronów) i otwarcie zaworów czynnika. W Polsce kluczowe czynności (próżnia, napełnienie czynnikiem, uruchomienie) mogą być wykonane wyłącznie przez instalatora z certyfikatem F-GAZ wydanym przez UDT — wymóg ustawy z 15.05.2015 r. o substancjach zubożających warstwę ozonową oraz o niektórych fluorowanych gazach cieplarnianych (Dz.U. 2015 poz. 881 z późn. zm.) i rozporządzenia Ministra Rozwoju i Finansów z 7.12.2017 r. (Dz.U. 2017 poz. 2402).',
   beginnerFriendlyDescription:
-    'Klimatyzacja split to dwie skrzynki — jedna w pokoju, druga na elewacji — połączone cienkimi miedzianymi rurkami z gazem chłodzącym. Bez specjalnych uprawnień F-gazowych nie wolno samodzielnie napełniać instalacji ani uruchamiać sprężarki — to nie tylko karalne (mandat do 3000 zł), ale niebezpieczne. Wezwij certyfikowanego instalatora; sam możesz najwyżej wybrać miejsce montażu i przygotować zasilanie elektryczne.',
+    'Klimatyzacja split to dwie skrzynki — jedna w pokoju, druga na elewacji — połączone cienkimi miedzianymi rurkami z gazem chłodzącym. Bez specjalnych uprawnień F-gazowych nie wolno samodzielnie napełniać instalacji ani uruchamiać sprężarki — grozi za to kara administracyjna od 600 do 4500 zł nakładana przez WIOŚ (za cięższe naruszenia nawet do 15 000 zł), a do tego jest to niebezpieczne. Wezwij certyfikowanego instalatora; sam możesz najwyżej wybrać miejsce montażu i przygotować zasilanie elektryczne.',
   coverIcon: 'wind',
 
   difficulty:        'hard',
@@ -34,7 +34,7 @@ export const airConditioningSplitJob: RenovationJob = {
 
   warningRules: [
     { condition: 'always', level: 'danger',
-      message: 'Samodzielne napełnianie instalacji czynnikiem R32/R410A bez certyfikatu F-GAZ jest nielegalne (Dz.U. 2017 poz. 2389) — mandat do 3000 zł + utrata gwarancji.' },
+      message: 'Samodzielne napełnianie instalacji czynnikiem R32/R410A bez certyfikatu F-GAZ jest nielegalne (ustawa o F-gazach z 15.05.2015 r., Dz.U. 2015 poz. 881 z późn. zm., i rozporządzenie MRiF z 7.12.2017 r., Dz.U. 2017 poz. 2402) — kara administracyjna WIOŚ 600–4500 zł (do 15 000 zł za cięższe naruszenia) + utrata gwarancji.' },
     { condition: 'always', level: 'danger',
       message: 'Praca pod napięciem 230V — przed podłączeniem YDYp 3x1,5 wyłącz obwód w rozdzielnicy i potwierdź próbnikiem brak napięcia.' },
     { condition: 'always', level: 'warning',
@@ -55,7 +55,7 @@ export const airConditioningSplitJob: RenovationJob = {
     {
       id:           'split-unit-3-5kw',
       name:         'Klimatyzator split 3.5 kW inverter (komplet wewn.+zewn.)',
-      brand:        'Samsung WindFree AR09TXFCAWKNEU lub Daikin Stylish FTXA35AW (referencja)',
+      brand:        'Rotenso Mirai MI35 lub Gree Amber 3,5 kW (referencja)',
       unit:         'kpl',
       purchaseUnit: 'komplet',
       formulaKey:   'constant',
@@ -190,7 +190,7 @@ export const airConditioningSplitJob: RenovationJob = {
       warning: 'Prace pod napięciem 230V — wyłącz obwód w rozdzielnicy, sprawdź próbnikiem brak napięcia. Zlecenie elektrykowi z SEP do 1kV jest dobrą praktyką.',
       durationMin: 45 },
     { step: 7, title: 'Uruchomienie testowe i protokół [F-GAZ]',
-      description: 'Włącz zasilanie, uruchom tryb chłodzenia 18°C. Po 10 minutach zmierz: ciśnienie ssania (4–5 bar dla R32), temperatury rur (zimna 5–10°C, ciepła 35–50°C), prąd sprężarki (kleszcze), poziom skroplin (woda kapie z wężyka). Wystaw protokół szczelności i wpis do Centralnego Rejestru Operatorów (CRO) — obowiązek dla układów > 5 t CO₂eq.',
+      description: 'Włącz zasilanie, uruchom tryb chłodzenia 18°C. Po 10 minutach zmierz: ciśnienie ssania (ok. 7–9,5 bar dla R32 w trybie chłodzenia), temperatury rur (zimna 5–10°C, ciepła 35–50°C), prąd sprężarki (kleszcze), poziom skroplin (woda kapie z wężyka). Wystaw protokół szczelności i wpis do Centralnego Rejestru Operatorów (CRO) — obowiązek dla układów > 5 t CO₂eq.',
       tip: 'Zachowaj protokół — będzie wymagany przez serwis gwarancyjny i przy sprzedaży nieruchomości.',
       durationMin: 60 },
     { step: 8, title: 'Maskowanie instalacji i czyszczenie',
@@ -217,7 +217,7 @@ export const airConditioningSplitJob: RenovationJob = {
 
   hireProfessionalRecommended: true,
   hireProfessionalReason:
-    'Wymagany certyfikat F-GAZ wydany przez Urząd Dozoru Technicznego (rozporządzenie Min. Rozwoju Dz.U. 2017 poz. 2389). Bez uprawnień nie wolno: rozszczelniać instalacji chłodniczej, próżnować, napełniać czynnikiem R32/R410A, uruchamiać sprężarki. Mandat do 3000 zł, utrata gwarancji producenta (Daikin, Samsung, LG wymagają protokołu od certyfikowanego instalatora), ryzyko porażenia prądem przy podłączeniu zasilania bezpośrednio do rozdzielnicy. Samodzielnie można jedynie zamontować prefabrykowany MULTIBLOC z krótką rurą prefabrykowaną napełnioną fabrycznie.',
+    'Wymagany certyfikat F-GAZ wydany przez Urząd Dozoru Technicznego (ustawa o F-gazach z 15.05.2015 r., Dz.U. 2015 poz. 881 z późn. zm., i rozporządzenie MRiF z 7.12.2017 r., Dz.U. 2017 poz. 2402). Bez uprawnień nie wolno: rozszczelniać instalacji chłodniczej, próżnować, napełniać czynnikiem R32/R410A, uruchamiać sprężarki. Kara administracyjna od 600 do 4500 zł nakładana przez WIOŚ (za cięższe naruszenia — np. zakup czynnika lub działalność bez certyfikatu przedsiębiorcy — nawet do 15 000 zł), utrata gwarancji producenta (Daikin, Samsung, LG wymagają protokołu od certyfikowanego instalatora), ryzyko porażenia prądem przy podłączeniu zasilania bezpośrednio do rozdzielnicy. Samodzielnie można jedynie zamontować prefabrykowany MULTIBLOC z krótką rurą prefabrykowaną napełnioną fabrycznie.',
 
   tags: ['klimatyzacja', 'split', 'F-GAZ', 'HVAC', 'chłodzenie', 'instalacja'],
 

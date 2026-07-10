@@ -46,10 +46,10 @@ export const waterproofingJob: RenovationJob = {
       formulaKey: 'membrane',
       wasteFactor: 1.1,
       roundingRule: 'ceil',
-      packaging: { size: 8, label: 'wiaderko 8 kg', purchaseUnit: 'wiaderko' },
-      pricePerUnit: 35,
+      packaging: { size: 5, label: 'wiaderko 5 kg', purchaseUnit: 'wiaderko' },
+      pricePerUnit: 22,
       category: 'hydroizolacja',
-      notes: 'Np. Ceresit CR 65, Knauf Flächendicht. 2 × 1 kg/m² = ok. 2 kg/m² łącznie.',
+      notes: 'Np. Ceresit CL 51 lub Knauf Hydro Flex (folia w płynie); na podłoża odkształcalne także Ceresit CR 166 (2-składnikowa elastyczna). 2 × 1 kg/m² = ok. 2 kg/m² łącznie.',
     },
     {
       id: 'sealing-tape',
@@ -68,7 +68,7 @@ export const waterproofingJob: RenovationJob = {
       formulaKey: 'primer',
       wasteFactor: 1.0,
       packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 18,
+      pricePerUnit: 12,
       category: 'grunt',
       optional: true,
       notes: 'Na chłonnych podłożach — zapewnia lepszą przyczepność masy.',
@@ -96,7 +96,7 @@ export const waterproofingJob: RenovationJob = {
   ],
   manufacturerPriorityNote: 'Grubość warstwy, czas schnięcia i czas utwardzenia zależą od produktu — zawsze sprawdź kartę techniczną producenta.',
   productDependentRules: [
-    'Grubość mokrej warstwy masy uszczelniającej — sprawdź w karcie produktu (np. Ceresit CR 65 vs Knauf Flächendicht mają różne wymagania)',
+    'Grubość mokrej warstwy masy uszczelniającej — sprawdź w karcie produktu (np. Ceresit CL 51 vs Knauf Hydro Flex mają różne wymagania)',
     'Czas schnięcia między warstwami — od 2 do 6 godzin zależnie od produktu i temperatury',
     'Czas pełnego utwardzenia przed klejeniem płytek — od 24 do 72 godzin zależnie od masy',
   ],
@@ -112,10 +112,10 @@ export const waterproofingJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Hydroizolacja łazienki — krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Hydroizolacja łazienki krok po kroku. Jak prawidłowo wykonać hydroizolację łazienki?',
+      url:         'https://muratordom.pl/budowa/inne-technologie-budowlane/hydroizolacja-lazienki-krok-po-kroku-ten-blad-moze-zniszczyc-sciany-i-kosztowac-fortune-jak-prawidlowo-wykonac-hydroizolacje-lazienki-aa-1u9X-XegK-z2rm.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -177,7 +177,7 @@ export const bathroomWallTilesJob: RenovationJob = {
       wasteFactor: 1.1,
       roundingRule: 'ceil',
       packaging: { size: 25, label: 'worek 25 kg', purchaseUnit: 'worek' },
-      pricePerUnit: 5,
+      pricePerUnit: 2.8,
       category: 'klej',
       notes: 'Klej elastyczny C2TE. Do prysznica stosuj klej do stref mokrych.',
       shopPrices: SHARED_SHOP_PRICES.tileAdhesiveAtlasPlus25kg,
@@ -262,10 +262,10 @@ export const bathroomWallTilesJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Jak ułożyć płytki w łazience — krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Jak układać płytki na ścianie? Zobacz nowe WIDEO „Murator Remontuje"',
+      url:         'https://muratordom.pl/murator-remontuje/jak-ukladac-plytki-na-scianie-zobacz-nowe-wideo-murator-remontuje-aa-Bm4p-9vUn-L4HF.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -372,10 +372,10 @@ export const groutJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Jak fugować płytki — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Fugowanie płytek. Bezbłędne spoinowanie krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/fugowanie-plytek-bezbledne-spoinowanie-krok-po-kroku-aa-orPn-4jeQ-rzYf.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -413,7 +413,7 @@ export const siliconeJob: RenovationJob = {
       formulaKey: 'silicone',
       pricePerUnit: 18,
       category: 'uszczelnienie',
-      notes: 'Kolor: biały lub transparentny. 1 kartusze (300 ml) na ok. 8 mb fugi.',
+      notes: 'Kolor: biały lub transparentny. 1 kartusz (280 ml) na ok. 8 mb fugi.',
       shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
     },
     {
@@ -460,10 +460,10 @@ export const siliconeJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Silikonowanie wanny — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Silikonowanie umywalki, brodzika oraz wanny. Zasady uszczelnienia silikonem',
+      url:         'https://muratordom.pl/wnetrza/lazienka/silikonowanie-brodzika-i-silikonowanie-wanny-zasady-uszczelnienia-silikonem-aa-p733-988U-AthQ.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };

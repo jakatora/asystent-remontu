@@ -34,7 +34,7 @@ export const windowSealingJob: RenovationJob = {
   materials: [
     {
       id: 'window-gasket',
-      name: 'Uszczelka silikonowa EPDM (do skrzydła)',
+      name: 'Uszczelka okienna EPDM (do skrzydła)',
       unit: 'm',
       formulaKey: 'skirting',
       pricePerUnit: 2.5,
@@ -54,14 +54,14 @@ export const windowSealingJob: RenovationJob = {
     },
     {
       id: 'silicone-window',
-      name: 'Silikon akrylowy biały (do wnętrza)',
-      brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
+      name: 'Akryl uszczelniający biały (malowalny, do wnętrza)',
+      brand: 'Soudal Akryl 280 ml biały (referencja)',
       unit: 'kartusze',
       formulaKey: 'silicone',
-      pricePerUnit: 18,
+      pricePerUnit: 13,
       category: 'uszczelnienie',
-      notes: 'Do uszczelnienia styku ościeżnicy ze ścianą od wewnątrz.',
-      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
+      notes: 'Do uszczelnienia styku ościeżnicy ze ścianą od wewnątrz. Po utwardzeniu można malować.',
+      shopPrices: SHARED_SHOP_PRICES.acrylicSealant280ml,
     },
     {
       id: 'window-tape',
@@ -85,11 +85,11 @@ export const windowSealingJob: RenovationJob = {
     { step: 2, title: 'Wyczyść rowki', description: 'Dokładnie oczyść rowki z brudu i resztek kleju. Suche rowki lepiej trzymają uszczelkę.', durationMin: 20 },
     { step: 3, title: 'Wciśnij nowe uszczelki', description: 'Wciśnij uszczelkę EPDM w rowek skrzydła. Zacznij od narożnika, idź dookoła. Tnie się nożem w narożnikach pod 45°.', tip: 'Uszczelka powinna być lekko dłuższa niż obwód — skrócisz ją po oklejeniu.', durationMin: 60 },
     { step: 4, title: 'Uszczelnij ościeżnicę', description: 'Jeśli ościeżnica jest luźna lub widać szczeliny — napełnij pianką montażową. Taśma rozprężna jest trwalsza.', tip: 'Pianki jest zawsze za mało na początku — nadmiar po wyschnięciu łatwo zetrzeć.', durationMin: 45 },
-    { step: 5, title: 'Uszczelnij krawędzie od wewnątrz', description: 'Wypełnij styk ościeżnicy ze ścianą akrylowym silikonem od środka pomieszczenia.', durationMin: 30 },
+    { step: 5, title: 'Uszczelnij krawędzie od wewnątrz', description: 'Wypełnij styk ościeżnicy ze ścianą akrylem uszczelniającym od środka pomieszczenia.', durationMin: 30 },
   ],
   dryingTimes: [
     { afterStep: 4, description: 'Pianka montażowa — ekspansja i twardnienie', minHours: 2, maxHours: 8 },
-    { afterStep: 5, description: 'Silikon akrylowy', minHours: 12, maxHours: 24 },
+    { afterStep: 5, description: 'Akryl uszczelniający', minHours: 12, maxHours: 24 },
   ],
   commonMistakes: ['Zła grubość uszczelki — za cienka nie uszczelnia, za gruba uniemożliwia zamknięcie okna', 'Za dużo pianki — rozepchnie ościeżnicę', 'Brak silikonowania od wewnątrz — mostki termiczne pozostają'],
   qualityChecklist: [
@@ -103,10 +103,10 @@ export const windowSealingJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Uszczelnienie okien — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Uszczelnianie okien. Sprawdź, jak i czym uszczelnić okna — poradnik',
+      url:         'https://muratordom.pl/remont-domu/eksploatacja-domu/sposoby-uszczelniania-okien-aa-haki-daQv-Z5cu.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -156,7 +156,7 @@ export const windowsillJob: RenovationJob = {
     },
     {
       id: 'windowsill-silicone',
-      name: 'Silikon akrylowy biały (uszczelnienie krawędzi)',
+      name: 'Silikon biały (uszczelnienie krawędzi parapetu)',
       brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
       unit: 'kartusze',
       formula: formulaBuilder.fixed(1),
@@ -198,10 +198,10 @@ export const windowsillJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Montaż parapetu wewnętrznego — krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Wybór parapetów wewnętrznych. Dostępne materiały i ceny styczeń 2026',
+      url:         'https://muratordom.pl/budowa/okna/wybor-parapetow-wewnetrznych-dostepne-materialy-i-ceny-styczen-2026-aa-fHxp-375S-m1b8.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -235,14 +235,14 @@ export const paintFramesJob: RenovationJob = {
     { id: 'coats', label: 'Liczba warstw lakieru', unit: 'warstwy', inputType: 'count',
       placeholder: '2', defaultValue: 2, min: 1, max: 3 },
     { id: 'coveragePerLiter', label: 'Wydajność lakieru (m²/litr)', unit: 'm²/litr',
-      inputType: 'coverage', placeholder: '8', defaultValue: 8, min: 5, max: 15, required: false },
+      inputType: 'coverage', placeholder: '10', defaultValue: 10, min: 8, max: 18, required: false },
   ],
   materials: [
     {
       id: 'frame-paint',
       name: 'Lakier do drewna/farba do ościeżnic (satynowy)',
       unit: 'litr',
-      formula: formulaBuilder.coverage(8),
+      formula: formulaBuilder.coverage(10),
       wasteFactor: 1.1,
       roundingRule: 'ceil',
       packaging: { size: 1, label: 'puszka 1 L', purchaseUnit: 'puszka' },
@@ -325,10 +325,10 @@ export const paintFramesJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Malowanie ościeżnic — instrukcja',
-      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      title:       'Jak pomalować drzwi — przewodnik krok po kroku',
+      url:         'https://www.castorama.pl/jak-pomalowac-drzwi-przewodnik-krok-po-kroku-ins-106826.html',
       domain:      'castorama.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -360,12 +360,12 @@ export const trimFinishingJob: RenovationJob = {
     {
       id: 'door-trim',
       name: 'Maskownica/obudowa ościeżnicy MDF',
-      brand: 'Arbiton Laque MDF 60 mm × 2.4 m biała (referencja, można użyć takich samych listew co przypodłogowe)',
+      brand: 'Arbiton Laque MDF 60 mm × 2,42 m biała (referencja, można użyć takich samych listew co przypodłogowe)',
       unit: 'm.b.',
       formulaKey: 'byPerimeter',
       wasteFactor: 1.1,
       roundingRule: 'ceil',
-      packaging: { size: 2.2, label: 'listwa 2,2 m', purchaseUnit: 'listwa' },
+      packaging: { size: 2.42, label: 'listwa 2,42 m', purchaseUnit: 'listwa' },
       pricePerUnit: 12,
       category: 'maskownice',
       notes: 'Nakrywka zakrywa szczelinę między ościeżnicą a ścianą.',
@@ -390,15 +390,15 @@ export const trimFinishingJob: RenovationJob = {
     },
     {
       id: 'trim-silicone',
-      name: 'Silikon akrylowy (do malowania)',
-      brand: 'Soudal Silikon sanitarny 280 ml (referencja)',
+      name: 'Akryl malarski (uszczelniacz akrylowy)',
+      brand: 'Soudal Akryl 280 ml biały (referencja)',
       unit: 'kartusze',
       formula: formulaBuilder.fixed(1),
-      pricePerUnit: 15,
+      pricePerUnit: 13,
       category: 'uszczelnienie',
       optional: true,
       notes: 'Do malowania — możesz pomalować razem ze ścianą.',
-      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
+      shopPrices: SHARED_SHOP_PRICES.acrylicSealant280ml,
     },
   ],
   tools: [
@@ -412,10 +412,10 @@ export const trimFinishingJob: RenovationJob = {
     { step: 2, title: 'Przytnij maskownice', description: 'Ukośnicą tnij pod 45° na narożnikach. Sprawdzaj dopasowanie przed klejeniem.', durationMin: 25 },
     { step: 3, title: 'Przyklejaj', description: 'Klejem montażowym (zygzakiem na spód listwy) przyklejaj maskownicę do ościeżnicy i ściany. Dociskaj przez 30 sekund.', durationMin: 40 },
     { step: 4, title: 'Montuj próg', description: 'Próg wkręć lub przyklej do podłogi przy drzwiach. Wyrównaj z poziomem podłogi z obu stron.', durationMin: 15 },
-    { step: 5, title: 'Silikonuj i maluj', description: 'Silikonem akrylowym wypełnij szczelinę między maskownicą a ścianą. Po wyschnięciu możesz pomalować razem ze ścianą.', durationMin: 20 },
+    { step: 5, title: 'Uszczelnij akrylem i maluj', description: 'Akrylem malarskim wypełnij szczelinę między maskownicą a ścianą. Po wyschnięciu możesz pomalować razem ze ścianą.', durationMin: 20 },
   ],
   dryingTimes: [
-    { afterStep: 5, description: 'Silikon akrylowy przed malowaniem', minHours: 2, maxHours: 6 },
+    { afterStep: 5, description: 'Akryl przed malowaniem', minHours: 2, maxHours: 6 },
   ],
   commonMistakes: ['Złe cięcie 45° — widoczna szczelina w narożniku', 'Klejenie bez wyrównania — maskownica krzywa', 'Brak silikonowania — szczeliny widoczne przez farbę'],
   qualityChecklist: [
@@ -429,10 +429,10 @@ export const trimFinishingJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wykończenie ościeżnic i progów drzwiowych',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Montaż listew maskujących do drzwi: sprawdź, jak to zrobić',
+      url:         'https://www.pattex.pl/pomysly/montaz/montaz-listew-maskuj%C4%85cych-do-drzwi-sprawdz-jak-to-zrobic.html',
+      domain:      'pattex.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };

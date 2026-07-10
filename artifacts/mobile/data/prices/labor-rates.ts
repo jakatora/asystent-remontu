@@ -131,9 +131,9 @@ export const LABOR_RATES: readonly LaborRate[] = [
     source: 'https://ilekosztuje.eu/remont/ile-kosztuje-silikonowanie-akrylowanie-cena-za-mb/' },
 
   // ── Stolarka ─────────────────────────────────────────────────────────────
-  { key: 'window-install', workType: 'Montaż okna PVC (ciepły montaż)', unit: 'zl/szt',
+  { key: 'window-install', workType: 'Montaż okna PVC (ciepły montaż, za mb obwodu okna)', unit: 'zl/m.b.',
     priceMin: 180, priceMax: 290, region: 'average', verifiedAt: D,
-    source: 'https://oknoplast.com.pl/blog/ile-kosztuje-montaz-okien-cennik-robocizny/' },
+    source: 'https://oknoplast.com.pl/blog/ile-kosztuje-montaz-okien-cennik-robocizny-i-cieplego-montazu/' },
   { key: 'door-install', workType: 'Drzwi wewnętrzne z ościeżnicą regulowaną', unit: 'zl/szt',
     priceMin: 150, priceMax: 300, region: 'average', verifiedAt: D,
     source: 'https://thermopanel.pl/montaz-drzwi-wewnetrznych-cena' },

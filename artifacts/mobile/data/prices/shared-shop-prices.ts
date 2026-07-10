@@ -44,16 +44,18 @@ export const SHARED_SHOP_PRICES = {
   // ── Akcesoria malarskie ──────────────────────────────────────────────────
   /** Tesa Tasma malarska Standard 25mm × 50m (51023). */
   paintersTape25mm: [
-    { shop: 'castorama',   pricePLN: 4.2, url: 'https://www.castorama.pl/departments/ta-ma-papierowa-malarska-tesa-51023-25mm-50m-1-szt-/5903719436465_CAPL.prd',            verifiedAt: D },
+    { shop: 'castorama',   pricePLN: 13.7, url: 'https://www.castorama.pl/departments/ta-ma-papierowa-malarska-tesa-51023-25mm-50m-1-szt-/5903719436465_CAPL.prd',            verifiedAt: '2026-07-10' },
     { shop: 'leroyMerlin', pricePLN: 7.29, url: 'https://www.leroymerlin.pl/artykuly-gospodarcze/tasmy-folie-ochronne/tasmy-malarskie/tasma-malarska-blue-25-mm-x-50-m,p573830,l2047.html', verifiedAt: D },
     { shop: 'obi',         pricePLN: 16.99, url: 'https://www.obi.pl/tasmy-klejace/tesa-tasma-malarska-standard-50-m-x-25-mm/p/4153656',                                       verifiedAt: D },
     { shop: 'bricomarche', url: 'https://www.bricomarche.pl/tasma-malarska-maskujaca-standard-50m-25mm-bezowa-tesa',                                          verifiedAt: D },
   ] as const satisfies readonly ShopPrice[],
 
-  /** Folia malarska/ochronna 4 × 5 m LDPE — uniwersalna do podłogi i mebli. */
+  /** Folia malarska/ochronna 4 × 5 m LDPE — uniwersalna do podłogi i mebli.
+   *  UWAGA: pozycja Leroy Merlin to folia Dexter Medium 4 × 3 m (12 m², nie 20 m²) —
+   *  najbliższy odpowiednik w ofercie LM; porównując ceny uwzględnij mniejszą powierzchnię. */
   protectionFoil4x5m: [
     { shop: 'castorama',   pricePLN: 7, url: 'https://www.castorama.pl/folia-ochronna-opp-cienka-4-x-5-m/5059340989747_CAPL.prd',                                          verifiedAt: D },
-    { shop: 'leroyMerlin', pricePLN: 7, url: 'https://www.leroymerlin.pl/produkty/folia-malarska-medium-4-x-3-m-dexter-82261733.html',                                     verifiedAt: D },
+    { shop: 'leroyMerlin', pricePLN: 7, url: 'https://www.leroymerlin.pl/produkty/folia-malarska-medium-4-x-3-m-dexter-82261733.html',                                     verifiedAt: D }, // 4 × 3 m (12 m²)
     { shop: 'obi',         pricePLN: 7, url: 'https://www.obi.pl/zabezpieczenie-przed-malowaniem/lux-folia-malarska-przezroczysta-4-m-x-5-m/p/1397900',                    verifiedAt: D },
     { shop: 'bricomarche', pricePLN: 6, url: 'https://www.bricomarche.pl/folia-malarska-standard-4-x-5-m-go-on',                                                           verifiedAt: D },
   ] as const satisfies readonly ShopPrice[],
@@ -135,9 +137,9 @@ export const SHARED_SHOP_PRICES = {
     { shop: 'bricomarche', pricePLN: 65, url: 'https://www.bricomarche.pl/panel-podlogowy-vinyl-kronostep-spc-5-mm-klasa-32-salt-mine',                                         verifiedAt: D },
   ] as const satisfies readonly ShopPrice[],
 
-  /** Panele laminowane AC4 8 mm (Kronospan / Swiss Krono / Kronoplus) — cena za paczkę. */
+  /** Panele laminowane AC4 8 mm (Kronospan / Swiss Krono / Kronoplus) — cena za m². */
   laminateFloorAc4_8mm: [
-    { shop: 'castorama',   pricePLN: 40, url: 'https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-26-m2/5907555428158_CAPL.prd',                      verifiedAt: D },
+    { shop: 'castorama',   pricePLN: 34.98, url: 'https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-26-m2/5907555428158_CAPL.prd',                      verifiedAt: '2026-07-10' },
     { shop: 'leroyMerlin', pricePLN: 36, url: 'https://www.leroymerlin.pl/produkty/panele-podlogowe-laminowane-ac4-8-mm-kronospan-dab-harris-82665066.html',                    verifiedAt: D },
     { shop: 'obi',         pricePLN: 37, url: 'https://www.obi.pl/panele-podlogowe/swiss-krono-panel-podlogowy-dab-arniston-8-mm-ac4/p/7100456',                                verifiedAt: D },
     { shop: 'bricomarche', pricePLN: 27, url: 'https://www.bricomarche.pl/panel-podlogowy-dab-szary-8-mm-ac4-kronoplus',                                                        verifiedAt: D },
@@ -160,6 +162,12 @@ export const SHARED_SHOP_PRICES = {
     { shop: 'bricomarche', pricePLN: 17.99, url: 'https://www.bricomarche.pl/silikon-sanitarny-idealna-lazienka-280-ml-bialy-tytan-professional',                                  verifiedAt: D },
   ] as const satisfies readonly ShopPrice[],
 
+  /** Akryl uszczelniający (malowalny) biały 280 ml — Soudal Akryl. Do styku ościeżnica/listwa–ściana wewnątrz; NIE mylić z silikonem sanitarnym (niemalowalny). */
+  acrylicSealant280ml: [
+    { shop: 'castorama',   pricePLN: 8.78, url: 'https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd',                                       verifiedAt: '2026-07-10' },
+    { shop: 'bricomarche', url: 'https://www.bricomarche.pl/akryl-bialy-280-ml-soudal',                                                           verifiedAt: '2026-07-10' },
+  ] as const satisfies readonly ShopPrice[],
+
   // ── Narzędzia ────────────────────────────────────────────────────────────
   /** Paca stalowa nierdzewna ok. 50-68 cm — do szpachlowania ścian. */
   steelTrowel50cm: [
@@ -172,8 +180,8 @@ export const SHARED_SHOP_PRICES = {
   /** Młotowiertarka SDS-plus 700-800 W — Makita HR2470 / Bosch GBH 2-26 / odpowiednik. */
   sdsHammerDrill: [
     { shop: 'castorama',   pricePLN: 1198, url: 'https://www.castorama.pl/departments/m-otowiertarka-bosch-gbh-2-26-dfr-sds-plus-800w-2-7j-walizka-1-szt/3165140353366_CAPL.prd', verifiedAt: D },
-    { shop: 'leroyMerlin', pricePLN: 1189, url: 'https://www.leroymerlin.pl/elektronarzedzia/wiertarki-wkretarki-mloty-udarowe/mlotowiertarki-mloty-udarowe/mlotowiertarka-hr2470-780-w-makita,p71179,l166.html', verifiedAt: D },
-    { shop: 'obi',         pricePLN: 1199, url: 'https://www.obi.pl/mloty-udarowe/makita-mlotowiertarka-hr2470-780-w/p/5061957',                                                  verifiedAt: D },
+    { shop: 'leroyMerlin', pricePLN: 549, url: 'https://www.leroymerlin.pl/elektronarzedzia/wiertarki-wkretarki-mloty-udarowe/mlotowiertarki-mloty-udarowe/mlotowiertarka-hr2470-780-w-makita,p71179,l166.html', verifiedAt: '2026-07-10' },
+    { shop: 'obi',         pricePLN: 549, url: 'https://www.obi.pl/mloty-udarowe/makita-mlotowiertarka-hr2470-780-w/p/5061957',                                                  verifiedAt: '2026-07-10' },
     { shop: 'bricomarche', url: 'https://www.bricomarche.pl/mlotowiertarka-sds-plus-800-w-walizka-graphite',                                                      verifiedAt: D },
   ] as const satisfies readonly ShopPrice[],
 } as const;

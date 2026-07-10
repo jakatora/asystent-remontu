@@ -58,12 +58,11 @@ export const backsplashTilesJob: RenovationJob = {
     {
       id: 'grout-kitchen',
       name: 'Fuga epoksydowa (odporna na tłuszcz)',
-      brand: 'Atlas Fuga ceramiczna 2 kg (referencja, idealnie epoksyd w kuchni)',
+      brand: 'Mapei Kerapoxy 2 kg (referencja, ok. 125–135 zł/op.)',
       unit: 'kg',
       formulaKey: 'grout',
-      pricePerUnit: 30,
-      notes: 'Fuga epoksydowa jest łatwiejsza do czyszczenia w kuchni.',
-      shopPrices: SHARED_SHOP_PRICES.tileGroutAtlas2kg,
+      pricePerUnit: 60,
+      notes: 'Fuga epoksydowa jest łatwiejsza do czyszczenia w kuchni. Sprzedawana w opakowaniach 2 kg.',
     },
     {
       id: 'silicone-kitchen',
@@ -140,10 +139,10 @@ export const backsplashTilesJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Glazura w kuchni — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Układanie płytek ceramicznych. Jak się przygotować do układania glazury i jak kleić płytki?',
+      url:         'https://muratordom.pl/wnetrza/lazienka/ukladanie-plytek-ceramicznych-jak-sie-przygotowac-do-ukladania-glazury-i-jak-kleic-plytki-aa-ycSQ-MceR-Pu2X.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -258,10 +257,10 @@ export const countertopInstallJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Montaż blatu kuchennego — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      title:       'Montaż blatu kuchennego krok po kroku',
+      url:         'https://www.castorama.pl/montaz-blatu-kuchennego-krok-po-kroku-ins-98425.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -305,19 +304,18 @@ export const kitchenCabinetPaintJob: RenovationJob = {
       name: 'Grunt do trudnych powierzchni (np. Zinsser BIN)',
       unit: 'litr',
       formulaKey: 'constant',
-      pricePerUnit: 60,
+      pricePerUnit: 150,
       notes: '1 litr wystarczy na ok. 8–10 frontów. Kluczowy dla przyczepności farby na MDF.',
     },
     {
       id: 'cabinet-paint',
       name: 'Farba do szafek kuchennych (emalia satynowa)',
-      brand: 'Magnat Ceramic C45 5 L lub specjalistyczna emalia akrylowa (referencja)',
+      brand: 'Magnat Emalia Ceramiczna (satynowa) lub V33 Renowacja Kuchnia i meble kuchenne (referencja)',
       unit: 'litr',
       formulaKey: 'faucets',
       wasteFactor: 0.15,
-      pricePerUnit: 55,
-      notes: 'Ok. 0,12–0,15 L/front na warstwę (2 warstwy). Emalia satynowa lub półmat jest standardem.',
-      shopPrices: SHARED_SHOP_PRICES.paintMagnatCeramic5L,
+      pricePerUnit: 120,
+      notes: 'Ok. 0,12–0,15 L/front na warstwę (2 warstwy). Emalia satynowa lub półmat jest standardem. Emalie do mebli sprzedawane są zwykle w opakowaniach 0,5–0,75 L.',
     },
     {
       id: 'sandpaper-cabinet',
@@ -365,10 +363,10 @@ export const kitchenCabinetPaintJob: RenovationJob = {
   verifiedAt: '2026-06-09',
   verifiedSources: [
     {
-      title:       'Malowanie szafek kuchennych — instrukcja',
-      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      title:       'Jak przemalować meble kuchenne? Praktyczny przewodnik krok po kroku',
+      url:         'https://www.castorama.pl/jak-przemalowac-meble-kuchenne-praktyczny-przewodnik-krok-po-kroku-ins-99244.html',
       domain:      'castorama.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -445,10 +443,10 @@ export const kitchenHardwareJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana uchwytów w kuchni — szybki refresh',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Uchwyty do szafek kuchennych – jak je prawidłowo zamontować?',
+      url:         'https://www.castorama.pl/uchwyty-do-szafek-kuchennych-jak-je-prawidlowo-zamontowac-ins-264.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -550,10 +548,10 @@ export const kitchenHoodJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Montaż okapu kuchennego — przewodnik',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Montaż okapu w kuchni: instrukcja krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/kuchnia/montaz-okapu-w-kuchni-instrukcja-krok-po-kroku-aa-21JU-nxXg-ZgA1.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };

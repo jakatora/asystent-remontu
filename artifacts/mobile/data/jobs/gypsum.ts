@@ -56,7 +56,7 @@ export const gypsumWallJob: RenovationJob = {
       brand: 'Norgips / Knauf GKB typ A 1200×2600 mm (referencja)',
       unit: 'm²',
       formulaKey: 'mesh',
-      pricePerUnit: 22,
+      pricePerUnit: 10,
       wasteFactor: 1.1,
       notes: 'W pomieszczeniach mokrych używaj GKB zielony (odporny na wilgoć).',
       shopPrices: SHARED_SHOP_PRICES.gypsumBoardGKB125,
@@ -83,7 +83,7 @@ export const gypsumWallJob: RenovationJob = {
       name: 'Wełna mineralna 50mm (izolacja)',
       unit: 'm²',
       formulaKey: 'floorPanels',
-      pricePerUnit: 28,
+      pricePerUnit: 18,
       notes: 'Wypełnienie poprawia izolację akustyczną ściany.',
     },
     {
@@ -105,11 +105,11 @@ export const gypsumWallJob: RenovationJob = {
     {
       id: 'gk-filler',
       name: 'Masa do spoin (szpachla GK)',
-      brand: 'Knauf MP Finish 20 kg lub odpowiednik (referencja)',
+      brand: 'Knauf Fugenfüller Leicht 25 kg lub Knauf Uniflott (masa do spoin, referencja)',
       unit: 'kg',
       formulaKey: 'filler',
-      pricePerUnit: 2.5,
-      shopPrices: SHARED_SHOP_PRICES.fillerKnaufMpFinish20kg,
+      pricePerUnit: 2,
+      notes: 'Do spoinowania z taśmą papierową użyj Fugenfüller; Uniflott służy głównie do spoin bez taśmy (krawędzie HRAK). Gładź (np. Knauf MP Finish) to osobny produkt do wykańczania całej powierzchni.',
     },
     {
       id: 'dowels-uw',
@@ -186,13 +186,13 @@ export const gypsumWallJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['gips-karton', 'ściana', 'działowa', 'GK', 'sucha zabudowa'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Płyty gipsowo-kartonowe i sucha zabudowa — przewodnik',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Jak zbudować ściankę działową z płyt karton-gipsowych? Instrukcja krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/jak-zbudowac-scianke-dzialowa-z-plyt-karton-gipsowych-instrukcja-krok-po-kroku-aa-r9ti-3g81-bEkw.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -252,7 +252,7 @@ export const gypsumCeilingJob: RenovationJob = {
       brand: 'Norgips / Knauf GKB typ A 1200×2600 mm (referencja)',
       unit: 'm²',
       formulaKey: 'floorPanels',
-      pricePerUnit: 22,
+      pricePerUnit: 10,
       wasteFactor: 1.12,
       shopPrices: SHARED_SHOP_PRICES.gypsumBoardGKB125,
     },
@@ -290,11 +290,11 @@ export const gypsumCeilingJob: RenovationJob = {
     {
       id: 'ceiling-filler',
       name: 'Masa do spoin',
-      brand: 'Knauf MP Finish 20 kg lub odpowiednik (referencja)',
+      brand: 'Knauf Fugenfüller Leicht 25 kg lub Knauf Uniflott (masa do spoin, referencja)',
       unit: 'kg',
       formulaKey: 'filler',
-      pricePerUnit: 2.5,
-      shopPrices: SHARED_SHOP_PRICES.fillerKnaufMpFinish20kg,
+      pricePerUnit: 2,
+      notes: 'Do spoinowania z taśmą papierową użyj Fugenfüller; Uniflott służy głównie do spoin bez taśmy (krawędzie HRAK).',
     },
     {
       id: 'ceiling-tape',
@@ -364,13 +364,13 @@ export const gypsumCeilingJob: RenovationJob = {
   hireProfessionalReason: 'Sufit podwieszany wymaga precyzji i doświadczenia — błędy są kosztowne.',
   tags: ['gips-karton', 'sufit', 'podwieszany', 'GK', 'sucha zabudowa'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Sufit podwieszany z GK — instrukcja montażu',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Sufit podwieszany z płyt gipsowo-kartonowych. Montaż sufitu powieszanego krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/sufit-podwieszany-z-plyt-gipsowo-kartonowych-aa-vCXe-mpMU-n7rt.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };

@@ -145,8 +145,9 @@ const wallpaperFormula: FormulaFn = (m, waste) => {
 };
 
 const wallpaperGlueFormula: FormulaFn = (m, _waste) => {
-  // 1 kg covers ~40 m²
-  return Math.ceil(area(m) / 40);
+  // Klej w proszku: opakowanie 200 g wystarcza na ok. 20–25 m² tapety,
+  // czyli ~110 m²/kg. Engine zaokrągla do pełnych opakowań przez packaging.
+  return round1(area(m) / 110);
 };
 
 const skirtingFormula: FormulaFn = (m, waste) => {

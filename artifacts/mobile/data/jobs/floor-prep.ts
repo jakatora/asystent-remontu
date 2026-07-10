@@ -15,7 +15,7 @@ export const selfLevelingJob: RenovationJob = {
   warningRules: [
     {
       condition: 'always',
-      message: 'Masa samopoziomująca musi być wylana szybko i sprawnie — twardnieje w 20–30 minut. Pracuj z pomocnikiem.',
+      message: 'Masa samopoziomująca musi być wylana szybko i sprawnie — nadaje się do obróbki ok. 30–40 minut od wymieszania (sprawdź czas na worku). Pracuj z pomocnikiem.',
       level: 'warning',
     },
     {
@@ -52,12 +52,12 @@ export const selfLevelingJob: RenovationJob = {
   materials: [
     {
       id: 'leveling-compound',
-      name: 'Masa samopoziomująca (np. Ceresit CN 68)',
+      name: 'Masa samopoziomująca cementowa (np. Ceresit CN 69 lub CN 72)',
       unit: 'kg',
       formulaKey: 'byThickness',
       pricePerUnit: 1.8,
       wasteFactor: 1.1,
-      notes: 'Zużycie: ok. 1,6 kg/m²/mm. Np. 10 m² × 5mm = 80 kg = 4 worki po 20 kg.',
+      notes: 'Zużycie: ok. 1,6 kg/m²/mm. Np. 10 m² × 5 mm ≈ 80 kg = 4 worki po 25 kg (z zapasem; masy Ceresit pakowane po 25 kg).',
     },
     {
       id: 'primer-leveling',
@@ -88,9 +88,9 @@ export const selfLevelingJob: RenovationJob = {
   instructions: [
     { step: 1, title: 'Przygotuj podłoże', description: 'Odkurz i zetrzyj pył. Zasklep duże pęknięcia i ubytki zaprawą naprawczą. Przyklejaj taśmę dylatacyjną przy ścianach.', durationMin: 60 },
     { step: 2, title: 'Zagruntuj', description: 'Nanieś grunt pędzlem lub wałkiem na całą powierzchnię. Odczekaj czas schnięcia (min. 30–60 minut). Na bardzo chłonne podłoże nałóż 2 warstwy.', durationMin: 60 },
-    { step: 3, title: 'Przygotuj masę i wylewaj', description: 'Wymieszaj masę z wodą wg proporcji na worku (mieszadłem elektrycznym). Wylej i rozprowadź rakielem. Pracuj szybko — ok. 20 minut do stwardnienia.', warning: 'Temperatura pracy: +5°C do +25°C. Poniżej masy nie wiążą.', durationMin: 60 },
+    { step: 3, title: 'Przygotuj masę i wylewaj', description: 'Wymieszaj masę z wodą wg proporcji na worku (mieszadłem elektrycznym). Wylej i rozprowadź rakielem. Pracuj szybko — masa nadaje się do obróbki ok. 30–40 minut od wymieszania.', warning: 'Temperatura pracy: +5°C do +25°C. Poniżej masy nie wiążą.', durationMin: 60 },
     { step: 4, title: 'Odpowietrzaj wałkiem', description: 'Natychmiast po wylaniu przewalcuj wałkiem kolczastym — usuwa pęcherze powietrza. Przejedź całą powierzchnię w obu kierunkach.', durationMin: 20 },
-    { step: 5, title: 'Czas schnięcia', description: 'Masa twardnieje w ciągu 1–2h. Do chodzenia można po 4–6h. Do układania podłogi: 24h (panele) lub 72h (płytki).', durationMin: 5 },
+    { step: 5, title: 'Czas schnięcia', description: 'Masa twardnieje w ciągu 1–2h. Do chodzenia można po 4–6h. Do układania podłogi: zależnie od grubości wylewki — do 5 mm: po ok. 24 h, 5–10 mm: po ok. 3 dniach, 10–20 mm: po ok. 7 dniach (wg karty technicznej masy). Przed panelami i szczelnymi wykładzinami (PCW, linoleum) zbadaj wilgotność posadzki metodą CM: dla mas anhydrytowych ≤ 0,5% (przy ogrzewaniu podłogowym ≤ 0,3%), dla cementowych ≤ 2%.', durationMin: 5 },
   ],
   commonMistakes: [
     'Brak gruntowania — masa odkleja się od podłogi',
@@ -109,10 +109,10 @@ export const selfLevelingJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wylewka samopoziomująca — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jak wyrównać podłogę: wybierz odpowiedni produkt',
+      url:         'https://www.ceresit.pl/porady/how-to-level-a-floor.html',
+      domain:      'ceresit.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -216,10 +216,10 @@ export const epoxFloorJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Farba epoksydowa do garażu — przewodnik',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Epoksydowa (żywiczna) posadzka w garażu',
+      url:         'https://www.castorama.pl/epoksydowa-zywiczna-posadzka-w-garazu-ins-229.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -322,10 +322,10 @@ export const parquetSandingJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Cyklinowanie parkietu krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Jak odnowić parkiet: cyklinowanie podłogi z desek. Renowacja, olejowanie i lakierowanie drewna',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/renowacja-parkietu-i-podlogi-z-desek-cyklinowanie-i-lakierowanie-drewna-aa-GXwL-g5Pf-5eyC.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };

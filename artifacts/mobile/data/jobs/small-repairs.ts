@@ -101,10 +101,10 @@ export const doorPaintingJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Malowanie drzwi wewnętrznych — instrukcja',
-      url:         'https://www.castorama.pl/pomaluj-sciany-jak-profesjonalista-malowanie-krok-po-kroku-ins-1119211.html',
+      title:       'Jak pomalować drzwi – przewodnik krok po kroku',
+      url:         'https://www.castorama.pl/jak-pomalowac-drzwi-przewodnik-krok-po-kroku-ins-106826.html',
       domain:      'castorama.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -181,10 +181,10 @@ export const doorHandleReplaceJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana klamki i wkładki — krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Rozstaw klamki — standardowe wymiary (72/85/90/92 mm)',
+      url:         'https://klamkiexpert.pl/pl/i/Rozstaw-klamki/22',
+      domain:      'klamkiexpert.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -262,10 +262,10 @@ export const doorSealReplaceJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana uszczelek w oknach i drzwiach',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Wymiana uszczelek w oknach: jak to zrobić',
+      url:         'https://muratordom.pl/remont-domu/eksploatacja-domu/wymiana-uszczelek-w-oknach-jak-to-zrobic-aa-snA2-W6Xa-uPwq.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -333,10 +333,10 @@ export const toiletSeatReplaceJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana deski sedesowej',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jak wymienić deskę sedesową',
+      url:         'https://wd40.pl/poradniki/wymiana-deski-sedesowej/',
+      domain:      'wd40.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -413,10 +413,10 @@ export const sinkTrapReplaceJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana syfonu — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Wymiana syfonu w umywalce. Jak to prawidłowo zrobić?',
+      url:         'https://muratordom.pl/wnetrza/lazienka/wymiana-syfonu-pod-umywalka-aa-MKZE-CFCH-6VkG.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -452,7 +452,7 @@ export const drainUnblockJob: RenovationJob = {
       unit: 'butelka',
       formulaKey: 'constant',
       pricePerUnit: 15,
-      notes: 'Np. Krect Żel lub odpowiednik. Do włosów — preparaty enzymatyczne działają bezpieczniej.',
+      notes: 'Np. Kret Żel lub odpowiednik. Do włosów — preparaty enzymatyczne działają bezpieczniej.',
     },
     {
       id: 'rubber-plunger',
@@ -488,10 +488,10 @@ export const drainUnblockJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Udrażnianie zatkanego odpływu',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Zatkany zlew, brodzik lub wanna – szybkie sposoby na udrożnienie odpływu bez hydraulika',
+      url:         'https://muratordom.pl/instalacje/instalacja-kanalizacyjna/zatkany-zlew-brodzik-lub-wanna-szybkie-sposoby-na-udroznienie-odplywu-bez-hydraulika-aa-t3cC-bzFV-5W63.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -578,10 +578,10 @@ export const lightFixtureJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana lampy sufitowej — instrukcja bezpieczeństwa',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jak podłączyć lampę sufitową? Instrukcja montażu',
+      url:         'https://rawlplug.com/pl/pl/blog/jak-podlaczyc-lampe-sufitowa-instrukcja-montazu',
+      domain:      'rawlplug.com',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -648,10 +648,10 @@ export const socketFrameReplaceJob: RenovationJob = {
   verifiedAt: '2026-06-10',
   verifiedSources: [
     {
-      title:       'Wymiana ramek gniazdek i włączników',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Ospel — Ramka pojedyncza, seria Aria (katalog produktowy)',
+      url:         'https://www.ospel.pl/ramka-pojedyncza-8',
+      domain:      'ospel.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -746,13 +746,13 @@ export const siliconeRefreshJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['silikon', 'fuga', 'łazienka', 'odświeżenie', 'uszczelnienie'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Wymiana silikonu w łazience',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jak wymienić silikon w łazience?',
+      url:         'https://www.soudal.pl/diy/aplikacje/jak-wymienic-silikon-w-lazience',
+      domain:      'soudal.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };

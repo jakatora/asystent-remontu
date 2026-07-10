@@ -81,13 +81,13 @@ export const underlayJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['podkład', 'panele', 'podłoga', 'folia'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Podkład pod panele — wybór i montaż',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Podkład pod panele podłogowe. Jaki wybrać i jak go ułożyć?',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/podklad-pod-panele-podlogowe-jak-jak-ulozyc-aa-7Qfz-RZ25-NCML.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -199,13 +199,13 @@ export const laminateJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['panele', 'laminat', 'podłoga', 'click'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Jak ułożyć panele laminowane — krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Układanie paneli podłogowych: instrukcja (krok po kroku) ze zdjęciami',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/ukladanie-paneli-podlogowych-instrukcja-krok-po-kroku-zdjecia-aa-JkZR-Au91-AFsC.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -296,13 +296,13 @@ export const vinylJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['vinyl', 'LVT', 'SPC', 'podłoga', 'wodoodporny'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Panele winylowe SPC/LVT — instrukcja montażu',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Układanie paneli winylowych - jak układać panele winylowe na klej i na klik? Czy warto je zastosować w mieszkaniu?',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/ukladanie-paneli-winylowych-jak-ukladac-panele-winylowe-na-klej-i-na-klik-czy-warto-je-zastosowac-w-mieszkaniu-aa-UPqQ-45wi-Tars.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -353,7 +353,7 @@ export const vinylGluedJob: RenovationJob = {
       wasteFactor: 1.05,
       roundingRule: 'ceil',
       packaging: { size: 4, label: 'wiadro 4 kg', purchaseUnit: 'wiadro' },
-      pricePerUnit: 45,
+      pricePerUnit: 20,
       category: 'klej',
       notes: 'Klej dyspersyjny. Nakładaj pacą zębatą i odczekaj czas otwarty (zazwyczaj 15 min).',
     },
@@ -406,13 +406,13 @@ export const vinylGluedJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['vinyl', 'wykładzina', 'klejona', 'podłoga'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Wykładzina winylowa klejona — montaż',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Montaż wykładziny PCV krok po kroku. Co musisz wiedzieć, zanim zaczniesz?',
+      url:         'https://komfort.pl/porady/jak-polozyc-wykladzine-pcv',
+      domain:      'komfort.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -472,7 +472,7 @@ export const floorTilesJob: RenovationJob = {
       wasteFactor: 1.1,
       roundingRule: 'ceil',
       packaging: { size: 25, label: 'worek 25 kg', purchaseUnit: 'worek' },
-      pricePerUnit: 5,
+      pricePerUnit: 3,
       category: 'klej',
       notes: 'C2TE lub C2S1 (elastyczny) — do podłóg ogrzewanych i łazienek.',
       shopPrices: SHARED_SHOP_PRICES.tileAdhesiveAtlasPlus25kg,
@@ -508,7 +508,7 @@ export const floorTilesJob: RenovationJob = {
       formulaKey: 'primer',
       wasteFactor: 1.0,
       packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 20,
+      pricePerUnit: 10,
       category: 'grunt',
       shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
     },
@@ -546,13 +546,13 @@ export const floorTilesJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['płytki', 'ceramika', 'podłoga', 'klej', 'fuga'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Jak ułożyć płytki podłogowe — przewodnik',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Układanie płytek podłogowych: jak przyklejać płytki? Wybór materiałów i poradnik wykonawczy',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/ukladanie-plytek-podlogowych-jak-przyklejac-plytki-wybor-materialow-i-poradnik-wykonawczy-aa-3wjT-5ZEK-6CMU.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -590,9 +590,9 @@ export const skirtingBoardsJob: RenovationJob = {
       wasteFactor: 1.1,
       roundingRule: 'ceil',
       packaging: { size: 2.4, label: 'listwa 2,4 m', purchaseUnit: 'listwa' },
-      pricePerUnit: 8,
+      pricePerUnit: 14,
       category: 'listwy',
-      notes: 'MDF — malowalna, drewno-podobna. PVC — wodoodporna, biała.',
+      notes: 'MDF — malowalna, drewno-podobna (11–18 zł/mb za 60 mm). PVC — wodoodporna, biała, tańsza (od ok. 8 zł/mb).',
       shopPrices: SHARED_SHOP_PRICES.baseboardMDF60mm,
     },
     {
@@ -645,13 +645,13 @@ export const skirtingBoardsJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['listwy', 'przypodłogowe', 'MDF', 'PVC', 'wykończenie'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Listwy przypodłogowe — montaż krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Montaż listew przypodłogowych krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/montaz-listew-przypodlogowych-krok-po-kroku-aa-WF7w-fTkS-6P9h.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
   ],
 };

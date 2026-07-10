@@ -98,13 +98,13 @@ export const shelfMountingJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['półka', 'montaż', 'wiercenie', 'wspornik'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Jak zamontować półkę na ścianie',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jak samodzielnie powiesić półkę na ścianie? Nasze porady!',
+      url:         'https://www.bricomarche.pl/jak-samodzielnie-powiesic-polke-na-scianie-nasze-porady',
+      domain:      'bricomarche.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -187,13 +187,13 @@ export const curtainRodJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['karnisz', 'roleta', 'żaluzja', 'okno', 'zasłony'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Montaż karniszy i rolet — przewodnik',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Jak samodzielnie zamontować karnisz? Instrukcja krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/jak-samodzielnie-zamontowac-karnisz-instrukcja-krok-po-kroku-aa-MriU-sbDe-D9Ap.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -284,13 +284,13 @@ export const bathroomAccessoriesJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['łazienka', 'akcesoria', 'wieszak', 'uchwyt', 'montaż'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Akcesoria łazienkowe — montaż na płytkach',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Wiercenie w płytkach ceramicznych. Jak zrobić dziurę w glazurze?',
+      url:         'https://muratordom.pl/remont-domu/odnawianie-wnetrz/wiercenie-w-plytkach-ceramicznych-jak-zrobic-dziure-w-glazurze-aa-nr19-sqNY-t4eJ.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -381,13 +381,13 @@ export const mirrorInstallJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['lustro', 'montaż', 'łazienka', 'dekoracja'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Jak zamontować lustro w łazience',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Klej do luster 47A',
+      url:         'https://www.soudal.pl/diy/produkty/kleje/kleje-montazowe/klej-do-luster-47a',
+      domain:      'soudal.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -463,13 +463,13 @@ export const furnitureAssemblyJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['meble', 'montaż', 'szafa', 'komoda', 'ikea'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Montaż mebli z paczki — najlepsze praktyki',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Zadbajmy razem o bezpieczniejsze domy — przymocuj to!',
+      url:         'https://www.ikea.com/pl/pl/customer-service/przymocuj-to-pub59cda1a1/',
+      domain:      'ikea.com',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -547,13 +547,13 @@ export const pictureHangingJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['obraz', 'dekoracja', 'ściana', 'haczyk', 'wieszanie'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Wieszanie obrazów — porady',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Jak wieszać obrazy na ścianie g-k? Instrukcja krok po kroku',
+      url:         'https://muratordom.pl/wnetrza/dekoracje/jak-wieszac-obrazy-na-scianie-g-k-instrukcja-krok-po-kroku-aa-Y5f1-hbQ6-MVqj.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };

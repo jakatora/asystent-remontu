@@ -114,7 +114,7 @@ export const paintJob: RenovationJob = {
         label:        'puszka 5 L',
         purchaseUnit: 'puszka',
       },
-      pricePerUnit: 25,
+      pricePerUnit: 40,
       category:     'farba',
       notes:        'Wybierz farbę zmywalną klasy A lub B. Do kuchni/łazienki — zmywalna łatwa. Referencyjny produkt: Magnat Ceramic C45 5L (biały).',
       shopPrices: [
@@ -138,7 +138,7 @@ export const paintJob: RenovationJob = {
         label:        'pojemnik 5 L',
         purchaseUnit: 'pojemnik',
       },
-      pricePerUnit: 18,
+      pricePerUnit: 9,
       category:     'grunt',
       optional:     true,
       notes:        'Wymagany na: nowych ścianach, naprawianych miejscach, ścianach po zeskrobaniu, pylących/kredujących/bardzo chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie NIE jest konieczny.',
@@ -553,13 +553,13 @@ export const paintCeilingJob: RenovationJob = {
     {
       id:           'ceiling-paint',
       name:         'Farba do sufitów (biała, matowa)',
-      brand:        'Magnat Ceramic C45 5 L lub Dekoral Akrylit Sufitowy 5 L (referencja)',
+      brand:        'Magnat Ceramic C45 5 L (referencja)',
       unit:         'litr',
       formula:      formulaBuilder.coverage(10),
       wasteFactor:  1.05,
       roundingRule: 'ceil',
       packaging: { size: 5, label: 'puszka 5 L', purchaseUnit: 'puszka' },
-      pricePerUnit: 22,
+      pricePerUnit: 40,
       category:     'farba',
       notes:        'Farba sufitowa jest gęstsza i mniej się leje podczas malowania.',
       shopPrices: [
@@ -578,7 +578,7 @@ export const paintCeilingJob: RenovationJob = {
       wasteFactor:  1.0,
       roundingRule: 'ceil',
       packaging: { size: 5, label: 'pojemnik 5 L', purchaseUnit: 'pojemnik' },
-      pricePerUnit: 18,
+      pricePerUnit: 14,
       category:     'grunt',
       optional:     true,
       shopPrices: [
@@ -743,13 +743,13 @@ export const paintCeilingJob: RenovationJob = {
   tags: ['malowanie', 'sufit', 'farba', 'interior'],
 
   // ── Content provenance ────────────────────────────────────────────────────
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Jak pomalować sufit krok po kroku',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Poradnik malowania sufitu: wybór farby i najlepsze techniki aplikacji, unikane smug i niedoskonałości',
+      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/poradnik-malowania-sufitu-wybor-farby-i-najlepsze-techniki-aplikacji-unikane-smug-i-niedoskonalosci-aa-pFHe-ejbF-aNHn.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-09',
+      consultedAt: '2026-07-10',
     },
     {
       title:       'Malowanie ścian — instrukcja dla początkujących',

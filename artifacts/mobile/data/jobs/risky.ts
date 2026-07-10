@@ -86,13 +86,13 @@ export const minorPlumbingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Wymiana kranu lub uszczelek — instrukcja',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Montaż baterii umywalkowej krok po kroku',
+      url:         'https://www.castorama.pl/montaz-baterii-umywalkowej-krok-po-kroku-ins-88251.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -175,13 +175,13 @@ export const electricalOverviewJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Elektryka jest niebezpieczna. Jeśli nie masz doświadczenia — zadzwoń do elektryka. Koszt wizyty jest mały w porównaniu z ryzykiem.',
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Wymiana gniazdka — instrukcja bezpieczeństwa',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Wymiana gniazdka elektrycznego – krok po kroku',
+      url:         'https://www.castorama.pl/wymiana-gniazdka-elektrycznego-krok-po-kroku-ins-66092.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -198,7 +198,7 @@ export const gasInstallationJob: RenovationJob = {
   warningRules: [
     {
       condition: 'always',
-      message: 'UWAGA: Wszelkie prace przy instalacji gazowej są NIELEGALNE bez uprawnień SEP kategoria G lub gazowych uprawnień budowlanych.',
+      message: 'UWAGA: Wszelkie prace przy instalacji gazowej są NIELEGALNE bez uprawnień gazowych SEP grupy 3 (G3) lub gazowych uprawnień budowlanych.',
       level: 'danger',
     },
     {
@@ -228,7 +228,7 @@ export const gasInstallationJob: RenovationJob = {
     {
       step: 1,
       title: 'Zadzwoń do uprawnionego instalatora gazowego',
-      description: 'Szukaj firmy z uprawnieniami do instalacji gazowych (certyfikat SEP G2 lub G3). Poproś o numer uprawnień przed podpisaniem umowy.',
+      description: 'Szukaj firmy z uprawnieniami gazowymi SEP grupy 3 (G3) — monter wykonujący prace musi mieć ważne świadectwo kwalifikacyjne G3 w zakresie E (eksploatacja, obejmuje montaż), a osoba nadzorująca w zakresie D (dozór). Świadectwo jest ważne 5 lat — poproś o jego numer i datę ważności przed podpisaniem umowy.',
       durationMin: 30,
       warning: 'Nie zlecaj prac osobom bez formalnych uprawnień — to nielegalne i śmiertelnie niebezpieczne.',
     },
@@ -266,13 +266,13 @@ export const gasInstallationJob: RenovationJob = {
   hireProfessionalReason: 'Praca przy gazie wymaga uprawnień. Nie istnieje alternatywa DIY — to warunek prawny i kwestia życia.',
   tags: ['gaz', 'instalacja', 'gazownik', 'niebezpieczne', 'uprawnienia'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Instalacja gazowa — wymagania prawne',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Czym są uprawnienia G1, G2, G3 (SEP) oraz czym od siebie się różnią?',
+      url:         'https://fentiks.pl/czym-sa-uprawnienia-g1-g2-g3/',
+      domain:      'fentiks.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -333,7 +333,7 @@ export const structuralDemolitionJob: RenovationJob = {
     {
       step: 3,
       title: 'Zgłoś lub uzyskaj pozwolenie na budowę',
-      description: 'Modyfikacje ścian nośnych wymagają często zgłoszenia lub pozwolenia na budowę w urzędzie gminy. Konstruktor powie Ci co jest potrzebne w Twoim przypadku.',
+      description: 'Ingerencja w ścianę nośną (wyburzenie, otwór, poszerzenie) to przebudowa elementu konstrukcyjnego i zawsze wymaga formalności oraz projektu od konstruktora z uprawnieniami. W domu jednorodzinnym zwykle wystarczy zgłoszenie z projektem (art. 29 ust. 3 pkt 1 lit. a Prawa budowlanego), o ile przebudowa nie zwiększa obszaru oddziaływania poza działkę; w mieszkaniu w bloku i innych budynkach wymagane jest pozwolenie na budowę. Dokumenty składa się w starostwie powiatowym lub urzędzie miasta na prawach powiatu (nie w urzędzie gminy). Prace bez formalności grożą postępowaniem nadzoru budowlanego i wysoką grzywną.',
       durationMin: 60,
     },
     {
@@ -357,13 +357,13 @@ export const structuralDemolitionJob: RenovationJob = {
   hireProfessionalReason: 'To prace wymagające projektu budowlanego i uprawnień. Nie ma opcji DIY — ryzyko śmierci i odpowiedzialności prawnej.',
   tags: ['ściana nośna', 'wyburzenie', 'konstruktor', 'nadproże', 'niebezpieczne'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Wyburzanie ścian nośnych — wymagania prawne',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Jaka kara za wyburzenie ściany nośnej bez pozwolenia? Dlaczego potrzebne pozwolenie na wyburzenie ściany nośnej?',
+      url:         'https://muratordom.pl/prawo/formalnosci-budowlane/jaka-kara-za-wyburzenie-sciany-nosnej-bez-pozwolenia-dlaczego-potrzebne-pozwolenie-na-wyburzenie-sciany-nosnej-wzor-aa-HXY1-64pr-DacU.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -447,13 +447,13 @@ export const mainElectricalJob: RenovationJob = {
   hireProfessionalReason: 'Tablica elektryczna i instalacja to praca dla uprawnionego elektryka. Protokół pomiarów jest wymagany prawnie.',
   tags: ['elektryka', 'tablica', 'instalacja', 'SEP', 'niebezpieczne'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Instalacja elektryczna — wymagania prawne SEP',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jakie uprawnienia do wykonywania instalacji elektrycznych w 2026?',
+      url:         'https://ite.org.pl/jakie-uprawnienia-do-wykonywania-instalacji-elektrycznych',
+      domain:      'ite.org.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -492,7 +492,7 @@ export const roofRepairJob: RenovationJob = {
       unit: 'szt.',
       formulaKey: 'constant',
       pricePerUnit: 300,
-      notes: 'Minimalne zabezpieczenie przy samodzielnej pracy na dachu. Punkt kotwienia musi wytrzymać min. 10 kN.',
+      notes: 'Minimalne zabezpieczenie przy samodzielnej pracy na dachu. Punkt kotwiczenia musi spełniać normę PN-EN 795 — wytrzymałość statyczna min. 12 kN (urządzenia metalowe; dla tekstylnych min. 18 kN).',
     },
     {
       id: 'roof-bitumen',
@@ -546,13 +546,13 @@ export const roofRepairJob: RenovationJob = {
   hireProfessionalReason: 'Praca na dachu to praca na wysokości. Wymaga doświadczenia, sprzętu i odwagi. Dekarz ma to wszystko.',
   tags: ['dach', 'dekarz', 'wysokość', 'naprawa', 'niebezpieczne'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Naprawy dachowe — kiedy dekarz',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Stałe systemy asekuracji — rodzaje wg normy EN 795',
+      url:         'https://alpinizmprzemyslowy.pl/stale-systemy-asekuracji/rodzaje-wg-normy-en-795/',
+      domain:      'alpinizmprzemyslowy.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -579,7 +579,7 @@ export const chimneyWorkJob: RenovationJob = {
     },
     {
       condition: 'always',
-      message: 'Czyszczenie komina należy przeprowadzać min. raz w roku (przy piecu na drewno — częściej). To wymóg prawny i warunek ubezpieczenia.',
+      message: 'Czyszczenie komina to wymóg prawny (rozp. MSWiA z 7.06.2010): przy paliwie stałym (drewno, węgiel, pellet) co 3 miesiące, przy gazie i paliwie płynnym co 6 miesięcy, przewody wentylacyjne min. raz w roku. To także warunek ubezpieczenia.',
       level: 'warning',
     },
   ],
@@ -630,20 +630,20 @@ export const chimneyWorkJob: RenovationJob = {
   ],
   qualityChecklist: [
     { id: 'q1', description: 'Posiadam działający czujnik tlenku węgla' },
-    { id: 'q2', description: 'Komin był czyszczony w ciągu ostatnich 12 miesięcy' },
+    { id: 'q2', description: 'Komin jest czyszczony z wymaganą częstotliwością (paliwo stałe co 3 mies., gaz/paliwo płynne co 6 mies.)' },
     { id: 'q3', description: 'Posiadam protokół od kominiarza' },
   ],
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Komin czyści i naprawia kominiarz. Czujnik czadu chroni Cię na co dzień. Nie negocjuj z tlenkiem węgla.',
   tags: ['komin', 'kominiarz', 'czad', 'piec', 'bezpieczeństwo'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Przeglądy kominów — kiedy kominiarz',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      title:       'Jak często należy czyścić komin?',
+      url:         'https://mkzary.pl/abc-kominow/jak-czesto-nalezy-czyscic-komin/',
+      domain:      'mkzary.pl',
+      consultedAt: '2026-07-10',
     },
   ],
 };
@@ -716,13 +716,13 @@ export const highRiskJob: RenovationJob = {
   hireProfessionalRecommended: true,
   hireProfessionalReason: 'Te prace są objęte wymogami prawnymi i mogą być wykonywane tylko przez uprawnione osoby.',
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-07-10',
   verifiedSources: [
     {
-      title:       'Prace wysokiego ryzyka — wymagania prawne',
-      url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/przed-malowaniem-scian-gruntowanie-scian-przygotowanie-podloza-aa-pJxT-ScvS-WMKm.html',
+      title:       'Legalny remont',
+      url:         'https://muratordom.pl/prawo/formalnosci-budowlane/legalny-remont-aa-eins-FND3-aLuR.html',
       domain:      'muratordom.pl',
-      consultedAt: '2026-06-10',
+      consultedAt: '2026-07-10',
     },
   ],
 };
