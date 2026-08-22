@@ -24,9 +24,12 @@ import type {
   EstimateLine,
   EstimateOptions,
   ItemQuery,
+  OptimalBasketStoreLine,
   ProjectEstimate,
   ResolvedLine,
   StageEstimate,
+  StoreBasket,
+  StoreComparison,
   UnresolvedReason,
 } from "./types";
 
@@ -168,6 +171,7 @@ async function estimateLine(
     ...base,
     product,
     cheapestOffer,
+    offers,
     packageSize,
     packagesNeeded,
     lineCost,
@@ -212,19 +216,34 @@ export async function estimateStageCost(
  * Zaokrąglenie w górę raz na zsumowanej ilości jest zawsze <= sumie zaokrągleń
  * per-etap (ceil(a+b) <= ceil(a)+ceil(b)), więc `savingsGrosze` >= 0.
  */
-export function consolidateProject(
-  stages: readonly StageEstimate[],
-): ConsolidatedShoppingList {
-  interface Group {
-    product: ResolvedLine["product"];
-    cheapestOffer: CheapestOffer;
-    packageSize: number;
-    unit: string | null;
-    totalQuantity: number;
-    perStageCostGrosze: number;
-  }
-  const groups = new Map<string, Group>();
+/**
+ * Grupa rozpoznanych pozycji JEDNEGO produktu zebranych ze wszystkich etapów.
+ * Wspólna baza dla konsolidacji (consolidateProject) i porównania sklepów
+ * (compareStores) — grupowanie po `product.id` liczymy raz i tak samo.
+ */
+interface ProductGroup {
+  product: ResolvedLine["product"];
+  /** Najtańsza oferta produktu (bez filtra sklepu) — koszyk optymalny. */
+  cheapestOffer: CheapestOffer;
+  /** Wszystkie oferty produktu (do liczenia kosztu per sklep). */
+  offers: readonly ProductOffer[];
+  /** Wielkość opakowania najtańszej oferty (do zaokrąglenia koszyka optymalnego). */
+  packageSize: number;
+  unit: string | null;
+  totalQuantity: number;
+  perStageCostGrosze: number;
+}
 
+/**
+ * Grupuje rozpoznane pozycje WSZYSTKICH etapów po `product.id`, sumując ilości
+ * natywne. Oferty/najtańsza oferta/wielkość opakowania są deterministyczne dla
+ * produktu, więc bierzemy je z pierwszej rozpoznanej pozycji. Kolejność wyniku =
+ * pierwsze wystąpienie produktu. Czysta funkcja — bez I/O.
+ */
+function groupProjectByProduct(
+  stages: readonly StageEstimate[],
+): ProductGroup[] {
+  const groups = new Map<string, ProductGroup>();
   for (const stage of stages) {
     for (const line of stage.lines) {
       if (!line.resolved) continue;
@@ -238,6 +257,7 @@ export function consolidateProject(
         groups.set(key, {
           product: line.product,
           cheapestOffer: line.cheapestOffer,
+          offers: line.offers,
           packageSize: line.packageSize,
           unit: line.unit,
           totalQuantity: line.quantity,
@@ -246,9 +266,16 @@ export function consolidateProject(
       }
     }
   }
+  return [...groups.values()];
+}
+
+export function consolidateProject(
+  stages: readonly StageEstimate[],
+): ConsolidatedShoppingList {
+  const groups = groupProjectByProduct(stages);
 
   const lines: ConsolidatedLine[] = [];
-  for (const g of groups.values()) {
+  for (const g of groups) {
     const packagesNeeded = computePackagesNeeded(g.totalQuantity, g.packageSize);
     const lineCostGrosze = packagesNeeded * g.cheapestOffer.unitPriceGrosze;
     lines.push({
@@ -275,10 +302,107 @@ export function consolidateProject(
 }
 
 /**
+ * Porównanie sklepów dla skonsolidowanej listy zakupowej całego remontu.
+ *
+ * Dla KAŻDEGO sklepu występującego w ofertach liczy koszt kupienia u niego całej
+ * listy: per produkt bierze jego NAJTAŃSZĄ ofertę W TYM sklepie, zaokrągla
+ * zsumowaną ilość w górę do opakowania tego sklepu i sumuje. Produkty bez oferty
+ * w danym sklepie są niepokryte (`missingCount`) i NIE wchodzą do sumy.
+ *
+ * Koszyk optymalny = suma najtańszych ofert per produkt (globalnie, bez filtra
+ * sklepu) — liczony tą samą metodą co `consolidateProject`, więc równy
+ * `consolidatedTotalGrosze`. `optimalByStore` pokazuje, z którego sklepu pochodzi
+ * każda najtańsza pozycja.
+ *
+ * Czysta funkcja — bez I/O (oferty są już na rozpoznanych pozycjach etapów).
+ * Wszystko w GROSZACH (integer).
+ */
+export function compareStores(
+  stages: readonly StageEstimate[],
+): StoreComparison {
+  const groups = groupProjectByProduct(stages);
+
+  // --- Koszyk optymalny (najtańsze per produkt, spójny z konsolidacją) --------
+  let optimalBasketGrosze = 0;
+  const optimalByStoreMap = new Map<string, OptimalBasketStoreLine>();
+  for (const g of groups) {
+    const packages = computePackagesNeeded(g.totalQuantity, g.packageSize);
+    const cost = packages * g.cheapestOffer.unitPriceGrosze;
+    optimalBasketGrosze += cost;
+    const store = g.cheapestOffer.store;
+    const acc = optimalByStoreMap.get(store);
+    if (acc) {
+      acc.totalGrosze += cost;
+      acc.itemCount += 1;
+    } else {
+      optimalByStoreMap.set(store, { store, totalGrosze: cost, itemCount: 1 });
+    }
+  }
+  const optimalByStore = [...optimalByStoreMap.values()].sort(
+    (a, b) => a.totalGrosze - b.totalGrosze || a.store.localeCompare(b.store),
+  );
+
+  // --- Zbiór wszystkich sklepów występujących w ofertach ----------------------
+  const storeNames = new Set<string>();
+  for (const g of groups) {
+    for (const offer of g.offers) storeNames.add(offer.store);
+  }
+
+  // --- Koszt CAŁEJ listy per sklep --------------------------------------------
+  const stores: StoreBasket[] = [];
+  for (const store of storeNames) {
+    let totalGrosze = 0;
+    let coveredCount = 0;
+    const missingProductIds: string[] = [];
+    for (const g of groups) {
+      const cheapestHere = selectCheapestOffer(g.offers, store);
+      if (!cheapestHere) {
+        missingProductIds.push(g.product.id);
+        continue;
+      }
+      const size = resolvePackageSize(cheapestHere.offer, g.product);
+      const packages = computePackagesNeeded(g.totalQuantity, size);
+      totalGrosze += packages * cheapestHere.unitPriceGrosze;
+      coveredCount += 1;
+    }
+    stores.push({
+      store,
+      totalGrosze,
+      coveredCount,
+      missingCount: missingProductIds.length,
+      missingProductIds,
+    });
+  }
+  // Sortowanie rosnąco po sumie; remis: więcej pokrytych wyżej, potem nazwa.
+  stores.sort(
+    (a, b) =>
+      a.totalGrosze - b.totalGrosze ||
+      b.coveredCount - a.coveredCount ||
+      a.store.localeCompare(b.store),
+  );
+
+  // Najtańszy sklep z PEŁNYM pokryciem (lista jest już posortowana rosnąco).
+  const cheapestFullStore =
+    stores.find((s) => s.missingCount === 0 && groups.length > 0) ?? null;
+  const singleStoreExtraGrosze = cheapestFullStore
+    ? cheapestFullStore.totalGrosze - optimalBasketGrosze
+    : null;
+
+  return {
+    productCount: groups.length,
+    optimalBasketGrosze,
+    optimalByStore,
+    stores,
+    cheapestFullStore,
+    singleStoreExtraGrosze,
+  };
+}
+
+/**
  * Sumuje już wyliczone etapy do wyceny całego remontu. Czysta agregacja — nie
- * odpytuje DB (etapy policz wcześniej przez estimateStageCost). Dokłada dwie
- * warstwy: koszt per-etap (`projectTotalGrosze`) ORAZ skonsolidowaną listę
- * zakupową całego remontu (`consolidated`, patrz consolidateProject).
+ * odpytuje DB (etapy policz wcześniej przez estimateStageCost). Dokłada trzy
+ * warstwy: koszt per-etap (`projectTotalGrosze`), skonsolidowaną listę zakupową
+ * (`consolidated`) ORAZ porównanie sklepów (`storeComparison`).
  */
 export function estimateProjectCost(
   stages: readonly StageEstimate[],
@@ -291,5 +415,6 @@ export function estimateProjectCost(
     stages: [...stages],
     projectTotalGrosze,
     consolidated: consolidateProject(stages),
+    storeComparison: compareStores(stages),
   };
 }

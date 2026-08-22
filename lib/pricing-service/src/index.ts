@@ -4,6 +4,7 @@ export {
   estimateStageCost,
   estimateProjectCost,
   consolidateProject,
+  compareStores,
   selectCheapestOffer,
   resolvePackageSize,
   computePackagesNeeded,

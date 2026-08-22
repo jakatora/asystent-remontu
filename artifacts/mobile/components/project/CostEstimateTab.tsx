@@ -26,6 +26,8 @@ import {
   type SerializedStage,
   type SerializedLine,
   type SerializedConsolidatedLine,
+  type SerializedStoreComparison,
+  type SerializedStoreBasket,
   type SerializedPriceStats,
   type UnresolvedReason,
 } from '@/features/pricing';
@@ -126,6 +128,7 @@ function EstimateResult({
   const consolidated = data.consolidated;
   const consolidatedLines = consolidated?.lines ?? [];
   const savingsGrosze = consolidated?.savingsGrosze ?? 0;
+  const storeComparison = data.storeComparison;
 
   if (lines.length === 0) {
     return <InfoState icon="package" text={t('cmp.CostEstimate.empty')} />;
@@ -188,6 +191,9 @@ function EstimateResult({
           </Txt>
         </View>
       )}
+
+      {/* „Gdzie kupić": najtańszy sklep na całość vs koszyk optymalny (rozbity) */}
+      {storeComparison && <WhereToBuySection cmp={storeComparison} />}
 
       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
         {t('cmp.CostEstimate.disclaimer')}
@@ -316,6 +322,223 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
           gtin={product.gtin}
         />
       )}
+    </View>
+  );
+}
+
+/**
+ * Sekcja „Gdzie kupić": porównanie sklepów dla całego remontu. Pokazuje najtańszy
+ * pojedynczy sklep na całość (albo notę, gdy żaden nie ma kompletu), koszt całości
+ * w każdym sklepie z pokryciem, koszyk optymalny (najtaniej per produkt) z
+ * rozbiciem po sklepach oraz baner „w jednym sklepie: +X". Nic nie liczy — kwoty
+ * (grosze) pochodzą z backendu, tu tylko formatowanie na PLN.
+ */
+function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
+  const { t } = useLanguage();
+  if (cmp.productCount === 0 || cmp.stores.length === 0) return null;
+
+  const full = cmp.cheapestFullStore;
+  const extra = cmp.singleStoreExtraGrosze;
+
+  return (
+    <View style={{ gap: 8 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <Feather name="map-pin" size={16} color={Colors.primary} />
+        <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>
+          {t('cmp.CostEstimate.whereToBuyTitle')}
+        </Txt>
+      </View>
+      <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
+        {t('cmp.CostEstimate.whereToBuyHint')}
+      </Txt>
+
+      {/* Najtańszy sklep na całość (pełne pokrycie) albo nota, gdy brak kompletu */}
+      {full ? (
+        <View
+          style={{
+            backgroundColor: Colors.surface,
+            borderRadius: 12,
+            borderWidth: 1,
+            borderColor: Colors.border,
+            padding: 12,
+            gap: 4,
+          }}
+        >
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+            <View style={{ flex: 1 }}>
+              <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
+                {t('cmp.CostEstimate.cheapestStoreLabel')}
+              </Txt>
+              <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>
+                {full.store}
+              </Txt>
+            </View>
+            <Txt w="bold" style={{ fontSize: 18, color: Colors.primary }}>
+              {formatGrosze(full.totalGrosze)}
+            </Txt>
+          </View>
+        </View>
+      ) : (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+            padding: 12,
+            borderRadius: 12,
+            backgroundColor: Colors.warningBg,
+            borderWidth: 1,
+            borderColor: '#FDE68A',
+          }}
+        >
+          <Feather name="info" size={16} color={Colors.warning} />
+          <Txt style={{ flex: 1, fontSize: 12, color: Colors.text }}>
+            {t('cmp.CostEstimate.noFullStore')}
+          </Txt>
+        </View>
+      )}
+
+      {/* Koszt całości w każdym sklepie (rosnąco) + pokrycie */}
+      <View
+        style={{
+          backgroundColor: Colors.surface,
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: Colors.border,
+          overflow: 'hidden',
+        }}
+      >
+        <View style={{ padding: 10, paddingBottom: 6 }}>
+          <Txt w="medium" style={{ fontSize: 12, color: Colors.textSecondary }}>
+            {t('cmp.CostEstimate.allStoresLabel')}
+          </Txt>
+        </View>
+        {cmp.stores.map((s) => (
+          <StoreBasketRow key={s.store} basket={s} productCount={cmp.productCount} />
+        ))}
+      </View>
+
+      {/* Koszyk optymalny (najtaniej per produkt) + rozbicie po sklepach */}
+      <View
+        style={{
+          backgroundColor: Colors.primaryBg,
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: Colors.border,
+          padding: 12,
+          gap: 4,
+        }}
+      >
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+          <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.primaryDark }}>
+            {t('cmp.CostEstimate.optimalBasketLabel')}
+          </Txt>
+          <Txt w="bold" style={{ fontSize: 16, color: Colors.primary }}>
+            {formatGrosze(cmp.optimalBasketGrosze)}
+          </Txt>
+        </View>
+        <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+          {t('cmp.CostEstimate.optimalBasketHint')}
+        </Txt>
+        {cmp.optimalByStore.map((s) => (
+          <Txt key={s.store} style={{ fontSize: 12, color: Colors.textSecondary }}>
+            {t('cmp.CostEstimate.optimalStoreLine', {
+              store: s.store,
+              amount: formatGrosze(s.totalGrosze),
+              count: s.itemCount,
+            })}
+          </Txt>
+        ))}
+      </View>
+
+      {/* Baner: ile więcej kosztuje kupno wszystkiego w jednym sklepie */}
+      {full && extra !== null && extra > 0 && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+            padding: 12,
+            borderRadius: 12,
+            backgroundColor: Colors.surfaceAlt,
+            borderWidth: 1,
+            borderColor: Colors.border,
+          }}
+        >
+          <Feather name="trending-up" size={18} color={Colors.textSecondary} />
+          <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.text }}>
+            {t('cmp.CostEstimate.singleStoreExtra', {
+              store: full.store,
+              amount: formatGrosze(extra),
+            })}
+          </Txt>
+        </View>
+      )}
+      {full && extra !== null && extra <= 0 && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+            padding: 12,
+            borderRadius: 12,
+            backgroundColor: Colors.successBg,
+            borderWidth: 1,
+            borderColor: Colors.success,
+          }}
+        >
+          <Feather name="check-circle" size={18} color={Colors.success} />
+          <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.success }}>
+            {t('cmp.CostEstimate.singleStoreNoExtra', { store: full.store })}
+          </Txt>
+        </View>
+      )}
+    </View>
+  );
+}
+
+/** Wiersz „koszt całości w jednym sklepie": nazwa + kwota + pokrycie (pokrywa X/Y). */
+function StoreBasketRow({
+  basket,
+  productCount,
+}: {
+  basket: SerializedStoreBasket;
+  productCount: number;
+}) {
+  const { t } = useLanguage();
+  const full = basket.missingCount === 0;
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: 10,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderTopWidth: 1,
+        borderTopColor: Colors.border,
+      }}
+    >
+      <View style={{ flex: 1, gap: 2 }}>
+        <Txt w="medium" style={{ fontSize: 13, color: Colors.text }}>
+          {basket.store}
+        </Txt>
+        <Txt
+          style={{
+            fontSize: 11,
+            color: full ? Colors.textMuted : Colors.warning,
+          }}
+        >
+          {t('cmp.CostEstimate.storeCoverage', {
+            covered: basket.coveredCount,
+            total: productCount,
+          })}
+        </Txt>
+      </View>
+      <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>
+        {formatGrosze(basket.totalGrosze)}
+      </Txt>
     </View>
   );
 }

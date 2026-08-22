@@ -5,6 +5,7 @@ import type { Database } from "@workspace/db/repositories";
 import type { Product, ProductOffer } from "@workspace/db/schema";
 
 import {
+  compareStores,
   computePackagesNeeded,
   consolidateProject,
   estimateProjectCost,
@@ -352,6 +353,131 @@ test("consolidateProject: różne produkty -> brak scalania, zero oszczędności
   assert.equal(consolidated.lines.length, 2);
   assert.equal(consolidated.consolidatedTotalGrosze, 9100);
   assert.equal(consolidated.savingsGrosze, 0); // pełne opakowania, nic do zaokrąglenia
+});
+
+// --- porównanie sklepów (compareStores) -----------------------------------
+
+test("compareStores: koszt całości per sklep + koszyk optymalny + najtańszy pełny sklep", async () => {
+  const pA = product({ id: "A", ean: "1" });
+  const pB = product({ id: "B", ean: "2" });
+  const deps = makeDeps({
+    byCode: { "1": pA, "2": pB },
+    offers: {
+      A: [
+        offer({ productId: "A", store: "leroy-merlin", price: "80.00", packageSize: "5" }),
+        offer({ productId: "A", store: "castorama", price: "90.00", packageSize: "5" }),
+      ],
+      B: [
+        offer({ productId: "B", store: "leroy-merlin", price: "40.00", packageSize: "10" }),
+        offer({ productId: "B", store: "castorama", price: "30.00", packageSize: "10" }),
+      ],
+    },
+  });
+
+  const stage = await estimateStageCost(
+    db,
+    [
+      { query: { ean: "1" }, quantity: 12, unit: "l" }, // ceil(12/5)=3
+      { query: { ean: "2" }, quantity: 12, unit: "l" }, // ceil(12/10)=2
+    ],
+    {},
+    deps,
+  );
+
+  const cmp = compareStores([stage]);
+  assert.equal(cmp.productCount, 2);
+
+  // Koszyk optymalny: A najtaniej w leroy (80), B najtaniej w castorama (30).
+  // A: 3*8000=24000, B: 2*3000=6000 => 30000. Równy consolidatedTotalGrosze.
+  assert.equal(cmp.optimalBasketGrosze, 30000);
+  assert.equal(
+    cmp.optimalBasketGrosze,
+    consolidateProject([stage]).consolidatedTotalGrosze,
+  );
+
+  // Rozbicie koszyka optymalnego po sklepach (rosnąco po sumie).
+  assert.deepEqual(cmp.optimalByStore, [
+    { store: "castorama", totalGrosze: 6000, itemCount: 1 },
+    { store: "leroy-merlin", totalGrosze: 24000, itemCount: 1 },
+  ]);
+
+  // Koszt CAŁOŚCI per sklep, rosnąco:
+  //  leroy:     A 3*8000=24000 + B 2*4000=8000 = 32000
+  //  castorama: A 3*9000=27000 + B 2*3000=6000 = 33000
+  assert.equal(cmp.stores.length, 2);
+  assert.equal(cmp.stores[0]!.store, "leroy-merlin");
+  assert.equal(cmp.stores[0]!.totalGrosze, 32000);
+  assert.equal(cmp.stores[0]!.coveredCount, 2);
+  assert.equal(cmp.stores[0]!.missingCount, 0);
+  assert.equal(cmp.stores[1]!.store, "castorama");
+  assert.equal(cmp.stores[1]!.totalGrosze, 33000);
+
+  // Najtańszy pełny sklep = leroy (32000); różnica vs koszyk optymalny = 2000.
+  assert.equal(cmp.cheapestFullStore?.store, "leroy-merlin");
+  assert.equal(cmp.cheapestFullStore?.totalGrosze, 32000);
+  assert.equal(cmp.singleStoreExtraGrosze, 2000);
+});
+
+test("compareStores: sklep bez oferty na produkt => niepokryty i nie jest pełnym sklepem", async () => {
+  const pA = product({ id: "A", ean: "1" });
+  const pB = product({ id: "B", ean: "2" });
+  const pC = product({ id: "C", ean: "3" });
+  const deps = makeDeps({
+    byCode: { "1": pA, "2": pB, "3": pC },
+    offers: {
+      A: [
+        offer({ productId: "A", store: "leroy-merlin", price: "80.00", packageSize: "5" }),
+        offer({ productId: "A", store: "castorama", price: "90.00", packageSize: "5" }),
+      ],
+      B: [
+        offer({ productId: "B", store: "leroy-merlin", price: "40.00", packageSize: "10" }),
+        offer({ productId: "B", store: "castorama", price: "30.00", packageSize: "10" }),
+      ],
+      C: [offer({ productId: "C", store: "leroy-merlin", price: "10.00", packageSize: "1" })],
+    },
+  });
+
+  const stage = await estimateStageCost(
+    db,
+    [
+      { query: { ean: "1" }, quantity: 12, unit: "l" },
+      { query: { ean: "2" }, quantity: 12, unit: "l" },
+      { query: { ean: "3" }, quantity: 2, unit: "szt" }, // tylko w leroy
+    ],
+    {},
+    deps,
+  );
+
+  const cmp = compareStores([stage]);
+  const castorama = cmp.stores.find((s) => s.store === "castorama")!;
+  assert.equal(castorama.missingCount, 1);
+  assert.deepEqual(castorama.missingProductIds, ["C"]);
+  assert.equal(castorama.coveredCount, 2);
+
+  const leroy = cmp.stores.find((s) => s.store === "leroy-merlin")!;
+  assert.equal(leroy.missingCount, 0);
+  assert.equal(leroy.coveredCount, 3);
+
+  // Tylko leroy ma komplet => to jedyny pełny sklep.
+  assert.equal(cmp.cheapestFullStore?.store, "leroy-merlin");
+  // optimal: A leroy 24000 + B castorama 6000 + C leroy 2000 = 32000
+  assert.equal(cmp.optimalBasketGrosze, 32000);
+  // leroy total: 24000 + 8000 + 2000 = 34000 => extra 2000
+  assert.equal(cmp.cheapestFullStore?.totalGrosze, 34000);
+  assert.equal(cmp.singleStoreExtraGrosze, 2000);
+});
+
+test("compareStores: brak etapów -> puste porównanie", () => {
+  const cmp = compareStores([]);
+  assert.equal(cmp.productCount, 0);
+  assert.equal(cmp.optimalBasketGrosze, 0);
+  assert.deepEqual(cmp.optimalByStore, []);
+  assert.deepEqual(cmp.stores, []);
+  assert.equal(cmp.cheapestFullStore, null);
+  assert.equal(cmp.singleStoreExtraGrosze, null);
+
+  // estimateProjectCost dokłada storeComparison także dla pustego wejścia.
+  assert.deepEqual(estimateProjectCost([]).storeComparison, cmp);
 });
 
 test("consolidateProject: pozycje nierozpoznane nie wchodzą do konsolidacji", async () => {

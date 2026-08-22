@@ -118,6 +118,38 @@ test("serializeProject: skonsolidowana lista łączy ten sam produkt z 2 etapów
   assert.equal(out.consolidated.savingsGrosze, 8000); // kupując łącznie: 80 zł taniej
 });
 
+test("serializeProject: porównanie sklepów (koszt całości per sklep + najtańszy sklep + koszyk optymalny)", async () => {
+  const project = await estimateProjectCostFromCalculation(
+    noDb,
+    [paintJob],
+    {},
+    fakeDeps,
+  );
+  const out = serializeProject(project);
+  const cmp = out.storeComparison;
+
+  assert.equal(cmp.productCount, 1);
+
+  // Koszyk optymalny = najtańsza oferta p1 (Leroy 8000) * ceil(12/5)=3 = 24000.
+  assert.equal(cmp.optimalBasketGrosze, 24000);
+  assert.equal(cmp.optimalBasketGrosze, out.consolidated.consolidatedTotalGrosze);
+  assert.deepEqual(cmp.optimalByStore, [
+    { store: "Leroy Merlin", totalGrosze: 24000, itemCount: 1 },
+  ]);
+
+  // Koszt całości per sklep, rosnąco: Leroy 3*8000=24000, Castorama 3*10000=30000.
+  assert.equal(cmp.stores.length, 2);
+  assert.equal(cmp.stores[0]!.store, "Leroy Merlin");
+  assert.equal(cmp.stores[0]!.totalGrosze, 24000);
+  assert.equal(cmp.stores[0]!.missingCount, 0);
+  assert.equal(cmp.stores[1]!.store, "Castorama");
+  assert.equal(cmp.stores[1]!.totalGrosze, 30000);
+
+  // Oba sklepy mają komplet => najtańszy pełny = Leroy; różnica vs optymalny = 0.
+  assert.equal(cmp.cheapestFullStore?.store, "Leroy Merlin");
+  assert.equal(cmp.singleStoreExtraGrosze, 0);
+});
+
 test("serializePriceHistory: statystyki 1:1 (grosze) + punkty chronologiczne z ISO", () => {
   const stats = computeProductPriceStatsGrosze(historyRows, CURRENT_CHEAPEST_GROSZE);
   const out = serializePriceHistory(product, stats, historyRows);

@@ -16,6 +16,7 @@ import type {
   ProjectEstimate,
   StageEstimate,
   StageEstimateFromCalculation,
+  StoreComparison,
   UnresolvedReason,
 } from "@workspace/pricing-service";
 import {
@@ -103,12 +104,47 @@ export interface SerializedConsolidatedList {
   savingsGrosze: number;
 }
 
+/** Koszt kupienia całej listy w jednym sklepie (z niepokrytymi pozycjami). */
+export interface SerializedStoreBasket {
+  store: string;
+  /** Suma kosztów pozycji, które sklep pokrywa, w GROSZACH. */
+  totalGrosze: number;
+  coveredCount: number;
+  missingCount: number;
+  /** ID produktów niepokrytych w tym sklepie (puste przy pełnym pokryciu). */
+  missingProductIds: string[];
+}
+
+/** Fragment koszyka optymalnego pochodzący z jednego sklepu. */
+export interface SerializedOptimalStoreLine {
+  store: string;
+  /** Suma najtańszych pozycji z tego sklepu, w GROSZACH. */
+  totalGrosze: number;
+  itemCount: number;
+}
+
+/** Porównanie sklepów: koszt całości per sklep vs koszyk optymalny. */
+export interface SerializedStoreComparison {
+  productCount: number;
+  /** Koszyk optymalny = suma najtańszych ofert per produkt, w GROSZACH. */
+  optimalBasketGrosze: number;
+  optimalByStore: SerializedOptimalStoreLine[];
+  /** Koszt całości per sklep, rosnąco po totalGrosze. */
+  stores: SerializedStoreBasket[];
+  /** Najtańszy sklep z pełnym pokryciem, albo null. */
+  cheapestFullStore: SerializedStoreBasket | null;
+  /** Ile więcej niż koszyk optymalny kosztuje najtańszy pełny sklep (GROSZE), albo null. */
+  singleStoreExtraGrosze: number | null;
+}
+
 export interface SerializedProject {
   stages: SerializedStage[];
   /** Suma wszystkich etapów, w GROSZACH. */
   projectTotalGrosze: number;
   /** Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania łącznie). */
   consolidated: SerializedConsolidatedList;
+  /** Porównanie sklepów: koszt całości per sklep + koszyk optymalny + najtańszy sklep. */
+  storeComparison: SerializedStoreComparison;
 }
 
 /** Wspólna serializacja produktu do stabilnego kształtu HTTP (id + kody + opakowanie). */
@@ -209,6 +245,41 @@ function serializeConsolidated(
   };
 }
 
+/**
+ * Serializuje porównanie sklepów. Struktura jest już czysto liczbowa (grosze) —
+ * serializer przepisuje pola 1:1, nic nie licząc ani nie zaokrąglając.
+ */
+function serializeStoreComparison(
+  cmp: StoreComparison,
+): SerializedStoreComparison {
+  return {
+    productCount: cmp.productCount,
+    optimalBasketGrosze: cmp.optimalBasketGrosze,
+    optimalByStore: cmp.optimalByStore.map((s) => ({
+      store: s.store,
+      totalGrosze: s.totalGrosze,
+      itemCount: s.itemCount,
+    })),
+    stores: cmp.stores.map((s) => ({
+      store: s.store,
+      totalGrosze: s.totalGrosze,
+      coveredCount: s.coveredCount,
+      missingCount: s.missingCount,
+      missingProductIds: [...s.missingProductIds],
+    })),
+    cheapestFullStore: cmp.cheapestFullStore
+      ? {
+          store: cmp.cheapestFullStore.store,
+          totalGrosze: cmp.cheapestFullStore.totalGrosze,
+          coveredCount: cmp.cheapestFullStore.coveredCount,
+          missingCount: cmp.cheapestFullStore.missingCount,
+          missingProductIds: [...cmp.cheapestFullStore.missingProductIds],
+        }
+      : null,
+    singleStoreExtraGrosze: cmp.singleStoreExtraGrosze,
+  };
+}
+
 /** Serializuje wycenę całego remontu (suma etapów + skonsolidowana lista zakupowa). */
 export function serializeProject(
   project: ProjectEstimate & { stages: StageEstimateFromCalculation[] },
@@ -217,6 +288,7 @@ export function serializeProject(
     stages: project.stages.map(serializeStage),
     projectTotalGrosze: project.projectTotalGrosze,
     consolidated: serializeConsolidated(project.consolidated),
+    storeComparison: serializeStoreComparison(project.storeComparison),
   };
 }
 

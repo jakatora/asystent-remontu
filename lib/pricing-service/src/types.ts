@@ -64,6 +64,12 @@ export interface ResolvedLine {
   unit: string | null;
   product: Product;
   cheapestOffer: CheapestOffer;
+  /**
+   * WSZYSTKIE aktualne oferty dopasowanego produktu (nie tylko najtańsza).
+   * Zachowane, by policzyć koszt całości per sklep (patrz StoreComparison) bez
+   * ponownego odpytywania katalogu. Oferty są deterministyczne dla produktu.
+   */
+  offers: readonly ProductOffer[];
   /** Wielkość opakowania użyta do zaokrąglenia (>= 1). */
   packageSize: number;
   /** Liczba pełnych opakowań (zaokrąglenie w górę). */
@@ -134,6 +140,70 @@ export interface ConsolidatedShoppingList {
   savingsGrosze: number;
 }
 
+/**
+ * Koszt kupienia CAŁEJ skonsolidowanej listy zakupowej w JEDNYM sklepie.
+ * Materiały, których dany sklep nie ma (brak oferty z ceną), są liczone jako
+ * niepokryte (`missingCount`) i NIE wchodzą do `totalGrosze` — dzięki temu
+ * suma nigdy nie udaje kompletnej, gdy sklep nie ma wszystkiego.
+ */
+export interface StoreBasket {
+  /** Nazwa sklepu (klucz `product_offers.store`). */
+  store: string;
+  /** Suma kosztów pozycji, które ten sklep POKRYWA, w GROSZACH. */
+  totalGrosze: number;
+  /** Ile skonsolidowanych produktów sklep pokrywa (ma ofertę z ceną). */
+  coveredCount: number;
+  /** Ile produktów sklep NIE pokrywa (brak oferty z ceną). */
+  missingCount: number;
+  /** ID produktów niepokrytych w tym sklepie (puste przy pełnym pokryciu). */
+  missingProductIds: string[];
+}
+
+/**
+ * Fragment koszyka optymalnego pochodzący z jednego sklepu: suma tych pozycji,
+ * dla których najtańsza oferta produktu jest właśnie w tym sklepie.
+ */
+export interface OptimalBasketStoreLine {
+  store: string;
+  /** Suma najtańszych pozycji pochodzących z tego sklepu, w GROSZACH. */
+  totalGrosze: number;
+  /** Ile produktów kupujemy w tym sklepie w koszyku optymalnym. */
+  itemCount: number;
+}
+
+/**
+ * Porównanie sklepów dla skonsolidowanej listy całego remontu:
+ *  - `stores`: ile kosztuje kupno WSZYSTKIEGO w każdym sklepie z osobna,
+ *  - `optimalBasketGrosze`/`optimalByStore`: koszyk optymalny = suma najtańszych
+ *    ofert per produkt (== `ConsolidatedShoppingList.consolidatedTotalGrosze`)
+ *    z rozbiciem, z którego sklepu pochodzi każda pozycja,
+ *  - `cheapestFullStore` + `singleStoreExtraGrosze`: najtańszy sklep mający
+ *    WSZYSTKO i ile więcej kosztuje kupno w nim zamiast rozbicia na sklepy.
+ * Wszystkie kwoty w GROSZACH (integer). Czysta agregacja bez I/O.
+ */
+export interface StoreComparison {
+  /** Liczba skonsolidowanych produktów do kupienia (baza pokrycia). */
+  productCount: number;
+  /** Koszyk optymalny = suma najtańszych ofert per produkt, w GROSZACH. */
+  optimalBasketGrosze: number;
+  /** Rozbicie koszyka optymalnego po sklepach (skąd najtańsza pozycja). */
+  optimalByStore: OptimalBasketStoreLine[];
+  /** Koszt całości per sklep, POSORTOWANE rosnąco po `totalGrosze`. */
+  stores: StoreBasket[];
+  /**
+   * Najtańszy sklep pokrywający WSZYSTKIE produkty (missingCount === 0), albo
+   * null, gdy żaden pojedynczy sklep nie ma kompletu.
+   */
+  cheapestFullStore: StoreBasket | null;
+  /**
+   * Ile WIĘCEJ kosztuje kupno wszystkiego w najtańszym pełnym sklepie zamiast
+   * koszyka optymalnego = cheapestFullStore.totalGrosze - optimalBasketGrosze.
+   * null gdy brak sklepu z pełnym pokryciem. Może być teoretycznie ujemne przy
+   * różnych wielkościach opakowań, więc konsument decyduje o prezentacji.
+   */
+  singleStoreExtraGrosze: number | null;
+}
+
 /** Wynik wyceny całego remontu (suma etapów). */
 export interface ProjectEstimate {
   stages: StageEstimate[];
@@ -145,4 +215,9 @@ export interface ProjectEstimate {
    * inne zaokrąglenie), a `savingsGrosze` to różnica na korzyść kupującego.
    */
   consolidated: ConsolidatedShoppingList;
+  /**
+   * Porównanie sklepów: koszt całości per sklep + koszyk optymalny (najtańsze
+   * per produkt) + najtańszy sklep na całość i różnica vs rozbicie.
+   */
+  storeComparison: StoreComparison;
 }

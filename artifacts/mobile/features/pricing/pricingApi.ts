@@ -145,12 +145,51 @@ export interface SerializedConsolidatedList {
   savingsGrosze: number;
 }
 
+/** Koszt kupienia całej listy zakupowej w JEDNYM sklepie (z niepokrytymi). */
+export interface SerializedStoreBasket {
+  store: string;
+  /** Suma kosztów pozycji, które sklep pokrywa, w GROSZACH. */
+  totalGrosze: number;
+  /** Ile skonsolidowanych produktów sklep pokrywa. */
+  coveredCount: number;
+  /** Ile produktów sklep NIE pokrywa (brak oferty). */
+  missingCount: number;
+  /** ID produktów niepokrytych (puste przy pełnym pokryciu). */
+  missingProductIds: string[];
+}
+
+/** Fragment koszyka optymalnego pochodzący z jednego sklepu. */
+export interface SerializedOptimalStoreLine {
+  store: string;
+  /** Suma najtańszych pozycji z tego sklepu, w GROSZACH. */
+  totalGrosze: number;
+  itemCount: number;
+}
+
+/** Porównanie sklepów: koszt całości per sklep vs koszyk optymalny. */
+export interface SerializedStoreComparison {
+  /** Liczba skonsolidowanych produktów do kupienia. */
+  productCount: number;
+  /** Koszyk optymalny = suma najtańszych ofert per produkt, w GROSZACH. */
+  optimalBasketGrosze: number;
+  /** Rozbicie koszyka optymalnego po sklepach. */
+  optimalByStore: SerializedOptimalStoreLine[];
+  /** Koszt całości per sklep, rosnąco po totalGrosze. */
+  stores: SerializedStoreBasket[];
+  /** Najtańszy sklep pokrywający WSZYSTKO, albo null. */
+  cheapestFullStore: SerializedStoreBasket | null;
+  /** Ile więcej niż koszyk optymalny kosztuje najtańszy pełny sklep (GROSZE), albo null. */
+  singleStoreExtraGrosze: number | null;
+}
+
 export interface SerializedProject {
   stages: SerializedStage[];
   /** Suma wszystkich etapów, w GROSZACH. */
   projectTotalGrosze: number;
   /** Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania łącznie). */
   consolidated: SerializedConsolidatedList;
+  /** Porównanie sklepów: koszt całości per sklep + koszyk optymalny + najtańszy sklep. */
+  storeComparison: SerializedStoreComparison;
 }
 
 // ─── Kontrakt HISTORII CEN (GET /pricing/history) ─────────────────────────────
