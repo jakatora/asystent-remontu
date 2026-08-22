@@ -9,6 +9,7 @@
     "start": "node --enable-source-maps ./dist/index.mjs",
     "migrate": "tsx src/scripts/migrate.ts",
     "collect": "tsx src/scripts/collect.ts",
+    "seed": "tsx src/scripts/seed-catalog.ts",
     "test": "tsx --test test/**/*.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

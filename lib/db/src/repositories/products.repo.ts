@@ -145,8 +145,49 @@ export async function findByNormalizedNameAndCategory(
   return rows[0];
 }
 
+/**
+ * Wstawia lub aktualizuje produkt, dopasowując po parze (znormalizowana nazwa +
+ * kategoria) — dla źródeł BEZ kodu EAN/GTIN (np. seed z katalogu referencyjnego
+ * materials.ts). `normalized_name` liczone jest z `name` tą samą funkcją, którą
+ * używa dopasowanie. Gdy `category` jest puste, dedup jest niemożliwy i zawsze
+ * powstaje nowy rekord (świadomie — samą nazwą nie łączymy).
+ *
+ * NIE zastępuje `upsertByEanOrGtin`: gdy produkt ma kod, właściwym kluczem jest
+ * EAN/GTIN. Ta funkcja obsługuje wyłącznie katalog referencyjny bez kodów.
+ */
+export async function upsertByNormalizedNameAndCategory(
+  db: Database,
+  input: unknown,
+): Promise<Product> {
+  const parsed = upsertProductInput.parse(input);
+  const normalizedName =
+    parsed.normalizedName ?? normalizeProductName(parsed.name);
+  const values = { ...parsed, normalizedName };
+
+  const category = parsed.category?.trim();
+  if (category) {
+    const existing = await findByNormalizedNameAndCategory(
+      db,
+      parsed.name,
+      category,
+    );
+    if (existing) {
+      const updated = await db
+        .update(productsTable)
+        .set({ ...values, updatedAt: new Date() })
+        .where(eq(productsTable.id, existing.id))
+        .returning();
+      return updated[0]!;
+    }
+  }
+
+  const inserted = await db.insert(productsTable).values(values).returning();
+  return inserted[0]!;
+}
+
 export const productsRepository = {
   upsertByEanOrGtin,
+  upsertByNormalizedNameAndCategory,
   findById,
   findByCategory,
   searchByNormalizedName,
