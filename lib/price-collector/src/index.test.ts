@@ -67,3 +67,34 @@ test("createSourcesFromEnv: honoruje MROWKA_FEED_URL przez wstrzyknięty fetch",
   const offers = await sources[0]!.fetchOffers();
   assert.equal(offers[0]!.price, 8400); // z feedu, nie z fixture
 });
+
+test("createSourcesFromEnv: STORE_FEED_URL (feed XML) ma pierwszeństwo i narasta realne ceny", async () => {
+  const feedXml = `<rss xmlns:g="http://base.google.com/ns/1.0"><channel>
+    <item>
+      <g:gtin>5903973005797</g:gtin>
+      <title>Farba z feedu XML 10 l</title>
+      <link>https://mrowkaonline.pl/xml.html</link>
+      <g:price>82,50 PLN</g:price>
+      <g:unit_pricing_measure>10 l</g:unit_pricing_measure>
+    </item>
+  </channel></rss>`;
+  let fetchedUrl: string | null = null;
+  const sources = await createSourcesFromEnv(
+    ["mrowka"],
+    {
+      STORE_FEED_URL: "https://feeds.example/mrowka.xml",
+      MROWKA_FEED_URL: "https://legacy.example/should-not-win.json",
+    },
+    {
+      fetchImpl: async (url) => {
+        fetchedUrl = url;
+        return { ok: true, status: 200, text: async () => feedXml };
+      },
+    },
+  );
+  assert.equal(fetchedUrl, "https://feeds.example/mrowka.xml"); // STORE_FEED_URL wygrywa
+  const offers = await sources[0]!.fetchOffers();
+  assert.equal(offers[0]!.ean, "5903973005797");
+  assert.equal(offers[0]!.price, 8250);
+  assert.equal(offers[0]!.currency, "PLN");
+});

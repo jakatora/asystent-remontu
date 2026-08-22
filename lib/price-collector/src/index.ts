@@ -24,6 +24,7 @@ export {
   MrowkaSource,
   loadMrowkaFromFeedUrl,
   type FetchLike,
+  type FeedFetchOptions,
 } from "./sources/mrowka.source";
 export {
   parseMrowkaFeed,
@@ -34,6 +35,11 @@ export {
   parseUnitMeasure,
   type ProductFeedItem,
 } from "./sources/mrowka.feed";
+export {
+  parseMrowkaFeedXml,
+  parseMrowkaFeedAuto,
+  splitPriceCurrency,
+} from "./sources/mrowka.feed.xml";
 
 /** Rejestr adapterów: slug sklepu -> fabryka instancji PriceSource (bez sieci). */
 export const SOURCE_FACTORIES: Record<string, () => PriceSource> = {
@@ -88,10 +94,19 @@ export interface BuildSourcesDeps {
   fetchImpl?: FetchLike;
 }
 
+/** Parsuje dodatnią liczbę całkowitą z ENV; zwraca undefined dla braku/śmieci. */
+function parsePositiveIntEnv(raw: string | undefined): number | undefined {
+  if (raw == null || raw.trim() === "") return undefined;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? Math.trunc(n) : undefined;
+}
+
 /**
- * Buduje instancje adapterów dla podanych slugów, honorując ENV z URL-ami feedów
- * (np. `MROWKA_FEED_URL`). Gdy URL feedu jest ustawiony, adapter pobiera go
- * LEGALNIE po HTTP; w przeciwnym razie używa wbudowanej migawki (bez sieci).
+ * Buduje instancje adapterów dla podanych slugów, honorując ENV z URL-em feedu.
+ * URL czytamy z `STORE_FEED_URL` (ogólny, preferowany), a dla wstecznej
+ * zgodności także z `MROWKA_FEED_URL`. Gdy URL jest ustawiony, adapter pobiera
+ * feed LEGALNIE po HTTP (z timeoutem `STORE_FEED_TIMEOUT_MS` i retry
+ * `STORE_FEED_RETRIES`); w przeciwnym razie używa wbudowanej migawki (bez sieci).
  * Sieć jest TYLKO tutaj (granica) — reszta modułu pozostaje czysta i testowalna.
  */
 export async function createSourcesFromEnv(
@@ -100,9 +115,14 @@ export async function createSourcesFromEnv(
   deps: BuildSourcesDeps = {},
 ): Promise<PriceSource[]> {
   const out: PriceSource[] = [];
+  const feedUrl = env.STORE_FEED_URL ?? env.MROWKA_FEED_URL;
+  const feedOptions = {
+    timeoutMs: parsePositiveIntEnv(env.STORE_FEED_TIMEOUT_MS),
+    retries: parsePositiveIntEnv(env.STORE_FEED_RETRIES),
+  };
   for (const slug of slugs) {
-    if (slug === "mrowka" && env.MROWKA_FEED_URL) {
-      out.push(await loadMrowkaFromFeedUrl(env.MROWKA_FEED_URL, deps.fetchImpl));
+    if (slug === "mrowka" && feedUrl) {
+      out.push(await loadMrowkaFromFeedUrl(feedUrl, deps.fetchImpl, feedOptions));
       continue;
     }
     const source = createSource(slug);

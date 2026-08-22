@@ -6,7 +6,12 @@
 // Wymaga DATABASE_URL. Konfiguracja przez ENV:
 //   PRICE_COLLECTOR_SOURCES  - lista slugów sklepów po przecinku
 //                              (domyślnie wszystkie: leroy-merlin,mrowka)
-//   MROWKA_FEED_URL          - opcjonalny URL feedu Mrówki (gdy brak: migawka)
+//   STORE_FEED_URL           - URL realnego feedu produktowego sklepu (XML
+//                              Google Merchant/RSS lub JSON). Gdy ustawiony,
+//                              adapter Mrówki pobiera feed po HTTP zamiast
+//                              migawki (MROWKA_FEED_URL = starsza nazwa, fallback).
+//   STORE_FEED_TIMEOUT_MS    - limit czasu jednej próby pobrania (domyślnie 15000)
+//   STORE_FEED_RETRIES       - liczba dodatkowych prób po błędzie przejściowym (domyślnie 2)
 //
 // Idempotentne w sensie katalogu: upsert po EAN/GTIN, a price_history dopisuje
 // wpis tylko przy ZMIANIE ceny (append-only) — patrz product-offers.repo.

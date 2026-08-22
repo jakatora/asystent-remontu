@@ -39,6 +39,8 @@ export interface ProductFeedItem {
   availability?: string | null;
   /** Wielkość opakowania (g:unit_pricing_measure), np. "10 l". */
   unitPricingMeasure?: string | null;
+  /** Waluta ISO-4217 odczytana z ceny feedu (np. "PLN"); null gdy nieznana. */
+  currency?: string | null;
 }
 
 /** Mapa polskich znaków diakrytycznych na ASCII dla slugów kategorii. */
@@ -149,6 +151,7 @@ export function parseMrowkaFeed(jsonText: string): ProductFeedItem[] {
         typeof item.unitPricingMeasure === "string"
           ? item.unitPricingMeasure
           : null,
+      currency: typeof item.currency === "string" ? item.currency : null,
     } satisfies ProductFeedItem;
   });
 }
