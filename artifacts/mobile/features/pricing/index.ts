@@ -2,6 +2,7 @@ export { computePricedBudget } from './engine';
 export {
   estimateStage,
   estimateProject,
+  fetchPriceHistory,
   toPricingStageInput,
   formatGrosze,
   isPricingApiConfigured,
@@ -19,6 +20,10 @@ export type {
   SerializedLine,
   SerializedOffer,
   SerializedProduct,
+  SerializedPriceStats,
+  SerializedHistoryPoint,
+  PriceHistoryResponse,
+  PriceHistoryQuery,
   UnresolvedReason,
 } from './pricingApi';
 export {

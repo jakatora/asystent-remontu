@@ -6,7 +6,14 @@ import {
   priceHistoryTable,
   type PriceHistory,
 } from "../schema/price-history";
-import { computePriceStats, type PriceStats } from "./helpers";
+import {
+  computePriceStats,
+  computeProductPriceStatsGrosze,
+  effectivePriceGrosze,
+  type PriceStats,
+  type PriceStatsGrosze,
+} from "./helpers";
+import { getCheapestOffer } from "./product-offers.repo";
 
 /**
  * Dopisuje odczyt ceny. APPEND-ONLY: tabela nigdy nie jest aktualizowana ani
@@ -55,8 +62,51 @@ export async function getPriceStats(
   return computePriceStats(rows);
 }
 
+/**
+ * Historia cen produktu — WSZYSTKIE sklepy albo (gdy podano `store`) tylko jeden.
+ * Chronologicznie (najstarsze najpierw). Warstwa ODCZYTU nad append-only logiem:
+ * nic nie modyfikuje, zwraca surowe punkty do wykresu/statystyk.
+ */
+export async function getPriceHistoryForProduct(
+  db: Database,
+  productId: string,
+  store?: string,
+): Promise<PriceHistory[]> {
+  const condition = store
+    ? and(
+        eq(priceHistoryTable.productId, productId),
+        eq(priceHistoryTable.store, store),
+      )
+    : eq(priceHistoryTable.productId, productId);
+
+  return db
+    .select()
+    .from(priceHistoryTable)
+    .where(condition)
+    .orderBy(asc(priceHistoryTable.fetchedAt));
+}
+
+/**
+ * Statystyki cen produktu w GROSZACH (kontrakt warstwy odczytu /pricing/history):
+ * najniższa/średnia historyczna, aktualna najtańsza oferta, różnica względem
+ * dołka, % zmiana vs poprzedni pomiar oraz flaga prawdziwej promocji. Bierze
+ * historię ze WSZYSTKICH sklepów i bieżącą najtańszą ofertę z katalogu — nic nie
+ * zmyśla, wszystko z realnych rekordów.
+ */
+export async function getPriceStatsForProduct(
+  db: Database,
+  productId: string,
+): Promise<PriceStatsGrosze> {
+  const rows = await getPriceHistoryForProduct(db, productId);
+  const cheapest = await getCheapestOffer(db, productId);
+  const current = cheapest ? effectivePriceGrosze(cheapest) : null;
+  return computeProductPriceStatsGrosze(rows, current);
+}
+
 export const priceHistoryRepository = {
   appendPrice,
   getHistory,
   getPriceStats,
+  getPriceHistoryForProduct,
+  getPriceStatsForProduct,
 };

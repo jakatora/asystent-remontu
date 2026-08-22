@@ -13,9 +13,11 @@ import type { Database } from "@workspace/db/repositories";
 import { createPricingRouter } from "../src/routes/pricing";
 import {
   EXPECTED_CHEAPEST,
+  EXPECTED_HISTORY_STATS,
   EXPECTED_PAINT_STAGE_GROSZE,
   emptyJob,
   fakeDeps,
+  fakeHistoryDeps,
   paintJob,
 } from "./fixtures";
 
@@ -24,7 +26,10 @@ const dummyDb = {} as Database;
 function makeApp(getDb: () => Database): Express {
   const app = express();
   app.use(express.json());
-  app.use("/api", createPricingRouter({ getDb, deps: fakeDeps }));
+  app.use(
+    "/api",
+    createPricingRouter({ getDb, deps: fakeDeps, historyDeps: fakeHistoryDeps }),
+  );
   return app;
 }
 
@@ -122,6 +127,68 @@ test("GET /api/pricing/project bez payload => 400", async () => {
     assert.equal(resp.status, 400);
     const body = await resp.json();
     assert.equal(body.error, "missing_payload");
+  } finally {
+    await close();
+  }
+});
+
+test("GET /api/pricing/history?productId= zwraca statystyki w groszach + historię", async () => {
+  const { url, close } = await listen(makeApp(() => dummyDb));
+  try {
+    const resp = await fetch(`${url}/api/pricing/history?productId=p1`);
+    assert.equal(resp.status, 200);
+    const body = await resp.json();
+
+    assert.equal(body.product.id, "p1");
+    assert.equal(body.stats.lowest, EXPECTED_HISTORY_STATS.lowest);
+    assert.equal(body.stats.average, EXPECTED_HISTORY_STATS.average);
+    assert.equal(body.stats.current, EXPECTED_HISTORY_STATS.current);
+    assert.equal(body.stats.changeVsLowest, EXPECTED_HISTORY_STATS.changeVsLowest);
+    assert.equal(body.stats.changePct, EXPECTED_HISTORY_STATS.changePct);
+    assert.equal(body.stats.isRealPromo, EXPECTED_HISTORY_STATS.isRealPromo);
+
+    assert.equal(body.history.length, 3);
+    // Punkty chronologicznie, ceny w groszach.
+    assert.equal(body.history[0].effectiveGrosze, 10000);
+    assert.equal(body.history[2].effectiveGrosze, 9000);
+    assert.equal(body.history[2].store, "Leroy Merlin");
+  } finally {
+    await close();
+  }
+});
+
+test("GET /api/pricing/history?ean= resolwuje produkt po kodzie", async () => {
+  const { url, close } = await listen(makeApp(() => dummyDb));
+  try {
+    const resp = await fetch(`${url}/api/pricing/history?ean=111`);
+    assert.equal(resp.status, 200);
+    const body = await resp.json();
+    assert.equal(body.product.ean, "111");
+    assert.equal(body.stats.isRealPromo, true);
+  } finally {
+    await close();
+  }
+});
+
+test("GET /api/pricing/history bez identyfikatora => 400", async () => {
+  const { url, close } = await listen(makeApp(() => dummyDb));
+  try {
+    const resp = await fetch(`${url}/api/pricing/history`);
+    assert.equal(resp.status, 400);
+    const body = await resp.json();
+    assert.equal(body.error, "missing_identifier");
+  } finally {
+    await close();
+  }
+});
+
+test("GET /api/pricing/history: nieznany produkt => 404", async () => {
+  const { url, close } = await listen(makeApp(() => dummyDb));
+  try {
+    const resp = await fetch(`${url}/api/pricing/history?productId=nope`);
+    assert.equal(resp.status, 404);
+    const body = await resp.json();
+    assert.equal(body.error, "product_not_found");
   } finally {
     await close();
   }

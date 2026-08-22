@@ -1,7 +1,12 @@
 // Wspólne atrapy do testów wyceny: produkt + oferty + wstrzykiwane DAO
 // (EstimateDeps), dzięki czemu testy liczą realną logikę wyceny BEZ Postgresa.
+import {
+  computeProductPriceStatsGrosze,
+  type PriceHistory,
+} from "@workspace/db/repositories";
 import type { EstimateDeps } from "@workspace/pricing-service";
 import type { CalculatorStageResult } from "@workspace/pricing-service";
+import type { HistoryDeps } from "../src/routes/pricing";
 
 const now = new Date("2026-08-22T00:00:00Z");
 
@@ -116,4 +121,71 @@ export const EXPECTED_CHEAPEST = {
   url: "https://leroymerlin.pl/farba",
   unitPriceGrosze: 8000,
   packagesNeeded: 3,
+};
+
+// ─── Historia cen (do testów /pricing/history) ─────────────────────────────────
+// Produkt p1: 3 pomiary (100, 100, 90 zł), aktualna najtańsza oferta = 80 zł (promo
+// Leroy). Prawdziwa promocja: 8000 gr istotnie poniżej średniej historycznej.
+const dh = (iso: string) => new Date(iso);
+
+export const historyRows: PriceHistory[] = [
+  {
+    id: "h1",
+    productId: "p1",
+    store: "Castorama",
+    price: "100.00",
+    promoPrice: null,
+    unit: "szt",
+    fetchedAt: dh("2026-01-01T00:00:00Z"),
+    source: "reference-seed",
+  },
+  {
+    id: "h2",
+    productId: "p1",
+    store: "Castorama",
+    price: "100.00",
+    promoPrice: null,
+    unit: "szt",
+    fetchedAt: dh("2026-02-01T00:00:00Z"),
+    source: "reference-seed",
+  },
+  {
+    id: "h3",
+    productId: "p1",
+    store: "Leroy Merlin",
+    price: "90.00",
+    promoPrice: null,
+    unit: "szt",
+    fetchedAt: dh("2026-03-01T00:00:00Z"),
+    source: "leroy",
+  },
+];
+
+/** Aktualna najtańsza oferta p1 = 80,00 zł (promo Leroy) = 8000 gr. */
+export const CURRENT_CHEAPEST_GROSZE = 8000;
+
+/** DAO historii: p1 (albo EAN "111") => produkt z historyRows; reszta => brak. */
+export const fakeHistoryDeps: HistoryDeps = {
+  findProductById: async (_db, id) => (id === "p1" ? product : undefined),
+  findProductByCode: async (_db, code) =>
+    code.ean === "111" ? product : undefined,
+  getPriceHistoryForProduct: async (_db, productId) =>
+    productId === "p1" ? historyRows : [],
+  getPriceStatsForProduct: async (_db, productId) =>
+    computeProductPriceStatsGrosze(
+      productId === "p1" ? historyRows : [],
+      productId === "p1" ? CURRENT_CHEAPEST_GROSZE : null,
+    ),
+};
+
+// Oczekiwane statystyki dla p1 (grosze): lowest=9000, average=round(29000/3)=9667,
+// current=8000, diff=-1000, changePct: 90 vs 100 => -10%, promo=true (8000<=9184).
+export const EXPECTED_HISTORY_STATS = {
+  lowest: 9000,
+  average: 9667,
+  current: 8000,
+  changeVsLowest: -1000,
+  changePct: -10,
+  isRealPromo: true,
+  count: 3,
 };

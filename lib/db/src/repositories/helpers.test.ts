@@ -3,9 +3,12 @@ import { test } from "node:test";
 
 import {
   computePriceStats,
+  computeProductPriceStatsGrosze,
   effectivePrice,
+  effectivePriceGrosze,
   normalizeProductName,
   pickCheapestOffer,
+  priceToGrosze,
   resolveUpsertKey,
   sortOffersWithCheapest,
 } from "./helpers";
@@ -111,4 +114,81 @@ test("computePriceStats: brak danych i sortowanie nieuporządkowanego wejścia",
   ]);
   assert.equal(stats.latest, 16);
   assert.equal(stats.min, 16);
+});
+
+test("priceToGrosze: PLN (string/number) -> grosze, śmieci -> null", () => {
+  assert.equal(priceToGrosze("129.99"), 12999);
+  assert.equal(priceToGrosze("80.00"), 8000);
+  assert.equal(priceToGrosze(145), 14500);
+  assert.equal(priceToGrosze(0), 0);
+  assert.equal(priceToGrosze(null), null);
+  assert.equal(priceToGrosze(undefined), null);
+  assert.equal(priceToGrosze("-5"), null); // ujemna = odrzucona
+  assert.equal(priceToGrosze("abc"), null);
+});
+
+test("effectivePriceGrosze: promo bije regularną, brak ceny -> null", () => {
+  assert.equal(effectivePriceGrosze({ price: "100.00", promoPrice: "80.00" }), 8000);
+  assert.equal(effectivePriceGrosze({ price: "100.00", promoPrice: null }), 10000);
+  assert.equal(effectivePriceGrosze({ price: null, promoPrice: null }), null);
+});
+
+test("computeProductPriceStatsGrosze: lowest/average/current/diff/changePct/promo", () => {
+  const d = (iso: string) => new Date(iso);
+  // Historia: 200, 200, 160 (spadek), current oferta = 130 (nowy dołek).
+  const stats = computeProductPriceStatsGrosze(
+    [
+      { price: "200.00", promoPrice: null, fetchedAt: d("2026-01-01") },
+      { price: "200.00", promoPrice: null, fetchedAt: d("2026-02-01") },
+      { price: "160.00", promoPrice: null, fetchedAt: d("2026-03-01") },
+    ],
+    13000, // aktualna najtańsza oferta = 130,00 zł
+  );
+  assert.equal(stats.count, 3);
+  assert.equal(stats.lowest, 16000); // najniższy pomiar historyczny
+  assert.equal(stats.average, Math.round((20000 + 20000 + 16000) / 3)); // 18667
+  assert.equal(stats.current, 13000);
+  assert.equal(stats.changeVsLowest, 13000 - 16000); // -3000: poniżej dołka
+  // Ostatni ruch w historii: 160 vs 200 => (160-200)/200 = -20%
+  assert.equal(stats.changePct, -20);
+  assert.equal(stats.isRealPromo, true); // 13000 <= round(18667*0.95)=17734
+});
+
+test("computeProductPriceStatsGrosze: sztuczna promocja nie jest prawdziwa", () => {
+  const d = (iso: string) => new Date(iso);
+  // Cena zawsze ~150 (średnia ≈ current) — „promo" jest sztuczne.
+  const stats = computeProductPriceStatsGrosze(
+    [
+      { price: "150.00", promoPrice: null, fetchedAt: d("2026-01-01") },
+      { price: "150.00", promoPrice: null, fetchedAt: d("2026-02-01") },
+    ],
+    15000,
+  );
+  assert.equal(stats.isRealPromo, false);
+  assert.equal(stats.changePct, 0); // 150 vs 150
+  assert.equal(stats.changeVsLowest, 0);
+});
+
+test("computeProductPriceStatsGrosze: brak oferty -> current z ostatniego pomiaru", () => {
+  const d = (iso: string) => new Date(iso);
+  const stats = computeProductPriceStatsGrosze(
+    [{ price: "99.00", promoPrice: null, fetchedAt: d("2026-01-01") }],
+    null,
+  );
+  assert.equal(stats.current, 9900);
+  assert.equal(stats.changePct, null); // < 2 punktów
+  assert.equal(stats.isRealPromo, false); // 9900 vs średnia 9900 -> nie promo
+});
+
+test("computeProductPriceStatsGrosze: brak historii -> zera i current z oferty", () => {
+  const stats = computeProductPriceStatsGrosze([], 5000);
+  assert.deepEqual(stats, {
+    count: 0,
+    lowest: null,
+    average: null,
+    current: 5000,
+    changeVsLowest: null,
+    changePct: null,
+    isRealPromo: false,
+  });
 });

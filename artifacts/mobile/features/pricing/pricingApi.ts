@@ -121,6 +121,49 @@ export interface SerializedProject {
   projectTotalGrosze: number;
 }
 
+// ─── Kontrakt HISTORII CEN (GET /pricing/history) ─────────────────────────────
+// Warstwa odczytu nad price_history: statystyki (grosze) + punkty historyczne.
+
+export interface SerializedPriceStats {
+  /** Liczba historycznych punktów z ceną. */
+  count: number;
+  /** Najniższa cena historyczna (grosze) albo null. */
+  lowest: number | null;
+  /** Średnia cena historyczna (grosze) albo null. */
+  average: number | null;
+  /** Aktualna najtańsza cena (grosze) albo null. */
+  current: number | null;
+  /** Różnica current − lowest (grosze). Ujemna = poniżej dołka. */
+  changeVsLowest: number | null;
+  /** % zmiana ostatniego pomiaru vs poprzedni (dodatnia = drożej). */
+  changePct: number | null;
+  /** Czy `current` to prawdziwa promocja (istotnie < średniej historycznej). */
+  isRealPromo: boolean;
+}
+
+export interface SerializedHistoryPoint {
+  store: string;
+  source: string | null;
+  /** ISO 8601 (UTC). */
+  fetchedAt: string;
+  priceGrosze: number | null;
+  promoPriceGrosze: number | null;
+  effectiveGrosze: number | null;
+}
+
+export interface PriceHistoryResponse {
+  product: SerializedProduct;
+  stats: SerializedPriceStats;
+  history: SerializedHistoryPoint[];
+}
+
+/** Identyfikacja produktu do zapytania o historię — jeden z kluczy wystarczy. */
+export interface PriceHistoryQuery {
+  productId?: string | null;
+  ean?: string | null;
+  gtin?: string | null;
+}
+
 // ─── Błędy klienta ─────────────────────────────────────────────────────────────
 
 /** Rzucane, gdy nie ma skonfigurowanego adresu serwera wyceny. */
@@ -231,6 +274,45 @@ export async function estimateProject(
     jobs: stages,
     ...(options ? { options } : {}),
   });
+}
+
+/**
+ * GET historii/statystyk cen JEDNEGO produktu. GET /api/pricing/history.
+ * Zwraca `null`, gdy produkt nie ma jeszcze wpisów w katalogu/historii (404) —
+ * to normalny przypadek, UI po prostu nie pokazuje wskaźnika. Inne błędy (5xx,
+ * brak sieci) propaguje, żeby nie maskować awarii.
+ */
+export async function fetchPriceHistory(
+  query: PriceHistoryQuery,
+): Promise<PriceHistoryResponse | null> {
+  const params = new URLSearchParams();
+  if (query.productId) params.set('productId', query.productId);
+  else if (query.ean) params.set('ean', query.ean);
+  else if (query.gtin) params.set('gtin', query.gtin);
+  if ([...params.keys()].length === 0) return null; // brak identyfikatora — nic nie pytamy
+
+  const response = await fetch(endpoint(`/api/pricing/history?${params.toString()}`), {
+    method: 'GET',
+    headers: { accept: 'application/json' },
+  });
+
+  if (response.status === 404) return null; // brak historii dla produktu — nie błąd
+
+  if (!response.ok) {
+    let detail = '';
+    try {
+      const data = (await response.json()) as { error?: string; message?: string };
+      detail = data?.message ?? data?.error ?? '';
+    } catch {
+      /* body nie-JSON — zostaje sam status */
+    }
+    throw new ApiError(
+      response.status,
+      detail ? `HTTP ${response.status}: ${detail}` : `HTTP ${response.status}`,
+    );
+  }
+
+  return (await response.json()) as PriceHistoryResponse;
 }
 
 // ─── Prezentacja pieniędzy ──────────────────────────────────────────────────────

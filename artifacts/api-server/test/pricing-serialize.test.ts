@@ -8,16 +8,23 @@ import {
   estimateStageCostFromCalculation,
 } from "@workspace/pricing-service";
 
+import { computeProductPriceStatsGrosze } from "@workspace/db/repositories";
+
 import {
+  serializePriceHistory,
   serializeProject,
   serializeStage,
 } from "../src/lib/pricing-serialize";
 import {
+  CURRENT_CHEAPEST_GROSZE,
   EXPECTED_CHEAPEST,
+  EXPECTED_HISTORY_STATS,
   EXPECTED_PAINT_STAGE_GROSZE,
   emptyJob,
   fakeDeps,
+  historyRows,
   paintJob,
+  product,
 } from "./fixtures";
 
 const noDb = {} as never;
@@ -81,4 +88,23 @@ test("serializeProject: suma remontu = suma etapów (w groszach)", async () => {
     out.projectTotalGrosze,
     out.stages.reduce((sum, s) => sum + s.stageTotalGrosze, 0),
   );
+});
+
+test("serializePriceHistory: statystyki 1:1 (grosze) + punkty chronologiczne z ISO", () => {
+  const stats = computeProductPriceStatsGrosze(historyRows, CURRENT_CHEAPEST_GROSZE);
+  const out = serializePriceHistory(product, stats, historyRows);
+
+  assert.equal(out.product.id, "p1");
+  assert.equal(out.stats.lowest, EXPECTED_HISTORY_STATS.lowest);
+  assert.equal(out.stats.average, EXPECTED_HISTORY_STATS.average);
+  assert.equal(out.stats.current, EXPECTED_HISTORY_STATS.current);
+  assert.equal(out.stats.changePct, EXPECTED_HISTORY_STATS.changePct);
+  assert.equal(out.stats.isRealPromo, EXPECTED_HISTORY_STATS.isRealPromo);
+
+  assert.equal(out.history.length, 3);
+  assert.equal(out.history[0]!.priceGrosze, 10000);
+  assert.equal(out.history[0]!.effectiveGrosze, 10000);
+  assert.equal(out.history[2]!.effectiveGrosze, 9000);
+  // fetchedAt serializowane jako ISO string.
+  assert.equal(out.history[0]!.fetchedAt, "2026-01-01T00:00:00.000Z");
 });

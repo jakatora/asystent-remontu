@@ -7,7 +7,16 @@
 import { Router, type IRouter, type Request, type Response } from "express";
 import { sql } from "drizzle-orm";
 
-import type { Database } from "@workspace/db/repositories";
+import type {
+  Database,
+  PriceHistory,
+  PriceStatsGrosze,
+  Product,
+} from "@workspace/db/repositories";
+import {
+  priceHistoryRepository,
+  productsRepository,
+} from "@workspace/db/repositories";
 import {
   estimateProjectCostFromCalculation,
   estimateStageCostFromCalculation,
@@ -20,16 +29,52 @@ import {
   projectRequestSchema,
   stageRequestSchema,
 } from "../lib/pricing-schema";
-import { serializeProject, serializeStage } from "../lib/pricing-serialize";
+import {
+  serializePriceHistory,
+  serializeProject,
+  serializeStage,
+} from "../lib/pricing-serialize";
 
 /** Tabele katalogu, których obecność sprawdza healthcheck. */
 const TABLES = ["products", "product_offers", "price_history"] as const;
+
+/**
+ * DAO warstwy odczytu historii cen — wstrzykiwane, żeby testować endpoint
+ * /pricing/history bez Postgresa (domyślnie realne repozytoria z @workspace/db).
+ */
+export interface HistoryDeps {
+  findProductById(db: Database, id: string): Promise<Product | undefined>;
+  findProductByCode(
+    db: Database,
+    code: { ean?: string | null; gtin?: string | null },
+  ): Promise<Product | undefined>;
+  getPriceStatsForProduct(
+    db: Database,
+    productId: string,
+  ): Promise<PriceStatsGrosze>;
+  getPriceHistoryForProduct(
+    db: Database,
+    productId: string,
+  ): Promise<PriceHistory[]>;
+}
+
+const defaultHistoryDeps: HistoryDeps = {
+  findProductById: (db, id) => productsRepository.findById(db, id),
+  findProductByCode: (db, code) =>
+    productsRepository.findByEanOrGtin(db, code),
+  getPriceStatsForProduct: (db, id) =>
+    priceHistoryRepository.getPriceStatsForProduct(db, id),
+  getPriceHistoryForProduct: (db, id) =>
+    priceHistoryRepository.getPriceHistoryForProduct(db, id),
+};
 
 export interface PricingRouterDeps {
   /** Źródło instancji Drizzle. Domyślnie leniwy singleton z ../lib/db. */
   getDb?: () => Database;
   /** Wstrzykiwane DAO wyceny (do testów bez realnej bazy). */
   deps?: EstimateDeps;
+  /** Wstrzykiwane DAO historii cen (do testów bez realnej bazy). */
+  historyDeps?: HistoryDeps;
 }
 
 function badRequest(res: Response, error: string, extra?: unknown): void {
@@ -38,6 +83,7 @@ function badRequest(res: Response, error: string, extra?: unknown): void {
 
 export function createPricingRouter(opts: PricingRouterDeps = {}): IRouter {
   const resolveDb = opts.getDb ?? getDb;
+  const historyDeps = opts.historyDeps ?? defaultHistoryDeps;
   const router: IRouter = Router();
 
   // Wycena JEDNEGO etapu: body { job: CalculatorStageResult, options? }.
@@ -116,6 +162,48 @@ export function createPricingRouter(opts: PricingRouterDeps = {}): IRouter {
       return;
     }
     void handleProject(payload, req, res);
+  });
+
+  // Odczyt historii cen JEDNEGO produktu: ?productId=... albo ?ean=/?gtin=...
+  // Zwraca produkt + statystyki w groszach (najniższa/średnia/aktualna, zmiana,
+  // flaga prawdziwej promocji) + chronologiczną listę punktów. Read-only.
+  router.get("/pricing/history", async (req: Request, res: Response) => {
+    const productId = typeof req.query.productId === "string" ? req.query.productId : "";
+    const ean = typeof req.query.ean === "string" ? req.query.ean : null;
+    const gtin = typeof req.query.gtin === "string" ? req.query.gtin : null;
+
+    if (!productId && !ean && !gtin) {
+      badRequest(
+        res,
+        "missing_identifier",
+        "wymagany ?productId= albo ?ean=/?gtin=",
+      );
+      return;
+    }
+
+    try {
+      const db = resolveDb();
+      const product = productId
+        ? await historyDeps.findProductById(db, productId)
+        : await historyDeps.findProductByCode(db, { ean, gtin });
+
+      if (!product) {
+        res.status(404).json({ error: "product_not_found" });
+        return;
+      }
+
+      const [stats, history] = await Promise.all([
+        historyDeps.getPriceStatsForProduct(db, product.id),
+        historyDeps.getPriceHistoryForProduct(db, product.id),
+      ]);
+
+      res.json(serializePriceHistory(product, stats, history));
+    } catch (err) {
+      req.log?.error?.({ err }, "pricing/history failed");
+      res
+        .status(500)
+        .json({ error: "history_failed", message: (err as Error)?.message });
+    }
   });
 
   // Healthcheck: potwierdza dostępność bazy i obecność tabel katalogu.

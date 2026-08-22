@@ -17,6 +17,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import type { CalculationResult } from '@/types/domain';
 import {
   estimateProject,
+  fetchPriceHistory,
   toPricingStageInput,
   formatGrosze,
   isPricingApiConfigured,
@@ -24,6 +25,7 @@ import {
   type SerializedProject,
   type SerializedStage,
   type SerializedLine,
+  type SerializedPriceStats,
   type UnresolvedReason,
 } from '@/features/pricing';
 
@@ -262,6 +264,114 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
           unitPrice: offer ? formatGrosze(offer.unitPriceGrosze) : '—',
           packages: line.packagesNeeded ?? 0,
         })}
+      </Txt>
+      {product?.id && (
+        <PriceHistoryIndicator
+          productId={product.id}
+          ean={product.ean}
+          gtin={product.gtin}
+        />
+      )}
+    </View>
+  );
+}
+
+/**
+ * Mały wskaźnik nad historią cen produktu (warstwa odczytu /pricing/history):
+ * badge „najniższa X", strzałka ostatniej zmiany ceny oraz znacznik „prawdziwa
+ * promocja". Read-only: sam pobiera statystyki (grosze) i tylko je formatuje —
+ * nic nie liczy. Brak historii (404/null) => nic nie renderuje. Błędy sieci
+ * przełykamy po cichu, żeby nie psuć głównej wyceny.
+ */
+function PriceHistoryIndicator({
+  productId,
+  ean,
+  gtin,
+}: {
+  productId: string;
+  ean: string | null;
+  gtin: string | null;
+}) {
+  const { t } = useLanguage();
+  const [stats, setStats] = useState<SerializedPriceStats | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const data = await fetchPriceHistory({ productId, ean, gtin });
+        if (!cancelled) setStats(data?.stats ?? null);
+      } catch {
+        if (!cancelled) setStats(null); // awaria historii nie blokuje wyceny
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [productId, ean, gtin]);
+
+  if (!stats || stats.count === 0) return null;
+
+  const hasChange = stats.changePct !== null && stats.changePct !== 0;
+  const wentUp = (stats.changePct ?? 0) > 0;
+
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+      {stats.isRealPromo && (
+        <Badge
+          icon="tag"
+          text={t('cmp.CostEstimate.realPromo')}
+          color={Colors.success}
+          bg={Colors.successBg}
+        />
+      )}
+      {stats.lowest !== null && (
+        <Badge
+          icon="trending-down"
+          text={t('cmp.CostEstimate.lowest', { price: formatGrosze(stats.lowest) })}
+          color={Colors.textSecondary}
+          bg={Colors.surfaceAlt}
+        />
+      )}
+      {hasChange && (
+        <Badge
+          icon={wentUp ? 'arrow-up-right' : 'arrow-down-right'}
+          text={`${wentUp ? '+' : ''}${stats.changePct}%`}
+          color={wentUp ? Colors.danger : Colors.success}
+          bg={wentUp ? Colors.dangerBg : Colors.successBg}
+        />
+      )}
+    </View>
+  );
+}
+
+/** Mała pigułka: ikona Feather + tekst, na tle. */
+function Badge({
+  icon,
+  text,
+  color,
+  bg,
+}: {
+  icon: string;
+  text: string;
+  color: string;
+  bg: string;
+}) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4,
+        paddingHorizontal: 6,
+        paddingVertical: 2,
+        backgroundColor: bg,
+        borderRadius: 6,
+      }}
+    >
+      <Feather name={icon as any} size={11} color={color} />
+      <Txt w="medium" style={{ fontSize: 11, color }}>
+        {text}
       </Txt>
     </View>
   );

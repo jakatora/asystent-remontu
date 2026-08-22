@@ -147,3 +147,115 @@ export function computePriceStats(
 
   return { count: points.length, min, avg, latest, lastChangeAt };
 }
+
+// ─── Statystyki cen w GROSZACH (kontrakt warstwy odczytu /pricing/history) ──────
+//
+// Odrębne od computePriceStats (PLN, float) — money-path wymaga liczb całkowitych
+// w groszach. NIC nie zmyślamy: wszystko liczone z realnych rekordów price_history
+// (ceny historyczne) oraz bieżącej najtańszej oferty (`current`), przekazywanej z
+// DAO. Kolumny numeric Drizzle zwraca jako string, więc parsujemy do groszy tutaj.
+
+/**
+ * Cena PLN (string/number z numeric) → GROSZE (integer). Null gdy brak wartości
+ * lub kwota nie jest skończoną, nieujemną liczbą. Ta sama semantyka co
+ * `parsePriceToGrosze` w price-collector, ale bez zależności odwrotnej (db nie
+ * może zależeć od price-collector — cykl).
+ */
+export function priceToGrosze(
+  raw: string | number | null | undefined,
+): number | null {
+  if (raw === null || raw === undefined) return null;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 0) return null;
+  return Math.round(n * 100);
+}
+
+/** Cena efektywna oferty (promo ?? regular) w GROSZACH, albo null. */
+export function effectivePriceGrosze(offer: PricedOffer): number | null {
+  return priceToGrosze(offer.promoPrice ?? offer.price);
+}
+
+/**
+ * Aktualna cena jest „prawdziwą promocją" tylko, gdy jest ISTOTNIE niższa od
+ * średniej historycznej (co najmniej o REAL_PROMO_MARGIN). Odróżnia realną
+ * obniżkę od sztucznej (przekreślona cena, która nigdy realnie nie obowiązywała
+ * — wtedy średnia historyczna ≈ cena „promocyjna", więc próg nie jest spełniony).
+ */
+export const REAL_PROMO_MARGIN = 0.05; // 5% poniżej średniej
+
+export interface PriceStatsGrosze {
+  /** Liczba historycznych punktów z ceną. */
+  count: number;
+  /** Najniższa cena historyczna (grosze) albo null. */
+  lowest: number | null;
+  /** Średnia cena historyczna (grosze, zaokrąglona do pełnego grosza) albo null. */
+  average: number | null;
+  /** Aktualna najtańsza cena (grosze): z bieżącej oferty, w razie braku — ostatni pomiar. */
+  current: number | null;
+  /** Różnica current − lowest (grosze). Ujemna = poniżej historycznego dołka. Null gdy brak danych. */
+  changeVsLowest: number | null;
+  /**
+   * Procentowa zmiana OSTATNIEGO pomiaru względem poprzedniego (dwa najświeższe
+   * punkty historii: latest vs previous). Dodatnia = podrożało, ujemna = staniało.
+   * Liczona wyłącznie z historii (niezależnie od bieżącej oferty). Null gdy < 2
+   * punktów albo poprzednia cena = 0. Zaokrąglona do 2 miejsc.
+   */
+  changePct: number | null;
+  /** Czy `current` to prawdziwa promocja (istotnie < średniej historycznej). */
+  isRealPromo: boolean;
+}
+
+/**
+ * Liczy statystyki cen w GROSZACH z rekordów historii i bieżącej ceny.
+ * `currentGrosze` = aktualna najtańsza oferta (z DAO ofert); gdy null, jako
+ * bieżącą przyjmujemy ostatni pomiar z historii. Ignoruje rekordy bez ceny i
+ * sortuje wejście sam (nie zakłada kolejności).
+ */
+export function computeProductPriceStatsGrosze(
+  rows: readonly PriceHistoryPoint[],
+  currentGrosze: number | null,
+): PriceStatsGrosze {
+  const points = rows
+    .map((r) => ({ value: effectivePriceGrosze(r), at: r.fetchedAt }))
+    .filter((p): p is { value: number; at: Date } => p.value !== null)
+    .sort((a, b) => a.at.getTime() - b.at.getTime());
+
+  if (points.length === 0) {
+    return {
+      count: 0,
+      lowest: null,
+      average: null,
+      current: currentGrosze,
+      changeVsLowest: null,
+      changePct: null,
+      isRealPromo: false,
+    };
+  }
+
+  const values = points.map((p) => p.value);
+  const lowest = values.reduce((m, v) => Math.min(m, v), values[0]!);
+  const average = Math.round(values.reduce((s, v) => s + v, 0) / values.length);
+  const latest = values[values.length - 1]!;
+  const previous = values.length >= 2 ? values[values.length - 2]! : null;
+
+  // Bieżąca cena: preferuj realną najtańszą ofertę; w razie braku — ostatni pomiar.
+  const current = currentGrosze ?? latest;
+
+  const changeVsLowest = current - lowest;
+  // Zmiana OSTATNIEGO ruchu ceny w historii (latest vs poprzedni pomiar).
+  const changePct =
+    previous !== null && previous !== 0
+      ? Math.round(((latest - previous) / previous) * 10000) / 100
+      : null;
+  const isRealPromo = current <= Math.round(average * (1 - REAL_PROMO_MARGIN));
+
+  return {
+    count: points.length,
+    lowest,
+    average,
+    current,
+    changeVsLowest,
+    changePct,
+    isRealPromo,
+  };
+}

@@ -16,6 +16,13 @@ import type {
   StageEstimateFromCalculation,
   UnresolvedReason,
 } from "@workspace/pricing-service";
+import {
+  effectivePriceGrosze,
+  priceToGrosze,
+  type PriceHistory,
+  type PriceStatsGrosze,
+  type Product,
+} from "@workspace/db/repositories";
 
 export interface SerializedProduct {
   id: string;
@@ -70,6 +77,27 @@ export interface SerializedProject {
   projectTotalGrosze: number;
 }
 
+/** Wspólna serializacja produktu do stabilnego kształtu HTTP (id + kody + opakowanie). */
+function serializeProduct(product: {
+  id: string;
+  name: string;
+  ean: string | null;
+  gtin: string | null;
+  category: string | null;
+  packageSize: string | null;
+  packageUnit: string | null;
+}): SerializedProduct {
+  return {
+    id: product.id,
+    name: product.name,
+    ean: product.ean,
+    gtin: product.gtin,
+    category: product.category,
+    packageSize: product.packageSize,
+    packageUnit: product.packageUnit,
+  };
+}
+
 function serializeLine(line: EstimateLine): SerializedLine {
   const base = {
     quantity: line.quantity,
@@ -90,15 +118,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
     resolved: true,
     ...base,
     lineCostGrosze: line.lineCost,
-    product: {
-      id: line.product.id,
-      name: line.product.name,
-      ean: line.product.ean,
-      gtin: line.product.gtin,
-      category: line.product.category,
-      packageSize: line.product.packageSize,
-      packageUnit: line.product.packageUnit,
-    },
+    product: serializeProduct(line.product),
     cheapestOffer: {
       offerId: line.cheapestOffer.offer.id,
       store: line.cheapestOffer.store,
@@ -129,5 +149,62 @@ export function serializeProject(
   return {
     stages: project.stages.map(serializeStage),
     projectTotalGrosze: project.projectTotalGrosze,
+  };
+}
+
+// ─── Historia cen (warstwa ODCZYTU: GET /pricing/history) ──────────────────────
+//
+// Wszystkie kwoty w GROSZACH, spójnie z resztą wyceny. Serializer NIE liczy
+// statystyk — bierze gotowy PriceStatsGrosze z DAO (liczone po stronie SQL/agregacji)
+// i przepisuje 1:1. Punkty historii dostają cenę efektywną w groszach do wykresu.
+
+/** Statystyki cen produktu w GROSZACH (kontrakt HTTP = PriceStatsGrosze z DAO). */
+export type SerializedPriceStats = PriceStatsGrosze;
+
+export interface SerializedHistoryPoint {
+  store: string;
+  source: string | null;
+  /** ISO 8601 (UTC) — moment odczytu ceny. */
+  fetchedAt: string;
+  /** Cena regularna w GROSZACH (null gdy brak). */
+  priceGrosze: number | null;
+  /** Cena promocyjna w GROSZACH (null gdy brak). */
+  promoPriceGrosze: number | null;
+  /** Cena efektywna (promo ?? regular) w GROSZACH (null gdy brak). */
+  effectiveGrosze: number | null;
+}
+
+export interface SerializedPriceHistory {
+  product: SerializedProduct;
+  stats: SerializedPriceStats;
+  /** Punkty historii chronologicznie (najstarsze najpierw). */
+  history: SerializedHistoryPoint[];
+}
+
+function serializeHistoryPoint(row: PriceHistory): SerializedHistoryPoint {
+  return {
+    store: row.store,
+    source: row.source,
+    fetchedAt: row.fetchedAt.toISOString(),
+    priceGrosze: priceToGrosze(row.price),
+    promoPriceGrosze: priceToGrosze(row.promoPrice),
+    effectiveGrosze: effectivePriceGrosze(row),
+  };
+}
+
+/**
+ * Serializuje odczyt historii cen produktu: produkt + statystyki (grosze) +
+ * chronologiczna lista punktów. Kwoty przepisywane 1:1 z DAO/heleprów — bez
+ * ponownego liczenia po stronie HTTP.
+ */
+export function serializePriceHistory(
+  product: Product,
+  stats: PriceStatsGrosze,
+  history: readonly PriceHistory[],
+): SerializedPriceHistory {
+  return {
+    product: serializeProduct(product),
+    stats,
+    history: history.map(serializeHistoryPoint),
   };
 }
