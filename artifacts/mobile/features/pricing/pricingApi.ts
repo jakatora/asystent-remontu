@@ -115,10 +115,42 @@ export interface SerializedStage {
   stageTotalGrosze: number;
 }
 
+/** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
+export interface SerializedConsolidatedLine {
+  product: SerializedProduct;
+  cheapestOffer: SerializedOffer;
+  /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */
+  totalQuantity: number;
+  unit: string | null;
+  /** Wielkość opakowania użyta do zaokrąglenia w górę. */
+  packageSize: number;
+  /** Liczba pełnych opakowań policzona RAZ na zsumowanej ilości. */
+  packagesNeeded: number;
+  /** Koszt skonsolidowany, w GROSZACH. */
+  lineCostGrosze: number;
+  /** Suma kosztów per-etap tego produktu (osobne zaokrąglenia), w GROSZACH. */
+  perStageCostGrosze: number;
+  /** Oszczędność vs suma per-etap, w GROSZACH. */
+  savingsGrosze: number;
+}
+
+/** Skonsolidowana lista zakupowa całego remontu + łączna oszczędność. */
+export interface SerializedConsolidatedList {
+  lines: SerializedConsolidatedLine[];
+  /** Suma po konsolidacji (zaokrąglenie do opakowań raz na produkt), w GROSZACH. */
+  consolidatedTotalGrosze: number;
+  /** Suma bez konsolidacji (zaokrąglenia per-etap) = projectTotalGrosze, w GROSZACH. */
+  perStageTotalGrosze: number;
+  /** Łączna oszczędność = perStageTotalGrosze - consolidatedTotalGrosze, w GROSZACH. */
+  savingsGrosze: number;
+}
+
 export interface SerializedProject {
   stages: SerializedStage[];
   /** Suma wszystkich etapów, w GROSZACH. */
   projectTotalGrosze: number;
+  /** Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania łącznie). */
+  consolidated: SerializedConsolidatedList;
 }
 
 // ─── Kontrakt HISTORII CEN (GET /pricing/history) ─────────────────────────────

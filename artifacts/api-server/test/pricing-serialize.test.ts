@@ -90,6 +90,34 @@ test("serializeProject: suma remontu = suma etapów (w groszach)", async () => {
   );
 });
 
+test("serializeProject: skonsolidowana lista łączy ten sam produkt z 2 etapów i pokazuje oszczędność", async () => {
+  // Dwa razy ten sam etap (farba 12 l, opak. 5 l, 8000 gr) => ten sam produkt p1.
+  const project = await estimateProjectCostFromCalculation(
+    noDb,
+    [paintJob, paintJob],
+    {},
+    fakeDeps,
+  );
+  const out = serializeProject(project);
+
+  // Per-etap: ceil(12/5)=3 opak. w każdym etapie => 2 * 24000 = 48000 gr.
+  assert.equal(out.projectTotalGrosze, 2 * EXPECTED_PAINT_STAGE_GROSZE);
+
+  // Konsolidacja: jeden produkt zebrany z 2 etapów, qty 24 => ceil(24/5)=5 opak.
+  assert.equal(out.consolidated.lines.length, 1);
+  const line = out.consolidated.lines[0]!;
+  assert.equal(line.product.id, "p1");
+  assert.equal(line.totalQuantity, 24);
+  assert.equal(line.packagesNeeded, 5);
+  assert.equal(line.lineCostGrosze, 5 * EXPECTED_CHEAPEST.unitPriceGrosze); // 40000
+  assert.equal(line.perStageCostGrosze, 48000);
+  assert.equal(line.savingsGrosze, 8000);
+
+  assert.equal(out.consolidated.consolidatedTotalGrosze, 40000);
+  assert.equal(out.consolidated.perStageTotalGrosze, out.projectTotalGrosze);
+  assert.equal(out.consolidated.savingsGrosze, 8000); // kupując łącznie: 80 zł taniej
+});
+
 test("serializePriceHistory: statystyki 1:1 (grosze) + punkty chronologiczne z ISO", () => {
   const stats = computeProductPriceStatsGrosze(historyRows, CURRENT_CHEAPEST_GROSZE);
   const out = serializePriceHistory(product, stats, historyRows);

@@ -9,6 +9,8 @@
 // odpowiedzi z `resolved:false` i `reason`, żeby klient widział, czego nie
 // dało się wycenić (a nie tylko zaniżoną sumę).
 import type {
+  ConsolidatedLine,
+  ConsolidatedShoppingList,
   EstimateLine,
   ItemQuery,
   ProjectEstimate,
@@ -71,10 +73,42 @@ export interface SerializedStage {
   stageTotalGrosze: number;
 }
 
+/** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
+export interface SerializedConsolidatedLine {
+  product: SerializedProduct;
+  cheapestOffer: SerializedOffer;
+  /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */
+  totalQuantity: number;
+  unit: string | null;
+  /** Wielkość opakowania użyta do zaokrąglenia w górę. */
+  packageSize: number;
+  /** Liczba pełnych opakowań policzona RAZ na zsumowanej ilości. */
+  packagesNeeded: number;
+  /** Koszt skonsolidowany, w GROSZACH. */
+  lineCostGrosze: number;
+  /** Suma kosztów per-etap tego produktu (osobne zaokrąglenia), w GROSZACH. */
+  perStageCostGrosze: number;
+  /** Oszczędność vs suma per-etap = perStageCostGrosze - lineCostGrosze, w GROSZACH. */
+  savingsGrosze: number;
+}
+
+/** Skonsolidowana lista zakupowa całego remontu + łączna oszczędność. */
+export interface SerializedConsolidatedList {
+  lines: SerializedConsolidatedLine[];
+  /** Suma po konsolidacji (zaokrąglenie do opakowań raz na produkt), w GROSZACH. */
+  consolidatedTotalGrosze: number;
+  /** Suma bez konsolidacji (zaokrąglenia per-etap) = projectTotalGrosze, w GROSZACH. */
+  perStageTotalGrosze: number;
+  /** Łączna oszczędność = perStageTotalGrosze - consolidatedTotalGrosze, w GROSZACH. */
+  savingsGrosze: number;
+}
+
 export interface SerializedProject {
   stages: SerializedStage[];
   /** Suma wszystkich etapów, w GROSZACH. */
   projectTotalGrosze: number;
+  /** Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania łącznie). */
+  consolidated: SerializedConsolidatedList;
 }
 
 /** Wspólna serializacja produktu do stabilnego kształtu HTTP (id + kody + opakowanie). */
@@ -142,13 +176,47 @@ export function serializeStage(
   };
 }
 
-/** Serializuje wycenę całego remontu (suma etapów). */
+function serializeConsolidatedLine(
+  line: ConsolidatedLine,
+): SerializedConsolidatedLine {
+  return {
+    product: serializeProduct(line.product),
+    cheapestOffer: {
+      offerId: line.cheapestOffer.offer.id,
+      store: line.cheapestOffer.store,
+      url: line.cheapestOffer.url,
+      unitPriceGrosze: line.cheapestOffer.unitPriceGrosze,
+    },
+    totalQuantity: line.totalQuantity,
+    unit: line.unit,
+    packageSize: line.packageSize,
+    packagesNeeded: line.packagesNeeded,
+    lineCostGrosze: line.lineCostGrosze,
+    perStageCostGrosze: line.perStageCostGrosze,
+    savingsGrosze: line.savingsGrosze,
+  };
+}
+
+/** Serializuje skonsolidowaną listę zakupową całego remontu (kwoty 1:1 w groszach). */
+function serializeConsolidated(
+  consolidated: ConsolidatedShoppingList,
+): SerializedConsolidatedList {
+  return {
+    lines: consolidated.lines.map(serializeConsolidatedLine),
+    consolidatedTotalGrosze: consolidated.consolidatedTotalGrosze,
+    perStageTotalGrosze: consolidated.perStageTotalGrosze,
+    savingsGrosze: consolidated.savingsGrosze,
+  };
+}
+
+/** Serializuje wycenę całego remontu (suma etapów + skonsolidowana lista zakupowa). */
 export function serializeProject(
   project: ProjectEstimate & { stages: StageEstimateFromCalculation[] },
 ): SerializedProject {
   return {
     stages: project.stages.map(serializeStage),
     projectTotalGrosze: project.projectTotalGrosze,
+    consolidated: serializeConsolidated(project.consolidated),
   };
 }
 

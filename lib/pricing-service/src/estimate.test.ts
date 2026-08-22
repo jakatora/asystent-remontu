@@ -6,6 +6,7 @@ import type { Product, ProductOffer } from "@workspace/db/schema";
 
 import {
   computePackagesNeeded,
+  consolidateProject,
   estimateProjectCost,
   estimateStageCost,
   selectCheapestOffer,
@@ -278,5 +279,100 @@ test("estimateProjectCost: sumuje etapy do projectTotalGrosze", async () => {
 });
 
 test("estimateProjectCost: brak etapów -> 0", () => {
-  assert.equal(estimateProjectCost([]).projectTotalGrosze, 0);
+  const project = estimateProjectCost([]);
+  assert.equal(project.projectTotalGrosze, 0);
+  assert.deepEqual(project.consolidated.lines, []);
+  assert.equal(project.consolidated.consolidatedTotalGrosze, 0);
+  assert.equal(project.consolidated.savingsGrosze, 0);
+});
+
+// --- konsolidacja materiałów w całym remoncie -----------------------------
+
+test("consolidateProject: ten sam produkt w 2 etapach -> jedno zaokrąglenie + oszczędność", async () => {
+  const p = product({ id: "farba", ean: "1", packageSize: "5" });
+  const deps = makeDeps({
+    byCode: { "1": p },
+    offers: {
+      farba: [offer({ productId: "farba", store: "leroy-merlin", price: "80.00", packageSize: "5" })],
+    },
+  });
+
+  // Dwa etapy po 12 l tej samej farby (opak. 5 l, 80 zł = 8000 gr).
+  const stage1 = await estimateStageCost(
+    db,
+    [{ query: { ean: "1" }, quantity: 12, unit: "l" }],
+    {},
+    deps,
+  );
+  const stage2 = await estimateStageCost(
+    db,
+    [{ query: { ean: "1" }, quantity: 12, unit: "l" }],
+    {},
+    deps,
+  );
+
+  // Per-etap: ceil(12/5)=3 opak. w każdym etapie => 2 * 3 * 8000 = 48000 gr.
+  assert.equal(stage1.stageTotalGrosze, 24000);
+  assert.equal(stage2.stageTotalGrosze, 24000);
+
+  const project = estimateProjectCost([stage1, stage2]);
+  assert.equal(project.projectTotalGrosze, 48000);
+
+  const { consolidated } = project;
+  assert.equal(consolidated.lines.length, 1); // jeden produkt zebrany z 2 etapów
+  const line = consolidated.lines[0]!;
+  assert.equal(line.product.id, "farba");
+  assert.equal(line.totalQuantity, 24); // 12 + 12 l zsumowane
+  assert.equal(line.packagesNeeded, 5); // ceil(24/5)=5 (a nie 3+3=6)
+  assert.equal(line.lineCostGrosze, 5 * 8000); // 40000 gr
+  assert.equal(line.perStageCostGrosze, 48000);
+  assert.equal(line.savingsGrosze, 8000); // jedno opakowanie mniej = 80 zł
+
+  assert.equal(consolidated.consolidatedTotalGrosze, 40000);
+  assert.equal(consolidated.perStageTotalGrosze, 48000);
+  assert.equal(consolidated.perStageTotalGrosze, project.projectTotalGrosze);
+  assert.equal(consolidated.savingsGrosze, 8000);
+});
+
+test("consolidateProject: różne produkty -> brak scalania, zero oszczędności", async () => {
+  const p1 = product({ id: "a", ean: "1", packageSize: "1" });
+  const p2 = product({ id: "b", ean: "2", packageSize: "1" });
+  const deps = makeDeps({
+    byCode: { "1": p1, "2": p2 },
+    offers: {
+      a: [offer({ productId: "a", price: "10.00", packageSize: "1" })],
+      b: [offer({ productId: "b", price: "25.50", packageSize: "1" })],
+    },
+  });
+
+  const stage1 = await estimateStageCost(db, [{ query: { ean: "1" }, quantity: 4, unit: "szt" }], {}, deps);
+  const stage2 = await estimateStageCost(db, [{ query: { ean: "2" }, quantity: 2, unit: "szt" }], {}, deps);
+
+  const { consolidated } = estimateProjectCost([stage1, stage2]);
+  assert.equal(consolidated.lines.length, 2);
+  assert.equal(consolidated.consolidatedTotalGrosze, 9100);
+  assert.equal(consolidated.savingsGrosze, 0); // pełne opakowania, nic do zaokrąglenia
+});
+
+test("consolidateProject: pozycje nierozpoznane nie wchodzą do konsolidacji", async () => {
+  const p = product({ id: "ok", ean: "1", packageSize: "1" });
+  const deps = makeDeps({
+    byCode: { "1": p }, // EAN "9" nieznany
+    offers: { ok: [offer({ productId: "ok", price: "10.00", packageSize: "1" })] },
+  });
+
+  const stage = await estimateStageCost(
+    db,
+    [
+      { query: { ean: "1" }, quantity: 2, unit: "szt" },
+      { query: { ean: "9" }, quantity: 5, unit: "szt" }, // nierozpoznana
+    ],
+    {},
+    deps,
+  );
+
+  const consolidated = consolidateProject([stage]);
+  assert.equal(consolidated.lines.length, 1);
+  assert.equal(consolidated.lines[0]!.product.id, "ok");
+  assert.equal(consolidated.consolidatedTotalGrosze, 2000);
 });

@@ -3,6 +3,7 @@ export * from "./types";
 export {
   estimateStageCost,
   estimateProjectCost,
+  consolidateProject,
   selectCheapestOffer,
   resolvePackageSize,
   computePackagesNeeded,

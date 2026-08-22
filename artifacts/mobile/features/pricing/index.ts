@@ -20,6 +20,8 @@ export type {
   SerializedLine,
   SerializedOffer,
   SerializedProduct,
+  SerializedConsolidatedLine,
+  SerializedConsolidatedList,
   SerializedPriceStats,
   SerializedHistoryPoint,
   PriceHistoryResponse,

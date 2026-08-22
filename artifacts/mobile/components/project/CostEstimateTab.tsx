@@ -25,6 +25,7 @@ import {
   type SerializedProject,
   type SerializedStage,
   type SerializedLine,
+  type SerializedConsolidatedLine,
   type SerializedPriceStats,
   type UnresolvedReason,
 } from '@/features/pricing';
@@ -122,6 +123,9 @@ function EstimateResult({
   const lines = stage?.lines ?? [];
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
+  const consolidated = data.consolidated;
+  const consolidatedLines = consolidated?.lines ?? [];
+  const savingsGrosze = consolidated?.savingsGrosze ?? 0;
 
   if (lines.length === 0) {
     return <InfoState icon="package" text={t('cmp.CostEstimate.empty')} />;
@@ -163,9 +167,49 @@ function EstimateResult({
         </View>
       </View>
 
+      {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia
+          do opakowań na całym remoncie (liczy backend, tu tylko formatujemy). */}
+      {savingsGrosze > 0 && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 8,
+            padding: 12,
+            borderRadius: 12,
+            backgroundColor: Colors.successBg,
+            borderWidth: 1,
+            borderColor: Colors.success,
+          }}
+        >
+          <Feather name="trending-down" size={18} color={Colors.success} />
+          <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.success }}>
+            {t('cmp.CostEstimate.savings', { amount: formatGrosze(savingsGrosze) })}
+          </Txt>
+        </View>
+      )}
+
       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
         {t('cmp.CostEstimate.disclaimer')}
       </Txt>
+
+      {/* Skonsolidowana lista zakupowa całego remontu (kup raz, opak. łącznie) */}
+      {consolidatedLines.length > 0 && (
+        <View style={{ gap: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Feather name="shopping-cart" size={16} color={Colors.primary} />
+            <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>
+              {t('cmp.CostEstimate.consolidatedTitle')} ({consolidatedLines.length})
+            </Txt>
+          </View>
+          <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
+            {t('cmp.CostEstimate.consolidatedHint')}
+          </Txt>
+          {consolidatedLines.map((line, idx) => (
+            <ConsolidatedLineCard key={`c-${line.product.id}-${idx}`} line={line} />
+          ))}
+        </View>
+      )}
 
       {/* Materiały z najtańszą ofertą */}
       {resolved.length > 0 && (
@@ -272,6 +316,62 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
           gtin={product.gtin}
         />
       )}
+    </View>
+  );
+}
+
+/**
+ * Karta skonsolidowanej pozycji zakupowej: produkt zebrany ze wszystkich etapów.
+ * Pokazuje łączną ilość natywną, liczbę opakowań (policzoną RAZ na sumie), sklep,
+ * koszt skonsolidowany oraz — gdy dodatnia — oszczędność vs suma per-etap. Nic nie
+ * liczy: kwoty (grosze) i ilości pochodzą z backendu, tu tylko formatowanie.
+ */
+function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
+  const { t } = useLanguage();
+  const offer = line.cheapestOffer;
+  return (
+    <View
+      style={{
+        backgroundColor: Colors.surface,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: Colors.border,
+        padding: 12,
+        gap: 6,
+      }}
+    >
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
+        <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>
+          {line.product.name}
+        </Txt>
+        <Txt w="bold" style={{ fontSize: 14, color: Colors.text }}>
+          {formatGrosze(line.lineCostGrosze)}
+        </Txt>
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        {offer && (
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+            <Feather name="shopping-bag" size={12} color={Colors.textMuted} />
+            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{offer.store}</Txt>
+          </View>
+        )}
+        {line.savingsGrosze > 0 && (
+          <Badge
+            icon="trending-down"
+            text={t('cmp.CostEstimate.savedBadge', { amount: formatGrosze(line.savingsGrosze) })}
+            color={Colors.success}
+            bg={Colors.successBg}
+          />
+        )}
+      </View>
+      <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+        {t('cmp.CostEstimate.consolidatedLineDetail', {
+          qty: formatQuantity(line.totalQuantity),
+          unit: line.unit ?? '',
+          packages: line.packagesNeeded,
+          unitPrice: offer ? formatGrosze(offer.unitPriceGrosze) : '—',
+        })}
+      </Txt>
     </View>
   );
 }

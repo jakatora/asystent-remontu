@@ -18,11 +18,14 @@ import { parsePriceToGrosze } from "@workspace/price-collector";
 
 import type {
   CheapestOffer,
+  ConsolidatedLine,
+  ConsolidatedShoppingList,
   EstimateItem,
   EstimateLine,
   EstimateOptions,
   ItemQuery,
   ProjectEstimate,
+  ResolvedLine,
   StageEstimate,
   UnresolvedReason,
 } from "./types";
@@ -196,8 +199,86 @@ export async function estimateStageCost(
 }
 
 /**
+ * Konsolidacja materiałów w całym remoncie („kup raz, licz opakowania łącznie").
+ * Grupuje rozpoznane pozycje WSZYSTKICH etapów po produkcie (ten sam `product.id`
+ * = ten sam produkt, niezależnie czy trafiony po EAN czy nazwie+kategorii),
+ * SUMUJE ilości natywne i DOPIERO na zsumowanej ilości liczy opakowania i koszt.
+ *
+ * Czysta funkcja — bez I/O. Najtańsza oferta i wielkość opakowania są dla danego
+ * produktu deterministyczne (te same oferty + ta sama opcja `store` w każdym
+ * etapie), więc bierzemy je z pierwszej rozpoznanej pozycji produktu — nie ma
+ * potrzeby ponownego odpytywania katalogu.
+ *
+ * Zaokrąglenie w górę raz na zsumowanej ilości jest zawsze <= sumie zaokrągleń
+ * per-etap (ceil(a+b) <= ceil(a)+ceil(b)), więc `savingsGrosze` >= 0.
+ */
+export function consolidateProject(
+  stages: readonly StageEstimate[],
+): ConsolidatedShoppingList {
+  interface Group {
+    product: ResolvedLine["product"];
+    cheapestOffer: CheapestOffer;
+    packageSize: number;
+    unit: string | null;
+    totalQuantity: number;
+    perStageCostGrosze: number;
+  }
+  const groups = new Map<string, Group>();
+
+  for (const stage of stages) {
+    for (const line of stage.lines) {
+      if (!line.resolved) continue;
+      const key = line.product.id;
+      const existing = groups.get(key);
+      if (existing) {
+        existing.totalQuantity += line.quantity;
+        existing.perStageCostGrosze += line.lineCost;
+        if (existing.unit === null && line.unit !== null) existing.unit = line.unit;
+      } else {
+        groups.set(key, {
+          product: line.product,
+          cheapestOffer: line.cheapestOffer,
+          packageSize: line.packageSize,
+          unit: line.unit,
+          totalQuantity: line.quantity,
+          perStageCostGrosze: line.lineCost,
+        });
+      }
+    }
+  }
+
+  const lines: ConsolidatedLine[] = [];
+  for (const g of groups.values()) {
+    const packagesNeeded = computePackagesNeeded(g.totalQuantity, g.packageSize);
+    const lineCostGrosze = packagesNeeded * g.cheapestOffer.unitPriceGrosze;
+    lines.push({
+      product: g.product,
+      cheapestOffer: g.cheapestOffer,
+      totalQuantity: g.totalQuantity,
+      unit: g.unit,
+      packageSize: g.packageSize,
+      packagesNeeded,
+      lineCostGrosze,
+      perStageCostGrosze: g.perStageCostGrosze,
+      savingsGrosze: g.perStageCostGrosze - lineCostGrosze,
+    });
+  }
+
+  const consolidatedTotalGrosze = lines.reduce((s, l) => s + l.lineCostGrosze, 0);
+  const perStageTotalGrosze = lines.reduce((s, l) => s + l.perStageCostGrosze, 0);
+  return {
+    lines,
+    consolidatedTotalGrosze,
+    perStageTotalGrosze,
+    savingsGrosze: perStageTotalGrosze - consolidatedTotalGrosze,
+  };
+}
+
+/**
  * Sumuje już wyliczone etapy do wyceny całego remontu. Czysta agregacja — nie
- * odpytuje DB (etapy policz wcześniej przez estimateStageCost).
+ * odpytuje DB (etapy policz wcześniej przez estimateStageCost). Dokłada dwie
+ * warstwy: koszt per-etap (`projectTotalGrosze`) ORAZ skonsolidowaną listę
+ * zakupową całego remontu (`consolidated`, patrz consolidateProject).
  */
 export function estimateProjectCost(
   stages: readonly StageEstimate[],
@@ -206,5 +287,9 @@ export function estimateProjectCost(
     (sum, s) => sum + s.stageTotalGrosze,
     0,
   );
-  return { stages: [...stages], projectTotalGrosze };
+  return {
+    stages: [...stages],
+    projectTotalGrosze,
+    consolidated: consolidateProject(stages),
+  };
 }

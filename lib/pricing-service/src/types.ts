@@ -94,9 +94,55 @@ export interface StageEstimate {
   stageTotalGrosze: number;
 }
 
+/**
+ * Skonsolidowana pozycja zakupowa całego remontu: JEDEN produkt zebrany ze
+ * WSZYSTKICH etapów (kup raz, licz opakowania łącznie). Ilości natywne z każdego
+ * etapu są zsumowane PRZED zaokrągleniem do opakowań, więc `packagesNeeded`
+ * liczy się raz na zsumowanej ilości — stąd oszczędność względem sumy per-etap.
+ */
+export interface ConsolidatedLine {
+  product: Product;
+  cheapestOffer: CheapestOffer;
+  /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */
+  totalQuantity: number;
+  /** Jednostka ilości (pierwsza niepusta spośród pozycji tego produktu). */
+  unit: string | null;
+  /** Wielkość opakowania użyta do zaokrąglenia (>= 1); ta sama dla produktu. */
+  packageSize: number;
+  /** Liczba pełnych opakowań policzona RAZ na zsumowanej ilości (w górę). */
+  packagesNeeded: number;
+  /** Koszt skonsolidowany = packagesNeeded * unitPriceGrosze (GROSZE). */
+  lineCostGrosze: number;
+  /** Suma kosztów per-etap tego produktu (osobne zaokrąglenia w każdym etapie). */
+  perStageCostGrosze: number;
+  /** Oszczędność względem sumy per-etap = perStageCostGrosze - lineCostGrosze (>= 0). */
+  savingsGrosze: number;
+}
+
+/**
+ * Skonsolidowana lista zakupowa całego remontu + łączna oszczędność wynikająca z
+ * jednorazowego zaokrąglenia do opakowań (zamiast osobno w każdym etapie).
+ */
+export interface ConsolidatedShoppingList {
+  /** Produkty zebrane ze wszystkich etapów (kolejność = pierwsze wystąpienie). */
+  lines: ConsolidatedLine[];
+  /** Suma po konsolidacji (zaokrąglenie do opakowań RAZ na produkt), w GROSZACH. */
+  consolidatedTotalGrosze: number;
+  /** Suma bez konsolidacji (zaokrąglenia per-etap) = suma rozpoznanych pozycji, w GROSZACH. */
+  perStageTotalGrosze: number;
+  /** Łączna oszczędność = perStageTotalGrosze - consolidatedTotalGrosze (>= 0). */
+  savingsGrosze: number;
+}
+
 /** Wynik wyceny całego remontu (suma etapów). */
 export interface ProjectEstimate {
   stages: StageEstimate[];
   /** Suma `stageTotalGrosze` wszystkich etapów w GROSZACH. */
   projectTotalGrosze: number;
+  /**
+   * Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania
+   * łącznie). `perStageTotalGrosze` === `projectTotalGrosze` (te same pozycje,
+   * inne zaokrąglenie), a `savingsGrosze` to różnica na korzyść kupującego.
+   */
+  consolidated: ConsolidatedShoppingList;
 }
