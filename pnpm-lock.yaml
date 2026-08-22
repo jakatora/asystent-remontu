@@ -983,6 +983,22 @@ importers:
         specifier: 'catalog:'
         version: 4.21.0
 
+  lib/pricing-service:
+    dependencies:
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../db
+      '@workspace/price-collector':
+        specifier: workspace:*
+        version: link:../price-collector
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 25.3.5
+      tsx:
+        specifier: 'catalog:'
+        version: 4.21.0
+
   scripts:
     devDependencies:
       '@types/node':

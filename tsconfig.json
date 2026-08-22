@@ -10,6 +10,9 @@
       "path": "./lib/price-collector"
     },
     {
+      "path": "./lib/pricing-service"
+    },
+    {
       "path": "./lib/api-client-react"
     },
     {

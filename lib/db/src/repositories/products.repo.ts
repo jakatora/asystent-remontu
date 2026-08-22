@@ -1,4 +1,4 @@
-import { eq, ilike, isNull } from "drizzle-orm";
+import { and, eq, ilike, isNull } from "drizzle-orm";
 
 import type { Database } from "./types";
 import {
@@ -103,9 +103,53 @@ export async function searchByNormalizedName(
     .orderBy(productsTable.normalizedName);
 }
 
+/**
+ * Wyszukuje produkt po kodzie: NAJPIERW EAN, potem GTIN (ta sama kolejność co
+ * przy zapisie w upsertByEanOrGtin). Zwraca undefined, gdy brak obu kodów albo
+ * brak dopasowania. Read-only — nic nie modyfikuje. NIGDY nie łączy po nazwie.
+ */
+export async function findByEanOrGtin(
+  db: Database,
+  code: { ean?: string | null; gtin?: string | null },
+): Promise<Product | undefined> {
+  const key = resolveUpsertKey(code);
+  if (!key) return undefined;
+  return findByColumn(db, key.field, key.value);
+}
+
+/**
+ * Wyszukuje produkt po DOKŁADNEJ znormalizowanej nazwie ORAZ kategorii. Nazwa
+ * jest normalizowana tą samą funkcją co przy zapisie (idempotentnie). Kategoria
+ * jest OBOWIĄZKOWA — dopasowanie po samej nazwie jest świadomie niedozwolone
+ * (zbyt luźne). Zwraca pierwszy rekord (po nazwie) albo undefined.
+ */
+export async function findByNormalizedNameAndCategory(
+  db: Database,
+  name: string,
+  category: string,
+): Promise<Product | undefined> {
+  const normalized = normalizeProductName(name);
+  const cat = category.trim();
+  if (!normalized || !cat) return undefined;
+  const rows = await db
+    .select()
+    .from(productsTable)
+    .where(
+      and(
+        eq(productsTable.normalizedName, normalized),
+        eq(productsTable.category, cat),
+      ),
+    )
+    .orderBy(productsTable.name)
+    .limit(1);
+  return rows[0];
+}
+
 export const productsRepository = {
   upsertByEanOrGtin,
   findById,
   findByCategory,
   searchByNormalizedName,
+  findByEanOrGtin,
+  findByNormalizedNameAndCategory,
 };
