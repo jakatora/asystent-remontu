@@ -5,13 +5,17 @@
 // Uruchomienie: `pnpm --filter @workspace/api-server collect`
 // Wymaga DATABASE_URL. Konfiguracja przez ENV:
 //   PRICE_COLLECTOR_SOURCES  - lista slugów sklepów po przecinku
-//                              (domyślnie wszystkie: leroy-merlin,mrowka)
-//   STORE_FEED_URL           - URL realnego feedu produktowego sklepu (XML
+//                              (domyślnie wszystkie: leroy-merlin,mrowka,castorama)
+//   STORE_FEED_URL           - URL realnego feedu produktowego MRÓWKI (XML
 //                              Google Merchant/RSS lub JSON). Gdy ustawiony,
 //                              adapter Mrówki pobiera feed po HTTP zamiast
 //                              migawki (MROWKA_FEED_URL = starsza nazwa, fallback).
-//   STORE_FEED_TIMEOUT_MS    - limit czasu jednej próby pobrania (domyślnie 15000)
-//   STORE_FEED_RETRIES       - liczba dodatkowych prób po błędzie przejściowym (domyślnie 2)
+//   STORE2_FEED_URL          - URL realnego feedu produktowego CASTORAMY (jw.).
+//                              Gdy ustawiony, Castorama pobiera feed po HTTP
+//                              zamiast migawki. Oba sklepy zbierają na te same
+//                              produkty (ten sam EAN -> >=2 realne oferty).
+//   STORE_FEED_TIMEOUT_MS    - limit czasu jednej próby pobrania (wspólny, domyślnie 15000)
+//   STORE_FEED_RETRIES       - liczba dodatkowych prób po błędzie przejściowym (wspólna, domyślnie 2)
 //
 // Idempotentne w sensie katalogu: upsert po EAN/GTIN, a price_history dopisuje
 // wpis tylko przy ZMIANIE ceny (append-only) — patrz product-offers.repo.

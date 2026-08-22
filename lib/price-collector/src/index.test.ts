@@ -42,6 +42,58 @@ test("oba zarejestrowane sklepy dają ofertę na TEN SAM EAN (selectCheapestOffe
   );
 });
 
+test("createSourcesFromEnv: honoruje STORE2_FEED_URL dla Castoramy przez wstrzyknięty fetch", async () => {
+  const feedJson = JSON.stringify([
+    {
+      gtin: "5903973005797",
+      title: "Farba Śnieżka Eko 10 l z feedu",
+      link: "https://www.castorama.pl/feed_CAPL.prd",
+      price: "92,00",
+      unitPricingMeasure: "10 l",
+    },
+  ]);
+  let fetchedUrl: string | null = null;
+  const sources = await createSourcesFromEnv(
+    ["castorama"],
+    { STORE2_FEED_URL: "https://feeds.example/castorama.json" },
+    {
+      fetchImpl: async (url) => {
+        fetchedUrl = url;
+        return { ok: true, status: 200, text: async () => feedJson };
+      },
+    },
+  );
+  assert.equal(fetchedUrl, "https://feeds.example/castorama.json");
+  assert.equal(sources.length, 1);
+  assert.equal(sources[0]!.slug, "castorama");
+  const offers = await sources[0]!.fetchOffers();
+  assert.equal(offers[0]!.price, 9200); // z feedu, nie z fixture (94,98)
+});
+
+test("trzy zarejestrowane sklepy dają REALNĄ ofertę na TEN SAM EAN (Leroy < Mrówka < Castorama)", async () => {
+  const SHARED_EAN = "5903973005797";
+  const sources = await createSourcesFromEnv(
+    ["leroy-merlin", "mrowka", "castorama"],
+    {},
+  );
+
+  const priceByStore = new Map<string, number>();
+  for (const s of sources) {
+    const offers = await s.fetchOffers();
+    const match = offers.find((o) => o.ean === SHARED_EAN && o.price != null);
+    if (match) priceByStore.set(s.slug, match.price!);
+  }
+
+  // Castorama pokrywa EAN wspólny z Mrówką -> >=2 (tu 3) realne oferty do porównania.
+  assert.equal(priceByStore.size, 3);
+  assert.equal(priceByStore.get("leroy-merlin"), 7998);
+  assert.equal(priceByStore.get("mrowka"), 8699);
+  assert.equal(priceByStore.get("castorama"), 9498);
+  // selectCheapestOffer ma realny wybór: najtańszy to Leroy.
+  const cheapest = Math.min(...priceByStore.values());
+  assert.equal(cheapest, priceByStore.get("leroy-merlin"));
+});
+
 test("createSourcesFromEnv: honoruje MROWKA_FEED_URL przez wstrzyknięty fetch", async () => {
   const feedJson = JSON.stringify([
     {

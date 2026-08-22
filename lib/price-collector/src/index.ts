@@ -2,11 +2,15 @@
 //
 // DODANIE KOLEJNEGO SKLEPU = jeden plik w ./sources + jedna linia w SOURCE_FACTORIES.
 
+import {
+  CastoramaSource,
+  loadCastoramaFromFeedUrl,
+} from "./sources/castorama.source";
 import { LeroyMerlinSource } from "./sources/leroy-merlin.source";
+import type { FetchLike } from "./sources/merchant-feed";
 import {
   MrowkaSource,
   loadMrowkaFromFeedUrl,
-  type FetchLike,
 } from "./sources/mrowka.source";
 import type { PriceSource } from "./types";
 
@@ -27,6 +31,16 @@ export {
   type FeedFetchOptions,
 } from "./sources/mrowka.source";
 export {
+  CastoramaSource,
+  loadCastoramaFromFeedUrl,
+} from "./sources/castorama.source";
+export {
+  FeedPriceSource,
+  fetchFeedItemsFromUrl,
+  parseMerchantFeedXml,
+  parseMerchantFeedAuto,
+} from "./sources/merchant-feed";
+export {
   parseMrowkaFeed,
   feedItemToProduct,
   feedItemToRawOffer,
@@ -45,6 +59,7 @@ export {
 export const SOURCE_FACTORIES: Record<string, () => PriceSource> = {
   "leroy-merlin": () => new LeroyMerlinSource(),
   mrowka: () => new MrowkaSource(),
+  castorama: () => new CastoramaSource(),
 };
 
 /** Zwraca nową instancję adaptera po slugu albo null, gdy nieznany. */
@@ -102,12 +117,16 @@ function parsePositiveIntEnv(raw: string | undefined): number | undefined {
 }
 
 /**
- * Buduje instancje adapterów dla podanych slugów, honorując ENV z URL-em feedu.
- * URL czytamy z `STORE_FEED_URL` (ogólny, preferowany), a dla wstecznej
- * zgodności także z `MROWKA_FEED_URL`. Gdy URL jest ustawiony, adapter pobiera
- * feed LEGALNIE po HTTP (z timeoutem `STORE_FEED_TIMEOUT_MS` i retry
- * `STORE_FEED_RETRIES`); w przeciwnym razie używa wbudowanej migawki (bez sieci).
- * Sieć jest TYLKO tutaj (granica) — reszta modułu pozostaje czysta i testowalna.
+ * Buduje instancje adapterów dla podanych slugów, honorując ENV z URL-em feedu
+ * PER SKLEP:
+ *   - Mrówka:    `STORE_FEED_URL` (ogólny, preferowany) lub `MROWKA_FEED_URL` (fallback),
+ *   - Castorama: `STORE2_FEED_URL`.
+ * Gdy URL danego sklepu jest ustawiony, adapter pobiera feed LEGALNIE po HTTP
+ * (z timeoutem `STORE_FEED_TIMEOUT_MS` i retry `STORE_FEED_RETRIES`, wspólnymi dla
+ * obu sklepów); w przeciwnym razie używa wbudowanej migawki (bez sieci). Sieć jest
+ * TYLKO tutaj (granica) — reszta modułu pozostaje czysta i testowalna. Dzięki temu
+ * scheduler/CLI/admin zbierają ceny z OBU sklepów na te same produkty (ten sam EAN
+ * -> >=2 realne oferty dla selectCheapestOffer).
  */
 export async function createSourcesFromEnv(
   slugs: readonly string[],
@@ -115,14 +134,27 @@ export async function createSourcesFromEnv(
   deps: BuildSourcesDeps = {},
 ): Promise<PriceSource[]> {
   const out: PriceSource[] = [];
-  const feedUrl = env.STORE_FEED_URL ?? env.MROWKA_FEED_URL;
+  const mrowkaFeedUrl = env.STORE_FEED_URL ?? env.MROWKA_FEED_URL;
+  const castoramaFeedUrl = env.STORE2_FEED_URL;
   const feedOptions = {
     timeoutMs: parsePositiveIntEnv(env.STORE_FEED_TIMEOUT_MS),
     retries: parsePositiveIntEnv(env.STORE_FEED_RETRIES),
   };
   for (const slug of slugs) {
-    if (slug === "mrowka" && feedUrl) {
-      out.push(await loadMrowkaFromFeedUrl(feedUrl, deps.fetchImpl, feedOptions));
+    if (slug === "mrowka" && mrowkaFeedUrl) {
+      out.push(
+        await loadMrowkaFromFeedUrl(mrowkaFeedUrl, deps.fetchImpl, feedOptions),
+      );
+      continue;
+    }
+    if (slug === "castorama" && castoramaFeedUrl) {
+      out.push(
+        await loadCastoramaFromFeedUrl(
+          castoramaFeedUrl,
+          deps.fetchImpl,
+          feedOptions,
+        ),
+      );
       continue;
     }
     const source = createSource(slug);
