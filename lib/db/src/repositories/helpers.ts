@@ -33,6 +33,55 @@ export function resolveUpsertKey(input: {
   return null;
 }
 
+/**
+ * Pola produktu, które wolno UZUPEŁNIĆ danymi z feedu, gdy oferta dopnie się do
+ * istniejącego rekordu po parze (nazwa + kategoria) — typowo materiał z katalogu
+ * referencyjnego zaseedowany BEZ kodu. Świadomie NIE zawiera name/category/
+ * normalizedName ani cen — te pochodzą z katalogu/oferty i nie są tu ruszane.
+ */
+export const ENRICHABLE_PRODUCT_FIELDS = [
+  "ean",
+  "gtin",
+  "brand",
+  "manufacturer",
+  "imageUrl",
+  "productUrl",
+  "packageSize",
+  "packageUnit",
+] as const;
+
+export type EnrichableProductField = (typeof ENRICHABLE_PRODUCT_FIELDS)[number];
+
+/** Wartość „pusta" do celów wzbogacania: null/undefined lub sam biały znak. */
+function isEmptyEnrichValue(v: unknown): boolean {
+  return (
+    v === null ||
+    v === undefined ||
+    (typeof v === "string" && v.trim() === "")
+  );
+}
+
+/**
+ * Buduje patch WZBOGACAJĄCY: bierze z `incoming` tylko te pola (spośród
+ * `fields`), które w `existing` są puste, a w feedzie mają wartość. NIGDY nie
+ * nadpisuje istniejących wartości. Zwraca `{}`, gdy nie ma czego dodać — dzięki
+ * temu dopasowanie po nazwie+kategorii uzupełnia brakujący EAN/zdjęcie/URL, ale
+ * nie kasuje danych już zebranych.
+ */
+export function buildEnrichmentPatch(
+  existing: Record<string, unknown>,
+  incoming: Record<string, unknown>,
+  fields: readonly string[] = ENRICHABLE_PRODUCT_FIELDS,
+): Record<string, unknown> {
+  const patch: Record<string, unknown> = {};
+  for (const f of fields) {
+    if (isEmptyEnrichValue(existing[f]) && !isEmptyEnrichValue(incoming[f])) {
+      patch[f] = incoming[f];
+    }
+  }
+  return patch;
+}
+
 /** Minimalny kształt oferty potrzebny do liczenia ceny efektywnej. */
 export interface PricedOffer {
   price: string | null;

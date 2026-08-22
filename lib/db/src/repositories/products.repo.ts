@@ -6,7 +6,11 @@ import {
   productsTable,
   type Product,
 } from "../schema/products";
-import { normalizeProductName, resolveUpsertKey } from "./helpers";
+import {
+  buildEnrichmentPatch,
+  normalizeProductName,
+  resolveUpsertKey,
+} from "./helpers";
 
 // Wejście upsertu — normalized_name jest wyliczane z name, więc opcjonalne.
 const upsertProductInput = insertProductSchema.partial({ normalizedName: true });
@@ -185,9 +189,77 @@ export async function upsertByNormalizedNameAndCategory(
   return inserted[0]!;
 }
 
+/**
+ * Upsert produktu dla Price Collectora — łączy dwie strategie dopasowania po
+ * kolei, żeby oferta z realnego feedu (z EAN) dopięła się do materiału
+ * zaseedowanego z katalogu referencyjnego (BEZ kodu), zamiast tworzyć duplikat:
+ *
+ *   1) po kodzie EAN, potem GTIN (jak `upsertByEanOrGtin`) → pełna aktualizacja;
+ *   2) fallback: DOKŁADNA para (znormalizowana nazwa + kategoria). Gdy trafi w
+ *      istniejący rekord, WZBOGACA go danymi z feedu (ean/gtin/brand/
+ *      manufacturer/imageUrl/productUrl/packageSize/packageUnit) — ale TYLKO
+ *      puste pola (bez nadpisywania tego, co już jest);
+ *   3) brak obu dopasowań → nowy rekord.
+ *
+ * Reguła „nie łącz wyłącznie po podobnej nazwie" jest zachowana: fallback wymaga
+ * zgodności `normalized_name` ORAZ `category` (dokładnej, nie fuzzy). Bez
+ * kategorii fallback jest pomijany i powstaje nowy rekord.
+ */
+export async function upsertProductWithMatch(
+  db: Database,
+  input: unknown,
+): Promise<Product> {
+  const parsed = upsertProductInput.parse(input);
+  const normalizedName =
+    parsed.normalizedName ?? normalizeProductName(parsed.name);
+  const values = { ...parsed, normalizedName };
+
+  // 1) Dopasowanie po kodzie (EAN, potem GTIN) — pełna aktualizacja jak dotąd.
+  const key = resolveUpsertKey(parsed);
+  if (key) {
+    const existingByCode = await findByColumn(db, key.field, key.value);
+    if (existingByCode) {
+      const updated = await db
+        .update(productsTable)
+        .set({ ...values, updatedAt: new Date() })
+        .where(eq(productsTable.id, existingByCode.id))
+        .returning();
+      return updated[0]!;
+    }
+  }
+
+  // 2) Fallback: dokładna para (znormalizowana nazwa + kategoria). Wzbogaca
+  //    istniejący rekord (typowo bez kodu) danymi z feedu — tylko puste pola.
+  const category = parsed.category?.trim();
+  if (category) {
+    const existingByName = await findByNormalizedNameAndCategory(
+      db,
+      parsed.name,
+      category,
+    );
+    if (existingByName) {
+      const patch = buildEnrichmentPatch(
+        existingByName as unknown as Record<string, unknown>,
+        values as unknown as Record<string, unknown>,
+      );
+      const updated = await db
+        .update(productsTable)
+        .set({ ...patch, updatedAt: new Date() })
+        .where(eq(productsTable.id, existingByName.id))
+        .returning();
+      return updated[0]!;
+    }
+  }
+
+  // 3) Brak dopasowania → nowy rekord.
+  const inserted = await db.insert(productsTable).values(values).returning();
+  return inserted[0]!;
+}
+
 export const productsRepository = {
   upsertByEanOrGtin,
   upsertByNormalizedNameAndCategory,
+  upsertProductWithMatch,
   findById,
   findByCategory,
   searchByNormalizedName,

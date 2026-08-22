@@ -7,8 +7,8 @@
 //   2) móc testować orkiestrator na atrapach bez realnego Postgresa.
 
 import {
-  upsertByEanOrGtin,
   upsertOffer,
+  upsertProductWithMatch,
   type Database,
 } from "@workspace/db/repositories";
 import type { Product, ProductOffer } from "@workspace/db/schema";
@@ -19,8 +19,11 @@ import type { NormalizedOffer, NormalizedProduct, PriceSource } from "./types";
 /** Kontrakt na operacje DAO potrzebne orkiestratorowi. */
 export interface CollectorDeps {
   /**
-   * Dopasowuje produkt po EAN/GTIN i aktualizuje, a gdy brak dopasowania —
-   * tworzy nowy wpis. NIGDY nie łączy po samej nazwie (gwarancja products.repo).
+   * Dopasowuje produkt NAJPIERW po EAN/GTIN, a gdy brak — fallbackiem po
+   * DOKŁADNEJ parze (znormalizowana nazwa + kategoria), wzbogacając wtedy
+   * istniejący rekord bez kodu danymi z feedu (tylko puste pola). Dopiero brak
+   * obu tworzy nowy wpis. NIGDY nie łączy wyłącznie po podobnej nazwie
+   * (gwarancja products.repo — fallback wymaga też zgodnej kategorii).
    */
   upsertProduct: (db: Database, input: unknown) => Promise<Product>;
   /** Upsert oferty; przy zmianie ceny sam dopisuje rekord do price_history. */
@@ -28,7 +31,7 @@ export interface CollectorDeps {
 }
 
 const defaultDeps: CollectorDeps = {
-  upsertProduct: upsertByEanOrGtin,
+  upsertProduct: upsertProductWithMatch,
   upsertOffer,
 };
 
@@ -37,7 +40,7 @@ export interface CollectionResult {
   offersProcessed: number;
   /** Produkty utworzone jako nowe wpisy w katalogu. */
   productsCreated: number;
-  /** Produkty dopasowane do istniejącego wpisu po EAN/GTIN. */
+  /** Produkty dopasowane do istniejącego wpisu (po EAN/GTIN lub nazwie+kategorii). */
   productsMatched: number;
   offersUpserted: number;
   /** Oferty, które się nie zapisały (nazwa produktu + komunikat błędu). */

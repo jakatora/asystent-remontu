@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import type { Database } from "@workspace/db/repositories";
+import {
+  upsertProductWithMatch,
+  type Database,
+} from "@workspace/db/repositories";
 import type { Product, ProductOffer } from "@workspace/db/schema";
 
 import {
@@ -162,6 +165,109 @@ test("runCollectionForSources: agreguje wyniki, błąd źródła nie zatrzymuje 
   assert.equal(results[0]!.offersUpserted, 1);
   assert.equal(results[1]!.source, "store-b");
   assert.match(results[1]!.errors[0]!.message, /feed down/);
+});
+
+// Atrapa Drizzle dla realnego upsertProductWithMatch: zwraca wyniki SELECT-ów w
+// kolejności wywołań i przechwytuje update()/insert(), żeby udowodnić, że oferta
+// z feedu dopina się do istniejącego rekordu (update), a nie tworzy duplikatu.
+function makeMatchDb(selectResults: unknown[][]) {
+  const cap = { updates: [] as unknown[], inserts: [] as unknown[] };
+  let selectCount = 0;
+  const db = {
+    select() {
+      const idx = selectCount++;
+      const b: Record<string, unknown> = {
+        from: () => b,
+        where: () => b,
+        orderBy: () => b,
+        limit: () => Promise.resolve(selectResults[idx] ?? []),
+      };
+      return b;
+    },
+    update() {
+      let set: Record<string, unknown> = {};
+      const b: Record<string, unknown> = {
+        set: (v: Record<string, unknown>) => ((set = v), b),
+        where: () => b,
+        // createdAt != updatedAt (set niesie świeże updatedAt) => wasCreated()=false (matched).
+        returning: () =>
+          (cap.updates.push(set),
+          Promise.resolve([{ id: "seed-id", createdAt: new Date(0), ...set }])),
+      };
+      return b;
+    },
+    insert() {
+      let values: Record<string, unknown> = {};
+      const b: Record<string, unknown> = {
+        values: (v: Record<string, unknown>) => ((values = v), b),
+        returning: () => (cap.inserts.push(values), Promise.resolve([{ id: "new-id", ...values }])),
+      };
+      return b;
+    },
+  };
+  return { db: db as unknown as Database, cap };
+}
+
+test("runCollection (deps.upsertProduct = REALNY upsertProductWithMatch): oferta z EAN dopina się do materiału bez EAN", async () => {
+  // Materiał zaseedowany bez EAN, dopasowywalny po nazwie+kategorii.
+  const seeded = {
+    id: "seed-id",
+    ean: null,
+    gtin: null,
+    brand: "Śnieżka",
+    manufacturer: null,
+    name: "Farba testowa",
+    normalizedName: "farba testowa",
+    category: "farby-scienne-biale",
+    imageUrl: null,
+    productUrl: null,
+    packageSize: "10",
+    packageUnit: "l",
+    createdAt: new Date("2026-08-01T00:00:00Z"),
+    updatedAt: new Date("2026-08-01T00:00:00Z"),
+  } as unknown as Product;
+
+  // SELECT #1 (po EAN) pusty, SELECT #2 (nazwa+kategoria) trafia w seed.
+  const { db: matchDb, cap } = makeMatchDb([[], [seeded]]);
+
+  const offerInputs: Array<{ productId: string }> = [];
+  const deps: CollectorDeps = {
+    upsertProduct: upsertProductWithMatch, // REALNA logika dopasowania
+    upsertOffer: async (_db, input) => {
+      offerInputs.push({ productId: (input as { productId: string }).productId });
+      return {} as ProductOffer;
+    },
+  };
+
+  // Oferta niesie EAN; metadane (fetchProducts) dają kategorię do dopasowania.
+  const src = fakeSource(
+    [offer({ ean: "5903973005797", name: "Farba testowa" })],
+    [
+      {
+        ean: "5903973005797",
+        gtin: null,
+        manufacturer: null,
+        brand: null,
+        name: "Farba testowa",
+        category: "farby-scienne-biale",
+        packageSize: 10,
+        packageUnit: "l",
+        imageUrl: "https://example.pl/img.jpg",
+        productUrl: "https://example.pl/p",
+      },
+    ],
+  );
+
+  const res = await runCollection(src, matchDb, deps);
+
+  // Dopięto do istniejącego (matched), ŻADNEGO nowego produktu (bez duplikatu).
+  assert.equal(res.productsMatched, 1);
+  assert.equal(res.productsCreated, 0);
+  assert.equal(cap.inserts.length, 0);
+  assert.equal(cap.updates.length, 1);
+  // Seed wzbogacony EAN-em i zdjęciem z feedu; oferta spięta z tym samym rekordem.
+  assert.equal((cap.updates[0] as { ean?: string }).ean, "5903973005797");
+  assert.equal(offerInputs[0]!.productId, "seed-id");
 });
 
 test("runCollection: błąd jednej oferty nie przerywa reszty", async () => {
