@@ -14,7 +14,7 @@ import {
 import type { Product, ProductOffer } from "@workspace/db/schema";
 
 import { groszeToAmountString } from "./normalize";
-import type { NormalizedOffer, PriceSource } from "./types";
+import type { NormalizedOffer, NormalizedProduct, PriceSource } from "./types";
 
 /** Kontrakt na operacje DAO potrzebne orkiestratorowi. */
 export interface CollectorDeps {
@@ -50,19 +50,51 @@ function packageSizeToString(size: number | null): string | null {
 }
 
 /**
- * Buduje wejście produktu dla products.repo z danych oferty. Zawiera tylko
- * pewne pola z oferty; brand/kategoria/zdjęcie uzupełnia osobny sync katalogu.
+ * Buduje wejście produktu dla products.repo z danych oferty, WZBOGACONE o
+ * metadane katalogowe z `fetchProducts` (brand/kategoria/zdjęcie/subcategory),
+ * dopasowane po EAN/GTIN. Oferta zawsze jest źródłem pewnych pól (nazwa, cena),
+ * a metadane uzupełniają to, czego oferta nie niesie. Gdy brak metadanych
+ * (np. źródło zwraca `fetchProducts: []`), zachowanie jest jak wcześniej.
  */
-function toProductInput(offer: NormalizedOffer) {
+function toProductInput(offer: NormalizedOffer, meta?: NormalizedProduct) {
   return {
     ean: offer.ean,
-    gtin: offer.gtin,
-    manufacturer: offer.manufacturer,
+    gtin: offer.gtin ?? meta?.gtin ?? null,
+    manufacturer: offer.manufacturer ?? meta?.manufacturer ?? null,
+    brand: meta?.brand ?? null,
     name: offer.name,
-    packageSize: packageSizeToString(offer.packageSize),
-    packageUnit: offer.packageUnit,
-    productUrl: offer.url,
+    category: meta?.category ?? null,
+    packageSize: packageSizeToString(offer.packageSize ?? meta?.packageSize ?? null),
+    packageUnit: offer.packageUnit ?? meta?.packageUnit ?? null,
+    imageUrl: meta?.imageUrl ?? null,
+    productUrl: offer.url ?? meta?.productUrl ?? null,
   };
+}
+
+/**
+ * Indeksuje produkty z `fetchProducts` po kodzie (NAJPIERW EAN, potem GTIN) —
+ * ta sama kolejność, którą stosuje dopasowanie w products.repo. NIGDY nie
+ * indeksujemy po nazwie (to byłoby luźne dopasowanie). Produkty bez kodu są
+ * pomijane w indeksie (i tak nie da się ich pewnie powiązać z ofertą).
+ */
+function indexProductsByCode(
+  products: NormalizedProduct[],
+): Map<string, NormalizedProduct> {
+  const map = new Map<string, NormalizedProduct>();
+  for (const p of products) {
+    const key = p.ean ?? p.gtin;
+    if (key && !map.has(key)) map.set(key, p);
+  }
+  return map;
+}
+
+/** Znajduje metadane produktu dla oferty po EAN/GTIN (bez łączenia po nazwie). */
+function findMeta(
+  index: Map<string, NormalizedProduct>,
+  offer: NormalizedOffer,
+): NormalizedProduct | undefined {
+  const key = offer.ean ?? offer.gtin;
+  return key ? index.get(key) : undefined;
 }
 
 /** Buduje wejście oferty dla product-offers.repo (kwoty grosze -> numeric). */
@@ -101,6 +133,14 @@ export async function runCollection(
   deps: CollectorDeps = defaultDeps,
 ): Promise<CollectionResult> {
   const offers = await source.fetchOffers();
+  // Metadane katalogowe (brand/kategoria/zdjęcie) do wzbogacenia produktu.
+  // Best-effort: brak/awaria fetchProducts nie może zatrzymać zbierania ofert.
+  let productIndex = new Map<string, NormalizedProduct>();
+  try {
+    productIndex = indexProductsByCode(await source.fetchProducts());
+  } catch {
+    productIndex = new Map();
+  }
 
   const result: CollectionResult = {
     source: source.slug,
@@ -113,7 +153,8 @@ export async function runCollection(
 
   for (const offer of offers) {
     try {
-      const product = await deps.upsertProduct(db, toProductInput(offer));
+      const meta = findMeta(productIndex, offer);
+      const product = await deps.upsertProduct(db, toProductInput(offer, meta));
       if (wasCreated(product)) {
         result.productsCreated += 1;
       } else {
@@ -131,4 +172,38 @@ export async function runCollection(
   }
 
   return result;
+}
+
+/**
+ * Zbiera ceny z WIELU źródeł po kolei nad tym samym `db`. Błąd całego źródła
+ * (np. fetchOffers rzuca) nie przerywa pozostałych — trafia do wyniku jako
+ * `CollectionResult` z pojedynczym błędem. Dzięki temu jeden padnięty sklep nie
+ * blokuje zebrania cen z reszty.
+ */
+export async function runCollectionForSources(
+  sources: readonly PriceSource[],
+  db: Database,
+  deps: CollectorDeps = defaultDeps,
+): Promise<CollectionResult[]> {
+  const results: CollectionResult[] = [];
+  for (const source of sources) {
+    try {
+      results.push(await runCollection(source, db, deps));
+    } catch (err) {
+      results.push({
+        source: source.slug,
+        offersProcessed: 0,
+        productsCreated: 0,
+        productsMatched: 0,
+        offersUpserted: 0,
+        errors: [
+          {
+            offer: "*",
+            message: err instanceof Error ? err.message : String(err),
+          },
+        ],
+      });
+    }
+  }
+  return results;
 }

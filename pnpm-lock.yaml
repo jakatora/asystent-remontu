@@ -147,6 +147,9 @@ importers:
       '@workspace/db':
         specifier: workspace:*
         version: link:../../lib/db
+      '@workspace/price-collector':
+        specifier: workspace:*
+        version: link:../../lib/price-collector
       '@workspace/pricing-service':
         specifier: workspace:*
         version: link:../../lib/pricing-service

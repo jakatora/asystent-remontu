@@ -4,8 +4,12 @@ import { test } from "node:test";
 import type { Database } from "@workspace/db/repositories";
 import type { Product, ProductOffer } from "@workspace/db/schema";
 
-import { runCollection, type CollectorDeps } from "./orchestrator";
-import type { NormalizedOffer, PriceSource } from "./types";
+import {
+  runCollection,
+  runCollectionForSources,
+  type CollectorDeps,
+} from "./orchestrator";
+import type { NormalizedOffer, NormalizedProduct, PriceSource } from "./types";
 
 const db = {} as unknown as Database;
 
@@ -30,11 +34,15 @@ function offer(over: Partial<NormalizedOffer>): NormalizedOffer {
   };
 }
 
-function fakeSource(offers: NormalizedOffer[]): PriceSource {
+function fakeSource(
+  offers: NormalizedOffer[],
+  products: NormalizedProduct[] = [],
+  slug = "test-store",
+): PriceSource {
   return {
-    slug: "test-store",
+    slug,
     displayName: "Test Store",
-    fetchProducts: async () => [],
+    fetchProducts: async () => products,
     fetchOffers: async () => offers,
   };
 }
@@ -97,6 +105,63 @@ test("runCollection: dopasowanie po EAN vs utworzenie nowego (bez łączenia po 
     { productId: "prod-existing", price: "79.98" },
     { productId: "prod-new", price: "145.00" },
   ]);
+});
+
+test("runCollection: wzbogaca produkt metadanymi z fetchProducts po EAN", async () => {
+  const productInputs: Array<Record<string, unknown>> = [];
+  const deps: CollectorDeps = {
+    upsertProduct: async (_db, input) => {
+      productInputs.push(input as Record<string, unknown>);
+      return matchedProduct("p", (input as { ean: string | null }).ean);
+    },
+    upsertOffer: async () => ({}) as ProductOffer,
+  };
+
+  const meta: NormalizedProduct = {
+    ean: "5903973005797",
+    gtin: null,
+    manufacturer: "Śnieżka",
+    brand: "Śnieżka",
+    name: "Farba Eko",
+    category: "farby-scienne-biale",
+    packageSize: 10,
+    packageUnit: "l",
+    imageUrl: "https://example.pl/img.jpg",
+    productUrl: "https://example.pl/p",
+  };
+
+  const src = fakeSource([offer({ ean: "5903973005797" })], [meta]);
+  await runCollection(src, db, deps);
+
+  assert.equal(productInputs.length, 1);
+  // Metadane (brand/kategoria/zdjęcie) doklejone z fetchProducts po EAN.
+  assert.equal(productInputs[0]!.brand, "Śnieżka");
+  assert.equal(productInputs[0]!.category, "farby-scienne-biale");
+  assert.equal(productInputs[0]!.imageUrl, "https://example.pl/img.jpg");
+});
+
+test("runCollectionForSources: agreguje wyniki, błąd źródła nie zatrzymuje reszty", async () => {
+  const deps: CollectorDeps = {
+    upsertProduct: async () => createdProduct("p", null),
+    upsertOffer: async () => ({}) as ProductOffer,
+  };
+
+  const good = fakeSource([offer({ name: "OK" })], [], "store-a");
+  const broken: PriceSource = {
+    slug: "store-b",
+    displayName: "Broken",
+    fetchProducts: async () => [],
+    fetchOffers: async () => {
+      throw new Error("feed down");
+    },
+  };
+
+  const results = await runCollectionForSources([good, broken], db, deps);
+  assert.equal(results.length, 2);
+  assert.equal(results[0]!.source, "store-a");
+  assert.equal(results[0]!.offersUpserted, 1);
+  assert.equal(results[1]!.source, "store-b");
+  assert.match(results[1]!.errors[0]!.message, /feed down/);
 });
 
 test("runCollection: błąd jednej oferty nie przerywa reszty", async () => {

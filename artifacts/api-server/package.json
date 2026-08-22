@@ -8,12 +8,14 @@
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
     "migrate": "tsx src/scripts/migrate.ts",
+    "collect": "tsx src/scripts/collect.ts",
     "test": "tsx --test test/**/*.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@workspace/api-zod": "workspace:*",
     "@workspace/db": "workspace:*",
+    "@workspace/price-collector": "workspace:*",
     "@workspace/pricing-service": "workspace:*",
     "cookie-parser": "^1.4.7",
     "cors": "^2",
