@@ -1,0 +1,49 @@
+// Walidacja wejścia endpointów wyceny. Kształt zgodny z kontraktem adaptera
+// `@workspace/pricing-service` (CalculatorStageResult / CalculatorMaterialLine /
+// EstimateOptions). Waliduje TYLKO strukturę wejścia z kalkulatora — ceny i
+// opakowania liczy serwis wyceny na podstawie katalogu, nie klient.
+import { z } from "zod";
+
+const materialSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  unit: z.string(),
+  category: z.string().nullish(),
+  ean: z.string().nullish(),
+  gtin: z.string().nullish(),
+});
+
+const materialLineSchema = z.object({
+  material: materialSchema,
+  // Ilość natywna materiału policzona przez silnik — nieujemna i skończona.
+  quantity: z.number().finite().nonnegative(),
+  // Opakowania referencyjne z mobile — przyjmowane, ale wycena ich NIE używa.
+  packs: z.number().finite().optional(),
+});
+
+export const stageResultSchema = z.object({
+  jobId: z.string(),
+  materials: z.array(materialLineSchema),
+});
+
+export const optionsSchema = z
+  .object({
+    region: z.string().nullish(),
+    store: z.string().nullish(),
+  })
+  .optional();
+
+/** Body dla POST /api/pricing/stage. */
+export const stageRequestSchema = z.object({
+  job: stageResultSchema,
+  options: optionsSchema,
+});
+
+/** Body dla POST /api/pricing/project (i payload GET-a). */
+export const projectRequestSchema = z.object({
+  jobs: z.array(stageResultSchema),
+  options: optionsSchema,
+});
+
+export type StageRequest = z.infer<typeof stageRequestSchema>;
+export type ProjectRequest = z.infer<typeof projectRequestSchema>;
