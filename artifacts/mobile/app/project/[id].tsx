@@ -21,6 +21,7 @@ import {
   ToolsTab,
   GuideTab,
   ShoppingTab,
+  CostEstimateTab,
   PhotosTab,
   PricingSummary,
   diyAssessment,
@@ -368,7 +369,7 @@ export default function ProjectDetailScreen() {
   const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended, t);
   const budget = calc ? estimateBudget(job, calc.totalCost) : null;
 
-  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'budget', 'photos'];
+  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'estimate', 'budget', 'photos'];
 
   const data = {
     project,
@@ -522,6 +523,10 @@ export default function ProjectDetailScreen() {
             onRemoveItem={handleRemoveItem}
             onShare={handleShare}
           />
+        )}
+
+        {tab === 'estimate' && (
+          <CostEstimateTab calc={calc} />
         )}
 
         {tab === 'budget' && calc && pricedBudget && (

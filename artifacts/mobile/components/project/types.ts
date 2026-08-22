@@ -13,7 +13,7 @@ import type {
   BudgetEstimate,
 } from '@/types/domain';
 
-export type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'budget' | 'photos';
+export type Tab = 'overview' | 'materials' | 'tools' | 'guide' | 'shopping' | 'estimate' | 'budget' | 'photos';
 
 export const TAB_LABEL_KEYS: Record<Tab, TranslationKey> = {
   overview: 'cmp.tab.overview',
@@ -21,6 +21,7 @@ export const TAB_LABEL_KEYS: Record<Tab, TranslationKey> = {
   tools: 'cmp.tab.tools',
   guide: 'cmp.tab.guide',
   shopping: 'cmp.tab.shopping',
+  estimate: 'cmp.tab.estimate',
   budget: 'cmp.tab.budget',
   photos: 'cmp.tab.photos',
 };

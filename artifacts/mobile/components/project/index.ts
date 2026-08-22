@@ -3,6 +3,7 @@ export { MaterialsTab } from './MaterialsTab';
 export { ToolsTab } from './ToolsTab';
 export { GuideTab } from './GuideTab';
 export { ShoppingTab } from './ShoppingTab';
+export { CostEstimateTab } from './CostEstimateTab';
 export { PhotosTab } from './PhotosTab';
 export { ToolCard } from './ToolCard';
 export { ShoppingItemCard } from './ShoppingItemCard';
