@@ -17,6 +17,10 @@ import {
 } from "@workspace/price-collector";
 
 import { getDb } from "../lib/db";
+import {
+  getSchedulerStatus as defaultGetSchedulerStatus,
+  type SchedulerStatus,
+} from "../scheduler";
 
 export interface AdminRouterDeps {
   /** Token wymagany w nagłówku `x-admin-token`. Brak/pusty => endpoint wyłączony. */
@@ -32,6 +36,8 @@ export interface AdminRouterDeps {
   ) => Promise<CollectionResult[]>;
   /** Rozwiązanie listy slugów (domyślnie z ENV). Zwraca też nieznane slugi. */
   resolveSlugs?: (requested?: string[]) => { slugs: string[]; unknown: string[] };
+  /** Status cyklicznego schedulera (domyślnie z ../scheduler). */
+  getSchedulerStatus?: () => SchedulerStatus | null;
 }
 
 /** Domyślne rozwiązanie slugów: body.sources (jeśli podane) albo ENV. */
@@ -61,8 +67,30 @@ export function createAdminRouter(opts: AdminRouterDeps = {}): IRouter {
     opts.buildSources ?? ((slugs: string[]) => createSourcesFromEnv(slugs, process.env));
   const runCollection = opts.runCollection ?? runCollectionForSources;
   const resolveSlugs = opts.resolveSlugs ?? defaultResolveSlugs;
+  const getSchedulerStatus = opts.getSchedulerStatus ?? defaultGetSchedulerStatus;
 
   const router: IRouter = Router();
+
+  // Status cyklicznego schedulera — read-only, bez tokenu (same znaczniki czasu
+  // i liczby ofert, bez sekretów). Gdy scheduler wyłączony -> enabled:false.
+  router.get("/admin/collect/status", (_req: Request, res: Response) => {
+    const scheduler = getSchedulerStatus();
+    res.json({
+      scheduler:
+        scheduler ?? {
+          enabled: false,
+          intervalMs: 0,
+          running: false,
+          runs: 0,
+          lastRunAt: null,
+          lastFinishedAt: null,
+          nextRunAt: null,
+          lastDurationMs: null,
+          lastTotals: null,
+          lastError: null,
+        },
+    });
+  });
 
   router.post("/admin/collect", async (req: Request, res: Response) => {
     // Bez skonfigurowanego tokenu operacja zapisu jest niedostępna (bezpieczny domyślny).

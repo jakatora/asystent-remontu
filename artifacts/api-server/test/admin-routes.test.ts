@@ -119,6 +119,50 @@ test("POST /api/admin/collect: 200 uruchamia zbieranie z wybranych źródeł", a
   }
 });
 
+test("GET /api/admin/collect/status: zwraca status schedulera (read-only, bez tokenu)", async () => {
+  const status = {
+    enabled: true,
+    intervalMs: 3_600_000,
+    running: false,
+    runs: 2,
+    lastRunAt: "2026-08-23T10:00:00.000Z",
+    lastFinishedAt: "2026-08-23T10:00:01.000Z",
+    nextRunAt: "2026-08-23T11:00:01.000Z",
+    lastDurationMs: 1000,
+    lastTotals: {
+      offersProcessed: 4,
+      offersUpserted: 4,
+      productsCreated: 2,
+      productsMatched: 2,
+      errors: 0,
+    },
+    lastError: null,
+  };
+  const { url, close } = await listen(
+    makeApp({ getSchedulerStatus: () => status }),
+  );
+  try {
+    const resp = await fetch(`${url}/api/admin/collect/status`);
+    assert.equal(resp.status, 200);
+    assert.deepEqual((await resp.json()).scheduler, status);
+  } finally {
+    await close();
+  }
+});
+
+test("GET /api/admin/collect/status: enabled:false gdy scheduler nie wystartował", async () => {
+  const { url, close } = await listen(
+    makeApp({ getSchedulerStatus: () => null }),
+  );
+  try {
+    const resp = await fetch(`${url}/api/admin/collect/status`);
+    assert.equal(resp.status, 200);
+    assert.equal((await resp.json()).scheduler.enabled, false);
+  } finally {
+    await close();
+  }
+});
+
 test("POST /api/admin/collect: 400 gdy brak znanych źródeł", async () => {
   const { url, close } = await listen(
     makeApp({ resolveSlugs: () => ({ slugs: [], unknown: ["nieznany"] }) }),
