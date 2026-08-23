@@ -471,6 +471,74 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd",
   },
+
+  // --- Etap glazury: płytki ceramiczne / gres + akcesoria (materials.ts) ---
+
+  // Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 (materials.ts: mat-gres-paradyz-petro-grey-60x60).
+  // source: https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150 (EAN 5904584161544)
+  // source: https://www.leroymerlin.pl/produkty/gres-szkliwiony-petro-grey-mat-60x60-paradyz-92495587.html (EAN 5904584161544)
+  "mat-gres-paradyz-petro-grey-60x60": {
+    ean: "5904584161544",
+    variant: "Petro Grey struktura mat, 60×60",
+    manufacturer: "Ceramika Paradyż",
+    productUrl:
+      "https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150",
+  },
+
+  // Płytka ścienna Paradyż Nati Bianco struktura 25×40 (materials.ts: mat-tile-wall-paradyz-nati-bianco-25x40).
+  // source: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/ (EAN 5902610507960)
+  // source: https://www.ceneo.pl/70865330 (Paradyż Nati Bianco str 25x40, EAN 5902610507960)
+  "mat-tile-wall-paradyz-nati-bianco-25x40": {
+    ean: "5902610507960",
+    variant: "Nati Bianco struktura, 25×40",
+    manufacturer: "Ceramika Paradyż",
+    productUrl:
+      "https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/",
+  },
+
+  // Gres rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 (materials.ts: mat-gres-rekt-paradyz-u117-grey-60x60).
+  // source: https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html (EAN 5904584158261)
+  // source: https://dekordia.pl/produkt/paradyz-u117-grey-gres-mat-rektyfikowany-59-8x59-8.html (EAN 5904584158261)
+  "mat-gres-rekt-paradyz-u117-grey-60x60": {
+    ean: "5904584158261",
+    variant: "U117 (Ennis) Grey rekt. mat, 59,8×59,8",
+    manufacturer: "Ceramika Paradyż",
+    productUrl:
+      "https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html",
+  },
+
+  // Fuga ceramiczna Atlas 001 biała 2 kg (materials.ts: mat-grout-atlas-001-white-2kg).
+  // source: https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd (EAN 5905400572254)
+  // source: https://www.obi.pl/p/6552095/atlas-fuga-ceramiczna-001-bialy-2-kg (EAN 5905400572254)
+  "mat-grout-atlas-001-white-2kg": {
+    ean: "5905400572254",
+    variant: "001 biała, 2 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd",
+  },
+
+  // Krzyżyki dystansowe do płytek Hardy (KAEM) 2 mm, 200 szt. (materials.ts: mat-tile-spacers-hardy-2mm-200).
+  // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html (EAN 5905061016845)
+  // source: https://www.bricomarche.pl/krzyzyki-dystansowe-do-glazury-2-mm-biale-woreczek-200-sztuk-hardy (Hardy 2 mm, 200 szt.)
+  "mat-tile-spacers-hardy-2mm-200": {
+    ean: "5905061016845",
+    variant: "2 mm, 200 szt.",
+    manufacturer: "Hardy",
+    productUrl:
+      "https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html",
+  },
+
+  // Profil narożny do glazury Cezar aluminiowy 8 mm tytan szczotkowany mat 2,5 m (materials.ts: mat-tile-trim-cezar-corner-8mm-25m).
+  // source: https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m (EAN 5904584853500)
+  // source: https://www.leroymerlin.pl/produkty/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m-96115864.html (Cezar 8 mm 2,5 m)
+  "mat-tile-trim-cezar-corner-8mm-25m": {
+    ean: "5904584853500",
+    variant: "narożny 8 mm, tytan szczotkowany mat, 2,5 m",
+    manufacturer: "Cezar",
+    productUrl:
+      "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */

@@ -114,39 +114,81 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     },
   },
   {
+    // Płytki podłogowe: pełne tiery po klasie/formacie płytki (DOKŁADNIE JEDNA
+    // płytka m²/tier — engine liczy każdą pozycję m² na całą powierzchnię, więc
+    // dwie płytki w jednym tierze podwoiłyby koszt gresu). Akcesoria (krzyżyki)
+    // skalują się z powierzchnią, koszt pomijalny. Money-path bez zmian — mappings
+    // zasilają lokalny computePricedBudget, NIE ekran „Wycena" (API po calc.materials).
     jobId: 'floor-tiles',
     materialTypeMap: {
-      // + fuga (mat-grout-ceresit-ce40-white-2kg) — job ma spoinowanie, a materiał
-      //   z EAN daje realną ofertę zamiast pominięcia pozycji.
-      standard: [
+      // Economy = tańszy gres marki własnej (istniejący) + klej marki własnej + fuga Ceresit.
+      economy: [
         'mat-gres-guigliano-1m2',
         'mat-tile-adhesive-buildfix-25kg',
         'mat-grout-ceresit-ce40-white-2kg',
+        'mat-tile-spacers-hardy-2mm-200',
       ],
-      // Tier premium = markowy klej Ceresit CM 11 (EAN) zamiast marki własnej.
-      better: [
-        'mat-gres-guigliano-1m2',
+      // Standard = markowy gres szkliwiony 60×60 (Paradyż Petro Grey) + klej Ceresit CM 11 + fuga Atlas.
+      standard: [
+        'mat-gres-paradyz-petro-grey-60x60',
         'mat-tile-adhesive-ceresit-cm11-25kg',
-        'mat-grout-ceresit-ce40-white-2kg',
+        'mat-grout-atlas-001-white-2kg',
+        'mat-tile-spacers-hardy-2mm-200',
+      ],
+      // Better = gres REKTYFIKOWANY (Paradyż U117) — wyższa klasa/format.
+      better: [
+        'mat-gres-rekt-paradyz-u117-grey-60x60',
+        'mat-tile-adhesive-ceresit-cm11-25kg',
+        'mat-grout-atlas-001-white-2kg',
+        'mat-tile-spacers-hardy-2mm-200',
       ],
     },
   },
   {
+    // Płytki ścienne (łazienka): standard/better na markowej płytce ściennej Paradyż
+    // Nati Bianco + narożnik do glazury (profil) na zewnętrzne krawędzie. Jedna płytka m²/tier.
     jobId: 'wall-tiles-bathroom',
     materialTypeMap: {
-      // + fuga (mat-grout-ceresit-ce40-white-2kg, EAN) — job ma spoinę ścienną.
-      standard: [
+      // Economy = gres marki własnej (istniejący) + klej marki własnej + fuga Ceresit + silikon.
+      economy: [
         'mat-gres-guigliano-1m2',
         'mat-tile-adhesive-buildfix-25kg',
         'mat-grout-ceresit-ce40-white-2kg',
         'mat-sanitary-silicone-soudal-280ml',
+        'mat-tile-spacers-hardy-2mm-200',
       ],
-      // Tier premium = markowy klej Ceresit CM 11 (EAN).
-      better: [
-        'mat-gres-guigliano-1m2',
-        'mat-tile-adhesive-ceresit-cm11-25kg',
-        'mat-grout-ceresit-ce40-white-2kg',
+      // Standard = markowa płytka ścienna Paradyż Nati Bianco + fuga Atlas + narożnik Cezar.
+      standard: [
+        'mat-tile-wall-paradyz-nati-bianco-25x40',
+        'mat-tile-adhesive-buildfix-25kg',
+        'mat-grout-atlas-001-white-2kg',
         'mat-sanitary-silicone-soudal-280ml',
+        'mat-tile-spacers-hardy-2mm-200',
+        'mat-tile-trim-cezar-corner-8mm-25m',
+      ],
+      // Better = ta sama płytka + markowy klej Ceresit CM 11 (EAN).
+      better: [
+        'mat-tile-wall-paradyz-nati-bianco-25x40',
+        'mat-tile-adhesive-ceresit-cm11-25kg',
+        'mat-grout-atlas-001-white-2kg',
+        'mat-sanitary-silicone-soudal-280ml',
+        'mat-tile-spacers-hardy-2mm-200',
+        'mat-tile-trim-cezar-corner-8mm-25m',
+      ],
+    },
+  },
+  {
+    // Backsplash kuchenny: dotąd BEZ mapowania materiałów (tylko robocizna) —
+    // dokładamy pokrycie płytkami ściennymi + akcesoriami (addytywne, nowy job).
+    jobId: 'kitchen-backsplash',
+    materialTypeMap: {
+      standard: [
+        'mat-tile-wall-paradyz-nati-bianco-25x40',
+        'mat-tile-adhesive-ceresit-cm11-25kg',
+        'mat-grout-atlas-001-white-2kg',
+        'mat-sanitary-silicone-soudal-280ml',
+        'mat-tile-spacers-hardy-2mm-200',
+        'mat-tile-trim-cezar-corner-8mm-25m',
       ],
     },
   },

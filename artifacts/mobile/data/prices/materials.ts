@@ -910,4 +910,128 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+
+  // --- Etap glazury: płytki ceramiczne / gres + akcesoria (fuga, krzyżyki, profil) ---
+  // Materiały markowe z REALNYM EAN (≥2 niezależne źródła w komentarzach `// source:`).
+  // Tiery per klasa/format: standard = gres szkliwiony 60×60, better = gres rektyfikowany.
+  // Ceny za m² dla płytek (pricePerM2 + packageUnit 'm2', 1 m²/opak. jak istniejący gres
+  // mat-gres-guigliano-1m2), akcesoria za opakowanie. NIE ruszamy istniejących materiałów.
+
+  // Gres szkliwiony Ceramika Paradyż Petro Grey struktura mat 60×60 cm — EAN 5904584161544.
+  // source: https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150 (EAN 5904584161544, cena 69,00 zł/m²)
+  // source: https://www.leroymerlin.pl/produkty/gres-szkliwiony-petro-grey-mat-60x60-paradyz-92495587.html (Paradyż Petro Grey mat 60x60, EAN 5904584161544)
+  {
+    id: 'mat-gres-paradyz-petro-grey-60x60',
+    materialType: 'tile',
+    productLabel: 'Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm',
+    brand: 'Ceramika Paradyż',
+    packageSize: 1,
+    packageUnit: 'm2',
+    pricePerPackage: 69.0,
+    pricePerM2: 69.0,
+    category: 'standard',
+    storeName: 'neoCERAMIK',
+    sourceUrl:
+      'https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Płytka ścienna łazienkowa Ceramika Paradyż Nati Bianco struktura 25×40 cm — EAN 5902610507960.
+  // source: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/ (EAN 5902610507960, cena 74,88 zł/m²)
+  // source: https://www.ceneo.pl/70865330 (Paradyż Nati Bianco str 25x40, EAN 5902610507960)
+  {
+    id: 'mat-tile-wall-paradyz-nati-bianco-25x40',
+    materialType: 'tile',
+    productLabel: 'Płytka ścienna Paradyż Nati Bianco struktura 25×40 cm',
+    brand: 'Ceramika Paradyż',
+    packageSize: 1,
+    packageUnit: 'm2',
+    pricePerPackage: 74.88,
+    pricePerM2: 74.88,
+    category: 'standard',
+    storeName: 'eLazienki',
+    sourceUrl:
+      'https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Gres szkliwiony REKTYFIKOWANY Ceramika Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm — EAN 5904584158261.
+  // source: https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html (EAN 5904584158261, cena 77,00 zł/m²)
+  // source: https://dekordia.pl/produkt/paradyz-u117-grey-gres-mat-rektyfikowany-59-8x59-8.html (Paradyż U117 Grey rekt., EAN 5904584158261, 64,07 zł/m²)
+  {
+    id: 'mat-gres-rekt-paradyz-u117-grey-60x60',
+    materialType: 'tile',
+    productLabel: 'Gres szkliwiony rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm',
+    brand: 'Ceramika Paradyż',
+    packageSize: 1,
+    packageUnit: 'm2',
+    pricePerPackage: 77.0,
+    pricePerM2: 77.0,
+    category: 'better',
+    storeName: 'BLU',
+    sourceUrl:
+      'https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Fuga ceramiczna Atlas 001 biała 2 kg (spoina 1–20 mm, elastyczna) — EAN 5905400572254.
+  // source: https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd (EAN 5905400572254, cena 39,98 zł/2 kg)
+  // source: https://www.obi.pl/p/6552095/atlas-fuga-ceramiczna-001-bialy-2-kg (OBI: Atlas Fuga ceramiczna 001 biały 2 kg, EAN 5905400572254)
+  {
+    id: 'mat-grout-atlas-001-white-2kg',
+    materialType: 'grout',
+    productLabel: 'Fuga ceramiczna Atlas 001 biała 2 kg',
+    brand: 'Atlas',
+    packageSize: 2,
+    packageUnit: 'kg',
+    pricePerPackage: 39.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Krzyżyki dystansowe do płytek Hardy (KAEM) 2 mm, 200 szt. — EAN 5905061016845.
+  // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html (EAN 5905061016845, cena 3,99 zł/op.)
+  // source: https://www.bricomarche.pl/krzyzyki-dystansowe-do-glazury-2-mm-biale-woreczek-200-sztuk-hardy (Bricomarché: Hardy krzyżyki 2 mm, 200 szt.)
+  {
+    id: 'mat-tile-spacers-hardy-2mm-200',
+    materialType: 'tile-spacer',
+    productLabel: 'Krzyżyki dystansowe do płytek Hardy 2 mm (200 szt.)',
+    brand: 'Hardy',
+    packageSize: 200,
+    packageUnit: 'szt',
+    pricePerPackage: 3.99,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Profil narożny (zewnętrzny) do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m — EAN 5904584853500.
+  // source: https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m (EAN 5904584853500, cena 27,32 zł/szt, dł. 2,5 m)
+  // source: https://www.leroymerlin.pl/produkty/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m-96115864.html (Leroy Merlin: Cezar profil narożny 8 mm 2,5 m)
+  {
+    id: 'mat-tile-trim-cezar-corner-8mm-25m',
+    materialType: 'tile-trim',
+    productLabel: 'Profil narożny do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m',
+    brand: 'Cezar',
+    packageSize: 2.5,
+    packageUnit: 'szt',
+    pricePerPackage: 27.32,
+    pricePerMb: 10.93, // 27,32 zł / 2,5 m
+    category: 'standard',
+    storeName: 'Cezar',
+    sourceUrl:
+      'https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
 ];
