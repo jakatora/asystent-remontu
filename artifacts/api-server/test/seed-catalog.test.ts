@@ -21,6 +21,20 @@ import {
   type SeedDeps,
   type SeedMaterial,
 } from "../src/lib/seed-catalog";
+import { MATERIAL_EAN_OVERLAY } from "../src/lib/ean-overlay";
+
+/** Ładuje realny katalog referencyjny materials.ts (bez aliasu `@/`). */
+async function loadReferenceMaterials(): Promise<readonly SeedMaterial[]> {
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const materialsPath = path.resolve(
+    here,
+    "../../mobile/data/prices/materials.ts",
+  );
+  const mod = (await import(pathToFileURL(materialsPath).href)) as {
+    MATERIAL_PRICES: readonly SeedMaterial[];
+  };
+  return mod.MATERIAL_PRICES;
+}
 
 const paint: SeedMaterial = {
   id: "mat-paint-economy-white-10l",
@@ -234,4 +248,95 @@ test("DOWÓD CELU: po seedzie wycena rozpoznaje materiał (koniec 'nierozpoznane
   assert.equal(line.resolved, true);
   // 3 opakowania * 54.98 zł = 164.94 zł = 16494 groszy.
   assert.equal(stage.stageTotalGrosze, 16494);
+});
+
+// --- nakładka EAN (MATERIAL_EAN_OVERLAY) ------------------------------------
+
+test("materialToProductInput: materiał z nakładki dostaje POTWIERDZONY kod EAN", () => {
+  const skimCoat: SeedMaterial = {
+    id: "mat-skim-coat-standard-18kg",
+    materialType: "skim-coat",
+    productLabel: "Gotowa gładź polimerowa Atlas GTA 18 kg",
+    brand: "Atlas",
+    packageSize: 18,
+    packageUnit: "kg",
+    pricePerPackage: 69.78,
+    category: "standard",
+    storeName: "Castorama",
+    lastUpdated: "2026-04-01",
+    currency: "PLN",
+  };
+  const input = materialToProductInput(skimCoat);
+  // EAN Atlas GTA 18 kg potwierdzony w URL Castoramy i Mrówki (patrz ean-overlay.ts).
+  assert.equal(input.ean, "5905400542509");
+  assert.equal(input.manufacturer, "Atlas");
+  assert.equal(input.productUrl, MATERIAL_EAN_OVERLAY[skimCoat.id]!.productUrl);
+});
+
+test("materialToProductInput: wariant z nakładki trafia do pola variant", () => {
+  const skirting: SeedMaterial = {
+    id: "mat-skirting-arbiton-2500",
+    materialType: "skirting",
+    productLabel: "Listwa przypodłogowa PCV Arbiton Indo 2500 mm",
+    brand: "Arbiton",
+    packageSize: 2.5,
+    packageUnit: "mb",
+    pricePerPackage: 31.98,
+    category: "standard",
+    storeName: "Castorama",
+    lastUpdated: "2026-04-01",
+    currency: "PLN",
+  };
+  const input = materialToProductInput(skirting);
+  assert.equal(input.ean, "5905167781685");
+  assert.equal(input.variant, "biały mat");
+});
+
+test("materialToProductInput: materiał BEZ nakładki nadal ma ean/gtin = null", () => {
+  const input = materialToProductInput(paint); // mat-paint-economy-white-10l
+  assert.equal(input.ean, null);
+  assert.equal(input.gtin, null);
+});
+
+test("INTEGRALNOŚĆ: każdy klucz nakładki to realny id z materials.ts (typo pęka cicho)", async () => {
+  const materials = await loadReferenceMaterials();
+  const ids = new Set(materials.map((m) => m.id));
+  for (const key of Object.keys(MATERIAL_EAN_OVERLAY)) {
+    assert.ok(ids.has(key), `nakładka wskazuje nieistniejący id materiału: ${key}`);
+  }
+  // Każdy wpis ma kod EAN albo GTIN (nakładka bez kodu jest bez sensu).
+  for (const [key, entry] of Object.entries(MATERIAL_EAN_OVERLAY)) {
+    assert.ok(entry.ean || entry.gtin, `nakładka ${key} bez kodu EAN/GTIN`);
+  }
+});
+
+test("DOWÓD CELU: oferta z feedu po EAN dopina się do WIELU zaseedowanych materiałów", async () => {
+  const materials = await loadReferenceMaterials();
+  const cat = makeMemoryCatalog();
+  await seedCatalog(null as never, materials, cat.deps);
+
+  // Dla każdego materiału z nakładki: zaseedowany produkt niesie właśnie ten EAN,
+  // więc oferta z feedu sklepu (kluczowana po EAN) trafia w konkretny produkt —
+  // a nie w jeden demo-EAN. To sedno ulepszenia.
+  const overlaidIds = Object.keys(MATERIAL_EAN_OVERLAY);
+  assert.ok(overlaidIds.length >= 2, "nakładka musi wiązać >1 materiał (WIELU)");
+
+  for (const id of overlaidIds) {
+    const material = materials.find((m) => m.id === id)!;
+    const expectedEan = MATERIAL_EAN_OVERLAY[id]!.ean;
+    const seeded = cat.products.find((p) => p.name === material.productLabel);
+    assert.ok(seeded, `brak zaseedowanego produktu dla ${id}`);
+    assert.equal(seeded!.ean, expectedEan, `zły EAN w katalogu dla ${id}`);
+
+    // Symulacja dopasowania po kodzie (jak findByEanOrGtin / upsertProductWithMatch):
+    // oferta z feedu z tym EAN znajduje DOKŁADNIE ten produkt.
+    const matched = cat.products.filter((p) => p.ean === expectedEan);
+    assert.equal(matched.length, 1, `EAN ${expectedEan} musi wskazywać 1 produkt`);
+    assert.equal(matched[0]!.id, seeded!.id);
+  }
+
+  // Kody są różne między materiałami (żaden nie kolizuje z demo-EAN).
+  const eans = overlaidIds.map((id) => MATERIAL_EAN_OVERLAY[id]!.ean);
+  assert.equal(new Set(eans).size, eans.length, "EAN-y muszą być unikalne");
+  assert.equal(eans.includes("5903973005797"), false, "nie używamy demo-EAN");
 });

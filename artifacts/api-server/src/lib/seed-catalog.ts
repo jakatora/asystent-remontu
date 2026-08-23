@@ -24,6 +24,8 @@ import {
 } from "@workspace/db/repositories";
 import type { Product, ProductOffer } from "@workspace/db/schema";
 
+import { getEanOverlay } from "./ean-overlay";
+
 /** Znacznik źródła oferty startowej — odróżnia seed od cen zebranych ze sklepów. */
 export const SEED_OFFER_SOURCE = "reference-seed";
 
@@ -127,24 +129,30 @@ export function buildTechnicalParameters(
  * Mapuje materiał referencyjny na wejście produktu katalogowego.
  * - category = materialType (stabilny rodzaj: paint/primer/tile/...),
  * - subcategory = tier jakości (economy/standard/better),
- * - ean/gtin = null (materials.ts ich nie ma — NIE zmyślamy kodów),
- * - productUrl = sourceUrl (gdy jest).
+ * - ean/gtin = z nakładki `MATERIAL_EAN_OVERLAY` (potwierdzone ≥2 źródłami) albo
+ *   null, gdy brak pewnego kodu — NIGDY nie zmyślamy kodów (CLAUDE.md priorytet 1),
+ * - variant/manufacturer = z nakładki, gdy zna konkretny wariant/producenta,
+ * - productUrl = sourceUrl materiału, w drugiej kolejności realny link z nakładki.
+ *
+ * Kod EAN pozwala `upsertProductWithMatch` dopiąć ofertę z feedu do TEGO materiału
+ * po kodzie (a nie tylko przez kruchy fallback nazwa+kategoria).
  */
 export function materialToProductInput(m: SeedMaterial): Record<string, unknown> {
+  const overlay = getEanOverlay(m.id);
   return {
-    ean: null,
-    gtin: null,
-    manufacturer: null,
+    ean: overlay?.ean ?? null,
+    gtin: overlay?.gtin ?? null,
+    manufacturer: overlay?.manufacturer ?? null,
     brand: m.brand ?? null,
     name: m.productLabel,
     category: m.materialType,
     subcategory: m.category,
-    variant: null,
+    variant: overlay?.variant ?? null,
     packageSize: packageSizeToString(m.packageSize),
     packageUnit: m.packageUnit,
     technicalParameters: buildTechnicalParameters(m),
     imageUrl: null,
-    productUrl: m.sourceUrl ?? null,
+    productUrl: m.sourceUrl ?? overlay?.productUrl ?? null,
   };
 }
 
