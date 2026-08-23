@@ -598,6 +598,76 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd",
   },
+
+  // --- Etap hydroizolacji łazienki (materials.ts: masy w płynie / taśma / narożniki / mankiet) ---
+
+  // Folia w płynie (masa hydroizolacyjna 1-składnikowa) Atlas Woder E 15 kg
+  // (materials.ts: mat-waterproof-membrane-atlas-woder-e-15kg).
+  // source: https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html (EAN 5905400514506)
+  // source: https://www.grupapsb.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html (EAN 5905400514506)
+  "mat-waterproof-membrane-atlas-woder-e-15kg": {
+    ean: "5905400514506",
+    variant: "szybkoschnąca 1K, 15 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html",
+  },
+
+  // Hydroizolacja 2-składnikowa elastyczna Atlas Woder Duo 16 kg
+  // (materials.ts: mat-waterproof-membrane-atlas-woder-duo-16kg).
+  // source: https://www.castorama.pl/hydroizolacja-atlas-woder-duo-16-kg/5905400195088_CAPL.prd (EAN 5905400195088)
+  // source: https://mrowka.com.pl/produkt/hydroizolacja-dwuskladnikowa-elastyczna-woder-duo-16-kg-atlas-5905400195088.html (EAN 5905400195088)
+  "mat-waterproof-membrane-atlas-woder-duo-16kg": {
+    ean: "5905400195088",
+    variant: "2-składnikowa A+B, 16 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://www.castorama.pl/hydroizolacja-atlas-woder-duo-16-kg/5905400195088_CAPL.prd",
+  },
+
+  // Taśma uszczelniająca Ceresit CL 152 10 m (materials.ts: mat-sealing-tape-ceresit-cl152-10m).
+  // source: https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd (EAN 5900089115211)
+  // source: https://eadamex.pl/tasmy-hydroizolacyjne/8303-tasma-uszczelniajaca-cl152-ceresit-10m-op-5900089115211.html (EAN 5900089115211)
+  "mat-sealing-tape-ceresit-cl152-10m": {
+    ean: "5900089115211",
+    variant: "CL 152, 10 m",
+    manufacturer: "Ceresit",
+    productUrl:
+      "https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd",
+  },
+
+  // Narożnik uszczelniający wewnętrzny Mapei Mapeband W 90° (materials.ts: mat-sealing-corner-internal-mapei).
+  // source: https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd (EAN 8022452113802)
+  // source: https://eadamex.pl/narozniki-hydroizolacyjne/8290-naroznik-wewnetrzny-mapei-mapeband-w-profil-90-8022452113802.html (EAN 8022452113802)
+  "mat-sealing-corner-internal-mapei": {
+    ean: "8022452113802",
+    variant: "Mapeband W, wewnętrzny 90°",
+    manufacturer: "Mapei",
+    productUrl:
+      "https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd",
+  },
+
+  // Narożnik uszczelniający zewnętrzny Mapei Mapeband W 270° (materials.ts: mat-sealing-corner-external-mapei).
+  // source: https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd (EAN 8022452113789)
+  // source: https://eadamex.pl/narozniki-hydroizolacyjne/8291-naroznik-zewnatrzny-mapei-mapeband-w-profil-270-8022452113789.html (EAN 8022452113789)
+  "mat-sealing-corner-external-mapei": {
+    ean: "8022452113789",
+    variant: "Mapeband W, zewnętrzny 270°",
+    manufacturer: "Mapei",
+    productUrl:
+      "https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd",
+  },
+
+  // Mankiet uszczelniający ścienny Mapei Mapeband W 12×12 cm, 2 szt. (materials.ts: mat-sealing-cuff-wall-mapei-12x12-2).
+  // source: https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd (EAN 8022452113925)
+  // source: https://www.obi.pl/pozostale-akcesoria-do-plytek/mapei-mankiet-uszczelniajacy-mapeband-w/p/2761617 (Mapei Mapeband W mankiet 12×12 cm)
+  "mat-sealing-cuff-wall-mapei-12x12-2": {
+    ean: "8022452113925",
+    variant: "Mapeband W, ścienny 12×12 cm, 2 szt.",
+    manufacturer: "Mapei",
+    productUrl:
+      "https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */

@@ -227,8 +227,34 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     },
   },
   {
+    // Hydroizolacja łazienki: DOKŁADNIE jedna masa bazowa na tier (economy/standard =
+    // Atlas Woder E 1-składnikowa, better = Atlas Woder Duo 2-składnikowa), żeby engine
+    // nie liczył hydroizolacji podwójnie (analogicznie do „jedna płytka m²/tier").
+    // Reszta to akcesoria: taśma naroży + narożniki + mankiet + grunt (istniejący Uni-Grunt).
     jobId: 'bathroom-waterproofing',
-    materialTypeMap: {},
+    materialTypeMap: {
+      // Economy = 1-składnikowa folia w płynie + taśma naroży.
+      economy: [
+        'mat-waterproof-membrane-atlas-woder-e-15kg',
+        'mat-sealing-tape-ceresit-cl152-10m',
+      ],
+      // Standard = ta sama masa 1K + taśma + narożnik wewnętrzny + grunt pod hydroizolację.
+      standard: [
+        'mat-waterproof-membrane-atlas-woder-e-15kg',
+        'mat-sealing-tape-ceresit-cl152-10m',
+        'mat-sealing-corner-internal-mapei',
+        'mat-primer-deep-atlas-unigrunt-5kg',
+      ],
+      // Better = masa 2-składnikowa elastyczna + pełen komplet akcesoriów.
+      better: [
+        'mat-waterproof-membrane-atlas-woder-duo-16kg',
+        'mat-sealing-tape-ceresit-cl152-10m',
+        'mat-sealing-corner-internal-mapei',
+        'mat-sealing-corner-external-mapei',
+        'mat-sealing-cuff-wall-mapei-12x12-2',
+        'mat-primer-deep-atlas-unigrunt-5kg',
+      ],
+    },
   },
 
   // ── Etapy podłączone do katalogu cen (materiały z EAN → oferty ≥2 sklepów) ──

@@ -1146,4 +1146,132 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+
+  // --- Etap hydroizolacji łazienki: masy w płynie / taśma / narożniki / mankiet ---
+  // Bazowa masa na m² = DOKŁADNIE jedna na tier (economy/standard = Woder E 1K,
+  // better = Woder Duo 2K), żeby engine nie liczył podwójnie hydroizolacji.
+
+  // Masa hydroizolacyjna 1-składnikowa (folia w płynie) Atlas Woder E 15 kg — EAN 5905400514506.
+  // Zużycie ok. 2 kg/m² przy hydroizolacji (2 warstwy). source: karta techniczna Atlas.
+  // source: https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html (EAN 5905400514506, cena 311,99 zł)
+  // source: https://www.grupapsb.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html (EAN 5905400514506)
+  {
+    id: 'mat-waterproof-membrane-atlas-woder-e-15kg',
+    materialType: 'waterproofing',
+    productLabel: 'Folia w płynie (masa hydroizolacyjna 1-składnikowa) Atlas Woder E 15 kg',
+    brand: 'Atlas',
+    packageSize: 15,
+    packageUnit: 'kg',
+    pricePerPackage: 311.99,
+    category: 'economy',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Gotowa do użycia, elastyczna. Ok. 2 kg/m² dla pełnej hydroizolacji (2 warstwy).',
+  },
+
+  // Hydroizolacja 2-składnikowa elastyczna Atlas Woder Duo 16 kg (komponent A 12 kg + B 4 kg) — EAN 5905400195088.
+  // Wyższa klasa: mostkuje rysy podłoża, na podłoża odkształcalne/baseny. source: karta techniczna Atlas.
+  // source: https://www.castorama.pl/hydroizolacja-atlas-woder-duo-16-kg/5905400195088_CAPL.prd (EAN 5905400195088, cena 268 zł)
+  // source: https://mrowka.com.pl/produkt/hydroizolacja-dwuskladnikowa-elastyczna-woder-duo-16-kg-atlas-5905400195088.html (EAN 5905400195088)
+  {
+    id: 'mat-waterproof-membrane-atlas-woder-duo-16kg',
+    materialType: 'waterproofing',
+    productLabel: 'Hydroizolacja 2-składnikowa elastyczna Atlas Woder Duo 16 kg',
+    brand: 'Atlas',
+    packageSize: 16,
+    packageUnit: 'kg',
+    pricePerPackage: 268,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/hydroizolacja-atlas-woder-duo-16-kg/5905400195088_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Zaprawa dwuskładnikowa (A suchy + B płynny), mostkuje rysy do 1 mm. Ok. 1,75 kg/m²/1 mm.',
+  },
+
+  // Taśma uszczelniająca do naroży i dylatacji Ceresit CL 152, 10 m — EAN 5900089115211.
+  // Wzmacnia powłoki wodoszczelne CL 50/51, CR 166 w narożach ściana-podłoga.
+  // source: https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd (EAN 5900089115211, cena 168 zł)
+  // source: https://eadamex.pl/tasmy-hydroizolacyjne/8303-tasma-uszczelniajaca-cl152-ceresit-10m-op-5900089115211.html (EAN 5900089115211)
+  {
+    id: 'mat-sealing-tape-ceresit-cl152-10m',
+    materialType: 'sealing-tape',
+    productLabel: 'Taśma uszczelniająca Ceresit CL 152, 10 m',
+    brand: 'Ceresit',
+    packageSize: 10,
+    packageUnit: 'm',
+    pricePerPackage: 168,
+    pricePerMb: 16.8, // 168 zł / 10 m
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Narożnik uszczelniający WEWNĘTRZNY Mapei Mapeband W (profil 90°) — EAN 8022452113802.
+  // Do naroży wklęsłych ściana-ściana / ściana-podłoga; zatapiany w masie.
+  // source: https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd (EAN 8022452113802, cena 20,98 zł)
+  // source: https://eadamex.pl/narozniki-hydroizolacyjne/8290-naroznik-wewnetrzny-mapei-mapeband-w-profil-90-8022452113802.html (EAN 8022452113802)
+  {
+    id: 'mat-sealing-corner-internal-mapei',
+    materialType: 'sealing-corner',
+    productLabel: 'Narożnik uszczelniający wewnętrzny Mapei Mapeband W (90°)',
+    brand: 'Mapei',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 20.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Narożnik uszczelniający ZEWNĘTRZNY Mapei Mapeband W (profil 270°) — EAN 8022452113789.
+  // Do naroży wypukłych (np. obudowa wanny, ścianka działowa).
+  // source: https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd (EAN 8022452113789, cena 20,98 zł)
+  // source: https://eadamex.pl/narozniki-hydroizolacyjne/8291-naroznik-zewnatrzny-mapei-mapeband-w-profil-270-8022452113789.html (EAN 8022452113789)
+  {
+    id: 'mat-sealing-corner-external-mapei',
+    materialType: 'sealing-corner',
+    productLabel: 'Narożnik uszczelniający zewnętrzny Mapei Mapeband W (270°)',
+    brand: 'Mapei',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 20.98,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Mankiet uszczelniający ŚCIENNY Mapei Mapeband W 12×12 cm, 2 szt. — EAN 8022452113925.
+  // Do przejść rur pod baterie/zawory; zatapiany w masie hydroizolacyjnej.
+  // source: https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd (EAN 8022452113925, cena 37,98 zł / 2 szt.)
+  // source: https://www.obi.pl/pozostale-akcesoria-do-plytek/mapei-mankiet-uszczelniajacy-mapeband-w/p/2761617 (Mapei Mapeband W mankiet 12×12 cm)
+  {
+    id: 'mat-sealing-cuff-wall-mapei-12x12-2',
+    materialType: 'sealing-cuff',
+    productLabel: 'Mankiet uszczelniający ścienny Mapei Mapeband W 12×12 cm, 2 szt.',
+    brand: 'Mapei',
+    packageSize: 2,
+    packageUnit: 'szt',
+    pricePerPackage: 37.98,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Do uszczelnienia przejść rur pod baterie/wypływy w strefie mokrej.',
+  },
 ];
