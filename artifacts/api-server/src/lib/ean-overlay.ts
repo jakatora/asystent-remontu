@@ -257,6 +257,83 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html",
   },
+
+  // --- Instalacja wodna / hydraulika (materials.ts: baterie / syfon / rura / kolanko / wężyk / taśma) ---
+
+  // Bateria umywalkowa stojąca Ferro Stillo BSL2 chrom (materials.ts: mat-basin-mixer-ferro-stillo).
+  // source: https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html (EAN 5902194929837)
+  // source: https://onninen.pl/produkt/FERRO-STILLO-bateria-umywalkowa-stojaca-chrom-BSL2,113316 (EAN 5902194929837, model BSL2)
+  "mat-basin-mixer-ferro-stillo": {
+    ean: "5902194929837",
+    variant: "chrom, BSL2",
+    manufacturer: "Ferro",
+    productUrl:
+      "https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html",
+  },
+
+  // Bateria natryskowa ścienna Ferro One BFO7 chrom (materials.ts: mat-shower-mixer-ferro-one).
+  // source: https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html (EAN 5902194954525)
+  // source: https://www.123lazienka.pl/produkt/23292-ferro-one-bateria-natryskowa-bez-natrysku-chrom-bfo7-5902194954525.html (EAN 5902194954525, model BFO7)
+  "mat-shower-mixer-ferro-one": {
+    ean: "5902194954525",
+    variant: "chrom, BFO7",
+    manufacturer: "Ferro",
+    productUrl:
+      "https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html",
+  },
+
+  // Syfon umywalkowy butelkowy niski McAlpine WHB1-32 z membraną (materials.ts: mat-basin-trap-mcalpine-whb1-32).
+  // source: https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html (EAN 5036484088390)
+  // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/ (model WHB1-32, EAN 5036484088390)
+  "mat-basin-trap-mcalpine-whb1-32": {
+    ean: "5036484088390",
+    variant: "WHB1-32, biały",
+    manufacturer: "McAlpine",
+    productUrl:
+      "https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html",
+  },
+
+  // Rura wielowarstwowa PEX-AL/PEX Tycner 16×2 mm (materials.ts: mat-pex-pipe-tycner-16x2).
+  // source: https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html (EAN 5901095517976)
+  // source: https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990 (EAN 5901095517976)
+  "mat-pex-pipe-tycner-16x2": {
+    ean: "5901095517976",
+    manufacturer: "Tycner",
+    productUrl:
+      "https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html",
+  },
+
+  // Kolanko zaciskowe PEX Tycner 16×16 mm (materials.ts: mat-pex-elbow-tycner-16x16).
+  // source: https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html (EAN 5901095521003)
+  // source: https://www.grupapsb.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html (EAN 5901095521003)
+  "mat-pex-elbow-tycner-16x16": {
+    ean: "5901095521003",
+    manufacturer: "Tycner",
+    productUrl:
+      "https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html",
+  },
+
+  // Wężyk przyłączeniowy w oplocie Invena 3/8"×M10 30 cm (materials.ts: mat-hose-braided-invena-3-8-30).
+  // source: https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd (EAN 5907798716258)
+  // source: https://www.obi.pl/weze-elastyczne-flex/invena-wezyk-w-oplocie-z-gw-gz-3-8-w-x-m10-30-cm/p/4355574 (EAN 5907798716258)
+  "mat-hose-braided-invena-3-8-30": {
+    ean: "5907798716258",
+    variant: '3/8"×M10, 30 cm, oplot',
+    manufacturer: "Invena",
+    productUrl:
+      "https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd",
+  },
+
+  // Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m × 0,075 mm (materials.ts: mat-teflon-tape-tycner-12mm).
+  // source: https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589 (EAN 5900950618100)
+  // source: https://www.grupapsb.com.pl/produkt/tasma-teflonowa-12-mm-x-10-m-x-0-075-mm-tycner.html (EAN 5900950618100)
+  "mat-teflon-tape-tycner-12mm": {
+    ean: "5900950618100",
+    variant: "12 mm × 10 m",
+    manufacturer: "Tycner",
+    productUrl:
+      "https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */

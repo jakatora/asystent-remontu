@@ -486,4 +486,148 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+
+  // --- Instalacja wodna / hydraulika: armatura, rury, złączki, uszczelnienia ----
+  // Materiały etapu łazienki/kuchni brakujące w katalogu (baterie, syfon, rura,
+  // kolanko, wężyk, taśma teflonowa). Każdy markowy, z realnym EAN potwierdzonym
+  // w ≥2 niezależnych źródłach (komentarze `// source:`) → EAN wpisany też do
+  // MATERIAL_EAN_OVERLAY (api-server), więc seed:offers dopina oferty z feedów.
+  // Ceny brutto ze sklepu PL, packageSize/packageUnit z opakowania handlowego.
+
+  // Bateria umywalkowa stojąca Ferro Stillo BSL2 chrom — EAN 5902194929837. Cena 194,99 zł/szt (Mrówka).
+  // source: https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html (EAN + cena 194,99 zł)
+  // source: https://onninen.pl/produkt/FERRO-STILLO-bateria-umywalkowa-stojaca-chrom-BSL2,113316 (EAN 5902194929837, model BSL2)
+  // source: https://www.ceneo.pl/44139801 (Ferro Stillo BSL2A, EAN 5902194929837)
+  {
+    id: 'mat-basin-mixer-ferro-stillo',
+    materialType: 'faucet',
+    productLabel: 'Bateria umywalkowa stojąca Ferro Stillo (chrom, BSL2)',
+    brand: 'Ferro',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 194.99,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Bateria natryskowa (prysznicowa) ścienna Ferro One BFO7 chrom — EAN 5902194954525. Cena 193,99 zł/szt (Mrówka).
+  // source: https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html (EAN + cena 193,99 zł)
+  // source: https://www.123lazienka.pl/produkt/23292-ferro-one-bateria-natryskowa-bez-natrysku-chrom-bfo7-5902194954525.html (EAN 5902194954525, model BFO7)
+  // source: https://onninen.pl/produkt/FERRO-FERRO-ONE-bateria-natryskowa-bez-natrysku-chrom-BFO7,432032 (EAN 5902194954525)
+  {
+    id: 'mat-shower-mixer-ferro-one',
+    materialType: 'faucet',
+    productLabel: 'Bateria natryskowa ścienna Ferro One (chrom, BFO7)',
+    brand: 'Ferro',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 193.99,
+    category: 'better',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Syfon umywalkowy butelkowy niski McAlpine WHB1-32 (z membraną silikonową, 5/4"×32) — EAN 5036484088390. Cena 104,99 zł/szt (Mrówka).
+  // source: https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html (EAN + cena 104,99 zł)
+  // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/ (model WHB1-32, EAN 5036484088390)
+  // source: https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html (EAN 5036484088390)
+  {
+    id: 'mat-basin-trap-mcalpine-whb1-32',
+    materialType: 'trap',
+    productLabel: 'Syfon umywalkowy butelkowy niski McAlpine WHB1-32 (z membraną)',
+    brand: 'McAlpine',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 104.99,
+    category: 'better',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Rura wielowarstwowa PEX-AL/PEX Tycner 16×2 mm — EAN 5901095517976. Sprzedawana na metry (rolka 200 mb), cena 4,99 zł/mb (Mrówka).
+  // source: https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html (EAN + cena 4,99 zł/mb)
+  // source: https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990 (EAN 5901095517976, sprzedaż na mb)
+  {
+    id: 'mat-pex-pipe-tycner-16x2',
+    materialType: 'pipe',
+    productLabel: 'Rura PEX-AL/PEX Tycner 16×2 mm (na metry)',
+    brand: 'Tycner',
+    packageSize: 1,
+    packageUnit: 'mb',
+    pricePerPackage: 4.99,
+    pricePerMb: 4.99,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Kolanko (kolano) zaciskowe PEX Tycner 16×16 mm — EAN 5901095521003. Cena 12,99 zł/szt (Mrówka).
+  // source: https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html (EAN + cena 12,99 zł)
+  // source: https://www.grupapsb.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html (EAN 5901095521003)
+  {
+    id: 'mat-pex-elbow-tycner-16x16',
+    materialType: 'fitting',
+    productLabel: 'Kolanko zaciskowe PEX Tycner 16×16 mm',
+    brand: 'Tycner',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 12.99,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Wężyk przyłączeniowy w oplocie ze stali nierdzewnej Invena 3/8"×M10 30 cm — EAN 5907798716258. Cena 37,17 zł/szt (Castorama).
+  // source: https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd (EAN + cena 37,17 zł)
+  // source: https://www.obi.pl/weze-elastyczne-flex/invena-wezyk-w-oplocie-z-gw-gz-3-8-w-x-m10-30-cm/p/4355574 (EAN 5907798716258)
+  {
+    id: 'mat-hose-braided-invena-3-8-30',
+    materialType: 'hose',
+    productLabel: 'Wężyk przyłączeniowy w oplocie Invena 3/8"×M10 30 cm',
+    brand: 'Invena',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 37.17,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m × 0,075 mm — EAN 5900950618100. Cena 12,99 zł/szt (OBI).
+  // source: https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589 (EAN + cena 12,99 zł)
+  // source: https://www.grupapsb.com.pl/produkt/tasma-teflonowa-12-mm-x-10-m-x-0-075-mm-tycner.html (EAN 5900950618100)
+  {
+    id: 'mat-teflon-tape-tycner-12mm',
+    materialType: 'sealing-tape',
+    productLabel: 'Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m',
+    brand: 'Tycner',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 12.99,
+    category: 'economy',
+    storeName: 'OBI',
+    sourceUrl:
+      'https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
 ];

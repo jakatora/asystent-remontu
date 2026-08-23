@@ -263,6 +263,42 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
       standard: ['mat-paint-standard-white-10l', 'mat-universal-primer-5l', 'mat-masking-tape-bluedolphin-38mm'],
     },
   },
+
+  // ── Instalacja wodna / hydraulika (etap łazienki i kuchni) ──────────────────
+  // Nowe materiały z EAN (baterie, syfon, rura/kolanko PEX, wężyk, taśma teflonowa)
+  // dopięte do istniejących jobów hydraulicznych, żeby pojawiły się na liście
+  // zakupowej i w wycenie tych etapów. Wszystkie materialId istnieją w
+  // MATERIAL_PRICES; markowe mają EAN w MATERIAL_EAN_OVERLAY (api-server).
+  {
+    // Wymiana kranu / uszczelek (łazienka + kuchnia). Tier rośnie zakresem prac:
+    // economy = sam kran + taśma; standard = kran + nowy wężyk + taśma;
+    // better = pełna przeróbka podejść (bateria natryskowa + syfon + wężyk +
+    // kolanko + rura PEX + taśma). measurementInputs joba nietknięte.
+    jobId: 'minor-plumbing',
+    materialTypeMap: {
+      economy: ['mat-basin-mixer-ferro-stillo', 'mat-teflon-tape-tycner-12mm'],
+      standard: [
+        'mat-basin-mixer-ferro-stillo',
+        'mat-hose-braided-invena-3-8-30',
+        'mat-teflon-tape-tycner-12mm',
+      ],
+      better: [
+        'mat-shower-mixer-ferro-one',
+        'mat-basin-trap-mcalpine-whb1-32',
+        'mat-hose-braided-invena-3-8-30',
+        'mat-pex-elbow-tycner-16x16',
+        'mat-pex-pipe-tycner-16x2',
+        'mat-teflon-tape-tycner-12mm',
+      ],
+    },
+  },
+  {
+    // Wymiana syfonu umywalkowego: syfon + taśma teflonowa na gwinty (oba z EAN).
+    jobId: 'sink-trap-replace',
+    materialTypeMap: {
+      standard: ['mat-basin-trap-mcalpine-whb1-32', 'mat-teflon-tape-tycner-12mm'],
+    },
+  },
 ];
 
 const LABOR_MAP = new Map(JOB_LABOR_MAPPINGS.map((m) => [m.jobId, m.laborPriceIds]));
