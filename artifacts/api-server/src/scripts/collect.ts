@@ -12,8 +12,11 @@
 //                              migawki (MROWKA_FEED_URL = starsza nazwa, fallback).
 //   STORE2_FEED_URL          - URL realnego feedu produktowego CASTORAMY (jw.).
 //                              Gdy ustawiony, Castorama pobiera feed po HTTP
-//                              zamiast migawki. Oba sklepy zbierają na te same
-//                              produkty (ten sam EAN -> >=2 realne oferty).
+//                              zamiast migawki.
+//   STORE3_FEED_URL          - URL realnego feedu produktowego LEROY MERLIN (jw.).
+//                              Gdy ustawiony, Leroy Merlin pobiera feed po HTTP
+//                              zamiast migawki. Wszystkie sklepy zbierają na te same
+//                              produkty (ten sam EAN -> >=3 realne oferty).
 //   STORE_FEED_TIMEOUT_MS    - limit czasu jednej próby pobrania (wspólny, domyślnie 15000)
 //   STORE_FEED_RETRIES       - liczba dodatkowych prób po błędzie przejściowym (wspólna, domyślnie 2)
 //

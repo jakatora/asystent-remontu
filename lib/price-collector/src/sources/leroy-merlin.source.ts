@@ -1,58 +1,42 @@
-// Adapter sklepu Leroy Merlin PL. Czyta lokalny fixture z realnymi danymi
-// (patrz leroy-merlin.fixture.ts po uzasadnienie). Cała normalizacja cen/nazw
-// dzieje się w BasePriceSource — tu jest tylko mapowanie kształtu źródła.
+// Adapter sklepu Leroy Merlin PL (leroymerlin.pl). Trzeci REALNY sklep na
+// produktowym feedzie (kształt Google Merchant / Ceneo), obok PSB Mrówki i
+// Castoramy. Domyślnie czyta wbudowaną migawkę realnych danych
+// (leroy-merlin.fixture.ts); gdy podany jest URL feedu (STORE3_FEED_URL),
+// adapter pobiera go LEGALNIE po HTTP (bez omijania zabezpieczeń) i parsuje
+// przez warstwę feedu.
+//
+// Cała normalizacja cen/jednostek/nazw oraz odporne pobieranie po sieci żyją w
+// generycznym module `merchant-feed.ts` (współdzielonym z Mrówką i Castoramą) —
+// tu jest tylko spięcie sklepu z jego migawką i nazwą.
 
-import { BasePriceSource } from "../base-source";
-import type { NormalizedOffer, NormalizedProduct } from "../types";
+import { LEROY_MERLIN_FEED_FIXTURE } from "./leroy-merlin.fixture";
 import {
-  LEROY_MERLIN_FIXTURE,
-  type LeroyFixtureRecord,
-} from "./leroy-merlin.fixture";
+  FeedPriceSource,
+  fetchFeedItemsFromUrl,
+  type FeedFetchOptions,
+  type FetchLike,
+} from "./merchant-feed";
+import type { ProductFeedItem } from "./mrowka.feed";
 
-export class LeroyMerlinSource extends BasePriceSource {
-  readonly slug = "leroy-merlin";
-  readonly displayName = "Leroy Merlin";
-
-  // Źródło danych wstrzykiwalne (domyślnie fixture) — ułatwia testy i podmianę
-  // na przyszły feed API/XML bez zmiany reszty adaptera.
-  private readonly records: readonly LeroyFixtureRecord[];
-
-  constructor(records: readonly LeroyFixtureRecord[] = LEROY_MERLIN_FIXTURE) {
-    super();
-    this.records = records;
+export class LeroyMerlinSource extends FeedPriceSource {
+  constructor(items: readonly ProductFeedItem[] = LEROY_MERLIN_FEED_FIXTURE) {
+    super("leroy-merlin", "Leroy Merlin", items);
   }
+}
 
-  async fetchProducts(): Promise<NormalizedProduct[]> {
-    return this.records.map((r) => ({
-      ean: r.ean,
-      gtin: r.gtin,
-      manufacturer: r.manufacturer,
-      brand: r.brand,
-      name: this.normalizeName(r.name),
-      category: r.category,
-      packageSize: r.packageSize,
-      packageUnit: r.packageUnit,
-      imageUrl: r.imageUrl,
-      productUrl: r.productUrl,
-    }));
-  }
-
-  async fetchOffers(): Promise<NormalizedOffer[]> {
-    return this.records.map((r) =>
-      this.toOffer({
-        ean: r.ean,
-        gtin: r.gtin,
-        manufacturer: r.manufacturer,
-        name: r.name,
-        packageSize: r.packageSize,
-        packageUnit: r.packageUnit,
-        price: r.price,
-        promoPrice: r.promoPrice,
-        regularPrice: r.regularPrice,
-        unit: r.packageUnit,
-        availability: r.availability,
-        url: r.productUrl,
-      }),
-    );
-  }
+/**
+ * Pobiera feed Leroy Merlin z podanego URL (LEGALNE odczytanie oficjalnego
+ * feedu) i buduje adapter na jego podstawie. Format wykrywany automatycznie
+ * (XML/JSON), a odporność sieciowa (timeout + retry-lite, 4xx fail-fast — bez
+ * omijania blokad) pochodzi z `fetchFeedItemsFromUrl`. `fetchImpl` domyślnie
+ * korzysta z globalnego `fetch`; w testach można wstrzyknąć atrapę. Rzuca po
+ * wyczerpaniu prób.
+ */
+export async function loadLeroyFromFeedUrl(
+  url: string,
+  fetchImpl?: FetchLike,
+  options: FeedFetchOptions = {},
+): Promise<LeroyMerlinSource> {
+  const items = await fetchFeedItemsFromUrl(url, fetchImpl, options);
+  return new LeroyMerlinSource(items);
 }

@@ -6,7 +6,10 @@ import {
   CastoramaSource,
   loadCastoramaFromFeedUrl,
 } from "./sources/castorama.source";
-import { LeroyMerlinSource } from "./sources/leroy-merlin.source";
+import {
+  LeroyMerlinSource,
+  loadLeroyFromFeedUrl,
+} from "./sources/leroy-merlin.source";
 import type { FetchLike } from "./sources/merchant-feed";
 import {
   MrowkaSource,
@@ -23,7 +26,10 @@ export {
   type CollectorDeps,
   type CollectionResult,
 } from "./orchestrator";
-export { LeroyMerlinSource } from "./sources/leroy-merlin.source";
+export {
+  LeroyMerlinSource,
+  loadLeroyFromFeedUrl,
+} from "./sources/leroy-merlin.source";
 export {
   MrowkaSource,
   loadMrowkaFromFeedUrl,
@@ -119,14 +125,15 @@ function parsePositiveIntEnv(raw: string | undefined): number | undefined {
 /**
  * Buduje instancje adapterów dla podanych slugów, honorując ENV z URL-em feedu
  * PER SKLEP:
- *   - Mrówka:    `STORE_FEED_URL` (ogólny, preferowany) lub `MROWKA_FEED_URL` (fallback),
- *   - Castorama: `STORE2_FEED_URL`.
+ *   - Mrówka:      `STORE_FEED_URL` (ogólny, preferowany) lub `MROWKA_FEED_URL` (fallback),
+ *   - Castorama:   `STORE2_FEED_URL`,
+ *   - Leroy Merlin: `STORE3_FEED_URL`.
  * Gdy URL danego sklepu jest ustawiony, adapter pobiera feed LEGALNIE po HTTP
  * (z timeoutem `STORE_FEED_TIMEOUT_MS` i retry `STORE_FEED_RETRIES`, wspólnymi dla
- * obu sklepów); w przeciwnym razie używa wbudowanej migawki (bez sieci). Sieć jest
- * TYLKO tutaj (granica) — reszta modułu pozostaje czysta i testowalna. Dzięki temu
- * scheduler/CLI/admin zbierają ceny z OBU sklepów na te same produkty (ten sam EAN
- * -> >=2 realne oferty dla selectCheapestOffer).
+ * wszystkich sklepów); w przeciwnym razie używa wbudowanej migawki (bez sieci).
+ * Sieć jest TYLKO tutaj (granica) — reszta modułu pozostaje czysta i testowalna.
+ * Dzięki temu scheduler/CLI/admin zbierają ceny ze WSZYSTKICH sklepów na te same
+ * produkty (ten sam EAN -> >=3 realne oferty dla selectCheapestOffer).
  */
 export async function createSourcesFromEnv(
   slugs: readonly string[],
@@ -136,6 +143,7 @@ export async function createSourcesFromEnv(
   const out: PriceSource[] = [];
   const mrowkaFeedUrl = env.STORE_FEED_URL ?? env.MROWKA_FEED_URL;
   const castoramaFeedUrl = env.STORE2_FEED_URL;
+  const leroyFeedUrl = env.STORE3_FEED_URL;
   const feedOptions = {
     timeoutMs: parsePositiveIntEnv(env.STORE_FEED_TIMEOUT_MS),
     retries: parsePositiveIntEnv(env.STORE_FEED_RETRIES),
@@ -154,6 +162,12 @@ export async function createSourcesFromEnv(
           deps.fetchImpl,
           feedOptions,
         ),
+      );
+      continue;
+    }
+    if (slug === "leroy-merlin" && leroyFeedUrl) {
+      out.push(
+        await loadLeroyFromFeedUrl(leroyFeedUrl, deps.fetchImpl, feedOptions),
       );
       continue;
     }

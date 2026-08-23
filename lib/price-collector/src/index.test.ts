@@ -94,6 +94,34 @@ test("trzy zarejestrowane sklepy dają REALNĄ ofertę na TEN SAM EAN (Leroy < M
   assert.equal(cheapest, priceByStore.get("leroy-merlin"));
 });
 
+test("createSourcesFromEnv: honoruje STORE3_FEED_URL dla Leroy Merlin przez wstrzyknięty fetch", async () => {
+  const feedJson = JSON.stringify([
+    {
+      gtin: "5903973005797",
+      title: "Farba Śnieżka Eko 10 l z feedu",
+      link: "https://www.leroymerlin.pl/produkty/feed-43041761.html",
+      price: "77,00",
+      unitPricingMeasure: "10 l",
+    },
+  ]);
+  let fetchedUrl: string | null = null;
+  const sources = await createSourcesFromEnv(
+    ["leroy-merlin"],
+    { STORE3_FEED_URL: "https://feeds.example/leroy.json" },
+    {
+      fetchImpl: async (url) => {
+        fetchedUrl = url;
+        return { ok: true, status: 200, text: async () => feedJson };
+      },
+    },
+  );
+  assert.equal(fetchedUrl, "https://feeds.example/leroy.json");
+  assert.equal(sources.length, 1);
+  assert.equal(sources[0]!.slug, "leroy-merlin");
+  const offers = await sources[0]!.fetchOffers();
+  assert.equal(offers[0]!.price, 7700); // z feedu, nie z fixture (79,98)
+});
+
 test("createSourcesFromEnv: honoruje MROWKA_FEED_URL przez wstrzyknięty fetch", async () => {
   const feedJson = JSON.stringify([
     {
