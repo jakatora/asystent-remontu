@@ -30,7 +30,8 @@ import {
   type SerializedConsolidatedLine,
   type SerializedStoreComparison,
   type SerializedStoreBasket,
-  type SerializedPriceStats,
+  type SerializedHistoryPoint,
+  type PriceHistoryResponse,
   type UnresolvedReason,
 } from '@/features/pricing';
 
@@ -326,7 +327,7 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
         />
       )}
       {product?.id && (
-        <PriceHistoryIndicator
+        <PriceHistoryPanel
           productId={product.id}
           ean={product.ean}
           gtin={product.gtin}
@@ -829,13 +830,17 @@ function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
 }
 
 /**
- * Mały wskaźnik nad historią cen produktu (warstwa odczytu /pricing/history):
- * badge „najniższa X", strzałka ostatniej zmiany ceny oraz znacznik „prawdziwa
- * promocja". Read-only: sam pobiera statystyki (grosze) i tylko je formatuje —
- * nic nie liczy. Brak historii (404/null) => nic nie renderuje. Błędy sieci
- * przełykamy po cichu, żeby nie psuć głównej wyceny.
+ * Rozwijalny panel „Historia ceny" produktu (warstwa odczytu /pricing/history).
+ * Zwinięty pokazuje szybkie badge'y (najniższa / ostatnia zmiana / „prawdziwa
+ * promocja"); po tapnięciu rozwija: sparkline z punktów cenowych (rysowany
+ * z danych, View-owe słupki — bez plików graficznych), podsumowanie
+ * (najniższa/średnia/aktualna/zmiana%) oraz listę punktów cenowych z datą pobrania
+ * (malejąco po dacie). Read-only: sam pobiera pełną historię (grosze) i tylko ją
+ * formatuje — NIC nie liczy (statystyki i kwoty przychodzą z backendu). Brak
+ * historii (404/null) => nic nie renderuje. Błędy sieci przełykamy po cichu, żeby
+ * nie psuć głównej wyceny.
  */
-function PriceHistoryIndicator({
+function PriceHistoryPanel({
   productId,
   ean,
   gtin,
@@ -845,16 +850,17 @@ function PriceHistoryIndicator({
   gtin: string | null;
 }) {
   const { t } = useLanguage();
-  const [stats, setStats] = useState<SerializedPriceStats | null>(null);
+  const [data, setData] = useState<PriceHistoryResponse | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     void (async () => {
       try {
-        const data = await fetchPriceHistory({ productId, ean, gtin });
-        if (!cancelled) setStats(data?.stats ?? null);
+        const res = await fetchPriceHistory({ productId, ean, gtin });
+        if (!cancelled) setData(res);
       } catch {
-        if (!cancelled) setStats(null); // awaria historii nie blokuje wyceny
+        if (!cancelled) setData(null); // awaria historii nie blokuje wyceny
       }
     })();
     return () => {
@@ -862,37 +868,229 @@ function PriceHistoryIndicator({
     };
   }, [productId, ean, gtin]);
 
-  if (!stats || stats.count === 0) return null;
+  if (!data || data.stats.count === 0) return null;
 
+  const stats = data.stats;
   const hasChange = stats.changePct !== null && stats.changePct !== 0;
   const wentUp = (stats.changePct ?? 0) > 0;
 
+  // Tylko punkty z ceną efektywną. API zwraca je chronologicznie (najstarsze
+  // pierwsze) — tak też rysujemy sparkline (lewa→prawa = starsze→nowsze).
+  const chronological = data.history.filter(
+    (p): p is SerializedHistoryPoint & { effectiveGrosze: number } =>
+      p.effectiveGrosze !== null,
+  );
+  // Lista malejąco po dacie (najnowsze najpierw) — wymóg zadania.
+  const newestFirst = [...chronological].sort((a, b) =>
+    a.fetchedAt < b.fetchedAt ? 1 : a.fetchedAt > b.fetchedAt ? -1 : 0,
+  );
+
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-      {stats.isRealPromo && (
-        <Badge
-          icon="tag"
-          text={t('cmp.CostEstimate.realPromo')}
-          color={Colors.success}
-          bg={Colors.successBg}
+    <View style={{ gap: 6 }}>
+      {/* Nagłówek: toggle + szybkie badge'y (widoczne również po zwinięciu). */}
+      <Pressable
+        onPress={() => setExpanded((v) => !v)}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingVertical: 2 }}
+        accessibilityRole="button"
+      >
+        <Feather
+          name={expanded ? 'chevron-up' : 'chevron-down'}
+          size={14}
+          color={Colors.primary}
         />
+        <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>
+          {expanded
+            ? t('cmp.CostEstimate.priceHistoryHide')
+            : t('cmp.CostEstimate.priceHistory', { count: stats.count })}
+        </Txt>
+        {stats.isRealPromo && (
+          <Badge
+            icon="tag"
+            text={t('cmp.CostEstimate.realPromo')}
+            color={Colors.success}
+            bg={Colors.successBg}
+          />
+        )}
+        {stats.lowest !== null && (
+          <Badge
+            icon="trending-down"
+            text={t('cmp.CostEstimate.lowest', { price: formatGrosze(stats.lowest) })}
+            color={Colors.textSecondary}
+            bg={Colors.surfaceAlt}
+          />
+        )}
+        {hasChange && (
+          <Badge
+            icon={wentUp ? 'arrow-up-right' : 'arrow-down-right'}
+            text={`${wentUp ? '+' : ''}${stats.changePct}%`}
+            color={wentUp ? Colors.danger : Colors.success}
+            bg={wentUp ? Colors.dangerBg : Colors.successBg}
+          />
+        )}
+      </Pressable>
+
+      {expanded && (
+        <View
+          style={{
+            gap: 10,
+            paddingTop: 8,
+            borderTopWidth: 1,
+            borderTopColor: Colors.border,
+          }}
+        >
+          {/* Sparkline z punktów cenowych (>=2 punkty, żeby był sens rysować). */}
+          {chronological.length > 1 && <PriceSparkline points={chronological} />}
+
+          {/* Podsumowanie: najniższa / średnia / aktualna / zmiana% */}
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            <StatCell label={t('cmp.CostEstimate.statLowest')} value={formatGrosze(stats.lowest)} />
+            <StatCell label={t('cmp.CostEstimate.statAverage')} value={formatGrosze(stats.average)} />
+            <StatCell label={t('cmp.CostEstimate.statCurrent')} value={formatGrosze(stats.current)} />
+            <StatCell
+              label={t('cmp.CostEstimate.statChange')}
+              value={hasChange ? `${wentUp ? '+' : ''}${stats.changePct}%` : '—'}
+              color={hasChange ? (wentUp ? Colors.danger : Colors.success) : Colors.text}
+            />
+          </View>
+
+          {/* Lista punktów cenowych: data pobrania + kwota (malejąco po dacie). */}
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: Colors.border,
+              borderRadius: 10,
+              overflow: 'hidden',
+            }}
+          >
+            {newestFirst.map((point, idx) => (
+              <PriceHistoryRow
+                key={`${point.fetchedAt}-${point.store}-${idx}`}
+                point={point}
+                isFirst={idx === 0}
+                isLowest={stats.lowest !== null && point.effectiveGrosze === stats.lowest}
+              />
+            ))}
+          </View>
+        </View>
       )}
-      {stats.lowest !== null && (
+    </View>
+  );
+}
+
+/**
+ * Prosty sparkline słupkowy rysowany WYŁĄCZNIE z danych (View-owe słupki, bez
+ * plików graficznych ani bibliotek wykresów). Wysokość słupka proporcjonalna do
+ * ceny efektywnej punktu; ostatni słupek (najnowsza cena) wyróżniony. Nic nie
+ * liczy poza skalowaniem pikseli do wysokości — kwoty pochodzą z backendu.
+ */
+function PriceSparkline({
+  points,
+}: {
+  points: Array<SerializedHistoryPoint & { effectiveGrosze: number }>;
+}) {
+  const values = points.map((p) => p.effectiveGrosze);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min;
+  const H = 44;
+  const MIN_BAR = 4;
+
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 2, height: H }}>
+      {points.map((p, i) => {
+        const h = range === 0 ? H : MIN_BAR + ((p.effectiveGrosze - min) / range) * (H - MIN_BAR);
+        const isLast = i === points.length - 1;
+        return (
+          <View
+            key={`${p.fetchedAt}-${i}`}
+            style={{
+              flex: 1,
+              height: h,
+              borderTopLeftRadius: 2,
+              borderTopRightRadius: 2,
+              backgroundColor: isLast ? Colors.primary : Colors.primaryBg,
+            }}
+          />
+        );
+      })}
+    </View>
+  );
+}
+
+/** Komórka podsumowania statystyki: etykieta u góry, wartość (grosze→PLN) pod nią. */
+function StatCell({
+  label,
+  value,
+  color = Colors.text,
+}: {
+  label: string;
+  value: string;
+  color?: string;
+}) {
+  return (
+    <View
+      style={{
+        flexGrow: 1,
+        flexBasis: '46%',
+        backgroundColor: Colors.surfaceAlt,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        gap: 2,
+      }}
+    >
+      <Txt style={{ fontSize: 10, color: Colors.textMuted, textTransform: 'uppercase' }}>
+        {label}
+      </Txt>
+      <Txt w="bold" style={{ fontSize: 14, color }}>
+        {value}
+      </Txt>
+    </View>
+  );
+}
+
+/** Jeden wiersz historii ceny: data pobrania + sklep, po prawej kwota efektywna. */
+function PriceHistoryRow({
+  point,
+  isFirst,
+  isLowest,
+}: {
+  point: SerializedHistoryPoint & { effectiveGrosze: number };
+  isFirst: boolean;
+  isLowest: boolean;
+}) {
+  const { t } = useLanguage();
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 7,
+        borderTopWidth: isFirst ? 0 : 1,
+        borderTopColor: Colors.border,
+        backgroundColor: isLowest ? Colors.successBg : Colors.surface,
+      }}
+    >
+      <View style={{ flex: 1, gap: 2 }}>
+        <Txt w="medium" style={{ fontSize: 12, color: Colors.text }}>
+          {formatHistoryDate(point.fetchedAt)}
+        </Txt>
+        <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{point.store}</Txt>
+      </View>
+      {isLowest && (
         <Badge
           icon="trending-down"
-          text={t('cmp.CostEstimate.lowest', { price: formatGrosze(stats.lowest) })}
-          color={Colors.textSecondary}
-          bg={Colors.surfaceAlt}
+          text={t('cmp.CostEstimate.statLowest')}
+          color={Colors.success}
+          bg={Colors.surface}
         />
       )}
-      {hasChange && (
-        <Badge
-          icon={wentUp ? 'arrow-up-right' : 'arrow-down-right'}
-          text={`${wentUp ? '+' : ''}${stats.changePct}%`}
-          color={wentUp ? Colors.danger : Colors.success}
-          bg={wentUp ? Colors.dangerBg : Colors.successBg}
-        />
-      )}
+      <Txt w="bold" style={{ fontSize: 13, color: Colors.text }}>
+        {formatGrosze(point.effectiveGrosze)}
+      </Txt>
     </View>
   );
 }
@@ -990,6 +1188,18 @@ function InfoState({ icon, text }: { icon: string; text: string }) {
 function formatQuantity(qty: number): string {
   if (!isFinite(qty)) return '0';
   return Number.isInteger(qty) ? String(qty) : String(Number(qty.toFixed(2)));
+}
+
+/**
+ * ISO 8601 → „DD.MM.YYYY" (format neutralny językowo, jednoznaczny w PL i EN).
+ * Wejście nieparsowalne zwraca surowe (fail-safe, żeby nie wywalić listy).
+ */
+function formatHistoryDate(iso: string): string {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  return `${dd}.${mm}.${d.getFullYear()}`;
 }
 
 function reasonLabel(

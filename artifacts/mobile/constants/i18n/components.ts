@@ -355,6 +355,12 @@ const pl = {
   'cmp.CostEstimate.reason.no_offer': 'Brak dostępnej oferty',
   'cmp.CostEstimate.reason.no_price': 'Brak ceny w ofercie',
   'cmp.CostEstimate.reason.empty_query': 'Za mało danych do dopasowania',
+  'cmp.CostEstimate.priceHistory': 'Historia ceny ({count})',
+  'cmp.CostEstimate.priceHistoryHide': 'Ukryj historię ceny',
+  'cmp.CostEstimate.statLowest': 'najniższa',
+  'cmp.CostEstimate.statAverage': 'średnia',
+  'cmp.CostEstimate.statCurrent': 'aktualna',
+  'cmp.CostEstimate.statChange': 'zmiana',
 
   // TierBadge
   'cmp.TierBadge.economy': 'Eko',
@@ -736,6 +742,12 @@ const en: Record<K, string> = {
   'cmp.CostEstimate.reason.no_offer': 'No available offer',
   'cmp.CostEstimate.reason.no_price': 'No price in offer',
   'cmp.CostEstimate.reason.empty_query': 'Not enough data to match',
+  'cmp.CostEstimate.priceHistory': 'Price history ({count})',
+  'cmp.CostEstimate.priceHistoryHide': 'Hide price history',
+  'cmp.CostEstimate.statLowest': 'lowest',
+  'cmp.CostEstimate.statAverage': 'average',
+  'cmp.CostEstimate.statCurrent': 'current',
+  'cmp.CostEstimate.statChange': 'change',
 
   // TierBadge
   'cmp.TierBadge.economy': 'Eco',
