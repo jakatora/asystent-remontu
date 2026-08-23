@@ -50,6 +50,59 @@ export interface CheapestOffer {
   unitPriceGrosze: number;
 }
 
+/**
+ * Jeden kandydat na wielkość opakowania w optymalnym doborze (wejście optymizera).
+ * Reprezentuje JEDNĄ wielkość opakowania materiału wraz z jej najtańszą ofertą.
+ */
+export interface PackageVariant {
+  /** Wielkość pojedynczego opakowania w jednostce materiału (np. 10 = 10 l). > 0. */
+  packageSize: number;
+  /** Cena jednego opakowania tej wielkości w GROSZACH (najtańsza oferta). */
+  unitPriceGrosze: number;
+  /** Sklep najtańszej oferty tej wielkości. */
+  store: string;
+  /** URL oferty (może być null). */
+  url: string | null;
+  /** ID oferty użytej do wyceny tej wielkości (klucz agregacji w planie). */
+  offerId: string;
+}
+
+/** Jedna wybrana wielkość opakowania w optymalnej kombinacji zakupu. */
+export interface PackagePlanEntry {
+  /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
+  packageSize: number;
+  /** Ile sztuk tego opakowania kupić (>= 1). */
+  count: number;
+  /** Cena jednego opakowania w GROSZACH. */
+  unitPriceGrosze: number;
+  /** Koszt tej pozycji = count * unitPriceGrosze (GROSZE). */
+  lineCostGrosze: number;
+  /** Sklep najtańszej oferty tej wielkości. */
+  store: string;
+  /** URL oferty (może być null). */
+  url: string | null;
+  /** ID oferty użytej do wyceny tej wielkości. */
+  offerId: string;
+}
+
+/**
+ * Optymalny dobór wielkości opakowań dla jednej pozycji: NAJTAŃSZA kombinacja
+ * dostępnych wielkości pokrywająca wymaganą ilość (np. 15 l = 1×10 l + 1×5 l,
+ * a nie 2×10 l). Kwoty w GROSZACH. Naddatek = ile kupujemy ponad potrzebę.
+ */
+export interface PackagePlan {
+  /** Wybrane opakowania (posortowane malejąco po wielkości). Puste, gdy ilość <= 0. */
+  packages: PackagePlanEntry[];
+  /** Łączny koszt kombinacji w GROSZACH = suma lineCostGrosze pozycji. */
+  totalGrosze: number;
+  /** Wymagana ilość natywna (wejście; 0 gdy podano <= 0). */
+  requiredQuantity: number;
+  /** Faktycznie pokryta ilość = suma count*packageSize (>= requiredQuantity). */
+  coveredQuantity: number;
+  /** Naddatek = coveredQuantity - requiredQuantity (>= 0). */
+  overage: number;
+}
+
 /** Powód, dla którego pozycji nie dało się wycenić. */
 export type UnresolvedReason =
   | "no-query" // brak jakiegokolwiek kryterium dopasowania
@@ -76,6 +129,14 @@ export interface ResolvedLine {
   packagesNeeded: number;
   /** Koszt pozycji = packagesNeeded * unitPriceGrosze (GROSZE). */
   lineCost: number;
+  /**
+   * Optymalny dobór wielkości opakowań dla `quantity`: najtańsza kombinacja
+   * dostępnych wielkości tego materiału (patrz PackagePlan). Dodatkowa informacja
+   * OBOK `lineCost` — gdy materiał ma kilka wielkości opakowań, `packagePlan`
+   * może być tańszy niż pojedynczy rozmiar × sufit. Przy jednej wielkości plan
+   * degeneruje się do N×rozmiar i `totalGrosze` === `lineCost`.
+   */
+  packagePlan: PackagePlan;
 }
 
 /** Pozycja nierozpoznana (brak produktu/oferty). lineCost zawsze 0. */

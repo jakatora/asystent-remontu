@@ -69,6 +69,25 @@ export interface SerializedProductOffer {
   availability: string | null;
 }
 
+/**
+ * Jedna wybrana wielkość opakowania w optymalnym doborze zakupu (np. „2× 10 l").
+ * Wszystkie kwoty w GROSZACH. Serializer przepisuje pola 1:1 z PackagePlanEntry.
+ */
+export interface SerializedPackage {
+  /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
+  packageSize: number;
+  /** Ile sztuk tego opakowania kupić (>= 1). */
+  count: number;
+  /** Cena jednego opakowania w GROSZACH. */
+  unitPriceGrosze: number;
+  /** Koszt tej pozycji = count * unitPriceGrosze (GROSZE). */
+  lineCostGrosze: number;
+  /** Sklep najtańszej oferty tej wielkości. */
+  store: string;
+  /** URL oferty (może być null). */
+  url: string | null;
+}
+
 export interface SerializedLine {
   resolved: boolean;
   quantity: number;
@@ -80,6 +99,21 @@ export interface SerializedLine {
   // --- tylko dla resolved: true ---
   product?: SerializedProduct;
   cheapestOffer?: SerializedOffer;
+  /**
+   * Optymalny dobór wielkości opakowań: najtańsza KOMBINACJA rozmiarów pokrywająca
+   * ilość (np. 2× 10 l + 1× 5 l), zamiast jednego rozmiaru × sufit. Obecne dla
+   * resolved: true. Kwoty w GROSZACH.
+   */
+  packages?: SerializedPackage[];
+  /** Łączny koszt optymalnej kombinacji opakowań w GROSZACH (suma packages[].lineCostGrosze). */
+  packagesTotalGrosze?: number;
+  /**
+   * Oszczędność optymalnego doboru vs wycena naiwna (jeden rozmiar × sufit) =
+   * lineCostGrosze - packagesTotalGrosze, w GROSZACH. >= 0. 0 gdy jedna wielkość.
+   */
+  packagesSavingsGrosze?: number;
+  /** Naddatek optymalnej kombinacji = pokryta ilość - wymagana (w jednostkach materiału). */
+  packagesOverage?: number;
   /**
    * WSZYSTKIE oferty dopasowanego produktu, POSORTOWANE od najtańszej (pierwsza =
    * najtańsza, spójna z `cheapestOffer`). Do porównania cen per produkt w UI.
@@ -262,6 +296,19 @@ function serializeLine(line: EstimateLine): SerializedLine {
     offers: serializeOffers(line.offers),
     packageSize: line.packageSize,
     packagesNeeded: line.packagesNeeded,
+    packages: line.packagePlan.packages.map((p) => ({
+      packageSize: p.packageSize,
+      count: p.count,
+      unitPriceGrosze: p.unitPriceGrosze,
+      lineCostGrosze: p.lineCostGrosze,
+      store: p.store,
+      url: p.url,
+    })),
+    packagesTotalGrosze: line.packagePlan.totalGrosze,
+    // Oszczędność vs wycena naiwna (lineCost = pojedynczy rozmiar × sufit). >= 0,
+    // bo kombinacja jest zawsze co najmniej tak dobra jak jeden rozmiar.
+    packagesSavingsGrosze: line.lineCost - line.packagePlan.totalGrosze,
+    packagesOverage: line.packagePlan.overage,
   };
 }
 

@@ -87,6 +87,34 @@ test("serializeStage: rozpoznana pozycja ma listę WSZYSTKICH ofert posortowaną
   assert.equal(second!.regularPriceGrosze, 10000); // brak realnej promocji (== aktualnej)
 });
 
+test("serializeStage: rozpoznana pozycja ma rozbicie na opakowania (packages) spójne z kosztem", async () => {
+  const stage = await estimateStageCostFromCalculation(
+    noDb,
+    paintJob,
+    {},
+    fakeDeps,
+  );
+  const out = serializeStage(stage);
+
+  const resolved = out.lines.find((l) => l.resolved);
+  assert.ok(resolved, "powinna być pozycja rozpoznana");
+  // p1: jedna wielkość opakowania (5 l) => plan = 3×5 l, spójny z lineCost.
+  assert.ok(resolved!.packages, "rozpoznana pozycja musi mieć rozbicie packages");
+  assert.equal(resolved!.packages!.length, 1);
+  const pkg = resolved!.packages![0]!;
+  assert.equal(pkg.packageSize, 5);
+  assert.equal(pkg.count, EXPECTED_CHEAPEST.packagesNeeded); // 3
+  assert.equal(pkg.unitPriceGrosze, EXPECTED_CHEAPEST.unitPriceGrosze); // 8000
+  assert.equal(pkg.lineCostGrosze, 3 * EXPECTED_CHEAPEST.unitPriceGrosze);
+  assert.equal(pkg.store, EXPECTED_CHEAPEST.store);
+
+  // Łączny koszt planu = koszt pozycji; przy jednej wielkości brak oszczędności.
+  assert.equal(resolved!.packagesTotalGrosze, resolved!.lineCostGrosze);
+  assert.equal(resolved!.packagesSavingsGrosze, 0);
+  // Naddatek = 3×5 - 12 = 3 l.
+  assert.equal(resolved!.packagesOverage, 3);
+});
+
 test("serializeStage: pozycja nierozpoznana zostaje w odpowiedzi z reason", async () => {
   const stage = await estimateStageCostFromCalculation(
     noDb,

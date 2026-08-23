@@ -108,6 +108,25 @@ export interface SerializedProductOffer {
   availability: string | null;
 }
 
+/**
+ * Jedna wybrana wielkość opakowania w optymalnym doborze zakupu (np. „2× 10 l").
+ * Kwoty w GROSZACH. Zgodny z api-server/lib/pricing-serialize.ts#SerializedPackage.
+ */
+export interface SerializedPackage {
+  /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
+  packageSize: number;
+  /** Ile sztuk tego opakowania kupić (>= 1). */
+  count: number;
+  /** Cena jednego opakowania w GROSZACH. */
+  unitPriceGrosze: number;
+  /** Koszt tej pozycji = count * unitPriceGrosze (GROSZE). */
+  lineCostGrosze: number;
+  /** Sklep najtańszej oferty tej wielkości. */
+  store: string;
+  /** URL oferty (może być null). */
+  url: string | null;
+}
+
 export interface SerializedLine {
   resolved: boolean;
   quantity: number;
@@ -129,6 +148,17 @@ export interface SerializedLine {
   offers?: SerializedProductOffer[];
   packageSize?: number;
   packagesNeeded?: number;
+  /**
+   * Optymalny dobór wielkości opakowań: najtańsza KOMBINACJA rozmiarów (np.
+   * 2× 10 l + 1× 5 l) zamiast jednego rozmiaru × sufit. Obecne dla resolved: true.
+   */
+  packages?: SerializedPackage[];
+  /** Łączny koszt optymalnej kombinacji opakowań w GROSZACH. */
+  packagesTotalGrosze?: number;
+  /** Oszczędność vs wycena naiwna = lineCostGrosze - packagesTotalGrosze (>= 0), GROSZE. */
+  packagesSavingsGrosze?: number;
+  /** Naddatek kombinacji = pokryta ilość - wymagana (w jednostkach materiału). */
+  packagesOverage?: number;
   reason?: UnresolvedReason;
 }
 

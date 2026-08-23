@@ -8,8 +8,10 @@ export {
   selectCheapestOffer,
   resolvePackageSize,
   computePackagesNeeded,
+  buildPackageVariants,
   type EstimateDeps,
 } from "./estimate";
+export { optimizePackages } from "./package-optimizer";
 export {
   estimateStageCostFromCalculation,
   estimateProjectCostFromCalculation,

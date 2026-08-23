@@ -25,6 +25,7 @@ import {
   type SerializedProject,
   type SerializedStage,
   type SerializedLine,
+  type SerializedPackage,
   type SerializedProductOffer,
   type SerializedConsolidatedLine,
   type SerializedStoreComparison,
@@ -316,6 +317,14 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
           packages: line.packagesNeeded ?? 0,
         })}
       </Txt>
+      {line.packages && line.packages.length > 1 && (
+        <PackageBreakdown
+          packages={line.packages}
+          unit={line.unit}
+          totalGrosze={line.packagesTotalGrosze ?? line.lineCostGrosze}
+          savingsGrosze={line.packagesSavingsGrosze ?? 0}
+        />
+      )}
       {product?.id && (
         <PriceHistoryIndicator
           productId={product.id}
@@ -325,6 +334,61 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
       )}
       {line.offers && line.offers.length > 1 && (
         <OfferComparisonList offers={line.offers} />
+      )}
+    </View>
+  );
+}
+
+/**
+ * Rozbicie pozycji na konkretne opakowania (optymalny dobór wielkości):
+ * „2× 10 l + 1× 5 l = 219,90 zł". Pokazywane tylko gdy materiał ma kilka wielkości
+ * opakowań (kombinacja tańsza niż jeden rozmiar × sufit). Nic nie liczy — kwoty
+ * (grosze) i sztuki pochodzą z backendu, tu tylko formatowanie na PLN i sklejenie
+ * napisu. Gdy jest oszczędność vs wycena naiwna — pokazuje ją badge'em.
+ */
+function PackageBreakdown({
+  packages,
+  unit,
+  totalGrosze,
+  savingsGrosze,
+}: {
+  packages: SerializedPackage[];
+  unit: string | null;
+  totalGrosze: number;
+  savingsGrosze: number;
+}) {
+  const { t } = useLanguage();
+  const combo = packages
+    .map((p) => `${p.count}× ${formatQuantity(p.packageSize)} ${unit ?? ''}`.trim())
+    .join(' + ');
+
+  return (
+    <View
+      style={{
+        gap: 4,
+        paddingTop: 6,
+        borderTopWidth: 1,
+        borderTopColor: Colors.border,
+      }}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+        <Feather name="box" size={12} color={Colors.primary} />
+        <Txt w="medium" style={{ flex: 1, fontSize: 12, color: Colors.text }}>
+          {t('cmp.CostEstimate.packageBreakdown', {
+            combo,
+            total: formatGrosze(totalGrosze),
+          })}
+        </Txt>
+      </View>
+      {savingsGrosze > 0 && (
+        <View style={{ flexDirection: 'row' }}>
+          <Badge
+            icon="trending-down"
+            text={t('cmp.CostEstimate.packageSaving', { amount: formatGrosze(savingsGrosze) })}
+            color={Colors.success}
+            bg={Colors.successBg}
+          />
+        </View>
       )}
     </View>
   );

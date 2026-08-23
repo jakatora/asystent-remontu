@@ -158,6 +158,70 @@ test("estimateStageCost: wybiera najtańszą ofertę spośród wielu sklepów", 
   assert.equal(line.lineCost, 3 * 4250); // 12750 gr
 });
 
+test("estimateStageCost: packagePlan dobiera tańszą kombinację wielkości opakowań", async () => {
+  // Ten sam materiał w 2 wielkościach: 10 l @ 20,00 i 5 l @ 11,00.
+  const p = product({ id: "farba", ean: "5903973005797" });
+  const deps = makeDeps({
+    byCode: { "5903973005797": p },
+    offers: {
+      farba: [
+        offer({ id: "o10", productId: "farba", store: "leroy-merlin", price: "20.00", packageSize: "10" }),
+        offer({ id: "o5", productId: "farba", store: "leroy-merlin", price: "11.00", packageSize: "5" }),
+      ],
+    },
+  });
+
+  const stage = await estimateStageCost(
+    db,
+    [{ query: { ean: "5903973005797" }, quantity: 15, unit: "l" }],
+    {},
+    deps,
+  );
+  const line = stage.lines[0]!;
+  if (!line.resolved) throw new Error("miała być rozpoznana");
+
+  // Legacy (najtańsza pojedyncza oferta = 5 l @ 11,00): ceil(15/5)=3 -> 3300 gr.
+  assert.equal(line.cheapestOffer.unitPriceGrosze, 1100);
+  assert.equal(line.packageSize, 5);
+  assert.equal(line.packagesNeeded, 3);
+  assert.equal(line.lineCost, 3300);
+
+  // Optymalny dobór: 1×10 (2000) + 1×5 (1100) = 3100 gr, naddatek 0 — taniej.
+  assert.equal(line.packagePlan.totalGrosze, 3100);
+  assert.equal(line.packagePlan.coveredQuantity, 15);
+  assert.equal(line.packagePlan.overage, 0);
+  assert.deepEqual(
+    line.packagePlan.packages.map((pk) => ({ size: pk.packageSize, count: pk.count })),
+    [
+      { size: 10, count: 1 },
+      { size: 5, count: 1 },
+    ],
+  );
+  // Plan nigdy nie droższy niż wycena naiwna (money-path: oszczędność >= 0).
+  assert.ok(line.packagePlan.totalGrosze <= line.lineCost);
+});
+
+test("estimateStageCost: jedna wielkość -> packagePlan.totalGrosze === lineCost", async () => {
+  const p = product({ id: "farba", ean: "1", packageSize: "10" });
+  const deps = makeDeps({
+    byCode: { "1": p },
+    offers: {
+      farba: [offer({ productId: "farba", price: "79.98", packageSize: "10" })],
+    },
+  });
+  const stage = await estimateStageCost(
+    db,
+    [{ query: { ean: "1" }, quantity: 25, unit: "l" }],
+    {},
+    deps,
+  );
+  const line = stage.lines[0]!;
+  if (!line.resolved) throw new Error("miała być rozpoznana");
+  assert.equal(line.packagePlan.totalGrosze, line.lineCost);
+  assert.equal(line.packagePlan.packages.length, 1);
+  assert.equal(line.packagePlan.packages[0]!.count, line.packagesNeeded);
+});
+
 test("estimateStageCost: dopasowanie po nazwie+kategorii gdy brak EAN", async () => {
   const p = product({
     id: "gladz",

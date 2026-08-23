@@ -20,6 +20,7 @@ export type {
   SerializedLine,
   SerializedOffer,
   SerializedProductOffer,
+  SerializedPackage,
   SerializedProduct,
   SerializedConsolidatedLine,
   SerializedConsolidatedList,

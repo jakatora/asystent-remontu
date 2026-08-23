@@ -16,6 +16,7 @@ import {
 import type { Product, ProductOffer } from "@workspace/db/schema";
 import { parsePriceToGrosze } from "@workspace/price-collector";
 
+import { optimizePackages } from "./package-optimizer";
 import type {
   CheapestOffer,
   ConsolidatedLine,
@@ -25,6 +26,8 @@ import type {
   EstimateOptions,
   ItemQuery,
   OptimalBasketStoreLine,
+  PackagePlan,
+  PackageVariant,
   ProjectEstimate,
   ResolvedLine,
   StageEstimate,
@@ -112,6 +115,43 @@ export function computePackagesNeeded(
   return Math.ceil(quantity / size);
 }
 
+/**
+ * Buduje listę WARIANTÓW wielkości opakowań materiału z jego ofert: grupuje oferty
+ * po wielkości opakowania (resolvePackageSize) i dla każdej wielkości bierze
+ * NAJTAŃSZĄ ofertę (po cenie efektywnej promo ?? regular). Gdy podano `store` —
+ * uwzględnia tylko oferty z tego sklepu (spójnie z selectCheapestOffer).
+ *
+ * To realizacja „wariantów tego samego materiału" oparta na danych, które już
+ * mamy na pozycji (oferty produktu) — bez dodatkowego zapytania do katalogu. Gdy
+ * oferty mają jedną wielkość, wychodzi jeden wariant (optymizer = N×rozmiar).
+ * Czysta funkcja — bez I/O.
+ */
+export function buildPackageVariants(
+  offers: readonly ProductOffer[],
+  product: Product,
+  store?: string | null,
+): PackageVariant[] {
+  // klucz = wielkość opakowania; wartość = najtańszy wariant tej wielkości.
+  const bySize = new Map<number, PackageVariant>();
+  for (const offer of offers) {
+    if (store && offer.store !== store) continue;
+    const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
+    if (unitPriceGrosze === null) continue;
+    const packageSize = resolvePackageSize(offer, product);
+    const existing = bySize.get(packageSize);
+    if (existing === undefined || unitPriceGrosze < existing.unitPriceGrosze) {
+      bySize.set(packageSize, {
+        packageSize,
+        unitPriceGrosze,
+        store: offer.store,
+        url: offer.productUrl,
+        offerId: offer.id,
+      });
+    }
+  }
+  return [...bySize.values()];
+}
+
 /** Wybiera produkt: NAJPIERW EAN/GTIN, potem nazwa+kategoria (obie wymagane). */
 async function resolveProduct(
   db: Database,
@@ -166,6 +206,16 @@ async function estimateLine(
   const packagesNeeded = computePackagesNeeded(item.quantity, packageSize);
   const lineCost = packagesNeeded * cheapestOffer.unitPriceGrosze;
 
+  // Optymalny dobór wielkości opakowań (najtańsza kombinacja rozmiarów). Warianty
+  // budujemy z ofert produktu (grupowane po wielkości). Gdy jest tylko jedna
+  // wielkość, plan degeneruje się do N×rozmiar i totalGrosze === lineCost.
+  // Fallback na plan jednorozmiarowy, gdyby optymizer nie miał wariantów (nie
+  // powinno się zdarzyć, skoro mamy cheapestOffer).
+  const variants = buildPackageVariants(offers, product, options.store);
+  const packagePlan: PackagePlan =
+    optimizePackages(item.quantity, variants) ??
+    singleSizePlan(item.quantity, packageSize, packagesNeeded, cheapestOffer);
+
   return {
     resolved: true,
     ...base,
@@ -175,6 +225,37 @@ async function estimateLine(
     packageSize,
     packagesNeeded,
     lineCost,
+    packagePlan,
+  };
+}
+
+/** Awaryjny plan jednorozmiarowy (spójny z legacy lineCost), gdy brak wariantów. */
+function singleSizePlan(
+  quantity: number,
+  packageSize: number,
+  packagesNeeded: number,
+  cheapestOffer: CheapestOffer,
+): PackagePlan {
+  const coveredQuantity = packagesNeeded * packageSize;
+  return {
+    packages:
+      packagesNeeded > 0
+        ? [
+            {
+              packageSize,
+              count: packagesNeeded,
+              unitPriceGrosze: cheapestOffer.unitPriceGrosze,
+              lineCostGrosze: packagesNeeded * cheapestOffer.unitPriceGrosze,
+              store: cheapestOffer.store,
+              url: cheapestOffer.url,
+              offerId: cheapestOffer.offer.id,
+            },
+          ]
+        : [],
+    totalGrosze: packagesNeeded * cheapestOffer.unitPriceGrosze,
+    requiredQuantity: quantity > 0 ? quantity : 0,
+    coveredQuantity,
+    overage: coveredQuantity - (quantity > 0 ? quantity : 0),
   };
 }
 
