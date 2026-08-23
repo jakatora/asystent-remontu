@@ -630,4 +630,131 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+
+  // --- Instalacja elektryczna: przewody, gniazdka, włączniki, puszki, złączki ----
+  // Materiały etapu elektrycznego (wymiana/montaż gniazdek, włączników, opraw)
+  // brakujące w katalogu. Każdy markowy, z realnym EAN potwierdzonym w ≥2
+  // niezależnych źródłach (komentarze `// source:`) → EAN wpisany też do
+  // MATERIAL_EAN_OVERLAY (api-server), więc seed:offers dopina oferty z feedów.
+  // Ceny brutto ze sklepu PL z listy akceptowanej, packageSize/packageUnit z
+  // opakowania handlowego (przewody = krąg 100 mb; drobnica = szt/opak.).
+
+  // Przewód instalacyjny płaski YDYp 3×1,5 mm² 450/750 V AKS Zielonka, krąg 100 mb — EAN 5904617573771. Cena 375 zł/100 mb (3,75 zł/mb, Castorama).
+  // source: https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd (EAN + cena 375 zł)
+  // source: https://www.gotronik.pl/przewod-aks-zielonka-ydyp-3-x-1-5mm2-450750-v-100mb-p-9372.html (EAN 5904617573771, model 816900)
+  // source: https://www.abud.pl/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html (AKS Zielonka YDYp 3x1,5 100m)
+  {
+    id: 'mat-wire-ydyp-3x15-akszielonka-100m',
+    materialType: 'wire',
+    productLabel: 'Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)',
+    brand: 'AKS Zielonka',
+    packageSize: 100,
+    packageUnit: 'mb',
+    pricePerPackage: 375.00,
+    pricePerMb: 3.75,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Przewód instalacyjny płaski YDYp 3×2,5 mm² 450/750 V AKS Zielonka, krąg 100 mb — EAN 5904617573764. Cena 572 zł/100 mb (5,72 zł/mb, Castorama).
+  // source: https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd (EAN + cena 572 zł)
+  // source: https://www.ceneo.pl/57270631 (AKS Zielonka YDYp 3x2,5 100 mb, EAN 5904617573764)
+  // source: https://www.abud.pl/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html (AKS Zielonka YDYp 3x2,5 100m)
+  {
+    id: 'mat-wire-ydyp-3x25-akszielonka-100m',
+    materialType: 'wire',
+    productLabel: 'Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)',
+    brand: 'AKS Zielonka',
+    packageSize: 100,
+    packageUnit: 'mb',
+    pricePerPackage: 572.00,
+    pricePerMb: 5.72,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Gniazdo pojedyncze z uziemieniem i przesłonami styków Kontakt-Simon Basic BMGZ1Z.01/11 białe — EAN 5902787568238. Cena 17,56 zł/szt (Castorama).
+  // source: https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd (EAN + cena 17,56 zł)
+  // source: https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przeslonami-do-ramki-biale-bmgz1z0111-5902787568238.html (EAN 5902787568238, model BMGZ1Z.01/11)
+  {
+    id: 'mat-socket-simon-basic-bmgz1z',
+    materialType: 'socket',
+    productLabel: 'Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic (białe, BMGZ1Z.01/11)',
+    brand: 'Kontakt-Simon',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 17.56,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Łącznik (wyłącznik) pojedynczy jednobiegunowy Kontakt-Simon Basic BMW1.01/11 biały — EAN 5902787568177. Cena 14,98 zł/szt (Castorama).
+  // source: https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd (EAN + cena 14,98 zł)
+  // source: https://supergniazdka.pl/kontakt-simon/simon-basic/bmw101-11/lacznik-jednobiegunowy-modul-10ax-250v-szybkozlacza-bialy-5902787568177-5762.html (EAN 5902787568177, model BMW1.01/11)
+  {
+    id: 'mat-switch-simon-basic-bmw1',
+    materialType: 'switch',
+    productLabel: 'Łącznik pojedynczy jednobiegunowy Kontakt-Simon Basic (biały, BMW1.01/11)',
+    brand: 'Kontakt-Simon',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 14.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast, opak. 10 szt. — EAN 5901752637337. Cena 14,78 zł/opak. (1,48 zł/szt, Castorama).
+  // source: https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd (EAN + cena 14,78 zł)
+  // source: https://www.leroymerlin.pl/produkty/puszka-instalacyjna-podtynkowa-60-mm-laczeniowa-gleboka-elektro-plast-43256024.html (Elektro-Plast puszka podtynkowa 60 mm głęboka łączeniowa)
+  {
+    id: 'mat-flush-box-elektroplast-pk60-10',
+    materialType: 'flush-box',
+    productLabel: 'Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)',
+    brand: 'Elektro-Plast',
+    packageSize: 10,
+    packageUnit: 'szt',
+    pricePerPackage: 14.78,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (COMPACT, z dźwigniami), opak. 12 szt. — EAN 4050821808442 (GTIN producenta na złączkę). Cena 23,88 zł/opak. 12 szt (Leroy Merlin).
+  // source: https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html (opak. 12 szt, cena 23,88 zł, Leroy Merlin)
+  // source: https://supergniazdka.pl/wago/221-413/szybkozlaczka-zlaczka-wago-compact-z-dzwigniami-uniwersalna-02-4-mm-3-przewodowa-221-413-4050821808442-18406.html (EAN 4050821808442, 1,85 zł/szt)
+  // source: https://www.eelektryka.com/z%C5%82%C4%85czki/1955-wago-szybkoz%C5%82%C4%85czka-uniwersalna-3x02-4mm2-transparentna-221-413-opak-50szt-4050821808442.html (EAN 4050821808442)
+  {
+    id: 'mat-wire-connector-wago-221-413',
+    materialType: 'wire-connector',
+    productLabel: 'Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (12 szt.)',
+    brand: 'WAGO',
+    packageSize: 12,
+    packageUnit: 'szt',
+    pricePerPackage: 23.88,
+    category: 'standard',
+    storeName: 'Leroy Merlin',
+    sourceUrl:
+      'https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
 ];

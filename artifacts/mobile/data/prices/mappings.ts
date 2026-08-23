@@ -299,6 +299,48 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
       standard: ['mat-basin-trap-mcalpine-whb1-32', 'mat-teflon-tape-tycner-12mm'],
     },
   },
+
+  // ── Instalacja elektryczna (etap elektryczny) ──────────────────────────────
+  // Nowe materiały z EAN (przewody YDYp, gniazdko/włącznik Simon Basic, puszka
+  // fi60 Elektro-Plast, szybkozłączka WAGO) dopięte do istniejących jobów
+  // elektrycznych, żeby pojawiły się na liście zakupowej i w wycenie tych etapów.
+  // Wszystkie materialId istnieją w MATERIAL_PRICES; markowe mają EAN w
+  // MATERIAL_EAN_OVERLAY (api-server). Tier rośnie zakresem prac (wkład →
+  // pełny punkt z okablowaniem → grubszy przewód 3×2,5 do obwodów gniazd).
+  // measurementInputs jobów nietknięte.
+  {
+    // Wymiana/montaż gniazdka lub włącznika (id joba: electrical-overview).
+    jobId: 'electrical-overview',
+    materialTypeMap: {
+      economy: [
+        'mat-socket-simon-basic-bmgz1z',
+        'mat-flush-box-elektroplast-pk60-10',
+        'mat-wire-connector-wago-221-413',
+      ],
+      standard: [
+        'mat-socket-simon-basic-bmgz1z',
+        'mat-switch-simon-basic-bmw1',
+        'mat-flush-box-elektroplast-pk60-10',
+        'mat-wire-connector-wago-221-413',
+        'mat-wire-ydyp-3x15-akszielonka-100m',
+      ],
+      better: [
+        'mat-socket-simon-basic-bmgz1z',
+        'mat-switch-simon-basic-bmw1',
+        'mat-flush-box-elektroplast-pk60-10',
+        'mat-wire-connector-wago-221-413',
+        'mat-wire-ydyp-3x25-akszielonka-100m',
+      ],
+    },
+  },
+  {
+    // Wymiana oprawy oświetleniowej (id joba: light-fixture-replace):
+    // szybkozłączki WAGO + przewód YDYp 3×1,5 na podłączenie oprawy.
+    jobId: 'light-fixture-replace',
+    materialTypeMap: {
+      standard: ['mat-wire-connector-wago-221-413', 'mat-wire-ydyp-3x15-akszielonka-100m'],
+    },
+  },
 ];
 
 const LABOR_MAP = new Map(JOB_LABOR_MAPPINGS.map((m) => [m.jobId, m.laborPriceIds]));

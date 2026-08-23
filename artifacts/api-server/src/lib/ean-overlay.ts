@@ -334,6 +334,75 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589",
   },
+
+  // --- Instalacja elektryczna (materials.ts: przewody / gniazdko / włącznik / puszka / złączka WAGO) ---
+
+  // Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka krąg 100 mb (materials.ts: mat-wire-ydyp-3x15-akszielonka-100m).
+  // source: https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd (EAN 5904617573771)
+  // source: https://www.gotronik.pl/przewod-aks-zielonka-ydyp-3-x-1-5mm2-450750-v-100mb-p-9372.html (EAN 5904617573771, model 816900)
+  "mat-wire-ydyp-3x15-akszielonka-100m": {
+    ean: "5904617573771",
+    variant: "3×1,5 mm², 100 mb",
+    manufacturer: "AKS Zielonka",
+    productUrl:
+      "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd",
+  },
+
+  // Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka krąg 100 mb (materials.ts: mat-wire-ydyp-3x25-akszielonka-100m).
+  // source: https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd (EAN 5904617573764)
+  // source: https://www.ceneo.pl/57270631 (AKS Zielonka YDYp 3x2,5 100 mb, EAN 5904617573764)
+  "mat-wire-ydyp-3x25-akszielonka-100m": {
+    ean: "5904617573764",
+    variant: "3×2,5 mm², 100 mb",
+    manufacturer: "AKS Zielonka",
+    productUrl:
+      "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd",
+  },
+
+  // Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic BMGZ1Z.01/11 białe (materials.ts: mat-socket-simon-basic-bmgz1z).
+  // source: https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd (EAN 5902787568238)
+  // source: https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przeslonami-do-ramki-biale-bmgz1z0111-5902787568238.html (EAN 5902787568238)
+  "mat-socket-simon-basic-bmgz1z": {
+    ean: "5902787568238",
+    variant: "białe, BMGZ1Z.01/11",
+    manufacturer: "Kontakt-Simon",
+    productUrl:
+      "https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd",
+  },
+
+  // Łącznik pojedynczy jednobiegunowy Kontakt-Simon Basic BMW1.01/11 biały (materials.ts: mat-switch-simon-basic-bmw1).
+  // source: https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd (EAN 5902787568177)
+  // source: https://supergniazdka.pl/kontakt-simon/simon-basic/bmw101-11/lacznik-jednobiegunowy-modul-10ax-250v-szybkozlacza-bialy-5902787568177-5762.html (EAN 5902787568177)
+  "mat-switch-simon-basic-bmw1": {
+    ean: "5902787568177",
+    variant: "biały, BMW1.01/11",
+    manufacturer: "Kontakt-Simon",
+    productUrl:
+      "https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd",
+  },
+
+  // Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast 10 szt. (materials.ts: mat-flush-box-elektroplast-pk60-10).
+  // source: https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd (EAN 5901752637337)
+  // source: https://www.leroymerlin.pl/produkty/puszka-instalacyjna-podtynkowa-60-mm-laczeniowa-gleboka-elektro-plast-43256024.html (Elektro-Plast puszka 60 mm głęboka łączeniowa)
+  "mat-flush-box-elektroplast-pk60-10": {
+    ean: "5901752637337",
+    variant: "fi60 głęboka, 10 szt.",
+    manufacturer: "Elektro-Plast",
+    productUrl:
+      "https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd",
+  },
+
+  // Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (materials.ts: mat-wire-connector-wago-221-413).
+  // EAN = GTIN producenta WAGO na złączkę 221-413 (potwierdzony w ≥2 sklepach PL); Leroy Merlin sprzedaje w opak. 12 szt.
+  // source: https://supergniazdka.pl/wago/221-413/szybkozlaczka-zlaczka-wago-compact-z-dzwigniami-uniwersalna-02-4-mm-3-przewodowa-221-413-4050821808442-18406.html (EAN 4050821808442)
+  // source: https://www.eelektryka.com/z%C5%82%C4%85czki/1955-wago-szybkoz%C5%82%C4%85czka-uniwersalna-3x02-4mm2-transparentna-221-413-opak-50szt-4050821808442.html (EAN 4050821808442)
+  "mat-wire-connector-wago-221-413": {
+    ean: "4050821808442",
+    variant: "221-413, 3×0,2-4 mm²",
+    manufacturer: "WAGO",
+    productUrl:
+      "https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
