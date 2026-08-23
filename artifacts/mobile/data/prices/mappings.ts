@@ -47,6 +47,9 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     jobId: 'wall-primer',
     materialTypeMap: {
       standard: ['mat-universal-primer-5l'],
+      // Tier premium = grunt głęboko penetrujący (chłonne/pylące podłoża). Dodane
+      // jako NOWY tier 'better' (economy/standard bez zmian). Materiał z EAN.
+      better: ['mat-primer-deep-ceresit-ct17-10l'],
     },
   },
   {
@@ -95,13 +98,38 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
   {
     jobId: 'floor-tiles',
     materialTypeMap: {
-      standard: ['mat-gres-guigliano-1m2', 'mat-tile-adhesive-buildfix-25kg'],
+      // + fuga (mat-grout-ceresit-ce40-white-2kg) — job ma spoinowanie, a materiał
+      //   z EAN daje realną ofertę zamiast pominięcia pozycji.
+      standard: [
+        'mat-gres-guigliano-1m2',
+        'mat-tile-adhesive-buildfix-25kg',
+        'mat-grout-ceresit-ce40-white-2kg',
+      ],
+      // Tier premium = markowy klej Ceresit CM 11 (EAN) zamiast marki własnej.
+      better: [
+        'mat-gres-guigliano-1m2',
+        'mat-tile-adhesive-ceresit-cm11-25kg',
+        'mat-grout-ceresit-ce40-white-2kg',
+      ],
     },
   },
   {
     jobId: 'wall-tiles-bathroom',
     materialTypeMap: {
-      standard: ['mat-gres-guigliano-1m2', 'mat-tile-adhesive-buildfix-25kg', 'mat-sanitary-silicone-soudal-280ml'],
+      // + fuga (mat-grout-ceresit-ce40-white-2kg, EAN) — job ma spoinę ścienną.
+      standard: [
+        'mat-gres-guigliano-1m2',
+        'mat-tile-adhesive-buildfix-25kg',
+        'mat-grout-ceresit-ce40-white-2kg',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+      // Tier premium = markowy klej Ceresit CM 11 (EAN).
+      better: [
+        'mat-gres-guigliano-1m2',
+        'mat-tile-adhesive-ceresit-cm11-25kg',
+        'mat-grout-ceresit-ce40-white-2kg',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
     },
   },
   {
@@ -111,12 +139,73 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     },
   },
   {
+    // Fugowanie: fuga + silikon — oba materiały z EAN (≥2 oferty w katalogu).
     jobId: 'grout-only',
-    materialTypeMap: {},
+    materialTypeMap: {
+      standard: ['mat-grout-ceresit-ce40-white-2kg', 'mat-sanitary-silicone-soudal-280ml'],
+    },
   },
   {
     jobId: 'bathroom-waterproofing',
     materialTypeMap: {},
+  },
+
+  // ── Etapy podłączone do katalogu cen (materiały z EAN → oferty ≥2 sklepów) ──
+  // Każdy materialId istnieje w MATERIAL_PRICES; materiały markowe mają EAN w
+  // MATERIAL_EAN_OVERLAY (api-server), więc feedy/seed dopinają im realne oferty.
+  // Nowe wpisy NIE ruszają istniejących jobów ani measurementInputs — dokładają
+  // tylko pokrycie materiałowe dla etapów dotąd bez wyceny materiałów.
+  {
+    // Uszczelnianie okien: piana montażowa + silikon (oba z EAN).
+    jobId: 'window-sealing',
+    materialTypeMap: {
+      standard: ['mat-foam-tytan-pro65-750ml', 'mat-sanitary-silicone-soudal-280ml'],
+    },
+  },
+  {
+    // Montaż parapetu: piana montażowa + silikon (oba z EAN).
+    jobId: 'windowsill-install',
+    materialTypeMap: {
+      standard: ['mat-foam-tytan-pro65-750ml', 'mat-sanitary-silicone-soudal-280ml'],
+    },
+  },
+  {
+    // Zabudowa GK (ściana): gładź wykończeniowa na spoiny + grunt. Duże pozycje
+    // (płyta GK, profile, wełna) nie są jeszcze w katalogu — pokrywamy dostępne.
+    jobId: 'gypsum-wall',
+    materialTypeMap: {
+      economy: ['mat-skim-coat-economy-20kg', 'mat-universal-primer-5l'],
+      standard: ['mat-skim-coat-acrylputz-fs20-27kg', 'mat-universal-primer-5l'],
+    },
+  },
+  {
+    // Zabudowa GK (sufit): jak wyżej.
+    jobId: 'gypsum-ceiling',
+    materialTypeMap: {
+      economy: ['mat-skim-coat-economy-20kg', 'mat-universal-primer-5l'],
+      standard: ['mat-skim-coat-acrylputz-fs20-27kg', 'mat-universal-primer-5l'],
+    },
+  },
+  {
+    // Odświeżenie silikonu: sam silikon sanitarny (z EAN).
+    jobId: 'silicone-refresh',
+    materialTypeMap: {
+      standard: ['mat-sanitary-silicone-soudal-280ml'],
+    },
+  },
+  {
+    // Wykończenie listwami/opaskami: klej montażowy + silikon (oba z EAN).
+    jobId: 'trim-finishing',
+    materialTypeMap: {
+      standard: ['mat-mounting-adhesive-soudal-fixall-290ml', 'mat-sanitary-silicone-soudal-280ml'],
+    },
+  },
+  {
+    // Malowanie drzwi: farba + grunt + taśma malarska (taśma z EAN).
+    jobId: 'door-painting',
+    materialTypeMap: {
+      standard: ['mat-paint-standard-white-10l', 'mat-universal-primer-5l', 'mat-masking-tape-bluedolphin-38mm'],
+    },
   },
 ];
 
