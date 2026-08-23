@@ -38,9 +38,15 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
     const overridePrice = overrideMap.get(overrideKey);
 
     const area = primaryArea;
-    const costMin = roundMoney(hasOverride ? overridePrice! * area : ref.laborPriceMin * area);
-    const costMax = roundMoney(hasOverride ? overridePrice! * area : ref.laborPriceMax * area);
-    const costBaseline = roundMoney(hasOverride ? overridePrice! * area : ref.laborPriceBaseline * area);
+    // Regionalny mnoznik robocizny: stawki w katalogu sa dla regionu bazowego (lodzkie),
+    // a w Warszawie ta sama robota kosztuje ok. 30% wiecej. Recznego `override` NIE mnozymy -
+    // uzytkownik podal wtedy cene, ktora sam widzial u wykonawcy, wiec jest juz "regionalna".
+    const mn = region.laborMultiplier || 1;
+    const costMin = roundMoney(hasOverride ? overridePrice! * area : ref.laborPriceMin * mn * area);
+    const costMax = roundMoney(hasOverride ? overridePrice! * area : ref.laborPriceMax * mn * area);
+    const costBaseline = roundMoney(
+      hasOverride ? overridePrice! * area : ref.laborPriceBaseline * mn * area
+    );
 
     return {
       laborRef: ref,

@@ -9,6 +9,12 @@ export interface RegionProfile {
   readonly code: string;
   readonly label: string;
   readonly isBaseline: boolean;
+  /**
+   * Mnoznik stawek robocizny wzgledem regionu bazowego (lodzkie = 1.00).
+   * Materialy w sieciowkach kosztuja tyle samo w calym kraju - regionalnie rozjezdza sie
+   * WYLACZNIE robocizna, dlatego mnoznik dotyczy tylko jej.
+   */
+  readonly laborMultiplier: number;
 }
 
 export interface PriceSourceMetadata {

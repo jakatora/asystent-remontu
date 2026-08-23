@@ -10,7 +10,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     pricePerPackage: 54.98,
     category: 'economy',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -19,10 +21,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     productLabel: 'Farba GoodHome Ściany i Sufit biały mat 10 l',
     packageSize: 10,
     packageUnit: 'l',
-    pricePerPackage: 72.98,
+    pricePerPackage: 62.98,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -32,10 +36,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Śnieżka',
     packageSize: 10,
     packageUnit: 'l',
-    pricePerPackage: 108.00,
+    pricePerPackage: 108.0,
     category: 'better',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/farba-lateksowa-sniezka-eko-plus-biala-10-l/5903973205982_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -45,10 +51,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Knauf',
     packageSize: 5,
     packageUnit: 'l',
-    pricePerPackage: 30.98,
+    pricePerPackage: 35.48,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/grunt-uniwersalny-knauf-5-l/5901793357737_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -57,10 +65,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     productLabel: 'Gładź pod wałek GW180 gotowa polimerowa 20 kg',
     packageSize: 20,
     packageUnit: 'kg',
-    pricePerPackage: 43.98,
+    pricePerPackage: 38.68,
     category: 'economy',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -73,7 +83,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     pricePerPackage: 69.78,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/gotowa-gladz-polimerowa-atlas-gta-18-kg/5905400542509_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -86,7 +98,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     pricePerM2: 26.98,
     category: 'economy',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2/5063022887917_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -96,11 +110,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Volden',
     packageSize: 10,
     packageUnit: 'm2',
-    pricePerPackage: 69.80,
+    pricePerPackage: 74.8,
     pricePerM2: 6.98,
     category: 'economy',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-volden-xps-smart-3-mm-10-m2/5063022038289_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -110,11 +126,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Arbiton',
     packageSize: 2.5,
     packageUnit: 'mb',
-    pricePerPackage: 31.98,
+    pricePerPackage: 32.98,
     pricePerMb: 12.79,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk/5905167725719_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -123,24 +141,28 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     productLabel: 'Gres Guigliano GoodHome 1 m²',
     packageSize: 1,
     packageUnit: 'm2',
-    pricePerPackage: 69.98,
+    pricePerPackage: 73.98,
     pricePerM2: 69.98,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2/3663602870821_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
     id: 'mat-tile-adhesive-buildfix-25kg',
     materialType: 'adhesive',
-    productLabel: 'Klej do gresu szybkowiążący Buildfix 25 kg',
-    brand: 'Buildfix',
+    productLabel: 'Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg',
+    brand: 'Atlas',
     packageSize: 25,
     packageUnit: 'kg',
-    pricePerPackage: 48.98,
+    pricePerPackage: 63.98,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
   {
@@ -150,10 +172,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Soudal',
     packageSize: 280,
     packageUnit: 'ml',
-    pricePerPackage: 18.98,
+    pricePerPackage: 19.98,
     category: 'standard',
     storeName: 'Castorama',
-    lastUpdated: '2026-04-01',
+    sourceUrl:
+      'https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd',
+    lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
 

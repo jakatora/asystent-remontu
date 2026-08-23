@@ -1,5 +1,6 @@
 import type { LaborPriceReference, MaterialPriceReference, MaterialCategory } from '@/types/pricing';
 import { LABOR_PRICES, MATERIAL_PRICES, getLaborIdsForJob, getMaterialIdsForJob } from '@/data/prices';
+import { BASELINE_REGION } from '@/data/prices/regions';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -34,14 +35,19 @@ export function getMaterialsByCategory(category: MaterialCategory): MaterialPric
 
 export function getLaborForJob(jobId: string, regionCode?: string): LaborPriceReference[] {
   const ids = getLaborIdsForJob(jobId);
-  const results: LaborPriceReference[] = [];
+  const dopasowane: LaborPriceReference[] = [];
+  const bazowe: LaborPriceReference[] = [];
   for (const id of ids) {
     const ref = LABOR_BY_ID.get(id);
-    if (ref && (!regionCode || ref.regionCode === regionCode)) {
-      results.push(ref);
-    }
+    if (!ref) continue;
+    if (!regionCode || ref.regionCode === regionCode) dopasowane.push(ref);
+    if (ref.regionCode === BASELINE_REGION.code) bazowe.push(ref);
   }
-  return results;
+  // FAIL-OPEN NA REGION: mamy skompletowany zestaw stawek tylko dla regionu bazowego.
+  // Filtr po dokladnym `regionCode` oddawal dla Warszawy PUSTA LISTE, przez co wycena
+  // po cichu pokazywala same materialy - czyli kwote bez najdrozszej czesci remontu.
+  // Regionalna roznice nakladamy mnoznikiem (`RegionProfile.laborMultiplier`) w silniku.
+  return dopasowane.length > 0 ? dopasowane : bazowe;
 }
 
 export function getMaterialsForJob(jobId: string, tier: MaterialCategory): MaterialPriceReference[] {

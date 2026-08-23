@@ -1,5 +1,41 @@
 import type { LaborPriceReference } from '@/types/pricing';
 
+// ─────────────────────────────────────────────────────────────────────────────
+// STAWKI ROBOCIZNY — dane z realnych cenników, nie wyliczone z głowy
+// ─────────────────────────────────────────────────────────────────────────────
+// Zaktualizowane: 2026-08-23. Poprzedni zestaw (2026-04-01) podawał źródło
+// „KB Łódź / contractor_survey" BEZ ani jednego odnośnika, a widełki min→max miały
+// w prawie każdej pozycji dokładnie ten sam mnożnik ×1,081 (7,32→7,91; 21,80→23,60;
+// 123→133; 168→182). Taki wzór nie bierze się z pytania wykonawców o cenę — to były
+// liczby wygenerowane, nie zebrane. Stąd pełna wymiana.
+//
+// ŹRÓDŁA (każda pozycja niesie `sourceUrl` do konkretnego cennika):
+//   • kb.pl            — https://kb.pl/cenniki/uslugi/cennik-uslug-remontowych-aktualne-ceny/
+//   • ceny-uslug.pl    — https://ceny-uslug.pl/cenniki-prac-remontowych-i-wykonczeniowych
+//   • ogarnijremont.pl — https://ogarnijremont.pl/cennik-uslug-remontowych-2026/
+//
+// METODA: cenniki różnią się MOCNO (panele: 22–38 zł/m² u jednego, 70–85 u drugiego — bo
+// jeden liczy sam montaż, drugi „pod klucz" z podkładem i listwami). Dlatego widełki rozpinamy
+// między najniższą a najwyższą wiarygodną stawką z trzech źródeł, a `baseline` stawiamy tam,
+// gdzie zgadzają się co najmniej dwa. Lepiej pokazać laikowi uczciwy przedział niż jedną ładną
+// liczbę, która rozjedzie się z pierwszą ofertą wykonawcy.
+//
+// ⚠️ WSZYSTKIE STAWKI SĄ NETTO (tak podają wszystkie trzy cenniki). Remont mieszkania to
+// zwykle 8% VAT — apka musi go doliczyć albo napisać wprost, że liczy netto. Bez tego
+// użytkownik zobaczy kwotę niższą niż ta, którą realnie zapłaci.
+//
+// REGION: to zestaw BAZOWY (łódzkie, mnożnik 1,00). Inne województwa dostają ten sam zestaw
+// przemnożony przez `laborMultiplier` z `regions.ts` — patrz `registry.ts`, które przy braku
+// stawek dla regionu schodzi do bazy. Wcześniej wybór Warszawy dawał ZERO pozycji robocizny
+// i wycena po cichu pokazywała same materiały.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const KB = 'https://kb.pl/cenniki/uslugi/cennik-uslug-remontowych-aktualne-ceny/';
+const CENY_USLUG = 'https://ceny-uslug.pl/cenniki-prac-remontowych-i-wykonczeniowych';
+const OGARNIJ = 'https://ogarnijremont.pl/cennik-uslug-remontowych-2026/';
+
+const NETTO = 'Stawka NETTO, sama robocizna bez materiału.';
+
 export const LABOR_PRICES: readonly LaborPriceReference[] = [
   {
     id: 'labor-wall-primer',
@@ -7,13 +43,15 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 7.32,
-    laborPriceMax: 7.91,
-    laborPriceBaseline: 7.91,
+    laborPriceMin: 8,
+    laborPriceMax: 16,
+    laborPriceBaseline: 12,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'kb.pl + ogarnijremont.pl (cenniki 2026)',
+    sourceType: 'market_reference',
+    sourceUrl: KB,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} kb.pl: 10–14 zł/m², ogarnijremont.pl: 7–18 zł/m².`,
   },
   {
     id: 'labor-wall-painting-3-coats',
@@ -21,13 +59,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 21.80,
-    laborPriceMax: 23.60,
-    laborPriceBaseline: 23.60,
+    laborPriceMin: 25,
+    laborPriceMax: 42,
+    laborPriceBaseline: 32,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'kb.pl + ceny-uslug.pl + ogarnijremont.pl',
+    sourceType: 'market_reference',
+    sourceUrl: KB,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} Malowanie TRZYKROTNE: kb.pl 22–38 zł/m². Dwukrotne jest tańsze `
+      + '(ceny-uslug.pl 22–35, ogarnijremont.pl 28–39) — trzecia warstwa to ok. +20%.',
   },
   {
     id: 'labor-wallpaper-installation',
@@ -35,13 +76,15 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 34.10,
-    laborPriceMax: 36.90,
-    laborPriceBaseline: 36.90,
+    laborPriceMin: 30,
+    laborPriceMax: 55,
+    laborPriceBaseline: 42,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'ceny-uslug.pl + kb.pl + ogarnijremont.pl',
+    sourceType: 'market_reference',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ceny-uslug.pl 25–45 zł/m², kb.pl 40–60 (winylowa), ogarnijremont.pl 40–60.`,
   },
   {
     id: 'labor-wallpaper-pattern-match',
@@ -49,14 +92,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 48.80,
-    laborPriceMax: 52.70,
-    laborPriceBaseline: 52.70,
+    laborPriceMin: 40,
+    laborPriceMax: 72,
+    laborPriceBaseline: 55,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
-    notes: 'Tapeta z dopasowaniem wzoru',
+    sourceName: 'ogarnijremont.pl (tapetowanie) + narzut za dopasowanie wzoru',
+    sourceType: 'market_reference',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} Tapeta ze wzorem do dopasowania: ok. +30% do zwykłego tapetowania `
+      + '(większy odpad, wolniejsza praca). ⚠️ Narzut szacunkowy — cenniki nie podają go osobno.',
   },
   {
     id: 'labor-skim-coat',
@@ -64,13 +109,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 43.20,
-    laborPriceMax: 46.70,
-    laborPriceBaseline: 46.70,
+    laborPriceMin: 30,
+    laborPriceMax: 65,
+    laborPriceBaseline: 45,
     currency: 'PLN',
-    sourceName: 'KB łódzkie',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'ceny-uslug.pl + kb.pl + ogarnijremont.pl',
+    sourceType: 'market_reference',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ceny-uslug.pl (szpachlowanie) 18–32 zł/m², kb.pl (gipsowanie) 45–65, `
+      + 'ogarnijremont.pl (gładź) 35–75 — ze szlifowaniem od 50 zł/m².',
   },
   {
     id: 'labor-repair-holes-cracks',
@@ -78,13 +126,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 16.40,
-    laborPriceMax: 17.70,
-    laborPriceBaseline: 17.70,
+    laborPriceMin: 15,
+    laborPriceMax: 35,
+    laborPriceBaseline: 22,
     currency: 'PLN',
-    sourceName: 'KB łódzkie',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'pochodna stawki gładzi (ceny-uslug.pl, ogarnijremont.pl)',
+    sourceType: 'market_reference',
+    sourceUrl: CENY_USLUG,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ⚠️ SZACUNEK: cenniki nie wyceniają łatania dziur osobno. Przyjęte jako `
+      + 'ok. połowa stawki pełnej gładzi — to praca punktowa, nie na całej ścianie.',
   },
   {
     id: 'labor-laminate-installation',
@@ -92,13 +143,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 43.10,
-    laborPriceMax: 47.50,
-    laborPriceBaseline: 43.10,
+    laborPriceMin: 30,
+    laborPriceMax: 60,
+    laborPriceBaseline: 40,
     currency: 'PLN',
-    sourceName: 'KB łódzkie / Łódź reference',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'ceny-uslug.pl + ogarnijremont.pl + kb.pl',
+    sourceType: 'market_reference',
+    sourceUrl: CENY_USLUG,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ceny-uslug.pl 22–38 zł/m² (sam montaż), ogarnijremont.pl 30–85, `
+      + 'kb.pl 70–85 (z podkładem i listwami — wariant „pod klucz").',
   },
   {
     id: 'labor-skirting-installation',
@@ -106,13 +160,15 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'mb',
-    laborPriceMin: 15.00,
-    laborPriceMax: 25.00,
-    laborPriceBaseline: 20.00,
+    laborPriceMin: 12,
+    laborPriceMax: 35,
+    laborPriceBaseline: 20,
     currency: 'PLN',
-    sourceName: 'open market reference',
+    sourceName: 'ogarnijremont.pl (cennik 2026)',
     sourceType: 'market_reference',
-    lastUpdated: '2026-04-01',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ogarnijremont.pl: 10–40 zł/mb za sam montaż listew.`,
   },
   {
     id: 'labor-vinyl-click-installation',
@@ -120,13 +176,15 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 35.00,
-    laborPriceMax: 50.00,
-    laborPriceBaseline: 42.50,
+    laborPriceMin: 40,
+    laborPriceMax: 70,
+    laborPriceBaseline: 52,
     currency: 'PLN',
-    sourceName: 'open market reference',
+    sourceName: 'ogarnijremont.pl (panele winylowe)',
     sourceType: 'market_reference',
-    lastUpdated: '2026-04-01',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ogarnijremont.pl: 45–70 zł/m². Klik montuje się szybciej niż winyl klejony.`,
   },
   {
     id: 'labor-glued-vinyl-installation',
@@ -134,13 +192,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 50.00,
-    laborPriceMax: 70.00,
-    laborPriceBaseline: 60.00,
+    laborPriceMin: 55,
+    laborPriceMax: 90,
+    laborPriceBaseline: 70,
     currency: 'PLN',
-    sourceName: 'open market reference',
+    sourceName: 'ogarnijremont.pl (winyl) + narzut za klejenie',
     sourceType: 'market_reference',
-    lastUpdated: '2026-04-01',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} Winyl KLEJONY wymaga równego, zagruntowanego podłoża i schnięcia — stąd `
+      + 'wyżej niż klik (ogarnijremont.pl podaje 45–70 zł/m² dla winylu ogółem).',
   },
   {
     id: 'labor-wall-tiles-installation',
@@ -148,13 +209,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 123.00,
-    laborPriceMax: 133.00,
-    laborPriceBaseline: 133.00,
+    laborPriceMin: 70,
+    laborPriceMax: 160,
+    laborPriceBaseline: 110,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'ceny-uslug.pl + kb.pl + ogarnijremont.pl',
+    sourceType: 'market_reference',
+    sourceUrl: KB,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} Rozrzut jest duży: ceny-uslug.pl (glazura) 55–85 zł/m², kb.pl 110–160, `
+      + 'ogarnijremont.pl 110–180. Mozaika i wielki format idą jeszcze wyżej.',
   },
   {
     id: 'labor-standard-tiles-installation',
@@ -162,13 +226,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 104.00,
-    laborPriceMax: 113.00,
-    laborPriceBaseline: 113.00,
+    laborPriceMin: 70,
+    laborPriceMax: 150,
+    laborPriceBaseline: 105,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
+    sourceName: 'kb.pl + ogarnijremont.pl + ceny-uslug.pl',
+    sourceType: 'market_reference',
+    sourceUrl: KB,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} kb.pl (płytki podłogowe, format standardowy) 110–150 zł/m², `
+      + 'ogarnijremont.pl 110–180, ceny-uslug.pl od 55 zł/m² przy prostych układach.',
   },
   {
     id: 'labor-gres-installation',
@@ -176,14 +243,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 168.00,
-    laborPriceMax: 182.00,
-    laborPriceBaseline: 182.00,
+    laborPriceMin: 90,
+    laborPriceMax: 180,
+    laborPriceBaseline: 125,
     currency: 'PLN',
-    sourceName: 'KB Łódź',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
-    notes: 'Gres porcelanowy — stawka wyższa',
+    sourceName: 'kb.pl + ogarnijremont.pl',
+    sourceType: 'market_reference',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} kb.pl 110–150 zł/m², ogarnijremont.pl 110–180 (wielki format drożej). `
+      + 'Gres tnie się trudniej niż zwykła terakota, stąd wyższa dolna granica.',
   },
   {
     id: 'labor-substrate-primer-tiles',
@@ -191,14 +260,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'm2',
-    laborPriceMin: 9.00,
-    laborPriceMax: 9.76,
-    laborPriceBaseline: 9.76,
+    laborPriceMin: 8,
+    laborPriceMax: 16,
+    laborPriceBaseline: 12,
     currency: 'PLN',
-    sourceName: 'KB Łódź aggregate reference',
-    sourceType: 'contractor_survey',
-    lastUpdated: '2026-04-01',
-    notes: 'Gruntowanie podłoża przed płytkami',
+    sourceName: 'kb.pl + ogarnijremont.pl (gruntowanie)',
+    sourceType: 'market_reference',
+    sourceUrl: KB,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} Gruntowanie podłoża pod płytki wyceniane jak gruntowanie ścian: `
+      + 'kb.pl 10–14 zł/m², ogarnijremont.pl 7–18 zł/m².',
   },
   {
     id: 'labor-sink-installation',
@@ -206,13 +277,16 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'szt',
-    laborPriceMin: 300.00,
-    laborPriceMax: 450.00,
-    laborPriceBaseline: 420.00,
+    laborPriceMin: 150,
+    laborPriceMax: 400,
+    laborPriceBaseline: 250,
     currency: 'PLN',
-    sourceName: 'KB / market reference',
+    sourceName: 'ogarnijremont.pl + kb.pl',
     sourceType: 'market_reference',
-    lastUpdated: '2026-04-01',
+    sourceUrl: OGARNIJ,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} ogarnijremont.pl (punkt hydrauliczny) 100–250 zł, kb.pl 300–450 zł. `
+      + 'Różnica bierze się z tego, czy trzeba przerabiać podejście wod-kan.',
   },
   {
     id: 'labor-toilet-installation',
@@ -220,12 +294,15 @@ export const LABOR_PRICES: readonly LaborPriceReference[] = [
     regionCode: 'lodzkie',
     regionLabel: 'Łódź / łódzkie',
     laborUnit: 'szt',
-    laborPriceMin: 450.00,
-    laborPriceMax: 650.00,
-    laborPriceBaseline: 550.00,
+    laborPriceMin: 150,
+    laborPriceMax: 300,
+    laborPriceBaseline: 220,
     currency: 'PLN',
-    sourceName: 'KB / market reference',
+    sourceName: 'kb.pl + ogarnijremont.pl',
     sourceType: 'market_reference',
-    lastUpdated: '2026-04-01',
+    sourceUrl: KB,
+    lastUpdated: '2026-08-23',
+    notes: `${NETTO} kb.pl 200–300 zł (kompakt ze zbiornikiem zewnętrznym), ogarnijremont.pl `
+      + '100–250 zł. Stelaż podtynkowy z zabudową kosztuje wyraźnie więcej.',
   },
 ];
