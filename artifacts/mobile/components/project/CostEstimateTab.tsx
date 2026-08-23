@@ -8,7 +8,7 @@
 // pochodzą z API; tu jest tylko formatowanie na PLN i układ. Nie dotyka formuł,
 // ID jobów ani danych kalkulatora.
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Pressable, Linking } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
@@ -25,6 +25,7 @@ import {
   type SerializedProject,
   type SerializedStage,
   type SerializedLine,
+  type SerializedProductOffer,
   type SerializedConsolidatedLine,
   type SerializedStoreComparison,
   type SerializedStoreBasket,
@@ -322,8 +323,172 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
           gtin={product.gtin}
         />
       )}
+      {line.offers && line.offers.length > 1 && (
+        <OfferComparisonList offers={line.offers} />
+      )}
     </View>
   );
+}
+
+/**
+ * Rozwijalne porównanie WSZYSTKICH ofert danego produktu (Sklep A/B/C + najtańszy).
+ * Oferty przychodzą z backendu POSORTOWANE od najtańszej (pierwsza z ceną = najtańsza),
+ * więc UI NIC nie liczy ani nie sortuje: formatuje grosze na PLN, oznacza najtańszą
+ * badge'em, pokazuje cenę regularną (przekreśloną) tylko gdy realnie wyższa od
+ * aktualnej, cenę za jednostkę, dostępność i link do produktu. Zwinięte domyślnie.
+ */
+function OfferComparisonList({ offers }: { offers: SerializedProductOffer[] }) {
+  const { t } = useLanguage();
+  const [expanded, setExpanded] = useState(false);
+
+  // Najtańsza = pierwsza oferta z ceną (backend sortuje rosnąco, null-ceny na końcu).
+  const cheapestOfferId = offers.find((o) => o.priceGrosze !== null)?.offerId;
+
+  return (
+    <View style={{ gap: 6 }}>
+      <Pressable
+        onPress={() => setExpanded((v) => !v)}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2 }}
+        accessibilityRole="button"
+      >
+        <Feather
+          name={expanded ? 'chevron-up' : 'chevron-down'}
+          size={14}
+          color={Colors.primary}
+        />
+        <Txt w="medium" style={{ fontSize: 12, color: Colors.primary }}>
+          {expanded
+            ? t('cmp.CostEstimate.hideOffers')
+            : t('cmp.CostEstimate.compareOffers', { count: offers.length })}
+        </Txt>
+      </Pressable>
+
+      {expanded && (
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: Colors.border,
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}
+        >
+          {offers.map((offer, idx) => (
+            <OfferRow
+              key={offer.offerId}
+              offer={offer}
+              isCheapest={offer.offerId === cheapestOfferId}
+              isFirst={idx === 0}
+            />
+          ))}
+        </View>
+      )}
+    </View>
+  );
+}
+
+/** Jeden wiersz oferty: sklep + badge „najtańsza", cena aktualna/regularna, zł/jedn., dostępność, link. */
+function OfferRow({
+  offer,
+  isCheapest,
+  isFirst,
+}: {
+  offer: SerializedProductOffer;
+  isCheapest: boolean;
+  isFirst: boolean;
+}) {
+  const { t } = useLanguage();
+  const hasPromo =
+    offer.regularPriceGrosze !== null &&
+    offer.priceGrosze !== null &&
+    offer.regularPriceGrosze > offer.priceGrosze;
+
+  return (
+    <View
+      style={{
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        gap: 4,
+        borderTopWidth: isFirst ? 0 : 1,
+        borderTopColor: Colors.border,
+        backgroundColor: isCheapest ? Colors.successBg : Colors.surface,
+      }}
+    >
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flex: 1, flexWrap: 'wrap' }}>
+          <Feather name="shopping-bag" size={12} color={Colors.textMuted} />
+          <Txt w="medium" style={{ fontSize: 13, color: Colors.text }}>
+            {offer.store}
+          </Txt>
+          {isCheapest && (
+            <Badge
+              icon="award"
+              text={t('cmp.CostEstimate.cheapest')}
+              color={Colors.success}
+              bg={Colors.surface}
+            />
+          )}
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          {hasPromo && (
+            <Txt
+              style={{
+                fontSize: 12,
+                color: Colors.textMuted,
+                textDecorationLine: 'line-through',
+              }}
+            >
+              {formatGrosze(offer.regularPriceGrosze)}
+            </Txt>
+          )}
+          <Txt w="bold" style={{ fontSize: 14, color: hasPromo ? Colors.danger : Colors.text }}>
+            {offer.priceGrosze !== null ? formatGrosze(offer.priceGrosze) : '—'}
+          </Txt>
+        </View>
+      </View>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+        {offer.pricePerUnitGrosze !== null && (
+          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>
+            {t('cmp.CostEstimate.perUnit', {
+              price: formatGrosze(offer.pricePerUnitGrosze),
+              unit: offer.unit ?? '',
+            })}
+          </Txt>
+        )}
+        {offer.availability && (
+          <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+            {availabilityLabel(offer.availability, t)}
+          </Txt>
+        )}
+        {offer.url && (
+          <Pressable
+            onPress={() => {
+              if (offer.url) void Linking.openURL(offer.url).catch(() => {});
+            }}
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}
+            accessibilityRole="link"
+          >
+            <Feather name="external-link" size={11} color={Colors.primary} />
+            <Txt w="medium" style={{ fontSize: 11, color: Colors.primary }}>
+              {t('cmp.CostEstimate.openProduct')}
+            </Txt>
+          </Pressable>
+        )}
+      </View>
+    </View>
+  );
+}
+
+/** Mapuje surową dostępność ze sklepu na etykietę; nieznane wartości pokazuje 1:1. */
+function availabilityLabel(
+  raw: string,
+  t: (key: any, params?: Record<string, string | number>) => string,
+): string {
+  const key = raw.trim().toLowerCase();
+  if (key === 'in_stock' || key === 'instock') return t('cmp.CostEstimate.availability.in_stock');
+  if (key === 'out_of_stock' || key === 'outofstock')
+    return t('cmp.CostEstimate.availability.out_of_stock');
+  return raw;
 }
 
 /**

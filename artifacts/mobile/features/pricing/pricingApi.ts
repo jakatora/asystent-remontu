@@ -87,6 +87,27 @@ export interface SerializedOffer {
   unitPriceGrosze: number;
 }
 
+/**
+ * Pojedyncza oferta produktu w konkretnym sklepie — do porównania cen per produkt
+ * (Sklep A/B/C + najtańszy). Wszystkie kwoty w GROSZACH. Zgodny z
+ * api-server/lib/pricing-serialize.ts#SerializedProductOffer.
+ */
+export interface SerializedProductOffer {
+  offerId: string;
+  store: string;
+  url: string | null;
+  /** Cena aktualna (efektywna: promo ?? price) za opakowanie, w GROSZACH; null gdy brak. */
+  priceGrosze: number | null;
+  /** Cena regularna („była", przekreślana przy promocji), w GROSZACH; null gdy brak. */
+  regularPriceGrosze: number | null;
+  /** Cena za jednostkę odniesienia (zł/l, zł/szt) w GROSZACH; null gdy brak. */
+  pricePerUnitGrosze: number | null;
+  /** Jednostka opakowania/odniesienia (np. "l", "szt"); null gdy brak. */
+  unit: string | null;
+  /** Dostępność — surowy tekst ze sklepu (np. "in_stock"); null gdy brak. */
+  availability: string | null;
+}
+
 export interface SerializedLine {
   resolved: boolean;
   quantity: number;
@@ -101,6 +122,11 @@ export interface SerializedLine {
   lineCostGrosze: number;
   product?: SerializedProduct;
   cheapestOffer?: SerializedOffer;
+  /**
+   * Wszystkie oferty produktu, POSORTOWANE od najtańszej (pierwsza = najtańsza).
+   * Oferty bez ceny (priceGrosze === null) na końcu. Obecne dla resolved: true.
+   */
+  offers?: SerializedProductOffer[];
   packageSize?: number;
   packagesNeeded?: number;
   reason?: UnresolvedReason;

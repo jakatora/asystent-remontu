@@ -25,6 +25,7 @@ import {
   type PriceHistory,
   type PriceStatsGrosze,
   type Product,
+  type ProductOffer,
 } from "@workspace/db/repositories";
 
 export interface SerializedProduct {
@@ -46,6 +47,28 @@ export interface SerializedOffer {
   unitPriceGrosze: number;
 }
 
+/**
+ * Pojedyncza oferta produktu w konkretnym sklepie — do porównania cen per produkt
+ * na ekranie wyceny (Sklep A/B/C + najtańszy). Wszystkie kwoty w GROSZACH.
+ * Serializer NIC nie liczy poza konwersją numeric(string PLN) -> grosze
+ * (priceToGrosze); nie decyduje o „najtańszej" (to robi kolejność listy).
+ */
+export interface SerializedProductOffer {
+  offerId: string;
+  store: string;
+  url: string | null;
+  /** Cena aktualna (efektywna: promo ?? price) za opakowanie, w GROSZACH; null gdy brak. */
+  priceGrosze: number | null;
+  /** Cena regularna („była", przekreślana przy promocji), w GROSZACH; null gdy brak. */
+  regularPriceGrosze: number | null;
+  /** Cena za jednostkę odniesienia (zł/l, zł/szt) w GROSZACH; null gdy brak. */
+  pricePerUnitGrosze: number | null;
+  /** Jednostka opakowania/odniesienia (np. "l", "szt"); null gdy brak. */
+  unit: string | null;
+  /** Dostępność — surowy tekst ze sklepu (np. "in_stock"); null gdy brak. */
+  availability: string | null;
+}
+
 export interface SerializedLine {
   resolved: boolean;
   quantity: number;
@@ -57,6 +80,13 @@ export interface SerializedLine {
   // --- tylko dla resolved: true ---
   product?: SerializedProduct;
   cheapestOffer?: SerializedOffer;
+  /**
+   * WSZYSTKIE oferty dopasowanego produktu, POSORTOWANE od najtańszej (pierwsza =
+   * najtańsza, spójna z `cheapestOffer`). Do porównania cen per produkt w UI.
+   * Oferty bez ceny (priceGrosze === null) trafiają na koniec (nie da się ich
+   * porównać, ale pokazują sklep/dostępność). Obecne tylko dla resolved: true.
+   */
+  offers?: SerializedProductOffer[];
   /** Wielkość opakowania użyta do zaokrąglenia w górę. */
   packageSize?: number;
   /** Liczba pełnych opakowań do kupienia. */
@@ -168,6 +198,40 @@ function serializeProduct(product: {
   };
 }
 
+/** Serializuje jedną ofertę produktu do porównania cen (kwoty numeric -> grosze). */
+function serializeProductOffer(offer: ProductOffer): SerializedProductOffer {
+  return {
+    offerId: offer.id,
+    store: offer.store,
+    url: offer.productUrl,
+    // Cena aktualna = efektywna (promo ?? price), spójnie z selectCheapestOffer.
+    priceGrosze: priceToGrosze(offer.promoPrice ?? offer.price),
+    regularPriceGrosze: priceToGrosze(offer.regularPrice),
+    pricePerUnitGrosze: priceToGrosze(offer.pricePerUnit),
+    unit: offer.unit,
+    availability: offer.availability,
+  };
+}
+
+/**
+ * Serializuje i SORTUJE oferty produktu rosnąco po cenie aktualnej (najtańsza
+ * pierwsza). Oferty bez ceny (priceGrosze === null) idą na koniec — nie da się
+ * ich porównać, ale zostają, by pokazać sklep/dostępność. Stabilnie: przy równej
+ * cenie zachowujemy kolejność wejściową (deterministyczne oferty produktu).
+ */
+function serializeOffers(
+  offers: readonly ProductOffer[],
+): SerializedProductOffer[] {
+  return offers
+    .map(serializeProductOffer)
+    .sort((a, b) => {
+      if (a.priceGrosze === null && b.priceGrosze === null) return 0;
+      if (a.priceGrosze === null) return 1;
+      if (b.priceGrosze === null) return -1;
+      return a.priceGrosze - b.priceGrosze;
+    });
+}
+
 function serializeLine(line: EstimateLine): SerializedLine {
   const base = {
     quantity: line.quantity,
@@ -195,6 +259,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
       url: line.cheapestOffer.url,
       unitPriceGrosze: line.cheapestOffer.unitPriceGrosze,
     },
+    offers: serializeOffers(line.offers),
     packageSize: line.packageSize,
     packagesNeeded: line.packagesNeeded,
   };

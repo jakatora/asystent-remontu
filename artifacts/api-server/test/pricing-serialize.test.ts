@@ -57,6 +57,36 @@ test("serializeStage: suma etapu w groszach + najtańsza oferta + opakowania", a
   );
 });
 
+test("serializeStage: rozpoznana pozycja ma listę WSZYSTKICH ofert posortowaną od najtańszej (promo, regular, dostępność, url)", async () => {
+  const stage = await estimateStageCostFromCalculation(
+    noDb,
+    paintJob,
+    {},
+    fakeDeps,
+  );
+  const out = serializeStage(stage);
+
+  const resolved = out.lines.find((l) => l.resolved);
+  assert.ok(resolved, "powinna być pozycja rozpoznana");
+  const offers = resolved!.offers;
+  assert.ok(offers, "rozpoznana pozycja musi mieć listę ofert");
+  assert.equal(offers!.length, 2);
+
+  // Sortowanie rosnąco: Leroy (promo 80,00 = 8000) przed Castoramą (100,00 = 10000).
+  const [cheapest, second] = offers!;
+  assert.equal(cheapest!.store, "Leroy Merlin");
+  assert.equal(cheapest!.priceGrosze, 8000); // efektywna = promo
+  assert.equal(cheapest!.regularPriceGrosze, 9000); // „była" cena do przekreślenia
+  assert.equal(cheapest!.url, "https://leroymerlin.pl/farba");
+  assert.equal(cheapest!.availability, "in_stock");
+  // Pierwsza oferta z ceną jest najtańsza => spójna z cheapestOffer.
+  assert.equal(cheapest!.offerId, resolved!.cheapestOffer?.offerId);
+
+  assert.equal(second!.store, "Castorama");
+  assert.equal(second!.priceGrosze, 10000);
+  assert.equal(second!.regularPriceGrosze, 10000); // brak realnej promocji (== aktualnej)
+});
+
 test("serializeStage: pozycja nierozpoznana zostaje w odpowiedzi z reason", async () => {
   const stage = await estimateStageCostFromCalculation(
     noDb,

@@ -19,6 +19,7 @@ export type {
   SerializedProject,
   SerializedLine,
   SerializedOffer,
+  SerializedProductOffer,
   SerializedProduct,
   SerializedConsolidatedLine,
   SerializedConsolidatedList,
