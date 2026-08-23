@@ -757,4 +757,133 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+
+  // --- Układanie paneli podłogowych: panele AC4/AC5, podkład, folia, listwy, klipsy -
+  // Materiały etapu układania paneli (laminate-flooring / underlay-install) brakujące
+  // w katalogu. Każdy markowy, z realnym EAN potwierdzonym w ≥2 niezależnych źródłach
+  // (komentarze `// source:`) → EAN wpisany też do MATERIAL_EAN_OVERLAY (api-server),
+  // więc seed:offers dopina oferty z feedów. Ceny brutto ze sklepu PL z listy
+  // akceptowanej; packageSize/packageUnit z opakowania handlowego (panele = m²/paczka,
+  // podkład/folia = m²/rolka, listwa = mb, klipsy = szt/opak.). Tier rośnie z klasą
+  // ścieralności AC (economy AC4 budżet → standard AC4 markowy → better AC5 wodoodporny).
+
+  // Panele laminowane AC4 8 mm Kronospan Toledo (K338), 9 szt. = 2,22 m²/paczka — EAN 5907555422774. Cena 88,76 zł/paczka (39,98 zł/m², Castorama). Markowy AC4 do pomieszczeń o średnim natężeniu ruchu.
+  // source: https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2/5907555422774_CAPL.prd (EAN 5907555422774, cena 88,76 zł, AC4, 8 mm, 2,22 m²)
+  // source: https://www.ceneo.pl/153535733 (Kronospan Toledo AC4 K338, EAN 5907555422774)
+  {
+    id: 'mat-laminate-kronospan-toledo-ac4-222',
+    materialType: 'laminate',
+    productLabel: 'Panele laminowane AC4 8 mm Kronospan Toledo (2,22 m²/paczka)',
+    brand: 'Kronospan',
+    packageSize: 2.22,
+    packageUnit: 'm2',
+    pricePerPackage: 88.76,
+    pricePerM2: 39.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2/5907555422774_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Panele laminowane wodoodporne AC5 8 mm Classen Dąb Niasa (Megaloc 2.0 Aquaprotect), 8 szt. = 1,973 m²/paczka — EAN 4003992571974. Cena 92,69 zł/paczka (46,98 zł/m², Castorama). Odporność na wodę 24 h, do kuchni/łazienki.
+  // source: https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd (EAN 4003992571974, cena 92,69 zł, AC5, 8 mm, 1,973 m²)
+  // source: https://www.ceneo.pl/104295353 (Classen Dąb Niasa AC5 1,973 m2, EAN 4003992571974)
+  // source: https://eadamex.pl/panele-podlogowe/11020-panel-dab-niasa-expedition-ac5-8mm-classen-op1973m2-4003992571974.html (EAN 4003992571974 w URL)
+  {
+    id: 'mat-laminate-classen-niasa-ac5-1973',
+    materialType: 'laminate',
+    productLabel: 'Panele laminowane wodoodporne AC5 8 mm Classen Dąb Niasa (1,973 m²/paczka)',
+    brand: 'Classen',
+    packageSize: 1.973,
+    packageUnit: 'm2',
+    pricePerPackage: 92.69,
+    pricePerM2: 46.98,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Podkład podłogowy pod panele Arbiton XPS Smart Aquastop Thermo 1,6 mm, rolka/harmonijka 6 m² (3w1 z zintegrowaną folią paroizolacyjną) — EAN 5905167826942. Cena 70,68 zł/opak. (11,78 zł/m², Castorama). Do ogrzewania podłogowego, redukcja hałasu do 19 dB.
+  // source: https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd (EAN 5905167826942, cena 70,68 zł, 6 m²)
+  // source: https://arbiton.com/pl/podklady-pod-panele/podklady-pod-panele-laminowane/arbiton-secura-thermo-aquastop-smart-podklady-pod-panele-laminowane (Arbiton — karta serii XPS Smart Aquastop Thermo)
+  {
+    id: 'mat-underlay-arbiton-xps-aquastop-6m2',
+    materialType: 'underlay',
+    productLabel: 'Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)',
+    brand: 'Arbiton',
+    packageSize: 6,
+    packageUnit: 'm2',
+    pricePerPackage: 70.68,
+    pricePerM2: 11.78,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Folia paroizolacyjna PE Diall 0,15 mm, rolka 2 × 10 m = 20 m² — EAN 5059340141428. Cena 89,60 zł/rolka (4,48 zł/m², Castorama). Polietylen (PE), zabezpiecza panele przed wilgocią z podłoża.
+  // source: https://www.castorama.pl/folia-paroizolacyjna-diall-20-m2/5059340141428_CAPL.prd (EAN 5059340141428, cena 89,60 zł, PE 0,15 mm, 20 m²)
+  // source: https://www.ceneo.pl/50305654 (Diall Membrana paroizolacyjna 20 m2, EAN 5059340141428)
+  {
+    id: 'mat-vapor-foil-diall-pe-20m2',
+    materialType: 'vapor-barrier',
+    productLabel: 'Folia paroizolacyjna PE Diall 0,15 mm (20 m²)',
+    brand: 'Diall',
+    packageSize: 20,
+    packageUnit: 'm2',
+    pricePerPackage: 89.60,
+    pricePerM2: 4.48,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/folia-paroizolacyjna-diall-20-m2/5059340141428_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Listwa przypodłogowa MDF biała Krono Original LK100F, wys. 100 mm, dł. 2,4 mb — EAN 5907555424969. Cena 26,98 zł/szt. (11,24 zł/mb, Castorama). Do maskowania szczeliny dylatacyjnej przy ścianie.
+  // source: https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd (EAN 5907555424969, cena 26,98 zł/szt = 11,24 zł/mb, 2,4 m, wys. 100 mm)
+  // source: https://www.castorama.pl/plytki-i-podlogi/akcesoria-do-podlog/listwyprzypodlogowe/listwy-przypodlogowe-mdf.cat (Krono Original LK100F w kategorii listew MDF Castorama)
+  {
+    id: 'mat-skirting-krono-lk100f-mdf-240',
+    materialType: 'skirting',
+    productLabel: 'Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)',
+    brand: 'Krono Original',
+    packageSize: 2.4,
+    packageUnit: 'mb',
+    pricePerPackage: 26.98,
+    pricePerMb: 11.24,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Klipsy montażowe do listew przypodłogowych Cezar z podkładką dystansową, opak. 25 szt. — EAN 5907684672217. Cena 49,98 zł/opak. (2,00 zł/szt, Castorama). Szybki montaż listwy bez uszkodzeń, dystans 3 mm.
+  // source: https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd (EAN 5907684672217, cena 49,98 zł, 25 szt.)
+  // source: https://decorsystem.com.pl/klipsy-montazowe-do-listew-przypodlogowych-25-szt-cezar,id19262.html (Cezar klipsy montażowe 25 szt.)
+  {
+    id: 'mat-skirting-clips-cezar-25',
+    materialType: 'skirting-clip',
+    productLabel: 'Klipsy montażowe do listew Cezar (25 szt.)',
+    brand: 'Cezar',
+    packageSize: 25,
+    packageUnit: 'szt',
+    pricePerPackage: 49.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
 ];

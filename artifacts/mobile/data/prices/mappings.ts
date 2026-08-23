@@ -84,9 +84,27 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
   },
   {
     jobId: 'laminate-flooring',
+    // Tiery wg klasy ścieralności AC. economy = NIETKNIĘTE (budżetowy AC4 Oakland —
+    // domyślny/legacy koszyk istniejących projektów). standard = markowy AC4
+    // Kronospan Toledo + podkład XPS Aquastop + listwa MDF Krono + folia + klipsy.
+    // better = wodoodporny AC5 Classen Niasa + te same akcesoria premium. Wszystkie
+    // nowe materialId istnieją w MATERIAL_PRICES i mają EAN w MATERIAL_EAN_OVERLAY.
     materialTypeMap: {
       economy: ['mat-laminate-oakland-ac4', 'mat-underlay-volden-xps-10m2', 'mat-skirting-arbiton-2500'],
-      standard: ['mat-laminate-oakland-ac4', 'mat-underlay-volden-xps-10m2', 'mat-skirting-arbiton-2500'],
+      standard: [
+        'mat-laminate-kronospan-toledo-ac4-222',
+        'mat-underlay-arbiton-xps-aquastop-6m2',
+        'mat-skirting-krono-lk100f-mdf-240',
+        'mat-vapor-foil-diall-pe-20m2',
+        'mat-skirting-clips-cezar-25',
+      ],
+      better: [
+        'mat-laminate-classen-niasa-ac5-1973',
+        'mat-underlay-arbiton-xps-aquastop-6m2',
+        'mat-skirting-krono-lk100f-mdf-240',
+        'mat-vapor-foil-diall-pe-20m2',
+        'mat-skirting-clips-cezar-25',
+      ],
     },
   },
   {
@@ -339,6 +357,20 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     jobId: 'light-fixture-replace',
     materialTypeMap: {
       standard: ['mat-wire-connector-wago-221-413', 'mat-wire-ydyp-3x15-akszielonka-100m'],
+    },
+  },
+
+  // ── Układanie podkładu pod panele (etap przygotowawczy) ────────────────────
+  // Dedykowany job underlay-install (przygotowanie podłoża pod panele) miał tylko
+  // mapowanie robocizny (JOB_LABOR_MAPPINGS), bez materiałów. Dopinamy podkład +
+  // folię paroizolacyjną PE, żeby etap pojawił się w liście zakupowej i wycenie.
+  // economy = tańszy podkład Volden XPS (istniejący) + folia; standard = markowy
+  // podkład Arbiton XPS Aquastop 3w1 + folia. Wszystkie materialId istnieją.
+  {
+    jobId: 'underlay-install',
+    materialTypeMap: {
+      economy: ['mat-underlay-volden-xps-10m2', 'mat-vapor-foil-diall-pe-20m2'],
+      standard: ['mat-underlay-arbiton-xps-aquastop-6m2', 'mat-vapor-foil-diall-pe-20m2'],
     },
   },
 ];

@@ -403,6 +403,74 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html",
   },
+
+  // --- Układanie paneli podłogowych (materials.ts: panele AC4/AC5 / podkład / folia / listwa MDF / klipsy) ---
+
+  // Panele laminowane AC4 8 mm Kronospan Toledo 2,22 m² (materials.ts: mat-laminate-kronospan-toledo-ac4-222).
+  // source: https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2/5907555422774_CAPL.prd (EAN 5907555422774)
+  // source: https://www.ceneo.pl/153535733 (Kronospan Toledo AC4 K338, EAN 5907555422774)
+  "mat-laminate-kronospan-toledo-ac4-222": {
+    ean: "5907555422774",
+    variant: "AC4, 8 mm, 2,22 m²",
+    manufacturer: "Kronospan",
+    productUrl:
+      "https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2/5907555422774_CAPL.prd",
+  },
+
+  // Panele laminowane wodoodporne AC5 8 mm Classen Dąb Niasa 1,973 m² (materials.ts: mat-laminate-classen-niasa-ac5-1973).
+  // source: https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd (EAN 4003992571974)
+  // source: https://www.ceneo.pl/104295353 (Classen Dąb Niasa AC5 1,973 m2, EAN 4003992571974)
+  "mat-laminate-classen-niasa-ac5-1973": {
+    ean: "4003992571974",
+    variant: "AC5 wodoodporny, 8 mm, 1,973 m²",
+    manufacturer: "Classen",
+    productUrl:
+      "https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd",
+  },
+
+  // Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm 6 m² (materials.ts: mat-underlay-arbiton-xps-aquastop-6m2).
+  // source: https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd (EAN 5905167826942)
+  // source: https://arbiton.com/pl/podklady-pod-panele/podklady-pod-panele-laminowane/arbiton-secura-thermo-aquastop-smart-podklady-pod-panele-laminowane (Arbiton — seria XPS Smart Aquastop Thermo)
+  "mat-underlay-arbiton-xps-aquastop-6m2": {
+    ean: "5905167826942",
+    variant: "XPS Aquastop Thermo 1,6 mm, 6 m²",
+    manufacturer: "Arbiton",
+    productUrl:
+      "https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd",
+  },
+
+  // Folia paroizolacyjna PE Diall 0,15 mm 20 m² (materials.ts: mat-vapor-foil-diall-pe-20m2).
+  // source: https://www.castorama.pl/folia-paroizolacyjna-diall-20-m2/5059340141428_CAPL.prd (EAN 5059340141428)
+  // source: https://www.ceneo.pl/50305654 (Diall Membrana paroizolacyjna 20 m2, EAN 5059340141428)
+  "mat-vapor-foil-diall-pe-20m2": {
+    ean: "5059340141428",
+    variant: "PE 0,15 mm, 20 m²",
+    manufacturer: "Diall",
+    productUrl:
+      "https://www.castorama.pl/folia-paroizolacyjna-diall-20-m2/5059340141428_CAPL.prd",
+  },
+
+  // Listwa przypodłogowa MDF biała Krono Original LK100F 2,4 mb (materials.ts: mat-skirting-krono-lk100f-mdf-240).
+  // source: https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd (EAN 5907555424969)
+  // source: https://www.castorama.pl/plytki-i-podlogi/akcesoria-do-podlog/listwyprzypodlogowe/listwy-przypodlogowe-mdf.cat (Krono Original LK100F w kategorii listew MDF)
+  "mat-skirting-krono-lk100f-mdf-240": {
+    ean: "5907555424969",
+    variant: "MDF biała LK100F, wys. 100 mm, 2,4 mb",
+    manufacturer: "Krono Original",
+    productUrl:
+      "https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd",
+  },
+
+  // Klipsy montażowe do listew Cezar 25 szt. (materials.ts: mat-skirting-clips-cezar-25).
+  // source: https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd (EAN 5907684672217)
+  // source: https://decorsystem.com.pl/klipsy-montazowe-do-listew-przypodlogowych-25-szt-cezar,id19262.html (Cezar klipsy montażowe 25 szt.)
+  "mat-skirting-clips-cezar-25": {
+    ean: "5907684672217",
+    variant: "z podkładką dystansową, 25 szt.",
+    manufacturer: "Cezar",
+    productUrl:
+      "https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
