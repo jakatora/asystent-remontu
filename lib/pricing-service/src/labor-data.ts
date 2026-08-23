@@ -11,9 +11,12 @@
 // stawka zachowuje atrybucję źródła (sourceName + sourceType + lastUpdated) z
 // oryginalnego zestawu (ankieta wykonawców „KB Łódź" / referencje rynkowe).
 //
-// Region: zaseedowany jest WYŁĄCZNIE 'lodzkie' (spójnie z mobile
-// data/prices/regions.ts). To domyślny region wyceny; brak stawki dla żądanego
-// regionu => fallback na 'lodzkie' (patrz labor.ts).
+// Region: bazowe stawki (LABOR_RATES) pochodzą z regionu 'lodzkie'. Różnice
+// międzyregionalne modelujemy MNOŻNIKIEM regionalnym (REGION_LABOR_PROFILES) do
+// stawki bazowej — zamiast duplikować 17 stawek × N regionów. 'lodzkie' to baza
+// (mnożnik 1.00, region środkowy). Region bez profilu => fallback na 'lodzkie'
+// (patrz labor.ts). Mnożniki wyprowadzone z raportów stawek robocizny PL — patrz
+// `// source:` przy każdym profilu.
 
 /** Jednostka rozliczenia robocizny (podzbiór faktycznie używany w danych). */
 export type LaborUnit = "m2" | "mb" | "szt";
@@ -317,6 +320,94 @@ export const JOB_LABOR_MAPPINGS: readonly JobLaborMapping[] = [
   { jobId: "underlay-install", laborRateIds: [] },
 ];
 
+/**
+ * Profil regionalny robocizny: mnożnik do bazowych stawek 'lodzkie'. Pełny koszt
+ * robocizny pozycji = round(priceBaselineGrosze × multiplier) × ilość. Mnożnik
+ * jest bezwymiarowy; kwoty pozostają w GROSZACH (integer) po zaokrągleniu.
+ */
+export interface RegionLaborProfile {
+  readonly regionCode: string;
+  readonly regionLabel: string;
+  /** Mnożnik do stawki bazowej ('lodzkie' = 1.00). Musi być > 0. */
+  readonly multiplier: number;
+  // --- atrybucja źródła mnożnika (każdy profil MUSI mieć source) ---
+  readonly sourceName: string;
+  readonly sourceUrl?: string;
+  readonly lastUpdated: string;
+  readonly notes?: string;
+}
+
+/**
+ * Profile regionalne robocizny. Mnożniki wyprowadzone z raportów stawek
+ * robocizny wykończeniowej PL (stawki godzinowe i za m²), względem bazy
+ * 'lodzkie' = 1.00 (region środkowy). Największa rozpiętość międzyregionalna to
+ * ~30–40% (Warszawa najdroższa, regiony wschodnie najtańsze).
+ * Dane robocizny wykończeniowej per województwo (godzinowe / m² dachu):
+ * // source: https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony
+ * Płytki 130–170 zł/m² w mazowieckiem/małopolskiem vs 80–110 zł/m² na wschodzie,
+ * duże miasta +20–30%:
+ * // source: https://ceny-remontu.pl/ceny-prac-remontowych
+ */
+export const REGION_LABOR_PROFILES: readonly RegionLaborProfile[] = [
+  {
+    regionCode: "lodzkie",
+    regionLabel: REGION_LABEL,
+    multiplier: 1.0, // baza — stawki z ankiety wykonawców KB Łódź
+    // source: https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony
+    sourceName: "KB Łódź (baza) / planetainwestora 2026",
+    sourceUrl: "https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony",
+    lastUpdated: "2026-08-23",
+    notes: "Region bazowy (środkowy) — mnożnik referencyjny 1.00",
+  },
+  {
+    regionCode: "mazowieckie",
+    regionLabel: "Warszawa / mazowieckie",
+    // Wykończeniówka 55–80 zł/h (najwyżej w PL) vs baza łódzka ~52 zł/h → +~25%.
+    multiplier: 1.25,
+    // source: https://maka-polska.pl/cennik-uslug-wykonczeniowych (55–80 zł/h)
+    // source: https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony
+    sourceName: "maka-polska / planetainwestora 2026 (mazowieckie)",
+    sourceUrl: "https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony",
+    lastUpdated: "2026-08-23",
+    notes: "Najdroższy region (Warszawa) — +20–30% wg raportów",
+  },
+  {
+    regionCode: "malopolskie",
+    regionLabel: "Kraków / małopolskie",
+    // Wykończeniówka 45–65 zł/h; płytki 130–170 zł/m² (grupa najdroższa) → +~10%.
+    multiplier: 1.1,
+    // source: https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony
+    // source: https://ceny-remontu.pl/ceny-prac-remontowych
+    sourceName: "planetainwestora / ceny-remontu 2026 (małopolskie)",
+    sourceUrl: "https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony",
+    lastUpdated: "2026-08-23",
+  },
+  {
+    regionCode: "wielkopolskie",
+    regionLabel: "Poznań / wielkopolskie",
+    // Wykończeniówka 48–68 zł/h (nieco powyżej bazy) → +~8%.
+    multiplier: 1.08,
+    // source: https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony
+    sourceName: "planetainwestora 2026 (wielkopolskie)",
+    sourceUrl: "https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony",
+    lastUpdated: "2026-08-23",
+  },
+  {
+    regionCode: "slaskie",
+    regionLabel: "Katowice / śląskie",
+    // Wykończeniówka 45–65 zł/h; roboty 160–210 zł/m² (grupa średnia) → +~7%.
+    multiplier: 1.07,
+    // source: https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony
+    sourceName: "planetainwestora 2026 (śląskie)",
+    sourceUrl: "https://planetainwestora.pl/blog/kosztorys-budowy-domu-2026-regiony",
+    lastUpdated: "2026-08-23",
+  },
+];
+
+const REGION_PROFILE_BY_CODE = new Map(
+  REGION_LABOR_PROFILES.map((p) => [p.regionCode, p]),
+);
+
 const RATE_BY_ID = new Map(LABOR_RATES.map((r) => [r.id, r]));
 const LABOR_IDS_BY_JOB = new Map(
   JOB_LABOR_MAPPINGS.map((m) => [m.jobId, m.laborRateIds]),
@@ -324,6 +415,16 @@ const LABOR_IDS_BY_JOB = new Map(
 
 /** Domyślny region wyceny robocizny (jedyny zaseedowany). */
 export const DEFAULT_LABOR_REGION = REGION_CODE;
+
+/**
+ * Profil regionalny robocizny po kodzie regionu (albo undefined, gdy region nie
+ * ma zaseedowanego profilu — wtedy konsument robi fallback na 'lodzkie').
+ */
+export function getRegionLaborProfile(
+  code: string,
+): RegionLaborProfile | undefined {
+  return REGION_PROFILE_BY_CODE.get(code);
+}
 
 /** Stawka po id (albo undefined, gdy brak). */
 export function getLaborRateById(id: string): LaborRate | undefined {

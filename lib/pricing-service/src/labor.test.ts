@@ -4,7 +4,12 @@ import { test } from "node:test";
 import type { Database } from "@workspace/db/repositories";
 
 import { estimateStageLabor } from "./labor";
-import { getLaborRateById, LABOR_RATES } from "./labor-data";
+import {
+  getLaborRateById,
+  getRegionLaborProfile,
+  LABOR_RATES,
+  REGION_LABOR_PROFILES,
+} from "./labor-data";
 import {
   estimateProjectCostFromCalculation,
   estimateStageCostFromCalculation,
@@ -104,14 +109,58 @@ test("estimateStageLabor: job z pustą listą (grout-only) => brak robocizny", (
   assert.equal(res.laborTotalGrosze, 0);
 });
 
-test("estimateStageLabor: inny region => fallback na 'lodzkie' (flaga, suma niezerowa)", () => {
+test("estimateStageLabor: region zaseedowany (mazowieckie) => mnożnik, BEZ fallbacku", () => {
   const res = estimateStageLabor("paint-walls", { wallArea: 5 }, { region: "mazowieckie" });
   assert.equal(res.regionCode, "mazowieckie");
   const l = res.lines[0]!;
   assert.equal(l.estimated, true);
+  assert.equal(l.regionFallback, undefined); // realny region => brak fallbacku
+  assert.equal(l.regionCode, "mazowieckie");
+  // 2360 gr × 1.25 = 2950 gr/m²; ×5 = 14750 gr (drożej niż baza łódzka 11800).
+  assert.equal(l.unitPriceGrosze, 2950);
+  assert.equal(res.laborTotalGrosze, 2950 * 5);
+});
+
+test("estimateStageLabor: NIEznany region => fallback na 'lodzkie' (flaga, suma niezerowa)", () => {
+  const res = estimateStageLabor("paint-walls", { wallArea: 5 }, { region: "pomorskie" });
+  assert.equal(res.regionCode, "pomorskie"); // region żądany zachowany na etapie
+  const l = res.lines[0]!;
+  assert.equal(l.estimated, true);
   assert.equal(l.regionFallback, true);
-  assert.equal(l.regionCode, "lodzkie"); // faktycznie użyta stawka
+  assert.equal(l.regionCode, "lodzkie"); // faktycznie użyta stawka bazowa
+  assert.equal(l.unitPriceGrosze, 2360); // mnożnik 1.00
   assert.equal(res.laborTotalGrosze, 2360 * 5);
+});
+
+test("estimateStageLabor: sumy robocizny RÓŻNIĄ się między regionami (money-path)", () => {
+  const measure = { wallArea: 20 };
+  const lodz = estimateStageLabor("paint-walls", measure, { region: "lodzkie" });
+  const mazo = estimateStageLabor("paint-walls", measure, { region: "mazowieckie" });
+  const malo = estimateStageLabor("paint-walls", measure, { region: "malopolskie" });
+  // Mazowieckie najdroższe, łódzkie baza; małopolskie pomiędzy.
+  assert.ok(mazo.laborTotalGrosze > lodz.laborTotalGrosze, "mazowieckie > łódzkie");
+  assert.ok(malo.laborTotalGrosze > lodz.laborTotalGrosze, "małopolskie > łódzkie");
+  assert.ok(mazo.laborTotalGrosze > malo.laborTotalGrosze, "mazowieckie > małopolskie");
+  assert.equal(lodz.laborTotalGrosze, 2360 * 20); // baza bez zmiany (regresja)
+});
+
+test("REGION_LABOR_PROFILES: unikalne kody, mnożniki > 0, source, baza=lodzkie 1.00", () => {
+  const codes = new Set<string>();
+  for (const p of REGION_LABOR_PROFILES) {
+    assert.ok(!codes.has(p.regionCode), `duplikat regionu: ${p.regionCode}`);
+    codes.add(p.regionCode);
+    assert.ok(p.multiplier > 0, `${p.regionCode} mnożnik <= 0`);
+    assert.ok(p.sourceName.length > 0, `${p.regionCode} bez source`);
+    assert.ok(p.lastUpdated.length > 0, `${p.regionCode} bez lastUpdated`);
+  }
+  // Min. 4 nowe regiony + baza łódzka.
+  assert.ok(REGION_LABOR_PROFILES.length >= 5, "za mało regionów");
+  const base = getRegionLaborProfile("lodzkie");
+  assert.ok(base, "brak profilu bazowego 'lodzkie'");
+  assert.equal(base!.multiplier, 1.0);
+  for (const code of ["mazowieckie", "malopolskie", "wielkopolskie", "slaskie"]) {
+    assert.ok(getRegionLaborProfile(code), `brak profilu regionu ${code}`);
+  }
 });
 
 test("estimateStageLabor: każda oszacowana pozycja niesie source stawki", () => {

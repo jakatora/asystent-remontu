@@ -5,11 +5,14 @@
 // KONWENCJA PIENIĘDZY: wszystko w GROSZACH (integer). Czysta funkcja — bez I/O.
 //
 // FALLBACK (money-path: „nie zeruj sumy"): gdy dla pozycji brakuje stawki (brak
-// id / brak stawki w regionie bez fallbacku) ALBO nie da się ustalić ilości z
-// obmiarów, pozycja jest oznaczana jako NIEOSZACOWANA (`estimated: false`,
-// `lineCostGrosze: 0`) i NIE wchodzi do `laborTotalGrosze`, ale reszta pozycji
-// liczy się normalnie. Region domyślny = 'lodzkie' (jedyny zaseedowany); żądanie
-// innego regionu spada na stawkę 'lodzkie' (flaga `regionFallback`).
+// id) ALBO nie da się ustalić ilości z obmiarów, pozycja jest oznaczana jako
+// NIEOSZACOWANA (`estimated: false`, `lineCostGrosze: 0`) i NIE wchodzi do
+// `laborTotalGrosze`, ale reszta pozycji liczy się normalnie.
+//
+// REGION: bazowe stawki są z 'lodzkie'; różnice międzyregionalne nakłada MNOŻNIK
+// regionalny (REGION_LABOR_PROFILES) — unitPriceGrosze = round(baza × mnożnik).
+// Region domyślny = 'lodzkie' (mnożnik 1.00). Żądanie regionu bez profilu spada
+// na 'lodzkie' (mnożnik 1.00, flaga `regionFallback`) — suma NIE jest zerowana.
 //
 // ROZDZIELENIE OBMIARU wg jednostki stawki mirroruje logikę mobile
 // features/pricing/engine.ts (getPrimaryArea / getQuantityForMaterial):
@@ -21,6 +24,7 @@ import {
   DEFAULT_LABOR_REGION,
   getLaborRateById,
   getLaborRateIdsForJob,
+  getRegionLaborProfile,
   type LaborRate,
   type LaborUnit,
 } from "./labor-data";
@@ -52,7 +56,7 @@ export interface LaborLine {
   readonly laborUnit: LaborUnit;
   /** Ilość z obmiarów użyta do wyceny (m²/mb/szt); 0 gdy nieoszacowana. */
   readonly quantity: number;
-  /** Stawka bazowa w GROSZACH za jednostkę. */
+  /** Stawka regionalna w GROSZACH za jednostkę = round(baza × mnożnik regionu). */
   readonly unitPriceGrosze: number;
   /** Koszt pozycji = round(unitPriceGrosze × quantity), 0 gdy nieoszacowana. */
   readonly lineCostGrosze: number;
@@ -152,6 +156,11 @@ export function estimateStageLabor(
   options: EstimateOptions = {},
 ): StageLaborEstimate {
   const requestedRegion = options.region?.trim() || DEFAULT_LABOR_REGION;
+  // Profil regionu: gdy żądany region nie ma profilu => fallback na 'lodzkie'
+  // (mnożnik 1.00). 'lodzkie' jest zawsze zaseedowane, więc profil zawsze istnieje.
+  const requestedProfile = getRegionLaborProfile(requestedRegion);
+  const regionFallback = requestedProfile === undefined;
+  const profile = requestedProfile ?? getRegionLaborProfile(DEFAULT_LABOR_REGION)!;
   const laborIds = getLaborRateIdsForJob(jobId);
 
   const lines: LaborLine[] = [];
@@ -162,27 +171,29 @@ export function estimateStageLabor(
       continue;
     }
 
-    // Region: dane mają tylko 'lodzkie'. Zgodność => brak fallbacku; inny region
-    // => używamy stawki 'lodzkie' jako fallbacku (flaga), sumy NIE zerujemy.
-    const regionFallback = rate.regionCode !== requestedRegion;
+    // Stawka regionalna = stawka bazowa 'lodzkie' × mnożnik regionu (grosze,
+    // integer po zaokrągleniu). Dla 'lodzkie' mnożnik 1.00 => bez zmiany.
+    const unitPriceGrosze = Math.round(rate.priceBaselineGrosze * profile.multiplier);
 
     const quantity = resolveLaborQuantity(rate.laborUnit, measurements);
     if (!(quantity > 0)) {
       lines.push({
         ...unestimated(laborId, "no-quantity", rate),
+        regionCode: profile.regionCode,
+        unitPriceGrosze,
         ...(regionFallback ? { regionFallback } : {}),
       });
       continue;
     }
 
-    const lineCostGrosze = Math.round(rate.priceBaselineGrosze * quantity);
+    const lineCostGrosze = Math.round(unitPriceGrosze * quantity);
     lines.push({
       laborId,
       renovationJobId: rate.renovationJobId,
-      regionCode: rate.regionCode,
+      regionCode: profile.regionCode,
       laborUnit: rate.laborUnit,
       quantity,
-      unitPriceGrosze: rate.priceBaselineGrosze,
+      unitPriceGrosze,
       lineCostGrosze,
       estimated: true,
       ...(regionFallback ? { regionFallback } : {}),

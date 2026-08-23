@@ -23,13 +23,16 @@ export {
 export {
   LABOR_RATES,
   JOB_LABOR_MAPPINGS,
+  REGION_LABOR_PROFILES,
   DEFAULT_LABOR_REGION,
   getLaborRateById,
   getLaborRateIdsForJob,
+  getRegionLaborProfile,
   type LaborRate,
   type LaborUnit,
   type JobLaborMapping,
   type LaborSourceType,
+  type RegionLaborProfile,
 } from "./labor-data";
 export {
   estimateStageCostFromCalculation,
