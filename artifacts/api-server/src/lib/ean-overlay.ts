@@ -182,6 +182,81 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-38mm-x-50m/5907758507285_CAPL.prd",
   },
+
+  // --- Sucha zabudowa GK (materials.ts: płyta / profile / wełna / wkręty / kołki) ---
+
+  // Płyta g-k zwykła Norgips GKB typ A 1200×2600×12,5 mm (materials.ts: mat-gypsum-board-norgips-gkb-a-1200x2600).
+  // source: https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html (EAN 5907651690442)
+  // source: https://www.castorama.pl/plyta-gipsowo-kartonowa-zwykla-1200-x-2600-x-12-5-mm-gkb-typ-a-norgips/5907651690442_CAPL.prd (EAN 5907651690442)
+  "mat-gypsum-board-norgips-gkb-a-1200x2600": {
+    ean: "5907651690442",
+    manufacturer: "Norgips",
+    productUrl:
+      "https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html",
+  },
+
+  // Płyta g-k impregnowana (wodoodporna) Norgips GKBI typ H2 1200×2600×12,5 mm (materials.ts: mat-gypsum-board-norgips-gkbi-h2-1200x2600).
+  // source: https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html (EAN 5907651691616)
+  // source: https://www.leroymerlin.pl/produkty/plyta-gipsowa-impregnowana-gkbi-typ-h2-2600-x-1200-x-12-5-mm-norgips-41703172.html (EAN 5907651691616)
+  "mat-gypsum-board-norgips-gkbi-h2-1200x2600": {
+    ean: "5907651691616",
+    variant: "impregnowana H2",
+    manufacturer: "Norgips",
+    productUrl:
+      "https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html",
+  },
+
+  // Profil sufitowy Norgips CD60 0,6 mm 3 m (materials.ts: mat-profile-cd60-norgips-3m).
+  // source: https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd (EAN 5907651698899)
+  // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-cd60-3-m-b-norgips-42286972.html (EAN 5907651698899)
+  "mat-profile-cd60-norgips-3m": {
+    ean: "5907651698899",
+    manufacturer: "Norgips",
+    productUrl:
+      "https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd",
+  },
+
+  // Profil przyścienny Budmat UD27 0,5 mm 3 m (materials.ts: mat-profile-ud27-budmat-3m).
+  // source: https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html (EAN 5907738940163)
+  // source: https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd (EAN 5907738940163)
+  "mat-profile-ud27-budmat-3m": {
+    ean: "5907738940163",
+    manufacturer: "Budmat",
+    productUrl:
+      "https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html",
+  },
+
+  // Wełna mineralna szklana Isover Aku-Płyta 10 cm 7,2 m² (materials.ts: mat-mineral-wool-isover-akuplyta-10cm).
+  // source: https://bat.pl/Welna-Isover-Aku-plyta-10cm-7.2m2/101220014 (EAN 5901644653155)
+  // source: https://eadamex.pl/sciany-dzialowe/4924-welna-mineralna-isover-aku-plyta-10cm-0037w-mk-720m2-20szt-pal-5901644653155.html (EAN 5901644653155)
+  "mat-mineral-wool-isover-akuplyta-10cm": {
+    ean: "5901644653155",
+    manufacturer: "Isover",
+    productUrl:
+      "https://www.bricoman.pl/isover-aku-plyta-welna-mineralna-szklana-10-cm-7-2-m2-877954.html",
+  },
+
+  // Wkręty samowiercące do płyt g-k do metalu Wkręt-Met 3,5×25 mm, 100 szt. (materials.ts: mat-drywall-screws-wkretmet-35x25-100).
+  // source: https://mrowka.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html (EAN 5907704499015)
+  // source: https://www.grupapsb.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html (EAN 5907704499015)
+  "mat-drywall-screws-wkretmet-35x25-100": {
+    ean: "5907704499015",
+    variant: "do metalu, 100 szt.",
+    manufacturer: "Wkręt-Met",
+    productUrl:
+      "https://mrowka.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html",
+  },
+
+  // Kołki szybkiego montażu rozporowe Wkręt-Met SM 6×40 mm, 20 szt. (materials.ts: mat-quick-dowels-wkretmet-sm-6x40-20).
+  // source: https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html (EAN 5907704466031)
+  // source: https://eldor24.pl/kolki-do-szybkiego-montazu/kolki-szybkiego-montazu-rozporowe-sm-6x40-20-sztuk-blister-wkret-met (EAN 5907704466031)
+  "mat-quick-dowels-wkretmet-sm-6x40-20": {
+    ean: "5907704466031",
+    variant: "SM 6×40, 20 szt.",
+    manufacturer: "Wkręt-Met",
+    productUrl:
+      "https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */

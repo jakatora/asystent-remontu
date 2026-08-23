@@ -170,20 +170,76 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     },
   },
   {
-    // Zabudowa GK (ściana): gładź wykończeniowa na spoiny + grunt. Duże pozycje
-    // (płyta GK, profile, wełna) nie są jeszcze w katalogu — pokrywamy dostępne.
+    // Zabudowa GK (ściana): PEŁEN zestaw suchej zabudowy — płyta g-k + profile
+    // CD60/UD27 + wkręty + kołki (nowe pozycje z EAN) obok gładzi na spoiny +
+    // gruntu. Tier 'better' = wariant wodoodporny (płyta GKBI + wełna) do
+    // pomieszczeń wilgotnych. Wszystkie materialId istnieją w MATERIAL_PRICES.
     jobId: 'gypsum-wall',
     materialTypeMap: {
-      economy: ['mat-skim-coat-economy-20kg', 'mat-universal-primer-5l'],
-      standard: ['mat-skim-coat-acrylputz-fs20-27kg', 'mat-universal-primer-5l'],
+      economy: [
+        'mat-skim-coat-economy-20kg',
+        'mat-universal-primer-5l',
+        'mat-gypsum-board-norgips-gkb-a-1200x2600',
+        'mat-profile-cd60-norgips-3m',
+        'mat-profile-ud27-budmat-3m',
+        'mat-drywall-screws-wkretmet-35x25-100',
+        'mat-quick-dowels-wkretmet-sm-6x40-20',
+      ],
+      standard: [
+        'mat-skim-coat-acrylputz-fs20-27kg',
+        'mat-universal-primer-5l',
+        'mat-gypsum-board-norgips-gkb-a-1200x2600',
+        'mat-profile-cd60-norgips-3m',
+        'mat-profile-ud27-budmat-3m',
+        'mat-mineral-wool-isover-akuplyta-10cm',
+        'mat-drywall-screws-wkretmet-35x25-100',
+        'mat-quick-dowels-wkretmet-sm-6x40-20',
+      ],
+      better: [
+        'mat-skim-coat-acrylputz-fs20-27kg',
+        'mat-universal-primer-5l',
+        'mat-gypsum-board-norgips-gkbi-h2-1200x2600',
+        'mat-profile-cd60-norgips-3m',
+        'mat-profile-ud27-budmat-3m',
+        'mat-mineral-wool-isover-akuplyta-10cm',
+        'mat-drywall-screws-wkretmet-35x25-100',
+        'mat-quick-dowels-wkretmet-sm-6x40-20',
+      ],
     },
   },
   {
-    // Zabudowa GK (sufit): jak wyżej.
+    // Zabudowa GK (sufit): jak ściana — ruszt CD60/UD27 + płyta + mocowania.
     jobId: 'gypsum-ceiling',
     materialTypeMap: {
-      economy: ['mat-skim-coat-economy-20kg', 'mat-universal-primer-5l'],
-      standard: ['mat-skim-coat-acrylputz-fs20-27kg', 'mat-universal-primer-5l'],
+      economy: [
+        'mat-skim-coat-economy-20kg',
+        'mat-universal-primer-5l',
+        'mat-gypsum-board-norgips-gkb-a-1200x2600',
+        'mat-profile-cd60-norgips-3m',
+        'mat-profile-ud27-budmat-3m',
+        'mat-drywall-screws-wkretmet-35x25-100',
+        'mat-quick-dowels-wkretmet-sm-6x40-20',
+      ],
+      standard: [
+        'mat-skim-coat-acrylputz-fs20-27kg',
+        'mat-universal-primer-5l',
+        'mat-gypsum-board-norgips-gkb-a-1200x2600',
+        'mat-profile-cd60-norgips-3m',
+        'mat-profile-ud27-budmat-3m',
+        'mat-mineral-wool-isover-akuplyta-10cm',
+        'mat-drywall-screws-wkretmet-35x25-100',
+        'mat-quick-dowels-wkretmet-sm-6x40-20',
+      ],
+      better: [
+        'mat-skim-coat-acrylputz-fs20-27kg',
+        'mat-universal-primer-5l',
+        'mat-gypsum-board-norgips-gkbi-h2-1200x2600',
+        'mat-profile-cd60-norgips-3m',
+        'mat-profile-ud27-budmat-3m',
+        'mat-mineral-wool-isover-akuplyta-10cm',
+        'mat-drywall-screws-wkretmet-35x25-100',
+        'mat-quick-dowels-wkretmet-sm-6x40-20',
+      ],
     },
   },
   {

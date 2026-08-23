@@ -336,4 +336,154 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+
+  // --- Sucha zabudowa GK: płyta, profile, wełna, wkręty, kołki -----------------
+  // Duże pozycje wprost brakujące w katalogu (patrz mappings.ts: „płyta GK,
+  // profile, wełna nie są jeszcze w katalogu"). Każdy materiał markowy z realnym
+  // EAN (≥2 niezależne źródła w komentarzach `// source:`) → EAN wpisany też do
+  // MATERIAL_EAN_OVERLAY (api-server), więc seed:offers dopina oferty z feedów.
+  // Ceny brutto ze sklepu PL, packageSize/packageUnit z opakowania handlowego.
+
+  // Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm — EAN 5907651690442.
+  // Karton = 1,2 m × 2,6 m = 3,12 m²/szt. Cena 34,99 zł/szt (Mrówka).
+  // source: https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html (EAN + cena 34,99 zł)
+  // source: https://www.castorama.pl/plyta-gipsowo-kartonowa-zwykla-1200-x-2600-x-12-5-mm-gkb-typ-a-norgips/5907651690442_CAPL.prd (EAN 5907651690442)
+  // source: https://www.grupapsb.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html (EAN 5907651690442)
+  {
+    id: 'mat-gypsum-board-norgips-gkb-a-1200x2600',
+    materialType: 'gypsum-board',
+    productLabel: 'Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm',
+    brand: 'Norgips',
+    packageSize: 3.12,
+    packageUnit: 'm2',
+    pricePerPackage: 34.99,
+    pricePerM2: 11.22,
+    category: 'economy',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Płyta gipsowo-kartonowa impregnowana (wodoodporna) Norgips GKBI typ H2 1200×2600×12,5 mm — EAN 5907651691616.
+  // Karton 3,12 m²/szt. Cena 49,99 zł/szt (Mrówka). Do pomieszczeń wilgotnych.
+  // source: https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html (EAN + cena 49,99 zł)
+  // source: https://www.castorama.pl/plyta-gipsowo-kartonowa-impregnowana-1200-x-2600-x-12-5-mm-gkbi-typ-h2-norgips/5907651691616_CAPL.prd (EAN 5907651691616)
+  // source: https://www.leroymerlin.pl/produkty/plyta-gipsowa-impregnowana-gkbi-typ-h2-2600-x-1200-x-12-5-mm-norgips-41703172.html (EAN 5907651691616)
+  {
+    id: 'mat-gypsum-board-norgips-gkbi-h2-1200x2600',
+    materialType: 'gypsum-board',
+    productLabel: 'Płyta gipsowo-kartonowa impregnowana Norgips GKBI typ H2 1200×2600×12,5 mm',
+    brand: 'Norgips',
+    packageSize: 3.12,
+    packageUnit: 'm2',
+    pricePerPackage: 49.99,
+    pricePerM2: 16.02,
+    category: 'better',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Profil sufitowy (nośny) Norgips CD60 0,6 mm 3 m — EAN 5907651698899. Cena 11,98 zł/szt (Castorama).
+  // source: https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd (EAN + cena 11,98 zł)
+  // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-cd60-3-m-b-norgips-42286972.html (EAN 5907651698899)
+  {
+    id: 'mat-profile-cd60-norgips-3m',
+    materialType: 'profile',
+    productLabel: 'Profil sufitowy Norgips CD60 0,6 mm 3 m',
+    brand: 'Norgips',
+    packageSize: 3,
+    packageUnit: 'mb',
+    pricePerPackage: 11.98,
+    pricePerMb: 3.99,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Profil przyścienny (obwodowy) Budmat UD27 0,5 mm 3 m — EAN 5907738940163. Cena 7,99 zł/szt (Mrówka).
+  // source: https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html (EAN + cena 7,99 zł)
+  // source: https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd (EAN 5907738940163)
+  {
+    id: 'mat-profile-ud27-budmat-3m',
+    materialType: 'profile',
+    productLabel: 'Profil przyścienny Budmat UD27 0,5 mm 3 m',
+    brand: 'Budmat',
+    packageSize: 3,
+    packageUnit: 'mb',
+    pricePerPackage: 7.99,
+    pricePerMb: 2.66,
+    category: 'economy',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Wełna mineralna szklana Isover Aku-Płyta 10 cm λ=0,037 W/mK — EAN 5901644653155. Opakowanie 7,2 m², 172 zł (Bricoman).
+  // source: https://bat.pl/Welna-Isover-Aku-plyta-10cm-7.2m2/101220014 (EAN 5901644653155)
+  // source: https://eadamex.pl/sciany-dzialowe/4924-welna-mineralna-isover-aku-plyta-10cm-0037w-mk-720m2-20szt-pal-5901644653155.html (EAN 5901644653155)
+  // source: https://www.bricoman.pl/isover-aku-plyta-welna-mineralna-szklana-10-cm-7-2-m2-877954.html (cena 172 zł / 7,2 m²)
+  {
+    id: 'mat-mineral-wool-isover-akuplyta-10cm',
+    materialType: 'mineral-wool',
+    productLabel: 'Wełna mineralna szklana Isover Aku-Płyta 10 cm λ=0,037 (7,2 m²)',
+    brand: 'Isover',
+    packageSize: 7.2,
+    packageUnit: 'm2',
+    pricePerPackage: 172.00,
+    pricePerM2: 23.89,
+    category: 'standard',
+    storeName: 'Bricoman',
+    sourceUrl:
+      'https://www.bricoman.pl/isover-aku-plyta-welna-mineralna-szklana-10-cm-7-2-m2-877954.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Wkręty samowiercące do płyt g-k do metalu Wkręt-Met 3,5×25 mm, 100 szt. — EAN 5907704499015. Cena 12,99 zł/op (Mrówka).
+  // source: https://mrowka.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html (EAN + cena 12,99 zł, 100 szt.)
+  // source: https://www.grupapsb.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html (EAN 5907704499015)
+  {
+    id: 'mat-drywall-screws-wkretmet-35x25-100',
+    materialType: 'screws',
+    productLabel: 'Wkręty samowiercące do płyt g-k do metalu Wkręt-Met 3,5×25 mm (100 szt.)',
+    brand: 'Wkręt-Met',
+    packageSize: 100,
+    packageUnit: 'szt',
+    pricePerPackage: 12.99,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
+
+  // Kołki szybkiego montażu rozporowe Wkręt-Met SM 6×40 mm, 20 szt. — EAN 5907704466031. Cena 6,00 zł/op (Mrówka).
+  // source: https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html (EAN + cena 6,00 zł, 20 szt.)
+  // source: https://eldor24.pl/kolki-do-szybkiego-montazu/kolki-szybkiego-montazu-rozporowe-sm-6x40-20-sztuk-blister-wkret-met (EAN 5907704466031)
+  {
+    id: 'mat-quick-dowels-wkretmet-sm-6x40-20',
+    materialType: 'dowels',
+    productLabel: 'Kołki szybkiego montażu rozporowe Wkręt-Met SM 6×40 mm (20 szt.)',
+    brand: 'Wkręt-Met',
+    packageSize: 20,
+    packageUnit: 'szt',
+    pricePerPackage: 6.00,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html',
+    lastUpdated: '2026-08-23',
+    currency: 'PLN',
+  },
 ];
