@@ -539,6 +539,65 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m",
   },
+
+  // --- Etap malowania ścian: markowe farby i akcesoria malarskie (materials.ts) ---
+  // UWAGA: NIE dodajemy tu Śnieżki Eko 10 l (EAN 5903973005797) — to zarezerwowany
+  // demo-EAN fixture, którego seed-catalog.test.ts jawnie zabrania w nakładce.
+
+  // Farba lateksowa Dekoral Akrylit W śnieżnobiała 5 l (materials.ts: mat-paint-latex-dekoral-akrylit-w-white-5l).
+  // source: https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502 (OBI — wariant 5 l)
+  // source: https://eadamex.pl/farby-biale/7178-farba-dekoral-akrylit-w-5l-snieznobiala-lateksowa-do-scian-i-sufitow-5904000810681.html (EAN 5904000810681)
+  "mat-paint-latex-dekoral-akrylit-w-white-5l": {
+    ean: "5904000810681",
+    variant: "śnieżnobiała, 5 l",
+    manufacturer: "Dekoral",
+    productUrl:
+      "https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502",
+  },
+
+  // Farba lateksowa Dulux EasyCare Nieskazitelna Biel 9 l (materials.ts: mat-paint-latex-dulux-easycare-white-9l).
+  // source: https://www.castorama.pl/farba-plamoodporna-dulux-easycare-nieskazitelna-biel-9-l/5904078198759_CAPL.prd (EAN 5904078198759)
+  // source: https://mrowkaonline.pl/bilgoraj/farby-scienne-biale/65684-dulux-easy-care-nieskazitelna-biel-9l-5904078198759.html (EAN 5904078198759)
+  "mat-paint-latex-dulux-easycare-white-9l": {
+    ean: "5904078198759",
+    variant: "Nieskazitelna Biel, plamoodporna, 9 l",
+    manufacturer: "Dulux",
+    productUrl:
+      "https://www.castorama.pl/farba-plamoodporna-dulux-easycare-nieskazitelna-biel-9-l/5904078198759_CAPL.prd",
+  },
+
+  // Farba lateksowa Śnieżka Barwy Natury biała (173) 5 l (materials.ts: mat-paint-latex-sniezka-barwy-natury-white-5l).
+  // source: https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd (EAN 5903973139188)
+  // source: https://mrowka.com.pl/produkt/farba-barwy-natury-bialy-173-5l-sniezka-5903973139188.html (EAN 5903973139188)
+  "mat-paint-latex-sniezka-barwy-natury-white-5l": {
+    ean: "5903973139188",
+    variant: "biały 173, mat, 5 l",
+    manufacturer: "Śnieżka",
+    productUrl:
+      "https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd",
+  },
+
+  // Gładź gipsowa startowa Śnieżka Acryl-Putz ST10 START 20 kg (materials.ts: mat-skim-coat-acrylputz-st10-20kg).
+  // source: https://mrowka.com.pl/produkt/gladz-szpachlowa-start-st10-20-kg-acryl-putz-5903973104421.html (EAN 5903973104421)
+  // source: https://www.bricoman.pl/sniezka-acryl-putz-gladz-szpachlowa-start-20kg-271943.html (EAN 5903973104421)
+  "mat-skim-coat-acrylputz-st10-20kg": {
+    ean: "5903973104421",
+    variant: "ST10 START, 20 kg",
+    manufacturer: "Śnieżka",
+    productUrl:
+      "https://mrowka.com.pl/produkt/gladz-szpachlowa-start-st10-20-kg-acryl-putz-5903973104421.html",
+  },
+
+  // Taśma malarska Blue Dolphin niebieska 30 mm x 50 m (materials.ts: mat-masking-tape-bluedolphin-30mm).
+  // source: https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd (EAN 5907758515952)
+  // source: https://mrowkaonline.pl/bilgoraj/tasmy-malarskie/46729-xl-tape-tasma-malarska-mt-pg-sbl-30mmx50m-928-niebieska-papierowa-5907758515952.html (EAN 5907758515952)
+  "mat-masking-tape-bluedolphin-30mm": {
+    ean: "5907758515952",
+    variant: "niebieska, 30 mm x 50 m",
+    manufacturer: "Blue Dolphin",
+    productUrl:
+      "https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */

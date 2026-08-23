@@ -53,11 +53,32 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     },
   },
   {
+    // Flagowy etap malowania ścian: pełne tiery na MARKOWYCH farbach z realnym EAN
+    // (dotąd economy/standard były farbami bez EAN — generic/GoodHome; better =
+    // Śnieżka Eko Plus). DOKŁADNIE jedna farba/tier (materialType 'paint'), reszta
+    // to inne typy: grunt (primer) + gładź startowa (skim-coat) + taśma malarska
+    // (masking-tape) — nie podwajają farby. Stare ID farb zostają w katalogu
+    // (mat-paint-economy/standard/better-white-10l) — nie usuwamy legacy.
     jobId: 'paint-walls',
     materialTypeMap: {
-      economy: ['mat-paint-economy-white-10l', 'mat-universal-primer-5l'],
-      standard: ['mat-paint-standard-white-10l', 'mat-universal-primer-5l'],
-      better: ['mat-paint-better-white-10l', 'mat-universal-primer-5l'],
+      economy: [
+        'mat-paint-latex-dekoral-akrylit-w-white-5l',
+        'mat-universal-primer-5l',
+        'mat-skim-coat-acrylputz-st10-20kg',
+        'mat-masking-tape-bluedolphin-30mm',
+      ],
+      standard: [
+        'mat-paint-latex-sniezka-barwy-natury-white-5l',
+        'mat-universal-primer-5l',
+        'mat-skim-coat-acrylputz-st10-20kg',
+        'mat-masking-tape-bluedolphin-30mm',
+      ],
+      better: [
+        'mat-paint-latex-dulux-easycare-white-9l',
+        'mat-universal-primer-5l',
+        'mat-skim-coat-acrylputz-st10-20kg',
+        'mat-masking-tape-bluedolphin-30mm',
+      ],
     },
   },
   {

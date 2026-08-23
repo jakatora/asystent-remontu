@@ -361,6 +361,118 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
+  // --- Malowanie ścian: markowe farby i akcesoria z realnym EAN ---------------
+  // Flagowy etap „malowanie ścian" miał dotąd farby economy/standard bez EAN
+  // (generic „Farba biała mat", GoodHome — zostają w katalogu, ID nie ruszamy).
+  // Dodajemy markowe produkty z realnym, ≥2-źródłowym EAN dla pełnych tierów
+  // economy/standard/better + gładź startową i taśmę 30 mm. Ceny brutto ze sklepu
+  // PL, packageSize/packageUnit z opakowania handlowego. Każdy EAN wpisany też do
+  // MATERIAL_EAN_OVERLAY (api-server) → seed:offers/feed dopina realne oferty.
+  // DOKŁADNIE jedna farba na tier w mappings.ts (inaczej engine podwoi ilość).
+  // UWAGA: świadomie NIE dodajemy tu Śnieżki Eko 10 l — jej EAN 5903973005797 to
+  // zarezerwowany demo-EAN fixture (guard w seed-catalog.test.ts zabrania go w
+  // nakładce). Grunt głęboko penetrujący i folia malarska już są w katalogu z EAN.
+
+  // Farba lateksowa Dekoral Akrylit W śnieżnobiała 5 l — EAN 5904000810681
+  // (economy, odporna na szorowanie, wyd. 14 m²/l). Cena 59,90 zł (PSB Lobo).
+  // source: https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502 (OBI — dostępność wariantu 5 l)
+  // source: https://eadamex.pl/farby-biale/7178-farba-dekoral-akrylit-w-5l-snieznobiala-lateksowa-do-scian-i-sufitow-5904000810681.html (EAN 5904000810681)
+  {
+    id: 'mat-paint-latex-dekoral-akrylit-w-white-5l',
+    materialType: 'paint',
+    productLabel: 'Farba lateksowa Dekoral Akrylit W śnieżnobiała 5 l',
+    brand: 'Dekoral',
+    packageSize: 5,
+    packageUnit: 'l',
+    pricePerPackage: 59.90,
+    category: 'economy',
+    storeName: 'OBI',
+    sourceUrl:
+      'https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Farba lateksowa Dulux EasyCare Nieskazitelna Biel 9 l — EAN 5904078198759
+  // (better, plamoodporna hydrofobowa, wyd. 14 m²/l). Największe wiadro Dulux to 9 l.
+  // source: https://www.castorama.pl/farba-plamoodporna-dulux-easycare-nieskazitelna-biel-9-l/5904078198759_CAPL.prd (EAN + cena 228 zł)
+  // source: https://mrowkaonline.pl/bilgoraj/farby-scienne-biale/65684-dulux-easy-care-nieskazitelna-biel-9l-5904078198759.html (EAN 5904078198759)
+  {
+    id: 'mat-paint-latex-dulux-easycare-white-9l',
+    materialType: 'paint',
+    productLabel: 'Farba lateksowa Dulux EasyCare Nieskazitelna Biel 9 l',
+    brand: 'Dulux',
+    packageSize: 9,
+    packageUnit: 'l',
+    pricePerPackage: 228.0,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/farba-plamoodporna-dulux-easycare-nieskazitelna-biel-9-l/5904078198759_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Farba lateksowa Śnieżka Barwy Natury biała (173) 5 l — EAN 5903973139188
+  // (standard, matowa lateksowa, odporna na szorowanie).
+  // source: https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd (EAN + cena 118 zł)
+  // source: https://mrowka.com.pl/produkt/farba-barwy-natury-bialy-173-5l-sniezka-5903973139188.html (EAN 5903973139188)
+  {
+    id: 'mat-paint-latex-sniezka-barwy-natury-white-5l',
+    materialType: 'paint',
+    productLabel: 'Farba lateksowa Śnieżka Barwy Natury biała 5 l',
+    brand: 'Śnieżka',
+    packageSize: 5,
+    packageUnit: 'l',
+    pricePerPackage: 118.0,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Gładź gipsowa startowa Śnieżka Acryl-Putz ST10 START 20 kg — EAN 5903973104421
+  // (start pod gładź finiszową/malowanie; wariant startowy, FS20 to finisz — patrz wyżej).
+  // source: https://mrowka.com.pl/produkt/gladz-szpachlowa-start-st10-20-kg-acryl-putz-5903973104421.html (EAN + cena 42,99 zł)
+  // source: https://www.bricoman.pl/sniezka-acryl-putz-gladz-szpachlowa-start-20kg-271943.html (EAN 5903973104421, cena 41,35 zł)
+  {
+    id: 'mat-skim-coat-acrylputz-st10-20kg',
+    materialType: 'skim-coat',
+    productLabel: 'Gładź gipsowa startowa Acryl-Putz ST10 START 20 kg',
+    brand: 'Śnieżka',
+    packageSize: 20,
+    packageUnit: 'kg',
+    pricePerPackage: 42.99,
+    category: 'economy',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/gladz-szpachlowa-start-st10-20-kg-acryl-putz-5903973104421.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Taśma malarska Blue Dolphin niebieska 30 mm x 50 m — EAN 5907758515952
+  // (węższy wariant obok 38 mm — do wąskich profili/krawędzi).
+  // source: https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd (EAN + cena 25,17 zł)
+  // source: https://mrowkaonline.pl/bilgoraj/tasmy-malarskie/46729-xl-tape-tasma-malarska-mt-pg-sbl-30mmx50m-928-niebieska-papierowa-5907758515952.html (EAN 5907758515952)
+  {
+    id: 'mat-masking-tape-bluedolphin-30mm',
+    materialType: 'masking-tape',
+    productLabel: 'Taśma malarska Blue Dolphin niebieska 30 mm x 50 m',
+    brand: 'Blue Dolphin',
+    packageSize: 50,
+    packageUnit: 'mb',
+    pricePerPackage: 25.17,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
   // --- Sucha zabudowa GK: płyta, profile, wełna, wkręty, kołki -----------------
   // Duże pozycje wprost brakujące w katalogu (patrz mappings.ts: „płyta GK,
   // profile, wełna nie są jeszcze w katalogu"). Każdy materiał markowy z realnym
