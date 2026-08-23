@@ -212,6 +212,67 @@ test("serializeProject: porównanie sklepów (koszt całości per sklep + najta�
   assert.equal(cmp.singleStoreExtraGrosze, 0);
 });
 
+test("serializeStage: dokłada rozbicie robocizny (materiały bez zmian + labor)", async () => {
+  // jobId 'paint-walls' ma stawkę robocizny; obmiar wallArea=20 => 2360*20=47200.
+  const jobResult = {
+    jobId: "paint-walls",
+    materials: [],
+    measurements: { wallArea: 20 },
+  } as const;
+  const stage = await estimateStageCostFromCalculation(
+    noDb,
+    jobResult,
+    {},
+    fakeDeps,
+  );
+  const out = serializeStage(stage);
+
+  assert.equal(out.stageTotalGrosze, 0); // materiały bez zmian znaczenia
+  assert.equal(out.materialsTotalGrosze, 0);
+  assert.equal(out.laborTotalGrosze, 47200);
+  assert.equal(out.stageTotalWithLaborGrosze, 47200);
+  assert.equal(out.labor?.lines.length, 1);
+  const laborLine = out.labor!.lines[0]!;
+  assert.equal(laborLine.laborId, "labor-wall-painting-3-coats");
+  assert.equal(laborLine.estimated, true);
+  assert.equal(laborLine.lineCostGrosze, 47200);
+  assert.ok(laborLine.source.name.length > 0, "pozycja robocizny musi mieć source");
+});
+
+test("serializeStage: bez measurements => robocizna nieoszacowana, poza sumą", async () => {
+  const jobResult = { jobId: "paint-walls", materials: [] } as const;
+  const stage = await estimateStageCostFromCalculation(
+    noDb,
+    jobResult,
+    {},
+    fakeDeps,
+  );
+  const out = serializeStage(stage);
+  assert.equal(out.laborTotalGrosze, 0);
+  assert.equal(out.stageTotalWithLaborGrosze, 0);
+  assert.equal(out.labor?.unestimatedCount, 1);
+  assert.equal(out.labor?.lines[0]!.estimated, false);
+});
+
+test("serializeProject: sumuje robociznę etapów (materiały + robocizna osobno)", async () => {
+  const stageOk = {
+    jobId: "paint-walls",
+    materials: [],
+    measurements: { wallArea: 10 }, // 2360*10 = 23600
+  } as const;
+  const project = await estimateProjectCostFromCalculation(
+    noDb,
+    [stageOk],
+    {},
+    fakeDeps,
+  );
+  const out = serializeProject(project);
+  assert.equal(out.projectTotalGrosze, 0);
+  assert.equal(out.materialsTotalGrosze, 0);
+  assert.equal(out.laborTotalGrosze, 23600);
+  assert.equal(out.projectTotalWithLaborGrosze, 23600);
+});
+
 test("serializePriceHistory: statystyki 1:1 (grosze) + punkty chronologiczne z ISO", () => {
   const stats = computeProductPriceStatsGrosze(historyRows, CURRENT_CHEAPEST_GROSZE);
   const out = serializePriceHistory(product, stats, historyRows);

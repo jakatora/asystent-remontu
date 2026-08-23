@@ -74,6 +74,32 @@ test("POST /api/pricing/stage zwraca sumę etapu, najtańszą ofertę i opakowan
   }
 });
 
+test("POST /api/pricing/stage: obmiary => robocizna w odpowiedzi (materiały bez zmian)", async () => {
+  const { url, close } = await listen(makeApp(() => dummyDb));
+  try {
+    // Etap malowania ścian z obmiarem 20 m² => robocizna 2360 gr/m² * 20 = 47200.
+    const job = { jobId: "paint-walls", materials: [], measurements: { wallArea: 20 } };
+    const resp = await fetch(`${url}/api/pricing/stage`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ job }),
+    });
+    assert.equal(resp.status, 200);
+    const body = await resp.json();
+
+    assert.equal(body.stageTotalGrosze, 0); // materiały bez zmian znaczenia
+    assert.equal(body.materialsTotalGrosze, 0);
+    assert.equal(body.laborTotalGrosze, 47200);
+    assert.equal(body.stageTotalWithLaborGrosze, 47200);
+    assert.equal(body.labor.lines.length, 1);
+    assert.equal(body.labor.lines[0].estimated, true);
+    assert.equal(body.labor.lines[0].lineCostGrosze, 47200);
+    assert.ok(body.labor.lines[0].source.name.length > 0);
+  } finally {
+    await close();
+  }
+});
+
 test("POST /api/pricing/stage waliduje wejście (400 na złym body)", async () => {
   const { url, close } = await listen(makeApp(() => dummyDb));
   try {

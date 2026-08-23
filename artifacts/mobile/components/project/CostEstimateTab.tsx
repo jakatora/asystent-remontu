@@ -129,6 +129,17 @@ function EstimateResult({
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
   const consolidated = data.consolidated;
+
+  // Rozbicie materiały + robocizna (kwoty z backendu w groszach; tu tylko wybór
+  // pól z bezpiecznym fallbackiem, gdy backend nie policzył robocizny).
+  const stageMaterialsGrosze = stage?.materialsTotalGrosze ?? stage?.stageTotalGrosze ?? 0;
+  const stageLaborGrosze = stage?.laborTotalGrosze ?? 0;
+  const stageTotalGrosze = stage?.stageTotalWithLaborGrosze ?? stageMaterialsGrosze + stageLaborGrosze;
+  const projMaterialsGrosze = data.materialsTotalGrosze ?? data.projectTotalGrosze;
+  const projLaborGrosze = data.laborTotalGrosze ?? 0;
+  const projTotalGrosze = data.projectTotalWithLaborGrosze ?? projMaterialsGrosze + projLaborGrosze;
+  const hasLabor = (stage?.labor?.lines.length ?? 0) > 0 || stageLaborGrosze > 0 || projLaborGrosze > 0;
+  const laborUnestimated = stage?.labor?.unestimatedCount ?? 0;
   const consolidatedLines = consolidated?.lines ?? [];
   const savingsGrosze = consolidated?.savingsGrosze ?? 0;
   const storeComparison = data.storeComparison;
@@ -151,9 +162,16 @@ function EstimateResult({
       >
         <SummaryLine
           label={t('cmp.CostEstimate.stageCost')}
-          value={formatGrosze(stage?.stageTotalGrosze ?? 0)}
+          value={formatGrosze(stageTotalGrosze)}
           color={Colors.text}
         />
+        {hasLabor && (
+          <CostBreakdown
+            materialsGrosze={stageMaterialsGrosze}
+            laborGrosze={stageLaborGrosze}
+            totalGrosze={stageTotalGrosze}
+          />
+        )}
         <View style={{ height: 1, backgroundColor: Colors.border }} />
         <View
           style={{
@@ -168,9 +186,25 @@ function EstimateResult({
             {t('cmp.CostEstimate.projectCost')}
           </Txt>
           <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
-            {formatGrosze(data.projectTotalGrosze)}
+            {formatGrosze(projTotalGrosze)}
           </Txt>
         </View>
+        {hasLabor && (
+          <View style={{ backgroundColor: Colors.primaryBg, paddingBottom: 4 }}>
+            <CostBreakdown
+              materialsGrosze={projMaterialsGrosze}
+              laborGrosze={projLaborGrosze}
+              totalGrosze={projTotalGrosze}
+            />
+          </View>
+        )}
+        {hasLabor && laborUnestimated > 0 && (
+          <View style={{ paddingHorizontal: 14, paddingBottom: 12, backgroundColor: Colors.primaryBg }}>
+            <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+              {t('cmp.CostEstimate.laborUnestimated', { count: laborUnestimated })}
+            </Txt>
+          </View>
+        )}
       </View>
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia
@@ -1154,6 +1188,34 @@ function UnresolvedLineCard({ line }: { line: SerializedLine }) {
       </Txt>
       <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
         {reasonLabel(line.reason, t)}
+      </Txt>
+    </View>
+  );
+}
+
+/**
+ * Rozbicie kosztu na „Materiały X · Robocizna Y · Razem Z". Nic nie liczy —
+ * kwoty (grosze) pochodzą z backendu, tu tylko formatowanie na PLN i sklejenie
+ * napisu (i18n PL/EN). Używane dla etapu i dla całego remontu.
+ */
+function CostBreakdown({
+  materialsGrosze,
+  laborGrosze,
+  totalGrosze,
+}: {
+  materialsGrosze: number;
+  laborGrosze: number;
+  totalGrosze: number;
+}) {
+  const { t } = useLanguage();
+  return (
+    <View style={{ paddingHorizontal: 14, paddingBottom: 10, paddingTop: 2 }}>
+      <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
+        {t('cmp.CostEstimate.costBreakdown', {
+          materials: formatGrosze(materialsGrosze),
+          labor: formatGrosze(laborGrosze),
+          total: formatGrosze(totalGrosze),
+        })}
       </Txt>
     </View>
   );

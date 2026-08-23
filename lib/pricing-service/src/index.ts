@@ -13,6 +13,25 @@ export {
 } from "./estimate";
 export { optimizePackages } from "./package-optimizer";
 export {
+  estimateStageLabor,
+  type Measurements,
+  type LaborLine,
+  type LaborSource,
+  type LaborUnestimatedReason,
+  type StageLaborEstimate,
+} from "./labor";
+export {
+  LABOR_RATES,
+  JOB_LABOR_MAPPINGS,
+  DEFAULT_LABOR_REGION,
+  getLaborRateById,
+  getLaborRateIdsForJob,
+  type LaborRate,
+  type LaborUnit,
+  type JobLaborMapping,
+  type LaborSourceType,
+} from "./labor-data";
+export {
   estimateStageCostFromCalculation,
   estimateProjectCostFromCalculation,
   toEstimateItem,

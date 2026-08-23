@@ -13,9 +13,11 @@ import type {
   ConsolidatedShoppingList,
   EstimateLine,
   ItemQuery,
+  LaborLine,
   ProjectEstimate,
   StageEstimate,
   StageEstimateFromCalculation,
+  StageLaborEstimate,
   StoreComparison,
   UnresolvedReason,
 } from "@workspace/pricing-service";
@@ -133,13 +135,59 @@ export interface SerializedLine {
   reason?: UnresolvedReason;
 }
 
+/**
+ * Jedna pozycja ROBOCIZNY etapu (m²/mb/szt × stawka). Kwoty w GROSZACH. Pozycje
+ * nieoszacowane (`estimated: false`) mają `lineCostGrosze: 0` i NIE wchodzą do
+ * `laborTotalGrosze` — ale są zwracane, żeby klient widział, czego nie policzono.
+ */
+export interface SerializedLaborLine {
+  laborId: string;
+  renovationJobId: string;
+  regionCode: string;
+  laborUnit: string;
+  /** Ilość z obmiarów użyta do wyceny (m²/mb/szt); 0 gdy nieoszacowana. */
+  quantity: number;
+  /** Stawka bazowa w GROSZACH za jednostkę. */
+  unitPriceGrosze: number;
+  /** Koszt pozycji w GROSZACH (0 gdy nieoszacowana). */
+  lineCostGrosze: number;
+  /** true = policzona; false = nieoszacowana. */
+  estimated: boolean;
+  /** Powód, gdy `estimated === false` (no-rate/no-region-rate/no-quantity). */
+  reason?: string;
+  /** true, gdy użyto stawki 'lodzkie' mimo żądania innego regionu. */
+  regionFallback?: boolean;
+  /** Atrybucja źródła stawki (name + type + opcjonalny url + lastUpdated). */
+  source: { name: string; type: string; url?: string; lastUpdated: string };
+  notes?: string;
+}
+
+/** Rozbicie robocizny etapu (pozycje + suma oszacowanych + licznik nieoszacowanych). */
+export interface SerializedStageLabor {
+  jobId: string;
+  regionCode: string;
+  lines: SerializedLaborLine[];
+  /** Suma pozycji OSZACOWANYCH, w GROSZACH. */
+  laborTotalGrosze: number;
+  unestimatedCount: number;
+}
+
 export interface SerializedStage {
   jobId?: string;
   lines: SerializedLine[];
   /** Ile pozycji nie udało się wycenić. */
   unresolvedCount: number;
-  /** Suma kosztów rozpoznanych pozycji etapu, w GROSZACH. */
+  /** Suma kosztów rozpoznanych MATERIAŁÓW etapu, w GROSZACH (bez zmian znaczenia). */
   stageTotalGrosze: number;
+  // ── ADDYTYWNE: rozbicie na materiały + robociznę ──
+  /** Koszt materiałów etapu (= `stageTotalGrosze`), w GROSZACH. */
+  materialsTotalGrosze?: number;
+  /** Koszt robocizny etapu (suma pozycji oszacowanych), w GROSZACH. */
+  laborTotalGrosze?: number;
+  /** Pełny koszt etapu = materiały + robocizna, w GROSZACH. */
+  stageTotalWithLaborGrosze?: number;
+  /** Szczegóły robocizny (pozycje, źródła, nieoszacowane). */
+  labor?: SerializedStageLabor;
 }
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
@@ -207,8 +255,15 @@ export interface SerializedStoreComparison {
 
 export interface SerializedProject {
   stages: SerializedStage[];
-  /** Suma wszystkich etapów, w GROSZACH. */
+  /** Suma MATERIAŁÓW wszystkich etapów, w GROSZACH (bez zmian znaczenia). */
   projectTotalGrosze: number;
+  // ── ADDYTYWNE: rozbicie całego remontu na materiały + robociznę ──
+  /** Koszt materiałów całego remontu (= `projectTotalGrosze`), w GROSZACH. */
+  materialsTotalGrosze?: number;
+  /** Suma robocizny wszystkich etapów (pozycje oszacowane), w GROSZACH. */
+  laborTotalGrosze?: number;
+  /** Pełny koszt remontu = materiały + robocizna, w GROSZACH. */
+  projectTotalWithLaborGrosze?: number;
   /** Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania łącznie). */
   consolidated: SerializedConsolidatedList;
   /** Porównanie sklepów: koszt całości per sklep + koszyk optymalny + najtańszy sklep. */
@@ -319,15 +374,61 @@ function serializeLine(line: EstimateLine): SerializedLine {
   };
 }
 
+/** Serializuje jedną pozycję robocizny (kwoty 1:1 w groszach, źródło przepisane). */
+function serializeLaborLine(line: LaborLine): SerializedLaborLine {
+  return {
+    laborId: line.laborId,
+    renovationJobId: line.renovationJobId,
+    regionCode: line.regionCode,
+    laborUnit: line.laborUnit,
+    quantity: line.quantity,
+    unitPriceGrosze: line.unitPriceGrosze,
+    lineCostGrosze: line.lineCostGrosze,
+    estimated: line.estimated,
+    ...(line.reason !== undefined ? { reason: line.reason } : {}),
+    ...(line.regionFallback ? { regionFallback: true } : {}),
+    source: {
+      name: line.source.name,
+      type: line.source.type,
+      ...(line.source.url !== undefined ? { url: line.source.url } : {}),
+      lastUpdated: line.source.lastUpdated,
+    },
+    ...(line.notes !== undefined ? { notes: line.notes } : {}),
+  };
+}
+
+/** Serializuje rozbicie robocizny etapu (pozycje + suma oszacowanych). */
+function serializeStageLabor(labor: StageLaborEstimate): SerializedStageLabor {
+  return {
+    jobId: labor.jobId,
+    regionCode: labor.regionCode,
+    lines: labor.lines.map(serializeLaborLine),
+    laborTotalGrosze: labor.laborTotalGrosze,
+    unestimatedCount: labor.unestimatedCount,
+  };
+}
+
 /** Serializuje wycenę jednego etapu (jobId dołączany, gdy pochodzi z kalkulatora). */
 export function serializeStage(
   stage: StageEstimate & { jobId?: string },
 ): SerializedStage {
+  const materialsTotalGrosze = stage.stageTotalGrosze;
   return {
     ...(stage.jobId !== undefined ? { jobId: stage.jobId } : {}),
     lines: stage.lines.map(serializeLine),
     unresolvedCount: stage.unresolved.length,
     stageTotalGrosze: stage.stageTotalGrosze,
+    // Robocizna jest ADDYTYWNA — obecna, gdy etap pochodzi z adaptera kalkulatora.
+    ...(stage.labor !== undefined
+      ? {
+          materialsTotalGrosze,
+          laborTotalGrosze: stage.laborTotalGrosze ?? 0,
+          stageTotalWithLaborGrosze:
+            stage.stageTotalWithLaborGrosze ??
+            materialsTotalGrosze + (stage.laborTotalGrosze ?? 0),
+          labor: serializeStageLabor(stage.labor),
+        }
+      : {}),
   };
 }
 
@@ -403,9 +504,15 @@ function serializeStoreComparison(
 export function serializeProject(
   project: ProjectEstimate & { stages: StageEstimateFromCalculation[] },
 ): SerializedProject {
+  const laborTotalGrosze = project.laborTotalGrosze ?? 0;
   return {
     stages: project.stages.map(serializeStage),
     projectTotalGrosze: project.projectTotalGrosze,
+    materialsTotalGrosze: project.materialsTotalGrosze ?? project.projectTotalGrosze,
+    laborTotalGrosze,
+    projectTotalWithLaborGrosze:
+      project.projectTotalWithLaborGrosze ??
+      project.projectTotalGrosze + laborTotalGrosze,
     consolidated: serializeConsolidated(project.consolidated),
     storeComparison: serializeStoreComparison(project.storeComparison),
   };

@@ -492,9 +492,18 @@ export function estimateProjectCost(
     (sum, s) => sum + s.stageTotalGrosze,
     0,
   );
+  // Robocizna: suma pól per-etap (0 dla etapów bez rozbicia robocizny). Pola są
+  // ADDYTYWNE — `projectTotalGrosze` (materiały) pozostaje bez zmian.
+  const laborTotalGrosze = stages.reduce(
+    (sum, s) => sum + (s.laborTotalGrosze ?? 0),
+    0,
+  );
   return {
     stages: [...stages],
     projectTotalGrosze,
+    materialsTotalGrosze: projectTotalGrosze,
+    laborTotalGrosze,
+    projectTotalWithLaborGrosze: projectTotalGrosze + laborTotalGrosze,
     consolidated: consolidateProject(stages),
     storeComparison: compareStores(stages),
   };

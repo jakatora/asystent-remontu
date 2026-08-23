@@ -6,6 +6,7 @@
 // grosze dzieje się w estimate.ts przez parsePriceToGrosze.
 
 import type { Product, ProductOffer } from "@workspace/db/schema";
+import type { StageLaborEstimate } from "./labor";
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
 export interface ItemQuery {
@@ -157,8 +158,24 @@ export interface StageEstimate {
   lines: EstimateLine[];
   /** Osobno pozycje nierozpoznane (podzbiór `lines`). */
   unresolved: UnresolvedLine[];
-  /** Suma kosztów rozpoznanych pozycji etapu w GROSZACH. */
+  /**
+   * Suma kosztów rozpoznanych MATERIAŁÓW etapu w GROSZACH. Pole HISTORYCZNE —
+   * znaczenie NIEZMIENIONE (materiały), żeby nie łamać konsumentów ani inwariantów
+   * konsolidacji. Pełny koszt (materiały + robocizna) jest w
+   * `stageTotalWithLaborGrosze`.
+   */
   stageTotalGrosze: number;
+  // ── ADDYTYWNE: rozbicie na materiały + robociznę (money-path additive) ──
+  // Wypełniane, gdy wycena zna jobId i obmiary (adapter from-calculator).
+  // Nieobecne => konsument traktuje robociznę jak 0 (stageTotalGrosze == materiały).
+  /** Alias jawny na koszt materiałów (= `stageTotalGrosze`), w GROSZACH. */
+  materialsTotalGrosze?: number;
+  /** Koszt robocizny etapu (suma pozycji OSZACOWANYCH), w GROSZACH. */
+  laborTotalGrosze?: number;
+  /** Pełny koszt etapu = materiały + robocizna, w GROSZACH. */
+  stageTotalWithLaborGrosze?: number;
+  /** Rozbicie robocizny (pozycje, źródła, nieoszacowane). */
+  labor?: StageLaborEstimate;
 }
 
 /**
@@ -268,8 +285,19 @@ export interface StoreComparison {
 /** Wynik wyceny całego remontu (suma etapów). */
 export interface ProjectEstimate {
   stages: StageEstimate[];
-  /** Suma `stageTotalGrosze` wszystkich etapów w GROSZACH. */
+  /**
+   * Suma `stageTotalGrosze` (MATERIAŁÓW) wszystkich etapów w GROSZACH. Pole
+   * HISTORYCZNE — znaczenie NIEZMIENIONE (materiały). Pełny koszt (materiały +
+   * robocizna) jest w `projectTotalWithLaborGrosze`.
+   */
   projectTotalGrosze: number;
+  // ── ADDYTYWNE: rozbicie całego remontu na materiały + robociznę ──
+  /** Alias jawny na koszt materiałów całego remontu (= `projectTotalGrosze`). */
+  materialsTotalGrosze?: number;
+  /** Suma robocizny wszystkich etapów (pozycje oszacowane), w GROSZACH. */
+  laborTotalGrosze?: number;
+  /** Pełny koszt remontu = materiały + robocizna, w GROSZACH. */
+  projectTotalWithLaborGrosze?: number;
   /**
    * Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania
    * łącznie). `perStageTotalGrosze` === `projectTotalGrosze` (te same pozycje,

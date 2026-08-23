@@ -27,6 +27,7 @@ import {
   estimateStageCost,
   type EstimateDeps,
 } from "./estimate";
+import { estimateStageLabor, type Measurements } from "./labor";
 import type {
   EstimateItem,
   EstimateOptions,
@@ -63,12 +64,41 @@ export interface CalculatorMaterialLine {
 export interface CalculatorStageResult {
   readonly jobId: string;
   readonly materials: readonly CalculatorMaterialLine[];
+  /**
+   * Obmiary etapu z kalkulatora (MeasurementMap: m² ścian/podłogi, mb obwodu,
+   * szt urządzeń itd.). Opcjonalne i ADDYTYWNE — używane WYŁĄCZNIE do wyceny
+   * robocizny. Brak => robocizna nieoszacowana (materiały liczą się jak dotąd).
+   */
+  readonly measurements?: Measurements;
 }
 
 /** Wycena etapu z dodaną informacją, z którego joba pochodzi (traceability). */
 export interface StageEstimateFromCalculation extends StageEstimate {
   /** Id joba/etapu z kalkulatora, dla którego policzono wycenę. */
   readonly jobId: string;
+}
+
+/**
+ * Dokłada do wyniku materiałowego etapu rozbicie na materiały + robociznę.
+ * ADDYTYWNE: `stageTotalGrosze` (materiały) zostaje bez zmian; dochodzą osobne
+ * pola sumaryczne i szczegóły robocizny. Wszystko w GROSZACH.
+ */
+function withLabor(
+  stage: StageEstimate,
+  jobId: string,
+  measurements: Measurements,
+  options: EstimateOptions,
+): StageEstimateFromCalculation {
+  const labor = estimateStageLabor(jobId, measurements, options);
+  const materialsTotalGrosze = stage.stageTotalGrosze;
+  return {
+    ...stage,
+    jobId,
+    materialsTotalGrosze,
+    laborTotalGrosze: labor.laborTotalGrosze,
+    stageTotalWithLaborGrosze: materialsTotalGrosze + labor.laborTotalGrosze,
+    labor,
+  };
 }
 
 /**
@@ -115,7 +145,7 @@ export async function estimateStageCostFromCalculation(
 ): Promise<StageEstimateFromCalculation> {
   const items = toEstimateItems(jobResult);
   const stage = await estimateStageCost(db, items, options, deps);
-  return { ...stage, jobId: jobResult.jobId };
+  return withLabor(stage, jobResult.jobId, jobResult.measurements ?? {}, options);
 }
 
 /**

@@ -54,6 +54,12 @@ export interface PricingMaterialLineInput {
 export interface PricingStageInput {
   readonly jobId: string;
   readonly materials: readonly PricingMaterialLineInput[];
+  /**
+   * Obmiary etapu (MeasurementMap: m² ścian/podłogi, mb obwodu, szt urządzeń).
+   * Opcjonalne — backend używa ich WYŁĄCZNIE do wyceny robocizny (materiały bez
+   * zmian). Brak => robocizna nieoszacowana.
+   */
+  readonly measurements?: Readonly<Record<string, number>>;
 }
 
 export interface PricingOptions {
@@ -166,13 +172,52 @@ export interface SerializedLine {
   reason?: UnresolvedReason;
 }
 
+/**
+ * Jedna pozycja ROBOCIZNY etapu (m²/mb/szt × stawka). Kwoty w GROSZACH. Zgodny z
+ * api-server/lib/pricing-serialize.ts#SerializedLaborLine. Pozycje nieoszacowane
+ * mają `lineCostGrosze: 0` i NIE wchodzą do `laborTotalGrosze`.
+ */
+export interface SerializedLaborLine {
+  laborId: string;
+  renovationJobId: string;
+  regionCode: string;
+  laborUnit: string;
+  quantity: number;
+  unitPriceGrosze: number;
+  lineCostGrosze: number;
+  estimated: boolean;
+  reason?: string;
+  regionFallback?: boolean;
+  source: { name: string; type: string; url?: string; lastUpdated: string };
+  notes?: string;
+}
+
+/** Rozbicie robocizny etapu. Zgodny z api-server#SerializedStageLabor. */
+export interface SerializedStageLabor {
+  jobId: string;
+  regionCode: string;
+  lines: SerializedLaborLine[];
+  /** Suma pozycji OSZACOWANYCH, w GROSZACH. */
+  laborTotalGrosze: number;
+  unestimatedCount: number;
+}
+
 export interface SerializedStage {
   jobId?: string;
   lines: SerializedLine[];
   /** Ile pozycji nie udało się wycenić. */
   unresolvedCount: number;
-  /** Suma kosztów rozpoznanych pozycji etapu, w GROSZACH. */
+  /** Suma kosztów rozpoznanych MATERIAŁÓW etapu, w GROSZACH. */
   stageTotalGrosze: number;
+  // ── ADDYTYWNE: rozbicie na materiały + robociznę (obecne, gdy backend policzył) ──
+  /** Koszt materiałów etapu (= `stageTotalGrosze`), w GROSZACH. */
+  materialsTotalGrosze?: number;
+  /** Koszt robocizny etapu (suma pozycji oszacowanych), w GROSZACH. */
+  laborTotalGrosze?: number;
+  /** Pełny koszt etapu = materiały + robocizna, w GROSZACH. */
+  stageTotalWithLaborGrosze?: number;
+  /** Szczegóły robocizny (pozycje, źródła, nieoszacowane). */
+  labor?: SerializedStageLabor;
 }
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
@@ -244,8 +289,15 @@ export interface SerializedStoreComparison {
 
 export interface SerializedProject {
   stages: SerializedStage[];
-  /** Suma wszystkich etapów, w GROSZACH. */
+  /** Suma MATERIAŁÓW wszystkich etapów, w GROSZACH. */
   projectTotalGrosze: number;
+  // ── ADDYTYWNE: rozbicie całego remontu na materiały + robociznę ──
+  /** Koszt materiałów całego remontu (= `projectTotalGrosze`), w GROSZACH. */
+  materialsTotalGrosze?: number;
+  /** Suma robocizny wszystkich etapów (pozycje oszacowane), w GROSZACH. */
+  laborTotalGrosze?: number;
+  /** Pełny koszt remontu = materiały + robocizna, w GROSZACH. */
+  projectTotalWithLaborGrosze?: number;
   /** Skonsolidowana lista zakupowa całego remontu (kup raz, licz opakowania łącznie). */
   consolidated: SerializedConsolidatedList;
   /** Porównanie sklepów: koszt całości per sklep + koszyk optymalny + najtańszy sklep. */
@@ -344,6 +396,8 @@ export function toPricingStageInput(calc: CalculationResult): PricingStageInput 
       quantity: line.quantity,
       ...(line.packs !== undefined ? { packs: line.packs } : {}),
     })),
+    // Obmiary przekazujemy bez zmian — backend liczy z nich robociznę (m²/mb/szt).
+    ...(calc.measurements ? { measurements: calc.measurements } : {}),
   };
 }
 

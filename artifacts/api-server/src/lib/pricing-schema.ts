@@ -24,6 +24,10 @@ const materialLineSchema = z.object({
 export const stageResultSchema = z.object({
   jobId: z.string(),
   materials: z.array(materialLineSchema),
+  // Obmiary etapu (MeasurementMap: m² ścian/podłogi, mb obwodu, szt urządzeń).
+  // Opcjonalne — używane WYŁĄCZNIE do wyceny robocizny. Wartości skończone;
+  // niepoprawne klucze (nie-liczby) są ignorowane przez walidację.
+  measurements: z.record(z.string(), z.number().finite()).optional(),
 });
 
 export const optionsSchema = z
