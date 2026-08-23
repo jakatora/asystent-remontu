@@ -23,6 +23,7 @@ import {
   emptyJob,
   fakeDeps,
   historyRows,
+  offerLeroy,
   paintJob,
   product,
 } from "./fixtures";
@@ -79,6 +80,9 @@ test("serializeStage: rozpoznana pozycja ma listę WSZYSTKICH ofert posortowaną
   assert.equal(cheapest!.regularPriceGrosze, 9000); // „była" cena do przekreślenia
   assert.equal(cheapest!.url, "https://leroymerlin.pl/farba");
   assert.equal(cheapest!.availability, "in_stock");
+  // Świeżość i źródło ceny przepisane 1:1 z rekordu oferty (Date -> ISO, source null).
+  assert.equal(cheapest!.fetchedAt, offerLeroy.fetchedAt.toISOString());
+  assert.equal(cheapest!.source, offerLeroy.source);
   // Pierwsza oferta z ceną jest najtańsza => spójna z cheapestOffer.
   assert.equal(cheapest!.offerId, resolved!.cheapestOffer?.offerId);
 

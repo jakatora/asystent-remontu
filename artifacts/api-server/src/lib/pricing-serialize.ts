@@ -67,6 +67,10 @@ export interface SerializedProductOffer {
   unit: string | null;
   /** Dostępność — surowy tekst ze sklepu (np. "in_stock"); null gdy brak. */
   availability: string | null;
+  /** Moment pobrania ceny (ISO 8601 UTC) z kolumny offers.fetched_at; null gdy brak. */
+  fetchedAt: string | null;
+  /** Źródło danych oferty (np. "Leroy Merlin — feed") z kolumny offers.source; null gdy brak. */
+  source: string | null;
 }
 
 /**
@@ -244,6 +248,9 @@ function serializeProductOffer(offer: ProductOffer): SerializedProductOffer {
     pricePerUnitGrosze: priceToGrosze(offer.pricePerUnit),
     unit: offer.unit,
     availability: offer.availability,
+    // Świeżość i pochodzenie ceny — przepisywane 1:1 z rekordu oferty (nie zgadujemy).
+    fetchedAt: offer.fetchedAt ? offer.fetchedAt.toISOString() : null,
+    source: offer.source,
   };
 }
 

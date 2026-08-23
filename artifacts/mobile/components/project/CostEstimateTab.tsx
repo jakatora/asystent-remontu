@@ -540,6 +540,15 @@ function OfferRow({
           </Pressable>
         )}
       </View>
+
+      {offer.fetchedAt && (
+        <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
+          {t('cmp.CostEstimate.offerFreshness', {
+            date: formatHistoryDate(offer.fetchedAt),
+            source: offer.source ?? offer.store,
+          })}
+        </Txt>
+      )}
     </View>
   );
 }

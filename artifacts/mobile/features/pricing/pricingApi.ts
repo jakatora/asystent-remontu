@@ -106,6 +106,10 @@ export interface SerializedProductOffer {
   unit: string | null;
   /** Dostępność — surowy tekst ze sklepu (np. "in_stock"); null gdy brak. */
   availability: string | null;
+  /** Moment pobrania ceny (ISO 8601 UTC) z rekordu oferty; null gdy brak. */
+  fetchedAt: string | null;
+  /** Źródło danych oferty (np. "Leroy Merlin — feed"); null gdy brak. */
+  source: string | null;
 }
 
 /**
