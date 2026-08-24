@@ -1604,4 +1604,147 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Na zewnętrzne krawędzie (ościeża, słupki). Siatka zbroi tynk przy narożniku i chroni przed wykruszeniem.',
   },
+
+  // --- Etap ocieplenia ścian zewnętrznych metodą lekką mokrą (BSO/ETICS) ---
+  // Job eps-insulation-bso (data/jobs/new-additions.ts) miał w katalogu tylko legacy
+  // materials[] joba (bez EAN). Dokładamy 6 markowych materiałów systemowych z realnym
+  // EAN (≥2 niezależne sklepy PL w // source): styropian fasadowy biały EPS 044 +
+  // grafitowy EPS 033, klej-zaprawa 2w1 do klejenia płyt i zatapiania siatki, siatka
+  // z włókna szklanego, kołki fasadowe z trzpieniem stalowym i tynk cienkowarstwowy
+  // silikatowo-silikonowy. W mappings.ts DOKŁADNIE jeden styropian na tier (materialType
+  // 'insulation'), bo lokalny engine liczy każdą pozycję na całą powierzchnię elewacji —
+  // dwie płyty podwoiłyby ilość. Ceny brutto ze sklepu, packageSize z opakowania
+  // handlowego. EAN 2-źródłowe wpisane też do MATERIAL_EAN_OVERLAY (api-server).
+
+  // Styropian fasadowy Yetico Gamma Fasada 044 gr. 100 mm, paczka 3 m² (6 płyt 500×1000) — EAN 5902578301976.
+  // Białą płyta EPS elewacyjna λ 0,044 W/(m·K), do metody lekkiej mokrej (BSO). Cena 68,94 zł/paczka (22,98 zł/m², Castorama).
+  // source: https://www.castorama.pl/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-/5902578301976_CAPL.prd (EAN 5902578301976, cena 68,94 zł, 3 m², 100 mm)
+  // source: https://www.obi.pl/p/2677748/yetico-plyta-styropianowa-gamma-fasada-044-10-cm-3-m2 (EAN 5902578301976, Yetico Gamma Fasada 044 10 cm 3 m²)
+  {
+    id: 'mat-eps-facade-yetico-gamma-044-100mm',
+    materialType: 'insulation',
+    productLabel: 'Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)',
+    brand: 'Yetico',
+    packageSize: 3,
+    packageUnit: 'm2',
+    pricePerPackage: 68.94,
+    pricePerM2: 22.98,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-/5902578301976_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Białą płyta EPS elewacyjna λ 0,044 W/(m·K). Standardowe grubości 5–20 cm — tu 100 mm. Klejenie pasmowo-punktowe + kołkowanie ≥4 szt/m².',
+  },
+
+  // Styropian fasadowy grafitowy Yetico Gamma Passive Fasada EPS 033 gr. 150 mm, paczka 2 m² (4 płyty) — EAN 5902578307268.
+  // Płyta grafitowa λ 0,033 W/(m·K) — ok. 20% lepsza izolacyjność niż biała, cieńsza warstwa dla tej samej U. Cena 82,96 zł/paczka (41,48 zł/m², Castorama).
+  // source: https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd (EAN 5902578307268, cena 82,96 zł, 2 m², 150 mm, grafit λ 0,033)
+  // source: https://www.leroymerlin.pl/izolacja-budynkow/welna-mineralna-styropian-izolacja-akustyczna/styropian/styropian-fasada-niefrezowany-gamma-passive-eps-033-150-mm-2m2-yetico,p341384,l394.html (EAN 5902578307268, Yetico Gamma Passive EPS 033 150 mm 2 m²)
+  {
+    id: 'mat-eps-facade-yetico-passive-033-150mm',
+    materialType: 'insulation',
+    productLabel: 'Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)',
+    brand: 'Yetico',
+    packageSize: 2,
+    packageUnit: 'm2',
+    pricePerPackage: 82.96,
+    pricePerM2: 41.48,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Grafitowa płyta EPS λ 0,033 W/(m·K) — ok. 20% lepsza izolacyjność niż biała. Klejenie w cieniu/rusztowanie z siatką (nagrzewa się na słońcu).',
+  },
+
+  // Zaprawa klejąca do styropianu i zatapiania siatki Atlas Stopter K-20 2w1 25 kg — EAN 5905400160253.
+  // Elastyczna, zbrojona włóknem — do klejenia płyt EPS/XPS i wykonania warstwy zbrojonej z siatką (praca od 0°C). Zużycie ok. 5 kg/m² (klejenie) + 3–3,5 kg/m² (siatka). Cena ok. 60,76 zł/worek brutto (Ceneo).
+  // source: https://mrowka.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html (EAN 5905400160253, Atlas Stopter K-20 25 kg)
+  // source: https://www.grupapsb.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html (EAN 5905400160253, Atlas Stopter K-20 25 kg)
+  // source: https://www.ceneo.pl/4910673 (Atlas Stopter K-20 25 kg — cena brutto ok. 60,76 zł)
+  {
+    id: 'mat-adhesive-eps-atlas-stopter-k20-25kg',
+    materialType: 'adhesive-eps',
+    productLabel: 'Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg',
+    brand: 'Atlas',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 60.76,
+    pricePerKg: 2.43,
+    category: 'standard',
+    storeName: 'Grupa PSB',
+    sourceUrl:
+      'https://www.grupapsb.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: '2w1 — te same worki do klejenia płyt (ok. 5 kg/m²) i zatapiania siatki (ok. 3–3,5 kg/m²). Łącznie ok. 8 kg/m². Praca +0…+25°C.',
+  },
+
+  // Siatka zbrojąca z włókna szklanego Atlas 150 g/m², rolka 50 m² (1 m × 50 m) — EAN 5905400196993.
+  // Alkalioodporna, do zatapiania w warstwie zbrojonej BSO. Zakłady ≥10 cm, pasy diagonalne w narożnikach otworów. Cena 254 zł/rolka (5,08 zł/m², Castorama).
+  // source: https://www.castorama.pl/siatka-z-wlokna-szklanego-atlas-150/5905400196993_CAPL.prd (EAN 5905400196993, cena 254 zł, 150 g/m², 50 m²)
+  // source: https://sklep.sewera.pl/siatka-z-wlokna-szklanego-150-gm2-rolka-50m2-atlas-p9782 (EAN 5905400196993, Atlas siatka 150 g/m² 50 m²)
+  {
+    id: 'mat-mesh-fiberglass-atlas-150-50m2',
+    materialType: 'mesh',
+    productLabel: 'Siatka zbrojąca z włókna szklanego Atlas 150 g/m² (rolka 50 m²)',
+    brand: 'Atlas',
+    packageSize: 50,
+    packageUnit: 'm2',
+    pricePerPackage: 254.0,
+    pricePerM2: 5.08,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/siatka-z-wlokna-szklanego-atlas-150/5905400196993_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Gramatura 150 g/m² (zakres fasadowy 145–165 g/m²), alkalioodporna. Zatapiana w środku warstwy kleju — nie na powierzchni. Zapas ok. 10% na zakłady.',
+  },
+
+  // Kołek fasadowy z wbijanym trzpieniem stalowym Koelner KI-200M metal 10 × 200 mm, opak. 250 szt. — EAN 5906675212647.
+  // Łącznik do mechanicznego mocowania płyt EPS do 15 cm; talerzyk 60 mm, ETA-07/0291. Min. 4 szt/m² w polu, 6–8 szt/m² w strefie narożnej. Cena 220 zł/opak. (0,88 zł/szt, Castorama).
+  // source: https://www.castorama.pl/kolek-do-mocowania-izolacji-koelner-metal-10-x-200-mm/5906675212647_CAPL.prd (EAN 5906675212647, cena 220 zł, 250 szt, trzpień stalowy)
+  // source: https://www.grupapsb.com.pl/produkt/kolek-do-mocowania-izolacji-10-200-mm-metal-koelner-5906675212647.html (EAN 5906675212647, Koelner KI-200M 10×200 mm)
+  {
+    id: 'mat-anchor-facade-koelner-ki200m-10x200',
+    materialType: 'anchor',
+    productLabel: 'Kołek fasadowy z trzpieniem stalowym Koelner KI-200M 10 × 200 mm (250 szt.)',
+    brand: 'Koelner',
+    packageSize: 250,
+    packageUnit: 'szt',
+    pricePerPackage: 220.0,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/kolek-do-mocowania-izolacji-koelner-metal-10-x-200-mm/5906675212647_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Trzpień stalowy (mocne podłoża, kat. A–E), talerzyk 60 mm. Długość 200 mm pod płytę ~150 mm. Min. 4 szt/m², 6–8 szt/m² w strefie narożnej.',
+  },
+
+  // Tynk cienkowarstwowy silikatowo-silikonowy Ceresit CT 174 baranek 1,5 mm baza biała 25 kg — EAN 9000101109733.
+  // Wyprawa dekoracyjna na warstwę zbrojoną BSO: paroprzepuszczalna, samoczyszcząca (Double Dry), z ochroną BioProtect. Zużycie ok. 2,5 kg/m². Cena 197 zł/wiadro (7,88 zł/kg, Sewera).
+  // source: https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101 (EAN 9000101109733, cena 197 zł, 25 kg, baranek 1,5 mm baza biała)
+  // source: https://allegro.pl/oferta/tynk-silikatowo-silikonowy-ceresit-ct174-25kg1-5mm-13409944075 (EAN 9000101109733, Ceresit CT174 25 kg baranek 1,5 mm baza biała)
+  {
+    id: 'mat-plaster-thin-ceresit-ct174-25kg',
+    materialType: 'thin-coat-plaster',
+    productLabel: 'Tynk cienkowarstwowy silikatowo-silikonowy Ceresit CT 174 baranek 1,5 mm baza biała 25 kg',
+    brand: 'Ceresit',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 197.0,
+    pricePerKg: 7.88,
+    category: 'better',
+    storeName: 'Sewera',
+    sourceUrl:
+      'https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Baza biała barwiona maszynowo. Zużycie ok. 2,5 kg/m² (baranek 1,5 mm). Nanoszony na zagruntowaną warstwę zbrojoną, praca +5…+25°C, nie w pełnym słońcu/przed deszczem.',
+  },
 ];

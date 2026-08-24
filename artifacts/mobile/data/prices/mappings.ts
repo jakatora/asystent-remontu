@@ -41,6 +41,10 @@ export const JOB_LABOR_MAPPINGS: readonly JobLaborMapping[] = [
   { jobId: 'epoxy-floor', laborPriceIds: ['labor-glued-vinyl-installation'] },
   { jobId: 'parquet-sanding', laborPriceIds: ['labor-laminate-installation'] },
   { jobId: 'underlay-install', laborPriceIds: [] },
+  // Ocieplenie elewacji BSO/ETICS — robocizna fasadowa (m²) obejmuje rusztowanie i pracę
+  // na wysokości, brak jej w katalogu labor.ts (job overview_only, hireProfessionalRecommended).
+  // Wpis jawny z pustą listą: materiały wyceniamy, robociznę zostawiamy wykonawcy.
+  { jobId: 'eps-insulation-bso', laborPriceIds: [] },
 ];
 
 export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
@@ -555,6 +559,44 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
         'mat-primer-deep-atlas-unigrunt-5kg',
         'mat-edge-tape-fola-100mm-50m',
         'mat-vapor-foil-diall-pe-20m2',
+      ],
+    },
+  },
+
+  // ── Ocieplenie ścian zewnętrznych metodą lekką mokrą (BSO/ETICS) ────────────
+  // Job eps-insulation-bso (data/jobs/new-additions.ts) dotąd BEZ mapowania materiałów
+  // (wyceniał się tylko z legacy materials[] joba). Dopinamy pełny system z EAN:
+  // 1 styropian/tier + klej-zaprawa 2w1 + siatka szklana + kołki fasadowe + tynk
+  // cienkowarstwowy. DOKŁADNIE JEDNA płyta styropianu na tier (materialType 'insulation'),
+  // bo lokalny engine (getQuantityForMaterial) liczy każdą pozycję na całą powierzchnię
+  // elewacji — dwie płyty podwoiłyby ilość m². Tier rośnie klasą płyty: economy/standard
+  // = biała EPS 044, better = grafitowa EPS 033 (cieńsza dla tej samej U, ~20% lepsza λ).
+  // Klej/siatka/kołki/tynk to markowe pozycje referencyjne — te same we wszystkich tierach.
+  // Wszystkie materialId istnieją w MATERIAL_PRICES; wszystkie mają EAN w MATERIAL_EAN_OVERLAY
+  // (api-server). Addytywne — measurementInputs joba (wallArea) nietknięte.
+  {
+    jobId: 'eps-insulation-bso',
+    materialTypeMap: {
+      economy: [
+        'mat-eps-facade-yetico-gamma-044-100mm',
+        'mat-adhesive-eps-atlas-stopter-k20-25kg',
+        'mat-mesh-fiberglass-atlas-150-50m2',
+        'mat-anchor-facade-koelner-ki200m-10x200',
+        'mat-plaster-thin-ceresit-ct174-25kg',
+      ],
+      standard: [
+        'mat-eps-facade-yetico-gamma-044-100mm',
+        'mat-adhesive-eps-atlas-stopter-k20-25kg',
+        'mat-mesh-fiberglass-atlas-150-50m2',
+        'mat-anchor-facade-koelner-ki200m-10x200',
+        'mat-plaster-thin-ceresit-ct174-25kg',
+      ],
+      better: [
+        'mat-eps-facade-yetico-passive-033-150mm',
+        'mat-adhesive-eps-atlas-stopter-k20-25kg',
+        'mat-mesh-fiberglass-atlas-150-50m2',
+        'mat-anchor-facade-koelner-ki200m-10x200',
+        'mat-plaster-thin-ceresit-ct174-25kg',
       ],
     },
   },

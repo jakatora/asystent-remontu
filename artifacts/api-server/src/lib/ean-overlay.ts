@@ -811,6 +811,74 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/podklad-pod-tynki-atlas-cerplast-15-kg/5905400530032_CAPL.prd",
   },
+
+  // --- Etap ocieplenia elewacji BSO/ETICS (materials.ts: styropian / klej / siatka / kołki / tynk) ---
+
+  // Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm, 3 m² (materials.ts: mat-eps-facade-yetico-gamma-044-100mm).
+  // source: https://www.castorama.pl/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-/5902578301976_CAPL.prd (EAN 5902578301976)
+  // source: https://www.obi.pl/p/2677748/yetico-plyta-styropianowa-gamma-fasada-044-10-cm-3-m2 (EAN 5902578301976)
+  "mat-eps-facade-yetico-gamma-044-100mm": {
+    ean: "5902578301976",
+    variant: "Gamma Fasada 044, biały EPS λ 0,044, 100 mm, 3 m²",
+    manufacturer: "Yetico",
+    productUrl:
+      "https://www.castorama.pl/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-/5902578301976_CAPL.prd",
+  },
+
+  // Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm, 2 m² (materials.ts: mat-eps-facade-yetico-passive-033-150mm).
+  // source: https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd (EAN 5902578307268)
+  // source: https://www.leroymerlin.pl/izolacja-budynkow/welna-mineralna-styropian-izolacja-akustyczna/styropian/styropian-fasada-niefrezowany-gamma-passive-eps-033-150-mm-2m2-yetico,p341384,l394.html (EAN 5902578307268)
+  "mat-eps-facade-yetico-passive-033-150mm": {
+    ean: "5902578307268",
+    variant: "Gamma Passive EPS 033, grafit λ 0,033, 150 mm, 2 m²",
+    manufacturer: "Yetico",
+    productUrl:
+      "https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd",
+  },
+
+  // Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg (materials.ts: mat-adhesive-eps-atlas-stopter-k20-25kg).
+  // source: https://mrowka.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html (EAN 5905400160253)
+  // source: https://www.grupapsb.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html (EAN 5905400160253)
+  "mat-adhesive-eps-atlas-stopter-k20-25kg": {
+    ean: "5905400160253",
+    variant: "Stopter K-20 2w1, klejenie + siatka, 25 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://mrowka.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html",
+  },
+
+  // Siatka zbrojąca z włókna szklanego Atlas 150 g/m², rolka 50 m² (materials.ts: mat-mesh-fiberglass-atlas-150-50m2).
+  // source: https://www.castorama.pl/siatka-z-wlokna-szklanego-atlas-150/5905400196993_CAPL.prd (EAN 5905400196993)
+  // source: https://sklep.sewera.pl/siatka-z-wlokna-szklanego-150-gm2-rolka-50m2-atlas-p9782 (EAN 5905400196993)
+  "mat-mesh-fiberglass-atlas-150-50m2": {
+    ean: "5905400196993",
+    variant: "150 g/m², rolka 50 m²",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://www.castorama.pl/siatka-z-wlokna-szklanego-atlas-150/5905400196993_CAPL.prd",
+  },
+
+  // Kołek fasadowy z trzpieniem stalowym Koelner KI-200M metal 10 × 200 mm, 250 szt. (materials.ts: mat-anchor-facade-koelner-ki200m-10x200).
+  // source: https://www.castorama.pl/kolek-do-mocowania-izolacji-koelner-metal-10-x-200-mm/5906675212647_CAPL.prd (EAN 5906675212647)
+  // source: https://www.grupapsb.com.pl/produkt/kolek-do-mocowania-izolacji-10-200-mm-metal-koelner-5906675212647.html (EAN 5906675212647)
+  "mat-anchor-facade-koelner-ki200m-10x200": {
+    ean: "5906675212647",
+    variant: "KI-200M metal 10 × 200 mm, trzpień stalowy, 250 szt.",
+    manufacturer: "Koelner",
+    productUrl:
+      "https://www.castorama.pl/kolek-do-mocowania-izolacji-koelner-metal-10-x-200-mm/5906675212647_CAPL.prd",
+  },
+
+  // Tynk cienkowarstwowy silikatowo-silikonowy Ceresit CT 174 baranek 1,5 mm baza biała 25 kg (materials.ts: mat-plaster-thin-ceresit-ct174-25kg).
+  // source: https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101 (EAN 9000101109733)
+  // source: https://allegro.pl/oferta/tynk-silikatowo-silikonowy-ceresit-ct174-25kg1-5mm-13409944075 (EAN 9000101109733)
+  "mat-plaster-thin-ceresit-ct174-25kg": {
+    ean: "9000101109733",
+    variant: "CT 174 baranek 1,5 mm, baza biała, 25 kg",
+    manufacturer: "Ceresit",
+    productUrl:
+      "https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
