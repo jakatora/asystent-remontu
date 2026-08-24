@@ -1367,4 +1367,120 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Obwodowa dylatacja przy ścianach — układana przed wylaniem masy, zapobiega pękaniu posadzki przy pracy budynku.',
   },
+
+  // --- Etap montażu okien / parapetów: piana + taśma + parapet + kotwy + silikon ---
+  // Etap „okna" (data/jobs/windows.ts: window-sealing, windowsill-install) miał w
+  // katalogu tylko piankę Tytan i silikon sanitarny. Dokładamy markowe materiały
+  // montażowe z realnym EAN (≥2 niezależne sklepy PL w // source), by pełne tiery
+  // economy/standard/better joba miały pokrycie. Ceny brutto ze sklepu, packageSize
+  // z opakowania handlowego. EAN 2-źródłowe wpisane też do MATERIAL_EAN_OVERLAY
+  // (api-server). DOKŁADNIE jeden parapet i jedna piana na tier w mappings.ts —
+  // inaczej engine (getQuantityForMaterial) policzyłby je na całą długość okien 2×.
+
+  // Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml — EAN 5411183048522.
+  // Niskorozprężna (bezpieczna dla ościeżnic), praca do -10°C, izolacja akust. do -58 dB.
+  // source: https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd (EAN + cena 47,48 zł)
+  // source: https://mrowka.com.pl/produkt/soudafoam-low-expansion-gun-10-c-750-ml-soudal-5411183048522.html (EAN 5411183048522)
+  {
+    id: 'mat-foam-soudal-lowexp-750ml',
+    materialType: 'foam',
+    productLabel: 'Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml',
+    brand: 'Soudal',
+    packageSize: 750,
+    packageUnit: 'ml',
+    pricePerPackage: 47.48,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Niskorozprężna — nie rozpiera ościeżnicy. 1 puszka na ok. 8–10 mb szczeliny. Wariant premium względem Tytan Professional 65.',
+  },
+
+  // Silikon uniwersalny Soudal 280 ml bezbarwny — EAN 5411183157552.
+  // Uszczelnienie styku ościeżnica/ściana, parapet, przeszklenia; odporność -60…180°C.
+  // source: https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd (EAN + cena 27,48 zł)
+  // source: https://eadamex.pl/silikony-uniwersalne/7305-silikon-uniwersalny-bezbarwny-280ml-soudal-5411183157552.html (EAN 5411183157552)
+  {
+    id: 'mat-silicone-universal-soudal-280ml',
+    materialType: 'silicone',
+    productLabel: 'Silikon uniwersalny Soudal 280 ml bezbarwny',
+    brand: 'Soudal',
+    packageSize: 280,
+    packageUnit: 'ml',
+    pricePerPackage: 27.48,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Uniwersalny (dekarsko-budowlany) — styk ościeżnicy ze ścianą, parapet, przeszklenia. Bezbarwny.',
+  },
+
+  // Kotwa montażowa do ościeżnic (rama okienna/drzwiowa) 10 × 182 mm — EAN 5905458019787.
+  // Stalowa ocynkowana, do betonu/cegły/betonu komórkowego; sprzedawana na sztuki.
+  // source: https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd (EAN + cena 5,28 zł/szt)
+  // source: https://www.brendo.pl/produkt/kotwy/kotwa-montazowa-do-oscieznic-10-x-182-mm-5905458019787.html (EAN 5905458019787)
+  {
+    id: 'mat-window-frame-anchor-10x182',
+    materialType: 'anchor',
+    productLabel: 'Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 5.28,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Mocowanie ramy okiennej/ościeżnicy w murze. Kilka sztuk na okno (bok co ok. 60–70 cm).',
+  },
+
+  // Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m — EAN 5411183151178.
+  // Wewnętrzna warstwa „ciepłego montażu" — chroni piankę przed parą wodną od strony pomieszczenia.
+  // Produkt specjalistyczny (poza asortymentem marketów) — cena ze sklepu budowlanego PL.
+  // source: https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html (EAN + cena 171,60 zł)
+  // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html (EAN 5411183151178)
+  {
+    id: 'mat-window-tape-soudal-sws-inside-90mm',
+    materialType: 'window-tape',
+    productLabel: 'Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m',
+    brand: 'Soudal',
+    packageSize: 30,
+    packageUnit: 'm',
+    pricePerPackage: 171.60,
+    category: 'standard',
+    storeName: 'BestBudowa',
+    sourceUrl:
+      'https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Wewnętrzna taśma paroszczelna do ciepłego montażu okien. Rolka 30 mb — zwykle 1 rolka na kilka okien.',
+  },
+
+  // Parapet wewnętrzny PCV Form 30 × 216 cm biały — EAN 5906725219640. Cena 178 zł/szt (82,41 zł/mb).
+  // UWAGA: „Form" to marka własna Castoramy (Kingfisher) — realny EAN, ale JEDEN sklep
+  // detaliczny, więc świadomie NIE trafia do MATERIAL_EAN_OVERLAY (reguła ≥2 źródeł).
+  // source: https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd (EAN + cena 178 zł, 30 × 216 cm)
+  // source: https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy-id-8547.html (Castorama — karta produktu Form 30 × 216 cm biały)
+  {
+    id: 'mat-windowsill-pvc-form-30x216',
+    materialType: 'windowsill',
+    productLabel: 'Parapet wewnętrzny PCV Form 30 × 216 cm biały',
+    brand: 'Form',
+    packageSize: 2.16,
+    packageUnit: 'm',
+    pricePerPackage: 178.0,
+    pricePerMb: 82.41,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Głębokość 30 cm dopasuj do wnęki. Deska 216 cm — na szersze okna dobierz liczbę sztuk.',
+  },
 ];

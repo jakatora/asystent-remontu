@@ -263,17 +263,51 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
   // Nowe wpisy NIE ruszają istniejących jobów ani measurementInputs — dokładają
   // tylko pokrycie materiałowe dla etapów dotąd bez wyceny materiałów.
   {
-    // Uszczelnianie okien: piana montażowa + silikon (oba z EAN).
+    // Uszczelnianie okien (etap „okna"): DOKŁADNIE jedna piana na tier (materialType
+    // 'foam'), reszta to inne typy (taśma paroszczelna + silikon) — engine liczy każdą
+    // pozycję na obwód okien, więc dwie piany podwoiłyby ilość. BEZ parapetu (to job
+    // uszczelnienia istniejących okien). economy = tańsza piana Tytan + silikon sanitarny
+    // (istniejące). standard = Tytan + taśma paroszczelna SWS + silikon uniwersalny.
+    // better = piana niskorozprężna Soudal Low Expansion + taśma + silikon uniwersalny.
     jobId: 'window-sealing',
     materialTypeMap: {
-      standard: ['mat-foam-tytan-pro65-750ml', 'mat-sanitary-silicone-soudal-280ml'],
+      economy: ['mat-foam-tytan-pro65-750ml', 'mat-sanitary-silicone-soudal-280ml'],
+      standard: [
+        'mat-foam-tytan-pro65-750ml',
+        'mat-window-tape-soudal-sws-inside-90mm',
+        'mat-silicone-universal-soudal-280ml',
+      ],
+      better: [
+        'mat-foam-soudal-lowexp-750ml',
+        'mat-window-tape-soudal-sws-inside-90mm',
+        'mat-silicone-universal-soudal-280ml',
+      ],
     },
   },
   {
-    // Montaż parapetu: piana montażowa + silikon (oba z EAN).
+    // Montaż parapetu wewnętrznego: DOKŁADNIE jeden parapet i jedna piana na tier
+    // (inaczej engine policzyłby je 2× na całą długość). economy = parapet PCV Form +
+    // piana Tytan + silikon sanitarny. standard = + silikon uniwersalny + kotwy montażowe.
+    // better = piana niskorozprężna Soudal Low Expansion + kotwy + silikon uniwersalny.
     jobId: 'windowsill-install',
     materialTypeMap: {
-      standard: ['mat-foam-tytan-pro65-750ml', 'mat-sanitary-silicone-soudal-280ml'],
+      economy: [
+        'mat-windowsill-pvc-form-30x216',
+        'mat-foam-tytan-pro65-750ml',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+      standard: [
+        'mat-windowsill-pvc-form-30x216',
+        'mat-foam-tytan-pro65-750ml',
+        'mat-silicone-universal-soudal-280ml',
+        'mat-window-frame-anchor-10x182',
+      ],
+      better: [
+        'mat-windowsill-pvc-form-30x216',
+        'mat-foam-soudal-lowexp-750ml',
+        'mat-silicone-universal-soudal-280ml',
+        'mat-window-frame-anchor-10x182',
+      ],
     },
   },
   {

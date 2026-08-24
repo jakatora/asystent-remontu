@@ -714,6 +714,54 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
   },
+
+  // --- Etap montażu okien / parapetów: piana / silikon / kotwa / taśma paroszczelna ---
+  // UWAGA: parapet PCV „Form 30 × 216" (materials.ts: mat-windowsill-pvc-form-30x216)
+  // świadomie NIE trafia tu — to marka własna Castoramy (Kingfisher), jeden sklep
+  // detaliczny, więc nie spełnia reguły ≥2 niezależnych źródeł kodu.
+
+  // Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml (materials.ts: mat-foam-soudal-lowexp-750ml).
+  // source: https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd (EAN 5411183048522)
+  // source: https://mrowka.com.pl/produkt/soudafoam-low-expansion-gun-10-c-750-ml-soudal-5411183048522.html (EAN 5411183048522)
+  "mat-foam-soudal-lowexp-750ml": {
+    ean: "5411183048522",
+    variant: "Low Expansion, niskorozprężna zimowa, 750 ml",
+    manufacturer: "Soudal",
+    productUrl:
+      "https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd",
+  },
+
+  // Silikon uniwersalny Soudal 280 ml bezbarwny (materials.ts: mat-silicone-universal-soudal-280ml).
+  // source: https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd (EAN 5411183157552)
+  // source: https://eadamex.pl/silikony-uniwersalne/7305-silikon-uniwersalny-bezbarwny-280ml-soudal-5411183157552.html (EAN 5411183157552)
+  "mat-silicone-universal-soudal-280ml": {
+    ean: "5411183157552",
+    variant: "uniwersalny, bezbarwny, 280 ml",
+    manufacturer: "Soudal",
+    productUrl:
+      "https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd",
+  },
+
+  // Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm (materials.ts: mat-window-frame-anchor-10x182).
+  // source: https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd (EAN 5905458019787)
+  // source: https://www.brendo.pl/produkt/kotwy/kotwa-montazowa-do-oscieznic-10-x-182-mm-5905458019787.html (EAN 5905458019787)
+  "mat-window-frame-anchor-10x182": {
+    ean: "5905458019787",
+    variant: "10 × 182 mm, stal ocynkowana",
+    productUrl:
+      "https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd",
+  },
+
+  // Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m (materials.ts: mat-window-tape-soudal-sws-inside-90mm).
+  // source: https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html (EAN 5411183151178)
+  // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html (EAN 5411183151178)
+  "mat-window-tape-soudal-sws-inside-90mm": {
+    ean: "5411183151178",
+    variant: "SWS Basic Plus Inside, 90 mm × 30 m",
+    manufacturer: "Soudal",
+    productUrl:
+      "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
