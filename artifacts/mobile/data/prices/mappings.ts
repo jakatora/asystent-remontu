@@ -462,6 +462,39 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
       standard: ['mat-underlay-arbiton-xps-aquastop-6m2', 'mat-vapor-foil-diall-pe-20m2'],
     },
   },
+
+  // ── Przygotowanie podłoża pod podłogi: wylewka samopoziomująca ──────────────
+  // Job self-leveling (data/jobs/floor-prep.ts) dotąd BEZ mapowania materiałów
+  // (wyceniał się tylko z legacy materials[] joba). Dopinamy realne wylewki z EAN +
+  // akcesoria. DOKŁADNIE JEDNA wylewka bazowa/tier (materialType 'screed'), bo engine
+  // liczy każdą pozycję na całą powierzchnię — dwie wylewki podwoiłyby masę. Grunt
+  // (Uni-Grunt) i folia PE (Diall) reużyte z katalogu; taśma brzegowa skaluje się
+  // obwodem (formuła skirting). Tier rośnie klasą/ceną: economy = grubszy jastrych
+  // Atlas SAM 200, standard = Atlas SAM 100 (5–30 mm), better = cienki finisz Ceresit
+  // CN 72. Wszystkie materialId istnieją w MATERIAL_PRICES; wylewki + taśma mają EAN
+  // w MATERIAL_EAN_OVERLAY (api-server). Addytywne — measurementInputs joba nietknięte.
+  {
+    jobId: 'self-leveling',
+    materialTypeMap: {
+      economy: [
+        'mat-screed-atlas-sam200-25kg',
+        'mat-primer-deep-atlas-unigrunt-5kg',
+        'mat-edge-tape-fola-100mm-50m',
+      ],
+      standard: [
+        'mat-screed-atlas-sam100-25kg',
+        'mat-primer-deep-atlas-unigrunt-5kg',
+        'mat-edge-tape-fola-100mm-50m',
+        'mat-vapor-foil-diall-pe-20m2',
+      ],
+      better: [
+        'mat-screed-ceresit-cn72-25kg',
+        'mat-primer-deep-atlas-unigrunt-5kg',
+        'mat-edge-tape-fola-100mm-50m',
+        'mat-vapor-foil-diall-pe-20m2',
+      ],
+    },
+  },
 ];
 
 const LABOR_MAP = new Map(JOB_LABOR_MAPPINGS.map((m) => [m.jobId, m.laborPriceIds]));

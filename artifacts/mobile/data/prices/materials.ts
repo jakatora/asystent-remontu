@@ -1274,4 +1274,97 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Do uszczelnienia przejść rur pod baterie/wypływy w strefie mokrej.',
   },
+
+  // --- Etap przygotowania podłoża pod podłogi: wylewki/podkłady + akcesoria ---
+  // Materiały markowe z REALNYM EAN (≥2 niezależne źródła w komentarzach `// source:`).
+  // Job: self-leveling (data/jobs/floor-prep.ts). Tiery per zakres grubości/klasa
+  // wylewki (DOKŁADNIE JEDNA wylewka bazowa/tier — engine liczy każdą pozycję na
+  // całą powierzchnię, więc dwie wylewki w jednym tierze podwoiłyby masę). Grunt
+  // (mat-primer-deep-atlas-unigrunt-5kg) i folia PE (mat-vapor-foil-diall-pe-20m2)
+  // reużyte z katalogu. NIE ruszamy istniejących materiałów. Wylewki wyceniane za kg
+  // (pricePerKg), taśma za mb (pricePerMb) — spójnie z formułami joba.
+
+  // Samopoziomujący podkład podłogowy Atlas SAM 200 25 kg (anhydrytowy, 25–60 mm) — EAN 5905400279269. Cena 36,98 zł/worek (1,48 zł/kg, Castorama). Grubszy jastrych/podkład pod ogrzewanie podłogowe. Zużycie ok. 20 kg/m²/10 mm.
+  // source: https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-200-25-kg/5905400279269_CAPL.prd (EAN 5905400279269, cena 36,98 zł, 25 kg, 25–60 mm)
+  // source: https://b2c.makchemia.pl/wylewki-samopoziomujace/5233-atlas-sam-200-25kg-2560mm-folia-5905400279269.html (EAN 5905400279269, Atlas SAM 200 25 kg)
+  {
+    id: 'mat-screed-atlas-sam200-25kg',
+    materialType: 'screed',
+    productLabel: 'Samopoziomujący podkład podłogowy Atlas SAM 200 25 kg (25–60 mm)',
+    brand: 'Atlas',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 36.98,
+    pricePerKg: 1.48,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-200-25-kg/5905400279269_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Zużycie ok. 20 kg/m² na 10 mm grubości. Grubsza warstwa 25–60 mm (jastrych), tylko wewnątrz, dobra pod ogrzewanie podłogowe.',
+  },
+
+  // Samopoziomujący podkład podłogowy Atlas SAM 100 25 kg (szybkowiążący, 5–30 mm) — EAN 5905400279245. Cena 43,98 zł/worek (1,76 zł/kg, Castorama). Zużycie ok. 20 kg/m²/10 mm.
+  // source: https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-100-25-kg/5905400279245_CAPL.prd (EAN 5905400279245, cena 43,98 zł, 25 kg, 5–30 mm)
+  // source: https://www.bricomarche.pl/szybkowiazacy-samopoziomujacy-podklad-podlogowy-sam-100-25-kg-atlas (EAN 5905400279245, Atlas SAM 100 25 kg)
+  {
+    id: 'mat-screed-atlas-sam100-25kg',
+    materialType: 'screed',
+    productLabel: 'Samopoziomujący podkład podłogowy Atlas SAM 100 25 kg (5–30 mm)',
+    brand: 'Atlas',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 43.98,
+    pricePerKg: 1.76,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-100-25-kg/5905400279245_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Zużycie ok. 20 kg/m² na 10 mm grubości. Warstwa 5–30 mm, wyrównanie pod płytki/panele/parkiet w pomieszczeniach suchych.',
+  },
+
+  // Zaprawa samopoziomująca Ceresit CN 72 25 kg (cienkowarstwowa wykończeniowa, 1–20 mm) — EAN 5900089272259. Cena 81,68 zł/worek (3,27 zł/kg, E-Kowalczyk). Zużycie ok. 1,6 kg/m²/mm. Premium finisz pod płytki/panele/parkiet.
+  // source: https://www.grupapsb.com.pl/produkt/zaprawa-wyrownujaca-cn72-25-kg-ceresit-5900089272259.html (EAN 5900089272259, Ceresit CN 72 25 kg)
+  // source: https://sklep-kowalczyk.pl/ceresit-cn-72-zaprawa-samopoziomujaca-25-kg-219136.html (EAN 5900089272259, cena 81,68 zł, 25 kg)
+  {
+    id: 'mat-screed-ceresit-cn72-25kg',
+    materialType: 'screed',
+    productLabel: 'Zaprawa samopoziomująca Ceresit CN 72 25 kg (1–20 mm)',
+    brand: 'Ceresit',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 81.68,
+    pricePerKg: 3.27,
+    category: 'better',
+    storeName: 'E-Kowalczyk',
+    sourceUrl:
+      'https://sklep-kowalczyk.pl/ceresit-cn-72-zaprawa-samopoziomujaca-25-kg-219136.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Zużycie ok. 1,6 kg/m² na 1 mm grubości. Cienka warstwa 1–20 mm, szybkoschnąca (ruch po 3 h), pod ogrzewanie podłogowe.',
+  },
+
+  // Taśma brzegowa (dylatacyjna obwodowa) Fola 5 mm × 100 mm × 50 mb — EAN 5906725207227. Cena 35,48 zł/rolka (0,71 zł/mb, Castorama). PE, przyklejana przy ścianach pod wylewkę — kompensuje pracę posadzki.
+  // source: https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd (EAN 5906725207227, cena 35,48 zł, 5 mm × 10 cm × 50 mb)
+  // source: https://www.nokaut.pl/akcesoria-do-drzwi/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2-5906725207227.html (EAN 5906725207227, Fola taśma brzegowa 50 mb)
+  {
+    id: 'mat-edge-tape-fola-100mm-50m',
+    materialType: 'expansion-tape',
+    productLabel: 'Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb',
+    brand: 'Fola',
+    packageSize: 50,
+    packageUnit: 'mb',
+    pricePerPackage: 35.48,
+    pricePerMb: 0.71,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Obwodowa dylatacja przy ścianach — układana przed wylaniem masy, zapobiega pękaniu posadzki przy pracy budynku.',
+  },
 ];

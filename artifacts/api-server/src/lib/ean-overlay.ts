@@ -668,6 +668,52 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd",
   },
+
+  // --- Etap przygotowania podłoża pod podłogi: wylewki/podkłady + taśma brzegowa (materials.ts) ---
+
+  // Samopoziomujący podkład podłogowy Atlas SAM 200 25 kg, 25–60 mm (materials.ts: mat-screed-atlas-sam200-25kg).
+  // source: https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-200-25-kg/5905400279269_CAPL.prd (EAN 5905400279269)
+  // source: https://b2c.makchemia.pl/wylewki-samopoziomujace/5233-atlas-sam-200-25kg-2560mm-folia-5905400279269.html (EAN 5905400279269)
+  "mat-screed-atlas-sam200-25kg": {
+    ean: "5905400279269",
+    variant: "SAM 200, 25–60 mm, 25 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-200-25-kg/5905400279269_CAPL.prd",
+  },
+
+  // Samopoziomujący podkład podłogowy Atlas SAM 100 25 kg, 5–30 mm (materials.ts: mat-screed-atlas-sam100-25kg).
+  // source: https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-100-25-kg/5905400279245_CAPL.prd (EAN 5905400279245)
+  // source: https://www.bricomarche.pl/szybkowiazacy-samopoziomujacy-podklad-podlogowy-sam-100-25-kg-atlas (EAN 5905400279245)
+  "mat-screed-atlas-sam100-25kg": {
+    ean: "5905400279245",
+    variant: "SAM 100, 5–30 mm, 25 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-100-25-kg/5905400279245_CAPL.prd",
+  },
+
+  // Zaprawa samopoziomująca Ceresit CN 72 25 kg, 1–20 mm (materials.ts: mat-screed-ceresit-cn72-25kg).
+  // source: https://www.grupapsb.com.pl/produkt/zaprawa-wyrownujaca-cn72-25-kg-ceresit-5900089272259.html (EAN 5900089272259)
+  // source: https://mrowka.com.pl/produkt/zaprawa-wyrownujaca-cn72-25-kg-ceresit-5900089272259.html (EAN 5900089272259)
+  "mat-screed-ceresit-cn72-25kg": {
+    ean: "5900089272259",
+    variant: "CN 72, 1–20 mm, 25 kg",
+    manufacturer: "Ceresit",
+    productUrl:
+      "https://www.grupapsb.com.pl/produkt/zaprawa-wyrownujaca-cn72-25-kg-ceresit-5900089272259.html",
+  },
+
+  // Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb (materials.ts: mat-edge-tape-fola-100mm-50m).
+  // source: https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd (EAN 5906725207227)
+  // source: https://www.nokaut.pl/akcesoria-do-drzwi/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2-5906725207227.html (EAN 5906725207227)
+  "mat-edge-tape-fola-100mm-50m": {
+    ean: "5906725207227",
+    variant: "5 mm × 100 mm × 50 mb, PE",
+    manufacturer: "Fola",
+    productUrl:
+      "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
