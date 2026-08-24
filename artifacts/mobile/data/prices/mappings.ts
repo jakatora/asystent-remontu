@@ -45,6 +45,11 @@ export const JOB_LABOR_MAPPINGS: readonly JobLaborMapping[] = [
   // na wysokości, brak jej w katalogu labor.ts (job overview_only, hireProfessionalRecommended).
   // Wpis jawny z pustą listą: materiały wyceniamy, robociznę zostawiamy wykonawcy.
   { jobId: 'eps-insulation-bso', laborPriceIds: [] },
+  // Montaż drzwi wewnętrznych — brak dedykowanej stawki montażu per szt. w labor.ts
+  // (istniejące stawki 'szt' to sink/toilet, semantycznie inne; robocizna liczona jest
+  // per m² przez computePricedBudget, co dla drzwi liczonych na szt. dawałoby błędny wynik).
+  // Wpis jawny z pustą listą: materiały wyceniamy, robociznę montażu zostawiamy wykonawcy.
+  { jobId: 'interior-doors', laborPriceIds: [] },
 ];
 
 export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
@@ -597,6 +602,51 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
         'mat-mesh-fiberglass-atlas-150-50m2',
         'mat-anchor-facade-koelner-ki200m-10x200',
         'mat-plaster-thin-ceresit-ct174-25kg',
+      ],
+    },
+  },
+
+  // ── Montaż drzwi wewnętrznych (job interior-doors, data/jobs/finishing.ts) ──────
+  // Job był w JOB_REGISTRY, ale BEZ wpisu w JOB_MATERIAL_MAPPINGS — etap nie pokazywał
+  // żadnego kosztu materiałów z katalogu. Dopinamy pełny komplet montażowy. DOKŁADNIE
+  // jedno skrzydło i jedna ościeżnica na tier — lokalny engine (getQuantityForMaterial)
+  // liczy każdą pozycję szt. na całą ilość drzwi, więc dwa skrzydła podwoiłyby koszt.
+  // Skrzydło i ościeżnica jako packageUnit 'szt' (NIE m² — brak pricePerM2/pricePerMb,
+  // żeby engine nie mnożył po powierzchni). Tier rośnie klasą skrzydła: economy = płyta
+  // pełna lakierowana (Archi), standard = płyta przylgowa z podcięciem (OPP Klasyk),
+  // better = skrzydło przylgowe okleinowane/przeszklone (Erkado Credis). Ościeżnica
+  // regulowana PerfectDoor, klamka Schaffner, zawias 3D Metro, piana niskorozprężna
+  // (reużyta), kliny Floorpol i akryl Soudal reużyte we wszystkich tierach. Zawias i akryl
+  // mają EAN w MATERIAL_EAN_OVERLAY; skrzydła/ościeżnica/klamka/kliny = marki własne/1 źródło.
+  {
+    jobId: 'interior-doors',
+    materialTypeMap: {
+      economy: [
+        'mat-door-leaf-archi-80-white',
+        'mat-door-frame-perfectdoor-reg-80-100',
+        'mat-door-handle-schaffner-lucy-rosette',
+        'mat-door-hinge-metro-3d-14mm',
+        'mat-foam-soudal-lowexp-750ml',
+        'mat-mounting-wedges-floorpol-30x150-10',
+        'mat-acrylic-soudal-white-280ml',
+      ],
+      standard: [
+        'mat-door-leaf-opp-klasyk-70-white',
+        'mat-door-frame-perfectdoor-reg-80-100',
+        'mat-door-handle-schaffner-lucy-rosette',
+        'mat-door-hinge-metro-3d-14mm',
+        'mat-foam-soudal-lowexp-750ml',
+        'mat-mounting-wedges-floorpol-30x150-10',
+        'mat-acrylic-soudal-white-280ml',
+      ],
+      better: [
+        'mat-door-leaf-erkado-credis-80-glazed',
+        'mat-door-frame-perfectdoor-reg-80-100',
+        'mat-door-handle-schaffner-lucy-rosette',
+        'mat-door-hinge-metro-3d-14mm',
+        'mat-foam-soudal-lowexp-750ml',
+        'mat-mounting-wedges-floorpol-30x150-10',
+        'mat-acrylic-soudal-white-280ml',
       ],
     },
   },

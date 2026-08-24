@@ -1747,4 +1747,187 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Baza biała barwiona maszynowo. Zużycie ok. 2,5 kg/m² (baranek 1,5 mm). Nanoszony na zagruntowaną warstwę zbrojoną, praca +5…+25°C, nie w pełnym słońcu/przed deszczem.',
   },
+
+  // --- Etap montażu drzwi wewnętrznych (job interior-doors, data/jobs/finishing.ts) ---
+  // Job miał tylko legacy materials[] joba (door-set/pianka/próg, bez EAN) i BRAK wpisu
+  // w JOB_MATERIAL_MAPPINGS/JOB_LABOR_MAPPINGS — etap nie pokazywał żadnej wyceny z katalogu.
+  // Dokładamy komplet montażowy: 3 skrzydła po klasie (płytowe → okleinowane/przeszklone),
+  // ościeżnicę regulowaną, klamkę na rozecie, zawias regulowany 3D, kliny montażowe i akryl
+  // do wykończenia opaski. Pianę niskorozprężną reużywamy (mat-foam-soudal-lowexp-750ml).
+  // W mappings.ts DOKŁADNIE jedno skrzydło i jedna ościeżnica na tier — lokalny engine
+  // (getQuantityForMaterial) liczy każdą pozycję szt. na całą ilość drzwi, więc dwa skrzydła
+  // w tierze podwoiłyby koszt. Skrzydło i ościeżnica jako 'szt' (packageUnit) — NIE m² (brak
+  // pricePerM2/pricePerMb, żeby engine nie mnożył po powierzchni). Ceny brutto ze sklepu.
+  // Skrzydła/ościeżnica/kliny/klamka = marki własne Castoramy (OPP/Erkado/PerfectDoor/Floorpol/
+  // Schaffner) lub 1 pewne źródło → świadomie POZA MATERIAL_EAN_OVERLAY (reguła ≥2 niezależnych
+  // źródeł kodu, jak parapet Form). Do overlay trafiają tylko zawias Metro i akryl Soudal (≥2 sklepy).
+
+  // Skrzydło drzwiowe pełne Archi 80 lewe białe lakierowane (płyta/plaster miodu) — EAN 5903917782364.
+  // Samo skrzydło (bez ościeżnicy), przylgowe, HDF lakierowany, wypełnienie plaster miodu. Cena 98 zł/szt (Castorama).
+  // Tier economy: najtańsze skrzydło płytowe pełne. Marka własna Castoramy (Kingfisher) → 1 sklep, poza overlay.
+  // source: https://www.castorama.pl/drzwi-pelne-archi-80-lewe-biale-lakierowane/5903917782364_CAPL.prd (EAN 5903917782364, cena 98 zł, 842 mm, HDF lakier)
+  {
+    id: 'mat-door-leaf-archi-80-white',
+    materialType: 'door-leaf',
+    productLabel: 'Skrzydło drzwiowe pełne Archi 80 białe lakierowane (płyta/plaster miodu)',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 98.0,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/drzwi-pelne-archi-80-lewe-biale-lakierowane/5903917782364_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Płytowe pełne, wypełnienie plaster miodu, HDF lakierowany. Samo skrzydło (bez ościeżnicy). Klasa budżetowa (economy).',
+  },
+
+  // Skrzydło drzwiowe OPP Klasyk 70 prawe białe (płyta z podcięciem wentylacyjnym) — EAN 5063022524034.
+  // Samo skrzydło przylgowe (bez stelaża), wypełnienie plaster miodu pokryte HDF. Cena 208 zł/szt (Castorama).
+  // Tier standard: płytowe wyższej klasy. Marka własna OPP/Kingfisher → 1 sklep, poza overlay.
+  // source: https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd (EAN 5063022524034, cena 208 zł, 844 mm, przylgowe)
+  {
+    id: 'mat-door-leaf-opp-klasyk-70-white',
+    materialType: 'door-leaf',
+    productLabel: 'Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)',
+    brand: 'OPP',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 208.0,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Płytowe przylgowe z podcięciem wentylacyjnym, plaster miodu + HDF. Samo skrzydło (bez ościeżnicy). Klasa standard.',
+  },
+
+  // Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe (przylgowe, przeszklone) — EAN 5900378219590.
+  // Samo skrzydło przylgowe, laminat MDF, 5 szyb mlecznych, zawiasy regulowane. Cena 308 zł/szt (Castorama).
+  // Tier better: okleinowane/przeszklone premium. Producent Erkado, linia Castoramy → 1 sklep, poza overlay.
+  // source: https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd (EAN 5900378219590, cena 308 zł, przylgowe, przeszklone, Erkado)
+  {
+    id: 'mat-door-leaf-erkado-credis-80-glazed',
+    materialType: 'door-leaf',
+    productLabel: 'Skrzydło drzwiowe pokojowe Erkado Credis 80 białe przylgowe przeszklone',
+    brand: 'Erkado',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 308.0,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Przylgowe, laminat MDF, 5 szyb mlecznych, zawiasy regulowane. Samo skrzydło (bez ościeżnicy). Klasa premium (better).',
+  },
+
+  // Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa (do drzwi wewnętrznych) — EAN 5902659279118.
+  // Ościeżnica regulowana MDF, zakres 80-100 mm (dobierana do grubości ściany). Cena 418 zł/szt (Castorama).
+  // Reużywana we wszystkich tierach (jedna ościeżnica na tier). Marka własna PerfectDoor/Kingfisher → 1 sklep, poza overlay.
+  // source: https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd (EAN 5902659279118, cena 418 zł, zakres 80-100 mm)
+  {
+    id: 'mat-door-frame-perfectdoor-reg-80-100',
+    materialType: 'door-frame',
+    productLabel: 'Baza ościeżnicy regulowana PerfectDoor 80-100 mm (drzwi wewnętrzne)',
+    brand: 'PerfectDoor',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 418.0,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Ościeżnica regulowana MDF, zakres regulacji 80-100 mm (dobierana do grubości ściany). Zakres regulacji zależny od muru — przy grubszej ścianie wybierz szerszy wariant.',
+  },
+
+  // Klamka drzwiowa Schaffner Lucy na rozecie złota (komplet dwustronny + rozeta 51 mm) — EAN 5907467760698.
+  // Klamka na drzwi wewnętrzne 35-70 mm, aluminium/stal, rozeta slim przykręcana Ø51 mm, elementy montażowe w zestawie. Cena 39,98 zł/kpl (Castorama).
+  // Reużywana we wszystkich tierach. Marka Schaffner, kod pewny w 1 sklepie (Castorama) → poza overlay.
+  // source: https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd (EAN 5907467760698, cena 39,98 zł, rozeta Ø51 mm)
+  {
+    id: 'mat-door-handle-schaffner-lucy-rosette',
+    materialType: 'door-handle',
+    productLabel: 'Klamka drzwiowa Schaffner Lucy na rozecie (komplet dwustronny)',
+    brand: 'Schaffner',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 39.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Komplet dwustronny na rozecie Ø51 mm, do drzwi 35-70 mm, elementy montażowe w zestawie. Szyld/rozeta pod klucz/WC do dobrania osobno wg funkcji pomieszczenia.',
+  },
+
+  // Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro — EAN 5906711270471.
+  // Zawias do drzwi drewnianych, regulacja w 3 płaszczyznach kluczem imbusowym bez zdejmowania skrzydła. 1 szt/opak. Cena 16,48 zł/szt (Castorama).
+  // Na standardowe drzwi potrzebne 2-3 szt. EAN pewny w ≥2 sklepach (Castorama + Mrówka + Bricoman) → w MATERIAL_EAN_OVERLAY.
+  // source: https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd (EAN 5906711270471, cena 16,48 zł, 1 szt)
+  // source: https://mrowka.com.pl/produkt/zawias-wkrecany-regulowany-3d-14-mm-ocynkowany-metro-5906711270471.html (EAN 5906711270471, Metro 3D 14 mm)
+  {
+    id: 'mat-door-hinge-metro-3d-14mm',
+    materialType: 'door-hinge',
+    productLabel: 'Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro',
+    brand: 'Metro',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 16.48,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Wkręcany, regulacja 3D (pion/poziom/docisk) kluczem imbusowym bez zdejmowania skrzydła. Na standardowe drzwi 2-3 szt.',
+  },
+
+  // Kliny montażowe Floorpol 30 x 150 mm 10 szt. (drewno sosnowe) — EAN 5907508719289.
+  // Kliny do montażu drzwi/okien/parapetów — pozycjonowanie ościeżnicy w otworze przed pianowaniem. Wielokrotnego użytku. Cena 19,98 zł/opak. 10 szt (Castorama).
+  // Marka Floorpol, kod pewny w 1 sklepie (Castorama) → poza overlay.
+  // source: https://www.castorama.pl/kliny-montazowe-floorpol-30-x-150-mm-10-szt-/5907508719289_CAPL.prd (EAN 5907508719289, cena 19,98 zł, 10 szt, sosna)
+  {
+    id: 'mat-mounting-wedges-floorpol-30x150-10',
+    materialType: 'mounting-wedge',
+    productLabel: 'Kliny montażowe Floorpol 30 x 150 mm, 10 szt. (drewno)',
+    brand: 'Floorpol',
+    packageSize: 10,
+    packageUnit: 'szt',
+    pricePerPackage: 19.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/kliny-montazowe-floorpol-30-x-150-mm-10-szt-/5907508719289_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Drewniane (sosna), wielokrotnego użytku. Ustawienie i klinowanie ościeżnicy w otworze przed pianowaniem. Do drzwi, okien, parapetów.',
+  },
+
+  // Akryl uniwersalny Soudal biały 280 ml (malowalny, do wykończenia opaski) — EAN 5411183157538.
+  // Masa akrylowa do wypełnienia szczeliny opaska/ściana, malowalna po wyschnięciu (w odróżnieniu od silikonu). Cena 9,98 zł/szt (Castorama).
+  // Reużywany we wszystkich tierach. EAN pewny w ≥2 sklepach (Castorama + Mrówka) → w MATERIAL_EAN_OVERLAY.
+  // source: https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd (EAN 5411183157538, cena 9,98 zł, 280 ml, malowalny)
+  // source: https://mrowka.com.pl/produkt/akryl-uniwersalny-280-ml-bialy-soudal-5411183157538.html (EAN 5411183157538, Soudal akryl uniwersalny 280 ml biały)
+  {
+    id: 'mat-acrylic-soudal-white-280ml',
+    materialType: 'acrylic',
+    productLabel: 'Akryl uniwersalny Soudal biały 280 ml (malowalny)',
+    brand: 'Soudal',
+    packageSize: 280,
+    packageUnit: 'ml',
+    pricePerPackage: 9.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Akryl (NIE silikon) — malowalny po wyschnięciu, do wypełnienia styku opaska/ościeżnica ze ścianą. Bezrozpuszczalnikowy, do wnętrz.',
+  },
 ];

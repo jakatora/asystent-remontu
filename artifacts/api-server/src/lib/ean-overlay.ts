@@ -879,6 +879,35 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101",
   },
+
+  // --- Etap montażu drzwi wewnętrznych (materials.ts: zawias / akryl) ---
+  // UWAGA: skrzydła (Archi/OPP Klasyk/Erkado Credis), ościeżnica PerfectDoor, klamka
+  // Schaffner Lucy i kliny Floorpol świadomie NIE trafiają tu — to marki własne Castoramy
+  // (Kingfisher) lub kod pewny tylko w 1 sklepie, więc nie spełniają reguły ≥2 niezależnych
+  // źródeł kodu (analogicznie do parapetu Form i narożnika tynkarskiego). Piana Soudal Low
+  // Expansion (mat-foam-soudal-lowexp-750ml) już jest w nakładce (etap okien).
+
+  // Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro (materials.ts: mat-door-hinge-metro-3d-14mm).
+  // source: https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd (EAN 5906711270471)
+  // source: https://mrowka.com.pl/produkt/zawias-wkrecany-regulowany-3d-14-mm-ocynkowany-metro-5906711270471.html (EAN 5906711270471)
+  "mat-door-hinge-metro-3d-14mm": {
+    ean: "5906711270471",
+    variant: "regulowany 3D, 14 mm, ocynk",
+    manufacturer: "Metro",
+    productUrl:
+      "https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd",
+  },
+
+  // Akryl uniwersalny Soudal biały 280 ml, malowalny (materials.ts: mat-acrylic-soudal-white-280ml).
+  // source: https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd (EAN 5411183157538)
+  // source: https://mrowka.com.pl/produkt/akryl-uniwersalny-280-ml-bialy-soudal-5411183157538.html (EAN 5411183157538)
+  "mat-acrylic-soudal-white-280ml": {
+    ean: "5411183157538",
+    variant: "uniwersalny, biały, malowalny, 280 ml",
+    manufacturer: "Soudal",
+    productUrl:
+      "https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
