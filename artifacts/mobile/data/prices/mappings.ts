@@ -100,10 +100,35 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     },
   },
   {
+    // Gładzie / szpachlowanie ścian pod malowanie. DOKŁADNIE JEDNA gładź bazowa
+    // (materialType 'skim-coat') na tier — engine liczy każdą pozycję na całą
+    // powierzchnię, więc dwie gładzie w jednym tierze podwoiłyby masę. Grunt
+    // (Uni-Grunt Knauf), siatka szlifierska i taśma malarska reużyte we wszystkich
+    // tierach (akcesoria skalują się z powierzchnią, koszt pomijalny). Tier rośnie
+    // klasą gładzi: economy = gotowa polimerowa marki własnej (GW180), standard =
+    // markowa gotowa polimerowa Atlas GTA, better = wykończeniowa Acryl-Putz FS20
+    // Finisz (Śnieżka). Wszystkie materialId istnieją w MATERIAL_PRICES; gładzie
+    // standard/better + grunt + siatka + taśma mają EAN w MATERIAL_EAN_OVERLAY.
     jobId: 'skim-coat',
     materialTypeMap: {
-      economy: ['mat-skim-coat-economy-20kg', 'mat-universal-primer-5l'],
-      standard: ['mat-skim-coat-standard-18kg', 'mat-universal-primer-5l'],
+      economy: [
+        'mat-skim-coat-economy-20kg',
+        'mat-universal-primer-5l',
+        'mat-abrasive-mesh-graphite-225-k180-10',
+        'mat-masking-tape-bluedolphin-30mm',
+      ],
+      standard: [
+        'mat-skim-coat-standard-18kg',
+        'mat-universal-primer-5l',
+        'mat-abrasive-mesh-graphite-225-k180-10',
+        'mat-masking-tape-bluedolphin-30mm',
+      ],
+      better: [
+        'mat-skim-coat-acrylputz-fs20-27kg',
+        'mat-universal-primer-5l',
+        'mat-abrasive-mesh-graphite-225-k180-10',
+        'mat-masking-tape-bluedolphin-30mm',
+      ],
     },
   },
   {

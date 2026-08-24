@@ -599,6 +599,18 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
       "https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd",
   },
 
+  // Siatka ścierna na rzep GRAPHITE 55H746 ⌀225 mm K180, 10 szt.
+  // (materials.ts: mat-abrasive-mesh-graphite-225-k180-10).
+  // source: https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html (EAN 5902062502735)
+  // source: https://www.grupapsb.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html (EAN 5902062502735)
+  "mat-abrasive-mesh-graphite-225-k180-10": {
+    ean: "5902062502735",
+    variant: "55H746, ⌀225 mm K180, 10 szt.",
+    manufacturer: "Graphite",
+    productUrl:
+      "https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html",
+  },
+
   // --- Etap hydroizolacji łazienki (materials.ts: masy w płynie / taśma / narożniki / mankiet) ---
 
   // Folia w płynie (masa hydroizolacyjna 1-składnikowa) Atlas Woder E 15 kg

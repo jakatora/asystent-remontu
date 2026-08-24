@@ -473,6 +473,30 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
+  // Siatka ścierna (szlifierska) na rzep GRAPHITE 55H746 ⌀225 mm, K180, 10 szt. — EAN 5902062502735.
+  // Do szlifowania gładzi/gipsu (na packę lub żyrafę). Węglik krzemu, warstwa otwarta
+  // (mniej zapychania niż papier). Opakowanie 10 krążków. Cena orientacyjna 38,87 zł/opak.
+  // source: https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html (Mrówka — EAN 5902062502735)
+  // source: https://www.grupapsb.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html (Grupa PSB — EAN 5902062502735)
+  // source: https://www.narzedzia.pl/siatka-scierna-na-rzep-225mm-k180-do-59g260-10szt-graphite-55h746,92884.html (EAN 5902062502735 + cena 38,87 zł)
+  {
+    id: 'mat-abrasive-mesh-graphite-225-k180-10',
+    materialType: 'abrasive',
+    productLabel: 'Siatka ścierna na rzep GRAPHITE 225 mm K180, 10 szt.',
+    brand: 'Graphite',
+    packageSize: 10,
+    packageUnit: 'szt',
+    pricePerPackage: 38.87,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes:
+      'Do szlifowania gładzi na gładko (K180). Opak. 10 krążków ⌀225 mm — zwykle 1 opak. na cały pokój.',
+  },
+
   // --- Sucha zabudowa GK: płyta, profile, wełna, wkręty, kołki -----------------
   // Duże pozycje wprost brakujące w katalogu (patrz mappings.ts: „płyta GK,
   // profile, wełna nie są jeszcze w katalogu"). Każdy materiał markowy z realnym
