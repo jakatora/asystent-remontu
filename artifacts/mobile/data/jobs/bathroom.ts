@@ -467,3 +467,253 @@ export const siliconeJob: RenovationJob = {
     },
   ],
 };
+
+// ─── Biały montaż: umywalka + bateria ─────────────────────────────────────────
+// „Biały montaż" to montaż ceramiki sanitarnej i armatury. Job odpowiada stawce
+// robocizny `labor-sink-installation` (renovationJobId: 'sink-installation') już
+// obecnej w data/prices/labor.ts oraz wpisowi w JOB_LABOR_MAPPINGS — dotąd bez
+// definicji joba. Materiały wyceniane przez katalog (JOB_MATERIAL_MAPPINGS:
+// 1 umywalka + 1 bateria/tier), tu materials[] napędza listę zakupową kalkulatora.
+
+export const sinkInstallationJob: RenovationJob = {
+  id: 'sink-installation',
+  slug: 'montaz-umywalki-z-bateria',
+  categoryId: 'plumbing',
+  name: 'Montaż umywalki z baterią (biały montaż)',
+  shortDescription: 'Zawieś umywalkę na półpostumencie i podłącz baterię — biały montaż łazienki.',
+  description: 'Biały montaż umywalki: zawieszenie ceramiki na kotwach/półpostumencie, montaż baterii stojącej, podłączenie zaworów kątowych, wężyków i syfonu oraz uszczelnienie silikonem. Kluczowe: szczelność połączeń i poziom umywalki.',
+  difficulty: 'medium',
+  riskLevel: 'medium',
+  estimatedDays: 1,
+  estimatedMessLevel: 1,
+  visibilityMode: 'safe_diy',
+  coverIcon: 'droplet',
+  warningRules: [
+    { condition: 'always', message: 'PRZED montażem zakręć wodę zaworami kątowymi lub głównym zaworem — po podłączeniu wężyków sprawdź szczelność przy pełnym ciśnieniu.', level: 'warning' },
+    { condition: 'always', message: 'Ceramikę na ścianie mocuj kołkami dobranymi do materiału ściany — umywalka z wodą waży kilkanaście kg.', level: 'info' },
+    { condition: 'always', message: 'W płytkach wierć wiertłem do glazury bez udaru — udar rozłupie płytkę.', level: 'info' },
+  ],
+  measurementInputs: [
+    { id: 'sinkCount', label: 'Liczba umywalek do montażu', unit: 'szt.', placeholder: '1', min: 1, max: 10 },
+  ],
+  materials: [
+    {
+      id: 'washbasin',
+      name: 'Umywalka ceramiczna (z otworem na baterię)',
+      brand: 'Cersanit Facile 50 cm (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('sinkCount'),
+      pricePerUnit: 148,
+      category: 'ceramika',
+      notes: 'Umywalka z otworem na baterię i przelewem; do montażu na półpostumencie lub kotwach ściennych.',
+    },
+    {
+      id: 'basin-mixer',
+      name: 'Bateria umywalkowa stojąca',
+      brand: 'Ferro Stillo BSL2 (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('sinkCount'),
+      pricePerUnit: 195,
+      category: 'armatura',
+      notes: 'Bateria stojąca do otworu w umywalce; w zestawie zwykle korek automatyczny i wężyki.',
+    },
+    {
+      id: 'basin-trap',
+      name: 'Syfon umywalkowy',
+      brand: 'McAlpine WHB1-32 (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('sinkCount'),
+      pricePerUnit: 105,
+      category: 'armatura',
+      notes: 'Syfon butelkowy Ø32 mm z uszczelkami. Tańsze warianty od ok. 30 zł.',
+    },
+    {
+      id: 'angle-valve',
+      name: 'Zawór kątowy z filtrem 1/2" × 3/8"',
+      brand: 'Ferro (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('sinkCount'),
+      pricePerUnit: 35,
+      category: 'armatura',
+      notes: 'Na podejście wody potrzebne 2 szt. (ciepła + zimna) — dokup drugi zawór na umywalkę.',
+    },
+    {
+      id: 'flex-hose',
+      name: 'Wężyk elastyczny w oplocie 3/8"',
+      brand: 'Invena 30 cm (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('sinkCount'),
+      pricePerUnit: 37,
+      category: 'armatura',
+      notes: 'Łączy zawór kątowy z baterią. Zwykle 2 szt. na baterię (część bywa w zestawie z baterią).',
+    },
+    {
+      id: 'sanitary-silicone',
+      name: 'Silikon sanitarny (uszczelnienie umywalki)',
+      brand: 'Soudal 280 ml (referencja)',
+      unit: 'kartusze',
+      formula: formulaBuilder.perItem('sinkCount'),
+      pricePerUnit: 20,
+      category: 'uszczelnienie',
+      notes: 'Uszczelnienie styku umywalki ze ścianą. Silikon z fungicydem.',
+    },
+  ],
+  tools: [
+    { id: 'adjustable-wrench-sink', name: 'Klucz nastawny', icon: 'tool', required: true },
+    { id: 'basin-wrench-sink', name: 'Klucz do baterii (długi)', icon: 'tool', required: false },
+    { id: 'drill-tile-sink', name: 'Wiertarka + wiertło do glazury (bez udaru)', icon: 'tool', required: true },
+    { id: 'level-sink', name: 'Poziomica', icon: 'minus', required: true },
+    { id: 'caulk-gun-sink', name: 'Pistolet do silikonu', icon: 'tool', required: true },
+    { id: 'bucket-sink', name: 'Wiadro i szmaty', icon: 'circle', required: true },
+  ],
+  instructions: [
+    { step: 1, title: 'Zakręć wodę i zamontuj zawory kątowe', description: 'Zakręć wodę. Na podejściach ściennych nawiń taśmę i wkręć zawory kątowe z filtrem (ciepła + zimna).', durationMin: 20 },
+    { step: 2, title: 'Wyznacz i wywierć otwory pod umywalkę', description: 'Zaznacz wysokość (górny brzeg umywalki zwykle ok. 85 cm). Wywierć otwory wiertłem do glazury bez udaru, wstaw kołki.', durationMin: 25 },
+    { step: 3, title: 'Zamontuj baterię w umywalce', description: 'Przed zawieszeniem przykręć baterię do umywalki, podłącz wężyki. Łatwiej zrobić to „na ławce" niż nad postumentem.', tip: 'Nie dokręcaj plastikowych nakrętek na siłę.', durationMin: 20 },
+    { step: 4, title: 'Zawieś umywalkę i podeprzyj półpostumentem', description: 'Osadź umywalkę na śrubach/kotwach, wypoziomuj, dokręć. Wsuń półpostument.', durationMin: 20 },
+    { step: 5, title: 'Podłącz wężyki i syfon', description: 'Podłącz wężyki baterii do zaworów kątowych. Zamontuj syfon do odpływu i rury ściennej.', durationMin: 25 },
+    { step: 6, title: 'Odkręć wodę, sprawdź szczelność, zasilikonuj', description: 'Powoli odkręć wodę, sprawdź każde połączenie. Uszczelnij styk umywalki ze ścianą silikonem sanitarnym.', durationMin: 20 },
+  ],
+  commonMistakes: [
+    'Brak sprawdzenia szczelności pod pełnym ciśnieniem — wyciek po zabudowie',
+    'Za mocne dokręcenie plastikowych nakrętek — pęknięcie',
+    'Wiercenie w płytkach z udarem — rozłupana glazura',
+    'Krzywy montaż — woda spływa na jedną stronę',
+  ],
+  qualityChecklist: [
+    { id: 'q1', description: 'Żadne połączenie nie kapie pod pełnym ciśnieniem wody', critical: true },
+    { id: 'q2', description: 'Umywalka jest wypoziomowana i stabilna' },
+    { id: 'q3', description: 'Styk umywalki ze ścianą uszczelniony silikonem' },
+  ],
+  hireProfessionalRecommended: false,
+  tags: ['biały montaż', 'umywalka', 'bateria', 'łazienka', 'hydraulika'],
+
+  verifiedAt: '2026-08-24',
+  verifiedSources: [
+    {
+      title:       'Montaż baterii umywalkowej krok po kroku',
+      url:         'https://www.castorama.pl/montaz-baterii-umywalkowej-krok-po-kroku-ins-88251.html',
+      domain:      'castorama.pl',
+      consultedAt: '2026-08-24',
+    },
+  ],
+};
+
+// ─── Biały montaż: miska WC kompakt ───────────────────────────────────────────
+// Job odpowiada stawce `labor-toilet-installation` (renovationJobId:
+// 'toilet-installation') już obecnej w data/prices/labor.ts + JOB_LABOR_MAPPINGS —
+// dotąd bez definicji joba. Katalog wycenia 1 miskę WC/tier (JOB_MATERIAL_MAPPINGS).
+
+export const toiletInstallationJob: RenovationJob = {
+  id: 'toilet-installation',
+  slug: 'montaz-miski-wc-kompakt',
+  categoryId: 'plumbing',
+  name: 'Montaż miski WC kompakt (biały montaż)',
+  shortDescription: 'Ustaw i podłącz kompakt WC — mocowanie do podłogi, spłuczka i uszczelnienie.',
+  description: 'Biały montaż kompaktu WC: ustawienie miski na zestawie mocującym (śruby + kołki), podłączenie odpływu do rury kanalizacyjnej, doprowadzenie wody do spłuczki przez zawór kątowy i wężyk oraz uszczelnienie podstawy silikonem. Kluczowe: szczelny odpływ i stabilne mocowanie.',
+  difficulty: 'medium',
+  riskLevel: 'medium',
+  estimatedDays: 1,
+  estimatedMessLevel: 1,
+  visibilityMode: 'safe_diy',
+  coverIcon: 'droplet',
+  warningRules: [
+    { condition: 'always', message: 'PRZED montażem zakręć wodę. Po podłączeniu spłuczki sprawdź szczelność napełniania i spłukiwania.', level: 'warning' },
+    { condition: 'always', message: 'Miskę mocuj do podłogi śrubami z zestawu i kołkami — luźny kompakt rozszczelnia odpływ i pęka.', level: 'warning' },
+    { condition: 'always', message: 'Odpływ do kanalizacji łącz przez uszczelkę/mankiet — nieszczelne podejście to nieusuwalny zapach.', level: 'info' },
+  ],
+  measurementInputs: [
+    { id: 'toiletCount', label: 'Liczba misek WC do montażu', unit: 'szt.', placeholder: '1', min: 1, max: 10 },
+  ],
+  materials: [
+    {
+      id: 'wc-compact',
+      name: 'Kompakt WC (miska + spłuczka + deska)',
+      brand: 'Cersanit Seno 3/5 l (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('toiletCount'),
+      pricePerUnit: 698,
+      category: 'ceramika',
+      notes: 'Bezkołnierzowy kompakt z deską wolnoopadającą i zestawem uszczelek/śrub w opakowaniu.',
+    },
+    {
+      id: 'wc-mounting-set',
+      name: 'Zestaw mocujący WC (śruby + kołki + podkładki)',
+      brand: 'Tycner (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('toiletCount'),
+      pricePerUnit: 37,
+      category: 'mocowania',
+      notes: 'Śruby do mocowania miski do podłogi + uszczelka i podkładki. Kołki dobierz do materiału podłoża.',
+    },
+    {
+      id: 'wc-angle-valve',
+      name: 'Zawór kątowy z filtrem 1/2" × 3/8"',
+      brand: 'Ferro (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('toiletCount'),
+      pricePerUnit: 35,
+      category: 'armatura',
+      notes: 'Odcięcie wody do spłuczki. 1 szt. na kompakt.',
+    },
+    {
+      id: 'wc-flex-hose',
+      name: 'Wężyk elastyczny do spłuczki 3/8"',
+      brand: 'Invena (referencja)',
+      unit: 'szt.',
+      formula: formulaBuilder.perItem('toiletCount'),
+      pricePerUnit: 37,
+      category: 'armatura',
+      notes: 'Łączy zawór kątowy z zaworem napełniającym spłuczki.',
+    },
+    {
+      id: 'wc-silicone',
+      name: 'Silikon sanitarny (uszczelnienie podstawy)',
+      brand: 'Soudal 280 ml (referencja)',
+      unit: 'kartusze',
+      formula: formulaBuilder.perItem('toiletCount'),
+      pricePerUnit: 20,
+      category: 'uszczelnienie',
+      notes: 'Uszczelnienie styku miski z podłogą po sprawdzeniu poziomu (zostaw z tyłu przerwę kontrolną).',
+    },
+  ],
+  tools: [
+    { id: 'adjustable-wrench-wc', name: 'Klucz nastawny', icon: 'tool', required: true },
+    { id: 'drill-tile-wc', name: 'Wiertarka + wiertło do glazury (bez udaru)', icon: 'tool', required: true },
+    { id: 'level-wc', name: 'Poziomica', icon: 'minus', required: true },
+    { id: 'pencil-wc', name: 'Ołówek i miarka', icon: 'edit-2', required: true },
+    { id: 'caulk-gun-wc', name: 'Pistolet do silikonu', icon: 'tool', required: true },
+    { id: 'bucket-wc', name: 'Wiadro i szmaty', icon: 'circle', required: true },
+  ],
+  instructions: [
+    { step: 1, title: 'Zakręć wodę i przymierz miskę', description: 'Zakręć wodę. Ustaw kompakt na docelowym miejscu, sprawdź spasowanie z odpływem. Zaznacz otwory mocujące.', durationMin: 20 },
+    { step: 2, title: 'Wywierć otwory i osadź kołki', description: 'Wywierć otwory wiertłem do glazury bez udaru w zaznaczonych punktach, wstaw kołki z zestawu mocującego.', durationMin: 20 },
+    { step: 3, title: 'Podłącz odpływ i ustaw miskę', description: 'Załóż mankiet/uszczelkę na odpływ, wsuń miskę na rurę kanalizacyjną, ustaw na kołkach. Wypoziomuj.', durationMin: 25 },
+    { step: 4, title: 'Skręć miskę i zamontuj spłuczkę', description: 'Dokręć śruby mocujące (bez przeciążania ceramiki). Zmontuj spłuczkę z miską przez uszczelkę.', tip: 'Dokręcaj na przemian, równomiernie — inaczej pękną ucha ceramiki.', durationMin: 25 },
+    { step: 5, title: 'Doprowadź wodę do spłuczki', description: 'Wkręć zawór kątowy, podłącz wężyk do zaworu napełniającego spłuczki. Odkręć wodę, sprawdź napełnianie.', durationMin: 20 },
+    { step: 6, title: 'Sprawdź spłukiwanie i zasilikonuj podstawę', description: 'Spłucz kilka razy, sprawdź szczelność odpływu i spłuczki. Uszczelnij podstawę silikonem, zostawiając z tyłu przerwę kontrolną.', durationMin: 20 },
+  ],
+  commonMistakes: [
+    'Przeciążenie śrub mocujących — pęknięte ucha ceramiki',
+    'Nieszczelne podejście odpływu — uporczywy zapach z kanalizacji',
+    'Silikon dookoła bez przerwy kontrolnej — nie widać ewentualnego przecieku',
+    'Krzywe ustawienie — kompakt się buja i rozszczelnia',
+  ],
+  qualityChecklist: [
+    { id: 'q1', description: 'Odpływ i spłuczka szczelne — brak wycieków po kilku spłukaniach', critical: true },
+    { id: 'q2', description: 'Miska stabilnie przykręcona i wypoziomowana' },
+    { id: 'q3', description: 'Podstawa uszczelniona silikonem z przerwą kontrolną z tyłu' },
+  ],
+  hireProfessionalRecommended: false,
+  tags: ['biały montaż', 'wc', 'kompakt', 'toaleta', 'łazienka', 'hydraulika'],
+
+  verifiedAt: '2026-08-24',
+  verifiedSources: [
+    {
+      title:       'Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą',
+      url:         'https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd',
+      domain:      'castorama.pl',
+      consultedAt: '2026-08-24',
+    },
+  ],
+};

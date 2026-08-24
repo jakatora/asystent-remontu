@@ -791,6 +791,92 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
+  // --- Biały montaż: ceramika sanitarna + armatura (WC / umywalka / zawory) ------
+  // Materiały etapu „białego montażu" łazienki (montaż miski WC kompakt, umywalki
+  // z baterią). Każdy markowy, z realnym EAN potwierdzonym w ≥2 niezależnych
+  // źródłach (komentarze `// source:`) → EAN wpisany też do MATERIAL_EAN_OVERLAY
+  // (api-server), więc seed:offers dopina oferty z feedów. Ceny brutto ze sklepu PL,
+  // packageSize/packageUnit z opakowania handlowego (ceramika/armatura = 1 szt).
+  // Uwaga: packageUnit 'szt' BEZ pricePerM2/pricePerMb — engine (getQuantityForMaterial)
+  // liczy je po jednostce (liczba misek/umywalek), a nie po m².
+
+  // Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą — EAN 5902115720833. Cena 698 zł/szt (Castorama).
+  // source: https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd (EAN + cena 698 zł)
+  // source: https://brendo.pl/produkt/miski-i-kompakty-wc/kompakt-wc-cersanit-seno-rimless-z-deska-wolnoopadajaca.html (EAN 5902115720833)
+  {
+    id: 'mat-wc-compact-cersanit-seno-3-5l',
+    materialType: 'toilet',
+    productLabel: 'Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą',
+    brand: 'Cersanit',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 698.00,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Umywalka ceramiczna Cersanit Facile 50 cm (z otworem na baterię, z przelewem, montaż na półpostumencie) — EAN 5907720650025 (K30-002). Cena ok. 148 zł/szt.
+  // source: https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html (EAN 5907720650025, otwór + półpostument FACILE)
+  // source: https://mrowka.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html (EAN 5907720650025)
+  // source: https://1lazienka.pl/cersanit-facile-umywalka-50-k30-002.html (cena 148 zł)
+  {
+    id: 'mat-washbasin-cersanit-facile-50',
+    materialType: 'washbasin',
+    productLabel: 'Umywalka ceramiczna Cersanit Facile 50 cm (z otworem, przelew)',
+    brand: 'Cersanit',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 148.00,
+    category: 'standard',
+    storeName: 'Grupa PSB',
+    sourceUrl:
+      'https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Zawór kątowy z filtrem Ferro 1/2" × 3/8" chrom — EAN 5901095614033. Cena 34,98 zł/szt (Castorama).
+  // source: https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd (EAN + cena 34,98 zł)
+  // source: https://www.ceneo.pl/30596820 (Ferro zawór kątowy 1/2 chrom, EAN 5901095614033)
+  {
+    id: 'mat-angle-valve-ferro-1-2-3-8',
+    materialType: 'valve',
+    productLabel: 'Zawór kątowy z filtrem Ferro 1/2" × 3/8" (chrom)',
+    brand: 'Ferro',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 34.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
+  // Zestaw przyłączeniowo-mocujący WC Tycner (śruby mocujące miskę, uszczelka, podkładki, nakrętki) — EAN 5901095514395 (HTWE1439). Cena 36,80 zł/szt.
+  // source: https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html (Tycner, EAN 5901095514395)
+  // source: https://chemko.com.pl/tycner-zestaw-przylaczeniowo-mocujacy-wc-5901095514395,3,104355,120611 (EAN 5901095514395, cena 36,80 zł)
+  {
+    id: 'mat-wc-mounting-set-tycner',
+    materialType: 'mounting-set',
+    productLabel: 'Zestaw przyłączeniowo-mocujący WC Tycner (śruby, uszczelka, podkładki)',
+    brand: 'Tycner',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 36.80,
+    category: 'standard',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+  },
+
   // --- Instalacja elektryczna: przewody, gniazdka, włączniki, puszki, złączki ----
   // Materiały etapu elektrycznego (wymiana/montaż gniazdek, włączników, opraw)
   // brakujące w katalogu. Każdy markowy, z realnym EAN potwierdzonym w ≥2

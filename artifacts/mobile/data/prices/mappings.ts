@@ -675,6 +675,71 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
       ],
     },
   },
+
+  // ── Biały montaż: ceramika sanitarna + armatura (etap łazienki) ─────────────
+  // Joby sink-installation / toilet-installation MIAŁY już stawki robocizny
+  // (labor.ts: labor-sink-installation / labor-toilet-installation + wpisy w
+  // JOB_LABOR_MAPPINGS), ale BEZ definicji joba i BEZ mapowania materiałów —
+  // etap „białego montażu" nie pokazywał kosztu ceramiki. Dopinamy pełny komplet.
+  // DOKŁADNIE 1 umywalka + 1 bateria (sink) oraz 1 miska WC (toilet) na tier —
+  // lokalny engine (getQuantityForMaterial) liczy każdą pozycję szt. na całą liczbę
+  // sztuk (primaryArea = liczba misek/umywalek), więc dwie sztuki ceramiki w jednym
+  // tierze podwoiłyby koszt. Ceramika/armatura jako packageUnit 'szt' BEZ pricePerM2 —
+  // engine nie mnoży ich po m². Zawory/wężyki/syfon/silikon/zestaw montażowy to
+  // akcesoria połączeniowe (rosną z liczbą sztuk). Tier rośnie zakresem prac.
+  // Wszystkie materialId istnieją w MATERIAL_PRICES; markowe (Cersanit/Ferro/Tycner)
+  // mają EAN w MATERIAL_EAN_OVERLAY (api-server). Reużyte z hydrauliki: bateria
+  // Ferro Stillo, syfon McAlpine, wężyk Invena, silikon Soudal.
+  {
+    jobId: 'sink-installation',
+    materialTypeMap: {
+      economy: [
+        'mat-washbasin-cersanit-facile-50',
+        'mat-basin-mixer-ferro-stillo',
+        'mat-angle-valve-ferro-1-2-3-8',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+      standard: [
+        'mat-washbasin-cersanit-facile-50',
+        'mat-basin-mixer-ferro-stillo',
+        'mat-angle-valve-ferro-1-2-3-8',
+        'mat-hose-braided-invena-3-8-30',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+      better: [
+        'mat-washbasin-cersanit-facile-50',
+        'mat-basin-mixer-ferro-stillo',
+        'mat-basin-trap-mcalpine-whb1-32',
+        'mat-angle-valve-ferro-1-2-3-8',
+        'mat-hose-braided-invena-3-8-30',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+    },
+  },
+  {
+    jobId: 'toilet-installation',
+    materialTypeMap: {
+      economy: [
+        'mat-wc-compact-cersanit-seno-3-5l',
+        'mat-wc-mounting-set-tycner',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+      standard: [
+        'mat-wc-compact-cersanit-seno-3-5l',
+        'mat-wc-mounting-set-tycner',
+        'mat-angle-valve-ferro-1-2-3-8',
+        'mat-hose-braided-invena-3-8-30',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+      better: [
+        'mat-wc-compact-cersanit-seno-3-5l',
+        'mat-wc-mounting-set-tycner',
+        'mat-angle-valve-ferro-1-2-3-8',
+        'mat-hose-braided-invena-3-8-30',
+        'mat-sanitary-silicone-soudal-280ml',
+      ],
+    },
+  },
 ];
 
 const LABOR_MAP = new Map(JOB_LABOR_MAPPINGS.map((m) => [m.jobId, m.laborPriceIds]));

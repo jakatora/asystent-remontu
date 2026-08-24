@@ -10,7 +10,8 @@ import { primerJob, wallRepairJob, skimCoatJob,
          wallPlasteringJob }                                                  from '@/data/jobs/walls';
 import { underlayJob, laminateJob, vinylJob, vinylGluedJob,
          floorTilesJob, skirtingBoardsJob }                                   from '@/data/jobs/flooring';
-import { waterproofingJob, bathroomWallTilesJob, groutJob, siliconeJob }      from '@/data/jobs/bathroom';
+import { waterproofingJob, bathroomWallTilesJob, groutJob, siliconeJob,
+         sinkInstallationJob, toiletInstallationJob }                         from '@/data/jobs/bathroom';
 import { wallpaperJob, doorsJob }                                             from '@/data/jobs/finishing';
 import { minorPlumbingJob, electricalOverviewJob, highRiskJob,
          gasInstallationJob, structuralDemolitionJob, mainElectricalJob,
@@ -67,6 +68,8 @@ const JOB_REGISTRY: readonly RenovationJob[] = Object.freeze([
   groutJob,
   siliconeJob,
   siliconeRefreshJob,
+  sinkInstallationJob,     // biały montaż: umywalka + bateria (aktywuje labor-sink-installation)
+  toiletInstallationJob,   // biały montaż: miska WC kompakt (aktywuje labor-toilet-installation)
   // ── Kitchen ──────────────────────────────────────────────────────────────
   backsplashTilesJob,
   countertopInstallJob,

@@ -920,6 +920,55 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd",
   },
+
+  // --- Etap białego montażu: ceramika sanitarna + armatura (materials.ts: WC / umywalka / zawór / zestaw) ---
+  // Bateria umywalkowa Ferro Stillo, syfon McAlpine i wężyk Invena już są w nakładce
+  // (etap hydrauliki). Poniżej dokładamy 4 nowe pozycje białego montażu — każda marki
+  // producenta (Cersanit/Ferro/Tycner), z kodem potwierdzonym w ≥2 niezależnych źródłach.
+
+  // Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą (materials.ts: mat-wc-compact-cersanit-seno-3-5l).
+  // source: https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd (EAN 5902115720833)
+  // source: https://brendo.pl/produkt/miski-i-kompakty-wc/kompakt-wc-cersanit-seno-rimless-z-deska-wolnoopadajaca.html (EAN 5902115720833)
+  "mat-wc-compact-cersanit-seno-3-5l": {
+    ean: "5902115720833",
+    variant: "Seno bezkołnierzowy 3/5 l, deska wolnoopadająca",
+    manufacturer: "Cersanit",
+    productUrl:
+      "https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd",
+  },
+
+  // Umywalka ceramiczna Cersanit Facile 50 cm z otworem (K30-002) (materials.ts: mat-washbasin-cersanit-facile-50).
+  // source: https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html (EAN 5907720650025)
+  // source: https://mrowka.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html (EAN 5907720650025)
+  "mat-washbasin-cersanit-facile-50": {
+    ean: "5907720650025",
+    variant: "Facile 50 cm, z otworem, przelew (K30-002)",
+    manufacturer: "Cersanit",
+    productUrl:
+      "https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html",
+  },
+
+  // Zawór kątowy z filtrem Ferro 1/2" × 3/8" chrom (materials.ts: mat-angle-valve-ferro-1-2-3-8).
+  // source: https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd (EAN 5901095614033)
+  // source: https://www.ceneo.pl/30596820 (Ferro zawór kątowy 1/2 chrom, EAN 5901095614033)
+  "mat-angle-valve-ferro-1-2-3-8": {
+    ean: "5901095614033",
+    variant: '1/2" × 3/8", z filtrem, chrom',
+    manufacturer: "Ferro",
+    productUrl:
+      "https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd",
+  },
+
+  // Zestaw przyłączeniowo-mocujący WC Tycner (HTWE1439) (materials.ts: mat-wc-mounting-set-tycner).
+  // source: https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html (Tycner, EAN 5901095514395)
+  // source: https://chemko.com.pl/tycner-zestaw-przylaczeniowo-mocujacy-wc-5901095514395,3,104355,120611 (EAN 5901095514395)
+  "mat-wc-mounting-set-tycner": {
+    ean: "5901095514395",
+    variant: "zestaw przyłączeniowo-mocujący WC (HTWE1439)",
+    manufacturer: "Tycner",
+    productUrl:
+      "https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */
