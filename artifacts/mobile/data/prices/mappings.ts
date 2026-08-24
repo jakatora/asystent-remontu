@@ -18,6 +18,7 @@ export const JOB_LABOR_MAPPINGS: readonly JobLaborMapping[] = [
   { jobId: 'wallpaper-remove', laborPriceIds: ['labor-wallpaper-installation'] },
   { jobId: 'wall-repair', laborPriceIds: ['labor-repair-holes-cracks'] },
   { jobId: 'skim-coat', laborPriceIds: ['labor-skim-coat'] },
+  { jobId: 'wall-plastering', laborPriceIds: ['labor-skim-coat'] },
   { jobId: 'laminate-flooring', laborPriceIds: ['labor-laminate-installation'] },
   { jobId: 'skirting-boards', laborPriceIds: ['labor-skirting-installation'] },
   { jobId: 'vinyl-flooring', laborPriceIds: ['labor-vinyl-click-installation'] },
@@ -101,6 +102,34 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     materialTypeMap: {
       economy: ['mat-skim-coat-economy-20kg'],
       standard: ['mat-skim-coat-standard-18kg'],
+    },
+  },
+  {
+    // Tynkowanie ścian (NOWY job wall-plastering): tynk BAZOWY na surowym murze.
+    // DOKŁADNIE JEDEN tynk bazowy na tier (materialType 'plaster') — engine liczy każdą
+    // pozycję na całą powierzchnię, więc dwa tynki w tierze podwoiłyby masę. Grunt/kontakt
+    // (Cerplast) i narożnik aluminiowy z siatką reużyte we wszystkich tierach. Tier rośnie
+    // klasą tynku: economy = gips maszynowy MP 75 (najtańszy/najczęstszy), standard = gips
+    // ręczny Goldband (wyrównania/ościeża), better = cementowo-wapienny Baumit MPI 25
+    // (pomieszczenia wilgotne, twardszy). Wszystkie materialId istnieją w MATERIAL_PRICES;
+    // tynki + grunt mają EAN w MATERIAL_EAN_OVERLAY (api-server).
+    jobId: 'wall-plastering',
+    materialTypeMap: {
+      economy: [
+        'mat-plaster-gypsum-machine-knauf-mp75-25kg',
+        'mat-plaster-primer-atlas-cerplast-15kg',
+        'mat-plaster-corner-alu-mesh-25m',
+      ],
+      standard: [
+        'mat-plaster-gypsum-manual-knauf-goldband-25kg',
+        'mat-plaster-primer-atlas-cerplast-15kg',
+        'mat-plaster-corner-alu-mesh-25m',
+      ],
+      better: [
+        'mat-plaster-cementlime-baumit-mpi25-30kg',
+        'mat-plaster-primer-atlas-cerplast-15kg',
+        'mat-plaster-corner-alu-mesh-25m',
+      ],
     },
   },
   {

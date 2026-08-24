@@ -67,6 +67,15 @@ const skimCoatFormula: FormulaFn = (m, waste) => {
   return round1(area(m) * coats(m) * 1.5 * waste);
 };
 
+const plasterFormula: FormulaFn = (m, waste) => {
+  // Tynk bazowy (gipsowy/cementowo-wapienny) — masa w kg zalezna od grubosci warstwy.
+  // Gips maszynowy/reczny ~0.9-1.0 kg/m² na 1 mm grubosci (jedna warstwa); tynk
+  // cementowo-wapienny jest ciezszy (~1.4 kg/m²/mm) — nota produktu w tierze niesie zastrzezenie.
+  // source: Knauf MP 75 ~10 kg/m² @ 10 mm; Knauf Goldband ~13 kg/m² @ 15 mm.
+  const thicknessMm = m.plasterThickness ?? m.layers ?? 10;
+  return round1(area(m) * thicknessMm * 0.9 * waste);
+};
+
 const sandpaperFormula: FormulaFn = (m, _waste) => {
   return Math.ceil(area(m) / 5);
 };
@@ -193,6 +202,7 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   tape:            tapeFormula,
   filler:          fillerFormula,
   skimCoat:        skimCoatFormula,
+  plaster:         plasterFormula,
   mesh:            meshFormula,
   sandpaper:       sandpaperFormula,
   // ── Flooring ────────────────────────────────────────────────────────────

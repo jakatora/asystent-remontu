@@ -762,6 +762,55 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
     productUrl:
       "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
   },
+
+  // --- Etap tynkowania ścian (materials.ts: tynki bazowe + grunt/kontakt) ---
+  // UWAGA: narożnik tynkarski aluminiowy (materials.ts: mat-plaster-corner-alu-mesh-25m)
+  // świadomie NIE trafia tu — pewne tylko 1 źródło z EAN 5900308102411 (Castorama),
+  // więc nie spełnia reguły ≥2 niezależnych źródeł kodu.
+
+  // Tynk gipsowy maszynowy Knauf MP 75 25 kg (materials.ts: mat-plaster-gypsum-machine-knauf-mp75-25kg).
+  // source: https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd (EAN 5902367206352)
+  // source: https://znajdzwyprzedaz.pl/wyprzedaz/tynki/tynk-maszynowy-knauf-mp-75-25-kg-5902367206352 (EAN 5902367206352)
+  "mat-plaster-gypsum-machine-knauf-mp75-25kg": {
+    ean: "5902367206352",
+    variant: "MP 75, maszynowy, 25 kg",
+    manufacturer: "Knauf",
+    productUrl:
+      "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
+  },
+
+  // Tynk gipsowy ręczny Knauf Goldband 25 kg (materials.ts: mat-plaster-gypsum-manual-knauf-goldband-25kg).
+  // source: https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd (EAN 5902367206383)
+  // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (EAN 5902367206383)
+  "mat-plaster-gypsum-manual-knauf-goldband-25kg": {
+    ean: "5902367206383",
+    variant: "Goldband, ręczny, 25 kg",
+    manufacturer: "Knauf",
+    productUrl:
+      "https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd",
+  },
+
+  // Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg (materials.ts: mat-plaster-cementlime-baumit-mpi25-30kg).
+  // source: https://mrowka.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html (EAN 5907534261158)
+  // source: https://www.grupapsb.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html (EAN 5907534261158)
+  "mat-plaster-cementlime-baumit-mpi25-30kg": {
+    ean: "5907534261158",
+    variant: "MPI 25, cementowo-wapienny, 30 kg",
+    manufacturer: "Baumit",
+    productUrl:
+      "https://mrowka.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html",
+  },
+
+  // Podkład/kontakt pod tynki Atlas Cerplast 15 kg (materials.ts: mat-plaster-primer-atlas-cerplast-15kg).
+  // source: https://www.castorama.pl/podklad-pod-tynki-atlas-cerplast-15-kg/5905400530032_CAPL.prd (EAN 5905400530032)
+  // source: https://ekobudsklep.pl/Tynki/3323-srodek-gruntujacy-podklad-tynkarski-cerplast-15kg-atlas-5905400530032.html (EAN 5905400530032)
+  "mat-plaster-primer-atlas-cerplast-15kg": {
+    ean: "5905400530032",
+    variant: "Cerplast, podkład z piaskiem kwarcowym, 15 kg",
+    manufacturer: "Atlas",
+    productUrl:
+      "https://www.castorama.pl/podklad-pod-tynki-atlas-cerplast-15-kg/5905400530032_CAPL.prd",
+  },
 };
 
 /** Zwraca wpis nakładki dla materiału albo undefined (brak pewnego kodu). */

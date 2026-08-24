@@ -6,7 +6,8 @@ import type { RenovationJob, RenovationCategory } from '@/types/domain';
 
 import { paintJob, paintCeilingJob }                                          from '@/data/jobs/paint';
 import { primerJob, wallRepairJob, skimCoatJob,
-         repaintJob, wallpaperInstallJob, wallpaperRemoveJob }                from '@/data/jobs/walls';
+         repaintJob, wallpaperInstallJob, wallpaperRemoveJob,
+         wallPlasteringJob }                                                  from '@/data/jobs/walls';
 import { underlayJob, laminateJob, vinylJob, vinylGluedJob,
          floorTilesJob, skirtingBoardsJob }                                   from '@/data/jobs/flooring';
 import { waterproofingJob, bathroomWallTilesJob, groutJob, siliconeJob }      from '@/data/jobs/bathroom';
@@ -43,6 +44,7 @@ const JOB_REGISTRY: readonly RenovationJob[] = Object.freeze([
   repaintJob,
   primerJob,
   wallRepairJob,
+  wallPlasteringJob,
   skimCoatJob,
   // ── Wallpaper ─────────────────────────────────────────────────────────────
   wallpaperJob,          // legacy (id: 'wallpaper') — kept for existing saved projects
@@ -140,6 +142,13 @@ const CATEGORY_META: Omit<RenovationCategory, 'jobCount'>[] = [
     name: 'Naprawa ścian',
     description: 'Uzupełnianie ubytków i pęknięć',
     icon: 'tool',
+    color: Colors.categoryWall,
+  },
+  {
+    id: 'plaster',
+    name: 'Tynkowanie ścian',
+    description: 'Tynk bazowy gipsowy lub cementowo-wapienny na surowym murze',
+    icon: 'layers',
     color: Colors.categoryWall,
   },
   {

@@ -1483,4 +1483,125 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Głębokość 30 cm dopasuj do wnęki. Deska 216 cm — na szersze okna dobierz liczbę sztuk.',
   },
+
+  // --- Etap tynkowania ścian: tynki bazowe + grunt/kontakt + narożnik ---
+  // NOWY etap (job wall-plastering, data/jobs/walls.ts). Tynk BAZOWY wewnętrzny na
+  // surowym murze: gips maszynowy/ręczny (pomieszczenia suche) lub cementowo-wapienny
+  // (wilgotne). Materiały markowe z REALNYM EAN (≥2 niezależne źródła w // source).
+  // DOKŁADNIE JEDEN tynk bazowy na tier w mappings.ts (materialType 'plaster') — engine
+  // liczy każdą pozycję na całą powierzchnię, więc dwa tynki w tierze podwoiłyby masę.
+  // Grunt/kontakt (Cerplast) i narożnik reużyte we wszystkich tierach. Tynki wyceniane
+  // za kg (pricePerKg), narożnik za mb (pricePerMb) — spójnie z formułami joba.
+  // 4 markowe EAN (tynki + grunt) wpisane do MATERIAL_EAN_OVERLAY (api-server); narożnik
+  // ma pewne tylko 1 źródło z EAN (Castorama) → świadomie POZA overlay (jak parapet Form).
+
+  // Tynk gipsowy maszynowy Knauf MP 75 25 kg — EAN 5902367206352. Cena 25,48 zł/worek (1,02 zł/kg, Castorama).
+  // Jednowarstwowy tynk gipsowy, zużycie ok. 10 kg/m²/10 mm, wilgotność do 70%. Najtańszy/najczęstszy → tier economy.
+  // source: https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd (EAN 5902367206352, cena 25,48 zł, 25 kg)
+  // source: https://znajdzwyprzedaz.pl/wyprzedaz/tynki/tynk-maszynowy-knauf-mp-75-25-kg-5902367206352 (EAN 5902367206352, Knauf MP 75 25 kg)
+  {
+    id: 'mat-plaster-gypsum-machine-knauf-mp75-25kg',
+    materialType: 'plaster',
+    productLabel: 'Tynk gipsowy maszynowy Knauf MP 75 25 kg',
+    brand: 'Knauf',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 25.48,
+    pricePerKg: 1.02,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Jednowarstwowy tynk gipsowy nakładany agregatem. Zużycie ok. 10 kg/m² na 10 mm. Pomieszczenia o wilgotności do 70%.',
+  },
+
+  // Tynk gipsowy ręczny Knauf Goldband 25 kg — EAN 5902367206383. Cena 31,98 zł/worek (1,28 zł/kg, Castorama).
+  // Nakładany ręcznie, warstwa 8–35 mm, zużycie ok. 13 kg/m²/15 mm. Do ręcznego tynkowania/wyrównań → tier standard.
+  // source: https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd (EAN 5902367206383, cena 31,98 zł, 25 kg)
+  // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (EAN 5902367206383, Knauf Goldband 25 kg)
+  {
+    id: 'mat-plaster-gypsum-manual-knauf-goldband-25kg',
+    materialType: 'plaster',
+    productLabel: 'Tynk gipsowy ręczny Knauf Goldband 25 kg',
+    brand: 'Knauf',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 31.98,
+    pricePerKg: 1.28,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Ręczny tynk gipsowy do wyrównywania krzywych ścian, ościeży, ubytków po instalacjach. Warstwa 8–35 mm (2 warstwy do 50 mm).',
+  },
+
+  // Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg — EAN 5907534261158. Cena 27,99 zł/worek (0,93 zł/kg, Mrówka).
+  // Trwalszy, do pomieszczeń wilgotnych/obciążonych, klasa CS II, A1. Zużycie ok. 14 kg/m²/10 mm → tier better.
+  // source: https://mrowka.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html (EAN 5907534261158, cena 27,99 zł, 30 kg)
+  // source: https://www.grupapsb.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html (EAN 5907534261158, Baumit MPI 25 30 kg)
+  {
+    id: 'mat-plaster-cementlime-baumit-mpi25-30kg',
+    materialType: 'plaster',
+    productLabel: 'Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg',
+    brand: 'Baumit',
+    packageSize: 30,
+    packageUnit: 'kg',
+    pricePerPackage: 27.99,
+    pricePerKg: 0.93,
+    category: 'better',
+    storeName: 'Mrówka',
+    sourceUrl:
+      'https://mrowka.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Tynk cementowo-wapienny do pomieszczeń wilgotnych (łazienka, garaż, piwnica). Twardszy od gipsowego. Zużycie ok. 14 kg/m² na 10 mm.',
+  },
+
+  // Podkład/kontakt pod tynki Atlas Cerplast 15 kg — EAN 5905400530032. Cena 148 zł/wiadro (9,87 zł/kg, Castorama).
+  // Masa gruntująca z piaskiem kwarcowym — chropowaci gładkie podłoża (beton) pod tynk. Zużycie ok. 0,3 kg/m².
+  // source: https://www.castorama.pl/podklad-pod-tynki-atlas-cerplast-15-kg/5905400530032_CAPL.prd (EAN 5905400530032, cena 148 zł, 15 kg)
+  // source: https://ekobudsklep.pl/Tynki/3323-srodek-gruntujacy-podklad-tynkarski-cerplast-15kg-atlas-5905400530032.html (EAN 5905400530032, Atlas Cerplast 15 kg)
+  {
+    id: 'mat-plaster-primer-atlas-cerplast-15kg',
+    materialType: 'primer',
+    productLabel: 'Podkład / kontakt pod tynki Atlas Cerplast 15 kg',
+    brand: 'Atlas',
+    packageSize: 15,
+    packageUnit: 'kg',
+    pricePerPackage: 148.0,
+    pricePerKg: 9.87,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/podklad-pod-tynki-atlas-cerplast-15-kg/5905400530032_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Kontakt z kruszywem kwarcowym — chropowaci gładki beton pod tynk gipsowy. Zużycie ok. 0,3 kg/m². Na chłonny mur zamiast tego grunt głęboko penetrujący.',
+  },
+
+  // Narożnik tynkarski aluminiowy z siatką 2,5 mb — EAN 5900308102411. Cena 18,48 zł/szt (7,39 zł/mb, Castorama).
+  // Aluminiowy narożnik perforowany z siatką na krawędzie zewnętrzne pod tynk. Producent Budmat.
+  // UWAGA: pewne tylko 1 źródło z tym EAN (Castorama) → świadomie NIE w MATERIAL_EAN_OVERLAY (reguła ≥2 źródeł).
+  // source: https://www.castorama.pl/naroznik-aluminiowy-z-siatka-2-5-mb/5900308102411_CAPL.prd (EAN 5900308102411, cena 18,48 zł, 2,5 mb)
+  // source: https://www.bricomarche.pl/naroznik-aluminiowy-20-x-20-z-siatka-7-x-7-l-2-5-mb (narożnik aluminiowy 20×20 z siatką 7×7, 2,5 mb — ten sam typ Budmat)
+  {
+    id: 'mat-plaster-corner-alu-mesh-25m',
+    materialType: 'plaster-corner',
+    productLabel: 'Narożnik tynkarski aluminiowy z siatką 2,5 mb',
+    packageSize: 2.5,
+    packageUnit: 'mb',
+    pricePerPackage: 18.48,
+    pricePerMb: 7.39,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/naroznik-aluminiowy-z-siatka-2-5-mb/5900308102411_CAPL.prd',
+    lastUpdated: '2026-08-24',
+    currency: 'PLN',
+    notes: 'Na zewnętrzne krawędzie (ościeża, słupki). Siatka zbroi tynk przy narożniku i chroni przed wykruszeniem.',
+  },
 ];
