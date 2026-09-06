@@ -2040,4 +2040,141 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Akryl (NIE silikon) — malowalny po wyschnięciu, do wypełnienia styku opaska/ościeżnica ze ścianą. Bezrozpuszczalnikowy, do wnętrz.',
   },
+
+  // --- Etap podłóg winylowych: panele SPC click, LVT klejony, podkład, klej, listwa ---
+  // Materiały etapu układania podłóg winylowych (joby vinyl-flooring / vinyl-click-flooring /
+  // vinyl-glued). Panele i podkład = m² (pricePerM2), klej = kg, listwa progowa = szt.
+  // Panele GoodHome i podkład Corksystem to marki własne/wyłączne Castoramy (dostępne w 1
+  // sieci) — jak istniejące panele laminowane Oakland i parapet Form, więc POZA nakładką EAN.
+  // Klej Soudal 26A jest sprzedawany w ≥2 akceptowanych sieciach (Castorama, Bricoman, Mrówka)
+  // z tym samym EAN → kwalifikuje się do MATERIAL_EAN_OVERLAY (dopięcie w osobnym kroku).
+  // DOKŁADNIE JEDEN panel m² na tier w mappings.ts (packageUnit 'm2') — inaczej engine podwoi
+  // powierzchnię. Folia PE (mat-vapor-foil-diall-pe-20m2) już jest w katalogu — reużyć, nie dublować.
+
+  // Panele podłogowe winylowe GoodHome SPC Arilla Dark Grey 2,5 m² — EAN 5059340969756. Cena 52,98 zł/m² (132,45 zł/opak. 2,5 m², Castorama).
+  // SPC click (drop-lock, montaż pływający bez kleju), grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/31, wodoodporne. Marka własna Castoramy (1 sieć) → poza overlay.
+  // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd (EAN 5059340969756, cena 52,98 zł/m², 132,45 zł/opak., SPC click 4 mm)
+  {
+    id: 'mat-vinyl-spc-click-goodhome-arilla-25m2',
+    materialType: 'vinyl-panel',
+    productLabel: 'Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²',
+    brand: 'GoodHome',
+    packageSize: 2.5,
+    packageUnit: 'm2',
+    pricePerPackage: 132.45,
+    pricePerM2: 52.98,
+    category: 'economy',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd',
+    lastUpdated: '2026-09-06',
+    currency: 'PLN',
+    notes: 'SPC click (drop-lock), montaż pływający bez kleju, grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/31, wodoodporne. Do ogrzewania podłogowego wodnego (<27°C).',
+  },
+
+  // Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m² — EAN 5063022676757. Cena 74,98 zł/m² (167,58 zł/opak. 2,235 m², Castorama).
+  // SPC click (Angle/drop-lock 5G), grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/33, wodoodporne. Marka własna Castoramy (1 sieć) → poza overlay.
+  // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd (EAN 5063022676757, cena 74,98 zł/m², 167,58 zł/opak., SPC click 4 mm klasa 33)
+  {
+    id: 'mat-vinyl-spc-click-goodhome-marvo-224m2',
+    materialType: 'vinyl-panel',
+    productLabel: 'Panele winylowe GoodHome SPC Marvo click 2,235 m²',
+    brand: 'GoodHome',
+    packageSize: 2.235,
+    packageUnit: 'm2',
+    pricePerPackage: 167.58,
+    pricePerM2: 74.98,
+    category: 'better',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd',
+    lastUpdated: '2026-09-06',
+    currency: 'PLN',
+    notes: 'SPC click (Angle/drop-lock 5G), montaż pływający bez kleju, grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/33 (użytkowanie komercyjne), wodoodporne, gwarancja 15 lat.',
+  },
+
+  // Panele podłogowe winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m² — EAN 5059340802435. Cena 49,98 zł/m² (64,97 zł/opak. 1,3 m², Castorama).
+  // LVT klejony do podłoża — samoprzylepny (klej fabrycznie na spodzie, zdejmuje się folię i przykleja), grubość 2,5 mm, warstwa ścieralna 0,3 mm, efekt marmuru. Marka własna Castoramy (1 sieć) → poza overlay.
+  // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd (EAN 5059340802435, cena 49,98 zł/m², 64,97 zł/opak., samoprzylepny LVT 2,5 mm)
+  {
+    id: 'mat-vinyl-glued-goodhome-ragga-13m2',
+    materialType: 'vinyl-panel',
+    productLabel: 'Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²',
+    brand: 'GoodHome',
+    packageSize: 1.3,
+    packageUnit: 'm2',
+    pricePerPackage: 64.97,
+    pricePerM2: 49.98,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd',
+    lastUpdated: '2026-09-06',
+    currency: 'PLN',
+    notes: 'LVT klejony do podłoża — samoprzylepny (klej na spodzie, montaż na sucho przez zdjęcie folii). Grubość 2,5 mm, warstwa ścieralna 0,3 mm, efekt marmuru, 7 szt./opak. (610 x 305 mm).',
+  },
+
+  // Podkład podłogowy pod panele winylowe Corksystem LVT 1,5 mm 6 m² — EAN 5061092900925. Cena 73,99 zł/opak. (12,33 zł/m², Castorama).
+  // Cienki podkład (1,5 mm) dedykowany pod panele winylowe LVT/SPC click — cienki celowo, żeby nie przeciążać zamków click. Redukcja hałasu 21 dB, odporny na wilgoć i pleśń. Marka Corksystem (Castorama) → poza overlay.
+  // source: https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd (EAN 5061092900925, cena 73,99 zł/opak. 6 m², 1,5 mm, pod panele winylowe LVT)
+  {
+    id: 'mat-vinyl-underlay-corksystem-lvt-6m2',
+    materialType: 'underlay',
+    productLabel: 'Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²',
+    brand: 'Corksystem',
+    packageSize: 6,
+    packageUnit: 'm2',
+    pricePerPackage: 73.99,
+    pricePerM2: 12.33,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd',
+    lastUpdated: '2026-09-06',
+    currency: 'PLN',
+    notes: 'Cienki podkład 1,5 mm dedykowany pod panele winylowe LVT/SPC click (cienki, by nie przeciążać zamków). Redukcja hałasu 21 dB, odporny na wilgoć/pleśń. Bez ogrzewania podłogowego.',
+  },
+
+  // Klej do wykładzin Soudal 26A 5 kg — EAN 5411183028395. Cena 118,00 zł/opak. (23,60 zł/kg, Castorama; ta sama cena Bricoman).
+  // Gotowy do użycia, bezrozpuszczalnikowy klej dyspersyjny do wykładzin winylowych/LVT (dryback), PCV, linoleum i dywanowych na chłonne posadzki. Do winyla klejonego (vinyl-glued) zamiast podkładu. EAN pewny w ≥2 akceptowanych sieciach → do MATERIAL_EAN_OVERLAY.
+  // source: https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd (EAN 5411183028395, cena 118,00 zł, winyl/PCV/linoleum/dywan)
+  // source: https://www.bricoman.pl/klej-do-wykladzin-soudal-26a-5kg-20484681.html (EAN 5411183028395, cena 118,00 zł brutto, Soudal 26A 5 kg)
+  // source: https://mrowka.com.pl/produkt/klej-do-wykladzin-26a-5-kg-soudal-5411183028395.html (EAN 5411183028395, Soudal 26A klej do wykładzin 5 kg)
+  {
+    id: 'mat-vinyl-adhesive-soudal-26a-5kg',
+    materialType: 'adhesive',
+    productLabel: 'Klej do wykładzin (winyl/LVT/PCV) Soudal 26A 5 kg',
+    brand: 'Soudal',
+    packageSize: 5,
+    packageUnit: 'kg',
+    pricePerPackage: 118.0,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd',
+    lastUpdated: '2026-09-06',
+    currency: 'PLN',
+    notes: 'Klej dyspersyjny gotowy do użycia, do wykładzin/paneli winylowych (LVT dryback), PCV, linoleum i dywanowych. Zużycie zależne od podłoża; czas otwarty ok. 20 min. Do winyla klejonego zamiast podkładu.',
+  },
+
+  // Profil progowy Cezar 40 mm srebrny 1 m aluminiowy 1 szt. — EAN 5904584845215. Cena 19,75 zł/szt. (Castorama).
+  // Listwa progowa/łącząca aluminiowa 40 mm, długość 1 m, montaż na wkręty z kołkami, wykończenie łączenia podłóg winylowych z innymi posadzkami. Marka Cezar (potwierdzona w Castoramie) → poza overlay.
+  // source: https://www.castorama.pl/departments/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-/5904584845215_CAPL.prd (EAN 5904584845215, cena 19,75 zł/szt., alu 40 mm x 1 m)
+  {
+    id: 'mat-vinyl-threshold-cezar-alu-40mm-1m',
+    materialType: 'threshold',
+    productLabel: 'Profil progowy aluminiowy Cezar 40 mm srebrny 1 m',
+    brand: 'Cezar',
+    packageSize: 1,
+    packageUnit: 'szt',
+    pricePerPackage: 19.75,
+    pricePerMb: 19.75,
+    category: 'standard',
+    storeName: 'Castorama',
+    sourceUrl:
+      'https://www.castorama.pl/departments/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-/5904584845215_CAPL.prd',
+    lastUpdated: '2026-09-06',
+    currency: 'PLN',
+    notes: 'Listwa progowa/łącząca aluminiowa 40 mm x 1 m, montaż na wkręty z kołkami. Wykończenie/maskowanie styku podłogi winylowej z inną posadzką w przejściach między pomieszczeniami.',
+  },
 ];
