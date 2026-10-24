@@ -1,3 +1,5 @@
+import { ProductImage } from './ProductImage';
+import { getProductPhoto } from '@/data/products/photos';
 // Zakładka „Wycena": read-only prezentacja wyceny etapu i całego remontu z
 // backendu cen (features/pricing/pricingApi). Bierze REALNY wynik lokalnego
 // kalkulatora (engine.calculate) dla etapu, wysyła do POST /pricing/project i
@@ -15,6 +17,7 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import type { CalculationResult } from '@/types/domain';
+import type { QualityTier } from '@/types/pricing';
 import {
   estimateProject,
   fetchPriceHistory,
@@ -37,6 +40,8 @@ import {
 
 interface CostEstimateTabProps {
   calc: CalculationResult | undefined;
+  qualityTier?: QualityTier;
+  region?: string;
 }
 
 type LoadState =
@@ -45,7 +50,7 @@ type LoadState =
   | { status: 'error'; message: string }
   | { status: 'success'; data: SerializedProject };
 
-export function CostEstimateTab({ calc }: CostEstimateTabProps) {
+export function CostEstimateTab({ calc, qualityTier = 'standard', region }: CostEstimateTabProps) {
   const { t } = useLanguage();
   const [state, setState] = useState<LoadState>({ status: 'idle' });
 
@@ -53,9 +58,9 @@ export function CostEstimateTab({ calc }: CostEstimateTabProps) {
     if (!calc) return;
     setState({ status: 'loading' });
     try {
-      const stage = toPricingStageInput(calc);
+      const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier);
       // Projekt = ten jeden etap: odpowiedź daje i rozbicie etapu, i sumę remontu.
-      const data = await estimateProject([stage]);
+      const data = await estimateProject([stage], { region });
       setState({ status: 'success', data });
     } catch (err) {
       const message =
@@ -64,7 +69,7 @@ export function CostEstimateTab({ calc }: CostEstimateTabProps) {
           : t('cmp.CostEstimate.errorNetwork');
       setState({ status: 'error', message });
     }
-  }, [calc, t]);
+  }, [calc, qualityTier, region, t]);
 
   useEffect(() => {
     if (calc && isPricingApiConfigured) void fetchEstimate();
@@ -75,7 +80,7 @@ export function CostEstimateTab({ calc }: CostEstimateTabProps) {
   }
 
   if (!isPricingApiConfigured) {
-    return <InfoState icon="wifi-off" text={t('cmp.CostEstimate.notConfigured')} />;
+    return <InfoState icon="wifi-off" text={t('upgrade.compare.noApi')} />;
   }
 
   return (
@@ -83,7 +88,7 @@ export function CostEstimateTab({ calc }: CostEstimateTabProps) {
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Feather name="tag" size={18} color={Colors.primary} />
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
-          {t('cmp.CostEstimate.title')}
+          {t('upgrade.compare.title')}
         </Txt>
       </View>
 
@@ -150,6 +155,13 @@ function EstimateResult({
 
   return (
     <>
+      {unresolved.length > 0 && (
+        <View style={{ padding: 16, borderRadius: 16, backgroundColor: Colors.warningBg }} accessibilityRole="alert">
+          <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
+        </View>
+      )}
+      {storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} />}
+
       {/* Sumy: koszt etapu + koszt całego remontu */}
       <View
         style={{
@@ -229,8 +241,6 @@ function EstimateResult({
         </View>
       )}
 
-      {/* „Gdzie kupić": najtańszy sklep na całość vs koszyk optymalny (rozbity) */}
-      {storeComparison && <WhereToBuySection cmp={storeComparison} />}
 
       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
         {t('cmp.CostEstimate.disclaimer')}
@@ -312,6 +322,7 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
         gap: 6,
       }}
     >
+      <ProductImage uri={getProductPhoto(product ?? {})} name={product?.name ?? ""} size={64} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
         <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>
           {product?.name ?? line.query.normalizedName ?? '—'}
@@ -606,11 +617,11 @@ function availabilityLabel(
  * rozbiciem po sklepach oraz baner „w jednym sklepie: +X". Nic nie liczy — kwoty
  * (grosze) pochodzą z backendu, tu tylko formatowanie na PLN.
  */
-function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
+function WhereToBuySection({ cmp, unresolvedCount }: { cmp: SerializedStoreComparison; unresolvedCount: number }) {
   const { t } = useLanguage();
   if (cmp.productCount === 0 || cmp.stores.length === 0) return null;
 
-  const full = cmp.cheapestFullStore;
+  const full = unresolvedCount === 0 ? cmp.cheapestFullStore : null;
   const extra = cmp.singleStoreExtraGrosze;
 
   return (
@@ -622,7 +633,7 @@ function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
         </Txt>
       </View>
       <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-        {t('cmp.CostEstimate.whereToBuyHint')}
+        {t('upgrade.compare.scope')}
       </Txt>
 
       {/* Najtańszy sklep na całość (pełne pokrycie) albo nota, gdy brak kompletu */}
@@ -640,7 +651,7 @@ function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
             <View style={{ flex: 1 }}>
               <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
-                {t('cmp.CostEstimate.cheapestStoreLabel')}
+                {t('upgrade.compare.oneStore')}
               </Txt>
               <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>
                 {full.store}
@@ -686,8 +697,8 @@ function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
             {t('cmp.CostEstimate.allStoresLabel')}
           </Txt>
         </View>
-        {cmp.stores.map((s) => (
-          <StoreBasketRow key={s.store} basket={s} productCount={cmp.productCount} />
+        {[...cmp.stores].sort((a, b) => a.missingCount - b.missingCount || a.totalGrosze - b.totalGrosze).map((s) => (
+          <StoreBasketRow key={s.store} basket={s} productCount={cmp.productCount + unresolvedCount} />
         ))}
       </View>
 
@@ -704,7 +715,7 @@ function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
           <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.primaryDark }}>
-            {t('cmp.CostEstimate.optimalBasketLabel')}
+            {t('upgrade.compare.manyStores')}
           </Txt>
           <Txt w="bold" style={{ fontSize: 16, color: Colors.primary }}>
             {formatGrosze(cmp.optimalBasketGrosze)}
@@ -740,10 +751,7 @@ function WhereToBuySection({ cmp }: { cmp: SerializedStoreComparison }) {
         >
           <Feather name="trending-up" size={18} color={Colors.textSecondary} />
           <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.text }}>
-            {t('cmp.CostEstimate.singleStoreExtra', {
-              store: full.store,
-              amount: formatGrosze(extra),
-            })}
+            {t('upgrade.compare.saving', { amount: formatGrosze(extra) })}
           </Txt>
         </View>
       )}
@@ -779,7 +787,7 @@ function StoreBasketRow({
   productCount: number;
 }) {
   const { t } = useLanguage();
-  const full = basket.missingCount === 0;
+  const full = basket.coveredCount === productCount;
   return (
     <View
       style={{
@@ -836,6 +844,13 @@ function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
         gap: 6,
       }}
     >
+      <ProductImage uri={getProductPhoto(line.product ?? {})} name={line.product?.name ?? ""} size={64} />
+      {line.packages && <PackageBreakdown packages={line.packages} unit={line.unit} totalGrosze={line.lineCostGrosze} savingsGrosze={line.savingsGrosze} />}
+      {line.packages?.map((entry, index) => entry.url?.startsWith('https://') ? (
+        <Pressable key={`${entry.store}-${index}`} onPress={() => { void Linking.openURL(entry.url!).catch(() => {}); }} accessibilityRole="link" style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 10 }}>
+          <Txt w="semibold" style={{ fontSize: 14, color: Colors.primaryDark }}>{entry.store} · {t('upgrade.compare.open')}</Txt>
+        </Pressable>
+      ) : null)}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
         <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>
           {line.product.name}
@@ -845,7 +860,7 @@ function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
         </Txt>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-        {offer && (
+        {offer && !line.packages && (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Feather name="shopping-bag" size={12} color={Colors.textMuted} />
             <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{offer.store}</Txt>
@@ -860,14 +875,16 @@ function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
           />
         )}
       </View>
-      <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-        {t('cmp.CostEstimate.consolidatedLineDetail', {
-          qty: formatQuantity(line.totalQuantity),
-          unit: line.unit ?? '',
-          packages: line.packagesNeeded,
-          unitPrice: offer ? formatGrosze(offer.unitPriceGrosze) : '—',
-        })}
-      </Txt>
+      {!line.packages && (
+        <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+          {t('cmp.CostEstimate.consolidatedLineDetail', {
+            qty: formatQuantity(line.totalQuantity),
+            unit: line.unit ?? '',
+            packages: line.packagesNeeded,
+            unitPrice: offer ? formatGrosze(offer.unitPriceGrosze) : '—',
+          })}
+        </Txt>
+      )}
     </View>
   );
 }
@@ -901,7 +918,9 @@ function PriceHistoryPanel({
     void (async () => {
       try {
         const res = await fetchPriceHistory({ productId, ean, gtin });
-        if (!cancelled) setData(res);
+        // Demo history must not manufacture a promotion badge for a real offer.
+        const hasUnverifiedHistory = res?.history.some(point => !point.source || /seed|fixture|mock|demo|reference/i.test(point.source));
+        if (!cancelled) setData(hasUnverifiedHistory ? null : res);
       } catch {
         if (!cancelled) setData(null); // awaria historii nie blokuje wyceny
       }

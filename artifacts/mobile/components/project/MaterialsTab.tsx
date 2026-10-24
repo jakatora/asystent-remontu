@@ -7,6 +7,8 @@ import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { CalculationResult } from '@/types/domain';
 import { useLanguage } from '@/context/LanguageContext';
+import { ProductImage } from './ProductImage';
+import { getProductPhoto } from '@/data/products/photos';
 
 interface MaterialsTabProps {
   calc: CalculationResult;
@@ -39,10 +41,12 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
             gap: 10,
           }}
         >
+          <ProductImage uri={getProductPhoto(m.material)} name={m.material.name} size={52} />
           <View style={{ flex: 1 }}>
             <Txt w="medium" style={{ fontSize: 14, color: Colors.text }}>
               {m.material.name}
             </Txt>
+            {m.packs !== undefined && m.material.packaging && <Txt w="semibold" style={{ fontSize: 13, marginTop: 4, color: Colors.text }}>{t('upgrade.product.packagingLabel', { count: m.packs, label: m.material.packaging.label })}</Txt>}
             {m.material.notes && (
               <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 2 }}>
                 {m.material.notes}

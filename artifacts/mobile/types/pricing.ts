@@ -112,6 +112,8 @@ export interface JobMaterialMapping {
 }
 
 export interface PricedBudgetEstimate {
+  /** Named omissions must remain visible beside every partial total. */
+  readonly unpricedMaterials?: readonly string[];
   readonly materialsSubtotal: number;
   readonly laborSubtotalMin: number;
   readonly laborSubtotalMax: number;

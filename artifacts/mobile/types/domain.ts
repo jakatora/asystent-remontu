@@ -67,6 +67,8 @@ export interface MaterialItem {
   /** Inline formula (overrides formulaKey if provided). */
   readonly formula?: FormulaFn;
   readonly pricePerUnit: number;
+  /** Explicit price basis; omitted preserves historical per-package pricing. */
+  readonly priceBasis?: 'unit' | 'package';
   readonly wasteFactor?: number;
   readonly roundingRule?: RoundingRule;
   readonly packaging?: PackagingInfo;
@@ -338,6 +340,8 @@ export interface ProjectActivity {
 
 export interface MaterialLineItem {
   readonly material: MaterialItem | MaterialRequirement;
+  /** Requirement in the material's native unit, before rounding to packages. */
+  readonly rawQuantity?: number;
   readonly quantity: number;
   /** Quantity converted to purchase units (packages), if packaging is defined. */
   readonly packs?: number;

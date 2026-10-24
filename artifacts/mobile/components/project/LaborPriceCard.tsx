@@ -1,3 +1,4 @@
+import { parseDecimal } from '@/shared/lib/number';
 import React, { useState } from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -21,7 +22,7 @@ export function LaborPriceCard({ item, onOverride, onReset }: LaborPriceCardProp
   const hasOverride = item.overridePrice !== undefined;
 
   const handleSave = () => {
-    const val = parseFloat(editValue.replace(',', '.'));
+    const val = parseDecimal(editValue);
     if (!isNaN(val) && val > 0) {
       onOverride(ref.id, val);
     }

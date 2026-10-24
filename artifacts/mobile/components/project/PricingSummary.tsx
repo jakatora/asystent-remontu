@@ -53,6 +53,14 @@ export function PricingSummary({
 
       <QualityTierSelector selected={qualityTier} onSelect={onSelectTier} />
 
+      {!!estimate.unpricedMaterials?.length && (
+        <View style={{ backgroundColor: Colors.warningBg, padding: 16, borderRadius: 14, gap: 8 }} accessibilityRole="alert">
+          <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('upgrade.partial.title')}</Txt>
+          <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>{t('upgrade.partial.body')}</Txt>
+          {estimate.unpricedMaterials.map(name => <Txt key={name} style={{ fontSize: 14, color: Colors.text }}>• {name}</Txt>)}
+        </View>
+      )}
+
       {hasLabor && estimate.laborDetails.length > 0 && (
         <View style={{ gap: 8 }}>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.PricingSummary.laborProfessional')}</Txt>
@@ -147,7 +155,7 @@ export function PricingSummary({
         )}
         <Divider />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, backgroundColor: Colors.primaryBg }}>
-          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('cmp.PricingSummary.totalEstimate')}</Txt>
+          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t(estimate.unpricedMaterials?.length ? 'upgrade.partial.total' : 'cmp.PricingSummary.totalEstimate')}</Txt>
           <Txt w="bold" style={{ fontSize: 18, color: Colors.primary }}>
             {estimate.totalEstimateMin === estimate.totalEstimateMax
               ? formatCurrency(estimate.totalEstimateMin)

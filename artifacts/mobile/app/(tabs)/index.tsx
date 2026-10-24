@@ -31,6 +31,7 @@ export default function HomeScreen() {
   const activeCount = projects.filter((p) => p.status === 'in-progress').length;
   const completedCount = projects.filter((p) => p.status === 'completed').length;
   const activeProject = projects.find((p) => p.status === 'in-progress');
+  const shoppingProject = activeProject ?? recentProjects[0];
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
@@ -92,6 +93,18 @@ export default function HomeScreen() {
           <Feather name="chevron-right" size={18} color={Colors.warning} />
         </TouchableOpacity>
       )}
+
+      <View style={{ marginHorizontal: 20, marginBottom: 24, padding: 22, borderRadius: 24, backgroundColor: '#134E4A', gap: 12 }}>
+        <Feather name="shopping-bag" size={26} color="#99F6E4" />
+        <Txt w="bold" style={{ fontSize: 25, lineHeight: 32, color: '#FFFFFF' }}>{t('upgrade.compare.homeTitle')}</Txt>
+        <Txt style={{ fontSize: 15, lineHeight: 22, color: '#CCFBF1' }}>{t('upgrade.compare.homeBody')}</Txt>
+        <TouchableOpacity accessibilityRole="button" testID="compare-prices-home"
+          onPress={() => shoppingProject ? router.push({ pathname: '/project/[id]', params: { id: shoppingProject.id, tab: 'estimate' } }) : router.push('/wizard')}
+          style={{ minHeight: 50, padding: 14, borderRadius: 14, backgroundColor: '#FFFFFF', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <Txt w="bold" style={{ flex: 1, fontSize: 15, color: '#134E4A' }}>{t(shoppingProject ? 'upgrade.compare.homeAction' : 'upgrade.compare.homeStart')}</Txt>
+          <Feather name="arrow-right" size={20} color="#134E4A" />
+        </TouchableOpacity>
+      </View>
 
       {/* ── HERO: Browse renovations (PRIMARY CONTENT) ─────────────────────── */}
       <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>

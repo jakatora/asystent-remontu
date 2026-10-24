@@ -8,9 +8,12 @@ import type { ShoppingItem } from '@/types/domain';
 import { TierBadge } from './TierBadge';
 import { getEffectivePrice, getEffectiveQuantity } from './helpers';
 import { useLanguage } from '@/context/LanguageContext';
+import { ProductImage } from './ProductImage';
 
 interface ShoppingItemCardProps {
   item: ShoppingItem;
+  imageUrl?: string;
+  packageLabel?: string;
   editing: boolean;
   editPrice: string;
   editQty: string;
@@ -26,6 +29,8 @@ interface ShoppingItemCardProps {
 
 export function ShoppingItemCard({
   item,
+  imageUrl,
+  packageLabel,
   editing,
   editPrice,
   editQty,
@@ -59,7 +64,7 @@ export function ShoppingItemCard({
 
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <View style={{ flex: 1, gap: 4 }}>
-            <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.quantity', { unit: item.unit })}</Txt>
+            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.quantity', { unit: item.unit })}</Txt>
             <TextInput
               value={editQty}
               onChangeText={onEditQty}
@@ -77,7 +82,7 @@ export function ShoppingItemCard({
             />
           </View>
           <View style={{ flex: 1, gap: 4 }}>
-            <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.price')}</Txt>
+            <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.price')}</Txt>
             <TextInput
               value={editPrice}
               onChangeText={onEditPrice}
@@ -127,7 +132,7 @@ export function ShoppingItemCard({
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        <TouchableOpacity onPress={onTogglePurchased} activeOpacity={0.7}>
+        <TouchableOpacity onPress={onTogglePurchased} activeOpacity={0.7} accessibilityRole="checkbox" accessibilityState={{ checked: item.purchased }} accessibilityLabel={item.name} style={{ minWidth: 44, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}>
           <View
             style={{
               width: 28,
@@ -143,6 +148,8 @@ export function ShoppingItemCard({
             {item.purchased && <Feather name="check" size={15} color="#fff" />}
           </View>
         </TouchableOpacity>
+
+        <ProductImage uri={imageUrl} name={item.name} size={52} />
 
         <View style={{ flex: 1, gap: 2 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
@@ -163,8 +170,8 @@ export function ShoppingItemCard({
               </View>
             )}
           </View>
-          <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-            {effectiveQty.toFixed(effectiveQty < 10 ? 1 : 0)} {item.unit}
+          <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
+            {item.customQuantity === undefined && packageLabel ? packageLabel : `${Number(effectiveQty.toFixed(2))} ${item.unit}`}
           </Txt>
         </View>
 
@@ -177,7 +184,7 @@ export function ShoppingItemCard({
       </View>
 
       {item.notes && (
-        <Txt style={{ fontSize: 11, color: Colors.textMuted, paddingLeft: 38, lineHeight: 15 }}>
+        <Txt style={{ fontSize: 12, color: Colors.textMuted, paddingLeft: 0, lineHeight: 18 }}>
           {item.notes}
         </Txt>
       )}
@@ -190,13 +197,14 @@ export function ShoppingItemCard({
             alignItems: 'center',
             gap: 4,
             paddingHorizontal: 8,
-            paddingVertical: 5,
+            paddingVertical: 10,
+            minHeight: 44,
             backgroundColor: Colors.surfaceAlt,
             borderRadius: 8,
           }}
         >
           <Feather name="edit-2" size={11} color={Colors.textSecondary} />
-          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.edit')}</Txt>
+          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.edit')}</Txt>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -206,13 +214,14 @@ export function ShoppingItemCard({
             alignItems: 'center',
             gap: 4,
             paddingHorizontal: 8,
-            paddingVertical: 5,
+            paddingVertical: 10,
+            minHeight: 44,
             backgroundColor: Colors.surfaceAlt,
             borderRadius: 8,
           }}
         >
           <Feather name="home" size={11} color={Colors.textSecondary} />
-          <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.haveIt')}</Txt>
+          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.haveIt')}</Txt>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -222,7 +231,8 @@ export function ShoppingItemCard({
             alignItems: 'center',
             gap: 4,
             paddingHorizontal: 8,
-            paddingVertical: 5,
+            paddingVertical: 10,
+            minHeight: 44,
             backgroundColor: Colors.dangerBg,
             borderRadius: 8,
           }}

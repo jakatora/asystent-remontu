@@ -15,6 +15,10 @@
 // wyglądała na kompletną, gdy nią nie jest (money-path: nie chowaj nierozliczonych).
 
 import type { CalculationResult } from '@/types/domain';
+import { getRequiredQuantity } from '@/features/calculator/requirements';
+import { getMaterialsForJob } from './registry';
+import { resolveMaterialQuantity } from './quantity';
+import type { MaterialCategory } from '@/types/pricing';
 
 // ─── Konfiguracja bazowego URL ────────────────────────────────────────────────
 // Osobny publiczny env, żeby dało się wskazać serwer wyceny niezależnie od reszty.
@@ -76,6 +80,7 @@ export type UnresolvedReason =
   | 'empty_query';
 
 export interface SerializedProduct {
+  imageUrl?: string | null;
   id: string;
   name: string;
   ean: string | null;
@@ -222,6 +227,7 @@ export interface SerializedStage {
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
 export interface SerializedConsolidatedLine {
+  packages?: SerializedPackage[];
   product: SerializedProduct;
   cheapestOffer: SerializedOffer;
   /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */
@@ -381,21 +387,26 @@ function readOptionalCode(material: object, key: 'ean' | 'gtin'): string | null 
  * kalkulatora (read-only). `packs` przekazujemy informacyjnie; backend liczy
  * opakowania z katalogu.
  */
-export function toPricingStageInput(calc: CalculationResult): PricingStageInput {
+export function toPricingStageInput(calc: CalculationResult, tier: MaterialCategory = 'standard'): PricingStageInput {
+  const references = getMaterialsForJob(calc.jobId, tier);
   return {
     jobId: calc.jobId,
-    materials: calc.materials.map((line) => ({
-      material: {
-        id: line.material.id,
-        name: line.material.name,
-        unit: line.material.unit,
-        category: line.material.category ?? null,
-        ean: readOptionalCode(line.material, 'ean'),
-        gtin: readOptionalCode(line.material, 'gtin'),
-      },
-      quantity: line.quantity,
-      ...(line.packs !== undefined ? { packs: line.packs } : {}),
-    })),
+    materials: calc.materials.map((line) => {
+      const matches = references.filter(ref => resolveMaterialQuantity(ref, calc)?.source.material.id === line.material.id);
+      const reference = matches.length === 1 ? matches[0] : undefined;
+      return {
+        material: {
+          id: line.material.id,
+          name: reference?.productLabel ?? line.material.name,
+          unit: reference?.packageUnit ?? line.material.unit,
+          category: reference?.materialType ?? line.material.category ?? null,
+          ean: readOptionalCode(line.material, 'ean'),
+          gtin: readOptionalCode(line.material, 'gtin'),
+        },
+        quantity: getRequiredQuantity(line, calc),
+        ...(line.packs !== undefined ? { packs: line.packs } : {}),
+      };
+    }),
     // Obmiary przekazujemy bez zmian — backend liczy z nich robociznę (m²/mb/szt).
     ...(calc.measurements ? { measurements: calc.measurements } : {}),
   };

@@ -1,3 +1,4 @@
+import { getProductPhoto } from '@/data/products/photos';
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -5,14 +6,12 @@ import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
-import { estimateBudget } from '@/features/calculator/budget';
 import type { ShoppingItem, RenovationJob, CalculationResult, BudgetEstimate } from '@/types/domain';
 import { ShoppingItemCard } from './ShoppingItemCard';
 import { SummaryRow, Divider } from './SummaryRow';
 import { CONTINGENCY_RATE } from './types';
 import { getEffectivePrice } from './helpers';
 import type { ShoppingEditState } from './types';
-import { CommerceReadinessSummary } from '@/components/commerce';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface ShoppingTabProps {
@@ -121,6 +120,8 @@ export function ShoppingTab({
           </View>
 
           <ShoppingSection
+            job={job}
+            calc={calc}
             icon="package"
             iconColor={Colors.primary}
             title={t('cmp.ShoppingTab.materials')}
@@ -136,6 +137,8 @@ export function ShoppingTab({
           />
 
           <ShoppingSection
+            job={job}
+            calc={calc}
             icon="tool"
             iconColor={Colors.info}
             title={t('cmp.ShoppingTab.tools')}
@@ -218,18 +221,6 @@ export function ShoppingTab({
             </View>
           </View>
 
-          {budget && (
-            <BudgetComparison
-              grandTotal={grandTotal}
-              budget={budget}
-              totalDays={calc?.totalDays ?? job.estimatedDays}
-            />
-          )}
-
-          {nonOwnedItems.length > 0 && (
-            <CommerceReadinessSummary shoppingItems={shoppingItems} />
-          )}
-
           <View style={{ gap: 10, marginTop: 4 }}>
             <Button
               label={t('cmp.ShoppingTab.refreshList')}
@@ -245,6 +236,8 @@ export function ShoppingTab({
 }
 
 function ShoppingSection({
+  job,
+  calc,
   icon,
   iconColor,
   title,
@@ -258,6 +251,8 @@ function ShoppingSection({
   onSaveEdit,
   onRemoveItem,
 }: {
+  job: RenovationJob;
+  calc?: CalculationResult;
   icon: string;
   iconColor: string;
   title: string;
@@ -282,10 +277,17 @@ function ShoppingSection({
           {title} ({items.length})
         </Txt>
       </View>
-      {items.map((item) => (
-        <ShoppingItemCard
+      {items.map((item) => {
+        const line = calc?.materials.find(line => line.material.id === item.materialId);
+        const product = line?.material ?? job.materials.find(material => material.id === item.materialId);
+        const packageLabel = line?.packs !== undefined && product?.packaging
+          ? t('upgrade.product.packagingLabel', { count: line.packs, label: product.packaging.label })
+          : undefined;
+        return <ShoppingItemCard
           key={item.id}
           item={item}
+          imageUrl={getProductPhoto(product ?? { id: item.materialId })}
+          packageLabel={packageLabel}
           editing={editState.editingId === item.id}
           editPrice={editState.editPrice}
           editQty={editState.editQty}
@@ -297,87 +299,11 @@ function ShoppingSection({
           onSaveEdit={() => onSaveEdit(item)}
           onCancelEdit={() => editState.setEditingId(null)}
           onRemove={() => onRemoveItem(item)}
-        />
-      ))}
+        />;
+      })}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4, paddingVertical: 6 }}>
         <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.ShoppingTab.sectionTotal', { title })}</Txt>
         <Txt w="bold" style={{ fontSize: 15, color: totalColor }}>{formatCurrency(total)}</Txt>
-      </View>
-    </View>
-  );
-}
-
-function BudgetComparison({ grandTotal, budget, totalDays }: { grandTotal: number; budget: BudgetEstimate; totalDays: number }) {
-  const { t } = useLanguage();
-  return (
-    <View
-      style={{
-        backgroundColor: Colors.surface,
-        borderRadius: 16,
-        borderWidth: 1,
-        borderColor: Colors.border,
-        overflow: 'hidden',
-      }}
-    >
-      <View style={{ padding: 14, backgroundColor: Colors.infoBg }}>
-        <Txt w="bold" style={{ fontSize: 15, color: '#1e40af' }}>{t('cmp.ShoppingTab.diyVsPro')}</Txt>
-      </View>
-      <View style={{ padding: 14, gap: 10 }}>
-        <View style={{ flexDirection: 'row', gap: 10 }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: Colors.successBg,
-              borderRadius: 12,
-              padding: 12,
-              alignItems: 'center',
-              gap: 4,
-              borderWidth: 1,
-              borderColor: '#BBF7D0',
-            }}
-          >
-            <Feather name="user" size={20} color={Colors.success} />
-            <Txt w="semibold" style={{ fontSize: 12, color: Colors.success }}>{t('cmp.ShoppingTab.diy')}</Txt>
-            <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{formatCurrency(grandTotal)}</Txt>
-            <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>{t('cmp.ShoppingTab.diyBreakdown')}</Txt>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: Colors.warningBg,
-              borderRadius: 12,
-              padding: 12,
-              alignItems: 'center',
-              gap: 4,
-              borderWidth: 1,
-              borderColor: '#FDE68A',
-            }}
-          >
-            <Feather name="users" size={20} color={Colors.warning} />
-            <Txt w="semibold" style={{ fontSize: 12, color: Colors.warning }}>Z fachowcem</Txt>
-            <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
-              {formatCurrency(budget.totalMin)}–{formatCurrency(budget.totalMax)}
-            </Txt>
-            <Txt style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center' }}>{t('cmp.ShoppingTab.proBreakdown')}</Txt>
-          </View>
-        </View>
-        {grandTotal < budget.totalMin && (
-          <View style={{ flexDirection: 'row', gap: 8, backgroundColor: Colors.successBg, borderRadius: 10, padding: 10, alignItems: 'flex-start' }}>
-            <Feather name="trending-down" size={14} color={Colors.success} style={{ marginTop: 1 }} />
-            <Txt style={{ flex: 1, fontSize: 13, color: '#065f46', lineHeight: 18 }}>
-              {t('cmp.ShoppingTab.savings', { amount: formatCurrency(budget.totalMin - grandTotal) })}
-            </Txt>
-          </View>
-        )}
-        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', padding: 4 }}>
-          <Feather name="clock" size={14} color={Colors.textMuted} style={{ marginTop: 1 }} />
-          <Txt style={{ flex: 1, fontSize: 12, color: Colors.textSecondary, lineHeight: 17 }}>
-            {t('cmp.ShoppingTab.estimatedTime', {
-              days: totalDays,
-              word: totalDays === 1 ? t('cmp.ShoppingTab.dayOne') : t('cmp.ShoppingTab.dayMany'),
-            })}
-          </Txt>
-        </View>
       </View>
     </View>
   );

@@ -1,3 +1,5 @@
+import { ProjectNavigation } from '@/components/project/ProjectNavigation';
+import { parseDecimal } from '@/shared/lib/number';
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Alert, Platform, Share } from 'react-native';
 import { useLocalSearchParams, router, Stack, useFocusEffect } from 'expo-router';
@@ -7,7 +9,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { useApp } from '@/context/AppContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { getJobById } from '@/data/jobs';
-import { estimateBudget } from '@/features/calculator/budget';
 import { computePricedBudget } from '@/features/pricing';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
@@ -42,7 +43,7 @@ function safeNavigateAway() {
 }
 
 export default function ProjectDetailScreen() {
-  const { id, fromWizard } = useLocalSearchParams<{ id: string; fromWizard?: string }>();
+  const { id, fromWizard, tab: requestedTab } = useLocalSearchParams<{ id: string; fromWizard?: string; tab?: Tab }>();
   const insets = useSafeAreaInsets();
   const { t } = useLanguage();
   const {
@@ -73,7 +74,7 @@ export default function ProjectDetailScreen() {
     resetOverride,
   } = useApp();
 
-  const [tab, setTab] = useState<Tab>('overview');
+  const [tab, setTab] = useState<Tab>(requestedTab && ['overview', 'estimate', 'shopping', 'guide', 'materials', 'tools', 'budget', 'photos'].includes(requestedTab) ? requestedTab : 'overview');
   const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -213,8 +214,8 @@ export default function ProjectDetailScreen() {
   };
 
   const handleSaveEdit = async (item: ShoppingItem) => {
-    const newPrice = parseFloat(editPrice);
-    const newQty = parseFloat(editQty);
+    const newPrice = parseDecimal(editPrice);
+    const newQty = parseDecimal(editQty);
     if (isFinite(newPrice) && newPrice >= 0) await updateItemPrice(item.id, newPrice);
     if (isFinite(newQty) && newQty > 0) await updateItemQuantity(item.id, newQty);
     setEditingId(null);
@@ -367,9 +368,15 @@ export default function ProjectDetailScreen() {
   const purchasedCount = nonOwnedItems.filter((i) => i.purchased).length;
   const isFirstTime = fromWizard === '1' && !welcomeDismissed;
   const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended, t);
-  const budget = calc ? estimateBudget(job, calc.totalCost) : null;
-
-  const TABS: Tab[] = ['overview', 'materials', 'tools', 'guide', 'shopping', 'estimate', 'budget', 'photos'];
+  const budget = calc && pricedBudget?.laborDetails.length ? {
+    materialsMin: calc.totalCost,
+    materialsMax: calc.totalCost,
+    laborMin: pricedBudget.laborSubtotalMin,
+    laborMax: pricedBudget.laborSubtotalMax,
+    totalMin: calc.totalCost + pricedBudget.laborSubtotalMin,
+    totalMax: calc.totalCost + pricedBudget.laborSubtotalMax,
+    currency: 'PLN' as const,
+  } : null;
 
   const data = {
     project,
@@ -434,41 +441,7 @@ export default function ProjectDetailScreen() {
         }}
       />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: Colors.surface,
-          borderBottomWidth: 1,
-          borderBottomColor: Colors.border,
-        }}
-      >
-        {TABS.map((tabId) => (
-          <TouchableOpacity
-            key={tabId}
-            onPress={() => setTab(tabId)}
-            style={{
-              flex: 1,
-              paddingVertical: 12,
-              alignItems: 'center',
-              borderBottomWidth: 2,
-              borderBottomColor: tab === tabId ? Colors.primary : 'transparent',
-            }}
-          >
-            <Txt
-              w={tab === tabId ? 'bold' : 'medium'}
-              style={{
-                fontSize: 10,
-                color: tab === tabId ? Colors.primary : Colors.textMuted,
-                textAlign: 'center',
-              }}
-            >
-              {t(TAB_LABEL_KEYS[tabId])}
-              {tabId === 'shopping' && shoppingItems.length > 0 ? ` (${shoppingItems.length})` : ''}
-              {tabId === 'photos' && photos.length > 0 ? ` (${photos.length})` : ''}
-            </Txt>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <ProjectNavigation selected={tab} onSelect={setTab} />
 
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
@@ -526,7 +499,7 @@ export default function ProjectDetailScreen() {
         )}
 
         {tab === 'estimate' && (
-          <CostEstimateTab calc={calc} />
+          <CostEstimateTab calc={calc} qualityTier={selectedQualityTier} region={selectedRegion} />
         )}
 
         {tab === 'budget' && calc && pricedBudget && (

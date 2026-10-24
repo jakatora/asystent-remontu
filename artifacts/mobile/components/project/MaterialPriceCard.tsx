@@ -1,3 +1,4 @@
+import { parseDecimal } from '@/shared/lib/number';
 import React, { useState } from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -6,6 +7,8 @@ import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { MaterialLineItemPriced } from '@/types/pricing';
 import { useLanguage } from '@/context/LanguageContext';
+import { ProductImage } from './ProductImage';
+import { getProductPhoto } from '@/data/products/photos';
 
 interface MaterialPriceCardProps {
   item: MaterialLineItemPriced;
@@ -21,7 +24,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
   const hasOverride = item.overridePrice !== undefined;
 
   const handleSave = () => {
-    const val = parseFloat(editValue.replace(',', '.'));
+    const val = parseDecimal(editValue);
     if (!isNaN(val) && val > 0) {
       onOverride(ref.id, val);
     }
@@ -46,8 +49,9 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
       }}
     >
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <View style={{ marginRight: 12 }}><ProductImage uri={getProductPhoto(ref)} name={ref.productLabel} /></View>
         <View style={{ flex: 1, marginRight: 8 }}>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }} numberOfLines={2}>
+          <Txt w="semibold" style={{ fontSize: 15, lineHeight: 21, color: Colors.text }}>
             {ref.productLabel}
           </Txt>
           <View style={{ flexDirection: 'row', gap: 6, marginTop: 3 }}>
@@ -70,13 +74,16 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
         </View>
         {!editing && (
           <TouchableOpacity
-            onPress={() => { setEditValue(ref.pricePerPackage.toFixed(2)); setEditing(true); }}
+            onPress={() => { setEditValue((item.overridePrice ?? ref.pricePerPackage).toFixed(2)); setEditing(true); }}
             hitSlop={8}
           >
             <Feather name="edit-2" size={14} color={Colors.textMuted} />
           </TouchableOpacity>
         )}
       </View>
+
+      <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('upgrade.product.packages', { count: item.packagesNeeded, size: ref.packageSize, unit: ref.packageUnit })}</Txt>
+      <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{t('upgrade.product.need', { quantity: Number(item.quantity.toFixed(2)), unit: ref.packageUnit })}</Txt>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>

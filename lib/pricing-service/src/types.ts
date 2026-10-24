@@ -185,6 +185,8 @@ export interface StageEstimate {
  * liczy się raz na zsumowanej ilości — stąd oszczędność względem sumy per-etap.
  */
 export interface ConsolidatedLine {
+  /** Exact purchase plan, including mixed package sizes and stores. */
+  packagePlan?: PackagePlan;
   product: Product;
   cheapestOffer: CheapestOffer;
   /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */

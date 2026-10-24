@@ -15,6 +15,7 @@ import { houseBuildA } from './house-build-a';
 import { houseBuildB } from './house-build-b';
 import { projectScreens } from './project';
 import { components } from './components';
+import { shoppingUpgrade } from './shopping-upgrade';
 
 export type Language = 'pl' | 'en';
 
@@ -24,6 +25,7 @@ export const LANGUAGES: { code: Language; label: string; nativeLabel: string }[]
 ];
 
 const pl = {
+  ...shoppingUpgrade.pl,
   ...common.pl,
   ...settings.pl,
   ...onboarding.pl,
@@ -40,6 +42,7 @@ const pl = {
 };
 
 const en = {
+  ...shoppingUpgrade.en,
   ...common.en,
   ...settings.en,
   ...onboarding.en,

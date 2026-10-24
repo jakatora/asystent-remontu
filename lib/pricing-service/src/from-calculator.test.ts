@@ -43,6 +43,7 @@ function offer(over: Partial<ProductOffer>): ProductOffer {
     productUrl: "https://leroymerlin.pl/p/1",
     availability: null,
     source: "leroy-merlin",
+    fetchedAt: new Date(),
     ...over,
   } as unknown as ProductOffer;
 }

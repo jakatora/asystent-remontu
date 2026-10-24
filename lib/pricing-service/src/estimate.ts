@@ -61,6 +61,19 @@ const defaultDeps: EstimateDeps = {
   listOffers: (db, productId) => listOffersForProduct(db, productId),
 };
 
+/** Product decision: offers older than 7 days cannot win a current comparison. */
+export const MAX_COMPARABLE_OFFER_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+
+export function isComparableOffer(offer: ProductOffer, now = Date.now()): boolean {
+  if (!offer.source || /seed|fixture|mock|demo|reference/i.test(offer.source)) return false;
+  const availability = (offer.availability ?? '').replace(/[\s_-]/g, '');
+  if (/outofstock|unavailable|niedost[eę]pn|brak|preorder|backorder/i.test(availability)) return false;
+  const fetched = offer.fetchedAt instanceof Date ? offer.fetchedAt.getTime() : NaN;
+  if (!Number.isFinite(fetched) || fetched > now + 5 * 60 * 1000 || now - fetched > MAX_COMPARABLE_OFFER_AGE_MS) return false;
+  const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
+  return price !== null && price > 0;
+}
+
 /**
  * Wybiera najtańszą ofertę po cenie EFEKTYWNEJ (promo ?? regular) w groszach.
  * Gdy podano `store` — bierze pod uwagę tylko oferty z tego sklepu. Oferty bez
@@ -70,13 +83,20 @@ const defaultDeps: EstimateDeps = {
 export function selectCheapestOffer(
   offers: readonly ProductOffer[],
   store?: string | null,
+  purchase?: { quantity: number; product: Product },
 ): CheapestOffer | null {
   let best: CheapestOffer | null = null;
+  let bestTotal = Infinity;
   for (const offer of offers) {
+    if (!isComparableOffer(offer)) continue;
     if (store && offer.store !== store) continue;
     const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
     if (unitPriceGrosze === null) continue;
-    if (best === null || unitPriceGrosze < best.unitPriceGrosze) {
+    const total = purchase
+      ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product)) * unitPriceGrosze
+      : unitPriceGrosze;
+    if (best === null || total < bestTotal || (total === bestTotal && unitPriceGrosze < best.unitPriceGrosze)) {
+      bestTotal = total;
       best = {
         offer,
         store: offer.store,
@@ -134,6 +154,7 @@ export function buildPackageVariants(
   // klucz = wielkość opakowania; wartość = najtańszy wariant tej wielkości.
   const bySize = new Map<number, PackageVariant>();
   for (const offer of offers) {
+    if (!isComparableOffer(offer)) continue;
     if (store && offer.store !== store) continue;
     const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
     if (unitPriceGrosze === null) continue;
@@ -196,8 +217,8 @@ async function estimateLine(
     return { resolved: false, ...base, reason, lineCost: 0 };
   }
 
-  const offers = await deps.listOffers(db, product.id);
-  const cheapestOffer = selectCheapestOffer(offers, options.store);
+  const offers = (await deps.listOffers(db, product.id)).filter(offer => isComparableOffer(offer));
+  const cheapestOffer = selectCheapestOffer(offers, options.store, { quantity: item.quantity, product });
   if (!cheapestOffer) {
     return { resolved: false, ...base, reason: "no-offer", lineCost: 0 };
   }
@@ -347,7 +368,10 @@ function groupProjectByProduct(
       }
     }
   }
-  return [...groups.values()];
+  return [...groups.values()].map(group => {
+    const cheapest = selectCheapestOffer(group.offers, undefined, { quantity: group.totalQuantity, product: group.product });
+    return cheapest ? { ...group, cheapestOffer: cheapest, packageSize: resolvePackageSize(cheapest.offer, group.product) } : group;
+  });
 }
 
 export function consolidateProject(
@@ -357,9 +381,11 @@ export function consolidateProject(
 
   const lines: ConsolidatedLine[] = [];
   for (const g of groups) {
-    const packagesNeeded = computePackagesNeeded(g.totalQuantity, g.packageSize);
-    const lineCostGrosze = packagesNeeded * g.cheapestOffer.unitPriceGrosze;
+    const packagePlan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product));
+    const packagesNeeded = packagePlan?.packages.reduce((sum, entry) => sum + entry.count, 0) ?? computePackagesNeeded(g.totalQuantity, g.packageSize);
+    const lineCostGrosze = packagePlan?.totalGrosze ?? packagesNeeded * g.cheapestOffer.unitPriceGrosze;
     lines.push({
+      ...(packagePlan ? { packagePlan } : {}),
       product: g.product,
       cheapestOffer: g.cheapestOffer,
       totalQuantity: g.totalQuantity,
@@ -407,16 +433,21 @@ export function compareStores(
   let optimalBasketGrosze = 0;
   const optimalByStoreMap = new Map<string, OptimalBasketStoreLine>();
   for (const g of groups) {
-    const packages = computePackagesNeeded(g.totalQuantity, g.packageSize);
-    const cost = packages * g.cheapestOffer.unitPriceGrosze;
-    optimalBasketGrosze += cost;
-    const store = g.cheapestOffer.store;
-    const acc = optimalByStoreMap.get(store);
-    if (acc) {
-      acc.totalGrosze += cost;
-      acc.itemCount += 1;
-    } else {
-      optimalByStoreMap.set(store, { store, totalGrosze: cost, itemCount: 1 });
+    const plan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product));
+    if (!plan) continue;
+    optimalBasketGrosze += plan.totalGrosze;
+    const countedStores = new Set<string>();
+    for (const entry of plan.packages) {
+      const store = entry.store;
+      const acc = optimalByStoreMap.get(store);
+      const itemCount = countedStores.has(store) ? 0 : 1;
+      countedStores.add(store);
+      if (acc) {
+        acc.totalGrosze += entry.lineCostGrosze;
+        acc.itemCount += itemCount;
+      } else {
+        optimalByStoreMap.set(store, { store, totalGrosze: entry.lineCostGrosze, itemCount });
+      }
     }
   }
   const optimalByStore = [...optimalByStoreMap.values()].sort(
@@ -436,14 +467,12 @@ export function compareStores(
     let coveredCount = 0;
     const missingProductIds: string[] = [];
     for (const g of groups) {
-      const cheapestHere = selectCheapestOffer(g.offers, store);
-      if (!cheapestHere) {
+      const plan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product, store));
+      if (!plan) {
         missingProductIds.push(g.product.id);
         continue;
       }
-      const size = resolvePackageSize(cheapestHere.offer, g.product);
-      const packages = computePackagesNeeded(g.totalQuantity, size);
-      totalGrosze += packages * cheapestHere.unitPriceGrosze;
+      totalGrosze += plan.totalGrosze;
       coveredCount += 1;
     }
     stores.push({

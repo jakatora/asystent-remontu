@@ -1,6 +1,6 @@
 export const Colors = {
-  primary: '#F97316',
-  primaryDark: '#EA6800',
+  primary: '#C2410C',
+  primaryDark: '#9A3412',
   primaryLight: '#FED7AA',
   primaryBg: '#FFF7ED',
 
@@ -24,8 +24,8 @@ export const Colors = {
   borderLight: '#F1F5F9',
 
   text: '#0F172A',
-  textSecondary: '#64748B',
-  textMuted: '#94A3B8',
+  textSecondary: '#475569',
+  textMuted: '#64748B',
   textOnPrimary: '#FFFFFF',
 
   difficultyEasy: '#22C55E',

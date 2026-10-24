@@ -115,6 +115,8 @@ export const paintJob: RenovationJob = {
         purchaseUnit: 'puszka',
       },
       pricePerUnit: 40,
+      // source: https://www.leroymerlin.pl/produkty/farba-magnat-ceramic-bialy-5-l-45615171.html
+      priceBasis: 'unit', // Existing reference price is PLN/litre, not PLN/5-litre can.
       category:     'farba',
       notes:        'Wybierz farbę zmywalną klasy A lub B. Do kuchni/łazienki — zmywalna łatwa. Referencyjny produkt: Magnat Ceramic C45 5L (biały).',
       shopPrices: [
@@ -139,6 +141,8 @@ export const paintJob: RenovationJob = {
         purchaseUnit: 'pojemnik',
       },
       pricePerUnit: 9,
+      // source: https://www.leroymerlin.pl/produkty/grunt-gleboko-penetrujacy-akrylowy-dragon-5-litrow-94230442.html
+      priceBasis: 'unit',
       category:     'grunt',
       optional:     true,
       notes:        'Wymagany na: nowych ścianach, naprawianych miejscach, ścianach po zeskrobaniu, pylących/kredujących/bardzo chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie NIE jest konieczny.',

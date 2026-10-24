@@ -89,6 +89,8 @@ export interface MaterialRequirement {
   readonly packaging?: PackagingInfo;
   /** Reference price per purchase unit in PLN. */
   readonly pricePerUnit: number;
+  /** Omitted preserves legacy per-package prices. */
+  readonly priceBasis?: 'unit' | 'package';
   readonly notes?: string;
   readonly brand?: string;
   /** Broad material group for UI grouping (paint / adhesive / profile / etc.). */

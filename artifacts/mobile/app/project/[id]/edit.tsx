@@ -1,3 +1,4 @@
+import { parseDecimal } from '@/shared/lib/number';
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -106,9 +107,9 @@ export default function EditProjectScreen() {
 
     setSaving(true);
     try {
-      const w = parseFloat(roomWidth);
-      const l = parseFloat(roomLength);
-      const h = parseFloat(roomHeight);
+      const w = parseDecimal(roomWidth);
+      const l = parseDecimal(roomLength);
+      const h = parseDecimal(roomHeight);
 
       await updateProject({
         ...project,
@@ -251,10 +252,10 @@ export default function EditProjectScreen() {
               keyboardType="decimal-pad"
             />
 
-            {isFinite(parseFloat(roomWidth)) &&
-              isFinite(parseFloat(roomLength)) &&
-              parseFloat(roomWidth) > 0 &&
-              parseFloat(roomLength) > 0 && (
+            {isFinite(parseDecimal(roomWidth)) &&
+              isFinite(parseDecimal(roomLength)) &&
+              parseDecimal(roomWidth) > 0 &&
+              parseDecimal(roomLength) > 0 && (
                 <View
                   style={{
                     flexDirection: 'row',
@@ -267,7 +268,7 @@ export default function EditProjectScreen() {
                 >
                   <Feather name="grid" size={14} color={Colors.info} />
                   <Txt w="medium" style={{ fontSize: 13, color: Colors.info }}>
-                    {t('project.edit.areaLabel', { area: (parseFloat(roomWidth) * parseFloat(roomLength)).toFixed(1) })}
+                    {t('project.edit.areaLabel', { area: (parseDecimal(roomWidth) * parseDecimal(roomLength)).toFixed(1) })}
                   </Txt>
                 </View>
               )}

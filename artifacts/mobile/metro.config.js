@@ -23,7 +23,10 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
   path.resolve(workspaceRoot, 'node_modules'),
 ];
-config.resolver.disableHierarchicalLookup = true;
+// pnpm dependencies live beside their consumers in .pnpm/*/node_modules.
+// Keep Node-style lookup enabled; the root fallback alone misses Router peers.
+// source: https://docs.expo.dev/guides/monorepos/
+config.resolver.disableHierarchicalLookup = false;
 
 // expo-sqlite's web worker imports a .wasm file — Metro must treat it as an asset.
 config.resolver.assetExts.push('wasm');

@@ -31,6 +31,7 @@ import {
 } from "@workspace/db/repositories";
 
 export interface SerializedProduct {
+  imageUrl?: string | null;
   id: string;
   name: string;
   ean: string | null;
@@ -192,6 +193,7 @@ export interface SerializedStage {
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
 export interface SerializedConsolidatedLine {
+  packages?: SerializedPackage[];
   product: SerializedProduct;
   cheapestOffer: SerializedOffer;
   /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */
@@ -272,6 +274,7 @@ export interface SerializedProject {
 
 /** Wspólna serializacja produktu do stabilnego kształtu HTTP (id + kody + opakowanie). */
 function serializeProduct(product: {
+  imageUrl?: string | null;
   id: string;
   name: string;
   ean: string | null;
@@ -281,6 +284,7 @@ function serializeProduct(product: {
   packageUnit: string | null;
 }): SerializedProduct {
   return {
+    ...(product.imageUrl ? { imageUrl: product.imageUrl } : {}),
     id: product.id,
     name: product.name,
     ean: product.ean,
@@ -436,6 +440,10 @@ function serializeConsolidatedLine(
   line: ConsolidatedLine,
 ): SerializedConsolidatedLine {
   return {
+    ...(line.packagePlan ? { packages: line.packagePlan.packages.map(entry => ({
+      packageSize: entry.packageSize, count: entry.count, unitPriceGrosze: entry.unitPriceGrosze,
+      lineCostGrosze: entry.lineCostGrosze, store: entry.store, url: entry.url,
+    })) } : {}),
     product: serializeProduct(line.product),
     cheapestOffer: {
       offerId: line.cheapestOffer.offer.id,

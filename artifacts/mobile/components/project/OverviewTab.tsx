@@ -33,10 +33,8 @@ interface OverviewTabProps {
 
 export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purchasedCount, nonOwnedCount }: OverviewTabProps) {
   const { t } = useLanguage();
-  const { project, job, calc, shoppingItems, checklist, checklistProgress, activities, diy } = data;
-
-  const proLaborMultiplier = 1.8;
-  const proEstimate = calc ? calc.totalCost * (1 + proLaborMultiplier) : null;
+  const { project, job, calc, shoppingItems, checklist, checklistProgress, activities, diy, budget } = data;
+  const proEstimate = budget ? `${formatCurrency(budget.totalMin)}–${formatCurrency(budget.totalMax)}` : null;
 
   const roomArea = project.roomWidth && project.roomLength
     ? (project.roomWidth * project.roomLength).toFixed(1)
@@ -213,7 +211,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
           {proEstimate && (
             <>
               <Divider />
-              <SummaryRow icon="users" label={t('cmp.OverviewTab.withProfessional')} value={`~${formatCurrency(proEstimate)}`} valueColor={Colors.textSecondary} />
+              <SummaryRow icon="users" label={t('cmp.OverviewTab.withProfessional')} value={proEstimate} valueColor={Colors.textSecondary} />
             </>
           )}
           <Divider />

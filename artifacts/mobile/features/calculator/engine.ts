@@ -40,7 +40,7 @@ function applyRounding(
   }
 }
 
-function computeRawQuantity(
+export function computeRawQuantity(
   material: MaterialItem | MaterialRequirement,
   measurements: MeasurementMap
 ): number {
@@ -152,10 +152,10 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
-      const { quantity, packs } = resolveMaterialQuantity(material, measurements);
-      const billableQty = packs !== undefined ? packs : quantity;
+      const { rawQuantity, quantity, packs } = resolveMaterialQuantity(material, measurements);
+      const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
       const cost = roundMoney(billableQty * material.pricePerUnit);
-      return { material, quantity, packs, cost };
+      return { material, rawQuantity, quantity, packs, cost };
     });
   }
 
@@ -173,7 +173,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
         ? packaging.purchaseUnit
         : (material.purchaseUnit ?? material.unit);
 
-      const billableQty = packs !== undefined ? packs : quantity;
+      const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
       const cost = roundMoney(billableQty * material.pricePerUnit);
 
       const wasteQty = Math.max(0, rawQuantity - (rawQuantity / (material.wasteFactor ?? DEFAULT_WASTE_FACTOR)));

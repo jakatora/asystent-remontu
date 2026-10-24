@@ -8,7 +8,7 @@ import type { EstimateDeps } from "@workspace/pricing-service";
 import type { CalculatorStageResult } from "@workspace/pricing-service";
 import type { HistoryDeps } from "../src/routes/pricing";
 
-const now = new Date("2026-08-22T00:00:00Z");
+const now = new Date();
 
 // Produkt katalogowy: farba 5 l, dopasowywana po EAN "111".
 export const product = {
@@ -46,7 +46,7 @@ export const offerCastorama = {
   productUrl: "https://castorama.pl/farba",
   availability: "in_stock",
   fetchedAt: now,
-  source: null,
+  source: "retailer-feed",
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 
@@ -63,7 +63,7 @@ export const offerLeroy = {
   productUrl: "https://leroymerlin.pl/farba",
   availability: "in_stock",
   fetchedAt: now,
-  source: null,
+  source: "retailer-feed",
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 

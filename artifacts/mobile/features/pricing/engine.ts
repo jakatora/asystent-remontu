@@ -10,6 +10,7 @@ import type { CalculationResult, RenovationJob } from '@/types/domain';
 import { getLaborForJob, getMaterialsForJob } from './registry';
 import { getRegionOrBaseline } from '@/data/prices/regions';
 import { roundMoney } from '@/shared/lib/currency';
+import { resolveMaterialQuantity } from './quantity';
 
 interface PricingInput {
   job: RenovationJob;
@@ -59,25 +60,35 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
   });
 
   const materialRefs = getMaterialsForJob(job.id, effectiveTier);
-  const materialDetails: MaterialLineItemPriced[] = materialRefs.map((ref) => {
+  const unpricedMaterials: string[] = [];
+  const pricedSourceIds = new Set<string>();
+  const materialDetails: MaterialLineItemPriced[] = materialRefs.flatMap((ref) => {
+    const requirement = resolveMaterialQuantity(ref, calc);
+    if (!requirement) {
+      return [];
+    }
+    pricedSourceIds.add(requirement.source.material.id);
     const overrideKey = `material:${ref.id}`;
     const hasOverride = overrideMap.has(overrideKey);
     const effectivePrice = hasOverride ? overrideMap.get(overrideKey)! : ref.pricePerPackage;
 
-    const quantity = getQuantityForMaterial(ref, calc, primaryArea);
+    const quantity = requirement.quantity;
     const packagesNeeded = ref.packageSize > 0
       ? Math.ceil(quantity / ref.packageSize)
       : Math.ceil(quantity);
     const totalCost = roundMoney(packagesNeeded * effectivePrice);
 
-    return {
+    return [{
       materialRef: ref,
       quantity,
       packagesNeeded,
       totalCost,
       overridePrice: hasOverride ? overrideMap.get(overrideKey) : undefined,
-    };
+    }];
   });
+  for (const line of calc.materials) {
+    if (line.quantity > 0 && !pricedSourceIds.has(line.material.id)) unpricedMaterials.push(line.material.name);
+  }
 
   const toolsSubtotal = roundMoney(
     job.tools
@@ -92,6 +103,7 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
   const latestDate = getLatestDate(laborRefs, materialRefs);
 
   return {
+    unpricedMaterials: [...new Set(unpricedMaterials)],
     materialsSubtotal,
     laborSubtotalMin,
     laborSubtotalMax,
@@ -119,19 +131,6 @@ function getPrimaryArea(calc: CalculationResult): number {
   if (m.linearMeters) return m.linearMeters;
   if (m.perimeter) return m.perimeter;
   return Object.values(m).find((v) => typeof v === 'number' && v > 0) ?? 1;
-}
-
-function getQuantityForMaterial(
-  ref: { packageUnit: string; pricePerM2?: number; pricePerMb?: number },
-  calc: CalculationResult,
-  primaryArea: number
-): number {
-  const unit = ref.packageUnit.toLowerCase();
-  if (unit === 'm2' || ref.pricePerM2) return primaryArea;
-  if (unit === 'mb' || ref.pricePerMb) {
-    return calc.measurements.perimeter ?? calc.measurements.linearMeters ?? primaryArea;
-  }
-  return primaryArea;
 }
 
 function getLatestDate(

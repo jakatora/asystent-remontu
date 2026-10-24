@@ -1,3 +1,5 @@
+import { parseDecimal } from '@/shared/lib/number';
+import { parseMeasurements } from '@/shared/lib/measurements';
 import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
@@ -407,13 +409,8 @@ export default function WizardScreen() {
       case 'diy':       return draft.diyMode        ? null : t('wizard.error.diy');
       case 'measure': {
         if (!selectedJob) return null;
-        const required = selectedJob.measurementInputs.filter((i) => i.required !== false && !i.defaultValue);
-        for (const inp of required) {
-          const val = parseFloat(draft.measurements[inp.id] ?? '');
-          if (isNaN(val) || val <= 0) {
-            return t('wizard.error.measureValue', { label: inp.label });
-          }
-        }
+        const { errors } = parseMeasurements(selectedJob, draft.measurements);
+        if (errors.length > 0) return t('wizard.error.measureValue', { label: errors[0].label });
         return null;
       }
       default: return null;
@@ -440,15 +437,15 @@ export default function WizardScreen() {
 
   const handleSave = useCallback(async () => {
     if (!selectedJob) return;
+    const parsed = parseMeasurements(selectedJob, draft.measurements);
+    if (parsed.errors.length > 0) {
+      goTo('measure');
+      setValidationError(t('wizard.error.measureValue', { label: parsed.errors[0].label }));
+      return;
+    }
     setSaving(true);
     try {
-      const meas: Record<string, number> = {};
-      for (const inp of selectedJob.measurementInputs) {
-        const raw  = draft.measurements[inp.id];
-        const def  = inp.defaultValue;
-        const val  = raw !== undefined ? parseFloat(raw) : def ?? 0;
-        meas[inp.id] = isNaN(val) ? (def ?? 0) : val;
-      }
+      const meas = parsed.values;
 
       const calcResult = calculateMaterials(selectedJob, meas);
 
@@ -460,13 +457,14 @@ export default function WizardScreen() {
         jobId: selectedJob.id,
         jobName: selectedJob.name,
         categoryId: selectedJob.categoryId,
+        roomName: ROOM_OPTIONS.find(room => room.id === draft.room)?.label ?? draft.room ?? undefined,
         measurements: meas,
         calculationResult: calcResult,
         status: 'planning',
       });
 
       // Auto-generate shopping list immediately
-      await generateAndAddShoppingItems(projectId, calcResult);
+      await generateAndAddShoppingItems(projectId, calcResult, selectedJob);
 
       clearDraft();
       router.replace({ pathname: '/project/[id]', params: { id: projectId, fromWizard: '1' } });
@@ -1080,7 +1078,7 @@ export default function WizardScreen() {
                     const hasError =
                       validationError &&
                       !isOptional &&
-                      (val === '' || isNaN(parseFloat(val)));
+                      (val === '' || isNaN(parseDecimal(val)));
 
                     return (
                       <View key={inp.id} style={{ gap: 6 }}>
