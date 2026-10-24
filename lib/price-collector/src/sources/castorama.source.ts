@@ -18,8 +18,8 @@ import {
 import type { ProductFeedItem } from "./mrowka.feed";
 
 export class CastoramaSource extends FeedPriceSource {
-  constructor(items: readonly ProductFeedItem[] = CASTORAMA_FEED_FIXTURE) {
-    super("castorama", "Castorama", items);
+  constructor(items: readonly ProductFeedItem[] = CASTORAMA_FEED_FIXTURE, provenance: 'fixture' | 'feed' = 'fixture') {
+    super("castorama", "Castorama", items, provenance);
   }
 }
 
@@ -36,5 +36,5 @@ export async function loadCastoramaFromFeedUrl(
   options: FeedFetchOptions = {},
 ): Promise<CastoramaSource> {
   const items = await fetchFeedItemsFromUrl(url, fetchImpl, options);
-  return new CastoramaSource(items);
+  return new CastoramaSource(items, 'feed');
 }

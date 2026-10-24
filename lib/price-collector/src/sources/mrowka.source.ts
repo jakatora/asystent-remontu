@@ -20,8 +20,8 @@ import { MROWKA_FEED_FIXTURE } from "./mrowka.fixture";
 export type { FetchLike, FeedFetchOptions } from "./merchant-feed";
 
 export class MrowkaSource extends FeedPriceSource {
-  constructor(items: readonly ProductFeedItem[] = MROWKA_FEED_FIXTURE) {
-    super("mrowka", "PSB Mrówka", items);
+  constructor(items: readonly ProductFeedItem[] = MROWKA_FEED_FIXTURE, provenance: 'fixture' | 'feed' = 'fixture') {
+    super("mrowka", "PSB Mrówka", items, provenance);
   }
 }
 
@@ -38,5 +38,5 @@ export async function loadMrowkaFromFeedUrl(
   options: FeedFetchOptions = {},
 ): Promise<MrowkaSource> {
   const items = await fetchFeedItemsFromUrl(url, fetchImpl, options);
-  return new MrowkaSource(items);
+  return new MrowkaSource(items, 'feed');
 }

@@ -130,7 +130,8 @@ function parsePositiveIntEnv(raw: string | undefined): number | undefined {
  *   - Leroy Merlin: `STORE3_FEED_URL`.
  * Gdy URL danego sklepu jest ustawiony, adapter pobiera feed LEGALNIE po HTTP
  * (z timeoutem `STORE_FEED_TIMEOUT_MS` i retry `STORE_FEED_RETRIES`, wspólnymi dla
- * wszystkich sklepów); w przeciwnym razie używa wbudowanej migawki (bez sieci).
+ * wszystkich sklepów). Bez URL źródło jest pomijane. Próbki są dostępne
+ * wyłącznie przez jawne PRICE_COLLECTOR_ALLOW_FIXTURES=true i oznaczone fixture.
  * Sieć jest TYLKO tutaj (granica) — reszta modułu pozostaje czysta i testowalna.
  * Dzięki temu scheduler/CLI/admin zbierają ceny ze WSZYSTKICH sklepów na te same
  * produkty (ten sam EAN -> >=3 realne oferty dla selectCheapestOffer).
@@ -171,8 +172,10 @@ export async function createSourcesFromEnv(
       );
       continue;
     }
-    const source = createSource(slug);
-    if (source) out.push(source);
+    if (env.PRICE_COLLECTOR_ALLOW_FIXTURES === 'true') {
+      const source = createSource(slug);
+      if (source) out.push(source);
+    }
   }
   return out;
 }

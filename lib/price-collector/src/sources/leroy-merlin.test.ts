@@ -22,7 +22,7 @@ test("fetchOffers: normalizuje realne dane fixture do groszy", async () => {
   assert.equal(withEan!.price, 7998); // 79,98 zł -> grosze
   assert.equal(withEan!.pricePerUnit, 799.8); // 7998 / 10 l
   assert.equal(withEan!.currency, "PLN");
-  assert.equal(withEan!.source, "leroy-merlin");
+  assert.equal(withEan!.source, "leroy-merlin-fixture");
   assert.equal(withEan!.packageSize, 10);
   assert.equal(withEan!.unit, "l");
   assert.equal(withEan!.availability, "in_stock");
@@ -66,7 +66,7 @@ test("loadLeroyFromFeedUrl: pobiera i parsuje feed JSON przez wstrzyknięty fetc
   );
   const offers = await src.fetchOffers();
   assert.equal(offers.length, 1);
-  assert.equal(offers[0]!.source, "leroy-merlin");
+  assert.equal(offers[0]!.source, "leroy-merlin-feed");
   assert.equal(offers[0]!.ean, "5903973005797");
   assert.equal(offers[0]!.price, 7998);
 });

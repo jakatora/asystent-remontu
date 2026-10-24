@@ -2,7 +2,7 @@
 
 Aktualizacja: 2026-10-24. Cel właściciela: użytkownik ma wiedzieć, ile materiałów potrzebuje i gdzie kupi je najtaniej. Aplikacja ma być prosta w obsłudze i pokazywać zdjęcia rzeczywistych produktów.
 
-## 1. Wiarygodne ilości i porównanie zakupów — pierwszy pakiet wykonany lokalnie, integracja rzeczywistych ofert jest kolejnym priorytetem
+## 1. Wiarygodne ilości i porównanie zakupów — backend podłączony, pierwszy katalog rzeczywistych ofert działa
 
 - [x] Wspólna podstawa ilości dla kalkulatora, budżetu i porównania sklepów. Nie traktować metrów kwadratowych jako litrów lub kilogramów. Pozycje bez pewnego dopasowania pokazane jako niewycenione.
 - [x] Rozdzielić zapotrzebowanie od ilości zaokrąglonej do opakowań. Do API przekazywać zapotrzebowanie, aby nie zaokrąglać go drugi raz.
@@ -11,7 +11,8 @@ Aktualizacja: 2026-10-24. Cel właściciela: użytkownik ma wiedzieć, ile mater
 - [x] Najtańszy pełny koszyk i zakup w kilku sklepach dostępne z głównej nawigacji; algorytm uwzględnia mieszane wielkości opakowań.
 - [x] Niepełna, demonstracyjna, niedostępna lub nieaktualna oferta nie może wygrywać jako najtańsza aktualna oferta. Próg aktualności: 7 dni; nie oznacza gwarancji ceny na kasie.
 - [x] Przy porównaniu pokazać zakres: porównane sklepy, daty cen, kompletność koszyka i nieuwzględnioną dostawę/dojazd.
-- [ ] Najbliższy priorytet: podłączyć mobilne porównanie do istniejącego backendu oraz rzeczywistych, regularnie odświeżanych ofert sklepów. W bieżącym lokalnym podglądzie brak adresu API. Nie uruchamiać porównania na seedach.
+- [x] Podłączyć mobilne porównanie do istniejącego backendu i pierwszych rzeczywistych obserwacji cen. Zakres początkowy: 3 oferty 2 produktów z Castoramy i OBI; jawne daty i linki. Bez cen demonstracyjnych.
+- [ ] Najbliższy priorytet: stabilne, regularne odświeżanie przez udostępnione feedy/API sklepów oraz rozszerzenie katalogu. Bezpośredni odczyt kart przez serwer jest blokowany. Błąd odczytu nie zmienia ceny ani daty; po 7 dniach oferta wypada z porównania.
 - [ ] Zweryfikować zakres lokalizacji, dostawy i ceny brutto oraz porównanie tej samej specyfikacji produktu. Uwzględnić stan „mam już” i „kupione”.
 
 W pierwszym pakiecie rozdzielono cenę jednostki i opakowania w modelu oraz poprawiono farbę i grunt w malowaniu ścian. Pozostałe dane cenowe wymagają osobnego przeglądu; nie przeliczano całego katalogu automatycznym mnożnikiem.
@@ -69,4 +70,16 @@ Publikacja aktualizacji dopiero po sprawdzeniu nowego buildu: utworzenie projekt
 
 Kontrola zachowania identyfikatorów: `node scripts/check-content-identifiers.cjs` — 741 ID zachowanych w 15 plikach. Stary skrypt bash nie działa na tym komputerze z powodu braku dystrybucji WSL; przenośna kontrola porównuje identyfikatory z HEAD.
 
-Zmiany są lokalne; nie opublikowano aktualizacji sklepowej ani nie potwierdzono działania feedów produkcyjnych. Wcześniejsze niezacommitowane zmiany mapowań, EAN i lockfile pozostawiono poza tym pakietem.
+Pierwszy pakiet był lokalny. Wcześniejsze niezacommitowane zmiany mapowań, EAN i lockfile pozostawiono poza nim. Aktualny stan integracji poniżej.
+
+## Podłączenie rzeczywistych ofert — 2026-10-24
+
+Istniejący wspólny backend otrzymał moduł `/api/remont/*`, bez nowego serwera i bez zmian baz pozostałych aplikacji. Deployment Railway `4ce626e9-6bac-4331-925a-3c09d542ef53` ma status SUCCESS. Mobilny klient domyślnie wskazuje ten moduł.
+
+Pierwsze obserwacje pochodzą z faktycznego odczytu kart 2026-10-24: farba Śnieżka Barwy Natury biała 5 l w Castoramie i OBI oraz grunt Knauf 5 l w Castoramie. Każda ma oryginalny czas, URL i skrót treści źródła. Skrypty testowe i demonstracyjne feedy są jawnie oznaczone i nie mogą odświeżać się jako rzeczywiste oferty. Próba pobrania co 6 godzin nie gwarantuje odświeżenia: obecnie sklepy blokują fetch serwera. Nadal potrzebna stabilna integracja sklepowa.
+
+Dowód produkcyjny przez rzeczywistego klienta aplikacji: `/health` 200, `/auth/me` bez tokenu 401, 3 oferty dostępne. Dla malowania 40,5 m² wyceniona część zakupów kosztuje 255,46 zł w dwóch sklepach wobec 271,48 zł w Castoramie — różnica 16,02 zł, bez dostaw. Taśma i folia pozostają jawnie niewycenione. Nie jest to pełny koszt remontu ani dowód najniższej ceny na całym rynku.
+
+162 testy kalkulacji, kolektora, parsera, serializacji i HTTP PASS (0 pominiętych), dodatkowo 68 testów dotychczasowych tras wspólnego backendu PASS. Typecheck mobile, API i price-collector PASS. Podgląd porównania uproszczono do materiałów: bez powtórzonych sum robocizny i podwójnych kart produktów. Kosztorys pozostaje oddzielnym widokiem. Aktualizacja Android/iOS nie została jeszcze opublikowana.
+
+Instrukcja odtworzenia integracji i granice danych: `deploy/shared-backend/README.md`.

@@ -62,7 +62,7 @@ test("MrowkaSource: fixture zwraca ofertę z EAN 5903973005797 w groszach", asyn
   const offers = await src.fetchOffers();
   assert.equal(offers.length, 1);
   const o = offers[0]!;
-  assert.equal(o.source, "mrowka");
+  assert.equal(o.source, "mrowka-fixture");
   assert.equal(o.ean, "5903973005797");
   assert.equal(o.price, 8699); // 86,99 zł -> grosze
   assert.equal(o.currency, "PLN");

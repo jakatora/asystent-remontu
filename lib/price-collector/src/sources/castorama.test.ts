@@ -12,7 +12,7 @@ test("CastoramaSource: fixture zwraca ofertę z EAN 5903973005797 w groszach", a
   const offers = await src.fetchOffers();
   assert.equal(offers.length, 1);
   const o = offers[0]!;
-  assert.equal(o.source, "castorama");
+  assert.equal(o.source, "castorama-fixture");
   assert.equal(o.ean, "5903973005797");
   assert.equal(o.price, 9498); // 94,98 zł -> grosze
   assert.equal(o.currency, "PLN");
@@ -51,7 +51,7 @@ test("loadCastoramaFromFeedUrl: pobiera i parsuje feed JSON przez wstrzyknięty 
   );
   const offers = await src.fetchOffers();
   assert.equal(offers.length, 1);
-  assert.equal(offers[0]!.source, "castorama");
+  assert.equal(offers[0]!.source, "castorama-feed");
   assert.equal(offers[0]!.ean, "5903973005797");
   assert.equal(offers[0]!.price, 9498);
 });

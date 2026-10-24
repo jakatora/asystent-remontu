@@ -135,16 +135,6 @@ function EstimateResult({
   const unresolved = lines.filter((l) => !l.resolved);
   const consolidated = data.consolidated;
 
-  // Rozbicie materiały + robocizna (kwoty z backendu w groszach; tu tylko wybór
-  // pól z bezpiecznym fallbackiem, gdy backend nie policzył robocizny).
-  const stageMaterialsGrosze = stage?.materialsTotalGrosze ?? stage?.stageTotalGrosze ?? 0;
-  const stageLaborGrosze = stage?.laborTotalGrosze ?? 0;
-  const stageTotalGrosze = stage?.stageTotalWithLaborGrosze ?? stageMaterialsGrosze + stageLaborGrosze;
-  const projMaterialsGrosze = data.materialsTotalGrosze ?? data.projectTotalGrosze;
-  const projLaborGrosze = data.laborTotalGrosze ?? 0;
-  const projTotalGrosze = data.projectTotalWithLaborGrosze ?? projMaterialsGrosze + projLaborGrosze;
-  const hasLabor = (stage?.labor?.lines.length ?? 0) > 0 || stageLaborGrosze > 0 || projLaborGrosze > 0;
-  const laborUnestimated = stage?.labor?.unestimatedCount ?? 0;
   const consolidatedLines = consolidated?.lines ?? [];
   const savingsGrosze = consolidated?.savingsGrosze ?? 0;
   const storeComparison = data.storeComparison;
@@ -155,69 +145,18 @@ function EstimateResult({
 
   return (
     <>
+      {data.coverage && data.coverage.offers > 0 && (
+        <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{t('upgrade.compare.coverage', { stores: data.coverage.stores.join(', ') })}</Txt>
+          <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: formatHistoryDate(data.coverage.sources.map(source => source.checkedAt).filter((date): date is string => Boolean(date)).sort()[0] ?? '') })}</Txt>
+        </View>
+      )}
       {unresolved.length > 0 && (
         <View style={{ padding: 16, borderRadius: 16, backgroundColor: Colors.warningBg }} accessibilityRole="alert">
           <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
         </View>
       )}
-      {storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} />}
-
-      {/* Sumy: koszt etapu + koszt całego remontu */}
-      <View
-        style={{
-          backgroundColor: Colors.surface,
-          borderRadius: 16,
-          borderWidth: 1,
-          borderColor: Colors.border,
-          overflow: 'hidden',
-        }}
-      >
-        <SummaryLine
-          label={t('cmp.CostEstimate.stageCost')}
-          value={formatGrosze(stageTotalGrosze)}
-          color={Colors.text}
-        />
-        {hasLabor && (
-          <CostBreakdown
-            materialsGrosze={stageMaterialsGrosze}
-            laborGrosze={stageLaborGrosze}
-            totalGrosze={stageTotalGrosze}
-          />
-        )}
-        <View style={{ height: 1, backgroundColor: Colors.border }} />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: 14,
-            backgroundColor: Colors.primaryBg,
-          }}
-        >
-          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-            {t('cmp.CostEstimate.projectCost')}
-          </Txt>
-          <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
-            {formatGrosze(projTotalGrosze)}
-          </Txt>
-        </View>
-        {hasLabor && (
-          <View style={{ backgroundColor: Colors.primaryBg, paddingBottom: 4 }}>
-            <CostBreakdown
-              materialsGrosze={projMaterialsGrosze}
-              laborGrosze={projLaborGrosze}
-              totalGrosze={projTotalGrosze}
-            />
-          </View>
-        )}
-        {hasLabor && laborUnestimated > 0 && (
-          <View style={{ paddingHorizontal: 14, paddingBottom: 12, backgroundColor: Colors.primaryBg }}>
-            <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-              {t('cmp.CostEstimate.laborUnestimated', { count: laborUnestimated })}
-            </Txt>
-          </View>
-        )}
-      </View>
+      {storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia
           do opakowań na całym remoncie (liczy backend, tu tylko formatujemy). */}
@@ -243,7 +182,7 @@ function EstimateResult({
 
 
       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-        {t('cmp.CostEstimate.disclaimer')}
+        {t('upgrade.compare.materialsOnly')}
       </Txt>
 
       {/* Skonsolidowana lista zakupowa całego remontu (kup raz, opak. łącznie) */}
@@ -252,20 +191,20 @@ function EstimateResult({
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Feather name="shopping-cart" size={16} color={Colors.primary} />
             <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>
-              {t('cmp.CostEstimate.consolidatedTitle')} ({consolidatedLines.length})
+              {t('upgrade.compare.pricedProducts')} ({consolidatedLines.length})
             </Txt>
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
             {t('cmp.CostEstimate.consolidatedHint')}
           </Txt>
           {consolidatedLines.map((line, idx) => (
-            <ConsolidatedLineCard key={`c-${line.product.id}-${idx}`} line={line} />
+            <ConsolidatedLineCard key={`c-${line.product.id}-${idx}`} line={line} offers={resolved.find(item => item.product?.id === line.product.id)?.offers} />
           ))}
         </View>
       )}
 
       {/* Materiały z najtańszą ofertą */}
-      {resolved.length > 0 && (
+      {resolved.length > 0 && consolidatedLines.length === 0 && (
         <View style={{ gap: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Feather name="package" size={16} color={Colors.primary} />
@@ -379,7 +318,7 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
         />
       )}
       {line.offers && line.offers.length > 1 && (
-        <OfferComparisonList offers={line.offers} />
+        <OfferComparisonList offers={line.offers} preferredOfferId={line.packages && line.packages.length > 1 ? null : line.cheapestOffer?.offerId} />
       )}
     </View>
   );
@@ -447,18 +386,18 @@ function PackageBreakdown({
  * badge'em, pokazuje cenę regularną (przekreśloną) tylko gdy realnie wyższa od
  * aktualnej, cenę za jednostkę, dostępność i link do produktu. Zwinięte domyślnie.
  */
-function OfferComparisonList({ offers }: { offers: SerializedProductOffer[] }) {
+function OfferComparisonList({ offers, preferredOfferId }: { offers: SerializedProductOffer[]; preferredOfferId?: string | null }) {
   const { t } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
-  // Najtańsza = pierwsza oferta z ceną (backend sortuje rosnąco, null-ceny na końcu).
-  const cheapestOfferId = offers.find((o) => o.priceGrosze !== null)?.offerId;
+  // Prefer the backend's choice for the required quantity, not the cheapest can.
+  const cheapestOfferId = preferredOfferId === undefined ? offers.find((o) => o.priceGrosze !== null)?.offerId : preferredOfferId;
 
   return (
     <View style={{ gap: 6 }}>
       <Pressable
         onPress={() => setExpanded((v) => !v)}
-        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2 }}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2, minHeight: 44 }}
         accessibilityRole="button"
       >
         <Feather
@@ -590,7 +529,7 @@ function OfferRow({
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
           {t('cmp.CostEstimate.offerFreshness', {
             date: formatHistoryDate(offer.fetchedAt),
-            source: offer.source ?? offer.store,
+            source: offer.source === 'retailer-page-jsonld' ? t('upgrade.compare.storePage') : offer.source ?? offer.store,
           })}
         </Txt>
       )}
@@ -617,7 +556,7 @@ function availabilityLabel(
  * rozbiciem po sklepach oraz baner „w jednym sklepie: +X". Nic nie liczy — kwoty
  * (grosze) pochodzą z backendu, tu tylko formatowanie na PLN.
  */
-function WhereToBuySection({ cmp, unresolvedCount }: { cmp: SerializedStoreComparison; unresolvedCount: number }) {
+function WhereToBuySection({ cmp, unresolvedCount, showScope = true }: { cmp: SerializedStoreComparison; unresolvedCount: number; showScope?: boolean }) {
   const { t } = useLanguage();
   if (cmp.productCount === 0 || cmp.stores.length === 0) return null;
 
@@ -632,9 +571,9 @@ function WhereToBuySection({ cmp, unresolvedCount }: { cmp: SerializedStoreCompa
           {t('cmp.CostEstimate.whereToBuyTitle')}
         </Txt>
       </View>
-      <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
+      {showScope && <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
         {t('upgrade.compare.scope')}
-      </Txt>
+      </Txt>}
 
       {/* Najtańszy sklep na całość (pełne pokrycie) albo nota, gdy brak kompletu */}
       {full ? (
@@ -662,7 +601,7 @@ function WhereToBuySection({ cmp, unresolvedCount }: { cmp: SerializedStoreCompa
             </Txt>
           </View>
         </View>
-      ) : (
+      ) : unresolvedCount === 0 ? (
         <View
           style={{
             flexDirection: 'row',
@@ -677,10 +616,10 @@ function WhereToBuySection({ cmp, unresolvedCount }: { cmp: SerializedStoreCompa
         >
           <Feather name="info" size={16} color={Colors.warning} />
           <Txt style={{ flex: 1, fontSize: 12, color: Colors.text }}>
-            {t('cmp.CostEstimate.noFullStore')}
+            {t(unresolvedCount > 0 ? 'upgrade.compare.incompleteStores' : 'cmp.CostEstimate.noFullStore')}
           </Txt>
         </View>
-      )}
+      ) : null}
 
       {/* Koszt całości w każdym sklepie (rosnąco) + pokrycie */}
       <View
@@ -694,7 +633,7 @@ function WhereToBuySection({ cmp, unresolvedCount }: { cmp: SerializedStoreCompa
       >
         <View style={{ padding: 10, paddingBottom: 6 }}>
           <Txt w="medium" style={{ fontSize: 12, color: Colors.textSecondary }}>
-            {t('cmp.CostEstimate.allStoresLabel')}
+            {t('upgrade.compare.storeTotals')}
           </Txt>
         </View>
         {[...cmp.stores].sort((a, b) => a.missingCount - b.missingCount || a.totalGrosze - b.totalGrosze).map((s) => (
@@ -830,7 +769,7 @@ function StoreBasketRow({
  * koszt skonsolidowany oraz — gdy dodatnia — oszczędność vs suma per-etap. Nic nie
  * liczy: kwoty (grosze) i ilości pochodzą z backendu, tu tylko formatowanie.
  */
-function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
+function ConsolidatedLineCard({ line, offers }: { line: SerializedConsolidatedLine; offers?: SerializedProductOffer[] }) {
   const { t } = useLanguage();
   const offer = line.cheapestOffer;
   return (
@@ -845,20 +784,16 @@ function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
       }}
     >
       <ProductImage uri={getProductPhoto(line.product ?? {})} name={line.product?.name ?? ""} size={64} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
+        <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>{line.product.name}</Txt>
+        <Txt w="bold" style={{ fontSize: 14, color: Colors.text }}>{formatGrosze(line.lineCostGrosze)}</Txt>
+      </View>
       {line.packages && <PackageBreakdown packages={line.packages} unit={line.unit} totalGrosze={line.lineCostGrosze} savingsGrosze={line.savingsGrosze} />}
       {line.packages?.map((entry, index) => entry.url?.startsWith('https://') ? (
         <Pressable key={`${entry.store}-${index}`} onPress={() => { void Linking.openURL(entry.url!).catch(() => {}); }} accessibilityRole="link" style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 10 }}>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.primaryDark }}>{entry.store} · {t('upgrade.compare.open')}</Txt>
         </Pressable>
       ) : null)}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
-        <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>
-          {line.product.name}
-        </Txt>
-        <Txt w="bold" style={{ fontSize: 14, color: Colors.text }}>
-          {formatGrosze(line.lineCostGrosze)}
-        </Txt>
-      </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
         {offer && !line.packages && (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
@@ -885,6 +820,8 @@ function ConsolidatedLineCard({ line }: { line: SerializedConsolidatedLine }) {
           })}
         </Txt>
       )}
+      {offers && offers.length > 1 && <OfferComparisonList offers={offers} preferredOfferId={line.packages && line.packages.length > 1 ? null : line.cheapestOffer?.offerId} />}
+      <PriceHistoryPanel productId={line.product.id} ean={line.product.ean} gtin={line.product.gtin} />
     </View>
   );
 }
@@ -1207,54 +1144,6 @@ function UnresolvedLineCard({ line }: { line: SerializedLine }) {
       </Txt>
       <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
         {reasonLabel(line.reason, t)}
-      </Txt>
-    </View>
-  );
-}
-
-/**
- * Rozbicie kosztu na „Materiały X · Robocizna Y · Razem Z". Nic nie liczy —
- * kwoty (grosze) pochodzą z backendu, tu tylko formatowanie na PLN i sklejenie
- * napisu (i18n PL/EN). Używane dla etapu i dla całego remontu.
- */
-function CostBreakdown({
-  materialsGrosze,
-  laborGrosze,
-  totalGrosze,
-}: {
-  materialsGrosze: number;
-  laborGrosze: number;
-  totalGrosze: number;
-}) {
-  const { t } = useLanguage();
-  return (
-    <View style={{ paddingHorizontal: 14, paddingBottom: 10, paddingTop: 2 }}>
-      <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
-        {t('cmp.CostEstimate.costBreakdown', {
-          materials: formatGrosze(materialsGrosze),
-          labor: formatGrosze(laborGrosze),
-          total: formatGrosze(totalGrosze),
-        })}
-      </Txt>
-    </View>
-  );
-}
-
-function SummaryLine({ label, value, color }: { label: string; value: string; color: string }) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 14,
-      }}
-    >
-      <Txt w="medium" style={{ fontSize: 14, color: Colors.textSecondary }}>
-        {label}
-      </Txt>
-      <Txt w="semibold" style={{ fontSize: 16, color }}>
-        {value}
       </Txt>
     </View>
   );

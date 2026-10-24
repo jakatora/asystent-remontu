@@ -19,8 +19,8 @@ import {
 import type { ProductFeedItem } from "./mrowka.feed";
 
 export class LeroyMerlinSource extends FeedPriceSource {
-  constructor(items: readonly ProductFeedItem[] = LEROY_MERLIN_FEED_FIXTURE) {
-    super("leroy-merlin", "Leroy Merlin", items);
+  constructor(items: readonly ProductFeedItem[] = LEROY_MERLIN_FEED_FIXTURE, provenance: 'fixture' | 'feed' = 'fixture') {
+    super("leroy-merlin", "Leroy Merlin", items, provenance);
   }
 }
 
@@ -38,5 +38,5 @@ export async function loadLeroyFromFeedUrl(
   options: FeedFetchOptions = {},
 ): Promise<LeroyMerlinSource> {
   const items = await fetchFeedItemsFromUrl(url, fetchImpl, options);
-  return new LeroyMerlinSource(items);
+  return new LeroyMerlinSource(items, 'feed');
 }

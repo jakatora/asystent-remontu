@@ -22,11 +22,11 @@ import type { MaterialCategory } from '@/types/pricing';
 
 // ─── Konfiguracja bazowego URL ────────────────────────────────────────────────
 // Osobny publiczny env, żeby dało się wskazać serwer wyceny niezależnie od reszty.
-// Pusty = wycena zdalna niedostępna (UI pokazuje stan „skonfiguruj adres API").
+// Domyślnie korzystamy ze wspólnego backendu, w osobnej przestrzeni /api/remont.
 const RAW_BASE_URL =
   process.env.EXPO_PUBLIC_PRICING_API_URL ??
   process.env.EXPO_PUBLIC_API_URL ??
-  '';
+  'https://backend-production-a43e3.up.railway.app/api/remont';
 
 /** Bazowy URL bez końcowych slashy (albo null, gdy nie skonfigurowano). */
 export const pricingApiBaseUrl: string | null = RAW_BASE_URL
@@ -294,6 +294,13 @@ export interface SerializedStoreComparison {
 }
 
 export interface SerializedProject {
+  coverage?: {
+    offers: number;
+    products: number;
+    stores: string[];
+    sources: { id: string; store: string; checkedAt: string | null; error: string | null }[];
+    scope: { channel: string; currency: string; deliveryIncluded: boolean; locationAdjusted: boolean };
+  };
   stages: SerializedStage[];
   /** Suma MATERIAŁÓW wszystkich etapów, w GROSZACH. */
   projectTotalGrosze: number;
@@ -416,7 +423,9 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
 
 function endpoint(path: string): string {
   if (pricingApiBaseUrl === null) throw new PricingApiNotConfiguredError();
-  return `${pricingApiBaseUrl}${path}`;
+  // Preserve legacy standalone servers configured by origin in EXPO_PUBLIC_*.
+  const route = pricingApiBaseUrl.endsWith('/api/remont') ? path.replace(/^\/api\/pricing/, '/pricing') : path;
+  return `${pricingApiBaseUrl}${route}`;
 }
 
 /** POST JSON → parsuje odpowiedź; rzuca ApiError na status != 2xx. */

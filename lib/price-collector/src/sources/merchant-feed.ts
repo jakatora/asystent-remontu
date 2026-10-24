@@ -148,16 +148,19 @@ export class FeedPriceSource extends BasePriceSource {
   // Itemy feedu (domyślnie fixture podklasy) — wstrzykiwalne, ułatwia testy i
   // podmianę na pobrany feed bez zmiany reszty adaptera.
   protected readonly items: readonly ProductFeedItem[];
+  protected readonly provenance: 'fixture' | 'feed';
 
   constructor(
     slug: string,
     displayName: string,
     items: readonly ProductFeedItem[],
+    provenance: 'fixture' | 'feed' = 'fixture',
   ) {
     super();
     this.slug = slug;
     this.displayName = displayName;
     this.items = items;
+    this.provenance = provenance;
   }
 
   async fetchProducts(): Promise<NormalizedProduct[]> {
@@ -166,7 +169,7 @@ export class FeedPriceSource extends BasePriceSource {
 
   async fetchOffers(): Promise<NormalizedOffer[]> {
     return this.items.map((item) => {
-      const offer = this.toOffer(feedItemToRawOffer(item));
+      const offer = { ...this.toOffer(feedItemToRawOffer(item)), source: `${this.slug}-${this.provenance}` };
       // Feed może jawnie podać walutę (np. "86.99 PLN") — uszanuj ją zamiast
       // sztywnego domyślnego PLN z BasePriceSource. Brak -> zostaje domyślna.
       return item.currency ? { ...offer, currency: item.currency } : offer;

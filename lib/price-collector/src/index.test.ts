@@ -7,6 +7,12 @@ import {
   resolveSourceSlugs,
 } from "./index";
 
+test('brak skonfigurowanego feedu nie odświeża próbki jako bieżącej oferty', async () => {
+  assert.deepEqual(await createSourcesFromEnv(['castorama', 'mrowka', 'leroy-merlin'], {}), []);
+  const samples = await createSourcesFromEnv(['castorama'], { PRICE_COLLECTOR_ALLOW_FIXTURES: 'true' });
+  assert.equal((await samples[0].fetchOffers())[0].source, 'castorama-fixture');
+});
+
 test("resolveSourceSlugs: domyślnie wszystkie, ENV filtruje, nieznane osobno", () => {
   assert.deepEqual(resolveSourceSlugs({}).slugs, listSourceSlugs());
   const r = resolveSourceSlugs({
@@ -16,10 +22,10 @@ test("resolveSourceSlugs: domyślnie wszystkie, ENV filtruje, nieznane osobno", 
   assert.deepEqual(r.unknown, ["nieznany"]);
 });
 
-test("oba zarejestrowane sklepy dają ofertę na TEN SAM EAN (selectCheapestOffer ma co porównywać)", async () => {
+test("jawnie włączone próbki zawierają ten sam EAN; nie są bieżącymi cenami", async () => {
   const SHARED_EAN = "5903973005797";
   const { slugs } = resolveSourceSlugs({});
-  const sources = await createSourcesFromEnv(slugs, {});
+  const sources = await createSourcesFromEnv(slugs, { PRICE_COLLECTOR_ALLOW_FIXTURES: 'true' });
 
   const priceByStore = new Map<string, number>();
   for (const s of sources) {
@@ -70,11 +76,11 @@ test("createSourcesFromEnv: honoruje STORE2_FEED_URL dla Castoramy przez wstrzyk
   assert.equal(offers[0]!.price, 9200); // z feedu, nie z fixture (94,98)
 });
 
-test("trzy zarejestrowane sklepy dają REALNĄ ofertę na TEN SAM EAN (Leroy < Mrówka < Castorama)", async () => {
+test("próbki trzech sklepów zachowują kontrolowane ceny historyczne", async () => {
   const SHARED_EAN = "5903973005797";
   const sources = await createSourcesFromEnv(
     ["leroy-merlin", "mrowka", "castorama"],
-    {},
+    { PRICE_COLLECTOR_ALLOW_FIXTURES: 'true' },
   );
 
   const priceByStore = new Map<string, number>();
