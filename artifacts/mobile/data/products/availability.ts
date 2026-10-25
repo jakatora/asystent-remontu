@@ -96,6 +96,10 @@ export const PRODUCT_REFERENCE_STATUS: readonly { id: string; state: 'store_conf
   {"id":"mat-sealing-corner-internal-mapei","state":"store_confirmation_required","observedAt":"2026-10-25T14:20:58.328Z","sourceUrl":"https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd"},
   // source: https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd
   {"id":"mat-sealing-cuff-wall-mapei-12x12-2","state":"store_confirmation_required","observedAt":"2026-10-25T14:21:23.679Z","sourceUrl":"https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd"},
+  // source: https://rodimax.pl/ (zakup niepotwierdzony, komunikat o niedostępności usług)
+  {"id":"mat-gypsum-board-norgips-gkb-a-1200x2600","state":"no_online_offer","observedAt":"2026-10-25T16:33:11.406Z","sourceUrl":"https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html"},
+  // source: https://rodimax.pl/ (zakup niepotwierdzony, komunikat o niedostępności usług)
+  {"id":"mat-underlay-arbiton-xps-aquastop-6m2","state":"no_online_offer","observedAt":"2026-10-25T16:33:11.406Z","sourceUrl":"https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html"},
 ];
 
 export function getProductReferenceStatus(id: string, sourceUrl?: string) {

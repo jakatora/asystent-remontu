@@ -3,6 +3,9 @@ import { test } from 'node:test';
 import express from 'express';
 import { createRemontService } from '../src/shared-backend';
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
+import { mkdtempSync, writeFileSync, unlinkSync, rmdirSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 function observations(observedAt = new Date().toISOString()) {
   return RETAIL_SOURCES.slice(0, 3).map((source, index) => ({ sourceId: source.id, ean: source.ean, name: source.name,
@@ -10,6 +13,22 @@ function observations(observedAt = new Date().toISOString()) {
     observedAt, sourceUrl: source.url, evidenceSha256: 'a'.repeat(64),
   }));
 }
+
+test('disabled merchant evidence cannot reactivate from bootstrap or a persisted cache',t=>{
+  const dir=mkdtempSync(join(tmpdir(),'remont-disabled-')),cachePath=join(dir,'cache.json');
+  t.after(()=>{unlinkSync(cachePath);rmdirSync(dir);});
+  const source=RETAIL_SOURCES.find(source=>source.id==='rodimax-board-gkb')!;
+  const old={sourceId:source.id,ean:source.ean,name:source.name,imageUrl:null,priceGrosze:2600,currency:'PLN' as const,availability:'in_stock' as const,observedAt:new Date().toISOString(),sourceUrl:source.url,evidenceSha256:'a'.repeat(64)};
+  writeFileSync(cachePath,JSON.stringify({version:2,observations:[old],withdrawnAt:{}}));
+  const service=createRemontService({initialObservations:[old],cachePath,background:false});
+  t.after(()=>service.close());
+  assert.equal(service.status().offers,0);
+  assert.equal(service.status().sources.find(row=>row.id===source.id)?.active,false);
+  assert.equal(service.status().sources.find(row=>row.id===source.id)?.error,'retailer_checkout_unconfirmed');
+  assert.ok(service.status().delivery.automaticStores.includes('KELOT'));
+  assert.ok(service.status().delivery.automaticStores.includes('Cezar'));
+  assert.ok(service.status().delivery.postcodeStores.includes('Cezar'));
+});
 
 test('shared backend retains real observation dates after a failed refresh', async () => {
   const old = new Date(Date.now() - 86400000).toISOString();

@@ -1,12 +1,14 @@
 {
-  "checkedAt": "2026-10-25T15:26:59.464Z",
+  "checkedAt": "2026-10-25T16:45:22.742Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 51,
-  "remaining": 52,
-  "offers": 76,
-  "stores": 19,
+  "verifiedProducts": 55,
+  "remaining": 48,
+  "offers": 80,
+  "stores": 22,
   "productsWithPhotos": 103,
+  "registeredOffers": 82,
+  "disabledOffers": 2,
   "rows": [
     {
       "id": "mat-paint-economy-white-10l",
@@ -446,10 +448,14 @@
       "id": "mat-gypsum-board-norgips-gkb-a-1200x2600",
       "name": "Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm",
       "referenceUrl": "https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html",
-      "status": "verified_offer",
+      "status": "needs_verified_offer",
       "ean": "5907651690442",
-      "sourceIds": [
-        "rodimax-board-gkb"
+      "sourceIds": [],
+      "inactiveSources": [
+        {
+          "id": "rodimax-board-gkb",
+          "reason": "retailer_checkout_unconfirmed"
+        }
       ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/g0/fsd4k0jtitpg/Photos/jdsn6lt0lkjr15/ShowWebp_plyta-gkb-125x1200x2600-mm-zwykla-norgips_1.webp",
       "deliveryChecks": []
@@ -544,12 +550,22 @@
     {
       "id": "mat-basin-mixer-ferro-stillo",
       "name": "Bateria umywalkowa stojąca Ferro Stillo (chrom, BSL2)",
-      "referenceUrl": "https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/a6/hr0940i4fg18/Photos/qslbice0mvpbpv/ShowWebp_bateria-umywalkowa-stillo-stojaca-ferro_1.webp",
-      "deliveryChecks": []
+      "referenceUrl": "https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44",
+      "status": "verified_offer",
+      "ean": "5902194929837",
+      "sourceIds": [
+        "tgs-ferro-stillo"
+      ],
+      "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_56358_500_500/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "tgs-ferro-stillo",
+          "checkedAt": "2026-10-25T16:44:40.563Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-shower-mixer-ferro-one",
@@ -775,10 +791,14 @@
       "id": "mat-underlay-arbiton-xps-aquastop-6m2",
       "name": "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)",
       "referenceUrl": "https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html",
-      "status": "verified_offer",
+      "status": "needs_verified_offer",
       "ean": "5905167826942",
-      "sourceIds": [
-        "rodimax-arbiton-aquastop-6m2"
+      "sourceIds": [],
+      "inactiveSources": [
+        {
+          "id": "rodimax-arbiton-aquastop-6m2",
+          "reason": "retailer_checkout_unconfirmed"
+        }
       ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2~5905167826942_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -806,12 +826,22 @@
     {
       "id": "mat-skirting-clips-cezar-25",
       "name": "Klipsy montażowe do listew Cezar (25 szt.)",
-      "referenceUrl": "https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klipsy-montazowe-do-listew-cezar-25-szt-~5907684672217_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "referenceUrl": "https://listwy.sklep.pl/pl/p/Klips-montazowy-z-podkladka-dystansowa-do-montazu-listew-1opak25szt-MASTER-LINE-CEZAR/687",
+      "status": "verified_offer",
+      "ean": "5907684672217",
+      "sourceIds": [
+        "kelot-clips-25"
+      ],
+      "photoUrl": "https://listwy.sklep.pl/environment/cache/images/productGfx_3487_500_500/klips-do-montowania-listew-przypodlogowych.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "kelot-clips-25",
+          "checkedAt": "2026-10-25T16:44:39.383Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-gres-paradyz-petro-grey-60x60",
@@ -1212,12 +1242,22 @@
     {
       "id": "mat-plaster-gypsum-manual-knauf-goldband-25kg",
       "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
-      "referenceUrl": "https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tynk-gipsowy-reczny-knauf-goldband-25-kg~5902367206383_03c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "referenceUrl": "https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383",
+      "status": "verified_offer",
+      "ean": "5902367206383",
+      "sourceIds": [
+        "krasny-goldband-25kg"
+      ],
+      "photoUrl": "https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca",
+      "deliveryChecks": [
+        {
+          "sourceId": "krasny-goldband-25kg",
+          "checkedAt": "2026-10-25T16:44:42.867Z",
+          "status": "unavailable",
+          "reason": "integration_unavailable",
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-plaster-cementlime-baumit-mpi25-30kg",
@@ -1253,12 +1293,22 @@
     {
       "id": "mat-plaster-corner-alu-mesh-25m",
       "name": "Narożnik tynkarski aluminiowy z siatką 2,5 mb",
-      "referenceUrl": "https://www.castorama.pl/naroznik-aluminiowy-z-siatka-2-5-mb/5900308102411_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/naroznik-aluminiowy-z-siatka-budmat-2-5-mb~5900308102411_01c?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "referenceUrl": "https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+      "status": "verified_offer",
+      "ean": "5900308102411",
+      "sourceIds": [
+        "unimet-corner-mesh-25m"
+      ],
+      "photoUrl": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "unimet-corner-mesh-25m",
+          "checkedAt": "2026-10-25T16:44:42.867Z",
+          "status": "unavailable",
+          "reason": "integration_unavailable",
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-eps-facade-yetico-gamma-044-100mm",
@@ -1424,12 +1474,22 @@
     {
       "id": "mat-mounting-wedges-floorpol-30x150-10",
       "name": "Kliny montażowe Floorpol 30 x 150 mm, 10 szt. (drewno)",
-      "referenceUrl": "https://www.castorama.pl/kliny-montazowe-floorpol-30-x-150-mm-10-szt-/5907508719289_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kliny-montazowe-floorpol-30-x-150-mm-10-szt-~5907508719289_08c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "referenceUrl": "https://liderzycen.pl/pl/p/Kliny-montazowe-Floorpol-30-x-150-mm-10-szt./31651",
+      "status": "verified_offer",
+      "ean": "5907508719289",
+      "sourceIds": [
+        "liderzy-wedges-10"
+      ],
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_52309_500_500/8fc1fd3c8fa7d0b098f9b17c9b091da3.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "liderzy-wedges-10",
+          "checkedAt": "2026-10-25T16:44:39.963Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-acrylic-soudal-white-280ml",
@@ -1517,12 +1577,22 @@
     {
       "id": "mat-vinyl-threshold-cezar-alu-40mm-1m",
       "name": "Profil progowy aluminiowy Cezar 40 mm srebrny 1 m",
-      "referenceUrl": "https://www.castorama.pl/departments/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-/5904584845215_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-~5904584845215_01c_MP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "referenceUrl": "https://cezar.eu/products/listwa-progowa-owalna-aluminiowa-szeroka-40mm-cezar-srebrny-mat-1m",
+      "status": "verified_offer",
+      "ean": "5904584845215",
+      "sourceIds": [
+        "cezar-threshold-40mm-1m"
+      ],
+      "photoUrl": "https://cezar.eu/cdn/shop/files/c505b58a71683c0e135cf53f166408a7.webp?v=1769675117",
+      "deliveryChecks": [
+        {
+          "sourceId": "cezar-threshold-40mm-1m",
+          "checkedAt": "2026-10-25T16:44:42.866Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     }
   ]
 }

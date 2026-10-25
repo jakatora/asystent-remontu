@@ -820,9 +820,10 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     "url": "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m"
   },
   // source: https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html
-  {"id":"rodimax-board-gkb","ean":"5907651690442","name":"Płyta gipsowa zwykła Norgips 1200 x 2600 x 12,5 mm 3,12 m2","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Rodimax","url":"https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html","brand":"Norgips","format":"rodimax"},
+  // source: https://rodimax.pl/ (service unavailable notice); cart action in /js/main.min.js only opens a demo popup, checked 2026-10-25.
+  {"id":"rodimax-board-gkb","ean":"5907651690442","name":"Płyta gipsowa zwykła Norgips 1200 x 2600 x 12,5 mm 3,12 m2","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Rodimax","url":"https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html","brand":"Norgips","format":"rodimax","disabledReason":"retailer_checkout_unconfirmed"},
   // source: https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html
-  {"id":"rodimax-arbiton-aquastop-6m2","ean":"5905167826942","name":"Podkład pod panele Arbiton XPS Smart Aquastop Thermo 1,6 mm 6 m2","category":"underlay","packageSize":6,"unit":"m2","store":"Rodimax","url":"https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html","brand":"Arbiton","format":"rodimax"},
+  {"id":"rodimax-arbiton-aquastop-6m2","ean":"5905167826942","name":"Podkład pod panele Arbiton XPS Smart Aquastop Thermo 1,6 mm 6 m2","category":"underlay","packageSize":6,"unit":"m2","store":"Rodimax","url":"https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html","brand":"Arbiton","format":"rodimax","disabledReason":"retailer_checkout_unconfirmed"},
   // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089
   {"id":"winbud-mapei-corner-internal","ean":"8022452113802","name":"Mapei Mapeband W - narożnik wewnętrzny","category":"sealing-corner","packageSize":1,"unit":"szt","store":"WinBud","url":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_2b7ab43567ae0046ace4d10d419a36f5_500_500.jpg","brand":"Mapei","format":"shoper-api","productId":3089,"apiPurchaseUnit":"szt.","variant":["wewnętrzny"]},
   // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-zewnetrzny/3090
@@ -845,10 +846,28 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"abud-pex-elbow-16x16","ean":"5901095521003","name":"Kolanko zaciskowe PEX 16x16mm Tycner","category":"fitting","packageSize":1,"unit":"szt","store":"ABUD","url":"https://www.abud.pl/product-pol-64835-Kolanko-zaciskowe-PEX-16x16mm-Tycner.html","imageUrl":"https://mrowka.com.pl/files/InfoverProduct/vu/t7atm0ht029g/Photos/cumrci10no4fac/ShowWebp_kolanko-zaciskowe-pex-16x16-mm-tycner_1.webp","brand":"Tycner","format":"idosell","productId":64835,"apiPurchaseUnit":"szt.","variant":["16x16mm"]},
   // source: https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html
   {"id":"fixero-graphite-mesh-10","ean":"5902062502735","name":"Siatka ścierna na rzep, 225 mm, K180, do szlifierki 59G260, 59G264, 59G265, 10 szt. 55H746","category":"abrasive","packageSize":10,"unit":"szt","store":"Fixero","url":"https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html","imageUrl":"https://fixero.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/1/5/1596484200_55H746__BGH_TGL_U90.jpg","brand":"Graphite","format":"fixero","productId":1956,"variant":["225mm","K180","10szt","55H746"]},
+  // source: https://listwy.sklep.pl/pl/p/Klips-montazowy-z-podkladka-dystansowa-do-montazu-listew-1opak25szt-MASTER-LINE-CEZAR/687
+  {"id":"kelot-clips-25","ean":"5907684672217","name":"Klips montażowy z podkładką dystansową do montażu listew 1opak=25szt  MASTER LINE CEZAR","category":"skirting-clip","packageSize":25,"unit":"szt","store":"KELOT","url":"https://listwy.sklep.pl/pl/p/Klips-montazowy-z-podkladka-dystansowa-do-montazu-listew-1opak25szt-MASTER-LINE-CEZAR/687","imageUrl":"https://listwy.sklep.pl/environment/cache/images/productGfx_3487_500_500/klips-do-montowania-listew-przypodlogowych.jpg","brand":"Cezar","format":"shoper-api","productId":687,"apiPurchaseUnit":"szt.","variant":["25szt"]},
+  // source: https://liderzycen.pl/pl/p/Kliny-montazowe-Floorpol-30-x-150-mm-10-szt./31651
+  {"id":"liderzy-wedges-10","ean":"5907508719289","name":"Kliny montażowe Floorpol 30 x 150 mm 10 szt.","category":"mounting-wedge","packageSize":10,"unit":"szt","store":"LiderzyCen","url":"https://liderzycen.pl/pl/p/Kliny-montazowe-Floorpol-30-x-150-mm-10-szt./31651","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_52309_500_500/8fc1fd3c8fa7d0b098f9b17c9b091da3.jpg","brand":"Floorpol","format":"shoper-api","productId":31651,"apiPurchaseUnit":"szt.","variant":["30x150mm","10szt"]},
+  // source: https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44
+  {"id":"tgs-ferro-stillo","ean":"5902194929837","name":"Ferro Stillo bateria umywalkowa stojąca chrom","category":"faucet","packageSize":1,"unit":"szt","store":"TGS","url":"https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44","imageUrl":"https://tgs.pl/environment/cache/images/productGfx_56358_500_500/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom.jpg","brand":"Ferro","format":"shoper-api","productId":44,"apiPurchaseUnit":"szt.","variant":["Stillo","chrom"]},
+  // source: https://cezar.eu/products/listwa-progowa-owalna-aluminiowa-szeroka-40mm-cezar-srebrny-mat-1m
+  {"id":"cezar-threshold-40mm-1m","ean":"5904584845215","name":"Profil progowy aluminiowy owalny szeroki 40mm Cezar Srebrny Mat 1m","category":"threshold","packageSize":1,"unit":"szt","store":"Cezar","url":"https://cezar.eu/products/listwa-progowa-owalna-aluminiowa-szeroka-40mm-cezar-srebrny-mat-1m","imageUrl":"https://cezar.eu/cdn/shop/files/c505b58a71683c0e135cf53f166408a7.webp?v=1769675117","brand":"Cezar","format":"shopify-api","productId":10292397769045,"variantId":52008642773333,"variant":["40mm","srebrny","1m"]},
+  // source: https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html
+  {"id":"unimet-corner-mesh-25m","ean":"5900308102411","name":"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM","category":"plaster-corner","packageSize":2.5,"unit":"mb","store":"Unimet","url":"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html","imageUrl":"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp","brand":"Budmat","format":"unimet","variant":["250cm"]},
+  // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383
+  {"id":"krasny-goldband-25kg","ean":"5902367206383","name":"GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg","category":"plaster","packageSize":25,"unit":"kg","store":"Krasny","url":"https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383","imageUrl":"https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca","brand":"Knauf","format":"jsonld"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Klipsy montażowe do listew Cezar (25 szt.)": "5907684672217",
+  "Kliny montażowe Floorpol 30 x 150 mm, 10 szt. (drewno)": "5907508719289",
+  "Bateria umywalkowa stojąca Ferro Stillo (chrom, BSL2)": "5902194929837",
+  "Profil progowy aluminiowy Cezar 40 mm srebrny 1 m": "5904584845215",
+  "Narożnik tynkarski aluminiowy z siatką 2,5 mb": "5900308102411",
+  "Tynk gipsowy ręczny Knauf Goldband 25 kg": "5902367206383",
   "Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm": "5907651690442",
   "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)": "5905167826942",
   "Narożnik uszczelniający wewnętrzny Mapei Mapeband W (90°)": "8022452113802",

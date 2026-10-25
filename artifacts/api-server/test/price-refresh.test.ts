@@ -20,10 +20,12 @@ test('actual HTTP refresh coalesces requests, preserves failed source dates and 
   try{
     const before=await post();assert.equal(reads,0);
     const [a,b]=await Promise.all([post(true),post(true)]);
-    assert.equal(reads,RETAIL_SOURCES.length);assert.equal(a.priceRefresh.confirmedOfferIds.length,1);assert.equal(a.priceRefresh.failedOfferIds.length,RETAIL_SOURCES.length-1);
+    const readableSources=RETAIL_SOURCES.filter(source=>!source.disabledReason);
+    assert.equal(reads,readableSources.length);assert.equal(a.priceRefresh.confirmedOfferIds.length,1);assert.equal(a.priceRefresh.failedOfferIds.length,RETAIL_SOURCES.length-1);
+    for(const disabled of RETAIL_SOURCES.filter(source=>source.disabledReason))assert.equal(a.coverage.sources.find((row:any)=>row.id===disabled.id).error,disabled.disabledReason);
     const changes=comparePriceSnapshots(collectSeenPrices(before),collectSeenPrices(a));assert.equal(changes[0].deltaGrosze,100);
     assert.equal(a.stages[0].lines[0].offers[0].packageSize,'5');assert.equal(b.stages[0].lines[0].offers[0].priceGrosze,9950);
-    price='97.50';const cached=await post(true);assert.equal(cached.priceRefresh.status,'recent');assert.equal(reads,RETAIL_SOURCES.length);
+    price='97.50';const cached=await post(true);assert.equal(cached.priceRefresh.status,'recent');assert.equal(reads,readableSources.length);
     await service.refresh();const cheaper=await post();assert.equal(comparePriceSnapshots(collectSeenPrices(a),collectSeenPrices(cheaper))[0].deltaGrosze,-200);
   }finally{await new Promise<void>(r=>server.close(()=>r()));service.close();}
 });

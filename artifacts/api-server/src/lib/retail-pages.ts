@@ -28,6 +28,8 @@ export interface RetailSource {
   retailUnit?: 'SZT' | 'OPA';
   /** Exact package contents explicitly stated in this product's description. */
   packageDescription?: string;
+  /** A reviewed page is not a purchasable offer until its checkout works. */
+  disabledReason?: 'retailer_checkout_unconfirmed';
 }
 
 export interface RetailObservation {
@@ -53,6 +55,7 @@ function objects(value: unknown): Record<string, any>[] {
 
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
+  if (source.disabledReason) throw Error(source.disabledReason);
   const products: Record<string, any>[] = [];
   if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
@@ -68,7 +71,10 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const normalize = (value: string) => normalizeProductName(value.replace(/(\d|mm|cm|m)\s*[x×/]\s*(?=\d)/gi, '$1 x ').replace(/(\d)([a-zA-Z])/g, '$1 $2'));
   const normalized = normalize(name);
   const packagePattern = new RegExp(`(?:^| )${String(source.packageSize).replace('.', ' ')} (?:${source.unit === 'l' ? 'l|litrow|litry' : source.unit})(?: |$)`);
-  const brand = normalizeProductName(typeof product.brand === 'string' ? product.brand : product.brand?.name ?? '');
+  const explicitBrand = typeof product.brand === 'string' ? product.brand : product.brand?.name;
+  // Some reviewed Product records identify the manufacturer rather than Brand.
+  // A conflicting explicit brand must not be overwritten by this fallback.
+  const brand = normalizeProductName(explicitBrand || (typeof product.manufacturer === 'string' ? product.manufacturer : product.manufacturer?.name) || '');
   const variantMatches = source.variant?.every(value => new RegExp(`(?:^| )${normalize(value)}(?: |$)`).test(normalized));
   if (source.packageDescription && !normalize(String(product.description ?? '')).includes(normalize(source.packageDescription))) throw new Error('product_package_not_confirmed');
   if (!(normalized.includes(normalizeProductName(source.brand)) || brand.includes(normalizeProductName(source.brand))) || !(source.variant ? variantMatches : packagePattern.test(normalized))) throw new Error('product_variant_mismatch');
@@ -107,6 +113,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 }
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
+  if (source.disabledReason) throw Error(source.disabledReason);
   if (source.format === 'shopify-api') {
     const client = new AnonymousShop(new URL(source.url).origin, fetchImpl, AbortSignal.timeout(8000));
     const raw = await client.text(new URL(source.url).pathname + '.js');

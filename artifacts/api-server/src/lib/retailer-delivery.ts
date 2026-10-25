@@ -12,12 +12,22 @@ import { QuoteQueue } from './quote-queue';
 const ORIGINS: Readonly<Record<string, string>> = {
   'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl', Prescot: 'https://www.prescot.com.pl',
   WinBud: 'https://winbud24.pl', 'Dam-Bud': 'https://salonbudowlanydambud.pl', 'Plus-Market': 'https://www.plus-market.pl',
+  KELOT: 'https://listwy.sklep.pl', LiderzyCen: 'https://liderzycen.pl', TGS: 'https://tgs.pl',
 };
 const TTL = 10 * 60_000;
 
 function unavailableReason(store: string): string | undefined {
+  const sources = RETAIL_SOURCES.filter(source=>source.store===store);
+  if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
   if (ORIGINS[store] || ['Sewera','Buduj24','Cezar'].includes(store)) return undefined;
   return ['Castorama','OBI'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
+}
+export function retailerDeliveryCapabilities() {
+  return {
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    country:'PL',quoteTtlSeconds:600,
+    postcodeStores:['Sewera','Cezar'],accessRequiredStores:['Castorama','OBI'],
+  };
 }
 export function knownUnavailableRetailers(): Readonly<Record<string,string>> {
   const result: Record<string,string> = {};

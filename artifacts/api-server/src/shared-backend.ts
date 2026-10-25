@@ -10,7 +10,7 @@ import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
 import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
 import { compareAutomaticDelivery } from '../../../lib/pricing-service/src/automatic-delivery';
-import { createRetailerQuoter, knownUnavailableRetailers } from './lib/retailer-delivery';
+import { createRetailerQuoter, knownUnavailableRetailers, retailerDeliveryCapabilities } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
@@ -40,7 +40,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   const accept = (observation: RetailObservation) => {
     if (!observation || typeof observation !== 'object') return;
     const source = RETAIL_SOURCES.find(source => source.id === observation.sourceId);
-    if (!source || observation.ean !== source.ean || observation.sourceUrl !== source.url ||
+    if (!source || source.disabledReason || observation.ean !== source.ean || observation.sourceUrl !== source.url ||
       observation.currency !== 'PLN' || observation.availability !== 'in_stock' ||
       !Number.isSafeInteger(observation.priceGrosze) || observation.priceGrosze <= 0 ||
       !/^[a-f0-9]{64}$/.test(observation.evidenceSha256) || !Number.isFinite(Date.parse(observation.observedAt))) return;
@@ -145,12 +145,11 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
-      delivery: { automaticStores: ['Rab-Dom', 'Realbud', 'Zino', 'Sewera', 'Buduj24'], country: 'PL', quoteTtlSeconds: 600,
-        postcodeStores: ['Sewera'], accessRequiredStores: ['Castorama', 'OBI'] },
+      delivery: retailerDeliveryCapabilities(),
       sources: RETAIL_SOURCES.map(source => ({
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,
         active: eligible.some(offer => offer.id === source.id),
-        error: errors.get(source.id) ?? null,
+        error: source.disabledReason ?? errors.get(source.id) ?? null,
       })),
     };
   }

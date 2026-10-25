@@ -660,6 +660,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html (EAN + cena 194,99 zł)
   // source: https://onninen.pl/produkt/FERRO-STILLO-bateria-umywalkowa-stojaca-chrom-BSL2,113316 (EAN 5902194929837, model BSL2)
   // source: https://www.ceneo.pl/44139801 (Ferro Stillo BSL2A, EAN 5902194929837)
+  // source: https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44 (cena brutto, odczyt 2026-10-25T16:39:03.001Z)
   {
     id: 'mat-basin-mixer-ferro-stillo',
     materialType: 'faucet',
@@ -667,12 +668,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Ferro',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 194.99,
+    pricePerPackage: 129.98,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'TGS',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html',
-    lastUpdated: '2026-08-23',
+      'https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1127,6 +1128,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Klipsy montażowe do listew przypodłogowych Cezar z podkładką dystansową, opak. 25 szt. — EAN 5907684672217. Cena 49,98 zł/opak. (2,00 zł/szt, Castorama). Szybki montaż listwy bez uszkodzeń, dystans 3 mm.
   // source: https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd (EAN 5907684672217, cena 49,98 zł, 25 szt.)
   // source: https://decorsystem.com.pl/klipsy-montazowe-do-listew-przypodlogowych-25-szt-cezar,id19262.html (Cezar klipsy montażowe 25 szt.)
+  // source: https://listwy.sklep.pl/pl/p/Klips-montazowy-z-podkladka-dystansowa-do-montazu-listew-1opak25szt-MASTER-LINE-CEZAR/687 (cena brutto, odczyt 2026-10-25T16:39:02.235Z)
   {
     id: 'mat-skirting-clips-cezar-25',
     materialType: 'skirting-clip',
@@ -1134,12 +1136,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Cezar',
     packageSize: 25,
     packageUnit: 'szt',
-    pricePerPackage: 49.98,
+    pricePerPackage: 38.00,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'KELOT',
     sourceUrl:
-      'https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://listwy.sklep.pl/pl/p/Klips-montazowy-z-podkladka-dystansowa-do-montazu-listew-1opak25szt-MASTER-LINE-CEZAR/687',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1644,6 +1646,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Nakładany ręcznie, warstwa 8–35 mm, zużycie ok. 13 kg/m²/15 mm. Do ręcznego tynkowania/wyrównań → tier standard.
   // source: https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd (EAN 5902367206383, cena 31,98 zł, 25 kg)
   // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (EAN 5902367206383, Knauf Goldband 25 kg)
+  // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (cena brutto, odczyt 2026-10-25T16:39:04.349Z)
   {
     id: 'mat-plaster-gypsum-manual-knauf-goldband-25kg',
     materialType: 'plaster',
@@ -1651,13 +1654,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Knauf',
     packageSize: 25,
     packageUnit: 'kg',
-    pricePerPackage: 31.98,
-    pricePerKg: 1.28,
+    pricePerPackage: 49.89,
+    pricePerKg: 2.00,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Krasny',
     sourceUrl:
-      'https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Ręczny tynk gipsowy do wyrównywania krzywych ścian, ościeży, ubytków po instalacjach. Warstwa 8–35 mm (2 warstwy do 50 mm).',
   },
@@ -1711,19 +1714,20 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // UWAGA: pewne tylko 1 źródło z tym EAN (Castorama) → świadomie NIE w MATERIAL_EAN_OVERLAY (reguła ≥2 źródeł).
   // source: https://www.castorama.pl/naroznik-aluminiowy-z-siatka-2-5-mb/5900308102411_CAPL.prd (EAN 5900308102411, cena 18,48 zł, 2,5 mb)
   // source: https://www.bricomarche.pl/naroznik-aluminiowy-20-x-20-z-siatka-7-x-7-l-2-5-mb (narożnik aluminiowy 20×20 z siatką 7×7, 2,5 mb — ten sam typ Budmat)
+  // source: https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html (cena brutto, odczyt 2026-10-25T16:39:03.639Z)
   {
     id: 'mat-plaster-corner-alu-mesh-25m',
     materialType: 'plaster-corner',
     productLabel: 'Narożnik tynkarski aluminiowy z siatką 2,5 mb',
     packageSize: 2.5,
     packageUnit: 'mb',
-    pricePerPackage: 18.48,
-    pricePerMb: 7.39,
+    pricePerPackage: 6.35,
+    pricePerMb: 2.54,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Unimet',
     sourceUrl:
-      'https://www.castorama.pl/naroznik-aluminiowy-z-siatka-2-5-mb/5900308102411_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Na zewnętrzne krawędzie (ościeża, słupki). Siatka zbroi tynk przy narożniku i chroni przed wykruszeniem.',
   },
@@ -2015,6 +2019,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Kliny do montażu drzwi/okien/parapetów — pozycjonowanie ościeżnicy w otworze przed pianowaniem. Wielokrotnego użytku. Cena 19,98 zł/opak. 10 szt (Castorama).
   // Marka Floorpol, kod pewny w 1 sklepie (Castorama) → poza overlay.
   // source: https://www.castorama.pl/kliny-montazowe-floorpol-30-x-150-mm-10-szt-/5907508719289_CAPL.prd (EAN 5907508719289, cena 19,98 zł, 10 szt, sosna)
+  // source: https://liderzycen.pl/pl/p/Kliny-montazowe-Floorpol-30-x-150-mm-10-szt./31651 (cena brutto, odczyt 2026-10-25T16:39:02.603Z)
   {
     id: 'mat-mounting-wedges-floorpol-30x150-10',
     materialType: 'mounting-wedge',
@@ -2022,12 +2027,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Floorpol',
     packageSize: 10,
     packageUnit: 'szt',
-    pricePerPackage: 19.98,
+    pricePerPackage: 18.98,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/kliny-montazowe-floorpol-30-x-150-mm-10-szt-/5907508719289_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://liderzycen.pl/pl/p/Kliny-montazowe-Floorpol-30-x-150-mm-10-szt./31651',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Drewniane (sosna), wielokrotnego użytku. Ustawienie i klinowanie ościeżnicy w otworze przed pianowaniem. Do drzwi, okien, parapetów.',
   },
@@ -2173,6 +2178,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Profil progowy Cezar 40 mm srebrny 1 m aluminiowy 1 szt. — EAN 5904584845215. Cena 19,75 zł/szt. (Castorama).
   // Listwa progowa/łącząca aluminiowa 40 mm, długość 1 m, montaż na wkręty z kołkami, wykończenie łączenia podłóg winylowych z innymi posadzkami. Marka Cezar (potwierdzona w Castoramie) → poza overlay.
   // source: https://www.castorama.pl/departments/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-/5904584845215_CAPL.prd (EAN 5904584845215, cena 19,75 zł/szt., alu 40 mm x 1 m)
+  // source: https://cezar.eu/products/listwa-progowa-owalna-aluminiowa-szeroka-40mm-cezar-srebrny-mat-1m (cena brutto, odczyt 2026-10-25T16:39:03.306Z)
   {
     id: 'mat-vinyl-threshold-cezar-alu-40mm-1m',
     materialType: 'threshold',
@@ -2180,13 +2186,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Cezar',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 19.75,
-    pricePerMb: 19.75,
+    pricePerPackage: 19.55,
+    pricePerMb: 19.55,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Cezar',
     sourceUrl:
-      'https://www.castorama.pl/departments/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-/5904584845215_CAPL.prd',
-    lastUpdated: '2026-09-06',
+      'https://cezar.eu/products/listwa-progowa-owalna-aluminiowa-szeroka-40mm-cezar-srebrny-mat-1m',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Listwa progowa/łącząca aluminiowa 40 mm x 1 m, montaż na wkręty z kołkami. Wykończenie/maskowanie styku podłogi winylowej z inną posadzką w przejściach między pomieszczeniami.',
   },

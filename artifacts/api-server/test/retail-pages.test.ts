@@ -38,6 +38,22 @@ test('retail fetch stops on a blocked page and never invents a replacement', asy
   assert.equal(calls, 1);
 });
 
+test('a reviewed unavailable checkout cannot be imported again from structured prices', async () => {
+  const disabled={...source,disabledReason:'retailer_checkout_unconfirmed' as const};
+  assert.throws(()=>parseRetailPage(html(product()),disabled,now),/retailer_checkout_unconfirmed/);
+  let calls=0;
+  await assert.rejects(readRetailSource(disabled,async()=>{calls++;return new Response(html(product()));}),/retailer_checkout_unconfirmed/);
+  assert.equal(calls,0);
+});
+
+test('Product manufacturer supplies a missing Brand but cannot overwrite an explicit conflicting Brand',()=>{
+  const plaster={...source,brand:'Knauf',name:'Gips Goldband 25kg',packageSize:25,unit:'kg'};
+  const item={...product(),name:plaster.name,manufacturer:{'@type':'Organization',name:'KNAUF'}};
+  assert.equal(parseRetailPage(html(item),plaster,now).priceGrosze,11800);
+  assert.throws(()=>parseRetailPage(html({...item,manufacturer:{name:'Other'}}),plaster,now),/variant_mismatch/);
+  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'}}),plaster,now),/variant_mismatch/);
+});
+
 test('Shoper custom URLs use a reviewed ID and reject a different response identity or malformed gross amount', async () => {
   const custom = { ...source, format: 'shoper-api' as const, productId: 123, url: 'https://realbud.com/niestandardowy-adres' };
   assert.equal(shoperProductId(custom), '123');
