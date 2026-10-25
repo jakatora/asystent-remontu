@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T18:52:04.911Z",
+  "checkedAt": "2026-10-25T19:18:49.120Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 61,
-  "remaining": 42,
-  "offers": 87,
-  "stores": 28,
+  "verifiedProducts": 62,
+  "remaining": 41,
+  "offers": 88,
+  "stores": 29,
   "productsWithPhotos": 103,
-  "registeredOffers": 89,
+  "registeredOffers": 90,
   "disabledOffers": 2,
   "rows": [
     {
@@ -846,18 +846,28 @@
     {
       "id": "mat-underlay-arbiton-xps-aquastop-6m2",
       "name": "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)",
-      "referenceUrl": "https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka",
+      "status": "verified_offer",
       "ean": "5905167826942",
-      "sourceIds": [],
+      "sourceIds": [
+        "kronodom-arbiton-secura-thermo-6m2"
+      ],
       "inactiveSources": [
         {
           "id": "rodimax-arbiton-aquastop-6m2",
           "reason": "retailer_checkout_unconfirmed"
         }
       ],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2~5905167826942_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "photoUrl": "https://a.assecobs.com/_img/sklepkronodom/3097bab5-5609-4e24-aa08-b8440b55b4fa/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-1-6mm-1opk-6m2-czerwona-harmonijka.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "kronodom-arbiton-secura-thermo-6m2",
+          "checkedAt": "2026-10-25T19:18:48.233Z",
+          "status": "unavailable",
+          "reason": "integration_unavailable",
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-vapor-foil-diall-pe-20m2",

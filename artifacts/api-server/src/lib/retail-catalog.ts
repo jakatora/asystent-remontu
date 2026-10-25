@@ -872,6 +872,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"eelektryka-simon-basic-socket-white","ean":"5902787568238","name":"SIMON BASIC Gniazdo pojedyncze z/u i przesłonami do ramki białe BMGZ1z.01/11","category":"socket","brand":"Simon","packageSize":1,"unit":"szt","store":"Eelektryka","format":"prestashop","productId":3975,"retailerSku":"SI427","variant":["BMGZ1z.01/11","białe"],"url":"https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111-5902787568238.html"},
   // source: https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291
   {"id":"northbud-ferro-one-bfo7","ean":"5902194954525","name":"FERRO Bateria prysznicowa Ferro One bez prysznica chrom BFO7","category":"faucet","brand":"Ferro","packageSize":1,"unit":"szt","store":"Northbud","format":"jsonld","variant":["BFO7","chrom"],"url":"https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291"},
+  // source: https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka
+  {"id":"kronodom-arbiton-secura-thermo-6m2","ean":"5905167826942","name":"Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka","category":"underlay","brand":"Arbiton","packageSize":6,"unit":"m2","store":"Kronodom","format":"abstore","productId":423,"apiPurchaseUnit":"m2","variant":["Secura","Thermo","Aquastop","Smart","1,6mm","6m2"],"url":"https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

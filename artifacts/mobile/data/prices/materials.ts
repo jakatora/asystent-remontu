@@ -1074,6 +1074,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd (EAN 5905167826942, cena 70,68 zł, 6 m²)
   // source: https://arbiton.com/pl/podklady-pod-panele/podklady-pod-panele-laminowane/arbiton-secura-thermo-aquastop-smart-podklady-pod-panele-laminowane (Arbiton — karta serii XPS Smart Aquastop Thermo)
   // source: https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html (cena brutto, odczyt 2026-10-25T15:20:52.478Z)
+  // source: https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka (cena brutto, odczyt 2026-10-25T19:11:03.326Z)
   {
     id: 'mat-underlay-arbiton-xps-aquastop-6m2',
     materialType: 'underlay',
@@ -1081,12 +1082,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Arbiton',
     packageSize: 6,
     packageUnit: 'm2',
-    pricePerPackage: 56.00,
-    pricePerM2: 9.33,
+    pricePerPackage: 61.98,
+    pricePerM2: 10.33,
     category: 'standard',
-    storeName: 'Rodimax',
+    storeName: 'Kronodom',
     sourceUrl:
-      'https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html',
+      'https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka',
     lastUpdated: '2026-10-25',
     currency: 'PLN',
   },

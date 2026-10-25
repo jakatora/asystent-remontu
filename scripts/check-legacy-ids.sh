@@ -16,7 +16,7 @@ REGISTRY="artifacts/mobile/features/content/registry.ts"
 PROTECTED_IDS=(
   "wallpaper"           # legacy w finishing.ts (id "wallpaper" - stare projekty użytkowników)
   "skirting-boards"     # legacy w finishing.ts
-  "high-risk"           # parasol bezpieczeństwa w risky.ts
+  "high-risk-overview"  # highRiskJob w risky.ts; high-risk jest ID kategorii
   "paint"               # rdzeń aplikacji
 )
 
@@ -43,6 +43,15 @@ for id in "${PROTECTED_IDS[@]}"; do
   fi
 done
 
+# Kategoria specjalistyczna jest osobnym identyfikatorem, nie id pracy.
+if ! grep -rqE "categoryId:[[:space:]]*['\"]high-risk['\"]" "$JOBS_DIR" || \
+   ! grep -qE "id:[[:space:]]*['\"]high-risk['\"]" "$REGISTRY"; then
+  echo "  ✗ kategoria 'high-risk' USUNIĘTA"
+  ERRORS=$((ERRORS + 1))
+else
+  echo "  ✓ kategoria 'high-risk' istnieje"
+fi
+
 echo ""
 echo "🔒 Sprawdzam legacy exports..."
 
@@ -58,9 +67,12 @@ done
 
 # --- Sprawdzenie że JOB_REGISTRY w registry.ts nie został wyczyszczony ---
 if [ -f "$REGISTRY" ]; then
-  REGISTRY_ENTRIES=$(grep -cE "^\s+'[a-z-]+': " "$REGISTRY" 2>/dev/null || \
-                     grep -cE '^\s+"[a-z-]+": ' "$REGISTRY" 2>/dev/null || \
-                     echo 0)
+  REGISTRY_ENTRIES=$(awk '
+    /^const JOB_REGISTRY:.*Object.freeze\(\[/ { active=1; next }
+    active && /^\]\);/ { active=0 }
+    active { sub(/\/\/.*/, ""); if ($0 ~ /^[[:space:]]+[A-Za-z][A-Za-z0-9_]*,[[:space:]]*$/) count++ }
+    END { print count+0 }
+  ' "$REGISTRY")
   if [ "$REGISTRY_ENTRIES" -lt 30 ]; then
     echo ""
     echo "⚠️  JOB_REGISTRY ma tylko $REGISTRY_ENTRIES wpisów (audyt mówił o ~57)"
