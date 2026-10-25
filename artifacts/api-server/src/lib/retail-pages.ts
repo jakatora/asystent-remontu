@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { normalizeProductName } from '@workspace/db/repositories';
 import { parsePriceToGrosze } from '@workspace/price-collector';
-import { readRetailMicrodata } from './retail-microdata';
+import { readRetailMicrodata, htmlText } from './retail-microdata';
 import { AnonymousShop } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
@@ -176,17 +176,28 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   if (api) {
     const item = JSON.parse(raw);
     if (String(item.id) !== shoperProductId(source)) throw new Error('product_id_not_confirmed');
-    if (source.apiPurchaseUnit && item.unit?.name !== source.apiPurchaseUnit) throw new Error('retailer_unit_not_confirmed');
+    confirmShoperPurchaseUnit(item,source);
     if (!item.can_buy) throw new Error('retailer_out_of_stock');
     const gross = item.price?.gross;
     const formatted = String(gross?.final ?? '').replace(/[\s\u00a0]/g, '').match(/^(\d+),(\d{2})zł$/);
     if (!formatted || typeof gross.final_float !== 'number' || Math.abs((Number(formatted[1]) * 100 + Number(formatted[2])) - gross.final_float * 100) > 0.00001) throw new Error('retailer_gross_price_mismatch');
-    const html = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Product', name: item.name, gtin13: item.ean, brand: item.producer?.name, image: source.imageUrl,
+    const html = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Product', name: item.name, gtin13: item.ean, brand: item.producer?.name, image: source.imageUrl, description:item.description,
       offers: { '@type': 'Offer', price: gross.final_float, priceCurrency: 'PLN', url: item.url, availability: 'https://schema.org/InStock' } })}</script>`;
     const observation = parseRetailPage(html, source, new Date());
     return { ...observation, evidenceSha256: createHash('sha256').update(raw).digest('hex') };
   }
   return parseRetailPage(raw, source, new Date());
+}
+
+/** Bind the price of one native piece to the reviewed physical package, rather
+ * than silently treating an advertised m² price as a whole box.
+ * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
+ */
+export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  if (String(item.id) !== shoperProductId(source)) throw Error('product_id_not_confirmed');
+  if (source.apiPurchaseUnit && (item.unit?.name !== source.apiPurchaseUnit || item.unit?.floating_point !== false)) throw Error('retailer_unit_not_confirmed');
+  if (source.retailerSku && item.code !== source.retailerSku) throw Error('product_identity_not_confirmed');
+  if (source.packageDescription && !normalizeProductName(htmlText(String(item.description ?? ''))).includes(normalizeProductName(source.packageDescription))) throw Error('product_package_not_confirmed');
 }
 
 export function shoperProductId(source: RetailSource): string {

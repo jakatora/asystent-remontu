@@ -88,21 +88,23 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+  // source: https://liderzycen.pl/pl/p/Panele-laminowane-Oakland-wodoodporne-AC4-2%2C51-m2/185472 (cena brutto, odczyt 2026-10-25T21:08:16.416Z)
   {
     id: 'mat-laminate-oakland-ac4',
     materialType: 'laminate',
     productLabel: 'Panele laminowane Oakland wodoodporne AC4 2.51 m²',
     packageSize: 2.51,
     packageUnit: 'm2',
-    pricePerPackage: 67.72,
-    pricePerM2: 26.98,
+    pricePerPackage: 65.69,
+    pricePerM2: 26.17,
     category: 'economy',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2/5063022887917_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://liderzycen.pl/pl/p/Panele-laminowane-Oakland-wodoodporne-AC4-2%2C51-m2/185472',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
+  // source: https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-laminowane-Volden-XPS-Smart-3-mm-10-m2/31327 (cena brutto, odczyt 2026-10-25T21:08:16.964Z)
   {
     id: 'mat-underlay-volden-xps-10m2',
     materialType: 'underlay',
@@ -110,13 +112,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Volden',
     packageSize: 10,
     packageUnit: 'm2',
-    pricePerPackage: 74.8,
-    pricePerM2: 6.98,
+    pricePerPackage: 71.06,
+    pricePerM2: 7.11,
     category: 'economy',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-volden-xps-smart-3-mm-10-m2/5063022038289_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-laminowane-Volden-XPS-Smart-3-mm-10-m2/31327',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
   // source: https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1 (cena brutto, odczyt 2026-10-25T17:43:11.235Z)
@@ -137,19 +139,20 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
+  // source: https://liderzycen.pl/pl/p/Gres-mrozoodporny-szkliwiony-Guigliano-GoodHome-18%2C5-x-59%2C8-cm-beige-1-m2/31407 (cena brutto, odczyt 2026-10-25T21:08:17.549Z)
   {
     id: 'mat-gres-guigliano-1m2',
     materialType: 'tile',
     productLabel: 'Gres Guigliano GoodHome 1 m²',
     packageSize: 1,
     packageUnit: 'm2',
-    pricePerPackage: 73.98,
-    pricePerM2: 69.98,
+    pricePerPackage: 71.02,
+    pricePerM2: 71.02,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2/3663602870821_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://liderzycen.pl/pl/p/Gres-mrozoodporny-szkliwiony-Guigliano-GoodHome-18%2C5-x-59%2C8-cm-beige-1-m2/31407',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
   {
@@ -854,6 +857,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Zawór kątowy z filtrem Ferro 1/2" × 3/8" chrom — EAN 5901095614033. Cena 34,98 zł/szt (Castorama).
   // source: https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd (EAN + cena 34,98 zł)
   // source: https://www.ceneo.pl/30596820 (Ferro zawór kątowy 1/2 chrom, EAN 5901095614033)
+  // source: https://liderzycen.pl/pl/p/Zawor-katowy-z-filtrem-Ferro-12-x-38/49055 (cena brutto, odczyt 2026-10-25T21:08:18.096Z)
   {
     id: 'mat-angle-valve-ferro-1-2-3-8',
     materialType: 'valve',
@@ -861,12 +865,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Ferro',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 34.98,
+    pricePerPackage: 34.54,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://liderzycen.pl/pl/p/Zawor-katowy-z-filtrem-Ferro-12-x-38/49055',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1049,10 +1053,11 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
-  // Panele laminowane wodoodporne AC5 8 mm Classen Dąb Niasa (Megaloc 2.0 Aquaprotect), 8 szt. = 1,973 m²/paczka — EAN 4003992571974. Cena 92,69 zł/paczka (46,98 zł/m², Castorama). Odporność na wodę 24 h, do kuchni/łazienki.
-  // source: https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd (EAN 4003992571974, cena 92,69 zł, AC5, 8 mm, 1,973 m²)
+  // Panele Classen Dąb Niasa AC5 8 mm, 8 szt. = 1,973 m²/paczka — EAN 4003992571974.
+  // source: https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd (identyfikacja EAN i opakowania; aktualna oferta poniżej)
   // source: https://www.ceneo.pl/104295353 (Classen Dąb Niasa AC5 1,973 m2, EAN 4003992571974)
   // source: https://eadamex.pl/panele-podlogowe/11020-panel-dab-niasa-expedition-ac5-8mm-classen-op1973m2-4003992571974.html (EAN 4003992571974 w URL)
+  // source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535 (cena brutto, odczyt 2026-10-25T20:58:53.720Z)
   {
     id: 'mat-laminate-classen-niasa-ac5-1973',
     materialType: 'laminate',
@@ -1060,13 +1065,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Classen',
     packageSize: 1.973,
     packageUnit: 'm2',
-    pricePerPackage: 92.69,
-    pricePerM2: 46.98,
+    pricePerPackage: 112.42,
+    pricePerM2: 56.98,
     category: 'better',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -2102,6 +2107,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m² — EAN 5063022676757. Cena 74,98 zł/m² (167,58 zł/opak. 2,235 m², Castorama).
   // SPC click (Angle/drop-lock 5G), grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/33, wodoodporne. Marka własna Castoramy (1 sieć) → poza overlay.
   // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd (EAN 5063022676757, cena 74,98 zł/m², 167,58 zł/opak., SPC click 4 mm klasa 33)
+  // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474 (cena brutto, odczyt 2026-10-25T21:08:18.598Z)
   {
     id: 'mat-vinyl-spc-click-goodhome-marvo-224m2',
     materialType: 'vinyl-panel',
@@ -2109,13 +2115,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'GoodHome',
     packageSize: 2.235,
     packageUnit: 'm2',
-    pricePerPackage: 167.58,
-    pricePerM2: 74.98,
+    pricePerPackage: 150.82,
+    pricePerM2: 67.48,
     category: 'better',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd',
-    lastUpdated: '2026-09-06',
+      'https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'SPC click (Angle/drop-lock 5G), montaż pływający bez kleju, grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/33 (użytkowanie komercyjne), wodoodporne, gwarancja 15 lat.',
   },
