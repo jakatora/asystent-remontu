@@ -1,6 +1,7 @@
 import type { Project, ShoppingItem } from '@/types/domain';
 import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
+import { doorOriginMaterialId, type DoorSelection } from './doorSelection';
 
 export const MAX_BASKET_PROJECTS = 20;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
@@ -18,6 +19,7 @@ export function parseBasketSelection(raw: string | null): string[] {
 export function buildRenovationBasket(
   projects: readonly Project[], selectedIds: readonly string[], tier: MaterialCategory,
   shoppingByProject: Readonly<Record<string, readonly ShoppingItem[]>> = {},
+  doorsByProject: Readonly<Record<string, DoorSelection | null>> = {},
 ): { stages: PricingStageInput[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
@@ -26,12 +28,12 @@ export function buildRenovationBasket(
   for (const project of includedProjects) {
     const calc = project.calculationResult;
     if (!calc) { missingCalculations++; continue; }
-    const stage = toPricingStageInput(calc, tier);
+    const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
     const materialIds = new Set(calc.materials.map(line => line.material.id));
     manualItems += items.filter(item => item.itemType !== 'tool' && !item.owned && !item.purchased && !materialIds.has(item.materialId)).length;
     const materials = stage.materials.filter(line => {
-      const matching = items.filter(item => item.itemType !== 'tool' && item.materialId === line.material.id);
+      const matching = items.filter(item => item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
       // A boolean in Shopping means the entire material line is covered.
       // Conflicting duplicate rows cannot silently remove required materials.
       if (matching.length > 0 && matching.every(item => item.owned || item.purchased)) { excludedMaterials++; return false; }

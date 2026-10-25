@@ -11,6 +11,7 @@ import { CostEstimateTab } from '@/components/project/CostEstimateTab';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import type { ShoppingItem } from '@/types/domain';
 import { buildRenovationBasket, MAX_BASKET_PROJECTS, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
+import { DOOR_SELECTION_PREFIX, parseDoorSelection, type DoorSelection } from '@/features/pricing/doorSelection';
 
 export default function RenovationBasketScreen() {
   const { projects, selectedQualityTier, selectedRegion, refreshProjects } = useApp();
@@ -20,6 +21,7 @@ export default function RenovationBasketScreen() {
   const [loaded, setLoaded] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [items, setItems] = useState<Record<string, ShoppingItem[]>>({});
+  const [doors, setDoors] = useState<Record<string, DoorSelection | null>>({});
   const [itemsReady, setItemsReady] = useState(false);
   const [itemsFailed, setItemsFailed] = useState(false);
   const writes = useRef(Promise.resolve());
@@ -35,12 +37,15 @@ export default function RenovationBasketScreen() {
   useFocusEffect(React.useCallback(() => {
     let active = true;
     setItemsReady(false); setItemsFailed(false);
-    void Promise.all(selectedProjects.map(async project => [project.id, await shoppingRepo.findByProject(project.id)] as const))
-      .then(entries => { if (active) { setItems(Object.fromEntries(entries)); setItemsReady(true); } })
+    void Promise.all(selectedProjects.map(async project => {
+      const [shopping, rawDoor] = await Promise.all([shoppingRepo.findByProject(project.id), project.calculationResult?.jobId === 'interior-doors' ? AsyncStorage.getItem(DOOR_SELECTION_PREFIX + project.id) : Promise.resolve(null)]);
+      return { id: project.id, shopping, door: project.calculationResult ? parseDoorSelection(rawDoor, project.calculationResult) : null };
+    }))
+      .then(entries => { if (active) { setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setItemsReady(true); } })
       .catch(() => { if (active) setItemsFailed(true); });
     return () => { active = false; };
   }, [selectedProjects]));
-  const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items), [projects, selected, selectedQualityTier, items]);
+  const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors), [projects, selected, selectedQualityTier, items, doors]);
   const toggle = (id: string) => {
     const current = selected.filter(key => projects.some(project => project.id === key));
     const next = current.includes(id) ? current.filter(key => key !== id) : [...current, id];
@@ -79,7 +84,7 @@ export default function RenovationBasketScreen() {
         {itemsReady && basket.manualItems > 0 && <Txt style={{ color: Colors.warning }}>{pl ? `Dodatkowo sprawdź pozycje dopisane ręcznie: ${basket.manualItems}. Nie są wliczone w sumę.` : `Also check manually added items: ${basket.manualItems}. They are not included in the total.`}</Txt>}
       </View>}
       {selectedProjects.length > 0 && !itemsReady && !itemsFailed && <ActivityIndicator color={Colors.primary} />}
-      {itemsFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie odczytano list zakupów. Otwórz koszyk ponownie, aby poprawnie odjąć kupione materiały.' : 'Shopping lists could not be read. Reopen the basket to correctly exclude purchased materials.'}</Txt>}
+      {itemsFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie odczytano zakupów lub wyboru produktów. Otwórz koszyk ponownie, aby uwzględnić wybrane i posiadane materiały.' : 'Shopping lists or product choices could not be read. Reopen the basket to include your selected and owned materials.'}</Txt>}
       {basket.missingCalculations > 0 && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Uzupełnij obmiary zaznaczonych prac lub usuń je z wyboru. Wycena całego zestawu wymaga wszystkich obmiarów.' : 'Complete measurements for selected works or deselect them. The complete basket needs all measurements.'}</Txt>}
       {loaded && itemsReady && selectedProjects.length > 0 && basket.missingCalculations === 0 && (basket.stages.some(stage => stage.materials.length > 0)
         ? <CostEstimateTab projectId="renovation-basket" stages={basket.stages} qualityTier={selectedQualityTier} region={selectedRegion} />

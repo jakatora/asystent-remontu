@@ -18,6 +18,7 @@ import type { CalculationResult } from '@/types/domain';
 import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { getMaterialsForJob } from './registry';
 import { resolveMaterialQuantity } from './quantity';
+import { applyDoorSelection, type DoorSelection } from './doorSelection';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
 
@@ -400,9 +401,9 @@ function readOptionalCode(material: object, key: 'ean' | 'gtin'): string | null 
  * kalkulatora (read-only). `packs` przekazujemy informacyjnie; backend liczy
  * opakowania z katalogu.
  */
-export function toPricingStageInput(calc: CalculationResult, tier: MaterialCategory = 'standard'): PricingStageInput {
+export function toPricingStageInput(calc: CalculationResult, tier: MaterialCategory = 'standard', doorSelection?: DoorSelection | null): PricingStageInput {
   const references = getMaterialsForJob(calc.jobId, tier);
-  return {
+  return applyDoorSelection({
     jobId: calc.jobId,
     materials: calc.materials.filter(line => getRequiredQuantity(line, calc) > 0).map((line) => {
       const matches = references.filter(ref => resolveMaterialQuantity(ref, calc)?.source.material.id === line.material.id);
@@ -422,7 +423,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
     }),
     // Obmiary przekazujemy bez zmian — backend liczy z nich robociznę (m²/mb/szt).
     ...(calc.measurements ? { measurements: calc.measurements } : {}),
-  };
+  }, calc, doorSelection);
 }
 
 // ─── Wywołania HTTP ────────────────────────────────────────────────────────────

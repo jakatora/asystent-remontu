@@ -2,6 +2,8 @@ import { ProductImage } from './ProductImage';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
 import { StoreChoiceSection } from './StoreChoiceSection';
+import { DoorSelectionSection } from './DoorSelectionSection';
+import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, estimateHonoursStore, parsePreferredStore, type StoreChoices } from '@/features/pricing/storeChoice';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
 import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
@@ -62,6 +64,7 @@ type LoadState =
 
 export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
+  const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
@@ -76,7 +79,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
-  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region]);
+  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready]);
   const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
@@ -100,11 +103,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
-    if (!hasInput || loadedScope !== scope) return;
+    if (!hasInput || loadedScope !== scope || !doorChoice.ready) return;
     const version = ++requestVersion.current;
     setState({ status: 'loading' });
     try {
-      const input = stages ?? [toPricingStageInput(calc!, qualityTier === 'custom' ? 'standard' : qualityTier)];
+      const input = stages ?? [toPricingStageInput(calc!, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection)];
       const rememberChoices = (data: SerializedProject) => {
         const choices = { ...collectStoreChoices(data), scope };
         storeChoicesRef.current = choices; setStoreChoices(choices);
@@ -138,7 +141,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [calc, stages, hasInput, qualityTier, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey]);
+  }, [calc, stages, hasInput, qualityTier, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, doorChoice.selection]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -162,13 +165,15 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </Txt>
       </View>
 
+      {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
+
       {storeChoices?.scope === scope && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} onSelect={store => {
         if (store === selectedStore) return;
         requestVersion.current++; setState({ status: 'loading' }); setSelectedStore(store); setSaveFailed(false);
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings: delivery, store }))).catch(() => setSaveFailed(true));
       }} />}
 
-      {(state.status === 'loading' || loadedScope !== scope) && (
+      {(state.status === 'loading' || loadedScope !== scope || !doorChoice.ready) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
           <ActivityIndicator size="large" color={Colors.primary} />
           <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
