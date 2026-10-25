@@ -31,3 +31,5 @@ Walidacja przed wdrożeniem: 228 testów logiki/HTTP bez pominięć, 55 regresji
 - Ręcznie dodane materiały, narzędzia, częściowo posiadane ilości i utrwalenie wyboru jakości.
 
 Cały cel pozostaje otwarty. Zdjęcia dla 103 pozycji nie oznaczają gotowego porównania cen i dostaw dla wszystkich pozycji.
+
+Odbiór produkcji: Railway `b72fbae4-07a5-43b1-ac29-bafaf20f9c46` SUCCESS 2026-10-25T14:56:51.913Z. Rzeczywisty HTTPS potwierdził 40 produktów, 63 oferty, pięć nowych dokładnych pozycji i trzy powyższe koszyki z dostawą. Backend [PR9](https://github.com/jakatora/przetargai/pull/9) scalony do `0ccace95af89d8348ec68c6521c17a6c9e3fb721`. Naprawiono również zapis literalnego `$&` w 48 URL zdjęć i porównano wszystkie 68 nowych adresów odczytywanych przez aplikację z dowodem źródłowym.
