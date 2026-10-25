@@ -1,6 +1,8 @@
 import { ProductImage } from './ProductImage';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
+import { StoreChoiceSection } from './StoreChoiceSection';
+import { collectStoreChoices, estimateHonoursStore, parsePreferredStore, type StoreChoices } from '@/features/pricing/storeChoice';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
 import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -62,11 +64,15 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const { t, language } = useLanguage();
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
+  const [selectedStore, setSelectedStore] = useState<string | null>(null);
+  const [storeChoices, setStoreChoices] = useState<(StoreChoices & { scope: string }) | null>(null);
+  const storeChoicesRef = useRef<(StoreChoices & { scope: string }) | null>(null);
   const [loadedScope, setLoadedScope] = useState('');
   const [saveFailed, setSaveFailed] = useState(false);
   const [priceSaveFailed,setPriceSaveFailed]=useState(false);
   const priceSnapshot=useRef(emptyPriceSnapshot());
   const priceWrites=useRef(Promise.resolve());
+  const preferenceWrites = useRef(Promise.resolve());
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
@@ -79,15 +85,17 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     let active = true;
     void Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey)]).then(([raw,prices]) => {
       let settings: DeliverySettings = { mode: 'shipping' };
+      let preferredStore: string | null = null;
       try {
         const saved = raw ? JSON.parse(raw) : null;
+        preferredStore = parsePreferredStore(saved?.store);
         if (['shipping', 'pickup'].includes(saved?.settings?.mode)) settings = {
           mode: saved.settings.mode, method: 'automatic',
           ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
         };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
-      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); setDelivery(settings); setLoadedScope(scope); }
-    }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); setDelivery({ mode: 'shipping' }); setLoadedScope(scope); } });
+      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); setDelivery(settings); setSelectedStore(preferredStore); setLoadedScope(scope); }
+    }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); setDelivery({ mode: 'shipping' }); setSelectedStore(null); setLoadedScope(scope); } });
     return () => { active = false; };
   }, [storageKey, priceStorageKey, scope]);
 
@@ -97,8 +105,21 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     setState({ status: 'loading' });
     try {
       const input = stages ?? [toPricingStageInput(calc!, qualityTier === 'custom' ? 'standard' : qualityTier)];
-      const data = await estimateProject(input, { region, delivery, refreshPrices });
+      const rememberChoices = (data: SerializedProject) => {
+        const choices = { ...collectStoreChoices(data), scope };
+        storeChoicesRef.current = choices; setStoreChoices(choices);
+      };
+      // Keep the unfiltered comparison available while the user explores one
+      // store. A saved preference must not erase the alternatives on reopening.
+      if (selectedStore && (storeChoicesRef.current?.scope !== scope || refreshPrices)) {
+        const all = await estimateProject(input, { region, delivery: { mode: 'pickup' }, refreshPrices });
+        if (version !== requestVersion.current) return;
+        rememberChoices(all);
+      }
+      const data = await estimateProject(input, { region, delivery, ...(selectedStore ? { store: selectedStore } : {}), refreshPrices: refreshPrices && !selectedStore });
+      if (selectedStore && !estimateHonoursStore(data, selectedStore)) throw Error('store_selection_not_confirmed');
       if (version === requestVersion.current) {
+        if (!selectedStore) rememberChoices(data);
         const current=collectSeenPrices(data), previous=priceSnapshot.current;
         const priceChanges=comparePriceSnapshots(previous,current);
         const hasPriceBaseline=Object.keys(current.offers).some(key=>Boolean(previous.offers[key]));
@@ -110,12 +131,14 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       }
     } catch (err) {
       const message =
-        err instanceof ApiError
+        err instanceof Error && err.message === 'store_selection_not_confirmed'
+          ? (language === 'pl' ? 'Nie potwierdzono koszyka w wybranym sklepie. Odśwież wycenę lub wybierz inny sklep.' : 'The selected store basket could not be confirmed. Refresh the quote or choose another store.')
+          : err instanceof ApiError
           ? t('cmp.CostEstimate.errorHttp', { status: err.status })
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [calc, stages, hasInput, qualityTier, region, t, delivery, loadedScope, scope, priceStorageKey]);
+  }, [calc, stages, hasInput, qualityTier, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -138,6 +161,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           {t('upgrade.compare.title')}
         </Txt>
       </View>
+
+      {storeChoices?.scope === scope && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} onSelect={store => {
+        if (store === selectedStore) return;
+        requestVersion.current++; setState({ status: 'loading' }); setSelectedStore(store); setSaveFailed(false);
+        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings: delivery, store }))).catch(() => setSaveFailed(true));
+      }} />}
 
       {(state.status === 'loading' || loadedScope !== scope) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
@@ -162,13 +191,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       )}
 
       {state.status === 'success' && loadedScope === scope && (
-        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
+        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
           requestVersion.current++;
           setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
-          void AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings })).catch(() => setSaveFailed(true));
+          preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
         }} /></PriceChangesProvider>
       )}
-      {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano kodu pocztowego. Przy ponownym otwarciu projektu wpisz go jeszcze raz.' : 'The postcode could not be saved. Enter it again when reopening the project.'}</Txt>}
+      {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano wyboru sklepu lub dostawy. Sprawdź ustawienia po ponownym otwarciu projektu.' : 'The store or delivery preference could not be saved. Check the settings when reopening the project.'}</Txt>}
       {priceSaveFailed && <Txt accessibilityRole="alert" style={{color:Colors.textSecondary}}>{language==='pl'?'Nie zapisano cen do porównania przy następnym otwarciu projektu.':'Prices could not be saved for comparison when reopening the project.'}</Txt>}
     </View>
   );
@@ -176,6 +205,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
 
 function EstimateResult({
   data,
+  selectedStore,
   priceChanges,
   hasPriceBaseline,
   onRefresh,
@@ -183,13 +213,15 @@ function EstimateResult({
   onDeliveryChange,
 }: {
   data: SerializedProject;
+  selectedStore: string | null;
   priceChanges:PriceChange[];
   hasPriceBaseline:boolean;
   onRefresh: () => void;
   delivery: DeliverySettings;
   onDeliveryChange: (settings: DeliverySettings) => void;
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const tr = (pl: string, en: string) => language === 'pl' ? pl : en;
   const lines = data.stages.flatMap(stage => stage.lines);
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
@@ -213,17 +245,17 @@ function EstimateResult({
     <>
       {data.coverage && data.coverage.offers > 0 && (
         <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{t('upgrade.compare.coverage', { stores: data.coverage.stores.join(', ') })}</Txt>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{selectedStore ? tr(`Oferty wybranego sklepu: ${selectedStore}. Ceny internetowe.`, `Selected store offers: ${selectedStore}. Online prices.`) : t('upgrade.compare.coverage', { stores: data.coverage.stores.join(', ') })}</Txt>
           <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>
         </View>
       )}
       {unresolved.length > 0 && (
         <View style={{ padding: 16, borderRadius: 16, backgroundColor: Colors.warningBg }} accessibilityRole="alert">
-          <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
+          <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{selectedStore ? tr(`W wybranym sklepie nie potwierdzono ofert dla ${unresolved.length} pozycji z poszczególnych prac. Pełny koszt zestawu nie jest jeszcze dostępny.`, `Offers for ${unresolved.length} items across the selected jobs could not be confirmed in this store. The full basket cost is not yet available.`) : t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
         </View>
       )}
       <PriceChangeNotice changes={priceChanges} refresh={data.priceRefresh} hasBaseline={hasPriceBaseline} />
-      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} settings={delivery} onApply={onDeliveryChange} />}
+      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} />}
       {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia
@@ -292,14 +324,14 @@ function EstimateResult({
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Feather name="help-circle" size={16} color={Colors.warning} />
             <Txt w="semibold" style={{ fontSize: 15, color: Colors.warning }}>
-              {t('cmp.CostEstimate.unresolvedTitle', { count: unresolved.length })}
+              {selectedStore ? tr(`Pozycje bez wyceny w tym sklepie (${unresolved.length})`, `Items without a price in this store (${unresolved.length})`) : t('cmp.CostEstimate.unresolvedTitle', { count: unresolved.length })}
             </Txt>
           </View>
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-            {t('cmp.CostEstimate.unresolvedHint')}
+            {selectedStore ? tr('Nie wliczono ich do sumy. Zmień sklep lub wybierz „Najtańszy zestaw”, aby sprawdzić pozostałe oferty.', 'These items are excluded from the total. Change store or select “Lowest basket” to check other offers.') : t('cmp.CostEstimate.unresolvedHint')}
           </Txt>
           {unresolved.map((line, idx) => (
-            <UnresolvedLineCard key={`u-${idx}`} line={line} />
+            <UnresolvedLineCard key={`u-${idx}`} line={line} selectedStore={selectedStore} />
           ))}
         </View>
       )}
@@ -1195,8 +1227,8 @@ function Badge({
   );
 }
 
-function UnresolvedLineCard({ line }: { line: SerializedLine }) {
-  const { t } = useLanguage();
+function UnresolvedLineCard({ line, selectedStore }: { line: SerializedLine; selectedStore?: string | null }) {
+  const { t, language } = useLanguage();
   return (
     <View
       style={{
@@ -1212,7 +1244,7 @@ function UnresolvedLineCard({ line }: { line: SerializedLine }) {
         {line.query.normalizedName ?? line.query.ean ?? line.query.gtin ?? '—'}
       </Txt>
       <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
-        {reasonLabel(line.reason, t)}
+        {selectedStore && line.reason !== 'empty_query' ? (language === 'pl' ? 'Brak potwierdzonej oferty w wybranym sklepie.' : 'No confirmed offer in the selected store.') : reasonLabel(line.reason, t)}
       </Txt>
     </View>
   );

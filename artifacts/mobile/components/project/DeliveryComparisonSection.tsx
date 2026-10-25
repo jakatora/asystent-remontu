@@ -11,8 +11,9 @@ import { ProductImage } from './ProductImage';
 import { PriceChangeBadge } from './PriceChangeNotice';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
-export function DeliveryComparisonSection({ comparison, settings, onApply }: {
+export function DeliveryComparisonSection({ comparison, settings, selectedStore, onApply }: {
   comparison: DeliveryComparison; settings: DeliverySettings;
+  selectedStore?: string | null;
   onApply: (settings: DeliverySettings) => void;
 }) {
   const { language } = useLanguage();
@@ -50,7 +51,7 @@ export function DeliveryComparisonSection({ comparison, settings, onApply }: {
   return <View style={{ gap: 14 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
       <Feather name="truck" size={20} color={Colors.primary} />
-      <Txt w="bold" style={{ fontSize: 18, flex: 1 }}>{tr('Cały zestaw z dostawą', 'Complete basket with delivery')}</Txt>
+      <Txt w="bold" style={{ fontSize: 18, flex: 1 }}>{selectedStore ? tr(`Koszyk: ${selectedStore}`, `Basket: ${selectedStore}`) : tr('Cały zestaw z dostawą', 'Complete basket with delivery')}</Txt>
     </View>
     <View style={{ padding: 14, gap: 12, borderWidth: 1, borderColor: Colors.border, borderRadius: 16, backgroundColor: Colors.surface }}>
       <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -73,7 +74,7 @@ export function DeliveryComparisonSection({ comparison, settings, onApply }: {
     {current && comparison.status === 'limit_exceeded' && <Txt>{tr('Ten zestaw przekracza zakres porównania. Podziel zakupy na mniejsze zestawy.', 'This basket exceeds the comparison limit. Split it into smaller purchases.')}</Txt>}
     {current && comparison.searchLimited && <View style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg }}><Txt accessibilityRole="alert" style={{ lineHeight: 20 }}>{tr(`Duży remont: sprawdzono wybrane pełne zestawy. Wyceny z dostawą: ${comparison.comparedBasketCount ?? 0}. Inne kombinacje mogą być tańsze.`, `Large renovation: selected complete baskets were checked. Baskets quoted with delivery: ${comparison.comparedBasketCount ?? 0}. Other combinations may cost less.`)}</Txt></View>}
     {best && <View style={{ backgroundColor: Colors.primaryBg, padding: 18, borderRadius: 16, gap: 10 }}>
-      <Txt w="bold" style={{ fontSize: 16 }}>{mode === 'pickup' ? tr('Najtańszy zestaw do odbioru', 'Lowest basket for self collection') : tr('Najtańszy zestaw z wycenioną dostawą', 'Lowest basket with quoted delivery')}</Txt>
+      <Txt w="bold" style={{ fontSize: 16 }}>{selectedStore ? (mode === 'pickup' ? tr(`Materiały: ${selectedStore} — bez dostawy`, `Materials: ${selectedStore} — excluding delivery`) : tr(`Zestaw z dostawą: ${selectedStore}`, `Basket with delivery: ${selectedStore}`)) : mode === 'pickup' ? tr('Najtańszy zestaw do odbioru', 'Lowest basket for self collection') : tr('Najtańszy zestaw z wycenioną dostawą', 'Lowest basket with quoted delivery')}</Txt>
       {comparison.postalCode && <Txt style={{ color: Colors.textSecondary }}>{tr('Dostawa do', 'Delivery to')}: {comparison.postalCode}</Txt>}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt>{tr('Materiały', 'Materials')}</Txt><Txt w="semibold">{formatGrosze(best.materialsGrosze)}</Txt></View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt>{tr('Dostawa', 'Delivery')}</Txt><Txt w="semibold">{formatGrosze(best.deliveryGrosze!)}</Txt></View>

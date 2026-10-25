@@ -211,7 +211,11 @@ async function estimateLine(
     return { resolved: false, ...base, reason, lineCost: 0 };
   }
 
-  const offers = (await deps.listOffers(db, product.id)).filter(offer => isComparableOffer(offer));
+  // A user's store choice applies to every downstream plan, including project
+  // consolidation and delivery. Retaining other stores here let those plans
+  // silently undo the choice after the individual stage had respected it.
+  const offers = (await deps.listOffers(db, product.id)).filter(offer =>
+    isComparableOffer(offer) && (!options.store || offer.store === options.store));
   const cheapestOffer = selectCheapestOffer(offers, options.store, { quantity: item.quantity, product });
   if (!cheapestOffer) {
     return { resolved: false, ...base, reason: "no-offer", lineCost: 0 };
