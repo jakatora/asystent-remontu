@@ -57,6 +57,7 @@ export interface SerializedOffer {
  * (priceToGrosze); nie decyduje o „najtańszej" (to robi kolejność listy).
  */
 export interface SerializedProductOffer {
+  packageSize?: string | null;
   offerId: string;
   store: string;
   url: string | null;
@@ -298,6 +299,7 @@ function serializeProduct(product: {
 /** Serializuje jedną ofertę produktu do porównania cen (kwoty numeric -> grosze). */
 function serializeProductOffer(offer: ProductOffer): SerializedProductOffer {
   return {
+    packageSize: offer.packageSize,
     offerId: offer.id,
     store: offer.store,
     url: offer.productUrl,

@@ -5,7 +5,62 @@ Moduł Asystenta Remontu działa pod `/api/remont/*` na wspólnym backendzie
 `lib/pricing-service` i serializera API, z odizolowanym adapterem katalogu.
 Nie otwiera baz innych aplikacji, nie wywołuje AI ani płatnych API.
 
-## Bieżący tryb: automatyczne koszyki — 2026-10-25
+## Aktualizacja: Sewera, Buduj24 i zmiany cen — 2026-10-25
+
+Automatyczne koszyki obejmują teraz pięć sklepów. **Sewera otrzymuje kod
+pocztowy** w swoim publicznym kalkulatorze płatności/dostaw, z kompletnym
+anonimowym koszykiem i magazynem Katowice. `retailer-checkouts.ts` potwierdza
+EAN i brutto na kartach oraz SKU, ilości, ceny i sumę po dodaniu. Metody
+kurierskie/paletowe pochodzą z checkoutu; każda dostaje osobną wycenę z kodem.
+Płatność z góry potwierdzana jest razem z jej kosztem. `block_order=1` i cena0
+oznaczają brak wyceny, nie darmowy transport. Lokalny transport wymagający
+pełnego adresu i wycena indywidualna nie są podstawiane jako potwierdzone.
+Źródło kontraktu: `https://sklep.sewera.pl/js/zamowienie.js?v=20260716`.
+
+**Buduj24**: sesja koszyka TrisoSHOP, dokładne ilości i brutto, wybór Polski,
+kuriera do domu i płatności z góry przez publiczne akcje `js/cart.js`. Suma
+końcowa musi równać się materiałom + transportowi. Odczytywane są wyłącznie
+dwa literalne fragmenty HTML z odpowiedzi; kod JavaScript nigdy nie jest
+wykonywany. Kurier: 15 zł dla jednej taśmy i potwierdzone0zł dla 27 sztuk
+(306,45zł) w rzeczywistych próbach z 2026-10-25. Taryfa krajowa PL jest jawna.
+
+Rab-Dom, Realbud i Zino zachowują wcześniejszą integrację. **Castorama i OBI
+nie są podłączone do automatycznej wyceny:** Castorama zwraca serwerowi503
+również dla zasobów formularza; OBI zwraca puste404 dla publicznej karty/API
+webinterface. Normalny podgląd w przeglądarce nie daje dostępu serwerowego.
+Nie kopiujemy cookies przeglądarki i nie obchodzimy zabezpieczeń. Potrzebny
+uzgodniony dostęp do kalkulatorów/feedów tych sklepów; w vaulcie nie ma ich
+kluczy. Zwracane `retailer_access_required`, a nie zmyślona stawka. Wynik jest
+najtańszy spośród uzyskanych wycen. Częściowo wycenione koszyki jednego sklepu
+są rozróżniane od sklepów bez jakiejkolwiek wyceny.
+
+Żądanie z `options.refreshPrices:true` rzeczywiście odczytuje karty ponownie,
+z trzema czytnikami, współdzieleniem trwającej aktualizacji i limitem jednej
+nowej partii na60s. `priceRefresh` podaje potwierdzone/nieodczytane oferty oraz
+informację o niedawnym odświeżeniu. Awaria nie zmienia starej ceny ani daty.
+Publiczny HTML produktów Sewery jest współdzielony maks.60s, z nowym kluczem
+po zmianie ceny; sesje i koszyki pozostają rozdzielone. Wycena Sewery ma limit
+20s, pozostałych12s; nowe wyceny w żądaniu startują przez maks.20s.
+
+Mobile zapisuje ostatnio widziane ceny lokalnie dla projektu. Porównuje ten
+sam EAN/produkt, ofertę, sklep, wielkość opakowania i jednostkę. Ilość sztuk,
+zmiana najtańszego sklepu, brak nowej ceny albo starsza obserwacja nie generują
+fałszywej podwyżki. UI pokazuje kwotę wzrostu/spadku za opakowanie oraz cenę
+przed i po. Pierwszy odczyt tworzy punkt odniesienia; błąd sieci go nie usuwa.
+Koszyki cenowe nie zmieniają cen wstecz, a dawne ręczne opłaty są ignorowane.
+
+Rzeczywisty przykład potwierdzony na produkcji HTTPS i w UI: materiały264,09 + dostawy48,90 =
+312,99zł (Sewera244,07 + Realbud68,92). Wszystkie kwoty brutto. Backend i UI
+zawsze pokazują zakres wyceny; to nie dowód najniższej ceny na całym rynku.
+
+Wdrożenie Railway `2e258fae-2d1a-4fb4-bd5f-47f616e3d998` SUCCESS
+z 2026-10-25 12:21 UTC. Źródła wspólnego backendu: PR4,
+merge `61b29607eb05a8aef3649520ac32704ff63a4c1b`. Weryfikacja: 194 testy
+modułu/aplikacji i 55 regresji dotychczasowych tras, typecheck mobile/API/silnika,
+743 identyfikatory. `smoke-delivery.mjs` sprawdza rzeczywiste koszyki,
+zmianę ilości, kody oraz odświeżenie 11 ofert bez fałszywej daty dla 3 błędów.
+
+## Pierwszy tryb automatycznych koszyków — 2026-10-25
 
 **14 obserwacji / 7 produktów / 7 sklepów.** Dodano farbę Śnieżka 173 5 l
 w Zino, z potwierdzonym EAN i ceną brutto w publicznym API sklepu.

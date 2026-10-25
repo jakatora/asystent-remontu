@@ -55,7 +55,7 @@ test('anonymous carts: basket quantity, gross prices, destination cache isolatio
   await quote(order(), '30-001'); assert.ok(calls > previous + 3);
   assert.equal(sessions,3);
   downsize = true; const rejected = await quote(order(3), '30-001'); assert.deepEqual(rejected,{ reason:'basket_not_confirmed' });
-  const unsupported = await quote({ ...order(), store:'Sewera' }, '00-001'); assert.deepEqual(unsupported,{ reason:'branch_and_address_required' });
+  const unsupported = await quote({ ...order(), store:'Castorama' }, '00-001'); assert.deepEqual(unsupported,{ reason:'retailer_access_required' });
 });
 
 test('cross-origin redirect never receives storefront cookies or a request', async () => {

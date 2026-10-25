@@ -1,6 +1,8 @@
 import { ProductImage } from './ProductImage';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
+import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
+import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 // Zakładka „Wycena": read-only prezentacja wyceny etapu i całego remontu z
@@ -52,7 +54,7 @@ type LoadState =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'error'; message: string }
-  | { status: 'success'; data: SerializedProject };
+  | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
 export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
@@ -60,15 +62,19 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const [loadedScope, setLoadedScope] = useState('');
   const [saveFailed, setSaveFailed] = useState(false);
+  const [priceSaveFailed,setPriceSaveFailed]=useState(false);
+  const priceSnapshot=useRef(emptyPriceSnapshot());
+  const priceWrites=useRef(Promise.resolve());
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
   const scope = JSON.stringify([projectId, calc?.jobId, calc?.measurements, qualityTier, region]);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
+  const priceStorageKey = `remont.price-seen.v1:${projectId ?? 'preview'}`;
   useEffect(() => {
     let active = true;
-    void AsyncStorage.getItem(storageKey).then(raw => {
+    void Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey)]).then(([raw,prices]) => {
       let settings: DeliverySettings = { mode: 'shipping' };
       try {
         const saved = raw ? JSON.parse(raw) : null;
@@ -77,20 +83,29 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
           ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
         };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
-      if (active) { setDelivery(settings); setLoadedScope(scope); }
-    }).catch(() => { if (active) { setDelivery({ mode: 'shipping' }); setLoadedScope(scope); } });
+      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); setDelivery(settings); setLoadedScope(scope); }
+    }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); setDelivery({ mode: 'shipping' }); setLoadedScope(scope); } });
     return () => { active = false; };
-  }, [storageKey, scope]);
+  }, [storageKey, priceStorageKey, scope]);
 
-  const fetchEstimate = useCallback(async () => {
+  const fetchEstimate = useCallback(async (refreshPrices = false) => {
     if (!calc || loadedScope !== scope) return;
     const version = ++requestVersion.current;
     setState({ status: 'loading' });
     try {
       const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier);
       // Projekt = ten jeden etap: odpowiedź daje i rozbicie etapu, i sumę remontu.
-      const data = await estimateProject([stage], { region, delivery });
-      if (version === requestVersion.current) setState({ status: 'success', data });
+      const data = await estimateProject([stage], { region, delivery, refreshPrices });
+      if (version === requestVersion.current) {
+        const current=collectSeenPrices(data), previous=priceSnapshot.current;
+        const priceChanges=comparePriceSnapshots(previous,current);
+        const hasPriceBaseline=Object.keys(current.offers).some(key=>Boolean(previous.offers[key]));
+        priceSnapshot.current=mergePriceSnapshots(previous,current);
+        const saved=JSON.stringify(priceSnapshot.current);
+        setPriceSaveFailed(false);
+        priceWrites.current=priceWrites.current.catch(()=>{}).then(()=>AsyncStorage.setItem(priceStorageKey,saved)).catch(()=>{ if (version===requestVersion.current) setPriceSaveFailed(true); });
+        setState({ status: 'success', data, priceChanges, hasPriceBaseline });
+      }
     } catch (err) {
       const message =
         err instanceof ApiError
@@ -98,7 +113,7 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [calc, qualityTier, region, t, delivery, loadedScope, scope]);
+  }, [calc, qualityTier, region, t, delivery, loadedScope, scope, priceStorageKey]);
 
   useEffect(() => {
     if (calc && isPricingApiConfigured) void fetchEstimate();
@@ -140,29 +155,34 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
           <Txt style={{ fontSize: 13, color: Colors.textMuted, textAlign: 'center', maxWidth: 280 }}>
             {state.message}
           </Txt>
-          <Button label={t('cmp.CostEstimate.retry')} onPress={fetchEstimate} variant="outline" />
+          <Button label={t('cmp.CostEstimate.retry')} onPress={() => void fetchEstimate(true)} variant="outline" />
         </View>
       )}
 
       {state.status === 'success' && loadedScope === scope && (
-        <EstimateResult data={state.data} onRefresh={fetchEstimate} delivery={delivery} onDeliveryChange={settings => {
+        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
           requestVersion.current++;
           setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
           void AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings })).catch(() => setSaveFailed(true));
-        }} />
+        }} /></PriceChangesProvider>
       )}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano kodu pocztowego. Przy ponownym otwarciu projektu wpisz go jeszcze raz.' : 'The postcode could not be saved. Enter it again when reopening the project.'}</Txt>}
+      {priceSaveFailed && <Txt accessibilityRole="alert" style={{color:Colors.textSecondary}}>{language==='pl'?'Nie zapisano cen do porównania przy następnym otwarciu projektu.':'Prices could not be saved for comparison when reopening the project.'}</Txt>}
     </View>
   );
 }
 
 function EstimateResult({
   data,
+  priceChanges,
+  hasPriceBaseline,
   onRefresh,
   delivery,
   onDeliveryChange,
 }: {
   data: SerializedProject;
+  priceChanges:PriceChange[];
+  hasPriceBaseline:boolean;
   onRefresh: () => void;
   delivery: DeliverySettings;
   onDeliveryChange: (settings: DeliverySettings) => void;
@@ -201,6 +221,7 @@ function EstimateResult({
           <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
         </View>
       )}
+      <PriceChangeNotice changes={priceChanges} refresh={data.priceRefresh} hasBaseline={hasPriceBaseline} />
       {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} settings={delivery} onApply={onDeliveryChange} />}
       {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
@@ -571,6 +592,7 @@ function OfferRow({
         )}
       </View>
 
+      <PriceChangeBadge offerId={offer.offerId} />
       {offer.fetchedAt && (
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
           {t('cmp.CostEstimate.offerFreshness', {

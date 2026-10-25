@@ -34,6 +34,7 @@ export const optionsSchema = z
   .object({
     region: z.string().nullish(),
     store: z.string().nullish(),
+    refreshPrices: z.boolean().optional(),
     delivery: z.object({
       mode: z.enum(['shipping', 'pickup']),
       method: z.enum(['automatic', 'manual']).optional(),

@@ -68,7 +68,15 @@ export async function compareAutomaticDelivery(
   }
   enumerate(0, []);
   if (unique.size > MAX_STORE_BASKETS) return tooLarge();
-  const failures = new Map<string, string>(), keys = [...unique.keys()];
+  const failures = new Map<string, string>();
+  // Quote a representative order from every store first. Full store baskets
+  // get priority because their eligible couriers/thresholds can differ from
+  // individual items. This also protects useful results under the I/O deadline.
+  const ordered=[...unique.entries()].sort((a,b)=>b[1].lines.length-a[1].lines.length || b[1].materialsGrosze-a[1].materialsGrosze);
+  const first=new Map<string,string>();
+  for (const [key,order] of ordered) if (!first.has(order.store)) first.set(order.store,key);
+  const priority=new Set(first.values());
+  const keys=[...priority,...ordered.map(([key])=>key).filter(key=>!priority.has(key))];
   // Bounded I/O even when a list generates many possible store orders.
   let cursor = 0;
   await Promise.all(Array.from({ length: Math.min(3, keys.length) }, async () => {
@@ -77,6 +85,7 @@ export async function compareAutomaticDelivery(
       try {
         const outcome = await quoteBasket(order, settings.postalCode!);
         if ('quote' in outcome && Number.isSafeInteger(outcome.quote.costGrosze) && outcome.quote.costGrosze >= 0 &&
+          (outcome.quote.destinationScope==='PL' || outcome.quote.postalCode===settings.postalCode) &&
           Date.parse(outcome.quote.expiresAt) > now.getTime() && Date.parse(outcome.quote.checkedAt) <= Date.now()) {
           order.deliveryGrosze = outcome.quote.costGrosze; order.quote = outcome.quote;
           order.deliveryMinimumGrosze = outcome.quote.costGrosze;
@@ -95,8 +104,10 @@ export async function compareAutomaticDelivery(
   const known = baskets.filter(b => b.totalGrosze !== null).sort((a,b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);
   result.lowerBound = baskets.sort((a,b) => a.lowerBoundGrosze - b.lowerBoundGrosze)[0] ?? null;
-  result.missingDeliveryStores = [...failures.keys()].sort();
-  result.unavailableStores = [...failures].map(([store, reason]) => ({ store, reason }));
+  const quotedStores=new Set([...unique.values()].filter(o=>o.quote).map(o=>o.store));
+  result.missingDeliveryStores = [...failures.keys()].filter(store=>!quotedStores.has(store)).sort();
+  result.partiallyQuotedStores = [...failures.keys()].filter(store=>quotedStores.has(store)).sort();
+  result.unavailableStores = [...failures].map(([store, reason]) => ({ store, reason, ...(quotedStores.has(store)?{partial:true}:{}) }));
   result.status = result.best && !failures.size ? 'compared' : 'needs_delivery_costs';
   return result;
 }

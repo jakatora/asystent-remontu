@@ -1,6 +1,8 @@
 import { createHash } from 'node:crypto';
 import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
 import { RETAIL_SOURCES } from './retail-catalog';
+import { AnonymousShop } from './retailer-http';
+import { quoteBuduj24, quoteSewera, createCheckoutPageReader } from './retailer-checkouts';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
@@ -18,42 +20,6 @@ export function confirmedMoney(text: unknown, numeric: unknown): number {
   const cents = Number(match[1]) * 100 + Number(match[2]);
   if (!Number.isSafeInteger(cents) || cents < 0 || Math.abs(numeric * 100 - cents) > 0.00001) throw Error('invalid_money');
   return cents;
-}
-
-class AnonymousShop {
-  private cookies = new Map<string, string>();
-  constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal) {}
-  async json(path: string, body?: object): Promise<any> {
-    let url = new URL(path, this.origin), method = body ? 'POST' : 'GET';
-    let payload = body ? JSON.stringify(body) : undefined;
-    for (let i = 0; i < 4; i++) {
-      if (url.origin !== this.origin) throw Error('invalid_redirect');
-      const cookie = [...this.cookies].map(([k,v]) => `${k}=${v}`).join('; ');
-      if (cookie.length > 8192) throw Error('invalid_cookie_size');
-      const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
-        headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: 'application/json', Cookie: cookie,
-          ...(payload ? { 'Content-Type': 'application/x-www-form-urlencoded' } : {}) } });
-      for (const entry of r.headers.getSetCookie()) {
-        const pair = entry.split(';')[0], eq = pair.indexOf('=');
-        if (eq > 0) this.cookies.set(pair.slice(0,eq), pair.slice(eq+1));
-      }
-      if ([301,302,303,307,308].includes(r.status)) {
-        const target = r.headers.get('location'); await r.body?.cancel();
-        if (!target) throw Error('invalid_redirect'); url = new URL(target, url);
-        if ([301,302,303].includes(r.status)) { method = 'GET'; payload = undefined; } continue;
-      }
-      if (!r.ok) { await r.body?.cancel(); throw Error('retailer_unavailable'); }
-      if (!r.headers.get('content-type')?.includes('json')) { await r.body?.cancel(); throw Error('invalid_response'); }
-      const reader = r.body?.getReader(); if (!reader) throw Error('invalid_response');
-      const chunks: Uint8Array[] = []; let size = 0;
-      try {
-        while (true) { const { done, value } = await reader.read(); if (done) break;
-          size += value.byteLength; if (size > 1_000_000) throw Error('response_too_large'); chunks.push(value); }
-      } finally { await reader.cancel().catch(() => {}); }
-      return JSON.parse(Buffer.concat(chunks).toString('utf8'));
-    }
-    throw Error('invalid_redirect');
-  }
 }
 
 export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: string; payment: string } {
@@ -125,20 +91,22 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
  * cookies or personal details. Cap memory, coalesce duplicate work and reject
  * excess concurrency instead of creating an unbounded external-request queue. */
 export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuoter {
+  const pages=createCheckoutPageReader();
   const cache = new Map<string, { until: number; result: Promise<DeliveryQuoteResult> }>();
   let active = 0;
   return async (order, postalCode) => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return { reason: 'invalid_postal_code' };
-    if (!ORIGINS[order.store]) return { reason: order.store === 'Sewera' ? 'branch_and_address_required' : 'integration_unavailable' };
+    if (!ORIGINS[order.store] && !['Sewera','Buduj24'].includes(order.store)) return { reason: ['Castorama','OBI'].includes(order.store) ? 'retailer_access_required' : 'integration_unavailable' };
     const key = JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze])).sort()]);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
     if (active >= 3) return { reason: 'quote_busy' };
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     active++;
-    const pending = quoteShoper(order, fetchImpl).catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && ['price_changed','product_unavailable','basket_not_confirmed','no_home_delivery'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
+    const pending = (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : quoteShoper(order, fetchImpl))
+      .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && ['price_changed','product_unavailable','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
     cache.set(key, { until: Date.now() + TTL, result: pending });
     const result = await pending;
-    if ('reason' in result) cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
+    if ('reason' in result && cache.get(key)?.result === pending) cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
     return result;
   };
 }

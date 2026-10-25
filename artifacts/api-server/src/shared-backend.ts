@@ -33,6 +33,9 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   const errors = new Map<string, string>();
   const withdrawnAt = new Map<string, string>();
   let running = false;
+  let refreshPromise: Promise<void> | null = null;
+  let refreshedAt = 0;
+  let refreshResult = { confirmedOfferIds: [] as string[], failedOfferIds: [] as string[] };
   let lastAttemptAt: string | null = null;
   const accept = (observation: RetailObservation) => {
     if (!observation || typeof observation !== 'object') return;
@@ -98,23 +101,29 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     return { products, offers, deps };
   }
 
-  async function refresh() {
-    if (running) return;
+  function refresh(): Promise<void> {
+    if (refreshPromise) return refreshPromise;
     running = true;
     lastAttemptAt = new Date().toISOString();
+    const confirmedOfferIds: string[] = [], failedOfferIds: string[] = [];
+    refreshPromise = (async () => {
     try {
-      for (const source of RETAIL_SOURCES) {
+      let cursor = 0;
+      await Promise.all(Array.from({ length: 3 }, async () => { while (cursor < RETAIL_SOURCES.length) {
+        const source = RETAIL_SOURCES[cursor++];
         try {
           accept(await readRetailSource(source, options.fetchImpl));
           errors.delete(source.id);
+          confirmedOfferIds.push(source.id);
         } catch (error) {
+          failedOfferIds.push(source.id);
           // Keep the original observation timestamp. A failed read is not a new price.
           const message = error instanceof Error ? error.message : 'retailer_read_failed';
           errors.set(source.id, message);
           // A confirmed withdrawal must also survive a restart, even with old bootstrap observations.
           if (message === 'retailer_out_of_stock') withdrawnAt.set(source.id, new Date().toISOString());
         }
-      }
+      } }));
       if (options.cachePath) {
         try {
           mkdirSync(dirname(options.cachePath), { recursive: true });
@@ -123,7 +132,9 @@ export function createRemontService(options: SharedPricingOptions = {}) {
           errors.delete('cache');
         } catch { errors.set('cache', 'cache_write_failed'); }
       }
-    } finally { running = false; }
+    } finally { running = false; refreshedAt = Date.now(); refreshResult = { confirmedOfferIds, failedOfferIds }; refreshPromise = null; }
+    })();
+    return refreshPromise;
   }
 
   function status() {
@@ -134,7 +145,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
-      delivery: { automaticStores: ['Rab-Dom', 'Realbud', 'Zino'], basis: 'retailer_basket_national', country: 'PL', quoteTtlSeconds: 600 },
+      delivery: { automaticStores: ['Rab-Dom', 'Realbud', 'Zino', 'Sewera', 'Buduj24'], country: 'PL', quoteTtlSeconds: 600,
+        postcodeStores: ['Sewera'], accessRequiredStores: ['Castorama', 'OBI'] },
       sources: RETAIL_SOURCES.map(source => ({
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,
         active: eligible.some(offer => offer.id === source.id),
@@ -160,13 +172,20 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       }
     }
     try {
+      let priceRefresh;
+      if (parsed.data.options?.refreshPrices) {
+        const recent = !running && Date.now() - refreshedAt < 60_000;
+        if (!recent) await refresh();
+        priceRefresh = { status: recent ? 'recent' : 'updated', checkedAt:lastAttemptAt, ...refreshResult,
+          retryAfterSeconds:Math.max(0,Math.ceil((refreshedAt+60_000-Date.now())/1000)) };
+      }
       const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog().deps);
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
       const deadline = Date.now() + 20_000;
       const deliveryComparison = stageOnly ? undefined : await compareAutomaticDelivery(estimate.stages, parsed.data.options?.delivery ?? { mode: 'shipping' },
-        (order, postalCode) => Date.now() < deadline ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES);
-      res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(),
+        (order, postalCode) => Date.now() < deadline || ['Castorama','OBI'].includes(order.store) ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES);
+      res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(), priceRefresh,
         deliveryComparison,
       });
     } catch {

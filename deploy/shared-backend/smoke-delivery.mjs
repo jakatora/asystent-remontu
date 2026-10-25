@@ -21,8 +21,9 @@ const check = result => {
   for (const store of best.stores) {
     assert.equal(store.source,'retailer'); assert.ok(store.quote);
     assert.equal(store.deliveryGrosze,store.quote.costGrosze);
-    assert.equal(store.quote.basis,'retailer_basket_national');
-    assert.equal(store.quote.destinationScope,'PL');
+    assert.ok(['retailer_basket_national','retailer_basket_postcode'].includes(store.quote.basis));
+    if(store.quote.destinationScope==='postal_code')assert.equal(store.quote.postalCode,comparison.postalCode);
+    else assert.equal(store.quote.destinationScope,'PL');
     assert.match(store.quote.evidenceSha256,/^[a-f0-9]{64}$/);
     assert.ok(Date.parse(store.quote.expiresAt)>Date.now());
     assert.equal(store.materialsGrosze,store.lines.flatMap(l=>l.packages).reduce((sum,p)=>sum+p.count*p.unitPriceGrosze,0));
@@ -30,10 +31,9 @@ const check = result => {
   return comparison;
 };
 const first = await post({mode:'shipping',method:'automatic',postalCode:'00-001'}); const a=check(first);
-const second = await post({mode:'shipping',method:'automatic',postalCode:'30-001',costsGrosze:{Zino:0,Realbud:0,'Rab-Dom':0}}); const b=check(second);
+const second = await post({mode:'shipping',method:'automatic',postalCode:'30-001',costsGrosze:{Zino:0,Realbud:0,'Rab-Dom':0,Sewera:0,Buduj24:0}}); const b=check(second);
 assert.equal(a.postalCode,'00-001');assert.equal(b.postalCode,'30-001');
-// These retailer APIs return national Polish tariffs; the app must say so.
-assert.equal(a.best.deliveryGrosze,b.best.deliveryGrosze);
+assert.ok(b.best.deliveryGrosze>0,'Legacy zero overrides must not replace current retailer quotes');
 const missing = await post({mode:'shipping'}); assert.equal(missing.body.deliveryComparison.status,'needs_postal_code'); assert.equal(missing.body.deliveryComparison.best,null);
 assert.equal((await post({mode:'shipping',postalCode:'bad'})).status,400);
 const jobs = structuredClone(input.jobs);
@@ -41,13 +41,18 @@ const paint = jobs.flatMap(j=>j.materials).find(l=>l.material.ean==='59039731391
 if (!paint) throw Error('Expected genuine painting calculation with two 5l packs');
 paint.quantity=4;
 const changed=await post({mode:'shipping',method:'automatic',postalCode:'00-001'},jobs);const c=check(changed);
-const large=a.best.stores.find(s=>s.store==='Zino'),small=c.best.stores.find(s=>s.store==='Zino');
-assert.ok(large&&small);assert.equal(large.lines[0].packages[0].count,2);assert.equal(small.lines[0].packages[0].count,1);
-assert.ok(large.deliveryGrosze>small.deliveryGrosze,'Retailer must reprice changed quantities, not reuse flat fee');
+const paintPacks=comparison=>comparison.best.stores.flatMap(s=>s.lines).filter(l=>l.product.id==='remont-5903973139188').flatMap(l=>l.packages);
+assert.equal(paintPacks(a).reduce((sum,p)=>sum+p.count,0),2);assert.equal(paintPacks(c).reduce((sum,p)=>sum+p.count,0),1);
+// Manual refresh must really attempt retailer reads, or explicitly report a
+// recent coalesced refresh; a failed read never becomes a new observation.
+const refreshedResponse=await fetch(`${base}/pricing/project`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:input.jobs,options:{refreshPrices:true,delivery:{mode:'shipping'}}}),signal:AbortSignal.timeout(40_000)});
+assert.equal(refreshedResponse.status,200);const refreshed=await refreshedResponse.json();assert.ok(refreshed.priceRefresh);
+assert.ok(refreshed.priceRefresh.confirmedOfferIds.includes('sewera-sniezka-5l'));
+assert.ok(refreshed.priceRefresh.failedOfferIds.includes('castorama-sniezka-5l'));
 const origin=new URL(base).origin;
 assert.equal((await fetch(origin+'/health')).status,200);assert.equal((await fetch(origin+'/auth/me')).status,401);
 const health=await (await fetch(base+'/health')).json();assert.ok(health.stores.includes('Zino'));
-const proof={checkedAt:new Date().toISOString(),base,health,input,first,second,changed,missingStatus:missing.body.deliveryComparison.status,authStatus:401};
+const proof={checkedAt:new Date().toISOString(),base,health,input,first,second,changed,refreshed,missingStatus:missing.body.deliveryComparison.status,authStatus:401};
 if(outputFile)writeFileSync(outputFile,JSON.stringify(proof,null,2)+'\n');
 console.log(JSON.stringify({materialsGrosze:a.best.materialsGrosze,deliveryGrosze:a.best.deliveryGrosze,totalGrosze:a.best.totalGrosze,
   stores:a.best.stores.map(s=>({store:s.store,deliveryGrosze:s.deliveryGrosze,carrier:s.quote.carrier})),

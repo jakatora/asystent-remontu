@@ -9,10 +9,10 @@ function attrs(tag: string): Record<string, string> {
   return result;
 }
 
-function elements(html: string, predicate: (attributes: Record<string, string>) => boolean): string[] {
+function elements(html: string, predicate: (attributes: Record<string, string>, tagName: string) => boolean): string[] {
   const result: string[] = [];
   for (const match of html.matchAll(TAG)) {
-    if (match[0].startsWith('</') || !predicate(attrs(match[0]))) continue;
+    if (match[0].startsWith('</') || !predicate(attrs(match[0]), match[1].toLowerCase())) continue;
     if (['meta', 'link', 'img', 'input', 'br'].includes(match[1].toLowerCase()) || /\/>$/.test(match[0])) { result.push(match[0]); continue; }
     let depth = 1;
     for (const next of html.slice(match.index! + match[0].length).matchAll(TAG)) {
@@ -23,6 +23,7 @@ function elements(html: string, predicate: (attributes: Record<string, string>) 
   }
   return result;
 }
+export { elements as htmlElements, attrs as htmlAttributes, text as htmlText, clean as cleanHtml };
 function one(values: string[], error: string): string {
   if (values.length !== 1) throw new Error(error);
   return values[0];

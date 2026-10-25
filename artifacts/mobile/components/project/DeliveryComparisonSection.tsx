@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { formatGrosze } from '@/features/pricing';
 import { normalizeDeliveryPostalCode } from '@/features/pricing/deliveryInput';
 import { ProductImage } from './ProductImage';
+import { PriceChangeBadge } from './PriceChangeNotice';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
 export function DeliveryComparisonSection({ comparison, settings, onApply }: {
@@ -36,6 +37,8 @@ export function DeliveryComparisonSection({ comparison, settings, onApply }: {
   const reason = (code: string) => ({
     integration_unavailable: tr('Sklep nie udostępnia jeszcze automatycznej wyceny.', 'Automatic quoting is not available yet.'),
     branch_and_address_required: tr('Sklep wymaga wyboru oddziału i pełnego adresu.', 'This store requires a branch and full address.'),
+    retailer_access_required: tr('Automatyczny odczyt kalkulatora sklepu jest niedostępny. Potrzebna integracja ze sklepem.', 'The store calculator cannot be read automatically. A store integration is required.'),
+    address_required: tr('Sklep wymaga pełnego adresu dla tego transportu.', 'This transport requires a full address.'),
     price_changed: tr('Cena produktu zmieniła się w koszyku sklepu.', 'The product price has changed in the store basket.'),
     product_unavailable: tr('Nie potwierdzono dostępności produktu.', 'Product availability could not be confirmed.'),
     no_home_delivery: tr('Brak potwierdzonej dostawy kurierskiej.', 'No confirmed home courier delivery.'),
@@ -73,8 +76,9 @@ export function DeliveryComparisonSection({ comparison, settings, onApply }: {
       <View style={{ borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 10, gap: 4 }}><Txt>{tr('Łączny koszt', 'Total cost')}</Txt><Txt w="bold" style={{ fontSize: 30, color: Colors.primaryDark }}>{formatGrosze(best.totalGrosze!)}</Txt></View>
       <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{mode === 'pickup'
         ? tr('Do sumy nie doliczamy dojazdu. Potwierdź dostępność w wybranych placówkach.', 'Travel is excluded. Confirm availability at the chosen branches.')
-        : tr('Ceny brutto z koszyków sklepów, przy płatności z góry. Taryfy kurierskie dla Polski; sklep nie wycenia samego kodu pocztowego. Ostateczną dostępność adresu potwierdzisz przy zakupie.', 'Gross store basket prices with prepayment. National courier tariffs for Poland; the retailer does not quote by postcode alone. Confirm address availability when purchasing.')}</Txt>
+        : tr('Ceny brutto z koszyków sklepów, przy płatności z góry. Przy każdej dostawie podajemy, czy wycena dotyczy Twojego kodu, czy taryfy krajowej. Dostępność pełnego adresu potwierdzisz przy zakupie.', 'Gross store basket prices with prepayment. Each delivery shows whether the quote is for your postcode or a national tariff. Confirm full address availability when purchasing.')}</Txt>
       {mode === 'shipping' && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Porównano dostępne wyceny. Pozostałe sklepy bez wyceny: ${comparison.missingDeliveryStores.length}. Ich oferta może być tańsza.`, `Available quotes compared. Stores without delivery quotes: ${comparison.missingDeliveryStores.length}. They may have a cheaper offer.`)}</Txt>}
+      {mode === 'shipping' && Boolean(comparison.partiallyQuotedStores?.length) && <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie wszystkie inne kombinacje koszyków udało się potwierdzić. Mogą wpłynąć na najniższą cenę.', 'Some other basket combinations could not be confirmed and may affect the lowest total.')}</Txt>}
     </View>}
     {current && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
     {best?.stores.map(store => <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
@@ -82,12 +86,14 @@ export function DeliveryComparisonSection({ comparison, settings, onApply }: {
       <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)} · {tr('Dostawa', 'Delivery')}: {formatGrosze(store.deliveryGrosze!)}</Txt>
       {store.quote && <View style={{ gap: 4 }}>
         <Txt style={{ color: Colors.primary, fontSize: 13 }}>{store.quote.carrier} · {store.quote.payment}</Txt>
-        <Txt style={{ color: Colors.textSecondary, fontSize: 12 }}>{tr('Sprawdzono', 'Checked')}: {new Date(store.quote.checkedAt).toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' })} · {tr('taryfa Polska', 'Poland tariff')}</Txt>
+        <Txt style={{ color: Colors.textSecondary, fontSize: 12 }}>{tr('Sprawdzono', 'Checked')}: {new Date(store.quote.checkedAt).toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', timeZone:'Europe/Warsaw' })} · {store.quote.destinationScope==='postal_code' ? tr(`wycena dla ${store.quote.postalCode}`, `quote for ${store.quote.postalCode}`) : tr('taryfa Polska', 'Poland tariff')}</Txt>
+        {store.quote.dispatchFrom && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Wysyłka z', 'Dispatched from')}: {store.quote.dispatchFrom}</Txt>}
       </View>}
       {store.lines.map(line => <View key={line.product.id} style={{ gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}><ProductImage uri={line.product.imageUrl ?? undefined} name={line.product.name} size={56} /><Txt w="medium" style={{ flex: 1, fontSize: 14 }}>{line.product.name}</Txt></View>
         {line.packages.map(pack => <View key={pack.offerId} style={{ gap: 2 }}>
           <Txt>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
+          <PriceChangeBadge offerId={pack.offerId} />
           {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt w="semibold" style={{ color: Colors.primary }}>{tr('Sprawdź produkt w sklepie ↗', 'View product in store ↗')}</Txt></Pressable>}
         </View>)}
       </View>)}
@@ -95,7 +101,7 @@ export function DeliveryComparisonSection({ comparison, settings, onApply }: {
     {current && mode === 'shipping' && comparison.unavailableStores?.length ? <>
       <Pressable accessibilityRole="button" accessibilityState={{ expanded: details }} onPress={() => setDetails(value => !value)} style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 8 }}><Feather name={details ? 'chevron-up' : 'chevron-down'} size={18} color={Colors.primary} /><Txt style={{ color: Colors.primary, flex: 1 }}>{tr('Sklepy wymagające potwierdzenia dostawy', 'Stores needing delivery confirmation')}</Txt></Pressable>
       {details && comparison.unavailableStores.map(store => <View key={store.store} style={{ gap: 4 }}>
-        <Txt w="semibold">{store.store}</Txt><Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{reason(store.reason)}</Txt>
+        <Txt w="semibold">{store.store}{store.partial?tr(' · inne koszyki',' · other baskets'):''}</Txt><Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{reason(store.reason)}</Txt>
         {comparison.policies.find(p => p.store === store.store)?.sourceUrl && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(comparison.policies.find(p => p.store === store.store)!.sourceUrl!)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt style={{ color: Colors.primary }}>{tr('Warunki sklepu ↗', 'Store terms ↗')}</Txt></Pressable>}
       </View>)}
     </> : null}

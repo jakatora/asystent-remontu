@@ -68,6 +68,7 @@ export interface PricingStageInput {
 }
 
 export interface PricingOptions {
+  readonly refreshPrices?: boolean;
   readonly delivery?: DeliverySettings;
   readonly region?: string | null;
   readonly store?: string | null;
@@ -106,6 +107,7 @@ export interface SerializedOffer {
  * api-server/lib/pricing-serialize.ts#SerializedProductOffer.
  */
 export interface SerializedProductOffer {
+  packageSize?: string | null;
   offerId: string;
   store: string;
   url: string | null;
@@ -296,6 +298,7 @@ export interface SerializedStoreComparison {
 }
 
 export interface SerializedProject {
+  priceRefresh?: { status: 'updated' | 'recent'; checkedAt: string | null; confirmedOfferIds: string[]; failedOfferIds: string[]; retryAfterSeconds: number };
   deliveryComparison?: DeliveryComparison;
   coverage?: {
     offers: number;

@@ -45,9 +45,11 @@ export interface DeliveryQuote {
   checkedAt: string;
   expiresAt: string;
   sourceUrl: string;
-  destinationScope: 'PL';
-  /** National tariff; the retailer does not accept a postcode-only quote. */
-  basis: 'retailer_basket_national';
+  destinationScope: 'PL' | 'postal_code';
+  postalCode?: string;
+  dispatchFrom?: string;
+  /** Distinguish national tariffs from quotes requested for this postcode. */
+  basis: 'retailer_basket_national' | 'retailer_basket_postcode';
   evidenceSha256: string;
 }
 export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string };
@@ -58,7 +60,8 @@ export interface DeliveryComparison {
   status: 'compared' | 'needs_delivery_costs' | 'needs_postal_code' | 'partial' | 'empty' | 'limit_exceeded';
   method?: 'automatic' | 'manual';
   comparisonScope?: 'quoted_baskets';
-  unavailableStores?: { store: string; reason: string }[];
+  unavailableStores?: { store: string; reason: string; partial?:boolean }[];
+  partiallyQuotedStores?: string[];
   productCount: number;
   missingProductCount: number;
   best: DeliveredBasket | null;
