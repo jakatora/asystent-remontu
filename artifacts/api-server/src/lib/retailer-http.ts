@@ -12,6 +12,7 @@ export function retailerRequestBudget(productCount: number): number {
 export class AnonymousShop {
   private cookies = new Map<string, string>();
   private calls = 0;
+  private storeCartToken: string | null = null;
   constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30) {}
   async json(path: string, body?: object): Promise<any> {
     return JSON.parse(await this.read(path, body ? JSON.stringify(body) : undefined, true));
@@ -19,7 +20,16 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
-  private async read(path: string, payload: string | undefined, json: boolean): Promise<string> {
+  /** WooCommerce anonymous-cart token stays private to this one shop session.
+   * Only the reviewed cart/read and add-item routes are allowed, never checkout. */
+  async cartJson(path: string, body?: object): Promise<any> {
+    if (!['/wp-json/wc/store/v1/cart','/wp-json/wc/store/v1/cart/add-item'].includes(path)) throw Error('invalid_cart_route');
+    if (body && !this.storeCartToken) throw Error('cart_session_not_confirmed');
+    const raw=await this.read(path,body?JSON.stringify(body):undefined,true,true);
+    if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
+    return JSON.parse(raw);
+  }
+  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false): Promise<string> {
     let url = new URL(path, this.origin), method = payload ? 'POST' : 'GET';
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
@@ -28,7 +38,8 @@ export class AnonymousShop {
       if (cookie.length > 8192 || this.cookies.size > 64) throw Error('invalid_cookie_size');
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
         headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : 'text/html, application/json', Cookie: cookie,
-          ...(payload ? { 'Content-Type': 'application/x-www-form-urlencoded' } : {}) } });
+          ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
+          ...(payload ? { 'Content-Type': storeCart?'application/json':'application/x-www-form-urlencoded' } : {}) } });
       for (const entry of r.headers.getSetCookie()) {
         const pair = entry.split(';')[0], eq = pair.indexOf('=');
         if (eq > 0) this.cookies.set(pair.slice(0,eq), pair.slice(eq+1));
@@ -40,6 +51,13 @@ export class AnonymousShop {
       }
       if (!r.ok) { await r.body?.cancel(); throw Error('retailer_unavailable'); }
       if (json && !r.headers.get('content-type')?.includes('json')) { await r.body?.cancel(); throw Error('invalid_response'); }
+      if (storeCart) {
+        const token=r.headers.get('Cart-Token');
+        if (token) {
+          if (token.length>4096 || !/^[A-Za-z0-9._~-]+$/.test(token)) { await r.body?.cancel(); throw Error('invalid_cart_session'); }
+          this.storeCartToken=token;
+        }
+      }
       const reader = r.body?.getReader(); if (!reader) throw Error('invalid_response');
       const chunks: Uint8Array[] = []; let size = 0;
       try {

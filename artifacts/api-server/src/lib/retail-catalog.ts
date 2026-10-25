@@ -858,10 +858,15 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"unimet-corner-mesh-25m","ean":"5900308102411","name":"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM","category":"plaster-corner","packageSize":2.5,"unit":"mb","store":"Unimet","url":"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html","imageUrl":"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp","brand":"Budmat","format":"unimet","variant":["250cm"]},
   // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383
   {"id":"krasny-goldband-25kg","ean":"5902367206383","name":"GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg","category":"plaster","packageSize":25,"unit":"kg","store":"Krasny","url":"https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383","imageUrl":"https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca","brand":"Knauf","format":"jsonld"},
+  // source: https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/
+  {"id":"domat-board-gkbi","ean":"5907651691616","name":"Płyta gipsowa GKBI 12.5 1200*2600 ZIELONA","brand":"Norgips","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Domat","url":"https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/","format":"woocommerce","productId":29071,"variant":["GKBI","12.5","1200","2600"]},
+  // source: https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/
+  {"id":"domat-board-gkb","ean":"5907651690442","name":"Płyta gipsowa GKB 12.5 1200*2600 BIAŁA","brand":"Norgips","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Domat","url":"https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/","format":"woocommerce","productId":29078,"variant":["GKB","12.5","1200","2600"]},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Płyta gipsowo-kartonowa impregnowana Norgips GKBI typ H2 1200×2600×12,5 mm": "5907651691616",
   "Klipsy montażowe do listew Cezar (25 szt.)": "5907684672217",
   "Kliny montażowe Floorpol 30 x 150 mm, 10 szt. (drewno)": "5907508719289",
   "Bateria umywalkowa stojąca Ferro Stillo (chrom, BSL2)": "5902194929837",

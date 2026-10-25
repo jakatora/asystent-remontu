@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T16:45:22.742Z",
+  "checkedAt": "2026-10-25T17:17:48.648Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 55,
-  "remaining": 48,
-  "offers": 80,
-  "stores": 22,
+  "verifiedProducts": 57,
+  "remaining": 46,
+  "offers": 82,
+  "stores": 23,
   "productsWithPhotos": 103,
-  "registeredOffers": 82,
+  "registeredOffers": 84,
   "disabledOffers": 2,
   "rows": [
     {
@@ -447,28 +447,48 @@
     {
       "id": "mat-gypsum-board-norgips-gkb-a-1200x2600",
       "name": "Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm",
-      "referenceUrl": "https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/",
+      "status": "verified_offer",
       "ean": "5907651690442",
-      "sourceIds": [],
+      "sourceIds": [
+        "domat-board-gkb"
+      ],
       "inactiveSources": [
         {
           "id": "rodimax-board-gkb",
           "reason": "retailer_checkout_unconfirmed"
         }
       ],
-      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/g0/fsd4k0jtitpg/Photos/jdsn6lt0lkjr15/ShowWebp_plyta-gkb-125x1200x2600-mm-zwykla-norgips_1.webp",
-      "deliveryChecks": []
+      "photoUrl": "https://domat24.pl/wp-content/uploads/2021/09/Plyta-gipsowa-GKB-12.5-12002600-BIALA.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "domat-board-gkb",
+          "checkedAt": "2026-10-25T17:17:47.678Z",
+          "status": "unavailable",
+          "reason": "integration_unavailable",
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-gypsum-board-norgips-gkbi-h2-1200x2600",
       "name": "Płyta gipsowo-kartonowa impregnowana Norgips GKBI typ H2 1200×2600×12,5 mm",
-      "referenceUrl": "https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/ke/q2u550jtitpj/Photos/ln0d1k10lkjr1d/ShowWebp_plyta-gkbi-125x1200x2600-mm-woda-norgips_1.webp",
-      "deliveryChecks": []
+      "referenceUrl": "https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/",
+      "status": "verified_offer",
+      "ean": "5907651691616",
+      "sourceIds": [
+        "domat-board-gkbi"
+      ],
+      "photoUrl": "https://domat24.pl/wp-content/uploads/2021/09/Plyta-gipsowa-GKBI-12.5-12002600-ZIELONA.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "domat-board-gkbi",
+          "checkedAt": "2026-10-25T17:17:47.678Z",
+          "status": "unavailable",
+          "reason": "integration_unavailable",
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-profile-cd60-norgips-3m",

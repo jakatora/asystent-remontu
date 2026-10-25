@@ -511,6 +511,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://www.castorama.pl/plyta-gipsowo-kartonowa-zwykla-1200-x-2600-x-12-5-mm-gkb-typ-a-norgips/5907651690442_CAPL.prd (EAN 5907651690442)
   // source: https://www.grupapsb.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html (EAN 5907651690442)
   // source: https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html (cena brutto, odczyt 2026-10-25T15:20:52.168Z)
+  // source: https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/ (cena brutto, odczyt 2026-10-25T17:15:52.753Z)
   {
     id: 'mat-gypsum-board-norgips-gkb-a-1200x2600',
     materialType: 'gypsum-board',
@@ -518,12 +519,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Norgips',
     packageSize: 3.12,
     packageUnit: 'm2',
-    pricePerPackage: 26.00,
-    pricePerM2: 8.33,
+    pricePerPackage: 35.90,
+    pricePerM2: 11.51,
     category: 'economy',
-    storeName: 'Rodimax',
+    storeName: 'Domat',
     sourceUrl:
-      'https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html',
+      'https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/',
     lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
@@ -533,6 +534,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html (EAN + cena 49,99 zł)
   // source: https://www.castorama.pl/plyta-gipsowo-kartonowa-impregnowana-1200-x-2600-x-12-5-mm-gkbi-typ-h2-norgips/5907651691616_CAPL.prd (EAN 5907651691616)
   // source: https://www.leroymerlin.pl/produkty/plyta-gipsowa-impregnowana-gkbi-typ-h2-2600-x-1200-x-12-5-mm-norgips-41703172.html (EAN 5907651691616)
+  // source: https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/ (cena brutto, odczyt 2026-10-25T17:15:50.250Z)
   {
     id: 'mat-gypsum-board-norgips-gkbi-h2-1200x2600',
     materialType: 'gypsum-board',
@@ -540,13 +542,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Norgips',
     packageSize: 3.12,
     packageUnit: 'm2',
-    pricePerPackage: 49.99,
-    pricePerM2: 16.02,
+    pricePerPackage: 57.12,
+    pricePerM2: 18.31,
     category: 'better',
-    storeName: 'Mrówka',
+    storeName: 'Domat',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html',
-    lastUpdated: '2026-08-23',
+      'https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 

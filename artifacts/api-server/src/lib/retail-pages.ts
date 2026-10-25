@@ -5,6 +5,7 @@ import { readRetailMicrodata } from './retail-microdata';
 import { AnonymousShop } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
+import { readWooProduct } from './woocommerce-product';
 
 export interface RetailSource {
   id: string;
@@ -16,7 +17,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -114,6 +115,12 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if (source.format==='woocommerce') {
+    const product=await readWooProduct(source,fetchImpl);
+    // Manufacturer and package are reviewed against the exact primary barcode.
+    const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:product.name,gtin13:source.ean,brand:source.brand,image:product.imageUrl,offers:{'@type':'Offer',price:(product.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
+    return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:product.evidenceSha256};
+  }
   if (source.format === 'shopify-api') {
     const client = new AnonymousShop(new URL(source.url).origin, fetchImpl, AbortSignal.timeout(8000));
     const raw = await client.text(new URL(source.url).pathname + '.js');
