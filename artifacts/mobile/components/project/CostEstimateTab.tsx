@@ -230,6 +230,7 @@ function EstimateResult({
   const lines = data.stages.flatMap(stage => stage.lines);
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
+  const pickupConfirmationStores = data.coverage?.pickupConfirmationStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
   const hasDoorParts = data.stages.some(stage => stage.jobId === 'interior-doors') || lines.some(line => ['door-leaf', 'door-frame'].includes(line.product?.category ?? line.query.category ?? ''));
   const hasLeftCredis = lines.some(line => (line.product?.ean ?? line.query.ean) === '5900378219590');
   const consolidated = data.consolidated;
@@ -261,6 +262,10 @@ function EstimateResult({
           <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{selectedStore ? tr(`W wybranym sklepie nie potwierdzono ofert dla ${unresolved.length} pozycji z poszczególnych prac. Pełny koszt zestawu nie jest jeszcze dostępny.`, `Offers for ${unresolved.length} items across the selected jobs could not be confirmed in this store. The full basket cost is not yet available.`) : t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
         </View>
       )}
+      {pickupConfirmationStores.map(store => <View key={store} accessibilityRole="alert" style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 6 }}>
+        <Txt w="semibold">{tr(`${store}: odbiór po uzgodnieniu`, `${store}: collection by arrangement`)}</Txt>
+        <Txt style={{ fontSize: 13, lineHeight: 19 }}>{tr('Sklep potwierdza miejsce i termin odbioru indywidualnie. Jego ceny pokazujemy przy dostawie, ale nie uwzględniamy ich w rankingu własnego odbioru. Koszt transportu również wymaga wyceny sklepu.', 'The store confirms the collection location and date individually. Its prices are shown for home delivery but excluded from the collection ranking. Transport also requires a store quote.')}</Txt>
+      </View>)}
       <PriceChangeNotice changes={priceChanges} refresh={data.priceRefresh} hasBaseline={hasPriceBaseline} />
       {hasDoorParts && <View accessibilityRole="alert" style={{ padding: 16, borderRadius: 16, backgroundColor: Colors.warningBg, gap: 6 }}>
         <Txt w="semibold">{tr('Dobierz zgodny zestaw drzwi', 'Match the door components')}</Txt>

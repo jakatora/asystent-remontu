@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T21:34:47.626Z",
+  "checkedAt": "2026-10-25T22:42:53.585Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 73,
-  "remaining": 30,
-  "offers": 99,
-  "stores": 31,
+  "verifiedProducts": 74,
+  "remaining": 29,
+  "offers": 100,
+  "stores": 32,
   "productsWithPhotos": 103,
-  "registeredOffers": 101,
+  "registeredOffers": 102,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1510,11 +1510,23 @@
       "id": "mat-adhesive-eps-atlas-stopter-k20-25kg",
       "name": "Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg",
       "referenceUrl": "https://www.grupapsb.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5905400160253",
-      "sourceIds": [],
-      "photoUrl": "https://pliki.grupapsb.com.pl/files/InfoverProduct/dd/r42uc0j0ledk/Photos/bhp9rsh0m4juu0/Body_zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas_1.jpg",
-      "deliveryChecks": []
+      "sourceIds": [
+        "betterial-atlas-stopter-k20-25kg"
+      ],
+      "photoUrl": "https://betterial.pl/52078-product_main_2x/atlas-zaprawa-klejaca-do-styropianu-stopter-k-20.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "betterial-atlas-stopter-k20-25kg",
+          "checkedAt": "2026-10-25T22:42:53.585Z",
+          "status": "unavailable",
+          "reason": "retailer_transport_quote_required",
+          "postalCode": "00-001"
+        }
+      ],
+      "purchaseMultiple": 42,
+      "pickupRequiresConfirmation": true
     },
     {
       "id": "mat-mesh-fiberglass-atlas-150-50m2",

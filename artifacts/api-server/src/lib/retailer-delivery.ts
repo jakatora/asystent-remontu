@@ -22,6 +22,7 @@ const TTL = 10 * 60_000;
 
 function unavailableReason(store: string): string | undefined {
   const sources = RETAIL_SOURCES.filter(source=>source.store===store);
+  if (sources.length && sources.every(source=>source.format === 'betterial')) return 'retailer_transport_quote_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
   if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka'].includes(store)) return undefined;
   return ['Castorama','OBI'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';

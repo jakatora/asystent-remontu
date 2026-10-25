@@ -899,10 +899,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd
   // source: https://liderzycen.pl/pl/p/Drzwi-pokojowe-Credis-80-lewe-biale/30489
   {"id":"liderzy-erkado-credis-80-left-white","ean":"5900378219590","name":"Drzwi pokojowe Credis 80 lewe białe","category":"door-leaf","brand":"Erkado","brandReference":{"url":"https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd","retailerValue":"liderzycen","retailerId":50},"packageSize":1,"unit":"szt","store":"LiderzyCen","format":"shoper-api","productId":30489,"retailerSku":"ctma_5900378219590","apiPurchaseUnit":"szt.","variant":["Credis","80","lewe","białe"],"imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_50898_500_500/a79eaa09c570422baee6412157b93d28.jpg","url":"https://liderzycen.pl/pl/p/Drzwi-pokojowe-Credis-80-lewe-biale/30489","packageDescription":"przeszklenia o mlecznym wykończeniu"},
+  // source: https://betterial.pl/kleje-do-styropianu/8679-atlas-zaprawa-klejaca-do-styropianu-stopter-k-20.html
+  // source: https://betterial.pl/content/4-transport
+  { id: 'betterial-atlas-stopter-k20-25kg', ean: '5905400160253', name: 'Atlas - zaprawa klejąca do styropianu Stopter K-20', category: 'adhesive-eps', brand: 'Atlas', packageSize: 25, unit: 'kg', store: 'Betterial', format: 'betterial', productId: 8679, variantId: 3816, retailerSku: '8679-86310', purchaseMultiple: 42, pickupRequiresConfirmation: true, variant: ['Stopter', 'K-20'], url: 'https://betterial.pl/kleje-do-styropianu/8679-atlas-zaprawa-klejaca-do-styropianu-stopter-k-20.html' },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg': '5905400160253',
   "Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe przylgowe przeszklone": "5900378219590",
   "Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm": "5905458019787",
   "Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro": "5906711270471",

@@ -302,6 +302,7 @@ export interface SerializedProject {
   priceRefresh?: { status: 'updated' | 'recent'; checkedAt: string | null; confirmedOfferIds: string[]; failedOfferIds: string[]; retryAfterSeconds: number };
   deliveryComparison?: DeliveryComparison;
   coverage?: {
+    pickupConfirmationStores?: string[];
     offers: number;
     products: number;
     stores: string[];

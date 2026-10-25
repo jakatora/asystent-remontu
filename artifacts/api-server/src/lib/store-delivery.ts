@@ -4,6 +4,9 @@ import type { StoreDeliveryPolicy } from '../../../../lib/pricing-service/src/de
  * prepaid home delivery in Poland, not guessed fees for an arbitrary basket.
  * Weight, dimensions, payment and postcode can change the checkout quote. */
 export const STORE_DELIVERY_POLICIES: readonly StoreDeliveryPolicy[] = [
+  { store: 'Betterial', minimumGrosze: null, checkedAt: null,
+    // source: https://betterial.pl/content/4-transport
+    sourceUrl: 'https://betterial.pl/content/4-transport' },
   { store: 'Zino', minimumGrosze: null, checkedAt: null,
     // source: https://sklep.zino.pl/pl/basket
     sourceUrl: 'https://sklep.zino.pl/pl/basket' },

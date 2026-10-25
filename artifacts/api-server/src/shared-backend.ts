@@ -64,7 +64,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     } catch { errors.set('cache', 'cache_read_failed'); }
   }
 
-  function catalog() {
+  function catalog(pickup = false) {
     const products: Product[] = [];
     const offers: ProductOffer[] = [];
     for (const source of RETAIL_SOURCES) {
@@ -99,7 +99,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         return products.find(product => product.category === query.category &&
           (product.normalizedName === query.normalizedName || product.ean === alias)) ?? null;
       },
-      listOffers: async (_db, id) => offers.filter(offer => offer.productId === id),
+      listOffers: async (_db, id) => offers.filter(offer => offer.productId === id &&
+        (!pickup || !RETAIL_SOURCES.find(source => source.id === offer.id)?.pickupRequiresConfirmation)),
     };
     return { products, offers, deps };
   }
@@ -147,6 +148,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       status: eligible.length > 0 ? 'ok' : 'no-current-offers',
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
+      pickupConfirmationStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupRequiresConfirmation).map(source => source.store))],
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
       delivery: retailerDeliveryCapabilities(),
       sources: RETAIL_SOURCES.map(source => ({
@@ -181,7 +183,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         priceRefresh = { status: recent ? 'recent' : 'updated', checkedAt:lastAttemptAt, ...refreshResult,
           retryAfterSeconds:Math.max(0,Math.ceil((refreshedAt+60_000-Date.now())/1000)) };
       }
-      const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog().deps);
+      const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog(parsed.data.options?.delivery?.mode === 'pickup').deps);
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
       const deadline = Date.now() + 20_000;

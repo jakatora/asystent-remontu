@@ -11,6 +11,7 @@ import { readPrestashopProduct } from './prestashop-product';
 import { readAbstoreProduct } from './abstore-product';
 import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
+import { readBetterialProduct } from './betterial-product';
 
 export interface RetailSource {
   id: string;
@@ -24,10 +25,12 @@ export interface RetailSource {
   packageSize: number;
   /** Reviewed order lot; the EAN and price still describe one physical pack. */
   purchaseMultiple?: number;
+  /** The retailer requires arranging a pickup; do not rank it as confirmed collection. */
+  pickupRequiresConfirmation?: boolean;
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -72,7 +75,8 @@ function objects(value: unknown): Record<string, any>[] {
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
   const products: Record<string, any>[] = [];
-  if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
+  if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
+  else if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
   else if (source.format === 'abstore') products.push(readAbstoreProduct(html, source));
   else if (source.format === 'certusoft') products.push(readCertusoftProduct(html, source).product);
   else if (source.format === 'modna') products.push(readModnaProduct(html, source).product);
