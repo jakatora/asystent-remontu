@@ -4,6 +4,7 @@ import { parsePriceToGrosze } from '@workspace/price-collector';
 import { readRetailMicrodata } from './retail-microdata';
 import { AnonymousShop } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
+import { confirmRetailIdentity } from './retail-identity';
 
 export interface RetailSource {
   id: string;
@@ -15,7 +16,8 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax';
+  /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
   /** Reviewed Shoper product identifier, also for stores with custom URLs. */
@@ -52,9 +54,13 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   const products: Record<string, any>[] = [];
-  if (source.format && !['jsonld','shoper-api','shopify-api'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
+  if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
+  }
+  if (source.format === 'idosell' || source.format === 'fixero' || source.format === 'rodimax') {
+    if (products.length !== 1) throw Error('product_identity_ambiguous');
+    products[0] = confirmRetailIdentity(html, products[0], source);
   }
   const product = products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
@@ -82,7 +88,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   if (prices.length === 0) throw new Error('no_confirmed_online_pln_offer');
   // Conflicting online prices are ambiguous; do not pick a tempting minimum.
   if (new Set(prices).size !== 1) throw new Error('ambiguous_online_price');
-  const firstImage = [product.image].flat()[0];
+  const firstImage = [source.imageUrl ?? product.image ?? eligibleOffers.find(offer => offer.image)?.image].flat()[0];
   const imageUrl = typeof firstImage === 'string' ? firstImage : firstImage?.url;
   return {
     sourceId: source.id, ean: source.ean, name,
@@ -114,7 +120,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   const api = source.format === 'shoper-api';
   const requestUrl = api ? `${new URL(source.url).origin}/webapi/front/pl_PL/products/PLN/${shoperProductId(source)}` : source.url;
   const response = await fetchImpl(requestUrl, {
-    signal: AbortSignal.timeout(8000), redirect: 'error',
+    signal: AbortSignal.timeout(['idosell','fixero'].includes(source.format ?? '') ? 12000 : 8000), redirect: 'error',
     headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: 'text/html', 'Accept-Language': 'pl-PL' },
   });
   if (!response.ok) throw new Error(`retailer_http_${response.status}`);

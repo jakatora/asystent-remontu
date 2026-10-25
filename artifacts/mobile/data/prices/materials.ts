@@ -479,6 +479,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html (Mrówka — EAN 5902062502735)
   // source: https://www.grupapsb.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html (Grupa PSB — EAN 5902062502735)
   // source: https://www.narzedzia.pl/siatka-scierna-na-rzep-225mm-k180-do-59g260-10szt-graphite-55h746,92884.html (EAN 5902062502735 + cena 38,87 zł)
+  // source: https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html (cena brutto, odczyt 2026-10-25T15:16:38.226Z)
   {
     id: 'mat-abrasive-mesh-graphite-225-k180-10',
     materialType: 'abrasive',
@@ -486,12 +487,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Graphite',
     packageSize: 10,
     packageUnit: 'szt',
-    pricePerPackage: 38.87,
+    pricePerPackage: 37.00,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'Fixero',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html',
-    lastUpdated: '2026-08-24',
+      'https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes:
       'Do szlifowania gładzi na gładko (K180). Opak. 10 krążków ⌀225 mm — zwykle 1 opak. na cały pokój.',
@@ -509,6 +510,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html (EAN + cena 34,99 zł)
   // source: https://www.castorama.pl/plyta-gipsowo-kartonowa-zwykla-1200-x-2600-x-12-5-mm-gkb-typ-a-norgips/5907651690442_CAPL.prd (EAN 5907651690442)
   // source: https://www.grupapsb.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html (EAN 5907651690442)
+  // source: https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html (cena brutto, odczyt 2026-10-25T15:20:52.168Z)
   {
     id: 'mat-gypsum-board-norgips-gkb-a-1200x2600',
     materialType: 'gypsum-board',
@@ -516,13 +518,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Norgips',
     packageSize: 3.12,
     packageUnit: 'm2',
-    pricePerPackage: 34.99,
-    pricePerM2: 11.22,
+    pricePerPackage: 26.00,
+    pricePerM2: 8.33,
     category: 'economy',
-    storeName: 'Mrówka',
+    storeName: 'Rodimax',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html',
-    lastUpdated: '2026-08-23',
+      'https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -698,6 +700,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html (EAN + cena 104,99 zł)
   // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/ (model WHB1-32, EAN 5036484088390)
   // source: https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html (EAN 5036484088390)
+  // source: https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html (cena brutto, odczyt 2026-10-25T15:14:57.075Z)
   {
     id: 'mat-basin-trap-mcalpine-whb1-32',
     materialType: 'trap',
@@ -705,18 +708,19 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'McAlpine',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 104.99,
+    pricePerPackage: 108.86,
     category: 'better',
-    storeName: 'Mrówka',
+    storeName: 'BLU',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html',
-    lastUpdated: '2026-08-23',
+      'https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
   // Rura wielowarstwowa PEX-AL/PEX Tycner 16×2 mm — EAN 5901095517976. Sprzedawana na metry (rolka 200 mb), cena 4,99 zł/mb (Mrówka).
   // source: https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html (EAN + cena 4,99 zł/mb)
   // source: https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990 (EAN 5901095517976, sprzedaż na mb)
+  // source: https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990 (cena brutto, odczyt 2026-10-25T15:14:56.417Z)
   {
     id: 'mat-pex-pipe-tycner-16x2',
     materialType: 'pipe',
@@ -724,19 +728,20 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Tycner',
     packageSize: 1,
     packageUnit: 'mb',
-    pricePerPackage: 4.99,
+    pricePerPackage: 3.99,
     pricePerMb: 4.99,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'Plus-Market',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html',
-    lastUpdated: '2026-08-23',
+      'https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
   // Kolanko (kolano) zaciskowe PEX Tycner 16×16 mm — EAN 5901095521003. Cena 12,99 zł/szt (Mrówka).
   // source: https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html (EAN + cena 12,99 zł)
   // source: https://www.grupapsb.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html (EAN 5901095521003)
+  // source: https://www.abud.pl/product-pol-64835-Kolanko-zaciskowe-PEX-16x16mm-Tycner.html (cena brutto, odczyt 2026-10-25T15:02:59.071Z)
   {
     id: 'mat-pex-elbow-tycner-16x16',
     materialType: 'fitting',
@@ -744,12 +749,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Tycner',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 12.99,
+    pricePerPackage: 10.95,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'ABUD',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html',
-    lastUpdated: '2026-08-23',
+      'https://www.abud.pl/product-pol-64835-Kolanko-zaciskowe-PEX-16x16mm-Tycner.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -775,6 +780,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m × 0,075 mm — EAN 5900950618100. Cena 12,99 zł/szt (OBI).
   // source: https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589 (EAN + cena 12,99 zł)
   // source: https://www.grupapsb.com.pl/produkt/tasma-teflonowa-12-mm-x-10-m-x-0-075-mm-tycner.html (EAN 5900950618100)
+  // source: https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html (cena brutto, odczyt 2026-10-25T15:02:58.995Z)
   {
     id: 'mat-teflon-tape-tycner-12mm',
     materialType: 'sealing-tape',
@@ -782,12 +788,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Tycner',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 12.99,
+    pricePerPackage: 2.00,
     category: 'economy',
-    storeName: 'OBI',
+    storeName: 'ABUD',
     sourceUrl:
-      'https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589',
-    lastUpdated: '2026-08-23',
+      'https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -950,6 +956,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Łącznik (wyłącznik) pojedynczy jednobiegunowy Kontakt-Simon Basic BMW1.01/11 biały — EAN 5902787568177. Cena 14,98 zł/szt (Castorama).
   // source: https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd (EAN + cena 14,98 zł)
   // source: https://supergniazdka.pl/kontakt-simon/simon-basic/bmw101-11/lacznik-jednobiegunowy-modul-10ax-250v-szybkozlacza-bialy-5902787568177-5762.html (EAN 5902787568177, model BMW1.01/11)
+  // source: https://www.elektryknet.pl/produkt/simon-basic-lacznik-jednobiegunowy-bialy-bmw101-11 (cena brutto, odczyt 2026-10-25T15:14:57.67Z)
   {
     id: 'mat-switch-simon-basic-bmw1',
     materialType: 'switch',
@@ -957,12 +964,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Kontakt-Simon',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 14.98,
+    pricePerPackage: 14.79,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'ElektrykNet',
     sourceUrl:
-      'https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://www.elektryknet.pl/produkt/simon-basic-lacznik-jednobiegunowy-bialy-bmw101-11',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1059,6 +1066,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Podkład podłogowy pod panele Arbiton XPS Smart Aquastop Thermo 1,6 mm, rolka/harmonijka 6 m² (3w1 z zintegrowaną folią paroizolacyjną) — EAN 5905167826942. Cena 70,68 zł/opak. (11,78 zł/m², Castorama). Do ogrzewania podłogowego, redukcja hałasu do 19 dB.
   // source: https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd (EAN 5905167826942, cena 70,68 zł, 6 m²)
   // source: https://arbiton.com/pl/podklady-pod-panele/podklady-pod-panele-laminowane/arbiton-secura-thermo-aquastop-smart-podklady-pod-panele-laminowane (Arbiton — karta serii XPS Smart Aquastop Thermo)
+  // source: https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html (cena brutto, odczyt 2026-10-25T15:20:52.478Z)
   {
     id: 'mat-underlay-arbiton-xps-aquastop-6m2',
     materialType: 'underlay',
@@ -1066,13 +1074,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Arbiton',
     packageSize: 6,
     packageUnit: 'm2',
-    pricePerPackage: 70.68,
-    pricePerM2: 11.78,
+    pricePerPackage: 56.00,
+    pricePerM2: 9.33,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Rodimax',
     sourceUrl:
-      'https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1330,6 +1338,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Do naroży wklęsłych ściana-ściana / ściana-podłoga; zatapiany w masie.
   // source: https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd (EAN 8022452113802, cena 20,98 zł)
   // source: https://eadamex.pl/narozniki-hydroizolacyjne/8290-naroznik-wewnetrzny-mapei-mapeband-w-profil-90-8022452113802.html (EAN 8022452113802)
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089 (cena brutto, odczyt 2026-10-25T15:14:55.689Z)
   {
     id: 'mat-sealing-corner-internal-mapei',
     materialType: 'sealing-corner',
@@ -1337,12 +1346,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Mapei',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 20.98,
+    pricePerPackage: 12.87,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'WinBud',
     sourceUrl:
-      'https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1350,6 +1359,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Do naroży wypukłych (np. obudowa wanny, ścianka działowa).
   // source: https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd (EAN 8022452113789, cena 20,98 zł)
   // source: https://eadamex.pl/narozniki-hydroizolacyjne/8291-naroznik-zewnatrzny-mapei-mapeband-w-profil-270-8022452113789.html (EAN 8022452113789)
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-zewnetrzny/3090 (cena brutto, odczyt 2026-10-25T15:14:55.785Z)
   {
     id: 'mat-sealing-corner-external-mapei',
     materialType: 'sealing-corner',
@@ -1357,12 +1367,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Mapei',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 20.98,
+    pricePerPackage: 12.87,
     category: 'better',
-    storeName: 'Castorama',
+    storeName: 'WinBud',
     sourceUrl:
-      'https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-zewnetrzny/3090',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1370,6 +1380,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Do przejść rur pod baterie/zawory; zatapiany w masie hydroizolacyjnej.
   // source: https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd (EAN 8022452113925, cena 37,98 zł / 2 szt.)
   // source: https://www.obi.pl/pozostale-akcesoria-do-plytek/mapei-mankiet-uszczelniajacy-mapeband-w/p/2761617 (Mapei Mapeband W mankiet 12×12 cm)
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-120-x120mm%2C-scienny/3092 (cena brutto, odczyt 2026-10-25T15:14:55.93Z)
   {
     id: 'mat-sealing-cuff-wall-mapei-12x12-2',
     materialType: 'sealing-cuff',
@@ -1377,12 +1388,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Mapei',
     packageSize: 2,
     packageUnit: 'szt',
-    pricePerPackage: 37.98,
+    pricePerPackage: 24.50,
     category: 'better',
-    storeName: 'Castorama',
+    storeName: 'WinBud',
     sourceUrl:
-      'https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-120-x120mm%2C-scienny/3092',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Do uszczelnienia przejść rur pod baterie/wypływy w strefie mokrej.',
   },

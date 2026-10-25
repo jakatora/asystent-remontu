@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { MATERIAL_PRICES } from '../../mobile/data/prices/materials';
 import { getProductPhoto } from '../../mobile/data/products/photos';
+import { getProductReferenceStatus, PRODUCT_REFERENCE_STATUS } from '../../mobile/data/products/availability';
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
 import { MATERIAL_EAN_OVERLAY } from '../src/lib/ean-overlay';
 import { parseRetailPage, readRetailSource } from '../src/lib/retail-pages';
@@ -23,6 +24,9 @@ test('all reference products have precise photographs; Fix All 290 ml never uses
   const connector = MATERIAL_PRICES.find(r => r.id === 'mat-wire-connector-wago-221-413')!;
   assert.equal(connector.packageSize,1); assert.match(connector.productLabel,/1 szt/);
   assert.equal(MATERIAL_PRICES.find(r => r.id === 'mat-tile-trim-cezar-corner-8mm-25m')!.packageUnit,'mb');
+  const pending = PRODUCT_REFERENCE_STATUS[0];
+  assert.equal(getProductReferenceStatus(pending.id,pending.sourceUrl),pending);
+  assert.equal(getProductReferenceStatus(pending.id,'https://another-reviewed-retailer.pl/product'),undefined);
 });
 
 test('Unimet scopes the main name separately from brand and verifies explicit gross currency and barcode', () => {

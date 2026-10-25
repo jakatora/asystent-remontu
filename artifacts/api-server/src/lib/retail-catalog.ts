@@ -819,10 +819,47 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     "format": "shopify-api",
     "url": "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m"
   },
+  // source: https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html
+  {"id":"rodimax-board-gkb","ean":"5907651690442","name":"Płyta gipsowa zwykła Norgips 1200 x 2600 x 12,5 mm 3,12 m2","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Rodimax","url":"https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html","brand":"Norgips","format":"rodimax"},
+  // source: https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html
+  {"id":"rodimax-arbiton-aquastop-6m2","ean":"5905167826942","name":"Podkład pod panele Arbiton XPS Smart Aquastop Thermo 1,6 mm 6 m2","category":"underlay","packageSize":6,"unit":"m2","store":"Rodimax","url":"https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html","brand":"Arbiton","format":"rodimax"},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089
+  {"id":"winbud-mapei-corner-internal","ean":"8022452113802","name":"Mapei Mapeband W - narożnik wewnętrzny","category":"sealing-corner","packageSize":1,"unit":"szt","store":"WinBud","url":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_2b7ab43567ae0046ace4d10d419a36f5_500_500.jpg","brand":"Mapei","format":"shoper-api","productId":3089,"apiPurchaseUnit":"szt.","variant":["wewnętrzny"]},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-zewnetrzny/3090
+  {"id":"winbud-mapei-corner-external","ean":"8022452113789","name":"Mapei Mapeband W - narożnik zewnętrzny","category":"sealing-corner","packageSize":1,"unit":"szt","store":"WinBud","url":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-zewnetrzny/3090","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_21ecda93953e59915e1391c9a417afc1_500_500.jpg","brand":"Mapei","format":"shoper-api","productId":3090,"apiPurchaseUnit":"szt.","variant":["zewnętrzny"]},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-120-x120mm%2C-scienny/3092
+  {"id":"winbud-mapei-cuff-2","ean":"8022452113925","name":"Mapei Mapeband W - mankiet 120 x120mm, ścienny","category":"sealing-cuff","packageSize":2,"unit":"szt","store":"WinBud","url":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-120-x120mm%2C-scienny/3092","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_ff01451250ec0b1f56f25dda8bf32eca_500_500.jpg","brand":"Mapei","format":"shoper","productId":3092,"variant":["120x120mm"],"packageDescription":"2 sztuki w opakowaniu"},
+  // source: https://salonbudowlanydambud.pl/pl/p/MAPEI-NAROZNIK-USZCZELNIAJACY-WEWNETRZNY-MAPEBAND-W/768
+  {"id":"dambud-mapei-corner-internal","ean":"8022452113802","name":"MAPEI NAROŻNIK USZCZELNIAJĄCY WEWNĘTRZNY MAPEBAND W","category":"sealing-corner","packageSize":1,"unit":"szt","store":"Dam-Bud","url":"https://salonbudowlanydambud.pl/pl/p/MAPEI-NAROZNIK-USZCZELNIAJACY-WEWNETRZNY-MAPEBAND-W/768","imageUrl":"https://salonbudowlanydambud.pl/environment/cache/images/productGfx_2307_500_500/MAPEBAND-W-NAR-WEW.jpg","brand":"Mapei","format":"shoper-api","productId":768,"apiPurchaseUnit":"szt.","variant":["wewnętrzny"]},
+  // source: https://salonbudowlanydambud.pl/pl/p/MAPEI-NAROZNIK-USZCZELNIAJACY-ZEWNETRZNY-MAPEBAND-W/769
+  {"id":"dambud-mapei-corner-external","ean":"8022452113789","name":"MAPEI NAROŻNIK USZCZELNIAJĄCY ZEWNĘTRZNY MAPEBAND W","category":"sealing-corner","packageSize":1,"unit":"szt","store":"Dam-Bud","url":"https://salonbudowlanydambud.pl/pl/p/MAPEI-NAROZNIK-USZCZELNIAJACY-ZEWNETRZNY-MAPEBAND-W/769","imageUrl":"https://salonbudowlanydambud.pl/environment/cache/images/productGfx_2310_500_500/MAPEBAND-W-NAR-ZEWNETRZNY.jpg","brand":"Mapei","format":"shoper-api","productId":769,"apiPurchaseUnit":"szt.","variant":["zewnętrzny"]},
+  // source: https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990
+  {"id":"plusmarket-pex-pipe-16x2","ean":"5901095517976","name":"Rura pex/al/pex/ 16 mmx2 - 1mb","category":"pipe","packageSize":1,"unit":"mb","store":"Plus-Market","url":"https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990","imageUrl":"https://www.plus-market.pl/environment/cache/images/productGfx_19878_500_500/2024-09-27_16h57_16.webp","brand":"PLUS-MARKET","format":"shoper-api","productId":12990,"apiPurchaseUnit":"mb","variant":["16mmx2","1mb"]},
+  // source: https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html
+  {"id":"blu-mcalpine-whb132","ean":"5036484088390","name":"McAlpine WHB1-32","category":"trap","packageSize":1,"unit":"szt","store":"BLU","url":"https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html","imageUrl":"https://cdn.blu.com.pl/large_default/5036484088390_383553_McAlpine_WHB1-32_MR-SY-WHB132_Zdjecie_produktu.jpg?ver=1742976674_1744096667_1742976689_1747816989_1747816981_1742976708_1743066628__1765797618","brand":"McAlpine","format":"jsonld","variant":["WHB1-32"]},
+  // source: https://www.elektryknet.pl/produkt/simon-basic-lacznik-jednobiegunowy-bialy-bmw101-11
+  {"id":"elektryknet-simon-bmw1","ean":"5902787568177","name":"Simon Basic Łącznik jednobiegunowy biały BMW1.01/11","category":"switch","packageSize":1,"unit":"szt","store":"ElektrykNet","url":"https://www.elektryknet.pl/produkt/simon-basic-lacznik-jednobiegunowy-bialy-bmw101-11","imageUrl":"https://www.elektryknet.pl/static/thumbnail/product/facebook/60955.webp","brand":"Kontakt Simon","format":"jsonld","variant":["BMW1.01/11","biały"]},
+  // source: https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html
+  {"id":"abud-teflon-12x10","ean":"5900950618100","name":"Taśma teflonowa 12mm x 10m x 0.075mm Tycner","category":"sealing-tape","packageSize":1,"unit":"szt","store":"ABUD","url":"https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html","imageUrl":"https://mrowka.com.pl/files/InfoverProduct/mu/q7rvc0igoa6f/Photos/q96euhr0ml7hr0/ShowWebp_tasma-teflonowa-12-mm-x-10-m-x-0-075-mm-tycner_1.webp","brand":"Tycner","format":"idosell","productId":6204,"apiPurchaseUnit":"szt.","variant":["12mm","10m","0.075mm"]},
+  // source: https://www.abud.pl/product-pol-64835-Kolanko-zaciskowe-PEX-16x16mm-Tycner.html
+  {"id":"abud-pex-elbow-16x16","ean":"5901095521003","name":"Kolanko zaciskowe PEX 16x16mm Tycner","category":"fitting","packageSize":1,"unit":"szt","store":"ABUD","url":"https://www.abud.pl/product-pol-64835-Kolanko-zaciskowe-PEX-16x16mm-Tycner.html","imageUrl":"https://mrowka.com.pl/files/InfoverProduct/vu/t7atm0ht029g/Photos/cumrci10no4fac/ShowWebp_kolanko-zaciskowe-pex-16x16-mm-tycner_1.webp","brand":"Tycner","format":"idosell","productId":64835,"apiPurchaseUnit":"szt.","variant":["16x16mm"]},
+  // source: https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html
+  {"id":"fixero-graphite-mesh-10","ean":"5902062502735","name":"Siatka ścierna na rzep, 225 mm, K180, do szlifierki 59G260, 59G264, 59G265, 10 szt. 55H746","category":"abrasive","packageSize":10,"unit":"szt","store":"Fixero","url":"https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html","imageUrl":"https://fixero.com/media/catalog/product/cache/6517c62f5899ad6aa0ba23ceb3eeff97/1/5/1596484200_55H746__BGH_TGL_U90.jpg","brand":"Graphite","format":"fixero","productId":1956,"variant":["225mm","K180","10szt","55H746"]},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm": "5907651690442",
+  "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)": "5905167826942",
+  "Narożnik uszczelniający wewnętrzny Mapei Mapeband W (90°)": "8022452113802",
+  "Narożnik uszczelniający zewnętrzny Mapei Mapeband W (270°)": "8022452113789",
+  "Mankiet uszczelniający ścienny Mapei Mapeband W 12×12 cm, 2 szt.": "8022452113925",
+  "Rura PEX-AL/PEX Tycner 16×2 mm (na metry)": "5901095517976",
+  "Syfon umywalkowy butelkowy niski McAlpine WHB1-32 (z membraną)": "5036484088390",
+  "Łącznik pojedynczy jednobiegunowy Kontakt-Simon Basic (biały, BMW1.01/11)": "5902787568177",
+  "Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m": "5900950618100",
+  "Kolanko zaciskowe PEX Tycner 16×16 mm": "5901095521003",
+  "Siatka ścierna na rzep GRAPHITE 225 mm K180, 10 szt.": "5902062502735",
   'Farba lateksowa Śnieżka Barwy Natury biała 5 l': '5903973139188',
   'Grunt uniwersalny Knauf 5 l': '5901793357737',
   'Taśma malarska Blue Dolphin niebieska 30 mm x 50 m': '5907758515952',

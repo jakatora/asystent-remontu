@@ -98,6 +98,6 @@ export const PRODUCT_REFERENCE_STATUS: readonly { id: string; state: 'store_conf
   {"id":"mat-sealing-cuff-wall-mapei-12x12-2","state":"store_confirmation_required","observedAt":"2026-10-25T14:21:23.679Z","sourceUrl":"https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd"},
 ];
 
-export function getProductReferenceStatus(id: string) {
-  return PRODUCT_REFERENCE_STATUS.find(row => row.id === id);
+export function getProductReferenceStatus(id: string, sourceUrl?: string) {
+  return PRODUCT_REFERENCE_STATUS.find(row => row.id === id && row.sourceUrl === sourceUrl);
 }

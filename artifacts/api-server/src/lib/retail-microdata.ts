@@ -68,7 +68,9 @@ export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' |
     const amount = gross.replace(/\s|zł/g, '').replace(',', '.');
     if (Number(amount) !== Number(price)) throw new Error('retailer_gross_price_mismatch');
     const expiry = elements(offer, a => a.itemprop === 'priceValidUntil');
-    return { '@type': 'Product', name, gtin13: ean, image,
+    const descriptions = elements(product, a => a.itemprop === 'description');
+    const description = descriptions.length === 1 ? text(descriptions[0]) : '';
+    return { '@type': 'Product', name, gtin13: ean, image, description,
       offers: { '@type': 'Offer', price, priceCurrency: currency, url,
         availability: property(offer, 'availability'),
         ...(expiry.length ? { priceValidUntil: property(offer, 'priceValidUntil') } : {}),

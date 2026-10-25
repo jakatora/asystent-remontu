@@ -10,6 +10,7 @@ import { quoteCezar } from './cezar-delivery';
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
 const ORIGINS: Readonly<Record<string, string>> = {
   'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl', Prescot: 'https://www.prescot.com.pl',
+  WinBud: 'https://winbud24.pl', 'Dam-Bud': 'https://salonbudowlanydambud.pl', 'Plus-Market': 'https://www.plus-market.pl',
 };
 const TTL = 10 * 60_000;
 
@@ -31,7 +32,10 @@ export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: 
   for (const shipping of basket.shippings) {
     // Explicit home couriers only. Lockers, pickup points, COD and custom freight
     // quotations may expose a tempting zero price but are not home delivery.
-    if (shipping.engine !== '' || typeof shipping.title !== 'string' || !/kurier|kurierska|^Transport DPD$/i.test(shipping.title) ||
+    // Reviewed ShoperShipment response contains both lockers and couriers.
+    // Keep the home-courier title and pickup/COD exclusions for this engine.
+    // source: https://salonbudowlanydambud.pl/pl/p/MAPEI-NAROZNIK-USZCZELNIAJACY-WEWNETRZNY-MAPEBAND-W/768
+    if (!['','ShoperShipment'].includes(shipping.engine) || typeof shipping.title !== 'string' || !/kurier|kurierska|^Transport DPD$/i.test(shipping.title) ||
       /pobran|odbiór|odbior|punkt|automat|pickup|palet|zapytani|indywidualn|kontakt/i.test(`${shipping.title} ${shipping.description ?? ''}`)) continue;
     const country = shipping.countries?.find((c: any) => c.id === 179);
     if (!country) continue;
@@ -39,7 +43,7 @@ export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: 
     try { cost = confirmedMoney(country.cost, country.cost_float); if (cost !== confirmedMoney(shipping.cost, shipping.cost_float)) continue; } catch { continue; }
     for (const method of shipping.payments ?? []) {
       const payment = basket.payments.find((p: any) => p.payment_id === method.payment_id);
-      if (!payment || !['onlinePayment', 'transfer', 'przelewy24.pl'].includes(payment.name)) continue;
+      if (!payment || !['onlinePayment', 'transfer', 'przelewy24.pl', 'shoperP24'].includes(payment.name)) continue;
       let surcharge = 0;
       try {
         if (method.additional_cost !== undefined || method.additional_cost_float !== undefined) surcharge += confirmedMoney(method.additional_cost, method.additional_cost_float);

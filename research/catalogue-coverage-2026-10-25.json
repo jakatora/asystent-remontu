@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-25T14:57:20.787Z",
+  "checkedAt": "2026-10-25T15:26:59.464Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 40,
-  "remaining": 63,
-  "offers": 63,
-  "stores": 11,
+  "verifiedProducts": 51,
+  "remaining": 52,
+  "offers": 76,
+  "stores": 19,
   "productsWithPhotos": 103,
   "rows": [
     {
@@ -433,20 +433,24 @@
     {
       "id": "mat-abrasive-mesh-graphite-225-k180-10",
       "name": "Siatka ścierna na rzep GRAPHITE 225 mm K180, 10 szt.",
-      "referenceUrl": "https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://fixero.com/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-59g264-59g265-10-szt-55h746.html",
+      "status": "verified_offer",
+      "ean": "5902062502735",
+      "sourceIds": [
+        "fixero-graphite-mesh-10"
+      ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/6f/smngr0j78hjr/Photos/3fmkicl0lt0c47/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite_1.png",
       "deliveryChecks": []
     },
     {
       "id": "mat-gypsum-board-norgips-gkb-a-1200x2600",
       "name": "Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm",
-      "referenceUrl": "https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://rodimax.pl/P%C5%82yta-gipsowa-zwyk%C5%82a-Norgips-1200-x-2600-x-12%2C5-mm-3%2C12-m2.html",
+      "status": "verified_offer",
+      "ean": "5907651690442",
+      "sourceIds": [
+        "rodimax-board-gkb"
+      ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/g0/fsd4k0jtitpg/Photos/jdsn6lt0lkjr15/ShowWebp_plyta-gkb-125x1200x2600-mm-zwykla-norgips_1.webp",
       "deliveryChecks": []
     },
@@ -560,30 +564,45 @@
     {
       "id": "mat-basin-trap-mcalpine-whb1-32",
       "name": "Syfon umywalkowy butelkowy niski McAlpine WHB1-32 (z membraną)",
-      "referenceUrl": "https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html",
+      "status": "verified_offer",
+      "ean": "5036484088390",
+      "sourceIds": [
+        "blu-mcalpine-whb132"
+      ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/7v/fkpse0mm7t7f/Photos/odqus2n0mm7t7f/ShowWebp_syfon-umywalkowy-1-14x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine_1.webp",
       "deliveryChecks": []
     },
     {
       "id": "mat-pex-pipe-tycner-16x2",
       "name": "Rura PEX-AL/PEX Tycner 16×2 mm (na metry)",
-      "referenceUrl": "https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://www.plus-market.pl/pl/p/Rura-pexalpex-16-mmx2-1mb/12990",
+      "status": "verified_offer",
+      "ean": "5901095517976",
+      "sourceIds": [
+        "plusmarket-pex-pipe-16x2"
+      ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/na/v421g0idki5e/Photos/ug7jg8k0mn1o12/ShowWebp_rura-pex-al-pex-16-mmx2---200-mb-tycner_1.webp",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "plusmarket-pex-pipe-16x2",
+          "checkedAt": "2026-10-25T15:22:39.921Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 20
+        }
+      ]
     },
     {
       "id": "mat-pex-elbow-tycner-16x16",
       "name": "Kolanko zaciskowe PEX Tycner 16×16 mm",
-      "referenceUrl": "https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://www.abud.pl/product-pol-64835-Kolanko-zaciskowe-PEX-16x16mm-Tycner.html",
+      "status": "verified_offer",
+      "ean": "5901095521003",
+      "sourceIds": [
+        "abud-pex-elbow-16x16"
+      ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/vu/t7atm0ht029g/Photos/cumrci10no4fac/ShowWebp_kolanko-zaciskowe-pex-16x16-mm-tycner_1.webp",
       "deliveryChecks": []
     },
@@ -600,10 +619,12 @@
     {
       "id": "mat-teflon-tape-tycner-12mm",
       "name": "Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m",
-      "referenceUrl": "https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html",
+      "status": "verified_offer",
+      "ean": "5900950618100",
+      "sourceIds": [
+        "abud-teflon-12x10"
+      ],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/mu/q7rvc0igoa6f/Photos/q96euhr0ml7hr0/ShowWebp_tasma-teflonowa-12-mm-x-10-m-x-0-075-mm-tycner_1.webp",
       "deliveryChecks": []
     },
@@ -682,10 +703,12 @@
     {
       "id": "mat-switch-simon-basic-bmw1",
       "name": "Łącznik pojedynczy jednobiegunowy Kontakt-Simon Basic (biały, BMW1.01/11)",
-      "referenceUrl": "https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://www.elektryknet.pl/produkt/simon-basic-lacznik-jednobiegunowy-bialy-bmw101-11",
+      "status": "verified_offer",
+      "ean": "5902787568177",
+      "sourceIds": [
+        "elektryknet-simon-bmw1"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/lacznik-pojedynczy-kontakt-simon-basic-bialy~5902787568177_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
@@ -751,10 +774,12 @@
     {
       "id": "mat-underlay-arbiton-xps-aquastop-6m2",
       "name": "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)",
-      "referenceUrl": "https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://rodimax.pl/Podk%C5%82ad-pod-panele-Arbiton-XPS-Smart-Aquastop-Thermo-1%2C6-mm-6-m2.html",
+      "status": "verified_offer",
+      "ean": "5905167826942",
+      "sourceIds": [
+        "rodimax-arbiton-aquastop-6m2"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2~5905167826942_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
@@ -975,32 +1000,83 @@
     {
       "id": "mat-sealing-corner-internal-mapei",
       "name": "Narożnik uszczelniający wewnętrzny Mapei Mapeband W (90°)",
-      "referenceUrl": "https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-wewnetrzny/3089",
+      "status": "verified_offer",
+      "ean": "8022452113802",
+      "sourceIds": [
+        "winbud-mapei-corner-internal",
+        "dambud-mapei-corner-internal"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/naroznik-uszczelniajacy-wewnetrzny-mapei~8022452113802_02c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapei-corner-internal",
+          "checkedAt": "2026-10-25T15:22:38.649Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 4
+        },
+        {
+          "sourceId": "dambud-mapei-corner-internal",
+          "checkedAt": "2026-10-25T15:22:39.406Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 2
+        }
+      ]
     },
     {
       "id": "mat-sealing-corner-external-mapei",
       "name": "Narożnik uszczelniający zewnętrzny Mapei Mapeband W (270°)",
-      "referenceUrl": "https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapeband-W-naroznik-zewnetrzny/3090",
+      "status": "verified_offer",
+      "ean": "8022452113789",
+      "sourceIds": [
+        "winbud-mapei-corner-external",
+        "dambud-mapei-corner-external"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/naroznik-uszczelniajacy-zewnetrzny-mapei~8022452113789_02c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapei-corner-external",
+          "checkedAt": "2026-10-25T15:22:38.649Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 4
+        },
+        {
+          "sourceId": "dambud-mapei-corner-external",
+          "checkedAt": "2026-10-25T15:22:39.406Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 2
+        }
+      ]
     },
     {
       "id": "mat-sealing-cuff-wall-mapei-12x12-2",
       "name": "Mankiet uszczelniający ścienny Mapei Mapeband W 12×12 cm, 2 szt.",
-      "referenceUrl": "https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-120-x120mm%2C-scienny/3092",
+      "status": "verified_offer",
+      "ean": "8022452113925",
+      "sourceIds": [
+        "winbud-mapei-cuff-2"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/mankiet-uszczelniajacy-mapei-maly-2-szt-~8022452113925_08c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapei-cuff-2",
+          "checkedAt": "2026-10-25T15:22:38.649Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 2
+        }
+      ]
     },
     {
       "id": "mat-screed-atlas-sam200-25kg",

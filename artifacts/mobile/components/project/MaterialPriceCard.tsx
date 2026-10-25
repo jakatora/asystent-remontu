@@ -22,7 +22,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const ref = item.materialRef;
-  const referenceStatus = getProductReferenceStatus(ref.id);
+  const referenceStatus = getProductReferenceStatus(ref.id, ref.sourceUrl);
   const hasOverride = item.overridePrice !== undefined;
 
   const handleSave = () => {

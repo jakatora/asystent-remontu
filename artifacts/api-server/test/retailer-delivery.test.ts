@@ -18,6 +18,12 @@ test('real storefront shape: prepaid home courier, not pickup, COD or free-shipp
   assert.equal(selectHomeDelivery(fixture(0)).costGrosze, 0);
   const dpd = fixture(2460); dpd.shippings[3].title='Transport DPD';
   assert.equal(selectHomeDelivery(dpd).costGrosze,2460);
+  const integrated = fixture(1800); integrated.shippings[3].engine='ShoperShipment'; integrated.shippings[3].title='InPost Kurier';
+  integrated.shippings[1].engine='ShoperShipment'; integrated.shippings[1].title='InPost Paczkomaty 24/7';
+  integrated.payments[0].name='shoperP24';
+  assert.equal(selectHomeDelivery(integrated).costGrosze,1800);
+  integrated.shippings[3].engine='unreviewedModule';
+  assert.throws(()=>selectHomeDelivery(integrated),/no_home_delivery/);
   const b = fixture(); b.shippings[3].payments[0] = { payment_id:3, additional_cost:'1,50 zł', additional_cost_float:1.5 };
   assert.equal(selectHomeDelivery(b).costGrosze, 1200);
   b.shippings[3].description = 'Wycena indywidualna, prosimy o kontakt';
