@@ -36,7 +36,46 @@ test('automatic mode ignores old manual fees, blocks missing postcode, exposes u
   const result = await compareAutomaticDelivery([s], {mode:'shipping',postalCode:'00-001',costsGrosze:{B:0}}, quote);
   assert.equal(result.best!.stores[0].store,'A'); assert.equal(result.status,'needs_delivery_costs');
   assert.deepEqual(result.missingDeliveryStores,['B']);
-  assert.equal((await compareAutomaticDelivery([await stage(61)], {mode:'shipping',postalCode:'00-001'}, quote)).status,'limit_exceeded');
+  const large = await compareAutomaticDelivery([await stage(61)], {mode:'shipping',postalCode:'00-001'}, quote);
+  assert.equal(large.searchLimited,true);assert.ok(large.best);
+  assert.equal(large.best.stores[0].lines[0].packages[0].count,61);
+  assert.equal(large.best.totalGrosze,36600);
+  assert.equal((await compareAutomaticDelivery([await stage(10001)], {mode:'shipping',postalCode:'00-001'}, quote)).status,'limit_exceeded');
+});
+
+async function manyProducts(productCount: number, storeCount: number) {
+  const template=await stage(1),line=template.lines[0];assert.ok(line.resolved);
+  return {...template,lines:Array.from({length:productCount},(_,index)=>({...line,
+    product:{...line.product,id:`product-${index}`,name:`Materiał ${index}`},
+    offers:Array.from({length:storeCount},(_,store)=>({...line.offers[0],id:`offer-${index}-${store}`,productId:`product-${index}`,store:`S${String(store).padStart(2,'0')}`,price:((100+store)/100).toFixed(2)})),
+  }))};
+}
+
+test('all 103 product needs survive a large renovation with 12 stores and bounded quote work',async()=>{
+  const input=await manyProducts(103,12);let calls=0;
+  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
+    calls++;const quoted=await known(order,postcode);assert.ok('quote'in quoted);quoted.quote.costGrosze=order.store==='S11'?0:2000;return quoted;
+  });
+  assert.equal(result.productCount,103);assert.equal(result.searchLimited,true);assert.ok(result.best);assert.ok(calls<=80);
+  assert.equal(result.best.totalGrosze,11433);assert.equal(result.best.stores[0].store,'S11');
+  const purchased=result.best.stores.flatMap(s=>s.lines);assert.equal(purchased.length,103);
+  assert.equal(new Set(purchased.map(l=>l.product.id)).size,103);
+  assert.ok(purchased.every(line=>line.packages.reduce((n,p)=>n+p.count*p.packageSize,0)===5));
+});
+
+test('a store beyond the 32-bit mask boundary retains its complete basket and can win on shipping',async()=>{
+  const result=await compareAutomaticDelivery([await manyProducts(21,33)],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
+    const quoted=await known(order,postcode);assert.ok('quote'in quoted);quoted.quote.costGrosze=order.store==='S32'?0:10000;return quoted;
+  });
+  assert.ok(result.best);assert.equal(result.best.stores[0].store,'S32');assert.equal(result.best.stores[0].lines.length,21);
+  assert.equal(result.best.totalGrosze,2772);
+});
+
+test('pickup compares all 103 products across 33 stores without a shipping request or subset truncation',async()=>{
+  const result=await compareAutomaticDelivery([await manyProducts(103,33)],{mode:'pickup'},async()=>{throw Error('Pickup must not request shipping');});
+  assert.equal(result.status,'compared');assert.equal(result.productCount,103);assert.equal(result.best?.totalGrosze,10300);
+  assert.equal(result.best?.deliveryGrosze,0);assert.equal(result.best?.stores.flatMap(s=>s.lines).length,103);
+  assert.ok(!result.searchLimited);
 });
 
 test('large renovation falls back to explicitly limited complete baskets without exceeding I/O bounds', async () => {

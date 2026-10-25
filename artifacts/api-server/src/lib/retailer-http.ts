@@ -1,9 +1,18 @@
+import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
+export const MAX_RETAIL_PACKAGES = DELIVERY_LIMITS.packagesPerProduct;
+export function retailerRequestBudget(productCount: number): number {
+  if (!Number.isSafeInteger(productCount) || productCount < 1 || productCount > DELIVERY_LIMITS.products) throw Error('invalid_basket');
+  // Main product + add per line, checkout and up to five shipping methods;
+  // redirects remain bounded independently by read().
+  return Math.min(1000,(productCount*2+10)*4);
+}
+
 /** An isolated anonymous basket, restricted to one reviewed origin. Never uses
  * client cookies, submits customer details, agrees to terms or places orders. */
 export class AnonymousShop {
   private cookies = new Map<string, string>();
   private calls = 0;
-  constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal) {}
+  constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30) {}
   async json(path: string, body?: object): Promise<any> {
     return JSON.parse(await this.read(path, body ? JSON.stringify(body) : undefined, true));
   }
@@ -14,7 +23,7 @@ export class AnonymousShop {
     let url = new URL(path, this.origin), method = payload ? 'POST' : 'GET';
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
-      if (++this.calls > 30) throw Error('request_limit');
+      if (++this.calls > this.maxCalls) throw Error('request_limit');
       const cookie = [...this.cookies].map(([k,v]) => `${k}=${v}`).join('; ');
       if (cookie.length > 8192 || this.cookies.size > 64) throw Error('invalid_cookie_size');
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',

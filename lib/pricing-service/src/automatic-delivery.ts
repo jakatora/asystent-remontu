@@ -2,8 +2,9 @@ import { groupProjectByProduct, isComparableOffer } from './estimate';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { StageEstimate, PackagePlanEntry } from './types';
 import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy } from './delivery';
+import { DELIVERY_LIMITS } from './delivery-limits';
 
-const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80;
+const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}`)).sort().join('|');
 
 /** Enumerate all distributions of the required packs, including splitting the
@@ -30,7 +31,9 @@ export async function compareAutomaticDelivery(
   groups = groups.map(group => ({ ...group, offers: group.offers.filter(offer => !knownUnavailableStores[offer.store]) }));
   if (groups.some(group => !group.offers.length)) { result.status = 'needs_delivery_costs'; return result; }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
-  if (groups.length > 20 || stores.length > 10) return tooLarge();
+  const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
+  if (groups.length > DELIVERY_LIMITS.products || activeStores.length > DELIVERY_LIMITS.stores) return tooLarge();
+  if (groups.length > 20 || activeStores.length > 10) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
   const choices: PackagePlanEntry[][][] = [];
   let candidateCount = 1;
   for (const group of groups) {
@@ -38,7 +41,8 @@ export async function compareAutomaticDelivery(
     const sizes = offers.map(o => Number(o.packageSize ?? group.product.packageSize));
     if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return tooLarge();
     const count = Math.ceil(group.totalQuantity / sizes[0]);
-    if (!Number.isSafeInteger(count) || count > 60) return tooLarge();
+    if (!Number.isSafeInteger(count) || count > DELIVERY_LIMITS.packagesPerProduct) return tooLarge();
+    if (count > 60) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
     const variants: PackagePlanEntry[][] = [];
     const visit = (index: number, remaining: number, packs: PackagePlanEntry[]) => {
       if (variants.length > MAX_CANDIDATES) return;
@@ -52,7 +56,7 @@ export async function compareAutomaticDelivery(
     visit(0, count, []);
     candidateCount *= variants.length;
     if (!variants.length) return tooLarge();
-    if (candidateCount > MAX_CANDIDATES) return compareSelectedBaskets(groups, stores, result, settings, quoteBasket, now);
+    if (candidateCount > MAX_CANDIDATES) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
     choices.push(variants);
   }
   const candidates: DeliveredStoreBasket[][] = [], unique = new Map<string, DeliveredStoreBasket>();
@@ -73,7 +77,7 @@ export async function compareAutomaticDelivery(
     candidates.push(actual);
   }
   enumerate(0, []);
-  if (unique.size > MAX_STORE_BASKETS) return compareSelectedBaskets(groups, stores, result, settings, quoteBasket, now);
+  if (unique.size > MAX_STORE_BASKETS) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
   return quoteAndRank(candidates, unique, result, settings, quoteBasket, now);
 }
 
@@ -90,7 +94,7 @@ async function compareSelectedBaskets(
     const sizes = offers.map(offer => Number(offer.packageSize ?? group.product.packageSize));
     if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return null;
     const count = Math.ceil(group.totalQuantity / sizes[0]);
-    if (!Number.isSafeInteger(count) || count < 1 || count > 60) return null;
+    if (!Number.isSafeInteger(count) || count < 1 || count > DELIVERY_LIMITS.packagesPerProduct) return null;
     return offers.flatMap(offer => {
       const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
       return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price }];
@@ -101,6 +105,7 @@ async function compareSelectedBaskets(
   const wholePlans = new Set<string>();
   const basePlans = new Map<string, PackagePlanEntry[]>();
   function addPlan(selected: PackagePlanEntry[], split?: { index: number; packs: PackagePlanEntry[] }) {
+    if (proposed.size >= MAX_PROPOSED) return;
     const orders = new Map<string, DeliveredStoreBasket>();
     for (let i = 0; i < groups.length; i++) {
       const group = groups[i];
@@ -116,18 +121,37 @@ async function compareSelectedBaskets(
     proposed.set(key, actual);
     if (!split) wholePlans.add(key);
   }
-  for (let subset = 1; subset < (1 << stores.length); subset++) {
-    const allowed = new Set(stores.filter((_store, index) => subset & (1 << index)));
-    const selected = options.map(option => option!.filter(pack => allowed.has(pack.store)).sort((a,b) => a.lineCostGrosze - b.lineCostGrosze || a.offerId.localeCompare(b.offerId))[0]);
-    if (selected.some(pack => !pack)) continue;
-    basePlans.set(selected.map(pack => pack.offerId).join('|'), selected);
-    addPlan(selected);
+  const orderedOptions = options.map(option=>option!.sort((a,b)=>a.lineCostGrosze-b.lineCostGrosze || a.offerId.localeCompare(b.offerId)));
+  function addBase(selected: (PackagePlanEntry | undefined)[]) {
+    if (selected.some(pack=>!pack)) return;
+    const complete = selected as PackagePlanEntry[];
+    basePlans.set(complete.map(pack=>pack.offerId).join('|'),complete);
+    addPlan(complete);
+  }
+  // Keep complete single-store baskets and one complete material-price plan
+  // before exploring subsets. For many shops, try each preferred supplier
+  // with the cheapest available fallback for items it does not carry.
+  for (const store of stores) addBase(orderedOptions.map(option=>option.find(pack=>pack.store===store)));
+  addBase(orderedOptions.map(option=>option[0]));
+  for (const store of stores) addBase(orderedOptions.map(option=>option.find(pack=>pack.store===store)??option[0]));
+  const subsets: Set<string>[] = [];
+  if (stores.length <= 10) {
+    for (let subset=1;subset<2**stores.length;subset++) subsets.push(new Set(stores.filter((_store,index)=>subset & 2**index)));
+  } else {
+    // Pair seeds are quadratic, never 2^n or a 32-bit mask that loses shops.
+    for (let first=0;first<stores.length;first++) for (let second=first+1;second<stores.length;second++) subsets.push(new Set([stores[first],stores[second]]));
+  }
+  for (const allowed of subsets) {
+    const selected = orderedOptions.map(option=>option.find(pack=>allowed.has(pack.store)));
+    if (selected.some(pack=>!pack)) continue;
+    addBase(selected);
   }
   // A mandatory store may have the cheapest unit price but insufficient stock
   // for a different product. Include alternative sellers even if they never
   // win a greedy store-subset allocation. All plans still cover the whole need.
   const seeds = [...basePlans.values()].sort((a,b) => a.reduce((sum,p) => sum+p.lineCostGrosze,0)-b.reduce((sum,p) => sum+p.lineCostGrosze,0)).slice(0,24);
-  for (const seed of seeds) for (let index = 0; index < options.length; index++) for (const alternative of options[index]!) {
+  expandPlans: for (const seed of seeds) for (let index = 0; index < options.length; index++) for (const alternative of options[index]!) {
+    if (proposed.size >= MAX_PROPOSED) break expandPlans;
     if (alternative.offerId === seed[index].offerId) continue;
     const changed = [...seed]; changed[index] = alternative; addPlan(changed);
     if (alternative.store !== seed[index].store && seed[index].count > 1) {
@@ -144,15 +168,24 @@ async function compareSelectedBaskets(
   // Keep complete single-seller-per-product allocations as well as split
   // orders. Cheap material splits alone must not crowd out a slightly dearer
   // complete allocation with much cheaper transport.
-  const whole = ordered.filter(orders => wholePlans.has(orders.map(signature).join(';'))).slice(0,16);
-  const splits = ordered.filter(orders => !wholePlans.has(orders.map(signature).join(';'))).slice(0,24-whole.length);
-  const selectedOrders = [...whole,...splits];
+  const single = ordered.filter(orders=>orders.length===1);
+  const wholeOptions = ordered.filter(orders => orders.length>1 && wholePlans.has(orders.map(signature).join(';')));
+  const fewerOrders = [...wholeOptions].sort((a,b)=>a.length-b.length || sum(a)-sum(b));
+  const cheaperMaterials = [...wholeOptions].sort((a,b)=>sum(a)-sum(b));
+  const diverse = new Map<string,DeliveredStoreBasket[]>();
+  for (const plan of [...fewerOrders.slice(0,8),...cheaperMaterials.slice(0,8),...fewerOrders,...cheaperMaterials]) {
+    diverse.set(plan.map(signature).join(';'),plan);
+    if (diverse.size>=16) break;
+  }
+  const whole = [...diverse.values()];
+  const splits = ordered.filter(orders => !wholePlans.has(orders.map(signature).join(';'))).slice(0,8);
+  const selectedOrders = [...single,...whole,...splits];
   const unique = new Map<string, DeliveredStoreBasket>(), candidates: DeliveredStoreBasket[][] = [];
   for (const orders of selectedOrders) {
     const additional = orders.filter(order => !unique.has(signature(order))).length;
     if (unique.size + additional > MAX_STORE_BASKETS) continue;
     candidates.push(orders); orders.forEach(order => unique.set(signature(order), order));
-    if (candidates.length >= 24) break;
+    if (candidates.length >= MAX_STORE_BASKETS) break;
   }
   result.searchLimited = true;
   if (!candidates.length) { result.status = 'limit_exceeded'; return result; }
@@ -170,7 +203,10 @@ async function quoteAndRank(
   const ordered=[...unique.entries()].sort((a,b)=>b[1].lines.length-a[1].lines.length || b[1].materialsGrosze-a[1].materialsGrosze);
   const first=new Map<string,string>();
   for (const [key,order] of ordered) if (!first.has(order.store)) first.set(order.store,key);
-  const priority=new Set(first.values());
+  // Finish several complete purchase plans early. Quoting unrelated broad
+  // orders first can exhaust the deadline without confirming even one set.
+  const priority=new Set(candidates.slice(0,3).flatMap(orders=>orders.map(signature)));
+  for (const key of first.values()) priority.add(key);
   const smallest = new Map<string,string>();
   for (const [key,order] of [...ordered].reverse()) if (!smallest.has(order.store)) smallest.set(order.store,key);
   for (const key of smallest.values()) priority.add(key);

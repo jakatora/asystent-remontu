@@ -1,12 +1,41 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import {readSeweraPayment,confirmSeweraBasket,confirmBudujBasket,decodeBudujDetails,checkoutMoney,createCheckoutPageReader} from '../src/lib/retailer-checkouts';
+import {readSeweraPayment,confirmSeweraBasket,confirmBudujBasket,decodeBudujDetails,checkoutMoney,createCheckoutPageReader,quoteSewera} from '../src/lib/retailer-checkouts';
 import type {AnonymousShop} from '../src/lib/retailer-http';
+import {RETAIL_SOURCES} from '../src/lib/retail-catalog';
+import type {DeliveredStoreBasket} from '../../../lib/pricing-service/src/delivery';
 const payment=(price:string,blocked=false)=>`<div class="radio radio-line"><input name="platnosc" data-name="Płatność online" onclick="$('#koszt_dostawy').val('${price}');"><div class="dictionary-icon-additional"><strong>${price} zł</strong></div></div>${blocked?'<input type="hidden" id="block_order" value="1">':''}`;
 test('product reads can be coalesced across isolated carts; changed prices get a new reading',async()=>{
   let calls=0;const client={text:async()=>{calls++;await new Promise(r=>setTimeout(r,1));return 'public product';}} as unknown as AnonymousShop;
   const read=createCheckoutPageReader();await Promise.all([read('https://sklep.sewera.pl/product',1000,client),read('https://sklep.sewera.pl/product',1000,client)]);
   assert.equal(calls,1);await read('https://sklep.sewera.pl/product',1100,client);assert.equal(calls,2);
+});
+
+test('failed Sewera prefetch waits for active reads and stops starting new ones before releasing its quote',async()=>{
+  const sources=RETAIL_SOURCES.filter(source=>source.store==='Sewera').slice(0,4);
+  assert.equal(sources.length,4);
+  const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:4000,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',
+    lines:sources.map(source=>({product:{id:source.id,name:source.id,imageUrl:null},unit:null,
+      packages:[{offerId:source.id,store:'Sewera',url:source.url,packageSize:source.packageSize,count:1,unitPriceGrosze:1000,lineCostGrosze:1000}]}))};
+  let reads=0,calls=0,settled=false;
+  const finishReads:(()=>void)[]=[];
+  const failure=Error('price_changed');
+  const pending=quoteSewera(order,'00-001',async()=>{calls++;return new Response('1');},async()=>{
+    reads++;
+    if(reads===1)throw failure;
+    await new Promise<void>(resolve=>finishReads.push(resolve));
+    return '';
+  });
+  const result=pending.then(()=>{settled=true;return null;},error=>{settled=true;return error;});
+  // Allow the department response and all three initial workers to start.
+  for(let turn=0;turn<3;turn++)await new Promise<void>(resolve=>setImmediate(resolve));
+  assert.equal(reads,3);
+  assert.equal(settled,false);
+  assert.equal(calls,1);
+  finishReads.forEach(resolve=>resolve());
+  assert.equal(await result,failure);
+  assert.equal(reads,3);
+  assert.equal(calls,1); // A failed product read must not mutate a cart.
 });
 test('Sewera explicit unavailable zero cannot become free shipping; visible and submitted gross prices agree',()=>{
   assert.equal(readSeweraPayment(payment('0',true)),null);

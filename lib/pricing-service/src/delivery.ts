@@ -1,6 +1,7 @@
 import { buildPackageVariants, groupProjectByProduct, isComparableOffer } from './estimate';
 import { optimizePackages } from './package-optimizer';
 import type { PackagePlan, PackagePlanEntry, StageEstimate } from './types';
+import { DELIVERY_LIMITS } from './delivery-limits';
 
 export interface DeliverySettings {
   mode: 'shipping' | 'pickup';
@@ -107,12 +108,13 @@ export function compareDeliveredBaskets(
   };
   if (missingProductCount) { result.status = 'partial'; return result; }
   if (!groups.length) return result;
-  // No truncated search can receive a "cheapest" label.
-  if (names.length > 10 || groups.length > 50) { result.status = 'limit_exceeded'; return result; }
+  // Pickup has no per-store fee: the optimum is the sum of independent
+  // per-product package plans across all shops, with no subset enumeration.
+  if (settings.mode === 'pickup' ? names.length > DELIVERY_LIMITS.stores || groups.length > DELIVERY_LIMITS.products : names.length > 10 || groups.length > 50) { result.status = 'limit_exceeded'; return result; }
   const candidates = new Map<string, DeliveredBasket>();
   const cached = groups.map(() => new Map<string, PackagePlan | null>());
-  for (let mask = 1; mask < 2 ** names.length; mask++) {
-    const selected = names.filter((_, index) => mask & (2 ** index));
+  const selectedSets = settings.mode === 'pickup' ? [names] : Array.from({length:2**names.length-1},(_,index)=>names.filter((_store,bit)=>(index+1) & 2**bit));
+  for (const selected of selectedSets) {
     const orders = new Map<string, DeliveredStoreBasket>();
     let valid = true;
     for (let index = 0; index < groups.length; index++) {

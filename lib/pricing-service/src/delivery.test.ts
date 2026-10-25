@@ -83,8 +83,8 @@ test('mixed package sizes across stores retain the exact shipping-aware purchase
   assert.deepEqual(result.best?.stores.flatMap(store => store.lines.flatMap(line => line.packages.map(pack => pack.packageSize))).sort((a, b) => a - b), [5, 10]);
 });
 
-test('an unsupported search size does not silently truncate stores and declare a cheapest basket', async () => {
+test('manual shipping with an unsupported search size does not silently truncate stores and declare a cheapest basket', async () => {
   const input = await stage({ paint: Object.fromEntries(Array.from({ length: 11 }, (_, index) => ['Store' + index, 1000])) });
-  const result = compareDeliveredBaskets([input], { mode: 'pickup' });
+  const result = compareDeliveredBaskets([input], { mode: 'shipping', method:'manual' });
   assert.equal(result.status, 'limit_exceeded'); assert.equal(result.best, null);
 });

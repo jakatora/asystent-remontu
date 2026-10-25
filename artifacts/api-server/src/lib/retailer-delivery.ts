@@ -1,10 +1,11 @@
 import { createHash } from 'node:crypto';
 import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
 import { RETAIL_SOURCES } from './retail-catalog';
-import { AnonymousShop } from './retailer-http';
+import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
 import { quoteBuduj24, quoteSewera, createCheckoutPageReader } from './retailer-checkouts';
 import { shoperProductId } from './retail-pages';
 import { quoteCezar } from './cezar-delivery';
+import { QuoteQueue } from './quote-queue';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
@@ -13,6 +14,19 @@ const ORIGINS: Readonly<Record<string, string>> = {
   WinBud: 'https://winbud24.pl', 'Dam-Bud': 'https://salonbudowlanydambud.pl', 'Plus-Market': 'https://www.plus-market.pl',
 };
 const TTL = 10 * 60_000;
+
+function unavailableReason(store: string): string | undefined {
+  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar'].includes(store)) return undefined;
+  return ['Castorama','OBI'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
+}
+export function knownUnavailableRetailers(): Readonly<Record<string,string>> {
+  const result: Record<string,string> = {};
+  for (const store of new Set(RETAIL_SOURCES.map(source=>source.store))) {
+    const reason = unavailableReason(store);
+    if (reason) result[store] = reason;
+  }
+  return result;
+}
 
 /** Require an explicit PLN amount and agreement between formatted and numeric
  * fields. Missing/NaN/null/negative and fractions of grosze cannot become zero. */
@@ -60,11 +74,11 @@ export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: 
 async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch): Promise<DeliveryQuoteResult> {
   const origin = ORIGINS[order.store];
   if (!origin) return { reason: order.store === 'Sewera' ? 'branch_and_address_required' : 'integration_unavailable' };
-  const client = new AnonymousShop(origin, fetchImpl, AbortSignal.timeout(12_000));
+  const client = new AnonymousShop(origin, fetchImpl, AbortSignal.timeout(12_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
   const expected = new Map<number, { count: number; price: number }>();
   for (const line of order.lines) for (const pack of line.packages) {
     const source = RETAIL_SOURCES.find(s => s.id === pack.offerId && s.store === order.store);
-    if (!source || new URL(source.url).origin !== origin || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > 60) throw Error('invalid_basket');
+    if (!source || new URL(source.url).origin !== origin || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > MAX_RETAIL_PACKAGES || !Number.isSafeInteger(pack.unitPriceGrosze*pack.count)) throw Error('invalid_basket');
     const id = shoperProductId(source);
     const product = await client.json(`/webapi/front/pl_PL/products/PLN/${id}`);
     if (String(product.ean) !== source.ean || String(product.id) !== id || !product.can_buy || !Number.isSafeInteger(product.stockId)) throw Error('product_unavailable');
@@ -95,24 +109,33 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
 
 /** Per-service cache: destination + complete basket + price, never browser
  * cookies or personal details. Cap memory, coalesce duplicate work and reject
- * excess concurrency instead of creating an unbounded external-request queue. */
+ * excess load with a bounded FIFO queue shared by all requests. */
 export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuoter {
   const pages=createCheckoutPageReader();
   const cache = new Map<string, { until: number; result: Promise<DeliveryQuoteResult> }>();
-  let active = 0;
+  const queue = new QuoteQueue();
   return async (order, postalCode) => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return { reason: 'invalid_postal_code' };
-    if (!ORIGINS[order.store] && !['Sewera','Buduj24','Cezar'].includes(order.store)) return { reason: ['Castorama','OBI'].includes(order.store) ? 'retailer_access_required' : 'integration_unavailable' };
+    const unsupported = unavailableReason(order.store);
+    if (unsupported) return { reason: unsupported };
     const key = JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze])).sort()]);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
-    if (active >= 3) return { reason: 'quote_busy' };
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
-    active++;
-    const pending = (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl))
-      .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
+    const pending = (async (): Promise<DeliveryQuoteResult> => {
+      const release = await queue.acquire();
+      if (!release) return { reason:'quote_busy' };
+      try {
+        return await (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
+      } catch (error: unknown) {
+        return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' };
+      } finally { release(); }
+    })();
     cache.set(key, { until: Date.now() + TTL, result: pending });
     const result = await pending;
-    if ('reason' in result && cache.get(key)?.result === pending) cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
+    if ('reason' in result && cache.get(key)?.result === pending) {
+      if (result.reason === 'quote_busy') cache.delete(key);
+      else cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
+    }
     return result;
   };
 }

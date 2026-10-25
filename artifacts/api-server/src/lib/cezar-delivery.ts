@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
 import { RETAIL_SOURCES } from './retail-catalog';
-import { AnonymousShop } from './retailer-http';
+import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
 
 // source: https://shopify.dev/docs/api/ajax/reference/cart
@@ -10,11 +10,11 @@ import { confirmShopifyProduct } from './shopify-product';
 // source: https://cezar.eu/pages/sposoby-platnosci (prepaid payment methods)
 export async function quoteCezar(order: DeliveredStoreBasket, postalCode: string, fetchImpl: typeof fetch): Promise<DeliveryQuoteResult> {
   const origin = 'https://cezar.eu';
-  const client = new AnonymousShop(origin, fetchImpl, AbortSignal.timeout(12_000));
+  const client = new AnonymousShop(origin, fetchImpl, AbortSignal.timeout(12_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
   const expected = new Map<number,{count:number;price:number}>();
   for (const line of order.lines) for (const pack of line.packages) {
     const source = RETAIL_SOURCES.find(s => s.id === pack.offerId && s.store === 'Cezar' && s.format === 'shopify-api');
-    if (!source || new URL(source.url).origin !== origin || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > 60) throw Error('invalid_basket');
+    if (!source || new URL(source.url).origin !== origin || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > MAX_RETAIL_PACKAGES || !Number.isSafeInteger(pack.unitPriceGrosze*pack.count)) throw Error('invalid_basket');
     const product = confirmShopifyProduct(JSON.parse(await client.text(new URL(source.url).pathname+'.js')), source);
     if (product.priceGrosze !== pack.unitPriceGrosze) throw Error('price_changed');
     if (expected.has(product.variantId)) throw Error('invalid_basket');

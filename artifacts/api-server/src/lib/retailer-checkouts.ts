@@ -2,8 +2,9 @@ import { createHash } from 'node:crypto';
 import type { DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
 import { RETAIL_SOURCES } from './retail-catalog';
 import { parseRetailPage } from './retail-pages';
-import { AnonymousShop } from './retailer-http';
+import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
 import { cleanHtml, htmlElements as nodes, htmlAttributes, htmlText as text } from './retail-microdata';
+import { QuoteQueue } from './quote-queue';
 
 const cls = (a: Record<string,string>, name: string) => a.class?.split(/\s+/).includes(name) ?? false;
 const attr = (html: string) => htmlAttributes(html.match(/^<[^>]+>/)?.[0] ?? '');
@@ -13,11 +14,13 @@ export type CheckoutPageReader=(url:string,price:number,client:AnonymousShop)=>P
  * every current quantity and gross price. A price change uses a new key. */
 export function createCheckoutPageReader():CheckoutPageReader {
   const cache=new Map<string,{until:number;value:Promise<string>}>();
+  const reads=new QuoteQueue(3,12,15_000);
   return (url,price,client)=>{
     const key=JSON.stringify([url,price]), previous=cache.get(key);
     if(previous&&previous.until>Date.now())return previous.value;
     if(cache.size>=32)cache.delete(cache.keys().next().value!);
-    const value=client.text(url);cache.set(key,{until:Date.now()+60_000,value});
+    const value=(async()=>{const release=await reads.acquire();if(!release)throw Error('quote_busy');try{return await client.text(url);}finally{release();}})();
+    cache.set(key,{until:Date.now()+60_000,value});
     void value.catch(()=>{if(cache.get(key)?.value===value)cache.delete(key);});return value;
   };
 }
@@ -40,7 +43,7 @@ function quote(order: DeliveredStoreBasket, costGrosze: number, carrier: string,
 function expectedPacks(order: DeliveredStoreBasket) {
   return order.lines.flatMap(line => line.packages.map(pack => {
     const source = RETAIL_SOURCES.find(s=>s.id===pack.offerId && s.store===order.store);
-    if (!source || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > 60) throw Error('invalid_basket');
+    if (!source || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > MAX_RETAIL_PACKAGES || !Number.isSafeInteger(pack.unitPriceGrosze*pack.count)) throw Error('invalid_basket');
     return { source, pack };
   }));
 }
@@ -89,15 +92,25 @@ export function readSeweraPayment(html: string): { costGrosze:number; payment:st
 // submitted. Only country and the user's postcode accompany this basket quote.
 // source: https://sklep.sewera.pl/js/zamowienie.js?v=20260716
 export async function quoteSewera(order: DeliveredStoreBasket, postalCode: string, fetchImpl: typeof fetch, pages:CheckoutPageReader=(_url,_price,client)=>client.text(_url)): Promise<DeliveryQuoteResult> {
-  const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000));
+  const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
   if ((await client.text('/ajax/ax_execute.php?operation=setDepartment',{model:'department',department:'1'})).trim()!=='1') throw Error('basket_not_confirmed');
   const expected: {url:string;pid:string;count:number;price:number;retailUnit?:'SZT'|'OPA'}[]=[];
-  for (const {source,pack} of expectedPacks(order)) {
-    const page=await pages(source.url,pack.unitPriceGrosze,client);
-    const observed=parseRetailPage(page,source,new Date());
-    if (observed.priceGrosze!==pack.unitPriceGrosze) throw Error('price_changed');
+  const packs=expectedPacks(order), prepared: {source:typeof packs[number]['source'];pack:typeof packs[number]['pack'];pid:string}[]=[];
+  let next=0,hasFailure=false;let failure:unknown;
+  // Read immutable public cards concurrently; cart mutations below remain
+  // sequential. The shared page reader bounds requests across all quotes.
+  await Promise.all(Array.from({length:Math.min(3,packs.length)},async()=>{while(next<packs.length&&!hasFailure){
+    try {
+    const index=next++,{source,pack}=packs[index];
+    const page=await pages(source.url,pack.unitPriceGrosze,client),observed=parseRetailPage(page,source,new Date());
+    if(observed.priceGrosze!==pack.unitPriceGrosze)throw Error('price_changed');
     const pid=attr(one(nodes(cleanHtml(page),a=>a.name==='add_to_basket_pid'))).value;
-    if (!/^\d+$/.test(pid)) throw Error('basket_not_confirmed');
+    if(!/^\d+$/.test(pid))throw Error('basket_not_confirmed');
+    prepared[index]={source,pack,pid};
+    } catch(error) {if(!hasFailure){hasFailure=true;failure=error;}}
+  }}));
+  if(hasFailure)throw failure;
+  for (const {source,pack,pid} of prepared) {
     await client.text('/ajax/ax_execute.php?operation=addToBasket',{pid,count:String(pack.count)});
     expected.push({url:source.url,pid,count:pack.count,price:pack.unitPriceGrosze,retailUnit:source.retailUnit});
   }
@@ -164,7 +177,7 @@ export function decodeBudujDetails(response: string): string {
 
 // source: https://buduj24.pl/js/cart.js
 export async function quoteBuduj24(order:DeliveredStoreBasket,fetchImpl:typeof fetch):Promise<DeliveryQuoteResult> {
-  const client=new AnonymousShop('https://buduj24.pl',fetchImpl,AbortSignal.timeout(12_000));
+  const client=new AnonymousShop('https://buduj24.pl',fetchImpl,AbortSignal.timeout(12_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
   const expected:{url:string;count:number;price:number}[]=[];
   for (const {source,pack} of expectedPacks(order)) {
     const page=await client.text(source.url), observed=parseRetailPage(page,source,new Date());

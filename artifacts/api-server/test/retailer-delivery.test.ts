@@ -71,3 +71,17 @@ test('cross-origin redirect never receives storefront cookies or a request', asy
   const quote = createRetailerQuoter(async () => { calls++; return new Response('',{status:302,headers:{ location:'https://example.org/', 'set-cookie':'sid=secret' }}); });
   assert.ok('reason' in await quote(order(),'00-001')); assert.equal(calls,1);
 });
+
+test('a fourth concurrent quote waits and duplicate requests share its job instead of getting quote_busy',async()=>{
+  let started=0,release!:()=>void;
+  const gate = new Promise<void>(resolve=>{release=resolve;});
+  const quote=createRetailerQuoter(async()=>{started++;await gate;return new Response('',{status:503});});
+  const requests=[1,2,3,4].map(count=>quote(order(count),'00-001'));
+  const duplicate=quote(order(4),'00-001');
+  await new Promise<void>(resolve=>setImmediate(resolve));
+  assert.equal(started,3);
+  release();
+  const results=await Promise.all([...requests,duplicate]);
+  assert.equal(started,4);
+  assert.ok(results.every(result=>'reason'in result&&result.reason==='quote_unavailable'));
+});
