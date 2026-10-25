@@ -39,6 +39,7 @@ export function diyAssessment(difficulty: Difficulty, hirePro: boolean, t: Trans
 }
 
 export function getEffectivePrice(item: ShoppingItem): number {
+  if (item.quantityKnown === false) return 0;
   return item.customPrice ?? item.estimatedPrice;
 }
 
@@ -56,13 +57,15 @@ export function buildShareText(
   t: Translate,
 ): string {
   let text = `${t('cmp.share.header', { projectName })}\n\n`;
+  const partial = materials.some(item => item.quantityKnown === false);
+  if (partial) text += `${t('upgrade.partial.title')}\n\n`;
   if (materials.length > 0) {
     text += `${t('cmp.share.materials')}\n`;
     for (const item of materials) {
       const check = item.purchased ? '[x]' : (item.owned ? '[+]' : '[ ]');
       const qty = getEffectiveQuantity(item);
       const price = getEffectivePrice(item);
-      text += `${check} ${item.name} — ${qty.toFixed(1)} ${item.unit} — ${formatCurrency(price)}\n`;
+      text += item.quantityKnown === false ? `${check} ${item.name} — ? ${item.unit} — —\n` : `${check} ${item.name} — ${qty.toFixed(1)} ${item.unit} — ${formatCurrency(price)}\n`;
     }
     text += `${t('cmp.share.materialsTotal', { total: formatCurrency(totalMaterials) })}\n\n`;
   }
@@ -75,6 +78,6 @@ export function buildShareText(
     text += `${t('cmp.share.toolsTotal', { total: formatCurrency(totalTools) })}\n\n`;
   }
   const total = totalMaterials + totalTools;
-  text += `${t('cmp.share.grandTotal', { total: formatCurrency(total + contingency) })}\n`;
+  text += `${partial ? t('upgrade.partial.title') + ': ' + formatCurrency(total + contingency) : t('cmp.share.grandTotal', { total: formatCurrency(total + contingency) })}\n`;
   return text;
 }

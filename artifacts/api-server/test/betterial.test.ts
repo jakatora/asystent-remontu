@@ -73,6 +73,9 @@ test('actual HTTP consolidates Betterial lots, preserves unknown shipping, and e
       const result = await post(quantities);
       assert.equal(result.consolidated.consolidatedTotalGrosze, 220710);
       assert.equal(result.consolidated.lines[0].packages[0].count, 42);
+      assert.equal(result.consolidated.lines[0].packages[0].purchaseMultiple, 42);
+      assert.equal(result.stages[0].lines[0].packages[0].purchaseMultiple, 42);
+      assert.equal(result.stages[0].lines[0].offers[0].purchaseMultiple, 42);
       assert.equal(result.deliveryComparison.best, null);
       assert.ok(result.deliveryComparison.unavailableStores.some((store: any) => store.store === 'Betterial' && store.reason === 'retailer_transport_quote_required'));
       assert.ok(result.coverage.pickupConfirmationStores.includes('Betterial'));

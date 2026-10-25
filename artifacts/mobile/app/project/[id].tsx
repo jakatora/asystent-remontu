@@ -45,7 +45,7 @@ function safeNavigateAway() {
 export default function ProjectDetailScreen() {
   const { id, fromWizard, tab: requestedTab } = useLocalSearchParams<{ id: string; fromWizard?: string; tab?: Tab }>();
   const insets = useSafeAreaInsets();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const {
     projects,
     updateProject,
@@ -198,13 +198,26 @@ export default function ProjectDetailScreen() {
   };
 
   const handleToggleOwned = async (item: ShoppingItem) => {
+    if (!await confirmCurrentEpsQuantity(item)) return;
     await setItemOwned(item.id, !item.owned);
     await loadAll();
   };
 
   const handleTogglePurchased = async (item: ShoppingItem) => {
+    if (!await confirmCurrentEpsQuantity(item)) return;
+    if (project?.jobId === 'eps-insulation-bso' && !item.purchased) await setItemOwned(item.id, false);
     await toggleItem(item.id, !item.purchased);
     await loadAll();
+  };
+
+  const confirmCurrentEpsQuantity = async (item: ShoppingItem): Promise<boolean> => {
+    if (project?.jobId !== 'eps-insulation-bso' || item.itemType !== 'material') return true;
+    if (item.quantityKnown === false || item.requiredQuantity !== undefined && item.customQuantity !== undefined && Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8) {
+      Alert.alert(language === 'pl' ? 'Potwierdź ilość materiału' : 'Confirm the material quantity', language === 'pl' ? 'Uzupełnij obmiary albo ustaw własną ilość na pełne zapotrzebowanie przed oznaczeniem całej pozycji jako posiadanej lub kupionej.' : 'Complete measurements or set the custom quantity to the full requirement before marking this whole item as owned or purchased.');
+      return false;
+    }
+    if (item.needsQuantityConfirmation && item.requiredQuantity !== undefined) await updateItemQuantity(item.id, item.requiredQuantity);
+    return true;
   };
 
   const handleStartEdit = (item: ShoppingItem) => {
@@ -368,7 +381,7 @@ export default function ProjectDetailScreen() {
   const purchasedCount = nonOwnedItems.filter((i) => i.purchased).length;
   const isFirstTime = fromWizard === '1' && !welcomeDismissed;
   const diy = diyAssessment(job.difficulty, job.hireProfessionalRecommended, t);
-  const budget = calc && pricedBudget?.laborDetails.length ? {
+  const budget = calc && !calc.quantityIssues?.length && pricedBudget?.laborDetails.length ? {
     materialsMin: calc.totalCost,
     materialsMax: calc.totalCost,
     laborMin: pricedBudget.laborSubtotalMin,

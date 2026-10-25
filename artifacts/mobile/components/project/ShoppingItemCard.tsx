@@ -43,7 +43,7 @@ export function ShoppingItemCard({
   onCancelEdit,
   onRemove,
 }: ShoppingItemCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const effectivePrice = getEffectivePrice(item);
   const effectiveQty = getEffectiveQuantity(item);
   const isCustomized = item.customPrice !== undefined || item.customQuantity !== undefined;
@@ -132,7 +132,7 @@ export function ShoppingItemCard({
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        <TouchableOpacity onPress={onTogglePurchased} activeOpacity={0.7} accessibilityRole="checkbox" accessibilityState={{ checked: item.purchased }} accessibilityLabel={item.name} style={{ minWidth: 44, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}>
+        <TouchableOpacity onPress={onTogglePurchased} disabled={item.quantityKnown === false} activeOpacity={0.7} accessibilityRole="checkbox" accessibilityState={{ checked: item.purchased, disabled: item.quantityKnown === false }} accessibilityLabel={item.name} style={{ minWidth: 44, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}>
           <View
             style={{
               width: 28,
@@ -171,7 +171,7 @@ export function ShoppingItemCard({
             )}
           </View>
           <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
-            {item.customQuantity === undefined && packageLabel ? packageLabel : `${Number(effectiveQty.toFixed(2))} ${item.unit}`}
+            {item.quantityKnown === false ? (language === 'pl' ? 'Ilość do ustalenia w obmiarach' : 'Confirm quantity in measurements') : item.customQuantity === undefined && packageLabel ? packageLabel : `${Number(effectiveQty.toFixed(item.requiredQuantity === undefined ? 2 : 3))} ${item.unit}`}
           </Txt>
         </View>
 
@@ -179,9 +179,11 @@ export function ShoppingItemCard({
           w="semibold"
           style={{ fontSize: 14, color: item.purchased ? Colors.textMuted : Colors.primary }}
         >
-          {formatCurrency(effectivePrice)}
+          {item.quantityKnown === false ? '—' : formatCurrency(effectivePrice)}
         </Txt>
       </View>
+
+      {item.needsQuantityConfirmation && item.quantityKnown !== false && <Txt style={{ fontSize: 12, color: Colors.warning, lineHeight: 18 }}>{language === 'pl' ? `Aktualny obmiar wymaga ${item.requiredQuantity} ${item.unit}. Oznaczenie „Mam” lub „Kupione” potwierdzi całą tę ilość. Wcześniejsze oznaczenia nie pokrywają automatycznie nowego zapotrzebowania.` : `Current measurements require ${item.requiredQuantity} ${item.unit}. “Owned” or “Purchased” confirms that whole quantity. Earlier marks do not automatically cover the new requirement.`}</Txt>}
 
       {item.notes && (
         <Txt style={{ fontSize: 12, color: Colors.textMuted, paddingLeft: 0, lineHeight: 18 }}>
@@ -209,6 +211,7 @@ export function ShoppingItemCard({
 
         <TouchableOpacity
           onPress={onToggleOwned}
+          disabled={item.quantityKnown === false}
           style={{
             flexDirection: 'row',
             alignItems: 'center',

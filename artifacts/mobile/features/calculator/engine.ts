@@ -7,6 +7,7 @@ import { generateExplanation } from './explanation';
 import { getJobConfig } from './job-config';
 import { resolveWarnings } from '../warnings/resolver';
 import { roundMoney } from '@/shared/lib/currency';
+import { calculateEpsItems, EPS_JOB_ID, EPS_QUANTITY_MODEL } from './eps';
 
 const DEFAULT_WASTE_FACTOR = 1.1;
 
@@ -93,12 +94,13 @@ function buildSummaryText(
 
 class RenovationCalculatorEngine implements CalculatorEngine {
   calculate(job: RenovationJob, measurements: MeasurementMap): CalculationResult {
-    const materials = this.calculateMaterialItems(job, measurements);
+    const materials = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : this.calculateMaterialItems(job, measurements);
     const totalCost = roundMoney(materials.reduce((sum, m) => sum + m.cost, 0));
     const warnings = resolveWarnings(job.warningRules, { measurements });
 
     return {
       jobId: job.id,
+      ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       measurements,
       materials,
       totalCost,
@@ -136,6 +138,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       jobId: job.id,
       measurements,
       materials: detailedItems,
+      ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       totalCost,
       totalDays: job.estimatedDays,
       warnings: allWarnings,
@@ -164,8 +167,9 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap,
     config: ReturnType<typeof getJobConfig>
   ): MaterialLineItemDetail[] {
-    return job.materials.map((material) => {
-      const { rawQuantity, quantity, packs } = resolveMaterialQuantity(material, measurements);
+    const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
+    return job.materials.map((material, index) => {
+      const { rawQuantity, quantity, packs } = epsItems?.[index] ?? resolveMaterialQuantity(material, measurements);
 
       const packaging = material.packaging;
       const purchaseQuantity = packs !== undefined && packaging ? packs : quantity;
@@ -180,12 +184,16 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = overrideFn
+      const explanation = epsItems ? {
+        text: epsItems[index].quantityKnown === false ? 'Podaj ilość z projektu lub karty wybranego produktu.' : `${quantity} ${material.unit} z obmiarów i jawnych założeń ocieplenia.`,
+        assumptions: ['Zapas płyt i klejów oraz zapas siatki to osobne ustawienia.', 'Liczba łączników, ilości gruntu i tynku oraz długości profili wymagają osobnych danych.'],
+      } : overrideFn
         ? overrideFn({ material, rawQuantity, quantity, packs, purchaseQuantity, purchaseUnit, wasteFactor: material.wasteFactor ?? DEFAULT_WASTE_FACTOR, measurements })
         : generateExplanation(material, measurements, rawQuantity, quantity, packs);
 
       return {
-        material,
+        material: epsItems?.[index].material ?? material,
+        ...(epsItems ? { quantityKnown: epsItems[index].quantityKnown } : {}),
         quantity,
         packs,
         cost,

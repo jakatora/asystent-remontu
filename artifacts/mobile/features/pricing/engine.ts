@@ -86,7 +86,7 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
     }];
   });
   for (const line of calc.materials) {
-    if (line.quantity > 0 && !pricedSourceIds.has(line.material.id)) unpricedMaterials.push(line.material.name);
+    if ((line.quantityKnown === false || line.quantity > 0) && !pricedSourceIds.has(line.material.id)) unpricedMaterials.push(line.material.name);
   }
 
   const toolsSubtotal = roundMoney(

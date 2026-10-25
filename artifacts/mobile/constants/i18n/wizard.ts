@@ -104,8 +104,8 @@ const pl = {
   'wizard.diyStep.proWarning':
     'Ta praca ({jobName}) jest technicznie wymagająca. Rozważ zatrudnienie fachowca.',
   'wizard.diyStep.hireHint':
-    'Naciśnij "Dalej" — przeniesiemy Cię do wskazówek jak znaleźć dobrego fachowca i czego od niego wymagać.',
-  'wizard.diyStep.hireCta': 'Szukaj fachowca →',
+    'Podaj obmiary, aby zapisać projekt i obliczyć materiały do zakupu lub uzgodnienia z fachowcem. Wskazówki dotyczące wyboru wykonawcy znajdziesz w projekcie.',
+  'wizard.diyStep.hireCta': 'Dalej — oblicz materiały',
 
   // Step 8 — measurements
   'wizard.measure.title': 'Podaj wymiary',
@@ -240,8 +240,8 @@ const en: Record<K, string> = {
   'wizard.diyStep.proWarning':
     'This job ({jobName}) is technically demanding. Consider hiring a professional.',
   'wizard.diyStep.hireHint':
-    'Tap "Next" — we\'ll take you to tips on how to find a good professional and what to require from them.',
-  'wizard.diyStep.hireCta': 'Find a professional →',
+    'Enter measurements to save your project and calculate materials to buy or agree with a professional. Contractor guidance remains available in the project.',
+  'wizard.diyStep.hireCta': 'Next — calculate materials',
 
   'wizard.measure.title': 'Enter the dimensions',
   'wizard.measure.subtitle':

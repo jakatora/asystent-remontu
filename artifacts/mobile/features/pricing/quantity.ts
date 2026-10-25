@@ -42,6 +42,7 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   threshold: /^threshold/,
   screws: /^gk-screws(?:-ceiling)?$/,
   dowels: /^dowels-uw$/,
+  'adhesive-eps': /^glue-k20$/,
 };
 
 /** Match a known material and compatible units; missing information is not m². */
@@ -55,6 +56,8 @@ export function resolveMaterialQuantity(
   );
   if (candidates.length !== 1) return null;
   const source = candidates[0];
+  if (ref.materialType === 'adhesive-eps' &&
+      (calc.jobId !== 'eps-insulation-bso' || ref.id !== 'mat-adhesive-eps-atlas-stopter-k20-25kg' || source.material.id !== 'glue-k20' || !/Atlas Stopter K-20 25 kg/i.test(source.material.brand ?? ''))) return null;
   const legacyPaintingTape = calc.jobId === 'paint-walls' && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
   if (!legacyPaintingTape && normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
   if (calc.jobId === 'self-leveling' && ref.materialType === 'screed') {

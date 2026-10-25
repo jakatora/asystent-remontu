@@ -59,6 +59,9 @@ import type {
  * For richer control use `MaterialRequirement` from types/engine.
  */
 export interface MaterialItem {
+  readonly ean?: string;
+  readonly sourceUrl?: string;
+  readonly imageUrl?: string;
   readonly id: string;
   readonly name: string;
   readonly unit: string;
@@ -339,6 +342,8 @@ export interface ProjectActivity {
 // ─── Calculation ──────────────────────────────────────────────────────────────
 
 export interface MaterialLineItem {
+  /** False means the design/product quantity is still missing, never free. */
+  readonly quantityKnown?: boolean;
   readonly material: MaterialItem | MaterialRequirement;
   /** Requirement in the material's native unit, before rounding to packages. */
   readonly rawQuantity?: number;
@@ -349,6 +354,8 @@ export interface MaterialLineItem {
 }
 
 export interface CalculationResult {
+  readonly quantityModel?: string;
+  readonly quantityIssues?: readonly string[];
   readonly jobId: string;
   readonly measurements: Record<string, number>;
   readonly materials: readonly MaterialLineItem[];
@@ -361,6 +368,10 @@ export type ShoppingItemType = 'material' | 'tool';
 export type ShoppingTier = 'economy' | 'standard' | 'premium';
 
 export interface ShoppingItem {
+  /** Derived view fields; existing SQLite columns remain unchanged. */
+  readonly quantityKnown?: boolean;
+  readonly requiredQuantity?: number;
+  readonly needsQuantityConfirmation?: boolean;
   readonly id: string;
   readonly projectId: string;
   readonly materialId: string;

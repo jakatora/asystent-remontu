@@ -27,8 +27,8 @@ import {
   type PriceHistory,
   type PriceStatsGrosze,
   type Product,
-  type ProductOffer,
 } from "@workspace/db/repositories";
+import type { PurchaseOffer as ProductOffer } from '../../../../lib/pricing-service/src/types';
 
 export interface SerializedProduct {
   imageUrl?: string | null;
@@ -57,6 +57,7 @@ export interface SerializedOffer {
  * (priceToGrosze); nie decyduje o „najtańszej" (to robi kolejność listy).
  */
 export interface SerializedProductOffer {
+  purchaseMultiple?: number;
   packageSize?: string | null;
   offerId: string;
   store: string;
@@ -82,6 +83,7 @@ export interface SerializedProductOffer {
  * Wszystkie kwoty w GROSZACH. Serializer przepisuje pola 1:1 z PackagePlanEntry.
  */
 export interface SerializedPackage {
+  purchaseMultiple?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */
@@ -299,6 +301,7 @@ function serializeProduct(product: {
 /** Serializuje jedną ofertę produktu do porównania cen (kwoty numeric -> grosze). */
 function serializeProductOffer(offer: ProductOffer): SerializedProductOffer {
   return {
+    ...(offer.purchaseMultiple ? { purchaseMultiple: offer.purchaseMultiple } : {}),
     packageSize: offer.packageSize,
     offerId: offer.id,
     store: offer.store,
@@ -365,6 +368,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
     packageSize: line.packageSize,
     packagesNeeded: line.packagesNeeded,
     packages: line.packagePlan.packages.map((p) => ({
+      ...(p.purchaseMultiple ? { purchaseMultiple: p.purchaseMultiple } : {}),
       packageSize: p.packageSize,
       count: p.count,
       unitPriceGrosze: p.unitPriceGrosze,
@@ -443,6 +447,7 @@ function serializeConsolidatedLine(
 ): SerializedConsolidatedLine {
   return {
     ...(line.packagePlan ? { packages: line.packagePlan.packages.map(entry => ({
+      ...(entry.purchaseMultiple ? { purchaseMultiple: entry.purchaseMultiple } : {}),
       packageSize: entry.packageSize, count: entry.count, unitPriceGrosze: entry.unitPriceGrosze,
       lineCostGrosze: entry.lineCostGrosze, store: entry.store, url: entry.url,
     })) } : {}),

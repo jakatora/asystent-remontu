@@ -43,7 +43,8 @@ export function ShoppingTab({
   onRemoveItem,
   onShare,
 }: ShoppingTabProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const quantitiesMissing = shoppingItems.some(item => item.quantityKnown === false);
   const materialItems = shoppingItems.filter((i) => i.itemType === 'material');
   const toolItems = shoppingItems.filter((i) => i.itemType === 'tool');
   const toBuyMaterials = materialItems.filter((i) => !i.owned);
@@ -60,6 +61,7 @@ export function ShoppingTab({
 
   return (
     <View style={{ gap: 16 }}>
+      {calc?.jobId === 'eps-insulation-bso' && <Txt accessibilityRole="alert" style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{language === 'pl' ? 'Ilości płyt i klejów przeliczamy z powierzchni. Ceny tutaj są szacunkowe; aktualne oferty, partie zakupu i dostawę sprawdź w „Gdzie najtaniej”. Pozycje „do ustalenia” wymagają obmiaru lub danych wybranego produktu.' : 'Board and adhesive quantities use the surface area. Prices here are estimates; check current offers, order lots and delivery under “Where to buy”. Unconfirmed items need measurements or selected-product data.'}</Txt>}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
           {t('cmp.ShoppingTab.title')}
@@ -202,7 +204,7 @@ export function ShoppingTab({
             }}
           >
             <View style={{ padding: 14, backgroundColor: Colors.primaryBg }}>
-              <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('cmp.ShoppingTab.costSummary')}</Txt>
+              <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{quantitiesMissing ? t('upgrade.partial.title') : t('cmp.ShoppingTab.costSummary')}</Txt>
             </View>
             <SummaryRow icon="package" label={t('cmp.ShoppingTab.materials')} value={formatCurrency(totalMaterials)} />
             <Divider />
@@ -216,7 +218,7 @@ export function ShoppingTab({
             />
             <Divider />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, backgroundColor: Colors.primaryBg }}>
-              <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>{t('cmp.ShoppingTab.totalWithReserve')}</Txt>
+              <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>{quantitiesMissing ? t('upgrade.partial.title') : t('cmp.ShoppingTab.totalWithReserve')}</Txt>
               <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>{formatCurrency(grandTotal)}</Txt>
             </View>
           </View>

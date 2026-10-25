@@ -33,6 +33,16 @@ export const epsInsulationBsoJob: RenovationJob = {
     { id: 'wallArea', label: 'Łączna powierzchnia elewacji', unit: 'm²',
       inputType: 'area', placeholder: '150', defaultValue: 150, min: 30, max: 600,
       hint: 'Suma wszystkich ścian zewnętrznych pomniejszona o okna i drzwi.' },
+    { id: 'wastePercent', label: 'Zapas płyt i klejów — założenie do zakupów', unit: '%', inputType: 'percent', placeholder: '10', defaultValue: 10, min: 0, max: 50, required: false, hint: 'Przyjęty zapas planistyczny, niezależny od zużycia producenta. Możesz go zmienić.' },
+    // source: https://www.atlas.com.pl/produkt/atlas-stopter-k-20/
+    { id: 'epsAdhesiveRate', label: 'K20 do przyklejania płyt', unit: 'kg/m²', inputType: 'coverage', placeholder: '5', defaultValue: 5, min: 4, max: 5, required: false, hint: 'ATLAS: 4–5 kg/m². Przyjmujemy górną wartość, a zapas doliczamy osobno.' },
+    // source: https://www.atlas.com.pl/wp-content/uploads/2025/11/poradnik_11_2025_200dpi_c_pop.pdf
+    { id: 'epsReinforcementRate', label: 'K50 do warstwy zbrojonej na EPS', unit: 'kg/m²', inputType: 'coverage', placeholder: '3,5', defaultValue: 3.5, min: 3, max: 3.5, required: false, hint: 'ATLAS: 3–3,5 kg/m². To osobna ilość, nie drugi pełny worek na całą elewację.' },
+    { id: 'epsMeshReservePercent', label: 'Zapas siatki na zakłady i docinki', unit: '%', inputType: 'percent', placeholder: '15', defaultValue: 15, min: 0, max: 100, required: false, hint: '15% to założenie planistyczne. Dopasuj do układu pasów, otworów i dodatkowych wzmocnień.' },
+    { id: 'epsAnchorCount', label: 'Liczba łączników z projektu ocieplenia', unit: 'szt', inputType: 'count', placeholder: 'Podaj z projektu', min: 0, max: 100000, required: false, hint: 'Bez wpisanej liczby pozostanie „do ustalenia”. Kalkulator nie projektuje mocowania ani stref narożnych.' },
+    { id: 'epsPrimerLitres', label: 'Ilość wybranego gruntu pod tynk', unit: 'l', inputType: 'coverage', placeholder: 'Podaj po sprawdzeniu produktu', min: 0, max: 10000, required: false, hint: 'Podaj litry wybranego produktu. Kilogramów masy CERPLAST nie zamieniamy automatycznie na litry.' },
+    { id: 'epsRenderKg', label: 'Ilość wybranego tynku z jego karty', unit: 'kg', inputType: 'coverage', placeholder: 'Zależnie od produktu i ziarna', min: 0, max: 100000, required: false, hint: 'Zużycie zależy od produktu i ziarna. Puste pole oznacza ilość do ustalenia, a nie brak tynku.' },
+    { id: 'epsProfilesLength', label: 'Łączna długość listew i obróbek', unit: 'mb', inputType: 'length', placeholder: 'Podaj z obmiaru', min: 0, max: 10000, required: false, hint: 'Zsumuj długości z projektu. Powierzchnia elewacji nie określa jej obwodu ani długości ościeży.' },
   ],
 
   warningRules: [
@@ -49,11 +59,11 @@ export const epsInsulationBsoJob: RenovationJob = {
   ],
 
   materials: [
-    { id: 'eps-board-15cm', name: 'Styropian fasadowy EPS 70-040 gr. 15 cm', brand: 'Termo Organika / Swisspor / Austrotherm', unit: 'm²', purchaseUnit: 'paczka 3 m²', formulaKey: 'constant', pricePerUnit: 42, category: 'izolacja', notes: 'Standardowa grubość 15–20 cm. Lambda 0.040 W/(m·K).' },
+    { id: 'eps-board-15cm', name: 'Styropian fasadowy EPS 70-040 gr. 15 cm', brand: 'Termo Organika / Swisspor / Austrotherm', unit: 'm²', purchaseUnit: 'paczka 3 m²', formulaKey: 'constant', pricePerUnit: 42, category: 'izolacja', notes: 'Wariant modelu: 15 cm, lambda 0.040 W/(m·K). Grubość i parametry potwierdź w projekcie ocieplenia.' },
     { id: 'glue-k20', name: 'Klej do styropianu', brand: 'Atlas Stopter K-20 25 kg', unit: 'kg', purchaseUnit: 'worek 25 kg', formulaKey: 'constant', pricePerUnit: 2.2, category: 'klej', notes: 'Do klejenia płyt EPS metodą pasmowo-punktową. Worek 25 kg ok. 50–55 zł.' },
     { id: 'glue-k50', name: 'Klej do zatapiania siatki', brand: 'Atlas Stopter K-50 25 kg', unit: 'kg', purchaseUnit: 'worek 25 kg', formulaKey: 'constant', pricePerUnit: 4.5, category: 'klej' },
     { id: 'mesh-145', name: 'Siatka zbrojąca szklana 145 g/m²', brand: 'Atlas / Ceresit', unit: 'm²', purchaseUnit: 'rolka 55 m²', formulaKey: 'constant', pricePerUnit: 4, category: 'zbrojenie', notes: 'Zakłady min. 10 cm, pasy diagonalne w narożnikach otworów.' },
-    { id: 'anchors-eps', name: 'Kołki rozporowe do styropianu', brand: 'Koelner KI-10 lub Fischer Termoz', unit: 'szt', formulaKey: 'constant', pricePerUnit: 1.2, category: 'mocowanie', notes: 'Min. 4 szt/m², w strefie narożnej 6–8 szt/m².' },
+    { id: 'anchors-eps', name: 'Kołki rozporowe do styropianu', brand: 'Koelner KI-10 lub Fischer Termoz', unit: 'szt', formulaKey: 'constant', pricePerUnit: 1.2, category: 'mocowanie', notes: 'Liczbę, rodzaj i długość łączników podaj według projektu ocieplenia i podłoża.' },
     { id: 'primer-ct16', name: 'Grunt podkładowy pod tynk', brand: 'Ceresit CT 16 / Atlas Cerplast 5 kg', unit: 'litr', purchaseUnit: 'wiadro 5 kg', formulaKey: 'constant', pricePerUnit: 22, category: 'grunt' },
     { id: 'plaster-silicone', name: 'Tynk silikatowo-silikonowy cienkowarstwowy', brand: 'Ceresit CT 174 / Caparol Sylitol 25 kg', unit: 'kg', purchaseUnit: 'wiadro 25 kg', formulaKey: 'constant', pricePerUnit: 8, category: 'tynk', notes: 'Ziarno 1.5–2.0 mm. Kolor pigmentowany fabrycznie. Wiadro 25 kg ok. 170–220 zł (baza i typowe kolory); kolory intensywne droższe.' },
     { id: 'profiles-start', name: 'Listwy startowe i narożnikowe + obróbki', brand: 'Protektor / Catnic', unit: 'm.b.', formulaKey: 'constant', pricePerUnit: 12, category: 'akcesoria', notes: 'Cokół startowy + narożniki + listwy okapowe nad oknami.' },

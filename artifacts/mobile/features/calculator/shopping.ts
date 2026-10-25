@@ -10,7 +10,7 @@ class RenovationShoppingListGenerator implements ShoppingListGenerator {
     result: CalculationResult
   ): Omit<ShoppingItem, 'id'>[] {
     return result.materials
-      .filter((m) => m.quantity > 0)
+      .filter((m) => m.quantityKnown === false || m.quantity > 0)
       .map((m) => ({
         projectId,
         materialId: m.material.id,

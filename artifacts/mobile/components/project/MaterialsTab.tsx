@@ -17,15 +17,16 @@ interface MaterialsTabProps {
 }
 
 export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }: MaterialsTabProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <View style={{ gap: 12 }}>
       <Txt w="bold" style={{ fontSize: 18, color: Colors.text, marginBottom: 4 }}>
         {t('cmp.MaterialsTab.title')}
       </Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
-        {t('cmp.MaterialsTab.subtitle')}
+        {calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Ilości wynikają z obmiarów i pokazanych założeń zapasu. Dobierz produkty w jednym zgodnym systemie ocieplenia i według projektu.' : 'Quantities follow your measurements and stated reserve assumptions. Select products from a compatible insulation system and follow its design.') : t('cmp.MaterialsTab.subtitle')}
       </Txt>
+      {Boolean(calc.quantityIssues?.length) && <Txt accessibilityRole="alert" style={{ color: Colors.warning, lineHeight: 20 }}>{language === 'pl' ? `Dla ${calc.quantityIssues!.length} pozycji podaj ilości z projektu lub karty wybranego produktu. Pokazany koszt jest częściowym szacunkiem według cen referencyjnych.` : `Enter design or selected-product quantities for ${calc.quantityIssues!.length} items. The displayed cost is a partial estimate using reference prices.`}</Txt>}
 
       {calc.materials.map((m, i) => (
         <View
@@ -55,14 +56,14 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
           </View>
           <View style={{ alignItems: 'center', minWidth: 52 }}>
             <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
-              {m.quantity.toFixed(m.quantity < 10 ? 1 : 0)}
+              {m.quantityKnown === false ? (language === 'pl' ? 'Do ustalenia' : 'To confirm') : m.quantity.toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 3 })}
             </Txt>
             <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
               {m.material.unit}
             </Txt>
           </View>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.primary, minWidth: 70, textAlign: 'right' }}>
-            {formatCurrency(m.cost)}
+            {m.quantityKnown === false ? '—' : formatCurrency(m.cost)}
           </Txt>
         </View>
       ))}
@@ -80,7 +81,7 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
         }}
       >
         <Txt w="semibold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-          {t('cmp.MaterialsTab.totalCost')}
+          {calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek materiałów' : 'Partial material estimate') : calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Szacunek wg cen referencyjnych' : 'Estimate using reference prices') : t('cmp.MaterialsTab.totalCost')}
         </Txt>
         <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
           {formatCurrency(calc.totalCost)}

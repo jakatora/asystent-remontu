@@ -32,7 +32,7 @@ interface OverviewTabProps {
 }
 
 export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purchasedCount, nonOwnedCount }: OverviewTabProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { project, job, calc, shoppingItems, checklist, checklistProgress, activities, diy, budget } = data;
   const proEstimate = budget ? `${formatCurrency(budget.totalMin)}–${formatCurrency(budget.totalMax)}` : null;
 
@@ -207,7 +207,7 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
             overflow: 'hidden',
           }}
         >
-          <SummaryRow icon="tool" label={t('cmp.OverviewTab.materialsDiy')} value={formatCurrency(calc.totalCost)} bold />
+          <SummaryRow icon="tool" label={calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek materiałów' : 'Partial material estimate') : calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Szacunek materiałów — ceny referencyjne' : 'Material estimate — reference prices') : t('cmp.OverviewTab.materialsDiy')} value={formatCurrency(calc.totalCost)} bold />
           {proEstimate && (
             <>
               <Divider />

@@ -2,6 +2,7 @@ import type { Project, ShoppingItem } from '@/types/domain';
 import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
 import { doorOriginMaterialId, type DoorSelection } from './doorSelection';
+import { EPS_JOB_ID, upgradeEpsCalculation } from '@/features/calculator/eps';
 
 export const MAX_BASKET_PROJECTS = 20;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
@@ -26,7 +27,7 @@ export function buildRenovationBasket(
   let excludedMaterials = 0, manualItems = 0, missingCalculations = 0;
   const stages: PricingStageInput[] = [];
   for (const project of includedProjects) {
-    const calc = project.calculationResult;
+    const calc = upgradeEpsCalculation(project.calculationResult);
     if (!calc) { missingCalculations++; continue; }
     const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
@@ -36,7 +37,10 @@ export function buildRenovationBasket(
       const matching = items.filter(item => item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
       // A boolean in Shopping means the entire material line is covered.
       // Conflicting duplicate rows cannot silently remove required materials.
-      if (matching.length > 0 && matching.every(item => item.owned || item.purchased)) { excludedMaterials++; return false; }
+      const requirement = calc.materials.find(item => item.material.id === line.material.id);
+      const covers = (item: ShoppingItem) => (item.owned || item.purchased) && (calc.jobId !== EPS_JOB_ID ||
+        requirement?.quantityKnown !== false && !item.needsQuantityConfirmation && Math.abs((item.customQuantity ?? item.quantity) - (requirement?.quantity ?? NaN)) < 1e-8 && item.unit === requirement?.material.unit);
+      if (matching.length > 0 && matching.every(covers)) { excludedMaterials++; return false; }
       return true;
     });
     stages.push({ ...stage, materials });

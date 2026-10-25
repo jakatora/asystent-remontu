@@ -418,12 +418,6 @@ export default function WizardScreen() {
   }, [step, draft, selectedJob, t]);
 
   const handleNext = useCallback(() => {
-    // Special: if hire → redirect to hire-pro immediately
-    if (step === 'diy' && draft.diyMode === 'hire') {
-      router.push({ pathname: '/hire-pro', params: { jobId: draft.jobId ?? '' } });
-      return;
-    }
-
     const err = validateStep();
     if (err) { setValidationError(err); return; }
     setValidationError(null);

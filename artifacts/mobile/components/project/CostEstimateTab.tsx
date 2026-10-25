@@ -3,6 +3,7 @@ import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
 import { StoreChoiceSection } from './StoreChoiceSection';
 import { DoorSelectionSection } from './DoorSelectionSection';
+import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, estimateHonoursStore, parsePreferredStore, type StoreChoices } from '@/features/pricing/storeChoice';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
@@ -166,6 +167,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       </View>
 
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
+      {projectId && calc?.jobId === 'eps-insulation-bso' && <Button label={language === 'pl' ? 'Uzupełnij obmiary ocieplenia' : 'Update insulation measurements'} variant="outline" onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} fullWidth />}
 
       {storeChoices?.scope === scope && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} onSelect={store => {
         if (store === selectedStore) return;
@@ -459,7 +461,7 @@ function PackageBreakdown({
   totalGrosze: number;
   savingsGrosze: number;
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const combo = packages
     .map((p) => `${p.count}× ${formatQuantity(p.packageSize)} ${unit ?? ''}`.trim())
     .join(' + ');
@@ -492,6 +494,7 @@ function PackageBreakdown({
           />
         </View>
       )}
+      {packages.filter(pack => (pack.purchaseMultiple ?? 1) > 1).map((pack, index) => <Txt key={`${pack.store}-${index}`} style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{language === 'pl' ? `${pack.store}: zakup w partiach po ${pack.purchaseMultiple} op. Kwota uwzględnia całą wymaganą partię.` : `${pack.store}: order lots of ${pack.purchaseMultiple} packs. The cost includes the complete required lot.`}</Txt>)}
     </View>
   );
 }
@@ -562,7 +565,7 @@ function OfferRow({
   isCheapest: boolean;
   isFirst: boolean;
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const hasPromo =
     offer.regularPriceGrosze !== null &&
     offer.priceGrosze !== null &&
@@ -613,6 +616,7 @@ function OfferRow({
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+        {(offer.purchaseMultiple ?? 1) > 1 && <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{language === 'pl' ? `Zakup w partiach po ${offer.purchaseMultiple} op.` : `Order lots of ${offer.purchaseMultiple} packs`}</Txt>}
         {offer.pricePerUnitGrosze !== null && (
           <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>
             {t('cmp.CostEstimate.perUnit', {

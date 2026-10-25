@@ -19,6 +19,7 @@ import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { getMaterialsForJob } from './registry';
 import { resolveMaterialQuantity } from './quantity';
 import { applyDoorSelection, type DoorSelection } from './doorSelection';
+import { upgradeEpsCalculation } from '@/features/calculator/eps';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
 
@@ -108,6 +109,7 @@ export interface SerializedOffer {
  * api-server/lib/pricing-serialize.ts#SerializedProductOffer.
  */
 export interface SerializedProductOffer {
+  purchaseMultiple?: number;
   packageSize?: string | null;
   offerId: string;
   store: string;
@@ -133,6 +135,7 @@ export interface SerializedProductOffer {
  * Kwoty w GROSZACH. Zgodny z api-server/lib/pricing-serialize.ts#SerializedPackage.
  */
 export interface SerializedPackage {
+  purchaseMultiple?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */
@@ -403,10 +406,12 @@ function readOptionalCode(material: object, key: 'ean' | 'gtin'): string | null 
  * opakowania z katalogu.
  */
 export function toPricingStageInput(calc: CalculationResult, tier: MaterialCategory = 'standard', doorSelection?: DoorSelection | null): PricingStageInput {
+  calc = upgradeEpsCalculation(calc) ?? calc;
   const references = getMaterialsForJob(calc.jobId, tier);
   return applyDoorSelection({
     jobId: calc.jobId,
-    materials: calc.materials.filter(line => getRequiredQuantity(line, calc) > 0).map((line) => {
+    materials: calc.materials.filter(line => line.quantityKnown === false || getRequiredQuantity(line, calc) > 0).map((line) => {
+      if (line.quantityKnown === false) return { material: { id: line.material.id, name: `${line.material.name} — ilość do ustalenia`, unit: 'pozycja', category: null }, quantity: 1 };
       const matches = references.filter(ref => resolveMaterialQuantity(ref, calc)?.source.material.id === line.material.id);
       const reference = matches.length === 1 ? matches[0] : undefined;
       return {

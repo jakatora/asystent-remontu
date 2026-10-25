@@ -1,9 +1,11 @@
 import type { CalculationResult, MaterialLineItem } from '@/types/domain';
 import { getJobById } from '@/features/content/registry';
 import { computeRawQuantity } from './engine';
+import { epsRequirement, EPS_JOB_ID } from './eps';
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if (calc.jobId === EPS_JOB_ID) return epsRequirement(line.material.id, calc.measurements) ?? 0;
   // Historical self-leveling snapshots have rawQuantity=1 because byThickness
   // fell back to the constant formula. Restore demand from their saved measures.
   if (calc.jobId === 'self-leveling' && line.material.id === 'leveling-compound') {
