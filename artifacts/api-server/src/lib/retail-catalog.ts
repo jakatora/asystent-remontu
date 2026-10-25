@@ -122,6 +122,620 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     // source: https://ekobudsklep.pl/Tynki/3323-srodek-gruntujacy-podklad-tynkarski-cerplast-15kg-atlas-5905400530032.html
     url: 'https://sklep.sewera.pl/podkladowa-masa-tynkarska-cerplast-15kg-atlas-p9884',
   },
+  // source: https://www.rabdom.pl/pl/p/SNIEZKA-LATEKS-EKO-PLUS-ODPORNA-NA-SZOROWANIE-10L/4177
+  // source: https://www.castorama.pl/farba-lateksowa-sniezka-eko-plus-biala-10-l/5903973205982_CAPL.prd
+  {
+    "id": "rabdom-paint-better-white-10l",
+    "ean": "5903973205982",
+    "name": "ŚNIEŻKA LATEKS EKO PLUS ODPORNA NA SZOROWANIE 10L",
+    "category": "paint",
+    "brand": "Śnieżka",
+    "packageSize": 10,
+    "unit": "l",
+    "store": "Rab-Dom",
+    "format": "shoper-api",
+    "url": "https://www.rabdom.pl/pl/p/SNIEZKA-LATEKS-EKO-PLUS-ODPORNA-NA-SZOROWANIE-10L/4177",
+    "productId": 4177,
+    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_5715_500_500/Przechwytywanie1.webp"
+  },
+  // source: https://realbud.com/pl/p/Soudal-Silikon-Sanitarny-BIALY-280ml/75056920
+  // source: https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd
+  {
+    "id": "realbud-sanitary-silicone-soudal-280ml",
+    "ean": "5411183157064",
+    "name": "Soudal Silikon Sanitarny BIAŁY 280ml",
+    "category": "silicone",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Soudal-Silikon-Sanitarny-BIALY-280ml/75056920",
+    "productId": 75056920,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23107_500_500/079e148af619f564eb64a47d4acf3d02.jpg"
+  },
+  // source: https://www.rabdom.pl/pl/p/SOUDAL-Silikon-sanitarny-280ml-BIALY/725
+  // source: https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd
+  {
+    "id": "rabdom-sanitary-silicone-soudal-280ml",
+    "ean": "5411183157064",
+    "name": "SOUDAL Silikon sanitarny 280ml  BIAŁY",
+    "category": "silicone",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Rab-Dom",
+    "format": "shoper-api",
+    "url": "https://www.rabdom.pl/pl/p/SOUDAL-Silikon-sanitarny-280ml-BIALY/725",
+    "productId": 725,
+    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_36041_500_500/sanitbial.webp"
+  },
+  // source: https://realbud.com/pl/p/Ceresit-CT-17%2C-10-l%2C-gleboko-penetrujacy-grunt-bezrozpuszczalnikowy/75057217
+  // source: https://www.bricoman.pl/grunt-gleboko-penetrujacy-ceresit-ct17-10l-20914943.html
+  {
+    "id": "realbud-primer-deep-ceresit-ct17-10l",
+    "ean": "5900089617081",
+    "name": "Ceresit CT 17, 10 l, głęboko penetrujący grunt bezrozpuszczalnikowy",
+    "category": "primer",
+    "brand": "Ceresit",
+    "packageSize": 10,
+    "unit": "l",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Ceresit-CT-17%2C-10-l%2C-gleboko-penetrujacy-grunt-bezrozpuszczalnikowy/75057217",
+    "productId": 75057217,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23320_500_500/4f6162f89165674a20b43a12f287acd2.png"
+  },
+  // source: https://www.rabdom.pl/pl/p/CERESIT-CT-17-Grunt-gleboko-penetrujacy-10L/9787
+  // source: https://www.bricoman.pl/grunt-gleboko-penetrujacy-ceresit-ct17-10l-20914943.html
+  {
+    "id": "rabdom-primer-deep-ceresit-ct17-10l",
+    "ean": "5900089617081",
+    "name": "CERESIT CT 17 Grunt głęboko penetrujący 10L",
+    "category": "primer",
+    "brand": "Ceresit",
+    "packageSize": 10,
+    "unit": "l",
+    "store": "Rab-Dom",
+    "format": "shoper-api",
+    "url": "https://www.rabdom.pl/pl/p/CERESIT-CT-17-Grunt-gleboko-penetrujacy-10L/9787",
+    "productId": 9787,
+    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_17372_500_500/ceresit-tiling-CT17-5l-30lat-fundacja.webp"
+  },
+  // source: https://realbud.com/pl/p/Ceresit-CM-11%2C-25-kg%2C-uniwersalny-klej-do-plytek/75057156
+  // source: https://mrowka.com.pl/produkt/zaprawa-klejowa-podstawowa-cm11-25-kg-ceresit-5900089111251.html
+  {
+    "id": "realbud-tile-adhesive-ceresit-cm11-25kg",
+    "ean": "5900089111251",
+    "name": "Ceresit CM 11, 25 kg, uniwersalny klej do płytek",
+    "category": "adhesive",
+    "brand": "Ceresit",
+    "packageSize": 25,
+    "unit": "kg",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Ceresit-CM-11%2C-25-kg%2C-uniwersalny-klej-do-plytek/75057156",
+    "productId": 75057156,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23258_500_500/46e2bb71554f4ee22711a9cccee46e6b.jpg"
+  },
+  // source: https://sklep.sewera.pl/sniezka-eko-plus-odporna-na-szorowanie-10l-p6089
+  // source: https://www.castorama.pl/farba-lateksowa-sniezka-eko-plus-biala-10-l/5903973205982_CAPL.prd
+  {
+    "id": "sewera-paint-better-white-10l",
+    "ean": "5903973205982",
+    "name": "Śnieżka EKO Plus odporna na szorowanie 10l",
+    "category": "paint",
+    "brand": "Śnieżka",
+    "packageSize": 10,
+    "unit": "l",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/sniezka-eko-plus-odporna-na-szorowanie-10l-p6089"
+  },
+  // source: https://sklep.sewera.pl/silikon-sanitarny-bialy-280ml-soudal-p21286
+  // source: https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd
+  {
+    "id": "sewera-sanitary-silicone-soudal-280ml",
+    "ean": "5411183157064",
+    "name": "Silikon sanitarny biały 280ml Soudal",
+    "category": "silicone",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/silikon-sanitarny-bialy-280ml-soudal-p21286"
+  },
+  // source: https://realbud.com/Tasma-malarska-8-cm-x-50-m
+  // source: https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-38mm-x-50m/5907758507285_CAPL.prd
+  {
+    "id": "realbud-masking-tape-bluedolphin-38mm",
+    "ean": "5907758507285",
+    "name": "Taśma malarska 38mmx50 m BLUE DOLPHIN",
+    "category": "masking-tape",
+    "brand": "Blue Dolphin",
+    "packageSize": 50,
+    "unit": "mb",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/Tasma-malarska-8-cm-x-50-m",
+    "productId": 7738,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_9990_500_500/46c45b830d4616de5c8a31113eac72b8.jpg",
+    "variant": [
+      "38mmx50m"
+    ]
+  },
+  // source: https://sklep.zino.pl/pl/p/Blue-dolphin-Tasma-malarska-profesjonalna-38mm50m/1533
+  // source: https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-38mm-x-50m/5907758507285_CAPL.prd
+  {
+    "id": "zino-masking-tape-bluedolphin-38mm",
+    "ean": "5907758507285",
+    "name": "Blue dolphin Taśma malarska profesjonalna 38mm/50m",
+    "category": "masking-tape",
+    "brand": "Blue Dolphin",
+    "packageSize": 50,
+    "unit": "mb",
+    "store": "Zino",
+    "format": "shoper-api",
+    "url": "https://sklep.zino.pl/pl/p/Blue-dolphin-Tasma-malarska-profesjonalna-38mm50m/1533",
+    "productId": 1533,
+    "imageUrl": "https://sklep.zino.pl/environment/cache/images/productGfx_4976_500_500/malarska-niebieska.jpg",
+    "variant": [
+      "38mmx50m"
+    ]
+  },
+  // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-papierowa-malarska-do-wnetrz-i-na-zewnatrz-38mm-x-50m-niebieska/549
+  // source: https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-38mm-x-50m/5907758507285_CAPL.prd
+  {
+    "id": "rabdom-masking-tape-bluedolphin-38mm",
+    "ean": "5907758507285",
+    "name": "BLUE DOLPHIN Taśma papierowa malarska do wnętrz i na zewnątrz 38mm x 50m niebieska",
+    "category": "masking-tape",
+    "brand": "Blue Dolphin",
+    "packageSize": 50,
+    "unit": "mb",
+    "store": "Rab-Dom",
+    "format": "shoper-api",
+    "url": "https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-papierowa-malarska-do-wnetrz-i-na-zewnatrz-38mm-x-50m-niebieska/549",
+    "productId": 549,
+    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_58891_500_500/Blue-Dolphin-tasma-malarska-papierowa-niebieska-38-mm-na-50-metrow..webp",
+    "variant": [
+      "38mmx50m"
+    ]
+  },
+  // source: https://sklep.sewera.pl/ceresit-fuga-ce40-01-wodoodporna-elastyczna-2kg-p9147
+  // source: https://www.castorama.pl/fuga-elastyczna-ceresit-ce-40-aquastatic-biala-2-kg-id-3973.html
+  {
+    "id": "sewera-grout-ceresit-ce40-white-2kg",
+    "ean": "5900089140015",
+    "name": "Ceresit fuga CE40 01 wodoodporna elastyczna 2kg",
+    "category": "grout",
+    "brand": "Ceresit",
+    "packageSize": 2,
+    "unit": "kg",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/ceresit-fuga-ce40-01-wodoodporna-elastyczna-2kg-p9147"
+  },
+  // source: https://sklep.zino.pl/pl/p/Akrylit-W-plus-snieznobiala-5l-Dekoral/2071
+  // source: https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502
+  {
+    "id": "zino-paint-latex-dekoral-akrylit-w-white-5l",
+    "ean": "5904000810681",
+    "name": "Akrylit W plus śnieżnobiała 5l Dekoral",
+    "category": "paint",
+    "brand": "Dekoral",
+    "packageSize": 5,
+    "unit": "l",
+    "store": "Zino",
+    "format": "shoper-api",
+    "url": "https://sklep.zino.pl/pl/p/Akrylit-W-plus-snieznobiala-5l-Dekoral/2071",
+    "productId": 2071,
+    "imageUrl": "https://sklep.zino.pl/environment/cache/images/productGfx_6006_500_500/DEKORAL_AKRYLIT_W_5L.png"
+  },
+  // source: https://www.rabdom.pl/pl/p/-DEKORAL-AKRYLIT-W-Lateksowa-farba-do-wnetrz-bialy-mat-5L/535
+  // source: https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502
+  {
+    "id": "rabdom-paint-latex-dekoral-akrylit-w-white-5l",
+    "ean": "5904000810681",
+    "name": "DEKORAL AKRYLIT W Lateksowa farba do wnętrz biały mat 5L",
+    "category": "paint",
+    "brand": "Dekoral",
+    "packageSize": 5,
+    "unit": "l",
+    "store": "Rab-Dom",
+    "format": "shoper-api",
+    "url": "https://www.rabdom.pl/pl/p/-DEKORAL-AKRYLIT-W-Lateksowa-farba-do-wnetrz-bialy-mat-5L/535",
+    "productId": 535,
+    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_57960_500_500/Opakowanie-bialej-farby-lateksowej-do-malowania-wnetrz-marki-Dekoral%2C-pojemnosc-5-litrow..webp"
+  },
+  // source: https://sklep.sewera.pl/pianka-montazowa-pistoletowa-65-750ml-tytan-p12439
+  // source: https://mrowka.com.pl/produkt/piana-pistoletowa-65-750-ml-tytan-professional-5903518052859.html
+  {
+    "id": "sewera-foam-tytan-pro65-750ml",
+    "ean": "5903518052859",
+    "name": "Pianka montażowa pistoletowa 65 750ml Tytan",
+    "category": "foam",
+    "brand": "Tytan",
+    "packageSize": 750,
+    "unit": "ml",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/pianka-montazowa-pistoletowa-65-750ml-tytan-p12439"
+  },
+  // source: https://sklep.sewera.pl/dekoral-farba-lateksowa-odporna-na-szorowanie-akrylit-w-plus-5l-p7969
+  // source: https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502
+  {
+    "id": "sewera-paint-latex-dekoral-akrylit-w-white-5l",
+    "ean": "5904000810681",
+    "name": "DEKORAL FARBA LATEKSOWA ODPORNA NA SZOROWANIE AKRYLIT W PLUS 5L",
+    "category": "paint",
+    "brand": "Dekoral",
+    "packageSize": 5,
+    "unit": "l",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/dekoral-farba-lateksowa-odporna-na-szorowanie-akrylit-w-plus-5l-p7969"
+  },
+  // source: https://sklep.sewera.pl/tasma-malarska-niebieska-38mmx50m-p6967
+  // source: https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-38mm-x-50m/5907758507285_CAPL.prd
+  {
+    "id": "sewera-masking-tape-bluedolphin-38mm",
+    "ean": "5907758507285",
+    "name": "Taśma malarska niebieska 38mmx50m",
+    "category": "masking-tape",
+    "brand": "Blue Dolphin",
+    "packageSize": 50,
+    "unit": "mb",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/tasma-malarska-niebieska-38mmx50m-p6967",
+    "variant": [
+      "38mmx50m"
+    ]
+  },
+  // source: https://sklep.sewera.pl/wkret-tb-3-5x25mm-samowiercacyfosfatowany-100szt-p9993
+  // source: https://mrowka.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html
+  {
+    "id": "sewera-drywall-screws-wkretmet-35x25-100",
+    "ean": "5907704499015",
+    "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas",
+    "category": "screws",
+    "brand": "Wkręt-Met",
+    "packageSize": 100,
+    "unit": "szt",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/wkret-tb-3-5x25mm-samowiercacyfosfatowany-100szt-p9993",
+    "retailUnit": "OPA",
+    "variant": [
+      "3,5x25mm",
+      "100szt"
+    ]
+  },
+  // source: https://sklep.zino.pl/pl/p/Krzyzyki-dystansowe-Hardy-2mm-200szt./2263
+  // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html
+  {
+    "id": "zino-tile-spacers-hardy-2mm-200",
+    "ean": "5905061016845",
+    "name": "Krzyżyki dystansowe Hardy 2mm 200szt.",
+    "category": "tile-spacer",
+    "brand": "Hardy",
+    "packageSize": 200,
+    "unit": "szt",
+    "store": "Zino",
+    "format": "shoper-api",
+    "url": "https://sklep.zino.pl/pl/p/Krzyzyki-dystansowe-Hardy-2mm-200szt./2263",
+    "productId": 2263,
+    "imageUrl": "https://sklep.zino.pl/environment/cache/images/productGfx_6403_500_500/2040-660020-1.png"
+  },
+  // source: https://sklep.sewera.pl/kolek-szybkiego-montazu-6x40mm-20szt-p10030
+  // source: https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html
+  {
+    "id": "sewera-quick-dowels-wkretmet-sm-6x40-20",
+    "ean": "5907704466031",
+    "name": "Kołek szybkiego montażu 6x40mm 20szt. Klimas",
+    "category": "dowels",
+    "brand": "Wkręt-Met",
+    "packageSize": 20,
+    "unit": "szt",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/kolek-szybkiego-montazu-6x40mm-20szt-p10030",
+    "retailUnit": "OPA",
+    "variant": [
+      "6x40mm",
+      "20szt"
+    ]
+  },
+  // source: https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-10cm-welna-szklana-p11975
+  // source: https://www.bricoman.pl/isover-aku-plyta-welna-mineralna-szklana-10-cm-7-2-m2-877954.html
+  {
+    "id": "sewera-mineral-wool-isover-akuplyta-10cm",
+    "ean": "5901644653155",
+    "name": "Isover wełna mineralna Aku-Płyta 037 10cm wełna szklana",
+    "category": "mineral-wool",
+    "brand": "Isover",
+    "packageSize": 7.2,
+    "unit": "m2",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-10cm-welna-szklana-p11975",
+    "retailUnit": "OPA",
+    "variant": [
+      "10cm"
+    ],
+    "packageDescription": "7,20m2"
+  },
+  // source: https://sklep.sewera.pl/krzyzyki-dystansowe-2mm-200szt--p12504
+  // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html
+  {
+    "id": "sewera-tile-spacers-hardy-2mm-200",
+    "ean": "5905061016845",
+    "name": "Krzyżyki dystansowe 2mm 200szt.",
+    "category": "tile-spacer",
+    "brand": "KAEM",
+    "packageSize": 200,
+    "unit": "szt",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/krzyzyki-dystansowe-2mm-200szt--p12504",
+    "retailUnit": "OPA"
+  },
+  // source: https://realbud.com/pl/p/Ceresit-CL-152%2C-10-m%2C-tasma-uszczelniajaca/75057200
+  // source: https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd
+  {
+    "id": "realbud-sealing-tape-ceresit-cl152-10m",
+    "ean": "5900089115211",
+    "name": "Ceresit CL 152, 10 m, taśma uszczelniająca",
+    "category": "sealing-tape",
+    "brand": "Ceresit",
+    "packageSize": 10,
+    "unit": "m",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Ceresit-CL-152%2C-10-m%2C-tasma-uszczelniajaca/75057200",
+    "productId": 75057200,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23303_500_500/0a3c56073810b860a6e905a6528fc426.jpg"
+  },
+  // source: https://sklep.sewera.pl/atlas-fuga-ceramiczna-001-bialy-2kg-p11674
+  // source: https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd
+  {
+    "id": "sewera-grout-atlas-001-white-2kg",
+    "ean": "5905400572254",
+    "name": "Atlas Fuga ceramiczna 001 biały 2kg",
+    "category": "grout",
+    "brand": "Atlas",
+    "packageSize": 2,
+    "unit": "kg",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/atlas-fuga-ceramiczna-001-bialy-2kg-p11674"
+  },
+  // source: https://sklep.sewera.pl/folia-w-plynie-szybkoschnaca-woder-e-15kg-atlas-p6346
+  // source: https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html
+  {
+    "id": "sewera-waterproof-membrane-atlas-woder-e-15kg",
+    "ean": "5905400514506",
+    "name": "Folia w płynie szybkoschnąca Woder E 15kg Atlas",
+    "category": "waterproofing",
+    "brand": "Atlas",
+    "packageSize": 15,
+    "unit": "kg",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/folia-w-plynie-szybkoschnaca-woder-e-15kg-atlas-p6346"
+  },
+  // source: https://realbud.com/pl/p/Ceresit-CN-72-NIVEL-FAST%2C-25-kg%2C-zaprawa-samopoziomujaca/75057225
+  // source: https://sklep-kowalczyk.pl/ceresit-cn-72-zaprawa-samopoziomujaca-25-kg-219136.html
+  {
+    "id": "realbud-screed-ceresit-cn72-25kg",
+    "ean": "5900089272259",
+    "name": "Ceresit CN 72 NIVEL FAST, 25 kg, zaprawa samopoziomująca",
+    "category": "screed",
+    "brand": "Ceresit",
+    "packageSize": 25,
+    "unit": "kg",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Ceresit-CN-72-NIVEL-FAST%2C-25-kg%2C-zaprawa-samopoziomujaca/75057225",
+    "productId": 75057225,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23328_500_500/8cf842d859fb9fe114e5ad53d45a64a2.jpg"
+  },
+  // source: https://sklep.sewera.pl/hydroizolacja-dwuskladnikowa-elastyczna-woder-duo-16kg-atlas-p9897
+  // source: https://www.castorama.pl/hydroizolacja-atlas-woder-duo-16-kg/5905400195088_CAPL.prd
+  {
+    "id": "sewera-waterproof-membrane-atlas-woder-duo-16kg",
+    "ean": "5905400195088",
+    "name": "Hydroizolacja dwuskładnikowa elastyczna Woder Duo 16kg Atlas",
+    "category": "waterproofing",
+    "brand": "Atlas",
+    "packageSize": 16,
+    "unit": "kg",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/hydroizolacja-dwuskladnikowa-elastyczna-woder-duo-16kg-atlas-p9897"
+  },
+  // source: https://realbud.com/pl/p/Silikon-uniwersalny-Soudal-bezbarwny-280-ml/75056923
+  // source: https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd
+  {
+    "id": "realbud-silicone-universal-soudal-280ml",
+    "ean": "5411183157552",
+    "name": "Silikon uniwersalny Soudal bezbarwny 280 ml",
+    "category": "silicone",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Silikon-uniwersalny-Soudal-bezbarwny-280-ml/75056923",
+    "productId": 75056923,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23110_500_500/1229be0a0c33588eea99883b4a31b707.jpg"
+  },
+  // source: https://sklep.sewera.pl/tasma-uszczelniajaca-cl152-120mm-x-10m-ceresit-p7692
+  // source: https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd
+  {
+    "id": "sewera-sealing-tape-ceresit-cl152-10m",
+    "ean": "5900089115211",
+    "name": "Taśma uszczelniająca CL152 120mm x 10m Ceresit",
+    "category": "sealing-tape",
+    "brand": "Ceresit",
+    "packageSize": 10,
+    "unit": "m",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/tasma-uszczelniajaca-cl152-120mm-x-10m-ceresit-p7692"
+  },
+  // source: https://realbud.com/Kolek-do-mcowania-izolacji-10-200-mtal-trzpien-50-op
+  // source: https://www.castorama.pl/kolek-do-mocowania-izolacji-koelner-metal-10-x-200-mm/5906675212647_CAPL.prd
+  {
+    "id": "realbud-anchor-facade-koelner-ki200m-10x200",
+    "ean": "5906675212647",
+    "name": "Kołki do styropianu 20 cm Metalowy Trzpień 250 szt",
+    "category": "anchor",
+    "brand": "Rawlplug",
+    "packageSize": 250,
+    "unit": "szt",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/Kolek-do-mcowania-izolacji-10-200-mtal-trzpien-50-op",
+    "productId": 6186,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25596_500_500/5393.png"
+  },
+  // source: https://realbud.com/pl/p/Ceresit-CT-174%2C-tynk-silikatowo-silikonowy-%2C-Baranek-1%2C5mm%2C-25-kg/75057633
+  // source: https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101
+  {
+    "id": "realbud-plaster-thin-ceresit-ct174-25kg",
+    "ean": "9000101109733",
+    "name": "Ceresit CT 174, tynk silikatowo- silikonowy , Baranek 1,5mm, 25 kg",
+    "category": "thin-coat-plaster",
+    "brand": "Ceresit",
+    "packageSize": 25,
+    "unit": "kg",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Ceresit-CT-174%2C-tynk-silikatowo-silikonowy-%2C-Baranek-1%2C5mm%2C-25-kg/75057633",
+    "productId": 75057633,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23769_500_500/5d9b2d09f6af0304fde060d90029cde0.png"
+  },
+  // source: https://sklep.sewera.pl/tynk-wewnetrzny-cementowo-wapienny-baumit-mpi-25-30kg-p9081
+  // source: https://mrowka.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html
+  {
+    "id": "sewera-plaster-cementlime-baumit-mpi25-30kg",
+    "ean": "5907534261158",
+    "name": "Tynk wewnętrzny cementowo-wapienny Baumit MPI 25 30kg",
+    "category": "plaster",
+    "brand": "Baumit",
+    "packageSize": 30,
+    "unit": "kg",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/tynk-wewnetrzny-cementowo-wapienny-baumit-mpi-25-30kg-p9081"
+  },
+  // source: https://sklep.sewera.pl/silikon-uniwersalny-bezbarwny-280ml-soudal-p21290
+  // source: https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd
+  {
+    "id": "sewera-silicone-universal-soudal-280ml",
+    "ean": "5411183157552",
+    "name": "Silikon uniwersalny bezbarwny 280ml Soudal",
+    "category": "silicone",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/silikon-uniwersalny-bezbarwny-280ml-soudal-p21290"
+  },
+  // source: https://sklep.zino.pl/pl/p/CT-174-Tynk-silikatowo-silikonowy-Baza-BIALA-1%2C5mm-25kg/934
+  // source: https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101
+  {
+    "id": "zino-plaster-thin-ceresit-ct174-25kg",
+    "ean": "9000101109733",
+    "name": "CT 174 Tynk silikatowo-silikonowy Baza BIAŁA 1,5mm 25kg",
+    "category": "thin-coat-plaster",
+    "brand": "Ceresit",
+    "packageSize": 25,
+    "unit": "kg",
+    "store": "Zino",
+    "format": "shoper-api",
+    "url": "https://sklep.zino.pl/pl/p/CT-174-Tynk-silikatowo-silikonowy-Baza-BIALA-1%2C5mm-25kg/934",
+    "productId": 934,
+    "imageUrl": "https://sklep.zino.pl/environment/cache/images/productGfx_3522_500_500/CT-174.jpg"
+  },
+  // source: https://realbud.com/pl/p/Akryl-uniwersalny-Soudal-bialy-280-ml/75056897
+  // source: https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd
+  {
+    "id": "realbud-acrylic-soudal-white-280ml",
+    "ean": "5411183157538",
+    "name": "Akryl uniwersalny Soudal biały 280 ml",
+    "category": "acrylic",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Realbud",
+    "format": "shoper-api",
+    "url": "https://realbud.com/pl/p/Akryl-uniwersalny-Soudal-bialy-280-ml/75056897",
+    "productId": 75056897,
+    "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23084_500_500/26118bf480c7744c75f0fe2b5b9732da.jpg"
+  },
+  // source: https://www.rabdom.pl/pl/p/SOUDAL-Akryl-uniwersalny-280ml-Bialy/460
+  // source: https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd
+  {
+    "id": "rabdom-acrylic-soudal-white-280ml",
+    "ean": "5411183157538",
+    "name": "SOUDAL Akryl uniwersalny 280ml Biały",
+    "category": "acrylic",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Rab-Dom",
+    "format": "shoper-api",
+    "url": "https://www.rabdom.pl/pl/p/SOUDAL-Akryl-uniwersalny-280ml-Bialy/460",
+    "productId": 460,
+    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_35996_500_500/akrylbialy.webp"
+  },
+  // source: https://sklep.sewera.pl/siatka-z-wlokna-szklanego-150-gm2-rolka-50m2-atlas-p9782
+  // source: https://www.castorama.pl/siatka-z-wlokna-szklanego-atlas-150/5905400196993_CAPL.prd
+  {
+    "id": "sewera-mesh-fiberglass-atlas-150-50m2",
+    "ean": "5905400196993",
+    "name": "Siatka z włókna szklanego 150 g/m2 rolka 50m2 Atlas",
+    "category": "mesh",
+    "brand": "Atlas",
+    "packageSize": 50,
+    "unit": "m2",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/siatka-z-wlokna-szklanego-150-gm2-rolka-50m2-atlas-p9782"
+  },
+  // source: https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101
+  // source: https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101
+  {
+    "id": "sewera-plaster-thin-ceresit-ct174-25kg",
+    "ean": "9000101109733",
+    "name": "Tynk silikatowo silikonowy 1,5mm baranek CT174 baza biała 25kg Ceresit",
+    "category": "thin-coat-plaster",
+    "brand": "Ceresit",
+    "packageSize": 25,
+    "unit": "kg",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101"
+  },
+  // source: https://sklep.sewera.pl/soudal-akryl-bialy-280ml-p10680
+  // source: https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd
+  {
+    "id": "sewera-acrylic-soudal-white-280ml",
+    "ean": "5411183157538",
+    "name": "Soudal akryl biały 280ml",
+    "category": "acrylic",
+    "brand": "Soudal",
+    "packageSize": 280,
+    "unit": "ml",
+    "store": "Sewera",
+    "format": "sewera",
+    "url": "https://sklep.sewera.pl/soudal-akryl-bialy-280ml-p10680"
+  },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -138,4 +752,27 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   'Samopoziomujący podkład podłogowy Atlas SAM 100 25 kg (5–30 mm)': '5905400279245',
   'Samopoziomujący podkład podłogowy Atlas SAM 200 25 kg (25–60 mm)': '5905400279269',
   'Podkład / kontakt pod tynki Atlas Cerplast 15 kg': '5905400530032',
+  "Farba lateksowa Śnieżka Eko Plus biała 10 l": "5903973205982",
+  "Silikon sanitarny Soudal 280 ml": "5411183157064",
+  "Grunt głęboko penetrujący Ceresit CT 17 10 l": "5900089617081",
+  "Zaprawa klejowa Ceresit CM 11 25 kg": "5900089111251",
+  "Taśma malarska Blue Dolphin niebieska 38 mm x 50 m": "5907758507285",
+  "Fuga elastyczna Ceresit CE 40 biała 2 kg": "5900089140015",
+  "Farba lateksowa Dekoral Akrylit W śnieżnobiała 5 l": "5904000810681",
+  "Piana pistoletowa Tytan Professional 65 niskoprężna 750 ml": "5903518052859",
+  "Wkręty samowiercące do płyt g-k do metalu Wkręt-Met 3,5×25 mm (100 szt.)": "5907704499015",
+  "Krzyżyki dystansowe do płytek Hardy 2 mm (200 szt.)": "5905061016845",
+  "Kołki szybkiego montażu rozporowe Wkręt-Met SM 6×40 mm (20 szt.)": "5907704466031",
+  "Wełna mineralna szklana Isover Aku-Płyta 10 cm λ=0,037 (7,2 m²)": "5901644653155",
+  "Taśma uszczelniająca Ceresit CL 152, 10 m": "5900089115211",
+  "Fuga ceramiczna Atlas 001 biała 2 kg": "5905400572254",
+  "Folia w płynie (masa hydroizolacyjna 1-składnikowa) Atlas Woder E 15 kg": "5905400514506",
+  "Zaprawa samopoziomująca Ceresit CN 72 25 kg (1–20 mm)": "5900089272259",
+  "Hydroizolacja 2-składnikowa elastyczna Atlas Woder Duo 16 kg": "5905400195088",
+  "Silikon uniwersalny Soudal 280 ml bezbarwny": "5411183157552",
+  "Kołek fasadowy z trzpieniem stalowym Koelner KI-200M 10 × 200 mm (250 szt.)": "5906675212647",
+  "Tynk cienkowarstwowy silikatowo-silikonowy Ceresit CT 174 baranek 1,5 mm baza biała 25 kg": "9000101109733",
+  "Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg": "5907534261158",
+  "Akryl uniwersalny Soudal biały 280 ml (malowalny)": "5411183157538",
+  "Siatka zbrojąca z włókna szklanego Atlas 150 g/m² (rolka 50 m²)": "5905400196993",
 };

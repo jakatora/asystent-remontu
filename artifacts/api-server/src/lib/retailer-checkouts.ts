@@ -50,15 +50,15 @@ function tdValue(html: string, label: string): string {
   return one(values);
 }
 
-export function confirmSeweraBasket(html: string, expected: { url:string; pid:string; count:number; price:number }[], total: number) {
+export function confirmSeweraBasket(html: string, expected: { url:string; pid:string; count:number; price:number; retailUnit?: 'SZT' | 'OPA' }[], total: number) {
   const table=one(nodes(cleanHtml(html),a=>cls(a,'basket-product')));
   const body=one(nodes(table,(_,tag)=>tag==='tbody'));
   const rows=nodes(body,(_,tag)=>tag==='tr').filter(row=>nodes(row,a=>a.name==='amount').length===1);
   if (rows.length!==expected.length || !/Twój sklep to Katowice/.test(text(html))) throw Error('basket_not_confirmed');
   for (const wanted of expected) {
     const row=one(rows.filter(row=>nodes(row,a=>a.href===wanted.url).length>0));
-    const stock = text(row).match(/W magazynie znajdują się jedynie (\d+(?:[.,]\d+)?)\s+SZT/i);
-    if (stock && Number(stock[1].replace(',','.')) < wanted.count) throw Error('insufficient_stock');
+    const stock = text(row).match(/W magazynie znajdują się jedynie (\d+(?:[.,]\d+)?)\s+(SZT|OPA)/i);
+    if (stock && (stock[2].toUpperCase() !== (wanted.retailUnit ?? 'SZT') || Number(stock[1].replace(',','.')) < wanted.count)) throw Error('insufficient_stock');
     const input=attr(one(nodes(row,a=>a.name==='amount')));
     const pid=attr(one(nodes(row,a=>a.wybierz!==undefined))).wybierz;
     if (Number(input.value)!==wanted.count || pid!==wanted.pid || checkoutMoney(tdValue(row,'Cena brutto:'))!==wanted.price || checkoutMoney(tdValue(row,'Wartość:'))!==wanted.count*wanted.price) throw Error('basket_not_confirmed');
@@ -91,7 +91,7 @@ export function readSeweraPayment(html: string): { costGrosze:number; payment:st
 export async function quoteSewera(order: DeliveredStoreBasket, postalCode: string, fetchImpl: typeof fetch, pages:CheckoutPageReader=(_url,_price,client)=>client.text(_url)): Promise<DeliveryQuoteResult> {
   const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000));
   if ((await client.text('/ajax/ax_execute.php?operation=setDepartment',{model:'department',department:'1'})).trim()!=='1') throw Error('basket_not_confirmed');
-  const expected: {url:string;pid:string;count:number;price:number}[]=[];
+  const expected: {url:string;pid:string;count:number;price:number;retailUnit?:'SZT'|'OPA'}[]=[];
   for (const {source,pack} of expectedPacks(order)) {
     const page=await pages(source.url,pack.unitPriceGrosze,client);
     const observed=parseRetailPage(page,source,new Date());
@@ -99,7 +99,7 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
     const pid=attr(one(nodes(cleanHtml(page),a=>a.name==='add_to_basket_pid'))).value;
     if (!/^\d+$/.test(pid)) throw Error('basket_not_confirmed');
     await client.text('/ajax/ax_execute.php?operation=addToBasket',{pid,count:String(pack.count)});
-    expected.push({url:source.url,pid,count:pack.count,price:pack.unitPriceGrosze});
+    expected.push({url:source.url,pid,count:pack.count,price:pack.unitPriceGrosze,retailUnit:source.retailUnit});
   }
   const basket=await client.text('/index.php?page=koszyk');
   confirmSeweraBasket(basket,expected,order.materialsGrosze);

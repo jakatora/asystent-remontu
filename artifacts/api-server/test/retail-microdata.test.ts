@@ -57,6 +57,18 @@ test('a cheap recommendation, net price or barcode outside the product cannot be
   assert.throws(() => parseRetailPage(microdata(source, '98.50', '0'), source, observedAt), /out_of_stock/);
 });
 
+test('sealed packages keep their full gross price and reject per-piece or per-m² units', () => {
+  const screws = { ...source, name: 'Wkręt-Met Wkręty 100 szt.', brand: 'Wkręt-Met', packageSize: 100, unit: 'szt', retailUnit: 'OPA' as const };
+  const html = microdata(screws, '10.89').replace(/SZT/g, 'OPA');
+  assert.equal(parseRetailPage(html, screws, observedAt).priceGrosze, 1089);
+  assert.throws(() => parseRetailPage(html.replace('brutto</small> / OPA', 'brutto</small> / SZT'), screws, observedAt), /gross_price_mismatch/);
+  assert.throws(() => parseRetailPage(html.replace('7 &nbsp;OPA', '7 &nbsp;M2'), screws, observedAt), /stock_not_confirmed/);
+  const wool = { ...source, name: 'Isover Aku-Płyta 10cm', brand: 'Isover', packageSize: 7.2, unit: 'm2', retailUnit: 'OPA' as const, variant: ['10cm'], packageDescription: '7,20m2' };
+  const woolHtml = microdata(wool, '118.60').replace(/SZT/g, 'OPA').replace('<h1', '<div itemprop="description">Wymiary 1200x600 7,20m2</div><h1');
+  assert.equal(parseRetailPage(woolHtml, wool, observedAt).priceGrosze, 11860);
+  assert.throws(() => parseRetailPage(woolHtml.replace('7,20m2', '6,00m2'), wool, observedAt), /package_not_confirmed/);
+});
+
 test('offer expiry uses the Polish calendar for date-only deadlines', () => {
   assert.equal(retailPriceIsValid('2026-10-25', new Date('2026-10-25T22:30:00Z')), true);
   assert.equal(retailPriceIsValid('2026-10-25', new Date('2026-10-25T23:30:00Z')), false);

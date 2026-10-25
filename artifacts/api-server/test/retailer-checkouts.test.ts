@@ -23,6 +23,9 @@ test('Sewera cart verifies actual quantity, SKU, gross price, total and dispatch
   confirmSeweraBasket(html,expected,2000);
   assert.throws(()=>confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 1 SZT!'),expected,2000),/insufficient_stock/);
   confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 2 SZT!'),expected,2000);
+  const packageExpected = expected.map(row => ({ ...row, retailUnit: 'OPA' as const }));
+  confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 2 OPA!'),packageExpected,2000);
+  assert.throws(()=>confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 1 OPA!'),packageExpected,2000),/insufficient_stock/);
   for(const changed of [html.replace('value="2"','value="1"'),html.replace('wybierz="123"','wybierz="321"'),html.replace('Katowice','Gliwice'),html.replace('10,00 zł','8,13 zł')]) assert.throws(()=>confirmSeweraBasket(changed,expected,2000));
 });
 test('Buduj24 decodes literal fragments only, verifies quantities and ignores crossed-out reference prices',()=>{

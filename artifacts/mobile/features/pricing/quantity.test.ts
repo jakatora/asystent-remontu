@@ -5,6 +5,7 @@ import { calculateMaterials } from '@/features/calculator/engine';
 import { computePricedBudget } from './engine';
 import { toPricingStageInput } from './pricingApi';
 import { selfLevelingJob } from '@/data/jobs/floor-prep';
+import { gypsumWallJob, gypsumCeilingJob } from '@/data/jobs/gypsum';
 
 test('paint budget uses calculator consumption for each coat count, never square metres as litres', () => {
   for (const coats of [1, 2, 3]) {
@@ -86,4 +87,20 @@ test('self-leveling demand scales with area and thickness and restores old const
   assert.ok(!toPricingStageInput(thin, 'economy').materials.some(line => /Atlas SAM 200/.test(line.material.name)));
   const thick = calculateMaterials(selfLevelingJob, { floorArea: 20, levelingThickness: 25 });
   assert.equal(toPricingStageInput(thick, 'economy').materials.find(line => line.material.id === 'leveling-compound')!.quantity, 1100);
+});
+
+test('drywall hardware uses counted pieces before rounding to retail packs; wool thickness is not guessed', () => {
+  const wall = toPricingStageInput(calculateMaterials(gypsumWallJob, { wallArea: 10, perimeter: 8 }));
+  const screws = wall.materials.find(line => line.material.id === 'gk-screws')!;
+  assert.match(screws.material.name, /Wkręt-Met/);
+  assert.equal(screws.material.unit, 'szt');
+  assert.equal(screws.quantity, 300);
+  const dowels = wall.materials.find(line => line.material.id === 'dowels-uw')!;
+  assert.match(dowels.material.name, /6×40/);
+  assert.equal(dowels.quantity, 16);
+  const wool = wall.materials.find(line => line.material.id === 'mineral-wool')!;
+  assert.match(wool.material.name, /50mm/);
+  assert.ok(!wool.material.name.includes('10 cm'));
+  const ceiling = toPricingStageInput(calculateMaterials(gypsumCeilingJob, { ceilingArea: 10 }));
+  assert.match(ceiling.materials.find(line => line.material.id === 'gk-screws-ceiling')!.material.name, /Wkręt-Met/);
 });

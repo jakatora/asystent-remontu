@@ -4,6 +4,7 @@ import express from 'express';
 import { createRemontService } from '../src/shared-backend';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from '../src/lib/retail-catalog';
 import { PRODUCT_PHOTOS } from '../../mobile/data/products/photos';
+import { MATERIAL_PRICES } from '../../mobile/data/prices/materials';
 
 test('whole renovation HTTP combines repeated jobs before pack rounding and charges delivery once per store', async () => {
   const sources = RETAIL_SOURCES.filter(source => ['sewera-sniezka-5l', 'sewera-atlas-unigrunt-5kg'].includes(source.id));
@@ -44,7 +45,17 @@ test('every newly priced product has a precise calculator alias and a matching p
   for (const source of RETAIL_SOURCES.slice(14)) {
     assert.ok(Object.values(RETAIL_NAME_ALIASES).includes(source.ean));
     const photo = PRODUCT_PHOTOS.find(photo => photo.ean === source.ean);
-    assert.equal(photo?.sourceUrl, source.url);
-    assert.ok(photo?.imageUrl.startsWith('https://sklep.sewera.pl/photo/'));
+    assert.ok(RETAIL_SOURCES.some(candidate => candidate.ean === source.ean && candidate.url === photo?.sourceUrl));
+    assert.ok(photo?.ids.length);
+    assert.ok(photo?.imageUrl.startsWith('https://'));
+  }
+});
+
+test('every priced reference also has a photograph in offline reference and shopping cards', () => {
+  for (const reference of MATERIAL_PRICES) {
+    const ean = RETAIL_NAME_ALIASES[reference.productLabel];
+    if (!ean) continue;
+    const photo = PRODUCT_PHOTOS.find(photo => photo.ean === ean && photo.ids.includes(reference.id));
+    assert.ok(photo?.imageUrl.startsWith('https://'), reference.id);
   }
 });

@@ -39,7 +39,7 @@ function labelled(html: string, label: string, tag: 'strong' | 'em'): string {
   return text(one([...html.matchAll(regex)].map(match => match[1]), 'microdata_identity_ambiguous'));
 }
 
-export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' | 'shoper' | 'buduj24', url: string): Record<string, any> {
+export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' | 'shoper' | 'buduj24', url: string, retailUnit: 'SZT' | 'OPA' = 'SZT'): Record<string, any> {
   const safe = clean(html);
   const product = one(elements(safe, a => /\/Product$/.test(a.itemtype ?? '')), 'microdata_product_ambiguous');
   const offer = one(elements(product, a => a.itemprop === 'offers' && /\/Offer$/.test(a.itemtype ?? '')), 'microdata_offer_ambiguous');
@@ -70,12 +70,14 @@ export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' |
     const ean = labelled(product, 'Kod kreskowy:', 'strong');
     const brand = labelled(product, 'Producent:', 'strong');
     const stock = labelled(product, 'Dostępne:', 'strong');
-    const stockCount = stock.match(/^([0-9]+)\s+SZT$/i);
-    if (!stockCount) throw new Error('retailer_stock_not_confirmed');
+    const stockCount = stock.match(/^([0-9]+)\s+(SZT|OPA)$/i);
+    if (!stockCount || stockCount[2].toUpperCase() !== retailUnit) throw new Error('retailer_stock_not_confirmed');
     const gross = text(one(elements(offer, a => a.class === 'priceShow'), 'retailer_gross_price_not_confirmed'));
-    const amount = gross.match(/^([\d ,.]+)\s*zł\s*brutto\s*\/\s*SZT$/i)?.[1].replace(/\s/g, '').replace(',', '.');
+    const grossMatch = gross.match(/^([\d ,.]+)\s*zł\s*brutto\s*\/\s*(SZT|OPA)$/i);
+    const amount = grossMatch?.[2].toUpperCase() === retailUnit ? grossMatch[1].replace(/\s/g, '').replace(',', '.') : undefined;
     if (amount === undefined || Number(amount) !== Number(price)) throw new Error('retailer_gross_price_mismatch');
-    return { '@type': 'Product', name, gtin13: ean, brand: { name: brand }, image,
+    const description = elements(product, a => a.itemprop === 'description').length ? property(product, 'description') : '';
+    return { '@type': 'Product', name, description, gtin13: ean, brand: { name: brand }, image,
       offers: { '@type': 'Offer', price, priceCurrency: currency, url,
         availability: Number(stockCount[1]) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' },
     };

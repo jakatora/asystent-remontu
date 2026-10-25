@@ -40,6 +40,8 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   hose: /flex-hose/,
   'mounting-set': /^wc-mounting-set$/,
   threshold: /^threshold/,
+  screws: /^gk-screws(?:-ceiling)?$/,
+  dowels: /^dowels-uw$/,
 };
 
 /** Match a known material and compatible units; missing information is not m². */

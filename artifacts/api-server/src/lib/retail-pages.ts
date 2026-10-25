@@ -16,6 +16,12 @@ export interface RetailSource {
   format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api';
   imageUrl?: string;
   variant?: readonly string[];
+  /** Reviewed Shoper product identifier, also for stores with custom URLs. */
+  productId?: number;
+  /** One purchase unit is a piece or a sealed package, never an inferred m². */
+  retailUnit?: 'SZT' | 'OPA';
+  /** Exact package contents explicitly stated in this product's description. */
+  packageDescription?: string;
 }
 
 export interface RetailObservation {
@@ -42,7 +48,7 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   const products: Record<string, any>[] = [];
-  if (source.format && source.format !== 'jsonld' && source.format !== 'shoper-api') products.push(readRetailMicrodata(html, source.format, source.url));
+  if (source.format && source.format !== 'jsonld' && source.format !== 'shoper-api') products.push(readRetailMicrodata(html, source.format, source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }
@@ -54,6 +60,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const packagePattern = new RegExp(`(?:^| )${String(source.packageSize).replace('.', ' ')} (?:${source.unit === 'l' ? 'l|litrow|litry' : source.unit})(?: |$)`);
   const brand = normalizeProductName(typeof product.brand === 'string' ? product.brand : product.brand?.name ?? '');
   const variantMatches = source.variant?.every(value => new RegExp(`(?:^| )${normalize(value)}(?: |$)`).test(normalized));
+  if (source.packageDescription && !normalize(String(product.description ?? '')).includes(normalize(source.packageDescription))) throw new Error('product_package_not_confirmed');
   if (!(normalized.includes(normalizeProductName(source.brand)) || brand.includes(normalizeProductName(source.brand))) || !(source.variant ? variantMatches : packagePattern.test(normalized))) throw new Error('product_variant_mismatch');
   // The configured exact product name also protects against a wrong EAN on a retailer page.
   if (!normalize(source.name).split(' ').filter(token => token.length > 3).every(token => normalized.includes(token))) throw new Error('product_name_mismatch');
@@ -91,7 +98,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   const api = source.format === 'shoper-api';
-  const requestUrl = api ? `${new URL(source.url).origin}/webapi/front/pl_PL/products/PLN/${source.url.match(/\/(\d+)$/)?.[1]}` : source.url;
+  const requestUrl = api ? `${new URL(source.url).origin}/webapi/front/pl_PL/products/PLN/${shoperProductId(source)}` : source.url;
   const response = await fetchImpl(requestUrl, {
     signal: AbortSignal.timeout(8000), redirect: 'error',
     headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: 'text/html', 'Accept-Language': 'pl-PL' },
@@ -114,6 +121,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   const raw = Buffer.concat(chunks).toString('utf8');
   if (api) {
     const item = JSON.parse(raw);
+    if (String(item.id) !== shoperProductId(source)) throw new Error('product_id_not_confirmed');
     if (!item.can_buy) throw new Error('retailer_out_of_stock');
     const gross = item.price?.gross;
     const formatted = String(gross?.final ?? '').replace(/[\s\u00a0]/g, '').match(/^(\d+),(\d{2})zł$/);
@@ -124,4 +132,12 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     return { ...observation, evidenceSha256: createHash('sha256').update(raw).digest('hex') };
   }
   return parseRetailPage(raw, source, new Date());
+}
+
+export function shoperProductId(source: RetailSource): string {
+  const fromUrl = source.url.match(/\/(\d+)$/)?.[1];
+  if (source.productId !== undefined && (!Number.isSafeInteger(source.productId) || source.productId < 1 || (fromUrl && fromUrl !== String(source.productId)))) throw Error('invalid_product_id');
+  const id = source.productId === undefined ? fromUrl : String(source.productId);
+  if (!id) throw Error('invalid_product_id');
+  return id;
 }

@@ -3,6 +3,7 @@ import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from '..
 import { RETAIL_SOURCES } from './retail-catalog';
 import { AnonymousShop } from './retailer-http';
 import { quoteBuduj24, quoteSewera, createCheckoutPageReader } from './retailer-checkouts';
+import { shoperProductId } from './retail-pages';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
@@ -59,7 +60,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
   for (const line of order.lines) for (const pack of line.packages) {
     const source = RETAIL_SOURCES.find(s => s.id === pack.offerId && s.store === order.store);
     if (!source || new URL(source.url).origin !== origin || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > 60) throw Error('invalid_basket');
-    const id = source.url.match(/\/(\d+)$/)?.[1]; if (!id) throw Error('invalid_basket');
+    const id = shoperProductId(source);
     const product = await client.json(`/webapi/front/pl_PL/products/PLN/${id}`);
     if (String(product.ean) !== source.ean || String(product.id) !== id || !product.can_buy || !Number.isSafeInteger(product.stockId)) throw Error('product_unavailable');
     const price = confirmedMoney(product.price?.gross?.final, product.price?.gross?.final_float);
@@ -103,7 +104,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     active++;
     const pending = (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : quoteShoper(order, fetchImpl))
-      .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
+      .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
     cache.set(key, { until: Date.now() + TTL, result: pending });
     const result = await pending;
     if ('reason' in result && cache.get(key)?.result === pending) cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });

@@ -1,0 +1,1390 @@
+{
+  "checkedAt": "2026-10-25T14:02:13.768Z",
+  "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
+  "total": 103,
+  "verifiedProducts": 35,
+  "remaining": 68,
+  "offers": 58,
+  "rows": [
+    {
+      "id": "mat-paint-economy-white-10l",
+      "name": "Farba biała mat 10 l",
+      "referenceUrl": "https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-paint-standard-white-10l",
+      "name": "Farba GoodHome Ściany i Sufit biały mat 10 l",
+      "referenceUrl": "https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-paint-better-white-10l",
+      "name": "Farba lateksowa Śnieżka Eko Plus biała 10 l",
+      "referenceUrl": "https://www.castorama.pl/farba-lateksowa-sniezka-eko-plus-biala-10-l/5903973205982_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5903973205982",
+      "sourceIds": [
+        "rabdom-paint-better-white-10l",
+        "sewera-paint-better-white-10l"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/65072/sniezka-eko-plus-odporna-na-szorowanie-10l.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "rabdom-paint-better-white-10l",
+          "checkedAt": "2026-10-25T13:51:18.482Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-paint-better-white-10l",
+          "checkedAt": "2026-10-25T13:51:26.943Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-universal-primer-5l",
+      "name": "Grunt uniwersalny Knauf 5 l",
+      "referenceUrl": "https://www.castorama.pl/grunt-uniwersalny-knauf-5-l/5901793357737_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5901793357737",
+      "sourceIds": [
+        "castorama-knauf-5l",
+        "realbud-knauf-5l"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/grunt-uniwersalny-knauf-5-l~5901793357737_03c_CP?%24MOB_PREV%24=&%24height=600&%24width=600",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skim-coat-economy-20kg",
+      "name": "Gładź pod wałek GW180 gotowa polimerowa 20 kg",
+      "referenceUrl": "https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skim-coat-standard-18kg",
+      "name": "Gotowa gładź polimerowa Atlas GTA 18 kg",
+      "referenceUrl": "https://www.castorama.pl/gotowa-gladz-polimerowa-atlas-gta-18-kg/5905400542509_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400542509",
+      "sourceIds": [
+        "sewera-atlas-gta-18kg"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gotowa-gladz-polimerowa-atlas-gta-18-kg~5905400542509_02c_PL_CP?%24MOB_PREV%24=&%24height=600&%24width=600",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-laminate-oakland-ac4",
+      "name": "Panele laminowane Oakland wodoodporne AC4 2.51 m²",
+      "referenceUrl": "https://www.castorama.pl/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2/5063022887917_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-underlay-volden-xps-10m2",
+      "name": "Podkład podłogowy Volden XPS Smart 3 mm 10 m²",
+      "referenceUrl": "https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-volden-xps-smart-3-mm-10-m2/5063022038289_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skirting-arbiton-2500",
+      "name": "Listwa przypodłogowa PCV Arbiton Indo 2500 mm",
+      "referenceUrl": "https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk/5905167725719_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gres-guigliano-1m2",
+      "name": "Gres Guigliano GoodHome 1 m²",
+      "referenceUrl": "https://www.castorama.pl/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2/3663602870821_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-tile-adhesive-buildfix-25kg",
+      "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg",
+      "referenceUrl": "https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-sanitary-silicone-soudal-280ml",
+      "name": "Silikon sanitarny Soudal 280 ml",
+      "referenceUrl": "https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5411183157064",
+      "sourceIds": [
+        "realbud-sanitary-silicone-soudal-280ml",
+        "rabdom-sanitary-silicone-soudal-280ml",
+        "sewera-sanitary-silicone-soudal-280ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/343671/silikon-sanitarny-bialy-280ml-soudal.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "rabdom-sanitary-silicone-soudal-280ml",
+          "checkedAt": "2026-10-25T13:51:18.584Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "realbud-sanitary-silicone-soudal-280ml",
+          "checkedAt": "2026-10-25T13:51:18.608Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-sanitary-silicone-soudal-280ml",
+          "checkedAt": "2026-10-25T13:51:28.026Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-primer-deep-atlas-unigrunt-5kg",
+      "name": "Grunt głęboko penetrujący Atlas Uni-Grunt 5 kg",
+      "referenceUrl": "https://www.castorama.pl/grunt-gleboko-penetrujacy-atlas-uni-grunt-5-kg/5905400520026_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400520026",
+      "sourceIds": [
+        "sewera-atlas-unigrunt-5kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/313998/atlas-uni-grunt-5kg-emulsja-gruntujaca.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-primer-deep-ceresit-ct17-10l",
+      "name": "Grunt głęboko penetrujący Ceresit CT 17 10 l",
+      "referenceUrl": "https://www.bricoman.pl/grunt-gleboko-penetrujacy-ceresit-ct17-10l-20914943.html",
+      "status": "verified_offer",
+      "ean": "5900089617081",
+      "sourceIds": [
+        "realbud-primer-deep-ceresit-ct17-10l",
+        "rabdom-primer-deep-ceresit-ct17-10l"
+      ],
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_23320_500_500/4f6162f89165674a20b43a12f287acd2.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "rabdom-primer-deep-ceresit-ct17-10l",
+          "checkedAt": "2026-10-25T13:51:19.103Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "realbud-primer-deep-ceresit-ct17-10l",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        }
+      ]
+    },
+    {
+      "id": "mat-grout-ceresit-ce40-white-2kg",
+      "name": "Fuga elastyczna Ceresit CE 40 biała 2 kg",
+      "referenceUrl": "https://www.castorama.pl/fuga-elastyczna-ceresit-ce-40-aquastatic-biala-2-kg-id-3973.html",
+      "status": "verified_offer",
+      "ean": "5900089140015",
+      "sourceIds": [
+        "sewera-grout-ceresit-ce40-white-2kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/331996/ceresit-fuga-ce40-01-wodoodporna-elastyczna-2kg.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-grout-ceresit-ce40-white-2kg",
+          "checkedAt": "2026-10-25T13:51:30.074Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-tile-adhesive-ceresit-cm11-25kg",
+      "name": "Zaprawa klejowa Ceresit CM 11 25 kg",
+      "referenceUrl": "https://mrowka.com.pl/produkt/zaprawa-klejowa-podstawowa-cm11-25-kg-ceresit-5900089111251.html",
+      "status": "verified_offer",
+      "ean": "5900089111251",
+      "sourceIds": [
+        "realbud-tile-adhesive-ceresit-cm11-25kg"
+      ],
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_23258_500_500/46e2bb71554f4ee22711a9cccee46e6b.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-tile-adhesive-ceresit-cm11-25kg",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        }
+      ]
+    },
+    {
+      "id": "mat-mounting-adhesive-soudal-fixall-290ml",
+      "name": "Klej-uszczelniacz hybrydowy Soudal Fix All High Tack 290 ml biały",
+      "referenceUrl": "https://mrowka.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skim-coat-acrylputz-fs20-27kg",
+      "name": "Gładź szpachlowa wykończeniowa Acryl-Putz FS20 Finisz 27 kg",
+      "referenceUrl": "https://mrowka.com.pl/produkt/gladz-szpachlowa-finisz-fs20-27-kg-acryl-putz-5903973104544.html",
+      "status": "verified_offer",
+      "ean": "5903973104544",
+      "sourceIds": [
+        "sewera-acrylputz-fs20-27kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/259046/acryl-putz-fs20-finisz-27kg.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-foam-tytan-pro65-750ml",
+      "name": "Piana pistoletowa Tytan Professional 65 niskoprężna 750 ml",
+      "referenceUrl": "https://mrowka.com.pl/produkt/piana-pistoletowa-65-750-ml-tytan-professional-5903518052859.html",
+      "status": "verified_offer",
+      "ean": "5903518052859",
+      "sourceIds": [
+        "sewera-foam-tytan-pro65-750ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/257574/pianka-montazowa-pistoletowa-65-750ml-tytan.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-foam-tytan-pro65-750ml",
+          "checkedAt": "2026-10-25T13:51:36.352Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-protective-film-bluedolphin-4x5m",
+      "name": "Folia malarska gruba Blue Dolphin 4 x 5 m",
+      "referenceUrl": "https://mrowka.com.pl/produkt/folia-malarska-gruba-4-x-5-m-blue-dolphin-5907758504932.html",
+      "status": "verified_offer",
+      "ean": "5907758504932",
+      "sourceIds": [
+        "sewera-film-20m2",
+        "rabdom-film-20m2"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/23165/folia-malarska-gruba-4x5m-cfep2004932-blue-dolphin.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-masking-tape-bluedolphin-38mm",
+      "name": "Taśma malarska Blue Dolphin niebieska 38 mm x 50 m",
+      "referenceUrl": "https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-38mm-x-50m/5907758507285_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5907758507285",
+      "sourceIds": [
+        "realbud-masking-tape-bluedolphin-38mm",
+        "zino-masking-tape-bluedolphin-38mm",
+        "rabdom-masking-tape-bluedolphin-38mm",
+        "sewera-masking-tape-bluedolphin-38mm"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/23327/tasma-malarska-niebieska-38mmx50m.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-masking-tape-bluedolphin-38mm",
+          "checkedAt": "2026-10-25T13:51:20.125Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "zino-masking-tape-bluedolphin-38mm",
+          "checkedAt": "2026-10-25T13:51:20.749Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "rabdom-masking-tape-bluedolphin-38mm",
+          "checkedAt": "2026-10-25T13:51:21.312Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-masking-tape-bluedolphin-38mm",
+          "checkedAt": "2026-10-25T13:51:39.503Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-paint-latex-dekoral-akrylit-w-white-5l",
+      "name": "Farba lateksowa Dekoral Akrylit W śnieżnobiała 5 l",
+      "referenceUrl": "https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502",
+      "status": "verified_offer",
+      "ean": "5904000810681",
+      "sourceIds": [
+        "zino-paint-latex-dekoral-akrylit-w-white-5l",
+        "rabdom-paint-latex-dekoral-akrylit-w-white-5l",
+        "sewera-paint-latex-dekoral-akrylit-w-white-5l"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/260243/dekoral-farba-lateksowa-odporna-na-szorowanie-akrylit-w-plus-5l.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "zino-paint-latex-dekoral-akrylit-w-white-5l",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        },
+        {
+          "sourceId": "rabdom-paint-latex-dekoral-akrylit-w-white-5l",
+          "checkedAt": "2026-10-25T13:51:28.049Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-paint-latex-dekoral-akrylit-w-white-5l",
+          "checkedAt": "2026-10-25T13:51:37.333Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-paint-latex-dulux-easycare-white-9l",
+      "name": "Farba lateksowa Dulux EasyCare Nieskazitelna Biel 9 l",
+      "referenceUrl": "https://www.castorama.pl/farba-plamoodporna-dulux-easycare-nieskazitelna-biel-9-l/5904078198759_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5904078198759",
+      "sourceIds": [
+        "sewera-dulux-9l"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-plamoodporna-dulux-easycare-nieskazitelna-biel-9-l~5904078198759_01c_PL_CP?%24MOB_PREV%24=&%24height=600&%24width=600",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-paint-latex-sniezka-barwy-natury-white-5l",
+      "name": "Farba lateksowa Śnieżka Barwy Natury biała 5 l",
+      "referenceUrl": "https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5903973139188",
+      "sourceIds": [
+        "castorama-sniezka-5l",
+        "obi-sniezka-5l",
+        "sewera-sniezka-5l",
+        "zino-sniezka-5l"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-sniezka-barwy-natury-biala-5-l~5903973139188_01h_PL_CP?%24MOB_PREV%24=&%24height=600&%24width=600",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skim-coat-acrylputz-st10-20kg",
+      "name": "Gładź gipsowa startowa Acryl-Putz ST10 START 20 kg",
+      "referenceUrl": "https://mrowka.com.pl/produkt/gladz-szpachlowa-start-st10-20-kg-acryl-putz-5903973104421.html",
+      "status": "verified_offer",
+      "ean": "5903973104421",
+      "sourceIds": [
+        "sewera-acrylputz-st10-20kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/34282/acryl-putz-st10-start-20kg.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-masking-tape-bluedolphin-30mm",
+      "name": "Taśma malarska Blue Dolphin niebieska 30 mm x 50 m",
+      "referenceUrl": "https://www.castorama.pl/departments/ta-ma-malarska-blue-dolphin-niebieska-30mm-x-50m/5907758515952_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5907758515952",
+      "sourceIds": [
+        "sewera-tape-30mm",
+        "rabdom-tape-30mm",
+        "buduj24-tape-30mm"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/23077/tasma-malarska-niebieska-30mmx50m.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-abrasive-mesh-graphite-225-k180-10",
+      "name": "Siatka ścierna na rzep GRAPHITE 225 mm K180, 10 szt.",
+      "referenceUrl": "https://mrowka.com.pl/produkt/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite-5902062502735.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gypsum-board-norgips-gkb-a-1200x2600",
+      "name": "Płyta gipsowo-kartonowa zwykła Norgips GKB typ A 1200×2600×12,5 mm",
+      "referenceUrl": "https://mrowka.com.pl/produkt/plyta-gkb-12-5x1200x2600-mm-zwykla-norgips-5907651690442.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gypsum-board-norgips-gkbi-h2-1200x2600",
+      "name": "Płyta gipsowo-kartonowa impregnowana Norgips GKBI typ H2 1200×2600×12,5 mm",
+      "referenceUrl": "https://mrowka.com.pl/produkt/plyta-gkbi-12-5x1200x2600-mm-woda-norgips-5907651691616.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-profile-cd60-norgips-3m",
+      "name": "Profil sufitowy Norgips CD60 0,6 mm 3 m",
+      "referenceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-profile-ud27-budmat-3m",
+      "name": "Profil przyścienny Budmat UD27 0,5 mm 3 m",
+      "referenceUrl": "https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-mineral-wool-isover-akuplyta-10cm",
+      "name": "Wełna mineralna szklana Isover Aku-Płyta 10 cm λ=0,037 (7,2 m²)",
+      "referenceUrl": "https://www.bricoman.pl/isover-aku-plyta-welna-mineralna-szklana-10-cm-7-2-m2-877954.html",
+      "status": "verified_offer",
+      "ean": "5901644653155",
+      "sourceIds": [
+        "sewera-mineral-wool-isover-akuplyta-10cm"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/190057/isover-welna-mineralna-aku-plyta-037-10cm-welna-szklana.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-mineral-wool-isover-akuplyta-10cm",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        }
+      ]
+    },
+    {
+      "id": "mat-drywall-screws-wkretmet-35x25-100",
+      "name": "Wkręty samowiercące do płyt g-k do metalu Wkręt-Met 3,5×25 mm (100 szt.)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/wkrety-samowiercace-do-plyt-kartonowo-gipsowych-do-metalu-3-5x25-blister-wkret-met-5907704499015.html",
+      "status": "verified_offer",
+      "ean": "5907704499015",
+      "sourceIds": [
+        "sewera-drywall-screws-wkretmet-35x25-100"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/80066/wkret-samowiercacy-do-metalu-tb-3-5x25mm-fosfatowany-100szt-klimas.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-drywall-screws-wkretmet-35x25-100",
+          "checkedAt": "2026-10-25T13:51:45.872Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-quick-dowels-wkretmet-sm-6x40-20",
+      "name": "Kołki szybkiego montażu rozporowe Wkręt-Met SM 6×40 mm (20 szt.)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/kolki-szybkiego-montazu-6x40-blister-wkret-met-5907704466031.html",
+      "status": "verified_offer",
+      "ean": "5907704466031",
+      "sourceIds": [
+        "sewera-quick-dowels-wkretmet-sm-6x40-20"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/332585/kolek-szybkiego-montazu-6x40mm-20szt-klimas.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-quick-dowels-wkretmet-sm-6x40-20",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "quote_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-basin-mixer-ferro-stillo",
+      "name": "Bateria umywalkowa stojąca Ferro Stillo (chrom, BSL2)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/bateria-umywalkowa-stillo-stojaca-ferro-5902194929837.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-shower-mixer-ferro-one",
+      "name": "Bateria natryskowa ścienna Ferro One (chrom, BFO7)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-basin-trap-mcalpine-whb1-32",
+      "name": "Syfon umywalkowy butelkowy niski McAlpine WHB1-32 (z membraną)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/syfon-umywalkowy-1-1-4x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine-5036484088390.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-pex-pipe-tycner-16x2",
+      "name": "Rura PEX-AL/PEX Tycner 16×2 mm (na metry)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/rura-pex-al-pex-16-mmx2-200-mb-tycner-5901095517976.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-pex-elbow-tycner-16x16",
+      "name": "Kolanko zaciskowe PEX Tycner 16×16 mm",
+      "referenceUrl": "https://mrowka.com.pl/produkt/kolanko-zaciskowe-pex-16x16-mm-tycner-5901095521003.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-hose-braided-invena-3-8-30",
+      "name": "Wężyk przyłączeniowy w oplocie Invena 3/8\"×M10 30 cm",
+      "referenceUrl": "https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-teflon-tape-tycner-12mm",
+      "name": "Taśma teflonowa uszczelniająca Tycner 12 mm × 10 m",
+      "referenceUrl": "https://www.obi.pl/uszczelki-miekkie/tycner-tasma-uszczelniajaca-teflonowa-12-x-0-075-mm-10-m/p/3499589",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-wc-compact-cersanit-seno-3-5l",
+      "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą",
+      "referenceUrl": "https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-washbasin-cersanit-facile-50",
+      "name": "Umywalka ceramiczna Cersanit Facile 50 cm (z otworem, przelew)",
+      "referenceUrl": "https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-angle-valve-ferro-1-2-3-8",
+      "name": "Zawór kątowy z filtrem Ferro 1/2\" × 3/8\" (chrom)",
+      "referenceUrl": "https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-wc-mounting-set-tycner",
+      "name": "Zestaw przyłączeniowo-mocujący WC Tycner (śruby, uszczelka, podkładki)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-wire-ydyp-3x15-akszielonka-100m",
+      "name": "Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
+      "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-wire-ydyp-3x25-akszielonka-100m",
+      "name": "Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
+      "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-socket-simon-basic-bmgz1z",
+      "name": "Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic (białe, BMGZ1Z.01/11)",
+      "referenceUrl": "https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-switch-simon-basic-bmw1",
+      "name": "Łącznik pojedynczy jednobiegunowy Kontakt-Simon Basic (biały, BMW1.01/11)",
+      "referenceUrl": "https://www.castorama.pl/lacznik-pojedynczy-kontakt-simon-basic-bialy/5902787568177_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-flush-box-elektroplast-pk60-10",
+      "name": "Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)",
+      "referenceUrl": "https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-wire-connector-wago-221-413",
+      "name": "Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (12 szt.)",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-laminate-kronospan-toledo-ac4-222",
+      "name": "Panele laminowane AC4 8 mm Kronospan Toledo (2,22 m²/paczka)",
+      "referenceUrl": "https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2/5907555422774_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-laminate-classen-niasa-ac5-1973",
+      "name": "Panele laminowane wodoodporne AC5 8 mm Classen Dąb Niasa (1,973 m²/paczka)",
+      "referenceUrl": "https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-underlay-arbiton-xps-aquastop-6m2",
+      "name": "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)",
+      "referenceUrl": "https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2/5905167826942_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-vapor-foil-diall-pe-20m2",
+      "name": "Folia paroizolacyjna PE Diall 0,15 mm (20 m²)",
+      "referenceUrl": "https://www.castorama.pl/folia-paroizolacyjna-diall-20-m2/5059340141428_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skirting-krono-lk100f-mdf-240",
+      "name": "Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)",
+      "referenceUrl": "https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-skirting-clips-cezar-25",
+      "name": "Klipsy montażowe do listew Cezar (25 szt.)",
+      "referenceUrl": "https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gres-paradyz-petro-grey-60x60",
+      "name": "Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm",
+      "referenceUrl": "https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-tile-wall-paradyz-nati-bianco-25x40",
+      "name": "Płytka ścienna Paradyż Nati Bianco struktura 25×40 cm",
+      "referenceUrl": "https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gres-rekt-paradyz-u117-grey-60x60",
+      "name": "Gres szkliwiony rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm",
+      "referenceUrl": "https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-grout-atlas-001-white-2kg",
+      "name": "Fuga ceramiczna Atlas 001 biała 2 kg",
+      "referenceUrl": "https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400572254",
+      "sourceIds": [
+        "sewera-grout-atlas-001-white-2kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/257132/atlas-fuga-ceramiczna-001-bialy-2kg.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-grout-atlas-001-white-2kg",
+          "checkedAt": "2026-10-25T13:51:55.748Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-tile-spacers-hardy-2mm-200",
+      "name": "Krzyżyki dystansowe do płytek Hardy 2 mm (200 szt.)",
+      "referenceUrl": "https://mrowka.com.pl/produkt/krzyzyki-dystansowe-2-mm-200-szt-hardy-5905061016845.html",
+      "status": "verified_offer",
+      "ean": "5905061016845",
+      "sourceIds": [
+        "zino-tile-spacers-hardy-2mm-200",
+        "sewera-tile-spacers-hardy-2mm-200"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/310570/krzyzyki-dystansowe-2mm-200szt-.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "zino-tile-spacers-hardy-2mm-200",
+          "checkedAt": "2026-10-25T13:51:37.790Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-tile-spacers-hardy-2mm-200",
+          "checkedAt": "2026-10-25T13:51:51.087Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-tile-trim-cezar-corner-8mm-25m",
+      "name": "Profil narożny do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m",
+      "referenceUrl": "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-waterproof-membrane-atlas-woder-e-15kg",
+      "name": "Folia w płynie (masa hydroizolacyjna 1-składnikowa) Atlas Woder E 15 kg",
+      "referenceUrl": "https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html",
+      "status": "verified_offer",
+      "ean": "5905400514506",
+      "sourceIds": [
+        "sewera-waterproof-membrane-atlas-woder-e-15kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/186395/folia-w-plynie-szybkoschnaca-woder-e-15kg-atlas.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-waterproof-membrane-atlas-woder-e-15kg",
+          "checkedAt": "2026-10-25T13:51:56.703Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-waterproof-membrane-atlas-woder-duo-16kg",
+      "name": "Hydroizolacja 2-składnikowa elastyczna Atlas Woder Duo 16 kg",
+      "referenceUrl": "https://www.castorama.pl/hydroizolacja-atlas-woder-duo-16-kg/5905400195088_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400195088",
+      "sourceIds": [
+        "sewera-waterproof-membrane-atlas-woder-duo-16kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/193135/hydroizolacja-dwuskladnikowa-elastyczna-woder-duo-16kg-atlas.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-waterproof-membrane-atlas-woder-duo-16kg",
+          "checkedAt": "2026-10-25T13:51:58.921Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-sealing-tape-ceresit-cl152-10m",
+      "name": "Taśma uszczelniająca Ceresit CL 152, 10 m",
+      "referenceUrl": "https://www.castorama.pl/tasma-uszczelniajaca-ceresit-cl-152-10-m/5900089115211_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5900089115211",
+      "sourceIds": [
+        "realbud-sealing-tape-ceresit-cl152-10m",
+        "sewera-sealing-tape-ceresit-cl152-10m"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/19057/tasma-uszczelniajaca-cl152-120mm-x-10m-ceresit.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-sealing-tape-ceresit-cl152-10m",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        },
+        {
+          "sourceId": "sewera-sealing-tape-ceresit-cl152-10m",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "quote_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-sealing-corner-internal-mapei",
+      "name": "Narożnik uszczelniający wewnętrzny Mapei Mapeband W (90°)",
+      "referenceUrl": "https://www.castorama.pl/naroznik-uszczelniajacy-wewnetrzny-mapei/8022452113802_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-sealing-corner-external-mapei",
+      "name": "Narożnik uszczelniający zewnętrzny Mapei Mapeband W (270°)",
+      "referenceUrl": "https://www.castorama.pl/naroznik-uszczelniajacy-zewnetrzny-mapei/8022452113789_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-sealing-cuff-wall-mapei-12x12-2",
+      "name": "Mankiet uszczelniający ścienny Mapei Mapeband W 12×12 cm, 2 szt.",
+      "referenceUrl": "https://www.castorama.pl/mankiet-uszczelniajacy-mapei-maly-2-szt-/8022452113925_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-screed-atlas-sam200-25kg",
+      "name": "Samopoziomujący podkład podłogowy Atlas SAM 200 25 kg (25–60 mm)",
+      "referenceUrl": "https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-200-25-kg/5905400279269_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400279269",
+      "sourceIds": [
+        "sewera-atlas-sam200-25kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/92590/atlas-sam-200-25kg-samopoziomujacy-podklad-podlogowy.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-screed-atlas-sam100-25kg",
+      "name": "Samopoziomujący podkład podłogowy Atlas SAM 100 25 kg (5–30 mm)",
+      "referenceUrl": "https://www.castorama.pl/samopoziomujacy-podklad-podlogowy-atlas-sam-100-25-kg/5905400279245_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400279245",
+      "sourceIds": [
+        "sewera-atlas-sam100-25kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/92586/atlas-sam-100-25kg-szybkowiazacy-samopoziomujacy-podklad-podlogowy.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-screed-ceresit-cn72-25kg",
+      "name": "Zaprawa samopoziomująca Ceresit CN 72 25 kg (1–20 mm)",
+      "referenceUrl": "https://sklep-kowalczyk.pl/ceresit-cn-72-zaprawa-samopoziomujaca-25-kg-219136.html",
+      "status": "verified_offer",
+      "ean": "5900089272259",
+      "sourceIds": [
+        "realbud-screed-ceresit-cn72-25kg"
+      ],
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_23328_500_500/8cf842d859fb9fe114e5ad53d45a64a2.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-screed-ceresit-cn72-25kg",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        }
+      ]
+    },
+    {
+      "id": "mat-edge-tape-fola-100mm-50m",
+      "name": "Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb",
+      "referenceUrl": "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-foam-soudal-lowexp-750ml",
+      "name": "Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml",
+      "referenceUrl": "https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-silicone-universal-soudal-280ml",
+      "name": "Silikon uniwersalny Soudal 280 ml bezbarwny",
+      "referenceUrl": "https://www.castorama.pl/silikon-uniwersalny-soudal-280-ml-bezbarwny/5411183157552_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5411183157552",
+      "sourceIds": [
+        "realbud-silicone-universal-soudal-280ml",
+        "sewera-silicone-universal-soudal-280ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/343695/silikon-uniwersalny-bezbarwny-280ml-soudal.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-silicone-universal-soudal-280ml",
+          "checkedAt": "2026-10-25T13:51:56.336Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-silicone-universal-soudal-280ml",
+          "checkedAt": "2026-10-25T13:52:06.788Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-window-frame-anchor-10x182",
+      "name": "Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm",
+      "referenceUrl": "https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-window-tape-soudal-sws-inside-90mm",
+      "name": "Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m",
+      "referenceUrl": "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-windowsill-pvc-form-30x216",
+      "name": "Parapet wewnętrzny PCV Form 30 × 216 cm biały",
+      "referenceUrl": "https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-plaster-gypsum-machine-knauf-mp75-25kg",
+      "name": "Tynk gipsowy maszynowy Knauf MP 75 25 kg",
+      "referenceUrl": "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-plaster-gypsum-manual-knauf-goldband-25kg",
+      "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+      "referenceUrl": "https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-plaster-cementlime-baumit-mpi25-30kg",
+      "name": "Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg",
+      "referenceUrl": "https://mrowka.com.pl/produkt/tynk-cementowo-wapienny-wewnetrzny-mpi-25-30-kg-baumit-5907534261158.html",
+      "status": "verified_offer",
+      "ean": "5907534261158",
+      "sourceIds": [
+        "sewera-plaster-cementlime-baumit-mpi25-30kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/250127/tynk-wewnetrzny-cementowo-wapienny-baumit-mpi-25-30kg.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-plaster-cementlime-baumit-mpi25-30kg",
+          "checkedAt": "2026-10-25T13:52:04.503Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-plaster-primer-atlas-cerplast-15kg",
+      "name": "Podkład / kontakt pod tynki Atlas Cerplast 15 kg",
+      "referenceUrl": "https://www.castorama.pl/podklad-pod-tynki-atlas-cerplast-15-kg/5905400530032_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400530032",
+      "sourceIds": [
+        "sewera-atlas-cerplast-15kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/92128/podkladowa-masa-tynkarska-cerplast-15kg-atlas.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-plaster-corner-alu-mesh-25m",
+      "name": "Narożnik tynkarski aluminiowy z siatką 2,5 mb",
+      "referenceUrl": "https://www.castorama.pl/naroznik-aluminiowy-z-siatka-2-5-mb/5900308102411_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-eps-facade-yetico-gamma-044-100mm",
+      "name": "Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)",
+      "referenceUrl": "https://www.castorama.pl/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-/5902578301976_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-eps-facade-yetico-passive-033-150mm",
+      "name": "Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)",
+      "referenceUrl": "https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-adhesive-eps-atlas-stopter-k20-25kg",
+      "name": "Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg",
+      "referenceUrl": "https://www.grupapsb.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-mesh-fiberglass-atlas-150-50m2",
+      "name": "Siatka zbrojąca z włókna szklanego Atlas 150 g/m² (rolka 50 m²)",
+      "referenceUrl": "https://www.castorama.pl/siatka-z-wlokna-szklanego-atlas-150/5905400196993_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5905400196993",
+      "sourceIds": [
+        "sewera-mesh-fiberglass-atlas-150-50m2"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/38995/siatka-z-wlokna-szklanego-150-gm2-rolka-50m2-atlas.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-mesh-fiberglass-atlas-150-50m2",
+          "checkedAt": "2026-10-25T13:52:09.770Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-anchor-facade-koelner-ki200m-10x200",
+      "name": "Kołek fasadowy z trzpieniem stalowym Koelner KI-200M 10 × 200 mm (250 szt.)",
+      "referenceUrl": "https://www.castorama.pl/kolek-do-mocowania-izolacji-koelner-metal-10-x-200-mm/5906675212647_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5906675212647",
+      "sourceIds": [
+        "realbud-anchor-facade-koelner-ki200m-10x200"
+      ],
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_25596_500_500/5393.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-anchor-facade-koelner-ki200m-10x200",
+          "checkedAt": "2026-10-25T13:51:57.475Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-plaster-thin-ceresit-ct174-25kg",
+      "name": "Tynk cienkowarstwowy silikatowo-silikonowy Ceresit CT 174 baranek 1,5 mm baza biała 25 kg",
+      "referenceUrl": "https://sklep.sewera.pl/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit-p9101",
+      "status": "verified_offer",
+      "ean": "9000101109733",
+      "sourceIds": [
+        "realbud-plaster-thin-ceresit-ct174-25kg",
+        "zino-plaster-thin-ceresit-ct174-25kg",
+        "sewera-plaster-thin-ceresit-ct174-25kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/244805/tynk-silikatowo-silikonowy-1-5mm-baranek-ct174-baza-biala-25kg-ceresit.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-plaster-thin-ceresit-ct174-25kg",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        },
+        {
+          "sourceId": "zino-plaster-thin-ceresit-ct174-25kg",
+          "checkedAt": null,
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        },
+        {
+          "sourceId": "sewera-plaster-thin-ceresit-ct174-25kg",
+          "checkedAt": "2026-10-25T13:52:11.648Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-door-leaf-archi-80-white",
+      "name": "Skrzydło drzwiowe pełne Archi 80 białe lakierowane (płyta/plaster miodu)",
+      "referenceUrl": "https://www.castorama.pl/drzwi-pelne-archi-80-lewe-biale-lakierowane/5903917782364_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-door-leaf-opp-klasyk-70-white",
+      "name": "Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)",
+      "referenceUrl": "https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-door-leaf-erkado-credis-80-glazed",
+      "name": "Skrzydło drzwiowe pokojowe Erkado Credis 80 białe przylgowe przeszklone",
+      "referenceUrl": "https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-door-frame-perfectdoor-reg-80-100",
+      "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm (drzwi wewnętrzne)",
+      "referenceUrl": "https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-door-handle-schaffner-lucy-rosette",
+      "name": "Klamka drzwiowa Schaffner Lucy na rozecie (komplet dwustronny)",
+      "referenceUrl": "https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-door-hinge-metro-3d-14mm",
+      "name": "Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro",
+      "referenceUrl": "https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-mounting-wedges-floorpol-30x150-10",
+      "name": "Kliny montażowe Floorpol 30 x 150 mm, 10 szt. (drewno)",
+      "referenceUrl": "https://www.castorama.pl/kliny-montazowe-floorpol-30-x-150-mm-10-szt-/5907508719289_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-acrylic-soudal-white-280ml",
+      "name": "Akryl uniwersalny Soudal biały 280 ml (malowalny)",
+      "referenceUrl": "https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5411183157538",
+      "sourceIds": [
+        "realbud-acrylic-soudal-white-280ml",
+        "rabdom-acrylic-soudal-white-280ml",
+        "sewera-acrylic-soudal-white-280ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/65126/soudal-akryl-bialy-280ml.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "realbud-acrylic-soudal-white-280ml",
+          "checkedAt": "2026-10-25T13:52:02.380Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "rabdom-acrylic-soudal-white-280ml",
+          "checkedAt": "2026-10-25T13:52:03.038Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "sewera-acrylic-soudal-white-280ml",
+          "checkedAt": "2026-10-25T13:52:13.817Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "mat-vinyl-spc-click-goodhome-arilla-25m2",
+      "name": "Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²",
+      "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-vinyl-spc-click-goodhome-marvo-224m2",
+      "name": "Panele winylowe GoodHome SPC Marvo click 2,235 m²",
+      "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-vinyl-glued-goodhome-ragga-13m2",
+      "name": "Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²",
+      "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-vinyl-underlay-corksystem-lvt-6m2",
+      "name": "Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²",
+      "referenceUrl": "https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-vinyl-adhesive-soudal-26a-5kg",
+      "name": "Klej do wykładzin (winyl/LVT/PCV) Soudal 26A 5 kg",
+      "referenceUrl": "https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-vinyl-threshold-cezar-alu-40mm-1m",
+      "name": "Profil progowy aluminiowy Cezar 40 mm srebrny 1 m",
+      "referenceUrl": "https://www.castorama.pl/departments/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-/5904584845215_CAPL.prd",
+      "status": "needs_verified_offer",
+      "ean": null,
+      "sourceIds": [],
+      "photoUrl": null,
+      "deliveryChecks": []
+    }
+  ]
+}
