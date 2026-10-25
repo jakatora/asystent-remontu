@@ -60,11 +60,17 @@ const INSERT_SQL = `INSERT INTO projects
    room_name, room_width, room_length, room_height)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-const UPSERT_SQL = `INSERT OR REPLACE INTO projects
-  (id, name, job_id, job_name, category_id, measurements, calculation_result,
-   status, total_budget, actual_cost, notes, created_at, updated_at, synced_at,
-   room_name, room_width, room_length, room_height)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+// REPLACE deletes the existing row first and cascades deletion to user data.
+// A conflict update preserves all children and the original creation timestamp.
+const UPSERT_SQL = `${INSERT_SQL}
+  ON CONFLICT(id) DO UPDATE SET
+    name = excluded.name, job_id = excluded.job_id, job_name = excluded.job_name,
+    category_id = excluded.category_id, measurements = excluded.measurements,
+    calculation_result = excluded.calculation_result, status = excluded.status,
+    total_budget = excluded.total_budget, actual_cost = excluded.actual_cost,
+    notes = excluded.notes, updated_at = excluded.updated_at, synced_at = excluded.synced_at,
+    room_name = excluded.room_name, room_width = excluded.room_width,
+    room_length = excluded.room_length, room_height = excluded.room_height`;
 
 export const projectsRepo = {
   async findAll(): Promise<Project[]> {
