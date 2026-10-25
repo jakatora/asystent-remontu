@@ -20,6 +20,14 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** Only this storefront's anonymous quantity update, never its order form.
+   * source: https://modnalazienka.pl/static_files/js/update_cart.js?x=1792224600
+   */
+  async modnaCart(productId: number, quantityM2: string, csrfToken: string): Promise<string> {
+    if (this.origin !== 'https://modnalazienka.pl' || !Number.isSafeInteger(productId) || productId < 1 || !/^\d+\.\d{2}$/.test(quantityM2) || Number(quantityM2) <= 0 || Number(quantityM2) > MAX_RETAIL_PACKAGES * 100 || !/^[A-Za-z0-9._-]{32,256}$/.test(csrfToken)) throw Error('invalid_cart_action');
+    const id = String(productId);
+    return this.read('/cart_edit',new URLSearchParams({ update_cart:'',product_id:id,['cart_quantity_real_unit_'+id]:quantityM2,['product_single_set_'+id]:'true' }).toString(),false,false,false,csrfToken);
+  }
   /** Reviewed HIPPER anonymous-cart actions only. The generic action endpoint
    * also places orders, so reject every other action, field and namespace here.
    * source: https://hipper.pl/dist/app.4bb46b097031e5eba47f.js
@@ -42,7 +50,7 @@ export class AnonymousShop {
     if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
     return JSON.parse(raw);
   }
-  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false): Promise<string> {
+  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string): Promise<string> {
     let url = new URL(path, this.origin), method = payload ? 'POST' : 'GET';
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
@@ -52,6 +60,7 @@ export class AnonymousShop {
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
         headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : 'text/html, application/json', Cookie: cookie,
           ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
+          ...(modnaCsrf ? {'X-CSRF-Token':modnaCsrf,'X-Requested-With':'XMLHttpRequest',Origin:this.origin,Referer:this.origin+'/'} : {}),
           ...(payload ? { 'Content-Type': storeCart||rawJson?'application/json':'application/x-www-form-urlencoded' } : {}) } });
       for (const entry of r.headers.getSetCookie()) {
         const pair = entry.split(';')[0], eq = pair.indexOf('=');

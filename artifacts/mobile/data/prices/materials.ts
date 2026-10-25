@@ -1199,22 +1199,23 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   },
 
   // Gres szkliwiony REKTYFIKOWANY Ceramika Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm — EAN 5904584158261.
-  // source: https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html (EAN 5904584158261, cena 77,00 zł/m²)
-  // source: https://dekordia.pl/produkt/paradyz-u117-grey-gres-mat-rektyfikowany-59-8x59-8.html (Paradyż U117 Grey rekt., EAN 5904584158261, 64,07 zł/m²)
+  // source: https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html (historyczna identyfikacja EAN; aktualna wycena poniżej)
+  // source: https://dekordia.pl/produkt/paradyz-u117-grey-gres-mat-rektyfikowany-59-8x59-8.html (Paradyż U117 Grey rekt., EAN 5904584158261)
+  // source: https://modnalazienka.pl/u117-grey-gres-szkl-rekt-mat-598x598-34158 (cena brutto, odczyt 2026-10-25T20:35:39.695Z)
   {
     id: 'mat-gres-rekt-paradyz-u117-grey-60x60',
     materialType: 'tile',
     productLabel: 'Gres szkliwiony rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm',
     brand: 'Ceramika Paradyż',
-    packageSize: 1,
+    packageSize: 1.43,
     packageUnit: 'm2',
-    pricePerPackage: 77.0,
-    pricePerM2: 77.0,
+    pricePerPackage: 107.29,
+    pricePerM2: 75.03,
     category: 'better',
-    storeName: 'BLU',
+    storeName: 'Modna Łazienka',
     sourceUrl:
-      'https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html',
-    lastUpdated: '2026-08-23',
+      'https://modnalazienka.pl/u117-grey-gres-szkl-rekt-mat-598x598-34158',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 

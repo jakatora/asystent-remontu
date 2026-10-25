@@ -876,10 +876,13 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"kronodom-arbiton-secura-thermo-6m2","ean":"5905167826942","name":"Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka","category":"underlay","brand":"Arbiton","packageSize":6,"unit":"m2","store":"Kronodom","format":"abstore","productId":423,"apiPurchaseUnit":"m2","variant":["Secura","Thermo","Aquastop","Smart","1,6mm","6m2"],"url":"https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka"},
   // source: https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860
   {"id":"hipper-schaffner-lucy-gold","ean":"5907467760698","name":"Klamka do drzwi wewnętrznych Lucy złota R Schaffner","category":"door-handle","brand":"Schaffner","packageSize":1,"unit":"szt","store":"HIPPER","format":"certusoft","productId":3069808860,"retailerUnitId":3069809346,"apiPurchaseUnit":"szt","variant":["Lucy","złota","Schaffner"],"url":"https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860"},
+  // source: https://modnalazienka.pl/u117-grey-gres-szkl-rekt-mat-598x598-34158
+  {"id":"modna-paradyz-u117-grey-143m2","ean":"5904584158261","name":"U117 GREY GRES SZKL. REKT. MAT. 59,8X59,8","category":"tile","brand":"Paradyż","packageSize":1.43,"unit":"m2","store":"Modna Łazienka","format":"modna","productId":34158,"apiPurchaseUnit":"m2","variant":["U117","GREY","REKT","MAT","59,8X59,8"],"url":"https://modnalazienka.pl/u117-grey-gres-szkl-rekt-mat-598x598-34158"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Gres szkliwiony rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm": "5904584158261",
   "Klamka drzwiowa Schaffner Lucy na rozecie (komplet dwustronny)": "5907467760698",
   "Bateria natryskowa ścienna Ferro One (chrom, BFO7)": "5902194954525",
   "Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic (białe, BMGZ1Z.01/11)": "5902787568238",

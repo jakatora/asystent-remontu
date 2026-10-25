@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T19:54:52.948Z",
+  "checkedAt": "2026-10-25T20:43:06.551Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 63,
-  "remaining": 40,
-  "offers": 89,
-  "stores": 30,
+  "verifiedProducts": 64,
+  "remaining": 39,
+  "offers": 90,
+  "stores": 31,
   "productsWithPhotos": 103,
-  "registeredOffers": 91,
+  "registeredOffers": 92,
   "disabledOffers": 2,
   "rows": [
     {
@@ -932,12 +932,22 @@
     {
       "id": "mat-gres-rekt-paradyz-u117-grey-60x60",
       "name": "Gres szkliwiony rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm",
-      "referenceUrl": "https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://modnalazienka.pl/u117-grey-gres-szkl-rekt-mat-598x598-34158",
+      "status": "verified_offer",
       "ean": "5904584158261",
-      "sourceIds": [],
-      "photoUrl": "https://cdn.blu.com.pl/large_default/5904584158261_366720_Ceramika_Paradyz_U117_Grey_Gres_Szkl._Rekt._Mat_PD-PG-U117GREYMAT6060_Zdjecie_produktu.jpg?ver=1742976674_1779104212_1742976689_1747816989_1747816981_1742976708_1743066628__1767793025",
-      "deliveryChecks": []
+      "sourceIds": [
+        "modna-paradyz-u117-grey-143m2"
+      ],
+      "photoUrl": "https://modnalazienka.pl/images/thumbnails/paradyz//u117-grey-gres-szkl-rekt-mat-598x598.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "modna-paradyz-u117-grey-143m2",
+          "checkedAt": "2026-10-25T20:42:09.966Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-grout-atlas-001-white-2kg",
