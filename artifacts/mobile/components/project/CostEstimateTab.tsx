@@ -1,5 +1,8 @@
 import { ProductImage } from './ProductImage';
 import { getProductPhoto } from '@/data/products/photos';
+import { DeliveryComparisonSection } from './DeliveryComparisonSection';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 // Zakładka „Wycena": read-only prezentacja wyceny etapu i całego remontu z
 // backendu cen (features/pricing/pricingApi). Bierze REALNY wynik lokalnego
 // kalkulatora (engine.calculate) dla etapu, wysyła do POST /pricing/project i
@@ -9,7 +12,7 @@ import { getProductPhoto } from '@/data/products/photos';
 // Nic nie liczy po stronie klienta — kwoty (w groszach) i „najtańsza oferta"
 // pochodzą z API; tu jest tylko formatowanie na PLN i układ. Nie dotyka formuł,
 // ID jobów ani danych kalkulatora.
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { View, ActivityIndicator, Pressable, Linking } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
@@ -39,6 +42,7 @@ import {
 } from '@/features/pricing';
 
 interface CostEstimateTabProps {
+  projectId?: string;
   calc: CalculationResult | undefined;
   qualityTier?: QualityTier;
   region?: string;
@@ -50,29 +54,52 @@ type LoadState =
   | { status: 'error'; message: string }
   | { status: 'success'; data: SerializedProject };
 
-export function CostEstimateTab({ calc, qualityTier = 'standard', region }: CostEstimateTabProps) {
-  const { t } = useLanguage();
+export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
+  const { t, language } = useLanguage();
   const [state, setState] = useState<LoadState>({ status: 'idle' });
+  const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
+  const [loadedScope, setLoadedScope] = useState('');
+  const [saveFailed, setSaveFailed] = useState(false);
+  const requestVersion = useRef(0);
+  // A previous delivery quote must not silently follow changed measurements,
+  // product tier, region, or a different user's local project.
+  const scope = JSON.stringify([projectId, calc?.jobId, calc?.measurements, qualityTier, region]);
+  const storageKey = `remont.delivery.v1:${projectId ?? 'preview'}`;
+  useEffect(() => {
+    let active = true;
+    void AsyncStorage.getItem(storageKey).then(raw => {
+      let settings: DeliverySettings = { mode: 'shipping' };
+      try {
+        const saved = raw ? JSON.parse(raw) : null;
+        if (saved?.scope === scope && ['shipping', 'pickup'].includes(saved.settings?.mode) &&
+          Object.values(saved.settings.costsGrosze ?? {}).every(value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 10_000_000)) settings = saved.settings;
+      } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
+      if (active) { setDelivery(settings); setLoadedScope(scope); }
+    }).catch(() => { if (active) { setDelivery({ mode: 'shipping' }); setLoadedScope(scope); } });
+    return () => { active = false; };
+  }, [storageKey, scope]);
 
   const fetchEstimate = useCallback(async () => {
-    if (!calc) return;
+    if (!calc || loadedScope !== scope) return;
+    const version = ++requestVersion.current;
     setState({ status: 'loading' });
     try {
       const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier);
       // Projekt = ten jeden etap: odpowiedź daje i rozbicie etapu, i sumę remontu.
-      const data = await estimateProject([stage], { region });
-      setState({ status: 'success', data });
+      const data = await estimateProject([stage], { region, delivery });
+      if (version === requestVersion.current) setState({ status: 'success', data });
     } catch (err) {
       const message =
         err instanceof ApiError
           ? t('cmp.CostEstimate.errorHttp', { status: err.status })
           : t('cmp.CostEstimate.errorNetwork');
-      setState({ status: 'error', message });
+      if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [calc, qualityTier, region, t]);
+  }, [calc, qualityTier, region, t, delivery, loadedScope, scope]);
 
   useEffect(() => {
     if (calc && isPricingApiConfigured) void fetchEstimate();
+    return () => { requestVersion.current++; };
   }, [calc, fetchEstimate]);
 
   if (!calc) {
@@ -92,7 +119,7 @@ export function CostEstimateTab({ calc, qualityTier = 'standard', region }: Cost
         </Txt>
       </View>
 
-      {state.status === 'loading' && (
+      {(state.status === 'loading' || loadedScope !== scope) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
           <ActivityIndicator size="large" color={Colors.primary} />
           <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
@@ -114,9 +141,13 @@ export function CostEstimateTab({ calc, qualityTier = 'standard', region }: Cost
         </View>
       )}
 
-      {state.status === 'success' && (
-        <EstimateResult data={state.data} onRefresh={fetchEstimate} />
+      {state.status === 'success' && loadedScope === scope && (
+        <EstimateResult data={state.data} onRefresh={fetchEstimate} delivery={delivery} onDeliveryChange={settings => {
+          setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
+          void AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings })).catch(() => setSaveFailed(true));
+        }} />
       )}
+      {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano ustawień dostawy. Przed ponownym otwarciem projektu zanotuj podane kwoty.' : 'Delivery settings could not be saved. Note the fees before reopening the project.'}</Txt>}
     </View>
   );
 }
@@ -124,9 +155,13 @@ export function CostEstimateTab({ calc, qualityTier = 'standard', region }: Cost
 function EstimateResult({
   data,
   onRefresh,
+  delivery,
+  onDeliveryChange,
 }: {
   data: SerializedProject;
   onRefresh: () => void;
+  delivery: DeliverySettings;
+  onDeliveryChange: (settings: DeliverySettings) => void;
 }) {
   const { t } = useLanguage();
   const stage: SerializedStage | undefined = data.stages[0];
@@ -162,7 +197,8 @@ function EstimateResult({
           <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{t('upgrade.compare.partial', { count: unresolved.length })}</Txt>
         </View>
       )}
-      {storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
+      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} settings={delivery} onApply={onDeliveryChange} />}
+      {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia
           do opakowań na całym remoncie (liczy backend, tu tylko formatujemy). */}
@@ -192,7 +228,7 @@ function EstimateResult({
       </Txt>
 
       {/* Skonsolidowana lista zakupowa całego remontu (kup raz, opak. łącznie) */}
-      {consolidatedLines.length > 0 && (
+      {consolidatedLines.length > 0 && !data.deliveryComparison?.best && (
         <View style={{ gap: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <Feather name="shopping-cart" size={16} color={Colors.primary} />

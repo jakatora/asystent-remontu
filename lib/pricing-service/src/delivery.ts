@@ -1,0 +1,152 @@
+import { buildPackageVariants, groupProjectByProduct, isComparableOffer } from './estimate';
+import { optimizePackages } from './package-optimizer';
+import type { PackagePlan, PackagePlanEntry, StageEstimate } from './types';
+
+export interface DeliverySettings {
+  mode: 'shipping' | 'pickup';
+  /** Destination supplied by the app user, never the app owner's address. */
+  postalCode?: string;
+  /** A user-entered, fixed fee for ONE whole order from a store, in grosze. */
+  costsGrosze?: Record<string, number>;
+}
+export interface StoreDeliveryPolicy {
+  store: string;
+  sourceUrl: string | null;
+  checkedAt: string | null;
+  /** A lower bound, never an exact shipping quote. Null means unknown. */
+  minimumGrosze: number | null;
+  freeFromGrosze?: number;
+}
+export interface DeliveredProduct {
+  id: string; name: string; imageUrl: string | null;
+}
+export interface DeliveredStoreBasket {
+  store: string;
+  materialsGrosze: number;
+  deliveryGrosze: number | null;
+  deliveryMinimumGrosze: number;
+  totalGrosze: number | null;
+  source: 'entered' | 'pickup' | 'unknown';
+  lines: { product: DeliveredProduct; unit: string | null; packages: PackagePlanEntry[] }[];
+}
+export interface DeliveredBasket {
+  materialsGrosze: number;
+  deliveryGrosze: number | null;
+  totalGrosze: number | null;
+  lowerBoundGrosze: number;
+  stores: DeliveredStoreBasket[];
+}
+export interface DeliveryComparison {
+  mode: DeliverySettings['mode'];
+  postalCode: string | null;
+  status: 'compared' | 'needs_delivery_costs' | 'partial' | 'empty' | 'limit_exceeded';
+  productCount: number;
+  missingProductCount: number;
+  best: DeliveredBasket | null;
+  lowerBound: DeliveredBasket | null;
+  alternatives: DeliveredBasket[];
+  missingDeliveryStores: string[];
+  policies: StoreDeliveryPolicy[];
+}
+
+/** Exact enumeration for fixed per-order fees. Every product is consolidated
+ * before pack rounding. A store is charged once, and only if actually used.
+ * Unknown delivery NEVER silently becomes zero in a payable total.
+ * Variable/weight/threshold tariffs need a fresh basket quote entered by the user. */
+export function compareDeliveredBaskets(
+  stages: readonly StageEstimate[],
+  settings: DeliverySettings = { mode: 'shipping' },
+  policies: readonly StoreDeliveryPolicy[] = [],
+  now = new Date(),
+): DeliveryComparison {
+  const groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
+  const missingProductCount = stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length;
+  const names = [...new Set(groups.flatMap(group => group.offers.filter(offer => isComparableOffer(offer, now.getTime())).map(offer => offer.store)))].sort();
+  const currentPolicies = names.map(store => {
+    const policy = policies.find(policy => policy.store === store);
+    const time = policy?.checkedAt ? Date.parse(policy.checkedAt) : NaN;
+    const current = Number.isFinite(time) && now.getTime() - time <= 7 * 86400000 && time <= now.getTime();
+    return { store, sourceUrl: policy?.sourceUrl ?? null, checkedAt: policy?.checkedAt ?? null,
+      minimumGrosze: current ? policy?.minimumGrosze ?? null : null,
+      ...(current && policy?.freeFromGrosze ? { freeFromGrosze: policy.freeFromGrosze } : {}),
+    };
+  });
+  const knownFee = (store: string): number | null => {
+    if (settings.mode === 'pickup') return 0;
+    const value = Object.hasOwn(settings.costsGrosze ?? {}, store) ? settings.costsGrosze![store] : undefined;
+    return Number.isSafeInteger(value) && value! >= 0 && value! <= 10_000_000 ? value! : null;
+  };
+  const result: DeliveryComparison = { mode: settings.mode, postalCode: settings.mode === 'shipping' ? settings.postalCode ?? null : null, status: 'empty', productCount: groups.length,
+    missingProductCount, best: null, lowerBound: null, alternatives: [],
+    missingDeliveryStores: names.filter(store => knownFee(store) === null), policies: currentPolicies,
+  };
+  if (missingProductCount) { result.status = 'partial'; return result; }
+  if (!groups.length) return result;
+  // No truncated search can receive a "cheapest" label.
+  if (names.length > 10 || groups.length > 50) { result.status = 'limit_exceeded'; return result; }
+  const candidates = new Map<string, DeliveredBasket>();
+  const cached = groups.map(() => new Map<string, PackagePlan | null>());
+  for (let mask = 1; mask < 2 ** names.length; mask++) {
+    const selected = names.filter((_, index) => mask & (2 ** index));
+    const orders = new Map<string, DeliveredStoreBasket>();
+    let valid = true;
+    for (let index = 0; index < groups.length; index++) {
+      const group = groups[index];
+      const offers = group.offers.filter(offer => selected.includes(offer.store));
+      const key = offers.map(offer => offer.id).sort().join('|');
+      if (!cached[index].has(key)) {
+        const variants = buildPackageVariants(offers, group.product);
+        let plan: PackagePlan | null;
+        // Current exact-EAN catalogue uses one pack size. Avoid a large DP grid
+        // for large quantities when simple integer pack rounding is sufficient.
+        if (variants.length === 1) {
+          const variant = variants[0], count = Math.ceil(group.totalQuantity / variant.packageSize);
+          const total = count * variant.unitPriceGrosze;
+          plan = { requiredQuantity: group.totalQuantity, coveredQuantity: count * variant.packageSize,
+            overage: count * variant.packageSize - group.totalQuantity, totalGrosze: total,
+            packages: [{ ...variant, count, lineCostGrosze: total }],
+          };
+        } else plan = optimizePackages(group.totalQuantity, variants);
+        cached[index].set(key, plan);
+      }
+      const plan = cached[index].get(key);
+      if (!plan || !Number.isSafeInteger(plan.totalGrosze)) { valid = false; break; }
+      for (const entry of plan.packages) {
+        let order = orders.get(entry.store);
+        if (!order) {
+          order = { store: entry.store, materialsGrosze: 0, deliveryGrosze: knownFee(entry.store),
+            deliveryMinimumGrosze: 0, totalGrosze: null,
+            source: settings.mode === 'pickup' ? 'pickup' : knownFee(entry.store) === null ? 'unknown' : 'entered', lines: [] };
+          orders.set(entry.store, order);
+        }
+        order.materialsGrosze += entry.lineCostGrosze;
+        let line = order.lines.find(line => line.product.id === group.product.id);
+        if (!line) { line = { product: { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [] }; order.lines.push(line); }
+        line.packages.push(entry);
+      }
+    }
+    if (!valid) continue;
+    const stores = [...orders.values()].sort((a, b) => a.store.localeCompare(b.store));
+    for (const order of stores) {
+      // Published "from" rates can have free-delivery exceptions. Use zero only
+      // as a mathematical lower bound for UNKNOWN fees, never as an amount due.
+      // This also avoids falsely certifying a winner near a free-delivery threshold.
+      order.deliveryMinimumGrosze = order.deliveryGrosze ?? 0;
+      order.totalGrosze = order.deliveryGrosze === null ? null : order.materialsGrosze + order.deliveryGrosze;
+    }
+    const materialsGrosze = stores.reduce((sum, store) => sum + store.materialsGrosze, 0);
+    const deliveryGrosze = stores.every(store => store.deliveryGrosze !== null) ? stores.reduce((sum, store) => sum + store.deliveryGrosze!, 0) : null;
+    const lowerBoundGrosze = materialsGrosze + stores.reduce((sum, store) => sum + store.deliveryMinimumGrosze, 0);
+    if (![materialsGrosze, lowerBoundGrosze, materialsGrosze + (deliveryGrosze ?? 0)].every(Number.isSafeInteger)) continue;
+    const basket = { materialsGrosze, deliveryGrosze, lowerBoundGrosze, totalGrosze: deliveryGrosze === null ? null : materialsGrosze + deliveryGrosze, stores };
+    const signature = stores.flatMap(store => store.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}`))).sort().join('|');
+    candidates.set(signature, basket);
+  }
+  const baskets = [...candidates.values()];
+  const known = baskets.filter(basket => basket.totalGrosze !== null).sort((a, b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
+  result.best = known[0] ?? null;
+  result.alternatives = known.slice(1, 4);
+  result.lowerBound = baskets.sort((a, b) => a.lowerBoundGrosze - b.lowerBoundGrosze || a.stores.length - b.stores.length)[0] ?? null;
+  result.status = result.best && (!result.lowerBound || result.best.totalGrosze! <= result.lowerBound.lowerBoundGrosze) ? 'compared' : 'needs_delivery_costs';
+  return result;
+}

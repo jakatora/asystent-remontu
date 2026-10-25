@@ -19,6 +19,7 @@ import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { getMaterialsForJob } from './registry';
 import { resolveMaterialQuantity } from './quantity';
 import type { MaterialCategory } from '@/types/pricing';
+import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
 
 // ─── Konfiguracja bazowego URL ────────────────────────────────────────────────
 // Osobny publiczny env, żeby dało się wskazać serwer wyceny niezależnie od reszty.
@@ -67,6 +68,7 @@ export interface PricingStageInput {
 }
 
 export interface PricingOptions {
+  readonly delivery?: DeliverySettings;
   readonly region?: string | null;
   readonly store?: string | null;
 }
@@ -294,6 +296,7 @@ export interface SerializedStoreComparison {
 }
 
 export interface SerializedProject {
+  deliveryComparison?: DeliveryComparison;
   coverage?: {
     offers: number;
     products: number;

@@ -55,7 +55,7 @@ test('shared backend actual HTTP: comparable packs, missing items, validation an
 });
 
 test('full painting list compares all four products without promoting an incomplete store basket', async () => {
-  const all = [...observations(), ...RETAIL_SOURCES.slice(3).map((source, index) => ({
+  const all = [...observations(), ...RETAIL_SOURCES.slice(3, 7).map((source, index) => ({
     sourceId: source.id, ean: source.ean, name: source.name, imageUrl: null,
     priceGrosze: [9850, 1472, 845, 4392][index], currency: 'PLN' as const, availability: 'in_stock' as const,
     observedAt: new Date().toISOString(), sourceUrl: source.url, evidenceSha256: 'b'.repeat(64),

@@ -499,7 +499,7 @@ export default function ProjectDetailScreen() {
         )}
 
         {tab === 'estimate' && (
-          <CostEstimateTab calc={calc} qualityTier={selectedQualityTier} region={selectedRegion} />
+          <CostEstimateTab projectId={project.id} calc={calc} qualityTier={selectedQualityTier} region={selectedRegion} />
         )}
 
         {tab === 'budget' && calc && pricedBudget && (

@@ -8,6 +8,8 @@ import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
 import { projectRequestSchema } from './lib/pricing-schema';
 import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
+import { compareDeliveredBaskets } from '../../../lib/pricing-service/src/delivery';
+import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
@@ -156,7 +158,9 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog().deps);
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
-      res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status() });
+      res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(),
+        deliveryComparison: compareDeliveredBaskets(estimate.stages, parsed.data.options?.delivery, STORE_DELIVERY_POLICIES),
+      });
     } catch {
       res.status(503).json({ error: 'pricing_unavailable' });
     }

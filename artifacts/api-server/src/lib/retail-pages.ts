@@ -13,7 +13,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24';
   variant?: readonly string[];
 }
 
@@ -41,14 +41,14 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   const products: Record<string, any>[] = [];
-  if (source.format === 'sewera' || source.format === 'realbud') products.push(readRetailMicrodata(html, source.format, source.url));
+  if (source.format && source.format !== 'jsonld') products.push(readRetailMicrodata(html, source.format, source.url));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }
   const product = products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
   const name = String(product.name ?? '');
-  const normalize = (value: string) => normalizeProductName(value.replace(/(\d)\s*[x×/]\s*(\d)/g, '$1 x $2').replace(/(\d)([a-zA-Z])/g, '$1 $2'));
+  const normalize = (value: string) => normalizeProductName(value.replace(/(\d|mm|cm|m)\s*[x×/]\s*(?=\d)/gi, '$1 x ').replace(/(\d)([a-zA-Z])/g, '$1 $2'));
   const normalized = normalize(name);
   const packagePattern = new RegExp(`(?:^| )${String(source.packageSize).replace('.', ' ')} (?:${source.unit === 'l' ? 'l|litrow|litry' : source.unit})(?: |$)`);
   const brand = normalizeProductName(typeof product.brand === 'string' ? product.brand : product.brand?.name ?? '');

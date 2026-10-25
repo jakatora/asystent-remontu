@@ -38,14 +38,33 @@ function labelled(html: string, label: string, tag: 'strong' | 'em'): string {
   return text(one([...html.matchAll(regex)].map(match => match[1]), 'microdata_identity_ambiguous'));
 }
 
-export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud', url: string): Record<string, any> {
+export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' | 'shoper' | 'buduj24', url: string): Record<string, any> {
   const safe = clean(html);
   const product = one(elements(safe, a => /\/Product$/.test(a.itemtype ?? '')), 'microdata_product_ambiguous');
   const offer = one(elements(product, a => a.itemprop === 'offers' && /\/Offer$/.test(a.itemtype ?? '')), 'microdata_offer_ambiguous');
   const price = property(offer, 'price');
   const currency = property(offer, 'priceCurrency');
   const name = property(product, 'name');
-  const image = new URL(property(product, 'image'), url).href;
+  const images = elements(product, a => a.itemprop === 'image').map(element => {
+    const a = attrs(element.match(TAG)?.[0] ?? '');
+    return a.content ?? a.src ?? a.href;
+  }).filter((value): value is string => Boolean(value));
+  const image = images[0] ? new URL(decodeURIComponent(images[0]), url).href : null;
+  if (format === 'shoper' || format === 'buduj24') {
+    const ean = property(product, 'gtin');
+    const gross = format === 'shoper'
+      ? text(one(elements(offer, a => a.class?.split(/\s+/).includes('main-price') ?? false), 'retailer_gross_price_not_confirmed'))
+      : text(one(elements(offer, a => a.class?.split(/\s+/).includes('product-price-gross') ?? false), 'retailer_gross_price_not_confirmed'));
+    const amount = gross.replace(/\s|zł/g, '').replace(',', '.');
+    if (Number(amount) !== Number(price)) throw new Error('retailer_gross_price_mismatch');
+    const expiry = elements(offer, a => a.itemprop === 'priceValidUntil');
+    return { '@type': 'Product', name, gtin13: ean, image,
+      offers: { '@type': 'Offer', price, priceCurrency: currency, url,
+        availability: property(offer, 'availability'),
+        ...(expiry.length ? { priceValidUntil: property(offer, 'priceValidUntil') } : {}),
+      },
+    };
+  }
   if (format === 'sewera') {
     const ean = labelled(product, 'Kod kreskowy:', 'strong');
     const brand = labelled(product, 'Producent:', 'strong');

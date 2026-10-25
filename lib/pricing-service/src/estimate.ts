@@ -342,7 +342,7 @@ interface ProductGroup {
  * produktu, więc bierzemy je z pierwszej rozpoznanej pozycji. Kolejność wyniku =
  * pierwsze wystąpienie produktu. Czysta funkcja — bez I/O.
  */
-function groupProjectByProduct(
+export function groupProjectByProduct(
   stages: readonly StageEstimate[],
 ): ProductGroup[] {
   const groups = new Map<string, ProductGroup>();

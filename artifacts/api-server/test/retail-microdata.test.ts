@@ -9,6 +9,23 @@ import { createRemontService } from '../src/shared-backend';
 
 const source = RETAIL_SOURCES.find(source => source.id === 'sewera-sniezka-5l')!;
 const observedAt = new Date('2026-10-25T09:30:00Z');
+
+test('new store templates require scoped identity, dimensions and matching visible price', () => {
+  for (const id of ['rabdom-tape-30mm', 'buduj24-tape-30mm']) {
+    const item = RETAIL_SOURCES.find(source => source.id === id)!;
+    const grossClass = item.format === 'shoper' ? 'main-price' : 'product-price-gross';
+    const html = `<section itemscope itemtype="https://schema.org/Product"><h1 itemprop="name">${item.name}</h1>
+      <meta itemprop="gtin" content="${item.ean}"><meta itemprop="image" content="%2Fphoto.webp">
+      <div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><meta itemprop="price" content="11.99">
+      <meta itemprop="priceCurrency" content="PLN"><meta itemprop="availability" content="https://schema.org/InStock">
+      <span class="${grossClass}">11,99 zł</span><span>Netto 9,75 zł</span></div></section>`;
+    assert.equal(parseRetailPage(html, item, observedAt).priceGrosze, 1199);
+    assert.throws(() => parseRetailPage(html.replace('content="11.99"', 'content="9.75"'), item, observedAt), /gross_price_mismatch/);
+    assert.throws(() => parseRetailPage(html.replace(/30mm|30MM/, '38mm'), item, observedAt), /variant_mismatch/);
+    assert.throws(() => parseRetailPage(html.replace(item.ean, '5907758504932'), item, observedAt), /ean_not_confirmed/);
+    assert.throws(() => parseRetailPage(html.replace('schema.org/InStock', 'schema.org/OutOfStock'), item, observedAt), /out_of_stock/);
+  }
+});
 function microdata(source: RetailSource, price = '98.50', stock = '7') {
   return `<div itemscope itemtype="http://schema.org/Product">
     <h1 itemprop="name">${source.name}</h1><img itemprop="image" src="https://sklep.sewera.pl/photo/test.webp">

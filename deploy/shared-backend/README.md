@@ -7,7 +7,7 @@ Nie otwiera baz innych aplikacji, nie wywołuje AI ani płatnych API.
 
 ## Źródła i zakres
 
-Katalog na 2026-10-25 to 7 ofert 4 produktów w 4 sklepach: Śnieżka Barwy
+Pierwszy katalog z 2026-10-25 obejmował 7 ofert 4 produktów w 4 sklepach: Śnieżka Barwy
 Natury biała 5 l (Castorama, OBI, Sewera), Knauf Universalgrund 5 l
 (Castorama, Realbud), taśma Blue Dolphin 30 mm × 50 m i gruba folia
 Blue Dolphin 4 × 5 m (Sewera). To zamknięty pilotaż malowania ścian,
@@ -79,3 +79,60 @@ web sprawdzony w 390 × 844; natywnego wydania jeszcze nie opublikowano.
 Następny priorytet: stabilne feedy i szerszy katalog, następnie lokalizacja,
 dostawa, posiadane materiały i pełny koszyk wszystkich prac. Brakujące
 produkty pozostają jawnie poza sumą.
+
+## Aktualny zakres: więcej produktów i dostawa — 2026-10-25
+
+**13 ofert / 7 produktów / 6 sklepów.** Doszły Rab-Dom (taśma i folia),
+Buduj24 (taśma) oraz Sewera: Dulux EasyCare 9 l, Atlas GTA 18 kg,
+Acryl-Putz ST10 20 kg. Dokładny EAN, wymiary, widoczna cena i zakres
+Product/Offer są sprawdzane także dla szablonów Shoper/Buduj24.
+
+Nowy opcjonalny kontrakt POST `/pricing/project`:
+
+```json
+{
+  "jobs": ["dotychczasowe obiekty etapów"],
+  "options": {
+    "delivery": {
+      "mode": "shipping",
+      "postalCode": "00-001",
+      "costsGrosze": { "Sewera": 1990, "Castorama": 2000 }
+    }
+  }
+}
+```
+
+Przykład pokazuje strukturę i kontrolne koszty użytkownika, nie taryfę
+sklepów. `jobs` musi zawierać rzeczywiste obiekty dotychczasowego kontraktu.
+Tryb `pickup` wyłącza wysyłkę; dojazd nie jest liczony. Kod należy do użytkownika
+i projektu, a nie właściciela aplikacji. Kwoty to nieujemne całkowite grosze,
+maks. 10 000 000 na sklep; pusty/brakujący koszt nie jest zerem.
+
+Odpowiedź dodaje `deliveryComparison`: status, kod, wybrany pełny zestaw,
+materiały/dostawa/razem oraz konkretne opakowania i URL w każdym sklepie.
+Stare `storeComparison` i sumy materiałów zachowują znaczenie. Backend jest
+bezstanowy w zakresie kosztów użytkownika; preferencje klient zapisuje lokalnie
+osobno dla projektu, obmiarów, regionu i jakości. Zmiana kodu czyści stawki.
+
+Silnik z `lib/pricing-service/src/delivery.ts` wylicza wszystkie podzbiory
+do 10 sklepów i 50 produktów, korzystając z tego samego optymalizera opakowań.
+Płaci raz za każdy faktycznie użyty sklep. Nie przycina wyszukiwania i nie
+ogłasza przybliżonego wyniku najtańszym. Niepełny zestaw ma status `partial`.
+`needs_delivery_costs` oznacza, że nieznane opłaty mogą zmienić zwycięzcę.
+Nieznana opłata ma `null` w sumie końcowej, nigdy domyślne 0 zł.
+
+Warunki sklepów i stawki „od” są w `src/lib/store-delivery.ts`, z prawdziwymi
+datami odczytu i źródłami. Po 7 dniach stawki początkowe nie są prezentowane.
+**Nie są automatyczną ostateczną wyceną wysyłki.** Waga, gabaryt, adres,
+płatność, wybrana metoda oraz warunki promocji wymagają potwierdzenia w koszyku
+sklepu. Realbud podaje m.in. stawki netto; nie kopiować ich jako brutto.
+Ostateczne opłaty wpisuje użytkownik. To jawna granica bieżącej integracji.
+
+Aktualny deployment `a1c22f04-4918-452b-a825-625538a265c6` SUCCESS zachował
+świeżą bazę `48d46563-366d-43bf-ae4c-f877c7e21091`. Wszystkie 10 odczytywalnych
+źródeł odświeżono po starcie 10:39:18–10:39:27 UTC. Castorama/OBI nadal blokują
+bezpośredni fetch. HTTPS: health200, auth/me401, 13 ofert/7 produktów. Dla
+kontrolnych opłat `smoke.mjs`: 25565 + 3990 = 29555 groszy, 2 sklepy zamiast
+4 dla najtańszych pojedynczych produktów. Bez kosztów wysyłki pełna kwota
+z dostawą nie jest wskazywana. 181 testów modułów/HTTP + 55 regresji tras PASS;
+kontrole typów i 743 ID/15 plików PASS. Native Android/iOS nie opublikowano.
