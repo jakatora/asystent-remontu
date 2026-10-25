@@ -1,4 +1,4 @@
-/** Product photographs observed on the linked retail pages on 2026-10-24.
+/** Product photographs observed on the linked retail pages on 2026-10-24–25.
  * Match by stable catalogue ID, EAN or exact source URL, never by fuzzy name.
  */
 interface ProductPhoto {

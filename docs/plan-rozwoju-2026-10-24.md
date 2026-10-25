@@ -11,8 +11,8 @@ Aktualizacja: 2026-10-25. Cel właściciela: użytkownik ma wiedzieć, ile mater
 - [x] Najtańszy pełny koszyk i zakup w kilku sklepach dostępne z głównej nawigacji; algorytm uwzględnia mieszane wielkości opakowań.
 - [x] Niepełna, demonstracyjna, niedostępna lub nieaktualna oferta nie może wygrywać jako najtańsza aktualna oferta. Próg aktualności: 7 dni; nie oznacza gwarancji ceny na kasie.
 - [x] Przy porównaniu pokazać zakres: porównane sklepy, daty cen, kompletność koszyka i nieuwzględnioną dostawę/dojazd.
-- [x] Podłączyć mobilne porównanie do istniejącego backendu i rzeczywistych cen. Stan 2026-10-25: 14 ofert 7 produktów z Castoramy, OBI, Sewery, Realbudu, Rab-Dom, Buduj24 i Zino; jawne daty i linki. Wszystkie cztery materiały przykładowego malowania mają ofertę. Bez cen demonstracyjnych.
-- [x] Uruchomić automatyczny odczyt dostępnych kart przy starcie i co 6 godzin oraz ręczne odświeżenie. Obecnie serwer potwierdza 11 ofert; 3 źródła Castoramy/OBI pozostają niedostępne. Cena brutto i dokładny wariant wymagane. Wygaśnięcie lub potwierdzony brak dostępności usuwa ofertę, także po restarcie.
+- [x] Podłączyć mobilne porównanie do istniejącego backendu i rzeczywistych cen. Stan 2026-10-25 po wspólnym koszyku: 19 ofert 12 produktów z Castoramy, OBI, Sewery, Realbudu, Rab-Dom, Buduj24 i Zino; jawne daty i linki. Wszystkie cztery materiały przykładowego malowania mają ofertę. Bez cen demonstracyjnych.
+- [x] Uruchomić automatyczny odczyt dostępnych kart przy starcie i co 6 godzin oraz ręczne odświeżenie. Katalog ma 16 źródeł z działającym odczytem; 3 wcześniejsze źródła Castoramy/OBI pozostają niedostępne. Cena brutto i dokładny wariant wymagane. Wygaśnięcie lub potwierdzony brak dostępności usuwa ofertę, także po restarcie.
 - [ ] Poszerzyć katalog i zapewnić stabilne feedy/API sklepów. Castorama/OBI nadal blokują bezpośredni odczyt serwerowy. Błąd nie zmienia ceny ani daty; po 7 dniach oferta wypada z porównania.
 - [x] Umożliwić wybór liczby rolek taśmy 50 m i opakowań folii 20 m² w nowym projekcie; 0 oznacza brak potrzeby zakupu. Starsze projekty zachowują liczbę rolek i opakowanie folii po przeliczeniu jednostek.
 - [x] Porównać cały zestaw z kosztami dostaw podanymi przez użytkownika. Jedna opłata za zamówienie w sklepie; sprawdzane kombinacje sklepów, również mieszane opakowania. Pusty koszt dostawy nie oznacza 0 zł.
@@ -34,6 +34,7 @@ Odbiór: regresja malowania 40 m² / 1, 2 i 3 warstwy; liczby 2,5 i 0,8; koszt w
 - [x] Karta produktu w porównaniu: rzeczywiste zdjęcie z wiarygodnego źródła, pełna nazwa, wielkość opakowania, liczba opakowań, koszt i link do oferty. Pierwszy zakres: cztery materiały malowania.
 - [x] Większe pola dotykowe głównych akcji i zakupów, czytelne etykiety oraz ciemniejszy akcent i tekst; zachowane PL/EN.
 - [x] Pierwsze 5 fotografii konkretnych produktów, dopasowywanych po ID, EAN lub dokładnym URL źródła. Brak zdjęcia i błąd pobrania mają widok zastępczy.
+- [x] Kolejne 5 zdjęć produktów do gruntowania, gładzi i podłóg, z dokładnych kart nowych ofert. Ceny i transport sprawdzone w rzeczywistych koszykach.
 - [ ] Uzupełnić fotografie pozostałych produktów i sprawdzić rzeczywisty build na telefonie.
 
 Odbiór: kontrola na szerokości telefonu; widoczność ceny, opakowań i głównej akcji; przejście do właściwego sklepu; brak nieprawidłowych fotografii i rozjechanego układu po błędzie obrazu.
