@@ -8,6 +8,13 @@
 import type { Product, ProductOffer } from "@workspace/db/schema";
 import type { StageLaborEstimate } from "./labor";
 
+/** Storefront purchase rules supplement the persisted price row. A lot of ten
+ * individually barcoded pieces still has a one-piece packageSize and price. */
+export type PurchaseOffer = ProductOffer & {
+  /** Order quantity must be a positive multiple of this many packages. */
+  purchaseMultiple?: number;
+};
+
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
 export interface ItemQuery {
   /** EAN-13/8 produktu. Priorytet dopasowania #1. */
@@ -44,7 +51,7 @@ export interface EstimateOptions {
 
 /** Najtańsza aktualna oferta produktu wraz ze sklepem i URL. */
 export interface CheapestOffer {
-  offer: ProductOffer;
+  offer: PurchaseOffer;
   store: string;
   url: string | null;
   /** Cena efektywna oferty (promo ?? regular) w GROSZACH za jedno opakowanie. */
@@ -56,6 +63,7 @@ export interface CheapestOffer {
  * Reprezentuje JEDNĄ wielkość opakowania materiału wraz z jej najtańszą ofertą.
  */
 export interface PackageVariant {
+  purchaseMultiple?: number;
   /** Wielkość pojedynczego opakowania w jednostce materiału (np. 10 = 10 l). > 0. */
   packageSize: number;
   /** Cena jednego opakowania tej wielkości w GROSZACH (najtańsza oferta). */
@@ -70,6 +78,7 @@ export interface PackageVariant {
 
 /** Jedna wybrana wielkość opakowania w optymalnej kombinacji zakupu. */
 export interface PackagePlanEntry {
+  purchaseMultiple?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */
@@ -123,7 +132,7 @@ export interface ResolvedLine {
    * Zachowane, by policzyć koszt całości per sklep (patrz StoreComparison) bez
    * ponownego odpytywania katalogu. Oferty są deterministyczne dla produktu.
    */
-  offers: readonly ProductOffer[];
+  offers: readonly PurchaseOffer[];
   /** Wielkość opakowania użyta do zaokrąglenia (>= 1). */
   packageSize: number;
   /** Liczba pełnych opakowań (zaokrąglenie w górę). */

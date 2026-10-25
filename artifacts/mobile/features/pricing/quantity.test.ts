@@ -1,9 +1,19 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { paintJob } from '@/data/jobs/paint';
+import { skirtingJob } from '@/data/jobs/finishing';
 import { calculateMaterials } from '@/features/calculator/engine';
 import { computePricedBudget } from './engine';
 import { toPricingStageInput } from './pricingApi';
+
+test('the reference budget includes the retailer lot, including a custom piece price',()=>{
+ const calc=calculateMaterials(skirtingJob,{perimeter:5});
+ const input={job:skirtingJob,calc,regionCode:'lodzkie',qualityTier:'standard' as const,overrides:[]};
+ const line=computePricedBudget(input).materialDetails.find(line=>line.materialRef.id==='mat-skirting-arbiton-2500')!;
+ assert.ok(line);assert.equal(line.packagesNeeded,10);assert.equal(line.totalCost,319.80);
+ const custom=computePricedBudget({...input,overrides:[{targetType:'material',targetId:line.materialRef.id,overridePrice:30} as never]}).materialDetails.find(row=>row.materialRef.id===line.materialRef.id)!;
+ assert.equal(custom.packagesNeeded,10);assert.equal(custom.totalCost,300);
+});
 import { selfLevelingJob } from '@/data/jobs/floor-prep';
 import { gypsumWallJob, gypsumCeilingJob } from '@/data/jobs/gypsum';
 

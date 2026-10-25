@@ -119,20 +119,22 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+  // source: https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1 (cena brutto, odczyt 2026-10-25T17:43:11.235Z)
   {
     id: 'mat-skirting-arbiton-2500',
     materialType: 'skirting',
-    productLabel: 'Listwa przypodłogowa PCV Arbiton Indo 2500 mm',
+    productLabel: 'Listwa przypodłogowa PCV Arbiton Indo biały połysk 01, 2500 mm',
     brand: 'Arbiton',
     packageSize: 2.5,
     packageUnit: 'mb',
-    pricePerPackage: 32.98,
+    purchaseMultiple: 10,
+    pricePerPackage: 31.98,
     pricePerMb: 12.79,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'TopBoden',
     sourceUrl:
-      'https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk/5905167725719_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
   {
@@ -2160,6 +2162,8 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd (EAN 5411183028395, cena 118,00 zł, winyl/PCV/linoleum/dywan)
   // source: https://www.bricoman.pl/klej-do-wykladzin-soudal-26a-5kg-20484681.html (EAN 5411183028395, cena 118,00 zł brutto, Soudal 26A 5 kg)
   // source: https://mrowka.com.pl/produkt/klej-do-wykladzin-26a-5-kg-soudal-5411183028395.html (EAN 5411183028395, Soudal 26A klej do wykładzin 5 kg)
+  // source: https://www.bricoman.pl/produkty/klej-do-wykladzin-soudal-26a-5kg-20484681.html (cena brutto, odczyt 2026-10-25T17:43:11.536Z)
+  // source: https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html (cena brutto, odczyt 2026-10-25T17:30:57.007Z)
   {
     id: 'mat-vinyl-adhesive-soudal-26a-5kg',
     materialType: 'adhesive',
@@ -2167,12 +2171,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Soudal',
     packageSize: 5,
     packageUnit: 'kg',
-    pricePerPackage: 118.0,
+    pricePerPackage: 93.50,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'ChemiaDoParkietu25',
     sourceUrl:
-      'https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd',
-    lastUpdated: '2026-09-06',
+      'https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Klej dyspersyjny gotowy do użycia, do wykładzin/paneli winylowych (LVT dryback), PCV, linoleum i dywanowych. Zużycie zależne od podłoża; czas otwarty ok. 20 min. Do winyla klejonego zamiast podkładu.',
   },

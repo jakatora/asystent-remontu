@@ -13,10 +13,13 @@ import {
   listOffersForProduct,
   type Database,
 } from "@workspace/db/repositories";
-import type { Product, ProductOffer } from "@workspace/db/schema";
+import type { Product } from "@workspace/db/schema";
+import type { PurchaseOffer as ProductOffer } from "./types";
 import { parsePriceToGrosze } from "@workspace/price-collector";
 
 import { optimizePackages } from "./package-optimizer";
+import { computePackagesNeeded } from './purchase-quantity';
+export { computePackagesNeeded } from './purchase-quantity';
 import type {
   CheapestOffer,
   ConsolidatedLine,
@@ -65,6 +68,7 @@ const defaultDeps: EstimateDeps = {
 export const MAX_COMPARABLE_OFFER_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
 export function isComparableOffer(offer: ProductOffer, now = Date.now()): boolean {
+  if (offer.purchaseMultiple !== undefined && (!Number.isSafeInteger(offer.purchaseMultiple) || offer.purchaseMultiple < 1 || offer.purchaseMultiple > 10_000)) return false;
   if (!offer.source || /seed|fixture|mock|demo|reference/i.test(offer.source)) return false;
   const availability = (offer.availability ?? '').replace(/[\s_-]/g, '');
   if (/outofstock|unavailable|niedost[eę]pn|brak|preorder|backorder/i.test(availability)) return false;
@@ -93,7 +97,7 @@ export function selectCheapestOffer(
     const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
     if (unitPriceGrosze === null) continue;
     const total = purchase
-      ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product)) * unitPriceGrosze
+      ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product), offer.purchaseMultiple) * unitPriceGrosze
       : unitPriceGrosze;
     if (best === null || total < bestTotal || (total === bestTotal && unitPriceGrosze < best.unitPriceGrosze)) {
       bestTotal = total;
@@ -123,22 +127,9 @@ export function resolvePackageSize(
 }
 
 /**
- * Liczba pełnych opakowań potrzebna, by pokryć `quantity` — zaokrąglenie W GÓRĘ.
- * quantity <= 0 -> 0. packageSize <= 0 traktowane jak 1.
- */
-export function computePackagesNeeded(
-  quantity: number,
-  packageSize: number,
-): number {
-  if (!(quantity > 0)) return 0;
-  const size = packageSize > 0 ? packageSize : 1;
-  return Math.ceil(quantity / size);
-}
-
-/**
- * Buduje listę WARIANTÓW wielkości opakowań materiału z jego ofert: grupuje oferty
- * po wielkości opakowania (resolvePackageSize) i dla każdej wielkości bierze
- * NAJTAŃSZĄ ofertę (po cenie efektywnej promo ?? regular). Gdy podano `store` —
+ * Grupuje oferty po wielkości fizycznego opakowania ORAZ wielokrotności zakupu.
+ * Tańsza sztuka kupowana po dziesięć nie zastępuje oferty sprzedaży pojedynczo.
+ * W każdej takiej grupie bierze najtańszą cenę promo ?? regular. Filtr `store`
  * uwzględnia tylko oferty z tego sklepu (spójnie z selectCheapestOffer).
  *
  * To realizacja „wariantów tego samego materiału" oparta na danych, które już
@@ -151,18 +142,21 @@ export function buildPackageVariants(
   product: Product,
   store?: string | null,
 ): PackageVariant[] {
-  // klucz = wielkość opakowania; wartość = najtańszy wariant tej wielkości.
-  const bySize = new Map<number, PackageVariant>();
+  // Klucz obejmuje także partię zakupu; cena nadal dotyczy jednej sztuki.
+  const bySize = new Map<string, PackageVariant>();
   for (const offer of offers) {
     if (!isComparableOffer(offer)) continue;
     if (store && offer.store !== store) continue;
     const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
     if (unitPriceGrosze === null) continue;
     const packageSize = resolvePackageSize(offer, product);
-    const existing = bySize.get(packageSize);
+    const purchaseMultiple = offer.purchaseMultiple ?? 1;
+    const key = `${packageSize}:${purchaseMultiple}`;
+    const existing = bySize.get(key);
     if (existing === undefined || unitPriceGrosze < existing.unitPriceGrosze) {
-      bySize.set(packageSize, {
+      bySize.set(key, {
         packageSize,
+        ...(purchaseMultiple > 1 ? { purchaseMultiple } : {}),
         unitPriceGrosze,
         store: offer.store,
         url: offer.productUrl,
@@ -224,7 +218,7 @@ async function estimateLine(
   }
 
   const packageSize = resolvePackageSize(cheapestOffer.offer, product);
-  const packagesNeeded = computePackagesNeeded(item.quantity, packageSize);
+  const packagesNeeded = computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple);
   const lineCost = packagesNeeded * cheapestOffer.unitPriceGrosze;
 
   // Optymalny dobór wielkości opakowań (najtańsza kombinacja rozmiarów). Warianty

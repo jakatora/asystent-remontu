@@ -50,19 +50,21 @@ function buildEntries(
   let totalGrosze = 0;
   let coverage = 0;
   for (const v of chosen) {
-    coverage += v.packageSize;
-    totalGrosze += v.unitPriceGrosze;
+    const count = v.purchaseMultiple ?? 1;
+    coverage += v.packageSize * count;
+    totalGrosze += v.unitPriceGrosze * count;
     const key = v.offerId;
     const existing = byKey.get(key);
     if (existing) {
-      existing.count += 1;
-      existing.lineCostGrosze += v.unitPriceGrosze;
+      existing.count += count;
+      existing.lineCostGrosze += v.unitPriceGrosze * count;
     } else {
       byKey.set(key, {
         packageSize: v.packageSize,
-        count: 1,
+        count,
         unitPriceGrosze: v.unitPriceGrosze,
-        lineCostGrosze: v.unitPriceGrosze,
+        lineCostGrosze: v.unitPriceGrosze * count,
+        ...(count > 1 ? { purchaseMultiple: count } : {}),
         store: v.store,
         url: v.url,
         offerId: v.offerId,
@@ -80,12 +82,13 @@ function fallbackSingleVariant(
   requiredQuantity: number,
   variants: readonly PackageVariant[],
 ): PackagePlan {
+  const cost = (v: PackageVariant) => Math.ceil(requiredQuantity / (v.packageSize * (v.purchaseMultiple ?? 1))) * (v.purchaseMultiple ?? 1) * v.unitPriceGrosze;
   const best = [...variants].sort(
     (a, b) =>
-      a.unitPriceGrosze / a.packageSize - b.unitPriceGrosze / b.packageSize ||
+      cost(a) - cost(b) ||
       a.packageSize - b.packageSize,
   )[0]!;
-  const count = Math.ceil(requiredQuantity / best.packageSize);
+  const count = Math.ceil(requiredQuantity / (best.packageSize * (best.purchaseMultiple ?? 1)));
   const chosen = Array.from({ length: count }, () => best);
   const { packages, totalGrosze, coverage } = buildEntries(chosen);
   return {
@@ -127,11 +130,13 @@ export function optimizePackages(
       v.packageSize > 0 &&
       Number.isFinite(v.packageSize) &&
       Number.isFinite(v.unitPriceGrosze) &&
-      v.unitPriceGrosze >= 0,
+      Number.isSafeInteger(v.unitPriceGrosze) && v.unitPriceGrosze >= 0 &&
+      Number.isSafeInteger(v.purchaseMultiple ?? 1) && (v.purchaseMultiple ?? 1) >= 1 && (v.purchaseMultiple ?? 1) <= 10_000 &&
+      Number.isSafeInteger(v.unitPriceGrosze * (v.purchaseMultiple ?? 1)),
   );
   if (usable.length === 0) return null;
 
-  const scale = resolveScale([requiredQuantity, ...usable.map((v) => v.packageSize)]);
+  const scale = resolveScale([requiredQuantity, ...usable.map((v) => v.packageSize * (v.purchaseMultiple ?? 1))]);
   // Cel = wymagana ilość w jednostkach siatki, zaokrąglona w górę (musimy pokryć
   // CO NAJMNIEJ tyle). Mała tolerancja na błąd floatów przed sufitem.
   const target = Math.ceil(requiredQuantity * scale - 1e-9);
@@ -148,7 +153,7 @@ export function optimizePackages(
 
   const items = usable.map((v) => ({
     variant: v,
-    grid: Math.max(1, Math.round(v.packageSize * scale)),
+    grid: Math.max(1, Math.round(v.packageSize * (v.purchaseMultiple ?? 1) * scale)),
   }));
 
   // dp[q] = { cost, coverage, choice, prev } — najtańsze pokrycie co najmniej q.
@@ -165,7 +170,7 @@ export function optimizePackages(
       const prev = q - g <= 0 ? 0 : q - g;
       const base = dp[prev];
       if (!base) continue;
-      const cost = base.cost + items[i]!.variant.unitPriceGrosze;
+      const cost = base.cost + items[i]!.variant.unitPriceGrosze * (items[i]!.variant.purchaseMultiple ?? 1);
       const coverage = base.coverage + g;
       if (
         best === null ||

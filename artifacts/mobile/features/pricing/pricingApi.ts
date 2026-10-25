@@ -528,14 +528,9 @@ export async function fetchPriceHistory(
 
 // ─── Prezentacja pieniędzy ──────────────────────────────────────────────────────
 
-/**
- * Grosze (integer) → napis PLN „12.34 PLN". Konwersja czysto prezentacyjna:
- * dzielenie przez 100 i `toFixed(2)` (bez mnożenia floatów). Styl spójny z
- * `shared/lib/currency.ts#formatCurrency`.
- */
-export function formatGrosze(grosze: number | null | undefined, currency = 'PLN'): string {
-  if (grosze === null || grosze === undefined || !isFinite(grosze)) {
-    return `0.00 ${currency}`;
-  }
-  return `${(grosze / 100).toFixed(2)} ${currency}`;
+/** Display integer grosze in the user's notation. An unknown amount must never
+ * look like a free product or delivery. This does not change price arithmetic. */
+export function formatGrosze(grosze: number | null | undefined, currency = 'PLN', locale='pl-PL'): string {
+  if (typeof grosze!=='number'||!Number.isSafeInteger(grosze)) return '—';
+  return new Intl.NumberFormat(locale,{style:'currency',currency,minimumFractionDigits:2,maximumFractionDigits:2}).format(grosze/100);
 }

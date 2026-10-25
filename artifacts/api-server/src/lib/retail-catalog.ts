@@ -862,10 +862,19 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"domat-board-gkbi","ean":"5907651691616","name":"Płyta gipsowa GKBI 12.5 1200*2600 ZIELONA","brand":"Norgips","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Domat","url":"https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/","format":"woocommerce","productId":29071,"variant":["GKBI","12.5","1200","2600"]},
   // source: https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/
   {"id":"domat-board-gkb","ean":"5907651690442","name":"Płyta gipsowa GKB 12.5 1200*2600 BIAŁA","brand":"Norgips","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Domat","url":"https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/","format":"woocommerce","productId":29078,"variant":["GKB","12.5","1200","2600"]},
+  // source: https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1
+  {"category":"skirting","packageSize":2.5,"unit":"mb","id":"topboden-indo-gloss-25m","ean":"5905167725719","name":"Listwa przypodłogowa PCV Arbiton INDO - biały połysk 01","brand":"Arbiton","store":"TopBoden","url":"https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1","format":"topboden-api","productUuid":"e07740c0-6045-4fb7-8b2e-5fcedd998ee2","purchaseMultiple":10,"variant":["INDO","biały","połysk","01"]},
+  // source: https://www.bricoman.pl/produkty/klej-do-wykladzin-soudal-26a-5kg-20484681.html
+  {"category":"adhesive","packageSize":5,"unit":"kg","id":"bricoman-soudal-26a-5kg","ean":"5411183028395","brand":"Soudal","store":"Bricoman","format":"jsonld","variant":["26A","5kg"],"name":"Klej do wykładzin Soudal 26A 5kg","url":"https://www.bricoman.pl/produkty/klej-do-wykladzin-soudal-26a-5kg-20484681.html"},
+  // source: https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html
+  {"category":"adhesive","packageSize":5,"unit":"kg","id":"chemiadoparkietu-soudal-26a-5kg","ean":"5411183028395","name":"Soudal 26A klej do wykładzin PCV winylu linoleum dywanowych 5 kg","brand":"Soudal","store":"ChemiaDoParkietu25","url":"https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html","format":"idosell","productId":25914,"apiPurchaseUnit":"szt.","variant":["26A","5kg"],"imageUrl":"https://media.adeo.com/media/5600934/media.jpg"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Listwa przypodłogowa PCV Arbiton Indo biały połysk 01, 2500 mm": "5905167725719",
+  "Listwa przypodłogowa PCV Arbiton Indo 2500 mm": "5905167725719",
+  "Klej do wykładzin (winyl/LVT/PCV) Soudal 26A 5 kg": "5411183028395",
   "Płyta gipsowo-kartonowa impregnowana Norgips GKBI typ H2 1200×2600×12,5 mm": "5907651691616",
   "Klipsy montażowe do listew Cezar (25 szt.)": "5907684672217",
   "Kliny montażowe Floorpol 30 x 150 mm, 10 szt. (drewno)": "5907508719289",

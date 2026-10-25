@@ -1,4 +1,4 @@
-import { buildPackageVariants, groupProjectByProduct, isComparableOffer } from './estimate';
+import { buildPackageVariants, groupProjectByProduct, isComparableOffer, computePackagesNeeded } from './estimate';
 import { optimizePackages } from './package-optimizer';
 import type { PackagePlan, PackagePlanEntry, StageEstimate } from './types';
 import { DELIVERY_LIMITS } from './delivery-limits';
@@ -50,7 +50,7 @@ export interface DeliveryQuote {
   postalCode?: string;
   dispatchFrom?: string;
   /** Distinguish national tariffs from quotes requested for this postcode. */
-  basis: 'retailer_basket_national' | 'retailer_basket_postcode';
+  basis: 'retailer_basket_national' | 'retailer_basket_postcode' | 'retailer_tariff_national';
   evidenceSha256: string;
 }
 export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string };
@@ -127,7 +127,7 @@ export function compareDeliveredBaskets(
         // Current exact-EAN catalogue uses one pack size. Avoid a large DP grid
         // for large quantities when simple integer pack rounding is sufficient.
         if (variants.length === 1) {
-          const variant = variants[0], count = Math.ceil(group.totalQuantity / variant.packageSize);
+          const variant = variants[0], count = computePackagesNeeded(group.totalQuantity, variant.packageSize, variant.purchaseMultiple);
           const total = count * variant.unitPriceGrosze;
           plan = { requiredQuantity: group.totalQuantity, coveredQuantity: count * variant.packageSize,
             overage: count * variant.packageSize - group.totalQuantity, totalGrosze: total,

@@ -61,17 +61,16 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
   },
 
   // Listwa przypodłogowa PCV Arbiton Indo 2500 mm (materials.ts: mat-skirting-arbiton-2500).
-  // Nazwa materiału nie precyzuje koloru -> wiążemy kanoniczny wariant "biały mat"
-  // (najczęstszy standard) i zapisujemy go jawnie w polu variant, żeby nie udawać,
-  // że baza była kolorowo-konkretna.
-  // source: https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-bialy-mat/5905167781685_CAPL.prd (EAN 5905167781685)
-  // source: https://1000podlog.pl/wszystkie-listwy/9480-listwa-przypodlogowa-arbiton-indo-40-bialy-mat-5905167781685.html (EAN 5905167781685)
+  // Wariant biały połysk z referencyjnego URL materiału; biały mat ma inny EAN.
+  // source: https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk/5905167725719_CAPL.prd
+  // source: https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1
+  // source: https://arbiton.com/pl/listwy-przypodlogowe/listwy-przypodlogowe-biale/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1
   "mat-skirting-arbiton-2500": {
-    ean: "5905167781685",
-    variant: "biały mat",
+    ean: "5905167725719",
+    variant: "biały połysk 01",
     manufacturer: "Arbiton",
     productUrl:
-      "https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-bialy-mat/5905167781685_CAPL.prd",
+      "https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1",
   },
 
   // Silikon sanitarny Soudal 280 ml (materials.ts: mat-sanitary-silicone-soudal-280ml).

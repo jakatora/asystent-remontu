@@ -54,6 +54,8 @@ export interface MaterialPriceReference {
   readonly brand?: string;
   readonly packageSize: number;
   readonly packageUnit: string;
+  /** Purchase increment at this reference retailer, separate from physical size. */
+  readonly purchaseMultiple?: number;
   readonly pricePerPackage: number;
   readonly pricePerM2?: number;
   readonly pricePerL?: number;

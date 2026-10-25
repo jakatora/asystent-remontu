@@ -6,6 +6,7 @@ import { AnonymousShop } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
 import { readWooProduct } from './woocommerce-product';
+import { readTopbodenProduct } from './topboden-product';
 
 export interface RetailSource {
   id: string;
@@ -14,15 +15,18 @@ export interface RetailSource {
   category: string;
   brand: string;
   packageSize: number;
+  /** Reviewed order lot; the EAN and price still describe one physical pack. */
+  purchaseMultiple?: number;
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
   /** Reviewed Shoper product identifier, also for stores with custom URLs. */
   productId?: number;
+  productUuid?: string;
   variantId?: number;
   apiPurchaseUnit?: string;
   /** One purchase unit is a piece or a sealed package, never an inferred m². */
@@ -115,6 +119,11 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if (source.format==='topboden-api') {
+    const product=await readTopbodenProduct(source,fetchImpl);
+    const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:product.name,gtin13:source.ean,brand:source.brand,image:product.imageUrl,offers:{'@type':'Offer',price:(product.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url,priceValidUntil:product.validUntil}})}</script>`;
+    return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:product.evidenceSha256};
+  }
   if (source.format==='woocommerce') {
     const product=await readWooProduct(source,fetchImpl);
     // Manufacturer and package are reviewed against the exact primary barcode.

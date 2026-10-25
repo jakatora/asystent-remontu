@@ -18,7 +18,7 @@ interface MaterialPriceCardProps {
 }
 
 export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCardProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const ref = item.materialRef;
@@ -145,6 +145,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
           </View>
         )}
       </View>
+      {Boolean(ref.purchaseMultiple && ref.purchaseMultiple>1) && <Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{language==='pl' ? `Dane sklepu wskazują partie po ${ref.purchaseMultiple} opakowań (${ref.purchaseMultiple!*ref.packageSize} ${ref.packageUnit}). Koszt uwzględnia tę partię; mniejszy zakup potwierdź w sklepie.` : `Store data specifies lots of ${ref.purchaseMultiple} packs (${ref.purchaseMultiple!*ref.packageSize} ${ref.packageUnit}). The cost includes this lot; confirm smaller purchases with the store.`}</Txt>}
       {referenceStatus && (
         <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>
           {t(referenceStatus.state === 'no_online_offer' ? 'upgrade.product.noOnlineOffer' : 'upgrade.product.storeConfirmation')}

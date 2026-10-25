@@ -11,6 +11,7 @@ import { getLaborForJob, getMaterialsForJob } from './registry';
 import { getRegionOrBaseline } from '@/data/prices/regions';
 import { roundMoney } from '@/shared/lib/currency';
 import { resolveMaterialQuantity } from './quantity';
+import {computePackagesNeeded} from '../../../../lib/pricing-service/src/purchase-quantity';
 
 interface PricingInput {
   job: RenovationJob;
@@ -73,9 +74,7 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
     const effectivePrice = hasOverride ? overrideMap.get(overrideKey)! : ref.pricePerPackage;
 
     const quantity = requirement.quantity;
-    const packagesNeeded = ref.packageSize > 0
-      ? Math.ceil(quantity / ref.packageSize)
-      : Math.ceil(quantity);
+    const packagesNeeded = computePackagesNeeded(quantity,ref.packageSize,ref.purchaseMultiple);
     const totalCost = roundMoney(packagesNeeded * effectivePrice);
 
     return [{

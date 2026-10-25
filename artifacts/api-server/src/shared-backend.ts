@@ -1,7 +1,8 @@
 import { Router, type Request, type Response } from 'express';
 import { existsSync, readFileSync, writeFileSync, mkdirSync, renameSync } from 'node:fs';
 import { dirname } from 'node:path';
-import type { Database, Product, ProductOffer } from '@workspace/db/repositories';
+import type { Database, Product } from '@workspace/db/repositories';
+import type { PurchaseOffer as ProductOffer } from '../../../lib/pricing-service/src/types';
 import { normalizeProductName } from '@workspace/db/repositories';
 import { estimateProjectCostFromCalculation, type EstimateDeps } from '@workspace/pricing-service';
 import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
@@ -83,6 +84,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         id: source.id, productId, store: source.store,
         price: (observation.priceGrosze / 100).toFixed(2), promoPrice: null, regularPrice: null,
         unit: source.unit, packageSize: String(source.packageSize),
+        ...(source.purchaseMultiple ? {purchaseMultiple:source.purchaseMultiple} : {}),
         pricePerUnit: (observation.priceGrosze / 100 / source.packageSize).toFixed(4),
         productUrl: source.url, availability: observation.availability,
         fetchedAt: new Date(observation.observedAt), source: source.format && source.format !== 'jsonld' ? 'retailer-page-microdata' : 'retailer-page-jsonld',
@@ -121,7 +123,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
           const message = error instanceof Error ? error.message : 'retailer_read_failed';
           errors.set(source.id, message);
           // A confirmed withdrawal must also survive a restart, even with old bootstrap observations.
-          if (message === 'retailer_out_of_stock') withdrawnAt.set(source.id, new Date().toISOString());
+          if (message === 'retailer_out_of_stock'||message==='purchase_rules_changed') withdrawnAt.set(source.id, new Date().toISOString());
         }
       } }));
       if (options.cachePath) {

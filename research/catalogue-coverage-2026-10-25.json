@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T17:17:48.648Z",
+  "checkedAt": "2026-10-25T17:58:56.283Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 57,
-  "remaining": 46,
-  "offers": 82,
-  "stores": 23,
+  "verifiedProducts": 59,
+  "remaining": 44,
+  "offers": 85,
+  "stores": 26,
   "productsWithPhotos": 103,
-  "registeredOffers": 84,
+  "registeredOffers": 87,
   "disabledOffers": 2,
   "rows": [
     {
@@ -113,13 +113,30 @@
     },
     {
       "id": "mat-skirting-arbiton-2500",
-      "name": "Listwa przypodłogowa PCV Arbiton Indo 2500 mm",
-      "referenceUrl": "https://www.castorama.pl/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk/5905167725719_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk~5905167725719_02c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "name": "Listwa przypodłogowa PCV Arbiton Indo biały połysk 01, 2500 mm",
+      "referenceUrl": "https://topboden.pl/listwy-przypodlogowe/listwa-przypodlogowa-arbiton-indo-bialy-polysk-1",
+      "status": "verified_offer",
+      "ean": "5905167725719",
+      "sourceIds": [
+        "topboden-indo-gloss-25m"
+      ],
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167725719_P_02.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "topboden-indo-gloss-25m",
+          "checkedAt": "2026-10-25T17:58:54.402Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        },
+        {
+          "sourceId": "topboden-indo-gloss-25m",
+          "checkedAt": "2026-10-25T17:58:54.896Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-gres-guigliano-1m2",
@@ -1587,11 +1604,14 @@
     {
       "id": "mat-vinyl-adhesive-soudal-26a-5kg",
       "name": "Klej do wykładzin (winyl/LVT/PCV) Soudal 26A 5 kg",
-      "referenceUrl": "https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klej-do-wykladzin-soudal-26a-5-kg~5411183028395_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
+      "referenceUrl": "https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html",
+      "status": "verified_offer",
+      "ean": "5411183028395",
+      "sourceIds": [
+        "bricoman-soudal-26a-5kg",
+        "chemiadoparkietu-soudal-26a-5kg"
+      ],
+      "photoUrl": "https://media.adeo.com/media/5600934/media.jpg",
       "deliveryChecks": []
     },
     {

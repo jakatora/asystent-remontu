@@ -1,7 +1,7 @@
 // Testy seeda katalogu: czyste mapowanie materiał->produkt/oferta, idempotencja
-// oraz DOWÓD CELU — po zaseedowaniu katalogu wycena z kalkulatora rozpoznaje
-// materiał i liczy realny koszt (koniec z "nierozpoznane"), na danych z realnego
-// materials.ts (a nie na jednym EAN z fixture).
+// oraz rozdzielenie rozpoznania materiału od dostępności rzeczywistej oferty.
+// Cena referencyjna nie może wygrać porównania zakupowego. Dane materials.ts
+// są ładowane w całości, obok kontrolowanych przypadków pojedynczych kodów.
 import assert from "node:assert/strict";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -197,7 +197,7 @@ test("seeduje CAŁY realny materials.ts (każdy materiał -> produkt + oferta)",
   assert.equal(cat.offers.length, mod.MATERIAL_PRICES.length);
 });
 
-test("DOWÓD CELU: po seedzie wycena rozpoznaje materiał (koniec 'nierozpoznane')", async () => {
+test("seed rozpoznaje produkt, ale cena referencyjna nie jest ofertą zakupu", async () => {
   const cat = makeMemoryCatalog();
   await seedCatalog(null as never, [paint], cat.deps);
 
@@ -242,12 +242,12 @@ test("DOWÓD CELU: po seedzie wycena rozpoznaje materiał (koniec 'nierozpoznane
     estimateDeps,
   );
 
-  assert.equal(stage.unresolved.length, 0, "materiał NIE może być nierozpoznany");
+  assert.equal(stage.unresolved.length, 1, "cena referencyjna nie potwierdza oferty zakupu");
   assert.equal(stage.lines.length, 1);
   const line = stage.lines[0]!;
-  assert.equal(line.resolved, true);
-  // 3 opakowania * 54.98 zł = 164.94 zł = 16494 groszy.
-  assert.equal(stage.stageTotalGrosze, 16494);
+  assert.equal(line.resolved, false);
+  if (!line.resolved) assert.equal(line.reason, "no-offer", "produkt został rozpoznany; brakuje zweryfikowanej oferty");
+  assert.equal(stage.stageTotalGrosze, 0);
 });
 
 // --- nakładka EAN (MATERIAL_EAN_OVERLAY) ------------------------------------
@@ -288,8 +288,8 @@ test("materialToProductInput: wariant z nakładki trafia do pola variant", () =>
     currency: "PLN",
   };
   const input = materialToProductInput(skirting);
-  assert.equal(input.ean, "5905167781685");
-  assert.equal(input.variant, "biały mat");
+  assert.equal(input.ean, "5905167725719");
+  assert.equal(input.variant, "biały połysk 01");
 });
 
 test("materialToProductInput: materiał BEZ nakładki nadal ma ean/gtin = null", () => {

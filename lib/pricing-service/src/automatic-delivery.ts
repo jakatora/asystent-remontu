@@ -1,4 +1,4 @@
-import { groupProjectByProduct, isComparableOffer } from './estimate';
+import { groupProjectByProduct, isComparableOffer, computePackagesNeeded } from './estimate';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { StageEstimate, PackagePlanEntry } from './types';
 import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy } from './delivery';
@@ -46,11 +46,21 @@ export async function compareAutomaticDelivery(
     const variants: PackagePlanEntry[][] = [];
     const visit = (index: number, remaining: number, packs: PackagePlanEntry[]) => {
       if (variants.length > MAX_CANDIDATES) return;
-      if (index === offers.length) { if (remaining === 0) variants.push(packs); return; }
+      if (index === offers.length) {
+        if (remaining===0) {
+          const coverage=packs.reduce((sum,pack)=>sum+pack.count,0);
+          // Forced lot overage is allowed. An extra removable lot is a separate
+          // discount-shopping strategy, outside the advertised comparison.
+          if (!packs.some(pack=>coverage-(pack.purchaseMultiple??1)>=count)) variants.push(packs);
+        }
+        return;
+      }
       const offer = offers[index], price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
       if (price === null || !Number.isSafeInteger(price) || price <= 0) return;
-      for (let n = index === offers.length - 1 ? remaining : 0; n <= remaining; n++) {
-        visit(index + 1, remaining - n, n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price }] : packs);
+      const multiple=offer.purchaseMultiple??1,max=Math.ceil(remaining/multiple)*multiple;
+      if (max>DELIVERY_LIMITS.packagesPerProduct) return;
+      for (let n = index === offers.length - 1 ? max : 0; n <= max; n+=multiple) {
+        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}) }] : packs);
       }
     };
     visit(0, count, []);
@@ -93,11 +103,11 @@ async function compareSelectedBaskets(
     const offers = group.offers.filter(offer => isComparableOffer(offer, now.getTime()));
     const sizes = offers.map(offer => Number(offer.packageSize ?? group.product.packageSize));
     if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return null;
-    const count = Math.ceil(group.totalQuantity / sizes[0]);
-    if (!Number.isSafeInteger(count) || count < 1 || count > DELIVERY_LIMITS.packagesPerProduct) return null;
     return offers.flatMap(offer => {
+      const count=computePackagesNeeded(group.totalQuantity,sizes[0],offer.purchaseMultiple);
+      if (!Number.isSafeInteger(count)||count<1||count>DELIVERY_LIMITS.packagesPerProduct) return [];
       const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
-      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price }];
+      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}) }];
     });
   });
   if (options.some(option => !option?.length)) { result.status = 'limit_exceeded'; return result; }
@@ -156,9 +166,17 @@ async function compareSelectedBaskets(
     const changed = [...seed]; changed[index] = alternative; addPlan(changed);
     if (alternative.store !== seed[index].store && seed[index].count > 1) {
       const count = seed[index].count;
-      for (const firstCount of new Set([1, Math.floor(count / 2), count - 1])) {
+      const multiple=seed[index].purchaseMultiple??1;
+      for (const firstCount of new Set([multiple, Math.floor(count / 2 / multiple)*multiple, count - multiple])) {
+        if (firstCount<1||firstCount%multiple) continue;
+        const remaining=groups[index].totalQuantity-firstCount*seed[index].packageSize;
+        if (!(remaining>0)) continue;
+        const secondCount=computePackagesNeeded(remaining,alternative.packageSize,alternative.purchaseMultiple);
+        if (secondCount>DELIVERY_LIMITS.packagesPerProduct) continue;
+        const needed=Math.ceil(groups[index].totalQuantity/seed[index].packageSize),coverage=firstCount+secondCount;
+        if (coverage-multiple>=needed||coverage-(alternative.purchaseMultiple??1)>=needed) continue;
         const first = { ...seed[index], count: firstCount, lineCostGrosze: firstCount * seed[index].unitPriceGrosze };
-        const second = { ...alternative, count: count-firstCount, lineCostGrosze: (count-firstCount)*alternative.unitPriceGrosze };
+        const second = { ...alternative, count: secondCount, lineCostGrosze: secondCount*alternative.unitPriceGrosze };
         addPlan(seed, { index, packs: [first,second] });
       }
     }
