@@ -685,6 +685,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html (EAN + cena 193,99 zł)
   // source: https://www.123lazienka.pl/produkt/23292-ferro-one-bateria-natryskowa-bez-natrysku-chrom-bfo7-5902194954525.html (EAN 5902194954525, model BFO7)
   // source: https://onninen.pl/produkt/FERRO-FERRO-ONE-bateria-natryskowa-bez-natrysku-chrom-BFO7,432032 (EAN 5902194954525)
+  // source: https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291 (cena brutto, odczyt 2026-10-25T18:43:42.347Z)
   {
     id: 'mat-shower-mixer-ferro-one',
     materialType: 'faucet',
@@ -692,12 +693,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Ferro',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 193.99,
+    pricePerPackage: 194.80,
     category: 'better',
-    storeName: 'Mrówka',
+    storeName: 'Northbud',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html',
-    lastUpdated: '2026-08-23',
+      'https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -942,6 +943,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Gniazdo pojedyncze z uziemieniem i przesłonami styków Kontakt-Simon Basic BMGZ1Z.01/11 białe — EAN 5902787568238. Cena 17,56 zł/szt (Castorama).
   // source: https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd (EAN + cena 17,56 zł)
   // source: https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przeslonami-do-ramki-biale-bmgz1z0111-5902787568238.html (EAN 5902787568238, model BMGZ1Z.01/11)
+  // source: https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111-5902787568238.html (cena brutto, odczyt 2026-10-25T18:41:40.632Z)
   {
     id: 'mat-socket-simon-basic-bmgz1z',
     materialType: 'socket',
@@ -949,12 +951,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Kontakt-Simon',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 17.56,
+    pricePerPackage: 16.56,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Eelektryka',
     sourceUrl:
-      'https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111-5902787568238.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 

@@ -7,6 +7,7 @@ import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
 import { readWooProduct } from './woocommerce-product';
 import { readTopbodenProduct } from './topboden-product';
+import { readPrestashopProduct } from './prestashop-product';
 
 export interface RetailSource {
   id: string;
@@ -20,12 +21,13 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
   /** Reviewed Shoper product identifier, also for stores with custom URLs. */
   productId?: number;
+  retailerSku?: string;
   productUuid?: string;
   variantId?: number;
   apiPurchaseUnit?: string;
@@ -62,7 +64,8 @@ function objects(value: unknown): Record<string, any>[] {
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
   const products: Record<string, any>[] = [];
-  if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
+  if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
+  else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }

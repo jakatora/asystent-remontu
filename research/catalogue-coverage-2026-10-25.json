@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T17:58:56.283Z",
+  "checkedAt": "2026-10-25T18:52:04.911Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 59,
-  "remaining": 44,
-  "offers": 85,
-  "stores": 26,
+  "verifiedProducts": 61,
+  "remaining": 42,
+  "offers": 87,
+  "stores": 28,
   "productsWithPhotos": 103,
-  "registeredOffers": 87,
+  "registeredOffers": 89,
   "disabledOffers": 2,
   "rows": [
     {
@@ -15,7 +15,7 @@
       "name": "Farba biała mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "3663602567240",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-biala-mat-10-l~3663602567240_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -25,7 +25,7 @@
       "name": "Farba GoodHome Ściany i Sufit biały mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5059340271620",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-goodhome-sciany-i-sufit-bialy-mat-10-l~5059340271620_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -74,7 +74,7 @@
       "name": "Gładź pod wałek GW180 gotowa polimerowa 20 kg",
       "referenceUrl": "https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907418038791",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gladz-pod-walek-kreisel-gw180-gotowa-polimerowa-20-kg~5907418038791_21c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -96,7 +96,7 @@
       "name": "Panele laminowane Oakland wodoodporne AC4 2.51 m²",
       "referenceUrl": "https://www.castorama.pl/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2/5063022887917_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5063022887917",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2~5063022505828_37c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -106,7 +106,7 @@
       "name": "Podkład podłogowy Volden XPS Smart 3 mm 10 m²",
       "referenceUrl": "https://www.castorama.pl/podklad-podlogowy-pod-panele-laminowane-volden-xps-smart-3-mm-10-m2/5063022038289_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5063022038289",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podklad-podlogowy-pod-panele-laminowane-volden-xps-smart-3-mm-10-m2~5063022038289_01c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -143,7 +143,7 @@
       "name": "Gres Guigliano GoodHome 1 m²",
       "referenceUrl": "https://www.castorama.pl/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2/3663602870821_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "3663602870821",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2~3663602870821_02c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -153,7 +153,7 @@
       "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg",
       "referenceUrl": "https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5905400658866",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg~5905400658866_22c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -512,7 +512,7 @@
       "name": "Profil sufitowy Norgips CD60 0,6 mm 3 m",
       "referenceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907651698899",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-norgips-cd60-0-6-mm-3-mb~5907651698899_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -522,7 +522,7 @@
       "name": "Profil przyścienny Budmat UD27 0,5 mm 3 m",
       "referenceUrl": "https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907738940163",
       "sourceIds": [],
       "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/d9/hue3u0i8mdfv/Photos/i2a1l0s0lkjpcc/ShowWebp_profil-sufitowy-ud27---050-mm---3-m-budmat-plock_1.webp",
       "deliveryChecks": []
@@ -607,11 +607,13 @@
     {
       "id": "mat-shower-mixer-ferro-one",
       "name": "Bateria natryskowa ścienna Ferro One (chrom, BFO7)",
-      "referenceUrl": "https://mrowka.com.pl/produkt/bateria-natryskowa-scienna-ferro-one-ferro-5902194954525.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/3d/efnng0jbqsar/Photos/nmhp69f0mvot4v/ShowWebp_bateria-natryskowa-scienna-ferro-one-ferro_1.webp",
+      "referenceUrl": "https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291",
+      "status": "verified_offer",
+      "ean": "5902194954525",
+      "sourceIds": [
+        "northbud-ferro-one-bfo7"
+      ],
+      "photoUrl": "https://northbud.pl/images/full/1e9b01b770f801be0857841c1ae715fa.jpg",
       "deliveryChecks": []
     },
     {
@@ -664,7 +666,7 @@
       "name": "Wężyk przyłączeniowy w oplocie Invena 3/8\"×M10 30 cm",
       "referenceUrl": "https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907798716258",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-~5907798716258_01c_MP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -686,7 +688,7 @@
       "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą",
       "referenceUrl": "https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5902115720833",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca~5902115720833_01c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -696,7 +698,7 @@
       "name": "Umywalka ceramiczna Cersanit Facile 50 cm (z otworem, przelew)",
       "referenceUrl": "https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907720650025",
       "sourceIds": [],
       "photoUrl": "https://pliki.grupapsb.com.pl/files/InfoverProduct/h1/ej7ro0igtlm8/Photos/lm63o5p0lldq4u/Body_umywalka-facile-50-cm-cersanit_1.jpg",
       "deliveryChecks": []
@@ -706,7 +708,7 @@
       "name": "Zawór kątowy z filtrem Ferro 1/2\" × 3/8\" (chrom)",
       "referenceUrl": "https://www.castorama.pl/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-/5901095614033_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5901095614033",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-~5901095614033_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -728,7 +730,7 @@
       "name": "Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5904617573771",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb~5904617573771_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -738,7 +740,7 @@
       "name": "Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5904617573764",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb~5904617573764_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -746,12 +748,29 @@
     {
       "id": "mat-socket-simon-basic-bmgz1z",
       "name": "Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic (białe, BMGZ1Z.01/11)",
-      "referenceUrl": "https://www.castorama.pl/departments/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-/5902787568238_CAPL.prd",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-~5902787568238_01c_MP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "referenceUrl": "https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111-5902787568238.html",
+      "status": "verified_offer",
+      "ean": "5902787568238",
+      "sourceIds": [
+        "eelektryka-simon-basic-socket-white"
+      ],
+      "photoUrl": "https://www.eelektryka.com/11095-large_default/simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "eelektryka-simon-basic-socket-white",
+          "checkedAt": "2026-10-25T18:42:25.125Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        },
+        {
+          "sourceId": "eelektryka-simon-basic-socket-white",
+          "checkedAt": "2026-10-25T18:42:27.193Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-switch-simon-basic-bmw1",
@@ -770,7 +789,7 @@
       "name": "Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)",
       "referenceUrl": "https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5901752637337",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-~5901752637337_01c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -809,7 +828,7 @@
       "name": "Panele laminowane AC4 8 mm Kronospan Toledo (2,22 m²/paczka)",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2/5907555422774_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907555422774",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2~5907555422774_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -819,7 +838,7 @@
       "name": "Panele laminowane wodoodporne AC5 8 mm Classen Dąb Niasa (1,973 m²/paczka)",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2/4003992571974_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "4003992571974",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2~4003992571974_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -845,7 +864,7 @@
       "name": "Folia paroizolacyjna PE Diall 0,15 mm (20 m²)",
       "referenceUrl": "https://www.castorama.pl/folia-paroizolacyjna-diall-20-m2/5059340141428_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5059340141428",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/folia-paroizolacyjna-diall-20-m2~5059340141428_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -855,7 +874,7 @@
       "name": "Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)",
       "referenceUrl": "https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907555424969",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/listwa-przypodlogowa-mdf-krono-original-biala-lk100f~5907555424969_01i_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -885,7 +904,7 @@
       "name": "Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm, gatunek 2",
       "referenceUrl": "https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5904584161544",
       "sourceIds": [],
       "photoUrl": "https://s3-eu-west-1.amazonaws.com/taniaplytka.production/uploads/product/image/39706/39706.jpg",
       "deliveryChecks": []
@@ -895,7 +914,7 @@
       "name": "Płytka ścienna Paradyż Nati Bianco struktura 25×40 cm",
       "referenceUrl": "https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5902610507960",
       "sourceIds": [],
       "photoUrl": "https://elazienki.pl/wp-content/uploads/2025/02/SS-250X400-1-NATI.BI_.jpg",
       "deliveryChecks": []
@@ -905,7 +924,7 @@
       "name": "Gres szkliwiony rektyfikowany Paradyż U117 (Ennis) Grey mat 59,8×59,8 cm",
       "referenceUrl": "https://www.blu.com.pl/plytki-podlogowe/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5904584158261",
       "sourceIds": [],
       "photoUrl": "https://cdn.blu.com.pl/large_default/5904584158261_366720_Ceramika_Paradyz_U117_Grey_Gres_Szkl._Rekt._Mat_PD-PG-U117GREYMAT6060_Zdjecie_produktu.jpg?ver=1742976674_1779104212_1742976689_1747816989_1747816981_1742976708_1743066628__1767793025",
       "deliveryChecks": []
@@ -1193,7 +1212,7 @@
       "name": "Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb",
       "referenceUrl": "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5906725207227",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2~5906725207227_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1203,7 +1222,7 @@
       "name": "Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml",
       "referenceUrl": "https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5411183048522",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml~5411183048522_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1239,7 +1258,7 @@
       "name": "Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm",
       "referenceUrl": "https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5905458019787",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kotwa-montazowa-do-oscieznic-10-x-182-mm~5905458019787_03c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1261,7 +1280,7 @@
       "name": "Parapet wewnętrzny PCV Form 30 × 216 cm biały",
       "referenceUrl": "https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5906725219640",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy~5906725219640_01c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1271,7 +1290,7 @@
       "name": "Tynk gipsowy maszynowy Knauf MP 75 25 kg",
       "referenceUrl": "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5902367206352",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tynk-maszynowy-knauf-mp-75-25-kg~5902367206352_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1352,7 +1371,7 @@
       "name": "Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)",
       "referenceUrl": "https://www.castorama.pl/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-/5902578301976_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5902578301976",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-~5902578301976_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1362,7 +1381,7 @@
       "name": "Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)",
       "referenceUrl": "https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5902578307268",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-~5902578307268_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1372,7 +1391,7 @@
       "name": "Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg",
       "referenceUrl": "https://www.grupapsb.com.pl/produkt/zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas-5905400160253.html",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5905400160253",
       "sourceIds": [],
       "photoUrl": "https://pliki.grupapsb.com.pl/files/InfoverProduct/dd/r42uc0j0ledk/Photos/bhp9rsh0m4juu0/Body_zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas_1.jpg",
       "deliveryChecks": []
@@ -1453,7 +1472,7 @@
       "name": "Skrzydło drzwiowe pełne Archi 80 białe lakierowane (płyta/plaster miodu)",
       "referenceUrl": "https://www.castorama.pl/drzwi-pelne-archi-80-lewe-biale-lakierowane/5903917782364_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5903917782364",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-archi-80-lewe-biale-lakierowane~5903917782364_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1463,7 +1482,7 @@
       "name": "Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)",
       "referenceUrl": "https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5063022524034",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale~5063022524034_02c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1473,7 +1492,7 @@
       "name": "Skrzydło drzwiowe pokojowe Erkado Credis 80 białe przylgowe przeszklone",
       "referenceUrl": "https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5900378219590",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pokojowe-credis-80-lewe-biale~5900378219590_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1483,7 +1502,7 @@
       "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm (drzwi wewnętrzne)",
       "referenceUrl": "https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5902659279118",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma~5902659279118_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1493,7 +1512,7 @@
       "name": "Klamka drzwiowa Schaffner Lucy na rozecie (komplet dwustronny)",
       "referenceUrl": "https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5907467760698",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota~5907467760698_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1503,7 +1522,7 @@
       "name": "Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro",
       "referenceUrl": "https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5906711270471",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/zawias-regulowany-3d-14-mm-ocynkowany~5906711270471_01c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1566,7 +1585,7 @@
       "name": "Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5059340969756",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1576,7 +1595,7 @@
       "name": "Panele winylowe GoodHome SPC Marvo click 2,235 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5063022676757",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2~5063022676757_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1586,7 +1605,7 @@
       "name": "Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5059340802435",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_02c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
@@ -1596,7 +1615,7 @@
       "name": "Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²",
       "referenceUrl": "https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd",
       "status": "needs_verified_offer",
-      "ean": null,
+      "ean": "5061092900925",
       "sourceIds": [],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-~5061092900925_01c_MP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []

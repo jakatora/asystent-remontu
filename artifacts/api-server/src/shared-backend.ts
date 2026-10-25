@@ -11,6 +11,7 @@ import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
 import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
 import { compareAutomaticDelivery } from '../../../lib/pricing-service/src/automatic-delivery';
+import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
 import { createRetailerQuoter, knownUnavailableRetailers, retailerDeliveryCapabilities } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
@@ -162,7 +163,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   async function handleEstimate(req: Request, res: Response) {
     const stageOnly = req.path.endsWith('/stage');
     const parsed = projectRequestSchema.safeParse(stageOnly ? { jobs: [req.body?.job], options: req.body?.options } : req.body);
-    if (!parsed.success || parsed.data.jobs.length > 20 || parsed.data.jobs.some(job => job.materials.length > 100 || job.materials.some(line => line.quantity > 100_000))) {
+    if (!parsed.success || parsed.data.jobs.length > 20 || parsed.data.jobs.some(job => job.materials.length > DELIVERY_LIMITS.products || job.materials.some(line => line.quantity > 100_000))) {
       res.status(400).json({ error: 'invalid_request' }); return;
     }
     for (const job of parsed.data.jobs) for (const line of job.materials) {

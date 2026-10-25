@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import express from 'express';
 import { createRemontService } from '../src/shared-backend';
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
+import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
 import { mkdtempSync, writeFileSync, unlinkSync, rmdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -13,6 +14,21 @@ function observations(observedAt = new Date().toISOString()) {
     observedAt, sourceUrl: source.url, evidenceSha256: 'a'.repeat(64),
   }));
 }
+
+test('one estimate accepts the full 103-item catalogue and the shared 200-item boundary without truncation',async()=>{
+ const source=RETAIL_SOURCES[0],service=createRemontService({initialObservations:observations(),background:false});
+ const app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
+ try{
+  const root='http://127.0.0.1:'+(server.address() as {port:number}).port;
+  const post=(count:number)=>fetch(root+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'complete-catalogue',materials:Array.from({length:count},(_,index)=>({material:{id:'item-'+index,name:source.name,ean:source.ean,category:source.category,unit:source.unit},quantity:source.packageSize}))}],options:{delivery:{mode:'pickup'}}})});
+  for(const count of [103,DELIVERY_LIMITS.products]){
+   const response=await post(count);assert.equal(response.status,200);const result=await response.json();
+   assert.equal(result.stages[0].lines.length,count);assert.ok(result.stages[0].lines.every((line:any)=>line.resolved));
+   assert.equal(result.consolidated.lines.length,1);assert.equal(result.consolidated.lines[0].totalQuantity,count*source.packageSize);
+  }
+  assert.equal((await post(DELIVERY_LIMITS.products+1)).status,400);
+ }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));service.close();}
+});
 
 test('disabled merchant evidence cannot reactivate from bootstrap or a persisted cache',t=>{
   const dir=mkdtempSync(join(tmpdir(),'remont-disabled-')),cachePath=join(dir,'cache.json');

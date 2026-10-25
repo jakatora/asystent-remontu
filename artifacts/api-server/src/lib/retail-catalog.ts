@@ -868,10 +868,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"category":"adhesive","packageSize":5,"unit":"kg","id":"bricoman-soudal-26a-5kg","ean":"5411183028395","brand":"Soudal","store":"Bricoman","format":"jsonld","variant":["26A","5kg"],"name":"Klej do wykładzin Soudal 26A 5kg","url":"https://www.bricoman.pl/produkty/klej-do-wykladzin-soudal-26a-5kg-20484681.html"},
   // source: https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html
   {"category":"adhesive","packageSize":5,"unit":"kg","id":"chemiadoparkietu-soudal-26a-5kg","ean":"5411183028395","name":"Soudal 26A klej do wykładzin PCV winylu linoleum dywanowych 5 kg","brand":"Soudal","store":"ChemiaDoParkietu25","url":"https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html","format":"idosell","productId":25914,"apiPurchaseUnit":"szt.","variant":["26A","5kg"],"imageUrl":"https://media.adeo.com/media/5600934/media.jpg"},
+  // source: https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111-5902787568238.html
+  {"id":"eelektryka-simon-basic-socket-white","ean":"5902787568238","name":"SIMON BASIC Gniazdo pojedyncze z/u i przesłonami do ramki białe BMGZ1z.01/11","category":"socket","brand":"Simon","packageSize":1,"unit":"szt","store":"Eelektryka","format":"prestashop","productId":3975,"retailerSku":"SI427","variant":["BMGZ1z.01/11","białe"],"url":"https://www.eelektryka.com/simon-basic/3975-simon-basic-gniazdo-pojedyncze-zu-i-przes%C5%82onami-do-ramki-bia%C5%82e-bmgz1z0111-5902787568238.html"},
+  // source: https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291
+  {"id":"northbud-ferro-one-bfo7","ean":"5902194954525","name":"FERRO Bateria prysznicowa Ferro One bez prysznica chrom BFO7","category":"faucet","brand":"Ferro","packageSize":1,"unit":"szt","store":"Northbud","format":"jsonld","variant":["BFO7","chrom"],"url":"https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Bateria natryskowa ścienna Ferro One (chrom, BFO7)": "5902194954525",
+  "Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic (białe, BMGZ1Z.01/11)": "5902787568238",
   "Listwa przypodłogowa PCV Arbiton Indo biały połysk 01, 2500 mm": "5905167725719",
   "Listwa przypodłogowa PCV Arbiton Indo 2500 mm": "5905167725719",
   "Klej do wykładzin (winyl/LVT/PCV) Soudal 26A 5 kg": "5411183028395",

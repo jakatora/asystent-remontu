@@ -7,7 +7,7 @@ import {RETAIL_SOURCES} from '../src/lib/retail-catalog';
 import {readRetailSource} from '../src/lib/retail-pages';
 import {quoteTopboden} from '../src/lib/topboden-delivery';
 import {createRemontService} from '../src/shared-backend';
-import type {DeliveredStoreBasket} from '../../../../lib/pricing-service/src/delivery';
+import type {DeliveredStoreBasket} from '../../../lib/pricing-service/src/delivery';
 
 const source=RETAIL_SOURCES.find(row=>row.id==='topboden-indo-gloss-25m')!;
 const product=()=>({uuid:source.productUuid,ean:source.ean,name:source.name,brand:{name:'Arbiton'},data:{logisticData:{ean:source.ean}},available:true,baseUnitStock:1000,isSlab:false,isTile:false,promotionCode:null,category:{uuid:'skirting',parentUuid:'trim'},units:{basicUnit:'mb',priceListUnit:'mb',orderUnit:'szt.',numerator:5,denominator:2,multiple:10,minOrderQuantity:10},price:{isDiscount:false,grossPrice:1279,packageGrossPrice:3198,packageNetPrice:2600},images:[{category:'Packshot',resized:{gallery:{webp:'/photos/'+source.ean+'_P_02.webp'}}}]});
