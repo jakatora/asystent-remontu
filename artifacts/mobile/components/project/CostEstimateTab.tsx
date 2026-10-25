@@ -41,11 +41,13 @@ import {
   type SerializedHistoryPoint,
   type PriceHistoryResponse,
   type UnresolvedReason,
+  type PricingStageInput,
 } from '@/features/pricing';
 
 interface CostEstimateTabProps {
   projectId?: string;
-  calc: CalculationResult | undefined;
+  calc?: CalculationResult;
+  stages?: readonly PricingStageInput[];
   qualityTier?: QualityTier;
   region?: string;
 }
@@ -56,7 +58,7 @@ type LoadState =
   | { status: 'error'; message: string }
   | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
-export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
+export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
@@ -68,7 +70,8 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
-  const scope = JSON.stringify([projectId, calc?.jobId, calc?.measurements, qualityTier, region]);
+  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region]);
+  const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
   const priceStorageKey = `remont.price-seen.v1:${projectId ?? 'preview'}`;
@@ -89,13 +92,12 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
-    if (!calc || loadedScope !== scope) return;
+    if (!hasInput || loadedScope !== scope) return;
     const version = ++requestVersion.current;
     setState({ status: 'loading' });
     try {
-      const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier);
-      // Projekt = ten jeden etap: odpowiedź daje i rozbicie etapu, i sumę remontu.
-      const data = await estimateProject([stage], { region, delivery, refreshPrices });
+      const input = stages ?? [toPricingStageInput(calc!, qualityTier === 'custom' ? 'standard' : qualityTier)];
+      const data = await estimateProject(input, { region, delivery, refreshPrices });
       if (version === requestVersion.current) {
         const current=collectSeenPrices(data), previous=priceSnapshot.current;
         const priceChanges=comparePriceSnapshots(previous,current);
@@ -113,14 +115,14 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [calc, qualityTier, region, t, delivery, loadedScope, scope, priceStorageKey]);
+  }, [calc, stages, hasInput, qualityTier, region, t, delivery, loadedScope, scope, priceStorageKey]);
 
   useEffect(() => {
-    if (calc && isPricingApiConfigured) void fetchEstimate();
+    if (hasInput && isPricingApiConfigured) void fetchEstimate();
     return () => { requestVersion.current++; };
-  }, [calc, fetchEstimate]);
+  }, [hasInput, fetchEstimate]);
 
-  if (!calc) {
+  if (!hasInput) {
     return <InfoState icon="dollar-sign" text={t('cmp.CostEstimate.noCalc')} />;
   }
 
@@ -188,8 +190,7 @@ function EstimateResult({
   onDeliveryChange: (settings: DeliverySettings) => void;
 }) {
   const { t } = useLanguage();
-  const stage: SerializedStage | undefined = data.stages[0];
-  const lines = stage?.lines ?? [];
+  const lines = data.stages.flatMap(stage => stage.lines);
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
   const consolidated = data.consolidated;

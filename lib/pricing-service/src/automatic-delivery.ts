@@ -10,13 +10,15 @@ const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => l
  * same EAN between shops. Quote every distinct whole-store order once. Variable
  * shipping/weight/free thresholds cannot use the fixed-fee subset algorithm.
  * Additional, unneeded packs and mixed pack sizes are deliberately outside this
- * bounded comparison. Never label a truncated search as cheapest. */
+ * bounded comparison. Large baskets use a separately labelled selection of
+ * complete orders, never presented as an exhaustive search. */
 export async function compareAutomaticDelivery(
   stages: readonly StageEstimate[], settings: DeliverySettings, quoteBasket: BasketQuoter,
   policies: readonly StoreDeliveryPolicy[] = [], now = new Date(),
+  knownUnavailableStores: Readonly<Record<string,string>> = {},
 ): Promise<DeliveryComparison> {
   if (settings.mode === 'pickup' || settings.method === 'manual') return compareDeliveredBaskets(stages, settings, policies, now);
-  const groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
+  let groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
   const stores = [...new Set(groups.flatMap(g => g.offers.filter(o => isComparableOffer(o, now.getTime())).map(o => o.store)))].sort();
   const result: DeliveryComparison = { method: 'automatic', comparisonScope: 'quoted_baskets', mode: 'shipping', postalCode: settings.postalCode ?? null,
     status: 'empty', productCount: groups.length, missingProductCount: stages.flatMap(s => s.lines).filter(l => !l.resolved && l.quantity > 0).length,
@@ -24,6 +26,9 @@ export async function compareAutomaticDelivery(
   if (result.missingProductCount) { result.status = 'partial'; return result; }
   if (!groups.length) return result;
   if (!settings.postalCode || !/^\d{2}-\d{3}$/.test(settings.postalCode)) { result.status = 'needs_postal_code'; return result; }
+  result.unavailableStores = stores.filter(store => knownUnavailableStores[store]).map(store => ({ store, reason: knownUnavailableStores[store] }));
+  groups = groups.map(group => ({ ...group, offers: group.offers.filter(offer => !knownUnavailableStores[offer.store]) }));
+  if (groups.some(group => !group.offers.length)) { result.status = 'needs_delivery_costs'; return result; }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
   if (groups.length > 20 || stores.length > 10) return tooLarge();
   const choices: PackagePlanEntry[][][] = [];
@@ -46,7 +51,8 @@ export async function compareAutomaticDelivery(
     };
     visit(0, count, []);
     candidateCount *= variants.length;
-    if (!variants.length || candidateCount > MAX_CANDIDATES) return tooLarge();
+    if (!variants.length) return tooLarge();
+    if (candidateCount > MAX_CANDIDATES) return compareSelectedBaskets(groups, stores, result, settings, quoteBasket, now);
     choices.push(variants);
   }
   const candidates: DeliveredStoreBasket[][] = [], unique = new Map<string, DeliveredStoreBasket>();
@@ -67,8 +73,97 @@ export async function compareAutomaticDelivery(
     candidates.push(actual);
   }
   enumerate(0, []);
-  if (unique.size > MAX_STORE_BASKETS) return tooLarge();
-  const failures = new Map<string, string>();
+  if (unique.size > MAX_STORE_BASKETS) return compareSelectedBaskets(groups, stores, result, settings, quoteBasket, now);
+  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now);
+}
+
+/** For large renovations compare a bounded selection of complete orders.
+ * Store subsets seed allocations, expanded with alternate sellers and selected
+ * pack splits. Complete single-store alternatives have priority. This is not
+ * exhaustive optimization and MUST be labelled as a limited comparison. */
+async function compareSelectedBaskets(
+  groups: ReturnType<typeof groupProjectByProduct>, stores: string[], result: DeliveryComparison,
+  settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,
+): Promise<DeliveryComparison> {
+  const options = groups.map(group => {
+    const offers = group.offers.filter(offer => isComparableOffer(offer, now.getTime()));
+    const sizes = offers.map(offer => Number(offer.packageSize ?? group.product.packageSize));
+    if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return null;
+    const count = Math.ceil(group.totalQuantity / sizes[0]);
+    if (!Number.isSafeInteger(count) || count < 1 || count > 60) return null;
+    return offers.flatMap(offer => {
+      const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
+      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price }];
+    });
+  });
+  if (options.some(option => !option?.length)) { result.status = 'limit_exceeded'; return result; }
+  const proposed = new Map<string, DeliveredStoreBasket[]>();
+  const wholePlans = new Set<string>();
+  const basePlans = new Map<string, PackagePlanEntry[]>();
+  function addPlan(selected: PackagePlanEntry[], split?: { index: number; packs: PackagePlanEntry[] }) {
+    const orders = new Map<string, DeliveredStoreBasket>();
+    for (let i = 0; i < groups.length; i++) {
+      const group = groups[i];
+      for (const pack of split?.index === i ? split.packs : [selected[i]]) {
+      let order = orders.get(pack.store);
+      if (!order) { order = { store: pack.store, materialsGrosze: 0, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [] }; orders.set(pack.store, order); }
+      order.materialsGrosze += pack.lineCostGrosze;
+      order.lines.push({ product: { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [pack] });
+      }
+    }
+    const actual = [...orders.values()].sort((a,b) => a.store.localeCompare(b.store));
+    const key = actual.map(signature).join(';');
+    proposed.set(key, actual);
+    if (!split) wholePlans.add(key);
+  }
+  for (let subset = 1; subset < (1 << stores.length); subset++) {
+    const allowed = new Set(stores.filter((_store, index) => subset & (1 << index)));
+    const selected = options.map(option => option!.filter(pack => allowed.has(pack.store)).sort((a,b) => a.lineCostGrosze - b.lineCostGrosze || a.offerId.localeCompare(b.offerId))[0]);
+    if (selected.some(pack => !pack)) continue;
+    basePlans.set(selected.map(pack => pack.offerId).join('|'), selected);
+    addPlan(selected);
+  }
+  // A mandatory store may have the cheapest unit price but insufficient stock
+  // for a different product. Include alternative sellers even if they never
+  // win a greedy store-subset allocation. All plans still cover the whole need.
+  const seeds = [...basePlans.values()].sort((a,b) => a.reduce((sum,p) => sum+p.lineCostGrosze,0)-b.reduce((sum,p) => sum+p.lineCostGrosze,0)).slice(0,24);
+  for (const seed of seeds) for (let index = 0; index < options.length; index++) for (const alternative of options[index]!) {
+    if (alternative.offerId === seed[index].offerId) continue;
+    const changed = [...seed]; changed[index] = alternative; addPlan(changed);
+    if (alternative.store !== seed[index].store && seed[index].count > 1) {
+      const count = seed[index].count;
+      for (const firstCount of new Set([1, Math.floor(count / 2), count - 1])) {
+        const first = { ...seed[index], count: firstCount, lineCostGrosze: firstCount * seed[index].unitPriceGrosze };
+        const second = { ...alternative, count: count-firstCount, lineCostGrosze: (count-firstCount)*alternative.unitPriceGrosze };
+        addPlan(seed, { index, packs: [first,second] });
+      }
+    }
+  }
+  const sum = (orders: DeliveredStoreBasket[]) => orders.reduce((total, order) => total + order.materialsGrosze, 0);
+  const ordered = [...proposed.values()].sort((a,b) => Number(b.length === 1) - Number(a.length === 1) || sum(a) - sum(b));
+  // Keep complete single-seller-per-product allocations as well as split
+  // orders. Cheap material splits alone must not crowd out a slightly dearer
+  // complete allocation with much cheaper transport.
+  const whole = ordered.filter(orders => wholePlans.has(orders.map(signature).join(';'))).slice(0,16);
+  const splits = ordered.filter(orders => !wholePlans.has(orders.map(signature).join(';'))).slice(0,24-whole.length);
+  const selectedOrders = [...whole,...splits];
+  const unique = new Map<string, DeliveredStoreBasket>(), candidates: DeliveredStoreBasket[][] = [];
+  for (const orders of selectedOrders) {
+    const additional = orders.filter(order => !unique.has(signature(order))).length;
+    if (unique.size + additional > MAX_STORE_BASKETS) continue;
+    candidates.push(orders); orders.forEach(order => unique.set(signature(order), order));
+    if (candidates.length >= 24) break;
+  }
+  result.searchLimited = true;
+  if (!candidates.length) { result.status = 'limit_exceeded'; return result; }
+  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now);
+}
+
+async function quoteAndRank(
+  candidates: DeliveredStoreBasket[][], unique: Map<string, DeliveredStoreBasket>, result: DeliveryComparison,
+  settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,
+): Promise<DeliveryComparison> {
+  const failures = new Map<string, string>((result.unavailableStores ?? []).map(item => [item.store,item.reason]));
   // Quote a representative order from every store first. Full store baskets
   // get priority because their eligible couriers/thresholds can differ from
   // individual items. This also protects useful results under the I/O deadline.
@@ -76,6 +171,9 @@ export async function compareAutomaticDelivery(
   const first=new Map<string,string>();
   for (const [key,order] of ordered) if (!first.has(order.store)) first.set(order.store,key);
   const priority=new Set(first.values());
+  const smallest = new Map<string,string>();
+  for (const [key,order] of [...ordered].reverse()) if (!smallest.has(order.store)) smallest.set(order.store,key);
+  for (const key of smallest.values()) priority.add(key);
   const keys=[...priority,...ordered.map(([key])=>key).filter(key=>!priority.has(key))];
   // Bounded I/O even when a list generates many possible store orders.
   let cursor = 0;
@@ -102,6 +200,7 @@ export async function compareAutomaticDelivery(
       lowerBoundGrosze: materialsGrosze + actual.reduce((sum, o) => sum + (o.deliveryGrosze ?? 0), 0) };
   }).filter(b => [b.materialsGrosze, b.lowerBoundGrosze, b.totalGrosze ?? 0].every(Number.isSafeInteger));
   const known = baskets.filter(b => b.totalGrosze !== null).sort((a,b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
+  result.comparedBasketCount = known.length;
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);
   result.lowerBound = baskets.sort((a,b) => a.lowerBoundGrosze - b.lowerBoundGrosze)[0] ?? null;
   const quotedStores=new Set([...unique.values()].filter(o=>o.quote).map(o=>o.store));

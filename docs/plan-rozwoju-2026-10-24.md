@@ -49,10 +49,11 @@ Odbiór: dwa różne stany powierzchni dają odpowiedni zakres; budżet i pomies
 
 ## 4. Wspólne zakupy dla całego remontu
 
-- [ ] Jeden remont z kilkoma pracami i pomieszczeniami.
-- [ ] Użyć istniejącej konsolidacji backendu, przekazując wszystkie etapy i ilości przed zaokrągleniem.
-- [ ] Odjąć posiadane ilości materiałów, nie dublować narzędzi ani opakowań.
-- [ ] Porównać ten sam kompletny koszyk w sklepach. Różnicę cen produktów oddzielić od kosztu dostaw i odbioru.
+- [x] Wspólny koszyk z jawnie wybranych prac i pomieszczeń, dostępny z listy projektów. Wybór zachowany po ponownym otwarciu.
+- [x] Użyć istniejącej konsolidacji backendu, przekazując wszystkie etapy i ilości przed zaokrągleniem. Pokazać nierozpoznane materiały ze wszystkich etapów.
+- [x] Pominąć całe pozycje oznaczone „Mam” lub „Kupione”, osobno dla projektu. Narzędzia i ręcznie dopisane pozycje poza porównaniem, z jawną informacją i liczbą ręcznych pozycji.
+- [ ] Obsłużyć częściowo posiadane ilości, ręczne pozycje i narzędzia we wspólnej liście. Nie zastępować ich wymyślonym dopasowaniem.
+- [x] Porównać ten sam kompletny koszyk w sklepach; oddzielić materiały i dostawy. Dla dużych remontów jawnie oznaczyć wybór ograniczonej liczby wariantów zamiast gwarantować wynik pełnego przeszukania.
 
 Odbiór: wspólny grunt/farba dla dwóch pomieszczeń zaokrąglone raz; własne materiały zmniejszają zakup; zmiana wymiaru aktualizuje wszystkie widoki bez kasowania ręcznych oznaczeń zakupów.
 

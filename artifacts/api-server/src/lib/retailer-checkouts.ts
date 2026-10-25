@@ -57,6 +57,8 @@ export function confirmSeweraBasket(html: string, expected: { url:string; pid:st
   if (rows.length!==expected.length || !/Twój sklep to Katowice/.test(text(html))) throw Error('basket_not_confirmed');
   for (const wanted of expected) {
     const row=one(rows.filter(row=>nodes(row,a=>a.href===wanted.url).length>0));
+    const stock = text(row).match(/W magazynie znajdują się jedynie (\d+(?:[.,]\d+)?)\s+SZT/i);
+    if (stock && Number(stock[1].replace(',','.')) < wanted.count) throw Error('insufficient_stock');
     const input=attr(one(nodes(row,a=>a.name==='amount')));
     const pid=attr(one(nodes(row,a=>a.wybierz!==undefined))).wybierz;
     if (Number(input.value)!==wanted.count || pid!==wanted.pid || checkoutMoney(tdValue(row,'Cena brutto:'))!==wanted.price || checkoutMoney(tdValue(row,'Wartość:'))!==wanted.count*wanted.price) throw Error('basket_not_confirmed');

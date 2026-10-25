@@ -38,3 +38,47 @@ test('automatic mode ignores old manual fees, blocks missing postcode, exposes u
   assert.deepEqual(result.missingDeliveryStores,['B']);
   assert.equal((await compareAutomaticDelivery([await stage(61)], {mode:'shipping',postalCode:'00-001'}, quote)).status,'limit_exceeded');
 });
+
+test('large renovation falls back to explicitly limited complete baskets without exceeding I/O bounds', async () => {
+  const a = await stage(30);
+  const b = await stage(30);
+  b.lines.forEach(line => { if (line.resolved) { line.product = { ...line.product, id: 'other' }; line.offers = line.offers.map(offer => ({ ...offer, id: `other-${offer.id}`, productId: 'other' })); } });
+  // 31*31 distributions and >80 unique store orders for just these two EANs.
+  const calls: any[] = [];
+  const result = await compareAutomaticDelivery([a,b], { mode:'shipping',postalCode:'00-001' }, async (order,postcode) => { calls.push(order); return known(order,postcode); });
+  assert.equal(result.searchLimited,true);
+  assert.ok(result.best);
+  assert.ok(result.comparedBasketCount! > 0);
+  assert.ok(calls.length <= 80);
+  const purchased = result.best!.stores.flatMap(store => store.lines).flatMap(line => line.packages);
+  assert.equal(purchased.reduce((count,pack) => count + pack.count,0),60);
+  assert.equal(result.best!.materialsGrosze + result.best!.deliveryGrosze!, result.best!.totalGrosze);
+});
+
+test('limited baskets consider another seller when a mandatory store lacks enough units of another product', async () => {
+  const paint = await stage(60), mandatory = await stage(60);
+  paint.lines.forEach(line => { if (line.resolved) line.offers = line.offers.map(offer => offer.store === 'A' ? { ...offer, price:'4.00' } : offer); });
+  mandatory.lines.forEach(line => { if (line.resolved) { line.product = { ...line.product, id:'mandatory' }; line.offers = line.offers.filter(offer => offer.store === 'A').map(offer => ({ ...offer, id:'mandatory-A', productId:'mandatory' })); } });
+  const result = await compareAutomaticDelivery([paint,mandatory], {mode:'shipping',postalCode:'00-001'}, async (order,postcode) =>
+    order.store === 'A' && order.lines.some(line => line.product.id === 'p') ? {reason:'insufficient_stock'} : known(order,postcode));
+  assert.equal(result.searchLimited,true); assert.ok(result.best);
+  assert.ok(result.best!.stores.find(store => store.store === 'A')!.lines.every(line => line.product.id === 'mandatory'));
+  assert.equal(result.best!.stores.find(store => store.store === 'B')!.lines[0].packages[0].count,60);
+});
+
+test('known unavailable integrations remain visible without consuming basket slots or hiding purchasable alternatives', async () => {
+  const s = await stage(2), called: string[] = [];
+  const result = await compareAutomaticDelivery([s], {mode:'shipping',postalCode:'00-001'}, async (order,postcode) => { called.push(order.store); return known(order,postcode); }, [], new Date(), {A:'retailer_access_required'});
+  assert.ok(result.best); assert.deepEqual([...new Set(called)],['B']);
+  assert.deepEqual(result.missingDeliveryStores,['A']);
+  assert.ok(result.unavailableStores?.some(item => item.store === 'A' && item.reason === 'retailer_access_required'));
+});
+
+test('large basket quotes both broad and small orders early so transport alternatives are not crowded out', async () => {
+  const first = await stage(30), second = await stage(30);
+  second.lines.forEach(line => { if (line.resolved) { line.product = { ...line.product, id:'second' }; line.offers = line.offers.map(offer => ({ ...offer,id:`second-${offer.id}`,productId:'second' })); } });
+  const calls: { store: string; products: number }[] = [];
+  const result = await compareAutomaticDelivery([first,second], {mode:'shipping',postalCode:'00-001'}, async (order,postcode) => { calls.push({store:order.store,products:order.lines.length}); return known(order,postcode); });
+  assert.ok(result.best); assert.equal(result.searchLimited,true);
+  for (const store of ['A','B']) assert.ok(calls.slice(0,4).some(call => call.store === store && call.products === 1));
+});

@@ -181,6 +181,11 @@ const socketsFormula: FormulaFn = (m) => {
 
 const constantFormula: FormulaFn = () => 1;
 
+// Generic self-leveling estimate in kg; used only by the existing byThickness
+// key. Product-specific rates/ranges are checked by the pricing adapter.
+// source: https://www.atlas.com.pl/produkt/atlas-sam-100/ (1.6 kg/m²/mm)
+const byThicknessFormula: FormulaFn = (m, waste) => round1((m.floorArea ?? 0) * (m.levelingThickness ?? 0) * 1.6 * waste);
+
 const linearMetersFormula: FormulaFn = (m, waste) => {
   return round1((m.linearMeters ?? 0) * waste);
 };
@@ -235,6 +240,7 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   // ── Aliases (preferred for new job files) ───────────────────────────────
   byArea:          byAreaFormula,
   byPerimeter:     byPerimeterFormula,
+  byThickness:     byThicknessFormula,
 } as const;
 
 export function resolveFormula(key: string): FormulaFn {

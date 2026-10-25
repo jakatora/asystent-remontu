@@ -87,6 +87,41 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     url: 'https://sklep.zino.pl/pl/p/Barwy-Natury-173-Bialy-5l/2842',
     imageUrl: 'https://sklep.zino.pl/userdata/public/gfx/7713/173-biala-majowa-konwalia.png',
   },
+  {
+    id: 'sewera-atlas-unigrunt-5kg', ean: '5905400520026', name: 'Atlas Uni-Grunt 5kg emulsja gruntująca',
+    category: 'primer', brand: 'Atlas', packageSize: 5, unit: 'kg', store: 'Sewera', format: 'sewera',
+    // source: https://sklep.sewera.pl/atlas-uni-grunt-5kg-emulsja-gruntujaca-p9772
+    // source: https://www.abud.pl/product-pol-1121-Preparat-gruntujacy-Atlas-Uni-Grunt-5kg.html
+    url: 'https://sklep.sewera.pl/atlas-uni-grunt-5kg-emulsja-gruntujaca-p9772',
+  },
+  {
+    id: 'sewera-acrylputz-fs20-27kg', ean: '5903973104544', name: 'Acryl Putz FS20 Finisz 27kg',
+    category: 'skim-coat', brand: 'Śnieżka', packageSize: 27, unit: 'kg', store: 'Sewera', format: 'sewera',
+    // source: https://sklep.sewera.pl/acryl-putz-fs20-finisz-27kg-p6114
+    // source: https://mrowka.com.pl/produkt/gladz-szpachlowa-finisz-fs20-27-kg-acryl-putz-5903973104544.html
+    url: 'https://sklep.sewera.pl/acryl-putz-fs20-finisz-27kg-p6114',
+  },
+  {
+    id: 'sewera-atlas-sam100-25kg', ean: '5905400279245', name: 'Atlas SAM 100 25kg szybkowiążący samopoziomujący podkład podłogowy',
+    category: 'screed', brand: 'Atlas', packageSize: 25, unit: 'kg', store: 'Sewera', format: 'sewera',
+    // source: https://sklep.sewera.pl/atlas-sam-100-25kg-szybkowiazacy-samopoziomujacy-podklad-podlogowy-p9811
+    // source: https://www.bricomarche.pl/szybkowiazacy-samopoziomujacy-podklad-podlogowy-sam-100-25-kg-atlas
+    url: 'https://sklep.sewera.pl/atlas-sam-100-25kg-szybkowiazacy-samopoziomujacy-podklad-podlogowy-p9811',
+  },
+  {
+    id: 'sewera-atlas-sam200-25kg', ean: '5905400279269', name: 'Atlas SAM 200 25kg samopoziomujący podkład podłogowy',
+    category: 'screed', brand: 'Atlas', packageSize: 25, unit: 'kg', store: 'Sewera', format: 'sewera',
+    // source: https://sklep.sewera.pl/atlas-sam-200-25kg-samopoziomujacy-podklad-podlogowy-p9795
+    // source: https://b2c.makchemia.pl/wylewki-samopoziomujace/5233-atlas-sam-200-25kg-2560mm-folia-5905400279269.html
+    url: 'https://sklep.sewera.pl/atlas-sam-200-25kg-samopoziomujacy-podklad-podlogowy-p9795',
+  },
+  {
+    id: 'sewera-atlas-cerplast-15kg', ean: '5905400530032', name: 'Podkładowa masa tynkarska Cerplast 15kg Atlas',
+    category: 'primer', brand: 'Atlas', packageSize: 15, unit: 'kg', store: 'Sewera', format: 'sewera',
+    // source: https://sklep.sewera.pl/podkladowa-masa-tynkarska-cerplast-15kg-atlas-p9884
+    // source: https://ekobudsklep.pl/Tynki/3323-srodek-gruntujacy-podklad-tynkarski-cerplast-15kg-atlas-5905400530032.html
+    url: 'https://sklep.sewera.pl/podkladowa-masa-tynkarska-cerplast-15kg-atlas-p9884',
+  },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -98,4 +133,9 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   'Farba lateksowa Dulux EasyCare Nieskazitelna Biel 9 l': '5904078198759',
   'Gotowa gładź polimerowa Atlas GTA 18 kg': '5905400542509',
   'Gładź gipsowa startowa Acryl-Putz ST10 START 20 kg': '5903973104421',
+  'Grunt głęboko penetrujący Atlas Uni-Grunt 5 kg': '5905400520026',
+  'Gładź szpachlowa wykończeniowa Acryl-Putz FS20 Finisz 27 kg': '5903973104544',
+  'Samopoziomujący podkład podłogowy Atlas SAM 100 25 kg (5–30 mm)': '5905400279245',
+  'Samopoziomujący podkład podłogowy Atlas SAM 200 25 kg (25–60 mm)': '5905400279269',
+  'Podkład / kontakt pod tynki Atlas Cerplast 15 kg': '5905400530032',
 };

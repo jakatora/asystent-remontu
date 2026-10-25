@@ -9,13 +9,15 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
 import { useLanguage } from '@/context/LanguageContext';
+import { Button } from '@/components/ui/Button';
+import { Feather } from '@expo/vector-icons';
 
 type Filter = 'all' | 'planning' | 'in-progress' | 'completed';
 
 export default function ProjectsScreen() {
   const insets = useSafeAreaInsets();
   const { projects } = useApp();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [filter, setFilter] = useState<Filter>('all');
 
   const FILTERS: { id: Filter; label: string }[] = [
@@ -49,6 +51,11 @@ export default function ProjectsScreen() {
           {projects.length} {projectWord}
         </Txt>
       </View>
+
+      {projects.length > 0 && <View style={{ paddingHorizontal: 20, marginBottom: 18 }}>
+        <Button label={language === 'pl' ? 'Koszyk całego remontu' : 'Whole renovation basket'}
+          icon={<Feather name="shopping-cart" size={20} color="#fff" />} onPress={() => router.push('/renovation-basket')} fullWidth />
+      </View>}
 
       <ScrollView
         horizontal

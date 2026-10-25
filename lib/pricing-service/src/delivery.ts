@@ -60,6 +60,9 @@ export interface DeliveryComparison {
   status: 'compared' | 'needs_delivery_costs' | 'needs_postal_code' | 'partial' | 'empty' | 'limit_exceeded';
   method?: 'automatic' | 'manual';
   comparisonScope?: 'quoted_baskets';
+  /** A bounded selection of complete baskets, not exhaustive pack splits. */
+  searchLimited?: boolean;
+  comparedBasketCount?: number;
   unavailableStores?: { store: string; reason: string; partial?:boolean }[];
   partiallyQuotedStores?: string[];
   productCount: number;

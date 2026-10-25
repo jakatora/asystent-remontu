@@ -9,6 +9,16 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/podkladowa-masa-tynkarska-cerplast-15kg-atlas-p9884
+  {"ids":["mat-plaster-primer-atlas-cerplast-15kg"],"ean":"5905400530032","sourceUrl":"https://sklep.sewera.pl/podkladowa-masa-tynkarska-cerplast-15kg-atlas-p9884","imageUrl":"https://sklep.sewera.pl/photo/92128/podkladowa-masa-tynkarska-cerplast-15kg-atlas.webp"},
+  // source: https://sklep.sewera.pl/atlas-sam-200-25kg-samopoziomujacy-podklad-podlogowy-p9795
+  {"ids":["mat-screed-atlas-sam200-25kg"],"ean":"5905400279269","sourceUrl":"https://sklep.sewera.pl/atlas-sam-200-25kg-samopoziomujacy-podklad-podlogowy-p9795","imageUrl":"https://sklep.sewera.pl/photo/92590/atlas-sam-200-25kg-samopoziomujacy-podklad-podlogowy.webp"},
+  // source: https://sklep.sewera.pl/atlas-sam-100-25kg-szybkowiazacy-samopoziomujacy-podklad-podlogowy-p9811
+  {"ids":["mat-screed-atlas-sam100-25kg"],"ean":"5905400279245","sourceUrl":"https://sklep.sewera.pl/atlas-sam-100-25kg-szybkowiazacy-samopoziomujacy-podklad-podlogowy-p9811","imageUrl":"https://sklep.sewera.pl/photo/92586/atlas-sam-100-25kg-szybkowiazacy-samopoziomujacy-podklad-podlogowy.webp"},
+  // source: https://sklep.sewera.pl/acryl-putz-fs20-finisz-27kg-p6114
+  {"ids":["mat-skim-coat-acrylputz-fs20-27kg"],"ean":"5903973104544","sourceUrl":"https://sklep.sewera.pl/acryl-putz-fs20-finisz-27kg-p6114","imageUrl":"https://sklep.sewera.pl/photo/259046/acryl-putz-fs20-finisz-27kg.webp"},
+  // source: https://sklep.sewera.pl/atlas-uni-grunt-5kg-emulsja-gruntujaca-p9772
+  {"ids":["mat-primer-deep-atlas-unigrunt-5kg"],"ean":"5905400520026","sourceUrl":"https://sklep.sewera.pl/atlas-uni-grunt-5kg-emulsja-gruntujaca-p9772","imageUrl":"https://sklep.sewera.pl/photo/313998/atlas-uni-grunt-5kg-emulsja-gruntujaca.webp"},
   {
     ids: [], ean: '5903973153214',
     // source: https://www.leroymerlin.pl/produkty/farba-magnat-ceramic-bialy-5-l-45615171.html

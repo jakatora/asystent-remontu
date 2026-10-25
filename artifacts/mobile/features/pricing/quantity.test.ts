@@ -4,6 +4,7 @@ import { paintJob } from '@/data/jobs/paint';
 import { calculateMaterials } from '@/features/calculator/engine';
 import { computePricedBudget } from './engine';
 import { toPricingStageInput } from './pricingApi';
+import { selfLevelingJob } from '@/data/jobs/floor-prep';
 
 test('paint budget uses calculator consumption for each coat count, never square metres as litres', () => {
   for (const coats of [1, 2, 3]) {
@@ -71,4 +72,18 @@ test('API input uses the selected catalogue product, with compatible units and o
   assert.equal(standard.material.category, 'paint');
   assert.equal(standard.material.unit, 'l');
   assert.equal(standard.quantity, 8.4);
+});
+
+test('self-leveling demand scales with area and thickness and restores old constant-one snapshots', () => {
+  for (const [floorArea, levelingThickness, quantity] of [[2,5,17.6],[20,5,176],[20,10,352]]) {
+    const calc = calculateMaterials(selfLevelingJob, { floorArea, levelingThickness });
+    assert.equal(calc.materials.find(line => line.material.id === 'leveling-compound')!.rawQuantity, quantity);
+    const old = JSON.parse(JSON.stringify(calc));
+    old.materials.find((line: any) => line.material.id === 'leveling-compound').rawQuantity = 1;
+    assert.equal(toPricingStageInput(old, 'standard').materials.find(line => line.material.id === 'leveling-compound')!.quantity, quantity);
+  }
+  const thin = calculateMaterials(selfLevelingJob, { floorArea: 20, levelingThickness: 5 });
+  assert.ok(!toPricingStageInput(thin, 'economy').materials.some(line => /Atlas SAM 200/.test(line.material.name)));
+  const thick = calculateMaterials(selfLevelingJob, { floorArea: 20, levelingThickness: 25 });
+  assert.equal(toPricingStageInput(thick, 'economy').materials.find(line => line.material.id === 'leveling-compound')!.quantity, 1100);
 });

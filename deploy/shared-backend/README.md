@@ -5,6 +5,33 @@ Moduł Asystenta Remontu działa pod `/api/remont/*` na wspólnym backendzie
 `lib/pricing-service` i serializera API, z odizolowanym adapterem katalogu.
 Nie otwiera baz innych aplikacji, nie wywołuje AI ani płatnych API.
 
+## Wspólny koszyk i katalog — 2026-10-25
+
+Aktualny katalog: **19 ofert / 12 produktów / 7 sklepów**, w tym5 nowych
+produktów Sewery z dokładnym EAN i rzeczywistym zdjęciem. Nowe obserwacje
+obejmują Uni-Grunt5kg, FS20 27kg, SAM100/200 25kg i Cerplast15kg.
+Źródła i odbiór: `research/wspolny-koszyk-2026-10-25.md`.
+
+Mobile: Projekty → Koszyk całego remontu, do20 jawnie wybranych prac.
+Potrzeby są przekazywane jako wszystkie etapy, sumowane przed opakowaniami;
+„Mam”/„Kupione” wykluczają całą pozycję tylko w swoim projekcie. Ręczne
+pozycje i narzędzia są jawnie poza porównaniem. Kod i wybór prac zapisane lokalnie.
+
+Dla dużych remontów wycena przechodzi z pełnej enumeracji na wybrane kompletne
+zestawy: maks.24warianty/80unikalnych zamówień. Zachowuje do16 przydziałów
+całych produktów i uzupełnia je wybranymi podziałami opakowań; alternatywni
+sprzedawcy są rozważani także przy obowiązkowym innym produkcie danego sklepu.
+Duże i małe zamówienie sklepu mają priorytet I/O. `searchLimited` oraz liczba
+potwierdzonych zestawów są widoczne w UI. Brak gwarancji minimum wszystkich
+kombinacji. Castorama/OBI pozostają jawnie bez integracji; nie zajmują miejsc
+działających wycen. Brak wymaganej liczby sztuk daje `insufficient_stock`,
+nawet jeśli koszyk sklepu pokazuje wpisaną ilość i zgodną sumę.
+
+Rzeczywisty przykład lokalny3prac: materiały637,43+dostawy153,40=790,83zł,
+zamiast wcześniejszej uzyskanej wyceny832,47zł. Dane zmieniają się w czasie.
+Odbiór produkcyjny i wersja wdrożenia zapisane w aktualnym planie rozwoju.
+219testów modułów/HTTP i55regresji dotychczasowych tras przeszło.
+
 ## Aktualizacja: Sewera, Buduj24 i zmiany cen — 2026-10-25
 
 Automatyczne koszyki obejmują teraz pięć sklepów. **Sewera otrzymuje kod

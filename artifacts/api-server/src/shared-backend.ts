@@ -184,7 +184,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const serialized = serializeProject(estimate);
       const deadline = Date.now() + 20_000;
       const deliveryComparison = stageOnly ? undefined : await compareAutomaticDelivery(estimate.stages, parsed.data.options?.delivery ?? { mode: 'shipping' },
-        (order, postalCode) => Date.now() < deadline || ['Castorama','OBI'].includes(order.store) ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES);
+        (order, postalCode) => Date.now() < deadline || ['Castorama','OBI'].includes(order.store) ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES, new Date(),
+        { Castorama:'retailer_access_required', OBI:'retailer_access_required' });
       res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(), priceRefresh,
         deliveryComparison,
       });

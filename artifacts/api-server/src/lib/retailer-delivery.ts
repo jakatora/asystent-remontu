@@ -103,7 +103,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     active++;
     const pending = (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : quoteShoper(order, fetchImpl))
-      .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && ['price_changed','product_unavailable','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
+      .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
     cache.set(key, { until: Date.now() + TTL, result: pending });
     const result = await pending;
     if ('reason' in result && cache.get(key)?.result === pending) cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });

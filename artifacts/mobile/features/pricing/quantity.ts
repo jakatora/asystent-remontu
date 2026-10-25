@@ -55,6 +55,18 @@ export function resolveMaterialQuantity(
   const source = candidates[0];
   const legacyPaintingTape = calc.jobId === 'paint-walls' && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
   if (!legacyPaintingTape && normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
+  if (calc.jobId === 'self-leveling' && ref.materialType === 'screed') {
+    const thickness = calc.measurements.levelingThickness, area = calc.measurements.floorArea;
+    // source: https://www.atlas.com.pl/produkt/atlas-sam-100/ (5–30 mm, 1.6 kg/m²/mm)
+    // source: https://www.atlas.com.pl/produkt/atlas-sam-200/ (25–60 mm, 2 kg/m²/mm)
+    const specification = ref.id === 'mat-screed-atlas-sam100-25kg' ? { min: 5, max: 30, rate: 1.6 }
+      : ref.id === 'mat-screed-atlas-sam200-25kg' ? { min: 25, max: 60, rate: 2 } : undefined;
+    if (specification) {
+      if (!Number.isFinite(area) || area <= 0 || !Number.isFinite(thickness) || thickness < specification.min || thickness > specification.max) return null;
+      const quantity = Math.round(area * thickness * specification.rate * (source.material.wasteFactor ?? 1.1) * 10) / 10;
+      return { quantity, source };
+    }
+  }
   // Old saved results contain rounded quantities only. Recompute their original
   // requirement from the same calculator formula instead of rounding twice.
   // Original tape reference was explicitly 50 m per roll. Never infer this for other materials.
