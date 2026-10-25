@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T21:12:13.746Z",
+  "checkedAt": "2026-10-25T21:34:47.626Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 70,
-  "remaining": 33,
-  "offers": 96,
+  "verifiedProducts": 73,
+  "remaining": 30,
+  "offers": 99,
   "stores": 31,
   "productsWithPhotos": 103,
-  "registeredOffers": 98,
+  "registeredOffers": 101,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1361,12 +1361,27 @@
     {
       "id": "mat-window-frame-anchor-10x182",
       "name": "Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm",
-      "referenceUrl": "https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://liderzycen.pl/pl/p/Kotwa-montazowa-do-oscieznic-10-x-182-mm/21842",
+      "status": "verified_offer",
       "ean": "5905458019787",
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kotwa-montazowa-do-oscieznic-10-x-182-mm~5905458019787_03c?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "sourceIds": [
+        "liderzy-frame-anchor-10x182"
+      ],
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_42043_500_500/141eb368955c6aeb6e1e7b6e42ac9af7.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "liderzy-frame-anchor-10x182",
+          "checkedAt": "2026-10-25T21:30:30.580Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "liderzy-frame-anchor-10x182",
+          "checkedAt": "2026-10-25T21:30:30.974Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
     },
     {
       "id": "mat-window-tape-soudal-sws-inside-90mm",
@@ -1594,17 +1609,32 @@
     },
     {
       "id": "mat-door-leaf-erkado-credis-80-glazed",
-      "name": "Skrzydło drzwiowe pokojowe Erkado Credis 80 białe przylgowe przeszklone",
-      "referenceUrl": "https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd",
-      "status": "needs_verified_offer",
+      "name": "Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe przylgowe przeszklone",
+      "referenceUrl": "https://liderzycen.pl/pl/p/Drzwi-pokojowe-Credis-80-lewe-biale/30489",
+      "status": "verified_offer",
       "ean": "5900378219590",
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pokojowe-credis-80-lewe-biale~5900378219590_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "sourceIds": [
+        "liderzy-erkado-credis-80-left-white"
+      ],
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_50898_500_500/a79eaa09c570422baee6412157b93d28.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "liderzy-erkado-credis-80-left-white",
+          "checkedAt": "2026-10-25T21:30:32.133Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "liderzy-erkado-credis-80-left-white",
+          "checkedAt": "2026-10-25T21:30:32.503Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
     },
     {
       "id": "mat-door-frame-perfectdoor-reg-80-100",
-      "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm (drzwi wewnętrzne)",
+      "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma (drzwi wewnętrzne)",
       "referenceUrl": "https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd",
       "status": "needs_verified_offer",
       "ean": "5902659279118",
@@ -1642,12 +1672,27 @@
     {
       "id": "mat-door-hinge-metro-3d-14mm",
       "name": "Zawias wkręcany regulowany 3D 14 mm ocynkowany Metro",
-      "referenceUrl": "https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://liderzycen.pl/pl/p/Zawias-regulowany-3D-14-mm-ocynkowany/22128",
+      "status": "verified_offer",
       "ean": "5906711270471",
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/zawias-regulowany-3d-14-mm-ocynkowany~5906711270471_01c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "sourceIds": [
+        "liderzy-metro-hinge-3d-14mm"
+      ],
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_42329_500_500/19ba2fb309a7adcf2859ffa72b746764.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "liderzy-metro-hinge-3d-14mm",
+          "checkedAt": "2026-10-25T21:30:31.334Z",
+          "status": "quoted",
+          "reason": null
+        },
+        {
+          "sourceId": "liderzy-metro-hinge-3d-14mm",
+          "checkedAt": "2026-10-25T21:30:31.707Z",
+          "status": "quoted",
+          "reason": null
+        }
+      ]
     },
     {
       "id": "mat-mounting-wedges-floorpol-30x150-10",

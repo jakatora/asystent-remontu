@@ -1561,18 +1561,19 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Stalowa ocynkowana, do betonu/cegły/betonu komórkowego; sprzedawana na sztuki.
   // source: https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd (EAN + cena 5,28 zł/szt)
   // source: https://www.brendo.pl/produkt/kotwy/kotwa-montazowa-do-oscieznic-10-x-182-mm-5905458019787.html (EAN 5905458019787)
+  // source: https://liderzycen.pl/pl/p/Kotwa-montazowa-do-oscieznic-10-x-182-mm/21842 (cena brutto, odczyt 2026-10-25T21:29:16.926Z)
   {
     id: 'mat-window-frame-anchor-10x182',
     materialType: 'anchor',
     productLabel: 'Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 5.28,
+    pricePerPackage: 5.12,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/kotwa-montazowa-do-oscieznic-10-x-182-mm/5905458019787_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://liderzycen.pl/pl/p/Kotwa-montazowa-do-oscieznic-10-x-182-mm/21842',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Mocowanie ramy okiennej/ościeżnicy w murze. Kilka sztuk na okno (bok co ok. 60–70 cm).',
   },
@@ -1944,24 +1945,25 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   },
 
   // Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe (przylgowe, przeszklone) — EAN 5900378219590.
-  // Samo skrzydło przylgowe, laminat MDF, 5 szyb mlecznych, zawiasy regulowane. Cena 308 zł/szt (Castorama).
-  // Tier better: okleinowane/przeszklone premium. Producent Erkado, linia Castoramy → 1 sklep, poza overlay.
+  // Samo lewe skrzydło przylgowe, laminat MDF, 5 szyb mlecznych, zawiasy regulowane.
+  // EAN oznacza konkretnie wariant lewy, a nie dowolną stronę otwierania.
   // source: https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd (EAN 5900378219590, cena 308 zł, przylgowe, przeszklone, Erkado)
+  // source: https://liderzycen.pl/pl/p/Drzwi-pokojowe-Credis-80-lewe-biale/30489 (cena brutto, odczyt 2026-10-25T21:29:17.176Z)
   {
     id: 'mat-door-leaf-erkado-credis-80-glazed',
     materialType: 'door-leaf',
-    productLabel: 'Skrzydło drzwiowe pokojowe Erkado Credis 80 białe przylgowe przeszklone',
+    productLabel: 'Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe przylgowe przeszklone',
     brand: 'Erkado',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 308.0,
+    pricePerPackage: 279.36,
     category: 'better',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://liderzycen.pl/pl/p/Drzwi-pokojowe-Credis-80-lewe-biale/30489',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
-    notes: 'Przylgowe, laminat MDF, 5 szyb mlecznych, zawiasy regulowane. Samo skrzydło (bez ościeżnicy). Klasa premium (better).',
+    notes: 'Wariant lewy, rozmiar 80, biały, przylgowy, 5 szyb mlecznych. Samo skrzydło bez ościeżnicy i klamki. Dobierz zgodną lewą ościeżnicę; pozycje referencyjne w kosztorysie nie potwierdzają ich wzajemnej zgodności.',
   },
 
   // Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa (do drzwi wewnętrznych) — EAN 5902659279118.
@@ -1971,7 +1973,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   {
     id: 'mat-door-frame-perfectdoor-reg-80-100',
     materialType: 'door-frame',
-    productLabel: 'Baza ościeżnicy regulowana PerfectDoor 80-100 mm (drzwi wewnętrzne)',
+    productLabel: 'Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma (drzwi wewnętrzne)',
     brand: 'PerfectDoor',
     packageSize: 1,
     packageUnit: 'szt',
@@ -2012,6 +2014,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Na standardowe drzwi potrzebne 2-3 szt. EAN pewny w ≥2 sklepach (Castorama + Mrówka + Bricoman) → w MATERIAL_EAN_OVERLAY.
   // source: https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd (EAN 5906711270471, cena 16,48 zł, 1 szt)
   // source: https://mrowka.com.pl/produkt/zawias-wkrecany-regulowany-3d-14-mm-ocynkowany-metro-5906711270471.html (EAN 5906711270471, Metro 3D 14 mm)
+  // source: https://liderzycen.pl/pl/p/Zawias-regulowany-3D-14-mm-ocynkowany/22128 (cena brutto, odczyt 2026-10-25T21:29:17.131Z)
   {
     id: 'mat-door-hinge-metro-3d-14mm',
     materialType: 'door-hinge',
@@ -2019,12 +2022,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Metro',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 16.48,
+    pricePerPackage: 15.66,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://www.castorama.pl/zawias-regulowany-3d-14-mm-ocynkowany/5906711270471_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://liderzycen.pl/pl/p/Zawias-regulowany-3D-14-mm-ocynkowany/22128',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Wkręcany, regulacja 3D (pion/poziom/docisk) kluczem imbusowym bez zdejmowania skrzydła. Na standardowe drzwi 2-3 szt.',
   },

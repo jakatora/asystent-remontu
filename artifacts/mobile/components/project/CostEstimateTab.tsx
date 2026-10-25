@@ -225,6 +225,8 @@ function EstimateResult({
   const lines = data.stages.flatMap(stage => stage.lines);
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
+  const hasDoorParts = data.stages.some(stage => stage.jobId === 'interior-doors') || lines.some(line => ['door-leaf', 'door-frame'].includes(line.product?.category ?? line.query.category ?? ''));
+  const hasLeftCredis = lines.some(line => (line.product?.ean ?? line.query.ean) === '5900378219590');
   const consolidated = data.consolidated;
 
   const consolidatedLines = consolidated?.lines ?? [];
@@ -255,6 +257,11 @@ function EstimateResult({
         </View>
       )}
       <PriceChangeNotice changes={priceChanges} refresh={data.priceRefresh} hasBaseline={hasPriceBaseline} />
+      {hasDoorParts && <View accessibilityRole="alert" style={{ padding: 16, borderRadius: 16, backgroundColor: Colors.warningBg, gap: 6 }}>
+        <Txt w="semibold">{tr('Dobierz zgodny zestaw drzwi', 'Match the door components')}</Txt>
+        <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Przed zakupem sprawdź rozmiar, stronę otwierania, przylgę, zawiasy i zakres regulacji ościeżnicy. Pozycje referencyjne w wycenie wymagają dopasowania do siebie.', 'Before buying, check the size, opening direction, rebate, hinges and frame adjustment range. Reference items in the quote need to be matched to each other.')}</Txt>
+        {hasLeftCredis && <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Credis w tej wycenie to lewe białe skrzydło w rozmiarze 80, bez ościeżnicy i klamki. Nie łącz go z prawą ościeżnicą.', 'The Credis in this quote is a white, left-hand size-80 leaf without a frame or handle. Do not combine it with a right-hand frame.')}</Txt>}
+      </View>}
       {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} />}
       {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 

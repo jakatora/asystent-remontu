@@ -18,6 +18,9 @@ export interface RetailSource {
   name: string;
   category: string;
   brand: string;
+  /** Independently reviewed manufacturer for a store-labelled Shoper product.
+   * The exact placeholder is pinned; a changed producer needs a new review. */
+  brandReference?: { url: string; retailerValue: string; retailerId: number };
   packageSize: number;
   /** Reviewed order lot; the EAN and price still describe one physical pack. */
   purchaseMultiple?: number;
@@ -181,7 +184,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const gross = item.price?.gross;
     const formatted = String(gross?.final ?? '').replace(/[\s\u00a0]/g, '').match(/^(\d+),(\d{2})zł$/);
     if (!formatted || typeof gross.final_float !== 'number' || Math.abs((Number(formatted[1]) * 100 + Number(formatted[2])) - gross.final_float * 100) > 0.00001) throw new Error('retailer_gross_price_mismatch');
-    const html = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Product', name: item.name, gtin13: item.ean, brand: item.producer?.name, image: source.imageUrl, description:item.description,
+    const html = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Product', name: item.name, gtin13: item.ean, brand: source.brandReference ? source.brand : item.producer?.name, image: source.imageUrl, description:item.description,
       offers: { '@type': 'Offer', price: gross.final_float, priceCurrency: 'PLN', url: item.url, availability: 'https://schema.org/InStock' } })}</script>`;
     const observation = parseRetailPage(html, source, new Date());
     return { ...observation, evidenceSha256: createHash('sha256').update(raw).digest('hex') };
@@ -198,6 +201,16 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
   if (source.apiPurchaseUnit && (item.unit?.name !== source.apiPurchaseUnit || item.unit?.floating_point !== false)) throw Error('retailer_unit_not_confirmed');
   if (source.retailerSku && item.code !== source.retailerSku) throw Error('product_identity_not_confirmed');
   if (source.packageDescription && !normalizeProductName(htmlText(String(item.description ?? ''))).includes(normalizeProductName(source.packageDescription))) throw Error('product_package_not_confirmed');
+  if (source.brandReference) {
+    const reference = source.brandReference;
+    let url: URL;
+    try { url = new URL(reference.url); } catch { throw Error('product_brand_not_confirmed'); }
+    if (source.format !== 'shoper-api' || !source.brand.trim() || !source.retailerSku || !source.apiPurchaseUnit || !source.variant?.length ||
+      url.protocol !== 'https:' || url.username || url.password || url.hostname === new URL(source.url).hostname ||
+      normalizeProductName(reference.retailerValue) !== normalizeProductName(source.store) ||
+      !Number.isSafeInteger(reference.retailerId) || reference.retailerId < 1 ||
+      item.ean !== source.ean || item.name !== source.name || item.producer?.name !== reference.retailerValue || item.producer?.id !== reference.retailerId) throw Error('product_brand_not_confirmed');
+  }
 }
 
 export function shoperProductId(source: RetailSource): string {
