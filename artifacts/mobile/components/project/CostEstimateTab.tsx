@@ -138,6 +138,12 @@ function EstimateResult({
   const consolidatedLines = consolidated?.lines ?? [];
   const savingsGrosze = consolidated?.savingsGrosze ?? 0;
   const storeComparison = data.storeComparison;
+  const checkedDates = (data.coverage?.sources ?? [])
+    .filter(source => source.active !== false && source.checkedAt)
+    .map(source => source.checkedAt!).sort();
+  const firstChecked = formatHistoryDate(checkedDates[0] ?? '');
+  const lastChecked = formatHistoryDate(checkedDates[checkedDates.length - 1] ?? '');
+  const checkedRange = firstChecked === lastChecked ? firstChecked : firstChecked + ' – ' + lastChecked;
 
   if (lines.length === 0) {
     return <InfoState icon="package" text={t('cmp.CostEstimate.empty')} />;
@@ -148,7 +154,7 @@ function EstimateResult({
       {data.coverage && data.coverage.offers > 0 && (
         <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
           <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{t('upgrade.compare.coverage', { stores: data.coverage.stores.join(', ') })}</Txt>
-          <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: formatHistoryDate(data.coverage.sources.map(source => source.checkedAt).filter((date): date is string => Boolean(date)).sort()[0] ?? '') })}</Txt>
+          <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>
         </View>
       )}
       {unresolved.length > 0 && (
@@ -529,7 +535,7 @@ function OfferRow({
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
           {t('cmp.CostEstimate.offerFreshness', {
             date: formatHistoryDate(offer.fetchedAt),
-            source: offer.source === 'retailer-page-jsonld' ? t('upgrade.compare.storePage') : offer.source ?? offer.store,
+            source: offer.source?.startsWith('retailer-page-') ? t('upgrade.compare.storePage') : offer.source ?? offer.store,
           })}
         </Txt>
       )}
@@ -574,6 +580,39 @@ function WhereToBuySection({ cmp, unresolvedCount, showScope = true }: { cmp: Se
       {showScope && <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
         {t('upgrade.compare.scope')}
       </Txt>}
+
+      {/* Koszyk optymalny (najtaniej per produkt) + rozbicie po sklepach */}
+      <View
+        style={{
+          backgroundColor: Colors.primaryBg,
+          borderRadius: 12,
+          borderWidth: 1,
+          borderColor: Colors.border,
+          padding: 12,
+          gap: 4,
+        }}
+      >
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+          <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.primaryDark }}>
+            {t('upgrade.compare.manyStores')}
+          </Txt>
+          <Txt w="bold" style={{ fontSize: 16, color: Colors.primary }}>
+            {formatGrosze(cmp.optimalBasketGrosze)}
+          </Txt>
+        </View>
+        <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
+          {t('cmp.CostEstimate.optimalBasketHint')}
+        </Txt>
+        {cmp.optimalByStore.map((s) => (
+          <Txt key={s.store} style={{ fontSize: 12, color: Colors.textSecondary }}>
+            {t('cmp.CostEstimate.optimalStoreLine', {
+              store: s.store,
+              amount: formatGrosze(s.totalGrosze),
+              count: s.itemCount,
+            })}
+          </Txt>
+        ))}
+      </View>
 
       {/* Najtańszy sklep na całość (pełne pokrycie) albo nota, gdy brak kompletu */}
       {full ? (
@@ -638,39 +677,6 @@ function WhereToBuySection({ cmp, unresolvedCount, showScope = true }: { cmp: Se
         </View>
         {[...cmp.stores].sort((a, b) => a.missingCount - b.missingCount || a.totalGrosze - b.totalGrosze).map((s) => (
           <StoreBasketRow key={s.store} basket={s} productCount={cmp.productCount + unresolvedCount} />
-        ))}
-      </View>
-
-      {/* Koszyk optymalny (najtaniej per produkt) + rozbicie po sklepach */}
-      <View
-        style={{
-          backgroundColor: Colors.primaryBg,
-          borderRadius: 12,
-          borderWidth: 1,
-          borderColor: Colors.border,
-          padding: 12,
-          gap: 4,
-        }}
-      >
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
-          <Txt w="semibold" style={{ flex: 1, fontSize: 13, color: Colors.primaryDark }}>
-            {t('upgrade.compare.manyStores')}
-          </Txt>
-          <Txt w="bold" style={{ fontSize: 16, color: Colors.primary }}>
-            {formatGrosze(cmp.optimalBasketGrosze)}
-          </Txt>
-        </View>
-        <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-          {t('cmp.CostEstimate.optimalBasketHint')}
-        </Txt>
-        {cmp.optimalByStore.map((s) => (
-          <Txt key={s.store} style={{ fontSize: 12, color: Colors.textSecondary }}>
-            {t('cmp.CostEstimate.optimalStoreLine', {
-              store: s.store,
-              amount: formatGrosze(s.totalGrosze),
-              count: s.itemCount,
-            })}
-          </Txt>
         ))}
       </View>
 

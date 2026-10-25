@@ -32,6 +32,7 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   'sealing-tape': /^sealing-tape$/,
   waterproofing: /^membrane$/,
   'masking-tape': /^(painters-tape|masking-tape.*)$/,
+  'protective-film': /^drop-cloth$/,
   washbasin: /^washbasin$/,
   toilet: /^wc-compact$/,
   faucet: /^basin-mixer$/,
@@ -52,10 +53,12 @@ export function resolveMaterialQuantity(
   );
   if (candidates.length !== 1) return null;
   const source = candidates[0];
-  if (normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
+  const legacyPaintingTape = calc.jobId === 'paint-walls' && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
+  if (!legacyPaintingTape && normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
   // Old saved results contain rounded quantities only. Recompute their original
   // requirement from the same calculator formula instead of rounding twice.
-  const quantity = getRequiredQuantity(source, calc);
+  // Original tape reference was explicitly 50 m per roll. Never infer this for other materials.
+  const quantity = getRequiredQuantity(source, calc) * (legacyPaintingTape ? 50 : 1);
   if (!Number.isFinite(quantity) || quantity < 0) return null;
   return { quantity, source };
 }

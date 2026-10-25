@@ -19,11 +19,11 @@ test('Invalid or partially numeric input is rejected instead of truncated', () =
 test('measurement forms use decimal commas and retain defaults for cleared optional inputs', () => {
   const { values, errors } = parseMeasurements(paintJob, { wallArea: '40,5', coats: '', coveragePerLiter: '' });
   assert.deepEqual(errors, []);
-  assert.deepEqual(values, { wallArea: 40.5, coats: 2, coveragePerLiter: 10 });
+  assert.deepEqual(values, { wallArea: 40.5, coats: 2, coveragePerLiter: 10, tapeRolls: 1, protectiveFilmPacks: 1 });
 });
 
 test('invalid values do not silently become defaults or exceed job constraints', () => {
-  for (const input of [{ wallArea: '501' }, { wallArea: '40', coats: '4' }, { wallArea: '40', coats: '1,5' }, { wallArea: '40', coveragePerLiter: 'oops' }, { wallArea: '0,8' }]) {
+  for (const input of [{ wallArea: '501' }, { wallArea: '40', coats: '4' }, { wallArea: '40', coats: '1,5' }, { wallArea: '40', coveragePerLiter: 'oops' }, { wallArea: '40', tapeRolls: '1,5' }, { wallArea: '40', protectiveFilmPacks: '-1' }, { wallArea: '0,8' }]) {
     assert.ok(parseMeasurements(paintJob, input).errors.length > 0, JSON.stringify(input));
   }
 });

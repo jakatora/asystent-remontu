@@ -1,6 +1,6 @@
 # Plan rozwoju Asystenta Remontu
 
-Aktualizacja: 2026-10-24. Cel właściciela: użytkownik ma wiedzieć, ile materiałów potrzebuje i gdzie kupi je najtaniej. Aplikacja ma być prosta w obsłudze i pokazywać zdjęcia rzeczywistych produktów.
+Aktualizacja: 2026-10-25. Cel właściciela: użytkownik ma wiedzieć, ile materiałów potrzebuje i gdzie kupi je najtaniej. Aplikacja ma być prosta w obsłudze i pokazywać zdjęcia rzeczywistych produktów.
 
 ## 1. Wiarygodne ilości i porównanie zakupów — backend podłączony, pierwszy katalog rzeczywistych ofert działa
 
@@ -11,8 +11,10 @@ Aktualizacja: 2026-10-24. Cel właściciela: użytkownik ma wiedzieć, ile mater
 - [x] Najtańszy pełny koszyk i zakup w kilku sklepach dostępne z głównej nawigacji; algorytm uwzględnia mieszane wielkości opakowań.
 - [x] Niepełna, demonstracyjna, niedostępna lub nieaktualna oferta nie może wygrywać jako najtańsza aktualna oferta. Próg aktualności: 7 dni; nie oznacza gwarancji ceny na kasie.
 - [x] Przy porównaniu pokazać zakres: porównane sklepy, daty cen, kompletność koszyka i nieuwzględnioną dostawę/dojazd.
-- [x] Podłączyć mobilne porównanie do istniejącego backendu i pierwszych rzeczywistych obserwacji cen. Zakres początkowy: 3 oferty 2 produktów z Castoramy i OBI; jawne daty i linki. Bez cen demonstracyjnych.
-- [ ] Najbliższy priorytet: stabilne, regularne odświeżanie przez udostępnione feedy/API sklepów oraz rozszerzenie katalogu. Bezpośredni odczyt kart przez serwer jest blokowany. Błąd odczytu nie zmienia ceny ani daty; po 7 dniach oferta wypada z porównania.
+- [x] Podłączyć mobilne porównanie do istniejącego backendu i rzeczywistych cen. Stan 2026-10-25: 7 ofert 4 produktów z Castoramy, OBI, Sewery i Realbudu; jawne daty i linki. Wszystkie cztery materiały przykładowego malowania mają ofertę. Bez cen demonstracyjnych.
+- [x] Uruchomić automatyczny odczyt 4 kart Sewery/Realbudu przy starcie i co 6 godzin; rzeczywiste odświeżenie po wdrożeniu potwierdzone. Cena brutto i dokładny wariant wymagane. Wygaśnięcie lub potwierdzony brak dostępności usuwa ofertę, także po restarcie.
+- [ ] Poszerzyć katalog i zapewnić stabilne feedy/API sklepów. Castorama/OBI nadal blokują bezpośredni odczyt serwerowy. Błąd nie zmienia ceny ani daty; po 7 dniach oferta wypada z porównania.
+- [x] Umożliwić wybór liczby rolek taśmy 50 m i opakowań folii 20 m² w nowym projekcie; 0 oznacza brak potrzeby zakupu. Starsze projekty zachowują liczbę rolek i opakowanie folii po przeliczeniu jednostek.
 - [ ] Zweryfikować zakres lokalizacji, dostawy i ceny brutto oraz porównanie tej samej specyfikacji produktu. Uwzględnić stan „mam już” i „kupione”.
 
 W pierwszym pakiecie rozdzielono cenę jednostki i opakowania w modelu oraz poprawiono farbę i grunt w malowaniu ścian. Pozostałe dane cenowe wymagają osobnego przeglądu; nie przeliczano całego katalogu automatycznym mnożnikiem.
@@ -23,7 +25,7 @@ Odbiór: regresja malowania 40 m² / 1, 2 i 3 warstwy; liczby 2,5 i 0,8; koszt w
 
 - [x] Czytelne główne akcje projektu: plan, zakupy i porównanie cen, wykonanie.
 - [x] Dodatkowe materiały, narzędzia, budżet i zdjęcia uporządkowane jako drugorzędne widoki, bez utraty funkcji.
-- [ ] Karta produktu: rzeczywiste zdjęcie z wiarygodnego źródła, pełna nazwa, wielkość opakowania, liczba opakowań, koszt i przejście do oferty.
+- [x] Karta produktu w porównaniu: rzeczywiste zdjęcie z wiarygodnego źródła, pełna nazwa, wielkość opakowania, liczba opakowań, koszt i link do oferty. Pierwszy zakres: cztery materiały malowania.
 - [x] Większe pola dotykowe głównych akcji i zakupów, czytelne etykiety oraz ciemniejszy akcent i tekst; zachowane PL/EN.
 - [x] Pierwsze 5 fotografii konkretnych produktów, dopasowywanych po ID, EAN lub dokładnym URL źródła. Brak zdjęcia i błąd pobrania mają widok zastępczy.
 - [ ] Uzupełnić fotografie pozostałych produktów i sprawdzić rzeczywisty build na telefonie.
@@ -83,3 +85,15 @@ Dowód produkcyjny przez rzeczywistego klienta aplikacji: `/health` 200, `/auth/
 162 testy kalkulacji, kolektora, parsera, serializacji i HTTP PASS (0 pominiętych), dodatkowo 68 testów dotychczasowych tras wspólnego backendu PASS. Typecheck mobile, API i price-collector PASS. Podgląd porównania uproszczono do materiałów: bez powtórzonych sum robocizny i podwójnych kart produktów. Kosztorys pozostaje oddzielnym widokiem. Aktualizacja Android/iOS nie została jeszcze opublikowana.
 
 Instrukcja odtworzenia integracji i granice danych: `deploy/shared-backend/README.md`.
+
+## Pełne materiały malowania i odświeżanie — 2026-10-25
+
+Dodano rzeczywiste oferty farby, taśmy i folii w Sewerze oraz gruntu w Realbudzie. Katalog obejmuje 7 ofert, 4 produkty i 4 sklepy. Nowe źródła zostały odczytane automatycznie na serwerze 2026-10-25 o 09:54:26–09:54:30 UTC, po wdrożeniu `48d46563-366d-43bf-ae4c-f877c7e21091` (SUCCESS). Zachowano aktualny backend PrzetargAI 1.1.6 z deploymentu `28e56cec-c10a-4735-8d08-f3008c09c138`. Nie wdrażano starego lokalnego checkoutu.
+
+Odbiór przez rzeczywisty klient mobilny po HTTPS: wspólne `/health` 200, `/auth/me` bez tokenu 401. Dla 40,5 m², 2 warstw, wydajności 10 m²/l, 1 rolki taśmy 50 m i 1 folii 20 m² wszystkie 4 materiały mają ofertę, brak niewycenionych pozycji. Znaleziony zestaw: 2 puszki farby 197,00 zł, grunt 35,48 zł, taśma 14,72 zł, folia 8,45 zł; razem **255,65 zł** (Sewera 220,17 zł i Castorama 35,48 zł). Żaden pojedynczy sklep nie pokrywa całej listy. Dostawy, narzędzia i robocizna są poza sumą; to zakres pilotażowy, nie dowód najniższej ceny na całym rynku.
+
+W podglądzie 390 × 844 sprawdzono nowy projekt `proj_mvnnone1288u42uor`, polski przecinek, nowe liczby taśmy/folii, zapis i ponowne otwarcie, wszystkie cztery karty oraz faktycznie załadowane zdjęcia taśmy i folii. Sumę z rozbiciem po sklepach przeniesiono nad tabelę; daty pokazują zakres 24–25.10.2026. Natywne wydanie Android/iOS nadal wymaga odbioru i publikacji.
+
+169 testów modułów kalkulatora, kolektora, parserów, cache, serializacji i HTTP PASS, 0 pominiętych; 68 regresji dotychczasowego backendu PASS. Typecheck API i mobile oraz kontrola 741 ID w 15 plikach PASS. Dodano przypadki cen netto/brutto, różnych wymiarów produktu, wygaśnięcia w strefie Warszawy, niedostępności i restartu cache, materiałów posiadanych oraz zgodności starych projektów.
+
+Następne kroki: rozszerzyć realny katalog i liczbę ofert dla każdego produktu, uwzględnić koszt dostaw/lokalny odbiór, edycję pomiarów istniejącego projektu oraz posiadane ilości wszystkich materiałów. Potem wspólny koszyk wielu prac i pomieszczeń zgodnie z etapem 4.

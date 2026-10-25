@@ -73,18 +73,21 @@ export const JOB_MATERIAL_MAPPINGS: readonly JobMaterialMapping[] = [
     materialTypeMap: {
       economy: [
         'mat-paint-latex-dekoral-akrylit-w-white-5l',
+        'mat-protective-film-bluedolphin-4x5m',
         'mat-universal-primer-5l',
         'mat-skim-coat-acrylputz-st10-20kg',
         'mat-masking-tape-bluedolphin-30mm',
       ],
       standard: [
         'mat-paint-latex-sniezka-barwy-natury-white-5l',
+        'mat-protective-film-bluedolphin-4x5m',
         'mat-universal-primer-5l',
         'mat-skim-coat-acrylputz-st10-20kg',
         'mat-masking-tape-bluedolphin-30mm',
       ],
       better: [
         'mat-paint-latex-dulux-easycare-white-9l',
+        'mat-protective-film-bluedolphin-4x5m',
         'mat-universal-primer-5l',
         'mat-skim-coat-acrylputz-st10-20kg',
         'mat-masking-tape-bluedolphin-30mm',

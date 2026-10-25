@@ -93,11 +93,21 @@ export const paintJob: RenovationJob = {
       required:     false,
       hint:         'Podane na opakowaniu farby. Standardowo 10 m²/litr. Gęstsza farba może dawać 7–8 m²/litr.',
     },
+    {
+      id: 'tapeRolls', label: 'Rolki taśmy malarskiej po 50 m', unit: 'szt.',
+      inputType: 'count', placeholder: '1', defaultValue: 1, min: 0, max: 100, required: false,
+      hint: 'Podaj liczbę rolek do kupienia. Jedna rolka ma 50 m. Wpisz 0, jeśli taśmę już masz.',
+    },
+    {
+      id: 'protectiveFilmPacks', label: 'Opakowania folii 4 × 5 m', unit: 'szt.',
+      inputType: 'count', placeholder: '1', defaultValue: 1, min: 0, max: 100, required: false,
+      hint: 'Jedno opakowanie zakrywa 20 m² podłogi. Wpisz 0, jeśli tę folię już masz. Ochronę mebli sprawdzisz osobno w narzędziach.',
+    },
   ],
 
   // ── Materials ─────────────────────────────────────────────────────────────
   // Paint uses inline formula from formulaBuilder for precise coverage per-liter calculation.
-  // Primer and tape use registry keys (simpler, backward-compatible).
+  // Tape and floor protection use the explicitly selected purchase counts.
   materials: [
     {
       id:           'paint',
@@ -157,8 +167,9 @@ export const paintJob: RenovationJob = {
       id:           'painters-tape',
       name:         'Taśma malarska',
       brand:        'Tesa Taśma malarska Standard 25 mm × 50 m (51023) (referencja)',
-      unit:         'rolka',
-      formulaKey:   'tape',
+      unit:         'mb',
+      formula:      (m) => (m.tapeRolls ?? 1) * 50,
+      packaging:    { size: 50, label: 'rolka 50 m', purchaseUnit: 'rolka' },
       wasteFactor:  1.0,
       roundingRule: 'ceil',
       pricePerUnit: 8,
@@ -176,10 +187,10 @@ export const paintJob: RenovationJob = {
       name:         'Folia malarska (podłoga)',
       brand:        'Folia malarska 4 × 5 m LDPE/OPP (referencja: Topex / Dexter / LUX / GO/ON!)',
       unit:         'm²',
-      formula:      formulaBuilder.fixed(1),
+      formula:      (m) => (m.protectiveFilmPacks ?? 1) * 20,
       roundingRule: 'ceil',
       packaging: {
-        size:         1,
+        size:         20,
         label:        'rolka 4×5m (20 m²)',
         purchaseUnit: 'rolka',
       },

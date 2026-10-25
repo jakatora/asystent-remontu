@@ -298,7 +298,7 @@ export interface SerializedProject {
     offers: number;
     products: number;
     stores: string[];
-    sources: { id: string; store: string; checkedAt: string | null; error: string | null }[];
+    sources: { id: string; store: string; checkedAt: string | null; error: string | null; active?: boolean }[];
     scope: { channel: string; currency: string; deliveryIncluded: boolean; locationAdjusted: boolean };
   };
   stages: SerializedStage[];
@@ -398,7 +398,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
   const references = getMaterialsForJob(calc.jobId, tier);
   return {
     jobId: calc.jobId,
-    materials: calc.materials.map((line) => {
+    materials: calc.materials.filter(line => getRequiredQuantity(line, calc) > 0).map((line) => {
       const matches = references.filter(ref => resolveMaterialQuantity(ref, calc)?.source.material.id === line.material.id);
       const reference = matches.length === 1 ? matches[0] : undefined;
       return {
@@ -410,7 +410,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
           ean: readOptionalCode(line.material, 'ean'),
           gtin: readOptionalCode(line.material, 'gtin'),
         },
-        quantity: getRequiredQuantity(line, calc),
+        quantity: reference ? resolveMaterialQuantity(reference, calc)!.quantity : getRequiredQuantity(line, calc),
         ...(line.packs !== undefined ? { packs: line.packs } : {}),
       };
     }),

@@ -8,7 +8,7 @@ import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
 import { projectRequestSchema } from './lib/pricing-schema';
 import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
-import { parseRetailPage, readRetailSource, type RetailObservation } from './lib/retail-pages';
+import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const normalUnit = (value: string) => ({ litr: 'l', litry: 'l', 'm²': 'm2', 'szt.': 'szt' }[value] ?? value);
@@ -25,9 +25,11 @@ export interface SharedPricingOptions {
 export function createRemontService(options: SharedPricingOptions = {}) {
   const observations = new Map<string, RetailObservation>();
   const errors = new Map<string, string>();
+  const withdrawnAt = new Map<string, string>();
   let running = false;
   let lastAttemptAt: string | null = null;
   const accept = (observation: RetailObservation) => {
+    if (!observation || typeof observation !== 'object') return;
     const source = RETAIL_SOURCES.find(source => source.id === observation.sourceId);
     if (!source || observation.ean !== source.ean || observation.sourceUrl !== source.url ||
       observation.currency !== 'PLN' || observation.availability !== 'in_stock' ||
@@ -35,12 +37,19 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       !/^[a-f0-9]{64}$/.test(observation.evidenceSha256) || !Number.isFinite(Date.parse(observation.observedAt))) return;
     const previous = observations.get(source.id);
     if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
+    if (Date.parse(observation.observedAt) >= Date.parse(withdrawnAt.get(source.id) ?? '')) withdrawnAt.delete(source.id);
   };
   options.initialObservations?.forEach(accept);
   if (options.cachePath && existsSync(options.cachePath)) {
     try {
       const cache = JSON.parse(readFileSync(options.cachePath, 'utf8'));
       if (Array.isArray(cache)) cache.forEach(accept);
+      else if (cache?.version === 2 && Array.isArray(cache.observations)) {
+        cache.observations.forEach(accept);
+        for (const [id, date] of Object.entries(cache.withdrawnAt ?? {})) {
+          if (typeof date === 'string' && Number.isFinite(Date.parse(date)) && RETAIL_SOURCES.some(source => source.id === id)) withdrawnAt.set(id, date);
+        }
+      }
     } catch { errors.set('cache', 'cache_read_failed'); }
   }
 
@@ -50,6 +59,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     for (const source of RETAIL_SOURCES) {
       const observation = observations.get(source.id);
       if (!observation) continue;
+      if (withdrawnAt.has(source.id) && Date.parse(withdrawnAt.get(source.id)!) >= Date.parse(observation.observedAt)) continue;
+      if (observation.validUntil && !retailPriceIsValid(observation.validUntil, new Date())) continue;
       const productId = `remont-${source.ean}`;
       if (!products.some(product => product.id === productId)) products.push({
         id: productId, name: source.name, normalizedName: normalizeProductName(source.name),
@@ -65,7 +76,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         unit: source.unit, packageSize: String(source.packageSize),
         pricePerUnit: (observation.priceGrosze / 100 / source.packageSize).toFixed(4),
         productUrl: source.url, availability: observation.availability,
-        fetchedAt: new Date(observation.observedAt), source: 'retailer-page-jsonld',
+        fetchedAt: new Date(observation.observedAt), source: source.format && source.format !== 'jsonld' ? 'retailer-page-microdata' : 'retailer-page-jsonld',
       });
     }
     const aliases = Object.entries(RETAIL_NAME_ALIASES).map(([name, ean]) => [normalizeProductName(name), ean]);
@@ -92,13 +103,16 @@ export function createRemontService(options: SharedPricingOptions = {}) {
           errors.delete(source.id);
         } catch (error) {
           // Keep the original observation timestamp. A failed read is not a new price.
-          errors.set(source.id, error instanceof Error ? error.message : 'retailer_read_failed');
+          const message = error instanceof Error ? error.message : 'retailer_read_failed';
+          errors.set(source.id, message);
+          // A confirmed withdrawal must also survive a restart, even with old bootstrap observations.
+          if (message === 'retailer_out_of_stock') withdrawnAt.set(source.id, new Date().toISOString());
         }
       }
       if (options.cachePath) {
         try {
           mkdirSync(dirname(options.cachePath), { recursive: true });
-          writeFileSync(`${options.cachePath}.tmp`, JSON.stringify([...observations.values()]));
+          writeFileSync(`${options.cachePath}.tmp`, JSON.stringify({ version: 2, observations: [...observations.values()], withdrawnAt: Object.fromEntries(withdrawnAt) }));
           renameSync(`${options.cachePath}.tmp`, options.cachePath);
           errors.delete('cache');
         } catch { errors.set('cache', 'cache_write_failed'); }
@@ -116,6 +130,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
       sources: RETAIL_SOURCES.map(source => ({
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,
+        active: eligible.some(offer => offer.id === source.id),
         error: errors.get(source.id) ?? null,
       })),
     };
