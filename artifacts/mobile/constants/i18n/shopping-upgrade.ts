@@ -29,6 +29,8 @@ const pl = {
   'upgrade.product.packages': 'Do kupienia: {count} × {size} {unit}',
   'upgrade.product.packagingLabel': 'Do kupienia: {count} × {label}',
   'upgrade.product.need': 'Potrzebujesz {quantity} {unit}',
+  'upgrade.product.storeConfirmation': 'Cena referencyjna. Potwierdź cenę i dostępność po wybraniu sklepu dla swojego kodu pocztowego.',
+  'upgrade.product.noOnlineOffer': 'Brak potwierdzonej oferty internetowej. Przed zakupem sprawdź dostępność tego wariantu.',
   'upgrade.input.range': '{label}: podaj liczbę od {min} do {max}.',
 } as const;
 
@@ -63,6 +65,8 @@ const en: Record<keyof typeof pl, string> = {
   'upgrade.product.packages': 'Buy: {count} × {size} {unit}',
   'upgrade.product.packagingLabel': 'Buy: {count} × {label}',
   'upgrade.product.need': 'You need {quantity} {unit}',
+  'upgrade.product.storeConfirmation': 'Reference price. Select your local store using your postcode to confirm price and availability.',
+  'upgrade.product.noOnlineOffer': 'No confirmed online offer. Check availability of this variant before buying.',
   'upgrade.input.range': '{label}: enter a number between {min} and {max}.',
 };
 

@@ -129,14 +129,14 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
 
   // Klej-uszczelniacz hybrydowy Soudal Fix All High Tack 290 ml biały
   // (materials.ts: mat-mounting-adhesive-soudal-fixall-290ml).
-  // source: https://mrowka.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html (EAN 5411183175723)
-  // source: https://www.grupapsb.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html (EAN 5411183175723)
+  // source: https://media.soudal.pl/katalogi/Katalog_DIY_Soudal_2025_new.pdf (290 ml biały: 5411183045620)
+  // source: https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html
   "mat-mounting-adhesive-soudal-fixall-290ml": {
-    ean: "5411183175723",
+    ean: "5411183045620",
     variant: "biały",
     manufacturer: "Soudal",
     productUrl:
-      "https://mrowka.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html",
+      "https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html",
   },
 
   // Gładź szpachlowa wykończeniowa Acryl-Putz FS20 Finisz 27 kg

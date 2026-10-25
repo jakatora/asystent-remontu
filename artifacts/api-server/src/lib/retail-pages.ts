@@ -2,6 +2,8 @@ import { createHash } from 'node:crypto';
 import { normalizeProductName } from '@workspace/db/repositories';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import { readRetailMicrodata } from './retail-microdata';
+import { AnonymousShop } from './retailer-http';
+import { confirmShopifyProduct } from './shopify-product';
 
 export interface RetailSource {
   id: string;
@@ -13,11 +15,13 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api';
   imageUrl?: string;
   variant?: readonly string[];
   /** Reviewed Shoper product identifier, also for stores with custom URLs. */
   productId?: number;
+  variantId?: number;
+  apiPurchaseUnit?: string;
   /** One purchase unit is a piece or a sealed package, never an inferred m². */
   retailUnit?: 'SZT' | 'OPA';
   /** Exact package contents explicitly stated in this product's description. */
@@ -48,7 +52,7 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   const products: Record<string, any>[] = [];
-  if (source.format && source.format !== 'jsonld' && source.format !== 'shoper-api') products.push(readRetailMicrodata(html, source.format, source.url, source.retailUnit));
+  if (source.format && !['jsonld','shoper-api','shopify-api'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }
@@ -97,6 +101,16 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 }
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
+  if (source.format === 'shopify-api') {
+    const client = new AnonymousShop(new URL(source.url).origin, fetchImpl, AbortSignal.timeout(8000));
+    const raw = await client.text(new URL(source.url).pathname + '.js');
+    const item = confirmShopifyProduct(JSON.parse(raw), source);
+    const cart = JSON.parse(await client.text('/cart.js'));
+    if (cart.currency !== 'PLN') throw Error('retailer_currency_not_confirmed');
+    const html = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Product', name: item.name, gtin13: source.ean, image: item.imageUrl,
+      offers: { '@type': 'Offer', price: (item.priceGrosze / 100).toFixed(2), priceCurrency: 'PLN', url: source.url, availability: 'https://schema.org/InStock' } })}</script>`;
+    return { ...parseRetailPage(html, source, new Date()), evidenceSha256: createHash('sha256').update(JSON.stringify([raw,cart.currency])).digest('hex') };
+  }
   const api = source.format === 'shoper-api';
   const requestUrl = api ? `${new URL(source.url).origin}/webapi/front/pl_PL/products/PLN/${shoperProductId(source)}` : source.url;
   const response = await fetchImpl(requestUrl, {
@@ -122,6 +136,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   if (api) {
     const item = JSON.parse(raw);
     if (String(item.id) !== shoperProductId(source)) throw new Error('product_id_not_confirmed');
+    if (source.apiPurchaseUnit && item.unit?.name !== source.apiPurchaseUnit) throw new Error('retailer_unit_not_confirmed');
     if (!item.can_buy) throw new Error('retailer_out_of_stock');
     const gross = item.price?.gross;
     const formatted = String(gross?.final ?? '').replace(/[\s\u00a0]/g, '').match(/^(\d+),(\d{2})zł$/);

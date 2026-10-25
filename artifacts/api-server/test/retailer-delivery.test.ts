@@ -16,6 +16,8 @@ function fixture(cents = 1050): any {
 test('real storefront shape: prepaid home courier, not pickup, COD or free-shipping teaser', () => {
   assert.equal(selectHomeDelivery(fixture()).costGrosze, 1050);
   assert.equal(selectHomeDelivery(fixture(0)).costGrosze, 0);
+  const dpd = fixture(2460); dpd.shippings[3].title='Transport DPD';
+  assert.equal(selectHomeDelivery(dpd).costGrosze,2460);
   const b = fixture(); b.shippings[3].payments[0] = { payment_id:3, additional_cost:'1,50 zł', additional_cost_float:1.5 };
   assert.equal(selectHomeDelivery(b).costGrosze, 1200);
   b.shippings[3].description = 'Wycena indywidualna, prosimy o kontakt';

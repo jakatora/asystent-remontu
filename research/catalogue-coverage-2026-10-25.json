@@ -1,10 +1,12 @@
 {
-  "checkedAt": "2026-10-25T14:02:13.768Z",
+  "checkedAt": "2026-10-25T14:57:20.787Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 35,
-  "remaining": 68,
-  "offers": 58,
+  "verifiedProducts": 40,
+  "remaining": 63,
+  "offers": 63,
+  "stores": 11,
+  "productsWithPhotos": 103,
   "rows": [
     {
       "id": "mat-paint-economy-white-10l",
@@ -13,7 +15,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-biala-mat-10-l~3663602567240_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -23,7 +25,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-goodhome-sciany-i-sufit-bialy-mat-10-l~5059340271620_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -72,7 +74,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gladz-pod-walek-kreisel-gw180-gotowa-polimerowa-20-kg~5907418038791_21c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -94,7 +96,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2~5063022505828_37c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -104,7 +106,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podklad-podlogowy-pod-panele-laminowane-volden-xps-smart-3-mm-10-m2~5063022038289_01c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -114,7 +116,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/listwa-przypodlogowa-pcv-arbiton-indo-26-x-70-x-2500-mm-bialy-polysk~5905167725719_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -124,7 +126,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2~3663602870821_02c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -134,7 +136,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg~5905400658866_22c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -249,11 +251,13 @@
     {
       "id": "mat-mounting-adhesive-soudal-fixall-290ml",
       "name": "Klej-uszczelniacz hybrydowy Soudal Fix All High Tack 290 ml biały",
-      "referenceUrl": "https://mrowka.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": null,
+      "referenceUrl": "https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html",
+      "status": "verified_offer",
+      "ean": "5411183045620",
+      "sourceIds": [
+        "unimet-fixall-290ml"
+      ],
+      "photoUrl": "https://www.unimet.pl/2244944-large_default/uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml.webp",
       "deliveryChecks": []
     },
     {
@@ -433,7 +437,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/6f/smngr0j78hjr/Photos/3fmkicl0lt0c47/siatka-scierna-na-rzep-225-mm-k180-do-szlifierki-59g260-10-sztuk-graphite_1.png",
       "deliveryChecks": []
     },
     {
@@ -443,7 +447,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/g0/fsd4k0jtitpg/Photos/jdsn6lt0lkjr15/ShowWebp_plyta-gkb-125x1200x2600-mm-zwykla-norgips_1.webp",
       "deliveryChecks": []
     },
     {
@@ -453,7 +457,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/ke/q2u550jtitpj/Photos/ln0d1k10lkjr1d/ShowWebp_plyta-gkbi-125x1200x2600-mm-woda-norgips_1.webp",
       "deliveryChecks": []
     },
     {
@@ -463,7 +467,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-norgips-cd60-0-6-mm-3-mb~5907651698899_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -473,7 +477,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/d9/hue3u0i8mdfv/Photos/i2a1l0s0lkjpcc/ShowWebp_profil-sufitowy-ud27---050-mm---3-m-budmat-plock_1.webp",
       "deliveryChecks": []
     },
     {
@@ -540,7 +544,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/a6/hr0940i4fg18/Photos/qslbice0mvpbpv/ShowWebp_bateria-umywalkowa-stillo-stojaca-ferro_1.webp",
       "deliveryChecks": []
     },
     {
@@ -550,7 +554,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/3d/efnng0jbqsar/Photos/nmhp69f0mvot4v/ShowWebp_bateria-natryskowa-scienna-ferro-one-ferro_1.webp",
       "deliveryChecks": []
     },
     {
@@ -560,7 +564,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/7v/fkpse0mm7t7f/Photos/odqus2n0mm7t7f/ShowWebp_syfon-umywalkowy-1-14x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine_1.webp",
       "deliveryChecks": []
     },
     {
@@ -570,7 +574,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/na/v421g0idki5e/Photos/ug7jg8k0mn1o12/ShowWebp_rura-pex-al-pex-16-mmx2---200-mb-tycner_1.webp",
       "deliveryChecks": []
     },
     {
@@ -580,7 +584,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/vu/t7atm0ht029g/Photos/cumrci10no4fac/ShowWebp_kolanko-zaciskowe-pex-16x16-mm-tycner_1.webp",
       "deliveryChecks": []
     },
     {
@@ -590,7 +594,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-~5907798716258_01c_MP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -600,7 +604,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/mu/q7rvc0igoa6f/Photos/q96euhr0ml7hr0/ShowWebp_tasma-teflonowa-12-mm-x-10-m-x-0-075-mm-tycner_1.webp",
       "deliveryChecks": []
     },
     {
@@ -610,7 +614,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca~5902115720833_01c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -620,7 +624,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://pliki.grupapsb.com.pl/files/InfoverProduct/h1/ej7ro0igtlm8/Photos/lm63o5p0lldq4u/Body_umywalka-facile-50-cm-cersanit_1.jpg",
       "deliveryChecks": []
     },
     {
@@ -630,17 +634,19 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/zawor-katowy-z-filtrem-ferro-1-2-x-3-8-~5901095614033_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
       "id": "mat-wc-mounting-set-tycner",
-      "name": "Zestaw przyłączeniowo-mocujący WC Tycner (śruby, uszczelka, podkładki)",
-      "referenceUrl": "https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": null,
+      "name": "Zestaw przyłączeniowo-mocujący WC Tycner (rury, uszczelki i akcesoria)",
+      "referenceUrl": "https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html",
+      "status": "verified_offer",
+      "ean": "5901095514395",
+      "sourceIds": [
+        "unimet-wc-mounting-set"
+      ],
+      "photoUrl": "https://www.unimet.pl/2023449-large_default/zestaw-przylaczeniowo-mocujacy-wc.webp",
       "deliveryChecks": []
     },
     {
@@ -650,7 +656,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb~5904617573771_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -660,7 +666,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb~5904617573764_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -670,7 +676,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gniazdo-pojedyncze-kontakt-simon-basic-z-ochron-styk-w-bia-e-1-szt-~5902787568238_01c_MP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -680,7 +686,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/lacznik-pojedynczy-kontakt-simon-basic-bialy~5902787568177_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -690,18 +696,37 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-~5901752637337_01c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
       "id": "mat-wire-connector-wago-221-413",
-      "name": "Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (12 szt.)",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": null,
-      "deliveryChecks": []
+      "name": "Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (1 szt.)",
+      "referenceUrl": "https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-413-3X4mm-LINKADRUT-NO-WA/11528",
+      "status": "verified_offer",
+      "ean": "4050821808442",
+      "sourceIds": [
+        "prescot-wago-221413"
+      ],
+      "photoUrl": "https://www.prescot.com.pl/environment/cache/images/productGfx_45208_500_500/221-413.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "prescot-wago-221413",
+          "checkedAt": "2026-10-25T14:46:39.371Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 12
+        },
+        {
+          "sourceId": "prescot-wago-221413",
+          "checkedAt": "2026-10-25T14:46:39.371Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 12
+        }
+      ]
     },
     {
       "id": "mat-laminate-kronospan-toledo-ac4-222",
@@ -710,7 +735,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-laminowane-kronospan-toledo-ac4-2-22-m2~5907555422774_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -720,7 +745,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-laminowane-wodoodporne-classen-dab-niasa-ac5-1-973-m2~4003992571974_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -730,7 +755,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podklad-podlogowy-pod-panele-laminowane-arbiton-xps-smart-aquastop-thermo-1-6-mm-6-m2~5905167826942_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -740,7 +765,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/folia-paroizolacyjna-diall-20-m2~5059340141428_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -750,7 +775,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/listwa-przypodlogowa-mdf-krono-original-biala-lk100f~5907555424969_01i_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -760,17 +785,17 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klipsy-montazowe-do-listew-cezar-25-szt-~5907684672217_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
       "id": "mat-gres-paradyz-petro-grey-60x60",
-      "name": "Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm",
+      "name": "Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm, gatunek 2",
       "referenceUrl": "https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150",
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://s3-eu-west-1.amazonaws.com/taniaplytka.production/uploads/product/image/39706/39706.jpg",
       "deliveryChecks": []
     },
     {
@@ -780,7 +805,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://elazienki.pl/wp-content/uploads/2025/02/SS-250X400-1-NATI.BI_.jpg",
       "deliveryChecks": []
     },
     {
@@ -790,7 +815,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://cdn.blu.com.pl/large_default/5904584158261_366720_Ceramika_Paradyz_U117_Grey_Gres_Szkl._Rekt._Mat_PD-PG-U117GREYMAT6060_Zdjecie_produktu.jpg?ver=1742976674_1779104212_1742976689_1747816989_1747816981_1742976708_1743066628__1767793025",
       "deliveryChecks": []
     },
     {
@@ -842,11 +867,46 @@
       "id": "mat-tile-trim-cezar-corner-8mm-25m",
       "name": "Profil narożny do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m",
       "referenceUrl": "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": null,
-      "deliveryChecks": []
+      "status": "verified_offer",
+      "ean": "5904584853500",
+      "sourceIds": [
+        "cezar-tile-trim-8mm-25m"
+      ],
+      "photoUrl": "https://cezar.eu/cdn/shop/files/f3af291d90963eeb125a6e5cb54a3887_9d9ddc5e-8cc3-42ba-b7e6-bd37c74886eb.png?v=1791543548&width=1200",
+      "deliveryChecks": [
+        {
+          "sourceId": "cezar-tile-trim-8mm-25m",
+          "checkedAt": "2026-10-25T14:46:40.837Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 2
+        },
+        {
+          "sourceId": "cezar-tile-trim-8mm-25m",
+          "checkedAt": "2026-10-25T14:46:42.328Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "30-001",
+          "count": 19
+        },
+        {
+          "sourceId": "cezar-tile-trim-8mm-25m",
+          "checkedAt": "2026-10-25T14:46:40.837Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001",
+          "count": 2
+        },
+        {
+          "sourceId": "cezar-tile-trim-8mm-25m",
+          "checkedAt": "2026-10-25T14:46:42.328Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "30-001",
+          "count": 19
+        }
+      ]
     },
     {
       "id": "mat-waterproof-membrane-atlas-woder-e-15kg",
@@ -919,7 +979,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/naroznik-uszczelniajacy-wewnetrzny-mapei~8022452113802_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -929,7 +989,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/naroznik-uszczelniajacy-zewnetrzny-mapei~8022452113789_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -939,7 +999,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/mankiet-uszczelniajacy-mapei-maly-2-szt-~8022452113925_08c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -992,7 +1052,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2~5906725207227_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1002,7 +1062,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml~5411183048522_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1038,17 +1098,19 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kotwa-montazowa-do-oscieznic-10-x-182-mm~5905458019787_03c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
       "id": "mat-window-tape-soudal-sws-inside-90mm",
       "name": "Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m",
       "referenceUrl": "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
-      "status": "needs_verified_offer",
-      "ean": null,
-      "sourceIds": [],
-      "photoUrl": null,
+      "status": "verified_offer",
+      "ean": "5411183151178",
+      "sourceIds": [
+        "bestbudowa-soudal-inside-90mm"
+      ],
+      "photoUrl": "https://bestbudowa.pl/5742-home_default/soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m.jpg",
       "deliveryChecks": []
     },
     {
@@ -1058,7 +1120,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy~5906725219640_01c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1068,7 +1130,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tynk-maszynowy-knauf-mp-75-25-kg~5902367206352_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1078,7 +1140,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tynk-gipsowy-reczny-knauf-goldband-25-kg~5902367206383_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1119,7 +1181,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/naroznik-aluminiowy-z-siatka-budmat-2-5-mb~5900308102411_01c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1129,7 +1191,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/styropian-fasadowy-yetico-gamma-100-mm-3-m2-6-szt-~5902578301976_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1139,7 +1201,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-~5902578307268_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1149,7 +1211,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://pliki.grupapsb.com.pl/files/InfoverProduct/dd/r42uc0j0ledk/Photos/bhp9rsh0m4juu0/Body_zaprawa-klejaca-do-styropianu-i-xps-oraz-do-zatapiania-siatki-25-kg-stopter-k-20-atlas_1.jpg",
       "deliveryChecks": []
     },
     {
@@ -1230,7 +1292,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-archi-80-lewe-biale-lakierowane~5903917782364_02c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1240,7 +1302,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale~5063022524034_02c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1250,7 +1312,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pokojowe-credis-80-lewe-biale~5900378219590_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1260,7 +1322,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma~5902659279118_03c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1270,7 +1332,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota~5907467760698_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1280,7 +1342,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/zawias-regulowany-3d-14-mm-ocynkowany~5906711270471_01c_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1290,7 +1352,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kliny-montazowe-floorpol-30-x-150-mm-10-szt-~5907508719289_08c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1333,7 +1395,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1343,7 +1405,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2~5063022676757_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1353,7 +1415,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_02c?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1363,7 +1425,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-~5061092900925_01c_MP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1373,7 +1435,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klej-do-wykladzin-soudal-26a-5-kg~5411183028395_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     },
     {
@@ -1383,7 +1445,7 @@
       "status": "needs_verified_offer",
       "ean": null,
       "sourceIds": [],
-      "photoUrl": null,
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-progowy-cezar-40mm-srebrny-1m-aluminiowy-1-szt-~5904584845215_01c_MP?$MOB_PREV$&$width=284&$height=284",
       "deliveryChecks": []
     }
   ]

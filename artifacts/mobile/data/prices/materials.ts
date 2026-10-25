@@ -266,9 +266,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
-  // Klej-uszczelniacz hybrydowy Soudal Fix All High Tack 290 ml biały — EAN 5411183175723.
-  // source: https://mrowka.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html (EAN + cena 24,99 zł)
-  // source: https://www.grupapsb.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html (EAN 5411183175723)
+  // Fix All High Tack biały 290 ml: 5411183045620; kod 5411183175723 dotyczy tuby 125 ml.
+  // source: https://media.soudal.pl/katalogi/Katalog_DIY_Soudal_2025_new.pdf
+  // source: https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html
   {
     id: 'mat-mounting-adhesive-soudal-fixall-290ml',
     materialType: 'mounting-adhesive',
@@ -276,12 +276,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Soudal',
     packageSize: 290,
     packageUnit: 'ml',
-    pricePerPackage: 24.99,
+    pricePerPackage: 31.50,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'Unimet',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/klej-uszczelniacz-hybrydowy-fix-all-high-tack-290-ml-bialy-soudal-5411183175723.html',
-    lastUpdated: '2026-08-23',
+      'https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -864,16 +864,17 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   {
     id: 'mat-wc-mounting-set-tycner',
     materialType: 'mounting-set',
-    productLabel: 'Zestaw przyłączeniowo-mocujący WC Tycner (śruby, uszczelka, podkładki)',
+    productLabel: 'Zestaw przyłączeniowo-mocujący WC Tycner (rury, uszczelki i akcesoria)',
     brand: 'Tycner',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 36.80,
+    // source: https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html
+    pricePerPackage: 49.95,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'Unimet',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/zestaw-przylaczeniowo-mocujacy-wc-tycner.html',
-    lastUpdated: '2026-08-24',
+      'https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -991,16 +992,17 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   {
     id: 'mat-wire-connector-wago-221-413',
     materialType: 'wire-connector',
-    productLabel: 'Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (12 szt.)',
+    productLabel: 'Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (1 szt.)',
     brand: 'WAGO',
-    packageSize: 12,
+    packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 23.88,
+    // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-413-3X4mm-LINKADRUT-NO-WA/11528
+    pricePerPackage: 2.75,
     category: 'standard',
-    storeName: 'Leroy Merlin',
+    storeName: 'Prescot',
     sourceUrl:
-      'https://www.leroymerlin.pl/produkty/wago-221-413-szybkozlaczka-zlaczka-drut-linka-3x-0-2-4mm2-oryginalna-12szt-89975728.html',
-    lastUpdated: '2026-08-23',
+      'https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-413-3X4mm-LINKADRUT-NO-WA/11528',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 
@@ -1145,7 +1147,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   {
     id: 'mat-gres-paradyz-petro-grey-60x60',
     materialType: 'tile',
-    productLabel: 'Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm',
+    productLabel: 'Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm, gatunek 2',
     brand: 'Ceramika Paradyż',
     packageSize: 1,
     packageUnit: 'm2',
@@ -1246,14 +1248,14 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     productLabel: 'Profil narożny do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m',
     brand: 'Cezar',
     packageSize: 2.5,
-    packageUnit: 'szt',
+    packageUnit: 'mb',
     pricePerPackage: 27.32,
     pricePerMb: 10.93, // 27,32 zł / 2,5 m
     category: 'standard',
     storeName: 'Cezar',
     sourceUrl:
       'https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
   },
 

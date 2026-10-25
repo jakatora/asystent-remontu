@@ -39,18 +39,27 @@ function labelled(html: string, label: string, tag: 'strong' | 'em'): string {
   return text(one([...html.matchAll(regex)].map(match => match[1]), 'microdata_identity_ambiguous'));
 }
 
-export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' | 'shoper' | 'buduj24', url: string, retailUnit: 'SZT' | 'OPA' = 'SZT'): Record<string, any> {
+export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', url: string, retailUnit: 'SZT' | 'OPA' = 'SZT'): Record<string, any> {
   const safe = clean(html);
   const product = one(elements(safe, a => /\/Product$/.test(a.itemtype ?? '')), 'microdata_product_ambiguous');
   const offer = one(elements(product, a => a.itemprop === 'offers' && /\/Offer$/.test(a.itemtype ?? '')), 'microdata_offer_ambiguous');
   const price = property(offer, 'price');
   const currency = property(offer, 'priceCurrency');
-  const name = property(product, 'name');
+  const name = format === 'unimet' ? text(one(elements(product, (a,tag) => a.itemprop === 'name' && tag === 'h1'), 'microdata_name_ambiguous')) : property(product, 'name');
   const images = elements(product, a => a.itemprop === 'image').map(element => {
     const a = attrs(element.match(TAG)?.[0] ?? '');
     return a.content ?? a.src ?? a.href;
   }).filter((value): value is string => Boolean(value));
   const image = images[0] ? new URL(decodeURIComponent(images[0]), url).href : null;
+  if (format === 'unimet') {
+    // source: https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html
+    const visible = text(one(elements(offer, a => a.itemprop === 'price'), 'retailer_gross_price_not_confirmed'));
+    const grossLabel = text(one(elements(product, a => a.class === 'tax-shipping-delivery-label'), 'retailer_gross_price_not_confirmed'));
+    if (grossLabel !== 'SZT Brutto' || Number(visible.replace(/\s|zł/g,'').replace(',','.')) !== Number(price)) throw Error('retailer_gross_price_mismatch');
+    const brand = text(one(elements(product, a => a.itemprop === 'brand'), 'microdata_brand_ambiguous')).replace(/^Marka\s*/, '');
+    return { '@type':'Product', name, gtin13:property(product,'gtin13'), brand, image,
+      offers:{'@type':'Offer',price,priceCurrency:currency,url:property(offer,'url'),availability:property(offer,'availability')} };
+  }
   if (format === 'shoper' || format === 'buduj24') {
     const ean = property(product, 'gtin');
     const gross = format === 'shoper'

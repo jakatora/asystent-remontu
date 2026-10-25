@@ -4,11 +4,12 @@ import { RETAIL_SOURCES } from './retail-catalog';
 import { AnonymousShop } from './retailer-http';
 import { quoteBuduj24, quoteSewera, createCheckoutPageReader } from './retailer-checkouts';
 import { shoperProductId } from './retail-pages';
+import { quoteCezar } from './cezar-delivery';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
 const ORIGINS: Readonly<Record<string, string>> = {
-  'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl',
+  'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl', Prescot: 'https://www.prescot.com.pl',
 };
 const TTL = 10 * 60_000;
 
@@ -30,7 +31,7 @@ export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: 
   for (const shipping of basket.shippings) {
     // Explicit home couriers only. Lockers, pickup points, COD and custom freight
     // quotations may expose a tempting zero price but are not home delivery.
-    if (shipping.engine !== '' || typeof shipping.title !== 'string' || !/kurier|kurierska/i.test(shipping.title) ||
+    if (shipping.engine !== '' || typeof shipping.title !== 'string' || !/kurier|kurierska|^Transport DPD$/i.test(shipping.title) ||
       /pobran|odbiór|odbior|punkt|automat|pickup|palet|zapytani|indywidualn|kontakt/i.test(`${shipping.title} ${shipping.description ?? ''}`)) continue;
     const country = shipping.countries?.find((c: any) => c.id === 179);
     if (!country) continue;
@@ -97,13 +98,13 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
   let active = 0;
   return async (order, postalCode) => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return { reason: 'invalid_postal_code' };
-    if (!ORIGINS[order.store] && !['Sewera','Buduj24'].includes(order.store)) return { reason: ['Castorama','OBI'].includes(order.store) ? 'retailer_access_required' : 'integration_unavailable' };
+    if (!ORIGINS[order.store] && !['Sewera','Buduj24','Cezar'].includes(order.store)) return { reason: ['Castorama','OBI'].includes(order.store) ? 'retailer_access_required' : 'integration_unavailable' };
     const key = JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze])).sort()]);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
     if (active >= 3) return { reason: 'quote_busy' };
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     active++;
-    const pending = (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : quoteShoper(order, fetchImpl))
+    const pending = (order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl))
       .catch((error: unknown): DeliveryQuoteResult => ({ reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required'].includes(error.message) ? error.message : 'quote_unavailable' })).finally(() => { active--; });
     cache.set(key, { until: Date.now() + TTL, result: pending });
     const result = await pending;

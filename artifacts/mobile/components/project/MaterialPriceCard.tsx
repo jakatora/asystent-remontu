@@ -9,6 +9,7 @@ import type { MaterialLineItemPriced } from '@/types/pricing';
 import { useLanguage } from '@/context/LanguageContext';
 import { ProductImage } from './ProductImage';
 import { getProductPhoto } from '@/data/products/photos';
+import { getProductReferenceStatus } from '@/data/products/availability';
 
 interface MaterialPriceCardProps {
   item: MaterialLineItemPriced;
@@ -21,6 +22,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
   const ref = item.materialRef;
+  const referenceStatus = getProductReferenceStatus(ref.id);
   const hasOverride = item.overridePrice !== undefined;
 
   const handleSave = () => {
@@ -143,6 +145,11 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
           </View>
         )}
       </View>
+      {referenceStatus && (
+        <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>
+          {t(referenceStatus.state === 'no_online_offer' ? 'upgrade.product.noOnlineOffer' : 'upgrade.product.storeConfirmation')}
+        </Txt>
+      )}
     </View>
   );
 }

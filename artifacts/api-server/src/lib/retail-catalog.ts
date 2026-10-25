@@ -736,6 +736,89 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     "format": "sewera",
     "url": "https://sklep.sewera.pl/soudal-akryl-bialy-280ml-p10680"
   },
+  // source: https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html
+  {
+    "id": "unimet-fixall-290ml",
+    "ean": "5411183045620",
+    "name": "USZCZELNIACZ HYBRYDOWY FIX ALL HIGH TACK BIAŁY 290ML",
+    "brand": "Soudal",
+    "category": "mounting-adhesive",
+    "packageSize": 290,
+    "unit": "ml",
+    "store": "Unimet",
+    "format": "unimet",
+    "url": "https://www.unimet.pl/uszczelniacze-58/259045-uszczelniacz-hybrydowy-fix-all-high-tack-bialy-290ml-5411183045620.html"
+  },
+  // source: https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html
+  {
+    "id": "unimet-wc-mounting-set",
+    "ean": "5901095514395",
+    "name": "ZESTAW PRZYŁĄCZENIOWO-MOCUJĄCY WC",
+    "brand": "UN",
+    "category": "mounting-set",
+    "packageSize": 1,
+    "unit": "szt",
+    "variant": [
+      "WC"
+    ],
+    "store": "Unimet",
+    "format": "unimet",
+    "url": "https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html"
+  },
+  // source: https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html
+  {
+    "id": "bestbudowa-soudal-inside-90mm",
+    "ean": "5411183151178",
+    "name": "Taśma okienna wewnętrzna SOUDAL SWS BASIC PLUS 90 Inside 90mmx30m",
+    "brand": "Soudal",
+    "category": "window-tape",
+    "packageSize": 30,
+    "unit": "m",
+    "variant": [
+      "90mmx30m"
+    ],
+    "store": "BestBudowa",
+    "format": "jsonld",
+    "url": "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html"
+  },
+  // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-413-3X4mm-LINKADRUT-NO-WA/11528
+  {
+    "id": "prescot-wago-221413",
+    "ean": "4050821808442",
+    "name": "ZŁĄCZKA WAGO 221-413 3X4mm LINKA/DRUT NO WA",
+    "brand": "WAGO",
+    "category": "wire-connector",
+    "packageSize": 1,
+    "unit": "szt",
+    "variant": [
+      "221-413"
+    ],
+    "productId": 11528,
+    "apiPurchaseUnit": "szt.",
+    "store": "Prescot",
+    "format": "shoper-api",
+    "url": "https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-413-3X4mm-LINKADRUT-NO-WA/11528",
+    "imageUrl": "https://www.prescot.com.pl/environment/cache/images/productGfx_45208_500_500/221-413.jpg"
+  },
+  // source: https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m
+  {
+    "id": "cezar-tile-trim-8mm-25m",
+    "ean": "5904584853500",
+    "name": "Profil do glazury aluminiowy narożny 8mm Cezar Tytan Szczotkowany mat 2,50m",
+    "brand": "Cezar",
+    "category": "tile-trim",
+    "packageSize": 2.5,
+    "unit": "mb",
+    "variant": [
+      "8mm",
+      "2,50m"
+    ],
+    "productId": 10292567572821,
+    "variantId": 52009135210837,
+    "store": "Cezar",
+    "format": "shopify-api",
+    "url": "https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m"
+  },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -775,4 +858,9 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   "Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg": "5907534261158",
   "Akryl uniwersalny Soudal biały 280 ml (malowalny)": "5411183157538",
   "Siatka zbrojąca z włókna szklanego Atlas 150 g/m² (rolka 50 m²)": "5905400196993",
+  "Klej-uszczelniacz hybrydowy Soudal Fix All High Tack 290 ml biały": "5411183045620",
+  "Zestaw przyłączeniowo-mocujący WC Tycner (rury, uszczelki i akcesoria)": "5901095514395",
+  "Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m": "5411183151178",
+  "Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (1 szt.)": "4050821808442",
+  "Profil narożny do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m": "5904584853500",
 };
