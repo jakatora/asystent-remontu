@@ -20,6 +20,19 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** Reviewed HIPPER anonymous-cart actions only. The generic action endpoint
+   * also places orders, so reject every other action, field and namespace here.
+   * source: https://hipper.pl/dist/app.4bb46b097031e5eba47f.js
+   */
+  async certusoftAction(body: Record<string, any>): Promise<any> {
+    const allowedKeys = ['csAppNameSpacesG','appWindowIdent','dataSetIdent','actionIdent','sessionId','row','path','addRequestData','onCFDataFieldIdent'];
+    if (this.origin !== 'https://hipper.pl' || Object.keys(body).some(key => !allowedKeys.includes(key)) || typeof body.csAppNameSpacesG !== 'string' || body.csAppNameSpacesG.toLowerCase() !== '800db636-13cf-4b3b-a705-06e7b2a426e9' || !body.row || typeof body.row !== 'object') throw Error('invalid_cart_action');
+    const add = body.appWindowIdent === 'csB2BItemCard' && body.dataSetIdent === 'itemCard' && body.actionIdent === 'cartAdd' && !body.onCFDataFieldIdent;
+    const select = body.appWindowIdent === 'csB2BCart' && body.dataSetIdent === 'csB2BCartHeader' && body.actionIdent === 'csNGOnCFB2BCartHeader' && ['csB2BPortalsDeliveryMethodsId','csPaymentsTypesId'].includes(body.onCFDataFieldIdent) && body.path === '/koszyk';
+    const rowKeys = add ? ['csItemsId','csItemsUnitsId','cUnitPrice','discount','quantityUnits'] : ['csDocsHeadersId','csB2BPortalsDeliveryMethodsId','csPaymentsTypesId'];
+    if (!(add || select) || Object.keys(body.row).some(key => !rowKeys.includes(key)) || Object.keys(body.addRequestData ?? {}).some(key => key !== 'appWindowUniqIdent') || body.addRequestData?.appWindowUniqIdent !== body.appWindowIdent || typeof body.sessionId !== 'string' || !/^[a-f0-9-]{36}$/i.test(body.sessionId)) throw Error('invalid_cart_action');
+    return JSON.parse(await this.read('/csAPIServer_Hipper/invokeAction', JSON.stringify(body), true, false, true));
+  }
   /** WooCommerce anonymous-cart token stays private to this one shop session.
    * Only the reviewed cart/read and add-item routes are allowed, never checkout. */
   async cartJson(path: string, body?: object): Promise<any> {
@@ -29,7 +42,7 @@ export class AnonymousShop {
     if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
     return JSON.parse(raw);
   }
-  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false): Promise<string> {
+  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false): Promise<string> {
     let url = new URL(path, this.origin), method = payload ? 'POST' : 'GET';
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
@@ -39,7 +52,7 @@ export class AnonymousShop {
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
         headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : 'text/html, application/json', Cookie: cookie,
           ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
-          ...(payload ? { 'Content-Type': storeCart?'application/json':'application/x-www-form-urlencoded' } : {}) } });
+          ...(payload ? { 'Content-Type': storeCart||rawJson?'application/json':'application/x-www-form-urlencoded' } : {}) } });
       for (const entry of r.headers.getSetCookie()) {
         const pair = entry.split(';')[0], eq = pair.indexOf('=');
         if (eq > 0) this.cookies.set(pair.slice(0,eq), pair.slice(eq+1));

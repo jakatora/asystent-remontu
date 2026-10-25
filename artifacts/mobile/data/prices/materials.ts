@@ -1983,6 +1983,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // Klamka na drzwi wewnętrzne 35-70 mm, aluminium/stal, rozeta slim przykręcana Ø51 mm, elementy montażowe w zestawie. Cena 39,98 zł/kpl (Castorama).
   // Reużywana we wszystkich tierach. Marka Schaffner, kod pewny w 1 sklepie (Castorama) → poza overlay.
   // source: https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd (EAN 5907467760698, cena 39,98 zł, rozeta Ø51 mm)
+  // source: https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860 (cena brutto, odczyt 2026-10-25T19:38:21.848Z)
   {
     id: 'mat-door-handle-schaffner-lucy-rosette',
     materialType: 'door-handle',
@@ -1990,12 +1991,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Schaffner',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 39.98,
+    pricePerPackage: 57.99,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'HIPPER',
     sourceUrl:
-      'https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd',
-    lastUpdated: '2026-08-24',
+      'https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860',
+    lastUpdated: '2026-10-25',
     currency: 'PLN',
     notes: 'Komplet dwustronny na rozecie Ø51 mm, do drzwi 35-70 mm, elementy montażowe w zestawie. Szyld/rozeta pod klucz/WC do dobrania osobno wg funkcji pomieszczenia.',
   },

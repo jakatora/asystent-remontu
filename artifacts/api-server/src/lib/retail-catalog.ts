@@ -874,10 +874,13 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"northbud-ferro-one-bfo7","ean":"5902194954525","name":"FERRO Bateria prysznicowa Ferro One bez prysznica chrom BFO7","category":"faucet","brand":"Ferro","packageSize":1,"unit":"szt","store":"Northbud","format":"jsonld","variant":["BFO7","chrom"],"url":"https://northbud.pl/ferro-bateria-prysznicowa-ferro-one-bez-prysznica-chrom-bfo7-p70291"},
   // source: https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka
   {"id":"kronodom-arbiton-secura-thermo-6m2","ean":"5905167826942","name":"Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka","category":"underlay","brand":"Arbiton","packageSize":6,"unit":"m2","store":"Kronodom","format":"abstore","productId":423,"apiPurchaseUnit":"m2","variant":["Secura","Thermo","Aquastop","Smart","1,6mm","6m2"],"url":"https://kronodom.pl/podklad-pod-panele-arbiton-secura-thermo-aquastop-smart-16mm-1opk.6m2-czerwona-harmonijka"},
+  // source: https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860
+  {"id":"hipper-schaffner-lucy-gold","ean":"5907467760698","name":"Klamka do drzwi wewnętrznych Lucy złota R Schaffner","category":"door-handle","brand":"Schaffner","packageSize":1,"unit":"szt","store":"HIPPER","format":"certusoft","productId":3069808860,"retailerUnitId":3069809346,"apiPurchaseUnit":"szt","variant":["Lucy","złota","Schaffner"],"url":"https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Klamka drzwiowa Schaffner Lucy na rozecie (komplet dwustronny)": "5907467760698",
   "Bateria natryskowa ścienna Ferro One (chrom, BFO7)": "5902194954525",
   "Gniazdo pojedyncze z uziemieniem Kontakt-Simon Basic (białe, BMGZ1Z.01/11)": "5902787568238",
   "Listwa przypodłogowa PCV Arbiton Indo biały połysk 01, 2500 mm": "5905167725719",

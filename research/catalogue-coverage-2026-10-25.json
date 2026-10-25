@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T19:18:49.120Z",
+  "checkedAt": "2026-10-25T19:54:52.948Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 62,
-  "remaining": 41,
-  "offers": 88,
-  "stores": 29,
+  "verifiedProducts": 63,
+  "remaining": 40,
+  "offers": 89,
+  "stores": 30,
   "productsWithPhotos": 103,
-  "registeredOffers": 90,
+  "registeredOffers": 91,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1520,12 +1520,29 @@
     {
       "id": "mat-door-handle-schaffner-lucy-rosette",
       "name": "Klamka drzwiowa Schaffner Lucy na rozecie (komplet dwustronny)",
-      "referenceUrl": "https://www.castorama.pl/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota/5907467760698_CAPL.prd",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860",
+      "status": "verified_offer",
       "ean": "5907467760698",
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klamka-drzwiowa-schaffner-lucy-na-rozecie-zlota~5907467760698_03c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "sourceIds": [
+        "hipper-schaffner-lucy-gold"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|CAE8B284-A426-4F37-9916-7AC893514364|1/Klamka%20do%20drzwi%20wewn%C4%99trznych%20Lucy%20z%C5%82ota%20R%20Schaffner.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "hipper-schaffner-lucy-gold",
+          "checkedAt": "2026-10-25T19:47:33.913Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        },
+        {
+          "sourceId": "hipper-schaffner-lucy-gold",
+          "checkedAt": "2026-10-25T19:50:38.690Z",
+          "status": "quoted",
+          "reason": null,
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-door-hinge-metro-3d-14mm",
