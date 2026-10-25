@@ -4,6 +4,7 @@ import type { PackagePlan, PackagePlanEntry, StageEstimate } from './types';
 
 export interface DeliverySettings {
   mode: 'shipping' | 'pickup';
+  method?: 'automatic' | 'manual';
   /** Destination supplied by the app user, never the app owner's address. */
   postalCode?: string;
   /** A user-entered, fixed fee for ONE whole order from a store, in grosze. */
@@ -26,7 +27,8 @@ export interface DeliveredStoreBasket {
   deliveryGrosze: number | null;
   deliveryMinimumGrosze: number;
   totalGrosze: number | null;
-  source: 'entered' | 'pickup' | 'unknown';
+  source: 'entered' | 'pickup' | 'unknown' | 'retailer';
+  quote?: DeliveryQuote;
   lines: { product: DeliveredProduct; unit: string | null; packages: PackagePlanEntry[] }[];
 }
 export interface DeliveredBasket {
@@ -36,10 +38,27 @@ export interface DeliveredBasket {
   lowerBoundGrosze: number;
   stores: DeliveredStoreBasket[];
 }
+export interface DeliveryQuote {
+  costGrosze: number;
+  carrier: string;
+  payment: string;
+  checkedAt: string;
+  expiresAt: string;
+  sourceUrl: string;
+  destinationScope: 'PL';
+  /** National tariff; the retailer does not accept a postcode-only quote. */
+  basis: 'retailer_basket_national';
+  evidenceSha256: string;
+}
+export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string };
+export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string) => Promise<DeliveryQuoteResult>;
 export interface DeliveryComparison {
   mode: DeliverySettings['mode'];
   postalCode: string | null;
-  status: 'compared' | 'needs_delivery_costs' | 'partial' | 'empty' | 'limit_exceeded';
+  status: 'compared' | 'needs_delivery_costs' | 'needs_postal_code' | 'partial' | 'empty' | 'limit_exceeded';
+  method?: 'automatic' | 'manual';
+  comparisonScope?: 'quoted_baskets';
+  unavailableStores?: { store: string; reason: string }[];
   productCount: number;
   missingProductCount: number;
   best: DeliveredBasket | null;

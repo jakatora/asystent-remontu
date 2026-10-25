@@ -36,6 +36,7 @@ export const optionsSchema = z
     store: z.string().nullish(),
     delivery: z.object({
       mode: z.enum(['shipping', 'pickup']),
+      method: z.enum(['automatic', 'manual']).optional(),
       postalCode: z.string().regex(/^\d{2}-\d{3}$/).optional(),
       costsGrosze: z.record(z.string().min(1).max(80), z.number().int().min(0).max(10_000_000))
         .refine(value => Object.keys(value).length <= 20).optional(),

@@ -8,7 +8,7 @@ test('actual delivery HTTP contract: entered fees, unknown fees, validation and 
   const initialObservations = RETAIL_SOURCES.map((source, index) => ({ sourceId: source.id, ean: source.ean, name: source.name,
     imageUrl: null, priceGrosze: 1000 + index * 100, currency: 'PLN' as const, availability: 'in_stock' as const,
     observedAt: new Date().toISOString(), sourceUrl: source.url, evidenceSha256: 'a'.repeat(64) }));
-  const service = createRemontService({ initialObservations, background: false });
+  const service = createRemontService({ initialObservations, background: false, fetchImpl: async () => new Response('', { status: 503 }) });
   const app = express(); app.use(express.json()); app.use(service.router);
   const server = app.listen(0, '127.0.0.1');
   await new Promise<void>(resolve => server.once('listening', resolve));
@@ -20,10 +20,10 @@ test('actual delivery HTTP contract: entered fees, unknown fees, validation and 
   const post = (options: unknown, input = jobs) => fetch(base + '/pricing/project', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jobs: input, options }) });
   try {
     const unknown = await (await post({ delivery: { mode: 'shipping' } })).json();
-    assert.equal(unknown.deliveryComparison.best, null); assert.equal(unknown.deliveryComparison.status, 'needs_delivery_costs');
-    const priced = await (await post({ delivery: { mode: 'shipping', costsGrosze: { Castorama: 1990, OBI: 2000, Sewera: 2500, Realbud: 3000 } } })).json();
+    assert.equal(unknown.deliveryComparison.best, null); assert.equal(unknown.deliveryComparison.status, 'needs_postal_code');
+    const priced = await (await post({ delivery: { mode: 'shipping', method: 'manual', costsGrosze: { Castorama: 1990, OBI: 2000, Sewera: 2500, Realbud: 3000, Zino: 2000 } } })).json();
     assert.equal(priced.deliveryComparison.status, 'compared');
-    const destination = await (await post({ delivery: { mode: 'shipping', postalCode: '00-001', costsGrosze: { Castorama: 0 } } })).json();
+    const destination = await (await post({ delivery: { mode: 'shipping', method: 'manual', postalCode: '00-001', costsGrosze: { Castorama: 0 } } })).json();
     assert.equal(destination.deliveryComparison.postalCode, '00-001');
     // Another user/request cannot inherit the previous customer's shipping fees.
     assert.equal((await (await post({ delivery: { mode: 'shipping', postalCode: '30-001' } })).json()).deliveryComparison.best, null);

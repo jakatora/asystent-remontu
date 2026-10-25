@@ -80,6 +80,13 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     // source: https://sklep.sewera.pl/acryl-putz-st10-start-20kg-p6107
     url: 'https://sklep.sewera.pl/acryl-putz-st10-start-20kg-p6107',
   },
+  {
+    id: 'zino-sniezka-5l', ean: '5903973139188', name: 'Barwy Natury 173 Biały 5l',
+    category: 'paint', brand: 'Śnieżka', packageSize: 5, unit: 'l', store: 'Zino', format: 'shoper-api',
+    // source: https://sklep.zino.pl/pl/p/Barwy-Natury-173-Bialy-5l/2842
+    url: 'https://sklep.zino.pl/pl/p/Barwy-Natury-173-Bialy-5l/2842',
+    imageUrl: 'https://sklep.zino.pl/userdata/public/gfx/7713/173-biala-majowa-konwalia.png',
+  },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

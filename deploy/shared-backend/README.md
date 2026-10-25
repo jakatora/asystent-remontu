@@ -5,6 +5,54 @@ Moduł Asystenta Remontu działa pod `/api/remont/*` na wspólnym backendzie
 `lib/pricing-service` i serializera API, z odizolowanym adapterem katalogu.
 Nie otwiera baz innych aplikacji, nie wywołuje AI ani płatnych API.
 
+## Bieżący tryb: automatyczne koszyki — 2026-10-25
+
+**14 obserwacji / 7 produktów / 7 sklepów.** Dodano farbę Śnieżka 173 5 l
+w Zino, z potwierdzonym EAN i ceną brutto w publicznym API sklepu.
+`options.delivery: {mode:'shipping',method:'automatic',postalCode:'00-001'}`
+jest teraz domyślną ścieżką. Bez kodu zwraca `needs_postal_code`, bez wywołań
+sklepów. Stare `costsGrosze` są ignorowane, chyba że klient jawnie zażąda
+`method:'manual'`. UI nie wymaga ręcznych opłat. Preferencje v2 zapisują tylko
+tryb i kod osobno dla projektu; poprzednie kontrolne opłaty v1 nie są migrowane.
+
+Rab-Dom, Realbud i Zino są wyceniane przez ich publiczny Shoper Front API:
+`products/PLN/<id>` potwierdza EAN, stockId, dostępność i aktualną cenę brutto;
+nowa anonimowa sesja dodaje wymagane ilości do koszyka. Odczyt koszyka musi
+potwierdzić dokładnie wszystkie sztuki, ceny i sumę. Wybierana jest najtańsza
+dostępna dostawa kurierska do domu w Polsce z kompatybilną płatnością z góry,
+łącznie z ewentualną dopłatą. Wykluczone: odbiór, automaty/punkty, pobranie,
+transport na zapytanie i palety z wyceną indywidualną. Baner darmowej dostawy
+nie zastępuje faktycznej metody zwróconej dla koszyka.
+
+**Zakres adresu:** te API zwracają taryfy dla Polski, nie wycenę zależną
+wyłącznie od kodu. Pełny adres i dostępność obsługi potwierdza sklep przy
+zakupie. W API/UI to `basis:retailer_basket_national`, `destinationScope:PL`.
+Nie wysyłamy fikcyjnych danych kontaktowych, nie używamy cookies użytkownika
+i nie składamy zamówień. Sewera wymaga oddziału/pełnego adresu, a Castorama,
+OBI i Buduj24 pozostają bez automatycznej integracji dostawy. Brak wyceny jest
+jawny; najtańszy wariant dotyczy tylko uzyskanych wycen, nie całego rynku.
+
+Silnik `automatic-delivery.ts` rozważa wszystkie rozdziały potrzebnych
+opakowań między sklepami, również kilku sztuk tego samego EAN. Każdy pełny
+koszyk sklepu jest wyceniany oddzielnie, więc waga i progi promocji mogą
+zmienić zwycięzcę. Nie dokupuje niepotrzebnego nadmiaru. Limit 4096 kombinacji,
+80 unikalnych koszyków, 20 produktów, 10 sklepów, 60 sztuk/EAN; mieszane
+rozmiary w jednym EAN poza tym trybem. Przekroczenie daje `limit_exceeded`.
+Niepełna lista daje `partial`; brak transportu nigdy nie staje się zerem.
+
+Cache 10 minut: klucz kod + sklep + dokładne oferty/ilości/ceny; maks. 256
+wpisów. Trzy jednoczesne wyceny globalnie, brak nieograniczonej kolejki,
+12 s na koszyk, 20 s na rozpoczęcie kolejnych wycen w żądaniu. Strumienie
+JSON ograniczone do 1 MB, cookies do 8 kB, przekierowania tylko wewnątrz
+zamkniętej domeny. Błędy krótko cache'owane. UI pokazuje przewoźnika, czas
+sprawdzenia i automatycznie ponawia wynik po wygaśnięciu najstarszej wyceny.
+
+Odbiór rzeczywisty: `node deploy/shared-backend/smoke-delivery.mjs
+<HTTPS api/remont> <calculator-request.json> [proof.json]`. Sprawdza dwa kody,
+izolację starych opłat, zmianę ilości i opłaty (dwie puszki Zino: 40 zł,
+jedna: 20 zł), brak/błąd kodu oraz health200/auth401. Poniższe sekcje opisują
+historię wcześniejszej integracji; ręczne stawki nie są już główną ścieżką.
+
 ## Źródła i zakres
 
 Pierwszy katalog z 2026-10-25 obejmował 7 ofert 4 produktów w 4 sklepach: Śnieżka Barwy
@@ -80,7 +128,7 @@ Następny priorytet: stabilne feedy i szerszy katalog, następnie lokalizacja,
 dostawa, posiadane materiały i pełny koszyk wszystkich prac. Brakujące
 produkty pozostają jawnie poza sumą.
 
-## Aktualny zakres: więcej produktów i dostawa — 2026-10-25
+## Poprzedni etap: więcej produktów i ręczne koszty — 2026-10-25
 
 **13 ofert / 7 produktów / 6 sklepów.** Doszły Rab-Dom (taśma i folia),
 Buduj24 (taśma) oraz Sewera: Dulux EasyCare 9 l, Atlas GTA 18 kg,

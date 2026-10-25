@@ -13,7 +13,7 @@ try {
   assert.equal((await fetch(`${base}/health`)).status, 200);
   assert.equal((await fetch(`${base}/auth/me`)).status, 401);
   const health = await (await fetch(`${base}/api/remont/health`)).json();
-  assert.equal(health.offers, 13); assert.equal(health.products, 7);
+  assert.equal(health.offers, 14); assert.equal(health.products, 7);
   const input = JSON.parse(readFileSync(process.argv[2], 'utf8'));
   const response = await fetch(`${base}/api/remont/pricing/project`, {
     method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input),
@@ -24,10 +24,10 @@ try {
   assert.equal(data.stages[0].lines.filter(line => !line.resolved).length, 0);
   assert.equal(data.stages[0].lines.filter(line => line.resolved).length, 4);
   assert.equal(data.consolidated.consolidatedTotalGrosze, data.storeComparison.optimalBasketGrosze);
-  assert.equal(data.deliveryComparison.status, 'needs_delivery_costs');
+  assert.equal(data.deliveryComparison.status, 'needs_postal_code');
   assert.equal(data.deliveryComparison.best, null);
   // Controlled USER-ENTERED delivery fees, not a claim about checkout tariffs.
-  input.options = { delivery: { mode: 'shipping', postalCode: '00-001', costsGrosze: { Castorama: 2000, OBI: 2000, Sewera: 1990, Realbud: 3000, 'Rab-Dom': 1799, Buduj24: 1500 } } };
+  input.options = { delivery: { mode: 'shipping', method: 'manual', postalCode: '00-001', costsGrosze: { Castorama: 2000, OBI: 2000, Sewera: 1990, Realbud: 3000, 'Rab-Dom': 1799, Buduj24: 1500, Zino: 4000 } } };
   const deliveredResponse = await fetch(`${base}/api/remont/pricing/project`, {
     method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(input),
   });

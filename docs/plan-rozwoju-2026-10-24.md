@@ -17,7 +17,8 @@ Aktualizacja: 2026-10-25. Cel właściciela: użytkownik ma wiedzieć, ile mater
 - [x] Umożliwić wybór liczby rolek taśmy 50 m i opakowań folii 20 m² w nowym projekcie; 0 oznacza brak potrzeby zakupu. Starsze projekty zachowują liczbę rolek i opakowanie folii po przeliczeniu jednostek.
 - [x] Porównać cały zestaw z kosztami dostaw podanymi przez użytkownika. Jedna opłata za zamówienie w sklepie; sprawdzane kombinacje sklepów, również mieszane opakowania. Pusty koszt dostawy nie oznacza 0 zł.
 - [x] Kod pocztowy wprowadza osoba korzystająca z aplikacji. Zmiana kodu czyści wcześniejsze stawki. Ustawienia zapisane osobno dla projektu; zmiana obmiarów, regionu lub jakości wymaga ponownego sprawdzenia stawek.
-- [ ] Automatyczna ostateczna wycena dostawy od sklepów dla adresu, gabarytów i wybranego koszyka. Obecne stawki „od” i progi darmowej dostawy są informacją ze źródłem; nie udają gwarantowanej taryfy dla dowolnego zestawu. Koszty dojazdu nadal poza sumą.
+- [x] Automatyczna wycena konkretnych koszyków Rab-Dom, Realbud i Zino po wpisaniu kodu; ilości, dostępność, ceny brutto, kurier i płatność z góry potwierdzane w anonimowym koszyku. Taryfa krajowa PL jest jawnie opisana. Ręczne opłaty usunięte z głównej ścieżki.
+- [ ] Docelowa wycena zależna od pełnego adresu/kodu we wszystkich sklepach, zwłaszcza Sewera, Castorama, OBI i Buduj24. Nie udawać, że taryfa krajowa potwierdza obsługę każdego adresu. Koszty dojazdu poza sumą.
 - [ ] Zweryfikować zakres lokalizacji, dostawy i ceny brutto oraz porównanie tej samej specyfikacji produktu. Uwzględnić stan „mam już” i „kupione”.
 
 W pierwszym pakiecie rozdzielono cenę jednostki i opakowania w modelu oraz poprawiono farbę i grunt w malowaniu ścian. Pozostałe dane cenowe wymagają osobnego przeglądu; nie przeliczano całego katalogu automatycznym mnożnikiem.
@@ -114,3 +115,27 @@ Nowy algorytm porównuje kombinacje sklepów, sumuje ilości przed zaokrąglenie
 Przykład kontrolny dla 40,5 m²: same najtańsze produkty 248,33 zł z 4 sklepów. Po wpisaniu **kontrolnych, niezweryfikowanych w checkoutach** dostaw (Sewera 19,90 zł, Castorama 20 zł, OBI 20 zł, Realbud 30 zł, Rab-Dom 17,99 zł, Buduj24 15 zł) algorytm wybiera 2 sklepy: materiały 255,65 zł + dostawy 39,90 zł = **295,55 zł**. To dowód poprawnego uwzględniania dostaw, nie oferta realnego transportu za tę kwotę. Nowe projekty nie zawierają tych testowych stawek.
 
 Deployment Railway **a1c22f04-4918-452b-a825-625538a265c6 — SUCCESS**. Bazą była świeża kopia działającego backendu 48d46563; zachowano inne aplikacje i ich dane. Rzeczywisty klient mobile po HTTPS potwierdził health 200, auth/me bez tokenu 401, nowy katalog, odświeżone daty, poprawną sumę oraz izolację kosztów i kodów między zapytaniami. 181 testów modułów i HTTP PASS (0 pominiętych), 55 regresji istniejących tras backendu PASS; typecheck mobile/API/pricing-service i 743 ID w 15 plikach PASS. Podgląd web 390 × 844: zapis ustawień, przeładowanie, zmiana kodu z usunięciem stawek, wariant własnego odbioru oraz końcowa suma i zdjęcia. Nowe wydanie natywne pozostaje do publikacji.
+
+
+## Automatyczne koszyki dostaw — 2026-10-25
+
+Wdrożono główną ścieżkę bez ręcznego wpisywania opłat: po podaniu pięciu cyfr kodu aplikacja automatycznie pobiera wyceny koszyków Rab-Dom, Realbud i Zino. Sprawdza dokładne produkty, liczbę opakowań, dostępność, ceny brutto, kuriera i płatność z góry. Odbiór osobisty, automaty, punkty i transport wyceniany indywidualnie nie są porównywane jako dostawa do domu.
+
+Każda kombinacja zamówień jest liczona z faktyczną dostawą całego koszyka danego sklepu. Uwzględnia to wagę, liczbę paczek i progi bezpłatnej wysyłki. Nie kupujemy dodatkowych, niepotrzebnych opakowań dla rabatów. Przekroczenie zakresu dokładnego porównania jest jawne. Brak ceny transportu nie staje się zerem.
+
+Dodano ofertę Śnieżka Barwy Natury 173 5 l w Zino. Katalog obejmuje 14 obserwacji 7 produktów w 7 sklepach. Trzy sklepy mają automatyczną wycenę transportu. Kod zapisywany jest lokalnie dla projektu; dawne ręczne i kontrolne opłaty nie są przenoszone do automatycznych wycen. Wynik pokazuje kwotę materiałów, dostaw i łączny koszt, przewoźników, czas sprawdzenia, zdjęcia i linki do konkretnych produktów.
+
+**Rzeczywisty odbiór 2026-10-25:** komplet do malowania 40,5 m², 2 warstwy, 1 taśma i 1 folia: materiały 274,03 zł + dostawy 75,50 zł = **349,53 zł**. Rab-Dom 26,99 zł z dostawą Pocztex, Realbud 68,92 zł z kurierem, Zino 253,62 zł z DPD. Zmniejszenie farby z dwóch puszek do jednej obniżyło dostawę Zino z 40 do 20 zł. Są to rzeczywiste wyceny koszyków, a nie dawne opłaty kontrolne. Najtańszy wynik dotyczy uzyskanych wycen.
+
+**Granica aktualnej integracji:** te sklepy zwracają taryfę dla Polski, nie ostateczną wycenę zależną wyłącznie od kodu. UI opisuje ten zakres. Dostępność konkretnego adresu potwierdza sklep przy zakupie. Sewera wymaga oddziału i pełnego adresu; Castorama, OBI i Buduj24 nie mają jeszcze automatycznej integracji dostaw. Nie przedstawiamy stawki „od” ani braku transportu jako potwierdzonej ceny.
+
+187 testów logiki/HTTP i 55 regresji istniejących tras PASS, bez pominięć. Kontrole typów i 743 ID w 15 plikach PASS. Dodatkowo rzeczywisty HTTPS: dwa kody, brak/błąd kodu, ignorowanie dawnych ręcznych opłat, zmiana ilości, health 200 i auth 401. W podglądzie 390 × 844 potwierdzono automatyczne liczenie, zapis kodu po przeładowaniu, zmianę kodu, ukrycie starej sumy przy niepełnym kodzie i alternatywę odbioru własnego.
+
+Backend Railway bba0472f-2608-40ff-99fb-47e69926494b ma status SUCCESS. Zachowano aktualne moduły i dane innych aplikacji. [PR3 backendu](https://github.com/jakatora/przetargai/pull/3) scalony. Nowa wersja Android/iOS nie jest jeszcze opublikowana.
+
+Następna kolejność prac:
+
+1. Uzyskać stabilną integrację dostaw dla pozostałych czterech sklepów oraz potwierdzenie obsługi kodu/adresu, szczególnie transportu paletowego i lokalnego.
+2. Rozszerzać dokładny katalog i fotografie, aby kolejne rodzaje prac miały pełny zestaw z potwierdzonym transportem.
+3. Odjąć posiadane materiały i połączyć zakupy wielu prac oraz pomieszczeń.
+4. Odebrać rzeczywisty build na telefonie i opublikować nowe wydanie aplikacji.

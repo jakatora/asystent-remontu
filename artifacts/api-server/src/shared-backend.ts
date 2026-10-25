@@ -8,7 +8,9 @@ import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
 import { projectRequestSchema } from './lib/pricing-schema';
 import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
-import { compareDeliveredBaskets } from '../../../lib/pricing-service/src/delivery';
+import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
+import { compareAutomaticDelivery } from '../../../lib/pricing-service/src/automatic-delivery';
+import { createRetailerQuoter } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
@@ -20,11 +22,13 @@ export interface SharedPricingOptions {
   cachePath?: string;
   fetchImpl?: typeof fetch;
   background?: boolean;
+  basketQuoter?: BasketQuoter;
 }
 
 /** Uses the existing pricing engine and HTTP serializer with an isolated cache.
  * It neither opens the other apps' databases nor invokes paid AI. */
 export function createRemontService(options: SharedPricingOptions = {}) {
+  const quoteBasket = options.basketQuoter ?? createRetailerQuoter(options.fetchImpl);
   const observations = new Map<string, RetailObservation>();
   const errors = new Map<string, string>();
   const withdrawnAt = new Map<string, string>();
@@ -130,6 +134,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
+      delivery: { automaticStores: ['Rab-Dom', 'Realbud', 'Zino'], basis: 'retailer_basket_national', country: 'PL', quoteTtlSeconds: 600 },
       sources: RETAIL_SOURCES.map(source => ({
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,
         active: eligible.some(offer => offer.id === source.id),
@@ -158,8 +163,11 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog().deps);
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
+      const deadline = Date.now() + 20_000;
+      const deliveryComparison = stageOnly ? undefined : await compareAutomaticDelivery(estimate.stages, parsed.data.options?.delivery ?? { mode: 'shipping' },
+        (order, postalCode) => Date.now() < deadline ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES);
       res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(),
-        deliveryComparison: compareDeliveredBaskets(estimate.stages, parsed.data.options?.delivery, STORE_DELIVERY_POLICIES),
+        deliveryComparison,
       });
     } catch {
       res.status(503).json({ error: 'pricing_unavailable' });

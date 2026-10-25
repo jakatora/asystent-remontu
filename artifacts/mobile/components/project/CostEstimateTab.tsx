@@ -64,15 +64,18 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
   const scope = JSON.stringify([projectId, calc?.jobId, calc?.measurements, qualityTier, region]);
-  const storageKey = `remont.delivery.v1:${projectId ?? 'preview'}`;
+  // Previous manually entered fees must never become automatic quotes.
+  const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
   useEffect(() => {
     let active = true;
     void AsyncStorage.getItem(storageKey).then(raw => {
       let settings: DeliverySettings = { mode: 'shipping' };
       try {
         const saved = raw ? JSON.parse(raw) : null;
-        if (saved?.scope === scope && ['shipping', 'pickup'].includes(saved.settings?.mode) &&
-          Object.values(saved.settings.costsGrosze ?? {}).every(value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 && value <= 10_000_000)) settings = saved.settings;
+        if (['shipping', 'pickup'].includes(saved?.settings?.mode)) settings = {
+          mode: saved.settings.mode, method: 'automatic',
+          ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
+        };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
       if (active) { setDelivery(settings); setLoadedScope(scope); }
     }).catch(() => { if (active) { setDelivery({ mode: 'shipping' }); setLoadedScope(scope); } });
@@ -123,7 +126,7 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
           <ActivityIndicator size="large" color={Colors.primary} />
           <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
-            {t('cmp.CostEstimate.loading')}
+            {delivery.postalCode && delivery.mode === 'shipping' ? (language === 'pl' ? 'Sprawdzamy koszyki sklepów i koszty dostawy…' : 'Checking store baskets and delivery costs…') : t('cmp.CostEstimate.loading')}
           </Txt>
         </View>
       )}
@@ -143,11 +146,12 @@ export function CostEstimateTab({ calc, projectId, qualityTier = 'standard', reg
 
       {state.status === 'success' && loadedScope === scope && (
         <EstimateResult data={state.data} onRefresh={fetchEstimate} delivery={delivery} onDeliveryChange={settings => {
+          requestVersion.current++;
           setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
           void AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings })).catch(() => setSaveFailed(true));
         }} />
       )}
-      {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano ustawień dostawy. Przed ponownym otwarciem projektu zanotuj podane kwoty.' : 'Delivery settings could not be saved. Note the fees before reopening the project.'}</Txt>}
+      {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano kodu pocztowego. Przy ponownym otwarciu projektu wpisz go jeszcze raz.' : 'The postcode could not be saved. Enter it again when reopening the project.'}</Txt>}
     </View>
   );
 }

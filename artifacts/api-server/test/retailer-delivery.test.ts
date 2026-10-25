@@ -1,0 +1,65 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { createRetailerQuoter, selectHomeDelivery, confirmedMoney } from '../src/lib/retailer-delivery';
+import type { DeliveredStoreBasket } from '../../../lib/pricing-service/src/delivery';
+
+const money = (cents: number) => ({ cost: (cents / 100).toFixed(2).replace('.', ',') + ' zł', cost_float: cents / 100 });
+function fixture(cents = 1050): any {
+  return { countries: [{ id: 179, name: 'Polska', selected: true }], payments: [{ payment_id: 3, name: 'onlinePayment', title: 'Autopay' }, { payment_id: 2, name: 'cod', title: 'Pobranie' }],
+    free_shipping: { missing: -100, shipping_id: 1 }, shippings: [
+      { title: 'Odbiór osobisty', engine: 'personal', ...money(0), countries: [{ id:179, ...money(0) }], payments: [{ payment_id:3 }] },
+      { title: 'Pocztex AUTOMAT', engine: 'pickupPoint', ...money(870), countries: [{ id:179, ...money(870) }], payments: [{ payment_id:3 }] },
+      { title: 'Kurier Pobranie', engine: '', ...money(900), countries: [{ id:179, ...money(900) }], payments: [{ payment_id:2 }] },
+      { title: 'Pocztex KURIER', engine: '', ...money(cents), countries: [{ id:179, ...money(cents) }], payments: [{ payment_id:3 }] },
+    ] };
+}
+test('real storefront shape: prepaid home courier, not pickup, COD or free-shipping teaser', () => {
+  assert.equal(selectHomeDelivery(fixture()).costGrosze, 1050);
+  assert.equal(selectHomeDelivery(fixture(0)).costGrosze, 0);
+  const b = fixture(); b.shippings[3].payments[0] = { payment_id:3, additional_cost:'1,50 zł', additional_cost_float:1.5 };
+  assert.equal(selectHomeDelivery(b).costGrosze, 1200);
+  b.shippings[3].description = 'Wycena indywidualna, prosimy o kontakt';
+  assert.throws(() => selectHomeDelivery(b), /no_home_delivery/);
+  b.countries[0].selected = false; assert.throws(() => selectHomeDelivery(b), /country_not_confirmed/);
+  for (const n of [null, NaN, -1, 10.501, '10.50']) assert.throws(() => confirmedMoney('10,50 zł', n));
+  assert.equal(confirmedMoney('1 299,00 zł', 1299), 129900);
+});
+
+function order(count = 1): DeliveredStoreBasket {
+  return { store: 'Rab-Dom', materialsGrosze: 1199 * count, deliveryGrosze:null, deliveryMinimumGrosze:0, totalGrosze:null, source:'unknown',
+    lines: [{ product: { id:'remont-5907758515952', name:'Taśma', imageUrl:null }, unit:'mb',
+      packages: [{ packageSize:50, count, unitPriceGrosze:1199, lineCostGrosze:1199*count, offerId:'rabdom-tape-30mm', store:'Rab-Dom', url:null }] }] };
+}
+test('anonymous carts: basket quantity, gross prices, destination cache isolation, weight-sensitive quotes', async () => {
+  let sessions = 0, calls = 0, downsize = false;
+  const carts = new Map<string, number>();
+  const fetchImpl: typeof fetch = async (input, options) => {
+    calls++;
+    const url = new URL(String(input)), headers = new Headers(options?.headers);
+    const cookie = headers.get('cookie') || `sid=${++sessions}`;
+    let data: any;
+    if (url.pathname.includes('/products/')) data = { id:2526, ean:'5907758515952', stockId:2526, can_buy:true, price:{ gross:{ final:'11,99 zł', final_float:11.99 } } };
+    else if (options?.method === 'POST') { const body = JSON.parse(String(options.body)); carts.set(cookie, body.quantity); data = {}; }
+    else {
+      const n = downsize ? 1 : carts.get(cookie)!;
+      data = { ...fixture(n > 1 ? 2100 : 1050), products: [{ stock_id:2526, quantity:n, price:'11,99 zł', price_float:11.99, sum:(n*11.99).toFixed(2).replace('.',',')+' zł', sum_float:n*11.99 }],
+        basket:{ sum_products:(n*11.99).toFixed(2).replace('.',',')+' zł', sum_products_float:n*11.99 } };
+    }
+    return new Response(JSON.stringify(data), { headers:{ 'content-type':'application/json', 'set-cookie':cookie+'; Path=/; HttpOnly' } });
+  };
+  const quote = createRetailerQuoter(fetchImpl);
+  const first = await quote(order(), '00-001'); assert.ok('quote' in first); assert.equal(first.quote.costGrosze,1050);
+  assert.equal(first.quote.basis,'retailer_basket_national');
+  const previous = calls; await quote(order(), '00-001'); assert.equal(calls, previous);
+  const double = await quote(order(2), '00-001'); assert.ok('quote' in double); assert.equal(double.quote.costGrosze,2100);
+  await quote(order(), '30-001'); assert.ok(calls > previous + 3);
+  assert.equal(sessions,3);
+  downsize = true; const rejected = await quote(order(3), '30-001'); assert.deepEqual(rejected,{ reason:'basket_not_confirmed' });
+  const unsupported = await quote({ ...order(), store:'Sewera' }, '00-001'); assert.deepEqual(unsupported,{ reason:'branch_and_address_required' });
+});
+
+test('cross-origin redirect never receives storefront cookies or a request', async () => {
+  let calls = 0;
+  const quote = createRetailerQuoter(async () => { calls++; return new Response('',{status:302,headers:{ location:'https://example.org/', 'set-cookie':'sid=secret' }}); });
+  assert.ok('reason' in await quote(order(),'00-001')); assert.equal(calls,1);
+});

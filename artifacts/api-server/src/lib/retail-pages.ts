@@ -13,7 +13,8 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api';
+  imageUrl?: string;
   variant?: readonly string[];
 }
 
@@ -41,7 +42,7 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   const products: Record<string, any>[] = [];
-  if (source.format && source.format !== 'jsonld') products.push(readRetailMicrodata(html, source.format, source.url));
+  if (source.format && source.format !== 'jsonld' && source.format !== 'shoper-api') products.push(readRetailMicrodata(html, source.format, source.url));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }
@@ -89,12 +90,14 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 }
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
-  const response = await fetchImpl(source.url, {
+  const api = source.format === 'shoper-api';
+  const requestUrl = api ? `${new URL(source.url).origin}/webapi/front/pl_PL/products/PLN/${source.url.match(/\/(\d+)$/)?.[1]}` : source.url;
+  const response = await fetchImpl(requestUrl, {
     signal: AbortSignal.timeout(8000), redirect: 'error',
     headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: 'text/html', 'Accept-Language': 'pl-PL' },
   });
   if (!response.ok) throw new Error(`retailer_http_${response.status}`);
-  if (!response.headers.get('content-type')?.includes('text/html')) throw new Error('retailer_invalid_content_type');
+  if (!response.headers.get('content-type')?.includes(api ? 'json' : 'text/html')) throw new Error('retailer_invalid_content_type');
   const reader = response.body?.getReader();
   if (!reader) throw new Error('retailer_empty_body');
   const chunks: Uint8Array[] = [];
@@ -108,5 +111,17 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
       chunks.push(value);
     }
   } finally { await reader.cancel().catch(() => {}); }
-  return parseRetailPage(Buffer.concat(chunks).toString('utf8'), source, new Date());
+  const raw = Buffer.concat(chunks).toString('utf8');
+  if (api) {
+    const item = JSON.parse(raw);
+    if (!item.can_buy) throw new Error('retailer_out_of_stock');
+    const gross = item.price?.gross;
+    const formatted = String(gross?.final ?? '').replace(/[\s\u00a0]/g, '').match(/^(\d+),(\d{2})zł$/);
+    if (!formatted || typeof gross.final_float !== 'number' || Math.abs((Number(formatted[1]) * 100 + Number(formatted[2])) - gross.final_float * 100) > 0.00001) throw new Error('retailer_gross_price_mismatch');
+    const html = `<script type="application/ld+json">${JSON.stringify({ '@type': 'Product', name: item.name, gtin13: item.ean, brand: item.producer?.name, image: source.imageUrl,
+      offers: { '@type': 'Offer', price: gross.final_float, priceCurrency: 'PLN', url: item.url, availability: 'https://schema.org/InStock' } })}</script>`;
+    const observation = parseRetailPage(html, source, new Date());
+    return { ...observation, evidenceSha256: createHash('sha256').update(raw).digest('hex') };
+  }
+  return parseRetailPage(raw, source, new Date());
 }
