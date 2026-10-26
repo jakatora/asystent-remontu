@@ -25,6 +25,7 @@ const TTL = 10 * 60_000;
 
 function unavailableReason(store: string): string | undefined {
   const sources = RETAIL_SOURCES.filter(source=>source.store===store);
+  if(sources.some(source=>source.pickupOnly))return 'retailer_transport_quote_required';
   if(sources.some(source=>source.marketplaceSeller))return 'retailer_access_required';
   if (sources.length && sources.every(source=>source.format === 'betterial')) return 'retailer_transport_quote_required';
   // This checkout requests customer/address fields before shipping selection.

@@ -6,7 +6,7 @@ const katowice:PostalPlace={postalCode:'40-001',name:'Katowice',latitude:50.2667
 const response=(code='40-001')=>({'country abbreviation':'PL','post code':code,places:[{'place name':katowice.name,latitude:String(katowice.latitude),longitude:String(katowice.longitude)}]});
 
 test('pickup directory contains actual retailer addresses, not an invented office or a warehouse selling on site',()=>{
- assert.equal(PICKUP_LOCATIONS.length,10);assert.equal(new Set(PICKUP_LOCATIONS.map(row=>row.id)).size,10);assert.equal(pickupLocationsFor('Sewera').length,7);assert.equal(pickupLocationsFor('LiderzyCen').length,0);
+ assert.equal(PICKUP_LOCATIONS.length,11);assert.equal(new Set(PICKUP_LOCATIONS.map(row=>row.id)).size,11);assert.equal(pickupLocationsFor('Sewera').length,7);assert.equal(pickupLocationsFor('LiderzyCen').length,0);
  const tokmet=pickupLocationsFor('TOK-MET');assert.equal(tokmet.length,1);assert.equal(tokmet[0].street,'ul. Bystrzańska 106A');assert.equal(tokmet[0].mapCentre,undefined);assert.equal(tokmet[0].city,'Bielsko-Biała');
  const folnet=pickupLocationsFor('Folnet')[0];assert.equal(folnet.city,'Batorowo');assert.equal(folnet.street,'ul. Stefana Batorego 97');assert.equal(folnet.collectionOnly,true);assert.equal(folnet.mapCentre,undefined);
  for(const row of PICKUP_LOCATIONS){assert.match(row.phone,/^\+48\d{9}$/);assert.match(row.postalCode,/^\d{2}-\d{3}$/);assert.equal(new URL(row.sourceUrl).protocol,'https:');const map=new URL(pickupAddressMapUrl(row.id)!);assert.equal(map.origin,'https://www.google.com');if(row.mapCid){assert.equal(map.searchParams.get('cid'),row.mapCid);assert.equal(map.searchParams.has('query'),false);}else assert.equal(map.searchParams.get('query'),`${row.store} ${row.street} ${row.postalCode} ${row.city} Polska`);}

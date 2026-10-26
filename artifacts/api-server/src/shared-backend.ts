@@ -15,6 +15,7 @@ import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limit
 import { createRetailerQuoter, knownUnavailableRetailers, retailerDeliveryCapabilities } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
 import { isCastoramaBrowserSource } from './lib/castorama-browser-observation';
+import { isBricomarcheBrowserSource } from './lib/bricomarche-browser-observation';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
@@ -51,10 +52,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     const previous = observations.get(source.id);
     // Complex Castorama purchase units have no automatic full-pack proof yet.
     // Removing provenance from a saved row must not bypass its 24h expiry.
-    if(isCastoramaBrowserSource(source)&&['m2','m'].includes(source.unit)&&!observation.verification)return;
+    if((isBricomarcheBrowserSource(source)||isCastoramaBrowserSource(source)&&['m2','m'].includes(source.unit))&&!observation.verification)return;
     if(observation.verification!==undefined){
       const v=observation.verification;
-      if(!v||v.method!=='browser'||!isCastoramaBrowserSource(source)||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
+      if(!v||v.method!=='browser'||!(isCastoramaBrowserSource(source)||isBricomarcheBrowserSource(source))||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
     }
     if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
     if (Date.parse(observation.observedAt) >= Date.parse(withdrawnAt.get(source.id) ?? '')) withdrawnAt.delete(source.id);
@@ -111,8 +112,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         return products.find(product => product.category === query.category &&
           (product.normalizedName === query.normalizedName || product.ean === alias)) ?? null;
       },
-      listOffers: async (_db, id) => offers.filter(offer => offer.productId === id &&
-        (!pickup || ![RETAIL_SOURCES.find(source => source.id === offer.id)?.pickupRequiresConfirmation, RETAIL_SOURCES.find(source => source.id === offer.id)?.pickupUnavailable].some(Boolean))),
+      listOffers: async (_db, id) => offers.filter(offer => {
+        const source=RETAIL_SOURCES.find(source=>source.id===offer.id);
+        return offer.productId===id&&(pickup?![source?.pickupRequiresConfirmation,source?.pickupUnavailable].some(Boolean):!source?.pickupOnly);
+      }),
     };
     return { products, offers, deps };
   }
@@ -163,6 +166,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
       pickupConfirmationStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupRequiresConfirmation).map(source => source.store))],
       pickupUnavailableStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupUnavailable).map(source => source.store))],
+      pickupOnlyStores:[...new Set(RETAIL_SOURCES.filter(source=>source.pickupOnly).map(source=>source.store))],
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
       delivery: retailerDeliveryCapabilities(),
       sources: RETAIL_SOURCES.map(source => ({

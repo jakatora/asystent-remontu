@@ -1,7 +1,21 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { rankStoreChoices, parsePreferredStore, storeMapSearchUrl, supportsStoreMapSearch, storeLocatorUrl, estimateHonoursStore, type StoreChoices } from './storeChoice';
+import { rankStoreChoices, parsePreferredStore, storeMapSearchUrl, supportsStoreMapSearch, storeLocatorUrl, estimateHonoursStore, deliverySettingsForStore, type StoreChoices } from './storeChoice';
 import type { SerializedProject } from './pricingApi';
+
+test('store search accepts plain Polish spelling without changing the actual merchant identity',()=>{
+ const choices:StoreChoices={stores:['Bricomarché Poznań (Al. Solidarności)','Modna Łazienka'],unresolvedCount:0,comparison:{productCount:1,optimalBasketGrosze:0,optimalByStore:[],cheapestFullStore:null,singleStoreExtraGrosze:null,stores:[]}};
+ assert.deepEqual(rankStoreChoices(choices,' bricomarche ').map(row=>row.store),['Bricomarché Poznań (Al. Solidarności)']);assert.deepEqual(rankStoreChoices(choices,'lazienka').map(row=>row.store),['Modna Łazienka']);assert.deepEqual(rankStoreChoices(choices,'poznan').map(row=>row.store),['Bricomarché Poznań (Al. Solidarności)']);
+});
+
+test('selecting a local collection or delivery-only merchant chooses its confirmed channel and preserves only the postcode on mode change',()=>{
+ const choices={pickupOnlyStores:['Local'],pickupUnavailableStores:['Online']},current={mode:'shipping' as const,method:'manual' as const,postalCode:'61-696',legacyFees:{Local:0}};
+ assert.deepEqual(deliverySettingsForStore(choices,current,'Local'),{mode:'pickup',method:'automatic',postalCode:'61-696'});
+ assert.deepEqual(deliverySettingsForStore(choices,{mode:'pickup',postalCode:'00-001'},'Online'),{mode:'shipping',method:'automatic',postalCode:'00-001'});
+ for(const store of [null,'Unknown','Online'])assert.equal(deliverySettingsForStore(choices,current,store),current);
+ assert.equal(deliverySettingsForStore({...choices,pickupUnavailableStores:['Local']},current,'Local'),current);
+ assert.equal(current.mode,'shipping');assert.deepEqual(current.legacyFees,{Local:0});
+});
 
 test('store choice preserves server amounts, places complete baskets before cheap fragments and keeps absent stores visible', () => {
   const choices: StoreChoices = { stores: ['Partial','Complete','Absent'], unresolvedCount: 0, comparison: { productCount: 3, optimalBasketGrosze: 1200, optimalByStore: [], cheapestFullStore: null, singleStoreExtraGrosze: null, stores: [

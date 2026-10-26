@@ -44,6 +44,9 @@ export interface RetailSource {
   pickupRequiresConfirmation?: boolean;
   /** This product's sales channel does not offer self collection. */
   pickupUnavailable?: boolean;
+  /** Price confirmed for collection at one named branch. It must not become a
+   * nationwide home-delivery offer without a separate branch transport quote. */
+  pickupOnly?: boolean;
   unit: string;
   store: string;
   url: string;
@@ -236,6 +239,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   // These complex purchase units are currently confirmed from the visible
   // browser card (full pack price + coverage, or whole-piece length). A bare
   // JSON-LD HTTP response must not relabel an unconfirmed per-m²/metre price.
+  if(source.pickupOnly&&source.browserReviewAllowed)throw Error('browser_location_review_required');
   if(source.browserReviewAllowed&&new URL(source.url).origin==='https://www.castorama.pl'&&['m2','m'].includes(source.unit))throw Error('browser_package_review_required');
   return parseRetailPage(raw, source, new Date());
 }

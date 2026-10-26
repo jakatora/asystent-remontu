@@ -6,7 +6,7 @@ import { StoreChoiceSection } from './StoreChoiceSection';
 import { DoorSelectionSection } from './DoorSelectionSection';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
-import { collectStoreChoices, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
+import { collectStoreChoices, deliverySettingsForStore, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
 import { unpricedReference } from '@/features/pricing/unpricedReference';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
@@ -72,8 +72,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const deliveryRef = useRef(delivery);
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
-  const [storeChoices, setStoreChoices] = useState<(StoreChoices & { scope: string }) | null>(null);
-  const storeChoicesRef = useRef<(StoreChoices & { scope: string }) | null>(null);
+  const [storeChoices, setStoreChoices] = useState<(StoreChoices & { scope: string;mode:DeliverySettings['mode'] }) | null>(null);
+  const storeChoicesRef = useRef<(StoreChoices & { scope: string;mode:DeliverySettings['mode'] }) | null>(null);
   const [loadedScope, setLoadedScope] = useState('');
   const [saveFailed, setSaveFailed] = useState(false);
   const [priceSaveFailed,setPriceSaveFailed]=useState(false);
@@ -113,13 +113,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     try {
       const input = stages ?? [toPricingStageInput(calc!, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection)];
       const rememberChoices = (data: SerializedProject) => {
-        const choices = { ...collectStoreChoices(data), scope };
+        const choices = { ...collectStoreChoices(data), scope,mode:delivery.mode };
         storeChoicesRef.current = choices; setStoreChoices(choices);
       };
       // Keep the unfiltered comparison available while the user explores one
       // store. A saved preference must not erase the alternatives on reopening.
-      if (selectedStore && (storeChoicesRef.current?.scope !== scope || refreshPrices)) {
-        const all = await estimateProject(input, { region, delivery: { mode: 'pickup' }, refreshPrices });
+      if (selectedStore && (storeChoicesRef.current?.scope !== scope || storeChoicesRef.current?.mode!==delivery.mode || refreshPrices)) {
+        const all = await estimateProject(input, { region, delivery, refreshPrices });
         if (version !== requestVersion.current) return;
         rememberChoices(all);
       }
@@ -172,10 +172,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
       {projectId && calc?.jobId === 'eps-insulation-bso' && <Button label={language === 'pl' ? 'Uzupełnij obmiary ocieplenia' : 'Update insulation measurements'} variant="outline" onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} fullWidth />}
 
-      {storeChoices?.scope === scope && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} onSelect={store => {
-        if (store === selectedStore) return;
+      {storeChoices?.scope === scope && storeChoices.mode===delivery.mode && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} mode={delivery.mode} onSelect={store => {
+        const nextDelivery=deliverySettingsForStore(storeChoices,deliveryRef.current,store);
+        if (store === selectedStore&&nextDelivery.mode===deliveryRef.current.mode) return;
         requestVersion.current++; setState({ status: 'loading' }); setSelectedStore(store); setSaveFailed(false);
-        const saved = JSON.stringify({ scope, settings: deliveryRef.current, store });
+        deliveryRef.current=nextDelivery;setDelivery(nextDelivery);
+        const saved = JSON.stringify({ scope, settings: nextDelivery, store });
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, saved)).catch(() => setSaveFailed(true));
       }} />}
 
@@ -240,6 +242,8 @@ function EstimateResult({
   const missingPickupOffer = delivery.mode === 'pickup' && unresolved.some(line => isMissingOffer(line.reason));
   const pickupConfirmationStores = data.coverage?.pickupConfirmationStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
   const pickupUnavailableStores = data.coverage?.pickupUnavailableStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
+  const pickupOnly=Boolean(selectedStore&&data.coverage?.pickupOnlyStores?.includes(selectedStore));
+  const compatibleStores=data.coverage?.stores.filter(store=>delivery.mode==='pickup'?!data.coverage?.pickupUnavailableStores?.includes(store):!data.coverage?.pickupOnlyStores?.includes(store))??[];
   const hasDoorParts = data.stages.some(stage => stage.jobId === 'interior-doors') || lines.some(line => ['door-leaf', 'door-frame'].includes(line.product?.category ?? line.query.category ?? ''));
   const hasLeftCredis = lines.some(line => (line.product?.ean ?? line.query.ean) === '5900378219590');
   const consolidated = data.consolidated;
@@ -262,7 +266,7 @@ function EstimateResult({
     <>
       {data.coverage && data.coverage.offers > 0 && (
         <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{selectedStore ? tr(`Oferty wybranego sklepu: ${selectedStore}. Ceny internetowe.`, `Selected store offers: ${selectedStore}. Online prices.`) : t('upgrade.compare.coverage', { stores: data.coverage.stores.join(', ') })}</Txt>
+          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{selectedStore ? pickupOnly?tr(`Oferty punktu: ${selectedStore}. Cena odbioru w tym sklepie.`,`Location offers: ${selectedStore}. Collection price at this store.`):tr(`Oferty wybranego sklepu: ${selectedStore}. Ceny internetowe.`, `Selected store offers: ${selectedStore}. Online prices.`) : delivery.mode==='pickup'?tr(`Sklepy i punkty odbioru: ${compatibleStores.join(', ')}. Cenę i dostępność potwierdź w wybranej placówce.`,`Stores and collection locations: ${compatibleStores.join(', ')}. Confirm prices and availability at your chosen location.`):t('upgrade.compare.coverage', { stores: compatibleStores.join(', ') })}</Txt>
           <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>
         </View>
       )}

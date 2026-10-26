@@ -977,10 +977,17 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // or physical pickup network. One sealed 6m² pack, not a multi-pack bundle.
   // source: https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd
   {id:'castorama-marketplace-corksystem-lvt-6m2',ean:'5061092900925',name:'Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op.',category:'underlay',brand:'Corksystem',packageSize:6,unit:'m2',variant:['LVT','1.5 mm','6 m2','1 op.'],store:'Corksystem (Castorama)',marketplaceSeller:{name:'Corksystem',id:2601},pickupUnavailable:true,browserReviewAllowed:true,url:'https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd'},
+  // One three-metre piece, not its per-metre advert or the wholesale pack of192.
+  // source: https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd
+  {id:'castorama-budmat-ud27-3m',ean:'5907738940163',name:'Profil sufitowy Budmat UD27 3 m',category:'profile',brand:'Budmat',packageSize:3,unit:'mb',variant:['UD27','3 m'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd'},
+  // Current branch-specific collection price. Other branches need their own proof.
+  // source: https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny
+  {id:'bricomarche-poznan-budmat-ud27-3m',ean:'5907738940163',name:'Kształtownik sufitowy UD30 300 cm srebrny',category:'profile',brand:'Budmat',packageSize:3,unit:'mb',variant:['UD30','300 cm','srebrny'],store:'Bricomarché Poznań (Al. Solidarności)',pickupOnly:true,browserReviewAllowed:true,url:'https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Profil przyścienny Budmat UD27 0,5 mm 3 m':'5907738940163',
   'Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²':'5061092900925',
   'Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²':'5059340969756',
   'Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²':'5059340802435',

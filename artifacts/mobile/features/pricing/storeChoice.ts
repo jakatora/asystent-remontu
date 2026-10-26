@@ -1,10 +1,12 @@
 import type { SerializedProject, SerializedStoreBasket, SerializedStoreComparison } from './pricingApi';
+import type {DeliverySettings} from '../../../../lib/pricing-service/src/delivery';
 
 export interface StoreChoices {
   comparison: SerializedStoreComparison;
   stores: string[];
   unresolvedCount: number;
   pickupUnavailableStores?: readonly string[];
+  pickupOnlyStores?: readonly string[];
 }
 
 export function collectStoreChoices(data: SerializedProject): StoreChoices {
@@ -13,17 +15,27 @@ export function collectStoreChoices(data: SerializedProject): StoreChoices {
     stores: data.coverage?.stores ?? data.storeComparison.stores.map(store => store.store),
     unresolvedCount: data.stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length,
     pickupUnavailableStores: data.coverage?.pickupUnavailableStores ?? [],
+    pickupOnlyStores: data.coverage?.pickupOnlyStores ?? [],
   };
+}
+
+/** Choose the confirmed purchase channel while preserving the user's postcode.
+ * Unknown/contradictory capabilities do not silently change their preference. */
+export function deliverySettingsForStore(choices:Pick<StoreChoices,'pickupOnlyStores'|'pickupUnavailableStores'>,current:DeliverySettings,store:string|null):DeliverySettings{
+ const pickupOnly=Boolean(store&&choices.pickupOnlyStores?.includes(store)),shippingOnly=Boolean(store&&choices.pickupUnavailableStores?.includes(store));
+ const mode=pickupOnly&&!shippingOnly?'pickup':shippingOnly&&!pickupOnly?'shipping':current.mode;
+ return mode===current.mode?current:{mode,method:'automatic',...(current.postalCode?{postalCode:current.postalCode}:{})};
 }
 
 /** Preserve server amounts. Complete baskets precede partial / absent offers;
  * a cheap fragment must never look like the cheapest complete purchase. */
 export function rankStoreChoices(choices: StoreChoices, search = ''): SerializedStoreBasket[] {
   const baskets = new Map(choices.comparison.stores.map(row => [row.store, row]));
-  const query = search.trim().toLocaleLowerCase('pl-PL');
+  const normalize=(value:string)=>value.trim().toLocaleLowerCase('pl-PL').normalize('NFD').replace(/\p{M}/gu,'').replace(/ł/g,'l');
+  const query = normalize(search);
   return [...new Set([...choices.stores, ...baskets.keys()])].map(store => baskets.get(store) ?? {
     store, totalGrosze: 0, coveredCount: 0, missingCount: choices.comparison.productCount, missingProductIds: [],
-  }).filter(row => row.store.toLocaleLowerCase('pl-PL').includes(query))
+  }).filter(row => normalize(row.store).includes(query))
     .sort((a, b) => b.coveredCount - a.coveredCount || a.totalGrosze - b.totalGrosze || a.store.localeCompare(b.store, 'pl'));
 }
 
@@ -51,7 +63,7 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
 const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera']);
 
 export function supportsStoreMapSearch(store: string): boolean {
-  return store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
+  return store === 'Bricomarché Poznań (Al. Solidarności)' || store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
 }
 
 export function storeLocatorUrl(store: string): string | null {
@@ -72,6 +84,8 @@ export function storeMapSearchUrl(store: string, location: string): string | nul
   if (store === 'Centrum Matbud') return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Centrum Matbud ul. Pokrzywno 21 61-315 Poznań Polska');
   // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
   if (store === 'TOK-MET') return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('TOK-MET ul. Bystrzańska 106A 43-300 Bielsko-Biała Polska');
+  // source: https://www.bricomarche.pl/sklep/bricomarche-poznan-al-solidarnosci
+  if(store==='Bricomarché Poznań (Al. Solidarności)')return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('Bricomarché Al. Solidarności 47 61-696 Poznań Polska');
   if (!supportsStoreMapSearch(store) || !parsePreferredStore(store) || place.length < 2 || place.length > 80 || /[\u0000-\u001f]/.test(place)) return null;
   const brand = store === 'Mrówka' ? 'PSB Mrówka' : store === 'Sewera' ? 'Sewera Polska Chemia' : store;
   return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${brand} market budowlany ${place} Polska`);

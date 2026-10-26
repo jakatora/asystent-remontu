@@ -315,6 +315,7 @@ export interface SerializedProject {
   coverage?: {
     pickupConfirmationStores?: string[];
     pickupUnavailableStores?: string[];
+    pickupOnlyStores?: string[];
     offers: number;
     products: number;
     stores: string[];

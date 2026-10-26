@@ -7,7 +7,7 @@ import {useLanguage} from '@/context/LanguageContext';
 import {createPostalPlaceLookup,normalizePickupPostcode,pickupAddressMapUrl,pickupLocationsFor,rankPickupLocations,type PostalPlace} from '@/features/pricing/pickupLocations';
 
 const lookupPlace=createPostalPlaceLookup();
-const englishHours=(value:string)=>value.replace(/Pn–pt|pn–pt/g,'Mon–Fri').replace('sob. i niedz. nieczynne','Sat and Sun closed').replace('sob. nieczynne','Sat closed').replace('sob.','Sat').replace('BOK:','Customer service:');
+const englishHours=(value:string)=>value.replace('Pn–sob','Mon–Sat').replace('niedz. handlowe','trading Sundays').replace(/Pn–pt|pn–pt/g,'Mon–Fri').replace('sob. i niedz. nieczynne','Sat and Sun closed').replace('sob. nieczynne','Sat closed').replace('sob.','Sat').replace('BOK:','Customer service:');
 export function PickupLocationCards({store,location}:{store:string;location:string}){
   const {language}=useLanguage(),tr=(pl:string,en:string)=>language==='pl'?pl:en;
   const [lookup,setLookup]=useState<{code:string;status:'loading'|'done';place:PostalPlace|null}|null>(null),[showAll,setShowAll]=useState(false),[failed,setFailed]=useState(false);

@@ -70,8 +70,12 @@ export function observeCastoramaBrowser(snapshot:BrowserProductSnapshot,source:R
  if(source.unit==='szt'&&visible[2]==='szt.'&&source.packageSize!==1)throw Error('browser_purchase_unit_not_confirmed');
  if(!length&&(source.unit!=='szt'||visible[2]==='opak.')){
    const name=normalizeProductName(snapshot.heading.replace(/(\d)([a-zA-Z])/g,'$1 $2'));
-   const quantity=normalizeProductName(String(source.packageSize))+' '+source.unit;
+   const quantity=normalizeProductName(String(source.packageSize))+' '+(source.unit==='mb'?'(?:mb|m)':source.unit);
    if(!new RegExp('(?:^| )'+quantity+'(?: |$)').test(name))throw Error('browser_package_not_confirmed');
+   if(source.unit==='mb'&&!new RegExp('(?:^| )'+normalizeProductName(String(source.packageSize))+' mb(?: |$)').test(name)){
+    const mm=specificationValue(snapshot,'Długość produktu').match(/^(\d+)mm$/);
+    if(!mm||Number(mm[1])/1000!==source.packageSize||specificationValue(snapshot,'Liczba sztuk w opakowaniu')!=='1'||specificationValue(snapshot,'Rodzaj opakowania')!=='Sztuka')throw Error('browser_package_not_confirmed');
+   }
  }
  if(!/\n\s*\d+ button Dodaj 1 przedmiot do koszyka/.test(section)||!section.includes('heading Sprzedaż wysyłkowa'))throw Error('browser_purchase_not_confirmed');
  const script=snapshot.schemas.find(s=>{try{return JSON.parse(s)?.['@type']==='Product'}catch{return false;}})!;

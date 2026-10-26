@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T07:49:34.478Z",
+  "checkedAt": "2026-10-26T08:30:37.212Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 96,
-  "remaining": 7,
-  "offers": 122,
-  "stores": 37,
+  "verifiedProducts": 97,
+  "remaining": 6,
+  "offers": 124,
+  "stores": 38,
   "productsWithPhotos": 103,
-  "registeredOffers": 124,
+  "registeredOffers": 126,
   "disabledOffers": 2,
   "rows": [
     {
@@ -607,11 +607,19 @@
       "id": "mat-profile-ud27-budmat-3m",
       "name": "Profil przyścienny Budmat UD27 0,5 mm 3 m",
       "referenceUrl": "https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5907738940163",
-      "sourceIds": [],
-      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/d9/hue3u0i8mdfv/Photos/i2a1l0s0lkjpcc/ShowWebp_profil-sufitowy-ud27---050-mm---3-m-budmat-plock_1.webp",
-      "deliveryChecks": []
+      "sourceIds": [
+        "castorama-budmat-ud27-3m",
+        "bricomarche-poznan-budmat-ud27-3m"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-budmat-ud27-3-m~5907738940163_01c?$MOB_PREV$&$width=284&$height=284",
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T07:56:16.087Z",
+        "expiresAt": "2026-10-27T07:56:16.087Z"
+      }
     },
     {
       "id": "mat-mineral-wool-isover-akuplyta-10cm",
@@ -2171,5 +2179,5 @@
     }
   ],
   "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 17
+  "browserVerifiedOffers": 19
 }

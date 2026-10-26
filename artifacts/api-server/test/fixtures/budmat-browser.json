@@ -1,0 +1,117 @@
+{
+  "fixtures": [
+    {
+      "sourceId": "castorama-budmat-ud27-3m",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd",
+        "ean": "5907738940163",
+        "capturedAt": "2026-10-26T07:56:16.087Z",
+        "heading": "Profil sufitowy Budmat UD27 3 m",
+        "schemas": [
+          "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Profil sufitowy Budmat UD27 3 m\",\"gtin13\":\"5907738940163\",\"url\":\"https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd\",\"category\":\"Profile ścienne\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"5.98\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"5.98\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"5.98\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-budmat-ud27-3-m~5907738940163_01c?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-budmat-ud27-3-m~5907738940163_01i?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}"
+        ],
+        "axState": "\t\t\t5 text dostawa za  1 zł!  szczegóły \n\t\t\t\t70 heading Profil sufitowy Budmat UD27 3 m, Value: 1\n\t\t\t\t76 text 5 , 98 zł  / szt. 1,99 zł  / m\n\t\t\t\t257 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t258 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t273 text 5 , 98 zł  / szt.\n\t\t\t\t\t\t278 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t\t83 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t118 table Specyfikacja techniczna\n\t\t\t\t\t\t124 row\n\t\t\t\t\t\t\t125 cell\n\t\t\t\t\t\t\t\t126 text Liczba sztuk w opakowaniu\n\t\t\t\t\t\t\t127 cell\n\t\t\t\t\t\t\t\t128 text 1\n\t\t\t\t\t\t129 row\n\t\t\t\t\t\t\t130 cell\n\t\t\t\t\t\t\t\t131 text Rodzaj opakowania\n\t\t\t\t\t\t\t132 cell\n\t\t\t\t\t\t\t\t133 text Sztuka\n\t\t\t\t\t\t134 row\n\t\t\t\t\t\t\t135 cell\n\t\t\t\t\t\t\t\t136 text Marka\n\t\t\t\t\t\t\t137 cell\n\t\t\t\t\t\t\t\t138 text Budmat\n\t\t\t\t\t\t139 row\n\t\t\t\t\t\t\t140 cell\n\t\t\t\t\t\t\t\t141 text Długość produktu\n\t\t\t\t\t\t\t142 cell\n\t\t\t\t\t\t\t\t143 text 3000mm\n\t\t\t\t\t\t164 row\n\t\t\t\t\t\t\t165 cell\n\t\t\t\t\t\t\t\t166 text Kod produktu\n\t\t\t\t\t\t\t167 cell\n\t\t\t\t\t\t\t\t168 text 5907738940163",
+        "tables": [
+          [
+            [
+              "Liczba sztuk w opakowaniu",
+              "1"
+            ],
+            [
+              "Rodzaj opakowania",
+              "Sztuka"
+            ],
+            [
+              "Marka",
+              "Budmat"
+            ],
+            [
+              "Długość produktu",
+              "3000mm"
+            ],
+            [
+              "Kod produktu",
+              "5907738940163"
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "bricomarche-poznan-budmat-ud27-3m",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny",
+        "ean": "5907738940163",
+        "capturedAt": "2026-10-26T07:58:28.431Z",
+        "heading": "Kształtownik sufitowy UD30 300 cm srebrny",
+        "schemas": [
+          "{\"@context\":\"https://schema.org/\",\"@type\":\"Product\",\"name\":\"Kształtownik sufitowy UD30 300 cm srebrny\",\"productID\":\"000000001000032973\",\"sku\":\"000000001000032973\",\"gtin13\":\"5907738940163\",\"model\":\"\",\"category\":\"Profile do płyt GK\",\"image\":[\"https://www.bricomarche.pl/media/cache/resolve/gallery/images/41/41187/ksztaltownik-sufitowy-ud30-300-cm-srebrny-543268.png\",\"https://www.bricomarche.pl/media/cache/resolve/gallery/images/41/41187/ksztaltownik-sufitowy-ud30-300-cm-srebrny-546549.jpg\"],\"url\":\"https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny\",\"brand\":{\"@type\":\"Thing\",\"name\":\"Budmat\"},\"offers\":{\"@type\":\"Offer\",\"priceCurrency\":\"PLN\",\"price\":\"9.99\",\"availability\":\"https://schema.org/InStock\",\"itemCondition\":\"https://schema.org/NewCondition\",\"url\":\"https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny\",\"seller\":{\"@type\":\"Organization\",\"name\":\"https://www.bricomarche.pl\"}}}"
+        ],
+        "axState": "\t\t\t\t245 text  Mój sklep: Bricomarché Poznań (Al. Solidarności),  dziś otwarte do 21:00\n\t\t\t\t56 heading Kształtownik sufitowy UD30 300 cm srebrny, Value: 1\n\t\t\t61 container 9 złotych i 99 groszy / szt.\n\t\t\t\t67 button  Dodaj do koszyka\n\t\t\t77 text W sklepie\n\t\t\t78 text Dostępny\n\t\t\t79 text Bricomarché Poznań (Al. Solidarności)\n\t\t\t\t81 text   Odbiór w sklepie lub Bricomacie za 0 zł\n\t\t\t\t\t\t103 text Długość 3000 mm\n\t\t\t\t\t\t105 text EAN 5907738940163\n\t\t\t\t\t\t107 text Grubość 0,5 mm\n\t\t\t\t\t\t115 text Marka BUDMAT\n\t\t\t\t154 container 9 złotych i 99 groszy / szt.\n\t\t\t\t160 button  Dodaj do koszyka\n\t\t\t\t228 text Bricomarché Poznań (Al. Solidarności) Al. Solidarności 47 tel: 789449743"
+      }
+    }
+  ],
+  "branch": {
+    "@type": "HardwareStore",
+    "name": "Bricomarche",
+    "image": "https://www.bricomarche.pl/common/images/logos/logo.png",
+    "logo": "https://www.bricomarche.pl/common/images/logos/logo.png",
+    "telephone": "789449743",
+    "hasMap": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d19458.42662192228!2d16.908150942554535!3d52.43741982323261!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf4ecf057ec4ff3f3!2sBricomarch%C3%A9!5e0!3m2!1spl!2spl!4v1568964444054!5m2!1spl!2spl",
+    "url": "https://www.bricomarche.pl/sklep/bricomarche-poznan-al-solidarnosci",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Al. Solidarności 47",
+      "addressLocality": "Poznań",
+      "postalCode": "61-696",
+      "addressCountry": "PL"
+    },
+    "contactPoint": "https://www.bricomarche.pl/formularz_kontaktowy",
+    "location": "Bricomarché Poznań (Al. Solidarności)",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "16.916905",
+      "longitude": "52.437451"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "opens": "07:00",
+        "closes": "21:00",
+        "dayOfWeek": "https://schema.org/Monday"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "opens": "07:00",
+        "closes": "21:00",
+        "dayOfWeek": "https://schema.org/Tuesday"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "opens": "07:00",
+        "closes": "21:00",
+        "dayOfWeek": "https://schema.org/Wednesday"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "opens": "07:00",
+        "closes": "21:00",
+        "dayOfWeek": "https://schema.org/Thursday"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "opens": "07:00",
+        "closes": "21:00",
+        "dayOfWeek": "https://schema.org/Friday"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "opens": "07:00",
+        "closes": "21:00",
+        "dayOfWeek": "https://schema.org/Saturday"
+      }
+    ]
+  }
+}

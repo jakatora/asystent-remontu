@@ -20,6 +20,10 @@ const sewera = [
   {id:'tarnowskie-gory',city:'Tarnowskie Góry',street:'ul. Nakielska 24',postalCode:'42-600',phone:'+48323811777',latitude:50.442669,longitude:18.868043,mapCid:'8252299477358544826',hours:'Pn–pt 6:30–17:00, sob. 6:30–14:30'},
 ];
 export const PICKUP_LOCATIONS: readonly PickupLocation[] = [
+  // Exact branch price is a separate offer. Map centre/CID come from the
+  // official embedded map; the page's reversed JSON-LD geo fields are rejected.
+  // source: https://www.bricomarche.pl/sklep/bricomarche-poznan-al-solidarnosci
+  {id:'bricomarche-poznan-solidarnosci',store:'Bricomarché Poznań (Al. Solidarności)',city:'Poznań',street:'Al. Solidarności 47',postalCode:'61-696',phone:'+48789449743',hours:'Pn–sob 7:00–21:00; niedz. handlowe 10:00–20:00',checkedAt,sourceUrl:'https://www.bricomarche.pl/sklep/bricomarche-poznan-al-solidarnosci',mapCid:'17648745300175614963',mapCentre:{latitude:52.43741982323261,longitude:16.908150942554535}},
   // The shop explicitly names this address for collecting purchased goods.
   // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
   {id:'tokmet-bielsko-biala',store:'TOK-MET',city:'Bielsko-Biała',street:'ul. Bystrzańska 106A',postalCode:'43-300',phone:'+48338215731',hours:'Pn–pt 7:00–19:00, sob. 8:00–13:00',checkedAt,sourceUrl:'https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i'},

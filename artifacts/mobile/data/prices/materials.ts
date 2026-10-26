@@ -587,13 +587,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Budmat',
     packageSize: 3,
     packageUnit: 'mb',
-    pricePerPackage: 7.99,
-    pricePerMb: 2.66,
+    pricePerPackage: 5.98,
+    pricePerMb: 1.99,
     category: 'economy',
-    storeName: 'Mrówka',
+    storeName: 'Castorama',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html',
-    lastUpdated: '2026-08-23',
+      'https://www.castorama.pl/profil-sufitowy-budmat-ud27-3-m/5907738940163_CAPL.prd',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 
