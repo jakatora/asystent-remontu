@@ -35,6 +35,21 @@ test('Owned/Purchased exclusion is scoped to the selected work; ambiguous duplic
   assert.ok(!basket.stages[0].materials.some(line => ['paint', 'primer-paint'].includes(line.material.id)));
   assert.ok(basket.stages[1].materials.some(line => line.material.id === 'paint'));
   assert.equal(basket.excludedMaterials, 2); assert.equal(basket.manualItems, 1);
+  assert.ok(basket.stages[0].materials.some(line => line.material.id === 'manual:manual' && line.material.unit === 'pozycja'));
   const missing = { ...project('empty'), calculationResult: undefined };
   assert.equal(buildRenovationBasket([missing], ['empty'], 'standard').missingCalculations, 1);
+});
+
+test('manually added Shopping requirements enter the whole basket with actual chosen quantities, never user prices or another project data', () => {
+  const manual: ShoppingItem = { ...item('a', 'custom-extra'), id: 'manual-1', name: 'Dodatkowy klej', quantity: 10, customQuantity: 12.5, unit: 'kg', customPrice: 777, estimatedPrice: 888 };
+  const owned = { ...manual, id: 'owned', materialId: 'custom-owned', owned: true };
+  const tool = { ...manual, id: 'tool', materialId: 'custom-tool', itemType: 'tool' as const };
+  const foreign = { ...manual, id: 'foreign', projectId: 'b' };
+  const projects = [project('a')], items = { a: [manual, owned, tool, foreign] };
+  const before = JSON.stringify({ projects, items }), result = buildRenovationBasket(projects, ['a'], 'standard', items);
+  assert.equal(result.manualItems, 1);
+  const line = result.stages[0].materials.find(line => line.material.id === 'manual:manual-1');
+  assert.deepEqual(line, { material: { id: 'manual:manual-1', name: 'Dodatkowy klej', unit: 'kg', category: null }, quantity: 12.5 });
+  assert.equal(JSON.stringify({ projects, items }), before);
+  assert.ok(!result.stages[0].materials.some(line => /manual:(owned|tool|foreign)/.test(line.material.id)));
 });

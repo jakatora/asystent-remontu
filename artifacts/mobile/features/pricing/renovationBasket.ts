@@ -3,6 +3,8 @@ import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
 import { doorOriginMaterialId, type DoorSelection } from './doorSelection';
 import { EPS_JOB_ID, upgradeEpsCalculation } from '@/features/calculator/eps';
+import { normalizeUnit } from './quantity';
+import { additionalMaterial } from './basketExtras';
 
 export const MAX_BASKET_PROJECTS = 20;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
@@ -32,9 +34,10 @@ export function buildRenovationBasket(
     const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
     const materialIds = new Set(calc.materials.map(line => line.material.id));
-    manualItems += items.filter(item => item.itemType !== 'tool' && !item.owned && !item.purchased && !materialIds.has(item.materialId)).length;
+    const manual = items.filter(item => item.projectId === project.id && item.itemType !== 'tool' && !item.owned && !item.purchased && !materialIds.has(item.materialId));
+    manualItems += manual.length;
     const materials = stage.materials.filter(line => {
-      const matching = items.filter(item => item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
+      const matching = items.filter(item => item.projectId === project.id && item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
       // A boolean in Shopping means the entire material line is covered.
       // Conflicting duplicate rows cannot silently remove required materials.
       const requirement = calc.materials.find(item => item.material.id === line.material.id);
@@ -43,6 +46,12 @@ export function buildRenovationBasket(
       if (matching.length > 0 && matching.every(covers)) { excludedMaterials++; return false; }
       return true;
     });
+    for (const item of manual) {
+      const quantity = item.customQuantity ?? item.quantity;
+      const unit = typeof item.unit === 'string' ? normalizeUnit(item.unit) : '';
+      const known = item.quantityKnown !== false && Number.isFinite(quantity) && quantity > 0 && Boolean(unit);
+      materials.push(additionalMaterial(`manual:${item.id}`, known ? item.name : `${item.name} — ilość do ustalenia`, known ? unit : 'pozycja', known ? quantity : 1));
+    }
     stages.push({ ...stage, materials });
   }
   return { stages, includedProjects, excludedMaterials, manualItems, missingCalculations };

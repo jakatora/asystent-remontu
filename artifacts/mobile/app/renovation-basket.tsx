@@ -9,6 +9,8 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { CostEstimateTab } from '@/components/project/CostEstimateTab';
 import { QualityTierSelector } from '@/components/project/QualityTierSelector';
+import { BasketExtrasSection } from '@/components/project/BasketExtrasSection';
+import { BASKET_EXTRAS_KEY, parseBasketExtras, withBasketExtras, type BasketExtra } from '@/features/pricing/basketExtras';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import type { ShoppingItem } from '@/types/domain';
 import { buildRenovationBasket, MAX_BASKET_PROJECTS, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
@@ -26,6 +28,24 @@ export default function RenovationBasketScreen() {
   const [itemsReady, setItemsReady] = useState(false);
   const [itemsFailed, setItemsFailed] = useState(false);
   const writes = useRef(Promise.resolve());
+  const extrasWrites = useRef(Promise.resolve());
+  const [extras, setExtras] = useState<BasketExtra[]>([]), [extrasReady, setExtrasReady] = useState(false);
+  const [extrasReadFailed, setExtrasReadFailed] = useState(false), [extrasSaveFailed, setExtrasSaveFailed] = useState(false), [extrasRetry, setExtrasRetry] = useState(0);
+  useEffect(() => {
+    let active = true;
+    setExtrasReady(false); setExtrasReadFailed(false);
+    void extrasWrites.current.then(() => AsyncStorage.getItem(BASKET_EXTRAS_KEY)).then(raw => {
+      const saved = parseBasketExtras(raw);
+      if (active) { setExtras(saved); setExtrasReady(true); }
+    }).catch(() => { if (active) setExtrasReadFailed(true); });
+    return () => { active = false; };
+  }, [extrasRetry]);
+  const updateExtras = (next: BasketExtra[]) => {
+    const serialized = JSON.stringify({ version: 1, items: next });
+    const validated = parseBasketExtras(serialized);
+    setExtras(validated); setExtrasSaveFailed(false);
+    extrasWrites.current = extrasWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(BASKET_EXTRAS_KEY, serialized)).catch(() => setExtrasSaveFailed(true));
+  };
   useFocusEffect(React.useCallback(() => { void refreshProjects(); }, [refreshProjects]));
   useEffect(() => {
     let active = true;
@@ -47,6 +67,8 @@ export default function RenovationBasketScreen() {
     return () => { active = false; };
   }, [selectedProjects]));
   const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors), [projects, selected, selectedQualityTier, items, doors]);
+  const stages = useMemo(() => withBasketExtras(basket.stages, extras), [basket.stages, extras]);
+  const hasBasket = selectedProjects.length > 0 || extras.length > 0;
   const toggle = (id: string) => {
     const current = selected.filter(key => projects.some(project => project.id === key));
     const next = current.includes(id) ? current.filter(key => key !== id) : [...current, id];
@@ -79,20 +101,23 @@ export default function RenovationBasketScreen() {
         {selectedProjects.length >= MAX_BASKET_PROJECTS && <Txt>{pl ? 'Jeden koszyk obejmuje do 20 prac.' : 'One basket supports up to 20 works.'}</Txt>}
       </View>}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie zapisano wyboru prac. Wybierz je ponownie przy następnym otwarciu.' : 'Your selection could not be saved. Select the works again next time.'}</Txt>}
+      <BasketExtrasSection items={extras} onChange={updateExtras} ready={extrasReady} error={extrasReadFailed} onRetry={() => setExtrasRetry(value => value + 1)} />
+      {extrasSaveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie zapisano dodatkowych materiałów. Bieżąca wycena je uwzględnia, ale po ponownym otwarciu sprawdź listę.' : 'Additional materials were not saved. They are in the current quote, but check the list when reopening.'}</Txt>}
       {selectedProjects.length > 0 && <View style={{ gap: 8 }}>
         <QualityTierSelector selected={selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier} onSelect={setSelectedQualityTier} includeCustom={false} />
         <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Poziom wybiera warianty produktów do porównania. Możesz zmienić go i sprawdzić cenę całego zestawu.' : 'The level selects product variants for comparison. Change it to compare the complete basket price.'}</Txt>
       </View>}
       {selectedProjects.length > 0 && <View style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, gap: 6 }}>
-        <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Porównanie dotyczy materiałów z obmiarów. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”. Narzędzia i pozycje dopisane ręcznie pozostają poza tym zestawem.' : 'Comparison covers measured material requirements. Items marked Owned or Purchased are excluded. Tools and manually added items remain outside this basket.'}</Txt>
+        <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Łączymy materiały z obmiarów, dopisane w Zakupach i dodane tutaj. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”. Narzędzia są liczone osobno.' : 'We combine measured materials, items added in Shopping and materials added here. Items marked Owned or Purchased are excluded. Tools are separate.'}</Txt>
         {itemsReady && basket.excludedMaterials > 0 && <Txt>{pl ? `Pomijamy już posiadane lub kupione pozycje: ${basket.excludedMaterials}.` : `Already owned or purchased items excluded: ${basket.excludedMaterials}.`}</Txt>}
-        {itemsReady && basket.manualItems > 0 && <Txt style={{ color: Colors.warning }}>{pl ? `Dodatkowo sprawdź pozycje dopisane ręcznie: ${basket.manualItems}. Nie są wliczone w sumę.` : `Also check manually added items: ${basket.manualItems}. They are not included in the total.`}</Txt>}
+        {itemsReady && basket.manualItems > 0 && <Txt>{pl ? `Uwzględniamy pozycje dopisane w Zakupach: ${basket.manualItems}. Brak ceny lub ilości będzie widoczny w wycenie.` : `Items added in Shopping included: ${basket.manualItems}. Missing prices or quantities remain visible in the quote.`}</Txt>}
+        {itemsReady && basket.manualItems > 0 && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Ceny wpisane ręcznie w Zakupach nie są ofertą sklepu. Tutaj porównujemy potwierdzone ceny i dostawy.' : 'Prices typed in Shopping are not retailer offers. Here we compare confirmed retailer prices and deliveries.'}</Txt>}
       </View>}
       {selectedProjects.length > 0 && !itemsReady && !itemsFailed && <ActivityIndicator color={Colors.primary} />}
       {itemsFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie odczytano zakupów lub wyboru produktów. Otwórz koszyk ponownie, aby uwzględnić wybrane i posiadane materiały.' : 'Shopping lists or product choices could not be read. Reopen the basket to include your selected and owned materials.'}</Txt>}
       {basket.missingCalculations > 0 && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Uzupełnij obmiary zaznaczonych prac lub usuń je z wyboru. Wycena całego zestawu wymaga wszystkich obmiarów.' : 'Complete measurements for selected works or deselect them. The complete basket needs all measurements.'}</Txt>}
-      {loaded && itemsReady && selectedProjects.length > 0 && basket.missingCalculations === 0 && (basket.stages.some(stage => stage.materials.length > 0)
-        ? <CostEstimateTab projectId="renovation-basket" stages={basket.stages} qualityTier={selectedQualityTier} region={selectedRegion} />
+      {loaded && itemsReady && extrasReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
+        ? <CostEstimateTab projectId="renovation-basket" stages={stages} qualityTier={selectedQualityTier} region={selectedRegion} />
         : <Txt w="semibold">{pl ? 'Wszystkie materiały z wybranych obmiarów masz już lub są kupione.' : 'All measured materials for selected works are already owned or purchased.'}</Txt>)}
     </ScrollView>
   </>;
