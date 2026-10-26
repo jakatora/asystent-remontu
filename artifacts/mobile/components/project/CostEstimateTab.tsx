@@ -20,6 +20,7 @@ import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, deliverySettingsForStore, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
 import { unpricedReference } from '@/features/pricing/unpricedReference';
+import { groupUnpricedLines } from '@/features/pricing/unpricedGroups';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
 import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
@@ -279,7 +280,8 @@ function EstimateResult({
   const tr = (pl: string, en: string) => language === 'pl' ? pl : en;
   const lines = data.stages.flatMap(stage => stage.lines);
   const resolved = lines.filter((l) => l.resolved);
-  const unresolved = lines.filter((l) => !l.resolved);
+  const unpricedGroups = groupUnpricedLines(data.stages);
+  const unresolved = unpricedGroups.map(group => group.line);
   const missingPickupOffer = delivery.mode === 'pickup' && unresolved.some(line => isMissingOffer(line.reason));
   const pickupConfirmationStores = data.coverage?.pickupConfirmationStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
   const pickupUnavailableStores = data.coverage?.pickupUnavailableStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
@@ -317,7 +319,7 @@ function EstimateResult({
             <Txt w="semibold">{tr('Brak potwierdzonej oferty odbioru', 'No confirmed collection offer')}</Txt>
             <Txt style={{fontSize:13,lineHeight:19}}>{tr('Dla części produktów z katalogu ofert nie mamy potwierdzonego zakupu z odbiorem własnym. Sprawdź dostawę do domu lub wybierz inny sklep. Pełny koszt zestawu nie jest jeszcze dostępny.', 'Some products in the offers catalogue have no confirmed purchase with self collection. Check home delivery or choose another store. The full basket cost is not yet available.')}</Txt>
             <Button variant="outline" label={tr('Porównaj z dostawą do domu', 'Compare with home delivery')} onPress={()=>onDeliveryChange({...delivery,mode:'shipping'})} fullWidth />
-          </> : <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{selectedStore ? tr(`W wybranym sklepie nie potwierdzono ofert dla ${unresolved.length} pozycji z poszczególnych prac. Pełny koszt zestawu nie jest jeszcze dostępny.`, `Offers for ${unresolved.length} items across the selected jobs could not be confirmed in this store. The full basket cost is not yet available.`) : t('upgrade.compare.partial', { count: unresolved.length })}</Txt>}
+          </> : <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{selectedStore ? tr(`Brakuje wyceny produktów: ${unresolved.length}. Niżej zobaczysz łączne ilości potrzebne do wszystkich prac. Kwota obejmuje tylko dostępną część zestawu.`, `Products without a price: ${unresolved.length}. Combined quantities for all jobs are shown below. The amount covers only the available part of the basket.`) : t('upgrade.compare.partial', { count: unresolved.length })}</Txt>}
         </View>
       )}
       {pickupConfirmationStores.map(store => <View key={store} accessibilityRole="alert" style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 6 }}>
@@ -340,7 +342,7 @@ function EstimateResult({
         <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Przed zakupem sprawdź rozmiar, stronę otwierania, przylgę, zawiasy i zakres regulacji ościeżnicy. Pozycje referencyjne w wycenie wymagają dopasowania do siebie.', 'Before buying, check the size, opening direction, rebate, hinges and frame adjustment range. Reference items in the quote need to be matched to each other.')}</Txt>
         {hasLeftCredis && <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Credis w tej wycenie to lewe białe skrzydło w rozmiarze 80, bez ościeżnicy i klamki. Nie łącz go z prawą ościeżnicą.', 'The Credis in this quote is a white, left-hand size-80 leaf without a frame or handle. Do not combine it with a right-hand frame.')}</Txt>}
       </View>}
-      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} />}
+      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} missingItemCount={unresolved.length || undefined} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} />}
       {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia
@@ -416,8 +418,8 @@ function EstimateResult({
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
             {selectedStore ? tr('Nie wliczono ich do sumy. Zmień sklep lub wybierz „Najtańszy zestaw”, aby sprawdzić pozostałe oferty.', 'These items are excluded from the total. Change store or select “Lowest basket” to check other offers.') : t('cmp.CostEstimate.unresolvedHint')}
           </Txt>
-          {unresolved.map((line, idx) => (
-            <UnresolvedLineCard key={`u-${idx}`} line={line} selectedStore={selectedStore} postalCode={delivery.postalCode} pickup={delivery.mode==='pickup'} />
+          {unpricedGroups.map(group => (
+            <UnresolvedLineCard key={group.key} line={group.line} sourceCount={group.sourceCount} selectedStore={selectedStore} postalCode={delivery.postalCode} pickup={delivery.mode==='pickup'} />
           ))}
         </View>
       )}
@@ -1321,7 +1323,7 @@ function Badge({
   );
 }
 
-function UnresolvedLineCard({ line, selectedStore, postalCode, pickup }: { line: SerializedLine; selectedStore?: string | null; postalCode?: string; pickup?:boolean }) {
+function UnresolvedLineCard({ line, sourceCount = 1, selectedStore, postalCode, pickup }: { line: SerializedLine; sourceCount?: number; selectedStore?: string | null; postalCode?: string; pickup?:boolean }) {
   const { t, language } = useLanguage();
   const ref = unpricedReference(line), pl = language === 'pl';
   const [linkFailed, setLinkFailed] = useState(false);
@@ -1345,6 +1347,8 @@ function UnresolvedLineCard({ line, selectedStore, postalCode, pickup }: { line:
           {ref?.ean && <Txt selectable style={{ fontSize: 12, color: Colors.textSecondary }}>EAN: {ref.ean}</Txt>}
         </View>
       </View>
+      {Number.isFinite(line.quantity) && line.quantity > 0 && line.unit && line.unit !== 'pozycja' && <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{pl ? 'Potrzebujesz łącznie' : 'Total needed'}: {line.quantity.toLocaleString(pl ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 8 })} {line.unit}</Txt>}
+      {sourceCount > 1 && <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{pl ? `Połączono zapotrzebowanie z ${sourceCount} prac.` : `Combined demand from ${sourceCount} jobs.`}</Txt>}
       <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
         {line.reason==='insufficient-stock'?t(unresolvedReasonKey(line.reason)):pickup && isMissingOffer(line.reason) ? (pl ? 'Brak potwierdzonej oferty odbioru własnego dla tego produktu.' : 'No confirmed self-collection offer for this product.') : selectedStore && !['empty_query','no-query'].includes(line.reason ?? '') ? (pl ? 'Brak potwierdzonej oferty w wybranym sklepie.' : 'No confirmed offer in the selected store.') : t(unresolvedReasonKey(line.reason))}
       </Txt>

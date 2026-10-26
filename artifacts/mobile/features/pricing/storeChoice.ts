@@ -1,5 +1,6 @@
 import type { SerializedProject, SerializedStoreBasket, SerializedStoreComparison } from './pricingApi';
 import type {DeliverySettings} from '../../../../lib/pricing-service/src/delivery';
+import { groupUnpricedLines } from './unpricedGroups';
 
 export interface StoreChoices {
   comparison: SerializedStoreComparison;
@@ -13,7 +14,7 @@ export function collectStoreChoices(data: SerializedProject): StoreChoices {
   return {
     comparison: data.storeComparison,
     stores: data.coverage?.stores ?? data.storeComparison.stores.map(store => store.store),
-    unresolvedCount: data.stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length,
+    unresolvedCount: groupUnpricedLines(data.stages).filter(group => group.line.quantity > 0).length,
     pickupUnavailableStores: data.coverage?.pickupUnavailableStores ?? [],
     pickupOnlyStores: data.coverage?.pickupOnlyStores ?? [],
   };

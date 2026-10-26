@@ -13,9 +13,10 @@ import { getProductPhoto } from '@/data/products/photos';
 import { PriceChangeBadge } from './PriceChangeNotice';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
-export function DeliveryComparisonSection({ comparison, settings, selectedStore, onApply }: {
+export function DeliveryComparisonSection({ comparison, missingItemCount, settings, selectedStore, onApply }: {
   comparison: DeliveryComparison; settings: DeliverySettings;
   selectedStore?: string | null;
+  missingItemCount?: number;
   onApply: (settings: DeliverySettings) => void;
 }) {
   const { language } = useLanguage();
@@ -80,7 +81,7 @@ export function DeliveryComparisonSection({ comparison, settings, selectedStore,
         <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{tr('Wpisz 5 cyfr. Automatycznie sprawdzimy koszyki sklepów i doliczymy dostawę całego zamówienia.', 'Enter 5 digits. We will automatically check store baskets and add delivery for the whole order.')}</Txt>
       </>}
     </View>
-    {comparison.status === 'partial' && <Txt accessibilityRole="alert" style={{ color: Colors.danger, lineHeight: 21 }}>{tr(`Brakuje ofert dla ${comparison.missingProductCount} pozycji. Nie można jeszcze wycenić całego zestawu.`, `Offers are missing for ${comparison.missingProductCount} items. The full basket cannot be priced yet.`)}</Txt>}
+    {comparison.status === 'partial' && <Txt accessibilityRole="alert" style={{ color: Colors.danger, lineHeight: 21 }}>{tr(`Brakuje wyceny produktów: ${missingItemCount ?? comparison.missingProductCount}. Nie można jeszcze wycenić całego zestawu.`, `Products without a price: ${missingItemCount ?? comparison.missingProductCount}. The full basket cannot be priced yet.`)}</Txt>}
     {current && comparison.status === 'limit_exceeded' && <Txt>{tr('Ten zestaw przekracza zakres porównania. Podziel zakupy na mniejsze zestawy.', 'This basket exceeds the comparison limit. Split it into smaller purchases.')}</Txt>}
     {current && comparison.searchLimited && <View style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg }}><Txt accessibilityRole="alert" style={{ lineHeight: 20 }}>{tr(`Duży remont: sprawdzono wybrane pełne zestawy. Wyceny z dostawą: ${comparison.comparedBasketCount ?? 0}. Inne kombinacje mogą być tańsze.`, `Large renovation: selected complete baskets were checked. Baskets quoted with delivery: ${comparison.comparedBasketCount ?? 0}. Other combinations may cost less.`)}</Txt></View>}
     {best && <View style={{ backgroundColor: Colors.primaryBg, padding: 18, borderRadius: 16, gap: 10 }}>
