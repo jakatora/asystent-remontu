@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T03:18:31.619Z",
+  "checkedAt": "2026-10-26T03:55:32.934Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 77,
-  "remaining": 26,
-  "offers": 103,
+  "verifiedProducts": 78,
+  "remaining": 25,
+  "offers": 104,
   "stores": 35,
   "productsWithPhotos": 103,
-  "registeredOffers": 105,
+  "registeredOffers": 106,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1588,7 +1588,7 @@
       "deliveryChecks": [
         {
           "sourceId": "matbud-yetico-gamma-fasada-044-10cm",
-          "checkedAt": "2026-10-26T03:18:31.619Z",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
           "status": "confirmed",
           "postalCode": "00-001",
           "basis": "retailer_basket_national",
@@ -1600,7 +1600,7 @@
         },
         {
           "sourceId": "matbud-yetico-gamma-fasada-044-10cm",
-          "checkedAt": "2026-10-26T03:18:31.619Z",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
           "status": "confirmed",
           "postalCode": "00-001",
           "basis": "retailer_basket_national",
@@ -1612,7 +1612,7 @@
         },
         {
           "sourceId": "matbud-yetico-gamma-fasada-044-10cm",
-          "checkedAt": "2026-10-26T03:18:31.619Z",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
           "status": "confirmed",
           "postalCode": "00-001",
           "basis": "retailer_basket_national",
@@ -1624,7 +1624,7 @@
         },
         {
           "sourceId": "matbud-yetico-gamma-fasada-044-10cm",
-          "checkedAt": "2026-10-26T03:18:31.619Z",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
           "status": "confirmed",
           "postalCode": "80-001",
           "basis": "retailer_basket_national",
@@ -1640,11 +1640,62 @@
       "id": "mat-eps-facade-yetico-passive-033-150mm",
       "name": "Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)",
       "referenceUrl": "https://www.castorama.pl/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-/5902578307268_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5902578307268",
-      "sourceIds": [],
+      "sourceIds": [
+        "matbud-yetico-gamma-passive-033-15cm"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/styropian-fasadowy-passive-yetico-150-mm-2-m2-4-szt-~5902578307268_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "matbud-yetico-gamma-passive-033-15cm",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 50,
+          "materialsGrosze": 299900,
+          "deliveryGrosze": 0,
+          "totalGrosze": 299900
+        },
+        {
+          "sourceId": "matbud-yetico-gamma-passive-033-15cm",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 51,
+          "materialsGrosze": 305898,
+          "deliveryGrosze": 0,
+          "totalGrosze": 305898
+        },
+        {
+          "sourceId": "matbud-yetico-gamma-passive-033-15cm",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 51,
+          "materialsGrosze": 305898,
+          "deliveryGrosze": 0,
+          "totalGrosze": 305898
+        },
+        {
+          "sourceId": "matbud-yetico-gamma-passive-033-15cm",
+          "checkedAt": "2026-10-26T03:55:32.934Z",
+          "status": "confirmed",
+          "postalCode": "80-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 51,
+          "materialsGrosze": 305898,
+          "deliveryGrosze": 0,
+          "totalGrosze": 305898
+        }
+      ]
     },
     {
       "id": "mat-adhesive-eps-atlas-stopter-k20-25kg",

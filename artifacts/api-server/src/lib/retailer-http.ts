@@ -51,16 +51,18 @@ export class AnonymousShop {
     if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
     return JSON.parse(raw);
   }
-  /** Reviewed Sky-Shop operations for the single Matbud product. Cart IDs are
+  /** Reviewed Sky-Shop operations for two pinned Matbud products. Cart IDs are
    * obtained from this fresh session, never supplied by the app or browser.
    * The order json=1 routes calculate shipping; no final order/customer route.
    * source: https://centrummatbud.pl/view/new/userContent/bum/script.js?v=699 */
-  async skyshop(action: 'product'|'parameters'|'create-cart'|'add'|'cart'|'shipping'|'calculate', count?: number): Promise<any> {
+  async skyshop(action: 'product'|'parameters'|'create-cart'|'add'|'cart'|'shipping'|'calculate', count?: number, productId=96729): Promise<any> {
     if(this.origin!=='https://centrummatbud.pl')throw Error('invalid_cart_action');
+    if(![96729,131345].includes(productId))throw Error('invalid_cart_action');
+    const nativePerPack=productId===131345?2:1;
     const prefix='/proxy_public_api?endpoint=/sky2/api-public';
     if(action==='product'||action==='parameters'){
       if(count!==undefined)throw Error('invalid_cart_action');
-      return JSON.parse(await this.read(prefix+'/products/96729'+(action==='parameters'?'/choosable-parameters?':''),undefined,true));
+      return JSON.parse(await this.read(prefix+'/products/'+productId+(action==='parameters'?'/choosable-parameters?':''),undefined,true));
     }
     if(action==='create-cart'){
       if(count!==undefined||this.skyshopCartId)throw Error('invalid_cart_action');
@@ -70,8 +72,8 @@ export class AnonymousShop {
     }
     if(!this.skyshopCartId)throw Error('cart_session_not_confirmed');
     if(action==='add'){
-      if(count===undefined||!Number.isSafeInteger(count)||count<50||count>MAX_RETAIL_PACKAGES)throw Error('invalid_cart_action');
-      return JSON.parse(await this.read(prefix+'/carts/'+this.skyshopCartId+'/items',JSON.stringify({productId:96729,quantity:count,parameters:[]}),true,false,true));
+      if(count===undefined||!Number.isSafeInteger(count)||count<50*nativePerPack||count>MAX_RETAIL_PACKAGES*nativePerPack||count%nativePerPack)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read(prefix+'/carts/'+this.skyshopCartId+'/items',JSON.stringify({productId,quantity:count,parameters:[]}),true,false,true));
     }
     if(count!==undefined)throw Error('invalid_cart_action');
     if(action==='cart')return JSON.parse(await this.read(prefix+'/carts/'+this.skyshopCartId,undefined,true));

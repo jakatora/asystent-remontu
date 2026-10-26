@@ -920,10 +920,17 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://centrummatbud.pl/Styropian-elewacyjny-10-cm-Yetico-Gamma-Fasada-044-3m2-op-p96729
   // Dispatch is on order; the anonymous pickup method does not confirm a local pickup date or branch inventory.
   {id:'matbud-yetico-gamma-fasada-044-10cm',ean:'5902578301976',name:'Styropian elewacyjny 10 cm Yetico Gamma Fasada 044 3m2/op',category:'insulation',brand:'Yetico',packageSize:3,unit:'m2',store:'Centrum Matbud',format:'skyshop',productId:96729,retailerSku:'FASADA 044 10CM',minimumPackages:50,pickupRequiresConfirmation:true,variant:['Gamma','Fasada','044','10 cm'],url:'https://centrummatbud.pl/Styropian-elewacyjny-10-cm-Yetico-Gamma-Fasada-044-3m2-op-p96729'},
+  // Manufacturer crosswalk p.34 row752; smooth 4-board/0.3m3/2m2 pack.
+  // Native M2 price is multiplied by2 only after verifying tick2/box2 and the actual cart.
+  // source: https://yetico.com/wp-content/uploads/2026/01/ecommerce_regulamin-programu-motywacyjnego_jubileuszowa-ekstraklasa-yetico_aktualizacja.pdf
+  // source: https://yetico.com/wp-content/uploads/2022/09/karta_tech_gamma_passive_fasada.pdf
+  // source: https://centrummatbud.pl/Styropian-grafitowy-15cm-Yetico-Gama-Passive-Fasada-033-p131345
+  {id:'matbud-yetico-gamma-passive-033-15cm',ean:'5902578307268',name:'Styropian grafitowy 15cm Yetico Gama Passive Fasada 033',category:'insulation',brand:'Yetico',packageSize:2,unit:'m2',store:'Centrum Matbud',format:'skyshop',productId:131345,retailerSku:'FASADA 033 15CM',minimumPackages:50,pickupRequiresConfirmation:true,variant:['Gama','Passive','Fasada','033','15 cm'],url:'https://centrummatbud.pl/Styropian-grafitowy-15cm-Yetico-Gama-Passive-Fasada-033-p131345'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)': '5902578307268',
   'Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)': '5902578301976',
   'Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)': '5907555424969',
   'Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml': '5411183048522',

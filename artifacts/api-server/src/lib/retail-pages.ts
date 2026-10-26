@@ -14,7 +14,7 @@ import { readModnaProduct } from './modna-product';
 import { readBetterialProduct } from './betterial-product';
 import { inspectFolnetProduct } from './folnet-product';
 import { inspectKronosferaProduct } from './kronosfera-product';
-import { readSkyshopProduct, confirmSkyshopCart, skyshopEvidenceHash, MATBUD_ORIGIN } from './skyshop-product';
+import { readSkyshopProduct, confirmSkyshopBasket, reviewedSkyshopSource, skyshopEvidenceHash, MATBUD_ORIGIN } from './skyshop-product';
 
 export interface RetailSource {
   id: string;
@@ -147,10 +147,11 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
   if(source.format==='skyshop'){
+    const review=reviewedSkyshopSource(source),nativeCount=source.minimumPackages!*review.nativePerPack;
     const client=new AnonymousShop(MATBUD_ORIGIN,fetchImpl,AbortSignal.timeout(15000),12),current=await readSkyshopProduct(source,client);
-    const empty=await client.skyshop('create-cart'),added=await client.skyshop('add',source.minimumPackages);
-    if(added?.id!==empty.id||added.addedCartItem?.quantity!==source.minimumPackages)throw Error('insufficient_stock');
-    const cart=confirmSkyshopCart(await client.skyshop('cart'),source.minimumPackages!,current.priceGrosze);
+    const empty=await client.skyshop('create-cart'),added=await client.skyshop('add',nativeCount,review.id);
+    if(added?.id!==empty.id||added.addedCartItem?.quantity!==nativeCount)throw Error('insufficient_stock');
+    const cart=confirmSkyshopBasket(await client.skyshop('cart'),[{productId:review.id,count:nativeCount,unitPriceGrosze:current.nativePriceGrosze}]);
     if(cart.id!==empty.id)throw Error('basket_not_confirmed');
     const html=`<script type="application/ld+json">${JSON.stringify(current.product)}</script>`;
     return{...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:skyshopEvidenceHash([...current.evidence,cart])};
