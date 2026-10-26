@@ -13,6 +13,7 @@ export class AnonymousShop {
   private cookies = new Map<string, string>();
   private calls = 0;
   private storeCartToken: string | null = null;
+  private skyshopCartId: string | null = null;
   constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30) {}
   async json(path: string, body?: object): Promise<any> {
     return JSON.parse(await this.read(path, body ? JSON.stringify(body) : undefined, true));
@@ -50,8 +51,43 @@ export class AnonymousShop {
     if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
     return JSON.parse(raw);
   }
-  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string): Promise<string> {
-    let url = new URL(path, this.origin), method = payload ? 'POST' : 'GET';
+  /** Reviewed Sky-Shop operations for the single Matbud product. Cart IDs are
+   * obtained from this fresh session, never supplied by the app or browser.
+   * The order json=1 routes calculate shipping; no final order/customer route.
+   * source: https://centrummatbud.pl/view/new/userContent/bum/script.js?v=699 */
+  async skyshop(action: 'product'|'parameters'|'create-cart'|'add'|'cart'|'shipping'|'calculate', count?: number): Promise<any> {
+    if(this.origin!=='https://centrummatbud.pl')throw Error('invalid_cart_action');
+    const prefix='/proxy_public_api?endpoint=/sky2/api-public';
+    if(action==='product'||action==='parameters'){
+      if(count!==undefined)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read(prefix+'/products/96729'+(action==='parameters'?'/choosable-parameters?':''),undefined,true));
+    }
+    if(action==='create-cart'){
+      if(count!==undefined||this.skyshopCartId)throw Error('invalid_cart_action');
+      const cart=JSON.parse(await this.read(prefix+'/carts/latest',undefined,true));
+      if(!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(cart?.id??'')||!Array.isArray(cart.items)||cart.items.length)throw Error('basket_not_confirmed');
+      this.skyshopCartId=cart.id;this.cookies.set('sky2_cart_id',cart.id);return cart;
+    }
+    if(!this.skyshopCartId)throw Error('cart_session_not_confirmed');
+    if(action==='add'){
+      if(count===undefined||!Number.isSafeInteger(count)||count<50||count>MAX_RETAIL_PACKAGES)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read(prefix+'/carts/'+this.skyshopCartId+'/items',JSON.stringify({productId:96729,quantity:count,parameters:[]}),true,false,true));
+    }
+    if(count!==undefined)throw Error('invalid_cart_action');
+    if(action==='cart')return JSON.parse(await this.read(prefix+'/carts/'+this.skyshopCartId,undefined,true));
+    if(action==='shipping'){
+      // Native /cart synchronises the modern anonymous cart with its shipping
+      // calculator. Skipping it yields an empty legacy order, not a free quote.
+      await this.read('/cart',undefined,false);
+      const html=await this.read('/order',undefined,false);
+      const methods=JSON.parse(await this.read('/order/?json=1&pay_id=5&c=PL&sel=&wdt=0','',true,false,false,undefined,true));
+      return {html,methods};
+    }
+    if(action==='calculate')return JSON.parse(await this.read('/order/?json=1&recalculate=1&c=PL&pay_id=5&shipment=s182be0c5c&wdt=0&gratis=',undefined,true));
+    throw Error('invalid_cart_action');
+  }
+  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string, forcePost=false): Promise<string> {
+    let url = new URL(path, this.origin), method = payload || forcePost ? 'POST' : 'GET';
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
       if (++this.calls > this.maxCalls) throw Error('request_limit');
@@ -61,7 +97,7 @@ export class AnonymousShop {
         headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : 'text/html, application/json', Cookie: cookie,
           ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
           ...(modnaCsrf ? {'X-CSRF-Token':modnaCsrf,'X-Requested-With':'XMLHttpRequest',Origin:this.origin,Referer:this.origin+'/'} : {}),
-          ...(payload ? { 'Content-Type': storeCart||rawJson?'application/json':'application/x-www-form-urlencoded' } : {}) } });
+          ...(payload || forcePost ? { 'Content-Type': storeCart||rawJson?'application/json':'application/x-www-form-urlencoded' } : {}) } });
       for (const entry of r.headers.getSetCookie()) {
         const pair = entry.split(';')[0], eq = pair.indexOf('=');
         if (eq > 0) this.cookies.set(pair.slice(0,eq), pair.slice(eq+1));

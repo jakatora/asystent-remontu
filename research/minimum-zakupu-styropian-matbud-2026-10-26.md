@@ -1,5 +1,9 @@
 # Minimum zakupu a wielokrotność — 2026-10-26
 
+Poniżej stan wcześniejszego etapu prac. Późniejszy przegląd tabeli pakowania
+producenta rozstrzygnął wariant, a integrację wdrożono: szczegóły i aktualny
+stan 77/103 w [raporcie Matbud](matbud-styropian-dostawa-2026-10-26.md).
+
 ## Stan produkcji
 
 HTTPS sprawdzony 2026-10-26T02:42:30.196Z: 76/103 referencji ma aktywną ofertę,

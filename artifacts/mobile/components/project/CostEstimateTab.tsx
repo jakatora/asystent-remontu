@@ -276,7 +276,7 @@ function EstimateResult({
       )}
       {pickupConfirmationStores.map(store => <View key={store} accessibilityRole="alert" style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 6 }}>
         <Txt w="semibold">{tr(`${store}: odbiór po uzgodnieniu`, `${store}: collection by arrangement`)}</Txt>
-        <Txt style={{ fontSize: 13, lineHeight: 19 }}>{tr('Sklep potwierdza miejsce i termin odbioru indywidualnie. Jego ceny pokazujemy przy dostawie, ale nie uwzględniamy ich w rankingu własnego odbioru. Koszt transportu również wymaga wyceny sklepu.', 'The store confirms the collection location and date individually. Its prices are shown for home delivery but excluded from the collection ranking. Transport also requires a store quote.')}</Txt>
+        <Txt style={{ fontSize: 13, lineHeight: 19 }}>{tr('Sklep potwierdza miejsce i termin odbioru indywidualnie. Jego ceny pokazujemy przy dostawie, ale nie uwzględniamy ich w rankingu własnego odbioru. Koszt dostawy sprawdzisz w porównaniu poniżej.', 'The store confirms the collection location and date individually. Its prices are shown for home delivery but excluded from the collection ranking. Check the delivery comparison below for transport costs.')}</Txt>
       </View>)}
       {pickupUnavailableStores.map(store => <View key={store} accessibilityRole="alert" style={{ padding:14,borderRadius:12,backgroundColor:Colors.warningBg,gap:6 }}>
         <Txt w="semibold">{tr(`${store}: wyłącznie dostawa`, `${store}: delivery only`)}</Txt>
@@ -337,7 +337,8 @@ function EstimateResult({
             {t('cmp.CostEstimate.consolidatedHint')}
           </Txt>
           {consolidatedLines.map((line, idx) => (
-            <ConsolidatedLineCard key={`c-${line.product.id}-${idx}`} line={line} offers={resolved.find(item => item.product?.id === line.product.id)?.offers} />
+            <ConsolidatedLineCard key={`c-${line.product.id}-${idx}`} line={line} offers={resolved.find(item => item.product?.id === line.product.id)?.offers}
+              stockUnconfirmed={data.deliveryComparison?.unavailableStores?.some(store => !store.partial && ['insufficient_stock','product_unavailable'].includes(store.reason) && (line.packages?.some(pack => pack.store === store.store) || line.cheapestOffer.store === store.store))} />
           ))}
         </View>
       )}
@@ -913,8 +914,8 @@ function StoreBasketRow({
  * koszt skonsolidowany oraz — gdy dodatnia — oszczędność vs suma per-etap. Nic nie
  * liczy: kwoty (grosze) i ilości pochodzą z backendu, tu tylko formatowanie.
  */
-function ConsolidatedLineCard({ line, offers }: { line: SerializedConsolidatedLine; offers?: SerializedProductOffer[] }) {
-  const { t } = useLanguage();
+function ConsolidatedLineCard({ line, offers, stockUnconfirmed }: { line: SerializedConsolidatedLine; offers?: SerializedProductOffer[]; stockUnconfirmed?: boolean }) {
+  const { t, language } = useLanguage();
   const offer = line.cheapestOffer;
   return (
     <View
@@ -930,9 +931,9 @@ function ConsolidatedLineCard({ line, offers }: { line: SerializedConsolidatedLi
       <ProductImage uri={getProductPhoto(line.product ?? {})} name={line.product?.name ?? ""} size={64} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
         <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>{line.product.name}</Txt>
-        <Txt w="bold" style={{ fontSize: 14, color: Colors.text }}>{formatGrosze(line.lineCostGrosze)}</Txt>
+        <Txt w="bold" style={{ fontSize: 14, color: stockUnconfirmed ? Colors.warning : Colors.text }}>{stockUnconfirmed ? (language === 'pl' ? 'Sprawdź dostępność' : 'Check availability') : formatGrosze(line.lineCostGrosze)}</Txt>
       </View>
-      {line.packages && <PackageBreakdown packages={line.packages} unit={line.unit} totalGrosze={line.lineCostGrosze} savingsGrosze={line.savingsGrosze} />}
+      {stockUnconfirmed ? <Txt accessibilityRole="alert" style={{ fontSize: 13, lineHeight: 19, color: Colors.warning }}>{language === 'pl' ? 'Sklep nie potwierdził ilości wymaganej dla tego zestawu. Sprawdź dostępność przed zakupem.' : 'The store did not confirm the quantity required for this basket. Check availability before purchasing.'}</Txt> : line.packages && <PackageBreakdown packages={line.packages} unit={line.unit} totalGrosze={line.lineCostGrosze} savingsGrosze={line.savingsGrosze} />}
       {line.packages?.map((entry, index) => entry.url?.startsWith('https://') ? (
         <Pressable key={`${entry.store}-${index}`} onPress={() => { void Linking.openURL(entry.url!).catch(() => {}); }} accessibilityRole="link" style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 10 }}>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.primaryDark }}>{entry.store} · {t('upgrade.compare.open')}</Txt>
@@ -945,7 +946,7 @@ function ConsolidatedLineCard({ line, offers }: { line: SerializedConsolidatedLi
             <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{offer.store}</Txt>
           </View>
         )}
-        {line.savingsGrosze > 0 && (
+        {!stockUnconfirmed && line.savingsGrosze > 0 && (
           <Badge
             icon="trending-down"
             text={t('cmp.CostEstimate.savedBadge', { amount: formatGrosze(line.savingsGrosze) })}

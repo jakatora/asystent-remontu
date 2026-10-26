@@ -914,10 +914,17 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     category:'skirting',brand:'KronoOriginal',packageSize:2.4,unit:'mb',store:'Kronosfera',format:'kronosfera',
     productId:2068,retailerSku:'LK100F24-9002',pickupUnavailable:true,variant:['LK100F24','9002'],
     url:'https://kronosfera.pl/k/listwa-przypodlogowa-lk100f24-9002,2068' },
+  // Reviewed manufacturer EAN and physical-pack crosswalk; the shop publishes SKU, not GTIN.
+  // source: https://yetico.com/wp-content/uploads/2026/01/ecommerce_regulamin-programu-motywacyjnego_jubileuszowa-ekstraklasa-yetico_aktualizacja.pdf
+  // source: https://yetico.com/wp-content/uploads/2022/06/karta_tech_gamma_fasada_pl.pdf
+  // source: https://centrummatbud.pl/Styropian-elewacyjny-10-cm-Yetico-Gamma-Fasada-044-3m2-op-p96729
+  // Dispatch is on order; the anonymous pickup method does not confirm a local pickup date or branch inventory.
+  {id:'matbud-yetico-gamma-fasada-044-10cm',ean:'5902578301976',name:'Styropian elewacyjny 10 cm Yetico Gamma Fasada 044 3m2/op',category:'insulation',brand:'Yetico',packageSize:3,unit:'m2',store:'Centrum Matbud',format:'skyshop',productId:96729,retailerSku:'FASADA 044 10CM',minimumPackages:50,pickupRequiresConfirmation:true,variant:['Gamma','Fasada','044','10 cm'],url:'https://centrummatbud.pl/Styropian-elewacyjny-10-cm-Yetico-Gamma-Fasada-044-3m2-op-p96729'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)': '5902578301976',
   'Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)': '5907555424969',
   'Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml': '5411183048522',
   'Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg': '5905400160253',

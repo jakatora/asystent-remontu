@@ -23,6 +23,8 @@ test('maps search encodes the chosen store and user location; it does not imply 
   assert.equal([...url.searchParams.keys()].length, 2);
   assert.equal(new URL(storeMapSearchUrl('Folnet', '00-001')!).searchParams.get('query'), 'Folnet magazyn ul. Stefana Batorego 97 62-081 Batorowo Polska');
   assert.equal(storeMapSearchUrl('Folnet', ''), storeMapSearchUrl('Folnet', '00-001'));
+  assert.equal(new URL(storeMapSearchUrl('Centrum Matbud','00-001')!).searchParams.get('query'),'Centrum Matbud ul. Pokrzywno 21 61-315 Poznań Polska');
+  assert.equal(storeMapSearchUrl('Centrum Matbud','00-001'),storeMapSearchUrl('Centrum Matbud','80-001'));
   for (const store of ['LiderzyCen', 'Betterial', 'Unknown', '__proto__']) {
     assert.equal(supportsStoreMapSearch(store), false);
     assert.equal(storeMapSearchUrl(store, '00-001'), null);
