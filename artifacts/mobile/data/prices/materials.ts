@@ -767,7 +767,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
-  // Wężyk przyłączeniowy w oplocie ze stali nierdzewnej Invena 3/8"×M10 30 cm — EAN 5907798716258. Cena 37,17 zł/szt (Castorama).
+  // Wężyk Invena WS-20-030-G, 3/8"×M10, długa końcówka, 30 cm — 11,14 zł brutto za sztukę; rzeczywisty koszyk 2026-10-26.
+  // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
+  // source: https://invena.pl/produkt/wezyk-do-bat-w-opl-stal-3-8-dl-konc-30cm-3559
   // source: https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd (EAN + cena 37,17 zł)
   // source: https://www.obi.pl/weze-elastyczne-flex/invena-wezyk-w-oplocie-z-gw-gz-3-8-w-x-m10-30-cm/p/4355574 (EAN 5907798716258)
   {
@@ -777,12 +779,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Invena',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 37.17,
+    pricePerPackage: 11.14,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'TOK-MET',
     sourceUrl:
-      'https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T03:55:32.934Z",
+  "checkedAt": "2026-10-26T05:15:03.431Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 78,
-  "remaining": 25,
-  "offers": 104,
-  "stores": 35,
+  "verifiedProducts": 79,
+  "remaining": 24,
+  "offers": 105,
+  "stores": 36,
   "productsWithPhotos": 103,
-  "registeredOffers": 106,
+  "registeredOffers": 107,
   "disabledOffers": 2,
   "rows": [
     {
@@ -715,12 +715,22 @@
     {
       "id": "mat-hose-braided-invena-3-8-30",
       "name": "Wężyk przyłączeniowy w oplocie Invena 3/8\"×M10 30 cm",
-      "referenceUrl": "https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd",
-      "status": "needs_verified_offer",
+      "referenceUrl": "https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i",
+      "status": "verified_offer",
       "ean": "5907798716258",
-      "sourceIds": [],
-      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-~5907798716258_01c_MP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "sourceIds": [
+        "tokmet-invena-ws20-030"
+      ],
+      "photoUrl": "https://sklep.tokmet.pl/picturesbig/xpic81087437639.jpg.pagespeed.ic.mhMX9l5zcR.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "tokmet-invena-ws20-030",
+          "checkedAt": "2026-10-26T05:15:03.431Z",
+          "status": "unavailable",
+          "reason": "address_required",
+          "postalCode": "00-001"
+        }
+      ]
     },
     {
       "id": "mat-teflon-tape-tycner-12mm",

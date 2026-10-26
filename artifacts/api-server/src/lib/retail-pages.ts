@@ -6,6 +6,7 @@ import { AnonymousShop } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
 import { readWooProduct } from './woocommerce-product';
+import { readTokmetProduct } from './qshop-product';
 import { readTopbodenProduct } from './topboden-product';
 import { readPrestashopProduct } from './prestashop-product';
 import { readAbstoreProduct } from './abstore-product';
@@ -37,7 +38,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -146,6 +147,10 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if(source.format==='qshop'){
+    const current=await readTokmetProduct(source,fetchImpl);
+    return {...parseRetailPage(`<script type="application/ld+json">${JSON.stringify(current.product)}</script>`,{...source,format:'jsonld'},new Date()),evidenceSha256:current.evidenceSha256};
+  }
   if(source.format==='skyshop'){
     const review=reviewedSkyshopSource(source),nativeCount=source.minimumPackages!*review.nativePerPack;
     const client=new AnonymousShop(MATBUD_ORIGIN,fetchImpl,AbortSignal.timeout(15000),12),current=await readSkyshopProduct(source,client);

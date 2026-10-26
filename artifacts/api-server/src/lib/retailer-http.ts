@@ -14,7 +14,9 @@ export class AnonymousShop {
   private calls = 0;
   private storeCartToken: string | null = null;
   private skyshopCartId: string | null = null;
-  constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30) {}
+  constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30, private encoding: 'utf-8' | 'iso-8859-2' = 'utf-8') {
+    if (encoding !== 'utf-8' && origin !== 'https://sklep.tokmet.pl') throw Error('unsupported_retailer_encoding');
+  }
   async json(path: string, body?: object): Promise<any> {
     return JSON.parse(await this.read(path, body ? JSON.stringify(body) : undefined, true));
   }
@@ -124,7 +126,8 @@ export class AnonymousShop {
         while (true) { const { done, value } = await reader.read(); if (done) break;
           size += value.byteLength; if (size > 1_000_000) throw Error('response_too_large'); chunks.push(value); }
       } finally { await reader.cancel().catch(() => {}); }
-      return Buffer.concat(chunks).toString('utf8');
+      const bytes = Buffer.concat(chunks);
+      return this.encoding === 'iso-8859-2' ? new TextDecoder('iso-8859-2').decode(bytes) : bytes.toString('utf8');
     }
     throw Error('invalid_redirect');
   }

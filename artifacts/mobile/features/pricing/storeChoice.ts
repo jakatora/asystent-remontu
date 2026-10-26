@@ -51,7 +51,7 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
 const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera']);
 
 export function supportsStoreMapSearch(store: string): boolean {
-  return store === 'Folnet' || store === 'Centrum Matbud' || MAP_BRANCH_NETWORKS.has(store);
+  return store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
 }
 
 export function storeLocatorUrl(store: string): string | null {
@@ -70,6 +70,8 @@ export function storeMapSearchUrl(store: string, location: string): string | nul
   // One verified physical store; do not invent branches near a supplied postcode.
   // source: https://centrummatbud.pl/contact
   if (store === 'Centrum Matbud') return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Centrum Matbud ul. Pokrzywno 21 61-315 Poznań Polska');
+  // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
+  if (store === 'TOK-MET') return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('TOK-MET ul. Bystrzańska 106A 43-300 Bielsko-Biała Polska');
   if (!supportsStoreMapSearch(store) || !parsePreferredStore(store) || place.length < 2 || place.length > 80 || /[\u0000-\u001f]/.test(place)) return null;
   const brand = store === 'Mrówka' ? 'PSB Mrówka' : store === 'Sewera' ? 'Sewera Polska Chemia' : store;
   return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${brand} market budowlany ${place} Polska`);

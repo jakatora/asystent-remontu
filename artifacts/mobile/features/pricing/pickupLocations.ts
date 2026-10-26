@@ -20,6 +20,9 @@ const sewera = [
   {id:'tarnowskie-gory',city:'Tarnowskie Góry',street:'ul. Nakielska 24',postalCode:'42-600',phone:'+48323811777',latitude:50.442669,longitude:18.868043,mapCid:'8252299477358544826',hours:'Pn–pt 6:30–17:00, sob. 6:30–14:30'},
 ];
 export const PICKUP_LOCATIONS: readonly PickupLocation[] = [
+  // The shop explicitly names this address for collecting purchased goods.
+  // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
+  {id:'tokmet-bielsko-biala',store:'TOK-MET',city:'Bielsko-Biała',street:'ul. Bystrzańska 106A',postalCode:'43-300',phone:'+48338215731',hours:'Pn–pt 7:00–19:00, sob. 8:00–13:00',checkedAt,sourceUrl:'https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i'},
   ...sewera.map(({latitude,longitude,...row})=>({...row,id:'sewera-'+row.id,store:'Sewera',checkedAt,sourceUrl:seweraSource,mapCentre:{latitude,longitude}})),
   // Online orders only, after readiness confirmation. The old map link on this
   // page points elsewhere, so do not assign it to the current Batorowo warehouse.

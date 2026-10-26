@@ -926,10 +926,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://yetico.com/wp-content/uploads/2022/09/karta_tech_gamma_passive_fasada.pdf
   // source: https://centrummatbud.pl/Styropian-grafitowy-15cm-Yetico-Gama-Passive-Fasada-033-p131345
   {id:'matbud-yetico-gamma-passive-033-15cm',ean:'5902578307268',name:'Styropian grafitowy 15cm Yetico Gama Passive Fasada 033',category:'insulation',brand:'Yetico',packageSize:2,unit:'m2',store:'Centrum Matbud',format:'skyshop',productId:131345,retailerSku:'FASADA 033 15CM',minimumPackages:50,pickupRequiresConfirmation:true,variant:['Gama','Passive','Fasada','033','15 cm'],url:'https://centrummatbud.pl/Styropian-grafitowy-15cm-Yetico-Gama-Passive-Fasada-033-p131345'},
+  // Reviewed SKU crosswalk: the shop publishes WS-20-030-G, not an EAN.
+  // source: https://invena.pl/produkt/wezyk-do-bat-w-opl-stal-3-8-dl-konc-30cm-3559
+  // source: https://www.csmegastore.se/i/5469388/invena-anslutningsslang-f%C3%B6r-kranar-l%C3%A5ng-%C3%A4nde-3-8-x-m10-ws-20-030
+  // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
+  {id:'tokmet-invena-ws20-030',ean:'5907798716258',name:'WĘŻYK DO BATERII STOJĄCEJ 3/8" x M10*1 L - 30 CM DŁUGA KOŃCÓWKA',category:'hose',brand:'Invena',packageSize:1,unit:'szt',store:'TOK-MET',format:'qshop',productId:2806,retailerSku:'WS-20-030-G',variant:['3/8','M10','30 cm','długa'],url:'https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Wężyk przyłączeniowy w oplocie Invena 3/8"×M10 30 cm':'5907798716258',
   'Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)': '5902578307268',
   'Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)': '5902578301976',
   'Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)': '5907555424969',
