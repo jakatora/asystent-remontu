@@ -21,3 +21,11 @@ Dowody w katalogu czatu `C:/Users/Startklaar/Documents/Codex/2026-10-24/prz/`: `
 - Castorama Kreisel GW180: zwykła karta w przeglądarce działa. Dla testowego kodu 00-001 natywny UI pokazał cenę internetową 38,48 zł/szt. i 90 szt. w Warszawa 5 Wola, z zastrzeżeniem możliwej różnicy ceny stacjonarnej. Bezpośredni HTTP tej samej karty zwrócił 503. Nie jest to dowód automatycznego odczytu przez backend. Panel dostaw pokazuje taryfy „od”; sama kwota 8,99 zł nie jest wyceną całego zamówienia. Dowody `outputs/castorama-gw180-availability-20261026.*`. Źródło: https://www.castorama.pl/gladz-pod-walek-kreisel-gw180-gotowa-polimerowa-20-kg/5907418038791_CAPL.prd.
 
 Katalog produkcyjny pozostaje 76/103 z ofertami, 27 brakujących, 102 oferty, 34 sklepy, 19 automatycznych integracji dostawy. Pełny cel uzupełnienia i porównania całego remontu nadal aktywny.
+
+## Dalszy rzeczywisty test koszyka Castoramy
+
+Po potwierdzeniu pustego koszyka dodano jedną sztukę GW180. Załadowany koszyk potwierdził jedną pozycję i 38,48 zł, dostępną wysyłkę oraz odbiór w Warszawa 5 Wola. Wyraźnie informował, że wartość koszyka nie uwzględnia dostawy. Nie wolno potraktować sumy 38,48 zł jako ceny z dostawą.
+
+Następny ekran `/fulfilment` pozwolił wybrać „Dostawa do domu lub paczkomatu”, ale przejście do konkretnej realizacji przekierowało na `/checkout/loginorguestcheckout?redirectTo=%2Fcheckout`, gdzie wymagany jest e-mail gościa lub logowanie. Zakończono test przed podaniem e-maila; bez danych klienta, regulaminu, płatności i zamówienia. Własną jedną sztukę usunięto i ponownie potwierdzono pusty koszyk. To dowód ograniczenia anonimowej ścieżki, nie stwierdzenie niedostępności produktu ani dowód, że cała integracja sklepu jest niemożliwa.
+
+Dowody: `outputs/castorama-gw180-first-cart-20261026.txt`, `outputs/castorama-gw180-delivery-email-required-20261026.txt`, `outputs/castorama-gw180-cart-cleaned-20261026.txt`. Następne prace nad automatyzacją muszą potwierdzić właściwy interfejs oferty i całego zamówienia. Nie zastępować tego niezweryfikowaną stałą opłatą.
