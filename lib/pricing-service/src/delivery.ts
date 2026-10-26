@@ -127,7 +127,7 @@ export function compareDeliveredBaskets(
         // Current exact-EAN catalogue uses one pack size. Avoid a large DP grid
         // for large quantities when simple integer pack rounding is sufficient.
         if (variants.length === 1) {
-          const variant = variants[0], count = computePackagesNeeded(group.totalQuantity, variant.packageSize, variant.purchaseMultiple);
+          const variant = variants[0], count = computePackagesNeeded(group.totalQuantity, variant.packageSize, variant.purchaseMultiple,variant.minimumPackages);
           const total = count * variant.unitPriceGrosze;
           plan = { requiredQuantity: group.totalQuantity, coveredQuantity: count * variant.packageSize,
             overage: count * variant.packageSize - group.totalQuantity, totalGrosze: total,

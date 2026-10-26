@@ -27,6 +27,8 @@ export interface RetailSource {
   packageSize: number;
   /** Reviewed order lot; the EAN and price still describe one physical pack. */
   purchaseMultiple?: number;
+  /** Smallest accepted pack count; distinct from further order increments. */
+  minimumPackages?: number;
   /** The retailer requires arranging a pickup; do not rank it as confirmed collection. */
   pickupRequiresConfirmation?: boolean;
   /** This product's sales channel does not offer self collection. */

@@ -112,6 +112,7 @@ export interface SerializedOffer {
  */
 export interface SerializedProductOffer {
   purchaseMultiple?: number;
+  minimumPackages?: number;
   packageSize?: string | null;
   offerId: string;
   store: string;
@@ -138,6 +139,7 @@ export interface SerializedProductOffer {
  */
 export interface SerializedPackage {
   purchaseMultiple?: number;
+  minimumPackages?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */

@@ -13,6 +13,9 @@ import type { StageLaborEstimate } from "./labor";
 export type PurchaseOffer = ProductOffer & {
   /** Order quantity must be a positive multiple of this many packages. */
   purchaseMultiple?: number;
+  /** Minimum physical packs when this offer is used; further packs need not
+   * form another minimum-size lot. */
+  minimumPackages?: number;
 };
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
@@ -64,6 +67,7 @@ export interface CheapestOffer {
  */
 export interface PackageVariant {
   purchaseMultiple?: number;
+  minimumPackages?: number;
   /** Wielkość pojedynczego opakowania w jednostce materiału (np. 10 = 10 l). > 0. */
   packageSize: number;
   /** Cena jednego opakowania tej wielkości w GROSZACH (najtańsza oferta). */
@@ -79,6 +83,7 @@ export interface PackageVariant {
 /** Jedna wybrana wielkość opakowania w optymalnej kombinacji zakupu. */
 export interface PackagePlanEntry {
   purchaseMultiple?: number;
+  minimumPackages?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */

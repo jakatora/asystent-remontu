@@ -86,6 +86,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         price: (observation.priceGrosze / 100).toFixed(2), promoPrice: null, regularPrice: null,
         unit: source.unit, packageSize: String(source.packageSize),
         ...(source.purchaseMultiple ? {purchaseMultiple:source.purchaseMultiple} : {}),
+        ...(source.minimumPackages ? {minimumPackages:source.minimumPackages} : {}),
         pricePerUnit: (observation.priceGrosze / 100 / source.packageSize).toFixed(4),
         productUrl: source.url, availability: observation.availability,
         fetchedAt: new Date(observation.observedAt), source: source.format && source.format !== 'jsonld' ? 'retailer-page-microdata' : 'retailer-page-jsonld',

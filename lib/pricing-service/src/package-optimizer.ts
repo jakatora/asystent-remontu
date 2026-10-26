@@ -45,13 +45,12 @@ function resolveScale(values: readonly number[]): number {
 
 /** Zbiera wybór DP w pozycje planu (grupa po wielkości), posortowane malejąco. */
 function buildEntries(
-  chosen: readonly PackageVariant[],
+  chosen: readonly { variant: PackageVariant; count: number }[],
 ): { packages: PackagePlanEntry[]; totalGrosze: number; coverage: number } {
   const byKey = new Map<string, PackagePlanEntry>();
   let totalGrosze = 0;
   let coverage = 0;
-  for (const v of chosen) {
-    const count = v.purchaseMultiple ?? 1;
+  for (const { variant: v, count } of chosen) {
     coverage += v.packageSize * count;
     totalGrosze += v.unitPriceGrosze * count;
     const key = v.offerId;
@@ -65,7 +64,8 @@ function buildEntries(
         count,
         unitPriceGrosze: v.unitPriceGrosze,
         lineCostGrosze: v.unitPriceGrosze * count,
-        ...(count > 1 ? { purchaseMultiple: count } : {}),
+        ...((v.purchaseMultiple ?? 1) > 1 ? { purchaseMultiple: v.purchaseMultiple } : {}),
+        ...((v.minimumPackages ?? 1) > 1 ? { minimumPackages: v.minimumPackages } : {}),
         store: v.store,
         url: v.url,
         offerId: v.offerId,
@@ -83,15 +83,14 @@ function fallbackSingleVariant(
   requiredQuantity: number,
   variants: readonly PackageVariant[],
 ): PackagePlan {
-  const cost = (v: PackageVariant) => computePackagesNeeded(requiredQuantity,v.packageSize,v.purchaseMultiple) * v.unitPriceGrosze;
+  const cost = (v: PackageVariant) => computePackagesNeeded(requiredQuantity,v.packageSize,v.purchaseMultiple,v.minimumPackages) * v.unitPriceGrosze;
   const best = [...variants].sort(
     (a, b) =>
       cost(a) - cost(b) ||
       a.packageSize - b.packageSize,
   )[0]!;
-  const count = computePackagesNeeded(requiredQuantity,best.packageSize,best.purchaseMultiple)/(best.purchaseMultiple??1);
-  const chosen = Array.from({ length: count }, () => best);
-  const { packages, totalGrosze, coverage } = buildEntries(chosen);
+  const count = computePackagesNeeded(requiredQuantity,best.packageSize,best.purchaseMultiple,best.minimumPackages);
+  const { packages, totalGrosze, coverage } = buildEntries([{variant:best,count}]);
   return {
     packages,
     totalGrosze,
@@ -99,6 +98,75 @@ function fallbackSingleVariant(
     coveredQuantity: coverage,
     overage: coverage - requiredQuantity,
   };
+}
+
+/** A retailer minimum applies once per offer, not once per added pack. Each
+ * group permits either zero packs or its minimum followed by ordinary lots.
+ * Two recurrences (start the group / extend it) avoid enumerating every count. */
+function optimizeWithMinimums(
+  requiredQuantity: number,
+  variants: readonly PackageVariant[],
+  target: number,
+  scale: number,
+): PackagePlan {
+  if (variants.length * (target + 1) > MAX_GRID) return fallbackSingleVariant(requiredQuantity, variants);
+  let costs = new Float64Array(target + 1).fill(Infinity);
+  let coverages = new Float64Array(target + 1).fill(Infinity);
+  costs[0] = coverages[0] = 0;
+  const choices: Uint32Array[] = [];
+  const grids: number[] = [];
+  for (const variant of variants) {
+    const multiple = variant.purchaseMultiple ?? 1;
+    const minimum = Math.ceil((variant.minimumPackages ?? 1) / multiple) * multiple;
+    const grid = Math.max(1, Math.round(variant.packageSize * multiple * scale));
+    const minimumGrid = grid * (minimum / multiple);
+    const stepCost = variant.unitPriceGrosze * multiple;
+    const minimumCost = variant.unitPriceGrosze * minimum;
+    const usedCosts = new Float64Array(target + 1);
+    const usedCoverages = new Float64Array(target + 1);
+    const usedCounts = new Uint32Array(target + 1);
+    const nextCosts = new Float64Array(target + 1);
+    const nextCoverages = new Float64Array(target + 1);
+    const counts = new Uint32Array(target + 1);
+    for (let q = 0; q <= target; q++) {
+      const beforeMinimum = Math.max(0, q - minimumGrid);
+      let cost = costs[beforeMinimum] + minimumCost;
+      let coverage = coverages[beforeMinimum] + minimumGrid;
+      let count = minimum;
+      if (q > 0) {
+        const beforeStep = Math.max(0, q - grid);
+        const extendedCost = usedCosts[beforeStep] + stepCost;
+        const extendedCoverage = usedCoverages[beforeStep] + grid;
+        if (extendedCost < cost || (extendedCost === cost && extendedCoverage < coverage)) {
+          cost = extendedCost;
+          coverage = extendedCoverage;
+          count = usedCounts[beforeStep] + multiple;
+        }
+      }
+      usedCosts[q] = cost;
+      usedCoverages[q] = coverage;
+      usedCounts[q] = count;
+      const use = cost < costs[q] || (cost === costs[q] && coverage < coverages[q]);
+      nextCosts[q] = use ? cost : costs[q];
+      nextCoverages[q] = use ? coverage : coverages[q];
+      counts[q] = use ? count : 0;
+    }
+    costs = nextCosts;
+    coverages = nextCoverages;
+    choices.push(counts);
+    grids.push(grid);
+  }
+  const chosen: { variant: PackageVariant; count: number }[] = [];
+  let q = target;
+  for (let index = variants.length - 1; index >= 0; index--) {
+    const count = choices[index][q];
+    if (!count) continue;
+    const variant = variants[index];
+    chosen.push({variant,count});
+    q = Math.max(0, q - grids[index] * (count / (variant.purchaseMultiple ?? 1)));
+  }
+  const { packages, totalGrosze, coverage } = buildEntries(chosen);
+  return {packages,totalGrosze,requiredQuantity,coveredQuantity:coverage,overage:coverage-requiredQuantity};
 }
 
 /**
@@ -133,24 +201,18 @@ export function optimizePackages(
       Number.isFinite(v.unitPriceGrosze) &&
       Number.isSafeInteger(v.unitPriceGrosze) && v.unitPriceGrosze >= 0 &&
       Number.isSafeInteger(v.purchaseMultiple ?? 1) && (v.purchaseMultiple ?? 1) >= 1 && (v.purchaseMultiple ?? 1) <= 10_000 &&
-      Number.isSafeInteger(v.unitPriceGrosze * (v.purchaseMultiple ?? 1)),
+      Number.isSafeInteger(v.minimumPackages ?? 1) && (v.minimumPackages ?? 1) >= 1 && (v.minimumPackages ?? 1) <= 10_000 &&
+      Number.isSafeInteger(v.unitPriceGrosze * Math.max(v.purchaseMultiple ?? 1, Math.ceil((v.minimumPackages ?? 1) / (v.purchaseMultiple ?? 1)) * (v.purchaseMultiple ?? 1))),
   );
   if (usable.length === 0) return null;
+  if (usable.length === 1) return fallbackSingleVariant(requiredQuantity, usable);
 
   const scale = resolveScale([requiredQuantity, ...usable.map((v) => v.packageSize * (v.purchaseMultiple ?? 1))]);
   // Cel = wymagana ilość w jednostkach siatki, zaokrąglona w górę (musimy pokryć
   // CO NAJMNIEJ tyle). Mała tolerancja na błąd floatów przed sufitem.
-  const target = Math.ceil(requiredQuantity * scale - 1e-9);
-  if (target <= 0) {
-    return {
-      packages: [],
-      totalGrosze: 0,
-      requiredQuantity,
-      coveredQuantity: 0,
-      overage: 0,
-    };
-  }
+  const target = Math.max(1, Math.ceil(requiredQuantity * scale - 1e-9));
   if (target > MAX_GRID) return fallbackSingleVariant(requiredQuantity, usable);
+  if (usable.some(v => (v.minimumPackages ?? 1) > 1)) return optimizeWithMinimums(requiredQuantity, usable, target, scale);
 
   const items = usable.map((v) => ({
     variant: v,
@@ -188,14 +250,15 @@ export function optimizePackages(
   if (!end) return fallbackSingleVariant(requiredQuantity, usable);
 
   // Rekonstrukcja wyboru z dp: idziemy od target po `prev` zbierając warianty.
-  const chosen: PackageVariant[] = [];
+  const chosen: { variant: PackageVariant; count: number }[] = [];
   let q = target;
   // Zabezpieczenie przed pętlą (nie powinno wystąpić przy poprawnym dp).
   let guard = target + items.length + 1;
   while (q > 0 && guard-- > 0) {
     const cell = dp[q];
     if (!cell || cell.choice < 0) break;
-    chosen.push(items[cell.choice]!.variant);
+    const variant = items[cell.choice]!.variant;
+    chosen.push({variant,count:variant.purchaseMultiple??1});
     q = cell.prev;
   }
 

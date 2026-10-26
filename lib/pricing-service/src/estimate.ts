@@ -69,6 +69,7 @@ export const MAX_COMPARABLE_OFFER_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
 export function isComparableOffer(offer: ProductOffer, now = Date.now()): boolean {
   if (offer.purchaseMultiple !== undefined && (!Number.isSafeInteger(offer.purchaseMultiple) || offer.purchaseMultiple < 1 || offer.purchaseMultiple > 10_000)) return false;
+  if (offer.minimumPackages !== undefined && (!Number.isSafeInteger(offer.minimumPackages) || offer.minimumPackages < 1 || offer.minimumPackages > 10_000)) return false;
   if (!offer.source || /seed|fixture|mock|demo|reference/i.test(offer.source)) return false;
   const availability = (offer.availability ?? '').replace(/[\s_-]/g, '');
   if (/outofstock|unavailable|niedost[eę]pn|brak|preorder|backorder/i.test(availability)) return false;
@@ -97,7 +98,7 @@ export function selectCheapestOffer(
     const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
     if (unitPriceGrosze === null) continue;
     const total = purchase
-      ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product), offer.purchaseMultiple) * unitPriceGrosze
+      ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product), offer.purchaseMultiple,offer.minimumPackages) * unitPriceGrosze
       : unitPriceGrosze;
     if (best === null || total < bestTotal || (total === bestTotal && unitPriceGrosze < best.unitPriceGrosze)) {
       bestTotal = total;
@@ -127,7 +128,7 @@ export function resolvePackageSize(
 }
 
 /**
- * Grupuje oferty po wielkości fizycznego opakowania ORAZ wielokrotności zakupu.
+ * Grupuje oferty po wielkości opakowania, wielokrotności i minimum zakupu.
  * Tańsza sztuka kupowana po dziesięć nie zastępuje oferty sprzedaży pojedynczo.
  * W każdej takiej grupie bierze najtańszą cenę promo ?? regular. Filtr `store`
  * uwzględnia tylko oferty z tego sklepu (spójnie z selectCheapestOffer).
@@ -151,12 +152,14 @@ export function buildPackageVariants(
     if (unitPriceGrosze === null) continue;
     const packageSize = resolvePackageSize(offer, product);
     const purchaseMultiple = offer.purchaseMultiple ?? 1;
-    const key = `${packageSize}:${purchaseMultiple}`;
+    const minimumPackages = offer.minimumPackages ?? 1;
+    const key = `${packageSize}:${purchaseMultiple}:${minimumPackages}`;
     const existing = bySize.get(key);
     if (existing === undefined || unitPriceGrosze < existing.unitPriceGrosze) {
       bySize.set(key, {
         packageSize,
         ...(purchaseMultiple > 1 ? { purchaseMultiple } : {}),
+        ...(minimumPackages > 1 ? { minimumPackages } : {}),
         unitPriceGrosze,
         store: offer.store,
         url: offer.productUrl,
@@ -222,7 +225,7 @@ async function estimateLine(
   }
 
   const packageSize = resolvePackageSize(cheapestOffer.offer, product);
-  const packagesNeeded = computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple);
+  const packagesNeeded = computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple,cheapestOffer.offer.minimumPackages);
   const lineCost = packagesNeeded * cheapestOffer.unitPriceGrosze;
 
   // Optymalny dobór wielkości opakowań (najtańsza kombinacja rozmiarów). Warianty
@@ -261,6 +264,8 @@ function singleSizePlan(
       packagesNeeded > 0
         ? [
             {
+              ...(cheapestOffer.offer.purchaseMultiple ? {purchaseMultiple:cheapestOffer.offer.purchaseMultiple} : {}),
+              ...(cheapestOffer.offer.minimumPackages ? {minimumPackages:cheapestOffer.offer.minimumPackages} : {}),
               packageSize,
               count: packagesNeeded,
               unitPriceGrosze: cheapestOffer.unitPriceGrosze,
