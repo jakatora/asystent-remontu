@@ -229,6 +229,10 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const observation = parseRetailPage(html, source, new Date());
     return { ...observation, evidenceSha256: createHash('sha256').update(raw).digest('hex') };
   }
+  // These complex purchase units are currently confirmed from the visible
+  // browser card (full pack price + coverage, or whole-piece length). A bare
+  // JSON-LD HTTP response must not relabel an unconfirmed per-m²/metre price.
+  if(source.store==='Castorama'&&source.browserReviewAllowed&&['m2','m'].includes(source.unit))throw Error('browser_package_review_required');
   return parseRetailPage(raw, source, new Date());
 }
 

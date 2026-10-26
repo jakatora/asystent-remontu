@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T06:55:58.179Z",
+  "checkedAt": "2026-10-26T07:27:53.787Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 91,
-  "remaining": 12,
-  "offers": 117,
+  "verifiedProducts": 95,
+  "remaining": 8,
+  "offers": 121,
   "stores": 36,
   "productsWithPhotos": 103,
-  "registeredOffers": 119,
+  "registeredOffers": 123,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1452,11 +1452,18 @@
       "id": "mat-edge-tape-fola-100mm-50m",
       "name": "Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb",
       "referenceUrl": "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5906725207227",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-fola-50mb"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2~5906725207227_03c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T07:16:15.115Z",
+        "expiresAt": "2026-10-27T07:16:15.115Z"
+      }
     },
     {
       "id": "mat-foam-soudal-lowexp-750ml",
@@ -1561,11 +1568,18 @@
       "id": "mat-windowsill-pvc-form-30x216",
       "name": "Parapet wewnętrzny PCV Form 30 × 216 cm biały",
       "referenceUrl": "https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5906725219640",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-form-30x216"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy~5906725219640_01c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T07:14:35.197Z",
+        "expiresAt": "2026-10-27T07:14:35.197Z"
+      }
     },
     {
       "id": "mat-plaster-gypsum-machine-knauf-mp75-25kg",
@@ -2048,11 +2062,18 @@
       "id": "mat-vinyl-spc-click-goodhome-arilla-25m2",
       "name": "Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5059340969756",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-goodhome-arilla-25m2"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T07:12:02.842Z",
+        "expiresAt": "2026-10-27T07:12:02.842Z"
+      }
     },
     {
       "id": "mat-vinyl-spc-click-goodhome-marvo-224m2",
@@ -2085,11 +2106,18 @@
       "id": "mat-vinyl-glued-goodhome-ragga-13m2",
       "name": "Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5059340802435",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-goodhome-ragga-13m2"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_02c?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T07:12:15.709Z",
+        "expiresAt": "2026-10-27T07:12:15.709Z"
+      }
     },
     {
       "id": "mat-vinyl-underlay-corksystem-lvt-6m2",
@@ -2136,5 +2164,5 @@
     }
   ],
   "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 12
+  "browserVerifiedOffers": 16
 }

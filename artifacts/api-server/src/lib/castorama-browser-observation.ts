@@ -9,6 +9,19 @@ export interface BrowserProductSnapshot {
  schemas:string[];
  /** Current visible accessibility text including price, purchase unit and CTA. */
  axState:string;
+ /** Visible technical table rows captured from the same product DOM. */
+ tables?:string[][][];
+}
+
+function specificationValue(snapshot:BrowserProductSnapshot,label:string):string{
+ const tables=snapshot.tables?.filter(table=>table.some(row=>row.length===2&&row[0]==='Kod produktu'&&row[1]===snapshot.ean));
+ if(tables?.length!==1)throw Error('browser_package_not_confirmed');
+ const rows=tables[0].filter(row=>row.length===2&&row[0]===label);
+ if(rows.length!==1)throw Error('browser_package_not_confirmed');
+ const value=rows[0][1],escape=(s:string)=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+ const table=snapshot.axState.split('table Specyfikacja techniczna')[1]??'';
+ if(!new RegExp('\\d+ text '+escape(label)+'\\r?\\n\\s*\\d+ cell\\r?\\n\\s*\\d+ text '+escape(value)+'(?:\\r?\\n|$)').test(table))throw Error('browser_package_not_confirmed');
+ return value;
 }
 
 /** Offline operator import only; no public upload endpoint or client-controlled
@@ -27,12 +40,21 @@ export function observeCastoramaBrowser(snapshot:BrowserProductSnapshot,source:R
  const offers=[products[0].offers].flat();
  const home=offers.filter(o=>o?.['@type']==='Offer'&&o.description==='Home Delivery'&&o.availableDeliveryMethod==='https://schema.org/ParcelService'&&!o.availableAtOrFrom);
  if(home.length!==1||home[0].availability!=='https://schema.org/InStock'||home[0].priceCurrency!=='PLN')throw Error('no_confirmed_online_pln_offer');
+ if(home[0].seller&&home[0].seller.name!=='Castorama Polska')throw Error('browser_seller_not_confirmed');
  const section=snapshot.axState.slice(snapshot.axState.indexOf('heading '+snapshot.heading+', Value: 1')).split(/\n\s*\d+ container product-suggestions/)[0];
- const visible=section.match(/\n\s*\d+ text ([\d\s,.]+zł)\s*\/\s*(szt\.|opak\.)/);
- // Per-m² adverts require a separate reviewed physical-pack/cart conversion.
- if(!visible||!['szt','l','kg','mb'].includes(source.unit))throw Error('browser_purchase_unit_not_confirmed');
+ const area=source.unit==='m2',length=source.unit==='m';
+ const visible=area?section.match(/\n\s*\d+ text [\d\s,.]+zł\s*\/\s*m²\s+([\d\s,.]+zł)\s*\/\s*(opak\.)/):section.match(/\n\s*\d+ text ([\d\s,.]+zł)\s*\/\s*(szt\.|opak\.)/);
+ if(!visible||!['szt','l','kg','mb','m2','m'].includes(source.unit))throw Error('browser_purchase_unit_not_confirmed');
+ if(area){
+  const coverage=specificationValue(snapshot,'Pokrycie').match(/^(\d+(?:[.,]\d+)?)\s*m[²2]$/),pieces=specificationValue(snapshot,'Liczba sztuk w opakowaniu');
+  if(!coverage||Number(coverage[1].replace(',','.'))!==source.packageSize||!/^\d+$/.test(pieces)||Number(pieces)<1||normalizeProductName(specificationValue(snapshot,'Marka'))!==normalizeProductName(source.brand))throw Error('browser_package_not_confirmed');
+ }
+ if(length){
+  const dimensions=snapshot.heading.match(/(?:^| )(\d+(?:[.,]\d+)?) x (\d+(?:[.,]\d+)?) cm(?: |$)/);
+  if(source.category!=='windowsill'||visible[2]!=='szt.'||!dimensions||Number(dimensions[2].replace(',','.'))/100!==source.packageSize)throw Error('browser_package_not_confirmed');
+ }
  if(source.unit==='szt'&&visible[2]==='szt.'&&source.packageSize!==1)throw Error('browser_purchase_unit_not_confirmed');
- if(source.unit!=='szt'||visible[2]==='opak.'){
+ if(!length&&(source.unit!=='szt'||visible[2]==='opak.')){
    const name=normalizeProductName(snapshot.heading.replace(/(\d)([a-zA-Z])/g,'$1 $2'));
    const quantity=normalizeProductName(String(source.packageSize))+' '+source.unit;
    if(!new RegExp('(?:^| )'+quantity+'(?: |$)').test(name))throw Error('browser_package_not_confirmed');

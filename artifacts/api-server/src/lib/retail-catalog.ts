@@ -963,10 +963,24 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // One base, not an invented complete frame or its separate trim pieces.
   // source: https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd
   {id:'castorama-perfectdoor-base-80-100-right',ean:'5902659279118',name:'Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma',category:'door-frame',brand:'PerfectDoor',packageSize:1,unit:'szt',variant:['Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd'},
+  // Whole-pack prices independently visible beside the per-m² adverts.
+  // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd
+  {id:'castorama-goodhome-arilla-25m2',ean:'5059340969756',name:'Panele podłogowe winylowe GoodHome SPC Arilla Dark Grey 2,5 m2',category:'vinyl-panel',brand:'GoodHome',packageSize:2.5,unit:'m2',variant:['SPC','Arilla','Dark Grey','2,5 m2'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd'},
+  // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd
+  {id:'castorama-goodhome-ragga-13m2',ean:'5059340802435',name:'Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2',category:'vinyl-panel',brand:'GoodHome',packageSize:1.3,unit:'m2',variant:['Ragga','Ele Marble','1,3 m2'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd'},
+  // source: https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd
+  {id:'castorama-fola-50mb',ean:'5906725207227',name:'Taśma brzegowa Fola 5 mm x 10 cm x 50 mb 5 m2',category:'expansion-tape',brand:'Fola',packageSize:50,unit:'mb',variant:['5 mm','10 cm','50 mb'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd'},
+  // 178 PLN buys the entire 216cm piece; 82.41 PLN/m is not its purchase price.
+  // source: https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd
+  {id:'castorama-form-30x216',ean:'5906725219640',name:'Parapet wewnętrzny PCV Form 30 x 216 cm biały',category:'windowsill',brand:'Form',packageSize:2.16,unit:'m',variant:['30 x 216 cm','biały'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²':'5059340969756',
+  'Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²':'5059340802435',
+  'Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb':'5906725207227',
+  'Parapet wewnętrzny PCV Form 30 × 216 cm biały':'5906725219640',
   'Farba biała mat 10 l':'3663602567240',
   'Farba GoodHome Ściany i Sufit biały mat 10 l':'5059340271620',
   'Gładź pod wałek GW180 gotowa polimerowa 20 kg':'5907418038791',

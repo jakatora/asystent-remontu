@@ -1503,7 +1503,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd',
-    lastUpdated: '2026-08-24',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'Obwodowa dylatacja przy ścianach — układana przed wylaniem masy, zapobiega pękaniu posadzki przy pracy budynku.',
   },
@@ -1620,7 +1620,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd',
-    lastUpdated: '2026-08-24',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'Głębokość 30 cm dopasuj do wnęki. Deska 216 cm — na szersze okna dobierz liczbę sztuk.',
   },
@@ -2104,9 +2104,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd',
-    lastUpdated: '2026-09-06',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
-    notes: 'SPC click (drop-lock), montaż pływający bez kleju, grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/31, wodoodporne. Do ogrzewania podłogowego wodnego (<27°C).',
+    notes: 'SPC click (drop-click), montaż pływający bez kleju, grubość 4 mm. Paczka 9 sztuk pokrywa 2,5 m²; bez zintegrowanego podkładu.',
   },
 
   // Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m² — EAN 5063022676757. Cena 74,98 zł/m² (167,58 zł/opak. 2,235 m², Castorama).
@@ -2147,7 +2147,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd',
-    lastUpdated: '2026-09-06',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'LVT klejony do podłoża — samoprzylepny (klej na spodzie, montaż na sucho przez zdjęcie folii). Grubość 2,5 mm, warstwa ścieralna 0,3 mm, efekt marmuru, 7 szt./opak. (610 x 305 mm).',
   },

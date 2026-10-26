@@ -1,0 +1,114 @@
+[
+  {
+    "sourceId": "castorama-goodhome-arilla-25m2",
+    "snapshot": {
+      "version": 1,
+      "url": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd",
+      "ean": "5059340969756",
+      "capturedAt": "2026-10-26T07:12:02.842Z",
+      "heading": "Panele podłogowe winylowe GoodHome SPC Arilla Dark Grey 2,5 m2",
+      "schemas": [
+        "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Panele podłogowe winylowe GoodHome SPC Arilla Dark Grey 2,5 m2\",\"gtin13\":\"5059340969756\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd\",\"category\":\"Panele winylowe\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"132.45\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"132.45\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"132.45\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_02c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_22c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_21c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_01i_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_20i_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_21i_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_01t?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340969756_01i?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2~5059340870649_15t?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}"
+      ],
+      "axState": "\t\t\t4 text dostawa za  1 zł!  szczegóły \n\t\t\t\t83 heading Panele podłogowe winylowe GoodHome SPC Arilla Dark Grey 2,5 m2, Value: 1\n\t\t\t\t89 text 52 , 98 zł  / m² 132,45 zł  / opak.\n\t\t\t\t90 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t93 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t\t121 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t165 table Specyfikacja techniczna\n\t\t\t\t\t\t171 row\n\t\t\t\t\t\t\t172 cell\n\t\t\t\t\t\t\t\t173 text Marka\n\t\t\t\t\t\t\t174 cell\n\t\t\t\t\t\t\t\t175 text GoodHome\n\t\t\t\t\t\t181 row\n\t\t\t\t\t\t\t182 cell\n\t\t\t\t\t\t\t\t183 text Pokrycie\n\t\t\t\t\t\t\t184 cell\n\t\t\t\t\t\t\t\t185 text 2.5m²\n\t\t\t\t\t\t186 row\n\t\t\t\t\t\t\t187 cell\n\t\t\t\t\t\t\t\t188 text Liczba sztuk w opakowaniu\n\t\t\t\t\t\t\t189 cell\n\t\t\t\t\t\t\t\t190 text 9\n\t\t\t\t\t\t296 row\n\t\t\t\t\t\t\t297 cell\n\t\t\t\t\t\t\t\t298 text Kod produktu\n\t\t\t\t\t\t\t299 cell\n\t\t\t\t\t\t\t\t300 text 5059340969756",
+      "tables": [
+        [
+          [
+            "Marka",
+            "GoodHome"
+          ],
+          [
+            "Pokrycie",
+            "2.5m²"
+          ],
+          [
+            "Liczba sztuk w opakowaniu",
+            "9"
+          ],
+          [
+            "Kod produktu",
+            "5059340969756"
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "sourceId": "castorama-goodhome-ragga-13m2",
+    "snapshot": {
+      "version": 1,
+      "url": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd",
+      "ean": "5059340802435",
+      "capturedAt": "2026-10-26T07:12:15.709Z",
+      "heading": "Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2",
+      "schemas": [
+        "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2\",\"gtin13\":\"5059340802435\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd\",\"category\":\"Panele winylowe\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"64.97\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"64.97\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"64.97\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_02c?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_01i?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_36c?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_01t?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_37c?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2~5059340802435_02i?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}"
+      ],
+      "axState": "\t\t\t5 text dostawa za  1 zł!  szczegóły \n\t\t\t\t78 heading Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2, Value: 1\n\t\t\t\t84 text 49 , 98 zł  / m² 64,97 zł  / opak.\n\t\t\t\t355 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t356 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t\t91 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t132 table Specyfikacja techniczna\n\t\t\t\t\t\t138 row\n\t\t\t\t\t\t\t139 cell\n\t\t\t\t\t\t\t\t140 text Marka\n\t\t\t\t\t\t\t141 cell\n\t\t\t\t\t\t\t\t142 text GoodHome\n\t\t\t\t\t\t148 row\n\t\t\t\t\t\t\t149 cell\n\t\t\t\t\t\t\t\t150 text Pokrycie\n\t\t\t\t\t\t\t151 cell\n\t\t\t\t\t\t\t\t152 text 1.3m²\n\t\t\t\t\t\t153 row\n\t\t\t\t\t\t\t154 cell\n\t\t\t\t\t\t\t\t155 text Liczba sztuk w opakowaniu\n\t\t\t\t\t\t\t156 cell\n\t\t\t\t\t\t\t\t157 text 7\n\t\t\t\t\t\t258 row\n\t\t\t\t\t\t\t259 cell\n\t\t\t\t\t\t\t\t260 text Kod produktu\n\t\t\t\t\t\t\t261 cell\n\t\t\t\t\t\t\t\t262 text 5059340802435",
+      "tables": [
+        [
+          [
+            "Marka",
+            "GoodHome"
+          ],
+          [
+            "Pokrycie",
+            "1.3m²"
+          ],
+          [
+            "Liczba sztuk w opakowaniu",
+            "7"
+          ],
+          [
+            "Kod produktu",
+            "5059340802435"
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "sourceId": "castorama-fola-50mb",
+    "snapshot": {
+      "version": 1,
+      "url": "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
+      "ean": "5906725207227",
+      "capturedAt": "2026-10-26T07:16:15.115Z",
+      "heading": "Taśma brzegowa Fola 5 mm x 10 cm x 50 mb 5 m2",
+      "schemas": [
+        "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Taśma brzegowa Fola 5 mm x 10 cm x 50 mb 5 m2\",\"gtin13\":\"5906725207227\",\"url\":\"https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd\",\"category\":\"Tapicerki drzwiowe\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"35.48\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"35.48\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"35.48\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2~5906725207227_03c_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2~5906725207227_03c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}"
+      ],
+      "axState": "\t\t\t5 text dostawa za  1 zł!  szczegóły \n\t\t\t\t70 heading Taśma brzegowa Fola 5 mm x 10 cm x 50 mb 5 m2, Value: 1\n\t\t\t\t76 text 35 , 48 zł  / szt. 7,10 zł  / m²\n\t\t\t\t222 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t223 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t\t83 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t115 table Specyfikacja techniczna\n\t\t\t\t\t\t131 row\n\t\t\t\t\t\t\t132 cell\n\t\t\t\t\t\t\t\t133 text Kod produktu\n\t\t\t\t\t\t\t134 cell\n\t\t\t\t\t\t\t\t135 text 5906725207227",
+      "tables": [
+        [
+          [
+            "Kod produktu",
+            "5906725207227"
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "sourceId": "castorama-form-30x216",
+    "snapshot": {
+      "version": 1,
+      "url": "https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd",
+      "ean": "5906725219640",
+      "capturedAt": "2026-10-26T07:14:35.197Z",
+      "heading": "Parapet wewnętrzny PCV Form 30 x 216 cm biały",
+      "schemas": [
+        "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Parapet wewnętrzny PCV Form 30 x 216 cm biały\",\"gtin13\":\"5906725219640\",\"url\":\"https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd\",\"category\":\"Parapety wewnętrzne\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"178\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"178\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"178\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy~5906725219640_01c_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy~5906725219640_21c_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}"
+      ],
+      "axState": "\t\t\t5 text dostawa za  1 zł!  szczegóły \n\t\t\t\t70 heading Parapet wewnętrzny PCV Form 30 x 216 cm biały, Value: 1\n\t\t\t\t76 text 178 zł  / szt. 82,41 zł  / m\n\t\t\t\t232 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t234 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t\t84 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t125 table Specyfikacja techniczna\n\t\t\t\t\t\t141 row\n\t\t\t\t\t\t\t142 cell\n\t\t\t\t\t\t\t\t143 text Kod produktu\n\t\t\t\t\t\t\t144 cell\n\t\t\t\t\t\t\t\t145 text 5906725219640",
+      "tables": [
+        [
+          [
+            "Kod produktu",
+            "5906725219640"
+          ]
+        ]
+      ]
+    }
+  }
+]
