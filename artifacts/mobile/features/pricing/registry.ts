@@ -2,6 +2,7 @@ import type { LaborPriceReference, MaterialPriceReference, MaterialCategory } fr
 import { LABOR_PRICES, MATERIAL_PRICES, getLaborIdsForJob, getMaterialIdsForJob } from '@/data/prices';
 import { BASELINE_REGION } from '@/data/prices/regions';
 import { tileSpacerReferences } from './tileSpacers';
+import { KITCHEN_EPOXY_REFERENCE, KITCHEN_WHITE_REFERENCE } from './kitchenMaterials';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -65,6 +66,16 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     for (const id of ['mat-basin-trap-mcalpine-whb1-32', 'mat-hose-braided-invena-3-8-30', 'mat-basin-fixings-fischer-wst140k-2']) {
       const ref = MATERIAL_BY_ID.get(id);
       if (ref && !results.some(row => row.id === id)) results.push(ref);
+    }
+  }
+  if (jobId === 'kitchen-backsplash') {
+    // The recipe explicitly requires epoxy grout and WHITE adhesive. Keep this
+    // correction outside historical mappings; generic cement/grey references
+    // cannot satisfy these materials at another tier.
+    // source: https://www.atlas.com.pl/produkt/atlas-plus-bialy/
+    for (let i=results.length-1;i>=0;i--) if (['grout','adhesive'].includes(results[i].materialType)) results.splice(i,1);
+    for (const id of [KITCHEN_EPOXY_REFERENCE,KITCHEN_WHITE_REFERENCE]) {
+      const ref=MATERIAL_BY_ID.get(id);if(ref&&!results.some(row=>row.id===id))results.push(ref);
     }
   }
   return measurements ? tileSpacerReferences(results, jobId, measurements) : results;

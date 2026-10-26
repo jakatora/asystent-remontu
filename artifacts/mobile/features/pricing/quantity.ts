@@ -22,7 +22,9 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   'plaster-corner': /^plaster-corner$/,
   screed: /^leveling-compound$/,
   adhesive: /^(tile-adhesive|wall-tile-adhesive|vinyl-adhesive)$/,
-  grout: /^(grout|wall-grout|grout-kitchen)$/,
+  grout: /^(grout|wall-grout)$/,
+  'epoxy-grout': /^grout-kitchen$/,
+  'white-tile-adhesive': /^tile-adhesive$/,
   'tile-spacer': /^(tile-crosses|wall-crosses|tile-crosses-kitchen)$/,
   tile: /^(tiles|wall-tiles|backsplash-tiles)$/,
   laminate: /^laminate-panels$/,
@@ -39,7 +41,7 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   toilet: /^wc-compact$/,
   faucet: /^basin-mixer$/,
   trap: /^basin-trap$/,
-  silicone: /^sanitary-silicone$/,
+  silicone: /^(sanitary-silicone|silicone-kitchen)$/,
   valve: /angle-valve/,
   hose: /flex-hose/,
   'mounting-set': /^wc-mounting-set$/,
@@ -63,12 +65,15 @@ export function resolveMaterialQuantity(
   if (candidates.length !== 1) return null;
   const source = candidates[0];
   if (source.quantityKnown === false) return null;
+  if (['epoxy-grout','white-tile-adhesive'].includes(ref.materialType) && calc.jobId !== 'kitchen-backsplash') return null;
+  if (calc.jobId === 'kitchen-backsplash' && ref.materialType === 'adhesive') return null;
   // The sink recipe explicitly counts cartridges of this exact 280 ml model.
   // Preserve that allowance; the API/catalogue require millilitres, not "1 ml".
   // source: https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd
-  if (calc.jobId === 'sink-installation' && ref.id === 'mat-sanitary-silicone-soudal-280ml'
-      && source.material.id === 'sanitary-silicone' && source.material.unit === 'kartusze'
-      && /Soudal 280 ml/.test(source.material.brand ?? '') && ref.packageUnit === 'ml' && ref.packageSize === 280) {
+  if ((calc.jobId === 'sink-installation' && source.material.id === 'sanitary-silicone'
+      || calc.jobId === 'kitchen-backsplash' && source.material.id === 'silicone-kitchen') && ref.id === 'mat-sanitary-silicone-soudal-280ml'
+      && source.material.unit === 'kartusze'
+      && (calc.jobId === 'sink-installation' ? /Soudal 280 ml/.test(source.material.brand ?? '') : source.material.brand === 'Soudal Silikon sanitarny biały 280 ml (referencja)') && ref.packageUnit === 'ml' && ref.packageSize === 280) {
     const quantity = getRequiredQuantity(source, calc) * 280;
     return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
   }

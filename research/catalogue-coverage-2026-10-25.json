@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T23:17:21.257Z",
-  "scope": "110 reference products and explicit alternatives, not every product on the market. 104 have a confirmed offer; 99 have an eligible collection offer, without branch inventory or travel costs. Photo URL registration is distinct from runtime loading. 21 registered delivery adapters are not 21 guaranteed successful quotations; ABUD native local acceptance passed, production acceptance failed because Railway cannot connect to the shop.",
-  "total": 110,
-  "verifiedProducts": 104,
+  "checkedAt": "2026-10-26T23:46:42.397Z",
+  "scope": "112 reference products and explicit alternatives; not every product on the market. 106 have a confirmed offer, 101 have an eligible pickup offer without confirmed branch inventory or travel costs. 112 photo URLs are registered; the two new exact photographs were runtime checked. 21 registered delivery adapters do not guarantee every basket; ABUD production access remains unavailable. A native mixed Sewera basket exposed insufficient paint stock; the large combined plan remains incomplete until allocation handles that specific limit.",
+  "total": 112,
+  "verifiedProducts": 106,
   "remaining": 6,
-  "offers": 131,
+  "offers": 134,
   "stores": 38,
-  "productsWithPhotos": 110,
-  "registeredOffers": 133,
+  "productsWithPhotos": 112,
+  "registeredOffers": 136,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2334,11 +2334,71 @@
           "basis": "Native full-basket/postcode adapter and local actual HTTP verified. Production positive-price test failed on TCP connection; shipping remains null, never zero."
         }
       ]
+    },
+    {
+      "id": "mat-epoxy-grout-mapei-kerapoxy-easy-100-3kg",
+      "name": "Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527",
+      "status": "verified_offer",
+      "ean": "8022452132940",
+      "sourceIds": [
+        "rabdom-kerapoxy-easy-design-100-3kg",
+        "winbud-kerapoxy-easy-design-100-3kg"
+      ],
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_35202_500_500/Opakowanie-fugi-Mapei-o-gramaturze-3-kg..webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "rabdom-kerapoxy-easy-design-100-3kg",
+          "checkedAt": "2026-10-26T23:42:24.401Z",
+          "status": "quoted",
+          "basis": "retailer_basket_national",
+          "postalCode": "00-001",
+          "testedPackCount": 1,
+          "materialsGrosze": 20900,
+          "deliveryGrosze": 1050,
+          "note": "Actual full tested basket quotation; not a fixed tariff for other quantities."
+        },
+        {
+          "sourceId": "winbud-kerapoxy-easy-design-100-3kg",
+          "checkedAt": "2026-10-26T23:42:24.325Z",
+          "status": "quoted",
+          "basis": "retailer_basket_national",
+          "postalCode": "00-001",
+          "testedPackCount": 1,
+          "materialsGrosze": 21597,
+          "deliveryGrosze": 2250,
+          "note": "Actual full tested basket quotation; not a fixed tariff for other quantities."
+        }
+      ]
+    },
+    {
+      "id": "mat-white-adhesive-atlas-plus-25kg",
+      "name": "Atlas Plus klej do płytek biały 25kg",
+      "referenceUrl": "https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896",
+      "status": "verified_offer",
+      "ean": "5905400313390",
+      "sourceIds": [
+        "sewera-atlas-plus-white-25kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/38873/atlas-plus-klej-do-plytek-bialy-25kg.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-atlas-plus-white-25kg",
+          "checkedAt": "2026-10-26T23:42:28.536Z",
+          "status": "quoted",
+          "basis": "retailer_basket_postcode",
+          "postalCode": "00-001",
+          "testedPackCount": 1,
+          "materialsGrosze": 9636,
+          "deliveryGrosze": 3790,
+          "note": "Actual full tested basket quotation; not a fixed tariff for other quantities."
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
   "browserVerifiedOffers": 22,
-  "productsWithPickupOffers": 99,
+  "productsWithPickupOffers": 101,
   "confirmedPickupAddresses": 14,
   "deliveryProductionFailures": {
     "ABUD": {

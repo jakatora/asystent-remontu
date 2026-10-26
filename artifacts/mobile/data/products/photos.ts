@@ -1,4 +1,4 @@
-/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–26.
+/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–27.
  * Match by stable catalogue ID, EAN or exact source URL, never by fuzzy name.
  */
 interface ProductPhoto {
@@ -11,6 +11,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
+  {ids:['mat-epoxy-grout-mapei-kerapoxy-easy-100-3kg'],ean:'8022452132940',sourceUrl:'https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527',imageUrl:'https://www.rabdom.pl/environment/cache/images/productGfx_35202_500_500/Opakowanie-fugi-Mapei-o-gramaturze-3-kg..webp'},
+  // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896
+  {ids:['mat-white-adhesive-atlas-plus-25kg'],ean:'5905400313390',sourceUrl:'https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896',imageUrl:'https://sklep.sewera.pl/photo/38873/atlas-plus-klej-do-plytek-bialy-25kg.webp'},
   // source: https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505
   // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-3-mm-150-szt-hardy-5905061016869.html (dokładny EAN; zdjęcie woreczka zamiast poglądowego wiaderka Sewery)
   { ids: ['mat-tile-spacers-hardy-3mm-150'], ean: '5905061016869', sourceUrl: 'https://mrowka.com.pl/produkt/krzyzyki-dystansowe-3-mm-150-szt-hardy-5905061016869.html', identitySourceUrl: 'https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505', imageUrl: 'https://mrowka.com.pl/files/InfoverProduct/81/p5gn80h9kaf0/Photos/gscr9mv0mn1if4/ShowWebp_krzyzyki-dystansowe-3-mm---150-szt--hardy_1.webp' },

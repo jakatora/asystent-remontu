@@ -2,6 +2,8 @@ import { MATERIAL_PRICES } from '@/data/prices/materials';
 import { PRODUCT_PHOTOS } from '@/data/products/photos';
 import { getJobById } from '@/features/content/registry';
 import { groutMassKg } from '@/features/calculator/grout';
+import { KITCHEN_EPOXY_DENSITY, kitchenWhiteAdhesiveRate } from '@/features/calculator/kitchen';
+import { KITCHEN_EPOXY_REFERENCE, KITCHEN_WHITE_REFERENCE } from './kitchenMaterials';
 import { resolveFormula } from '@/features/calculator/formulas';
 import { createProductChoiceGroup } from './productChoice';
 import { priceTileSpacer, tileJointWidth } from './tileSpacers';
@@ -66,7 +68,7 @@ function catalogueLine(line: PricingMaterialLineInput, id: string, quantity = li
   return { ...demand, quantity, material: { ...identity, name: ref.productLabel, category: ref.materialType, unit: ref.packageUnit, ean } };
 }
 
-/** Explicit selection also accepts the displayed ATLAS adhesive/white grout
+/** Explicit selection also accepts the displayed adhesive/grout kit
  * kit. Update only present lines: Owned/Purchased items must not reappear.
  * Original saved calculations and room measurements are never mutated. */
 export function applyTileChoices(stages: readonly PricingStageInput[], choices: readonly TileChoice[]): PricingStageInput[] {
@@ -85,17 +87,18 @@ export function applyTileChoices(stages: readonly PricingStageInput[], choices: 
     if (!selected) return { ...stage, materials };
     const { product, use } = selected as TileRequirement;
     const joint = tileJointWidth(stage.jobId, stage.measurements);
-    const m = { ...stage.measurements, tileWidthCm: product.widthCm, tileHeightCm: product.heightCm, tileThicknessMm: product.depthMm, groutDensityKgM3: 1650, groutWidthMm: joint };
+    const kitchen=stage.jobId==='kitchen-backsplash',density=kitchen?KITCHEN_EPOXY_DENSITY:1650;
+    const m = { ...stage.measurements, tileWidthCm: product.widthCm, tileHeightCm: product.heightCm, tileThicknessMm: product.depthMm, groutDensityKgM3: density, groutWidthMm: joint };
     const area = use === 'floor' ? stage.measurements?.floorArea : stage.measurements?.wallArea;
     if (!Number.isFinite(area) || area! <= 0) throw Error('tile_measurements_missing');
     const definitions = getJobById(stage.jobId)?.materials ?? [];
     const reserve = (id: string) => definitions.find(row => row.id === id)?.wasteFactor ?? 1.1;
     // Reviewed upper size row for these <=60 cm products, on a level substrate.
     // source: https://www.atlas.com.pl/produkt/atlas-plus/ (25x40 wall 2.3; 60x60 wall 3.5/floor4.3 kg/m²)
-    const adhesiveRate = use === 'floor' ? 4.3 : Math.max(product.widthCm, product.heightCm) <= 40 ? 2.3 : 3.5;
+    const adhesiveRate = kitchen ? kitchenWhiteAdhesiveRate(product.widthCm,product.heightCm) : use === 'floor' ? 4.3 : Math.max(product.widthCm, product.heightCm) <= 40 ? 2.3 : 3.5;
     return { ...stage, measurements: m, materials: materials.map(line => {
-      if (['tile-adhesive', 'wall-tile-adhesive'].includes(line.material.id)) return catalogueLine(line, 'mat-tile-adhesive-buildfix-25kg', Number((area! * adhesiveRate * reserve(line.material.id)).toFixed(8)));
-      if (['grout', 'wall-grout', 'grout-kitchen'].includes(line.material.id)) return catalogueLine(line, 'mat-grout-atlas-001-white-2kg', groutMassKg(area!, product.widthCm, product.heightCm, product.depthMm, joint, 1650, reserve(line.material.id)));
+      if (['tile-adhesive', 'wall-tile-adhesive'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_WHITE_REFERENCE : 'mat-tile-adhesive-buildfix-25kg', Number((area! * adhesiveRate * reserve(line.material.id)).toFixed(8)));
+      if (['grout', 'wall-grout', 'grout-kitchen'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_EPOXY_REFERENCE : 'mat-grout-atlas-001-white-2kg', groutMassKg(area!, product.widthCm, product.heightCm, product.depthMm, joint, density, reserve(line.material.id)));
       if (['tile-crosses', 'wall-crosses', 'tile-crosses-kitchen'].includes(line.material.id)) {
         const quantity = resolveFormula('crosses')(m, 1);
         return priceTileSpacer({ ...line, material: { ...line.material, unit: 'szt' }, quantity }, stage.jobId, m);

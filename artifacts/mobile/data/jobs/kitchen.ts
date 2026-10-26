@@ -34,6 +34,12 @@ export const backsplashTilesJob: RenovationJob = {
       max: 30,
       hint: 'Szerokość blatu × wysokość od blatu do szafek (zazwyczaj 0,5–0,6 m).',
     },
+    // source: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/
+    { id: 'tileWidthCm', label: 'Szerokość płytki', unit: 'cm', inputType: 'dimension', defaultValue: 25, placeholder: '25', min: 1, max: 120, required: false },
+    { id: 'tileHeightCm', label: 'Długość płytki', unit: 'cm', inputType: 'dimension', defaultValue: 40, placeholder: '40', min: 1, max: 120, required: false },
+    { id: 'tileThicknessMm', label: 'Grubość płytki', unit: 'mm', inputType: 'dimension', defaultValue: 8, placeholder: '8', min: 1, max: 25, required: false },
+    // source: https://cdnmedia.mapei.com/docs/librariesprovider24/products-documents/1_09001_kerapoxy-easy-design_pl-pl_3ac72d8faad7452bacc550e21510a94f.pdf?sfvrsn=83a55aa0_0
+    { id: 'groutWidthMm', label: 'Szerokość spoiny', unit: 'mm', inputType: 'dimension', defaultValue: 2, placeholder: '2', min: 1, max: 15, required: false, hint: 'Założenie kosztorysu: 2 mm. Dopasuj do instrukcji i wymiarów wybranych płytek; szerokość zmienia zużycie fugi i dobór krzyżyków.' },
   ],
   materials: [
     {
@@ -47,22 +53,29 @@ export const backsplashTilesJob: RenovationJob = {
     },
     {
       id: 'tile-adhesive',
-      name: 'Klej do płytek (biały, szybkoschnący)',
-      brand: 'Atlas Plus C2TE 25 kg (referencja, wybierz wariant biały)',
+      name: 'Klej do płytek biały ATLAS PLUS BIAŁY',
+      brand: 'ATLAS PLUS BIAŁY 25 kg (referencja, EAN 5905400313390)',
       unit: 'kg',
-      formulaKey: 'tileAdhesive',
-      pricePerUnit: 2.5,
-      notes: 'Biały klej jest zalecany, by nie przebarwiał jasnych płytek.',
-      shopPrices: SHARED_SHOP_PRICES.tileAdhesiveAtlasPlus25kg,
+      // source: https://www.atlas.com.pl/produkt/atlas-plus-bialy/
+      formulaKey: 'kitchenWhiteAdhesive',
+      // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896 (96,36 zł / 25 kg; odczyt 2026-10-27)
+      pricePerUnit: 96.36 / 25,
+      packaging: { size: 25, label: 'worek 25 kg', purchaseUnit: 'worek' },
+      sourceUrl: 'https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896',
+      notes: 'Biały klej do jasnych okładzin. Zużycie według tabeli ATLAS PLUS BIAŁY dla równej ściany; nierówności i metoda kombinowana zwiększają ilość. Nie jest klejem Express.',
     },
     {
       id: 'grout-kitchen',
-      name: 'Fuga epoksydowa (odporna na tłuszcz)',
-      brand: 'Mapei Kerapoxy 2 kg (referencja, ok. 125–135 zł/op.)',
+      name: 'Fuga epoksydowa Mapei Kerapoxy Easy Design 100 biała',
+      brand: 'Mapei Kerapoxy Easy Design 100, zestaw A+B 3 kg',
       unit: 'kg',
-      formulaKey: 'grout',
-      pricePerUnit: 60,
-      notes: 'Fuga epoksydowa jest łatwiejsza do czyszczenia w kuchni. Sprzedawana w opakowaniach 2 kg.',
+      // source: https://cdnmedia.mapei.com/docs/librariesprovider22/products-documents/1_kerapoxy-easy-design-technical-datasheet_fc79c10daf51469f8812c506bf9f873f.pdf?sfvrsn=b0cd497e_0
+      formulaKey: 'kitchenEpoxyGrout',
+      // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527 (209 zł / 3 kg; odczyt 2026-10-27)
+      pricePerUnit: 209 / 3,
+      packaging: { size: 3, label: 'zestaw A+B 3 kg', purchaseUnit: 'wiaderko' },
+      sourceUrl: 'https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527',
+      notes: 'Cały zestaw A+B 3 kg, biały kolor 100. Zużycie zależy od geometrii płytki i spoiny. Fuga cementowa nie zastępuje tej pozycji. Sprawdź zgodność okładziny i instrukcję producenta; wykonaj próbę czyszczenia i używaj właściwej pacy/gąbki.',
     },
     {
       id: 'silicone-kitchen',
@@ -78,7 +91,7 @@ export const backsplashTilesJob: RenovationJob = {
       id: 'tile-crosses-kitchen',
       name: 'Krzyżyki dystansowe 2mm',
       unit: 'szt',
-      formulaKey: 'crosses',
+      formulaKey: 'kitchenSpacers',
       pricePerUnit: 0.05,
     },
 
@@ -108,9 +121,10 @@ export const backsplashTilesJob: RenovationJob = {
     },
     {
       step: 3,
-      title: 'Odczekaj 24h i fuguj',
-      description: 'Po wyschnięciu kleju (min. 24h) usuń krzyżyki. Nałóż fugę na całość, ukośnymi ruchami pakując ją w szczeliny. Usuń nadmiar wilgotną gąbką.',
-      warning: 'Przed fugowaniem sprawdź, czy klej jest całkowicie suchy.',
+      // source: https://cdnmedia.mapei.com/docs/librariesprovider24/products-documents/1_09001_kerapoxy-easy-design_pl-pl_3ac72d8faad7452bacc550e21510a94f.pdf?sfvrsn=83a55aa0_0
+      title: 'Po wyschnięciu kleju nałóż fugę epoksydową',
+      description: 'Sprawdź w karcie kleju czas do fugowania i usuń krzyżyki. Wymieszaj składniki A+B zgodnie z instrukcją Mapei. Gumową pacą wypełniaj spoiny małymi partiami. Od razu zbieraj nadmiar i czyść powierzchnię właściwą gąbką oraz wodą, zanim fuga stwardnieje. Najpierw wykonaj próbę na płytce.',
+      warning: 'Fuga epoksydowa wymaga innej pracy niż cementowa. Czas użycia po wymieszaniu jest ograniczony; sprawdź temperaturę, czas i zasady czyszczenia w karcie produktu. Stwardniałego nadmiaru nie zmyjesz zwykłą mokrą gąbką.',
       durationMin: 90,
     },
     {
@@ -136,8 +150,10 @@ export const backsplashTilesJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'płytki', 'glazura', 'backsplash', 'ściana'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-10-27',
   verifiedSources: [
+    { title: 'ATLAS PLUS BIAŁY — zastosowanie i tabela zużycia', url: 'https://www.atlas.com.pl/produkt/atlas-plus-bialy/', domain: 'atlas.com.pl', consultedAt: '2026-10-27' },
+    { title: 'Mapei Kerapoxy Easy Design — karta techniczna, spoinowanie i czyszczenie', url: 'https://cdnmedia.mapei.com/docs/librariesprovider24/products-documents/1_09001_kerapoxy-easy-design_pl-pl_3ac72d8faad7452bacc550e21510a94f.pdf?sfvrsn=83a55aa0_0', domain: 'cdnmedia.mapei.com', consultedAt: '2026-10-27' },
     {
       title:       'Układanie płytek ceramicznych. Jak się przygotować do układania glazury i jak kleić płytki?',
       url:         'https://muratordom.pl/wnetrza/lazienka/ukladanie-plytek-ceramicznych-jak-sie-przygotowac-do-ukladania-glazury-i-jak-kleic-plytki-aa-ycSQ-MceR-Pu2X.html',

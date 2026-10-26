@@ -1003,10 +1003,20 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html
   // source: https://www.fischerdanmark.dk/da/produkter/sanitetsbefaestigelse/keramiske-handvaske-urinaler-og-sanitaere-installationer/fastgorelse-af-vask-wst/45494-wst-140-k-nv
   {id:'abud-fischer-wst140k-2',ean:'8590369454948',name:'Mocowanie umywalki WST 10x140 Fischer 2 sztuki',category:'basin-fixings',brand:'Fischer',packageSize:2,unit:'szt',store:'ABUD',format:'idosell',productId:17848,apiPurchaseUnit:'op.',variant:['WST','10x140','2sztuki'],url:'https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html'},
+  // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
+  {"id":"rabdom-kerapoxy-easy-design-100-3kg","ean":"8022452132940","name":"Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100","category":"epoxy-grout","brand":"Mapei","packageSize":3,"unit":"kg","store":"Rab-Dom","format":"shoper-api","productId":14527,"retailerSku":"3771","apiPurchaseUnit":"szt.","variant":["Kerapoxy","Easy Design","3kg","Biały","100"],"url":"https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_35202_500_500/Opakowanie-fugi-Mapei-o-gramaturze-3-kg..webp"},
+  // source: https://winbud24.pl/pl/p/Mapei-Kerapoxy-Easy-Design-100-3kg-biala-fuga-epoksydowa/3748
+  {"id":"winbud-kerapoxy-easy-design-100-3kg","ean":"8022452132940","name":"Mapei Kerapoxy Easy Design 100 3kg biała - fuga epoksydowa","category":"epoxy-grout","brand":"Mapei","packageSize":3,"unit":"kg","store":"WinBud","format":"shoper-api","productId":3748,"retailerSku":"8022452132940","apiPurchaseUnit":"szt.","variant":["Kerapoxy","Easy Design","100","3kg","biała"],"url":"https://winbud24.pl/pl/p/Mapei-Kerapoxy-Easy-Design-100-3kg-biala-fuga-epoksydowa/3748","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10732_500_500/Mapei-Kerapoxy-Easy-Design-100-3kg-biala---fuga-epoksydowa.jpg"},
+  // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896
+  {"id":"sewera-atlas-plus-white-25kg","ean":"5905400313390","name":"Atlas Plus klej do płytek biały 25kg","category":"white-tile-adhesive","brand":"Atlas","packageSize":25,"unit":"kg","store":"Sewera","format":"sewera","variant":["Atlas Plus","biały","25kg"],"retailUnit":"SZT","url":"https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896","imageUrl":"https://sklep.sewera.pl/photo/38873/atlas-plus-klej-do-plytek-bialy-25kg.webp"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
+  'Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100': '8022452132940',
+  // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896
+  'Atlas Plus klej do płytek biały 25kg': '5905400313390',
   'Mocowanie umywalki Fischer WST 140 K NV M10×140 (2 mocowania)': '8590369454948',
   'Krzyżyki dystansowe do płytek Hardy 3 mm (150 szt.)': '5905061016869',
   'Krzyżyki dystansowe do płytek Hardy 4 mm (100 szt.)': '5905061016876',

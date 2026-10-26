@@ -21,6 +21,7 @@ import { resolveMaterialQuantity } from './quantity';
 import { applyDoorSelection, type DoorSelection } from './doorSelection';
 import { upgradeCalculation } from '@/features/calculator/upgrades';
 import { priceTileSpacer } from './tileSpacers';
+import { priceKitchenMaterial } from './kitchenMaterials';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
 import type { UnresolvedReason as ServiceUnresolvedReason, PriceVerification } from '../../../../lib/pricing-service/src/types';
@@ -425,7 +426,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
       if (line.quantityKnown === false) return { material: { id: line.material.id, name: `${line.material.name} — ilość do ustalenia`, unit: 'pozycja', category: null }, quantity: 1 };
       const matches = references.filter(ref => resolveMaterialQuantity(ref, calc)?.source.material.id === line.material.id);
       const reference = matches.length === 1 ? matches[0] : undefined;
-      return priceTileSpacer({
+      return priceKitchenMaterial(priceTileSpacer({
         material: {
           id: line.material.id,
           name: reference?.productLabel ?? line.material.name,
@@ -436,7 +437,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
         },
         quantity: reference ? resolveMaterialQuantity(reference, calc)!.quantity : getRequiredQuantity(line, calc),
         ...(line.packs !== undefined ? { packs: line.packs } : {}),
-      }, calc.jobId, calc.measurements);
+      }, calc.jobId, calc.measurements), calc.jobId);
     }),
     // Obmiary przekazujemy bez zmian — backend liczy z nich robociznę (m²/mb/szt).
     ...(calc.measurements ? { measurements: calc.measurements } : {}),

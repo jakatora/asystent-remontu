@@ -12,7 +12,7 @@ export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationRes
   // from saved dimensions instead of trusting that stale rounded/raw amount.
   if (['floor-tiles', 'wall-tiles-bathroom', 'kitchen-backsplash', 'grout-only'].includes(calc.jobId)) {
     const definition = getJobById(calc.jobId)?.materials.find(material => material.id === line.material.id);
-    if (definition && 'formulaKey' in definition && definition.formulaKey === 'grout') return computeRawQuantity(definition, calc.measurements);
+    if (definition && 'formulaKey' in definition && ['grout','kitchenEpoxyGrout','kitchenWhiteAdhesive','kitchenSpacers'].includes(definition.formulaKey ?? '')) return computeRawQuantity(definition, calc.measurements);
   }
   // Historical self-leveling snapshots have rawQuantity=1 because byThickness
   // fell back to the constant formula. Restore demand from their saved measures.

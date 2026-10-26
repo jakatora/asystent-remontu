@@ -1,5 +1,6 @@
 import type { FormulaFn, FormulaRegistry, MeasurementMap } from '@/types/calculator';
 import { groutMassKg } from './grout';
+import { kitchenWhiteAdhesiveKg, kitchenEpoxyGroutKg, kitchenSpacerPieces } from './kitchen';
 
 // ─── Shared measurement helpers ────────────────────────────────────────────────
 // These are also exported from formula-builder.ts for inline use in job files.
@@ -218,6 +219,9 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   tilePieces:      tilePiecesFormula,
   tileAdhesive:    tileAdhesiveFormula,
   grout:           groutFormula,
+  kitchenWhiteAdhesive: kitchenWhiteAdhesiveKg,
+  kitchenEpoxyGrout: kitchenEpoxyGroutKg,
+  kitchenSpacers: kitchenSpacerPieces,
   crosses:         crossesFormula,
   // ── Waterproofing / sealing ─────────────────────────────────────────────
   membrane:        membraneFormula,
