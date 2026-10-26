@@ -1,6 +1,7 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
+import { sinkConnectionQuantity } from '@/features/calculator/sink';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BATHROOM & WET AREAS JOB GROUP
@@ -481,8 +482,9 @@ export const sinkInstallationJob: RenovationJob = {
   slug: 'montaz-umywalki-z-bateria',
   categoryId: 'plumbing',
   name: 'Montaż umywalki z baterią (biały montaż)',
-  shortDescription: 'Zawieś umywalkę na półpostumencie i podłącz baterię — biały montaż łazienki.',
-  description: 'Biały montaż umywalki: zawieszenie ceramiki na kotwach/półpostumencie, montaż baterii stojącej, podłączenie zaworów kątowych, wężyków i syfonu oraz uszczelnienie silikonem. Kluczowe: szczelność połączeń i poziom umywalki.',
+  // source: https://www.leroymerlin.pl/produkty/lazienka/umywalki/postumenty-polpostumenty/
+  shortDescription: 'Zamocuj umywalkę do ściany i podłącz baterię — biały montaż łazienki.',
+  description: 'Biały montaż umywalki: zamocowanie ceramiki do ściany, montaż baterii stojącej, podłączenie zaworów kątowych, przyłączy i syfonu oraz uszczelnienie silikonem. Mocowania dobierz do umywalki i podłoża. Opcjonalny półpostument osłania przyłącza i wymaga osobnego doboru.',
   difficulty: 'medium',
   riskLevel: 'medium',
   estimatedDays: 1,
@@ -495,7 +497,11 @@ export const sinkInstallationJob: RenovationJob = {
     { condition: 'always', message: 'W płytkach wierć wiertłem do glazury bez udaru — udar rozłupie płytkę.', level: 'info' },
   ],
   measurementInputs: [
-    { id: 'sinkCount', label: 'Liczba umywalek do montażu', unit: 'szt.', placeholder: '1', min: 1, max: 10 },
+    { id: 'sinkCount', label: 'Liczba umywalek do montażu', unit: 'szt.', placeholder: '1', min: 1, max: 10, inputType: 'count', required: true },
+    // source: https://www.ferrocompany.com/pliki/en/FERRO_Stillo_EN.pdf
+    // source: https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44
+    { id: 'sinkExtraHoses', label: 'Dodatkowe wężyki do kupienia', unit: 'szt.', placeholder: '0', min: 0, max: 20, step: 1, inputType: 'count', defaultValue: 0,
+      hint: 'Bateria referencyjna Ferro Stillo BSL2 ma przyłącza w komplecie. Pozostaw 0, jeśli wystarczą. Wpisz liczbę dodatkowych lub wymiennych wężyków; sprawdź długość i gwinty.' },
   ],
   materials: [
     {
@@ -506,7 +512,7 @@ export const sinkInstallationJob: RenovationJob = {
       formula: formulaBuilder.perItem('sinkCount'),
       pricePerUnit: 148,
       category: 'ceramika',
-      notes: 'Umywalka z otworem na baterię i przelewem; do montażu na półpostumencie lub kotwach ściennych.',
+      notes: 'Umywalka z otworem na baterię i przelewem; mocowania ścienne dobierz do modelu i podłoża. Dopasowany półpostument jest opcjonalną osłoną przyłączy, wycenianą osobno.',
     },
     {
       id: 'basin-mixer',
@@ -516,7 +522,8 @@ export const sinkInstallationJob: RenovationJob = {
       formula: formulaBuilder.perItem('sinkCount'),
       pricePerUnit: 195,
       category: 'armatura',
-      notes: 'Bateria stojąca do otworu w umywalce; w zestawie zwykle korek automatyczny i wężyki.',
+      // source: https://www.ferrocompany.com/pliki/en/FERRO_Stillo_EN.pdf
+      notes: 'Referencja Ferro Stillo BSL2: automatyczny korek G1¼ i przyłącza elastyczne G3/8–M10x1 w komplecie. Dodatkowe wężyki wpisz osobno po sprawdzeniu długości i gwintów.',
     },
     {
       id: 'basin-trap',
@@ -526,27 +533,30 @@ export const sinkInstallationJob: RenovationJob = {
       formula: formulaBuilder.perItem('sinkCount'),
       pricePerUnit: 105,
       category: 'armatura',
-      notes: 'Syfon butelkowy Ø32 mm z uszczelkami. Tańsze warianty od ok. 30 zł.',
+      // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/
+      notes: 'McAlpine WHB1-32: niski syfon membranowy G1¼ × 32 mm, bez spustu. Spust jest w referencyjnej baterii BSL2. Sprawdź dopasowanie do odpływu ściennego; potrzebne przedłużki lub redukcje dobierz osobno.',
     },
     {
       id: 'angle-valve',
       name: 'Zawór kątowy z filtrem 1/2" × 3/8"',
       brand: 'Ferro (referencja)',
       unit: 'szt.',
-      formula: formulaBuilder.perItem('sinkCount'),
+      // source: https://www.ferrocompany.com/pliki/en/FERRO_Stillo_EN.pdf
+      formula: (m) => sinkConnectionQuantity('angle-valve', m, true) ?? 0,
       pricePerUnit: 35,
       category: 'armatura',
-      notes: 'Na podejście wody potrzebne 2 szt. (ciepła + zimna) — dokup drugi zawór na umywalkę.',
+      notes: 'Dwa zawory na umywalkę: ciepła i zimna woda. Potwierdź gwinty podejść i baterii.',
     },
     {
       id: 'flex-hose',
-      name: 'Wężyk elastyczny w oplocie 3/8"',
+      name: 'Dodatkowy wężyk przyłączeniowy 3/8" × M10',
       brand: 'Invena 30 cm (referencja)',
       unit: 'szt.',
-      formula: formulaBuilder.perItem('sinkCount'),
+      // source: https://www.ferrocompany.com/pliki/en/FERRO_Stillo_EN.pdf
+      formula: (m) => sinkConnectionQuantity('flex-hose', m, true) ?? 0,
       pricePerUnit: 37,
       category: 'armatura',
-      notes: 'Łączy zawór kątowy z baterią. Zwykle 2 szt. na baterię (część bywa w zestawie z baterią).',
+      notes: 'Dodatkowe lub wymienne przyłącze poza kompletem baterii. Referencja Invena ma 30 cm i gwinty G3/8 × M10; potwierdź długość i zgodność z baterią.',
     },
     {
       id: 'sanitary-silicone',
@@ -571,7 +581,8 @@ export const sinkInstallationJob: RenovationJob = {
     { step: 1, title: 'Zakręć wodę i zamontuj zawory kątowe', description: 'Zakręć wodę. Na podejściach ściennych nawiń taśmę i wkręć zawory kątowe z filtrem (ciepła + zimna).', durationMin: 20 },
     { step: 2, title: 'Wyznacz i wywierć otwory pod umywalkę', description: 'Zaznacz wysokość (górny brzeg umywalki zwykle ok. 85 cm). Wywierć otwory wiertłem do glazury bez udaru, wstaw kołki.', durationMin: 25 },
     { step: 3, title: 'Zamontuj baterię w umywalce', description: 'Przed zawieszeniem przykręć baterię do umywalki, podłącz wężyki. Łatwiej zrobić to „na ławce" niż nad postumentem.', tip: 'Nie dokręcaj plastikowych nakrętek na siłę.', durationMin: 20 },
-    { step: 4, title: 'Zawieś umywalkę i podeprzyj półpostumentem', description: 'Osadź umywalkę na śrubach/kotwach, wypoziomuj, dokręć. Wsuń półpostument.', durationMin: 20 },
+    // source: https://www.leroymerlin.pl/produkty/lazienka/umywalki/postumenty-polpostumenty/
+    { step: 4, title: 'Zamocuj i wypoziomuj umywalkę', description: 'Zamocuj umywalkę do ściany zgodnie z instrukcją producenta, dobierając mocowania do podłoża. Opcjonalny półpostument zamontuj dopiero po stabilnym zamocowaniu ceramiki i podłączeniu instalacji; nie zastępuje mocowań umywalki.', durationMin: 20 },
     { step: 5, title: 'Podłącz wężyki i syfon', description: 'Podłącz wężyki baterii do zaworów kątowych. Zamontuj syfon do odpływu i rury ściennej.', durationMin: 25 },
     { step: 6, title: 'Odkręć wodę, sprawdź szczelność, zasilikonuj', description: 'Powoli odkręć wodę, sprawdź każde połączenie. Uszczelnij styk umywalki ze ścianą silikonem sanitarnym.', durationMin: 20 },
   ],

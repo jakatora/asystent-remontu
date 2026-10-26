@@ -8,6 +8,7 @@ import { getJobConfig } from './job-config';
 import { resolveWarnings } from '../warnings/resolver';
 import { roundMoney } from '@/shared/lib/currency';
 import { calculateEpsItems, EPS_JOB_ID, EPS_QUANTITY_MODEL } from './eps';
+import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MODEL } from './sink';
 
 const DEFAULT_WASTE_FACTOR = 1.1;
 
@@ -60,8 +61,13 @@ export function computeRawQuantity(
 
 function resolveMaterialQuantity(
   material: MaterialItem | MaterialRequirement,
-  measurements: MeasurementMap
-): { rawQuantity: number; quantity: number; packs: number | undefined } {
+  measurements: MeasurementMap,
+  jobId?: string,
+): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if (jobId === SINK_JOB_ID && isSinkConnection(material.id)) {
+    const required = sinkConnectionQuantity(material.id, measurements, true);
+    return { rawQuantity: required ?? 0, quantity: required ?? 0, packs: undefined, quantityKnown: required !== null };
+  }
   const rawQty = Math.max(0, computeRawQuantity(material, measurements));
   const { quantity, packs } = applyRounding(rawQty, material);
   return { rawQuantity: rawQty, quantity, packs };
@@ -101,6 +107,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     return {
       jobId: job.id,
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       measurements,
       materials,
       totalCost,
@@ -139,6 +146,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       measurements,
       materials: detailedItems,
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       totalCost,
       totalDays: job.estimatedDays,
       warnings: allWarnings,
@@ -155,10 +163,10 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
-      const { rawQuantity, quantity, packs } = resolveMaterialQuantity(material, measurements);
+      const { rawQuantity, quantity, packs, quantityKnown } = resolveMaterialQuantity(material, measurements, job.id);
       const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
       const cost = roundMoney(billableQty * material.pricePerUnit);
-      return { material, rawQuantity, quantity, packs, cost };
+      return { material, rawQuantity, quantity, packs, cost, ...(quantityKnown !== undefined ? { quantityKnown } : {}) };
     });
   }
 
@@ -169,7 +177,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
-      const { rawQuantity, quantity, packs } = epsItems?.[index] ?? resolveMaterialQuantity(material, measurements);
+      const { rawQuantity, quantity, packs, quantityKnown } = epsItems?.[index] ?? resolveMaterialQuantity(material, measurements, job.id);
 
       const packaging = material.packaging;
       const purchaseQuantity = packs !== undefined && packaging ? packs : quantity;
@@ -184,7 +192,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = epsItems ? {
+      const explanation = quantityKnown === false && !epsItems ? { text: 'Podaj liczbę umywalek i dodatkowych wężyków w obmiarach.', assumptions: ['Nieznana ilość nie jest darmowym materiałem.'] } : epsItems ? {
         text: epsItems[index].quantityKnown === false ? 'Podaj ilość z projektu lub karty wybranego produktu.' : `${quantity} ${material.unit} z obmiarów i jawnych założeń ocieplenia.`,
         assumptions: ['Zapas płyt i klejów oraz zapas siatki to osobne ustawienia.', 'Liczba łączników, ilości gruntu i tynku oraz długości profili wymagają osobnych danych.'],
       } : overrideFn
@@ -194,6 +202,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       return {
         material: epsItems?.[index].material ?? material,
         ...(epsItems ? { quantityKnown: epsItems[index].quantityKnown } : {}),
+        ...(!epsItems && quantityKnown !== undefined ? { quantityKnown } : {}),
         quantity,
         packs,
         cost,

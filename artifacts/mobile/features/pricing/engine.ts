@@ -12,6 +12,7 @@ import { getRegionOrBaseline } from '@/data/prices/regions';
 import { roundMoney } from '@/shared/lib/currency';
 import { resolveMaterialQuantity } from './quantity';
 import {computePackagesNeeded} from '../../../../lib/pricing-service/src/purchase-quantity';
+import { upgradeCalculation } from '@/features/calculator/upgrades';
 
 interface PricingInput {
   job: RenovationJob;
@@ -22,7 +23,8 @@ interface PricingInput {
 }
 
 export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
-  const { job, calc, regionCode, qualityTier, overrides } = input;
+  const { job, regionCode, qualityTier, overrides } = input;
+  const calc = upgradeCalculation(input.calc)!;
   const region = getRegionOrBaseline(regionCode);
   const effectiveTier: MaterialCategory = qualityTier === 'custom' ? 'standard' : qualityTier;
 
@@ -69,6 +71,7 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
       return [];
     }
     pricedSourceIds.add(requirement.source.material.id);
+    if (requirement.quantity === 0) return [];
     const overrideKey = `material:${ref.id}`;
     const hasOverride = overrideMap.has(overrideKey);
     const effectivePrice = hasOverride ? overrideMap.get(overrideKey)! : ref.pricePerPackage;

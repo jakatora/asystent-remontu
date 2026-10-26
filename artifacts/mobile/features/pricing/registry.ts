@@ -58,6 +58,15 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     const ref = MATERIAL_BY_ID.get(id);
     if (ref) results.push(ref);
   }
+  // A different price tier must not omit the required basin drain or explicit
+  // extra hoses. Same exact references; quantities still come from calculator.
+  // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/
+  if (jobId === 'sink-installation') {
+    for (const id of ['mat-basin-trap-mcalpine-whb1-32', 'mat-hose-braided-invena-3-8-30']) {
+      const ref = MATERIAL_BY_ID.get(id);
+      if (ref && !results.some(row => row.id === id)) results.push(ref);
+    }
+  }
   return measurements ? tileSpacerReferences(results, jobId, measurements) : results;
 }
 

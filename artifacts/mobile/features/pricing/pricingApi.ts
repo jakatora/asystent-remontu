@@ -19,7 +19,7 @@ import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { getMaterialsForJob } from './registry';
 import { resolveMaterialQuantity } from './quantity';
 import { applyDoorSelection, type DoorSelection } from './doorSelection';
-import { upgradeEpsCalculation } from '@/features/calculator/eps';
+import { upgradeCalculation } from '@/features/calculator/upgrades';
 import { priceTileSpacer } from './tileSpacers';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
@@ -417,7 +417,7 @@ function readOptionalCode(material: object, key: 'ean' | 'gtin'): string | null 
  * opakowania z katalogu.
  */
 export function toPricingStageInput(calc: CalculationResult, tier: MaterialCategory = 'standard', doorSelection?: DoorSelection | null): PricingStageInput {
-  calc = upgradeEpsCalculation(calc) ?? calc;
+  calc = upgradeCalculation(calc) ?? calc;
   const references = getMaterialsForJob(calc.jobId, tier, calc.measurements);
   return applyDoorSelection({
     jobId: calc.jobId,

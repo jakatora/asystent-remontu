@@ -3,12 +3,14 @@ import type { ShoppingListGenerator } from '@/types/calculator';
 import { generateId } from '@/shared/lib/id';
 import { nowISO } from '@/shared/lib/date';
 import { roundMoney } from '@/shared/lib/currency';
+import { upgradeCalculation } from './upgrades';
 
 class RenovationShoppingListGenerator implements ShoppingListGenerator {
   fromCalculation(
     projectId: string,
     result: CalculationResult
   ): Omit<ShoppingItem, 'id'>[] {
+    result = upgradeCalculation(result)!;
     return result.materials
       .filter((m) => m.quantityKnown === false || m.quantity > 0)
       .map((m) => ({
@@ -16,6 +18,7 @@ class RenovationShoppingListGenerator implements ShoppingListGenerator {
         materialId: m.material.id,
         name: m.material.name,
         quantity: m.quantity,
+        ...(m.quantityKnown !== undefined ? { quantityKnown: m.quantityKnown } : {}),
         unit: m.material.unit,
         estimatedPrice: roundMoney(m.cost),
         purchased: false,

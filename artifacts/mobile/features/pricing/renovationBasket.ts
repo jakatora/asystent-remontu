@@ -2,7 +2,9 @@ import type { Project, ShoppingItem } from '@/types/domain';
 import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
 import { doorOriginMaterialId, type DoorSelection } from './doorSelection';
-import { EPS_JOB_ID, upgradeEpsCalculation } from '@/features/calculator/eps';
+import { EPS_JOB_ID } from '@/features/calculator/eps';
+import { SINK_JOB_ID } from '@/features/calculator/sink';
+import { upgradeCalculation } from '@/features/calculator/upgrades';
 import { normalizeUnit } from './quantity';
 import { additionalMaterial } from './basketExtras';
 import { applyLaminateChoices, type LaminateChoice } from './laminateChoice';
@@ -37,7 +39,7 @@ export function buildRenovationBasket(
   let excludedMaterials = 0, manualItems = 0, missingCalculations = 0;
   const stages: PricingStageInput[] = [];
   for (const project of includedProjects) {
-    const calc = upgradeEpsCalculation(project.calculationResult);
+    const calc = upgradeCalculation(project.calculationResult);
     if (!calc) { missingCalculations++; continue; }
     const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
@@ -49,7 +51,7 @@ export function buildRenovationBasket(
       // A boolean in Shopping means the entire material line is covered.
       // Conflicting duplicate rows cannot silently remove required materials.
       const requirement = calc.materials.find(item => item.material.id === line.material.id);
-      const covers = (item: ShoppingItem) => (item.owned || item.purchased) && (calc.jobId !== EPS_JOB_ID ||
+      const covers = (item: ShoppingItem) => (item.owned || item.purchased) && (![EPS_JOB_ID, SINK_JOB_ID].includes(calc.jobId) ||
         requirement?.quantityKnown !== false && !item.needsQuantityConfirmation && Math.abs((item.customQuantity ?? item.quantity) - (requirement?.quantity ?? NaN)) < 1e-8 && item.unit === requirement?.material.unit);
       if (matching.length > 0 && matching.every(covers)) { excludedMaterials++; return false; }
       return true;

@@ -28,7 +28,7 @@ import { activityRepo } from '@/db/repositories/activity.repo';
 import { priceOverridesRepo } from '@/db/repositories/price-overrides.repo';
 import { generateShoppingItems, generateAllShoppingItems } from '@/features/calculator/shopping';
 import { BASELINE_REGION } from '@/data/prices/regions';
-import { upgradeEpsProject, projectEpsShopping } from '@/features/calculator/eps';
+import { upgradeProject, projectShopping } from '@/features/calculator/upgrades';
 import { subscribeDatabaseChanges } from '@/db/client';
 
 interface AppContextValue {
@@ -102,7 +102,7 @@ export function AppProvider({ children }: PropsWithChildren) {
           onboardingRepo.isCompleted(),
         ]);
         if (mounted) {
-          setProjects(projs.map(upgradeEpsProject));
+          setProjects(projs.map(upgradeProject));
           setOnboardingDone(done);
         }
       } catch (err) {
@@ -118,7 +118,7 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   const refreshProjects = useCallback(async () => {
     const projs = await projectsRepo.findAll();
-    setProjects(projs.map(upgradeEpsProject));
+    setProjects(projs.map(upgradeProject));
   }, []);
 
   useEffect(() => {
@@ -135,7 +135,7 @@ export function AppProvider({ children }: PropsWithChildren) {
       const id = await projectsRepo.upsert(data);
       const created = await projectsRepo.findById(id);
       if (created) {
-        setProjects((prev) => [upgradeEpsProject(created), ...prev]);
+        setProjects((prev) => [upgradeProject(created), ...prev]);
       }
       await activityRepo.insert({
         projectId: id,
@@ -151,7 +151,7 @@ export function AppProvider({ children }: PropsWithChildren) {
     await projectsRepo.update(project);
     const updated = await projectsRepo.findById(project.id);
     if (updated) {
-      setProjects((prev) => prev.map((p) => (p.id === updated.id ? upgradeEpsProject(updated) : p)));
+      setProjects((prev) => prev.map((p) => (p.id === updated.id ? upgradeProject(updated) : p)));
     }
   }, []);
 
@@ -166,7 +166,7 @@ export function AppProvider({ children }: PropsWithChildren) {
   }, []);
 
   const getProjectShoppingItems = useCallback(
-    async (projectId: string): Promise<ShoppingItem[]> => projectEpsShopping(await shoppingRepo.findByProject(projectId), projects.find(project => project.id === projectId)?.calculationResult),
+    async (projectId: string): Promise<ShoppingItem[]> => projectShopping(await shoppingRepo.findByProject(projectId), projects.find(project => project.id === projectId)?.calculationResult),
     [projects]
   );
 

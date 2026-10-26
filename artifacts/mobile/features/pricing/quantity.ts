@@ -38,6 +38,8 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   washbasin: /^washbasin$/,
   toilet: /^wc-compact$/,
   faucet: /^basin-mixer$/,
+  trap: /^basin-trap$/,
+  silicone: /^sanitary-silicone$/,
   valve: /angle-valve/,
   hose: /flex-hose/,
   'mounting-set': /^wc-mounting-set$/,
@@ -59,6 +61,16 @@ export function resolveMaterialQuantity(
   );
   if (candidates.length !== 1) return null;
   const source = candidates[0];
+  if (source.quantityKnown === false) return null;
+  // The sink recipe explicitly counts cartridges of this exact 280 ml model.
+  // Preserve that allowance; the API/catalogue require millilitres, not "1 ml".
+  // source: https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd
+  if (calc.jobId === 'sink-installation' && ref.id === 'mat-sanitary-silicone-soudal-280ml'
+      && source.material.id === 'sanitary-silicone' && source.material.unit === 'kartusze'
+      && /Soudal 280 ml/.test(source.material.brand ?? '') && ref.packageUnit === 'ml' && ref.packageSize === 280) {
+    const quantity = getRequiredQuantity(source, calc) * 280;
+    return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
   if (ref.materialType === 'adhesive-eps' &&
       (calc.jobId !== 'eps-insulation-bso' || ref.id !== 'mat-adhesive-eps-atlas-stopter-k20-25kg' || source.material.id !== 'glue-k20' || !/Atlas Stopter K-20 25 kg/i.test(source.material.brand ?? ''))) return null;
   // These existing jobs count cans. The selected references each contain

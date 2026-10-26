@@ -1122,7 +1122,9 @@ export default function WizardScreen() {
                             }}
                             placeholder={inp.placeholder ?? (inp.defaultValue?.toString() ?? '0')}
                             placeholderTextColor={Colors.textMuted}
-                            keyboardType="decimal-pad"
+                            accessibilityLabel={inp.label}
+                            accessibilityHint={inp.hint}
+                            keyboardType={'inputType' in inp && inp.inputType === 'count' ? 'number-pad' : 'decimal-pad'}
                             value={val}
                             onChangeText={(v) => {
                               patchDraft({ measurements: { ...draft.measurements, [inp.id]: v } });
@@ -1281,7 +1283,7 @@ export default function WizardScreen() {
                         const val = draft.measurements[inp.id];
                         const displayVal = val
                           ? `${val} ${inp.unit}`
-                          : inp.defaultValue
+                          : inp.defaultValue !== undefined
                           ? t('wizard.summary.defaultSuffix', { value: inp.defaultValue, unit: inp.unit })
                           : t('wizard.summary.dashUnit', { unit: inp.unit });
                         return (
