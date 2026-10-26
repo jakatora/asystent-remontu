@@ -100,7 +100,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
           (product.normalizedName === query.normalizedName || product.ean === alias)) ?? null;
       },
       listOffers: async (_db, id) => offers.filter(offer => offer.productId === id &&
-        (!pickup || !RETAIL_SOURCES.find(source => source.id === offer.id)?.pickupRequiresConfirmation)),
+        (!pickup || ![RETAIL_SOURCES.find(source => source.id === offer.id)?.pickupRequiresConfirmation, RETAIL_SOURCES.find(source => source.id === offer.id)?.pickupUnavailable].some(Boolean))),
     };
     return { products, offers, deps };
   }
@@ -149,6 +149,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
       pickupConfirmationStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupRequiresConfirmation).map(source => source.store))],
+      pickupUnavailableStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupUnavailable).map(source => source.store))],
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
       delivery: retailerDeliveryCapabilities(),
       sources: RETAIL_SOURCES.map(source => ({

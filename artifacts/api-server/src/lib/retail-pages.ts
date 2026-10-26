@@ -13,6 +13,7 @@ import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
 import { readBetterialProduct } from './betterial-product';
 import { inspectFolnetProduct } from './folnet-product';
+import { inspectKronosferaProduct } from './kronosfera-product';
 
 export interface RetailSource {
   id: string;
@@ -28,10 +29,12 @@ export interface RetailSource {
   purchaseMultiple?: number;
   /** The retailer requires arranging a pickup; do not rank it as confirmed collection. */
   pickupRequiresConfirmation?: boolean;
+  /** This product's sales channel does not offer self collection. */
+  pickupUnavailable?: boolean;
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -76,7 +79,8 @@ function objects(value: unknown): Record<string, any>[] {
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
   const products: Record<string, any>[] = [];
-  if (source.format === 'folnet') products.push(inspectFolnetProduct(html, source).product);
+  if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
+  else if (source.format === 'folnet') products.push(inspectFolnetProduct(html, source).product);
   else if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
   else if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
   else if (source.format === 'abstore') products.push(readAbstoreProduct(html, source));

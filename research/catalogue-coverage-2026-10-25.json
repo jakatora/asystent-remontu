@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T00:11:08.142Z",
+  "checkedAt": "2026-10-26T01:53:14.741Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 75,
-  "remaining": 28,
-  "offers": 101,
-  "stores": 33,
+  "verifiedProducts": 76,
+  "remaining": 27,
+  "offers": 102,
+  "stores": 34,
   "productsWithPhotos": 103,
-  "registeredOffers": 103,
+  "registeredOffers": 104,
   "disabledOffers": 2,
   "rows": [
     {
@@ -968,11 +968,74 @@
       "id": "mat-skirting-krono-lk100f-mdf-240",
       "name": "Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)",
       "referenceUrl": "https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5907555424969",
-      "sourceIds": [],
+      "sourceIds": [
+        "kronosfera-skirting-lk100f-240"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/listwa-przypodlogowa-mdf-krono-original-biala-lk100f~5907555424969_01i_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "kronosfera-skirting-lk100f-240",
+          "checkedAt": "2026-10-26T01:53:14.741Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 1,
+          "materialsGrosze": 3199,
+          "deliveryGrosze": 8749,
+          "totalGrosze": 11948
+        },
+        {
+          "sourceId": "kronosfera-skirting-lk100f-240",
+          "checkedAt": "2026-10-26T01:53:14.741Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 2,
+          "materialsGrosze": 6398,
+          "deliveryGrosze": 8749,
+          "totalGrosze": 15147
+        },
+        {
+          "sourceId": "kronosfera-skirting-lk100f-240",
+          "checkedAt": "2026-10-26T01:53:14.741Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 14,
+          "materialsGrosze": 44786,
+          "deliveryGrosze": 17498,
+          "totalGrosze": 62284
+        },
+        {
+          "sourceId": "kronosfera-skirting-lk100f-240",
+          "checkedAt": "2026-10-26T01:53:14.741Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 79,
+          "materialsGrosze": 252721,
+          "deliveryGrosze": 0,
+          "totalGrosze": 252721
+        },
+        {
+          "sourceId": "kronosfera-skirting-lk100f-240",
+          "checkedAt": "2026-10-26T01:53:14.741Z",
+          "status": "confirmed",
+          "postalCode": "80-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 1,
+          "materialsGrosze": 3199,
+          "deliveryGrosze": 8749,
+          "totalGrosze": 11948
+        }
+      ]
     },
     {
       "id": "mat-skirting-clips-cezar-25",
@@ -1876,5 +1939,5 @@
       ]
     }
   ],
-  "automaticDeliveryStores": 18
+  "automaticDeliveryStores": 19
 }

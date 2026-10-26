@@ -237,6 +237,7 @@ function EstimateResult({
   const resolved = lines.filter((l) => l.resolved);
   const unresolved = lines.filter((l) => !l.resolved);
   const pickupConfirmationStores = data.coverage?.pickupConfirmationStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
+  const pickupUnavailableStores = data.coverage?.pickupUnavailableStores?.filter(store => store === selectedStore || resolved.some(line => line.offers?.some(offer => offer.store === store))) ?? [];
   const hasDoorParts = data.stages.some(stage => stage.jobId === 'interior-doors') || lines.some(line => ['door-leaf', 'door-frame'].includes(line.product?.category ?? line.query.category ?? ''));
   const hasLeftCredis = lines.some(line => (line.product?.ean ?? line.query.ean) === '5900378219590');
   const consolidated = data.consolidated;
@@ -271,6 +272,11 @@ function EstimateResult({
       {pickupConfirmationStores.map(store => <View key={store} accessibilityRole="alert" style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 6 }}>
         <Txt w="semibold">{tr(`${store}: odbiór po uzgodnieniu`, `${store}: collection by arrangement`)}</Txt>
         <Txt style={{ fontSize: 13, lineHeight: 19 }}>{tr('Sklep potwierdza miejsce i termin odbioru indywidualnie. Jego ceny pokazujemy przy dostawie, ale nie uwzględniamy ich w rankingu własnego odbioru. Koszt transportu również wymaga wyceny sklepu.', 'The store confirms the collection location and date individually. Its prices are shown for home delivery but excluded from the collection ranking. Transport also requires a store quote.')}</Txt>
+      </View>)}
+      {pickupUnavailableStores.map(store => <View key={store} accessibilityRole="alert" style={{ padding:14,borderRadius:12,backgroundColor:Colors.warningBg,gap:6 }}>
+        <Txt w="semibold">{tr(`${store}: wyłącznie dostawa`, `${store}: delivery only`)}</Txt>
+        <Txt style={{fontSize:13,lineHeight:19}}>{tr('Dla tych produktów sklep nie oferuje odbioru własnego. Uwzględniamy je przy dostawie do domu, a pomijamy w rankingu odbioru.', 'The store does not offer self collection for these products. We include them for home delivery and exclude them from the collection ranking.')}</Txt>
+        {store==='Kronosfera'&&<Button variant="outline" label={tr('Sprawdź warunki dostawy i odbioru', 'Check delivery and collection terms')} onPress={()=>void Linking.openURL('https://kronosfera.pl/dostawa')} />}
       </View>)}
       {(selectedStore === 'Folnet' || resolved.some(line => line.offers?.some(offer => offer.store === 'Folnet'))) && <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.primaryBg, gap: 6 }}>
         <Txt w="semibold">{tr('Folnet: odbiór zamówienia internetowego', 'Folnet: collect an online order')}</Txt>

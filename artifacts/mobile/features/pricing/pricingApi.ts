@@ -306,6 +306,7 @@ export interface SerializedProject {
   deliveryComparison?: DeliveryComparison;
   coverage?: {
     pickupConfirmationStores?: string[];
+    pickupUnavailableStores?: string[];
     offers: number;
     products: number;
     stores: string[];

@@ -19,6 +19,7 @@ import type {
   PackagePlanEntry,
   PackageVariant,
 } from "./types";
+import { computePackagesNeeded } from './purchase-quantity';
 
 /** Górny limit rozmiaru siatki DP — zabezpieczenie przed patologicznym wejściem. */
 const MAX_GRID = 2_000_000;
@@ -82,13 +83,13 @@ function fallbackSingleVariant(
   requiredQuantity: number,
   variants: readonly PackageVariant[],
 ): PackagePlan {
-  const cost = (v: PackageVariant) => Math.ceil(requiredQuantity / (v.packageSize * (v.purchaseMultiple ?? 1))) * (v.purchaseMultiple ?? 1) * v.unitPriceGrosze;
+  const cost = (v: PackageVariant) => computePackagesNeeded(requiredQuantity,v.packageSize,v.purchaseMultiple) * v.unitPriceGrosze;
   const best = [...variants].sort(
     (a, b) =>
       cost(a) - cost(b) ||
       a.packageSize - b.packageSize,
   )[0]!;
-  const count = Math.ceil(requiredQuantity / (best.packageSize * (best.purchaseMultiple ?? 1)));
+  const count = computePackagesNeeded(requiredQuantity,best.packageSize,best.purchaseMultiple)/(best.purchaseMultiple??1);
   const chosen = Array.from({ length: count }, () => best);
   const { packages, totalGrosze, coverage } = buildEntries(chosen);
   return {

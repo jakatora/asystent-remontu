@@ -4,6 +4,7 @@ export interface StoreChoices {
   comparison: SerializedStoreComparison;
   stores: string[];
   unresolvedCount: number;
+  pickupUnavailableStores?: readonly string[];
 }
 
 export function collectStoreChoices(data: SerializedProject): StoreChoices {
@@ -11,6 +12,7 @@ export function collectStoreChoices(data: SerializedProject): StoreChoices {
     comparison: data.storeComparison,
     stores: data.coverage?.stores ?? data.storeComparison.stores.map(store => store.store),
     unresolvedCount: data.stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length,
+    pickupUnavailableStores: data.coverage?.pickupUnavailableStores ?? [],
   };
 }
 

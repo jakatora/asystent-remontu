@@ -40,7 +40,7 @@ export async function compareAutomaticDelivery(
     const offers = group.offers.filter(o => isComparableOffer(o, now.getTime()));
     const sizes = offers.map(o => Number(o.packageSize ?? group.product.packageSize));
     if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return tooLarge();
-    const count = Math.ceil(group.totalQuantity / sizes[0]);
+    const count = computePackagesNeeded(group.totalQuantity, sizes[0]);
     if (!Number.isSafeInteger(count) || count > DELIVERY_LIMITS.packagesPerProduct) return tooLarge();
     if (count > 60) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
     const variants: PackagePlanEntry[][] = [];
@@ -173,7 +173,7 @@ async function compareSelectedBaskets(
         if (!(remaining>0)) continue;
         const secondCount=computePackagesNeeded(remaining,alternative.packageSize,alternative.purchaseMultiple);
         if (secondCount>DELIVERY_LIMITS.packagesPerProduct) continue;
-        const needed=Math.ceil(groups[index].totalQuantity/seed[index].packageSize),coverage=firstCount+secondCount;
+        const needed=computePackagesNeeded(groups[index].totalQuantity,seed[index].packageSize),coverage=firstCount+secondCount;
         if (coverage-multiple>=needed||coverage-(alternative.purchaseMultiple??1)>=needed) continue;
         const first = { ...seed[index], count: firstCount, lineCostGrosze: firstCount * seed[index].unitPriceGrosze };
         const second = { ...alternative, count: secondCount, lineCostGrosze: secondCount*alternative.unitPriceGrosze };

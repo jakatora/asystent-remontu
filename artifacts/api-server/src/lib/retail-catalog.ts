@@ -904,10 +904,21 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   { id: 'betterial-atlas-stopter-k20-25kg', ean: '5905400160253', name: 'Atlas - zaprawa klejąca do styropianu Stopter K-20', category: 'adhesive-eps', brand: 'Atlas', packageSize: 25, unit: 'kg', store: 'Betterial', format: 'betterial', productId: 8679, variantId: 3816, retailerSku: '8679-86310', purchaseMultiple: 42, pickupRequiresConfirmation: true, variant: ['Stopter', 'K-20'], url: 'https://betterial.pl/kleje-do-styropianu/8679-atlas-zaprawa-klejaca-do-styropianu-stopter-k-20.html' },
   // source: https://folnet.pl/pl/products/chemia-tasmy-mocowania/chemia-budowlana-soudal/pianki-pistoletowe/pianka-pistoletowa-soudafoam-low-expansion-10-8372.html
   { id: 'folnet-soudal-low-expansion-winter-750ml', ean: '5411183048522', name: 'Pianka pistoletowa Soudafoam Low Expansion -10', brand: 'Soudal', category: 'foam', packageSize: 750, unit: 'ml', store: 'Folnet', format: 'folnet', productId: 8372, retailerSku: '112583', variant: ['Low Expansion', '10'], url: 'https://folnet.pl/pl/products/chemia-tasmy-mocowania/chemia-budowlana-soudal/pianki-pistoletowe/pianka-pistoletowa-soudafoam-low-expansion-10-8372.html' },
+  // Manufacturer SKU crosswalk, not a barcode published by this storefront.
+  // source: https://kronosfera.pl/storage/file/core_files/2025/8/28/b4e17905d0344c0061ea8e07ee80bb72/KRONOSTEP_2025_22072025_PL_EN_web.pdf
+  // source: https://www.obi.pl/p/7240922/kronospan-listwa-przypodlogowa-biala-lk100f-frez
+  // source: https://kronosfera.pl/k/listwa-przypodlogowa-lk100f24-9002,2068
+  // No self collection for flooring and accessories.
+  // source: https://kronosfera.pl/dostawa
+  { id:'kronosfera-skirting-lk100f-240',ean:'5907555424969',name:'Listwa przypodłogowa LK100F24 9002',
+    category:'skirting',brand:'KronoOriginal',packageSize:2.4,unit:'mb',store:'Kronosfera',format:'kronosfera',
+    productId:2068,retailerSku:'LK100F24-9002',pickupUnavailable:true,variant:['LK100F24','9002'],
+    url:'https://kronosfera.pl/k/listwa-przypodlogowa-lk100f24-9002,2068' },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Listwa przypodłogowa MDF biała Krono Original LK100F (2,4 mb)': '5907555424969',
   'Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml': '5411183048522',
   'Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg': '5905400160253',
   "Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe przylgowe przeszklone": "5900378219590",
