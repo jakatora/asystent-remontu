@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T18:32:25.734Z",
-  "scope": "105 reference products, including explicitly selectable current Conpar and OPP Archi models; not every product on the market. A verified offer does not confirm delivery or compatibility. productsWithPhotos counts registered URLs, not simultaneous loading of all external images.",
-  "total": 105,
-  "verifiedProducts": 99,
+  "checkedAt": "2026-10-26T19:44:04.687Z",
+  "scope": "106 reference products, including explicit current alternatives for Conpar foil, OPP Archi doors and Cersanit washbasin; not every market product. An offer does not confirm delivery, mounting compatibility or all accessories. productsWithPhotos counts registered URLs, not simultaneous loading of all external images.",
+  "total": 106,
+  "verifiedProducts": 100,
   "remaining": 6,
-  "offers": 126,
+  "offers": 127,
   "stores": 38,
-  "productsWithPhotos": 105,
-  "registeredOffers": 128,
+  "productsWithPhotos": 106,
+  "registeredOffers": 129,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2219,8 +2219,32 @@
         "checkedAt": "2026-10-26T18:21:43.632Z",
         "expiresAt": "2026-10-27T18:21:43.632Z"
       }
+    },
+    {
+      "id": "mat-washbasin-cersanit-atlantic-new-50",
+      "name": "Umywalka ścienna Cersanit Atlantic New 50 (50,5 × 40 cm, z otworem i przelewem)",
+      "referenceUrl": "https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5901771226987",
+      "sourceIds": [
+        "castorama-cersanit-atlantic-new-50"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&$width=600&$height=600",
+      "deliveryChecks": [
+        {
+          "sourceId": "castorama-cersanit-atlantic-new-50",
+          "checkedAt": "2026-10-26T19:44:04.687Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T19:31:10.236Z",
+        "expiresAt": "2026-10-27T19:31:10.236Z"
+      }
     }
   ],
   "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 20
+  "browserVerifiedOffers": 21
 }

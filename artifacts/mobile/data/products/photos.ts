@@ -249,6 +249,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-door-leaf-opp-archi-full-80-left'], ean: '5063022524263',
     sourceUrl: 'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-opp-archi-80-lewe-biale~5063022524263_02c?$MOB_PREV$&$width=600&$height=600' },
+  // source: https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd
+  { ids: ['mat-washbasin-cersanit-atlantic-new-50'], ean: '5901771226987',
+    sourceUrl: 'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd',
+    imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&$width=600&$height=600' },
 ];
 
 export function getProductPhoto(product: {

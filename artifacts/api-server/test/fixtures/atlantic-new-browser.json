@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "heading": "Umywalka Cersanit Atlantic New 50 cm",
+  "images": [
+    {
+      "alt": "Umywalka Cersanit Atlantic New 50 cm",
+      "height": 800,
+      "src": "https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&$width=600&$height=600",
+      "width": 800
+    },
+    {
+      "alt": "Umywalka Cersanit Atlantic New 50 cm",
+      "height": 800,
+      "src": "https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_21c_PL_CP?$MOB_PREV$&$width=600&$height=600",
+      "width": 800
+    },
+    {
+      "alt": "Umywalka Cersanit Atlantic New 50 cm",
+      "height": 800,
+      "src": "https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&$width=62&$height=62",
+      "width": 800
+    },
+    {
+      "alt": "Umywalka Cersanit Atlantic New 50 cm",
+      "height": 800,
+      "src": "https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_21c_PL_CP?$MOB_PREV$&$width=62&$height=62",
+      "width": 800
+    }
+  ],
+  "schemas": [
+    "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"description\":\"Wisząca umywalka o nowoczesnym designie łączy elegancję z funkcjonalnością. Charakteryzuje się prostą formą, która idealnie wpasowuje się w nowoczesne wnętrza, zapewniając przestronność i minimalistyczny wygląd. Umywalka posiada centralnie usytuowany otwór na armaturę, co umożliwia swobodny dobór baterii, a jej konstrukcja sprawia, że przestrzeń pod umywalką jest łatwa do utrzymania w czystości. Istnieje możliwość kompletowania z postumentem lub półpostumentem, a nawet opcja postawienia na blacie, co pozwala na dostosowanie jej do indywidualnych potrzeb i stylu łazienki. Dodatkowo, można wybrać ozdobny syfon, który podkreśla elegancki wygląd umywalki. To idealne rozwiązanie dla osób ceniących nowoczesność, prostotę i funkcjonalność w aranżacji wnętrz.\",\"name\":\"Umywalka Cersanit Atlantic New 50 cm\",\"gtin13\":\"5901771226987\",\"url\":\"https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd\",\"category\":\"Umywalki ścienne\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"158\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"158\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"158\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_21c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}",
+    "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Strona główna\",\"item\":\"https://www.castorama.pl/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Łazienka\",\"item\":\"https://www.castorama.pl/lazienka.cat\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Umywalki łazienkowe\",\"item\":\"https://www.castorama.pl/lazienka/umywalki-lazienkowe.cat\"},{\"@type\":\"ListItem\",\"position\":4,\"name\":\"Umywalki ścienne\",\"item\":\"https://www.castorama.pl/lazienka/umywalki-lazienkowe/umywalki-scienne.cat\"}]}",
+    "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"url\":\"https://www.castorama.pl\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://s7g10.scene7.com/is/image/KingfisherDigital/66aefe0e1b764a023696e9977d43a2e0978b009d\"},\"name\":\"Castorama Polska sp. z o.o.\",\"telephone\":\"690 680 690\",\"email\":\"bok@castorama.pl\",\"description\":\"Castorama! Odkryj szeroką ofertę produktów do budowy, aranżacji i majsterkowania. Przyjdź i zacznij tworzyć idealną przestrzeń już dziś!\"}",
+    "{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"url\":\"https://www.castorama.pl\",\"name\":\"Castorama Polska sp. z o.o.\",\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":\"https://www.castorama.pl/search?term={search_term_string}\",\"query-input\":\"required name=search_term_string\"}}"
+  ],
+  "tables": [
+    [
+      [
+        "Typ produktu",
+        "Umywalka"
+      ],
+      [
+        "Liczba sztuk w opakowaniu",
+        "1"
+      ],
+      [
+        "Typ umywalki",
+        "Ścienna"
+      ],
+      [
+        "Marka",
+        "Cersanit"
+      ],
+      [
+        "Seria",
+        "Atlantic"
+      ],
+      [
+        "Szerokość produktu",
+        "505mm"
+      ],
+      [
+        "Głębokość produktu",
+        "400mm"
+      ],
+      [
+        "Wysokość produktu",
+        "160mm"
+      ],
+      [
+        "Kształt produktu",
+        "Kształt D"
+      ],
+      [
+        "Liczba komór",
+        "1"
+      ],
+      [
+        "Liczba otworów na baterię",
+        "1"
+      ],
+      [
+        "Z otworem przelewowym",
+        "Tak"
+      ],
+      [
+        "Z przelewem",
+        "Brak przelewu w zestawie"
+      ],
+      [
+        "Baterie w zestawie",
+        "Bez baterii"
+      ],
+      [
+        "Syfon w zestawie",
+        "Brak syfonów zestawie"
+      ],
+      [
+        "Materiał",
+        "Ceramika"
+      ],
+      [
+        "Kolor",
+        "Biały"
+      ],
+      [
+        "Sposób montażu",
+        "Montaż ścienny"
+      ],
+      [
+        "Mocowania i łączenia w zestawie",
+        "Brak mocowań i łączeń w zestawie"
+      ],
+      [
+        "Miejsce produkcji",
+        "Polska"
+      ],
+      [
+        "Gwarancja producenta",
+        "10 lat"
+      ],
+      [
+        "Kod produktu",
+        "5901771226987"
+      ]
+    ]
+  ],
+  "url": "https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd",
+  "ean": "5901771226987",
+  "capturedAt": "2026-10-26T19:31:10.236Z",
+  "axState": "Browser tab: 16, Title: \"Umywalka Cersanit Atlantic New 50 cm\", URL: \"https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd\".\n1 AXWebArea Umywalka Cersanit Atlantic New 50 cm, URL: castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd\n\t2 container\n\t\t3 link Description: Przejdź do treści, Value: castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd#main-content\n\t\t4 container\n\t\t\t5 text dostawa za  1 zł!  szczegóły \n\t\t\t6 link Description: tutaj >>, Value: castorama.pl/dostawa-za-1-zl\n\t\t7 container app-header\n\t\t\t8 container\n\t\t\t\t9 content list\n\t\t\t\t\t10 link Description: Pomoc, Value: castorama.pl/informacje/pomoc\n\t\t\t\t11 content list\n\t\t\t\t\t12 content list\n\t\t\t\t\t\t13 container\n\t\t\t\t\t\t\t14 text Rejon dostawy\n\t\t\t\t\t\t\t15 button 00-001\n\t\t\t\t\t\t16 container\n\t\t\t\t\t\t\t17 text Odbierz z\n\t\t\t\t\t\t\t18 button Castorama Warszawa 5 Wola\n\t\t\t\t\t19 link Description: Lista życzeń, Value: castorama.pl/wishlist\n\t\t\t\t\t20 link Description: Rejestracja, Value: castorama.pl/customer/register?redirectTo=%2Fumywalka-cersanit-atlantic-new-50-cm%2F5901771226987_CAPL.prd\n\t\t\t\t\t21 link Description: Logowanie, Value: castorama.pl/customer/signin?redirectTo=%2Fumywalka-cersanit-atlantic-new-50-cm%2F5901771226987_CAPL.prd\n\t\t\t22 container\n\t\t\t\t23 container Castorama\n\t\t\t\t\t24 image Castorama - strona główna\n\t\t\t\t25 container\n\t\t\t\t\t26 text Zacznij wpisywać, aby wyświetlić sugestie wyszukiwania.\n\t\t\t\t\t27 combo box (collapsed, settable) Description: Szukaj, ID: headlessui-control-_R_1d9l35_, Secondary Actions: Expand\n\t\t\t\t\t28 button Szukaj\n\t\t\t\t29 content list\n\t\t\t\t\t30 link Description: Gazetki, katalogi, okazje, Value: castorama.pl/gazetka-i-katalogi\n\t\t\t\t\t31 link Description: Inspiracje i porady, Value: castorama.pl/inspiracje-i-porady.html\n\t\t\t\t\t32 button Sklepy\n\t\t\t\t\t33 link Description: Koszyk, Value: castorama.pl/basket?redirectTo=%2Fumywalka-cersanit-atlantic-new-50-cm%2F5901771226987_CAPL.prd\n\t\t\t34 container\n\t\t\t\t35 container Menu główne\n\t\t\t\t\t36 pop up button (collapsed) Produkty, ID: radix-_R_jdl35_, Secondary Actions: Expand\n\t\t\t\t37 content list\n\t\t\t\t\t38 link Description: Promocje, Value: castorama.pl/gazetka-i-katalogi\n\t\t\t\t\t39 link Description: Projektowanie i usługi, Value: castorama.pl/uslugi\n\t\t\t\t\t40 link Description: Nowości, Value: castorama.pl/nowosci\n\t\t\t\t\t41 link Description: Strefa marek, Value: castorama.pl/strefa-marek\n\t\t\t\t\t42 link Description: Aplikacja, Value: castorama.pl/aplikacja-mobilna\n\t\t\t\t\t43 link Description: CastoPro, Value: castopro.castorama.pl/\n\t\t44 link Description: Zyskaj aż do 30% korzyści przy zakupach! dołącz do klubu CastoMax, Value: castorama.pl/castomax\n\t\t45 link Description: Łap okazje, zanim znikną! produkty w wyprzedażowych cenach, Value: castorama.pl/strefa-wyprzedazy.cat\n\t\t46 link Description: Strefa promocji! Sprawdź >> wszystkie oferty w jednym miejscu, Value: castorama.pl/strefa-promocji.cat\n\t\t47 link Description: Akademia CastoPro! Sprawdź >> liczba miejsc ograniczona, Value: castorama.pl/akademia-castopro\n\t\t48 content list\n\t\t\t49 link Description: Strona główna, Value: castorama.pl/\n\t\t\t50 link Description: Łazienka, Value: castorama.pl/lazienka.cat\n\t\t\t51 link Description: Umywalki łazienkowe, Value: castorama.pl/lazienka/umywalki-lazienkowe.cat\n\t\t\t52 link Description: Umywalki ścienne, Value: castorama.pl/lazienka/umywalki-lazienkowe/umywalki-scienne.cat\n\t\t53 container main-content\n\t\t\t54 container product-info\n\t\t\t\t55 container Galeria zdjęć produktu\n\t\t\t\t\t56 container Suwak obrazu\n\t\t\t\t\t\t57 button (disabled) Poprzedni obraz\n\t\t\t\t\t\t58 button Otwórz obraz 1\n\t\t\t\t\t\t\t59 content list product-image-gallery\n\t\t\t\t\t\t\t\t60 image Umywalka Cersanit Atlantic New 50 cm\n\t\t\t\t\t\t61 button Następny obraz\n\t\t\t\t\t62 container Elementy sterujące suwakiem obrazu\n\t\t\t\t\t\t63 button (disabled) Poprzednie kontrole\n\t\t\t\t\t\t64 content list\n\t\t\t\t\t\t\t65 button Wybierz obraz 1 całości 2\n\t\t\t\t\t\t\t\t66 image Umywalka Cersanit Atlantic New 50 cm\n\t\t\t\t\t\t\t67 button Wybierz obraz 2 całości 2\n\t\t\t\t\t\t\t\t68 image Umywalka Cersanit Atlantic New 50 cm\n\t\t\t\t\t\t69 button (disabled) Następne kontrole\n\t\t\t\t70 text nowość\n\t\t\t\t71 heading Umywalka Cersanit Atlantic New 50 cm, Value: 1\n\t\t\t\t\t72 text Umywalka Cersanit Atlantic New 50 cm\n\t\t\t\t73 text Sprzedaje i wysyła przedsiębiorca: Castorama Polska\n\t\t\t\t74 button Ocena recenzji produktu: 0 gwiazdek na 5\n\t\t\t\t\t75 text Ocena recenzji produktu: 0 gwiazdek na 5\n\t\t\t\t76 button Napisz ocenę\n\t\t\t\t77 text 158 zł  / szt.\n\t\t\t\t78 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t79 text Sprawdź wysokość rat w systemie\n\t\t\t\t80 button Oblicz ratę - RRSO 0%\n\t\t\t\t81 text Kupon o wartości 200 zł na kolejne zakupy za każde wydane 1000 zł na łazienkę\n\t\t\t\t82 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t83 text Sprzedaż wysyłkowa\n\t\t\t\t84 button Sprawdź ceny i opcje dostawy\n\t\t\t\t85 content list\n\t\t\t\t\t86 text Wysyłka następnego dnia roboczego\n\t\t\t\t87 heading Castorama Warszawa 5 Wola, Value: 2\n\t\t\t\t\t88 text Castorama Warszawa 5 Wola\n\t\t\t\t89 button Sprawdź dostępność w innych sklepach\n\t\t\t\t90 content list\n\t\t\t\t\t91 text Odbiór po 2h w godz. otwarcia sklepów\n\t\t\t\t\t92 container\n\t\t\t\t\t\t93 text Dostępna ilość w sklepie stacjonarnym: 11 (na terenie sklepu)\n\t\t\t\t94 container add-to-basket-cta-section-main\n\t\t\t\t\t95 container\n\t\t\t\t\t\t96 button (disabled) Przycisk do zmniejszania ilości\n\t\t\t\t\t\t97 stepper (settable, integer) Description: Ilość, Value: 1\n\t\t\t\t\t\t98 button Przycisk do zwiększania ilości\n\t\t\t\t\t\t99 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t100 checkbox Description: Dodaj do listy życzeń Umywalka Cersanit Atlantic New 50 cm, Value: 0\n\t\t\t101 progress indicator text\n\t\t\t102 container product-suggestions\n\t\t\t\t103 progress indicator text\n\t\t\t\t104 container product-details\n\t\t\t\t\t105 heading Szczegóły dotyczące produktu, Value: 2\n\t\t\t\t\t\t106 text Szczegóły dotyczące produktu\n\t\t\t\t\t107 heading Informacje o produkcie, Value: 3\n\t\t\t\t\t\t108 text Informacje o produkcie\n\t\t\t\t\t109 text Wisząca umywalka o nowoczesnym designie łączy elegancję z funkcjonalnością. Charakteryzuje się prostą formą, która idealnie wpasowuje się w nowoczesne wnętrza, zapewniając przestronność i minimalistyczny wygląd. Umywalka posiada centralnie usytuowany otwór na armaturę, co umożliwia swobodny dobór baterii, a jej konstrukcja sprawia, że przestrzeń pod umywalką jest łatwa do utrzymania w czystości. Istnieje możliwość kompletowania z postumentem lub półpostumentem, a nawet opcja postawienia na blacie, co pozwala na dostosowanie jej do indywidualnych potrzeb i stylu łazienki. Dodatkowo, można wybrać ozdobny syfon, który podkreśla elegancki wygląd umywalki. To idealne rozwiązanie dla osób ceniących nowoczesność, prostotę i funkcjonalność w aranżacji wnętrz.\n\t\t\t\t\t110 heading Cechy i zalety, Value: 3\n\t\t\t\t\t\t111 text Cechy i zalety\n\t\t\t\t\t112 content list\n\t\t\t\t\t\t113 container\n\t\t\t\t\t\t\t114 AXListMarker • \n\t\t\t\t\t\t\t115 text 10 lat gwarancji na ceramikę\n\t\t\t\t\t\t116 container\n\t\t\t\t\t\t\t117 AXListMarker • \n\t\t\t\t\t\t\t118 text dostępność w 2 wymiarach\n\t\t\t\t\t119 heading Informacje prawne, Value: 3\n\t\t\t\t\t\t120 text Informacje prawne\n\t\t\t\t\t121 content list\n\t\t\t\t\t\t122 container\n\t\t\t\t\t\t\t123 AXListMarker • \n\t\t\t\t\t\t\t124 text Sprzedawca zobowiązał się do oferowania wyłącznie produktów zgodnych z mającymi zastosowanie przepisami prawa Unii Europejskiej.\n\t\t\t\t\t125 heading Specyfikacja techniczna, Value: 3, ID: specifications\n\t\t\t\t\t\t126 text Specyfikacja techniczna\n\t\t\t\t\t127 table Specyfikacja techniczna\n\t\t\t\t\t\t128 row\n\t\t\t\t\t\t\t129 cell\n\t\t\t\t\t\t\t\t130 text Typ produktu\n\t\t\t\t\t\t\t131 cell\n\t\t\t\t\t\t\t\t132 text Umywalka\n\t\t\t\t\t\t133 row\n\t\t\t\t\t\t\t134 cell\n\t\t\t\t\t\t\t\t135 text Liczba sztuk w opakowaniu\n\t\t\t\t\t\t\t136 cell\n\t\t\t\t\t\t\t\t137 text 1\n\t\t\t\t\t\t138 row\n\t\t\t\t\t\t\t139 cell\n\t\t\t\t\t\t\t\t140 text Typ umywalki\n\t\t\t\t\t\t\t141 cell\n\t\t\t\t\t\t\t\t142 text Ścienna\n\t\t\t\t\t\t143 row\n\t\t\t\t\t\t\t144 cell\n\t\t\t\t\t\t\t\t145 text Marka\n\t\t\t\t\t\t\t146 cell\n\t\t\t\t\t\t\t\t147 text Cersanit\n\t\t\t\t\t\t148 row\n\t\t\t\t\t\t\t149 cell\n\t\t\t\t\t\t\t\t150 text Seria\n\t\t\t\t\t\t\t151 cell\n\t\t\t\t\t\t\t\t152 text Atlantic\n\t\t\t\t\t\t153 row\n\t\t\t\t\t\t\t154 cell\n\t\t\t\t\t\t\t\t155 text Szerokość produktu\n\t\t\t\t\t\t\t156 cell\n\t\t\t\t\t\t\t\t157 text 505mm\n\t\t\t\t\t\t158 row\n\t\t\t\t\t\t\t159 cell\n\t\t\t\t\t\t\t\t160 text Głębokość produktu\n\t\t\t\t\t\t\t161 cell\n\t\t\t\t\t\t\t\t162 text 400mm\n\t\t\t\t\t\t163 row\n\t\t\t\t\t\t\t164 cell\n\t\t\t\t\t\t\t\t165 text Wysokość produktu\n\t\t\t\t\t\t\t166 cell\n\t\t\t\t\t\t\t\t167 text 160mm\n\t\t\t\t\t\t168 row\n\t\t\t\t\t\t\t169 cell\n\t\t\t\t\t\t\t\t170 text Kształt produktu\n\t\t\t\t\t\t\t171 cell\n\t\t\t\t\t\t\t\t172 text Kształt D\n\t\t\t\t\t\t173 row\n\t\t\t\t\t\t\t174 cell\n\t\t\t\t\t\t\t\t175 text Liczba komór\n\t\t\t\t\t\t\t176 cell\n\t\t\t\t\t\t\t\t177 text 1\n\t\t\t\t\t\t178 row\n\t\t\t\t\t\t\t179 cell\n\t\t\t\t\t\t\t\t180 text Liczba otworów na baterię\n\t\t\t\t\t\t\t181 cell\n\t\t\t\t\t\t\t\t182 text 1\n\t\t\t\t\t\t183 row\n\t\t\t\t\t\t\t184 cell\n\t\t\t\t\t\t\t\t185 text Z otworem przelewowym\n\t\t\t\t\t\t\t186 cell\n\t\t\t\t\t\t\t\t187 text Tak\n\t\t\t\t\t\t188 row\n\t\t\t\t\t\t\t189 cell\n\t\t\t\t\t\t\t\t190 text Z przelewem\n\t\t\t\t\t\t\t191 cell\n\t\t\t\t\t\t\t\t192 text Brak przelewu w zestawie\n\t\t\t\t\t\t193 row\n\t\t\t\t\t\t\t194 cell\n\t\t\t\t\t\t\t\t195 text Baterie w zestawie\n\t\t\t\t\t\t\t196 cell\n\t\t\t\t\t\t\t\t197 text Bez baterii\n\t\t\t\t\t\t198 row\n\t\t\t\t\t\t\t199 cell\n\t\t\t\t\t\t\t\t200 text Syfon w zestawie\n\t\t\t\t\t\t\t201 cell\n\t\t\t\t\t\t\t\t202 text Brak syfonów zestawie\n\t\t\t\t\t\t203 row\n\t\t\t\t\t\t\t204 cell\n\t\t\t\t\t\t\t\t205 text Materiał\n\t\t\t\t\t\t\t206 cell\n\t\t\t\t\t\t\t\t207 text Ceramika\n\t\t\t\t\t\t208 row\n\t\t\t\t\t\t\t209 cell\n\t\t\t\t\t\t\t\t210 text Kolor\n\t\t\t\t\t\t\t211 cell\n\t\t\t\t\t\t\t\t212 text Biały\n\t\t\t\t\t\t213 row\n\t\t\t\t\t\t\t214 cell\n\t\t\t\t\t\t\t\t215 text Sposób montażu\n\t\t\t\t\t\t\t216 cell\n\t\t\t\t\t\t\t\t217 text Montaż ścienny\n\t\t\t\t\t\t218 row\n\t\t\t\t\t\t\t219 cell\n\t\t\t\t\t\t\t\t220 text Mocowania i łączenia w zestawie\n\t\t\t\t\t\t\t221 cell\n\t\t\t\t\t\t\t\t222 text Brak mocowań i łączeń w zestawie\n\t\t\t\t\t\t223 row\n\t\t\t\t\t\t\t224 cell\n\t\t\t\t\t\t\t\t225 text Miejsce produkcji\n\t\t\t\t\t\t\t226 cell\n\t\t\t\t\t\t\t\t227 text Polska\n\t\t\t\t\t\t228 row\n\t\t\t\t\t\t\t229 cell\n\t\t\t\t\t\t\t\t230 text Gwarancja producenta\n\t\t\t\t\t\t\t231 cell\n\t\t\t\t\t\t\t\t232 text 10 lat\n\t\t\t\t\t\t233 row\n\t\t\t\t\t\t\t234 cell\n\t\t\t\t\t\t\t\t235 text Kod produktu\n\t\t\t\t\t\t\t236 cell\n\t\t\t\t\t\t\t\t237 text 5901771226987\n\t\t\t\t\t238 button (collapsed) Producent / osoba odpowiedzialna w UE, Secondary Actions: Expand\n\t\t\t\t\t\t239 text Producent / osoba odpowiedzialna w UE\n\t\t240 button Powrót do góry\n\t\t241 container Nawigacja stopką\n\t\t\t242 container\n\t\t\t\t243 heading Obsługa klienta, Value: 3\n\t\t\t\t\t244 text Obsługa klienta\n\t\t\t\t245 content list\n\t\t\t\t\t246 link Description: Pomoc online, Value: castorama.pl/informacje/pomoc\n\t\t\t\t\t247 link Description: Zakupy przez telefon, Value: castorama.pl/informacje/zakupy-przez-telefon\n\t\t\t\t\t248 link Description: Metody płatności, Value: castorama.pl/informacje/metody-platnosci\n\t\t\t\t\t249 link Description: Karty podarunkowe, Value: castorama.pl/informacje/metody-platnosci/karty-podarunkowe\n\t\t\t\t\t250 link Description: Program lojalnościowy dla klientów indywidualnych CastoMax, Value: castorama.pl/castomax\n\t\t\t\t\t251 link Description: Program lojalnościowy dla Profesjonalistów CastoPro, Value: castopro.castorama.pl/pl/home\n\t\t\t\t\t252 link Description: Polityka zwrotów i reklamacji, Value: castorama.pl/informacje/polityka-zwrotow-i-reklamacji\n\t\t\t\t\t253 link Description: Podziel się opinią, Value: castorama.pl/podziel-sie-opinia\n\t\t\t\t\t254 link Description: Uwaga na oszustwa, Value: castorama.pl/informacje/erraty-i-zawiadomienia\n\t\t\t255 container\n\t\t\t\t256 heading Usługi, Value: 3\n\t\t\t\t\t257 text Usługi\n\t\t\t\t258 content list\n\t\t\t\t\t259 link Description: Zamów i odbierz, Value: castorama.pl/informacje/zamow-i-odbierz\n\t\t\t\t\t260 link Description: Zamów z dostawą, Value: castorama.pl/informacje/zamow-z-dostawa\n\t\t\t\t\t261 link Description: Termomodernizacja, Value: castorama.pl/termomodernizacja\n\t\t\t\t\t262 link Description: CastoRent, Value: castorama.pl/uslugi/castorent\n\t\t\t\t\t263 link Description: Zwrot zużytego sprzętu, Value: castorama.pl/informacje/zwrot-zuzytego-sprzetu\n\t\t\t\t\t264 link Description: Mieszanie farb i tynków, Value: castorama.pl/uslugi/mieszanie-farb-i-tynkow\n\t\t\t\t\t265 link Description: Usługi serwisowe, Value: castorama.pl/uslugi/uslugi-serwisowe\n\t\t\t\t\t266 link Description: Pozostałe usługi, Value: castorama.pl/uslugi\n\t\t\t267 container\n\t\t\t\t268 heading Aranżacja i projektowanie, Value: 3\n\t\t\t\t\t269 text Aranżacja i projektowanie\n\t\t\t\t270 content list\n\t\t\t\t\t271 link Description: Kuchenne inspiracje, Value: kuchenneinspiracje.castorama.pl/\n\t\t\t\t\t272 link Description: Projektowanie kuchni, Value: castorama.pl/projektowanie-kuchni\n\t\t\t\t\t273 link Description: Konfigurator szaf, Value: szafyatomia.castorama.pl/\n\t\t\t\t\t274 link Description: Projektowanie mebli Atomia, Value: castorama.pl/projektowanie-mebli-atomia\n\t\t\t\t\t275 link Description: Projektowanie łazienki, Value: castorama.pl/projektowanie-lazienki\n\t\t\t\t\t276 link Description: Usługa wymiarowania i montażu, Value: castorama.pl/uslugi#pomiar-i-montaz\n\t\t\t\t\t277 link Description: Planer Online – samodzielne projektowanie Twojego wnętrza, Value: planeronline.castorama.pl/\n\t\t\t\t\t278 link Description: Projektowanie tarasów i balkonów, Value: castorama.pl/umow-sie-na-planowanie-tarasow-i-balkonow\n\t\t\t279 container\n\t\t\t\t280 heading Poznaj Nas, Value: 3\n\t\t\t\t\t281 text Poznaj Nas\n\t\t\t\t282 content list\n\t\t\t\t\t283 link Description: Biuro prasowe, Value: wiadomosci.castorama.pl/\n\t\t\t\t\t284 link Description: Odpowiedzialny biznes, Value: castorama.pl/odpowiedzialny-biznes\n\t\t\t\t\t285 link Description: Fundacja Castorama, Value: fundacja.castorama.pl/\n\t\t\t\t\t286 link Description: Majsterkowo, Value: castorama.pl/odpowiedzialny-biznes/majsterkowo\n\t\t\t\t\t287 link Description: Strefa marek, Value: castorama.pl/strefa-marek\n\t\t\t\t\t288 link Description: Kariera, Value: kariera.castorama.pl/\n\t\t\t\t\t289 link Description: Aplikacja mobilna, Value: castorama.pl/aplikacja-mobilna\n\t\t\t\t\t290 link Description: Marketplace, Value: castorama.pl/marketplace\n\t\t\t\t\t291 link Description: Mapa kategorii, Value: castorama.pl/mapa-witryny\n\t\t\t\t\t292 link Description: Inspiracje i porady, Value: castorama.pl/inspiracje-i-porady.html\n\t\t\t293 container\n\t\t\t\t294 heading Kwestie prawne i ważne linki, Value: 3\n\t\t\t\t\t295 text Kwestie prawne i ważne linki\n\t\t\t\t296 content list\n\t\t\t\t\t297 link Description: Regulaminy, Value: castorama.pl/regulaminy\n\t\t\t\t\t298 link Description: Akt o usługach cyfrowych, Value: castorama.pl/regulaminy/akt-o-uslugach-cyfrowych\n\t\t\t\t\t299 link Description: Krajowy System e-Faktur, Value: castorama.pl/regulaminy/krajowy-system-e-faktur\n\t\t\t\t\t300 link Description: Informacja o obowiązkach Castorama/sprzedawców zewnętrznych, Value: castorama.pl/regulaminy/podzial-obowiazkow\n\t\t\t\t\t301 link Description: Jak szeregujemy produkty, Value: castorama.pl/regulaminy/jak-szeregujemy-produkty\n\t\t\t\t\t302 link Description: Zgłaszanie naruszeń prawa, Value: castorama.pl/regulaminy/zglaszanie-naruszen-prawa\n\t\t\t\t\t303 link Description: Polityka odpowiedzialnego ujawniania informacji, Value: castorama.pl/regulaminy/polityka-odpowiedzialnego-ujawniania-informacji\n\t\t\t\t\t304 link Description: Erraty i zawiadomienia, Value: castorama.pl/informacje/erraty-i-zawiadomienia\n\t\t\t\t\t305 link Description: Dla dostawców, Value: vendor.kingfisher.com/vendor-readiness/electronic-trading/#0-PL\n\t\t\t\t\t306 link Description: Adresy GLN/ILN, Value: media.castorama.pl/media/pdf/Castorama%20Polska%20GLN-ILN.pdf\n\t\t\t\t\t307 link Description: Adresy email do działów logistyki, Value: media.castorama.pl/media/pdf/Castorama%20Polska%20emails.pdf\n\t\t\t\t\t308 link Description: Wymagania jakości produktów, Value: media.castorama.pl/media/pdf/Wymagania_jakosci_produktow_Castorama_Polska_2026.pdf\n\t\t309 container\n\t\t\t310 container Nawigacja w stopce podrzędnej\n\t\t\t\t311 text © Castorama 2026\n\t\t\t\t312 content list\n\t\t\t\t\t313 link Description: Polityka prywatności, Value: castorama.pl/regulaminy/polityka-prywatnosci\n\t\t\t\t\t314 button Wyślij wiadomość e-mail do: Inspektor Ochrony Danych Agata Szlązak\n\t\t\t\t\t315 link Description: Wniosek dotyczący danych osobowych, Value: gdpr.kfplc.com/#/SAR?Session=cr_2\n\t\t\t\t\t316 button Ustawienia plików cookie\n\t\t\t317 content list\n\t\t\t\t318 link Description: Castorama na YouTube, Value: youtube.com/user/CastoramaPolska\n\t\t\t\t319 link Description: Castorama na Facebook, Value: facebook.com/CastoramaPolska\n\t\t\t\t320 link Description: Castorama na Instagram, Value: instagram.com/castoramapolska\n\t\t\t\t321 link Description: Castorama na Pinterest, Value: pinterest.com/castoramapolska\n\t\t\t\t322 link Description: Castorama na TikTok, Value: tiktok.com/@castoramapolska\n\t\t\t\t323 link Description: Castorama na LinkedIn, Value: linkedin.com/company/castorama-polska-sp-z-o-o-\n\nThe focused UI element is 1 AXWebArea Umywalka Cersanit Atlantic New 50 cm, URL: castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd"
+}

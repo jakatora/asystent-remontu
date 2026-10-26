@@ -2240,4 +2240,14 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-10-26', currency: 'PLN',
     notes: 'EAN 5063022524263. Osobny model względem starego Archi 5903917782364: 2035 × 844 × 39,5 mm, bez wentylacji, nie można przyciąć. Skrzydło z zawiasami; ościeżnica, klamka i mocowania osobno. Sprawdź zgodność z ościeżnicą i obmiarami; nominalny rozmiar 80 nie potwierdza dopasowania.',
   },
+  // source: https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd (158 zł brutto/szt, rzeczywisty odczyt 2026-10-26T19:31:10.236Z)
+  // source: https://www.cersanit.com.pl/lazienka/umywalka-wiszaca-ovida-50,3252.html (ten sam EAN 5901771226987, producent nazywa model Ovida K36-031)
+  {
+    id: 'mat-washbasin-cersanit-atlantic-new-50', materialType: 'washbasin',
+    productLabel: 'Umywalka ścienna Cersanit Atlantic New 50 (50,5 × 40 cm, z otworem i przelewem)', brand: 'Cersanit',
+    packageSize: 1, packageUnit: 'szt', pricePerPackage: 158, category: 'standard',
+    storeName: 'Castorama', sourceUrl: 'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd',
+    lastUpdated: '2026-10-26', currency: 'PLN',
+    notes: 'EAN 5901771226987. W Castoramie Atlantic New, u producenta Ovida K36-031. Osobny model względem Facile 50, nie zapewnia zgodności z jego półpostumentem ani otworami w ścianie. Cena samej ceramiki, bez baterii, syfonu i mocowań. Szerokość 505 mm, głębokość 400 mm; karty podają różne wysokości (160/170 mm), przed montażem sprawdź rysunek producenta i rzeczywisty produkt.',
+  },
 ];

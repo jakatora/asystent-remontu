@@ -988,10 +988,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // Separate current model, not an alias for discontinued EAN 5903917782364.
   // source: https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd
   {id:'castorama-opp-archi-full-80-left',ean:'5063022524263',name:'Drzwi pełne OPP Archi 80 lewe białe',category:'door-leaf',brand:'OPP',packageSize:1,unit:'szt',store:'Castorama',browserReviewAllowed:true,variant:['Archi','80','lewe','białe'],url:'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd'},
+  // Same EAN as manufacturer Ovida K36-031; never alias the old Facile SKU.
+  // source: https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd
+  // source: https://www.cersanit.com.pl/lazienka/umywalka-wiszaca-ovida-50,3252.html
+  {id:'castorama-cersanit-atlantic-new-50',ean:'5901771226987',name:'Umywalka Cersanit Atlantic New 50 cm',category:'washbasin',brand:'Cersanit',packageSize:1,unit:'szt',store:'Castorama',browserReviewAllowed:true,variant:['Atlantic','New','50'],url:'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd
+  'Umywalka ścienna Cersanit Atlantic New 50 (50,5 × 40 cm, z otworem i przelewem)': '5901771226987',
   // source: https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd
   'Skrzydło drzwiowe pełne OPP Archi 80 lewe białe (2035 × 844 mm)': '5063022524263',
   // source: https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html
