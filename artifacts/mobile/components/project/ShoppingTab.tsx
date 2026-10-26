@@ -10,7 +10,7 @@ import type { ShoppingItem, RenovationJob, CalculationResult, BudgetEstimate } f
 import { ShoppingItemCard } from './ShoppingItemCard';
 import { SummaryRow, Divider } from './SummaryRow';
 import { CONTINGENCY_RATE } from './types';
-import { getEffectivePrice } from './helpers';
+import { getEffectivePrice, hasShoppingPrice } from './helpers';
 import type { ShoppingEditState } from './types';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -45,6 +45,7 @@ export function ShoppingTab({
 }: ShoppingTabProps) {
   const { t, language } = useLanguage();
   const quantitiesMissing = shoppingItems.some(item => item.quantityKnown === false);
+  const pricesMissing = shoppingItems.some(item => !item.owned && !hasShoppingPrice(item));
   const materialItems = shoppingItems.filter((i) => i.itemType === 'material');
   const toolItems = shoppingItems.filter((i) => i.itemType === 'tool');
   const toBuyMaterials = materialItems.filter((i) => !i.owned);
@@ -62,6 +63,7 @@ export function ShoppingTab({
   return (
     <View style={{ gap: 16 }}>
       {calc?.jobId === 'eps-insulation-bso' && <Txt accessibilityRole="alert" style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{language === 'pl' ? 'Ilości płyt i klejów przeliczamy z powierzchni. Ceny tutaj są szacunkowe; aktualne oferty, partie zakupu i dostawę sprawdź w „Gdzie najtaniej”. Pozycje „do ustalenia” wymagają obmiaru lub danych wybranego produktu.' : 'Board and adhesive quantities use the surface area. Prices here are estimates; check current offers, order lots and delivery under “Where to buy”. Unconfirmed items need measurements or selected-product data.'}</Txt>}
+      <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Poniższa lista zachowuje ilości i zapisane lub własne ceny. Jej szacunek obejmuje też pozycje już kupione, bez dostawy. Koszt pozostałych zakupów i wybranych modeli sprawdź w porównaniu sklepów powyżej.' : 'The list below retains quantities and saved or custom prices. Its estimate also includes purchased items, excluding delivery. See the store comparison above for remaining purchases and selected models.'}</Txt>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
           {t('cmp.ShoppingTab.title')}
@@ -204,11 +206,11 @@ export function ShoppingTab({
             }}
           >
             <View style={{ padding: 14, backgroundColor: Colors.primaryBg }}>
-              <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{quantitiesMissing ? t('upgrade.partial.title') : t('cmp.ShoppingTab.costSummary')}</Txt>
+              <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{quantitiesMissing || pricesMissing ? (language==='pl'?'Niepełny szacunek zapisanej listy':'Partial saved-list estimate') : (language==='pl'?'Szacunek zapisanej listy':'Saved-list estimate')}</Txt>
             </View>
             <SummaryRow icon="package" label={t('cmp.ShoppingTab.materials')} value={formatCurrency(totalMaterials)} />
             <Divider />
-            <SummaryRow icon="tool" label={t('cmp.ShoppingTab.tools')} value={formatCurrency(totalTools)} valueColor={Colors.info} />
+            <SummaryRow icon="tool" label={t('cmp.ShoppingTab.tools')} value={toBuyTools.some(item=>!hasShoppingPrice(item)) ? totalTools > 0 ? `${formatCurrency(totalTools)} + ?` : '—' : formatCurrency(totalTools)} valueColor={Colors.info} />
             <Divider />
             <SummaryRow
               icon="shield"
@@ -218,10 +220,12 @@ export function ShoppingTab({
             />
             <Divider />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, backgroundColor: Colors.primaryBg }}>
-              <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>{quantitiesMissing ? t('upgrade.partial.title') : t('cmp.ShoppingTab.totalWithReserve')}</Txt>
+              <Txt w="bold" style={{ fontSize: 16, color: Colors.primaryDark }}>{quantitiesMissing || pricesMissing ? (language==='pl'?'Wyceniona część z rezerwą':'Priced portion with reserve') : (language==='pl'?'Szacunek z rezerwą':'Estimate with reserve')}</Txt>
               <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>{formatCurrency(grandTotal)}</Txt>
             </View>
           </View>
+
+          {pricesMissing && <Txt accessibilityRole="alert" style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language==='pl'?'Część pozycji wymaga uzupełnienia ceny. Kreska oznacza brak wyceny; te pozycje nie zwiększają pokazanej kwoty.':'Some items need a price. A dash means an unknown price; those items do not increase the displayed amount.'}</Txt>}
 
           <View style={{ gap: 10, marginTop: 4 }}>
             <Button
@@ -305,7 +309,7 @@ function ShoppingSection({
       })}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4, paddingVertical: 6 }}>
         <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.ShoppingTab.sectionTotal', { title })}</Txt>
-        <Txt w="bold" style={{ fontSize: 15, color: totalColor }}>{formatCurrency(total)}</Txt>
+        <Txt w="bold" style={{ fontSize: 15, color: totalColor }}>{items.some(item=>!hasShoppingPrice(item)) ? total>0 ? `${formatCurrency(total)} + ?` : '—' : formatCurrency(total)}</Txt>
       </View>
     </View>
   );

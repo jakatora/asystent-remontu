@@ -207,7 +207,8 @@ export function OverviewTab({ data, actions, isFirstTime, onDismissWelcome, purc
             overflow: 'hidden',
           }}
         >
-          <SummaryRow icon="tool" label={calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek materiałów' : 'Partial material estimate') : calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Szacunek materiałów — ceny referencyjne' : 'Material estimate — reference prices') : t('cmp.OverviewTab.materialsDiy')} value={formatCurrency(calc.totalCost)} bold />
+          <SummaryRow icon="tool" label={calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek z obmiarów' : 'Partial measurement estimate') : (language === 'pl' ? 'Szacunek z obmiarów — ceny referencyjne' : 'Measurement estimate — reference prices')} value={formatCurrency(calc.totalCost)} bold />
+          <Txt style={{paddingHorizontal:14,paddingBottom:12,fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{language === 'pl' ? 'Wstępny koszt według przepisu pracy. Wybrane modele, dostępne oferty i dostawę sprawdzisz w porównaniu sklepów powyżej.' : 'Initial estimate from the work recipe. See the store comparison above for selected models, available offers and delivery.'}</Txt>
           {proEstimate && (
             <>
               <Divider />

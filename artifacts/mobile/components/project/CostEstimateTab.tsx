@@ -42,7 +42,9 @@ import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
-import type { CalculationResult } from '@/types/domain';
+import type { CalculationResult, ShoppingItem } from '@/types/domain';
+import { applyProjectShopping } from '@/features/pricing/projectShoppingInput';
+import { purchaseSnapshot, type PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
 import type { QualityTier } from '@/types/pricing';
 import {
   estimateProject,
@@ -70,6 +72,9 @@ interface CostEstimateTabProps {
   stages?: readonly PricingStageInput[];
   qualityTier?: QualityTier;
   region?: string;
+  shoppingItems?: readonly ShoppingItem[];
+  shoppingReady?: boolean;
+  onPurchaseSnapshot?: (snapshot: PurchaseSnapshot | null) => void;
 }
 
 type LoadState =
@@ -78,10 +83,15 @@ type LoadState =
   | { status: 'error'; message: string }
   | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
-export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
+export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, onPurchaseSnapshot }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
   const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
-  const rawInput = useMemo(() => stages ?? (calc ? [toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection)] : []), [stages, calc, qualityTier, doorChoice.selection]);
+  const rawInput = useMemo(() => {
+    if (stages) return stages;
+    if (!calc) return [];
+    const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection);
+    return [shoppingItems && projectId ? applyProjectShopping(stage, calc, projectId, shoppingItems).stage : stage];
+  }, [stages, calc, qualityTier, doorChoice.selection, shoppingItems, projectId]);
   const laminateReferences = useMemo(() => laminateRequirements(rawInput), [rawInput]);
   const panels = useLaminateChoices(projectId, laminateReferences.length > 0);
   const foilReferences = useMemo(() => foilRequirements(rawInput), [rawInput]);
@@ -106,11 +116,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
-  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed]);
+  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, shoppingReady]);
   const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
   const priceStorageKey = `remont.price-seen.v1:${projectId ?? 'preview'}`;
+  useEffect(() => { onPurchaseSnapshot?.(null); }, [scope, delivery, selectedStore, onPurchaseSnapshot]);
   useEffect(() => {
     let active = true;
     void Promise.all([preferenceWrites.current, priceWrites.current]).then(() => Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey)])).then(([raw,prices]) => {
@@ -130,8 +141,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
-    if (!hasInput || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed) return;
+    if (!hasInput || !shoppingReady || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed) return;
     const version = ++requestVersion.current;
+    if (!input.some(stage => stage.materials.length > 0)) {
+      setState({ status: 'idle' }); onPurchaseSnapshot?.({ kind: 'empty', observedAt: Date.now() }); return;
+    }
+    onPurchaseSnapshot?.(null);
     setState({ status: 'loading' });
     try {
       const rememberChoices = (data: SerializedProject) => {
@@ -157,6 +172,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         setPriceSaveFailed(false);
         priceWrites.current=priceWrites.current.catch(()=>{}).then(()=>AsyncStorage.setItem(priceStorageKey,saved)).catch(()=>{ if (version===requestVersion.current) setPriceSaveFailed(true); });
         setState({ status: 'success', data, priceChanges, hasPriceBaseline });
+        onPurchaseSnapshot?.(purchaseSnapshot(data, selectedStore));
       }
     } catch (err) {
       const message =
@@ -167,7 +183,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed]);
+  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, shoppingReady, onPurchaseSnapshot]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -177,6 +193,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   if (!hasInput) {
     return <InfoState icon="dollar-sign" text={t('cmp.CostEstimate.noCalc')} />;
   }
+  if (!shoppingReady) return <InfoState icon="shopping-cart" text={language === 'pl' ? 'Odczytujemy listę zakupów przed wyceną pozostałych materiałów.' : 'Reading the shopping list before quoting remaining materials.'} />;
+  if (!input.some(stage => stage.materials.length > 0)) return <InfoState icon="check-circle" text={language === 'pl' ? 'Nie ma materiałów do dokupienia z tej listy. Narzędzia i robociznę sprawdź osobno.' : 'No materials remain to buy from this list. Check tools and labour separately.'} />;
 
   if (!isPricingApiConfigured) {
     return <InfoState icon="wifi-off" text={t('upgrade.compare.noApi')} />;
@@ -190,6 +208,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           {t('upgrade.compare.title')}
         </Txt>
       </View>
+
+      {shoppingItems && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Porównanie obejmuje materiały pozostałe do kupienia, z uwzględnieniem oznaczeń „Mam” i „Kupione” oraz dodatkowych pozycji z Zakupów.' : 'This comparison covers remaining materials, accounting for owned and purchased items and additional shopping rows.'}</Txt>}
 
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
       <LaminateChoiceSection references={laminateReferences} {...panels} commonBasket={projectId === 'renovation-basket'} onChange={choices => {

@@ -10,6 +10,9 @@ import { useApp } from '@/context/AppContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { getJobById } from '@/data/jobs';
 import { computePricedBudget } from '@/features/pricing';
+import { ProjectPurchaseSummary } from '@/components/project/ProjectPurchaseSummary';
+import type { PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
+import { requiresCurrentShoppingQuantity, shoppingQuantityAction } from '@/features/pricing/projectShoppingInput';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
@@ -76,6 +79,8 @@ export default function ProjectDetailScreen() {
 
   const [tab, setTab] = useState<Tab>(requestedTab && ['overview', 'estimate', 'shopping', 'guide', 'materials', 'tools', 'budget', 'photos'].includes(requestedTab) ? requestedTab : 'overview');
   const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
+  const [shoppingLoadedProject, setShoppingLoadedProject] = useState<string | null>(null);
+  const [lastPurchase, setLastPurchase] = useState<{ scope: string; snapshot: PurchaseSnapshot } | null>(null);
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState('');
@@ -90,6 +95,10 @@ export default function ProjectDetailScreen() {
 
   const project = projects.find((p) => p.id === id);
   const job = project ? getJobById(project.jobId) : null;
+  const purchaseScope = JSON.stringify([project?.id, project?.calculationResult, selectedQualityTier, selectedRegion, shoppingLoadedProject, shoppingItems]);
+  const onPurchaseSnapshot = useCallback((snapshot: PurchaseSnapshot | null) => {
+    setLastPurchase(snapshot ? { scope: purchaseScope, snapshot } : null);
+  }, [purchaseScope]);
 
   const pricedBudget: PricedBudgetEstimate | null = useMemo(() => {
     if (!project?.calculationResult || !job) return null;
@@ -127,6 +136,7 @@ export default function ProjectDetailScreen() {
       ]);
       if (deletedRef.current) return;
       setShoppingItems(items);
+      setShoppingLoadedProject(id);
       setPhotos(ph);
       setChecklist(cl);
       setChecklistProgress(prog);
@@ -137,7 +147,7 @@ export default function ProjectDetailScreen() {
     }
   }, [id, getProjectShoppingItems, getProjectPhotos, getProjectChecklist, getChecklistProgress, getProjectActivities, getProjectOverrides]);
 
-  useFocusEffect(useCallback(() => { loadAll(); }, [loadAll]));
+  useFocusEffect(useCallback(() => { setLastPurchase(null); loadAll(); }, [loadAll]));
 
   const handleGenerateShoppingList = async () => {
     if (!project?.calculationResult || !job) return;
@@ -198,25 +208,25 @@ export default function ProjectDetailScreen() {
   };
 
   const handleToggleOwned = async (item: ShoppingItem) => {
-    if (!await confirmCurrentEpsQuantity(item)) return;
+    if (!await confirmCurrentQuantity(item)) return;
     await setItemOwned(item.id, !item.owned);
     await loadAll();
   };
 
   const handleTogglePurchased = async (item: ShoppingItem) => {
-    if (!await confirmCurrentEpsQuantity(item)) return;
-    if (project?.jobId === 'eps-insulation-bso' && !item.purchased) await setItemOwned(item.id, false);
+    if (!await confirmCurrentQuantity(item)) return;
+    if (project && requiresCurrentShoppingQuantity(project.jobId) && !item.purchased) await setItemOwned(item.id, false);
     await toggleItem(item.id, !item.purchased);
     await loadAll();
   };
 
-  const confirmCurrentEpsQuantity = async (item: ShoppingItem): Promise<boolean> => {
-    if (project?.jobId !== 'eps-insulation-bso' || item.itemType !== 'material') return true;
-    if (item.quantityKnown === false || item.requiredQuantity !== undefined && item.customQuantity !== undefined && Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8) {
+  const confirmCurrentQuantity = async (item: ShoppingItem): Promise<boolean> => {
+    const action = shoppingQuantityAction(project?.jobId ?? '', item);
+    if (!action.allowed) {
       Alert.alert(language === 'pl' ? 'Potwierdź ilość materiału' : 'Confirm the material quantity', language === 'pl' ? 'Uzupełnij obmiary albo ustaw własną ilość na pełne zapotrzebowanie przed oznaczeniem całej pozycji jako posiadanej lub kupionej.' : 'Complete measurements or set the custom quantity to the full requirement before marking this whole item as owned or purchased.');
       return false;
     }
-    if (item.needsQuantityConfirmation && item.requiredQuantity !== undefined) await updateItemQuantity(item.id, item.requiredQuantity);
+    if (action.confirmQuantity !== undefined) await updateItemQuantity(item.id, action.confirmQuantity);
     return true;
   };
 
@@ -461,6 +471,7 @@ export default function ProjectDetailScreen() {
         contentContainerStyle={{ padding: 20, paddingBottom: bottomPad }}
         showsVerticalScrollIndicator={false}
       >
+        {['overview', 'shopping', 'budget'].includes(tab) && <View style={{marginBottom:16}}><ProjectPurchaseSummary snapshot={lastPurchase?.scope === purchaseScope ? lastPurchase.snapshot : null} onCompare={() => setTab('estimate')}/></View>}
         {tab === 'overview' && (
           <OverviewTab
             data={data}
@@ -512,7 +523,7 @@ export default function ProjectDetailScreen() {
         )}
 
         {tab === 'estimate' && (
-          <CostEstimateTab projectId={project.id} calc={calc} qualityTier={selectedQualityTier} region={selectedRegion} />
+          <CostEstimateTab projectId={project.id} calc={calc} qualityTier={selectedQualityTier} region={selectedRegion} shoppingItems={shoppingItems} shoppingReady={shoppingLoadedProject === project.id} onPurchaseSnapshot={onPurchaseSnapshot}/>
         )}
 
         {tab === 'budget' && calc && pricedBudget && (

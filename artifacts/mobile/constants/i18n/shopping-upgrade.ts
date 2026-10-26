@@ -1,4 +1,6 @@
 const pl = {
+  'upgrade.shopping.referenceCosts': 'Zapisany szacunek lub własne ceny, bez aktualnej wyceny dostawy. Wybrane modele i pozostałe zakupy porównaj w „Gdzie najtaniej”.',
+  'upgrade.shopping.priceUnknown': 'Cena do uzupełnienia',
   'upgrade.nav.plan': 'Plan',
   'upgrade.nav.compare': 'Gdzie najtaniej',
   'upgrade.nav.shopping': 'Zakupy',
@@ -35,6 +37,8 @@ const pl = {
 } as const;
 
 const en: Record<keyof typeof pl, string> = {
+  'upgrade.shopping.referenceCosts': 'Saved estimate or custom prices, excluding a current delivery quote. Compare selected models and remaining purchases under “Where to buy”.',
+  'upgrade.shopping.priceUnknown': 'Price needed',
   'upgrade.nav.plan': 'Plan',
   'upgrade.nav.compare': 'Best prices',
   'upgrade.nav.shopping': 'Shopping',

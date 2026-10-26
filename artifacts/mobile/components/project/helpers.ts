@@ -39,8 +39,13 @@ export function diyAssessment(difficulty: Difficulty, hirePro: boolean, t: Trans
 }
 
 export function getEffectivePrice(item: ShoppingItem): number {
-  if (item.quantityKnown === false) return 0;
+  if (!hasShoppingPrice(item)) return 0;
   return item.customPrice ?? item.estimatedPrice;
+}
+
+export function hasShoppingPrice(item: ShoppingItem): boolean {
+  const price = item.customPrice ?? item.estimatedPrice;
+  return item.quantityKnown !== false && Number.isFinite(price) && price >= 0 && (item.customPrice !== undefined || price > 0);
 }
 
 export function getEffectiveQuantity(item: ShoppingItem): number {
@@ -57,7 +62,8 @@ export function buildShareText(
   t: Translate,
 ): string {
   let text = `${t('cmp.share.header', { projectName })}\n\n`;
-  const partial = materials.some(item => item.quantityKnown === false);
+  const partial = [...materials, ...tools].some(item => !item.owned && !hasShoppingPrice(item));
+  text += `${t('upgrade.shopping.referenceCosts')}\n\n`;
   if (partial) text += `${t('upgrade.partial.title')}\n\n`;
   if (materials.length > 0) {
     text += `${t('cmp.share.materials')}\n`;
@@ -65,7 +71,7 @@ export function buildShareText(
       const check = item.purchased ? '[x]' : (item.owned ? '[+]' : '[ ]');
       const qty = getEffectiveQuantity(item);
       const price = getEffectivePrice(item);
-      text += item.quantityKnown === false ? `${check} ${item.name} — ? ${item.unit} — —\n` : `${check} ${item.name} — ${qty.toFixed(1)} ${item.unit} — ${formatCurrency(price)}\n`;
+      text += item.quantityKnown === false ? `${check} ${item.name} — ? ${item.unit} — —\n` : `${check} ${item.name} — ${qty.toFixed(1)} ${item.unit} — ${hasShoppingPrice(item) ? formatCurrency(price) : '—'}\n`;
     }
     text += `${t('cmp.share.materialsTotal', { total: formatCurrency(totalMaterials) })}\n\n`;
   }
@@ -73,7 +79,7 @@ export function buildShareText(
     text += `${t('cmp.share.tools')}\n`;
     for (const item of tools) {
       const check = item.purchased ? '[x]' : (item.owned ? '[+]' : '[ ]');
-      text += `${check} ${item.name} — ${formatCurrency(getEffectivePrice(item))}\n`;
+      text += `${check} ${item.name} — ${hasShoppingPrice(item) ? formatCurrency(getEffectivePrice(item)) : '—'}\n`;
     }
     text += `${t('cmp.share.toolsTotal', { total: formatCurrency(totalTools) })}\n\n`;
   }

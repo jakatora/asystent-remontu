@@ -6,7 +6,7 @@ import { Colors } from '@/constants/colors';
 import { formatCurrency } from '@/utils/calculator';
 import type { ShoppingItem } from '@/types/domain';
 import { TierBadge } from './TierBadge';
-import { getEffectivePrice, getEffectiveQuantity } from './helpers';
+import { getEffectivePrice, getEffectiveQuantity, hasShoppingPrice } from './helpers';
 import { useLanguage } from '@/context/LanguageContext';
 import { ProductImage } from './ProductImage';
 
@@ -66,6 +66,7 @@ export function ShoppingItemCard({
           <View style={{ flex: 1, gap: 4 }}>
             <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.quantity', { unit: item.unit })}</Txt>
             <TextInput
+              accessibilityLabel={`${t('cmp.ShoppingItemCard.quantity', {unit:item.unit})}: ${item.name}`}
               value={editQty}
               onChangeText={onEditQty}
               keyboardType="decimal-pad"
@@ -84,6 +85,7 @@ export function ShoppingItemCard({
           <View style={{ flex: 1, gap: 4 }}>
             <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.price')}</Txt>
             <TextInput
+              accessibilityLabel={`${t('cmp.ShoppingItemCard.price')}: ${item.name}`}
               value={editPrice}
               onChangeText={onEditPrice}
               keyboardType="decimal-pad"
@@ -104,13 +106,15 @@ export function ShoppingItemCard({
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <TouchableOpacity
             onPress={onSaveEdit}
-            style={{ flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.primary, alignItems: 'center' }}
+            accessibilityRole="button" accessibilityLabel={`${t('cmp.ShoppingItemCard.save')}: ${item.name}`}
+            style={{ flex: 1, minHeight:48, justifyContent:'center', paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.primary, alignItems: 'center' }}
           >
             <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('cmp.ShoppingItemCard.save')}</Txt>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onCancelEdit}
-            style={{ flex: 1, paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.surfaceAlt, alignItems: 'center' }}
+            accessibilityRole="button" accessibilityLabel={`${t('cmp.ShoppingItemCard.cancel')}: ${item.name}`}
+            style={{ flex: 1, minHeight:48, justifyContent:'center', paddingVertical: 10, borderRadius: 10, backgroundColor: Colors.surfaceAlt, alignItems: 'center' }}
           >
             <Txt w="medium" style={{ fontSize: 13, color: Colors.textSecondary }}>{t('cmp.ShoppingItemCard.cancel')}</Txt>
           </TouchableOpacity>
@@ -132,7 +136,7 @@ export function ShoppingItemCard({
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-        <TouchableOpacity onPress={onTogglePurchased} disabled={item.quantityKnown === false} activeOpacity={0.7} accessibilityRole="checkbox" accessibilityState={{ checked: item.purchased, disabled: item.quantityKnown === false }} accessibilityLabel={item.name} style={{ minWidth: 44, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}>
+        <TouchableOpacity onPress={onTogglePurchased} disabled={item.quantityKnown === false} activeOpacity={0.7} accessibilityRole="checkbox" aria-checked={item.purchased} aria-disabled={item.quantityKnown === false} accessibilityState={{ checked: item.purchased, disabled: item.quantityKnown === false }} accessibilityLabel={item.name} style={{ minWidth: 44, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}>
           <View
             style={{
               width: 28,
@@ -179,9 +183,11 @@ export function ShoppingItemCard({
           w="semibold"
           style={{ fontSize: 14, color: item.purchased ? Colors.textMuted : Colors.primary }}
         >
-          {item.quantityKnown === false ? '—' : formatCurrency(effectivePrice)}
+          {hasShoppingPrice(item) ? formatCurrency(effectivePrice) : '—'}
         </Txt>
       </View>
+
+      {!hasShoppingPrice(item) && item.quantityKnown !== false && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{t('upgrade.shopping.priceUnknown')}</Txt>}
 
       {item.needsQuantityConfirmation && item.quantityKnown !== false && <Txt style={{ fontSize: 12, color: Colors.warning, lineHeight: 18 }}>{language === 'pl' ? `Aktualny obmiar wymaga ${item.requiredQuantity} ${item.unit}. Oznaczenie „Mam” lub „Kupione” potwierdzi całą tę ilość. Wcześniejsze oznaczenia nie pokrywają automatycznie nowego zapotrzebowania.` : `Current measurements require ${item.requiredQuantity} ${item.unit}. “Owned” or “Purchased” confirms that whole quantity. Earlier marks do not automatically cover the new requirement.`}</Txt>}
 
@@ -194,6 +200,7 @@ export function ShoppingItemCard({
       <View style={{ flexDirection: 'row', gap: 6, paddingLeft: 38 }}>
         <TouchableOpacity
           onPress={onStartEdit}
+          accessibilityRole="button" accessibilityLabel={`${t('cmp.ShoppingItemCard.edit')}: ${item.name}`}
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -211,6 +218,7 @@ export function ShoppingItemCard({
 
         <TouchableOpacity
           onPress={onToggleOwned}
+          accessibilityRole="button" accessibilityLabel={`${t('cmp.ShoppingItemCard.haveIt')}: ${item.name}`}
           disabled={item.quantityKnown === false}
           style={{
             flexDirection: 'row',
@@ -229,6 +237,7 @@ export function ShoppingItemCard({
 
         <TouchableOpacity
           onPress={onRemove}
+          accessibilityRole="button" accessibilityLabel={`${t('cmp.ShoppingItemCard.remove')}: ${item.name}`}
           style={{
             flexDirection: 'row',
             alignItems: 'center',

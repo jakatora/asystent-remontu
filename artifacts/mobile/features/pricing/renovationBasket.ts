@@ -1,12 +1,9 @@
 import type { Project, ShoppingItem } from '@/types/domain';
 import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
-import { doorOriginMaterialId, type DoorSelection } from './doorSelection';
-import { EPS_JOB_ID } from '@/features/calculator/eps';
-import { SINK_JOB_ID } from '@/features/calculator/sink';
+import { type DoorSelection } from './doorSelection';
 import { upgradeCalculation } from '@/features/calculator/upgrades';
-import { normalizeUnit } from './quantity';
-import { additionalMaterial } from './basketExtras';
+import { applyProjectShopping } from './projectShoppingInput';
 import { applyLaminateChoices, type LaminateChoice } from './laminateChoice';
 import { applyFoilChoices, type FoilChoice } from './foilChoice';
 import { applyWashbasinChoices, type WashbasinChoice } from './washbasinChoice';
@@ -43,26 +40,10 @@ export function buildRenovationBasket(
     if (!calc) { missingCalculations++; continue; }
     const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
-    const materialIds = new Set(calc.materials.map(line => line.material.id));
-    const manual = items.filter(item => item.projectId === project.id && item.itemType !== 'tool' && !item.owned && !item.purchased && !materialIds.has(item.materialId));
-    manualItems += manual.length;
-    const materials = stage.materials.filter(line => {
-      const matching = items.filter(item => item.projectId === project.id && item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
-      // A boolean in Shopping means the entire material line is covered.
-      // Conflicting duplicate rows cannot silently remove required materials.
-      const requirement = calc.materials.find(item => item.material.id === line.material.id);
-      const covers = (item: ShoppingItem) => (item.owned || item.purchased) && (![EPS_JOB_ID, SINK_JOB_ID].includes(calc.jobId) ||
-        requirement?.quantityKnown !== false && !item.needsQuantityConfirmation && Math.abs((item.customQuantity ?? item.quantity) - (requirement?.quantity ?? NaN)) < 1e-8 && item.unit === requirement?.material.unit);
-      if (matching.length > 0 && matching.every(covers)) { excludedMaterials++; return false; }
-      return true;
-    });
-    for (const item of manual) {
-      const quantity = item.customQuantity ?? item.quantity;
-      const unit = typeof item.unit === 'string' ? normalizeUnit(item.unit) : '';
-      const known = item.quantityKnown !== false && Number.isFinite(quantity) && quantity > 0 && Boolean(unit);
-      materials.push(additionalMaterial(`manual:${item.id}`, known ? item.name : `${item.name} — ilość do ustalenia`, known ? unit : 'pozycja', known ? quantity : 1));
-    }
-    stages.push(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([{ ...stage, materials }], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0]);
+    const pending = applyProjectShopping(stage, calc, project.id, items);
+    excludedMaterials += pending.excludedMaterials;
+    manualItems += pending.manualItems;
+    stages.push(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([pending.stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0]);
   }
   return { stages, includedProjects, excludedMaterials, manualItems, missingCalculations };
 }

@@ -14,12 +14,12 @@ interface SummaryRowProps {
 
 export function SummaryRow({ icon, label, value, valueColor, bold }: SummaryRowProps) {
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap:12, padding: 14 }}>
+      <View style={{ flex:1, minWidth:0, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Feather name={icon as any} size={16} color={Colors.textSecondary} />
-        <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>{label}</Txt>
+        <Txt style={{ flex:1, fontSize: 14, lineHeight:20, color: Colors.textSecondary }}>{label}</Txt>
       </View>
-      <Txt w={bold ? 'bold' : 'semibold'} style={{ fontSize: bold ? 16 : 14, color: valueColor ?? Colors.text }}>
+      <Txt w={bold ? 'bold' : 'semibold'} style={{ maxWidth:'48%', flexShrink:0, textAlign:'right', lineHeight:22, fontSize: bold ? 16 : 14, color: valueColor ?? Colors.text }}>
         {value}
       </Txt>
     </View>
