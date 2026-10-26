@@ -60,7 +60,7 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
     };
   });
 
-  const materialRefs = getMaterialsForJob(job.id, effectiveTier);
+  const materialRefs = getMaterialsForJob(job.id, effectiveTier, calc.measurements);
   const unpricedMaterials: string[] = [];
   const pricedSourceIds = new Set<string>();
   const materialDetails: MaterialLineItemPriced[] = materialRefs.flatMap((ref) => {

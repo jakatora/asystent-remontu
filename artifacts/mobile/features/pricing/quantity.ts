@@ -1,6 +1,7 @@
 import type { CalculationResult, MaterialLineItem } from '@/types/domain';
 import type { MaterialPriceReference } from '@/types/pricing';
 import { getRequiredQuantity } from '@/features/calculator/requirements';
+import { isTileSpacer } from './tileSpacers';
 
 export function normalizeUnit(unit: string): string {
   const key = unit.toLowerCase().replace(/[.\s]/g, '');
@@ -22,6 +23,7 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   screed: /^leveling-compound$/,
   adhesive: /^(tile-adhesive|wall-tile-adhesive|vinyl-adhesive)$/,
   grout: /^(grout|wall-grout|grout-kitchen)$/,
+  'tile-spacer': /^(tile-crosses|wall-crosses|tile-crosses-kitchen)$/,
   tile: /^(tiles|wall-tiles|backsplash-tiles)$/,
   laminate: /^laminate-panels$/,
   'vinyl-panel': /^(vinyl-panels|vinyl-roll)$/,
@@ -72,7 +74,13 @@ export function resolveMaterialQuantity(
     return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
   }
   const legacyPaintingTape = calc.jobId === 'paint-walls' && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
-  if (!legacyPaintingTape && normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
+  // Old tile snapshots called the crosses formula (a count of individual
+  // spacers) but labelled its result "opak.". Never multiply that raw count
+  // by a guessed bag size; accept only the known job/ID/formula combination.
+  const legacySpacer = ref.materialType === 'tile-spacer' && isTileSpacer(calc.jobId, source.material.id)
+    && source.material.formulaKey === 'crosses' && ['opak', 'opakowanie'].includes(normalizeUnit(source.material.unit))
+    && normalizeUnit(ref.packageUnit) === 'szt';
+  if (!legacyPaintingTape && !legacySpacer && normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
   if (calc.jobId === 'self-leveling' && ref.materialType === 'screed') {
     const thickness = calc.measurements.levelingThickness, area = calc.measurements.floorArea;
     // source: https://www.atlas.com.pl/produkt/atlas-sam-100/ (5–30 mm, 1.6 kg/m²/mm)

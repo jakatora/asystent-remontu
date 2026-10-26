@@ -494,11 +494,12 @@ export const floorTilesJob: RenovationJob = {
     {
       id: 'tile-crosses',
       name: 'Krzyżyki dystansowe',
-      unit: 'opak.',
+      // source: https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505 (3,46 zł / woreczek 150 szt.; crosses liczy sztuki)
+      unit: 'szt',
       formulaKey: 'crosses',
-      pricePerUnit: 8,
+      pricePerUnit: 3.46 / 150,
       category: 'akcesoria',
-      notes: 'Rozmiar 2–3 mm dla typowych spoin. Opakowanie 100 szt.',
+      notes: 'Szerokość dobierz do spoiny. Szacunek jednostkowy dla 3 mm; wycena zakupów dobiera pełne paczki właściwego modelu.',
     },
     {
       id: 'primer-tiles',

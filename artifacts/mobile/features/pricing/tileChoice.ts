@@ -4,6 +4,7 @@ import { getJobById } from '@/features/content/registry';
 import { groutMassKg } from '@/features/calculator/grout';
 import { resolveFormula } from '@/features/calculator/formulas';
 import { createProductChoiceGroup } from './productChoice';
+import { priceTileSpacer, tileJointWidth } from './tileSpacers';
 import type { PricingMaterialLineInput, PricingStageInput } from './pricingApi';
 
 export type TileUse = 'wall' | 'floor';
@@ -83,10 +84,10 @@ export function applyTileChoices(stages: readonly PricingStageInput[], choices: 
     });
     if (!selected) return { ...stage, materials };
     const { product, use } = selected as TileRequirement;
-    const m = { ...stage.measurements, tileWidthCm: product.widthCm, tileHeightCm: product.heightCm, tileThicknessMm: product.depthMm, groutDensityKgM3: 1650 };
+    const joint = tileJointWidth(stage.jobId, stage.measurements);
+    const m = { ...stage.measurements, tileWidthCm: product.widthCm, tileHeightCm: product.heightCm, tileThicknessMm: product.depthMm, groutDensityKgM3: 1650, groutWidthMm: joint };
     const area = use === 'floor' ? stage.measurements?.floorArea : stage.measurements?.wallArea;
     if (!Number.isFinite(area) || area! <= 0) throw Error('tile_measurements_missing');
-    const joint = stage.measurements?.groutWidthMm ?? 3;
     const definitions = getJobById(stage.jobId)?.materials ?? [];
     const reserve = (id: string) => definitions.find(row => row.id === id)?.wasteFactor ?? 1.1;
     // Reviewed upper size row for these <=60 cm products, on a level substrate.
@@ -97,10 +98,7 @@ export function applyTileChoices(stages: readonly PricingStageInput[], choices: 
       if (['grout', 'wall-grout', 'grout-kitchen'].includes(line.material.id)) return catalogueLine(line, 'mat-grout-atlas-001-white-2kg', groutMassKg(area!, product.widthCm, product.heightCm, product.depthMm, joint, 1650, reserve(line.material.id)));
       if (['tile-crosses', 'wall-crosses', 'tile-crosses-kitchen'].includes(line.material.id)) {
         const quantity = resolveFormula('crosses')(m, 1);
-        if (joint === 2) return catalogueLine(line, 'mat-tile-spacers-hardy-2mm-200', quantity);
-        const { packs: _packs, ...demand } = line;
-        // A reviewed 2mm spacer is not a quote for another joint width.
-        return { ...demand, quantity, material: { id: line.material.id, name: `Krzyżyki dystansowe ${joint} mm — dobierz opakowanie`, category: 'tile-spacer-review', unit: 'szt' } };
+        return priceTileSpacer({ ...line, material: { ...line.material, unit: 'szt' }, quantity }, stage.jobId, m);
       }
       return line;
     }) };

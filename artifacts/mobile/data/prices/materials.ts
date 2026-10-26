@@ -2262,4 +2262,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-10-26', currency: 'PLN',
     notes: 'EAN 5907518303911. Paczka 15 płytek, 1,5 m². Wyłącznie na ściany wewnętrzne, bez klasy antypoślizgowej i mrozoodporności. Biała błyszcząca, gładka, nierektyfikowana, 250×400×7,7 mm. Osobny model zamiast Nati Bianco struktura; nie jest płytką podłogową ani dekorem Tamara wave. Karta zawiera sprzeczne opisy wagi; nie wykorzystujemy jej do wyceny transportu.',
   },
+  // source: https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505 (346 gr brutto/OPA, odczyt 2026-10-26T20:27:17.254Z)
+  // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-3-mm-150-szt-hardy-5905061016869.html (niezależny dokładny EAN, szerokość i opakowanie)
+  { id: 'mat-tile-spacers-hardy-3mm-150', materialType: 'tile-spacer', productLabel: 'Krzyżyki dystansowe do płytek Hardy 3 mm (150 szt.)', brand: 'Hardy', packageSize: 150, packageUnit: 'szt', pricePerPackage: 3.46, category: 'standard', storeName: 'Sewera', sourceUrl: 'https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505', lastUpdated: '2026-10-26', currency: 'PLN', notes: 'EAN 5905061016869, model 2040-660030. Cena całego woreczka 150 sztuk do spoiny 3 mm; nie jest ceną pojedynczego krzyżyka ani wariantem 2 mm.' },
+  // source: https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506 (346 gr brutto/OPA, odczyt 2026-10-26T20:27:18.347Z)
+  // source: https://www.bricomarche.pl/krzyzyki-dystansowe-do-glazury-4-mm-biale-woreczek-100-sztuk-hardy (niezależny dokładny EAN i opakowanie)
+  { id: 'mat-tile-spacers-hardy-4mm-100', materialType: 'tile-spacer', productLabel: 'Krzyżyki dystansowe do płytek Hardy 4 mm (100 szt.)', brand: 'Hardy', packageSize: 100, packageUnit: 'szt', pricePerPackage: 3.46, category: 'standard', storeName: 'Sewera', sourceUrl: 'https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506', lastUpdated: '2026-10-26', currency: 'PLN', notes: 'EAN 5905061016876, model 2040-660040. Cena całego woreczka 100 sztuk do spoiny 4 mm; nie jest zamiennikiem innej szerokości.' },
 ];

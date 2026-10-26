@@ -46,9 +46,9 @@ test('a changed wall tile keeps raw area and recalculates the explicitly accepte
 });
 
 test('an unreviewed spacer width remains unpriced rather than charging the wrong two-mm bag',()=>{
- const stage=applyTileChoices([toPricingStageInput(calc('floor-tiles',3))],[{from:petro,to:u117,use:'floor'}])[0];
- const spacers=stage.materials.find(row=>row.material.id==='tile-crosses')!;assert.equal(spacers.material.ean,undefined);assert.equal(spacers.material.category,'tile-spacer-review');assert.match(spacers.material.name,/3 mm/);
- const grout=stage.materials.find(row=>row.material.id==='grout')!;assert.equal(grout.quantity,1.45685619);
+ const stage=applyTileChoices([toPricingStageInput(calc('floor-tiles',5))],[{from:petro,to:u117,use:'floor'}])[0];
+ const spacers=stage.materials.find(row=>row.material.id==='tile-crosses')!;assert.equal(spacers.material.ean,undefined);assert.equal(spacers.material.category,'tile-spacer-review');assert.match(spacers.material.name,/5 mm/);
+ const grout=stage.materials.find(row=>row.material.id==='grout')!;assert.equal(grout.quantity,2.42809365);
 });
 
 test('project choices reach the common basket and do not bring back owned materials or mutate saved calculations',()=>{

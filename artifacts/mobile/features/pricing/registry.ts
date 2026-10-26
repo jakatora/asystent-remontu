@@ -1,6 +1,7 @@
 import type { LaborPriceReference, MaterialPriceReference, MaterialCategory } from '@/types/pricing';
 import { LABOR_PRICES, MATERIAL_PRICES, getLaborIdsForJob, getMaterialIdsForJob } from '@/data/prices';
 import { BASELINE_REGION } from '@/data/prices/regions';
+import { tileSpacerReferences } from './tileSpacers';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -50,14 +51,14 @@ export function getLaborForJob(jobId: string, regionCode?: string): LaborPriceRe
   return dopasowane.length > 0 ? dopasowane : bazowe;
 }
 
-export function getMaterialsForJob(jobId: string, tier: MaterialCategory): MaterialPriceReference[] {
+export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measurements?: Readonly<Record<string, number>>): MaterialPriceReference[] {
   const ids = getMaterialIdsForJob(jobId, tier);
   const results: MaterialPriceReference[] = [];
   for (const id of ids) {
     const ref = MATERIAL_BY_ID.get(id);
     if (ref) results.push(ref);
   }
-  return results;
+  return measurements ? tileSpacerReferences(results, jobId, measurements) : results;
 }
 
 export function hasLaborData(jobId: string): boolean {

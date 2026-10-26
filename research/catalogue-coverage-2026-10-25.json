@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T20:17:16.555Z",
-  "scope": "107 reference products, including explicit current alternatives for foil, doors, basin and wall tiles; not every market product. An offer does not confirm delivery, installation compatibility or accessories. Tile package metadata corrections do not refresh historical prices. productsWithPhotos counts registered URLs, not simultaneous loading of all external images.",
-  "total": 107,
-  "verifiedProducts": 101,
+  "checkedAt": "2026-10-26T20:40:11.661Z",
+  "scope": "109 reference products and explicit alternatives, including exact 3mm and 4mm spacer bags; not every market product. An offer does not confirm branch inventory. Delivery evidence applies only to its full native basket, postcode and expiry. Registered photo URLs do not prove all images load simultaneously.",
+  "total": 109,
+  "verifiedProducts": 103,
   "remaining": 6,
-  "offers": 128,
+  "offers": 130,
   "stores": 38,
-  "productsWithPhotos": 107,
-  "registeredOffers": 130,
+  "productsWithPhotos": 109,
+  "registeredOffers": 132,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2267,6 +2267,48 @@
         "checkedAt": "2026-10-26T19:58:26.512Z",
         "expiresAt": "2026-10-27T19:58:26.512Z"
       }
+    },
+    {
+      "id": "mat-tile-spacers-hardy-3mm-150",
+      "name": "Krzyżyki dystansowe do płytek Hardy 3 mm (150 szt.)",
+      "referenceUrl": "https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505",
+      "status": "verified_offer",
+      "ean": "5905061016869",
+      "sourceIds": [
+        "sewera-tile-spacers-hardy-3mm-150"
+      ],
+      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/81/p5gn80h9kaf0/Photos/gscr9mv0mn1if4/ShowWebp_krzyzyki-dystansowe-3-mm---150-szt--hardy_1.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-tile-spacers-hardy-3mm-150",
+          "checkedAt": "2026-10-26T20:40:02.261Z",
+          "status": "quoted",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_postcode",
+          "wholeMixedBasketDeliveryGrosze": 1990
+        }
+      ]
+    },
+    {
+      "id": "mat-tile-spacers-hardy-4mm-100",
+      "name": "Krzyżyki dystansowe do płytek Hardy 4 mm (100 szt.)",
+      "referenceUrl": "https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506",
+      "status": "verified_offer",
+      "ean": "5905061016876",
+      "sourceIds": [
+        "sewera-tile-spacers-hardy-4mm-100"
+      ],
+      "photoUrl": "https://www.plus-market.pl/environment/cache/images/productGfx_34005_500_500/2026-01-08_14h41_57.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-tile-spacers-hardy-4mm-100",
+          "checkedAt": "2026-10-26T20:40:02.261Z",
+          "status": "quoted",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_postcode",
+          "wholeMixedBasketDeliveryGrosze": 1990
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 20,

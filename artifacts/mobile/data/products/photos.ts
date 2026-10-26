@@ -11,6 +11,12 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505
+  // source: https://mrowka.com.pl/produkt/krzyzyki-dystansowe-3-mm-150-szt-hardy-5905061016869.html (dokładny EAN; zdjęcie woreczka zamiast poglądowego wiaderka Sewery)
+  { ids: ['mat-tile-spacers-hardy-3mm-150'], ean: '5905061016869', sourceUrl: 'https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505', identitySourceUrl: 'https://mrowka.com.pl/produkt/krzyzyki-dystansowe-3-mm-150-szt-hardy-5905061016869.html', imageUrl: 'https://mrowka.com.pl/files/InfoverProduct/81/p5gn80h9kaf0/Photos/gscr9mv0mn1if4/ShowWebp_krzyzyki-dystansowe-3-mm---150-szt--hardy_1.webp' },
+  // source: https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506
+  // source: https://www.plus-market.pl/pl/p/Krzyzyki-4mm-op.-100szt/15198 (dokładny EAN; etykieta Hardy 4 mm / 100 sztuk)
+  { ids: ['mat-tile-spacers-hardy-4mm-100'], ean: '5905061016876', sourceUrl: 'https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506', identitySourceUrl: 'https://www.plus-market.pl/pl/p/Krzyzyki-4mm-op.-100szt/15198', imageUrl: 'https://www.plus-market.pl/environment/cache/images/productGfx_34005_500_500/2026-01-08_14h41_57.webp' },
   // source: https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd
   {"ids":["mat-paint-economy-white-10l"],"ean":"3663602567240","sourceUrl":"https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd","imageUrl":"https://media2.castorama.pl/is/image/CastoramaPL/farba-biala-mat-10-l~3663602567240_02c_PL_CP?$MOB_PREV$&$width=284&$height=284"},
   // source: https://www.castorama.pl/gres-mrozoodporny-szkliwiony-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2/3663602870821_CAPL.prd
