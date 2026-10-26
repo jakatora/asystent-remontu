@@ -268,6 +268,11 @@ function EstimateResult({
         <Txt w="semibold">{tr(`${store}: odbiór po uzgodnieniu`, `${store}: collection by arrangement`)}</Txt>
         <Txt style={{ fontSize: 13, lineHeight: 19 }}>{tr('Sklep potwierdza miejsce i termin odbioru indywidualnie. Jego ceny pokazujemy przy dostawie, ale nie uwzględniamy ich w rankingu własnego odbioru. Koszt transportu również wymaga wyceny sklepu.', 'The store confirms the collection location and date individually. Its prices are shown for home delivery but excluded from the collection ranking. Transport also requires a store quote.')}</Txt>
       </View>)}
+      {(selectedStore === 'Folnet' || resolved.some(line => line.offers?.some(offer => offer.store === 'Folnet'))) && <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.primaryBg, gap: 6 }}>
+        <Txt w="semibold">{tr('Folnet: odbiór zamówienia internetowego', 'Folnet: collect an online order')}</Txt>
+        <Txt style={{ fontSize: 13, lineHeight: 19 }}>{tr('Sklep nie prowadzi sprzedaży stacjonarnej. Odbiór dopiero po zamówieniu online i potwierdzeniu gotowości e-mailem: ul. Stefana Batorego 97, Batorowo, pon.–pt. 7:00–20:00. To adres magazynu odbiorów.', 'There is no walk-in sales service. Collect only after ordering online and receiving the ready-for-collection email: ul. Stefana Batorego 97, Batorowo, Mon–Fri 07:00–20:00. This is the collection warehouse.')}</Txt>
+        <Button label={tr('Sprawdź zasady odbioru', 'Check collection terms')} variant="outline" onPress={() => Linking.openURL('https://folnet.pl/Odbior-osobisty-ccms-pol-30.html')} />
+      </View>}
       <PriceChangeNotice changes={priceChanges} refresh={data.priceRefresh} hasBaseline={hasPriceBaseline} />
       {hasDoorParts && <View accessibilityRole="alert" style={{ padding: 16, borderRadius: 16, backgroundColor: Colors.warningBg, gap: 6 }}>
         <Txt w="semibold">{tr('Dobierz zgodny zestaw drzwi', 'Match the door components')}</Txt>

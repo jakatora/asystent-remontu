@@ -12,6 +12,7 @@ import { readAbstoreProduct } from './abstore-product';
 import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
 import { readBetterialProduct } from './betterial-product';
+import { inspectFolnetProduct } from './folnet-product';
 
 export interface RetailSource {
   id: string;
@@ -30,7 +31,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -75,7 +76,8 @@ function objects(value: unknown): Record<string, any>[] {
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
   const products: Record<string, any>[] = [];
-  if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
+  if (source.format === 'folnet') products.push(inspectFolnetProduct(html, source).product);
+  else if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
   else if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
   else if (source.format === 'abstore') products.push(readAbstoreProduct(html, source));
   else if (source.format === 'certusoft') products.push(readCertusoftProduct(html, source).product);

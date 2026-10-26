@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { formatGrosze } from '@/features/pricing';
 import { normalizeDeliveryPostalCode } from '@/features/pricing/deliveryInput';
 import { ProductImage } from './ProductImage';
+import { getProductPhoto } from '@/data/products/photos';
 import { PriceChangeBadge } from './PriceChangeNotice';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
@@ -97,7 +98,7 @@ export function DeliveryComparisonSection({ comparison, settings, selectedStore,
         {store.quote.dispatchFrom && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Wysyłka z', 'Dispatched from')}: {store.quote.dispatchFrom}</Txt>}
       </View>}
       {store.lines.map(line => <View key={line.product.id} style={{ gap: 6 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}><ProductImage uri={line.product.imageUrl ?? undefined} name={line.product.name} size={56} /><Txt w="medium" style={{ flex: 1, fontSize: 14 }}>{line.product.name}</Txt></View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}><ProductImage uri={getProductPhoto(line.product)} name={line.product.name} size={56} /><Txt w="medium" style={{ flex: 1, fontSize: 14 }}>{line.product.name}</Txt></View>
         {line.packages.map(pack => <View key={pack.offerId} style={{ gap: 2 }}>
           <Txt>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
           {Boolean(pack.purchaseMultiple && pack.purchaseMultiple>1) && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Dane sklepu wskazują partie po ${pack.purchaseMultiple} opakowań (${pack.purchaseMultiple!*pack.packageSize} ${line.unit}). Wycenę liczymy z tym ograniczeniem; mniejszy zakup potwierdź w sklepie.`, `Store data specifies lots of ${pack.purchaseMultiple} packs (${pack.purchaseMultiple!*pack.packageSize} ${line.unit}). This quote follows that rule; confirm smaller purchases with the store.`)}</Txt>}

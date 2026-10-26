@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-25T22:42:53.585Z",
+  "checkedAt": "2026-10-26T00:11:08.142Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 74,
-  "remaining": 29,
-  "offers": 100,
-  "stores": 32,
+  "verifiedProducts": 75,
+  "remaining": 28,
+  "offers": 101,
+  "stores": 33,
   "productsWithPhotos": 103,
-  "registeredOffers": 102,
+  "registeredOffers": 103,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1326,11 +1326,37 @@
       "id": "mat-foam-soudal-lowexp-750ml",
       "name": "Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml",
       "referenceUrl": "https://www.castorama.pl/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml/5411183048522_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5411183048522",
-      "sourceIds": [],
+      "sourceIds": [
+        "folnet-soudal-low-expansion-winter-750ml"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/pianka-montazowa-soudal-low-expansion-pistoletowa-zimowa-750-ml~5411183048522_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "folnet-soudal-low-expansion-winter-750ml",
+          "checkedAt": "2026-10-26T00:11:08.142Z",
+          "status": "confirmed",
+          "postalCode": "00-001",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 1,
+          "materialsGrosze": 3930,
+          "deliveryGrosze": 1399,
+          "totalGrosze": 5329
+        },
+        {
+          "sourceId": "folnet-soudal-low-expansion-winter-750ml",
+          "checkedAt": "2026-10-26T00:11:08.142Z",
+          "status": "confirmed",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "packages": 8,
+          "materialsGrosze": 31440,
+          "deliveryGrosze": 0,
+          "totalGrosze": 31440
+        }
+      ]
     },
     {
       "id": "mat-silicone-universal-soudal-280ml",
@@ -1849,5 +1875,6 @@
         }
       ]
     }
-  ]
+  ],
+  "automaticDeliveryStores": 18
 }

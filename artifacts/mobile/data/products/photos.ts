@@ -243,10 +243,12 @@ export function getProductPhoto(product: {
   id?: string; ean?: string | null; imageUrl?: string | null; sourceUrl?: string;
   shopPrices?: readonly { url: string }[];
 }): string | undefined {
-  if (product.imageUrl?.startsWith('https://')) return product.imageUrl;
   const urls = [product.sourceUrl, ...product.shopPrices?.map(price => price.url) ?? []];
-  return PRODUCT_PHOTOS.find(photo =>
-    (product.id && photo.ids.includes(product.id)) ||
+  // Prefer the reviewed catalogue image for an exact identity. Some shop
+  // domains serve prices correctly on the backend but time out on the device.
+  const reviewed = PRODUCT_PHOTOS.find(photo =>
+    (product.id && (photo.ids.includes(product.id) || product.id === `remont-${photo.ean}`)) ||
     (product.ean && photo.ean === product.ean) || urls.includes(photo.sourceUrl),
   )?.imageUrl;
+  return reviewed ?? (product.imageUrl?.startsWith('https://') ? product.imageUrl : undefined);
 }

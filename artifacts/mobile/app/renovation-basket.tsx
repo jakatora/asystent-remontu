@@ -8,13 +8,14 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { CostEstimateTab } from '@/components/project/CostEstimateTab';
+import { QualityTierSelector } from '@/components/project/QualityTierSelector';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import type { ShoppingItem } from '@/types/domain';
 import { buildRenovationBasket, MAX_BASKET_PROJECTS, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
 import { DOOR_SELECTION_PREFIX, parseDoorSelection, type DoorSelection } from '@/features/pricing/doorSelection';
 
 export default function RenovationBasketScreen() {
-  const { projects, selectedQualityTier, selectedRegion, refreshProjects } = useApp();
+  const { projects, selectedQualityTier, setSelectedQualityTier, selectedRegion, refreshProjects } = useApp();
   const { language } = useLanguage();
   const pl = language === 'pl';
   const [selected, setSelected] = useState<string[]>([]);
@@ -78,6 +79,10 @@ export default function RenovationBasketScreen() {
         {selectedProjects.length >= MAX_BASKET_PROJECTS && <Txt>{pl ? 'Jeden koszyk obejmuje do 20 prac.' : 'One basket supports up to 20 works.'}</Txt>}
       </View>}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie zapisano wyboru prac. Wybierz je ponownie przy następnym otwarciu.' : 'Your selection could not be saved. Select the works again next time.'}</Txt>}
+      {selectedProjects.length > 0 && <View style={{ gap: 8 }}>
+        <QualityTierSelector selected={selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier} onSelect={setSelectedQualityTier} includeCustom={false} />
+        <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Poziom wybiera warianty produktów do porównania. Możesz zmienić go i sprawdzić cenę całego zestawu.' : 'The level selects product variants for comparison. Change it to compare the complete basket price.'}</Txt>
+      </View>}
       {selectedProjects.length > 0 && <View style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, gap: 6 }}>
         <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Porównanie dotyczy materiałów z obmiarów. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”. Narzędzia i pozycje dopisane ręcznie pozostają poza tym zestawem.' : 'Comparison covers measured material requirements. Items marked Owned or Purchased are excluded. Tools and manually added items remain outside this basket.'}</Txt>
         {itemsReady && basket.excludedMaterials > 0 && <Txt>{pl ? `Pomijamy już posiadane lub kupione pozycje: ${basket.excludedMaterials}.` : `Already owned or purchased items excluded: ${basket.excludedMaterials}.`}</Txt>}

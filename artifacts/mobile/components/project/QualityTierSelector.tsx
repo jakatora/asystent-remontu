@@ -9,9 +9,10 @@ import { useLanguage } from '@/context/LanguageContext';
 interface QualityTierSelectorProps {
   selected: QualityTier;
   onSelect: (tier: QualityTier) => void;
+  includeCustom?: boolean;
 }
 
-export function QualityTierSelector({ selected, onSelect }: QualityTierSelectorProps) {
+export function QualityTierSelector({ selected, onSelect, includeCustom = true }: QualityTierSelectorProps) {
   const { t } = useLanguage();
   const TIERS: { key: QualityTier; label: string; icon: string; color: string; bg: string }[] = [
     { key: 'economy', label: t('cmp.QualityTierSelector.economy'), icon: 'tag', color: '#059669', bg: '#D1FAE5' },
@@ -23,11 +24,14 @@ export function QualityTierSelector({ selected, onSelect }: QualityTierSelectorP
     <View style={{ gap: 8 }}>
       <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('cmp.QualityTierSelector.heading')}</Txt>
       <View style={{ flexDirection: 'row', gap: 8 }}>
-        {TIERS.map((t) => {
+        {TIERS.filter(t => includeCustom || t.key !== 'custom').map((t) => {
           const isActive = selected === t.key;
           return (
             <TouchableOpacity
               key={t.key}
+              accessibilityRole="radio"
+              accessibilityLabel={t.label}
+              accessibilityState={{ checked: isActive }}
               onPress={() => onSelect(t.key)}
               style={{
                 flex: 1,

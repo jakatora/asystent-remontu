@@ -45,5 +45,8 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
 export function storeMapSearchUrl(store: string, location: string): string | null {
   const place = location.trim().replace(/\s+/g, ' ');
   if (!parsePreferredStore(store) || place.length < 2 || place.length > 80 || /[\u0000-\u001f]/.test(place)) return null;
+  // Folnet's office does not issue goods; online orders are collected here.
+  // source: https://folnet.pl/Odbior-osobisty-ccms-pol-30.html
+  if (store === 'Folnet') return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Folnet magazyn ul. Stefana Batorego 97 62-081 Batorowo Polska');
   return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${store} sklep punkt odbioru ${place} Polska`);
 }

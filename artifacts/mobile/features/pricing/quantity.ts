@@ -43,6 +43,7 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   screws: /^gk-screws(?:-ceiling)?$/,
   dowels: /^dowels-uw$/,
   'adhesive-eps': /^glue-k20$/,
+  foam: /^(mounting-foam|windowsill-foam)$/,
 };
 
 /** Match a known material and compatible units; missing information is not m². */
@@ -58,6 +59,18 @@ export function resolveMaterialQuantity(
   const source = candidates[0];
   if (ref.materialType === 'adhesive-eps' &&
       (calc.jobId !== 'eps-insulation-bso' || ref.id !== 'mat-adhesive-eps-atlas-stopter-k20-25kg' || source.material.id !== 'glue-k20' || !/Atlas Stopter K-20 25 kg/i.test(source.material.brand ?? ''))) return null;
+  // These existing jobs count cans. The selected references each contain
+  // exactly 750 ml; convert the same demand, then let the basket round once.
+  // Never apply a can-to-volume assumption to another product or unit.
+  if (ref.materialType === 'foam') {
+    const knownCan = ['mat-foam-tytan-pro65-750ml', 'mat-foam-soudal-lowexp-750ml'].includes(ref.id)
+      && ref.packageSize === 750 && ref.packageUnit === 'ml'
+      && ['window-sealing', 'windowsill-install', 'interior-doors'].includes(calc.jobId)
+      && (normalizeUnit(source.material.unit) === 'szt' || calc.jobId === 'interior-doors' && source.material.unit === 'puszka');
+    if (!knownCan) return null;
+    const quantity = Number((getRequiredQuantity(source, calc) * 750).toFixed(8));
+    return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
   const legacyPaintingTape = calc.jobId === 'paint-walls' && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
   if (!legacyPaintingTape && normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
   if (calc.jobId === 'self-leveling' && ref.materialType === 'screed') {

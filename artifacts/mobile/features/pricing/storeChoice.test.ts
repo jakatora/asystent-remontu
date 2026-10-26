@@ -21,6 +21,7 @@ test('maps search encodes the chosen store and user location; it does not imply 
   assert.equal(url.searchParams.get('api'), '1');
   assert.equal(url.searchParams.get('query'), 'Castorama sklep punkt odbioru Łódź & centrum Polska');
   assert.equal([...url.searchParams.keys()].length, 2);
+  assert.equal(new URL(storeMapSearchUrl('Folnet', '00-001')!).searchParams.get('query'), 'Folnet magazyn ul. Stefana Batorego 97 62-081 Batorowo Polska');
   assert.equal(storeMapSearchUrl('Castorama',''), null); assert.equal(storeMapSearchUrl('Castorama','x'.repeat(81)), null);
   assert.equal(parsePreferredStore('Sewera'), 'Sewera');
   for (const value of [null, 12, '', ' Sewera', 'Sewera\n', 'x'.repeat(81)]) assert.equal(parsePreferredStore(value), null);

@@ -10,6 +10,7 @@ import { quoteTopboden } from './topboden-delivery';
 import { quotePrestashop } from './prestashop-delivery';
 import { quoteCertusoft } from './certusoft-delivery';
 import { quoteModna } from './modna-delivery';
+import { quoteFolnet } from './folnet-delivery';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
@@ -24,12 +25,12 @@ function unavailableReason(store: string): string | undefined {
   const sources = RETAIL_SOURCES.filter(source=>source.store===store);
   if (sources.length && sources.every(source=>source.format === 'betterial')) return 'retailer_transport_quote_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet'].includes(store)) return undefined;
   return ['Castorama','OBI'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
     postcodeStores:['Sewera','Cezar'],accessRequiredStores:['Castorama','OBI'],
   };
@@ -141,7 +142,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
-        return await (order.store === 'Modna Łazienka' ? quoteModna(order,fetchImpl) : order.store === 'HIPPER' ? quoteCertusoft(order,fetchImpl) : order.store === 'Eelektryka' ? quotePrestashop(order,fetchImpl) : order.store === 'TopBoden' ? quoteTopboden(order,fetchImpl) : order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
+        return await (order.store === 'Folnet' ? quoteFolnet(order,fetchImpl) : order.store === 'Modna Łazienka' ? quoteModna(order,fetchImpl) : order.store === 'HIPPER' ? quoteCertusoft(order,fetchImpl) : order.store === 'Eelektryka' ? quotePrestashop(order,fetchImpl) : order.store === 'TopBoden' ? quoteTopboden(order,fetchImpl) : order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
       } catch (error: unknown) {
         return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed'].includes(error.message) ? error.message : 'quote_unavailable' };
       } finally { release(); }

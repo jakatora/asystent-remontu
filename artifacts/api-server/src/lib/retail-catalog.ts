@@ -902,10 +902,13 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://betterial.pl/kleje-do-styropianu/8679-atlas-zaprawa-klejaca-do-styropianu-stopter-k-20.html
   // source: https://betterial.pl/content/4-transport
   { id: 'betterial-atlas-stopter-k20-25kg', ean: '5905400160253', name: 'Atlas - zaprawa klejąca do styropianu Stopter K-20', category: 'adhesive-eps', brand: 'Atlas', packageSize: 25, unit: 'kg', store: 'Betterial', format: 'betterial', productId: 8679, variantId: 3816, retailerSku: '8679-86310', purchaseMultiple: 42, pickupRequiresConfirmation: true, variant: ['Stopter', 'K-20'], url: 'https://betterial.pl/kleje-do-styropianu/8679-atlas-zaprawa-klejaca-do-styropianu-stopter-k-20.html' },
+  // source: https://folnet.pl/pl/products/chemia-tasmy-mocowania/chemia-budowlana-soudal/pianki-pistoletowe/pianka-pistoletowa-soudafoam-low-expansion-10-8372.html
+  { id: 'folnet-soudal-low-expansion-winter-750ml', ean: '5411183048522', name: 'Pianka pistoletowa Soudafoam Low Expansion -10', brand: 'Soudal', category: 'foam', packageSize: 750, unit: 'ml', store: 'Folnet', format: 'folnet', productId: 8372, retailerSku: '112583', variant: ['Low Expansion', '10'], url: 'https://folnet.pl/pl/products/chemia-tasmy-mocowania/chemia-budowlana-soudal/pianki-pistoletowe/pianka-pistoletowa-soudafoam-low-expansion-10-8372.html' },
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Pianka montażowa Soudal Low Expansion pistoletowa zimowa 750 ml': '5411183048522',
   'Zaprawa klejąca do styropianu i siatki Atlas Stopter K-20 2w1 25 kg': '5905400160253',
   "Skrzydło drzwiowe pokojowe Erkado Credis 80 lewe białe przylgowe przeszklone": "5900378219590",
   "Kotwa montażowa do ościeżnic (rama okienna) 10 × 182 mm": "5905458019787",
