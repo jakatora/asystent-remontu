@@ -24,6 +24,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const [mode, setMode] = useState(settings.mode);
   const [postalCode, setPostalCode] = useState(settings.postalCode ?? '');
   const [details, setDetails] = useState(false);
+  const [openProducts, setOpenProducts] = useState<Record<string, boolean>>({});
   const destination = normalizeDeliveryPostalCode(postalCode);
   const commitDestination = () => {
     // Clearing or leaving an incomplete postcode must also forget the saved
@@ -66,7 +67,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     </View>
     <View style={{ padding: 14, gap: 12, borderWidth: 1, borderColor: Colors.border, borderRadius: 16, backgroundColor: Colors.surface }}>
       <View style={{ flexDirection: 'row', gap: 8 }}>
-        {(['shipping', 'pickup'] as const).map(value => <Pressable key={value} accessibilityRole="radio" accessibilityState={{ checked: mode === value }} onPress={() => {
+        {(['shipping', 'pickup'] as const).map(value => <Pressable key={value} accessibilityRole="radio" aria-checked={mode === value} accessibilityState={{ checked: mode === value }} onPress={() => {
           setMode(value); onApply({ mode: value, method: 'automatic', ...(destination ? { postalCode: destination } : {}) });
         }} style={{ flex: 1, minHeight: 48, padding: 10, borderRadius: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: value === mode ? Colors.primaryBg : Colors.surfaceAlt }}>
           <Txt w="semibold">{value === 'shipping' ? tr('Dostawa do domu', 'Home delivery') : tr('Własny odbiór', 'Self collection')}</Txt>
@@ -97,7 +98,11 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {mode === 'shipping' && Boolean(comparison.partiallyQuotedStores?.length) && <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie wszystkie inne kombinacje koszyków udało się potwierdzić. Mogą wpłynąć na najniższą cenę.', 'Some other basket combinations could not be confirmed and may affect the lowest total.')}</Txt>}
     </View>}
     {current && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
-    {best?.stores.map(store => <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
+    {best && <Txt w="semibold">{tr(`Podział zakupów między sklepy (${best.stores.length})`, `Purchases by store (${best.stores.length})`)}</Txt>}
+    {best?.stores.map(store => {
+      const packs = store.lines.flatMap(line => line.packages.map(pack => ({ line, pack })));
+      const expanded = Boolean(openProducts[store.store]);
+      return <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
       <Txt w="bold" style={{ fontSize: 16 }}>{store.store} · {formatGrosze(store.totalGrosze!)}</Txt>
       <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)} · {tr('Dostawa', 'Delivery')}: {formatGrosze(store.deliveryGrosze!)}</Txt>
       {store.quote && <View style={{ gap: 4 }}>
@@ -106,21 +111,28 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         {store.quote.basis==='retailer_tariff_national' && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Dostawa obliczona według aktualnej taryfy sklepu dla całego zamówienia.', 'Delivery calculated from the current store tariff for the complete order.')}</Txt>}
         {store.quote.dispatchFrom && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Wysyłka z', 'Dispatched from')}: {store.quote.dispatchFrom}</Txt>}
       </View>}
-      {store.lines.map(line => <View key={line.product.id} style={{ gap: 6 }}>
+      {packs.filter(({pack}) => pack.verification).map(({line,pack}) => <PriceVerificationNotice key={`verification:${line.product.id}:${pack.offerId}`} verification={pack.verification} store={`${store.store} · ${line.product.name}`} />)}
+      {packs.filter(({pack}) => (pack.minimumPackages ?? 1) > 1 || (pack.purchaseMultiple ?? 1) > 1).map(({line,pack}) => <View key={`rules:${line.product.id}:${pack.offerId}`} accessibilityRole="alert" style={{ gap: 4, padding: 10, borderRadius: 10, backgroundColor: Colors.warningBg }}>
+        <Txt w="semibold" style={{fontSize:13}}>{line.product.name}</Txt>
+        {(pack.minimumPackages ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Minimalny zakup: ${pack.minimumPackages} opakowań (${pack.minimumPackages! * pack.packageSize} ${line.unit}). Kwota uwzględnia to minimum.`, `Minimum purchase: ${pack.minimumPackages} packs (${pack.minimumPackages! * pack.packageSize} ${line.unit}). The cost includes this minimum.`)}</Txt>}
+        {(pack.purchaseMultiple ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Zakup w partiach po ${pack.purchaseMultiple} opakowań (${pack.purchaseMultiple! * pack.packageSize} ${line.unit}). Wycenę policzono z tym ograniczeniem.`, `Purchase in lots of ${pack.purchaseMultiple} packs (${pack.purchaseMultiple! * pack.packageSize} ${line.unit}). The quote follows this rule.`)}</Txt>}
+      </View>)}
+      {packs.map(({line,pack}) => <PriceChangeBadge key={`change:${line.product.id}:${pack.offerId}`} offerId={pack.offerId} productName={line.product.name} />)}
+      <Pressable accessibilityRole="button" aria-expanded={expanded} accessibilityState={{expanded}} onPress={() => setOpenProducts(previous => ({...previous,[store.store]:!expanded}))} style={{ minHeight:48, flexDirection:'row', alignItems:'center', gap:8 }}>
+        <Feather name={expanded?'chevron-up':'chevron-down'} size={18} color={Colors.primary} />
+        <Txt w="semibold" style={{flex:1,color:Colors.primary}}>{tr(`${expanded?'Ukryj':'Pokaż'} produkty: ${store.store} (${store.lines.length})`, `${expanded?'Hide':'Show'} products: ${store.store} (${store.lines.length})`)}</Txt>
+      </Pressable>
+      {expanded && store.lines.map(line => <View key={line.product.id} style={{ gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}><ProductImage uri={getProductPhoto(line.product)} name={line.product.name} size={56} /><Txt w="medium" style={{ flex: 1, fontSize: 14 }}>{line.product.name}</Txt></View>
         {line.packages.map(pack => <View key={pack.offerId} style={{ gap: 2 }}>
           <Txt>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
-          {Boolean(pack.minimumPackages && pack.minimumPackages>1) && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Minimalny zakup w tym sklepie: ${pack.minimumPackages} opakowań (${pack.minimumPackages!*pack.packageSize} ${line.unit}). Kwota uwzględnia to minimum.`, `Minimum purchase at this store: ${pack.minimumPackages} packs (${pack.minimumPackages!*pack.packageSize} ${line.unit}). The cost includes this minimum.`)}</Txt>}
           {pack.maxPackages!==undefined&&<Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Zapas przy sprawdzeniu: ${pack.maxPackages} op. Nie jest to rezerwacja.`,`Stock when checked: ${pack.maxPackages} packs. This is not a reservation.`)}</Txt>}
-          <PriceVerificationNotice verification={pack.verification} />
-          {Boolean(pack.purchaseMultiple && pack.purchaseMultiple>1) && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Dane sklepu wskazują partie po ${pack.purchaseMultiple} opakowań (${pack.purchaseMultiple!*pack.packageSize} ${line.unit}). Wycenę liczymy z tym ograniczeniem; mniejszy zakup potwierdź w sklepie.`, `Store data specifies lots of ${pack.purchaseMultiple} packs (${pack.purchaseMultiple!*pack.packageSize} ${line.unit}). This quote follows that rule; confirm smaller purchases with the store.`)}</Txt>}
-          <PriceChangeBadge offerId={pack.offerId} />
           {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt w="semibold" style={{ color: Colors.primary }}>{tr('Sprawdź produkt w sklepie ↗', 'View product in store ↗')}</Txt></Pressable>}
         </View>)}
       </View>)}
-    </View>)}
+    </View>;})}
     {current && mode === 'shipping' && comparison.unavailableStores?.length ? <>
-      <Pressable accessibilityRole="button" accessibilityState={{ expanded: details }} onPress={() => setDetails(value => !value)} style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 8 }}><Feather name={details ? 'chevron-up' : 'chevron-down'} size={18} color={Colors.primary} /><Txt style={{ color: Colors.primary, flex: 1 }}>{tr('Sklepy wymagające potwierdzenia dostawy', 'Stores needing delivery confirmation')}</Txt></Pressable>
+      <Pressable accessibilityRole="button" aria-expanded={details} accessibilityState={{ expanded: details }} onPress={() => setDetails(value => !value)} style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 8 }}><Feather name={details ? 'chevron-up' : 'chevron-down'} size={18} color={Colors.primary} /><Txt style={{ color: Colors.primary, flex: 1 }}>{tr('Sklepy wymagające potwierdzenia dostawy', 'Stores needing delivery confirmation')}</Txt></Pressable>
       {details && comparison.unavailableStores.map(store => <View key={store.store} style={{ gap: 4 }}>
         <Txt w="semibold">{store.store}{store.partial?tr(' · inne koszyki',' · other baskets'):''}</Txt><Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{reason(store.reason)}</Txt>
         {comparison.policies.find(p => p.store === store.store)?.sourceUrl && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(comparison.policies.find(p => p.store === store.store)!.sourceUrl!)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt style={{ color: Colors.primary }}>{tr('Warunki sklepu ↗', 'Store terms ↗')}</Txt></Pressable>}

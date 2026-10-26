@@ -278,6 +278,7 @@ function EstimateResult({
 }) {
   const { t, language } = useLanguage();
   const tr = (pl: string, en: string) => language === 'pl' ? pl : en;
+  const [showCoverage, setShowCoverage] = useState(false);
   const lines = data.stages.flatMap(stage => stage.lines);
   const resolved = lines.filter((l) => l.resolved);
   const unpricedGroups = groupUnpricedLines(data.stages);
@@ -309,7 +310,13 @@ function EstimateResult({
     <>
       {data.coverage && data.coverage.offers > 0 && (
         <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
-          <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{selectedStore ? pickupOnly?tr(`Oferty punktu: ${selectedStore}. Cena odbioru w tym sklepie.`,`Location offers: ${selectedStore}. Collection price at this store.`):tr(`Oferty wybranego sklepu: ${selectedStore}. Ceny internetowe.`, `Selected store offers: ${selectedStore}. Online prices.`) : delivery.mode==='pickup'?tr(`Sklepy i punkty odbioru: ${compatibleStores.join(', ')}. Cenę i dostępność potwierdź w wybranej placówce.`,`Stores and collection locations: ${compatibleStores.join(', ')}. Confirm prices and availability at your chosen location.`):t('upgrade.compare.coverage', { stores: compatibleStores.join(', ') })}</Txt>
+          {selectedStore ? <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{pickupOnly?tr(`Oferty punktu: ${selectedStore}. Cena odbioru w tym sklepie.`,`Location offers: ${selectedStore}. Collection price at this store.`):tr(`Oferty wybranego sklepu: ${selectedStore}. Ceny internetowe.`, `Selected store offers: ${selectedStore}. Online prices.`)}</Txt> : <>
+            <Pressable accessibilityRole="button" aria-expanded={showCoverage} accessibilityState={{expanded:showCoverage}} onPress={()=>setShowCoverage(value=>!value)} style={{minHeight:48,flexDirection:'row',alignItems:'center',gap:8}}>
+              <Feather name={showCoverage?'chevron-up':'chevron-down'} size={16} color={Colors.primary}/>
+              <Txt w="semibold" style={{flex:1,color:Colors.primary}}>{tr(`Porównywane sklepy i punkty (${compatibleStores.length})`,`Compared stores and locations (${compatibleStores.length})`)}</Txt>
+            </Pressable>
+            {showCoverage && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{delivery.mode==='pickup'?tr(`Sklepy i punkty odbioru: ${compatibleStores.join(', ')}. Cenę i dostępność potwierdź w wybranej placówce.`,`Stores and collection locations: ${compatibleStores.join(', ')}. Confirm prices and availability at your chosen location.`):t('upgrade.compare.coverage',{stores:compatibleStores.join(', ')})}</Txt>}
+          </>}
           <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>
         </View>
       )}

@@ -25,6 +25,7 @@ export default function RenovationBasketScreen() {
   const { language } = useLanguage();
   const pl = language === 'pl';
   const [selected, setSelected] = useState<string[]>([]);
+  const [projectsExpanded, setProjectsExpanded] = useState<boolean | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [items, setItems] = useState<Record<string, ShoppingItem[]>>({});
@@ -62,6 +63,7 @@ export default function RenovationBasketScreen() {
     return () => { active = false; };
   }, []);
   const selectedProjects = useMemo(() => projects.filter(project => selected.includes(project.id)), [projects, selected]);
+  const showProjects = projectsExpanded ?? (selectedProjects.length === 0 && extras.length === 0);
   // Refresh after returning from a project's Shopping tab as well as selection changes.
   useFocusEffect(React.useCallback(() => {
     let active = true;
@@ -92,14 +94,22 @@ export default function RenovationBasketScreen() {
         <Txt w="bold" style={{ fontSize: 24 }}>{pl ? 'Kup razem do całego remontu' : 'Buy together for your renovation'}</Txt>
         <Txt style={{ color: Colors.textSecondary, lineHeight: 22 }}>{pl ? 'Wybierz prace i pomieszczenia. Zsumujemy potrzebne materiały, dobierzemy opakowania raz i porównamy cały zestaw z dostawami.' : 'Choose works and rooms. We combine material requirements, round to packs once and compare the complete basket including deliveries.'}</Txt>
       </View>
-      {!loaded ? <ActivityIndicator color={Colors.primary} /> : <View style={{ gap: 8 }}>
-        <Txt w="semibold">{pl ? `Wybrane prace: ${selectedProjects.length}` : `Selected works: ${selectedProjects.length}`}</Txt>
+      {!loaded ? <ActivityIndicator color={Colors.primary} /> : <View style={{ gap: 8, padding:14, borderRadius:16, borderWidth:1, borderColor:Colors.border, backgroundColor:Colors.surface }}>
+        <View style={{flexDirection:'row',alignItems:'center',gap:12}}>
+          <Txt w="semibold" accessibilityLabel={pl?`Wybrane prace: ${selectedProjects.length}`:`Selected works: ${selectedProjects.length}`} style={{flex:1,fontSize:14,lineHeight:20}}>{pl ? `Prace: ${selectedProjects.length}` : `Works: ${selectedProjects.length}`}</Txt>
+          {projects.length > 0 && <Pressable accessibilityRole="button" aria-expanded={showProjects} accessibilityState={{expanded:showProjects}} onPress={()=>setProjectsExpanded(!showProjects)} style={{minHeight:48,paddingHorizontal:8,flexDirection:'row',alignItems:'center',gap:6}}>
+            <Txt w="semibold" style={{color:Colors.primary}}>{pl ? showProjects?'Ukryj wybór prac':'Zmień wybór prac' : showProjects?'Hide work selection':'Change work selection'}</Txt>
+            <Feather name={showProjects?'chevron-up':'chevron-down'} size={18} color={Colors.primary}/>
+          </Pressable>}
+        </View>
+        {!showProjects && selectedProjects.slice(0,3).map(project=><Txt key={project.id} numberOfLines={1} style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{[project.roomName,project.name].filter(Boolean).join(' · ')}</Txt>)}
+        {!showProjects && selectedProjects.length > 3 && <Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?`Pozostałe wybrane prace: ${selectedProjects.length-3}.`:`Other selected works: ${selectedProjects.length-3}.`}</Txt>}
         {!projects.length && <Txt>{pl ? 'Najpierw utwórz projekt z obmiarami.' : 'Create a project with measurements first.'}</Txt>}
-        {projects.map(project => {
+        {showProjects && projects.map(project => {
           const checked = selected.includes(project.id);
           const disabled = !checked && selectedProjects.length >= MAX_BASKET_PROJECTS;
-          return <Pressable key={project.id} accessibilityRole="checkbox" accessibilityLabel={project.name} accessibilityState={{ checked, disabled }} disabled={disabled}
-            onPress={() => toggle(project.id)} style={({ pressed }) => ({ minHeight: 64, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: checked ? Colors.primary : Colors.border, backgroundColor: checked ? Colors.primaryBg : Colors.surface, flexDirection: 'row', alignItems: 'center', gap: 12, opacity: disabled ? 0.5 : pressed ? 0.75 : 1 })}>
+          return <Pressable key={project.id} accessibilityRole="checkbox" accessibilityLabel={project.name} aria-checked={checked} aria-disabled={disabled} accessibilityState={{ checked, disabled }} disabled={disabled}
+            onPress={() => {setProjectsExpanded(true);toggle(project.id);}} style={({ pressed }) => ({ minHeight: 64, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: checked ? Colors.primary : Colors.border, backgroundColor: checked ? Colors.primaryBg : Colors.surface, flexDirection: 'row', alignItems: 'center', gap: 12, opacity: disabled ? 0.5 : pressed ? 0.75 : 1 })}>
             <Feather name={checked ? 'check-square' : 'square'} size={22} color={checked ? Colors.primary : Colors.textSecondary} />
             <View style={{ flex: 1, gap: 4 }}><Txt w="semibold">{project.name}</Txt><Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{[project.roomName, project.jobName].filter(Boolean).join(' · ')}</Txt>
               {!project.calculationResult && <Txt style={{ color: Colors.danger }}>{pl ? 'Brakuje obmiarów do wyceny' : 'Measurements required for pricing'}</Txt>}

@@ -11,7 +11,7 @@ const PriceChangesContext=createContext<Record<string,PriceChange>>({});
 export function PriceChangesProvider({changes,children}:{changes:PriceChange[];children:React.ReactNode}) {
   return <PriceChangesContext.Provider value={Object.fromEntries(changes.map(c=>[c.offerId,c]))}>{children}</PriceChangesContext.Provider>;
 }
-export function PriceChangeBadge({ change:explicit, offerId }: { change?: PriceChange; offerId?:string }) {
+export function PriceChangeBadge({ change:explicit, offerId, productName }: { change?: PriceChange; offerId?:string; productName?:string }) {
   const { language }=useLanguage();
   const changes=useContext(PriceChangesContext);const change=explicit ?? (offerId?changes[offerId]:undefined);
   if (!change) return null;
@@ -19,6 +19,7 @@ export function PriceChangeBadge({ change:explicit, offerId }: { change?: PriceC
   // Direction is conveyed by text and an icon as well as colour.
   const color=up ? Colors.text : Colors.primaryDark;
   return <View accessibilityLiveRegion="polite" style={{gap:4,backgroundColor:up?Colors.warningBg:Colors.successBg,padding:10,borderRadius:10}}>
+    {productName && <Txt w="medium" style={{fontSize:13,color}}>{productName}</Txt>}
     <View style={{flexDirection:'row',alignItems:'center',gap:6}}>
       <Feather name={up?'trending-up':'trending-down'} color={color} size={16} />
       <Txt w="semibold" style={{fontSize:13,color,flex:1}}>{language==='pl' ? `${up?'Podrożał':'Taniej'} o ${formatGrosze(Math.abs(change.deltaGrosze))} / opak.` : `${up?'Up':'Down'} ${formatGrosze(Math.abs(change.deltaGrosze))} / pack`}</Txt>

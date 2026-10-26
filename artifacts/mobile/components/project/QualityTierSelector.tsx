@@ -31,7 +31,7 @@ export function QualityTierSelector({ selected, onSelect, includeCustom = true }
               key={t.key}
               accessibilityRole="radio"
               accessibilityLabel={t.label}
-              accessibilityState={{ checked: isActive }}
+              aria-checked={isActive} accessibilityState={{ checked: isActive }}
               onPress={() => onSelect(t.key)}
               style={{
                 flex: 1,
