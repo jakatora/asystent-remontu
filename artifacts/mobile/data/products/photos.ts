@@ -1,4 +1,4 @@
-/** Product photographs observed on the linked retail pages on 2026-10-24–25.
+/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–26.
  * Match by stable catalogue ID, EAN or exact source URL, never by fuzzy name.
  */
 interface ProductPhoto {
@@ -238,6 +238,11 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
     sourceUrl: 'https://www.castorama.pl/gotowa-gladz-polimerowa-atlas-gta-18-kg/5905400542509_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/gotowa-gladz-polimerowa-atlas-gta-18-kg~5905400542509_02c_PL_CP?%24MOB_PREV%24=&%24height=600&%24width=600',
   },
+  // source: https://parotec.pl/product-pol-18078-Folia-paroizolacyjna-zolta-CONPAR-0-2-mm-T30.html (dokładny EAN 5902096430103, niezależne źródło zdjęcia)
+  { ids: ['mat-vapor-foil-conkret-conpar-100m2'], ean: '5902096430103',
+    // Manufacturer's yellow Conpar roll illustration; exact dimensions/tolerance come from the SKU record.
+    sourceUrl: 'https://conkret.com.pl/conkret-products/folia-budowlana-conpar/',
+    imageUrl: 'https://conkret.com.pl/wp-content/uploads/2022/05/Conpar-148mm-nowy.png' },
 ];
 
 export function getProductPhoto(product: {

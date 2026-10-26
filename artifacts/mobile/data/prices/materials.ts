@@ -2218,4 +2218,16 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Listwa progowa/łącząca aluminiowa 40 mm x 1 m, montaż na wkręty z kołkami. Wykończenie/maskowanie styku podłogi winylowej z inną posadzką w przejściach między pomieszczeniami.',
   },
+  // source: https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html (EAN 5902096430103, cała rolka 2 x 50 m, cena brutto 119,50 zł, odczyt 2026-10-26)
+  // source: https://conkret.com.pl/conkret-products/folia-budowlana-conpar/ (zastosowanie pod podłogi drewniane i panele)
+  // source: https://parotec.pl/product-pol-18078-Folia-paroizolacyjna-zolta-CONPAR-0-2-mm-T30.html (EAN, 100 m², grubość 0,2 mm z tolerancją ±30%)
+  {
+    id: 'mat-vapor-foil-conkret-conpar-100m2', materialType: 'vapor-barrier',
+    productLabel: 'Folia paroizolacyjna Conkret Conpar 0,20 mm (100 m²)', brand: 'Conkret',
+    packageSize: 100, packageUnit: 'm2', pricePerPackage: 119.50, pricePerM2: 1.195,
+    category: 'standard', storeName: 'Folnet',
+    sourceUrl: 'https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html',
+    lastUpdated: '2026-10-26', currency: 'PLN',
+    notes: 'Żółta folia PE 2 x 50 m, cała rolka 100 m². Grubość 0,20 mm z tolerancją ±30%. Osobny produkt o innym EAN i opakowaniu niż Diall. Dobierz do wymagań podłogi i podkładu; nie zastępuj membrany dachowej paroprzepuszczalnej.',
+  },
 ];

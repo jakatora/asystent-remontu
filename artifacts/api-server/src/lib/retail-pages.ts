@@ -98,8 +98,12 @@ function objects(value: unknown): Record<string, any>[] {
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
   const products: Record<string, any>[] = [];
+  let stockPackages: number | undefined;
   if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
-  else if (source.format === 'folnet') products.push(inspectFolnetProduct(html, source).product);
+  else if (source.format === 'folnet') {
+    const reviewed = inspectFolnetProduct(html, source);
+    products.push(reviewed.product); stockPackages = reviewed.stock;
+  }
   else if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
   else if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
   else if (source.format === 'abstore') products.push(readAbstoreProduct(html, source));
@@ -150,6 +154,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const imageUrl = typeof firstImage === 'string' ? firstImage : firstImage?.url;
   return {
     sourceId: source.id, ean: source.ean, name,
+    ...(stockPackages === undefined ? {} : { stockPackages }),
     imageUrl: typeof imageUrl === 'string' && imageUrl.startsWith('https://') ? imageUrl.replace(/&amp;/g, '&') : null,
     priceGrosze: prices[0], currency: 'PLN', availability: 'in_stock',
     observedAt: observedAt.toISOString(), sourceUrl: source.url,

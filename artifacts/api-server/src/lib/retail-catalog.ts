@@ -983,10 +983,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // Current branch-specific collection price. Other branches need their own proof.
   // source: https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny
   {id:'bricomarche-poznan-budmat-ud27-3m',ean:'5907738940163',name:'Kształtownik sufitowy UD30 300 cm srebrny',category:'profile',brand:'Budmat',packageSize:3,unit:'mb',variant:['UD30','300 cm','srebrny'],store:'Bricomarché Poznań (Al. Solidarności)',pickupOnly:true,browserReviewAllowed:true,url:'https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny'},
+  // source: https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html
+  {id:'folnet-conpar-100m2',ean:'5902096430103',name:'Folia paroizolacyjna żółta Conpar 0,20 mm',category:'vapor-barrier',brand:'Conkret',packageSize:100,unit:'m2',store:'Folnet',format:'folnet',productId:10288,retailerSku:'12-021',variant:['Conpar','0,20 mm'],url:'https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html
+  'Folia paroizolacyjna Conkret Conpar 0,20 mm (100 m²)': '5902096430103',
   'Profil przyścienny Budmat UD27 0,5 mm 3 m':'5907738940163',
   'Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²':'5061092900925',
   'Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²':'5059340969756',

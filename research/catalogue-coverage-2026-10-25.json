@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T08:30:37.212Z",
-  "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
-  "total": 103,
-  "verifiedProducts": 97,
+  "checkedAt": "2026-10-26T17:58:18.117Z",
+  "scope": "104 reference products including a new explicitly selectable Conpar foil, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator. productsWithPhotos counts registered source URLs, not a simultaneous browser load of every external image.",
+  "total": 104,
+  "verifiedProducts": 98,
   "remaining": 6,
-  "offers": 124,
+  "offers": 125,
   "stores": 38,
-  "productsWithPhotos": 103,
-  "registeredOffers": 126,
+  "productsWithPhotos": 104,
+  "registeredOffers": 127,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2174,6 +2174,25 @@
           "status": "quoted",
           "reason": null,
           "postalCode": "00-001"
+        }
+      ]
+    },
+    {
+      "id": "mat-vapor-foil-conkret-conpar-100m2",
+      "name": "Folia paroizolacyjna Conkret Conpar 0,20 mm (100 m²)",
+      "referenceUrl": "https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html",
+      "status": "verified_offer",
+      "ean": "5902096430103",
+      "sourceIds": [
+        "folnet-conpar-100m2"
+      ],
+      "photoUrl": "https://conkret.com.pl/wp-content/uploads/2022/05/Conpar-148mm-nowy.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "folnet-conpar-100m2",
+          "checkedAt": "2026-10-26T17:58:18.117Z",
+          "status": "unavailable",
+          "reason": "quote_unavailable"
         }
       ]
     }
