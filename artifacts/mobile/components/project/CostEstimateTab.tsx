@@ -4,6 +4,9 @@ import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
 import { StoreChoiceSection } from './StoreChoiceSection';
 import { DoorSelectionSection } from './DoorSelectionSection';
+import { LaminateChoiceSection } from './LaminateChoiceSection';
+import { applyLaminateChoices, laminateRequirements } from '@/features/pricing/laminateChoice';
+import { useLaminateChoices } from '@/features/pricing/useLaminateChoices';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, deliverySettingsForStore, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
@@ -22,7 +25,7 @@ import type { DeliverySettings } from '../../../../lib/pricing-service/src/deliv
 // Nic nie liczy po stronie klienta — kwoty (w groszach) i „najtańsza oferta"
 // pochodzą z API; tu jest tylko formatowanie na PLN i układ. Nie dotyka formuł,
 // ID jobów ani danych kalkulatora.
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { View, ActivityIndicator, Pressable, Linking } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
@@ -68,6 +71,10 @@ type LoadState =
 export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
   const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
+  const rawInput = useMemo(() => stages ?? (calc ? [toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection)] : []), [stages, calc, qualityTier, doorChoice.selection]);
+  const laminateReferences = useMemo(() => laminateRequirements(rawInput), [rawInput]);
+  const panels = useLaminateChoices(projectId, laminateReferences.length > 0);
+  const input = useMemo(() => applyLaminateChoices(rawInput, panels.choices), [rawInput, panels.choices]);
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const deliveryRef = useRef(delivery);
@@ -83,7 +90,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
-  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready]);
+  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed]);
   const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
@@ -107,11 +114,10 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
-    if (!hasInput || loadedScope !== scope || !doorChoice.ready) return;
+    if (!hasInput || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed) return;
     const version = ++requestVersion.current;
     setState({ status: 'loading' });
     try {
-      const input = stages ?? [toPricingStageInput(calc!, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection)];
       const rememberChoices = (data: SerializedProject) => {
         const choices = { ...collectStoreChoices(data), scope,mode:delivery.mode };
         storeChoicesRef.current = choices; setStoreChoices(choices);
@@ -145,7 +151,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [calc, stages, hasInput, qualityTier, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, doorChoice.selection]);
+  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -170,6 +176,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       </View>
 
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
+      <LaminateChoiceSection references={laminateReferences} {...panels} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
+        requestVersion.current++;
+        setState({ status: 'loading' });
+        panels.onChange(choices);
+      }} />
       {projectId && calc?.jobId === 'eps-insulation-bso' && <Button label={language === 'pl' ? 'Uzupełnij obmiary ocieplenia' : 'Update insulation measurements'} variant="outline" onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} fullWidth />}
 
       {storeChoices?.scope === scope && storeChoices.mode===delivery.mode && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} mode={delivery.mode} onSelect={store => {
@@ -181,7 +192,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, saved)).catch(() => setSaveFailed(true));
       }} />}
 
-      {(state.status === 'loading' || loadedScope !== scope || !doorChoice.ready) && (
+      {!panels.readFailed && (state.status === 'loading' || loadedScope !== scope || !doorChoice.ready || !panels.ready) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
           <ActivityIndicator size="large" color={Colors.primary} />
           <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
@@ -190,7 +201,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
-      {state.status === 'error' && (
+      {!panels.readFailed && state.status === 'error' && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 32 }}>
           <Feather name="alert-triangle" size={36} color={Colors.danger} />
           <Txt w="semibold" style={{ fontSize: 16, color: Colors.text, textAlign: 'center' }}>
@@ -203,7 +214,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
-      {state.status === 'success' && loadedScope === scope && (
+      {state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && (
         <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
           requestVersion.current++;
           deliveryRef.current=settings;

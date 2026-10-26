@@ -15,6 +15,7 @@ import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import type { ShoppingItem } from '@/types/domain';
 import { buildRenovationBasket, MAX_BASKET_PROJECTS, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
 import { DOOR_SELECTION_PREFIX, parseDoorSelection, type DoorSelection } from '@/features/pricing/doorSelection';
+import { LAMINATE_CHOICE_PREFIX, parseLaminateChoices, type LaminateChoice } from '@/features/pricing/laminateChoice';
 
 export default function RenovationBasketScreen() {
   const { projects, selectedQualityTier, setSelectedQualityTier, selectedRegion, refreshProjects } = useApp();
@@ -25,6 +26,7 @@ export default function RenovationBasketScreen() {
   const [saveFailed, setSaveFailed] = useState(false);
   const [items, setItems] = useState<Record<string, ShoppingItem[]>>({});
   const [doors, setDoors] = useState<Record<string, DoorSelection | null>>({});
+  const [laminates, setLaminates] = useState<Record<string, LaminateChoice[]>>({});
   const [itemsReady, setItemsReady] = useState(false);
   const [itemsFailed, setItemsFailed] = useState(false);
   const writes = useRef(Promise.resolve());
@@ -59,14 +61,14 @@ export default function RenovationBasketScreen() {
     let active = true;
     setItemsReady(false); setItemsFailed(false);
     void Promise.all(selectedProjects.map(async project => {
-      const [shopping, rawDoor] = await Promise.all([shoppingRepo.findByProject(project.id), project.calculationResult?.jobId === 'interior-doors' ? AsyncStorage.getItem(DOOR_SELECTION_PREFIX + project.id) : Promise.resolve(null)]);
-      return { id: project.id, shopping, door: project.calculationResult ? parseDoorSelection(rawDoor, project.calculationResult) : null };
+      const [shopping, rawDoor, rawLaminate] = await Promise.all([shoppingRepo.findByProject(project.id), project.calculationResult?.jobId === 'interior-doors' ? AsyncStorage.getItem(DOOR_SELECTION_PREFIX + project.id) : Promise.resolve(null), AsyncStorage.getItem(LAMINATE_CHOICE_PREFIX + project.id)]);
+      return { id: project.id, shopping, door: project.calculationResult ? parseDoorSelection(rawDoor, project.calculationResult) : null, laminate: parseLaminateChoices(rawLaminate) };
     }))
-      .then(entries => { if (active) { setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setItemsReady(true); } })
+      .then(entries => { if (active) { setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setLaminates(Object.fromEntries(entries.map(entry => [entry.id, entry.laminate]))); setItemsReady(true); } })
       .catch(() => { if (active) setItemsFailed(true); });
     return () => { active = false; };
   }, [selectedProjects]));
-  const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors), [projects, selected, selectedQualityTier, items, doors]);
+  const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates), [projects, selected, selectedQualityTier, items, doors, laminates]);
   const stages = useMemo(() => withBasketExtras(basket.stages, extras), [basket.stages, extras]);
   const hasBasket = selectedProjects.length > 0 || extras.length > 0;
   const toggle = (id: string) => {
