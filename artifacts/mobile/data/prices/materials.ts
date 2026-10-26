@@ -2230,4 +2230,14 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-10-26', currency: 'PLN',
     notes: 'Żółta folia PE 2 x 50 m, cała rolka 100 m². Grubość 0,20 mm z tolerancją ±30%. Osobny produkt o innym EAN i opakowaniu niż Diall. Dobierz do wymagań podłogi i podkładu; nie zastępuj membrany dachowej paroprzepuszczalnej.',
   },
+  // source: https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd (rzeczywisty odczyt przeglądarki 2026-10-26T18:21:43.632Z; cena całego skrzydła brutto)
+  // source: https://fixly.pl/kategoria/montaz-drzwi/aleksandrow-kujawski (niezależna identyfikacja linku tego modelu; nie źródło aktualnej ceny ani zgodności)
+  {
+    id: 'mat-door-leaf-opp-archi-full-80-left', materialType: 'door-leaf',
+    productLabel: 'Skrzydło drzwiowe pełne OPP Archi 80 lewe białe (2035 × 844 mm)', brand: 'OPP',
+    packageSize: 1, packageUnit: 'szt', pricePerPackage: 358, category: 'standard',
+    storeName: 'Castorama', sourceUrl: 'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd',
+    lastUpdated: '2026-10-26', currency: 'PLN',
+    notes: 'EAN 5063022524263. Osobny model względem starego Archi 5903917782364: 2035 × 844 × 39,5 mm, bez wentylacji, nie można przyciąć. Skrzydło z zawiasami; ościeżnica, klamka i mocowania osobno. Sprawdź zgodność z ościeżnicą i obmiarami; nominalny rozmiar 80 nie potwierdza dopasowania.',
+  },
 ];

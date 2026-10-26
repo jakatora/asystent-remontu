@@ -6,6 +6,8 @@ export const DOOR_SELECTION_PREFIX = 'remont.door-selection.v1:';
 export const DOOR_LEAVES = [
   // source: https://www.castorama.pl/drzwi-pelne-archi-80-lewe-biale-lakierowane/5903917782364_CAPL.prd
   { id: 'mat-door-leaf-archi-80-white', ean: '5903917782364', label: 'Archi 80 — lewe, białe, pełne', labelEn: 'Archi 80 — left-hand, white, solid' },
+  // source: https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd
+  { id: 'mat-door-leaf-opp-archi-full-80-left', ean: '5063022524263', label: 'OPP Archi 80 — lewe, białe, pełne, 2035 × 844 mm', labelEn: 'OPP Archi 80 — left-hand, white, solid, 2035 × 844 mm' },
   // source: https://www.castorama.pl/drzwi-pokojowe-credis-80-lewe-biale/5900378219590_CAPL.prd
   { id: 'mat-door-leaf-erkado-credis-80-glazed', ean: '5900378219590', label: 'Credis 80 — lewe, białe, przeszklone', labelEn: 'Credis 80 — left-hand, white, glazed' },
 ] as const;

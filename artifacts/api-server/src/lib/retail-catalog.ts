@@ -985,10 +985,15 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {id:'bricomarche-poznan-budmat-ud27-3m',ean:'5907738940163',name:'Kształtownik sufitowy UD30 300 cm srebrny',category:'profile',brand:'Budmat',packageSize:3,unit:'mb',variant:['UD30','300 cm','srebrny'],store:'Bricomarché Poznań (Al. Solidarności)',pickupOnly:true,browserReviewAllowed:true,url:'https://www.bricomarche.pl/ksztaltownik-sufitowy-ud30-300-cm-srebrny'},
   // source: https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html
   {id:'folnet-conpar-100m2',ean:'5902096430103',name:'Folia paroizolacyjna żółta Conpar 0,20 mm',category:'vapor-barrier',brand:'Conkret',packageSize:100,unit:'m2',store:'Folnet',format:'folnet',productId:10288,retailerSku:'12-021',variant:['Conpar','0,20 mm'],url:'https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html'},
+  // Separate current model, not an alias for discontinued EAN 5903917782364.
+  // source: https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd
+  {id:'castorama-opp-archi-full-80-left',ean:'5063022524263',name:'Drzwi pełne OPP Archi 80 lewe białe',category:'door-leaf',brand:'OPP',packageSize:1,unit:'szt',store:'Castorama',browserReviewAllowed:true,variant:['Archi','80','lewe','białe'],url:'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd
+  'Skrzydło drzwiowe pełne OPP Archi 80 lewe białe (2035 × 844 mm)': '5063022524263',
   // source: https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html
   'Folia paroizolacyjna Conkret Conpar 0,20 mm (100 m²)': '5902096430103',
   'Profil przyścienny Budmat UD27 0,5 mm 3 m':'5907738940163',

@@ -45,10 +45,13 @@ test('every newly priced product has a precise calculator alias and a matching p
   for (const source of RETAIL_SOURCES.slice(14)) {
     assert.ok(Object.values(RETAIL_NAME_ALIASES).includes(source.ean));
     const photo = PRODUCT_PHOTOS.find(photo => photo.ean === source.ean);
+    const identityUrl = photo?.identitySourceUrl ?? photo?.sourceUrl;
     // A verified product card may supply the photograph before that shop has
     // a confirmed offer. The exact barcode remains mandatory in either case.
-    assert.ok(RETAIL_SOURCES.some(candidate => candidate.ean === source.ean && candidate.url === photo?.sourceUrl)
-      || new RegExp(`(?:^|[^0-9])${source.ean}(?:[^0-9]|$)`).test(photo?.sourceUrl ?? ''));
+    // A manufacturer's pack illustration has its own source URL, while an
+    // explicit retail identity still binds it to the exact reviewed barcode.
+    assert.ok(RETAIL_SOURCES.some(candidate => candidate.ean === source.ean && candidate.url === identityUrl)
+      || new RegExp(`(?:^|[^0-9])${source.ean}(?:[^0-9]|$)`).test(identityUrl ?? ''), source.id);
     assert.ok(photo?.ids.length);
     assert.ok(photo?.imageUrl.startsWith('https://'));
   }

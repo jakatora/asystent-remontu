@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T17:58:18.117Z",
-  "scope": "104 reference products including a new explicitly selectable Conpar foil, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator. productsWithPhotos counts registered source URLs, not a simultaneous browser load of every external image.",
-  "total": 104,
-  "verifiedProducts": 98,
+  "checkedAt": "2026-10-26T18:32:25.734Z",
+  "scope": "105 reference products, including explicitly selectable current Conpar and OPP Archi models; not every product on the market. A verified offer does not confirm delivery or compatibility. productsWithPhotos counts registered URLs, not simultaneous loading of all external images.",
+  "total": 105,
+  "verifiedProducts": 99,
   "remaining": 6,
-  "offers": 125,
+  "offers": 126,
   "stores": 38,
-  "productsWithPhotos": 104,
-  "registeredOffers": 127,
+  "productsWithPhotos": 105,
+  "registeredOffers": 128,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2195,8 +2195,32 @@
           "reason": "quote_unavailable"
         }
       ]
+    },
+    {
+      "id": "mat-door-leaf-opp-archi-full-80-left",
+      "name": "Skrzydło drzwiowe pełne OPP Archi 80 lewe białe (2035 × 844 mm)",
+      "referenceUrl": "https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5063022524263",
+      "sourceIds": [
+        "castorama-opp-archi-full-80-left"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-opp-archi-80-lewe-biale~5063022524263_02c?$MOB_PREV$&$width=600&$height=600",
+      "deliveryChecks": [
+        {
+          "sourceId": "castorama-opp-archi-full-80-left",
+          "checkedAt": "2026-10-26T18:32:25.734Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T18:21:43.632Z",
+        "expiresAt": "2026-10-27T18:21:43.632Z"
+      }
     }
   ],
   "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 19
+  "browserVerifiedOffers": 20
 }

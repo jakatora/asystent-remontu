@@ -5,6 +5,8 @@ interface ProductPhoto {
   readonly ids: readonly string[];
   readonly ean: string;
   readonly sourceUrl: string;
+  /** Exact retail identity when the image itself comes from the manufacturer. */
+  readonly identitySourceUrl?: string;
   readonly imageUrl: string;
 }
 
@@ -242,7 +244,11 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-vapor-foil-conkret-conpar-100m2'], ean: '5902096430103',
     // Manufacturer's yellow Conpar roll illustration; exact dimensions/tolerance come from the SKU record.
     sourceUrl: 'https://conkret.com.pl/conkret-products/folia-budowlana-conpar/',
+    identitySourceUrl: 'https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html',
     imageUrl: 'https://conkret.com.pl/wp-content/uploads/2022/05/Conpar-148mm-nowy.png' },
+  { ids: ['mat-door-leaf-opp-archi-full-80-left'], ean: '5063022524263',
+    sourceUrl: 'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd',
+    imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-opp-archi-80-lewe-biale~5063022524263_02c?$MOB_PREV$&$width=600&$height=600' },
 ];
 
 export function getProductPhoto(product: {
