@@ -20,6 +20,15 @@ const sewera = [
   {id:'tarnowskie-gory',city:'Tarnowskie Góry',street:'ul. Nakielska 24',postalCode:'42-600',phone:'+48323811777',latitude:50.442669,longitude:18.868043,mapCid:'8252299477358544826',hours:'Pn–pt 6:30–17:00, sob. 6:30–14:30'},
 ];
 export const PICKUP_LOCATIONS: readonly PickupLocation[] = [
+  // Official collection directory and individual branch pages. These addresses
+  // are not confirmation of the product's branch price, inventory or readiness.
+  // source: https://www.abud.pl/stocks.php
+  // source: https://www.abud.pl/ABUD-Jozefow-Pilsudskiego-25-stock-2-pol.html
+  {id:'abud-jozefow-pilsudskiego',store:'ABUD',city:'Józefów',street:'ul. Piłsudskiego 25',postalCode:'05-420',phone:'+48227693776',hours:'Pn–sob 7:00–20:00',checkedAt,sourceUrl:'https://www.abud.pl/ABUD-Jozefow-Pilsudskiego-25-stock-2-pol.html'},
+  // source: https://www.abud.pl/ABUD-Warszawa-Patriotow-208-stock-1-pol.html
+  {id:'abud-warszawa-patriotow',store:'ABUD',city:'Warszawa',street:'ul. Patriotów 208',postalCode:'04-701',phone:'+48226157813',hours:'Pn–pt 6:30–18:00, sob. 8:00–14:00',checkedAt,sourceUrl:'https://www.abud.pl/ABUD-Warszawa-Patriotow-208-stock-1-pol.html'},
+  // source: https://www.abud.pl/ABUD-Warszawa-Przewodowa-60-stock-4-pol.html
+  {id:'abud-warszawa-przewodowa',store:'ABUD',city:'Warszawa',street:'ul. Przewodowa 60',postalCode:'04-874',phone:'+48531457875',hours:'Pn–pt 7:00–17:00',checkedAt,sourceUrl:'https://www.abud.pl/ABUD-Warszawa-Przewodowa-60-stock-4-pol.html'},
   // Exact branch price is a separate offer. Map centre/CID come from the
   // official embedded map; the page's reversed JSON-LD geo fields are rejected.
   // source: https://www.bricomarche.pl/sklep/bricomarche-poznan-al-solidarnosci

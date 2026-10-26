@@ -47,6 +47,8 @@ test('maps search encodes the chosen store and user location; it does not imply 
   assert.equal(storeLocatorUrl('Castorama'), 'https://www.castorama.pl/find-a-store');
   assert.equal(storeLocatorUrl('OBI'), 'https://www.obi.pl/stores');
   assert.equal(storeLocatorUrl('Sewera'), 'https://sklep.sewera.pl/miejsca-odbioru');
+  assert.equal(supportsStoreMapSearch('ABUD'), true);
+  assert.equal(storeLocatorUrl('ABUD'), 'https://www.abud.pl/stocks.php');
   assert.equal(storeMapSearchUrl('Castorama',''), null); assert.equal(storeMapSearchUrl('Castorama','x'.repeat(81)), null);
   assert.equal(parsePreferredStore('Sewera'), 'Sewera');
   for (const value of [null, 12, '', ' Sewera', 'Sewera\n', 'x'.repeat(81)]) assert.equal(parsePreferredStore(value), null);

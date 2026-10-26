@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-26T22:32:01.467Z",
-  "scope": "110 reference products and explicit alternatives, including a two-point Fischer basin fixing blister selected only with explicit suitability confirmation. Not every market product. Pickup does not confirm branch stock or driving cost. Photo URL registration is distinct from runtime loading verification.",
+  "checkedAt": "2026-10-26T23:17:21.257Z",
+  "scope": "110 reference products and explicit alternatives, not every product on the market. 104 have a confirmed offer; 99 have an eligible collection offer, without branch inventory or travel costs. Photo URL registration is distinct from runtime loading. 21 registered delivery adapters are not 21 guaranteed successful quotations; ABUD native local acceptance passed, production acceptance failed because Railway cannot connect to the shop.",
   "total": 110,
   "verifiedProducts": 104,
   "remaining": 6,
@@ -2326,10 +2326,26 @@
           "checkedAt": "2026-10-26T22:32:01.467Z",
           "status": "integration_unavailable",
           "basis": "No confirmed basket/postcode freight. A Smile or product banner is not a home-delivery quote."
+        },
+        {
+          "sourceId": "abud-fischer-wst140k-2",
+          "checkedAt": "2026-10-26T23:17:21.257Z",
+          "status": "quote_unavailable",
+          "basis": "Native full-basket/postcode adapter and local actual HTTP verified. Production positive-price test failed on TCP connection; shipping remains null, never zero."
         }
       ]
     }
   ],
-  "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 22
+  "automaticDeliveryStores": 21,
+  "browserVerifiedOffers": 22,
+  "productsWithPickupOffers": 99,
+  "confirmedPickupAddresses": 14,
+  "deliveryProductionFailures": {
+    "ABUD": {
+      "checkedAt": "2026-10-26T23:17:21.257Z",
+      "reason": "quote_unavailable",
+      "cause": "TCP connect timeout from Railway to ABUD; no confirmed production delivery amount",
+      "positiveAcceptancePassed": false
+    }
+  }
 }

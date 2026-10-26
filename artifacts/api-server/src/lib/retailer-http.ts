@@ -23,6 +23,25 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** Only ABUD's public postcode check, anonymous add and basket-rate query.
+   * The client-new endpoint is restricted to its postcode-only check; no
+   * registration/customer submission, payment or order action is exposed.
+   * source: https://www.abud.pl/gfx/pol/shop.js.gzip?r=1792053849
+   */
+  async abud(action: 'destination' | 'add' | 'shipping', args: {postalCode?: string; productId?: number; count?: number} = {}): Promise<any> {
+    if (this.origin !== 'https://www.abud.pl' || Object.keys(args).some(key => !['postalCode','productId','count'].includes(key))) throw Error('invalid_cart_action');
+    if (action === 'destination') {
+      if (!/^\d{2}-\d{3}$/.test(args.postalCode ?? '') || args.productId !== undefined || args.count !== undefined) throw Error('invalid_cart_action');
+      return JSON.parse(await this.read('/ajax/client-new.php?checkDeliveryZipcode=true&region_id=1143020003&zipcode='+args.postalCode,undefined,false));
+    }
+    if (action === 'add') {
+      if (![6204,64835,17848].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
+      return JSON.parse(await this.read('/basketchange.php',new URLSearchParams({getAjax:'true',mode:'1',product:String(args.productId),size:'onesize',number:String(args.count)}).toString(),false));
+    }
+    if (action !== 'shipping' || Object.keys(args).length) throw Error('invalid_cart_action');
+    const query = 'query { shipping(ShippingInput: { mode: basket }) { shipping { courier { id name icon } prepaid cost { value formatted } deliveryTime { weekDay } } } }';
+    return JSON.parse(await this.read('/graphql/v1/',JSON.stringify({query}),true,false,true));
+  }
   /** Only this storefront's anonymous quantity update, never its order form.
    * source: https://modnalazienka.pl/static_files/js/update_cart.js?x=1792224600
    */

@@ -23,7 +23,7 @@ export function PickupLocationCards({store,location}:{store:string;location:stri
   const open=(url:string)=>void Linking.openURL(url).catch(()=>setFailed(true));
   if(!catalogue.length)return null;
   return <View style={{gap:10}}>
-    <Txt w="semibold">{tr('Potwierdzone adresy odbioru','Verified collection addresses')} ({catalogue.length})</Txt>
+    <Txt w="semibold">{tr('Potwierdzone adresy odbioru','Verified collection addresses')} ({rows.length === catalogue.length ? catalogue.length : tr(`${rows.length} z ${catalogue.length}`,`${rows.length} of ${catalogue.length}`)})</Txt>
     {code&&canLocate&&lookup?.status==='loading'&&<Txt accessibilityLiveRegion="polite" style={{color:Colors.textSecondary}}>{tr('Ustalamy miejscowość dla kodu…','Looking up the postcode town…')}</Txt>}
     {place&&<Txt style={{color:Colors.textSecondary,lineHeight:20}}>{tr(`Okolica kodu ${place.postalCode}: ${place.name}. Odległości są orientacyjne, w linii prostej od środka miejscowości; trasę sprawdź w Mapach.`,`Postcode area ${place.postalCode}: ${place.name}. Distances are approximate straight lines from the town centre; check your route in Maps.`)}</Txt>}
     {code&&canLocate&&lookup?.code===code&&lookup.status==='done'&&!place&&<Txt style={{color:Colors.textSecondary,lineHeight:20}}>{tr('Nie udało się ustalić położenia kodu. Nadal możesz sprawdzić adresy i otworzyć mapę.','The postcode location could not be found. Addresses and maps are still available.')}</Txt>}

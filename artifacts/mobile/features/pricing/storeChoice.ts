@@ -61,7 +61,8 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
 // source: https://mrowka.com.pl/sklepy-psb-mrowka
 // source: https://www.bricoman.pl/regulamin-zakupow.html
 // source: https://sklep.sewera.pl/miejsca-odbioru
-const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera']);
+// source: https://www.abud.pl/stocks.php
+const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera', 'ABUD']);
 
 export function supportsStoreMapSearch(store: string): boolean {
   return store === 'Bricomarché Poznań (Al. Solidarności)' || store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
@@ -69,7 +70,7 @@ export function supportsStoreMapSearch(store: string): boolean {
 
 export function storeLocatorUrl(store: string): string | null {
   return new Map([['Castorama', 'https://www.castorama.pl/find-a-store'], ['OBI', 'https://www.obi.pl/stores'],
-    ['Mrówka', 'https://mrowka.com.pl/sklepy-psb-mrowka'], ['Sewera', 'https://sklep.sewera.pl/miejsca-odbioru']]).get(store) ?? null;
+    ['Mrówka', 'https://mrowka.com.pl/sklepy-psb-mrowka'], ['Sewera', 'https://sklep.sewera.pl/miejsca-odbioru'], ['ABUD', 'https://www.abud.pl/stocks.php']]).get(store) ?? null;
 }
 
 /** User-initiated map search, not verified branch inventory or distance.
