@@ -2165,10 +2165,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     pricePerPackage: 73.99,
     pricePerM2: 12.33,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Corksystem (Castorama)',
     sourceUrl:
       'https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd',
-    lastUpdated: '2026-09-06',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'Cienki podkład 1,5 mm dedykowany pod panele winylowe LVT/SPC click (cienki, by nie przeciążać zamków). Redukcja hałasu 21 dB, odporny na wilgoć/pleśń. Bez ogrzewania podłogowego.',
   },

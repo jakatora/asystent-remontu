@@ -24,13 +24,22 @@ function specificationValue(snapshot:BrowserProductSnapshot,label:string):string
  return value;
 }
 
+/** Reviewed marketplace identity is kept separate from the platform. This
+ * allowlist also protects bootstrap/cache reads; no public source registration. */
+export function isCastoramaBrowserSource(source:RetailSource):boolean{
+ if(source.browserReviewAllowed!==true)return false;
+ try{const url=new URL(source.url);if(url.origin!=='https://www.castorama.pl'||url.username||url.password)return false;}catch{return false;}
+ if(!source.marketplaceSeller)return source.store==='Castorama';
+ return source.id==='castorama-marketplace-corksystem-lvt-6m2'&&source.ean==='5061092900925'&&source.store==='Corksystem (Castorama)'&&source.marketplaceSeller.name==='Corksystem'&&source.marketplaceSeller.id===2601&&source.pickupUnavailable===true&&source.packageSize===6&&source.unit==='m2';
+}
+
 /** Offline operator import only; no public upload endpoint or client-controlled
  * fetch URL. Local pickup stock/price and banner freight must never become a
  * delivery quote or nationwide stock. Browser reads expire after 24 hours. */
 export function observeCastoramaBrowser(snapshot:BrowserProductSnapshot,source:RetailSource,now=new Date()):RetailObservation{
  const captured=Date.parse(snapshot.capturedAt),age=now.getTime()-captured;
  if(!Number.isFinite(captured)||age< -300000||age>=86400000)throw Error('browser_observation_not_current');
- if(snapshot.version!==1||source.browserReviewAllowed!==true||source.store!=='Castorama'||new URL(source.url).origin!=='https://www.castorama.pl'||snapshot.url!==source.url||snapshot.ean!==source.ean||!new URL(snapshot.url).pathname.endsWith('/'+source.ean+'_CAPL.prd'))throw Error('browser_product_identity_not_confirmed');
+ if(snapshot.version!==1||!isCastoramaBrowserSource(source)||snapshot.url!==source.url||snapshot.ean!==source.ean||!new URL(snapshot.url).pathname.endsWith('/'+source.ean+'_CAPL.prd'))throw Error('browser_product_identity_not_confirmed');
  if(snapshot.heading!==source.name||!snapshot.axState.includes('heading '+source.name+', Value: 1')||!snapshot.axState.includes('text '+source.ean))throw Error('browser_product_identity_not_confirmed');
  if(!Array.isArray(snapshot.schemas)||snapshot.schemas.length>12||snapshot.schemas.some(s=>typeof s!=='string'||s.length>100000)||snapshot.axState.length>250000)throw Error('invalid_browser_snapshot');
  const products=snapshot.schemas.flatMap(s=>{try{const value=JSON.parse(s);return value?.['@type']==='Product'?[value]:[]}catch{return[];}});
@@ -40,14 +49,19 @@ export function observeCastoramaBrowser(snapshot:BrowserProductSnapshot,source:R
  const offers=[products[0].offers].flat();
  const home=offers.filter(o=>o?.['@type']==='Offer'&&o.description==='Home Delivery'&&o.availableDeliveryMethod==='https://schema.org/ParcelService'&&!o.availableAtOrFrom);
  if(home.length!==1||home[0].availability!=='https://schema.org/InStock'||home[0].priceCurrency!=='PLN')throw Error('no_confirmed_online_pln_offer');
- if(home[0].seller&&home[0].seller.name!=='Castorama Polska')throw Error('browser_seller_not_confirmed');
  const section=snapshot.axState.slice(snapshot.axState.indexOf('heading '+snapshot.heading+', Value: 1')).split(/\n\s*\d+ container product-suggestions/)[0];
+ const merchant=source.marketplaceSeller;
+ if(merchant){
+  const sellerLink='link Description: '+merchant.name+', Value: castorama.pl/verified-sellers/seller/'+merchant.id;
+  if(home[0].seller?.name!==merchant.name||!section.includes(sellerLink)||!section.includes('text Produkt dostępny wyłącznie w sprzedaży internetowej.')||offers.some(o=>o?.availableDeliveryMethod==='https://schema.org/OnSitePickup'&&o.availability==='https://schema.org/InStock'))throw Error('browser_seller_not_confirmed');
+ }else if(home[0].seller&&home[0].seller.name!=='Castorama Polska')throw Error('browser_seller_not_confirmed');
  const area=source.unit==='m2',length=source.unit==='m';
- const visible=area?section.match(/\n\s*\d+ text [\d\s,.]+zł\s*\/\s*m²\s+([\d\s,.]+zł)\s*\/\s*(opak\.)/):section.match(/\n\s*\d+ text ([\d\s,.]+zł)\s*\/\s*(szt\.|opak\.)/);
+ const visible=merchant?section.match(/\n\s*\d+ text ([\d\s,.]+zł)\s*(?:\r?\n|$)/):area?section.match(/\n\s*\d+ text [\d\s,.]+zł\s*\/\s*m²\s+([\d\s,.]+zł)\s*\/\s*(opak\.)/):section.match(/\n\s*\d+ text ([\d\s,.]+zł)\s*\/\s*(szt\.|opak\.)/);
  if(!visible||!['szt','l','kg','mb','m2','m'].includes(source.unit))throw Error('browser_purchase_unit_not_confirmed');
  if(area){
   const coverage=specificationValue(snapshot,'Pokrycie').match(/^(\d+(?:[.,]\d+)?)\s*m[²2]$/),pieces=specificationValue(snapshot,'Liczba sztuk w opakowaniu');
   if(!coverage||Number(coverage[1].replace(',','.'))!==source.packageSize||!/^\d+$/.test(pieces)||Number(pieces)<1||normalizeProductName(specificationValue(snapshot,'Marka'))!==normalizeProductName(source.brand))throw Error('browser_package_not_confirmed');
+  if(merchant&&(pieces!=='1'||specificationValue(snapshot,'Rodzaj opakowania')!=='Opakowanie'||!/(?:^| )1 op\.$/.test(snapshot.heading)))throw Error('browser_package_not_confirmed');
  }
  if(length){
   const dimensions=snapshot.heading.match(/(?:^| )(\d+(?:[.,]\d+)?) x (\d+(?:[.,]\d+)?) cm(?: |$)/);

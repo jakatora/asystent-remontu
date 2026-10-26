@@ -973,10 +973,15 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // 178 PLN buys the entire 216cm piece; 82.41 PLN/m is not its purchase price.
   // source: https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd
   {id:'castorama-form-30x216',ean:'5906725219640',name:'Parapet wewnętrzny PCV Form 30 x 216 cm biały',category:'windowsill',brand:'Form',packageSize:2.16,unit:'m',variant:['30 x 216 cm','biały'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd'},
+  // Actual marketplace merchant: this does not belong to Castorama's own basket
+  // or physical pickup network. One sealed 6m² pack, not a multi-pack bundle.
+  // source: https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd
+  {id:'castorama-marketplace-corksystem-lvt-6m2',ean:'5061092900925',name:'Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op.',category:'underlay',brand:'Corksystem',packageSize:6,unit:'m2',variant:['LVT','1.5 mm','6 m2','1 op.'],store:'Corksystem (Castorama)',marketplaceSeller:{name:'Corksystem',id:2601},pickupUnavailable:true,browserReviewAllowed:true,url:'https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²':'5061092900925',
   'Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²':'5059340969756',
   'Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²':'5059340802435',
   'Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb':'5906725207227',

@@ -25,6 +25,7 @@ const TTL = 10 * 60_000;
 
 function unavailableReason(store: string): string | undefined {
   const sources = RETAIL_SOURCES.filter(source=>source.store===store);
+  if(sources.some(source=>source.marketplaceSeller))return 'retailer_access_required';
   if (sources.length && sources.every(source=>source.format === 'betterial')) return 'retailer_transport_quote_required';
   // This checkout requests customer/address fields before shipping selection.
   // The footer's 16/21 PLN is not a postcode/basket quote.
@@ -38,7 +39,7 @@ export function retailerDeliveryCapabilities() {
   return {
     automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
-    postcodeStores:['Sewera','Cezar'],accessRequiredStores:['Castorama','OBI'],
+    postcodeStores:['Sewera','Cezar'],accessRequiredStores:[...new Set(['Castorama','OBI',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
 }
 export function knownUnavailableRetailers(): Readonly<Record<string,string>> {

@@ -29,6 +29,9 @@ export interface RetailSource {
   /** Operator may import a current, visibly reviewed browser card. Not an
    * automatic refresh and not accepted from public API request input. */
   browserReviewAllowed?: boolean;
+  /** Actual merchant on the marketplace, distinct from its platform's own
+   * basket, delivery tariff and physical stores. */
+  marketplaceSeller?: {name:string;id:number};
   /** Independently reviewed manufacturer for a store-labelled Shoper product.
    * The exact placeholder is pinned; a changed producer needs a new review. */
   brandReference?: { url: string; retailerValue: string; retailerId: number };
@@ -136,6 +139,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
     return true;
   });
   const prices = eligibleOffers.map(offer => parsePriceToGrosze(offer.price)).filter((price): price is number => price !== null && price > 0 && Number.isSafeInteger(price));
+  if(source.marketplaceSeller&&eligibleOffers.some(offer=>offer.seller?.name!==source.marketplaceSeller!.name))throw Error('retailer_seller_not_confirmed');
   if (prices.length === 0) throw new Error('no_confirmed_online_pln_offer');
   // Conflicting online prices are ambiguous; do not pick a tempting minimum.
   if (new Set(prices).size !== 1) throw new Error('ambiguous_online_price');
@@ -232,7 +236,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   // These complex purchase units are currently confirmed from the visible
   // browser card (full pack price + coverage, or whole-piece length). A bare
   // JSON-LD HTTP response must not relabel an unconfirmed per-m²/metre price.
-  if(source.store==='Castorama'&&source.browserReviewAllowed&&['m2','m'].includes(source.unit))throw Error('browser_package_review_required');
+  if(source.browserReviewAllowed&&new URL(source.url).origin==='https://www.castorama.pl'&&['m2','m'].includes(source.unit))throw Error('browser_package_review_required');
   return parseRetailPage(raw, source, new Date());
 }
 

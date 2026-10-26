@@ -1,0 +1,38 @@
+{
+  "sourceId": "castorama-marketplace-corksystem-lvt-6m2",
+  "snapshot": {
+    "version": 1,
+    "url": "https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd",
+    "ean": "5061092900925",
+    "capturedAt": "2026-10-26T07:36:19.342Z",
+    "heading": "Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op.",
+    "schemas": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op.\",\"gtin13\":\"5061092900925\",\"url\":\"https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd\",\"category\":\"Podkłady pod panele i podłogi drewniane\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"73.99\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"seller\":{\"@type\":\"Organization\",\"name\":\"Corksystem\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/OutOfStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"73.99\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"seller\":{\"@type\":\"Organization\",\"name\":\"Corksystem\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/OutOfStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"73.99\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"seller\":{\"@type\":\"Organization\",\"name\":\"Corksystem\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-~5061092900925_01c_MP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-~5061092900925_02c_MP?$MOB_PREV$&amp;$width=284&amp;$height=284\",\"https://media2.castorama.pl/is/image/CastoramaPL/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-~5061092900925_03c_MP?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}"
+    ],
+    "axState": "\t\t\t4 text dostawa za  1 zł!  szczegóły \n\t\t\t\t72 heading Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op., Value: 1\n\t\t\t\t\t76 link Description: Corksystem, Value: castorama.pl/verified-sellers/seller/2601\n\t\t\t\t77 text Produkt dostępny wyłącznie w sprzedaży internetowej.\n\t\t\t\t81 text 73 , 99 zł\n\t\t\t\t327 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t\t88 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t135 table Specyfikacja techniczna\n\t\t\t\t\t\t141 row\n\t\t\t\t\t\t\t142 cell\n\t\t\t\t\t\t\t\t143 text Pokrycie\n\t\t\t\t\t\t\t144 cell\n\t\t\t\t\t\t\t\t145 text 6m²\n\t\t\t\t\t\t151 row\n\t\t\t\t\t\t\t152 cell\n\t\t\t\t\t\t\t\t153 text Marka\n\t\t\t\t\t\t\t154 cell\n\t\t\t\t\t\t\t\t155 text Corksystem\n\t\t\t\t\t\t156 row\n\t\t\t\t\t\t\t157 cell\n\t\t\t\t\t\t\t\t158 text Liczba sztuk w opakowaniu\n\t\t\t\t\t\t\t159 cell\n\t\t\t\t\t\t\t\t160 text 1\n\t\t\t\t\t\t161 row\n\t\t\t\t\t\t\t162 cell\n\t\t\t\t\t\t\t\t163 text Rodzaj opakowania\n\t\t\t\t\t\t\t164 cell\n\t\t\t\t\t\t\t\t165 text Opakowanie\n\t\t\t\t\t\t236 row\n\t\t\t\t\t\t\t237 cell\n\t\t\t\t\t\t\t\t238 text Kod produktu\n\t\t\t\t\t\t\t239 cell\n\t\t\t\t\t\t\t\t240 text 5061092900925",
+    "tables": [
+      [
+        [
+          "Pokrycie",
+          "6m²"
+        ],
+        [
+          "Marka",
+          "Corksystem"
+        ],
+        [
+          "Liczba sztuk w opakowaniu",
+          "1"
+        ],
+        [
+          "Rodzaj opakowania",
+          "Opakowanie"
+        ],
+        [
+          "Kod produktu",
+          "5061092900925"
+        ]
+      ]
+    ]
+  }
+}

@@ -14,6 +14,7 @@ import { compareAutomaticDelivery } from '../../../lib/pricing-service/src/autom
 import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
 import { createRetailerQuoter, knownUnavailableRetailers, retailerDeliveryCapabilities } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
+import { isCastoramaBrowserSource } from './lib/castorama-browser-observation';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
@@ -48,9 +49,12 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       observation.stockPackages !== undefined && (!Number.isSafeInteger(observation.stockPackages) || observation.stockPackages < 0 || observation.stockPackages > 1_000_000_000) ||
       !/^[a-f0-9]{64}$/.test(observation.evidenceSha256) || !Number.isFinite(Date.parse(observation.observedAt))) return;
     const previous = observations.get(source.id);
+    // Complex Castorama purchase units have no automatic full-pack proof yet.
+    // Removing provenance from a saved row must not bypass its 24h expiry.
+    if(isCastoramaBrowserSource(source)&&['m2','m'].includes(source.unit)&&!observation.verification)return;
     if(observation.verification!==undefined){
       const v=observation.verification;
-      if(!v||v.method!=='browser'||source.store!=='Castorama'||source.browserReviewAllowed!==true||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
+      if(!v||v.method!=='browser'||!isCastoramaBrowserSource(source)||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
     }
     if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
     if (Date.parse(observation.observedAt) >= Date.parse(withdrawnAt.get(source.id) ?? '')) withdrawnAt.delete(source.id);

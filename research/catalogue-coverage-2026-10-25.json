@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T07:27:53.787Z",
+  "checkedAt": "2026-10-26T07:49:34.478Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 95,
-  "remaining": 8,
-  "offers": 121,
-  "stores": 36,
+  "verifiedProducts": 96,
+  "remaining": 7,
+  "offers": 122,
+  "stores": 37,
   "productsWithPhotos": 103,
-  "registeredOffers": 123,
+  "registeredOffers": 124,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2123,11 +2123,18 @@
       "id": "mat-vinyl-underlay-corksystem-lvt-6m2",
       "name": "Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²",
       "referenceUrl": "https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5061092900925",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-marketplace-corksystem-lvt-6m2"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-~5061092900925_01c_MP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T07:36:19.342Z",
+        "expiresAt": "2026-10-27T07:36:19.342Z"
+      }
     },
     {
       "id": "mat-vinyl-adhesive-soudal-26a-5kg",
@@ -2164,5 +2171,5 @@
     }
   ],
   "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 16
+  "browserVerifiedOffers": 17
 }
