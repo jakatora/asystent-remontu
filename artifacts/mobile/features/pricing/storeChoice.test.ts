@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { rankStoreChoices, parsePreferredStore, storeMapSearchUrl, estimateHonoursStore, type StoreChoices } from './storeChoice';
+import { rankStoreChoices, parsePreferredStore, storeMapSearchUrl, supportsStoreMapSearch, storeLocatorUrl, estimateHonoursStore, type StoreChoices } from './storeChoice';
 import type { SerializedProject } from './pricingApi';
 
 test('store choice preserves server amounts, places complete baskets before cheap fragments and keeps absent stores visible', () => {
@@ -19,9 +19,18 @@ test('maps search encodes the chosen store and user location; it does not imply 
   const url = new URL(storeMapSearchUrl('Castorama','Łódź & centrum')!);
   assert.equal(url.origin, 'https://www.google.com'); assert.equal(url.pathname, '/maps/search/');
   assert.equal(url.searchParams.get('api'), '1');
-  assert.equal(url.searchParams.get('query'), 'Castorama sklep punkt odbioru Łódź & centrum Polska');
+  assert.equal(url.searchParams.get('query'), 'Castorama market budowlany Łódź & centrum Polska');
   assert.equal([...url.searchParams.keys()].length, 2);
   assert.equal(new URL(storeMapSearchUrl('Folnet', '00-001')!).searchParams.get('query'), 'Folnet magazyn ul. Stefana Batorego 97 62-081 Batorowo Polska');
+  assert.equal(storeMapSearchUrl('Folnet', ''), storeMapSearchUrl('Folnet', '00-001'));
+  for (const store of ['LiderzyCen', 'Betterial', 'Unknown', '__proto__']) {
+    assert.equal(supportsStoreMapSearch(store), false);
+    assert.equal(storeMapSearchUrl(store, '00-001'), null);
+    assert.equal(storeLocatorUrl(store), null);
+  }
+  assert.equal(storeLocatorUrl('Castorama'), 'https://www.castorama.pl/find-a-store');
+  assert.equal(storeLocatorUrl('OBI'), 'https://www.obi.pl/stores');
+  assert.equal(storeLocatorUrl('Sewera'), 'https://sklep.sewera.pl/miejsca-odbioru');
   assert.equal(storeMapSearchUrl('Castorama',''), null); assert.equal(storeMapSearchUrl('Castorama','x'.repeat(81)), null);
   assert.equal(parsePreferredStore('Sewera'), 'Sewera');
   for (const value of [null, 12, '', ' Sewera', 'Sewera\n', 'x'.repeat(81)]) assert.equal(parsePreferredStore(value), null);

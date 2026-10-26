@@ -74,6 +74,9 @@ export function Button({
   return (
     <TouchableOpacity
       testID={testID}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ disabled: disabled || loading, busy: loading }}
       onPress={handlePress}
       disabled={disabled || loading}
       activeOpacity={0.75}
@@ -82,9 +85,9 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={variant === 'primary' ? '#fff' : '#F97316'} size="small" />
       ) : (
-        <View className="flex-row items-center justify-center">
+        <View className="flex-row items-center justify-center" style={{ maxWidth: '100%' }}>
           {icon && <View className="mr-2">{icon}</View>}
-          <Txt w="semibold" className={`text-center ${textStyle[variant]} ${textSizeStyle[size]}`}>
+          <Txt w="semibold" className={`text-center ${textStyle[variant]} ${textSizeStyle[size]}`} style={{ flexShrink: 1 }}>
             {label}
           </Txt>
           {iconRight && <View className="ml-2">{iconRight}</View>}

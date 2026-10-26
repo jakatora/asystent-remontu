@@ -23,6 +23,13 @@ export function DeliveryComparisonSection({ comparison, settings, selectedStore,
   const [postalCode, setPostalCode] = useState(settings.postalCode ?? '');
   const [details, setDetails] = useState(false);
   const destination = normalizeDeliveryPostalCode(postalCode);
+  const commitDestination = () => {
+    // Clearing or leaving an incomplete postcode must also forget the saved
+    // destination. Blur commits it without interrupting each typed digit.
+    if (mode !== 'shipping') return;
+    if (destination && (destination !== settings.postalCode || settings.method === 'manual')) onApply({ mode: 'shipping', method: 'automatic', postalCode: destination });
+    else if (!destination && settings.postalCode) onApply({ mode: 'shipping', method: 'automatic' });
+  };
   useEffect(() => {
     if (mode !== 'shipping' || !destination || (destination === settings.postalCode && settings.method !== 'manual')) return;
     const timer = setTimeout(() => onApply({ mode: 'shipping', method: 'automatic', postalCode: destination }), 650);
@@ -68,7 +75,7 @@ export function DeliveryComparisonSection({ comparison, settings, selectedStore,
         <TextInput accessibilityLabel={tr('Kod pocztowy dostawy', 'Delivery postcode')} placeholder="00-000" value={postalCode} keyboardType="number-pad" maxLength={6} onChangeText={value => {
           const digits = value.replace(/\D/g, '').slice(0,5);
           setPostalCode(digits.length > 2 ? `${digits.slice(0,2)}-${digits.slice(2)}` : digits);
-        }} style={{ minHeight: 50, fontSize: 18, borderWidth: 1, borderColor: Colors.border, borderRadius: 10, paddingHorizontal: 12, color: Colors.text }} />
+        }} onBlur={commitDestination} onSubmitEditing={commitDestination} style={{ minHeight: 50, fontSize: 18, borderWidth: 1, borderColor: Colors.border, borderRadius: 10, paddingHorizontal: 12, color: Colors.text }} />
         <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{tr('Wpisz 5 cyfr. Automatycznie sprawdzimy koszyki sklepów i doliczymy dostawę całego zamówienia.', 'Enter 5 digits. We will automatically check store baskets and add delivery for the whole order.')}</Txt>
       </>}
     </View>

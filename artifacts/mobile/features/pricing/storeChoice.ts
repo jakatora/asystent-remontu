@@ -39,14 +39,33 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
     && [data.deliveryComparison?.best, data.deliveryComparison?.lowerBound, ...(data.deliveryComparison?.alternatives ?? [])].every(basket => !basket || basket.stores.every(row => row.store === store));
 }
 
+// Only established branch networks may be searched by location. A generic
+// online shop name can otherwise resolve to an unrelated local business.
+// source: https://www.castorama.pl/find-a-store
+// source: https://www.obi.pl/stores
+// source: https://mrowka.com.pl/sklepy-psb-mrowka
+// source: https://www.bricoman.pl/regulamin-zakupow.html
+// source: https://sklep.sewera.pl/miejsca-odbioru
+const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera']);
+
+export function supportsStoreMapSearch(store: string): boolean {
+  return store === 'Folnet' || MAP_BRANCH_NETWORKS.has(store);
+}
+
+export function storeLocatorUrl(store: string): string | null {
+  return new Map([['Castorama', 'https://www.castorama.pl/find-a-store'], ['OBI', 'https://www.obi.pl/stores'],
+    ['Mrówka', 'https://mrowka.com.pl/sklepy-psb-mrowka'], ['Sewera', 'https://sklep.sewera.pl/miejsca-odbioru']]).get(store) ?? null;
+}
+
 /** User-initiated map search, not verified branch inventory or distance.
  * source: https://developers.google.com/maps/documentation/urls/get-started
  */
 export function storeMapSearchUrl(store: string, location: string): string | null {
   const place = location.trim().replace(/\s+/g, ' ');
-  if (!parsePreferredStore(store) || place.length < 2 || place.length > 80 || /[\u0000-\u001f]/.test(place)) return null;
   // Folnet's office does not issue goods; online orders are collected here.
   // source: https://folnet.pl/Odbior-osobisty-ccms-pol-30.html
   if (store === 'Folnet') return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Folnet magazyn ul. Stefana Batorego 97 62-081 Batorowo Polska');
-  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${store} sklep punkt odbioru ${place} Polska`);
+  if (!supportsStoreMapSearch(store) || !parsePreferredStore(store) || place.length < 2 || place.length > 80 || /[\u0000-\u001f]/.test(place)) return null;
+  const brand = store === 'Mrówka' ? 'PSB Mrówka' : store === 'Sewera' ? 'Sewera Polska Chemia' : store;
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${brand} market budowlany ${place} Polska`);
 }

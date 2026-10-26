@@ -5,7 +5,8 @@ import { StoreChoiceSection } from './StoreChoiceSection';
 import { DoorSelectionSection } from './DoorSelectionSection';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
-import { collectStoreChoices, estimateHonoursStore, parsePreferredStore, type StoreChoices } from '@/features/pricing/storeChoice';
+import { collectStoreChoices, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
+import { unpricedReference } from '@/features/pricing/unpricedReference';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
 import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -68,6 +69,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
+  const deliveryRef = useRef(delivery);
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
   const [storeChoices, setStoreChoices] = useState<(StoreChoices & { scope: string }) | null>(null);
   const storeChoicesRef = useRef<(StoreChoices & { scope: string }) | null>(null);
@@ -87,7 +89,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const priceStorageKey = `remont.price-seen.v1:${projectId ?? 'preview'}`;
   useEffect(() => {
     let active = true;
-    void Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey)]).then(([raw,prices]) => {
+    void Promise.all([preferenceWrites.current, priceWrites.current]).then(() => Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey)])).then(([raw,prices]) => {
       let settings: DeliverySettings = { mode: 'shipping' };
       let preferredStore: string | null = null;
       try {
@@ -98,8 +100,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
         };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
-      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); setDelivery(settings); setSelectedStore(preferredStore); setLoadedScope(scope); }
-    }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); setDelivery({ mode: 'shipping' }); setSelectedStore(null); setLoadedScope(scope); } });
+      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); deliveryRef.current=settings; setDelivery(settings); setSelectedStore(preferredStore); setLoadedScope(scope); }
+    }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); deliveryRef.current={ mode:'shipping' }; setDelivery(deliveryRef.current); setSelectedStore(null); setLoadedScope(scope); } });
     return () => { active = false; };
   }, [storageKey, priceStorageKey, scope]);
 
@@ -172,7 +174,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {storeChoices?.scope === scope && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} onSelect={store => {
         if (store === selectedStore) return;
         requestVersion.current++; setState({ status: 'loading' }); setSelectedStore(store); setSaveFailed(false);
-        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings: delivery, store }))).catch(() => setSaveFailed(true));
+        const saved = JSON.stringify({ scope, settings: deliveryRef.current, store });
+        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, saved)).catch(() => setSaveFailed(true));
       }} />}
 
       {(state.status === 'loading' || loadedScope !== scope || !doorChoice.ready) && (
@@ -200,6 +203,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {state.status === 'success' && loadedScope === scope && (
         <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
           requestVersion.current++;
+          deliveryRef.current=settings;
           setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
           preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
         }} /></PriceChangesProvider>
@@ -355,7 +359,7 @@ function EstimateResult({
             {selectedStore ? tr('Nie wliczono ich do sumy. Zmień sklep lub wybierz „Najtańszy zestaw”, aby sprawdzić pozostałe oferty.', 'These items are excluded from the total. Change store or select “Lowest basket” to check other offers.') : t('cmp.CostEstimate.unresolvedHint')}
           </Txt>
           {unresolved.map((line, idx) => (
-            <UnresolvedLineCard key={`u-${idx}`} line={line} selectedStore={selectedStore} />
+            <UnresolvedLineCard key={`u-${idx}`} line={line} selectedStore={selectedStore} postalCode={delivery.postalCode} />
           ))}
         </View>
       )}
@@ -1253,8 +1257,12 @@ function Badge({
   );
 }
 
-function UnresolvedLineCard({ line, selectedStore }: { line: SerializedLine; selectedStore?: string | null }) {
+function UnresolvedLineCard({ line, selectedStore, postalCode }: { line: SerializedLine; selectedStore?: string | null; postalCode?: string }) {
   const { t, language } = useLanguage();
+  const ref = unpricedReference(line), pl = language === 'pl';
+  const [linkFailed, setLinkFailed] = useState(false);
+  const mapUrl = ref && postalCode ? storeMapSearchUrl(ref.store, postalCode) : null;
+  const open = (url: string) => { setLinkFailed(false); void Linking.openURL(url).catch(() => setLinkFailed(true)); };
   return (
     <View
       style={{
@@ -1266,12 +1274,25 @@ function UnresolvedLineCard({ line, selectedStore }: { line: SerializedLine; sel
         gap: 4,
       }}
     >
-      <Txt w="medium" style={{ fontSize: 14, color: Colors.text }}>
-        {line.query.normalizedName ?? line.query.ean ?? line.query.gtin ?? '—'}
-      </Txt>
+      <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+        {ref && <ProductImage uri={ref.imageUrl} name={ref.name} size={56} />}
+        <View style={{ flex: 1, gap: 5 }}>
+          <Txt w="medium" style={{ fontSize: 14, color: Colors.text }}>{ref?.name ?? line.query.normalizedName ?? line.query.ean ?? line.query.gtin ?? '—'}</Txt>
+          {ref?.ean && <Txt selectable style={{ fontSize: 12, color: Colors.textSecondary }}>EAN: {ref.ean}</Txt>}
+        </View>
+      </View>
       <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
         {selectedStore && line.reason !== 'empty_query' ? (language === 'pl' ? 'Brak potwierdzonej oferty w wybranym sklepie.' : 'No confirmed offer in the selected store.') : reasonLabel(line.reason, t)}
       </Txt>
+      {ref && <>
+        <Txt style={{ fontSize: 13, color: Colors.textSecondary, lineHeight: 19 }}>{pl ? 'Nie doliczamy tej pozycji do sumy. W sklepie sprawdzisz aktualną cenę, zapas i możliwość odbioru.' : 'This item is excluded from the total. Check its current price, stock and collection options at the shop.'}</Txt>
+        <Button variant="outline" label={pl ? `Sprawdź produkt — ${ref.store}` : `Check product — ${ref.store}`} onPress={() => open(ref.url)} fullWidth />
+        {mapUrl && <>
+          <Button variant="outline" label={pl ? `Wyszukaj placówkę ${ref.store} dla ${postalCode}` : `Find ${ref.store} near ${postalCode}`} onPress={() => open(mapUrl)} fullWidth />
+          <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{pl ? 'Mapy wyszukają placówki i punkty odbioru. Cenę i dostępność potwierdź w wybranej placówce.' : 'Maps searches for stores and collection points. Confirm prices and availability with the selected branch.'}</Txt>
+        </>}
+        {linkFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie udało się otworzyć strony. Spróbuj ponownie.' : 'The page could not be opened. Please try again.'}</Txt>}
+      </>}
     </View>
   );
 }
