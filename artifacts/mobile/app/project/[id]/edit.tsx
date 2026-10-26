@@ -19,6 +19,7 @@ import { Colors } from '@/constants/colors';
 import { getJobById } from '@/features/content/registry';
 import { calculateMaterials } from '@/features/calculator/engine';
 import { parseMeasurements } from '@/shared/lib/measurements';
+import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
 
 function Field({
   label,
@@ -36,7 +37,7 @@ function Field({
   onChangeText: (v: string) => void;
   placeholder?: string;
   multiline?: boolean;
-  keyboardType?: 'default' | 'decimal-pad';
+  keyboardType?: 'default' | 'decimal-pad' | 'number-pad';
   suffix?: string;
 }) {
   return (
@@ -83,7 +84,7 @@ export default function EditProjectScreen() {
   const { t, language } = useLanguage();
 
   const project = projects.find((p) => p.id === id);
-  const epsJob = project?.jobId === 'eps-insulation-bso' ? getJobById(project.jobId) : undefined;
+  const epsJob = project && ['eps-insulation-bso', 'sink-installation'].includes(project.jobId) ? getJobById(project.jobId) : undefined;
   const [epsMeasurements, setEpsMeasurements] = useState<Record<string, string>>({});
 
   const [name, setName] = useState('');
@@ -292,10 +293,16 @@ export default function EditProjectScreen() {
           </View>
 
           {epsJob && <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface, gap: 16 }}>
-            <Txt w="bold" style={{ fontSize: 17 }}>{language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements'}</Txt>
-            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.'}</Txt>
+            <Txt w="bold" style={{ fontSize: 17 }}>{epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
+            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{epsJob.id === 'sink-installation'
+              ? (language === 'pl' ? 'Wpisz liczbę umywalek i dodatkowych wężyków. Mocowania pozostają do ustalenia, dopóki nie potwierdzisz dopasowanego zestawu lub posiadania wszystkich potrzebnych mocowań. Zmiana ilości wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Enter basin and extra hose counts. Fixings remain unconfirmed until you select a suitable kit or declare that all required fixings are owned. Quantity changes require confirming “Owned” and “Purchased” again.')
+              : (language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.')}</Txt>
             {epsJob.measurementInputs.map(input => <View key={input.id} style={{ gap: 4 }}>
-              <Field label={input.label} icon="maximize-2" value={epsMeasurements[input.id] ?? ''} onChangeText={value => setEpsMeasurements(current => ({ ...current, [input.id]: value }))} placeholder={input.defaultValue !== undefined ? String(input.defaultValue) : input.placeholder} keyboardType="decimal-pad" suffix={input.unit} />
+              {'inputType' in input && input.inputType === 'select' ? <>
+                <Txt w="medium" style={{ fontSize: 15 }}>{input.label}</Txt>
+                <MeasurementSelect label={input.label} options={input.options ?? []} value={epsMeasurements[input.id] ? parseDecimal(epsMeasurements[input.id]) : input.defaultValue}
+                  onChange={value => setEpsMeasurements(current => ({ ...current, [input.id]: String(value) }))}/>
+              </> : <Field label={input.label} icon="maximize-2" value={epsMeasurements[input.id] ?? ''} onChangeText={value => setEpsMeasurements(current => ({ ...current, [input.id]: value }))} placeholder={input.defaultValue !== undefined ? String(input.defaultValue) : input.placeholder} keyboardType={'inputType' in input && input.inputType === 'count' ? 'number-pad' : 'decimal-pad'} suffix={input.unit} />}
               {input.hint && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{input.hint}</Txt>}
             </View>)}
           </View>}

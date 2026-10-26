@@ -166,7 +166,15 @@ export function AppProvider({ children }: PropsWithChildren) {
   }, []);
 
   const getProjectShoppingItems = useCallback(
-    async (projectId: string): Promise<ShoppingItem[]> => projectShopping(await shoppingRepo.findByProject(projectId), projects.find(project => project.id === projectId)?.calculationResult),
+    async (projectId: string): Promise<ShoppingItem[]> => {
+      const calc = projects.find(project => project.id === projectId)?.calculationResult;
+      let saved = await shoppingRepo.findByProject(projectId);
+      if (calc?.jobId === 'sink-installation' && saved.length > 0 && !saved.some(item => item.itemType === 'material' && item.materialId === 'basin-fixings')) {
+        const fixing = generateShoppingItems(projectId, calc).find(item => item.materialId === 'basin-fixings');
+        if (fixing) { await shoppingRepo.ensureBasinFixings(fixing); saved = await shoppingRepo.findByProject(projectId); }
+      }
+      return projectShopping(saved, calc);
+    },
     [projects]
   );
 

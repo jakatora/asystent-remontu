@@ -452,6 +452,7 @@ export default function ProjectDetailScreen() {
           headerRight: () => (
             <View style={{ flexDirection: 'row', gap: 12, marginRight: 4 }}>
               <TouchableOpacity
+                accessibilityRole="button" accessibilityLabel={language === 'pl' ? 'Edytuj projekt i obmiary' : 'Edit project and measurements'}
                 onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: project.id } })}
               >
                 <Feather name="edit-3" size={20} color={Colors.primary} />
@@ -472,6 +473,15 @@ export default function ProjectDetailScreen() {
         showsVerticalScrollIndicator={false}
       >
         {['overview', 'shopping', 'budget'].includes(tab) && <View style={{marginBottom:16}}><ProjectPurchaseSummary snapshot={lastPurchase?.scope === purchaseScope ? lastPurchase.snapshot : null} onCompare={() => setTab('estimate')}/></View>}
+        {project.jobId === 'sink-installation' && ['overview', 'shopping', 'estimate'].includes(tab) && <View style={{ marginBottom: 16, gap: 8, padding: 16, borderWidth: 1, borderColor: Colors.border, borderRadius: 16, backgroundColor: Colors.surface }}>
+          <Txt w="semibold">{language === 'pl' ? 'Mocowania umywalki' : 'Basin fixings'}</Txt>
+          <Txt style={{ color: Colors.textSecondary, lineHeight: 21 }}>{calc?.measurements.sinkFixingChoice === 1
+            ? (language === 'pl' ? 'Wybrano Fischer WST 140 K: dwa mocowania na umywalkę. Cena w porównaniu obejmuje całe opakowania po 2 mocowania.' : 'Fischer WST 140 K selected: two fastening points per basin. Quotes use whole packs of two.')
+            : calc?.measurements.sinkFixingChoice === 2 ? (language === 'pl' ? 'Zadeklarowano posiadanie dobranych mocowań do wszystkich umywalek.' : 'Suitable fixings for all basins are already owned.')
+            : (language === 'pl' ? 'Dobierz mocowania do umywalki i nośnej ściany. Dopóki dobór nie jest potwierdzony, pełna cena zestawu pozostaje nieznana.' : 'Choose fixings for the basin and load-bearing wall. The full basket price remains unknown until their suitability is confirmed.')}</Txt>
+          <Button label={language === 'pl' ? 'Zmień mocowania i liczbę umywalek' : 'Edit fixings and basin count'} variant="outline"
+            onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: project.id } })}/>
+        </View>}
         {tab === 'overview' && (
           <OverviewTab
             data={data}

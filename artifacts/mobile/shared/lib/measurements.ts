@@ -11,6 +11,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
     if (value === undefined || !Number.isFinite(value) ||
       (input.min !== undefined ? value < input.min : value <= 0) ||
       (input.max !== undefined && value > input.max) ||
+      ('inputType' in input && input.inputType === 'select' && !input.options?.some(option => option.value === value)) ||
       ('inputType' in input && input.inputType === 'count' && !Number.isInteger(value))) {
       errors.push({ label: input.label, id: input.id, min: input.min, max: input.max });
     } else values[input.id] = value;

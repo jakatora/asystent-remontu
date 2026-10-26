@@ -1,7 +1,7 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
-import { sinkConnectionQuantity } from '@/features/calculator/sink';
+import { sinkConnectionQuantity, SINK_FIXING_MATERIAL } from '@/features/calculator/sink';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BATHROOM & WET AREAS JOB GROUP
@@ -502,6 +502,14 @@ export const sinkInstallationJob: RenovationJob = {
     // source: https://tgs.pl/pl/p/Ferro-Stillo-bateria-umywalkowa-stojaca-chrom/44
     { id: 'sinkExtraHoses', label: 'Dodatkowe wężyki do kupienia', unit: 'szt.', placeholder: '0', min: 0, max: 20, step: 1, inputType: 'count', defaultValue: 0,
       hint: 'Bateria referencyjna Ferro Stillo BSL2 ma przyłącza w komplecie. Pozostaw 0, jeśli wystarczą. Wpisz liczbę dodatkowych lub wymiennych wężyków; sprawdź długość i gwinty.' },
+    // source: https://www.fischerpolska.pl/pl-pl/produkty/mocowania-sanitarne/ceramiczne-umywalki-pisuary-i-wyposazenie-sanitarne/mocowanie-umywalek-wst
+    { id: 'sinkFixingChoice', label: 'Mocowania umywalki', unit: '', placeholder: '', inputType: 'select', min: 0, max: 2, defaultValue: 0,
+      options: [
+        { value: 0, label: 'Do ustalenia — nie znam odpowiedniego zestawu' },
+        { value: 1, label: 'Kupuję Fischer WST 140 K — mam potwierdzone dopasowanie' },
+        { value: 2, label: 'Mam już dobrane mocowania do wszystkich umywalek' },
+      ],
+      hint: 'WST 140 K ma 2 kołki UX 14×75 i śruby M10×140. Wybierz go dopiero po potwierdzeniu zgodności z umywalką, nośną ścianą i grubością okładziny. Płytki i tynk nie są podłożem nośnym. Inne mocowania, płytę g-k i stelaż dobierz osobno.' },
   ],
   materials: [
     {
@@ -568,6 +576,7 @@ export const sinkInstallationJob: RenovationJob = {
       category: 'uszczelnienie',
       notes: 'Uszczelnienie styku umywalki ze ścianą. Silikon z fungicydem.',
     },
+    SINK_FIXING_MATERIAL,
   ],
   tools: [
     { id: 'adjustable-wrench-sink', name: 'Klucz nastawny', icon: 'tool', required: true },

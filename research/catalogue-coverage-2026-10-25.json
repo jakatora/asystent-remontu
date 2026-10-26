@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T20:40:11.661Z",
-  "scope": "109 reference products and explicit alternatives, including exact 3mm and 4mm spacer bags; not every market product. An offer does not confirm branch inventory. Delivery evidence applies only to its full native basket, postcode and expiry. Registered photo URLs do not prove all images load simultaneously.",
-  "total": 109,
-  "verifiedProducts": 103,
+  "checkedAt": "2026-10-26T22:32:01.467Z",
+  "scope": "110 reference products and explicit alternatives, including a two-point Fischer basin fixing blister selected only with explicit suitability confirmation. Not every market product. Pickup does not confirm branch stock or driving cost. Photo URL registration is distinct from runtime loading verification.",
+  "total": 110,
+  "verifiedProducts": 104,
   "remaining": 6,
-  "offers": 130,
+  "offers": 131,
   "stores": 38,
-  "productsWithPhotos": 109,
-  "registeredOffers": 132,
+  "productsWithPhotos": 110,
+  "registeredOffers": 133,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2307,6 +2307,25 @@
           "postalCode": "00-001",
           "basis": "retailer_basket_postcode",
           "wholeMixedBasketDeliveryGrosze": 1990
+        }
+      ]
+    },
+    {
+      "id": "mat-basin-fixings-fischer-wst140k-2",
+      "name": "Mocowanie umywalki Fischer WST 140 K NV M10×140 (2 mocowania)",
+      "referenceUrl": "https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html",
+      "status": "verified_offer",
+      "ean": "8590369454948",
+      "sourceIds": [
+        "abud-fischer-wst140k-2"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/cb2a8ab7ed9adcb860b818b21d8ad413/pol_pl_Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki-17848_1.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-fischer-wst140k-2",
+          "checkedAt": "2026-10-26T22:32:01.467Z",
+          "status": "integration_unavailable",
+          "basis": "No confirmed basket/postcode freight. A Smile or product banner is not a home-delivery quote."
         }
       ]
     }

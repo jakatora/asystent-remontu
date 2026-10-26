@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Pressable, TextInput, Linking } from 'react-native';
+import { View, Pressable, TextInput, Linking, Platform } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
@@ -67,7 +67,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     </View>
     <View style={{ padding: 14, gap: 12, borderWidth: 1, borderColor: Colors.border, borderRadius: 16, backgroundColor: Colors.surface }}>
       <View style={{ flexDirection: 'row', gap: 8 }}>
-        {(['shipping', 'pickup'] as const).map(value => <Pressable key={value} accessibilityRole="radio" aria-checked={mode === value} accessibilityState={{ checked: mode === value }} onPress={() => {
+        {(['shipping', 'pickup'] as const).map(value => <Pressable key={value} nativeID={`delivery-mode-${value}`} accessibilityRole="radio" aria-checked={mode === value} accessibilityState={{ checked: mode === value }} onPress={() => {
           setMode(value); onApply({ mode: value, method: 'automatic', ...(destination ? { postalCode: destination } : {}) });
         }} style={{ flex: 1, minHeight: 48, padding: 10, borderRadius: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: value === mode ? Colors.primaryBg : Colors.surfaceAlt }}>
           <Txt w="semibold">{value === 'shipping' ? tr('Dostawa do domu', 'Home delivery') : tr('Własny odbiór', 'Self collection')}</Txt>
@@ -78,7 +78,15 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         <TextInput accessibilityLabel={tr('Kod pocztowy dostawy', 'Delivery postcode')} placeholder="00-000" value={postalCode} keyboardType="number-pad" maxLength={6} onChangeText={value => {
           const digits = value.replace(/\D/g, '').slice(0,5);
           setPostalCode(digits.length > 2 ? `${digits.slice(0,2)}-${digits.slice(2)}` : digits);
-        }} onBlur={commitDestination} onSubmitEditing={commitDestination} style={{ minHeight: 50, fontSize: 18, borderWidth: 1, borderColor: Colors.border, borderRadius: 10, paddingHorizontal: 12, color: Colors.text }} />
+        }} onBlur={event => {
+          // On web, blur precedes the mode radio's press. Committing here can
+          // unmount that radio while fetching and discard the user's click.
+          // Its own press commits both the mode and current destination.
+          // source: https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget
+          const focus = event as unknown as { relatedTarget?: { id?: string }; nativeEvent?: { relatedTarget?: { id?: string } } };
+          if (Platform.OS === 'web' && ['delivery-mode-shipping', 'delivery-mode-pickup'].includes(focus.relatedTarget?.id ?? focus.nativeEvent?.relatedTarget?.id ?? '')) return;
+          commitDestination();
+        }} onSubmitEditing={commitDestination} style={{ minHeight: 50, fontSize: 18, borderWidth: 1, borderColor: Colors.border, borderRadius: 10, paddingHorizontal: 12, color: Colors.text }} />
         <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{tr('Wpisz 5 cyfr. Automatycznie sprawdzimy koszyki sklepów i doliczymy dostawę całego zamówienia.', 'Enter 5 digits. We will automatically check store baskets and add delivery for the whole order.')}</Txt>
       </>}
     </View>

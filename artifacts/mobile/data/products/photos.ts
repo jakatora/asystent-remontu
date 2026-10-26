@@ -263,6 +263,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-tile-wall-tamara-white-25x40'], ean: '5907518303911',
     sourceUrl: 'https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&$width=600&$height=600' },
+  // source: https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html
+  { ids: ['mat-basin-fixings-fischer-wst140k-2'], ean: '8590369454948',
+    sourceUrl: 'https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html',
+    imageUrl: 'https://www.abud.pl/hpeciai/cb2a8ab7ed9adcb860b818b21d8ad413/pol_pl_Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki-17848_1.webp' },
 ];
 
 export function getProductPhoto(product: {

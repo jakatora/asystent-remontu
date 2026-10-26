@@ -26,6 +26,18 @@ function fromRow(row: ShoppingItemRow): ShoppingItem {
 }
 
 export const shoppingRepo = {
+  /** Append one newly required line to saved lists, atomically across tabs.
+   * Existing quantities, prices, ownership and manual rows are preserved. */
+  async ensureBasinFixings(item: Omit<ShoppingItem, 'id'>): Promise<void> {
+    if (item.materialId !== 'basin-fixings' || item.itemType !== 'material') throw Error('Unexpected required shopping material');
+    const db = await getDb();
+    await db.runAsync(`INSERT INTO shopping_items
+      (id, project_id, material_id, name, quantity, unit, estimated_price, purchased, notes, created_at, owned, item_type, tier, category)
+      SELECT ?, ?, ?, ?, ?, ?, ?, 0, ?, ?, 0, 'material', 'standard', ?
+      WHERE NOT EXISTS (SELECT 1 FROM shopping_items WHERE project_id = ? AND material_id = ? AND item_type = 'material')`,
+      [generateId('shop'), item.projectId, item.materialId, item.name, item.quantity, item.unit, item.estimatedPrice, item.notes ?? null,
+        item.createdAt || nowISO(), item.category ?? null, item.projectId, item.materialId]);
+  },
   async findByProject(projectId: string): Promise<ShoppingItem[]> {
     const db = await getDb();
     const rows = await db.getAllAsync<ShoppingItemRow>(

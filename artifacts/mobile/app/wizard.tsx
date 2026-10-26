@@ -1,4 +1,5 @@
 import { parseDecimal } from '@/shared/lib/number';
+import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
 import { parseMeasurements } from '@/shared/lib/measurements';
 import React, { useState, useRef, useCallback } from 'react';
 import {
@@ -1102,7 +1103,10 @@ export default function WizardScreen() {
                           </Txt>
                         )}
 
-                        <View style={{ flexDirection: 'row', gap: 8 }}>
+                        {'inputType' in inp && inp.inputType === 'select' ? <MeasurementSelect label={inp.label} options={inp.options ?? []}
+                          value={val ? parseDecimal(val) : inp.defaultValue} onChange={value => {
+                            patchDraft({ measurements: { ...draft.measurements, [inp.id]: String(value) } }); setValidationError(null);
+                          }}/> : <View style={{ flexDirection: 'row', gap: 8 }}>
                           <TextInput
                             style={{
                               flex: 1,
@@ -1150,7 +1154,7 @@ export default function WizardScreen() {
                               {inp.unit}
                             </Txt>
                           </View>
-                        </View>
+                        </View>}
 
                         {hasError && (
                           <Txt style={{ fontSize: 12, color: Colors.danger }}>
@@ -1158,7 +1162,7 @@ export default function WizardScreen() {
                           </Txt>
                         )}
 
-                        {inp.defaultValue !== undefined && !val && (
+                        {inp.defaultValue !== undefined && !val && !('inputType' in inp && inp.inputType === 'select') && (
                           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
                             {t('wizard.measure.defaultValue', { value: inp.defaultValue, unit: inp.unit })}
                           </Txt>
@@ -1281,11 +1285,12 @@ export default function WizardScreen() {
                     <View>
                       {selectedJob.measurementInputs.map((inp) => {
                         const val = draft.measurements[inp.id];
-                        const displayVal = val
+                        const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
+                        const displayVal = selectedOption?.label ?? (val
                           ? `${val} ${inp.unit}`
                           : inp.defaultValue !== undefined
                           ? t('wizard.summary.defaultSuffix', { value: inp.defaultValue, unit: inp.unit })
-                          : t('wizard.summary.dashUnit', { unit: inp.unit });
+                          : t('wizard.summary.dashUnit', { unit: inp.unit }));
                         return (
                           <SummaryRow
                             key={inp.id}

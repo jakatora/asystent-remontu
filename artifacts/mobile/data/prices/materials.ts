@@ -2268,4 +2268,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506 (346 gr brutto/OPA, odczyt 2026-10-26T20:27:18.347Z)
   // source: https://www.bricomarche.pl/krzyzyki-dystansowe-do-glazury-4-mm-biale-woreczek-100-sztuk-hardy (niezależny dokładny EAN i opakowanie)
   { id: 'mat-tile-spacers-hardy-4mm-100', materialType: 'tile-spacer', productLabel: 'Krzyżyki dystansowe do płytek Hardy 4 mm (100 szt.)', brand: 'Hardy', packageSize: 100, packageUnit: 'szt', pricePerPackage: 3.46, category: 'standard', storeName: 'Sewera', sourceUrl: 'https://sklep.sewera.pl/krzyzyki-dystansowe-4mm-100szt--p12506', lastUpdated: '2026-10-26', currency: 'PLN', notes: 'EAN 5905061016876, model 2040-660040. Cena całego woreczka 100 sztuk do spoiny 4 mm; nie jest zamiennikiem innej szerokości.' },
+  // source: https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html (24,50 zł brutto/op., rzeczywisty odczyt 2026-10-26T22:19:50.486Z)
+  // source: https://www.fischerdanmark.dk/da/produkter/sanitetsbefaestigelse/keramiske-handvaske-urinaler-og-sanitaere-installationer/fastgorelse-af-vask-wst/45494-wst-140-k-nv
+  { id: 'mat-basin-fixings-fischer-wst140k-2', materialType: 'basin-fixings', productLabel: 'Mocowanie umywalki Fischer WST 140 K NV M10×140 (2 mocowania)', brand: 'Fischer',
+    packageSize: 2, packageUnit: 'szt', pricePerPackage: 24.50, category: 'standard', storeName: 'ABUD',
+    sourceUrl: 'https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html', lastUpdated: '2026-10-26', currency: 'PLN',
+    notes: 'Fischer 45494, EAN 8590369454948: blister 2 punktów mocowania (UX 14×75, M10×140, tuleje i nakrętki). Dwa punkty na potwierdzoną zgodną umywalkę. Sprawdź gwint, długość i nośność podłoża według producenta. Płytki/tynk nie są nośne; stelaż i płyta g-k wymagają osobnego doboru. Odrębny EAN od 080660/WST i WST II. Cena dostawy i lokalna dostępność osobno.' },
 ];

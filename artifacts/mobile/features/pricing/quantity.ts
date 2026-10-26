@@ -43,6 +43,7 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   valve: /angle-valve/,
   hose: /flex-hose/,
   'mounting-set': /^wc-mounting-set$/,
+  'basin-fixings': /^basin-fixings$/,
   threshold: /^threshold/,
   screws: /^gk-screws(?:-ceiling)?$/,
   dowels: /^dowels-uw$/,
