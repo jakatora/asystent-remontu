@@ -1,4 +1,5 @@
 import { getDb } from '@/db/client';
+import type { DatabaseCommand } from '@/db/connection';
 import type {
   AdminContentItem,
   AdminSourceRegistryEntry,
@@ -260,43 +261,32 @@ export const houseBuildContentAdminRepo = {
     }
     const db = await getDb();
 
-    await db.execAsync('BEGIN TRANSACTION');
-    try {
-      await db.runAsync('DELETE FROM hb_admin_content_items');
-      await db.runAsync('DELETE FROM hb_admin_source_registry');
-      await db.runAsync('DELETE FROM hb_admin_trust_disclaimers');
+    const commands: DatabaseCommand[] = [
+      { sql: 'DELETE FROM hb_admin_content_items' },
+      { sql: 'DELETE FROM hb_admin_source_registry' },
+      { sql: 'DELETE FROM hb_admin_trust_disclaimers' },
+    ];
 
       for (const item of data.items) {
-        await db.runAsync(
-          `INSERT OR IGNORE INTO hb_admin_content_items
+        commands.push({ sql: `INSERT OR IGNORE INTO hb_admin_content_items
            (id, content_type, content_key, title, summary, body, stage_id, category, target_role, severity, source_id, source_text, active, last_reviewed, last_updated, created_at, notes)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [item.id, item.contentType, item.contentKey, item.title, item.summary, item.body, item.stageId, item.category, item.targetRole, item.severity, item.sourceId, item.sourceText, item.active, item.lastReviewed, item.lastUpdated, item.createdAt, item.notes]
-        );
+          params: [item.id, item.contentType, item.contentKey, item.title, item.summary, item.body, item.stageId, item.category, item.targetRole, item.severity, item.sourceId, item.sourceText, item.active, item.lastReviewed, item.lastUpdated, item.createdAt, item.notes] });
       }
       for (const s of data.sources) {
-        await db.runAsync(
-          `INSERT OR IGNORE INTO hb_admin_source_registry (id, source_name, source_type, source_url, region_relevance, reliability_level, notes, last_checked, active, created_at)
+        commands.push({ sql: `INSERT OR IGNORE INTO hb_admin_source_registry (id, source_name, source_type, source_url, region_relevance, reliability_level, notes, last_checked, active, created_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [s.id, s.sourceName, s.sourceType, s.sourceUrl, s.regionRelevance, s.reliabilityLevel, s.notes, s.lastChecked, s.active, s.createdAt]
-        );
+          params: [s.id, s.sourceName, s.sourceType, s.sourceUrl, s.regionRelevance, s.reliabilityLevel, s.notes, s.lastChecked, s.active, s.createdAt] });
       }
       for (const d of data.disclaimers) {
-        await db.runAsync(
-          `INSERT OR IGNORE INTO hb_admin_trust_disclaimers (id, disclaimer_key, text, category, active, last_updated, created_at)
+        commands.push({ sql: `INSERT OR IGNORE INTO hb_admin_trust_disclaimers (id, disclaimer_key, text, category, active, last_updated, created_at)
            VALUES (?, ?, ?, ?, ?, ?, ?)`,
-          [d.id, d.disclaimerKey, d.text, d.category, d.active, d.lastUpdated, d.createdAt]
-        );
+          params: [d.id, d.disclaimerKey, d.text, d.category, d.active, d.lastUpdated, d.createdAt] });
       }
 
-      await db.runAsync('UPDATE hb_admin_content_snapshots SET active = 0');
-      await db.runAsync('UPDATE hb_admin_content_snapshots SET active = 1 WHERE id = ?', [id]);
-
-      await db.execAsync('COMMIT');
-    } catch (err) {
-      await db.execAsync('ROLLBACK');
-      throw err;
-    }
+    commands.push({ sql: 'UPDATE hb_admin_content_snapshots SET active = 0' },
+      { sql: 'UPDATE hb_admin_content_snapshots SET active = 1 WHERE id = ?', params: [id] });
+    await db.runBatchAsync(commands);
   },
 
   async deleteSnapshot(id: string): Promise<void> {

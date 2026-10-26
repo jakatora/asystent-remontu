@@ -9,13 +9,14 @@ import {
 import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClientProvider } from '@tanstack/react-query';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { DatabaseGate, ProjectLoadError } from '@/components/DatabaseGate';
 import { AppProvider, useApp } from '@/context/AppContext';
 import { LanguageProvider, useLanguage } from '@/context/LanguageContext';
 import { CommerceProvider } from '@/context/CommerceContext';
@@ -32,16 +33,20 @@ SplashScreen.preventAutoHideAsync();
 initSentry().catch(() => {});
 
 function RootLayoutNav() {
-  const { onboardingDone, isLoading } = useApp();
+  const { onboardingDone, isLoading, initializationFailed, retryInitialization } = useApp();
   const { t } = useLanguage();
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && !initializationFailed) {
       if (!onboardingDone) {
         router.replace('/onboarding');
       }
     }
-  }, [onboardingDone, isLoading]);
+  }, [onboardingDone, isLoading, initializationFailed]);
+
+  if (initializationFailed) return <ProjectLoadError reload={Platform.OS === 'web'} onRetry={() => {
+    if (Platform.OS === 'web') window.location.reload(); else retryInitialization();
+  }} />;
 
   if (isLoading) {
     return (
@@ -105,6 +110,7 @@ export default function RootLayout() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <KeyboardProvider>
               <LanguageProvider>
+                <DatabaseGate>
                 <AppProvider>
                   <CommerceProvider>
                     <ContractorProvider>
@@ -114,6 +120,7 @@ export default function RootLayout() {
                     </ContractorProvider>
                   </CommerceProvider>
                 </AppProvider>
+                </DatabaseGate>
               </LanguageProvider>
             </KeyboardProvider>
           </GestureHandlerRootView>

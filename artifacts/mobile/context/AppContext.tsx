@@ -29,11 +29,14 @@ import { priceOverridesRepo } from '@/db/repositories/price-overrides.repo';
 import { generateShoppingItems, generateAllShoppingItems } from '@/features/calculator/shopping';
 import { BASELINE_REGION } from '@/data/prices/regions';
 import { upgradeEpsProject, projectEpsShopping } from '@/features/calculator/eps';
+import { subscribeDatabaseChanges } from '@/db/client';
 
 interface AppContextValue {
   readonly projects: Project[];
   readonly onboardingDone: boolean;
   readonly isLoading: boolean;
+  readonly initializationFailed: boolean;
+  retryInitialization: () => void;
 
   createProject: (data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>) => Promise<string>;
   updateProject: (project: Project) => Promise<void>;
@@ -83,12 +86,16 @@ export function AppProvider({ children }: PropsWithChildren) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [onboardingDone, setOnboardingDone] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [initializationFailed, setInitializationFailed] = useState(false);
+  const [initializationAttempt, setInitializationAttempt] = useState(0);
+  const retryInitialization = useCallback(() => setInitializationAttempt(value => value + 1), []);
   const [selectedRegion, setSelectedRegion] = useState(BASELINE_REGION.code);
   const [selectedQualityTier, setSelectedQualityTier] = useState<QualityTier>('standard');
 
   useEffect(() => {
     let mounted = true;
     async function init() {
+      setIsLoading(true); setInitializationFailed(false);
       try {
         const [projs, done] = await Promise.all([
           projectsRepo.findAll(),
@@ -99,6 +106,7 @@ export function AppProvider({ children }: PropsWithChildren) {
           setOnboardingDone(done);
         }
       } catch (err) {
+        if (mounted) setInitializationFailed(true);
         console.error('[AppContext] init error:', err);
       } finally {
         if (mounted) setIsLoading(false);
@@ -106,12 +114,21 @@ export function AppProvider({ children }: PropsWithChildren) {
     }
     init();
     return () => { mounted = false; };
-  }, []);
+  }, [initializationAttempt]);
 
   const refreshProjects = useCallback(async () => {
     const projs = await projectsRepo.findAll();
     setProjects(projs.map(upgradeEpsProject));
   }, []);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const unsubscribe = subscribeDatabaseChanges(() => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { void refreshProjects().catch(err => console.error('[AppContext] refresh error:', err)); }, 75);
+    });
+    return () => { clearTimeout(timer); unsubscribe(); };
+  }, [refreshProjects]);
 
   const createProject = useCallback(
     async (data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> => {
@@ -318,6 +335,8 @@ export function AppProvider({ children }: PropsWithChildren) {
     projects,
     onboardingDone,
     isLoading,
+    initializationFailed,
+    retryInitialization,
     createProject,
     updateProject,
     removeProject,

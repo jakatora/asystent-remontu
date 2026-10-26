@@ -24,6 +24,7 @@ import {
 } from '@/db/repositories/house-build.repo';
 
 import { BUILD_STAGES } from '@/features/house-build/stages';
+import { subscribeDatabaseChanges } from '@/db/client';
 
 interface HouseBuildContextValue {
   readonly projects: HouseBuildProject[];
@@ -75,6 +76,12 @@ export function HouseBuildProvider({ children }: PropsWithChildren) {
         setIsLoading(false);
       }
     })();
+  }, [refreshProjects]);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const unsubscribe = subscribeDatabaseChanges(() => { clearTimeout(timer); timer = setTimeout(() => { void refreshProjects(); }, 75); });
+    return () => { clearTimeout(timer); unsubscribe(); };
   }, [refreshProjects]);
 
   const createProject = useCallback(async (data: {
