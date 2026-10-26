@@ -22,6 +22,7 @@ import { applyDoorSelection, type DoorSelection } from './doorSelection';
 import { upgradeEpsCalculation } from '@/features/calculator/eps';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
+import type { UnresolvedReason as ServiceUnresolvedReason } from '../../../../lib/pricing-service/src/types';
 
 // ─── Konfiguracja bazowego URL ────────────────────────────────────────────────
 // Osobny publiczny env, żeby dało się wskazać serwer wyceny niezależnie od reszty.
@@ -79,6 +80,7 @@ export interface PricingOptions {
 // ─── Kontrakt ODPOWIEDZI (zgodny z api-server/lib/pricing-serialize.ts) ────────
 
 export type UnresolvedReason =
+  | ServiceUnresolvedReason
   | 'not_found'
   | 'no_offer'
   | 'no_price'
