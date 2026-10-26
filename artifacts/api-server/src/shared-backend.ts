@@ -45,6 +45,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     if (!source || source.disabledReason || observation.ean !== source.ean || observation.sourceUrl !== source.url ||
       observation.currency !== 'PLN' || observation.availability !== 'in_stock' ||
       !Number.isSafeInteger(observation.priceGrosze) || observation.priceGrosze <= 0 ||
+      observation.stockPackages !== undefined && (!Number.isSafeInteger(observation.stockPackages) || observation.stockPackages < 0 || observation.stockPackages > 1_000_000_000) ||
       !/^[a-f0-9]{64}$/.test(observation.evidenceSha256) || !Number.isFinite(Date.parse(observation.observedAt))) return;
     const previous = observations.get(source.id);
     if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
@@ -87,6 +88,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         unit: source.unit, packageSize: String(source.packageSize),
         ...(source.purchaseMultiple ? {purchaseMultiple:source.purchaseMultiple} : {}),
         ...(source.minimumPackages ? {minimumPackages:source.minimumPackages} : {}),
+        ...(observation.stockPackages !== undefined ? {maxPackages:observation.stockPackages} : {}),
         pricePerUnit: (observation.priceGrosze / 100 / source.packageSize).toFixed(4),
         productUrl: source.url, availability: observation.availability,
         fetchedAt: new Date(observation.observedAt), source: source.format && source.format !== 'jsonld' ? 'retailer-page-microdata' : 'retailer-page-jsonld',
@@ -157,6 +159,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,
         active: eligible.some(offer => offer.id === source.id),
         error: source.disabledReason ?? errors.get(source.id) ?? null,
+        ...(observations.get(source.id)?.stockPackages !== undefined ? {stockPackages:observations.get(source.id)!.stockPackages} : {}),
       })),
     };
   }

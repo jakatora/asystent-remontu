@@ -1,4 +1,5 @@
-import { groupProjectByProduct, isComparableOffer, computePackagesNeeded } from './estimate';
+import { groupProjectByProduct, isComparableOffer, computePackagesNeeded, buildPackageVariants } from './estimate';
+import { optimizePackages } from './package-optimizer';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { StageEstimate, PackagePlanEntry } from './types';
 import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy } from './delivery';
@@ -23,14 +24,14 @@ export async function compareAutomaticDelivery(
   let groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
   const stores = [...new Set(groups.flatMap(g => g.offers.filter(o => isComparableOffer(o, now.getTime())).map(o => o.store)))].sort();
   const result: DeliveryComparison = { method: 'automatic', comparisonScope: 'quoted_baskets', mode: 'shipping', postalCode: settings.postalCode ?? null,
-    status: 'empty', productCount: groups.length, missingProductCount: stages.flatMap(s => s.lines).filter(l => !l.resolved && l.quantity > 0).length,
+    status: 'empty', productCount: groups.length, missingProductCount: stages.flatMap(s => s.lines).filter(l => !l.resolved && l.quantity > 0).length+groups.filter(g=>!optimizePackages(g.totalQuantity,buildPackageVariants(g.offers,g.product))).length,
     best: null, lowerBound: null, alternatives: [], missingDeliveryStores: stores, policies: policies.filter(p => stores.includes(p.store)), unavailableStores: [] };
   if (result.missingProductCount) { result.status = 'partial'; return result; }
   if (!groups.length) return result;
   if (!settings.postalCode || !/^\d{2}-\d{3}$/.test(settings.postalCode)) { result.status = 'needs_postal_code'; return result; }
   result.unavailableStores = stores.filter(store => knownUnavailableStores[store]).map(store => ({ store, reason: knownUnavailableStores[store] }));
   groups = groups.map(group => ({ ...group, offers: group.offers.filter(offer => !knownUnavailableStores[offer.store]) }));
-  if (groups.some(group => !group.offers.length)) { result.status = 'needs_delivery_costs'; return result; }
+  if (groups.some(group => !group.offers.length || !optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product)))) { result.status = 'needs_delivery_costs'; return result; }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
   const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
   if (groups.length > DELIVERY_LIMITS.products || activeStores.length > DELIVERY_LIMITS.stores) return tooLarge();
@@ -59,11 +60,12 @@ export async function compareAutomaticDelivery(
       const offer = offers[index], price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
       if (price === null || !Number.isSafeInteger(price) || price <= 0) return;
       const multiple=offer.purchaseMultiple??1,minimum=offer.minimumPackages??1;
-      const max=remaining>0?Math.max(Math.ceil(remaining/multiple),Math.ceil(minimum/multiple))*multiple:0;
+      const useful=remaining>0?Math.max(Math.ceil(remaining/multiple),Math.ceil(minimum/multiple))*multiple:0;
+      const max=Math.min(useful,offer.maxPackages===undefined?useful:Math.floor(offer.maxPackages/multiple)*multiple);
       if (max>DELIVERY_LIMITS.packagesPerProduct) return;
       for (let n = index === offers.length - 1 ? max : 0; n <= max; n+=multiple) {
         if(n>0&&n<minimum)continue;
-        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}),...(minimum>1?{minimumPackages:minimum}:{}) }] : packs);
+        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}),...(minimum>1?{minimumPackages:minimum}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}) }] : packs);
       }
     };
     visit(0, count, []);
@@ -108,32 +110,41 @@ async function compareSelectedBaskets(
     if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return null;
     return offers.flatMap(offer => {
       const count=computePackagesNeeded(group.totalQuantity,sizes[0],offer.purchaseMultiple,offer.minimumPackages);
-      if (!Number.isSafeInteger(count)||count<1||count>DELIVERY_LIMITS.packagesPerProduct) return [];
+      if (!Number.isSafeInteger(count)||count<1||count>DELIVERY_LIMITS.packagesPerProduct||offer.maxPackages!==undefined&&count>offer.maxPackages) return [];
       const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
-      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}),...(offer.minimumPackages?{minimumPackages:offer.minimumPackages}:{}) }];
+      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}),...(offer.minimumPackages?{minimumPackages:offer.minimumPackages}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}) }];
     });
   });
-  if (options.some(option => !option?.length)) { result.status = 'limit_exceeded'; return result; }
+  if (options.some(option => !option)) { result.status = 'limit_exceeded'; return result; }
   const proposed = new Map<string, DeliveredStoreBasket[]>();
   const wholePlans = new Set<string>();
   const basePlans = new Map<string, PackagePlanEntry[]>();
   function addPlan(selected: PackagePlanEntry[], split?: { index: number; packs: PackagePlanEntry[] }) {
+    addGroupedPlan(selected.map((pack,index)=>split?.index===index?split.packs:[pack]),!split);
+  }
+  function addGroupedPlan(selected:PackagePlanEntry[][],whole:boolean){
     if (proposed.size >= MAX_PROPOSED) return;
     const orders = new Map<string, DeliveredStoreBasket>();
     for (let i = 0; i < groups.length; i++) {
       const group = groups[i];
-      for (const pack of split?.index === i ? split.packs : [selected[i]]) {
+      for (const pack of selected[i]) {
+      if(pack.count>(pack.maxPackages??Infinity)||pack.count>DELIVERY_LIMITS.packagesPerProduct)return;
       let order = orders.get(pack.store);
       if (!order) { order = { store: pack.store, materialsGrosze: 0, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [] }; orders.set(pack.store, order); }
       order.materialsGrosze += pack.lineCostGrosze;
-      order.lines.push({ product: { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [pack] });
+      let line=order.lines.find(line=>line.product.id===group.product.id);
+      if(!line){line={product:{id:group.product.id,name:group.product.name,imageUrl:group.product.imageUrl},unit:group.unit,packages:[]};order.lines.push(line);}line.packages.push(pack);
       }
     }
     const actual = [...orders.values()].sort((a,b) => a.store.localeCompare(b.store));
     const key = actual.map(signature).join(';');
     proposed.set(key, actual);
-    if (!split) wholePlans.add(key);
+    if (whole) wholePlans.add(key);
   }
+  // A complete large order may require finite stocks from several shops even
+  // when none can supply the whole product alone. Keep that valid allocation.
+  const materialPlans=groups.map(g=>optimizePackages(g.totalQuantity,buildPackageVariants(g.offers,g.product)));
+  if(materialPlans.every(Boolean))addGroupedPlan(materialPlans.map(plan=>plan!.packages),materialPlans.every(plan=>plan!.packages.length===1));
   const orderedOptions = options.map(option=>option!.sort((a,b)=>a.lineCostGrosze-b.lineCostGrosze || a.offerId.localeCompare(b.offerId)));
   function addBase(selected: (PackagePlanEntry | undefined)[]) {
     if (selected.some(pack=>!pack)) return;

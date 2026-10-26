@@ -76,7 +76,7 @@ test('native transport permits reviewed even M2 quantities and refuses unreviewe
  assert.equal(mock.requests.length,calls);
 });
 test('real adapter converts observation to59.98 per pack and sends102m2 for51packs, including one mixed cart',async()=>{
- const mock=mockShop(),observation=await readRetailSource(source,mock.fetchImpl);assert.equal(observation.priceGrosze,5998);
+ const mock=mockShop(),observation=await readRetailSource(source,mock.fetchImpl);assert.equal(observation.priceGrosze,5998);assert.equal(observation.stockPackages,180);
  for(const mixed of [false,true]){const result=await createRetailerQuoter(mock.fetchImpl)(basket(51,mixed),'80-001');assert.ok('quote'in result,JSON.stringify(result));assert.equal(result.quote.costGrosze,0);assert.equal(result.quote.destinationScope,'PL');}
  const adds=mock.requests.filter(row=>row.path.endsWith('/items')).map(row=>JSON.parse(row.body!));assert.ok(adds.some(row=>row.productId===131345&&row.quantity===100));assert.equal(adds.filter(row=>row.productId===131345&&row.quantity===102).length,2);
  assert.ok(mock.requests.every(row=>row.method!=='POST'||row.path.endsWith('/items')||row.path==='/order/?json=1&pay_id=5&c=PL&sel=&wdt=0'));
@@ -97,6 +97,6 @@ test('real HTTP consolidates rooms into51physical packs and quotes the complete 
   const post=async(quantities:number[],mixed=false)=>{const jobs=quantities.map((quantity,index)=>({jobId:'passive-'+index,materials:[{material:{id:'passive',name:'Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)',category:'insulation',unit:'m2'},quantity}]}));if(mixed)jobs.push({jobId:'white',materials:[{material:{id:'white',name:'Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)',category:'insulation',unit:'m2'},quantity:3}]});const response=await fetch(root+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs,options:{store:source.store,delivery:{mode:'shipping',postalCode:'00-001'}}})});assert.equal(response.status,200);return response.json();};
   for(const [quantities,count]of [[[2],50],[[50,52],51]]as const){const result=await post([...quantities]);assert.equal(result.consolidated.lines[0].packages[0].count,count);assert.equal(result.consolidated.lines[0].packages[0].packageSize,2);assert.equal(result.deliveryComparison.best.totalGrosze,count*5998);}
   const mixed=await post([102],true);assert.equal(mixed.deliveryComparison.best.totalGrosze,654598);assert.equal(mixed.deliveryComparison.best.deliveryGrosze,0);assert.equal(mixed.deliveryComparison.best.stores.length,1);assert.equal(mixed.deliveryComparison.best.stores[0].lines.length,2);
-  const missing=await post([362]);assert.equal(missing.deliveryComparison.best,null);assert.ok(missing.deliveryComparison.unavailableStores.some((row:any)=>row.reason==='insufficient_stock'));
+  const beforeShort=mock.requests.length,missing=await post([362]);assert.equal(missing.deliveryComparison.best,null);assert.equal(missing.deliveryComparison.status,'partial');assert.equal(missing.stages[0].lines[0].reason,'insufficient-stock');assert.equal(missing.consolidated.lines.length,0);assert.equal(mock.requests.length,beforeShort);
  }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));service.close();}
 });

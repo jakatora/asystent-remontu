@@ -86,7 +86,7 @@ export function compareDeliveredBaskets(
   now = new Date(),
 ): DeliveryComparison {
   const groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
-  const missingProductCount = stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length;
+  const missingProductCount = stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length + groups.filter(group=>!optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product))).length;
   const names = [...new Set(groups.flatMap(group => group.offers.filter(offer => isComparableOffer(offer, now.getTime())).map(offer => offer.store)))].sort();
   const currentPolicies = names.map(store => {
     const policy = policies.find(policy => policy.store === store);
@@ -126,7 +126,7 @@ export function compareDeliveredBaskets(
         let plan: PackagePlan | null;
         // Current exact-EAN catalogue uses one pack size. Avoid a large DP grid
         // for large quantities when simple integer pack rounding is sufficient.
-        if (variants.length === 1) {
+        if (variants.length === 1 && variants[0].maxPackages === undefined) {
           const variant = variants[0], count = computePackagesNeeded(group.totalQuantity, variant.packageSize, variant.purchaseMultiple,variant.minimumPackages);
           const total = count * variant.unitPriceGrosze;
           plan = { requiredQuantity: group.totalQuantity, coveredQuantity: count * variant.packageSize,

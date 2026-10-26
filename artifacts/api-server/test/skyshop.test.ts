@@ -91,7 +91,7 @@ test('Sky-Shop transport is isolated and exposes only reviewed anonymous product
 test('actual adapters preserve 50/51 native counts and reject stale price or insufficient stock before creating a cart',async()=>{
  for(const count of [50,51]){
   const mock=mockShop(),observation=await readRetailSource(source,mock.fetchImpl);
-  assert.equal(observation.priceGrosze,6974);assert.equal(observation.ean,source.ean);
+  assert.equal(observation.priceGrosze,6974);assert.equal(observation.stockPackages,120);assert.equal(observation.ean,source.ean);
   const quoted=await createRetailerQuoter(mock.fetchImpl)(basket(count),'80-001');assert.ok('quote'in quoted,JSON.stringify(quoted));assert.equal(quoted.quote.costGrosze,0);assert.equal(quoted.quote.destinationScope,'PL');
   assert.ok(mock.requests.some(request=>request.path==='/cart'));assert.ok(mock.requests.every(request=>request.path!=='/order/'||request.method!=='POST'));
  }
@@ -114,7 +114,7 @@ test('real HTTP consolidates the minimum once, quotes the complete basket and re
   for(const [quantities,count]of [[[3],50],[[153],51],[[75,78],51]]as const){
    const result=await post([...quantities]);assert.equal(result.consolidated.consolidatedTotalGrosze,count*6974);assert.equal(result.consolidated.lines[0].packages[0].count,count);assert.equal(result.consolidated.lines[0].packages[0].minimumPackages,50);assert.equal(result.stages[0].lines[0].offers[0].minimumPackages,50);assert.equal(result.deliveryComparison.best.totalGrosze,count*6974);assert.equal(result.deliveryComparison.best.deliveryGrosze,0);
   }
-  const unavailable=await post([363]);assert.equal(unavailable.deliveryComparison.best,null);assert.ok(unavailable.deliveryComparison.unavailableStores.some((row:any)=>row.reason==='insufficient_stock'));
+  const beforeShort=mock.requests.length,unavailable=await post([363]);assert.equal(unavailable.deliveryComparison.best,null);assert.equal(unavailable.deliveryComparison.status,'partial');assert.equal(unavailable.stages[0].lines[0].reason,'insufficient-stock');assert.equal(unavailable.consolidated.lines.length,0);assert.equal(mock.requests.length,beforeShort);
   const pickup=await post([3],'pickup');assert.equal(pickup.deliveryComparison.best,null);assert.equal(pickup.stages[0].lines[0].reason,'no-offer');assert.ok(pickup.coverage.pickupConfirmationStores.includes(source.store));
  }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));service.close();}
 });

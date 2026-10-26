@@ -59,6 +59,7 @@ export interface SerializedOffer {
 export interface SerializedProductOffer {
   purchaseMultiple?: number;
   minimumPackages?: number;
+  maxPackages?: number;
   packageSize?: string | null;
   offerId: string;
   store: string;
@@ -86,6 +87,7 @@ export interface SerializedProductOffer {
 export interface SerializedPackage {
   purchaseMultiple?: number;
   minimumPackages?: number;
+  maxPackages?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */
@@ -305,6 +307,7 @@ function serializeProductOffer(offer: ProductOffer): SerializedProductOffer {
   return {
     ...(offer.purchaseMultiple ? { purchaseMultiple: offer.purchaseMultiple } : {}),
     ...(offer.minimumPackages ? { minimumPackages: offer.minimumPackages } : {}),
+    ...(offer.maxPackages !== undefined ? {maxPackages:offer.maxPackages} : {}),
     packageSize: offer.packageSize,
     offerId: offer.id,
     store: offer.store,
@@ -373,6 +376,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
     packages: line.packagePlan.packages.map((p) => ({
       ...(p.purchaseMultiple ? { purchaseMultiple: p.purchaseMultiple } : {}),
       ...(p.minimumPackages ? { minimumPackages: p.minimumPackages } : {}),
+      ...(p.maxPackages !== undefined ? {maxPackages:p.maxPackages} : {}),
       packageSize: p.packageSize,
       count: p.count,
       unitPriceGrosze: p.unitPriceGrosze,
@@ -453,6 +457,7 @@ function serializeConsolidatedLine(
     ...(line.packagePlan ? { packages: line.packagePlan.packages.map(entry => ({
       ...(entry.purchaseMultiple ? { purchaseMultiple: entry.purchaseMultiple } : {}),
       ...(entry.minimumPackages ? { minimumPackages: entry.minimumPackages } : {}),
+      ...(entry.maxPackages !== undefined ? {maxPackages:entry.maxPackages} : {}),
       packageSize: entry.packageSize, count: entry.count, unitPriceGrosze: entry.unitPriceGrosze,
       lineCostGrosze: entry.lineCostGrosze, store: entry.store, url: entry.url,
     })) } : {}),

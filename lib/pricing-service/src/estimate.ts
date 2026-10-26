@@ -29,7 +29,6 @@ import type {
   EstimateOptions,
   ItemQuery,
   OptimalBasketStoreLine,
-  PackagePlan,
   PackageVariant,
   ProjectEstimate,
   ResolvedLine,
@@ -70,6 +69,7 @@ export const MAX_COMPARABLE_OFFER_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 export function isComparableOffer(offer: ProductOffer, now = Date.now()): boolean {
   if (offer.purchaseMultiple !== undefined && (!Number.isSafeInteger(offer.purchaseMultiple) || offer.purchaseMultiple < 1 || offer.purchaseMultiple > 10_000)) return false;
   if (offer.minimumPackages !== undefined && (!Number.isSafeInteger(offer.minimumPackages) || offer.minimumPackages < 1 || offer.minimumPackages > 10_000)) return false;
+  if (offer.maxPackages !== undefined && (!Number.isSafeInteger(offer.maxPackages) || offer.maxPackages < Math.ceil((offer.minimumPackages??1)/(offer.purchaseMultiple??1))*(offer.purchaseMultiple??1) || offer.maxPackages > 1_000_000_000)) return false;
   if (!offer.source || /seed|fixture|mock|demo|reference/i.test(offer.source)) return false;
   const availability = (offer.availability ?? '').replace(/[\s_-]/g, '');
   if (/outofstock|unavailable|niedost[eę]pn|brak|preorder|backorder/i.test(availability)) return false;
@@ -97,9 +97,9 @@ export function selectCheapestOffer(
     if (store && offer.store !== store) continue;
     const unitPriceGrosze = parsePriceToGrosze(offer.promoPrice ?? offer.price);
     if (unitPriceGrosze === null) continue;
-    const total = purchase
-      ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product), offer.purchaseMultiple,offer.minimumPackages) * unitPriceGrosze
-      : unitPriceGrosze;
+    const count = purchase ? computePackagesNeeded(purchase.quantity, resolvePackageSize(offer, purchase.product), offer.purchaseMultiple,offer.minimumPackages) : 1;
+    if (purchase && offer.maxPackages !== undefined && count > offer.maxPackages) continue;
+    const total = count * unitPriceGrosze;
     if (best === null || total < bestTotal || (total === bestTotal && unitPriceGrosze < best.unitPriceGrosze)) {
       bestTotal = total;
       best = {
@@ -153,13 +153,16 @@ export function buildPackageVariants(
     const packageSize = resolvePackageSize(offer, product);
     const purchaseMultiple = offer.purchaseMultiple ?? 1;
     const minimumPackages = offer.minimumPackages ?? 1;
-    const key = `${packageSize}:${purchaseMultiple}:${minimumPackages}`;
+    // Finite stocks from different shops add up. Keeping only the cheapest
+    // same-size offer would discard the stock needed to finish a split order.
+    const key = offer.maxPackages === undefined ? `${packageSize}:${purchaseMultiple}:${minimumPackages}` : `stock:${offer.id}`;
     const existing = bySize.get(key);
     if (existing === undefined || unitPriceGrosze < existing.unitPriceGrosze) {
       bySize.set(key, {
         packageSize,
         ...(purchaseMultiple > 1 ? { purchaseMultiple } : {}),
         ...(minimumPackages > 1 ? { minimumPackages } : {}),
+        ...(offer.maxPackages !== undefined ? {maxPackages:offer.maxPackages} : {}),
         unitPriceGrosze,
         store: offer.store,
         url: offer.productUrl,
@@ -219,24 +222,20 @@ async function estimateLine(
   // silently undo the choice after the individual stage had respected it.
   const offers = (await deps.listOffers(db, product.id)).filter(offer =>
     isComparableOffer(offer) && (!options.store || offer.store === options.store));
-  const cheapestOffer = selectCheapestOffer(offers, options.store, { quantity: item.quantity, product });
-  if (!cheapestOffer) {
+  if (!offers.length) {
     return { resolved: false, ...base, reason: "no-offer", lineCost: 0 };
   }
+  const variants = buildPackageVariants(offers, product, options.store);
+  const packagePlan = optimizePackages(item.quantity, variants);
+  if (!packagePlan) return {resolved:false,...base,reason:offers.some(o=>o.maxPackages!==undefined)?'insufficient-stock':'no-offer',lineCost:0};
+  const wholeOffer=selectCheapestOffer(offers,options.store,{quantity:item.quantity,product});
+  // The detailed package plan also supports a split when no single shop can
+  // supply everything. Its total is the baseline in that case.
+  const cheapestOffer=wholeOffer??selectCheapestOffer(offers,options.store)!;
 
   const packageSize = resolvePackageSize(cheapestOffer.offer, product);
-  const packagesNeeded = computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple,cheapestOffer.offer.minimumPackages);
-  const lineCost = packagesNeeded * cheapestOffer.unitPriceGrosze;
-
-  // Optymalny dobór wielkości opakowań (najtańsza kombinacja rozmiarów). Warianty
-  // budujemy z ofert produktu (grupowane po wielkości). Gdy jest tylko jedna
-  // wielkość, plan degeneruje się do N×rozmiar i totalGrosze === lineCost.
-  // Fallback na plan jednorozmiarowy, gdyby optymizer nie miał wariantów (nie
-  // powinno się zdarzyć, skoro mamy cheapestOffer).
-  const variants = buildPackageVariants(offers, product, options.store);
-  const packagePlan: PackagePlan =
-    optimizePackages(item.quantity, variants) ??
-    singleSizePlan(item.quantity, packageSize, packagesNeeded, cheapestOffer);
+  const packagesNeeded = wholeOffer ? computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple,cheapestOffer.offer.minimumPackages) : packagePlan.packages.reduce((sum,entry)=>sum+entry.count,0);
+  const lineCost = wholeOffer ? packagesNeeded * cheapestOffer.unitPriceGrosze : packagePlan.totalGrosze;
 
   return {
     resolved: true,
@@ -248,38 +247,6 @@ async function estimateLine(
     packagesNeeded,
     lineCost,
     packagePlan,
-  };
-}
-
-/** Awaryjny plan jednorozmiarowy (spójny z legacy lineCost), gdy brak wariantów. */
-function singleSizePlan(
-  quantity: number,
-  packageSize: number,
-  packagesNeeded: number,
-  cheapestOffer: CheapestOffer,
-): PackagePlan {
-  const coveredQuantity = packagesNeeded * packageSize;
-  return {
-    packages:
-      packagesNeeded > 0
-        ? [
-            {
-              ...(cheapestOffer.offer.purchaseMultiple ? {purchaseMultiple:cheapestOffer.offer.purchaseMultiple} : {}),
-              ...(cheapestOffer.offer.minimumPackages ? {minimumPackages:cheapestOffer.offer.minimumPackages} : {}),
-              packageSize,
-              count: packagesNeeded,
-              unitPriceGrosze: cheapestOffer.unitPriceGrosze,
-              lineCostGrosze: packagesNeeded * cheapestOffer.unitPriceGrosze,
-              store: cheapestOffer.store,
-              url: cheapestOffer.url,
-              offerId: cheapestOffer.offer.id,
-            },
-          ]
-        : [],
-    totalGrosze: packagesNeeded * cheapestOffer.unitPriceGrosze,
-    requiredQuantity: quantity > 0 ? quantity : 0,
-    coveredQuantity,
-    overage: coveredQuantity - (quantity > 0 ? quantity : 0),
   };
 }
 
@@ -299,12 +266,13 @@ export async function estimateStageCost(
     lines.push(await estimateLine(db, deps, item, options));
   }
 
-  const unresolved = lines.filter(
+  const reconciled = reconcileStock([{lines,unresolved:[],stageTotalGrosze:0}])[0];
+  const unresolved = reconciled.lines.filter(
     (l): l is Extract<EstimateLine, { resolved: false }> => !l.resolved,
   );
-  const stageTotalGrosze = lines.reduce((sum, l) => sum + l.lineCost, 0);
+  const stageTotalGrosze = reconciled.lines.reduce((sum, l) => sum + l.lineCost, 0);
 
-  return { lines, unresolved, stageTotalGrosze };
+  return { lines:reconciled.lines, unresolved, stageTotalGrosze };
 }
 
 /**
@@ -385,6 +353,7 @@ export function consolidateProject(
   const lines: ConsolidatedLine[] = [];
   for (const g of groups) {
     const packagePlan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product));
+    if (!packagePlan) continue;
     const packagesNeeded = packagePlan?.packages.reduce((sum, entry) => sum + entry.count, 0) ?? computePackagesNeeded(g.totalQuantity, g.packageSize);
     const lineCostGrosze = packagePlan?.totalGrosze ?? packagesNeeded * g.cheapestOffer.unitPriceGrosze;
     lines.push({
@@ -520,6 +489,7 @@ export function compareStores(
 export function estimateProjectCost(
   stages: readonly StageEstimate[],
 ): ProjectEstimate {
+  stages = reconcileStock(stages);
   const projectTotalGrosze = stages.reduce(
     (sum, s) => sum + s.stageTotalGrosze,
     0,
@@ -539,4 +509,19 @@ export function estimateProjectCost(
     consolidated: consolidateProject(stages),
     storeComparison: compareStores(stages),
   };
+}
+
+/** A shelf stock belongs to the complete purchase, not independently to every
+ * stage/room. Withdraw all affected stage prices when their shared demand
+ * cannot be covered; otherwise a partial project could look fully priced. */
+export function reconcileStock(stages:readonly StageEstimate[]):StageEstimate[]{
+  const missing=new Set(groupProjectByProduct(stages).filter(g=>g.offers.some(o=>o.maxPackages!==undefined)&&!optimizePackages(g.totalQuantity,buildPackageVariants(g.offers,g.product))).map(g=>g.product.id));
+  if(!missing.size)return [...stages];
+  return stages.map(stage=>{
+    const lines:EstimateLine[]=stage.lines.map(line=>line.resolved&&missing.has(line.product.id)?{resolved:false,query:line.query,quantity:line.quantity,unit:line.unit,reason:'insufficient-stock',lineCost:0}:line);
+    const stageTotalGrosze=lines.reduce((sum,line)=>sum+line.lineCost,0);
+    return{...stage,lines,unresolved:lines.filter((l):l is Extract<EstimateLine,{resolved:false}>=>!l.resolved),stageTotalGrosze,
+      ...('materialsTotalGrosze' in stage?{materialsTotalGrosze:stageTotalGrosze}:{}),
+      ...('stageTotalWithLaborGrosze' in stage?{stageTotalWithLaborGrosze:stageTotalGrosze+(stage.laborTotalGrosze??0)}:{})};
+  });
 }

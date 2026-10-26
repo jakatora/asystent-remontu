@@ -16,6 +16,9 @@ export type PurchaseOffer = ProductOffer & {
   /** Minimum physical packs when this offer is used; further packs need not
    * form another minimum-size lot. */
   minimumPackages?: number;
+  /** Published stock snapshot in physical packs; undefined means unknown,
+   * never unlimited confirmed stock. This is not a reservation. */
+  maxPackages?: number;
 };
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
@@ -68,6 +71,7 @@ export interface CheapestOffer {
 export interface PackageVariant {
   purchaseMultiple?: number;
   minimumPackages?: number;
+  maxPackages?: number;
   /** Wielkość pojedynczego opakowania w jednostce materiału (np. 10 = 10 l). > 0. */
   packageSize: number;
   /** Cena jednego opakowania tej wielkości w GROSZACH (najtańsza oferta). */
@@ -84,6 +88,7 @@ export interface PackageVariant {
 export interface PackagePlanEntry {
   purchaseMultiple?: number;
   minimumPackages?: number;
+  maxPackages?: number;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */
@@ -122,7 +127,8 @@ export interface PackagePlan {
 export type UnresolvedReason =
   | "no-query" // brak jakiegokolwiek kryterium dopasowania
   | "no-product" // brak produktu w katalogu
-  | "no-offer"; // produkt jest, ale brak aktualnej oferty z ceną
+  | "no-offer" // produkt jest, ale brak aktualnej oferty z ceną
+  | "insufficient-stock"; // znany zapas nie pokrywa potrzeb całego zakupu
 
 /** Wyceniona pozycja (produkt dopasowany, oferta z ceną). */
 export interface ResolvedLine {

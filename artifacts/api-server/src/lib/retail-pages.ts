@@ -66,6 +66,8 @@ export interface RetailObservation {
   priceGrosze: number;
   currency: 'PLN';
   availability: 'in_stock';
+  /** Explicit published available quantity, converted to physical packs. */
+  stockPackages?: number;
   observedAt: string;
   sourceUrl: string;
   evidenceSha256: string;
@@ -149,7 +151,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   if (source.disabledReason) throw Error(source.disabledReason);
   if(source.format==='qshop'){
     const current=await readTokmetProduct(source,fetchImpl);
-    return {...parseRetailPage(`<script type="application/ld+json">${JSON.stringify(current.product)}</script>`,{...source,format:'jsonld'},new Date()),evidenceSha256:current.evidenceSha256};
+    return {...parseRetailPage(`<script type="application/ld+json">${JSON.stringify(current.product)}</script>`,{...source,format:'jsonld'},new Date()),stockPackages:current.stock,evidenceSha256:current.evidenceSha256};
   }
   if(source.format==='skyshop'){
     const review=reviewedSkyshopSource(source),nativeCount=source.minimumPackages!*review.nativePerPack;
@@ -159,7 +161,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const cart=confirmSkyshopBasket(await client.skyshop('cart'),[{productId:review.id,count:nativeCount,unitPriceGrosze:current.nativePriceGrosze}]);
     if(cart.id!==empty.id)throw Error('basket_not_confirmed');
     const html=`<script type="application/ld+json">${JSON.stringify(current.product)}</script>`;
-    return{...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:skyshopEvidenceHash([...current.evidence,cart])};
+    return{...parseRetailPage(html,{...source,format:'jsonld'},new Date()),stockPackages:current.stock,evidenceSha256:skyshopEvidenceHash([...current.evidence,cart])};
   }
   if (source.format==='topboden-api') {
     const product=await readTopbodenProduct(source,fetchImpl);

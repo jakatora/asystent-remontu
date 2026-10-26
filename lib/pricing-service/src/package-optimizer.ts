@@ -66,6 +66,7 @@ function buildEntries(
         lineCostGrosze: v.unitPriceGrosze * count,
         ...((v.purchaseMultiple ?? 1) > 1 ? { purchaseMultiple: v.purchaseMultiple } : {}),
         ...((v.minimumPackages ?? 1) > 1 ? { minimumPackages: v.minimumPackages } : {}),
+        ...(v.maxPackages !== undefined ? { maxPackages: v.maxPackages } : {}),
         store: v.store,
         url: v.url,
         offerId: v.offerId,
@@ -82,13 +83,14 @@ function buildEntries(
 function fallbackSingleVariant(
   requiredQuantity: number,
   variants: readonly PackageVariant[],
-): PackagePlan {
+): PackagePlan | null {
   const cost = (v: PackageVariant) => computePackagesNeeded(requiredQuantity,v.packageSize,v.purchaseMultiple,v.minimumPackages) * v.unitPriceGrosze;
-  const best = [...variants].sort(
+  const best = variants.filter(v => v.maxPackages === undefined || computePackagesNeeded(requiredQuantity,v.packageSize,v.purchaseMultiple,v.minimumPackages) <= v.maxPackages).sort(
     (a, b) =>
       cost(a) - cost(b) ||
       a.packageSize - b.packageSize,
-  )[0]!;
+  )[0];
+  if (!best) return null;
   const count = computePackagesNeeded(requiredQuantity,best.packageSize,best.purchaseMultiple,best.minimumPackages);
   const { packages, totalGrosze, coverage } = buildEntries([{variant:best,count}]);
   return {
@@ -108,7 +110,7 @@ function optimizeWithMinimums(
   variants: readonly PackageVariant[],
   target: number,
   scale: number,
-): PackagePlan {
+): PackagePlan | null {
   if (variants.length * (target + 1) > MAX_GRID) return fallbackSingleVariant(requiredQuantity, variants);
   let costs = new Float64Array(target + 1).fill(Infinity);
   let coverages = new Float64Array(target + 1).fill(Infinity);
@@ -169,6 +171,53 @@ function optimizeWithMinimums(
   return {packages,totalGrosze,requiredQuantity,coveredQuantity:coverage,overage:coverage-requiredQuantity};
 }
 
+/** A stock cap applies once to the offer, including all stages of a project.
+ * Start a used offer at its minimum, then add bounded binary groups of lots.
+ * Descending updates make every group a 0/1 choice, so stock is never reused.
+ * Unknown stock keeps the ordinary useful maximum; it is not fabricated data. */
+function optimizeWithStock(requiredQuantity:number,variants:readonly PackageVariant[],target:number,scale:number):PackagePlan|null {
+  if (variants.length * (target + 1) > MAX_GRID) throw Error('stock_planning_limit');
+  let costs=new Float64Array(target+1).fill(Infinity),coverages=new Float64Array(target+1).fill(Infinity);
+  costs[0]=coverages[0]=0;
+  const choices:Uint32Array[]=[],grids:number[]=[];
+  for(const variant of variants){
+    const multiple=variant.purchaseMultiple??1,minimumLots=Math.ceil((variant.minimumPackages??1)/multiple);
+    const grid=Math.max(1,Math.round(variant.packageSize*multiple*scale));
+    const usefulLots=Math.max(minimumLots,Math.ceil(target/grid));
+    const maxLots=Math.min(usefulLots,variant.maxPackages===undefined?usefulLots:Math.floor(variant.maxPackages/multiple));
+    const stepCost=variant.unitPriceGrosze*multiple;
+    const usedCosts=new Float64Array(target+1).fill(Infinity),usedCoverages=new Float64Array(target+1).fill(Infinity),usedCounts=new Uint32Array(target+1);
+    if(maxLots>=minimumLots){
+      for(let q=0;q<=target;q++){
+        const before=Math.max(0,q-minimumLots*grid);
+        usedCosts[q]=costs[before]+minimumLots*stepCost;
+        usedCoverages[q]=coverages[before]+minimumLots*grid;
+        usedCounts[q]=minimumLots*multiple;
+      }
+      let left=maxLots-minimumLots;
+      for(let batch=1;left>0;batch*=2){
+        const lots=Math.min(batch,left);left-=lots;
+        for(let q=target;q>=0;q--){
+          const before=Math.max(0,q-lots*grid),cost=usedCosts[before]+lots*stepCost,coverage=usedCoverages[before]+lots*grid;
+          if(cost<usedCosts[q]||(cost===usedCosts[q]&&coverage<usedCoverages[q])){
+            usedCosts[q]=cost;usedCoverages[q]=coverage;usedCounts[q]=usedCounts[before]+lots*multiple;
+          }
+        }
+      }
+    }
+    const counts=new Uint32Array(target+1);
+    for(let q=0;q<=target;q++)if(usedCosts[q]<costs[q]||(usedCosts[q]===costs[q]&&usedCoverages[q]<coverages[q])){
+      costs[q]=usedCosts[q];coverages[q]=usedCoverages[q];counts[q]=usedCounts[q];
+    }
+    choices.push(counts);grids.push(grid);
+  }
+  if(!Number.isFinite(costs[target]))return null;
+  const chosen:{variant:PackageVariant;count:number}[]=[];let q=target;
+  for(let i=variants.length-1;i>=0;i--){const count=choices[i][q];if(count){const variant=variants[i];chosen.push({variant,count});q=Math.max(0,q-grids[i]*(count/(variant.purchaseMultiple??1)));}}
+  const {packages,totalGrosze,coverage}=buildEntries(chosen);
+  return{packages,totalGrosze,requiredQuantity,coveredQuantity:coverage,overage:coverage-requiredQuantity};
+}
+
 /**
  * Dobiera najtańszą kombinację wielkości opakowań pokrywającą `requiredQuantity`.
  *
@@ -202,6 +251,7 @@ export function optimizePackages(
       Number.isSafeInteger(v.unitPriceGrosze) && v.unitPriceGrosze >= 0 &&
       Number.isSafeInteger(v.purchaseMultiple ?? 1) && (v.purchaseMultiple ?? 1) >= 1 && (v.purchaseMultiple ?? 1) <= 10_000 &&
       Number.isSafeInteger(v.minimumPackages ?? 1) && (v.minimumPackages ?? 1) >= 1 && (v.minimumPackages ?? 1) <= 10_000 &&
+      (v.maxPackages === undefined || Number.isSafeInteger(v.maxPackages) && v.maxPackages >= 0 && v.maxPackages <= 1_000_000_000) &&
       Number.isSafeInteger(v.unitPriceGrosze * Math.max(v.purchaseMultiple ?? 1, Math.ceil((v.minimumPackages ?? 1) / (v.purchaseMultiple ?? 1)) * (v.purchaseMultiple ?? 1))),
   );
   if (usable.length === 0) return null;
@@ -211,6 +261,10 @@ export function optimizePackages(
   // Cel = wymagana ilość w jednostkach siatki, zaokrąglona w górę (musimy pokryć
   // CO NAJMNIEJ tyle). Mała tolerancja na błąd floatów przed sufitem.
   const target = Math.max(1, Math.ceil(requiredQuantity * scale - 1e-9));
+  if (usable.some(v=>v.maxPackages!==undefined)) {
+    if(target>MAX_GRID)throw Error('stock_planning_limit');
+    return optimizeWithStock(requiredQuantity,usable,target,scale);
+  }
   if (target > MAX_GRID) return fallbackSingleVariant(requiredQuantity, usable);
   if (usable.some(v => (v.minimumPackages ?? 1) > 1)) return optimizeWithMinimums(requiredQuantity, usable, target, scale);
 

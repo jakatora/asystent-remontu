@@ -516,6 +516,7 @@ function PackageBreakdown({
         </View>
       )}
       {packages.filter(pack => (pack.minimumPackages ?? 1) > 1).map((pack, index) => <Txt key={`minimum-${pack.store}-${index}`} style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{language === 'pl' ? `${pack.store}: minimalny zakup ${pack.minimumPackages} op. Kwota uwzględnia to minimum.` : `${pack.store}: minimum purchase of ${pack.minimumPackages} packs. The cost includes this minimum.`}</Txt>)}
+      {packages.filter(pack=>pack.maxPackages!==undefined).map((pack,index)=><Txt key={`stock-${pack.store}-${index}`} style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{language==='pl'?`${pack.store}: zapas przy sprawdzeniu ${pack.maxPackages} op. Nie jest to rezerwacja.`:`${pack.store}: ${pack.maxPackages} packs in stock when checked. This is not a reservation.`}</Txt>)}
       {packages.filter(pack => (pack.purchaseMultiple ?? 1) > 1).map((pack, index) => <Txt key={`${pack.store}-${index}`} style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{language === 'pl' ? `${pack.store}: zakup w partiach po ${pack.purchaseMultiple} op. Kwota uwzględnia całą wymaganą partię.` : `${pack.store}: order lots of ${pack.purchaseMultiple} packs. The cost includes the complete required lot.`}</Txt>)}
     </View>
   );
@@ -639,6 +640,7 @@ function OfferRow({
 
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
         {(offer.minimumPackages ?? 1) > 1 && <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{language === 'pl' ? `Minimalny zakup: ${offer.minimumPackages} op.` : `Minimum purchase: ${offer.minimumPackages} packs`}</Txt>}
+        {offer.maxPackages!==undefined&&<Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?`Zapas przy sprawdzeniu: ${offer.maxPackages} op. Nie jest to rezerwacja.`:`Stock when checked: ${offer.maxPackages} packs. This is not a reservation.`}</Txt>}
         {(offer.purchaseMultiple ?? 1) > 1 && <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{language === 'pl' ? `Zakup w partiach po ${offer.purchaseMultiple} op.` : `Order lots of ${offer.purchaseMultiple} packs`}</Txt>}
         {offer.pricePerUnitGrosze !== null && (
           <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>
@@ -1296,7 +1298,7 @@ function UnresolvedLineCard({ line, selectedStore, postalCode, pickup }: { line:
         </View>
       </View>
       <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>
-        {pickup && isMissingOffer(line.reason) ? (pl ? 'Brak potwierdzonej oferty odbioru własnego dla tego produktu.' : 'No confirmed self-collection offer for this product.') : selectedStore && !['empty_query','no-query'].includes(line.reason ?? '') ? (pl ? 'Brak potwierdzonej oferty w wybranym sklepie.' : 'No confirmed offer in the selected store.') : t(unresolvedReasonKey(line.reason))}
+        {line.reason==='insufficient-stock'?t(unresolvedReasonKey(line.reason)):pickup && isMissingOffer(line.reason) ? (pl ? 'Brak potwierdzonej oferty odbioru własnego dla tego produktu.' : 'No confirmed self-collection offer for this product.') : selectedStore && !['empty_query','no-query'].includes(line.reason ?? '') ? (pl ? 'Brak potwierdzonej oferty w wybranym sklepie.' : 'No confirmed offer in the selected store.') : t(unresolvedReasonKey(line.reason))}
       </Txt>
       {ref && <>
         <Txt style={{ fontSize: 13, color: Colors.textSecondary, lineHeight: 19 }}>{pl ? 'Nie doliczamy tej pozycji do sumy. W sklepie sprawdzisz aktualną cenę, zapas i możliwość odbioru.' : 'This item is excluded from the total. Check its current price, stock and collection options at the shop.'}</Txt>

@@ -158,7 +158,7 @@ export async function estimateProjectCostFromCalculation(
   jobResults: readonly CalculatorStageResult[],
   options: EstimateOptions = {},
   deps?: EstimateDeps,
-): Promise<ProjectEstimate & { stages: StageEstimateFromCalculation[] }> {
+): Promise<Omit<ProjectEstimate,'stages'> & { stages: StageEstimateFromCalculation[] }> {
   const stages: StageEstimateFromCalculation[] = [];
   for (const jobResult of jobResults) {
     stages.push(
@@ -166,5 +166,6 @@ export async function estimateProjectCostFromCalculation(
     );
   }
   const project = estimateProjectCost(stages);
-  return { ...project, stages };
+  // Project-wide stock reconciliation preserves each stage's jobId and labor.
+  return { ...project, stages:project.stages as StageEstimateFromCalculation[] };
 }

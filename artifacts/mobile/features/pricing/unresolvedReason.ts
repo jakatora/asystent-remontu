@@ -8,6 +8,7 @@ export function isMissingOffer(reason: UnresolvedReason | undefined): boolean {
 
 export function unresolvedReasonKey(reason: UnresolvedReason | undefined) {
   switch (reason) {
+    case 'insufficient-stock': return 'cmp.CostEstimate.reason.insufficient_stock' as const;
     case 'no-product':
     case 'not_found': return 'cmp.CostEstimate.reason.not_found' as const;
     case 'no-offer':

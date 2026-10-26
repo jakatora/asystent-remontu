@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import express from 'express';
+import {mkdtempSync,writeFileSync,unlinkSync,rmdirSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import {RETAIL_SOURCES} from '../src/lib/retail-catalog';
 import {readRetailSource} from '../src/lib/retail-pages';
 import {inspectTokmetProduct,confirmTokmetCart} from '../src/lib/qshop-product';
@@ -37,9 +40,31 @@ test('the entire native cart confirms quantity, product and gross subtotal; foot
 });
 
 test('real Latin-2 storefront reads use a fresh isolated cart and exactly one known item; never customer, consent or order endpoints',async()=>{
- const mock=reader(),observation=await readRetailSource(source,mock.fetchImpl);assert.equal(observation.priceGrosze,1114);assert.equal(observation.name,source.name);assert.equal(observation.ean,source.ean);assert.equal(observation.currency,'PLN');assert.match(observation.evidenceSha256,/^[a-f0-9]{64}$/);
+ const mock=reader(),observation=await readRetailSource(source,mock.fetchImpl);assert.equal(observation.stockPackages,54);assert.equal(observation.priceGrosze,1114);assert.equal(observation.name,source.name);assert.equal(observation.ean,source.ean);assert.equal(observation.currency,'PLN');assert.match(observation.evidenceSha256,/^[a-f0-9]{64}$/);
  assert.deepEqual(mock.calls.map(c=>c.url.pathname),['/94,wezyki_w_oplocie_stalowym.html',new URL(source.url).pathname,'/cart.php','/_dynamic_cart.php','/cart.php']);
  assert.throws(()=>new AnonymousShop('https://another.example',fetch,new AbortController().signal,8,'iso-8859-2'));
+});
+
+test('published quantity survives real HTTP and prevents a whole-project pickup above the shared shelf stock',async()=>{
+ const mock=reader(),observation=await readRetailSource(source,mock.fetchImpl),service=createRemontService({initialObservations:[observation],background:false});
+ const app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
+ try{const root='http://127.0.0.1:'+(server.address() as {port:number}).port;
+  const post=async(quantities:number[])=>{const response=await fetch(root+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:quantities.map((quantity,index)=>({jobId:'room-'+index,materials:[{material:{id:'hose',name:source.name,ean:source.ean,category:source.category,unit:'szt'},quantity}]})),options:{delivery:{mode:'pickup'},store:'TOK-MET'}})});assert.equal(response.status,200);return response.json();};
+  const exact=await post([54]);assert.equal(exact.deliveryComparison.best.totalGrosze,60156);assert.equal(exact.stages[0].lines[0].offers[0].maxPackages,54);assert.equal(exact.consolidated.lines[0].packages[0].maxPackages,54);
+  for(const quantities of [[55],[30,30]]){const data=await post(quantities);assert.equal(data.deliveryComparison.best,null);assert.equal(data.deliveryComparison.status,'partial');assert.equal(data.consolidated.lines.length,0);assert.ok(data.stages.every((s:any)=>s.lines[0].reason==='insufficient-stock'));}
+ }finally{await new Promise<void>((resolve,reject)=>server.close(error=>error?reject(error):resolve()));service.close();}
+});
+
+test('a newer reduced stock snapshot survives restart and invalid quantities cannot become an unlimited offer',async()=>{
+ const observation=await readRetailSource(source,reader().fetchImpl),directory=mkdtempSync(join(tmpdir(),'remont-stock-')),cachePath=join(directory,'observations.json');
+ const reduced={...observation,stockPackages:10,observedAt:new Date(Date.parse(observation.observedAt)+1).toISOString()};
+ writeFileSync(cachePath,JSON.stringify({version:2,observations:[reduced],withdrawnAt:{}}));
+ const service=createRemontService({initialObservations:[observation],cachePath,background:false}),app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
+ try{
+  assert.equal(service.status().sources.find(s=>s.id===source.id)?.stockPackages,10);
+  const response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'hose',materials:[{material:{id:'hose',name:source.name,ean:source.ean,unit:'szt',category:source.category},quantity:11}]}],options:{delivery:{mode:'pickup'}}})});assert.equal(response.status,200);const data=await response.json();assert.equal(data.stages[0].lines[0].reason,'insufficient-stock');assert.equal(data.deliveryComparison.best,null);
+  for(const stockPackages of [-1,1.5,Number.MAX_SAFE_INTEGER]){const invalid=createRemontService({initialObservations:[{...observation,stockPackages}],background:false});try{assert.equal(invalid.status().offers,0);}finally{invalid.close();}}
+ }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));service.close();unlinkSync(cachePath);rmdirSync(directory);}
 });
 
 test('a nonempty initial cart or a changed merchant cart cannot produce a current observation',async()=>{

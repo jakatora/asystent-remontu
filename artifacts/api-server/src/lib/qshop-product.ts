@@ -41,6 +41,7 @@ export function inspectTokmetProduct(listHtml:string,cardHtml:string,source:Reta
  if(!/^VAT: 23 % - [\d .]+ zł netto$/.test(text(one(htmlElements(card,a=>a.class==='rwd_show_item_price_netto'),'retailer_gross_price_not_confirmed'))))throw Error('retailer_gross_price_not_confirmed');
  const stock=text(one(htmlElements(row,a=>a.class==='rwd-avl-b'),'retailer_stock_not_confirmed')).match(/^Dostępność: (\d+) szt\.$/)?.[1];
  if(!stock||Number(stock)<1)throw Error('retailer_out_of_stock');
+ if(!Number.isSafeInteger(Number(stock))||Number(stock)>1_000_000_000)throw Error('retailer_stock_not_confirmed');
  if(text(one(htmlElements(card,a=>a.id==='rwd-avl'),'retailer_stock_not_confirmed'))!==`Dostępność: ${stock} szt. Dostępne natychmiast!`)throw Error('retailer_stock_not_confirmed');
  const image=one(htmlElements(card,(a,t)=>t==='img'&&a.id==='picture'),'product_photo_not_confirmed'),imageUrl=new URL(attrs(image).src,TOKMET_ORIGIN).href;
  if(new URL(imageUrl).origin!==TOKMET_ORIGIN||!imageUrl.includes('pic81087437639.jpg'))throw Error('product_photo_not_confirmed');
@@ -66,5 +67,5 @@ export async function readTokmetProduct(source:RetailSource,fetchImpl:typeof fet
  // The add response contains a stale promotional amount unrelated to the
  // basket. Only the subsequent whole cart confirms the actual gross price.
  const added=await client.text('/_dynamic_cart.php?action=add&itemId=2806&qty=1&dbv=&view_only_price=false'),cart=await client.text('/cart.php');confirmTokmetCart(cart,current.priceGrosze);
- return{product:{'@type':'Product',name:source.name,gtin13:source.ean,brand:source.brand,image:current.imageUrl,offers:{'@type':'Offer',price:(current.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}},evidenceSha256:createHash('sha256').update(JSON.stringify([list,card,empty,added,cart])).digest('hex')};
+ return{stock:current.stock,product:{'@type':'Product',name:source.name,gtin13:source.ean,brand:source.brand,image:current.imageUrl,offers:{'@type':'Offer',price:(current.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}},evidenceSha256:createHash('sha256').update(JSON.stringify([list,card,empty,added,cart])).digest('hex')};
 }
