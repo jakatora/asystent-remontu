@@ -1,4 +1,5 @@
 import type { FormulaFn, FormulaRegistry, MeasurementMap } from '@/types/calculator';
+import { groutMassKg } from './grout';
 
 // ─── Shared measurement helpers ────────────────────────────────────────────────
 // These are also exported from formula-builder.ts for inline use in job files.
@@ -115,15 +116,12 @@ const tileAdhesiveFormula: FormulaFn = (m, waste) => {
 };
 
 const groutFormula: FormulaFn = (m, waste) => {
-  // ~0.5 kg/m² default; precise if groutWidthMm + tileWidthCm + tileHeightCm provided
-  const tileW = m.tileWidthCm ?? 30;
-  const tileH = m.tileHeightCm ?? 30;
-  const groutMm = m.groutWidthMm ?? 3;
-  const depth = 9;
-  const density = 1.7;
-  const computed = ((tileW + tileH) / (tileW * tileH)) * groutMm * depth * density * 0.001;
-  const kgPerM2 = computed > 0.05 ? computed : 0.5;
-  return round1(area(m) * kgPerM2 * waste);
+  // Defaults are explicit estimating assumptions for ATLAS ceramic grout.
+  // A product selection may supply its reviewed tile depth and grout density.
+  // Keep raw demand: rounding here can remove a needed retail package.
+  // source: https://www.atlas.com.pl/produkt/atlas-fuga-ceramiczna-2/ (1650 kg/m³)
+  return groutMassKg(area(m), m.tileWidthCm ?? 30, m.tileHeightCm ?? 30,
+    m.tileThicknessMm ?? 9, m.groutWidthMm ?? 3, m.groutDensityKgM3 ?? 1650, waste);
 };
 
 const crossesFormula: FormulaFn = (m, _waste) => {

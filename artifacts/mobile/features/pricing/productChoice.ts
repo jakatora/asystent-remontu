@@ -5,7 +5,7 @@ import { normalizeUnit } from './quantity';
 import type { PricingMaterialInput, PricingStageInput } from './pricingApi';
 
 export type ProductChoice = { from: string; to: string };
-export const NO_PRODUCT_CHOICES: readonly ProductChoice[] = [];
+export const NO_PRODUCT_CHOICES: readonly never[] = [];
 
 /** Reviewed groups permit an explicit product choice in the same demand unit.
  * Membership never declares two SKUs or technical specifications equivalent. */

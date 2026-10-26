@@ -18,6 +18,7 @@ import { DOOR_SELECTION_PREFIX, parseDoorSelection, type DoorSelection } from '@
 import { LAMINATE_CHOICE_PREFIX, parseLaminateChoices, type LaminateChoice } from '@/features/pricing/laminateChoice';
 import { FOIL_CHOICE_PREFIX, parseFoilChoices, type FoilChoice } from '@/features/pricing/foilChoice';
 import { WASHBASIN_CHOICE_PREFIX, parseWashbasinChoices, type WashbasinChoice } from '@/features/pricing/washbasinChoice';
+import { TILE_CHOICE_PREFIX, parseTileChoices, type TileChoice } from '@/features/pricing/tileChoice';
 
 export default function RenovationBasketScreen() {
   const { projects, selectedQualityTier, setSelectedQualityTier, selectedRegion, refreshProjects } = useApp();
@@ -31,6 +32,7 @@ export default function RenovationBasketScreen() {
   const [laminates, setLaminates] = useState<Record<string, LaminateChoice[]>>({});
   const [foils, setFoils] = useState<Record<string, FoilChoice[]>>({});
   const [washbasins, setWashbasins] = useState<Record<string, WashbasinChoice[]>>({});
+  const [tiles, setTiles] = useState<Record<string, TileChoice[]>>({});
   const [itemsReady, setItemsReady] = useState(false);
   const [itemsFailed, setItemsFailed] = useState(false);
   const writes = useRef(Promise.resolve());
@@ -65,14 +67,14 @@ export default function RenovationBasketScreen() {
     let active = true;
     setItemsReady(false); setItemsFailed(false);
     void Promise.all(selectedProjects.map(async project => {
-      const [shopping, rawDoor, rawLaminate, rawFoil, rawWashbasin] = await Promise.all([shoppingRepo.findByProject(project.id), project.calculationResult?.jobId === 'interior-doors' ? AsyncStorage.getItem(DOOR_SELECTION_PREFIX + project.id) : Promise.resolve(null), AsyncStorage.getItem(LAMINATE_CHOICE_PREFIX + project.id), AsyncStorage.getItem(FOIL_CHOICE_PREFIX + project.id), AsyncStorage.getItem(WASHBASIN_CHOICE_PREFIX + project.id)]);
-      return { id: project.id, shopping, door: project.calculationResult ? parseDoorSelection(rawDoor, project.calculationResult) : null, laminate: parseLaminateChoices(rawLaminate), foil: parseFoilChoices(rawFoil), washbasin: parseWashbasinChoices(rawWashbasin) };
+      const [shopping, rawDoor, rawLaminate, rawFoil, rawWashbasin, rawTile] = await Promise.all([shoppingRepo.findByProject(project.id), project.calculationResult?.jobId === 'interior-doors' ? AsyncStorage.getItem(DOOR_SELECTION_PREFIX + project.id) : Promise.resolve(null), AsyncStorage.getItem(LAMINATE_CHOICE_PREFIX + project.id), AsyncStorage.getItem(FOIL_CHOICE_PREFIX + project.id), AsyncStorage.getItem(WASHBASIN_CHOICE_PREFIX + project.id), AsyncStorage.getItem(TILE_CHOICE_PREFIX + project.id)]);
+      return { id: project.id, shopping, door: project.calculationResult ? parseDoorSelection(rawDoor, project.calculationResult) : null, laminate: parseLaminateChoices(rawLaminate), foil: parseFoilChoices(rawFoil), washbasin: parseWashbasinChoices(rawWashbasin), tile: parseTileChoices(rawTile) };
     }))
-      .then(entries => { if (active) { setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setLaminates(Object.fromEntries(entries.map(entry => [entry.id, entry.laminate]))); setFoils(Object.fromEntries(entries.map(entry => [entry.id, entry.foil]))); setWashbasins(Object.fromEntries(entries.map(entry => [entry.id, entry.washbasin]))); setItemsReady(true); } })
+      .then(entries => { if (active) { setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setLaminates(Object.fromEntries(entries.map(entry => [entry.id, entry.laminate]))); setFoils(Object.fromEntries(entries.map(entry => [entry.id, entry.foil]))); setWashbasins(Object.fromEntries(entries.map(entry => [entry.id, entry.washbasin]))); setTiles(Object.fromEntries(entries.map(entry => [entry.id, entry.tile]))); setItemsReady(true); } })
       .catch(() => { if (active) setItemsFailed(true); });
     return () => { active = false; };
   }, [selectedProjects]));
-  const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates, foils, washbasins), [projects, selected, selectedQualityTier, items, doors, laminates, foils, washbasins]);
+  const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates, foils, washbasins, tiles), [projects, selected, selectedQualityTier, items, doors, laminates, foils, washbasins, tiles]);
   const stages = useMemo(() => withBasketExtras(basket.stages, extras), [basket.stages, extras]);
   const hasBasket = selectedProjects.length > 0 || extras.length > 0;
   const toggle = (id: string) => {

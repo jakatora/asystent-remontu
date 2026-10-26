@@ -8,6 +8,7 @@ import { additionalMaterial } from './basketExtras';
 import { applyLaminateChoices, type LaminateChoice } from './laminateChoice';
 import { applyFoilChoices, type FoilChoice } from './foilChoice';
 import { applyWashbasinChoices, type WashbasinChoice } from './washbasinChoice';
+import { applyTileChoices, type TileChoice } from './tileChoice';
 
 export const MAX_BASKET_PROJECTS = 20;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
@@ -29,6 +30,7 @@ export function buildRenovationBasket(
   laminatesByProject: Readonly<Record<string, readonly LaminateChoice[]>> = {},
   foilsByProject: Readonly<Record<string, readonly FoilChoice[]>> = {},
   washbasinsByProject: Readonly<Record<string, readonly WashbasinChoice[]>> = {},
+  tilesByProject: Readonly<Record<string, readonly TileChoice[]>> = {},
 ): { stages: PricingStageInput[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
@@ -58,7 +60,7 @@ export function buildRenovationBasket(
       const known = item.quantityKnown !== false && Number.isFinite(quantity) && quantity > 0 && Boolean(unit);
       materials.push(additionalMaterial(`manual:${item.id}`, known ? item.name : `${item.name} — ilość do ustalenia`, known ? unit : 'pozycja', known ? quantity : 1));
     }
-    stages.push(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([{ ...stage, materials }], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? [])[0]);
+    stages.push(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([{ ...stage, materials }], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0]);
   }
   return { stages, includedProjects, excludedMaterials, manualItems, missingCalculations };
 }

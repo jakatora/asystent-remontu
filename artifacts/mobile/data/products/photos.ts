@@ -253,6 +253,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-washbasin-cersanit-atlantic-new-50'], ean: '5901771226987',
     sourceUrl: 'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&$width=600&$height=600' },
+  // source: https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd
+  { ids: ['mat-tile-wall-tamara-white-25x40'], ean: '5907518303911',
+    sourceUrl: 'https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd',
+    imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&$width=600&$height=600' },
 ];
 
 export function getProductPhoto(product: {

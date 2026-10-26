@@ -362,7 +362,8 @@ const FORMULA_EXPLANATIONS: Record<string, ExplainFn> = {
         `Powierzchnia: ${fmt(area)} m²`,
         `Płytka: ${tw}×${th} cm`,
         `Szerokość spoiny: ${groutMm} mm`,
-        `Gęstość fugi: ok. 1,7 g/cm³`,
+        `Głębokość spoiny: ${m.tileThicknessMm ?? 9} mm (założenie do wyceny)`,
+        `Gęstość do szacowania: ${m.groutDensityKgM3 ?? 1650} kg/m³; 1650 dotyczy fugi ceramicznej ATLAS. Dla innego produktu sprawdź jego kartę.`,
       ],
     };
   },

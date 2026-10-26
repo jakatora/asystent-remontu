@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "heading": "Glazura Tamara 25 x 40 cm white 1,5 m2",
+  "images": [
+    {
+      "height": 800,
+      "src": "https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&$width=600&$height=600",
+      "width": 501
+    },
+    {
+      "height": 800,
+      "src": "https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&$width=62&$height=62",
+      "width": 501
+    }
+  ],
+  "schemas": [
+    "{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"description\":\"Klasyczna glazura Tamara w odcieniu bieli to idealne wykończenie każdej przestrzeni. Ta ceramika ścienna o wymiarach 25 × 40 cm i grubości 7,7 mm jest nie tylko stylowa, ale i funkcjonalna. Każda paczka zawiera płytki pokrywające 1,5 m², o wadze 8,5 kg, co ułatwia transport i montaż. Glazura Tamara jest idealna do łazienek i kuchni – zapewnia trwałość i łatwość w utrzymaniu w czystości.\",\"name\":\"Glazura Tamara 25 x 40 cm white 1,5 m2\",\"gtin13\":\"5907518303911\",\"url\":\"https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd\",\"category\":\"Glazura\",\"offers\":[{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"59.97\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Click and Collect\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"59.97\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"In-Store Purchase\",\"availableDeliveryMethod\":\"https://schema.org/OnSitePickup\",\"availability\":\"https://schema.org/InStock\",\"availableAtOrFrom\":{\"@type\":\"Store\",\"branchCode\":\"1593\",\"name\":\"Castorama Warszawa 5 Wola\"}},{\"@type\":\"Offer\",\"url\":\"https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd\",\"itemCondition\":\"https://schema.org/NewCondition\",\"price\":\"59.97\",\"priceCurrency\":\"PLN\",\"potentialAction\":{\"@type\":\"BuyAction\",\"url\":\"https://schema.org/BuyAction\"},\"description\":\"Home Delivery\",\"availableDeliveryMethod\":\"https://schema.org/ParcelService\",\"availability\":\"https://schema.org/InStock\"}],\"image\":[\"https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&amp;$width=284&amp;$height=284\"]}",
+    "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Strona główna\",\"item\":\"https://www.castorama.pl/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Płytki i podłogi\",\"item\":\"https://www.castorama.pl/plytki-i-podlogi.cat\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Płytki ścienne\",\"item\":\"https://www.castorama.pl/plytki-i-podlogi/plytki-scienne.cat\"},{\"@type\":\"ListItem\",\"position\":4,\"name\":\"Glazura\",\"item\":\"https://www.castorama.pl/plytki-i-podlogi/plytki-scienne/glazura.cat\"}]}",
+    "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"url\":\"https://www.castorama.pl\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://s7g10.scene7.com/is/image/KingfisherDigital/66aefe0e1b764a023696e9977d43a2e0978b009d\"},\"name\":\"Castorama Polska sp. z o.o.\",\"telephone\":\"690 680 690\",\"email\":\"bok@castorama.pl\",\"description\":\"Castorama! Odkryj szeroką ofertę produktów do budowy, aranżacji i majsterkowania. Przyjdź i zacznij tworzyć idealną przestrzeń już dziś!\"}",
+    "{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"url\":\"https://www.castorama.pl\",\"name\":\"Castorama Polska sp. z o.o.\",\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":\"https://www.castorama.pl/search?term={search_term_string}\",\"query-input\":\"required name=search_term_string\"}}"
+  ],
+  "tables": [
+    [
+      [
+        "Typ produktu",
+        "Płytka ścienna"
+      ],
+      [
+        "Marka",
+        "Ceramika Color"
+      ],
+      [
+        "Seria",
+        "Tamara"
+      ],
+      [
+        "Pokrycie",
+        "1.5m²"
+      ],
+      [
+        "Liczba sztuk w opakowaniu",
+        "15"
+      ],
+      [
+        "Długość produktu",
+        "400mm"
+      ],
+      [
+        "Szerokość produktu",
+        "250mm"
+      ],
+      [
+        "Grubość produktu",
+        "7.7mm"
+      ],
+      [
+        "Waga (kg)",
+        "18.5kg"
+      ],
+      [
+        "Materiał",
+        "Ceramika"
+      ],
+      [
+        "Kolor",
+        "Biały"
+      ],
+      [
+        "Efekt",
+        "Efekt kamienia"
+      ],
+      [
+        "Wykończenie",
+        "Błyszczące"
+      ],
+      [
+        "Tekstura",
+        "Gładka"
+      ],
+      [
+        "Powłoka",
+        "Szkliwiony"
+      ],
+      [
+        "Kształt produktu",
+        "Prostokątny"
+      ],
+      [
+        "Profil krawędzi",
+        "Prosty"
+      ],
+      [
+        "Rektyfikowany",
+        "Nie"
+      ],
+      [
+        "Mrozoodporność",
+        "Nie"
+      ],
+      [
+        "Antypoślizgowość (R)",
+        "Brak klasy odporności na poślizg"
+      ],
+      [
+        "Ogrzewanie podłogowe",
+        "Nie do użytku z ogrzewaniem podłogowym"
+      ],
+      [
+        "Odpowiednia powierzchnia",
+        "Ściana"
+      ],
+      [
+        "Docelowe pomieszczenie",
+        "Dowolne pomieszczenie"
+      ],
+      [
+        "Obszar zastosowania",
+        "Wewnątrz"
+      ],
+      [
+        "Miejsce produkcji",
+        "Polska"
+      ],
+      [
+        "Gwarancja producenta",
+        "Brak gwarancji, tylko rękojmia"
+      ],
+      [
+        "Kod produktu",
+        "5907518303911"
+      ]
+    ]
+  ],
+  "url": "https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd",
+  "ean": "5907518303911",
+  "capturedAt": "2026-10-26T19:58:26.512Z",
+  "axState": "Browser tab: 17, Title: \"Glazura Tamara 25 x 40 cm white 1,5 m2\", URL: \"https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd\".\n0 AXWebArea Glazura Tamara 25 x 40 cm white 1,5 m2, URL: castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd\n\t1 container\n\t\t2 link Description: Przejdź do treści, Value: castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd#main-content\n\t\t3 container\n\t\t\t4 text dostawa za  1 zł!  szczegóły \n\t\t\t5 link Description: tutaj >>, Value: castorama.pl/dostawa-za-1-zl\n\t\t6 container app-header\n\t\t\t318 container\n\t\t\t\t319 content list\n\t\t\t\t\t320 link Description: Pomoc, Value: castorama.pl/informacje/pomoc\n\t\t\t\t321 content list\n\t\t\t\t\t322 content list\n\t\t\t\t\t\t323 container\n\t\t\t\t\t\t\t324 text Rejon dostawy\n\t\t\t\t\t\t\t325 button 00-001\n\t\t\t\t\t\t326 container\n\t\t\t\t\t\t\t327 text Odbierz z\n\t\t\t\t\t\t\t328 button Castorama Warszawa 5 Wola\n\t\t\t\t\t329 link Description: Lista życzeń, Value: castorama.pl/wishlist\n\t\t\t\t\t330 link Description: Rejestracja, Value: castorama.pl/customer/register?redirectTo=%2Fglazura-tamara-25-x-40-cm-white-1-5-m2%2F5907518303911_CAPL.prd\n\t\t\t\t\t331 link Description: Logowanie, Value: castorama.pl/customer/signin?redirectTo=%2Fglazura-tamara-25-x-40-cm-white-1-5-m2%2F5907518303911_CAPL.prd\n\t\t\t9 container\n\t\t\t\t10 container Castorama\n\t\t\t\t\t11 image Castorama - strona główna\n\t\t\t\t12 container\n\t\t\t\t\t13 text Zacznij wpisywać, aby wyświetlić sugestie wyszukiwania.\n\t\t\t\t\t14 combo box (collapsed, settable) Description: Szukaj, ID: headlessui-control-_R_1d9l35_, Secondary Actions: Expand\n\t\t\t\t\t15 button Szukaj\n\t\t\t\t16 content list\n\t\t\t\t\t17 link Description: Gazetki, katalogi, okazje, Value: castorama.pl/gazetka-i-katalogi\n\t\t\t\t\t18 link Description: Inspiracje i porady, Value: castorama.pl/inspiracje-i-porady.html\n\t\t\t\t\t19 button Sklepy\n\t\t\t\t\t20 link Description: Koszyk, Value: castorama.pl/basket?redirectTo=%2Fglazura-tamara-25-x-40-cm-white-1-5-m2%2F5907518303911_CAPL.prd\n\t\t\t21 container\n\t\t\t\t22 container Menu główne\n\t\t\t\t\t23 pop up button (collapsed) Produkty, ID: radix-_R_jdl35_, Secondary Actions: Expand\n\t\t\t\t24 content list\n\t\t\t\t\t25 link Description: Promocje, Value: castorama.pl/gazetka-i-katalogi\n\t\t\t\t\t26 link Description: Projektowanie i usługi, Value: castorama.pl/uslugi\n\t\t\t\t\t27 link Description: Nowości, Value: castorama.pl/nowosci\n\t\t\t\t\t28 link Description: Strefa marek, Value: castorama.pl/strefa-marek\n\t\t\t\t\t29 link Description: Aplikacja, Value: castorama.pl/aplikacja-mobilna\n\t\t\t\t\t30 link Description: CastoPro, Value: castopro.castorama.pl/\n\t\t31 link Description: Zyskaj aż do 30% korzyści przy zakupach! dołącz do klubu CastoMax, Value: castorama.pl/castomax\n\t\t332 link Description: Łap okazje, zanim znikną! produkty w wyprzedażowych cenach, Value: castorama.pl/strefa-wyprzedazy.cat\n\t\t333 link Description: Strefa promocji! Sprawdź >> wszystkie oferty w jednym miejscu, Value: castorama.pl/strefa-promocji.cat\n\t\t334 link Description: Akademia CastoPro! Sprawdź >> liczba miejsc ograniczona, Value: castorama.pl/akademia-castopro\n\t\t32 content list\n\t\t\t33 link Description: Strona główna, Value: castorama.pl/\n\t\t\t34 link Description: Płytki i podłogi, Value: castorama.pl/plytki-i-podlogi.cat\n\t\t\t35 link Description: Płytki ścienne, Value: castorama.pl/plytki-i-podlogi/plytki-scienne.cat\n\t\t\t36 link Description: Glazura, Value: castorama.pl/plytki-i-podlogi/plytki-scienne/glazura.cat\n\t\t37 container main-content\n\t\t\t38 container product-info\n\t\t\t\t39 container Galeria zdjęć produktu\n\t\t\t\t\t40 container Suwak obrazu\n\t\t\t\t\t\t41 button Otwórz obraz 1\n\t\t\t\t\t\t\t42 content list product-image-gallery\n\t\t\t\t\t\t\t\t43 image Glazura Tamara 25 x 40 cm white 1,5 m2\n\t\t\t\t\t44 container Elementy sterujące suwakiem obrazu\n\t\t\t\t\t\t45 content list\n\t\t\t\t\t\t\t46 button Wybierz obraz 1 całości 1\n\t\t\t\t\t\t\t\t47 image Glazura Tamara 25 x 40 cm white 1,5 m2\n\t\t\t\t48 heading Glazura Tamara 25 x 40 cm white 1,5 m2, Value: 1\n\t\t\t\t\t49 text Glazura Tamara 25 x 40 cm white 1,5 m2\n\t\t\t\t50 text Sprzedaje i wysyła przedsiębiorca: Castorama Polska\n\t\t\t\t51 button Ocena recenzji produktu: 1 gwiazdek na 5 na podstawie 1 recenzji produktu\n\t\t\t\t\t52 text Ocena recenzji produktu: 1 gwiazdek na 5 na podstawie 1 recenzji produktu\n\t\t\t\t53 button Napisz ocenę\n\t\t\t\t54 text 39 , 98 zł  / m² 59,97 zł  / opak.\n\t\t\t\t335 text Cena dotyczy zamówień w sklepie internetowym złożonych na stronie www lub przez infolinię. Ceny w sklepach stacjonarnych mogą się różnić.\n\t\t\t\t336 heading Sprzedaż wysyłkowa, Value: 2\n\t\t\t\t\t337 text Sprzedaż wysyłkowa\n\t\t\t\t338 button Sprawdź ceny i opcje dostawy\n\t\t\t\t339 content list\n\t\t\t\t\t340 text Wysyłka następnego dnia roboczego\n\t\t\t\t341 heading Castorama Warszawa 5 Wola, Value: 2\n\t\t\t\t\t342 text Castorama Warszawa 5 Wola\n\t\t\t\t343 button Sprawdź dostępność w innych sklepach\n\t\t\t\t344 content list\n\t\t\t\t\t345 text Ten produkt nie jest dostępny w opcji Zamów i odbierz w wybranym sklepie.\n\t\t\t\t\t346 text Nie możemy aktualnie sprawdzić stanu dostępności tego produktu w sklepie.\n\t\t\t\t56 container add-to-basket-cta-section-main\n\t\t\t\t\t57 container\n\t\t\t\t\t\t58 button (disabled) Przycisk do zmniejszania ilości\n\t\t\t\t\t\t59 stepper (settable, integer) Description: Ilość, Value: 1\n\t\t\t\t\t\t60 button Przycisk do zwiększania ilości\n\t\t\t\t\t\t61 button Dodaj 1 przedmiot do koszyka \n\t\t\t\t\t347 checkbox Description: Dodaj do listy życzeń Glazura Tamara 25 x 40 cm white 1,5 m2, Value: 0\n\t\t\t\t63 button (collapsed) Ile będę potrzebować?, Secondary Actions: Expand\n\t\t\t\t\t64 heading Ile będę potrzebować?, Value: 2\n\t\t\t\t\t\t65 text Ile będę potrzebować?\n\t\t\t66 progress indicator text\n\t\t\t67 container product-suggestions\n\t\t\t\t68 progress indicator text\n\t\t\t\t69 container product-details\n\t\t\t\t\t70 heading Szczegóły dotyczące produktu, Value: 2\n\t\t\t\t\t\t71 text Szczegóły dotyczące produktu\n\t\t\t\t\t72 heading Informacje o produkcie, Value: 3\n\t\t\t\t\t\t73 text Informacje o produkcie\n\t\t\t\t\t74 text Klasyczna glazura Tamara w odcieniu bieli to idealne wykończenie każdej przestrzeni. Ta ceramika ścienna o wymiarach 25 × 40 cm i grubości 7,7 mm jest nie tylko stylowa, ale i funkcjonalna. Każda paczka zawiera płytki pokrywające 1,5 m², o wadze 8,5 kg, co ułatwia transport i montaż. Glazura Tamara jest idealna do łazienek i kuchni – zapewnia trwałość i łatwość w utrzymaniu w czystości.\n\t\t\t\t\t75 heading Cechy i zalety, Value: 3\n\t\t\t\t\t\t76 text Cechy i zalety\n\t\t\t\t\t77 text Glazura Tamara to klasyczna propozycja dla osób ceniących ponadczasowy design w swojej przestrzeni. Płytki o wymiarach 25 × 40 cm w kolorze bieli doskonale rozświetlą każde pomieszczenie, nadając mu świeżości i wizualnej przestronności. Wykonane z wysokiej jakości materiałów, o grubości 7,7 mm, zapewniają trwałość i łatwość w utrzymaniu w czystości. Każda płytka waży 8,5 kg, co świadczy o solidności produktu. Glazura Tamara jest idealnym wyborem do łazienek, kuchni czy przedpokojów, gdzie estetyka łączy się z funkcjonalnością. Jedno opakowanie pokrywa 1,5 m² powierzchni, co pozwala na efektywne planowanie zakupów i realizację projektów o różnej skali. Wybierając glazurę Tamara, zyskujesz pewność, że Twoje wnętrze nabierze elegancji i stylu.\n\t\t\t\t\t78 content list\n\t\t\t\t\t\t79 container\n\t\t\t\t\t\t\t80 AXListMarker • \n\t\t\t\t\t\t\t81 text Łatwa w pielęgnacji\n\t\t\t\t\t\t82 container\n\t\t\t\t\t\t\t83 AXListMarker • \n\t\t\t\t\t\t\t84 text Dodaje świeżości i naturalnego wyglądu do wnętrz\n\t\t\t\t\t\t85 container\n\t\t\t\t\t\t\t86 AXListMarker • \n\t\t\t\t\t\t\t87 text Trwały i łatwy do utrzymania w czystości materiał\n\t\t\t\t\t88 heading Informacje prawne, Value: 3\n\t\t\t\t\t\t89 text Informacje prawne\n\t\t\t\t\t90 content list\n\t\t\t\t\t\t91 container\n\t\t\t\t\t\t\t92 AXListMarker • \n\t\t\t\t\t\t\t93 text Sprzedawca zobowiązał się do oferowania wyłącznie produktów zgodnych z mającymi zastosowanie przepisami prawa Unii Europejskiej.\n\t\t\t\t\t94 heading Specyfikacja techniczna, Value: 3, ID: specifications\n\t\t\t\t\t\t95 text Specyfikacja techniczna\n\t\t\t\t\t96 table Specyfikacja techniczna\n\t\t\t\t\t\t97 row\n\t\t\t\t\t\t\t98 cell\n\t\t\t\t\t\t\t\t99 text Typ produktu\n\t\t\t\t\t\t\t100 cell\n\t\t\t\t\t\t\t\t101 text Płytka ścienna\n\t\t\t\t\t\t102 row\n\t\t\t\t\t\t\t103 cell\n\t\t\t\t\t\t\t\t104 text Marka\n\t\t\t\t\t\t\t105 cell\n\t\t\t\t\t\t\t\t106 text Ceramika Color\n\t\t\t\t\t\t107 row\n\t\t\t\t\t\t\t108 cell\n\t\t\t\t\t\t\t\t109 text Seria\n\t\t\t\t\t\t\t110 cell\n\t\t\t\t\t\t\t\t111 text Tamara\n\t\t\t\t\t\t112 row\n\t\t\t\t\t\t\t113 cell\n\t\t\t\t\t\t\t\t114 text Pokrycie\n\t\t\t\t\t\t\t115 cell\n\t\t\t\t\t\t\t\t116 text 1.5m²\n\t\t\t\t\t\t117 row\n\t\t\t\t\t\t\t118 cell\n\t\t\t\t\t\t\t\t119 text Liczba sztuk w opakowaniu\n\t\t\t\t\t\t\t120 cell\n\t\t\t\t\t\t\t\t121 text 15\n\t\t\t\t\t\t122 row\n\t\t\t\t\t\t\t123 cell\n\t\t\t\t\t\t\t\t124 text Długość produktu\n\t\t\t\t\t\t\t125 cell\n\t\t\t\t\t\t\t\t126 text 400mm\n\t\t\t\t\t\t127 row\n\t\t\t\t\t\t\t128 cell\n\t\t\t\t\t\t\t\t129 text Szerokość produktu\n\t\t\t\t\t\t\t130 cell\n\t\t\t\t\t\t\t\t131 text 250mm\n\t\t\t\t\t\t132 row\n\t\t\t\t\t\t\t133 cell\n\t\t\t\t\t\t\t\t134 text Grubość produktu\n\t\t\t\t\t\t\t135 cell\n\t\t\t\t\t\t\t\t136 text 7.7mm\n\t\t\t\t\t\t137 row\n\t\t\t\t\t\t\t138 cell\n\t\t\t\t\t\t\t\t139 text Waga (kg)\n\t\t\t\t\t\t\t140 cell\n\t\t\t\t\t\t\t\t141 text 18.5kg\n\t\t\t\t\t\t142 row\n\t\t\t\t\t\t\t143 cell\n\t\t\t\t\t\t\t\t144 text Materiał\n\t\t\t\t\t\t\t145 cell\n\t\t\t\t\t\t\t\t146 text Ceramika\n\t\t\t\t\t\t147 row\n\t\t\t\t\t\t\t148 cell\n\t\t\t\t\t\t\t\t149 text Kolor\n\t\t\t\t\t\t\t150 cell\n\t\t\t\t\t\t\t\t151 text Biały\n\t\t\t\t\t\t152 row\n\t\t\t\t\t\t\t153 cell\n\t\t\t\t\t\t\t\t154 text Efekt\n\t\t\t\t\t\t\t155 cell\n\t\t\t\t\t\t\t\t156 text Efekt kamienia\n\t\t\t\t\t\t157 row\n\t\t\t\t\t\t\t158 cell\n\t\t\t\t\t\t\t\t159 text Wykończenie\n\t\t\t\t\t\t\t160 cell\n\t\t\t\t\t\t\t\t161 text Błyszczące\n\t\t\t\t\t\t162 row\n\t\t\t\t\t\t\t163 cell\n\t\t\t\t\t\t\t\t164 text Tekstura\n\t\t\t\t\t\t\t165 cell\n\t\t\t\t\t\t\t\t166 text Gładka\n\t\t\t\t\t\t167 row\n\t\t\t\t\t\t\t168 cell\n\t\t\t\t\t\t\t\t169 text Powłoka\n\t\t\t\t\t\t\t170 cell\n\t\t\t\t\t\t\t\t171 text Szkliwiony\n\t\t\t\t\t\t172 row\n\t\t\t\t\t\t\t173 cell\n\t\t\t\t\t\t\t\t174 text Kształt produktu\n\t\t\t\t\t\t\t175 cell\n\t\t\t\t\t\t\t\t176 text Prostokątny\n\t\t\t\t\t\t177 row\n\t\t\t\t\t\t\t178 cell\n\t\t\t\t\t\t\t\t179 text Profil krawędzi\n\t\t\t\t\t\t\t180 cell\n\t\t\t\t\t\t\t\t181 text Prosty\n\t\t\t\t\t\t182 row\n\t\t\t\t\t\t\t183 cell\n\t\t\t\t\t\t\t\t184 text Rektyfikowany\n\t\t\t\t\t\t\t185 cell\n\t\t\t\t\t\t\t\t186 text Nie\n\t\t\t\t\t\t187 row\n\t\t\t\t\t\t\t188 cell\n\t\t\t\t\t\t\t\t189 text Mrozoodporność\n\t\t\t\t\t\t\t190 cell\n\t\t\t\t\t\t\t\t191 text Nie\n\t\t\t\t\t\t192 row\n\t\t\t\t\t\t\t193 cell\n\t\t\t\t\t\t\t\t194 text Antypoślizgowość (R)\n\t\t\t\t\t\t\t195 cell\n\t\t\t\t\t\t\t\t196 text Brak klasy odporności na poślizg\n\t\t\t\t\t\t197 row\n\t\t\t\t\t\t\t198 cell\n\t\t\t\t\t\t\t\t199 text Ogrzewanie podłogowe\n\t\t\t\t\t\t\t200 cell\n\t\t\t\t\t\t\t\t201 text Nie do użytku z ogrzewaniem podłogowym\n\t\t\t\t\t\t202 row\n\t\t\t\t\t\t\t203 cell\n\t\t\t\t\t\t\t\t204 text Odpowiednia powierzchnia\n\t\t\t\t\t\t\t205 cell\n\t\t\t\t\t\t\t\t206 text Ściana\n\t\t\t\t\t\t207 row\n\t\t\t\t\t\t\t208 cell\n\t\t\t\t\t\t\t\t209 text Docelowe pomieszczenie\n\t\t\t\t\t\t\t210 cell\n\t\t\t\t\t\t\t\t211 text Dowolne pomieszczenie\n\t\t\t\t\t\t212 row\n\t\t\t\t\t\t\t213 cell\n\t\t\t\t\t\t\t\t214 text Obszar zastosowania\n\t\t\t\t\t\t\t215 cell\n\t\t\t\t\t\t\t\t216 text Wewnątrz\n\t\t\t\t\t\t217 row\n\t\t\t\t\t\t\t218 cell\n\t\t\t\t\t\t\t\t219 text Miejsce produkcji\n\t\t\t\t\t\t\t220 cell\n\t\t\t\t\t\t\t\t221 text Polska\n\t\t\t\t\t\t222 row\n\t\t\t\t\t\t\t223 cell\n\t\t\t\t\t\t\t\t224 text Gwarancja producenta\n\t\t\t\t\t\t\t225 cell\n\t\t\t\t\t\t\t\t226 text Brak gwarancji, tylko rękojmia\n\t\t\t\t\t\t227 row\n\t\t\t\t\t\t\t228 cell\n\t\t\t\t\t\t\t\t229 text Kod produktu\n\t\t\t\t\t\t\t230 cell\n\t\t\t\t\t\t\t\t231 text 5907518303911\n\t\t\t\t\t232 button (collapsed) Producent / osoba odpowiedzialna w UE, Secondary Actions: Expand\n\t\t\t\t\t\t233 text Producent / osoba odpowiedzialna w UE\n\t\t234 button Powrót do góry\n\t\t235 container Nawigacja stopką\n\t\t\t236 container\n\t\t\t\t237 heading Obsługa klienta, Value: 3\n\t\t\t\t\t238 text Obsługa klienta\n\t\t\t\t239 content list\n\t\t\t\t\t240 link Description: Pomoc online, Value: castorama.pl/informacje/pomoc\n\t\t\t\t\t241 link Description: Zakupy przez telefon, Value: castorama.pl/informacje/zakupy-przez-telefon\n\t\t\t\t\t242 link Description: Metody płatności, Value: castorama.pl/informacje/metody-platnosci\n\t\t\t\t\t243 link Description: Karty podarunkowe, Value: castorama.pl/informacje/metody-platnosci/karty-podarunkowe\n\t\t\t\t\t244 link Description: Program lojalnościowy dla klientów indywidualnych CastoMax, Value: castorama.pl/castomax\n\t\t\t\t\t245 link Description: Program lojalnościowy dla Profesjonalistów CastoPro, Value: castopro.castorama.pl/pl/home\n\t\t\t\t\t246 link Description: Polityka zwrotów i reklamacji, Value: castorama.pl/informacje/polityka-zwrotow-i-reklamacji\n\t\t\t\t\t247 link Description: Podziel się opinią, Value: castorama.pl/podziel-sie-opinia\n\t\t\t\t\t248 link Description: Uwaga na oszustwa, Value: castorama.pl/informacje/erraty-i-zawiadomienia\n\t\t\t249 container\n\t\t\t\t250 heading Usługi, Value: 3\n\t\t\t\t\t251 text Usługi\n\t\t\t\t252 content list\n\t\t\t\t\t253 link Description: Zamów i odbierz, Value: castorama.pl/informacje/zamow-i-odbierz\n\t\t\t\t\t254 link Description: Zamów z dostawą, Value: castorama.pl/informacje/zamow-z-dostawa\n\t\t\t\t\t255 link Description: Termomodernizacja, Value: castorama.pl/termomodernizacja\n\t\t\t\t\t256 link Description: CastoRent, Value: castorama.pl/uslugi/castorent\n\t\t\t\t\t257 link Description: Zwrot zużytego sprzętu, Value: castorama.pl/informacje/zwrot-zuzytego-sprzetu\n\t\t\t\t\t258 link Description: Mieszanie farb i tynków, Value: castorama.pl/uslugi/mieszanie-farb-i-tynkow\n\t\t\t\t\t259 link Description: Usługi serwisowe, Value: castorama.pl/uslugi/uslugi-serwisowe\n\t\t\t\t\t260 link Description: Pozostałe usługi, Value: castorama.pl/uslugi\n\t\t\t261 container\n\t\t\t\t262 heading Aranżacja i projektowanie, Value: 3\n\t\t\t\t\t263 text Aranżacja i projektowanie\n\t\t\t\t264 content list\n\t\t\t\t\t265 link Description: Kuchenne inspiracje, Value: kuchenneinspiracje.castorama.pl/\n\t\t\t\t\t266 link Description: Projektowanie kuchni, Value: castorama.pl/projektowanie-kuchni\n\t\t\t\t\t267 link Description: Konfigurator szaf, Value: szafyatomia.castorama.pl/\n\t\t\t\t\t268 link Description: Projektowanie mebli Atomia, Value: castorama.pl/projektowanie-mebli-atomia\n\t\t\t\t\t269 link Description: Projektowanie łazienki, Value: castorama.pl/projektowanie-lazienki\n\t\t\t\t\t270 link Description: Usługa wymiarowania i montażu, Value: castorama.pl/uslugi#pomiar-i-montaz\n\t\t\t\t\t271 link Description: Planer Online – samodzielne projektowanie Twojego wnętrza, Value: planeronline.castorama.pl/\n\t\t\t\t\t272 link Description: Projektowanie tarasów i balkonów, Value: castorama.pl/umow-sie-na-planowanie-tarasow-i-balkonow\n\t\t\t273 container\n\t\t\t\t274 heading Poznaj Nas, Value: 3\n\t\t\t\t\t275 text Poznaj Nas\n\t\t\t\t276 content list\n\t\t\t\t\t277 link Description: Biuro prasowe, Value: wiadomosci.castorama.pl/\n\t\t\t\t\t278 link Description: Odpowiedzialny biznes, Value: castorama.pl/odpowiedzialny-biznes\n\t\t\t\t\t279 link Description: Fundacja Castorama, Value: fundacja.castorama.pl/\n\t\t\t\t\t280 link Description: Majsterkowo, Value: castorama.pl/odpowiedzialny-biznes/majsterkowo\n\t\t\t\t\t281 link Description: Strefa marek, Value: castorama.pl/strefa-marek\n\t\t\t\t\t282 link Description: Kariera, Value: kariera.castorama.pl/\n\t\t\t\t\t283 link Description: Aplikacja mobilna, Value: castorama.pl/aplikacja-mobilna\n\t\t\t\t\t284 link Description: Marketplace, Value: castorama.pl/marketplace\n\t\t\t\t\t285 link Description: Mapa kategorii, Value: castorama.pl/mapa-witryny\n\t\t\t\t\t286 link Description: Inspiracje i porady, Value: castorama.pl/inspiracje-i-porady.html\n\t\t\t287 container\n\t\t\t\t288 heading Kwestie prawne i ważne linki, Value: 3\n\t\t\t\t\t289 text Kwestie prawne i ważne linki\n\t\t\t\t290 content list\n\t\t\t\t\t291 link Description: Regulaminy, Value: castorama.pl/regulaminy\n\t\t\t\t\t292 link Description: Akt o usługach cyfrowych, Value: castorama.pl/regulaminy/akt-o-uslugach-cyfrowych\n\t\t\t\t\t293 link Description: Krajowy System e-Faktur, Value: castorama.pl/regulaminy/krajowy-system-e-faktur\n\t\t\t\t\t294 link Description: Informacja o obowiązkach Castorama/sprzedawców zewnętrznych, Value: castorama.pl/regulaminy/podzial-obowiazkow\n\t\t\t\t\t295 link Description: Jak szeregujemy produkty, Value: castorama.pl/regulaminy/jak-szeregujemy-produkty\n\t\t\t\t\t296 link Description: Zgłaszanie naruszeń prawa, Value: castorama.pl/regulaminy/zglaszanie-naruszen-prawa\n\t\t\t\t\t297 link Description: Polityka odpowiedzialnego ujawniania informacji, Value: castorama.pl/regulaminy/polityka-odpowiedzialnego-ujawniania-informacji\n\t\t\t\t\t298 link Description: Erraty i zawiadomienia, Value: castorama.pl/informacje/erraty-i-zawiadomienia\n\t\t\t\t\t299 link Description: Dla dostawców, Value: vendor.kingfisher.com/vendor-readiness/electronic-trading/#0-PL\n\t\t\t\t\t300 link Description: Adresy GLN/ILN, Value: media.castorama.pl/media/pdf/Castorama%20Polska%20GLN-ILN.pdf\n\t\t\t\t\t301 link Description: Adresy email do działów logistyki, Value: media.castorama.pl/media/pdf/Castorama%20Polska%20emails.pdf\n\t\t\t\t\t302 link Description: Wymagania jakości produktów, Value: media.castorama.pl/media/pdf/Wymagania_jakosci_produktow_Castorama_Polska_2026.pdf\n\t\t303 container\n\t\t\t311 container Nawigacja w stopce podrzędnej\n\t\t\t\t312 text © Castorama 2026\n\t\t\t\t313 content list\n\t\t\t\t\t314 link Description: Polityka prywatności, Value: castorama.pl/regulaminy/polityka-prywatnosci\n\t\t\t\t\t315 button Wyślij wiadomość e-mail do: Inspektor Ochrony Danych Agata Szlązak\n\t\t\t\t\t316 link Description: Wniosek dotyczący danych osobowych, Value: gdpr.kfplc.com/#/SAR?Session=cr_2\n\t\t\t\t\t317 button Ustawienia plików cookie\n\t\t\t348 content list\n\t\t\t\t349 link Description: Castorama na YouTube, Value: youtube.com/user/CastoramaPolska\n\t\t\t\t350 link Description: Castorama na Facebook, Value: facebook.com/CastoramaPolska\n\t\t\t\t351 link Description: Castorama na Instagram, Value: instagram.com/castoramapolska\n\t\t\t\t352 link Description: Castorama na Pinterest, Value: pinterest.com/castoramapolska\n\t\t\t\t353 link Description: Castorama na TikTok, Value: tiktok.com/@castoramapolska\n\t\t\t\t354 link Description: Castorama na LinkedIn, Value: linkedin.com/company/castorama-polska-sp-z-o-o-\n\nThe focused UI element is 0 AXWebArea Glazura Tamara 25 x 40 cm white 1,5 m2, URL: castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd"
+}

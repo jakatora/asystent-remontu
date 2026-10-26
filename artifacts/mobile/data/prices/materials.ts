@@ -1162,8 +1162,8 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // --- Etap glazury: płytki ceramiczne / gres + akcesoria (fuga, krzyżyki, profil) ---
   // Materiały markowe z REALNYM EAN (≥2 niezależne źródła w komentarzach `// source:`).
   // Tiery per klasa/format: standard = gres szkliwiony 60×60, better = gres rektyfikowany.
-  // Ceny za m² dla płytek (pricePerM2 + packageUnit 'm2', 1 m²/opak. jak istniejący gres
-  // mat-gres-guigliano-1m2), akcesoria za opakowanie. NIE ruszamy istniejących materiałów.
+  // Płytki: cena za m² i za rzeczywistą paczkę; packageSize określa jej pokrycie.
+  // Akcesoria za opakowanie. Historyczna data ceny nie potwierdza aktualnej oferty.
 
   // Gres szkliwiony Ceramika Paradyż Petro Grey struktura mat 60×60 cm — EAN 5904584161544.
   // source: https://neoceramik.pl/pl/p/Paradyz-PETRO-GREY-GRES-SZKL.-STRUKTURA-MAT.-60X60-G2/23079150 (EAN 5904584161544, cena 69,00 zł/m²)
@@ -1173,9 +1173,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     materialType: 'tile',
     productLabel: 'Gres szkliwiony Paradyż Petro Grey struktura mat 60×60 cm, gatunek 2',
     brand: 'Ceramika Paradyż',
-    packageSize: 1,
+    // source: https://taniaplytka.pl/produkty/paradyz-petro-grey-struktura-mat-600x600-2 (1,44 m², 4 szt.)
+    packageSize: 1.44,
     packageUnit: 'm2',
-    pricePerPackage: 69.0,
+    pricePerPackage: 99.36, // historyczne 69 zł/m² × pełna paczka, nie aktualna oferta
     pricePerM2: 69.0,
     category: 'standard',
     storeName: 'neoCERAMIK',
@@ -1193,9 +1194,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     materialType: 'tile',
     productLabel: 'Płytka ścienna Paradyż Nati Bianco struktura 25×40 cm',
     brand: 'Ceramika Paradyż',
-    packageSize: 1,
+    // source: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/ (1,2 m², 12 szt.)
+    packageSize: 1.2,
     packageUnit: 'm2',
-    pricePerPackage: 74.88,
+    pricePerPackage: 89.86, // historyczne 74,88 zł/m² × pełna paczka, nie aktualna oferta
     pricePerM2: 74.88,
     category: 'standard',
     storeName: 'eLazienki',
@@ -2249,5 +2251,15 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama', sourceUrl: 'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd',
     lastUpdated: '2026-10-26', currency: 'PLN',
     notes: 'EAN 5901771226987. W Castoramie Atlantic New, u producenta Ovida K36-031. Osobny model względem Facile 50, nie zapewnia zgodności z jego półpostumentem ani otworami w ścianie. Cena samej ceramiki, bez baterii, syfonu i mocowań. Szerokość 505 mm, głębokość 400 mm; karty podają różne wysokości (160/170 mm), przed montażem sprawdź rysunek producenta i rzeczywisty produkt.',
+  },
+  // source: https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd (rzeczywisty odczyt 2026-10-26T19:58:26.512Z: 59,97 zł brutto/1,5 m²)
+  // source: https://media.castorama.pl/media/regulaminy/2026/Regulamin%20200%20z%C5%82%20na%20kupon%20za%201000%20z%C5%82%20wydane%20na%20p%C5%82ytki%2018-23.02.pdf (historyczna identyfikacja EAN, nie aktualna cena)
+  {
+    id: 'mat-tile-wall-tamara-white-25x40', materialType: 'tile',
+    productLabel: 'Glazura ścienna Ceramika Color Tamara white 25×40 cm (1,5 m²)', brand: 'Ceramika Color',
+    packageSize: 1.5, packageUnit: 'm2', pricePerPackage: 59.97, pricePerM2: 39.98,
+    category: 'standard', storeName: 'Castorama', sourceUrl: 'https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd',
+    lastUpdated: '2026-10-26', currency: 'PLN',
+    notes: 'EAN 5907518303911. Paczka 15 płytek, 1,5 m². Wyłącznie na ściany wewnętrzne, bez klasy antypoślizgowej i mrozoodporności. Biała błyszcząca, gładka, nierektyfikowana, 250×400×7,7 mm. Osobny model zamiast Nati Bianco struktura; nie jest płytką podłogową ani dekorem Tamara wave. Karta zawiera sprzeczne opisy wagi; nie wykorzystujemy jej do wyceny transportu.',
   },
 ];

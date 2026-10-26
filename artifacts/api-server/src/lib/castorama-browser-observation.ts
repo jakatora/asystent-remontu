@@ -79,7 +79,11 @@ export function observeCastoramaBrowser(snapshot:BrowserProductSnapshot,source:R
  }
  if(!/\n\s*\d+ button Dodaj 1 przedmiot do koszyka/.test(section)||!section.includes('heading Sprzedaż wysyłkowa'))throw Error('browser_purchase_not_confirmed');
  const script=snapshot.schemas.find(s=>{try{return JSON.parse(s)?.['@type']==='Product'}catch{return false;}})!;
- const observation=parseRetailPage('<script type="application/ld+json">'+script+'</script>',source,new Date(captured));
+ // Some native tile schemas omit brand. The same-EAN technical table above
+ // independently confirmed it; normalize that reviewed value, while keeping
+ // the captured DOM/schema intact. Never override an explicit conflicting brand.
+ const normalizedScript=!nativeBrand&&area?JSON.stringify({...products[0],brand:specificationValue(snapshot,'Marka')}):script;
+ const observation=parseRetailPage('<script type="application/ld+json">'+normalizedScript+'</script>',source,new Date(captured));
  if(parsePriceToGrosze(visible[1].replace(/zł$/,''))!==observation.priceGrosze)throw Error('browser_gross_price_mismatch');
  return{...observation,verification:{method:'browser',checkedAt:new Date(captured).toISOString(),expiresAt:new Date(captured+86400000).toISOString()},evidenceSha256:createHash('sha256').update(JSON.stringify(snapshot)).digest('hex')};
 }

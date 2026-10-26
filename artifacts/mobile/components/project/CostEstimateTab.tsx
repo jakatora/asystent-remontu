@@ -13,6 +13,9 @@ import { useFoilChoices } from '@/features/pricing/useFoilChoices';
 import { WashbasinChoiceSection } from './WashbasinChoiceSection';
 import { applyWashbasinChoices, washbasinRequirements } from '@/features/pricing/washbasinChoice';
 import { useWashbasinChoices } from '@/features/pricing/useWashbasinChoices';
+import { TileChoiceSection } from './TileChoiceSection';
+import { applyTileChoices, tileRequirements } from '@/features/pricing/tileChoice';
+import { useTileChoices } from '@/features/pricing/useTileChoices';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, deliverySettingsForStore, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
@@ -84,7 +87,9 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const foils = useFoilChoices(projectId, foilReferences.length > 0);
   const washbasinReferences = useMemo(() => washbasinRequirements(rawInput), [rawInput]);
   const washbasins = useWashbasinChoices(projectId, washbasinReferences.length > 0);
-  const input = useMemo(() => applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), [rawInput, panels.choices, foils.choices, washbasins.choices]);
+  const tileReferences = useMemo(() => tileRequirements(rawInput), [rawInput]);
+  const tiles = useTileChoices(projectId, tileReferences.length > 0);
+  const input = useMemo(() => applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), tiles.choices), [rawInput, panels.choices, foils.choices, washbasins.choices, tiles.choices]);
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const deliveryRef = useRef(delivery);
@@ -100,7 +105,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
-  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed]);
+  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed]);
   const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
@@ -124,7 +129,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
-    if (!hasInput || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed) return;
+    if (!hasInput || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed) return;
     const version = ++requestVersion.current;
     setState({ status: 'loading' });
     try {
@@ -161,7 +166,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) setState({ status: 'error', message });
     }
-  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed]);
+  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -201,6 +206,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         setState({ status: 'loading' });
         washbasins.onChange(choices);
       }} />
+      <TileChoiceSection references={tileReferences} {...tiles} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
+        requestVersion.current++;
+        setState({ status: 'loading' });
+        tiles.onChange(choices);
+      }} />
       {projectId && calc?.jobId === 'eps-insulation-bso' && <Button label={language === 'pl' ? 'Uzupełnij obmiary ocieplenia' : 'Update insulation measurements'} variant="outline" onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} fullWidth />}
 
       {storeChoices?.scope === scope && storeChoices.mode===delivery.mode && loadedScope === scope && <StoreChoiceSection choices={storeChoices} selectedStore={selectedStore} postalCode={delivery.postalCode} mode={delivery.mode} onSelect={store => {
@@ -212,7 +222,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, saved)).catch(() => setSaveFailed(true));
       }} />}
 
-      {!panels.readFailed && !foils.readFailed && !washbasins.readFailed && (state.status === 'loading' || loadedScope !== scope || !doorChoice.ready || !panels.ready || !foils.ready || !washbasins.ready) && (
+      {!panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && (state.status === 'loading' || loadedScope !== scope || !doorChoice.ready || !panels.ready || !foils.ready || !washbasins.ready || !tiles.ready) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
           <ActivityIndicator size="large" color={Colors.primary} />
           <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
@@ -221,7 +231,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
-      {!panels.readFailed && !foils.readFailed && !washbasins.readFailed && state.status === 'error' && (
+      {!panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && state.status === 'error' && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 32 }}>
           <Feather name="alert-triangle" size={36} color={Colors.danger} />
           <Txt w="semibold" style={{ fontSize: 16, color: Colors.text, textAlign: 'center' }}>
@@ -234,7 +244,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
-      {state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && (
+      {state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && (
         <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
           requestVersion.current++;
           deliveryRef.current=settings;

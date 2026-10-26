@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-26T19:44:04.687Z",
-  "scope": "106 reference products, including explicit current alternatives for Conpar foil, OPP Archi doors and Cersanit washbasin; not every market product. An offer does not confirm delivery, mounting compatibility or all accessories. productsWithPhotos counts registered URLs, not simultaneous loading of all external images.",
-  "total": 106,
-  "verifiedProducts": 100,
+  "checkedAt": "2026-10-26T20:17:16.555Z",
+  "scope": "107 reference products, including explicit current alternatives for foil, doors, basin and wall tiles; not every market product. An offer does not confirm delivery, installation compatibility or accessories. Tile package metadata corrections do not refresh historical prices. productsWithPhotos counts registered URLs, not simultaneous loading of all external images.",
+  "total": 107,
+  "verifiedProducts": 101,
   "remaining": 6,
-  "offers": 127,
+  "offers": 128,
   "stores": 38,
-  "productsWithPhotos": 106,
-  "registeredOffers": 129,
+  "productsWithPhotos": 107,
+  "registeredOffers": 130,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2243,8 +2243,32 @@
         "checkedAt": "2026-10-26T19:31:10.236Z",
         "expiresAt": "2026-10-27T19:31:10.236Z"
       }
+    },
+    {
+      "id": "mat-tile-wall-tamara-white-25x40",
+      "name": "Glazura ścienna Ceramika Color Tamara white 25×40 cm (1,5 m²)",
+      "referenceUrl": "https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd",
+      "status": "verified_offer",
+      "ean": "5907518303911",
+      "sourceIds": [
+        "castorama-tamara-white-15m2"
+      ],
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&$width=600&$height=600",
+      "deliveryChecks": [
+        {
+          "sourceId": "castorama-tamara-white-15m2",
+          "checkedAt": "2026-10-26T20:17:16.555Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T19:58:26.512Z",
+        "expiresAt": "2026-10-27T19:58:26.512Z"
+      }
     }
   ],
   "automaticDeliveryStores": 20,
-  "browserVerifiedOffers": 21
+  "browserVerifiedOffers": 22
 }

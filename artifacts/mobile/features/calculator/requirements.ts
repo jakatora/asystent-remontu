@@ -6,6 +6,12 @@ import { epsRequirement, EPS_JOB_ID } from './eps';
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
   if (calc.jobId === EPS_JOB_ID) return epsRequirement(line.material.id, calc.measurements) ?? 0;
+  // Historical grout snapshots contain the former unit/fallback error. Resolve
+  // from saved dimensions instead of trusting that stale rounded/raw amount.
+  if (['floor-tiles', 'wall-tiles-bathroom', 'kitchen-backsplash', 'grout-only'].includes(calc.jobId)) {
+    const definition = getJobById(calc.jobId)?.materials.find(material => material.id === line.material.id);
+    if (definition && 'formulaKey' in definition && definition.formulaKey === 'grout') return computeRawQuantity(definition, calc.measurements);
+  }
   // Historical self-leveling snapshots have rawQuantity=1 because byThickness
   // fell back to the constant formula. Restore demand from their saved measures.
   if (calc.jobId === 'self-leveling' && line.material.id === 'leveling-compound') {
