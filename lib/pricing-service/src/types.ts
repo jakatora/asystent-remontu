@@ -8,6 +8,14 @@
 import type { Product, ProductOffer } from "@workspace/db/schema";
 import type { StageLaborEstimate } from "./labor";
 
+/** Explicit provenance of an operator's current browser read. A failed HTTP
+ * refresh cannot extend it or turn it into an automatically confirmed price. */
+export interface PriceVerification {
+  method:'browser';
+  checkedAt:string;
+  expiresAt:string;
+}
+
 /** Storefront purchase rules supplement the persisted price row. A lot of ten
  * individually barcoded pieces still has a one-piece packageSize and price. */
 export type PurchaseOffer = ProductOffer & {
@@ -19,6 +27,7 @@ export type PurchaseOffer = ProductOffer & {
   /** Published stock snapshot in physical packs; undefined means unknown,
    * never unlimited confirmed stock. This is not a reservation. */
   maxPackages?: number;
+  verification?: PriceVerification;
 };
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
@@ -72,6 +81,7 @@ export interface PackageVariant {
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
+  verification?: PriceVerification;
   /** Wielkość pojedynczego opakowania w jednostce materiału (np. 10 = 10 l). > 0. */
   packageSize: number;
   /** Cena jednego opakowania tej wielkości w GROSZACH (najtańsza oferta). */
@@ -89,6 +99,7 @@ export interface PackagePlanEntry {
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
+  verification?: PriceVerification;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */

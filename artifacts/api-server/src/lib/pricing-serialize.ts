@@ -28,7 +28,7 @@ import {
   type PriceStatsGrosze,
   type Product,
 } from "@workspace/db/repositories";
-import type { PurchaseOffer as ProductOffer } from '../../../../lib/pricing-service/src/types';
+import type { PurchaseOffer as ProductOffer, PriceVerification } from '../../../../lib/pricing-service/src/types';
 
 export interface SerializedProduct {
   imageUrl?: string | null;
@@ -60,6 +60,7 @@ export interface SerializedProductOffer {
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
+  verification?: PriceVerification;
   packageSize?: string | null;
   offerId: string;
   store: string;
@@ -88,6 +89,7 @@ export interface SerializedPackage {
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
+  verification?: PriceVerification;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */
@@ -308,6 +310,7 @@ function serializeProductOffer(offer: ProductOffer): SerializedProductOffer {
     ...(offer.purchaseMultiple ? { purchaseMultiple: offer.purchaseMultiple } : {}),
     ...(offer.minimumPackages ? { minimumPackages: offer.minimumPackages } : {}),
     ...(offer.maxPackages !== undefined ? {maxPackages:offer.maxPackages} : {}),
+    ...(offer.verification ? {verification:offer.verification} : {}),
     packageSize: offer.packageSize,
     offerId: offer.id,
     store: offer.store,
@@ -377,6 +380,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
       ...(p.purchaseMultiple ? { purchaseMultiple: p.purchaseMultiple } : {}),
       ...(p.minimumPackages ? { minimumPackages: p.minimumPackages } : {}),
       ...(p.maxPackages !== undefined ? {maxPackages:p.maxPackages} : {}),
+      ...(p.verification ? {verification:p.verification} : {}),
       packageSize: p.packageSize,
       count: p.count,
       unitPriceGrosze: p.unitPriceGrosze,
@@ -458,6 +462,7 @@ function serializeConsolidatedLine(
       ...(entry.purchaseMultiple ? { purchaseMultiple: entry.purchaseMultiple } : {}),
       ...(entry.minimumPackages ? { minimumPackages: entry.minimumPackages } : {}),
       ...(entry.maxPackages !== undefined ? {maxPackages:entry.maxPackages} : {}),
+      ...(entry.verification ? {verification:entry.verification} : {}),
       packageSize: entry.packageSize, count: entry.count, unitPriceGrosze: entry.unitPriceGrosze,
       lineCostGrosze: entry.lineCostGrosze, store: entry.store, url: entry.url,
     })) } : {}),

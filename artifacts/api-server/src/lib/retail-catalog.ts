@@ -931,10 +931,54 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.csmegastore.se/i/5469388/invena-anslutningsslang-f%C3%B6r-kranar-l%C3%A5ng-%C3%A4nde-3-8-x-m10-ws-20-030
   // source: https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i
   {id:'tokmet-invena-ws20-030',ean:'5907798716258',name:'WĘŻYK DO BATERII STOJĄCEJ 3/8" x M10*1 L - 30 CM DŁUGA KOŃCÓWKA',category:'hose',brand:'Invena',packageSize:1,unit:'szt',store:'TOK-MET',format:'qshop',productId:2806,retailerSku:'WS-20-030-G',variant:['3/8','M10','30 cm','długa'],url:'https://sklep.tokmet.pl/wezyk_do_baterii_stojacej_38_x_m101_l__30_cm_dluga_koncowka-2806i'},
+  // These exact public cards have a current, explicitly labelled browser read.
+  // HTTP refresh still runs; a failure never extends a browser verification.
+  // source: https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd
+  {id:'castorama-paint-economy-10l',ean:'3663602567240',name:'Farba biała mat 10 l',category:'paint',brand:'',unbranded:true,packageSize:10,unit:'l',store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd'},
+  // source: https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd
+  {id:'castorama-paint-goodhome-10l',ean:'5059340271620',name:'Farba GoodHome Ściany i Sufit biały mat 10 l',category:'paint',brand:'GoodHome',packageSize:10,unit:'l',store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd'},
+  // source: https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd
+  {id:'castorama-kreisel-gw180-20kg',ean:'5907418038791',name:'Gładź pod wałek Kreisel GW180 gotowa polimerowa 20 kg',category:'skim-coat',brand:'Kreisel',packageSize:20,unit:'kg',store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd'},
+  // source: https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd
+  {id:'castorama-norgips-cd60-3m',ean:'5907651698899',name:'Profil sufitowy Norgips CD60 0,6 mm 3 mb',category:'profile',brand:'Norgips',packageSize:3,unit:'mb',variant:['CD60','0,6 mm','3 mb'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd'},
+  // Exact 25kg promotion EAN, not the ordinary 20kg bag.
+  // source: https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd
+  {id:'castorama-atlas-plus-promo-25kg',ean:'5905400658866',name:'Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg',category:'adhesive',brand:'Atlas',packageSize:25,unit:'kg',store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd'},
+  // One complete WC with seat, not a litre-priced item.
+  // source: https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd
+  {id:'castorama-cersanit-seno',ean:'5902115720833',name:'Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą',category:'toilet',brand:'Cersanit',packageSize:1,unit:'szt',variant:['Seno','3/5 l'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd'},
+  // source: https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd
+  {id:'castorama-aks-ydyp-3x15-100m',ean:'5904617573771',name:'Przewód AKS Zielonka YDYp 3 x 1,5 mm2 450/750 V 100 mb',category:'wire',brand:'AKS Zielonka',packageSize:100,unit:'mb',variant:['3 x 1,5 mm2','450/750 V','100 mb'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd'},
+  // source: https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd
+  {id:'castorama-aks-ydyp-3x25-100m',ean:'5904617573764',name:'Przewód AKS Zielonka YDYp 3 x 2,5 mm2 450/750 V 100 mb',category:'wire',brand:'AKS Zielonka',packageSize:100,unit:'mb',variant:['3 x 2,5 mm2','450/750 V','100 mb'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd'},
+  // The barcode and gross price identify one sealed ten-piece pack.
+  // source: https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd
+  {id:'castorama-elektroplast-pk60-10',ean:'5901752637337',name:'Puszka podtynkowa Elektro-Plast 60 głęboka łączeniowa z wkrętem 10 szt.',category:'flush-box',brand:'Elektro-Plast',packageSize:10,unit:'szt',store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd'},
+  // The plain MP75 25kg barcode; not MP75L or a 20kg/30kg pack.
+  // source: https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd
+  {id:'castorama-knauf-mp75-25kg',ean:'5902367206352',name:'Tynk maszynowy Knauf MP 75 25 kg',category:'plaster',brand:'Knauf',packageSize:25,unit:'kg',variant:['Tynk maszynowy Knauf MP 75 25 kg'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd'},
+  // Explicit right 70cm leaf; it must not replace the user's left/80cm choice.
+  // source: https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd
+  {id:'castorama-opp-klasyk-70-right',ean:'5063022524034',name:'Drzwi z podcięciem OPP Klasyk 70 prawe białe',category:'door-leaf',brand:'OPP',packageSize:1,unit:'szt',variant:['Drzwi z podcięciem OPP Klasyk 70 prawe białe'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd'},
+  // One base, not an invented complete frame or its separate trim pieces.
+  // source: https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd
+  {id:'castorama-perfectdoor-base-80-100-right',ean:'5902659279118',name:'Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma',category:'door-frame',brand:'PerfectDoor',packageSize:1,unit:'szt',variant:['Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma'],store:'Castorama',browserReviewAllowed:true,url:'https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Farba biała mat 10 l':'3663602567240',
+  'Farba GoodHome Ściany i Sufit biały mat 10 l':'5059340271620',
+  'Gładź pod wałek GW180 gotowa polimerowa 20 kg':'5907418038791',
+  'Profil sufitowy Norgips CD60 0,6 mm 3 m':'5907651698899',
+  'Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg':'5905400658866',
+  'Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą':'5902115720833',
+  'Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)':'5904617573771',
+  'Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)':'5904617573764',
+  'Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)':'5901752637337',
+  'Tynk gipsowy maszynowy Knauf MP 75 25 kg':'5902367206352',
+  'Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)':'5063022524034',
+  'Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma (drzwi wewnętrzne)':'5902659279118',
   'Wężyk przyłączeniowy w oplocie Invena 3/8"×M10 30 cm':'5907798716258',
   'Styropian fasadowy grafitowy Yetico Gamma Passive EPS 033 150 mm (2 m²)': '5902578307268',
   'Styropian fasadowy biały Yetico Gamma Fasada 044 100 mm (3 m²)': '5902578301976',

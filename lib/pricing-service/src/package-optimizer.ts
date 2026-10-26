@@ -67,6 +67,7 @@ function buildEntries(
         ...((v.purchaseMultiple ?? 1) > 1 ? { purchaseMultiple: v.purchaseMultiple } : {}),
         ...((v.minimumPackages ?? 1) > 1 ? { minimumPackages: v.minimumPackages } : {}),
         ...(v.maxPackages !== undefined ? { maxPackages: v.maxPackages } : {}),
+        ...(v.verification ? {verification:v.verification} : {}),
         store: v.store,
         url: v.url,
         offerId: v.offerId,

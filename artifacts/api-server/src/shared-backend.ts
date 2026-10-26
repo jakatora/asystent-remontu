@@ -48,6 +48,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       observation.stockPackages !== undefined && (!Number.isSafeInteger(observation.stockPackages) || observation.stockPackages < 0 || observation.stockPackages > 1_000_000_000) ||
       !/^[a-f0-9]{64}$/.test(observation.evidenceSha256) || !Number.isFinite(Date.parse(observation.observedAt))) return;
     const previous = observations.get(source.id);
+    if(observation.verification!==undefined){
+      const v=observation.verification;
+      if(!v||v.method!=='browser'||source.store!=='Castorama'||source.browserReviewAllowed!==true||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
+    }
     if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
     if (Date.parse(observation.observedAt) >= Date.parse(withdrawnAt.get(source.id) ?? '')) withdrawnAt.delete(source.id);
   };
@@ -76,7 +80,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const productId = `remont-${source.ean}`;
       if (!products.some(product => product.id === productId)) products.push({
         id: productId, name: source.name, normalizedName: normalizeProductName(source.name),
-        ean: source.ean, gtin: null, manufacturer: source.brand, brand: source.brand,
+        ean: source.ean, gtin: null, manufacturer: source.brand || null, brand: source.brand || null,
         category: source.category, subcategory: null, variant: null,
         packageSize: String(source.packageSize), packageUnit: source.unit, technicalParameters: null,
         imageUrl: observation.imageUrl, productUrl: source.url,
@@ -89,9 +93,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         ...(source.purchaseMultiple ? {purchaseMultiple:source.purchaseMultiple} : {}),
         ...(source.minimumPackages ? {minimumPackages:source.minimumPackages} : {}),
         ...(observation.stockPackages !== undefined ? {maxPackages:observation.stockPackages} : {}),
+        ...(observation.verification ? {verification:observation.verification} : {}),
         pricePerUnit: (observation.priceGrosze / 100 / source.packageSize).toFixed(4),
         productUrl: source.url, availability: observation.availability,
-        fetchedAt: new Date(observation.observedAt), source: source.format && source.format !== 'jsonld' ? 'retailer-page-microdata' : 'retailer-page-jsonld',
+        fetchedAt: new Date(observation.observedAt), source: observation.verification ? 'retailer-page-browser-snapshot' : source.format && source.format !== 'jsonld' ? 'retailer-page-microdata' : 'retailer-page-jsonld',
       });
     }
     const aliases = Object.entries(RETAIL_NAME_ALIASES).map(([name, ean]) => [normalizeProductName(name), ean]);
@@ -150,6 +155,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     return {
       status: eligible.length > 0 ? 'ok' : 'no-current-offers',
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
+      browserVerifiedOffers:eligible.filter(offer=>offer.verification?.method==='browser').length,
       stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
       pickupConfirmationStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupRequiresConfirmation).map(source => source.store))],
       pickupUnavailableStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupUnavailable).map(source => source.store))],
@@ -160,6 +166,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         active: eligible.some(offer => offer.id === source.id),
         error: source.disabledReason ?? errors.get(source.id) ?? null,
         ...(observations.get(source.id)?.stockPackages !== undefined ? {stockPackages:observations.get(source.id)!.stockPackages} : {}),
+        ...(observations.get(source.id)?.verification ? {verification:observations.get(source.id)!.verification} : {}),
       })),
     };
   }

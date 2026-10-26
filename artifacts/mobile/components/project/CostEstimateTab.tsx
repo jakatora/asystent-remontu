@@ -1,4 +1,5 @@
 import { ProductImage } from './ProductImage';
+import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
 import { StoreChoiceSection } from './StoreChoiceSection';
@@ -517,6 +518,7 @@ function PackageBreakdown({
       )}
       {packages.filter(pack => (pack.minimumPackages ?? 1) > 1).map((pack, index) => <Txt key={`minimum-${pack.store}-${index}`} style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{language === 'pl' ? `${pack.store}: minimalny zakup ${pack.minimumPackages} op. Kwota uwzględnia to minimum.` : `${pack.store}: minimum purchase of ${pack.minimumPackages} packs. The cost includes this minimum.`}</Txt>)}
       {packages.filter(pack=>pack.maxPackages!==undefined).map((pack,index)=><Txt key={`stock-${pack.store}-${index}`} style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{language==='pl'?`${pack.store}: zapas przy sprawdzeniu ${pack.maxPackages} op. Nie jest to rezerwacja.`:`${pack.store}: ${pack.maxPackages} packs in stock when checked. This is not a reservation.`}</Txt>)}
+      {packages.filter(pack=>pack.verification).map((pack,index)=><PriceVerificationNotice key={`verified-${pack.store}-${index}`} verification={pack.verification} store={pack.store} />)}
       {packages.filter(pack => (pack.purchaseMultiple ?? 1) > 1).map((pack, index) => <Txt key={`${pack.store}-${index}`} style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{language === 'pl' ? `${pack.store}: zakup w partiach po ${pack.purchaseMultiple} op. Kwota uwzględnia całą wymaganą partię.` : `${pack.store}: order lots of ${pack.purchaseMultiple} packs. The cost includes the complete required lot.`}</Txt>)}
     </View>
   );
@@ -641,6 +643,7 @@ function OfferRow({
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
         {(offer.minimumPackages ?? 1) > 1 && <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{language === 'pl' ? `Minimalny zakup: ${offer.minimumPackages} op.` : `Minimum purchase: ${offer.minimumPackages} packs`}</Txt>}
         {offer.maxPackages!==undefined&&<Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?`Zapas przy sprawdzeniu: ${offer.maxPackages} op. Nie jest to rezerwacja.`:`Stock when checked: ${offer.maxPackages} packs. This is not a reservation.`}</Txt>}
+        <PriceVerificationNotice verification={offer.verification} />
         {(offer.purchaseMultiple ?? 1) > 1 && <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{language === 'pl' ? `Zakup w partiach po ${offer.purchaseMultiple} op.` : `Order lots of ${offer.purchaseMultiple} packs`}</Txt>}
         {offer.pricePerUnitGrosze !== null && (
           <Txt style={{ fontSize: 11, color: Colors.textSecondary }}>

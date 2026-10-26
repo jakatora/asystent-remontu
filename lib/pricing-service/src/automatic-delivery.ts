@@ -65,7 +65,7 @@ export async function compareAutomaticDelivery(
       if (max>DELIVERY_LIMITS.packagesPerProduct) return;
       for (let n = index === offers.length - 1 ? max : 0; n <= max; n+=multiple) {
         if(n>0&&n<minimum)continue;
-        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}),...(minimum>1?{minimumPackages:minimum}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}) }] : packs);
+        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}),...(minimum>1?{minimumPackages:minimum}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}),...(offer.verification?{verification:offer.verification}:{}) }] : packs);
       }
     };
     visit(0, count, []);
@@ -112,7 +112,7 @@ async function compareSelectedBaskets(
       const count=computePackagesNeeded(group.totalQuantity,sizes[0],offer.purchaseMultiple,offer.minimumPackages);
       if (!Number.isSafeInteger(count)||count<1||count>DELIVERY_LIMITS.packagesPerProduct||offer.maxPackages!==undefined&&count>offer.maxPackages) return [];
       const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
-      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}),...(offer.minimumPackages?{minimumPackages:offer.minimumPackages}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}) }];
+      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}),...(offer.minimumPackages?{minimumPackages:offer.minimumPackages}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}),...(offer.verification?{verification:offer.verification}:{}) }];
     });
   });
   if (options.some(option => !option)) { result.status = 'limit_exceeded'; return result; }

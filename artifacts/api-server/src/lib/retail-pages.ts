@@ -16,6 +16,7 @@ import { readBetterialProduct } from './betterial-product';
 import { inspectFolnetProduct } from './folnet-product';
 import { inspectKronosferaProduct } from './kronosfera-product';
 import { readSkyshopProduct, confirmSkyshopBasket, reviewedSkyshopSource, skyshopEvidenceHash, MATBUD_ORIGIN } from './skyshop-product';
+import type { PriceVerification } from '../../../../lib/pricing-service/src/types';
 
 export interface RetailSource {
   id: string;
@@ -23,6 +24,11 @@ export interface RetailSource {
   name: string;
   category: string;
   brand: string;
+  /** This reviewed product does not declare a brand; never invent one. */
+  unbranded?: boolean;
+  /** Operator may import a current, visibly reviewed browser card. Not an
+   * automatic refresh and not accepted from public API request input. */
+  browserReviewAllowed?: boolean;
   /** Independently reviewed manufacturer for a store-labelled Shoper product.
    * The exact placeholder is pinned; a changed producer needs a new review. */
   brandReference?: { url: string; retailerValue: string; retailerId: number };
@@ -68,6 +74,7 @@ export interface RetailObservation {
   availability: 'in_stock';
   /** Explicit published available quantity, converted to physical packs. */
   stockPackages?: number;
+  verification?: PriceVerification;
   observedAt: string;
   sourceUrl: string;
   evidenceSha256: string;
@@ -112,7 +119,10 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const brand = normalizeProductName(explicitBrand || (typeof product.manufacturer === 'string' ? product.manufacturer : product.manufacturer?.name) || '');
   const variantMatches = source.variant?.every(value => new RegExp(`(?:^| )${normalize(value)}(?: |$)`).test(normalized));
   if (source.packageDescription && !normalize(String(product.description ?? '')).includes(normalize(source.packageDescription))) throw new Error('product_package_not_confirmed');
-  if (!(normalized.includes(normalizeProductName(source.brand)) || brand.includes(normalizeProductName(source.brand))) || !(source.variant ? variantMatches : packagePattern.test(normalized))) throw new Error('product_variant_mismatch');
+  const sourceBrand=normalizeProductName(source.brand);
+  const unbranded=source.unbranded===true&&source.id==='castorama-paint-economy-10l'&&source.store==='Castorama'&&source.ean==='3663602567240'&&source.name==='Farba biała mat 10 l'&&sourceBrand==='';
+  if(!sourceBrand&&!unbranded)throw Error('product_brand_not_confirmed');
+  if ((unbranded ? Boolean(brand) : !(normalized.includes(sourceBrand) || brand.includes(sourceBrand))) || !(source.variant ? variantMatches : packagePattern.test(normalized))) throw new Error('product_variant_mismatch');
   // The configured exact product name also protects against a wrong EAN on a retailer page.
   if (!normalize(source.name).split(' ').filter(token => token.length > 3).every(token => normalized.includes(token))) throw new Error('product_name_mismatch');
   const allOffers = objects(product.offers);

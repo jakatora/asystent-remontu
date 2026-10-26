@@ -12,7 +12,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
   {
@@ -21,12 +21,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     productLabel: 'Farba GoodHome Ściany i Sufit biały mat 10 l',
     packageSize: 10,
     packageUnit: 'l',
-    pricePerPackage: 62.98,
+    pricePerPackage: 79.98,
     category: 'standard',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
   {
@@ -65,12 +65,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     productLabel: 'Gładź pod wałek GW180 gotowa polimerowa 20 kg',
     packageSize: 20,
     packageUnit: 'kg',
-    pricePerPackage: 38.68,
+    pricePerPackage: 38.48,
     category: 'economy',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
   {
@@ -167,7 +167,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
   {
@@ -567,13 +567,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Norgips',
     packageSize: 3,
     packageUnit: 'mb',
-    pricePerPackage: 11.98,
-    pricePerMb: 3.99,
+    pricePerPackage: 20.98,
+    pricePerMb: 6.99,
     category: 'standard',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 
@@ -827,12 +827,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Cersanit',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 698.00,
+    pricePerPackage: 488,
     category: 'standard',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd',
-    lastUpdated: '2026-08-24',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 
@@ -915,13 +915,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'AKS Zielonka',
     packageSize: 100,
     packageUnit: 'mb',
-    pricePerPackage: 375.00,
-    pricePerMb: 3.75,
+    pricePerPackage: 388,
+    pricePerMb: 3.88,
     category: 'standard',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 
@@ -936,13 +936,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'AKS Zielonka',
     packageSize: 100,
     packageUnit: 'mb',
-    pricePerPackage: 572.00,
-    pricePerMb: 5.72,
+    pricePerPackage: 598,
+    pricePerMb: 5.98,
     category: 'better',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 
@@ -996,12 +996,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Elektro-Plast',
     packageSize: 10,
     packageUnit: 'szt',
-    pricePerPackage: 14.78,
+    pricePerPackage: 15.24,
     category: 'economy',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
   },
 
@@ -1653,7 +1653,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd',
-    lastUpdated: '2026-08-24',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'Jednowarstwowy tynk gipsowy nakładany agregatem. Zużycie ok. 10 kg/m² na 10 mm. Pomieszczenia o wilgotności do 70%.',
   },
@@ -1936,12 +1936,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'OPP',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 208.0,
+    pricePerPackage: 208,
     category: 'standard',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd',
-    lastUpdated: '2026-08-24',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'Płytowe przylgowe z podcięciem wentylacyjnym, plaster miodu + HDF. Samo skrzydło (bez ościeżnicy). Klasa standard.',
   },
@@ -1979,12 +1979,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'PerfectDoor',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 418.0,
+    pricePerPackage: 418,
     category: 'standard',
     storeName: 'Castorama',
     sourceUrl:
       'https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd',
-    lastUpdated: '2026-08-24',
+    lastUpdated: '2026-10-26',
     currency: 'PLN',
     notes: 'Ościeżnica regulowana MDF, zakres regulacji 80-100 mm (dobierana do grubości ściany). Zakres regulacji zależny od muru — przy grubszej ścianie wybierz szerszy wariant.',
   },

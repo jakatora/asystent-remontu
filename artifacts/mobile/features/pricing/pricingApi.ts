@@ -22,7 +22,7 @@ import { applyDoorSelection, type DoorSelection } from './doorSelection';
 import { upgradeEpsCalculation } from '@/features/calculator/eps';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
-import type { UnresolvedReason as ServiceUnresolvedReason } from '../../../../lib/pricing-service/src/types';
+import type { UnresolvedReason as ServiceUnresolvedReason, PriceVerification } from '../../../../lib/pricing-service/src/types';
 
 // ─── Konfiguracja bazowego URL ────────────────────────────────────────────────
 // Osobny publiczny env, żeby dało się wskazać serwer wyceny niezależnie od reszty.
@@ -114,6 +114,7 @@ export interface SerializedProductOffer {
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
+  verification?: PriceVerification;
   packageSize?: string | null;
   offerId: string;
   store: string;
@@ -142,6 +143,7 @@ export interface SerializedPackage {
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
+  verification?: PriceVerification;
   /** Wielkość pojedynczego opakowania (w jednostce materiału, np. 10 = 10 l). */
   packageSize: number;
   /** Ile sztuk tego opakowania kupić (>= 1). */

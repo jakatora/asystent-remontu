@@ -70,6 +70,10 @@ export function isComparableOffer(offer: ProductOffer, now = Date.now()): boolea
   if (offer.purchaseMultiple !== undefined && (!Number.isSafeInteger(offer.purchaseMultiple) || offer.purchaseMultiple < 1 || offer.purchaseMultiple > 10_000)) return false;
   if (offer.minimumPackages !== undefined && (!Number.isSafeInteger(offer.minimumPackages) || offer.minimumPackages < 1 || offer.minimumPackages > 10_000)) return false;
   if (offer.maxPackages !== undefined && (!Number.isSafeInteger(offer.maxPackages) || offer.maxPackages < Math.ceil((offer.minimumPackages??1)/(offer.purchaseMultiple??1))*(offer.purchaseMultiple??1) || offer.maxPackages > 1_000_000_000)) return false;
+  if(offer.verification){
+    const {method,checkedAt,expiresAt}=offer.verification,checked=Date.parse(checkedAt),expires=Date.parse(expiresAt);
+    if(method!=='browser'||!Number.isFinite(checked)||!Number.isFinite(expires)||expires!==checked+86400000||expires<=now||checked>now+300000||!(offer.fetchedAt instanceof Date)||checked!==offer.fetchedAt.getTime())return false;
+  }
   if (!offer.source || /seed|fixture|mock|demo|reference/i.test(offer.source)) return false;
   const availability = (offer.availability ?? '').replace(/[\s_-]/g, '');
   if (/outofstock|unavailable|niedost[eę]pn|brak|preorder|backorder/i.test(availability)) return false;
@@ -163,6 +167,7 @@ export function buildPackageVariants(
         ...(purchaseMultiple > 1 ? { purchaseMultiple } : {}),
         ...(minimumPackages > 1 ? { minimumPackages } : {}),
         ...(offer.maxPackages !== undefined ? {maxPackages:offer.maxPackages} : {}),
+        ...(offer.verification ? {verification:offer.verification} : {}),
         unitPriceGrosze,
         store: offer.store,
         url: offer.productUrl,

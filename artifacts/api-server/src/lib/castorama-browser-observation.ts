@@ -1,0 +1,45 @@
+import {createHash} from 'node:crypto';
+import {parsePriceToGrosze} from '@workspace/price-collector';
+import {normalizeProductName} from '@workspace/db/repositories';
+import {parseRetailPage,type RetailObservation,type RetailSource} from './retail-pages';
+
+export interface BrowserProductSnapshot {
+ version:1; url:string; ean:string; capturedAt:string; heading:string;
+ /** Actual DOM script contents, not a fabricated Product or search result. */
+ schemas:string[];
+ /** Current visible accessibility text including price, purchase unit and CTA. */
+ axState:string;
+}
+
+/** Offline operator import only; no public upload endpoint or client-controlled
+ * fetch URL. Local pickup stock/price and banner freight must never become a
+ * delivery quote or nationwide stock. Browser reads expire after 24 hours. */
+export function observeCastoramaBrowser(snapshot:BrowserProductSnapshot,source:RetailSource,now=new Date()):RetailObservation{
+ const captured=Date.parse(snapshot.capturedAt),age=now.getTime()-captured;
+ if(!Number.isFinite(captured)||age< -300000||age>=86400000)throw Error('browser_observation_not_current');
+ if(snapshot.version!==1||source.browserReviewAllowed!==true||source.store!=='Castorama'||new URL(source.url).origin!=='https://www.castorama.pl'||snapshot.url!==source.url||snapshot.ean!==source.ean||!new URL(snapshot.url).pathname.endsWith('/'+source.ean+'_CAPL.prd'))throw Error('browser_product_identity_not_confirmed');
+ if(snapshot.heading!==source.name||!snapshot.axState.includes('heading '+source.name+', Value: 1')||!snapshot.axState.includes('text '+source.ean))throw Error('browser_product_identity_not_confirmed');
+ if(!Array.isArray(snapshot.schemas)||snapshot.schemas.length>12||snapshot.schemas.some(s=>typeof s!=='string'||s.length>100000)||snapshot.axState.length>250000)throw Error('invalid_browser_snapshot');
+ const products=snapshot.schemas.flatMap(s=>{try{const value=JSON.parse(s);return value?.['@type']==='Product'?[value]:[]}catch{return[];}});
+ if(products.length!==1||products[0].gtin13!==source.ean||products[0].name!==snapshot.heading)throw Error('browser_product_identity_not_confirmed');
+ const nativeBrand=typeof products[0].brand==='string'?products[0].brand:products[0].brand?.name;
+ if(nativeBrand&&normalizeProductName(nativeBrand)!==normalizeProductName(source.brand))throw Error('browser_product_identity_not_confirmed');
+ const offers=[products[0].offers].flat();
+ const home=offers.filter(o=>o?.['@type']==='Offer'&&o.description==='Home Delivery'&&o.availableDeliveryMethod==='https://schema.org/ParcelService'&&!o.availableAtOrFrom);
+ if(home.length!==1||home[0].availability!=='https://schema.org/InStock'||home[0].priceCurrency!=='PLN')throw Error('no_confirmed_online_pln_offer');
+ const section=snapshot.axState.slice(snapshot.axState.indexOf('heading '+snapshot.heading+', Value: 1')).split(/\n\s*\d+ container product-suggestions/)[0];
+ const visible=section.match(/\n\s*\d+ text ([\d\s,.]+zł)\s*\/\s*(szt\.|opak\.)/);
+ // Per-m² adverts require a separate reviewed physical-pack/cart conversion.
+ if(!visible||!['szt','l','kg','mb'].includes(source.unit))throw Error('browser_purchase_unit_not_confirmed');
+ if(source.unit==='szt'&&visible[2]==='szt.'&&source.packageSize!==1)throw Error('browser_purchase_unit_not_confirmed');
+ if(source.unit!=='szt'||visible[2]==='opak.'){
+   const name=normalizeProductName(snapshot.heading.replace(/(\d)([a-zA-Z])/g,'$1 $2'));
+   const quantity=normalizeProductName(String(source.packageSize))+' '+source.unit;
+   if(!new RegExp('(?:^| )'+quantity+'(?: |$)').test(name))throw Error('browser_package_not_confirmed');
+ }
+ if(!/\n\s*\d+ button Dodaj 1 przedmiot do koszyka/.test(section)||!section.includes('heading Sprzedaż wysyłkowa'))throw Error('browser_purchase_not_confirmed');
+ const script=snapshot.schemas.find(s=>{try{return JSON.parse(s)?.['@type']==='Product'}catch{return false;}})!;
+ const observation=parseRetailPage('<script type="application/ld+json">'+script+'</script>',source,new Date(captured));
+ if(parsePriceToGrosze(visible[1].replace(/zł$/,''))!==observation.priceGrosze)throw Error('browser_gross_price_mismatch');
+ return{...observation,verification:{method:'browser',checkedAt:new Date(captured).toISOString(),expiresAt:new Date(captured+86400000).toISOString()},evidenceSha256:createHash('sha256').update(JSON.stringify(snapshot)).digest('hex')};
+}

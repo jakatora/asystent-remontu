@@ -1,34 +1,48 @@
 {
-  "checkedAt": "2026-10-26T05:46:22.109Z",
+  "checkedAt": "2026-10-26T06:55:58.179Z",
   "scope": "Existing 103 reference products, not every product on the market. A verified offer is not proof of delivery or compatibility with every calculator.",
   "total": 103,
-  "verifiedProducts": 79,
-  "remaining": 24,
-  "offers": 105,
+  "verifiedProducts": 91,
+  "remaining": 12,
+  "offers": 117,
   "stores": 36,
   "productsWithPhotos": 103,
-  "registeredOffers": 107,
+  "registeredOffers": 119,
   "disabledOffers": 2,
   "rows": [
     {
       "id": "mat-paint-economy-white-10l",
       "name": "Farba biała mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "3663602567240",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-paint-economy-10l"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-biala-mat-10-l~3663602567240_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:04:22.567Z",
+        "expiresAt": "2026-10-27T06:04:22.567Z"
+      }
     },
     {
       "id": "mat-paint-standard-white-10l",
       "name": "Farba GoodHome Ściany i Sufit biały mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5059340271620",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-paint-goodhome-10l"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/farba-goodhome-sciany-i-sufit-bialy-mat-10-l~5059340271620_02c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:06:12.185Z",
+        "expiresAt": "2026-10-27T06:06:12.185Z"
+      }
     },
     {
       "id": "mat-paint-better-white-10l",
@@ -73,11 +87,18 @@
       "id": "mat-skim-coat-economy-20kg",
       "name": "Gładź pod wałek GW180 gotowa polimerowa 20 kg",
       "referenceUrl": "https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5907418038791",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-kreisel-gw180-20kg"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/gladz-pod-walek-kreisel-gw180-gotowa-polimerowa-20-kg~5907418038791_21c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:07:40.029Z",
+        "expiresAt": "2026-10-27T06:07:40.029Z"
+      }
     },
     {
       "id": "mat-skim-coat-standard-18kg",
@@ -203,11 +224,18 @@
       "id": "mat-tile-adhesive-buildfix-25kg",
       "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg",
       "referenceUrl": "https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5905400658866",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-atlas-plus-promo-25kg"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg~5905400658866_22c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:15:24.072Z",
+        "expiresAt": "2026-10-27T06:15:24.072Z"
+      }
     },
     {
       "id": "mat-sanitary-silicone-soudal-280ml",
@@ -562,11 +590,18 @@
       "id": "mat-profile-cd60-norgips-3m",
       "name": "Profil sufitowy Norgips CD60 0,6 mm 3 m",
       "referenceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5907651698899",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-norgips-cd60-3m"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-norgips-cd60-0-6-mm-3-mb~5907651698899_01c_PL_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:11:04.395Z",
+        "expiresAt": "2026-10-27T06:11:04.395Z"
+      }
     },
     {
       "id": "mat-profile-ud27-budmat-3m",
@@ -748,11 +783,18 @@
       "id": "mat-wc-compact-cersanit-seno-3-5l",
       "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą",
       "referenceUrl": "https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5902115720833",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-cersanit-seno"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca~5902115720833_01c?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:26:17.651Z",
+        "expiresAt": "2026-10-27T06:26:17.651Z"
+      }
     },
     {
       "id": "mat-washbasin-cersanit-facile-50",
@@ -807,21 +849,35 @@
       "id": "mat-wire-ydyp-3x15-akszielonka-100m",
       "name": "Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5904617573771",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-aks-ydyp-3x15-100m"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb~5904617573771_02c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:28:51.728Z",
+        "expiresAt": "2026-10-27T06:28:51.728Z"
+      }
     },
     {
       "id": "mat-wire-ydyp-3x25-akszielonka-100m",
       "name": "Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5904617573764",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-aks-ydyp-3x25-100m"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb~5904617573764_02c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:29:31.705Z",
+        "expiresAt": "2026-10-27T06:29:31.705Z"
+      }
     },
     {
       "id": "mat-socket-simon-basic-bmgz1z",
@@ -866,11 +922,18 @@
       "id": "mat-flush-box-elektroplast-pk60-10",
       "name": "Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)",
       "referenceUrl": "https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5901752637337",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-elektroplast-pk60-10"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-~5901752637337_01c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:30:49.885Z",
+        "expiresAt": "2026-10-27T06:30:49.885Z"
+      }
     },
     {
       "id": "mat-wire-connector-wago-221-413",
@@ -1508,11 +1571,18 @@
       "id": "mat-plaster-gypsum-machine-knauf-mp75-25kg",
       "name": "Tynk gipsowy maszynowy Knauf MP 75 25 kg",
       "referenceUrl": "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5902367206352",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-knauf-mp75-25kg"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/tynk-maszynowy-knauf-mp-75-25-kg~5902367206352_03c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:31:59.630Z",
+        "expiresAt": "2026-10-27T06:31:59.630Z"
+      }
     },
     {
       "id": "mat-plaster-gypsum-manual-knauf-goldband-25kg",
@@ -1814,11 +1884,18 @@
       "id": "mat-door-leaf-opp-klasyk-70-white",
       "name": "Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)",
       "referenceUrl": "https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5063022524034",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-opp-klasyk-70-right"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale~5063022524034_02c?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:33:02.731Z",
+        "expiresAt": "2026-10-27T06:33:02.731Z"
+      }
     },
     {
       "id": "mat-door-leaf-erkado-credis-80-glazed",
@@ -1849,11 +1926,18 @@
       "id": "mat-door-frame-perfectdoor-reg-80-100",
       "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma (drzwi wewnętrzne)",
       "referenceUrl": "https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd",
-      "status": "needs_verified_offer",
+      "status": "verified_offer",
       "ean": "5902659279118",
-      "sourceIds": [],
+      "sourceIds": [
+        "castorama-perfectdoor-base-80-100-right"
+      ],
       "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma~5902659279118_03c_CP?$MOB_PREV$&$width=284&$height=284",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-26T06:34:36.671Z",
+        "expiresAt": "2026-10-27T06:34:36.671Z"
+      }
     },
     {
       "id": "mat-door-handle-schaffner-lucy-rosette",
@@ -2051,5 +2135,6 @@
       ]
     }
   ],
-  "automaticDeliveryStores": 20
+  "automaticDeliveryStores": 20,
+  "browserVerifiedOffers": 12
 }
