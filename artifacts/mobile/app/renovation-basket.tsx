@@ -78,7 +78,7 @@ export default function RenovationBasketScreen() {
     return () => { active = false; };
   }, [selectedProjects]));
   const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates, foils, washbasins, tiles), [projects, selected, selectedQualityTier, items, doors, laminates, foils, washbasins, tiles]);
-  const stages = useMemo(() => withBasketExtras(basket.stages, extras), [basket.stages, extras]);
+  const stages = useMemo(() => withBasketExtras(basket.selectionStages, extras), [basket.selectionStages, extras]);
   const hasBasket = selectedProjects.length > 0 || extras.length > 0;
   const toggle = (id: string) => {
     const current = selected.filter(key => projects.some(project => project.id === key));
@@ -128,7 +128,6 @@ export default function RenovationBasketScreen() {
       </View>}
       {selectedProjects.length > 0 && <View style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, gap: 6 }}>
         <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Łączymy materiały z obmiarów, dopisane w Zakupach i dodane tutaj. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”. Narzędzia są liczone osobno.' : 'We combine measured materials, items added in Shopping and materials added here. Items marked Owned or Purchased are excluded. Tools are separate.'}</Txt>
-        {itemsReady && basket.excludedMaterials > 0 && <Txt>{pl ? `Pomijamy już posiadane lub kupione pozycje: ${basket.excludedMaterials}.` : `Already owned or purchased items excluded: ${basket.excludedMaterials}.`}</Txt>}
         {itemsReady && basket.manualItems > 0 && <Txt>{pl ? `Uwzględniamy pozycje dopisane w Zakupach: ${basket.manualItems}. Brak ceny lub ilości będzie widoczny w wycenie.` : `Items added in Shopping included: ${basket.manualItems}. Missing prices or quantities remain visible in the quote.`}</Txt>}
         {itemsReady && basket.manualItems > 0 && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Ceny wpisane ręcznie w Zakupach nie są ofertą sklepu. Tutaj porównujemy potwierdzone ceny i dostawy.' : 'Prices typed in Shopping are not retailer offers. Here we compare confirmed retailer prices and deliveries.'}</Txt>}
       </View>}
@@ -144,7 +143,7 @@ export default function RenovationBasketScreen() {
           onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: review.projectId } })} />
       </View>)}
       {loaded && itemsReady && extrasReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
-        ? <CostEstimateTab projectId="renovation-basket" stages={stages} qualityTier={selectedQualityTier} region={selectedRegion} />
+        ? <CostEstimateTab projectId="renovation-basket" stages={stages} shoppingContexts={basket.shoppingContexts} qualityTier={selectedQualityTier} region={selectedRegion} />
         : <Txt w="semibold">{pl ? 'Wszystkie materiały z wybranych obmiarów masz już lub są kupione.' : 'All measured materials for selected works are already owned or purchased.'}</Txt>)}
     </ScrollView>
   </>;

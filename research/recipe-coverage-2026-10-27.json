@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-27T07:27:35.996Z",
-  "scope": "Same65 measurement inputs. Wallpaper removal now includes explicit measured protection as an extra row; missing repair/protection inputs stay unknown. Separately verified complete input10m²/2kg repairs/12m²film and mixed-room aggregation. Real anonymous carts, no PII/orders.",
+  "checkedAt": "2026-10-27T08:06:57.694Z",
+  "scope": "Same65 audit inputs. Corrected laminate m² demand, without pack counts labelled as m². Product selection precedes ownership filtering in project and renovation baskets. This audit does not prove complete delivery coverage.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 237,
+    "beforeLines": 238,
     "beforePriced": 84,
     "afterLines": 238,
-    "afterPriced": 84,
-    "afterUnpriced": 154,
-    "fullyPricedScenarios": 9
+    "afterPriced": 83,
+    "afterUnpriced": 155,
+    "fullyPricedScenarios": 8
   },
   "history": [
     {
@@ -127,6 +127,19 @@
         "afterPriced": 84,
         "afterUnpriced": 153,
         "fullyPricedScenarios": 9
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T08:06:57.694Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 238,
+        "beforePriced": 84,
+        "afterLines": 238,
+        "afterPriced": 83,
+        "afterUnpriced": 155,
+        "fullyPricedScenarios": 8
       }
     }
   ],
@@ -841,7 +854,7 @@
             "normalizedName": "panele laminowane ac4 8 mm kronospan toledo 2 22 m paczka",
             "category": "laminate"
           },
-          "quantity": 6,
+          "quantity": 11,
           "resolved": false,
           "reason": "no-product",
           "matchedProduct": null
@@ -949,13 +962,9 @@
             "category": "underlay"
           },
           "quantity": 11,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5061092900925",
-            "ean": "5061092900925",
-            "name": "Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op."
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "threshold-vinyl",

@@ -20,6 +20,31 @@ function loadSource(file, dependencies = {}) {
   return mod.exports;
 }
 
+test('confirming a changed shopping product atomically drops its previous price and status while preserving other rows', async () => {
+  const sqlite = new DatabaseSync(':memory:');
+  const db = { execAsync: async sql => sqlite.exec(sql), runAsync: async (sql, values = []) => sqlite.prepare(sql).run(...values), getAllAsync: async (sql, values = []) => sqlite.prepare(sql).all(...values) };
+  try {
+    for (const [file, fn] of [['001_initial', 'migration_001'], ['002_shopping_extended', 'migration_002']]) await loadSource(path.join(__dirname, '../migrations', file + '.ts'))[fn](db);
+    sqlite.exec("INSERT INTO projects (id,name,job_id,job_name,category_id,created_at,updated_at) VALUES ('a','A','laminate-flooring','Panels','floor','2026-10-27','2026-10-27')");
+    sqlite.exec("INSERT INTO shopping_items (id,project_id,material_id,name,quantity,unit,estimated_price,purchased,owned,custom_price,custom_quantity,created_at) VALUES ('one','a','laminate-panels','Old model',5,'m²',123,1,0,99,5,'2026-10-27'),('two','a','underlay','My underlay',20,'m²',40,0,1,35,20,'2026-10-27')");
+    const { shoppingRepo } = loadSource(path.join(__dirname, 'shopping.repo.ts'), { '../client': { getDb: async () => db }, '@/shared/lib/id': { generateId: () => 'unused' }, '@/shared/lib/date': { nowISO: () => '2026-10-27T00:00:00Z' } });
+    const unrelated = sqlite.prepare("SELECT * FROM shopping_items WHERE id='two'").get();
+    await shoppingRepo.updateQuantity('one', 11, { name: 'New model', unit: 'm2' });
+    const first = (await shoppingRepo.findByProject('a')).find(item => item.id === 'one');
+    assert.equal(first.name, 'New model'); assert.equal(first.unit, 'm2'); assert.equal(first.customQuantity, 11);
+    assert.equal(first.customPrice, undefined); assert.equal(first.estimatedPrice, 0); assert.equal(first.owned, false); assert.equal(first.purchased, false);
+    await shoppingRepo.updatePrice('one', 250); await shoppingRepo.setOwned('one', true);
+    await shoppingRepo.updateQuantity('one', 11, { name: 'New model', unit: 'm2' });
+    const same = (await shoppingRepo.findByProject('a')).find(item => item.id === 'one');
+    assert.equal(same.customPrice, 250); assert.equal(same.owned, true);
+    await shoppingRepo.updateQuantity('one', 12, { name: 'New model', unit: 'm2' });
+    const larger = (await shoppingRepo.findByProject('a')).find(item => item.id === 'one');
+    assert.equal(larger.customPrice, 250); assert.equal(larger.owned, false);
+    await assert.rejects(shoppingRepo.updateQuantity('one', NaN, { name: 'X', unit: 'szt' }), /Invalid/);
+    assert.deepEqual(sqlite.prepare("SELECT * FROM shopping_items WHERE id='two'").get(), unrelated);
+  } finally { sqlite.close(); }
+});
+
 test('adding the newly required basin fixings is idempotent and preserves saved shopping rows and other projects', async () => {
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys = ON');

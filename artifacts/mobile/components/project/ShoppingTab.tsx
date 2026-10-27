@@ -13,6 +13,7 @@ import { CONTINGENCY_RATE } from './types';
 import { getEffectivePrice, hasShoppingPrice } from './helpers';
 import type { ShoppingEditState } from './types';
 import { useLanguage } from '@/context/LanguageContext';
+import { selectedShoppingReference } from '@/features/pricing/selectedShopping';
 
 interface ShoppingTabProps {
   shoppingItems: ShoppingItem[];
@@ -286,13 +287,14 @@ function ShoppingSection({
       {items.map((item) => {
         const line = calc?.materials.find(line => line.material.id === item.materialId);
         const product = line?.material ?? job.materials.find(material => material.id === item.materialId);
-        const packageLabel = line?.packs !== undefined && product?.packaging
+        const selected = selectedShoppingReference(item);
+        const packageLabel = !item.selectedRequirement && line?.packs !== undefined && product?.packaging
           ? t('upgrade.product.packagingLabel', { count: line.packs, label: product.packaging.label })
           : undefined;
         return <ShoppingItemCard
           key={item.id}
           item={item}
-          imageUrl={getProductPhoto(product ?? { id: item.materialId })}
+          imageUrl={getProductPhoto(selected ?? product ?? { id: item.materialId })}
           packageLabel={packageLabel}
           editing={editState.editingId === item.id}
           editPrice={editState.editPrice}

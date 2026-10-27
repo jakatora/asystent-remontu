@@ -51,12 +51,12 @@ test('an unreviewed spacer width remains unpriced rather than charging the wrong
  const grout=stage.materials.find(row=>row.material.id==='grout')!;assert.equal(grout.quantity,2.42809365);
 });
 
-test('project choices reach the common basket and do not bring back owned materials or mutate saved calculations',()=>{
+test('project tile choices recheck the adhesive product and preserve saved calculations',()=>{
  const result=calc();const project:Project={id:'a',name:'Ściana',jobId:result.jobId,jobName:'Płytki',categoryId:'tiles',measurements:result.measurements,calculationResult:result,status:'planning',createdAt:'',updatedAt:''};
  const owned={id:'glue',projectId:'a',materialId:'wall-tile-adhesive',quantity:50,unit:'kg',owned:true,purchased:false,itemType:'material'} as ShoppingItem;
  const before=JSON.stringify(project),basket=buildRenovationBasket([project],['a'],'standard',{a:[owned]},{},{},{},{},{a:[wallChoice]});
  assert.equal(basket.stages[0].materials.find(row=>row.material.id==='wall-tiles')!.material.ean,'5907518303911');
- assert.ok(!basket.stages[0].materials.some(row=>row.material.id==='wall-tile-adhesive'));assert.equal(basket.excludedMaterials,1);assert.equal(JSON.stringify(project),before);
+ assert.equal(basket.stages[0].materials.find(row=>row.material.id==='wall-tile-adhesive')?.material.ean,'5905400658866');assert.equal(basket.excludedMaterials,0);assert.equal(JSON.stringify(project),before);
 });
 
 test('extra tile-only items keep their exact demand and do not invent room geometry or installation materials',()=>{

@@ -58,7 +58,7 @@ test('old explicit codes and packs cannot override a new measured width, and unr
 
 test('common basket preserves measured width and excludes owned spacers without bringing them back after a tile choice',()=>{
  const result=calculate(),project:Project={id:'a',name:'Podłoga',jobId:result.jobId,jobName:'Płytki',categoryId:'tiles',measurements:result.measurements,calculationResult:result,status:'planning',createdAt:'',updatedAt:''};
- const owned={id:'owned',projectId:'a',materialId:'tile-crosses',quantity:223,unit:'szt',owned:true,purchased:false,itemType:'material'} as ShoppingItem;
+ const owned={id:'owned',projectId:'a',materialId:'tile-crosses',name:spacer(result).material.name,quantity:223,unit:'szt',owned:true,purchased:false,itemType:'material'} as ShoppingItem;
  const baseline=buildRenovationBasket([project],['a'],'standard',{});assert.equal(baseline.stages[0].materials.find(row=>row.material.id==='tile-crosses')!.material.ean,'5905061016869');
  const selected=buildRenovationBasket([project],['a'],'standard',{a:[owned]},{},{},{},{},{a:[{from:'mat-gres-paradyz-petro-grey-60x60',to:'mat-gres-rekt-paradyz-u117-grey-60x60',use:'floor'}]});
  assert.equal(selected.excludedMaterials,1);assert.ok(!selected.stages[0].materials.some(row=>row.material.id==='tile-crosses'));

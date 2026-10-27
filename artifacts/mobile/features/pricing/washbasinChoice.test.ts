@@ -44,7 +44,7 @@ test('basin choices reject another category, corrupt preferences and conflicting
   assert.equal(washbasinReference({ ...material, ean: '5907720650025', gtin: '5901771226987' }), null);
 });
 
-test('a project basin choice reaches the common basket without changing another project or restoring an owned basin', () => {
+test('a project basin choice reaches the common basket without changing another project or inheriting ownership of another basin', () => {
   const result = calc();
   const project = (id: string): Project => ({ id, name: id, jobId: result.jobId, jobName: 'Umywalka', categoryId: 'plumbing', measurements: result.measurements, calculationResult: result, status: 'planning', createdAt: '', updatedAt: '' });
   const projects = [project('a'), project('b')], before = JSON.stringify(projects);
@@ -53,6 +53,6 @@ test('a project basin choice reaches the common basket without changing another 
   assert.equal(basket.stages[1].materials.find(row => row.material.id === 'washbasin')?.material.ean, null);
   const owned = { id: 'owned', projectId: 'a', materialId: 'washbasin', name: 'Moja umywalka', quantity: 2, unit: 'szt.', itemType: 'material', owned: true, purchased: false } as ShoppingItem;
   const filtered = buildRenovationBasket(projects, ['a', 'b'], 'standard', { a: [owned] }, {}, {}, {}, { a: [choice] });
-  assert.ok(!filtered.stages[0].materials.some(row => row.material.id === 'washbasin')); assert.equal(filtered.excludedMaterials, 1);
+  assert.equal(filtered.stages[0].materials.find(row => row.material.id === 'washbasin')?.material.ean, '5901771226987'); assert.equal(filtered.excludedMaterials, 0);
   assert.equal(JSON.stringify(projects), before);
 });

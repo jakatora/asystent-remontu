@@ -13,6 +13,13 @@ import { isSanitaryMaterial, sanitaryQuantity, SANITARY_MODEL } from './sanitary
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  // Old laminate snapshots stored a count of packs in a field labelled m².
+  // Recover the original floor area plus its existing cutting allowance.
+  // source: https://krono-shop.com/ro/en/faq
+  if (calc.jobId === 'laminate-flooring' && line.material.id === 'laminate-panels') {
+    const definition = getJobById(calc.jobId)?.materials.find(material => material.id === line.material.id);
+    if (definition) return Math.max(0, computeRawQuantity(definition, calc.measurements));
+  }
   if(calc.quantityModel===REMOVAL_MODEL&&isRemovalMaterial(calc.jobId,line.material.id))return removalQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===GYPSUM_MODEL&&isGypsumMaterial(calc.jobId,line.material.id))return gypsumQuantity(calc.jobId,line.material.id,calc.measurements)??0;
   if(calc.quantityModel===FRAME_MODEL&&isFrameMaterial(calc.jobId,line.material.id))return frameQuantity(line.material.id,calc.measurements)??0;

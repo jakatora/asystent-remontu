@@ -127,7 +127,14 @@ export const shoppingRepo = {
     const db = await getDb();
     if (basis) {
       if (!basis.unit.trim() || !basis.name.trim()) throw new Error('Missing quantity basis');
-      await db.runAsync('UPDATE shopping_items SET custom_quantity = ?, unit = ?, name = ? WHERE id = ?', [quantity, basis.unit, basis.name, id]);
+      await db.runAsync(`UPDATE shopping_items SET
+        custom_price = CASE WHEN name <> ? OR unit <> ? THEN NULL ELSE custom_price END,
+        estimated_price = CASE WHEN name <> ? OR unit <> ? THEN 0 ELSE estimated_price END,
+        owned = CASE WHEN name <> ? OR unit <> ? OR COALESCE(custom_quantity, quantity) <> ? THEN 0 ELSE owned END,
+        purchased = CASE WHEN name <> ? OR unit <> ? OR COALESCE(custom_quantity, quantity) <> ? THEN 0 ELSE purchased END,
+        custom_quantity = ?, unit = ?, name = ? WHERE id = ?`,
+      [basis.name, basis.unit, basis.name, basis.unit, basis.name, basis.unit, quantity,
+        basis.name, basis.unit, quantity, quantity, basis.unit, basis.name, id]);
       return;
     }
     await db.runAsync(

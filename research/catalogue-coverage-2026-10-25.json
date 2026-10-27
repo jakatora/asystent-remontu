@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-27T07:27:35.996Z",
-  "scope": "144 exact reference products/photos. One new concentrate and4automatic offers (including2existing references). Current eligible offers reflect independently expired earlier manual Castorama confirmations; dates not renewed after HTTP503.65 unchanged sample measurement inputs now have238rows because measured protection is explicit in wallpaper removal;84priced/154unpriced,9complete material scenarios. A separately completed10m²removal example is fully priced with real delivery152.92PLN; no claim of all renovation completeness.",
+  "checkedAt": "2026-10-27T08:06:57.694Z",
+  "scope": "144 references/photos unchanged. Client53 fixes ownership after explicit product choices and corrects laminate pack-count/m² confusion. Further manual observations expired naturally; no dates renewed after failed refreshes. Same65 audit inputs:83/238 priced,155 unresolved,8 complete MATERIAL scenarios. Not a completion percentage or a complete delivery guarantee.",
   "total": 144,
-  "verifiedProducts": 122,
-  "remaining": 22,
-  "offers": 161,
+  "verifiedProducts": 120,
+  "remaining": 24,
+  "offers": 158,
   "stores": 40,
   "productsWithPhotos": 144,
   "registeredOffers": 179,
@@ -625,7 +625,7 @@
       "id": "mat-profile-ud27-budmat-3m",
       "name": "Profil przyścienny Budmat UD27 0,5 mm 3 m",
       "referenceUrl": "https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907738940163",
       "sourceIds": [
         "castorama-budmat-ud27-3m",
@@ -2149,7 +2149,7 @@
       "id": "mat-vinyl-underlay-corksystem-lvt-6m2",
       "name": "Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²",
       "referenceUrl": "https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5061092900925",
       "sourceIds": [
         "castorama-marketplace-corksystem-lvt-6m2"
@@ -3153,5 +3153,5 @@
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   },
-  "expiredOffers": 16
+  "expiredOffers": 19
 }

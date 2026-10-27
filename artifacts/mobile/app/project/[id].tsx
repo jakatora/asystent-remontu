@@ -148,6 +148,7 @@ export default function ProjectDetailScreen() {
   }, [id, getProjectShoppingItems, getProjectPhotos, getProjectChecklist, getChecklistProgress, getProjectActivities, getProjectOverrides]);
 
   useFocusEffect(useCallback(() => { setLastPurchase(null); loadAll(); }, [loadAll]));
+  useEffect(() => { if (tab === 'shopping') void loadAll(); }, [tab, loadAll]);
 
   const handleGenerateShoppingList = async () => {
     if (!project?.calculationResult || !job) return;
@@ -215,7 +216,7 @@ export default function ProjectDetailScreen() {
 
   const handleTogglePurchased = async (item: ShoppingItem) => {
     if (!await confirmCurrentQuantity(item)) return;
-    if (project && requiresCurrentShoppingQuantity(project.jobId) && !item.purchased) await setItemOwned(item.id, false);
+    if (project && (requiresCurrentShoppingQuantity(project.jobId) || item.selectedRequirement) && !item.purchased) await setItemOwned(item.id, false);
     await toggleItem(item.id, !item.purchased);
     await loadAll();
   };
@@ -239,8 +240,8 @@ export default function ProjectDetailScreen() {
   const handleSaveEdit = async (item: ShoppingItem) => {
     const newPrice = parseDecimal(editPrice);
     const newQty = parseDecimal(editQty);
+    if (isFinite(newQty) && newQty > 0) await updateItemQuantity(item.id, newQty, item.selectedRequirement ? { name: item.name, unit: item.unit } : undefined);
     if (isFinite(newPrice) && newPrice >= 0) await updateItemPrice(item.id, newPrice);
-    if (isFinite(newQty) && newQty > 0) await updateItemQuantity(item.id, newQty);
     setEditingId(null);
     await loadAll();
   };

@@ -3,11 +3,12 @@ import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
 import { type DoorSelection } from './doorSelection';
 import { upgradeCalculation } from '@/features/calculator/upgrades';
-import { applyProjectShopping } from './projectShoppingInput';
+import { applyProjectShopping, withManualShopping } from './projectShoppingInput';
 import { applyLaminateChoices, type LaminateChoice } from './laminateChoice';
 import { applyFoilChoices, type FoilChoice } from './foilChoice';
 import { applyWashbasinChoices, type WashbasinChoice } from './washbasinChoice';
 import { applyTileChoices, type TileChoice } from './tileChoice';
+import type { ShoppingStageContext } from './selectedShopping';
 
 export const MAX_BASKET_PROJECTS = 20;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
@@ -30,23 +31,27 @@ export function buildRenovationBasket(
   foilsByProject: Readonly<Record<string, readonly FoilChoice[]>> = {},
   washbasinsByProject: Readonly<Record<string, readonly WashbasinChoice[]>> = {},
   tilesByProject: Readonly<Record<string, readonly TileChoice[]>> = {},
-): { stages: PricingStageInput[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
+): { stages: PricingStageInput[]; selectionStages: PricingStageInput[]; shoppingContexts: ShoppingStageContext[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
   let excludedMaterials = 0, manualItems = 0, missingCalculations = 0;
   const stages: PricingStageInput[] = [];
+  const selectionStages: PricingStageInput[] = [], shoppingContexts: ShoppingStageContext[] = [];
   const measurementReviews: { projectId: string; projectName: string; materials: string[] }[] = [];
   for (const project of includedProjects) {
     const calc = upgradeCalculation(project.calculationResult);
     if (!calc) { missingCalculations++; continue; }
-    const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
-    const pending = applyProjectShopping(stage, calc, project.id, items);
+    const stage = withManualShopping(toPricingStageInput(calc, tier, doorsByProject[project.id]), calc, project.id, items);
+    const chosen = applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0];
+    const pending = applyProjectShopping(chosen, calc, project.id, items, stage);
+    selectionStages.push(chosen);
+    shoppingContexts.push({ projectId: project.id, calc, original: stage, items });
     const unknown = calc.materials.filter(line => line.quantityKnown === false && pending.stage.materials.some(row => row.material.id === line.material.id));
     if (unknown.length) measurementReviews.push({ projectId: project.id, projectName: project.name, materials: [...new Set(unknown.map(line => line.material.name))] });
     excludedMaterials += pending.excludedMaterials;
     manualItems += pending.manualItems;
-    stages.push(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([pending.stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0]);
+    stages.push(pending.stage);
   }
-  return { stages, includedProjects, excludedMaterials, manualItems, missingCalculations, measurementReviews };
+  return { stages, selectionStages, shoppingContexts, includedProjects, excludedMaterials, manualItems, missingCalculations, measurementReviews };
 }

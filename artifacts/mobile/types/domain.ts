@@ -372,6 +372,9 @@ export interface ShoppingItem {
   readonly quantityKnown?: boolean;
   readonly requiredQuantity?: number;
   readonly needsQuantityConfirmation?: boolean;
+  readonly selectedRequirement?: boolean;
+  readonly selectedProductChanged?: boolean;
+  readonly selectionBasis?: Pick<ShoppingItem, 'name' | 'unit' | 'quantity' | 'customQuantity' | 'customPrice' | 'estimatedPrice' | 'owned' | 'purchased' | 'quantityKnown' | 'requiredQuantity' | 'needsQuantityConfirmation'>;
   readonly id: string;
   readonly projectId: string;
   readonly materialId: string;

@@ -72,7 +72,7 @@ test('a restored GTIN is replaced with the chosen EAN and zero demand is never i
   assert.deepEqual(laminateRequirements(stages), []);
 });
 
-test('project choices reach the common basket after ownership filtering, without changing other projects or the original calculations', () => {
+test('project choices reach the common basket before ownership filtering, without changing other projects or the original calculations', () => {
   const make = (id: string): Project => {
     const calc = calculatorEngine.calculate(getJobById('laminate-flooring')!, { floorArea: 10, panelPackCoverageM2: 2.22 });
     return { id, name: id, jobId: calc.jobId, jobName: 'Podłoga', categoryId: 'laminate', measurements: calc.measurements, calculationResult: calc, status: 'planning', createdAt: '', updatedAt: '' };
@@ -84,7 +84,7 @@ test('project choices reach the common basket after ownership filtering, without
   assert.equal(basket.stages[1].materials.find(line => line.material.id === 'laminate-panels')?.material.name, toledo.productLabel);
   const owned = { id: 'one', projectId: 'a', materialId: 'laminate-panels', name: 'Panele', quantity: 11, unit: 'm²', itemType: 'material', owned: true, purchased: false } as ShoppingItem;
   const filtered = buildRenovationBasket(projects, ['a', 'b'], 'standard', { a: [owned] }, {}, choices);
-  assert.ok(!filtered.stages[0].materials.some(line => line.material.id === 'laminate-panels'));
-  assert.equal(filtered.excludedMaterials, 1);
+  assert.equal(filtered.stages[0].materials.find(line => line.material.id === 'laminate-panels')?.material.ean, ean(niasa.id));
+  assert.equal(filtered.excludedMaterials, 0);
   assert.equal(JSON.stringify(projects), before);
 });

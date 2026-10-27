@@ -46,7 +46,7 @@ test('saved foil choices reject an unknown product, wrong group, corrupt or dupl
     saved([{ ...choice, to: 'mat-laminate-classen-niasa-ac5-1973' }]), saved([{ ...choice, from: 'unknown' }]), 'x'.repeat(8001)]) assert.throws(() => parseFoilChoices(raw));
 });
 
-test('a project foil choice reaches the renovation basket after ownership filtering and coexists with an explicit panel choice', () => {
+test('a project foil choice reaches the renovation basket before ownership filtering and coexists with an explicit panel choice', () => {
   const calc = calculatorEngine.calculate(getJobById('laminate-flooring')!, { floorArea: 10, panelPackCoverageM2: 2.22 });
   const project: Project = { id: 'a', name: 'Podłoga', jobId: calc.jobId, jobName: 'Panele', categoryId: 'laminate', measurements: calc.measurements, calculationResult: calc, status: 'planning', createdAt: '', updatedAt: '' };
   const before = JSON.stringify(project);
@@ -56,8 +56,8 @@ test('a project foil choice reaches the renovation basket after ownership filter
   assert.equal(basket.stages[0].materials.find(line => line.material.id === 'laminate-panels')?.material.ean, '4003992571974');
   const owned = { id: 'one', projectId: 'a', materialId: 'vapor-barrier', name: 'Folia', quantity: 11, unit: 'm²', itemType: 'material', owned: true, purchased: false } as ShoppingItem;
   const filtered = buildRenovationBasket([project], ['a'], 'standard', { a: [owned] }, {}, { a: [panels] }, { a: [choice] });
-  assert.ok(!filtered.stages[0].materials.some(line => line.material.id === 'vapor-barrier'));
-  assert.equal(filtered.excludedMaterials, 1); assert.equal(JSON.stringify(project), before);
+  assert.equal(filtered.stages[0].materials.find(line => line.material.id === 'vapor-barrier')?.material.ean, '5902096430103');
+  assert.equal(filtered.excludedMaterials, 0); assert.equal(JSON.stringify(project), before);
   const together = applyFoilChoices(applyLaminateChoices(stages(), [panels]), [choice]);
   assert.equal(together[0].materials[0].material.ean, '5902096430103');
 });

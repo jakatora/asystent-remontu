@@ -30,6 +30,9 @@ import { generateShoppingItems, generateAllShoppingItems } from '@/features/calc
 import { BASELINE_REGION } from '@/data/prices/regions';
 import { upgradeProject, projectShopping } from '@/features/calculator/upgrades';
 import { subscribeDatabaseChanges } from '@/db/client';
+import { readSelectedStage } from '@/features/pricing/readProductSelections';
+import { reviewSelectedShopping } from '@/features/pricing/selectedShopping';
+import { toPricingStageInput } from '@/features/pricing/pricingApi';
 
 interface AppContextValue {
   readonly projects: Project[];
@@ -173,9 +176,13 @@ export function AppProvider({ children }: PropsWithChildren) {
         const fixing = generateShoppingItems(projectId, calc).find(item => item.materialId === 'basin-fixings');
         if (fixing) { await shoppingRepo.ensureBasinFixings(fixing); saved = await shoppingRepo.findByProject(projectId); }
       }
-      return projectShopping(saved, calc);
+      const reviewed = projectShopping(saved, calc);
+      if (!calc) return reviewed;
+      const original = toPricingStageInput(calc, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier);
+      const selected = await readSelectedStage(projectId, original);
+      return reviewSelectedShopping(reviewed, original, selected, saved);
     },
-    [projects]
+    [projects, selectedQualityTier]
   );
 
   const addShoppingItem = useCallback(

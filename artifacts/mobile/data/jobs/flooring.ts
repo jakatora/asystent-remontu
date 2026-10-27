@@ -126,7 +126,9 @@ export const laminateJob: RenovationJob = {
       name: 'Panele laminowane',
       brand: 'Kronospan / Swiss Krono AC4 8 mm (referencja)',
       unit: 'm²',
-      formulaKey: 'panelPacks',
+      // Demand is m²; pack rounding happens separately, once per basket.
+      // source: https://krono-shop.com/ro/en/faq
+      formulaKey: 'laminateArea',
       wasteFactor: 1.1,
       roundingRule: 'ceil',
       packaging: { size: 2.196, label: 'paczka (ok. 2,2 m²)', purchaseUnit: 'paczka' },

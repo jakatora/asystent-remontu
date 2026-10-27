@@ -53,7 +53,8 @@ test('changing kitchen tiles recalculates the epoxy and white adhesive, while ba
 });
 test('owned kitchen chemistry stays excluded after choosing another tile; choices do not change saved projects',()=>{
  const result=calculate(),project:Project={id:'kitchen',name:'Kuchnia',jobId:job.id,jobName:job.name,categoryId:job.categoryId,measurements:result.measurements,calculationResult:result,status:'planning',createdAt:'',updatedAt:''};
- const owned=['tile-adhesive','grout-kitchen'].map((materialId,i)=>({id:'owned-'+i,projectId:project.id,materialId,quantity:10,unit:'kg',owned:true,purchased:false,itemType:'material'} as ShoppingItem));
+ const chosen=applyTileChoices([toPricingStageInput(result)],[change])[0];
+ const owned=['tile-adhesive','grout-kitchen'].map((materialId,i)=>({id:'owned-'+i,projectId:project.id,materialId,name:chosen.materials.find(row=>row.material.id===materialId)!.material.name,quantity:10,unit:'kg',owned:true,purchased:false,itemType:'material'} as ShoppingItem));
  const before=JSON.stringify(project),basket=buildRenovationBasket([project],[project.id],'standard',{kitchen:owned},{},{},{},{},{kitchen:[change]});
  assert.equal(basket.excludedMaterials,2);assert.ok(!basket.stages[0].materials.some(row=>['tile-adhesive','grout-kitchen'].includes(row.material.id)));assert.equal(JSON.stringify(project),before);
 });

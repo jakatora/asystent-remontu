@@ -43,7 +43,8 @@ import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import type { CalculationResult, ShoppingItem } from '@/types/domain';
-import { applyProjectShopping } from '@/features/pricing/projectShoppingInput';
+import { applyShoppingContexts, withManualShopping } from '@/features/pricing/projectShoppingInput';
+import type { ShoppingStageContext } from '@/features/pricing/selectedShopping';
 import { purchaseSnapshot, type PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
 import type { QualityTier } from '@/types/pricing';
 import {
@@ -74,6 +75,7 @@ interface CostEstimateTabProps {
   region?: string;
   shoppingItems?: readonly ShoppingItem[];
   shoppingReady?: boolean;
+  shoppingContexts?: readonly ShoppingStageContext[];
   onPurchaseSnapshot?: (snapshot: PurchaseSnapshot | null) => void;
 }
 
@@ -83,14 +85,14 @@ type LoadState =
   | { status: 'error'; message: string }
   | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
-export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, onPurchaseSnapshot }: CostEstimateTabProps) {
+export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, shoppingContexts, onPurchaseSnapshot }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
   const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
   const rawInput = useMemo(() => {
     if (stages) return stages;
     if (!calc) return [];
     const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection);
-    return [shoppingItems && projectId ? applyProjectShopping(stage, calc, projectId, shoppingItems).stage : stage];
+    return [shoppingItems && projectId ? withManualShopping(stage, calc, projectId, shoppingItems) : stage];
   }, [stages, calc, qualityTier, doorChoice.selection, shoppingItems, projectId]);
   const laminateReferences = useMemo(() => laminateRequirements(rawInput), [rawInput]);
   const panels = useLaminateChoices(projectId, laminateReferences.length > 0);
@@ -100,7 +102,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const washbasins = useWashbasinChoices(projectId, washbasinReferences.length > 0);
   const tileReferences = useMemo(() => tileRequirements(rawInput), [rawInput]);
   const tiles = useTileChoices(projectId, tileReferences.length > 0);
-  const input = useMemo(() => applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), tiles.choices), [rawInput, panels.choices, foils.choices, washbasins.choices, tiles.choices]);
+  const pending = useMemo(() => {
+    const chosen = applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), tiles.choices);
+    return applyShoppingContexts(chosen, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : []));
+  }, [rawInput, panels.choices, foils.choices, washbasins.choices, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems]);
+  const input = pending.stages;
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const deliveryRef = useRef(delivery);
@@ -210,6 +216,9 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       </View>
 
       {shoppingItems && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Porównanie obejmuje materiały pozostałe do kupienia, z uwzględnieniem oznaczeń „Mam” i „Kupione” oraz dodatkowych pozycji z Zakupów.' : 'This comparison covers remaining materials, accounting for owned and purchased items and additional shopping rows.'}</Txt>}
+      {pending.excluded > 0 && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? `Posiadane lub kupione pozycje pokrywające wybrane produkty: ${pending.excluded}.` : `Owned or purchased items covering the selected products: ${pending.excluded}.`}</Txt>}
+      {(panels.choices.length > 0 || foils.choices.length > 0 || washbasins.choices.length > 0 || tiles.choices.length > 0) && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Po zmianie produktu sprawdzamy ponownie posiadane materiały i potrzebne ilości. Oznaczenie poprzedniego modelu nie usuwa nowego produktu z koszyka.' : 'After a product change we recheck ownership and required quantities. Marks for an earlier model do not exclude the new product.'}</Txt>}
+      {state.status === 'idle' && shoppingReady && input.length > 0 && input.every(stage => stage.materials.length === 0) && <Txt w="semibold">{language === 'pl' ? 'Wybrane materiały są już posiadane lub kupione. Możesz zmienić produkt poniżej, aby porównać inny model.' : 'Selected materials are already owned or purchased. You can choose a different product below to compare another model.'}</Txt>}
 
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
       <LaminateChoiceSection references={laminateReferences} {...panels} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
