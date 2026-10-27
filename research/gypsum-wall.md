@@ -99,3 +99,8 @@ Kontrola odnośników: oficjalny katalog Leroy/sklepy.html potwierdzony bieżąc
 
 
 UI: własny QA proj_mvq7vnbdg5qszgpav zachował10m²,H2,5m,Q2,2600,zapas10%,00-001. Wybrano i zapisano fizelinę; szacunek903,36zł ma ostrzeżenie2braków. Po pobraniu danych z wdrożenia:7produktów ze zdjęciami i2jawne braki; fizelina28,6m→2rolki25m=21,98zł. CW8×3m=239,92zł,UW3×3m=83,97zł. Wybór Leroy pokazuje618,12zł za4z7rozpoznanychproduktów,5braków,zwyraźnym„materiały bez dostawy”. Wyszukiwarka placówek dla00-001 i przyciski Map oraz oficjalnego katalogu Leroy działają w UI; nie deklarujemy lokalnego zapasu/ceny. Komunikat dla Leroy wymaga wyboru placówki, a nie indywidualnego uzgadniania jakMarbet. Przywrócono Najtańszyzestaw; wszystkie16projektów pozostały w aplikacji, bez restartu Expo. AX/PNG outputs/catalog50-*; główny zrzut catalog50-new-products-20261027.png. Pełny cel pozostaje aktywny.
+
+
+### Późniejszy stan po wygaśnięciu starych odczytów
+
+2026-10-27T06:13:37.195Z: cztery starsze24hpotwierdzenia Castoramy wygasły: ekonomiczna farba10l,GoodHome10l,KreiselGW18020kg,CD60Norgips3m. Ich automatyczny odczyt HTTP503 nie odświeżył dat. Aktywne oferty130/140referencji,165/171obserwacji;10braków=6historycznych+4wygasłe,40sklepów. Dwa użyte w próbach wiersze straciły jedyną ofertę: bieżący audyt86/237wycenionych,151bezwyceny,10pełnychscenariuszyMATERIAŁÓW. Nie przypisujemy wygaśnięcia do nowych ofert: partia50dodała9produktów/10ofert i wcześniej wyceniła9nowychwierszy. Ścianka pozostaje2braki; sufit ma teraz6braków, bo wygasłstaryCD60. Nie wolno przedłużać dat bez rzeczywistego odczytu. Pełny cel nadal aktywny; priorytet to odświeżenie/zastąpienie tych4ofert oraz pozostałe akcesoria/mocowania.

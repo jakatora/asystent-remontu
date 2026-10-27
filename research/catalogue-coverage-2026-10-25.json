@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-27T06:01:48.742Z",
-  "scope": "140 references, 134 with offers in the production audit; 6 historical references unavailable. Nine exact accessories and ten offers added. Leroy operator prices expire after24h and are not automatic delivery or local stock. HIPPER actual whole-roll cart shipping confirmed.88/237 sample material rows priced,149 unpriced; not149 distinct SKUs, tools or confirmed delivery for all jobs.",
+  "checkedAt": "2026-10-27T06:13:37.195Z",
+  "scope": "Current usable offers after four older Castorama browser reads expired after24h. Nine new references and ten offers remain added; no fabricated renewals.130/140 references currently have offers:6 historical unavailable plus4 expired. The65-scenario material audit currently resolves86/237 rows,151 unresolved; missing rows are not distinct SKUs, tools or delivery.",
   "total": 140,
-  "verifiedProducts": 134,
-  "remaining": 6,
-  "offers": 169,
+  "verifiedProducts": 130,
+  "remaining": 10,
+  "offers": 165,
   "stores": 40,
   "productsWithPhotos": 140,
   "registeredOffers": 171,
@@ -14,7 +14,7 @@
       "id": "mat-paint-economy-white-10l",
       "name": "Farba biała mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "3663602567240",
       "sourceIds": [
         "castorama-paint-economy-10l"
@@ -31,7 +31,7 @@
       "id": "mat-paint-standard-white-10l",
       "name": "Farba GoodHome Ściany i Sufit biały mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5059340271620",
       "sourceIds": [
         "castorama-paint-goodhome-10l"
@@ -87,7 +87,7 @@
       "id": "mat-skim-coat-economy-20kg",
       "name": "Gładź pod wałek GW180 gotowa polimerowa 20 kg",
       "referenceUrl": "https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907418038791",
       "sourceIds": [
         "castorama-kreisel-gw180-20kg"
@@ -592,7 +592,7 @@
       "id": "mat-profile-cd60-norgips-3m",
       "name": "Profil sufitowy Norgips CD60 0,6 mm 3 m",
       "referenceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651698899",
       "sourceIds": [
         "castorama-norgips-cd60-3m"
@@ -3038,5 +3038,6 @@
     "unpricedLines": 158,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
-  }
+  },
+  "expiredOffers": 4
 }

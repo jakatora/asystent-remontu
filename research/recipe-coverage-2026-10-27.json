@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-27T06:01:48.742Z",
-  "scope": "Current gypsum-board-v1 -> real shared bundle/production HTTP -> anonymous carts. Gross wall area means both board faces. Complete current BOM with missing accessories visible. Same 65 sample jobs as48, only gypsum measurements explicitly updated to valid height/perimeters. No orders/payment. Ten exact offers added; paper remains the default for existing/sample measurements. Nine newly priced gypsum rows, no omitted missing lines. Fresh cart and postcode shipping evidence remains necessary.",
+  "checkedAt": "2026-10-27T06:13:37.195Z",
+  "scope": "Same65 jobs and237 rows as the wave50 audit. Four older Castorama browser confirmations expired (06:04–06:11UTC); two sample rows lost their only eligible offer. Ten new wave50 offers remain valid. Expired evidence is never renewed without an actual read.151 unresolved rows are not151 distinct SKUs or all tools/delivery.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 237,
-    "beforePriced": 79,
+    "beforePriced": 88,
     "afterLines": 237,
-    "afterPriced": 88,
-    "afterUnpriced": 149,
-    "fullyPricedScenarios": 11
+    "afterPriced": 86,
+    "afterUnpriced": 151,
+    "fullyPricedScenarios": 10
   },
   "history": [
     {
@@ -87,6 +87,19 @@
         "afterLines": 237,
         "afterPriced": 79,
         "afterUnpriced": 158,
+        "fullyPricedScenarios": 11
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T06:01:48.742Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 237,
+        "beforePriced": 79,
+        "afterLines": 237,
+        "afterPriced": 88,
+        "afterUnpriced": 149,
         "fullyPricedScenarios": 11
       }
     }
@@ -199,13 +212,9 @@
             "category": "paint"
           },
           "quantity": 2.1,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5059340271620",
-            "ean": "5059340271620",
-            "name": "Farba GoodHome Ściany i Sufit biały mat 10 l"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "primer-ceiling",
@@ -2474,13 +2483,9 @@
             "category": "profile"
           },
           "quantity": 36.3,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651698899",
-            "ean": "5907651698899",
-            "name": "Profil sufitowy Norgips CD60 0,6 mm 3 mb"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "profile-ud",
