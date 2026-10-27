@@ -53,7 +53,8 @@ export function reviewSelectedShopping(
     const quantityChanged = Math.abs(previous.quantity - target.quantity) > 1e-8;
     const savedDifferentProduct = catalogueNames.has(nameKey(basis.name))
       && nameKey(basis.name) !== nameKey(target.material.name);
-    const panelArea = original.jobId === 'laminate-flooring' && item.materialId === 'laminate-panels';
+    const panelArea = original.jobId === 'laminate-flooring' && item.materialId === 'laminate-panels'
+      || original.jobId === 'vinyl-flooring' && item.materialId === 'vinyl-panels';
     if (!identityChanged && !quantityChanged && !savedDifferentProduct && !panelArea) return item;
     const matches = nameKey(basis.name) === nameKey(target.material.name)
       && typeof basis.unit === 'string' && normalizeUnit(basis.unit) === normalizeUnit(target.material.unit);

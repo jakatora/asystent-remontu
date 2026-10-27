@@ -4,6 +4,7 @@ import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { StageEstimate, PackagePlanEntry } from './types';
 import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy, type DeliveryStockLimit, type DeliveryQuoteResult } from './delivery';
 import { DELIVERY_LIMITS } from './delivery-limits';
+import { withOrderPartitions } from './order-partitions';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}`)).sort().join('|');
@@ -22,11 +23,11 @@ export async function compareAutomaticDelivery(
 ): Promise<DeliveryComparison> {
   if (settings.mode==='pickup'||settings.method==='manual') return compareDeliveredBaskets(stages,settings,policies,now);
   const limits=new Map<string,DeliveryStockLimit>(),cache=new Map<string,Promise<DeliveryQuoteResult>>();
-  let allowNewQuotes=true;
+  let allowNewQuotes=true, partitionSearchLimited=false;
   const quoteWithStock: BasketQuoter=async(order,postalCode)=>{
     const key=JSON.stringify([order.store,signature(order)]);
     if(cache.has(key))return cache.get(key)!;
-    if(!allowNewQuotes||cache.size>=MAX_STORE_BASKETS)return {reason:'quote_limit'};
+    if(!allowNewQuotes||cache.size>=MAX_STORE_BASKETS){partitionSearchLimited=true;return {reason:'quote_limit'};}
     const pending=(async()=>{
       const outcome=await quoteBasket(order,postalCode);
       if (!('reason' in outcome)||outcome.reason!=='insufficient_stock'||!outcome.stockLimits) return outcome;
@@ -45,6 +46,7 @@ export async function compareAutomaticDelivery(
     })();
     cache.set(key,pending);return pending;
   };
+  const quoteOrders = settings.allowSeparateOrders === true ? withOrderPartitions(quoteWithStock, () => { partitionSearchLimited = true; }) : quoteWithStock;
   let result:DeliveryComparison;
   // Stop the current quote batch as soon as a verified native limit arrives.
   // Reuse finished quotes and reserve the same total I/O budget for replanning.
@@ -57,11 +59,13 @@ export async function compareAutomaticDelivery(
       if(limit.maxPackages===0)return [];
       return [{...offer,maxPackages:Math.min(offer.maxPackages??Infinity,limit.maxPackages)}];
     })})}));
-    result=await compareAutomaticDeliveryOnce(constrained,settings,quoteWithStock,policies,now,knownUnavailableStores);
+    result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
     const next=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
     if(revision===next)break;
   }
   if(limits.size)result!.stockLimits=[...limits.values()];
+  if(partitionSearchLimited)result!.searchLimited=true;
+  result!.allowSeparateOrders=settings.allowSeparateOrders===true;
   return result!;
 }
 

@@ -21,7 +21,8 @@ const ORIGINS: Readonly<Record<string, string>> = {
   'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl', Prescot: 'https://www.prescot.com.pl',
   WinBud: 'https://winbud24.pl', 'Dam-Bud': 'https://salonbudowlanydambud.pl', 'Plus-Market': 'https://www.plus-market.pl',
   // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
-  Mensura: 'https://www.mensura.pl', KELOT: 'https://listwy.sklep.pl', LiderzyCen: 'https://liderzycen.pl', TGS: 'https://tgs.pl',
+  // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m/86
+  eBardo: 'https://ebardo.pl', Mensura: 'https://www.mensura.pl', KELOT: 'https://listwy.sklep.pl', LiderzyCen: 'https://liderzycen.pl', TGS: 'https://tgs.pl',
 };
 const TTL = 10 * 60_000;
 

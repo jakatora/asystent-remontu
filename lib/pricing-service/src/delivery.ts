@@ -8,6 +8,8 @@ export interface DeliverySettings {
   method?: 'automatic' | 'manual';
   /** Destination supplied by the app user, never the app owner's address. */
   postalCode?: string;
+  /** Opt-in from clients that can display the required separate orders. */
+  allowSeparateOrders?: boolean;
   /** A user-entered, fixed fee for ONE whole order from a store, in grosze. */
   costsGrosze?: Record<string, number>;
 }
@@ -40,6 +42,10 @@ export interface DeliveredBasket {
   stores: DeliveredStoreBasket[];
 }
 export interface DeliveryQuote {
+  /** A cheaper plan requires these separately checked merchant orders.
+   * Each product line appears in exactly one order; quantities are unchanged. */
+  orders?: { materialsGrosze: number; lines: DeliveredStoreBasket['lines']; quote: Omit<DeliveryQuote, 'orders' | 'singleOrderCostGrosze'> }[];
+  singleOrderCostGrosze?: number;
   costGrosze: number;
   carrier: string;
   payment: string;
@@ -64,6 +70,7 @@ export interface DeliveryStockLimit {
 export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string; stockLimits?: DeliveryStockLimit[] };
 export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string) => Promise<DeliveryQuoteResult>;
 export interface DeliveryComparison {
+  allowSeparateOrders?: boolean;
   mode: DeliverySettings['mode'];
   postalCode: string | null;
   status: 'compared' | 'needs_delivery_costs' | 'needs_postal_code' | 'partial' | 'empty' | 'limit_exceeded';

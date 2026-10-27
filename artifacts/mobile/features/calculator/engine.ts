@@ -78,9 +78,10 @@ function resolveMaterialQuantity(
     const required = laminateSupplyQuantity(material.id, measurements), rawQuantity = required ?? 0;
     return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null };
   }
-  if (jobId === 'laminate-flooring' && material.id === 'laminate-panels') {
+  if (jobId === 'laminate-flooring' && material.id === 'laminate-panels'
+      || jobId === 'vinyl-flooring' && material.id === 'vinyl-panels') {
     const rawQuantity = Math.max(0, computeRawQuantity(material, measurements));
-    const coverage = measurements.panelPackCoverageM2 ?? material.packaging?.size ?? 2.196;
+    const coverage = measurements.panelPackCoverageM2 ?? material.packaging?.size ?? (jobId === 'vinyl-flooring' ? 2 : 2.196);
     if (!Number.isFinite(coverage) || coverage <= 0) return { rawQuantity, quantity: 0, packs: undefined, quantityKnown: false };
     const packs = Math.ceil(rawQuantity / coverage - 1e-10);
     return { rawQuantity, quantity: Number((packs * coverage).toFixed(8)), packs, quantityKnown: true };

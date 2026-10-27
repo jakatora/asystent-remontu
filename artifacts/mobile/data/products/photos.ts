@@ -12,6 +12,9 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534
+  {"ids":["mat-vapor-foil-conkret-ecovil-p-100m2"],"ean":"5902096431131","sourceUrl":"https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534","imageUrl":"https://ebardo.pl/environment/cache/images/productGfx_2142_500_500/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2.jpg"},
+
   // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
   {"ids":["mat-laminate-kit-wolfcraft-6931000"],"ean":"4006885693104","sourceUrl":"https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000","imageUrl":"https://www.mensura.pl/environment/cache/images/productGfx_102546_0_0/Zestaw-do-ukladania-paneli-22el.-Wolfcraft-6931000.jpg"},
   // source: https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334

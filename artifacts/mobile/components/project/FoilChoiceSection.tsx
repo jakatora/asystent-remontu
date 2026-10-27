@@ -17,6 +17,17 @@ interface Props {
   onRetry: () => void;
 }
 
+function FoilParameters({ id, pl }: { id: string; pl: boolean }) {
+  // source: https://parotec.pl/product-pol-18078-Folia-paroizolacyjna-zolta-CONPAR-0-2-mm-T30.html
+  // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534
+  const text = id === 'mat-vapor-foil-conkret-conpar-100m2'
+    ? pl ? '2 × 50 m · 0,20 mm z tolerancją ±30%' : '2 × 50 m · 0.20 mm with ±30% tolerance'
+    : id === 'mat-vapor-foil-conkret-ecovil-p-100m2'
+      ? pl ? '2 × 50 m · 0,20 mm z tolerancją ±50%. Sprawdź wymaganą barierę w instrukcji podłogi i podkładu.' : '2 × 50 m · 0.20 mm with ±50% tolerance. Check the barrier required by your floor and underlay instructions.'
+      : null;
+  return text ? <Txt style={{ fontSize: 13, lineHeight: 19 }}>{text}</Txt> : null;
+}
+
 export function FoilChoiceSection({ references, choices, ready, readFailed, saveFailed, commonBasket, onChange, onRetry }: Props) {
   const { language } = useLanguage(), pl = language === 'pl';
   const [editing, setEditing] = useState<string | null>(null), [draft, setDraft] = useState<string | null>(null);
@@ -33,6 +44,7 @@ export function FoilChoiceSection({ references, choices, ready, readFailed, save
       return <View key={reference.id} style={{ gap: 10, paddingVertical: 8 }}>
         <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}><ProductImage uri={getProductPhoto(chosen)} name={chosen.productLabel} size={56} /><View style={{ flex: 1, gap: 4 }}><Txt w="semibold">{chosen.productLabel}</Txt><Txt style={{ color: Colors.textSecondary }}>{chosen.packageSize.toLocaleString(pl ? 'pl-PL' : 'en-GB')} m² / {pl ? 'rolka' : 'roll'}</Txt></View></View>
         {changed && <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{pl ? `Twój wybór zamiast: ${reference.productLabel}` : `Your choice instead of: ${reference.productLabel}`}</Txt>}
+        <FoilParameters id={chosen.id} pl={pl} />
         {editing !== reference.id ? <>
           <Button variant="outline" label={pl ? 'Zmień folię do porównania' : 'Change the foil to compare'} onPress={() => { setEditing(reference.id); setDraft(chosenId); }} />
           {changed && <Button variant="ghost" label={pl ? 'Przywróć poprzednią folię' : 'Restore the previous foil'} onPress={() => onChange(choices.filter(choice => choice.from !== reference.id))} />}
@@ -40,7 +52,7 @@ export function FoilChoiceSection({ references, choices, ready, readFailed, save
           <Txt style={{ lineHeight: 20 }}>{pl ? 'Produkty różnią się grubością, tolerancją i wielkością rolki. Dobierz folię do instrukcji podłogi i podkładu. Folia paroizolacyjna nie zastępuje paroprzepuszczalnej membrany dachowej.' : 'Products differ in thickness, tolerance and roll size. Follow your floor and underlay instructions. A vapour barrier does not replace a breathable roof membrane.'}</Txt>
           {FOIL_PRODUCTS.map(product => <View key={product.id} style={{ gap: 4 }}>
             <Pressable accessibilityRole="radio" accessibilityLabel={pl ? `Wybierz folię: ${product.productLabel}` : `Choose foil: ${product.productLabel}`} accessibilityState={{ checked: draft === product.id }} onPress={() => setDraft(product.id)} style={{ minHeight: 88, padding: 12, gap: 10, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: draft === product.id ? Colors.primary : Colors.border, borderRadius: 12, backgroundColor: draft === product.id ? Colors.primaryBg : Colors.surface }}>
-              <ProductImage uri={getProductPhoto(product)} name={product.productLabel} size={48} /><View style={{ flex: 1, gap: 4 }}><Txt w="medium">{product.productLabel}</Txt><Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{product.packageSize} m² / {pl ? 'rolka' : 'roll'} · EAN {PRODUCT_PHOTOS.find(photo => photo.ids.includes(product.id))?.ean}</Txt>{product.id === 'mat-vapor-foil-conkret-conpar-100m2' && <Txt style={{ fontSize: 13 }}>{pl ? '2 × 50 m · 0,20 mm z tolerancją ±30%' : '2 × 50 m · 0.20 mm with ±30% tolerance'}</Txt>}</View><Feather name={draft === product.id ? 'check-circle' : 'circle'} size={22} color={draft === product.id ? Colors.primary : Colors.textSecondary} />
+              <ProductImage uri={getProductPhoto(product)} name={product.productLabel} size={48} /><View style={{ flex: 1, gap: 4 }}><Txt w="medium">{product.productLabel}</Txt><Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{product.packageSize} m² / {pl ? 'rolka' : 'roll'} · EAN {PRODUCT_PHOTOS.find(photo => photo.ids.includes(product.id))?.ean}</Txt><FoilParameters id={product.id} pl={pl} /></View><Feather name={draft === product.id ? 'check-circle' : 'circle'} size={22} color={draft === product.id ? Colors.primary : Colors.textSecondary} />
             </Pressable>
             {product.sourceUrl && <Button variant="ghost" label={pl ? `Sprawdź parametry folii — ${product.brand}` : `Check foil specifications — ${product.brand}`} onPress={() => { void Linking.openURL(product.sourceUrl!); }} />}
           </View>)}

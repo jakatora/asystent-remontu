@@ -138,6 +138,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         preferredStore = parsePreferredStore(saved?.store);
         if (['shipping', 'pickup'].includes(saved?.settings?.mode)) settings = {
           mode: saved.settings.mode, method: 'automatic',
+          ...(typeof saved.settings.allowSeparateOrders === 'boolean' ? { allowSeparateOrders: saved.settings.allowSeparateOrders } : {}),
           ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
         };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }

@@ -23,6 +23,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const tr = (pl: string, en: string) => language === 'pl' ? pl : en;
   const [mode, setMode] = useState(settings.mode);
   const [postalCode, setPostalCode] = useState(settings.postalCode ?? '');
+  const allowSeparateOrders = settings.allowSeparateOrders ?? true;
+  const apply = (next: DeliverySettings) => onApply({ ...next, allowSeparateOrders: next.allowSeparateOrders ?? allowSeparateOrders });
   const [details, setDetails] = useState(false);
   const [openProducts, setOpenProducts] = useState<Record<string, boolean>>({});
   const destination = normalizeDeliveryPostalCode(postalCode);
@@ -30,22 +32,22 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     // Clearing or leaving an incomplete postcode must also forget the saved
     // destination. Blur commits it without interrupting each typed digit.
     if (mode !== 'shipping') return;
-    if (destination && (destination !== settings.postalCode || settings.method === 'manual')) onApply({ mode: 'shipping', method: 'automatic', postalCode: destination });
-    else if (!destination && settings.postalCode) onApply({ mode: 'shipping', method: 'automatic' });
+    if (destination && (destination !== settings.postalCode || settings.method === 'manual')) apply({ mode: 'shipping', method: 'automatic', postalCode: destination });
+    else if (!destination && settings.postalCode) apply({ mode: 'shipping', method: 'automatic' });
   };
   useEffect(() => {
     if (mode !== 'shipping' || !destination || (destination === settings.postalCode && settings.method !== 'manual')) return;
-    const timer = setTimeout(() => onApply({ mode: 'shipping', method: 'automatic', postalCode: destination }), 650);
+    const timer = setTimeout(() => apply({ mode: 'shipping', method: 'automatic', postalCode: destination }), 650);
     return () => clearTimeout(timer);
-  }, [destination, mode, settings.postalCode, settings.method, onApply]);
-  const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode);
+  }, [destination, mode, settings.postalCode, settings.method, allowSeparateOrders, onApply]);
+  const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
   const best = current ? comparison.best : null;
   useEffect(() => {
     const expiries = best?.stores.flatMap(store => store.quote ? [Date.parse(store.quote.expiresAt)] : []) ?? [];
     if (!expiries.length) return;
-    const timer = setTimeout(() => onApply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) }), Math.max(0, Math.min(...expiries) - Date.now() + 100));
+    const timer = setTimeout(() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) }), Math.max(0, Math.min(...expiries) - Date.now() + 100));
     return () => clearTimeout(timer);
-  }, [best, mode, destination, onApply]);
+  }, [best, mode, destination, allowSeparateOrders, onApply]);
   const reason = (code: string) => ({
     integration_unavailable: tr('Sklep nie udostępnia jeszcze automatycznej wyceny.', 'Automatic quoting is not available yet.'),
     retailer_transport_quote_required: tr('Sklep wycenia transport indywidualnie. Koszt materiałów nie obejmuje tej opłaty.', 'The store quotes transport individually. The material cost excludes this fee.'),
@@ -68,12 +70,17 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     <View style={{ padding: 14, gap: 12, borderWidth: 1, borderColor: Colors.border, borderRadius: 16, backgroundColor: Colors.surface }}>
       <View style={{ flexDirection: 'row', gap: 8 }}>
         {(['shipping', 'pickup'] as const).map(value => <Pressable key={value} nativeID={`delivery-mode-${value}`} accessibilityRole="radio" aria-checked={mode === value} accessibilityState={{ checked: mode === value }} onPress={() => {
-          setMode(value); onApply({ mode: value, method: 'automatic', ...(destination ? { postalCode: destination } : {}) });
+          setMode(value); apply({ mode: value, method: 'automatic', ...(destination ? { postalCode: destination } : {}) });
         }} style={{ flex: 1, minHeight: 48, padding: 10, borderRadius: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: value === mode ? Colors.primaryBg : Colors.surfaceAlt }}>
           <Txt w="semibold">{value === 'shipping' ? tr('Dostawa do domu', 'Home delivery') : tr('Własny odbiór', 'Self collection')}</Txt>
         </Pressable>)}
       </View>
       {mode === 'shipping' && <>
+        <View style={{gap:6}}>
+          {[true,false].map(value=><Pressable key={String(value)} nativeID={value?'delivery-orders-separate':'delivery-orders-single'} accessibilityRole="radio" aria-checked={allowSeparateOrders===value} accessibilityState={{checked:allowSeparateOrders===value}} onPress={()=>apply({mode:'shipping',method:'automatic',...(destination?{postalCode:destination}:{}),allowSeparateOrders:value})} style={{minHeight:48,padding:10,borderRadius:10,backgroundColor:allowSeparateOrders===value?Colors.primaryBg:Colors.surfaceAlt}}>
+            <Txt w="semibold">{value?tr('Najtaniej, także osobne zamówienia','Lowest cost, including separate orders'):tr('Jedno zamówienie w każdym sklepie','One order per store')}</Txt>
+          </Pressable>)}
+        </View>
         <Txt w="semibold">{tr('Twój kod pocztowy', 'Your postcode')}</Txt>
         <TextInput accessibilityLabel={tr('Kod pocztowy dostawy', 'Delivery postcode')} placeholder="00-000" value={postalCode} keyboardType="number-pad" maxLength={6} onChangeText={value => {
           const digits = value.replace(/\D/g, '').slice(0,5);
@@ -84,7 +91,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
           // Its own press commits both the mode and current destination.
           // source: https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget
           const focus = event as unknown as { relatedTarget?: { id?: string }; nativeEvent?: { relatedTarget?: { id?: string } } };
-          if (Platform.OS === 'web' && ['delivery-mode-shipping', 'delivery-mode-pickup'].includes(focus.relatedTarget?.id ?? focus.nativeEvent?.relatedTarget?.id ?? '')) return;
+          if (Platform.OS === 'web' && ['delivery-mode-shipping', 'delivery-mode-pickup', 'delivery-orders-separate', 'delivery-orders-single'].includes(focus.relatedTarget?.id ?? focus.nativeEvent?.relatedTarget?.id ?? '')) return;
           commitDestination();
         }} onSubmitEditing={commitDestination} style={{ minHeight: 50, fontSize: 18, borderWidth: 1, borderColor: Colors.border, borderRadius: 10, paddingHorizontal: 12, color: Colors.text }} />
         <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{tr('Wpisz 5 cyfr. Automatycznie sprawdzimy koszyki sklepów i doliczymy dostawę całego zamówienia.', 'Enter 5 digits. We will automatically check store baskets and add delivery for the whole order.')}</Txt>
@@ -123,6 +130,16 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         <Txt style={{ color: Colors.textSecondary, fontSize: 12 }}>{tr('Sprawdzono', 'Checked')}: {new Date(store.quote.checkedAt).toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', timeZone:'Europe/Warsaw' })} · {store.quote.destinationScope==='postal_code' ? tr(`wycena dla ${store.quote.postalCode}`, `quote for ${store.quote.postalCode}`) : tr('taryfa Polska', 'Poland tariff')}</Txt>
         {store.quote.basis==='retailer_tariff_national' && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Dostawa obliczona według aktualnej taryfy sklepu dla całego zamówienia.', 'Delivery calculated from the current store tariff for the complete order.')}</Txt>}
         {store.quote.dispatchFrom && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Wysyłka z', 'Dispatched from')}: {store.quote.dispatchFrom}</Txt>}
+        {store.quote.orders && <View accessibilityRole="alert" style={{gap:10,padding:12,borderRadius:10,backgroundColor:Colors.warningBg}}>
+          <Txt w="bold">{tr(`Ta cena wymaga ${store.quote.orders.length} osobnych zamówień w ${store.store}`, `This price requires ${store.quote.orders.length} separate orders at ${store.store}`)}</Txt>
+          {store.quote.singleOrderCostGrosze !== undefined && <Txt style={{fontSize:13}}>{tr('Dostawa jednego wspólnego zamówienia', 'Delivery for one combined order')}: {formatGrosze(store.quote.singleOrderCostGrosze)}. {tr('Oszczędność na dostawie', 'Delivery saving')}: {formatGrosze(store.quote.singleOrderCostGrosze-store.quote.costGrosze)}.</Txt>}
+          {store.quote.orders.map((part,index)=><View key={index} style={{gap:4}}>
+            <Txt w="semibold">{tr('Zamówienie', 'Order')} {index+1} · {tr('materiały', 'materials')} {formatGrosze(part.materialsGrosze)} · {tr('dostawa', 'delivery')} {formatGrosze(part.quote.costGrosze)}</Txt>
+            <Txt style={{fontSize:12,color:Colors.textSecondary}}>{part.quote.carrier} · {part.quote.payment}</Txt>
+            {part.lines.map(line=><Txt key={line.product.id} style={{fontSize:13,lineHeight:19}}>{line.product.name}: {line.packages.map(p=>`${p.count} × ${p.packageSize} ${line.unit??''}`).join(' + ')}</Txt>)}
+          </View>)}
+          <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie łącz tych pozycji w jeden koszyk sklepu — sklep może naliczyć wtedy droższy transport. Każde zamówienie ma osobno sprawdzoną dostawę.', 'Keep these as separate merchant orders; combining them may trigger a higher shipping fee. Delivery was checked separately for every order.')}</Txt>
+        </View>}
       </View>}
       {packs.filter(({pack}) => pack.verification).map(({line,pack}) => <PriceVerificationNotice key={`verification:${line.product.id}:${pack.offerId}`} verification={pack.verification} store={`${store.store} · ${line.product.name}`} />)}
       {packs.filter(({pack}) => (pack.minimumPackages ?? 1) > 1 || (pack.purchaseMultiple ?? 1) > 1).map(({line,pack}) => <View key={`rules:${line.product.id}:${pack.offerId}`} accessibilityRole="alert" style={{ gap: 4, padding: 10, borderRadius: 10, backgroundColor: Colors.warningBg }}>
@@ -155,7 +172,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       <Txt w="semibold">{tr('Inne wycenione zestawy', 'Other quoted baskets')}</Txt>
       {comparison.alternatives.slice(0,2).map((basket,index) => <View key={index} style={{ borderWidth: 1, borderColor: Colors.border, borderRadius: 12, padding: 12, gap: 6 }}><Txt>{basket.stores.map(store => store.store).join(' + ')}</Txt><Txt w="semibold">{formatGrosze(basket.totalGrosze!)} · +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt></View>)}
     </View>}
-    {current && destination && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => onApply({ mode, method: 'automatic', postalCode: destination })} />}
+    {current && destination && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
     {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Tools and labour are separate.')}</Txt>}
   </View>;
 }

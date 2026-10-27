@@ -15,10 +15,12 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
   if (calc.quantityModel === LAMINATE_SUPPLIES_MODEL && isLaminateSupply(calc.jobId, line.material.id)) return laminateSupplyQuantity(line.material.id, calc.measurements) ?? 0;
-  // Old laminate snapshots stored a count of packs in a field labelled m².
+  // Old laminate and click-vinyl snapshots stored pack counts labelled m².
   // Recover the original floor area plus its existing cutting allowance.
   // source: https://krono-shop.com/ro/en/faq
-  if (calc.jobId === 'laminate-flooring' && line.material.id === 'laminate-panels') {
+  // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474
+  if (calc.jobId === 'laminate-flooring' && line.material.id === 'laminate-panels'
+      || calc.jobId === 'vinyl-flooring' && line.material.id === 'vinyl-panels') {
     const definition = getJobById(calc.jobId)?.materials.find(material => material.id === line.material.id);
     if (definition) return Math.max(0, computeRawQuantity(definition, calc.measurements));
   }

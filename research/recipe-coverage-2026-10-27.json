@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-27T08:52:34.475Z",
-  "scope": "Same65 recorded measurement maps, including missing new laminate choices. Two additional laminate supply/review rows remain unknown until explicitly measured. Counts are recipe rows, not unique missing products; complete delivery requires a separate postcode/cart proof.",
+  "checkedAt": "2026-10-27T09:20:34.362Z",
+  "scope": "Same65 recorded measurement maps; corrected raw click-vinyl m², with no new defaults or hidden supply omissions. Counts are recipe rows, not unique missing products; complete delivery requires a separate postcode/cart proof.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 238,
+    "beforeLines": 240,
     "beforePriced": 83,
     "afterLines": 240,
     "afterPriced": 83,
@@ -152,6 +152,19 @@
         "afterLines": 238,
         "afterPriced": 83,
         "afterUnpriced": 155,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T08:52:34.475Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 238,
+        "beforePriced": 83,
+        "afterLines": 240,
+        "afterPriced": 83,
+        "afterUnpriced": 157,
         "fullyPricedScenarios": 8
       }
     }
@@ -985,7 +998,7 @@
             "normalizedName": "panele winylowe goodhome spc marvo click 2 235 m",
             "category": "vinyl-panel"
           },
-          "quantity": 6,
+          "quantity": 11,
           "resolved": true,
           "reason": null,
           "matchedProduct": {
@@ -4660,6 +4673,27 @@
     "missingProducts": 0,
     "totalGrosze": 15292,
     "twoRoomsTotalGrosze": 15292,
-    "unknownInputsMissing": 2
+    "unknownInputsMissing": 2,
+    "wave55": {
+      "checkedAt": "2026-10-27T09:49:16.230Z",
+      "scope": "Concrete explicitly measured floors, not full renovation/catalogue coverage",
+      "oneOrderPerStore": {
+        "conparGrosze": 139133,
+        "ecovilGrosze": 133633
+      },
+      "separateOrders": {
+        "conparGrosze": 92333,
+        "ecovilGrosze": 86833,
+        "materialsGrosze": 67235,
+        "deliveryGrosze": 19598,
+        "savingGrosze": 46800,
+        "liderzyOrders": 2,
+        "liderzyDeliveryGrosze": 13200
+      },
+      "legacyClientGrosze": 133633,
+      "vinylPanelPackages": 5,
+      "twoOneM2RoomPanelPackages": 1,
+      "fullRenovationCoverageProven": false
+    }
   }
 }

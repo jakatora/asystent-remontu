@@ -38,6 +38,7 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
     materialsGrosze: materials, deliveryGrosze: complete ? best.deliveryGrosze : null, totalGrosze: complete ? best.totalGrosze : null,
     mode: comparison?.mode ?? 'shipping', postalCode: comparison?.postalCode ?? null, missing,
     selectedStore: snapshot.selectedStore, observedAt: snapshot.observedAt,
+    separateOrders: complete ? best.stores.filter(store => (store.quote?.orders?.length ?? 0) > 1).map(store => ({ store: store.store, count: store.quote!.orders!.length })) : [],
     limited: Boolean(comparison?.status === 'needs_delivery_costs' || comparison?.searchLimited || comparison?.unavailableStores?.length || comparison?.partiallyQuotedStores?.length),
     products: data.consolidated.lines.map(line => line.product.name),
   };

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T08:52:34.475Z",
-  "scope": "146 references with photos;181 registered observations, including two new native gross-priced laminate supplies. Same65 measurement maps produce83/240 priced recipe rows;157 unresolved includes two newly exposed laminate requirements. Missing input is not a unique missing SKU. Delivery is independently checked against real complete merchant carts; never infer full shipping from an active product offer.",
-  "total": 146,
-  "verifiedProducts": 122,
+  "checkedAt": "2026-10-27T09:50:33.521Z",
+  "scope": "147 references/photos,183 observations. Native eBardo Conpar/Ecovil offers and independently verified separate merchant orders. Explicitly chosen floor:868.33PLN including delivery with two LiderzyCen orders versus1336.33PLN one order per store. Legacy clients remain single-order unless opted in. Same65 audit measurements:83/240 priced rows,157 unresolved; full catalogue and local branch availability remain incomplete.",
+  "total": 147,
+  "verifiedProducts": 123,
   "remaining": 24,
-  "offers": 160,
-  "stores": 42,
-  "productsWithPhotos": 146,
-  "registeredOffers": 181,
+  "offers": 162,
+  "stores": 43,
+  "productsWithPhotos": 147,
+  "registeredOffers": 183,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2202,13 +2202,29 @@
       "status": "verified_offer",
       "ean": "5902096430103",
       "sourceIds": [
-        "folnet-conpar-100m2"
+        "folnet-conpar-100m2",
+        "ebardo-conpar-100m2"
       ],
       "photoUrl": "https://conkret.com.pl/wp-content/uploads/2022/05/Conpar-148mm-nowy.png",
       "deliveryChecks": [
         {
           "sourceId": "folnet-conpar-100m2",
           "checkedAt": "2026-10-26T17:58:18.117Z",
+          "status": "unavailable",
+          "reason": "quote_unavailable"
+        },
+        {
+          "sourceId": "ebardo-conpar-100m2",
+          "checkedAt": "2026-10-27T09:19:58.333Z",
+          "expiresAt": "2026-10-27T09:29:58.333Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2500
+        },
+        {
+          "sourceId": "folnet-conpar-100m2",
+          "checkedAt": "2026-10-27T09:20:31.591Z",
           "status": "unavailable",
           "reason": "quote_unavailable"
         }
@@ -3155,6 +3171,28 @@
       ],
       "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg",
       "deliveryChecks": []
+    },
+    {
+      "id": "mat-vapor-foil-conkret-ecovil-p-100m2",
+      "name": "Folia paroizolacyjna Conkret Ecovil P 0,20 mm (100 m²)",
+      "referenceUrl": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534",
+      "status": "verified_offer",
+      "ean": "5902096431131",
+      "sourceIds": [
+        "ebardo-ecovil-p-100m2"
+      ],
+      "photoUrl": "https://ebardo.pl/environment/cache/images/productGfx_2142_500_500/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "ebardo-ecovil-p-100m2",
+          "checkedAt": "2026-10-27T09:20:09.081Z",
+          "expiresAt": "2026-10-27T09:30:09.081Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2500
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -3178,5 +3216,5 @@
     "report": "recipe-coverage-2026-10-27.json"
   },
   "expiredOffers": 19,
-  "activeStores": 39
+  "activeStores": 40
 }

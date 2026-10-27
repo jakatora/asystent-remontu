@@ -234,7 +234,8 @@ export const vinylJob: RenovationJob = {
   visibilityMode: 'safe_diy',
   coverIcon: 'square',
   warningRules: [
-    { condition: 'always', message: 'Panele winylowe SPC nie wymagają aklimatyzacji, ale muszą leżeć płasko kilka godzin przed układaniem.', level: 'info' },
+    // source: https://arbiton.com/pl/sposoby-ukladania-paneli
+    { condition: 'always', message: 'Przed montażem sprawdź aklimatyzację w instrukcji wybranego modelu. Samo oznaczenie SPC nie oznacza, że można pominąć aklimatyzację; wymagania zależą też od temperatury transportu.', level: 'info' },
     { condition: 'always', message: 'Zostaw szczelinę dylatacyjną 5–8 mm od ścian i innych stałych elementów. Panele SPC mają mniejszą rozszerzalność niż laminat, ale szczelina jest nadal wymagana.', level: 'warning' },
   ],
   measurementInputs: [
@@ -250,13 +251,14 @@ export const vinylJob: RenovationJob = {
       name: 'Panele winylowe LVT/SPC',
       brand: 'Kronostep SPC 5 mm AC4 (referencja)',
       unit: 'm²',
-      formulaKey: 'panelPacks',
+      // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474
+      formulaKey: 'vinylArea',
       wasteFactor: 1.1,
       roundingRule: 'ceil',
       packaging: { size: 2.0, label: 'paczka (ok. 2 m²)', purchaseUnit: 'paczka' },
       pricePerUnit: 65,
       category: 'panele',
-      notes: 'Kup z 10% naddatkiem. Grubość min. 5 mm, warstwa użytkowa 0,5 mm.',
+      notes: 'Kalkulator przyjmuje 10% zapasu zakupowego na docinki. Dobierz zapas, grubość, warstwę użytkową i podkład zgodnie z wybranym modelem i układem pomieszczenia.',
       shopPrices: SHARED_SHOP_PRICES.vinylFloorSPCAc4,
     },
     {

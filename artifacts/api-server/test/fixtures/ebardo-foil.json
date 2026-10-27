@@ -1,0 +1,758 @@
+{
+  "products": [
+    {
+      "sourceId": "ebardo-conpar-100m2",
+      "observation": {
+        "sourceId": "ebardo-conpar-100m2",
+        "ean": "5902096430103",
+        "name": "Folia paroizolacyjna Conpar 0,2mm 2mx50m",
+        "imageUrl": "https://ebardo.pl/environment/cache/images/productGfx_2143_500_500/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m.jpg",
+        "priceGrosze": 16000,
+        "currency": "PLN",
+        "availability": "in_stock",
+        "observedAt": "2026-10-27T09:08:38.964Z",
+        "sourceUrl": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m/86",
+        "evidenceSha256": "bab2df94da9f5124bc8061b75dd4fbafb6e2da917b6f440f9cf517d5b3ab1dee",
+        "validUntil": null
+      },
+      "product": {
+        "id": 86,
+        "name": "Folia paroizolacyjna Conpar 0,2mm 2mx50m",
+        "can_buy": true,
+        "ean": "5902096430103",
+        "code": "FPAR-02C",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 3.57,
+        "votes": 7,
+        "stockId": 86,
+        "url": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m/86",
+        "category": {
+          "name": "Folie paroizolacyjne z polietylenu",
+          "id": 109
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "160,00 zł",
+            "base_float": 160,
+            "final": "160,00 zł",
+            "final_float": 160,
+            "historical_lowest_price": "140,00 zł",
+            "historical_lowest_price_float": 140
+          },
+          "net": {
+            "base": "130,08 zł",
+            "base_float": 130.08,
+            "final": "130,08 zł",
+            "final_float": 130.08,
+            "historical_lowest_price": "113,82 zł",
+            "historical_lowest_price_float": 113.82
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 13.5,
+          "weight": "13.5 kg"
+        },
+        "producer": {
+          "name": "Conkret Z.R. Trejderowscy Sp.j.",
+          "id": 1,
+          "img": "https://ebardo.pl/userdata/public/producers/1.jpg"
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Folia wykorzystywana do tworzenia w ścianach, dachach i stropach izolacji paroszczelnej.</p>",
+        "main_image": "2143",
+        "main_image_filename": "2143.jpg",
+        "description": "<p><span style=\"font-size:12pt;\">Folia wykorzystywana do tworzenia w ścianach, dachach i stropach izolacji paroszczelnej. Dzięki swoim właściwościom oraz odpowiedniej strukturze blokuje parę wodną i wilgoć, która naciera na izolacje termiczną. Folie tę cechuje wysoka wytrzymałość, odporność na pęknięcia i uszkodzenia mechaniczne, ,dzięki czemu tworzy ona zabezpieczenie przed wilgocią dla systemu dachowego. Folia może być wykorzystywana również jako izolator wilgoci pod wylewkami, podłogami, pod panelami, posadzkami.</span></p>",
+        "images": [
+          "2143",
+          "767c3019a10bebe61ec5986a74fc575d"
+        ],
+        "images_filename": [
+          "2143.jpg",
+          "767c3019a10bebe61ec5986a74fc575d.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Barwa",
+            "type": 0,
+            "value": "Żółty"
+          },
+          {
+            "name": "Materiał",
+            "type": 0,
+            "value": "Polietylen"
+          },
+          {
+            "name": "Wodoszczelność",
+            "type": 0,
+            "value": "Wodoszczelna przy 2kPa"
+          },
+          {
+            "name": "Wytrzymałość na rozciąganie",
+            "type": 0,
+            "value": "66N/50mm(wzdłuż) 70N/50mm (w poprzek)"
+          },
+          {
+            "name": "Odporność na chemilkalia",
+            "type": 0,
+            "value": "Spełnienie wymagań"
+          },
+          {
+            "name": "Opór dyfuzyjny pary wodnej",
+            "type": 0,
+            "value": "2,26X10 ¹¹( m² s Pa)/kg"
+          },
+          {
+            "name": "Wytrzymałość na rozdzieranie gwoździem",
+            "type": 0,
+            "value": "79N (wzdłuż) 76N (w poprzek)"
+          },
+          {
+            "name": "Przenikanie pary wodnej",
+            "type": 0,
+            "value": "Sd=44 (±30%)"
+          },
+          {
+            "name": "Odporność na uderzenia",
+            "type": 0,
+            "value": "200mm"
+          },
+          {
+            "name": "Wydłużenie względne przy zerwaniu",
+            "type": 0,
+            "value": "377%(wzdłuż) 304% (w poprzek)"
+          },
+          {
+            "name": "Opór dyfuzyjny pary wodnej po sztucznym starzeniu",
+            "type": 0,
+            "value": "Spełnienie wymagań"
+          },
+          {
+            "name": "Wytrzymałość złącza",
+            "type": 0,
+            "value": "NPD"
+          },
+          {
+            "name": "Reakcja na ogień",
+            "type": 0,
+            "value": "Klasa F"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "25,00 zł",
+          "price_float": 25
+        },
+        "historical_lowest_price": "140,00 zł",
+        "net_historical_lowest_price": "113,82 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "15",
+          "name": "Nie paczkomatem"
+        }
+      },
+      "cart": {
+        "shippings": [
+          {
+            "shipping_id": 28,
+            "selected": false,
+            "title": "Wysyłka dłużycowa + zabezpieczenie ",
+            "description": "Doręczenie 1-3 dni robocze",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2,
+                "additional_cost": "10,00 zł",
+                "additional_cost_float": 10
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 15
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": true,
+            "title": "Kurier GLS - ",
+            "description": "Doręczenie 1-2 dni robocze",
+            "cost": "25,00 zł",
+            "cost_float": 25,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "7,00 zł",
+                "additional_cost_float": 7
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 15
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "25,00 zł",
+                "cost_float": 25
+              }
+            ]
+          },
+          {
+            "shipping_id": 24,
+            "selected": false,
+            "title": "Paleta ",
+            "description": "Doręczenie 1-3 dni robocze",
+            "cost": "425,00 zł",
+            "cost_float": 425,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 15
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "425,00 zł",
+                "cost_float": 425
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- PRZYSPIESZA WYSYŁKĘ"
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 15,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew na konto firmowe",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          }
+        ],
+        "promocode": null,
+        "promos": null,
+        "taxes": {
+          "23": 29.919999999999987
+        },
+        "free_shipping": {
+          "shipping_id": "22",
+          "title": "Paczkomat Inpost",
+          "free_shipping_float": 999,
+          "free_shipping": "999,00 zł",
+          "missing_float": 839,
+          "missing": "839,00 zł"
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "185,00 zł",
+          "sum_float": 185,
+          "sum_products": "160,00 zł",
+          "sum_products_float": 160,
+          "sum_no_shipping": "160,00 zł",
+          "sum_no_shipping_float": 160,
+          "loyalty_points": 0
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        },
+        "products": [
+          {
+            "id": 23956,
+            "parent_id": null,
+            "stock_id": 86,
+            "product_id": 86,
+            "type": null,
+            "name": "Folia paroizolacyjna Conpar 0,2mm 2mx50m",
+            "variant": "",
+            "quantity": 1,
+            "image": "2143",
+            "image_filename": "2143.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 160,
+            "price": "160,00 zł",
+            "sum_float": 160,
+            "sum": "160,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 109,
+              "translation": {
+                "name": "Folie paroizolacyjne z polietylenu"
+              }
+            },
+            "producer": {
+              "producer_id": 1,
+              "name": "Conkret Z.R. Trejderowscy Sp.j."
+            },
+            "url": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m/86",
+            "remove_url": "https://ebardo.pl/pl/basket/remove/23956"
+          }
+        ],
+        "delivery": "24 godziny",
+        "comment": null,
+        "user_info": {
+          "mail": null
+        },
+        "billing_address": {
+          "company_name": null,
+          "tax_id": null,
+          "pesel": null,
+          "firstname": null,
+          "lastname": null,
+          "street_1": null,
+          "street_2": "",
+          "city": null,
+          "zip_code": null,
+          "state": null,
+          "phone": null,
+          "country_id": null
+        },
+        "shipping_address": {
+          "company_name": null,
+          "tax_id": null,
+          "pesel": null,
+          "firstname": null,
+          "lastname": null,
+          "street_1": null,
+          "street_2": "",
+          "city": null,
+          "zip_code": null,
+          "state": null,
+          "phone": null,
+          "country_id": null
+        },
+        "vat_eu": false,
+        "additional_fields": null
+      }
+    },
+    {
+      "sourceId": "ebardo-ecovil-p-100m2",
+      "observation": {
+        "sourceId": "ebardo-ecovil-p-100m2",
+        "ean": "5902096431131",
+        "name": "Folia paroizolacyjna Ecovil 0,2mm 2mx50m 100m2",
+        "imageUrl": "https://ebardo.pl/environment/cache/images/productGfx_2142_500_500/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2.jpg",
+        "priceGrosze": 10500,
+        "currency": "PLN",
+        "availability": "in_stock",
+        "observedAt": "2026-10-27T09:08:39.599Z",
+        "sourceUrl": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534",
+        "evidenceSha256": "f4eaf44957858d9909e2076540b612c8f214467c0b9bf4504447316391a2744f",
+        "validUntil": null
+      },
+      "product": {
+        "id": 534,
+        "name": "Folia paroizolacyjna Ecovil 0,2mm 2mx50m 100m2",
+        "can_buy": true,
+        "ean": "5902096431131",
+        "code": "11-01",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 534,
+        "url": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534",
+        "category": {
+          "name": "Folie paroizolacyjne z polietylenu",
+          "id": 109
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "105,00 zł",
+            "base_float": 105,
+            "final": "105,00 zł",
+            "final_float": 105,
+            "historical_lowest_price": "102,00 zł",
+            "historical_lowest_price_float": 102
+          },
+          "net": {
+            "base": "85,37 zł",
+            "base_float": 85.37,
+            "final": "85,37 zł",
+            "final_float": 85.37,
+            "historical_lowest_price": "82,93 zł",
+            "historical_lowest_price_float": 82.93
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 10,
+          "weight": "10 kg"
+        },
+        "producer": {
+          "name": "Conkret Z.R. Trejderowscy Sp.j.",
+          "id": 1,
+          "img": "https://ebardo.pl/userdata/public/producers/1.jpg"
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Folia wykorzystywana do tworzenia w ścianach, dachach i stropach izolacji paroszczelnej.</p>",
+        "main_image": "2142",
+        "main_image_filename": "2142.jpg",
+        "description": "<p style=\"text-align:left;\"><span style=\"font-family:verdana, geneva, sans-serif;font-size:12pt;\">Folia wykorzystywana do tworzenia w ścianach, dachach i stropach izolacji paroszczelnej. Dzięki swoim właściwościom oraz odpowiedniej strukturze blokuje parę wodną i wilgoć, która naciera na izolacje termiczną. Folie tę cechuje wysoka wytrzymałość, odporność na pęknięcia i uszkodzenia mechaniczne, ,dzięki czemu tworzy ona zabezpieczenie przed wilgocią dla systemu dachowego. Folia może być wykorzystywana również jako izolator wilgoci pod wylewkami, podłogami, pod panelami, posadzkami.</span></p>\n<p style=\"text-align:left;\"> </p>\n<p style=\"text-align:left;\"><span style=\"font-family:verdana, geneva, sans-serif;font-size:12pt;\"> <strong><span style=\"color:#ff0000;\">UWAGA !!!</span> W dziale \" Akcesoria do sklejania folii budowlanych\" znajdziecie państwo wszystkie rzeczy potrzebne do sklejania folii paroizolacyjnych <span style=\"color:#ff0000;\">!!!</span></strong></span></p>",
+        "images": [
+          "2142"
+        ],
+        "images_filename": [
+          "2142.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Materiał",
+            "type": 0,
+            "value": "Polietylen"
+          },
+          {
+            "name": "Barwa",
+            "type": 0,
+            "value": "Żółta"
+          },
+          {
+            "name": "Grubość",
+            "type": 0,
+            "value": "0,2mm (+/- 50%)"
+          },
+          {
+            "name": "Wodoszczelność po sztucznym starzeniu",
+            "type": 0,
+            "value": "spełnienie wymagań"
+          },
+          {
+            "name": "Odporność na alkalia",
+            "type": 0,
+            "value": "spełnienie wymagań"
+          },
+          {
+            "name": "Wytrzymałość na rozdzieranie(gwoździem), wartość średnia, N",
+            "type": 0,
+            "value": "≥ 35 (wzdłuż ) ≥ 35 (w poprzek)"
+          },
+          {
+            "name": "Reakcja na ogień",
+            "type": 0,
+            "value": "Klasa F"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "25,00 zł",
+          "price_float": 25
+        },
+        "historical_lowest_price": "102,00 zł",
+        "net_historical_lowest_price": "82,93 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "15",
+          "name": "Nie paczkomatem"
+        }
+      },
+      "cart": {
+        "shippings": [
+          {
+            "shipping_id": 28,
+            "selected": false,
+            "title": "Wysyłka dłużycowa + zabezpieczenie ",
+            "description": "Doręczenie 1-3 dni robocze",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2,
+                "additional_cost": "10,00 zł",
+                "additional_cost_float": 10
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 15
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": true,
+            "title": "Kurier GLS - ",
+            "description": "Doręczenie 1-2 dni robocze",
+            "cost": "25,00 zł",
+            "cost_float": 25,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "7,00 zł",
+                "additional_cost_float": 7
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 15
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "25,00 zł",
+                "cost_float": 25
+              }
+            ]
+          },
+          {
+            "shipping_id": 24,
+            "selected": false,
+            "title": "Paleta ",
+            "description": "Doręczenie 1-3 dni robocze",
+            "cost": "425,00 zł",
+            "cost_float": 425,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 15
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "425,00 zł",
+                "cost_float": 425
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- PRZYSPIESZA WYSYŁKĘ"
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 15,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew na konto firmowe",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          }
+        ],
+        "promocode": null,
+        "promos": null,
+        "taxes": {
+          "23": 19.629999999999995
+        },
+        "free_shipping": {
+          "shipping_id": "22",
+          "title": "Paczkomat Inpost",
+          "free_shipping_float": 999,
+          "free_shipping": "999,00 zł",
+          "missing_float": 894,
+          "missing": "894,00 zł"
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "130,00 zł",
+          "sum_float": 130,
+          "sum_products": "105,00 zł",
+          "sum_products_float": 105,
+          "sum_no_shipping": "105,00 zł",
+          "sum_no_shipping_float": 105,
+          "loyalty_points": 0
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        },
+        "products": [
+          {
+            "id": 23957,
+            "parent_id": null,
+            "stock_id": 534,
+            "product_id": 534,
+            "type": null,
+            "name": "Folia paroizolacyjna Ecovil 0,2mm 2mx50m 100m2",
+            "variant": "",
+            "quantity": 1,
+            "image": "2142",
+            "image_filename": "2142.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 105,
+            "price": "105,00 zł",
+            "sum_float": 105,
+            "sum": "105,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 109,
+              "translation": {
+                "name": "Folie paroizolacyjne z polietylenu"
+              }
+            },
+            "producer": {
+              "producer_id": 1,
+              "name": "Conkret Z.R. Trejderowscy Sp.j."
+            },
+            "url": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534",
+            "remove_url": "https://ebardo.pl/pl/basket/remove/23957"
+          }
+        ],
+        "delivery": "24 godziny",
+        "comment": null,
+        "user_info": {
+          "mail": null
+        },
+        "billing_address": {
+          "company_name": null,
+          "tax_id": null,
+          "pesel": null,
+          "firstname": null,
+          "lastname": null,
+          "street_1": null,
+          "street_2": "",
+          "city": null,
+          "zip_code": null,
+          "state": null,
+          "phone": null,
+          "country_id": null
+        },
+        "shipping_address": {
+          "company_name": null,
+          "tax_id": null,
+          "pesel": null,
+          "firstname": null,
+          "lastname": null,
+          "street_1": null,
+          "street_2": "",
+          "city": null,
+          "zip_code": null,
+          "state": null,
+          "phone": null,
+          "country_id": null
+        },
+        "vat_eu": false,
+        "additional_fields": null
+      }
+    }
+  ]
+}

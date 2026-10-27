@@ -96,7 +96,7 @@ const floorPanelsFormula: FormulaFn = (m, waste) => {
 
 // Preserve area at package boundaries (e.g. 2.53 m² needs two 2.51 m² packs).
 // source: https://krono-shop.com/ro/en/faq
-const laminateAreaFormula: FormulaFn = (m, waste) => Number((area(m) * waste).toFixed(8));
+const floorCoveringAreaFormula: FormulaFn = (m, waste) => Number((area(m) * waste).toFixed(8));
 
 const panelPacksFormula: FormulaFn = (m, waste) => {
   // Pack count using m.panelPackCoverageM2 (default 2.196 m²/pack = common laminate)
@@ -229,7 +229,8 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   // ── Flooring ────────────────────────────────────────────────────────────
   floorPanels:     floorPanelsFormula,
   panelPacks:      panelPacksFormula,
-  laminateArea:    laminateAreaFormula,
+  laminateArea:    floorCoveringAreaFormula,
+  vinylArea:       floorCoveringAreaFormula,
   underlay:        underlayFormula,
   threshold:       thresholdFormula,
   // ── Tiles ───────────────────────────────────────────────────────────────

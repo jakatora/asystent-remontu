@@ -10,11 +10,12 @@ import type { PricingStageInput } from './pricingApi';
 
 const diall = FOIL_PRODUCTS.find(ref => ref.id === 'mat-vapor-foil-diall-pe-20m2')!;
 const conpar = FOIL_PRODUCTS.find(ref => ref.id === 'mat-vapor-foil-conkret-conpar-100m2')!;
+const ecovil = FOIL_PRODUCTS.find(ref => ref.id === 'mat-vapor-foil-conkret-ecovil-p-100m2')!;
 const choice = { from: diall.id, to: conpar.id };
 const stages = (): PricingStageInput[] => [10.5, 14.5].map((quantity, index) => ({ jobId: 'room-' + index, measurements: { floorArea: quantity / 1.1 }, materials: [{ material: { id: 'vapor-barrier', name: diall.productLabel, category: 'vapor-barrier', unit: 'm²', ean: '5059340141428' }, quantity, packs: 77 }] }));
 
 test('foil choices bind exact category, barcode and m² demand without accepting paint, flooring, a breathable membrane or a roll count', () => {
-  assert.equal(FOIL_PRODUCTS.length, 2); assert.equal(conpar.packageSize, 100); assert.equal(diall.packageSize, 20);
+  assert.equal(FOIL_PRODUCTS.length, 3); assert.equal(conpar.packageSize, 100); assert.equal(diall.packageSize, 20);
   const material = stages()[0].materials[0].material;
   assert.equal(foilReference(material)?.id, diall.id);
   for (const row of [{ ...material, category: 'laminate' }, { ...material, unit: 'rolka' }, { ...material, unit: 'szt' },
@@ -37,6 +38,18 @@ test('a foil choice preserves every room and raw quantity while changing the exa
     assert.deepEqual(Object.keys(stage.materials[0]).sort(), ['material', 'quantity']);
   }
   assert.deepEqual(applyFoilChoices(original, []), original);
+});
+
+test('Ecovil is a separate explicit choice; browsing and restoring do not replace Conpar automatically', () => {
+  const original = applyFoilChoices(stages(), [choice]), before = JSON.stringify(original);
+  assert.equal(ecovil.packageSize, 100); assert.match(ecovil.notes!, /±50%/);
+  assert.deepEqual(applyFoilChoices(original, []), original);
+  const selected = applyFoilChoices(original, [{ from: conpar.id, to: ecovil.id }]);
+  assert.deepEqual(selected.map(s => s.materials[0].quantity), [10.5, 14.5]);
+  assert.ok(selected.every(s => s.materials[0].material.ean === '5902096431131' && s.materials[0].material.name === ecovil.productLabel));
+  assert.equal(JSON.stringify(original), before);
+  const restored = applyFoilChoices(selected, [{ from: ecovil.id, to: conpar.id }]);
+  assert.ok(restored.every(s => s.materials[0].material.ean === '5902096430103'));
 });
 
 test('saved foil choices reject an unknown product, wrong group, corrupt or duplicate requirement instead of reverting to another SKU', () => {

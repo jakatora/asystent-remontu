@@ -500,9 +500,12 @@ export async function estimateProject(
   stages: readonly PricingStageInput[],
   options?: PricingOptions,
 ): Promise<SerializedProject> {
+  // This client renders the required separate-order breakdown. Older clients
+  // do not send this opt-in and retain one merchant order per store.
+  const requestOptions = options?.delivery?.mode === 'shipping' ? { ...options, delivery: { ...options.delivery, allowSeparateOrders: options.delivery.allowSeparateOrders ?? true } } : options;
   return postJson<SerializedProject>('/api/pricing/project', {
     jobs: stages,
-    ...(options ? { options } : {}),
+    ...(requestOptions ? { options: requestOptions } : {}),
   });
 }
 

@@ -1,6 +1,10 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534
+  // source: https://simeplast.pl/wp-content/uploads/2024/03/katalog-produktow-02.2024.pdf
+  {"id":"mat-vapor-foil-conkret-ecovil-p-100m2","materialType":"vapor-barrier","productLabel":"Folia paroizolacyjna Conkret Ecovil P 0,20 mm (100 m²)","brand":"Conkret","packageSize":100,"packageUnit":"m2","pricePerPackage":105,"pricePerM2":1.05,"category":"economy","storeName":"eBardo","sourceUrl":"https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN5902096431131. Jedna rolka 2 × 50 m = 100 m². Grubość nominalna 0,20 mm; karta sklepu podaje tolerancję ±50%. Oddzielny produkt od Conpar (±30%), dobierz zgodnie z instrukcją podłogi/podkładu i wymaganą barierą. Nie deklarujemy uniwersalnej równoważności ani hydroizolacji pomieszczenia."},
+
   // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
   // source: https://www.wolfcraft.com/products/wolfcraft/pl/EUR/p/P_6931
   {"id":"mat-laminate-kit-wolfcraft-6931000","materialType":"laminate-installation-kit","productLabel":"Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy","brand":"Wolfcraft","packageSize":1,"packageUnit":"szt","pricePerPackage":64.9,"category":"standard","storeName":"Mensura","sourceUrl":"https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN4006885693104. Jeden zestaw:1łyżka dociągająca,1dobijak drewniany,20klinów dylatacyjnych. Wielokrotnego użytku; ilość zestawów do kupienia podaje użytkownik. 0 oznacza posiadanie wszystkich potrzebnych elementów; nie podwajamy narzędzi w zakupach."},

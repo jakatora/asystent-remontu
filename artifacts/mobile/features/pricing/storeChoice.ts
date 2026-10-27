@@ -25,7 +25,7 @@ export function collectStoreChoices(data: SerializedProject): StoreChoices {
 export function deliverySettingsForStore(choices:Pick<StoreChoices,'pickupOnlyStores'|'pickupUnavailableStores'>,current:DeliverySettings,store:string|null):DeliverySettings{
  const pickupOnly=Boolean(store&&choices.pickupOnlyStores?.includes(store)),shippingOnly=Boolean(store&&choices.pickupUnavailableStores?.includes(store));
  const mode=pickupOnly&&!shippingOnly?'pickup':shippingOnly&&!pickupOnly?'shipping':current.mode;
- return mode===current.mode?current:{mode,method:'automatic',...(current.postalCode?{postalCode:current.postalCode}:{})};
+ return mode===current.mode?current:{mode,method:'automatic',...(current.postalCode?{postalCode:current.postalCode}:{}),...(typeof current.allowSeparateOrders==='boolean'?{allowSeparateOrders:current.allowSeparateOrders}:{})};
 }
 
 /** Preserve server amounts. Complete baskets precede partial / absent offers;
