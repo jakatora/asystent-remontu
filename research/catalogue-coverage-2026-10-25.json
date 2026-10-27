@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T06:59:11.859Z",
-  "scope": "143 distinct reference products/photos after adding3 hardware products and4 automatic offers. Current eligible offers125 products/161 offers;12 prior Castorama browser reads expired without fabricated renewals,6 historical references unavailable. Same65 sample jobs retain prior/default selections:84/237 material rows priced,153 unpriced,9 full material scenarios. Explicit Koelner/concrete choices are reported separately, not silently substituted into baseline. Missing rows are not distinct SKUs or all tools/delivery.",
-  "total": 143,
-  "verifiedProducts": 125,
-  "remaining": 18,
+  "checkedAt": "2026-10-27T07:27:35.996Z",
+  "scope": "144 exact reference products/photos. One new concentrate and4automatic offers (including2existing references). Current eligible offers reflect independently expired earlier manual Castorama confirmations; dates not renewed after HTTP503.65 unchanged sample measurement inputs now have238rows because measured protection is explicit in wallpaper removal;84priced/154unpriced,9complete material scenarios. A separately completed10m²removal example is fully priced with real delivery152.92PLN; no claim of all renovation completeness.",
+  "total": 144,
+  "verifiedProducts": 122,
+  "remaining": 22,
   "offers": 161,
   "stores": 40,
-  "productsWithPhotos": 143,
-  "registeredOffers": 175,
+  "productsWithPhotos": 144,
+  "registeredOffers": 179,
   "disabledOffers": 2,
   "rows": [
     {
@@ -277,10 +277,18 @@
       "status": "verified_offer",
       "ean": "5905400520026",
       "sourceIds": [
-        "sewera-atlas-unigrunt-5kg"
+        "sewera-atlas-unigrunt-5kg",
+        "abud-atlas-unigrunt-5kg"
       ],
       "photoUrl": "https://sklep.sewera.pl/photo/313998/atlas-uni-grunt-5kg-emulsja-gruntujaca.webp",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-atlas-unigrunt-5kg",
+          "checkedAt": "2026-10-27T07:27:35.996Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "Mixed ABUD basket:concentrate+20kgST10+5kgUniGrunt,128.10+15.00=143.10,not an isolated item tariff"
+        }
+      ]
     },
     {
       "id": "mat-primer-deep-ceresit-ct17-10l",
@@ -509,10 +517,18 @@
       "status": "verified_offer",
       "ean": "5903973104421",
       "sourceIds": [
-        "sewera-acrylputz-st10-20kg"
+        "sewera-acrylputz-st10-20kg",
+        "abud-acrylputz-st10-20kg"
       ],
       "photoUrl": "https://sklep.sewera.pl/photo/34282/acryl-putz-st10-start-20kg.webp",
-      "deliveryChecks": []
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-acrylputz-st10-20kg",
+          "checkedAt": "2026-10-27T07:27:35.996Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "Mixed ABUD basket:concentrate+20kgST10+5kgUniGrunt,128.10+15.00=143.10,not an isolated item tariff"
+        }
+      ]
     },
     {
       "id": "mat-masking-tape-bluedolphin-30mm",
@@ -1462,7 +1478,7 @@
       "id": "mat-edge-tape-fola-100mm-50m",
       "name": "Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb",
       "referenceUrl": "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5906725207227",
       "sourceIds": [
         "castorama-fola-50mb"
@@ -1578,7 +1594,7 @@
       "id": "mat-windowsill-pvc-form-30x216",
       "name": "Parapet wewnętrzny PCV Form 30 × 216 cm biały",
       "referenceUrl": "https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5906725219640",
       "sourceIds": [
         "castorama-form-30x216"
@@ -2072,7 +2088,7 @@
       "id": "mat-vinyl-spc-click-goodhome-arilla-25m2",
       "name": "Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5059340969756",
       "sourceIds": [
         "castorama-goodhome-arilla-25m2"
@@ -2116,7 +2132,7 @@
       "id": "mat-vinyl-glued-goodhome-ragga-13m2",
       "name": "Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5059340802435",
       "sourceIds": [
         "castorama-goodhome-ragga-13m2"
@@ -3088,6 +3104,33 @@
         }
       ],
       "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "mat-wallpaper-remover-metylan-500ml",
+      "name": "Metylan Remover — koncentrat do usuwania tapet 500 ml",
+      "referenceUrl": "https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html",
+      "status": "verified_offer",
+      "ean": "9000100222969",
+      "sourceIds": [
+        "abud-metylan-remover-500ml",
+        "hipper-metylan-remover-500ml"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/da34e4afb4b30103e7a6affb323594aa/pol_pl_Plyn-do-usuwania-tapet-500ml-Metylan-5708_1.webp",
+      "pickupRequiresConfirmation": true,
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T07:27:35.996Z",
+          "sourceId": "abud-metylan-remover-500ml",
+          "status": "confirmed_anonymous_cart",
+          "scope": "postcode00-001,500ml bottle35.20+13.00=48.20,TTL10min"
+        },
+        {
+          "checkedAt": "2026-10-27T07:27:35.996Z",
+          "sourceId": "hipper-metylan-remover-500ml",
+          "status": "confirmed_anonymous_cart",
+          "scope": "nationalPL,500ml bottle36.99+18.90=55.89,TTL10min"
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -3110,5 +3153,5 @@
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   },
-  "expiredOffers": 12
+  "expiredOffers": 16
 }

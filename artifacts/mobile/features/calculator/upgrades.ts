@@ -1,3 +1,4 @@
+import { reviewRemovalCalculation, reviewRemovalProject, reviewRemovalShopping } from './wallpaperRemoval';
 import { reviewGypsumCalculation, reviewGypsumProject, reviewGypsumShopping } from './gypsumBoard';
 import { reviewFrameCalculation, reviewFrameProject, reviewFrameShopping } from './framePainting';
 import { reviewFinishingCalculation, reviewFinishingProject, reviewFinishingShopping } from './wallFinishing';
@@ -10,9 +11,9 @@ import { reviewHistoricalSubstratePrimer, reviewSubstrateProject, reviewSubstrat
 import { reviewHistoricalLevelingTape, reviewLevelingTapeProject } from './levelingTape';
 import { reviewSanitaryCalculation, reviewSanitaryProject, reviewSanitaryShopping } from './sanitarySealant';
 
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewGypsumCalculation(reviewFrameCalculation(reviewFinishingCalculation(reviewSanitaryCalculation(reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc))))))))));
-export const upgradeProject = (project: Project) => reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project))))))))));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewRemovalCalculation(reviewGypsumCalculation(reviewFrameCalculation(reviewFinishingCalculation(reviewSanitaryCalculation(reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc)))))))))));
+export const upgradeProject = (project: Project) => reviewRemovalProject(reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))))))));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
-  return reviewGypsumShopping(reviewFrameShopping(previous,calc),calc);
+  return reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc);
 };

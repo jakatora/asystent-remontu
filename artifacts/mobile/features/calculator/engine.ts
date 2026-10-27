@@ -1,3 +1,4 @@
+import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalQuantity, removalWarnings } from './wallpaperRemoval';
 import { isGypsumJob, isGypsumMaterial, gypsumMaterials, gypsumQuantity, gypsumPriceWarnings, GYPSUM_MODEL } from './gypsumBoard';
 import { isFrameJob, isFrameMaterial, frameMaterials, frameQuantity, FRAME_MODEL } from './framePainting';
 import { isWallFinishingJob, isFinishingMaterial, finishingMaterials, finishingQuantity, WALL_FINISHING_MODEL } from './wallFinishing';
@@ -72,6 +73,10 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isRemovalMaterial(jobId,material.id)){
+    const required=removalQuantity(material.id,measurements),rawQuantity=required??0;
+    return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
   if(jobId&&isGypsumMaterial(jobId,material.id)){
     const required=gypsumQuantity(jobId,material.id,measurements),rawQuantity=required??0;
     return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
@@ -143,7 +148,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     if(job.id==='self-leveling'&&measurements.edgeTapeChoice===undefined)measurements={...measurements,edgeTapeChoice:0};
     const materials = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : this.calculateMaterialItems(job, measurements);
     const totalCost = roundMoney(materials.reduce((sum, m) => sum + m.cost, 0));
-    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...(isGypsumJob(job.id)?gypsumPriceWarnings(materials):[])];
+    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...(isGypsumJob(job.id)?gypsumPriceWarnings(materials):[]), ...(job.id===REMOVAL_JOB?removalWarnings(materials):[])];
 
     return {
       jobId: job.id,
@@ -151,6 +156,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       ...(isFrameJob(job.id)?{quantityModel:FRAME_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isSanitaryJob(job.id)?{quantityModel:SANITARY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id===REMOVAL_JOB?{quantityModel:REMOVAL_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -177,7 +183,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     const detailedItems = this.calculateDetailedItems(job, measurements, config);
     const totalCost = roundMoney(detailedItems.reduce((sum, m) => sum + m.cost, 0));
-    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...(isGypsumJob(job.id)?gypsumPriceWarnings(detailedItems):[])];
+    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...(isGypsumJob(job.id)?gypsumPriceWarnings(detailedItems):[]), ...(job.id===REMOVAL_JOB?removalWarnings(detailedItems):[])];
 
     // Append validation errors as warnings
     const allWarnings = [
@@ -195,6 +201,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       ...(isFrameJob(job.id)?{quantityModel:FRAME_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isSanitaryJob(job.id)?{quantityModel:SANITARY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id===REMOVAL_JOB?{quantityModel:REMOVAL_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       measurements,
       materials: detailedItems,
@@ -217,6 +224,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(job.id===REMOVAL_JOB)material=removalMaterials(measurements).find(row=>row.id===material.id)??material;
       if(isGypsumJob(job.id))material=gypsumMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if(isFrameJob(job.id))material=frameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(isWallFinishingJob(job.id))material=finishingMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
@@ -236,6 +244,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(job.id===REMOVAL_JOB)material=removalMaterials(measurements).find(row=>row.id===material.id)??material;
       if(isGypsumJob(job.id))material=gypsumMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if(isFrameJob(job.id))material=frameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(isWallFinishingJob(job.id))material=finishingMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
@@ -256,7 +265,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
+      const explanation = isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Uzupełnij powierzchnię napraw, głębokość, długość rys lub liczbę arkuszy w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions:[material.notes??'','Opakowania zaokrąglamy dopiero po zsumowaniu prac w koszyku.'],
       } : isSanitaryMaterial(job.id,material.id) ? {

@@ -35,8 +35,15 @@ export function readCertusoftProduct(html: string, source: RetailSource) {
     && source.brand === 'Norgips' && source.productId === 2682507570 && source.retailerUnitId === 2682507597
     && source.url === 'https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570'
     && source.unit === 'm' && source.packageSize === 25;
+  // One native piece is exactly this500ml concentrate bottle, not500bottles.
+  // source: https://hipper.pl/metylan-plyn-do-usuwania-tapet-0-5-l-956213124
+  // source: https://datasheets.tdx.henkel.com/METYLAN-Remover-pl_PL.pdf
+  const reviewedBottle = source.id === 'hipper-metylan-remover-500ml' && source.ean === '9000100222969'
+    && source.brand === 'Metylan' && source.productId === 956213124 && source.retailerUnitId === 956370273
+    && source.url === 'https://hipper.pl/metylan-plyn-do-usuwania-tapet-0-5-l-956213124'
+    && source.unit === 'ml' && source.packageSize === 500;
   const singlePiece = source.unit === 'szt' && source.packageSize === 1;
-  if ((!singlePiece && !reviewedRoll) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
+  if ((!singlePiece && !reviewedRoll && !reviewedBottle) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
   const state = readCertusoftState(html), card = state.csAppWindowsUtils?.csAppWindows?.csB2BItemCard;
   const rows = card?.dataSets?.itemCard?.rows;
   if (!Array.isArray(rows) || rows.length !== 1) throw Error('product_identity_ambiguous');

@@ -1,3 +1,4 @@
+import { REMOVAL_JOB, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
 import { isGypsumJob, gypsumMaterials, gypsumReference } from '@/features/calculator/gypsumBoard';
 import { isFrameJob, frameMaterials, frameReference } from '@/features/calculator/framePainting';
 import { isWallFinishingJob, finishingMaterials, finishingReference } from '@/features/calculator/wallFinishing';
@@ -71,6 +72,11 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'primer') results.splice(i, 1);
     const ref = MATERIAL_BY_ID.get(primer.referenceId);
     if (ref) results.push(ref);
+  }
+  if(jobId===REMOVAL_JOB){
+    results.splice(0,results.length);
+    for(const material of removalMaterials(measurements)){const id=removalReference(material.id,measurements),ref=id?MATERIAL_BY_ID.get(id):undefined;if(ref)results.push(ref);}
+    const primerRef=primer?MATERIAL_BY_ID.get(primer.referenceId):undefined;if(primerRef)results.push(primerRef);
   }
   if(isGypsumJob(jobId)){
     results.splice(0,results.length);

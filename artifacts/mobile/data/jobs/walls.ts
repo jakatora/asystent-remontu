@@ -1,3 +1,4 @@
+import { removalMaterials, removalInputs } from '@/features/calculator/wallpaperRemoval';
 import { finishingMaterials, finishingInputs } from '@/features/calculator/wallFinishing';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import type { RenovationJob } from '@/types/domain';
@@ -480,51 +481,32 @@ export const wallpaperRemoveJob: RenovationJob = {
   visibilityMode: 'safe_diy',
   coverIcon: 'x',
   warningRules: [
-    { condition: 'always', message: 'Przed namaczaniem wyłącz zasilanie w pokoju — woda i prąd nie lubią się lubić.', level: 'warning' },
+    { condition: 'always', message: 'Przed namaczaniem wyłącz zasilanie obwodów w pomieszczeniu i zabezpiecz gniazda przed wodą.', level: 'warning' },
     { condition: 'always', message: 'Stare tapety mogą kryć pod sobą pęknięcia lub wilgoć — sprawdź ścianę po zdjęciu.', level: 'info' },
   ],
   measurementInputs: [
     { id: 'wallArea', label: 'Powierzchnia tapet do zerwania', unit: 'm²', inputType: 'area',
       placeholder: 'np. 40', min: 1, max: 500,
       hint: 'Powierzchnia ścian pokrytych tapetą.' },
+    ...removalInputs,
     ...substratePrimerInputs('wallpaper-remove'),
   ],
   materials: [
-    {
-      id: 'wallpaper-remover',
-      name: 'Środek do usuwania tapet (koncentrat)',
-      unit: 'litr',
-      formula: formulaBuilder.coverage(200),
-      wasteFactor: 1.0,
-      packaging: { size: 0.5, label: 'butelka 500 ml', purchaseUnit: 'butelka' },
-      pricePerUnit: 70,
-      category: 'chemia',
-      notes: 'Koncentrat rozcieńczaj wg instrukcji. Alternatywnie: woda z octem (bezpłatne).',
-    },
+    ...removalMaterials(),
     substratePrimerMaterial('wallpaper-remove'),
-    {
-      id: 'filler-after',
-      name: 'Masa szpachlowa (do napraw po tapetach)',
-      unit: 'kg',
-      formula: formulaBuilder.fixed(2),
-      packaging: { size: 5, label: 'wiaderko 5 kg', purchaseUnit: 'wiaderko' },
-      pricePerUnit: 8,
-      category: 'masa',
-      optional: true,
-      notes: 'Pod tapetami często są nierówności i ubytki — przygotuj masę na naprawy.',
-    },
   ],
   tools: [
     { id: 'scorer', name: 'Perforator do tapet (kolczatka)', icon: 'grid', required: false, notes: 'Nakleja nakłucia pozwalające wnikać wodzie. Pomocna przy grubych tapetach.', estimatedBuyCostPLN: 15 },
-    { id: 'spray-bottle', name: 'Opryskiwacz/wiadro z gąbką', icon: 'droplet', required: true },
+    { id: 'spray-bottle', name: 'Wiadro i pędzel lub szczotka do roztworu', icon: 'droplet', required: true, notes: 'Karta Metylan dopuszcza natrysk wyłącznie dla profesjonalnego wykonawcy.' },
     { id: 'scraper-wide', name: 'Szpachelka szeroka (20–30 cm)', icon: 'minus', required: true, estimatedBuyCostPLN: 25 },
-    { id: 'drop-cloth-remove', name: 'Folia ochronna na podłogę', icon: 'layers', required: true },
+    { id: 'drop-cloth-remove', name: 'Folia ochronna — uwzględniona w materiałach', icon: 'layers', required: false, notes: 'Powierzchnię folii podaj w obmiarach materiałów; nie kupuj drugi raz jako narzędzia.' },
     { id: 'bucket-remove', name: 'Wiadro', icon: 'circle', required: true },
   ],
   instructions: [
     { step: 1, title: 'Zabezpiecz podłogę i wyłącz prąd', description: 'Rozłóż folię na podłodze — zdarta tapeta jest mokra i brudna. Wyłącz bezpieczniki w zrywanym pokoju.', durationMin: 15 },
     { step: 2, title: 'Perforuj tapetę (jeśli nieprzemakalna)', description: 'Nieprzemakalne tapety (winylowe) najpierw nakłuj perforatorem kolcowym. Pozwoli to wodzie wniknąć pod tapetę.', durationMin: 15 },
-    { step: 3, title: 'Nasiąkaj tapetę', description: 'Namocz tapetę środkiem do usuwania lub wodą z octem (1:1). Odczekaj 3–5 minut — tapeta musi nasiąknąć. Na trudnych tapetach powtórz.', tip: 'Nie oszczędzaj wody — im bardziej mokra tapeta, tym łatwiej schodzi.', durationMin: 30 },
+    // source: https://datasheets.tdx.henkel.com/METYLAN-Remover-pl_PL.pdf
+    { step: 3, title: 'Namocz tapetę zgodnie z próbą', description: 'Metylan Remover rozcieńcz według rodzaju tapety: papier/flizelina 1:40, ciężka/raufaza/szklana 1:20. Nakładaj pędzlem lub szczotką na małe odcinki. Po 5–10 min zdejmuj bryty; pozostałe tapety karta zaleca namoczyć 2 razy. Kilka warstw zdejmuj kolejno.', tip: 'Wykonaj próbę i chroń wrażliwe powierzchnie. Resztki roztworu usuń wilgotną, nie mokrą gąbką. Natrysk jest tylko dla profesjonalnego wykonawcy.', durationMin: 30 },
     { step: 4, title: 'Zrywaj tapetę', description: 'Szpachelką lub rękoma oddziel tapetę od ściany zaczynając od naroża lub łączenia. Pracuj od góry do dołu.', tip: 'Tapeta powinna schodzić w dużych kawałkach. Jeśli drze się na małe kawałki — jeszcze za sucha.', durationMin: 120 },
     { step: 5, title: 'Usuń resztki kleju', description: 'Na ścianie zostaje warstwa kleju — namocz i zetrzyj gąbką lub szpachelką.', durationMin: 60 },
     { step: 6, title: 'Napraw ścianę i zagruntuj', description: 'Sprawdź stan ściany po zerwaniu. Napraw ubytki masą. Po wyschnięciu nanieś grunt wzmacniający.', durationMin: 60 },
@@ -547,8 +529,11 @@ export const wallpaperRemoveJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['tapety', 'zrywanie', 'ściany'],
 
-  verifiedAt: '2026-07-10',
+  verifiedAt: '2026-10-27',
   verifiedSources: [
+    { title:'Metylan Remover — karta techniczna: koncentrat, rozcieńczenie i nanoszenie', url:'https://datasheets.tdx.henkel.com/METYLAN-Remover-pl_PL.pdf', domain:'datasheets.tdx.henkel.com', consultedAt:'2026-10-27' },
+    { title:'Metylan Remover 500 ml — dokładny produkt i opakowanie', url:'https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html', domain:'abud.pl', consultedAt:'2026-10-27' },
+    { title:'ACRYL-PUTZ ST10 START — zużycie i zastosowanie masy naprawczej', url:'https://www.acrylputz.pl/produkty/gladzie-sypkie/acrylputz-st10-start', domain:'acrylputz.pl', consultedAt:'2026-10-27' },
     {
       title:       'Zrywanie tapety krok po kroku. Instrukcja, jak zerwać tapetę ze ściany',
       url:         'https://www.castorama.pl/usuwanie-tapety-ins-66410.html',

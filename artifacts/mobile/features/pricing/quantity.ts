@@ -1,3 +1,4 @@
+import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
 import { isGypsumJob, gypsumMaterials, gypsumReference, GYPSUM_MODEL } from '@/features/calculator/gypsumBoard';
 import { isFrameJob, frameMaterials, frameReference, FRAME_MODEL } from '@/features/calculator/framePainting';
 import { isWallFinishingJob, finishingMaterials, finishingReference, WALL_FINISHING_MODEL } from '@/features/calculator/wallFinishing';
@@ -64,6 +65,13 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(calc.jobId===REMOVAL_JOB&&ref.materialType!=='primer'){
+    const definition=removalMaterials(calc.measurements).find(r=>removalReference(r.id,calc.measurements)===ref.id);
+    if(!definition||calc.quantityModel!==REMOVAL_MODEL)return null;
+    const source=calc.materials.find(r=>r.material.id===definition.id);
+    if(!source||source.quantityKnown===false||!('ean' in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit))return null;
+    const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
+  }
   if(isGypsumJob(calc.jobId)){
     const definition=gypsumMaterials(calc.jobId,calc.measurements).find(row=>gypsumReference(row.id,calc.measurements)===ref.id);
     if(!definition||calc.quantityModel!==GYPSUM_MODEL)return null;

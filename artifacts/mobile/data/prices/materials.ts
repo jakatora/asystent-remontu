@@ -1,6 +1,11 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html
+  // source: https://datasheets.tdx.henkel.com/METYLAN-Remover-pl_PL.pdf
+  // source: https://www.grupapsb.com.pl/produkt/plyn-do-usuwania-tapet-500-ml-metylan-9000100222969.html
+  {"id":"mat-wallpaper-remover-metylan-500ml","materialType":"wallpaper-remover","productLabel":"Metylan Remover — koncentrat do usuwania tapet 500 ml","brand":"Metylan","packageSize":500,"packageUnit":"ml","pricePerPackage":35.2,"category":"standard","storeName":"ABUD","sourceUrl":"https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN 9000100222969, IDH2357798. Kupowana jest butelka500ml koncentratu, nie0,5l gotowego roztworu. Karta Henkel:500ml na200m² papieru/farby klejowej/flizeliny/włóknin (1:40),100m² ciężkich/raufazy/szklanych (1:20) przy jednej aplikacji. Pozostałe tapety wymagają według karty2naniesień; rzeczywiste zużycie zależy od próby i warstw. Po5–10min odrywaj warstwami, resztki usuń wilgotnągąbką. Domowy użytkownik nanosi pędzlem/szczotką, nie natryskiem."},
+
   // source: https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak
   // source: https://rawlplug.com/media/catalog/reference_object/8/6/4/5/8645bed8c1b633e727079ed69d412c22203e40c2/1954.KOELNER.PL.FS_DRYWALL_SCREWS_FOR_SHEET.pdf
   {"id":"mat-gk-screws-koelner-fs3525-1000","materialType":"drywall-accessory","productLabel":"Wkręty do płyt GK Koelner FS 3,5×25 mm, 1000 szt.","brand":"Koelner","packageSize":1000,"packageUnit":"szt","pricePerPackage":24.89,"category":"standard","storeName":"Buduj24","sourceUrl":"https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN 5906675305127. FS-3525, ostra końcówka, drobny gwint do metalu; nie samowiercący WS ani wkręt do drewna. Do jednej płyty 12,5 mm na profilu stalowym 0,6 mm w tym zestawieniu. Cena całego kartonu 1000 szt. W systemie z wymaganiami ogniowymi/akustycznymi stosuj łącznik wskazany w projekcie."},

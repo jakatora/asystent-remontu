@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-27T06:59:11.859Z",
-  "scope": "Same65 sample jobs and237 rows with prior user choices/default0 unchanged. Explicit Koelner choice is audited separately; confirmed concrete conditions required for FX perimeter fixings, never overhead. Actual shared HTTP/anonymous carts; no customer/order data.",
+  "checkedAt": "2026-10-27T07:27:35.996Z",
+  "scope": "Same65 measurement inputs. Wallpaper removal now includes explicit measured protection as an extra row; missing repair/protection inputs stay unknown. Separately verified complete input10m²/2kg repairs/12m²film and mixed-room aggregation. Real anonymous carts, no PII/orders.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 237,
-    "beforePriced": 86,
-    "afterLines": 237,
+    "beforePriced": 84,
+    "afterLines": 238,
     "afterPriced": 84,
-    "afterUnpriced": 153,
+    "afterUnpriced": 154,
     "fullyPricedScenarios": 9
   },
   "history": [
@@ -114,6 +114,19 @@
         "afterPriced": 86,
         "afterUnpriced": 151,
         "fullyPricedScenarios": 10
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T06:59:11.859Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 237,
+        "beforePriced": 86,
+        "afterLines": 237,
+        "afterPriced": 84,
+        "afterUnpriced": 153,
+        "fullyPricedScenarios": 9
       }
     }
   ],
@@ -686,17 +699,51 @@
       "materials": [
         {
           "materialId": "wallpaper-remover",
-          "name": "Środek do usuwania tapet (koncentrat)",
-          "unit": "litr",
+          "name": "Metylan Remover — koncentrat do usuwania tapet 500 ml",
+          "unit": "ml",
+          "query": {
+            "ean": "9000100222969",
+            "gtin": null,
+            "normalizedName": "metylan remover koncentrat do usuwania tapet 500 ml",
+            "category": "wallpaper-remover"
+          },
+          "quantity": 27.5,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-9000100222969",
+            "ean": "9000100222969",
+            "name": "Płyn do usuwania tapet 500ml Metylan"
+          }
+        },
+        {
+          "materialId": "filler-after",
+          "name": "ACRYL-PUTZ ST10 START 5 kg — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "srodek do usuwania tapet koncentrat",
-            "category": "chemia"
+            "normalizedName": "acryl putz st10 start 5 kg ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 0.1,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "removal-film",
+          "name": "Folia malarska gruba Blue Dolphin 4 x 5 m — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "folia malarska gruba blue dolphin 4 x 5 m ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
@@ -717,21 +764,6 @@
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
-        },
-        {
-          "materialId": "filler-after",
-          "name": "Masa szpachlowa (do napraw po tapetach)",
-          "unit": "kg",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "masa szpachlowa do napraw po tapetach",
-            "category": "masa"
-          },
-          "quantity": 2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
         }
       ]
     },
@@ -964,13 +996,9 @@
             "category": "vinyl-panel"
           },
           "quantity": 11,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5059340802435",
-            "ean": "5059340802435",
-            "name": "Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "vinyl-adhesive",
@@ -4571,15 +4599,15 @@
       ]
     }
   ],
-  "explicitChoiceChecks": {
-    "measurements": {
-      "gypsumFasteners": 1,
-      "gypsumPerimeterFixings": 1
+  "explicitMeasurementChecks": {
+    "wallpaperRemoval": {
+      "wallArea": 10,
+      "removalRepairKg": 2,
+      "removalFilmArea": 12
     },
-    "conditions": "Single12.5 board on0.6 steel; confirmed loadbearing concrete ≥100mm, fixture ≤11mm and factory embed/edge/spacing requirements. No overhead plastic anchors.",
-    "wallMaterialMissing": 0,
-    "wallDeliveredWinner": null,
-    "ceilingMaterialMissing": 3,
-    "hardwareMixedTotalGrosze": 11790
+    "missingProducts": 0,
+    "totalGrosze": 15292,
+    "twoRoomsTotalGrosze": 15292,
+    "unknownInputsMissing": 2
   }
 }
