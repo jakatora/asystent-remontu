@@ -279,6 +279,23 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // Exact native pieces contain the reviewed kilograms, litres or whole roll.
+  // The 300 mm floor collar is one piece; the existing 120 mm wall pack is two.
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969
+  const hydroPacks: Record<string, readonly [string, number, string, number, string]> = {
+    'winbud-mapegum-wps-5kg': ['8022452002113', 5, 'kg', 131, '002113'],
+    'winbud-mapegum-wps-10kg': ['8022452002120', 10, 'kg', 419, '002120'],
+    'winbud-mapegum-wps-20kg': ['8022452242502', 20, 'kg', 3543, '8022452242502'],
+    'winbud-mapeband-w-10m': ['8022452113932', 10, 'm', 3088, '8022452113932'],
+    'winbud-mapeband-w-floor-300': ['8022452113895', 1, 'szt', 3091, '8022452113895'],
+    'rabdom-primer-g-pro-1l': ['8022452241123', 1, 'l', 10970, '37969'],
+    'rabdom-primer-g-pro-5l': ['8022452241130', 5, 'l', 10969, '37970'],
+  };
+  const hydro = hydroPacks[source.id];
+  if (hydro && (source.ean !== hydro[0] || source.packageSize !== hydro[1] || source.unit !== hydro[2]
+    || source.productId !== hydro[3] || source.retailerSku !== hydro[4] || source.apiPurchaseUnit !== 'szt.'
+    || item.ean !== hydro[0] || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name))) throw Error('product_package_not_confirmed');
   // One native piece is the whole25m roll, not its18.75m² nominal area.
   // source: https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972
   if (source.id === 'plejada-erismann-rollover-3333-5' && (source.ean !== '4002790333357' || source.packageSize !== 1 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'szt.' || source.productId !== 23972 || source.retailerSku !== 'ER 3333-5')) throw Error('product_package_not_confirmed');

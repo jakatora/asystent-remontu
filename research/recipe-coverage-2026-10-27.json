@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-27T15:06:07.831Z",
-  "scope": "Current engine recalculated the same 65 saved measurement maps without supplying new wallpaper choices or dimensions. Separate explicit two-wall examples prove a complete four-product lining recipe with a confirmed-delivery plan. Subsequent paint/decorative wallpaper, tools and labour are separate.",
+  "checkedAt": "2026-10-27T15:46:02.176Z",
+  "scope": "Current engine recalculated the same 65 saved measurement maps without filling new waterproofing choices, substrate and detail counts. Old mixed-brand hydro rows remain pending and four accessory roles are explicit: 82/244 priced, 162 unpriced (previously 84/240,156). Separate explicit measured Mapei cases prove a complete seven-product waterproofing recipe with native cart delivery. Tools, labour, tiles and drain assembly are separate.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 240,
     "beforePriced": 84,
-    "afterLines": 240,
-    "afterPriced": 84,
-    "afterUnpriced": 156,
+    "afterLines": 244,
+    "afterPriced": 82,
+    "afterUnpriced": 162,
     "fullyPricedScenarios": 8
   },
   "history": [
@@ -222,6 +222,19 @@
     },
     {
       "checkedAt": "2026-10-27T14:18:21.806Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 240,
+        "beforePriced": 84,
+        "afterLines": 240,
+        "afterPriced": 84,
+        "afterUnpriced": 156,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T15:06:07.831Z",
       "summary": {
         "registeredJobs": 66,
         "auditedJobs": 65,
@@ -1555,55 +1568,107 @@
       "materials": [
         {
           "materialId": "membrane",
-          "name": "Folia w płynie (masa hydroizolacyjna 1-składnikowa) Atlas Woder E 15 kg",
-          "unit": "kg",
+          "name": "Folia hydroizolacyjna — wybierz system — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "folia w plynie masa hydroizolacyjna 1 skladnikowa atlas woder e 15 kg",
-            "category": "waterproofing"
-          },
-          "quantity": 22,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5905400514506",
-            "ean": "5905400514506",
-            "name": "Folia w płynie szybkoschnąca Woder E 15kg Atlas"
-          }
-        },
-        {
-          "materialId": "sealing-tape",
-          "name": "Taśma uszczelniająca Ceresit CL 152, 10 m",
-          "unit": "m",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "tasma uszczelniajaca ceresit cl 152 10 m",
-            "category": "sealing-tape"
-          },
-          "quantity": 10,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5900089115211",
-            "ean": "5900089115211",
-            "name": "Ceresit CL 152, 10 m, taśma uszczelniająca"
-          }
-        },
-        {
-          "materialId": "primer-waterproof",
-          "name": "Grunt przed hydroizolacją",
-          "unit": "litr",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "grunt przed hydroizolacja",
-            "category": "grunt"
+            "normalizedName": "folia hydroizolacyjna wybierz system ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "sealing-tape",
+          "name": "Taśma systemowa — wybierz system i policz łączenia — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma systemowa wybierz system i policz laczenia ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "primer-waterproof",
+          "name": "Grunt pod hydroizolację — dobierz do podłoża — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt pod hydroizolacje dobierz do podloza ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "hydro-corner-inside",
+          "name": "Narożniki wewnętrzne — ilość do ustalenia — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "narozniki wewnetrzne ilosc do ustalenia ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "hydro-corner-outside",
+          "name": "Narożniki zewnętrzne — ilość do ustalenia — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "narozniki zewnetrzne ilosc do ustalenia ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "hydro-collar-wall",
+          "name": "Mankiety ścienne — dopasowanie i ilość do ustalenia — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "mankiety scienne dopasowanie i ilosc do ustalenia ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "hydro-collar-floor",
+          "name": "Mankiety podłogowe — dopasowanie i ilość do ustalenia — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "mankiety podlogowe dopasowanie i ilosc do ustalenia ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -4966,6 +5031,287 @@
       "incompatiblePaperGlueMissing": 1,
       "selectedPlejadaMissingRowsAcrossTwoJobs": 4,
       "selectedSwiatMissingRowsAcrossTwoJobs": 6
+    },
+    "wave63": {
+      "checkedAt": "2026-10-27T15:46:09.897Z",
+      "model": "waterproofing-mapei-v1",
+      "measurementsPerRoom": {
+        "wallArea": 10,
+        "floorArea": 5,
+        "perimeter": 10,
+        "hydroSystem": 3,
+        "hydroSubstrate": 1,
+        "hydroPrimerPack": 5,
+        "hydroTapeOverlaps": 8,
+        "hydroInsideCorners": 4,
+        "hydroOutsideCorners": 1,
+        "hydroWallCollars": 3,
+        "hydroFloorCollars": 1,
+        "hydroCollarFit": 1
+      },
+      "nativeCases": {
+        "complete20kg": {
+          "status": "compared",
+          "products": 7,
+          "missing": 0,
+          "best": {
+            "materialsGrosze": 78632,
+            "deliveryGrosze": 1050,
+            "totalGrosze": 79682,
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 7990,
+                "deliveryGrosze": 1050,
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-27T15:45:11.702Z",
+                  "expiresAt": "2026-10-27T15:55:11.702Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "76b939b8dd8a0e56906327f67da5ecd95824dff448dc4004b01db28fe8b96143"
+                }
+              },
+              {
+                "store": "WinBud",
+                "materialsGrosze": 70642,
+                "deliveryGrosze": 0,
+                "quote": {
+                  "costGrosze": 0,
+                  "carrier": "Kurier InPost do 30kg - przelew",
+                  "payment": "Przelew",
+                  "checkedAt": "2026-10-27T15:45:16.678Z",
+                  "expiresAt": "2026-10-27T15:55:16.678Z",
+                  "sourceUrl": "https://winbud24.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "c9472453f14f6ddd7d0836ae0024d6ad654dea8c76a552ff897de7e14a4b4fb5"
+                }
+              }
+            ]
+          }
+        },
+        "complete10kg": {
+          "status": "compared",
+          "products": 7,
+          "missing": 0,
+          "best": {
+            "materialsGrosze": 81656,
+            "deliveryGrosze": 1050,
+            "totalGrosze": 82706,
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 7990,
+                "deliveryGrosze": 1050,
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-27T15:45:11.702Z",
+                  "expiresAt": "2026-10-27T15:55:11.702Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "76b939b8dd8a0e56906327f67da5ecd95824dff448dc4004b01db28fe8b96143"
+                }
+              },
+              {
+                "store": "WinBud",
+                "materialsGrosze": 73666,
+                "deliveryGrosze": 0,
+                "quote": {
+                  "costGrosze": 0,
+                  "carrier": "Kurier InPost do 30kg - przelew",
+                  "payment": "Przelew",
+                  "checkedAt": "2026-10-27T15:45:30.229Z",
+                  "expiresAt": "2026-10-27T15:55:30.229Z",
+                  "sourceUrl": "https://winbud24.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "4b97aea6005232750600a9c757c9739d7916d725902d9246e3cab4619f7aaf41"
+                }
+              }
+            ]
+          }
+        },
+        "complete5kg": {
+          "status": "compared",
+          "products": 7,
+          "missing": 0,
+          "best": {
+            "materialsGrosze": 83462,
+            "deliveryGrosze": 1050,
+            "totalGrosze": 84512,
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 7990,
+                "deliveryGrosze": 1050,
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-27T15:45:11.702Z",
+                  "expiresAt": "2026-10-27T15:55:11.702Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "76b939b8dd8a0e56906327f67da5ecd95824dff448dc4004b01db28fe8b96143"
+                }
+              },
+              {
+                "store": "WinBud",
+                "materialsGrosze": 75472,
+                "deliveryGrosze": 0,
+                "quote": {
+                  "costGrosze": 0,
+                  "carrier": "Kurier InPost do 30kg - przelew",
+                  "payment": "Przelew",
+                  "checkedAt": "2026-10-27T15:45:41.788Z",
+                  "expiresAt": "2026-10-27T15:55:41.788Z",
+                  "sourceUrl": "https://winbud24.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "40f7d84e7e7dd804ef58b0f3369238c96a845b7e6198302df6a319cf360941c9"
+                }
+              }
+            ]
+          }
+        },
+        "twoRooms": {
+          "status": "needs_delivery_costs",
+          "products": 7,
+          "missing": 0,
+          "best": {
+            "materialsGrosze": 144544,
+            "deliveryGrosze": 1799,
+            "totalGrosze": 146343,
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 15980,
+                "deliveryGrosze": 1799,
+                "quote": {
+                  "costGrosze": 1799,
+                  "carrier": "InPost Kurier",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-27T15:45:48.016Z",
+                  "expiresAt": "2026-10-27T15:55:48.016Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "eee2fbd025bc3e591c148ccc1548838c02d5b64130cc720c1873b118d28bc871"
+                }
+              },
+              {
+                "store": "WinBud",
+                "materialsGrosze": 128564,
+                "deliveryGrosze": 0,
+                "quote": {
+                  "costGrosze": 0,
+                  "carrier": "kurier InPost od 30 do 70kg",
+                  "payment": "Przelew",
+                  "checkedAt": "2026-10-27T15:45:52.973Z",
+                  "expiresAt": "2026-10-27T15:55:52.973Z",
+                  "sourceUrl": "https://winbud24.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "7afbd71b24a1c15c33d94cacd9aa4fe9ee5c910bca56f0025ef020e05b4973cb"
+                }
+              }
+            ]
+          }
+        },
+        "zeroAccessories": {
+          "status": "compared",
+          "products": 3,
+          "missing": 0,
+          "best": {
+            "materialsGrosze": 65300,
+            "deliveryGrosze": 1050,
+            "totalGrosze": 66350,
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 7990,
+                "deliveryGrosze": 1050,
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-27T15:45:11.702Z",
+                  "expiresAt": "2026-10-27T15:55:11.702Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "76b939b8dd8a0e56906327f67da5ecd95824dff448dc4004b01db28fe8b96143"
+                }
+              },
+              {
+                "store": "WinBud",
+                "materialsGrosze": 57310,
+                "deliveryGrosze": 0,
+                "quote": {
+                  "costGrosze": 0,
+                  "carrier": "Kurier InPost do 30kg - przelew",
+                  "payment": "Przelew",
+                  "checkedAt": "2026-10-27T15:46:10.928Z",
+                  "expiresAt": "2026-10-27T15:56:10.928Z",
+                  "sourceUrl": "https://winbud24.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "5c72087121162d4bddc1f04ae3afc699d98e5b2a37ef7616822f08381f1d0b9b"
+                }
+              }
+            ]
+          }
+        },
+        "unconfirmedCollars": {
+          "status": "partial",
+          "products": 5,
+          "missing": 2,
+          "best": null
+        },
+        "otherSubstrate": {
+          "status": "partial",
+          "products": 6,
+          "missing": 1,
+          "best": null
+        },
+        "unknownSystem": {
+          "status": "partial",
+          "products": 0,
+          "missing": 7,
+          "best": null
+        },
+        "selectedWinbud": {
+          "status": "partial",
+          "products": 6,
+          "missing": 1,
+          "best": null
+        },
+        "selectedRabdom": {
+          "status": "partial",
+          "products": 1,
+          "missing": 6,
+          "best": null
+        }
+      },
+      "scope": "Exact selected packaging families; user chooses 5/10/20 kg membrane and 1/5 l primer. No automatic search across those different EANs. Two-room best is cheapest among confirmed delivery quotes; some alternatives are unquoted. National PL cart tariffs, not postcode-specific tariffs; 00-001 is a QA postcode. No customer or order submission.",
+      "ui": {
+        "project": "proj_mvqux9ge8j8hlecp2",
+        "wallArea": 10,
+        "floorArea": 5,
+        "hydroTapeOverlaps": 16,
+        "fullTotalGrosze": 79682,
+        "selectedWinbudMissing": 1,
+        "restoredCheapest": true
+      },
+      "baselineChange": "Two old mixed-brand rows are no longer priced before the required explicit choices; four detail roles are no longer silently omitted. The 162 rows overlap catalogue gaps and repeat materials; they are not unique missing SKUs."
     }
   }
 }

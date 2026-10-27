@@ -1,3 +1,4 @@
+import { WATERPROOFING_JOB, WATERPROOFING_IDS, waterproofingReference } from '@/features/calculator/waterproofing';
 import { REMOVAL_JOB, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
 import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference } from '@/features/calculator/wallpaperAdhesive';
 import { wallpaperRollReference } from '@/features/calculator/wallpaperRolls';
@@ -65,6 +66,7 @@ export function getLaborForJob(jobId: string, regionCode?: string): LaborPriceRe
 }
 
 export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measurements?: Readonly<Record<string, number>>): MaterialPriceReference[] {
+  if (jobId === WATERPROOFING_JOB) return WATERPROOFING_IDS.flatMap(id => { const key = waterproofingReference(id, measurements ?? {}), ref = key ? MATERIAL_BY_ID.get(key) : undefined; return ref ? [ref] : []; });
   const ids = getMaterialIdsForJob(jobId, tier);
   const results: MaterialPriceReference[] = [];
   for (const id of ids) {

@@ -1,3 +1,4 @@
+import { waterproofingInputVisible } from '@/features/calculator/waterproofing';
 import { parseDecimal } from '@/shared/lib/number';
 import React, { useState, useEffect } from 'react';
 import {
@@ -312,7 +313,7 @@ export default function EditProjectScreen() {
               : epsJob.id === 'sink-installation'
               ? (language === 'pl' ? 'Wpisz liczbę umywalek i dodatkowych wężyków. Mocowania pozostają do ustalenia, dopóki nie potwierdzisz dopasowanego zestawu lub posiadania wszystkich potrzebnych mocowań. Zmiana ilości wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Enter basin and extra hose counts. Fixings remain unconfirmed until you select a suitable kit or declare that all required fixings are owned. Quantity changes require confirming “Owned” and “Purchased” again.')
               : (language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.')}</Txt>
-            {epsJob.measurementInputs.filter(input=>frameInputVisible(epsJob.id,input.id,epsMeasurements.frameSystem)).map(input => <View key={input.id} style={{ gap: 4 }}>
+            {epsJob.measurementInputs.filter(input=>frameInputVisible(epsJob.id,input.id,epsMeasurements.frameSystem) && waterproofingInputVisible(epsJob.id,input.id,epsMeasurements)).map(input => <View key={input.id} style={{ gap: 4 }}>
               {'inputType' in input && input.inputType === 'select' ? <>
                 <Txt w="medium" style={{ fontSize: 15 }}>{input.label}</Txt>
                 <MeasurementSelect label={input.label} options={input.options ?? []} value={epsMeasurements[input.id] ? parseDecimal(epsMeasurements[input.id]) : input.defaultValue}

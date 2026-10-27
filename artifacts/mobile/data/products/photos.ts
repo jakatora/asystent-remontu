@@ -394,6 +394,20 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972
   // source: https://www.erismann.de/en/collection/rollover-27
   {"ids":["mat-wallpaper-erismann-rollover-3333-5"],"ean":"4002790333357","sourceUrl":"https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972","imageUrl":"https://plejadatapet.pl/environment/cache/images/productGfx_92091_500_500/Gladka-tapeta-flizelinowa-150gm2-25m--0%2C75m-3333-5-Erismann-RollOver.jpg"},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-5kg/131
+  {"ids":["mat-mapegum-wps-5kg"],"ean":"8022452002113","sourceUrl":"https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-5kg/131","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10363_500_500/Mapei-Mapegum-WPS-folia-w-plynie-5kg.png"},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-10kg/419
+  {"ids":["mat-mapegum-wps-10kg"],"ean":"8022452002120","sourceUrl":"https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-10kg/419","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10364_500_500/Mapei-Mapegum-WPS-folia-w-plynie-10kg.png"},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543
+  {"ids":["mat-mapegum-wps-20kg"],"ean":"8022452242502","sourceUrl":"https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10095_500_500/Mapei-Mapegum-WPS-folia-w-plynie-20kg.jpg"},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-10mb-Tasma-uszczelniajaca%2C-rolka/3088
+  {"ids":["mat-mapeband-w-10m"],"ean":"8022452113932","sourceUrl":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-10mb-Tasma-uszczelniajaca%2C-rolka/3088","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_445089b9b7c9b68ab49588317e73e9ce_500_500.jpg"},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091
+  {"ids":["mat-mapeband-w-floor-300"],"ean":"8022452113895","sourceUrl":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_19e0623a7a479d85b5c509f0f7dd6f7e_500_500.jpg"},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970
+  {"ids":["mat-primer-g-pro-1l"],"ean":"8022452241123","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19574_500_500/4_primer-g-pro_1l_pl_2c7d4435f6894c59b7f19830a10992cc.webp"},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969
+  {"ids":["mat-primer-g-pro-5l"],"ean":"8022452241130","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19572_500_500/4_primer-g-pro_5l_pl_ea1ad0866a074cc2a5352b1844b10324.webp"},
 ];
 
 export function getProductPhoto(product: {

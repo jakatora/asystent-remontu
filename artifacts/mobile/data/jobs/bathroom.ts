@@ -1,3 +1,4 @@
+import { waterproofingInputs, waterproofingMaterials } from '@/features/calculator/waterproofing';
 import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
@@ -36,46 +37,12 @@ export const waterproofingJob: RenovationJob = {
     { id: 'floorArea', label: 'Powierzchnia podłogi', unit: 'm²', inputType: 'area',
       placeholder: 'np. 5', min: 0, max: 50,
       hint: 'Cała podłoga łazienki.' },
-    { id: 'perimeter', label: 'Obwód (do taśmy narożnikowej)', unit: 'm', inputType: 'length',
-      placeholder: 'np. 9', min: 0, max: 50, required: false,
-      hint: 'Obwód podłogi — do narożników podłoga-ściana.' },
+    { id: 'perimeter', label: 'Łączna długość połączeń do uszczelnienia', unit: 'm', inputType: 'length',
+      placeholder: 'np. 12', min: 0, max: 50,
+      hint: 'Zmierz wszystkie połączenia ściana-podłoga, pionowe naroża, dylatacje i inne odcinki taśmy. Zakłady doliczymy osobno na podstawie liczby łączeń.' },
+    ...waterproofingInputs,
   ],
-  materials: [
-    {
-      id: 'membrane',
-      name: 'Masa uszczelniająca elastyczna',
-      unit: 'kg',
-      formulaKey: 'membrane',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 5, label: 'wiaderko 5 kg', purchaseUnit: 'wiaderko' },
-      pricePerUnit: 22,
-      category: 'hydroizolacja',
-      notes: 'Np. Ceresit CL 51 lub Knauf Hydro Flex (folia w płynie); na podłoża odkształcalne także Ceresit CR 166 (2-składnikowa elastyczna). 2 × 1 kg/m² = ok. 2 kg/m² łącznie.',
-    },
-    {
-      id: 'sealing-tape',
-      name: 'Taśma uszczelniająca (narożniki)',
-      unit: 'm',
-      formulaKey: 'sealingTape',
-      wasteFactor: 1.1,
-      pricePerUnit: 5,
-      category: 'taśma',
-      notes: 'Konieczna w narożnikach podłoga-ściana i ściana-ściana. Osadź w masie.',
-    },
-    {
-      id: 'primer-waterproof',
-      name: 'Grunt przed hydroizolacją',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 12,
-      category: 'grunt',
-      optional: true,
-      notes: 'Na chłonnych podłożach — zapewnia lepszą przyczepność masy.',
-    },
-  ],
+  materials: waterproofingMaterials(),
   tools: [
     { id: 'brush-waterproof', name: 'Pędzel szeroki 10–15 cm', icon: 'edit-2', required: true },
     { id: 'roller-small', name: 'Mały wałek (do powierzchni)', icon: 'edit-2', required: false },
@@ -85,9 +52,9 @@ export const waterproofingJob: RenovationJob = {
     { id: 'gloves', name: 'Rękawice gumowe', icon: 'shield', required: true, notes: 'Masa uszczelniająca może podrażniać skórę.' },
   ],
   instructions: [
-    { step: 1, title: 'Przygotuj powierzchnię', description: 'Oczyść i zagruntuj ściany i podłogę. Musi być sucha, czysta i wolna od kurzu. Poczekaj na wyschnięcie gruntu.', durationMin: 60 },
+    { step: 1, title: 'Przygotuj powierzchnię', description: 'Sprawdź suchość, nośność i przygotowanie podłoża według karty wybranego systemu. Dla chłonnych podłoży w wariancie Mapei dobierz Primer G Pro i odczekaj do pełnego wyschnięcia. Stare płytki wymagają odrębnego gruntu.', durationMin: 60 },
     { step: 2, title: 'Uszczelnij narożniki taśmą', description: 'W narożnikach podłoga-ściana naklej taśmę uszczelniającą wciśniętą w warstwę masy. Nanieś masę → wciśnij taśmę → nanieś masę na taśmę.', tip: 'Narożniki to miejsca najczęstszych przecieków — poświęć im szczególną uwagę.', durationMin: 45 },
-    { step: 3, title: 'Pierwsza warstwa masy', description: 'Pędzlem nanieś pierwszą warstwę masy na całą powierzchnię. Pracuj równomiernie, bez przerw. Grubość warstwy zgodna z instrukcją produktu (zazwyczaj ok. 1 mm mokrej masy).', durationMin: 90 },
+    { step: 3, title: 'Pierwsza warstwa masy', description: 'W wariancie Mapegum WPS nałóż pierwszą z co najmniej dwóch warstw zgodnie z kartą. Zużycie około 1,2 kg/m² dotyczy łącznie obu warstw na równym podłożu; nie traktuj go jako zużycia jednej warstwy. Uszczelnij taśmą, narożnikami i dopasowanymi mankietami wszystkie wymagane detale.', durationMin: 90 },
     { step: 4, title: 'Czekaj na wyschnięcie', description: 'Pierwsza warstwa musi całkowicie wyschnąć — masa zmieni kolor z mokrego na suchy. Czas schnięcia zależy od produktu (zazwyczaj 2–4 h). Sprawdź instrukcję producenta.', durationMin: 240, surfaceMustBeDry: true },
     { step: 5, title: 'Druga warstwa (prostopadle)', description: 'Nanieś drugą warstwę prostopadle do pierwszej. Upewnij się że nie ma prześwitów. Łączna grubość obu warstw musi spełniać wymagania producenta.', durationMin: 90 },
     { step: 6, title: 'Czekaj na pełne utwardzenie', description: 'Pełne utwardzenie masy — czas zależy od produktu (zazwyczaj 24 h, ale sprawdź instrukcję). Dopiero po pełnym utwardzeniu można kłaść klej i płytki.', durationMin: 1440, surfaceMustBeDry: true },

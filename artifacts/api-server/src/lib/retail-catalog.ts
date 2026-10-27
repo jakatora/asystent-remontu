@@ -1140,6 +1140,20 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   // source: https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972
   // source: https://www.erismann.de/en/collection/rollover-27
   {"id":"plejada-erismann-rollover-3333-5","ean":"4002790333357","name":"Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver","brand":"Erismann","category":"wallpaper","packageSize":1,"unit":"szt","store":"Plejada Tapet","url":"https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972","format":"shoper-api","productId":23972,"retailerSku":"ER 3333-5","apiPurchaseUnit":"szt.","variant":["3333-5","rollover"],"packageDescription":"25.00m * 0.75m","imageUrl":"https://plejadatapet.pl/environment/cache/images/productGfx_92091_500_500/Gladka-tapeta-flizelinowa-150gm2-25m--0%2C75m-3333-5-Erismann-RollOver.jpg","pickupRequiresConfirmation":true},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-5kg/131
+  {"id":"winbud-mapegum-wps-5kg","ean":"8022452002113","name":"Mapei Mapegum WPS folia w płynie  5kg","category":"waterproofing","brand":"Mapei","packageSize":5,"unit":"kg","store":"WinBud","format":"shoper-api","url":"https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-5kg/131","productId":131,"retailerSku":"002113","apiPurchaseUnit":"szt.","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10363_500_500/Mapei-Mapegum-WPS-folia-w-plynie-5kg.png","variant":["5kg"],"pickupRequiresConfirmation":true},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-10kg/419
+  {"id":"winbud-mapegum-wps-10kg","ean":"8022452002120","name":"Mapei Mapegum WPS folia w płynie 10kg","category":"waterproofing","brand":"Mapei","packageSize":10,"unit":"kg","store":"WinBud","format":"shoper-api","url":"https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-10kg/419","productId":419,"retailerSku":"002120","apiPurchaseUnit":"szt.","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10364_500_500/Mapei-Mapegum-WPS-folia-w-plynie-10kg.png","variant":["10kg"],"pickupRequiresConfirmation":true},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543
+  {"id":"winbud-mapegum-wps-20kg","ean":"8022452242502","name":"Mapei Mapegum WPS 20kg folia w płynie","category":"waterproofing","brand":"Mapei","packageSize":20,"unit":"kg","store":"WinBud","format":"shoper-api","url":"https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543","productId":3543,"retailerSku":"8022452242502","apiPurchaseUnit":"szt.","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10095_500_500/Mapei-Mapegum-WPS-folia-w-plynie-20kg.jpg","variant":["20kg"],"pickupRequiresConfirmation":true},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-10mb-Tasma-uszczelniajaca%2C-rolka/3088
+  {"id":"winbud-mapeband-w-10m","ean":"8022452113932","name":"Mapei Mapeband W 10mb - Taśma uszczelniająca, rolka","category":"sealing-tape","brand":"Mapei","packageSize":10,"unit":"m","store":"WinBud","format":"shoper-api","url":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-10mb-Tasma-uszczelniajaca%2C-rolka/3088","productId":3088,"retailerSku":"8022452113932","apiPurchaseUnit":"szt.","variant":["10mb"],"imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_445089b9b7c9b68ab49588317e73e9ce_500_500.jpg","pickupRequiresConfirmation":true},
+  // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091
+  {"id":"winbud-mapeband-w-floor-300","ean":"8022452113895","name":"Mapei Mapeband W -  mankiet uszczelniający 300 x 300mm, podłogowy","category":"sealing-cuff","brand":"Mapei","packageSize":1,"unit":"szt","store":"WinBud","format":"shoper-api","url":"https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091","productId":3091,"retailerSku":"8022452113895","apiPurchaseUnit":"szt.","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_19e0623a7a479d85b5c509f0f7dd6f7e_500_500.jpg","variant":["300"],"pickupRequiresConfirmation":true},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970
+  {"id":"rabdom-primer-g-pro-1l","ean":"8022452241123","name":"MAPEI PRIMER G PRO 1l KONCENTRAT GRUNTUJĄCY GRUNT","category":"primer","brand":"Mapei","packageSize":1,"unit":"l","store":"Rab-Dom","format":"shoper-api","url":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970","productId":10970,"retailerSku":"37969","apiPurchaseUnit":"szt.","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19574_500_500/4_primer-g-pro_1l_pl_2c7d4435f6894c59b7f19830a10992cc.webp","variant":["1l"],"pickupRequiresConfirmation":true},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969
+  {"id":"rabdom-primer-g-pro-5l","ean":"8022452241130","name":"MAPEI PRIMER G PRO 5l KONCENTRAT GRUNTUJĄCY GRUNT","category":"primer","brand":"Mapei","packageSize":5,"unit":"l","store":"Rab-Dom","format":"shoper-api","url":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969","productId":10969,"retailerSku":"37970","apiPurchaseUnit":"szt.","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19572_500_500/4_primer-g-pro_5l_pl_ea1ad0866a074cc2a5352b1844b10324.webp","variant":["5l"],"pickupRequiresConfirmation":true},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -1323,4 +1337,11 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   "Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m": "5411183151178",
   "Szybkozłączka uniwersalna WAGO 221-413 3×0,2-4 mm² (1 szt.)": "4050821808442",
   "Profil narożny do glazury Cezar aluminiowy 8 mm, tytan szczotkowany mat, 2,5 m": "5904584853500",
+  "Mapei Mapegum WPS — folia w płynie 5 kg": "8022452002113",
+  "Mapei Mapegum WPS — folia w płynie 10 kg": "8022452002120",
+  "Mapei Mapegum WPS — folia w płynie 20 kg": "8022452242502",
+  "Mapei Mapeband W — taśma uszczelniająca 120 mm × 10 m": "8022452113932",
+  "Mapei Mapeband W — mankiet podłogowy 300 × 300 mm (1 szt.)": "8022452113895",
+  "Mapei Primer G Pro — koncentrat gruntujący 1 l": "8022452241123",
+  "Mapei Primer G Pro — koncentrat gruntujący 5 l": "8022452241130",
 };

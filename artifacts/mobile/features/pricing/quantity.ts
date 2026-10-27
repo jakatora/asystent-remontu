@@ -1,3 +1,4 @@
+import { WATERPROOFING_JOB, WATERPROOFING_MODEL, waterproofingMaterials, waterproofingReference } from '@/features/calculator/waterproofing';
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
 import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, isCurrentWallpaperAdhesiveModel, isCurrentWallpaperTapeModel, WALLPAPER_ROLLS_MODEL } from '@/features/calculator/wallpaperAdhesive';
 import { WALLPAPER_ROLL_REFERENCE } from '@/features/calculator/wallpaperRolls';
@@ -70,6 +71,13 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if (calc.jobId === WATERPROOFING_JOB) {
+    if (calc.quantityModel !== WATERPROOFING_MODEL) return null;
+    const definition = waterproofingMaterials(calc.measurements).find(row => waterproofingReference(row.id, calc.measurements) === ref.id);
+    const source = definition && calc.materials.find(row => row.material.id === definition.id);
+    if (!source || source.quantityKnown === false || !('ean' in source.material) || source.material.ean !== definition!.ean || normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
+    const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
   if (isWallpaperAdhesiveJob(calc.jobId) && ref.materialType === 'wallpaper') {
     const source = calc.materials.find(line => line.material.id === 'wallpaper');
     if (ref.id !== WALLPAPER_ROLL_REFERENCE || calc.quantityModel !== WALLPAPER_ROLLS_MODEL || !source || source.quantityKnown === false || source.material.unit !== 'szt' || !('ean' in source.material) || source.material.ean !== ERISMANN_3333_5_EAN) return null;

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T15:06:07.831Z",
-  "scope": "Fresh production HTTP. Current engine recalculated all 65 saved baseline measurement maps without supplying new wallpaper choices or wall dimensions. Separate 154-reference catalogue queries. Native explicit two-wall examples are recorded separately. No project data writes. Wave62 adds one exact plain renovation lining, not a full decorative-wallpaper range. Actual shared cutting and delivery are separately verified.",
-  "total": 154,
-  "verifiedProducts": 130,
+  "checkedAt": "2026-10-27T15:46:02.176Z",
+  "scope": "Fresh production HTTP, same 65 saved measurement maps recalculated by the current engine without filling new waterproofing choices or detail counts. Previous mixed-brand waterproofing is deliberately pending; four accessory roles are now explicit. Separate complete measured cases verify native delivery. No user project data writes. Seven exact Mapei waterproofing/primer packs added. Native complete measured basket checks are separate from the unchanged baseline input maps.",
+  "total": 161,
+  "verifiedProducts": 137,
   "remaining": 24,
-  "offers": 176,
+  "offers": 183,
   "stores": 50,
-  "productsWithPhotos": 154,
-  "registeredOffers": 197,
+  "productsWithPhotos": 161,
+  "registeredOffers": 204,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3462,15 +3462,231 @@
           }
         }
       ]
+    },
+    {
+      "id": "mat-mapegum-wps-5kg",
+      "name": "Mapei Mapegum WPS — folia w płynie 5 kg",
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-5kg/131",
+      "ean": "8022452002113",
+      "sourceIds": [
+        "winbud-mapegum-wps-5kg"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://winbud24.pl/environment/cache/images/productGfx_10363_500_500/Mapei-Mapegum-WPS-folia-w-plynie-5kg.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapegum-wps-5kg",
+          "checkedAt": "2026-10-27T15:45:41.788Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 0,
+          "basketScope": "Whole selected store basket in explicitMeasurementChecks.wave63; this charge must not be reused as standalone product postage or for other quantities.",
+          "nativeQuote": {
+            "costGrosze": 0,
+            "carrier": "Kurier InPost do 30kg - przelew",
+            "payment": "Przelew",
+            "checkedAt": "2026-10-27T15:45:41.788Z",
+            "expiresAt": "2026-10-27T15:55:41.788Z",
+            "sourceUrl": "https://winbud24.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "40f7d84e7e7dd804ef58b0f3369238c96a845b7e6198302df6a319cf360941c9"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-mapegum-wps-10kg",
+      "name": "Mapei Mapegum WPS — folia w płynie 10 kg",
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-folia-w-plynie-10kg/419",
+      "ean": "8022452002120",
+      "sourceIds": [
+        "winbud-mapegum-wps-10kg"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://winbud24.pl/environment/cache/images/productGfx_10364_500_500/Mapei-Mapegum-WPS-folia-w-plynie-10kg.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapegum-wps-10kg",
+          "checkedAt": "2026-10-27T15:45:30.229Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 0,
+          "basketScope": "Whole selected store basket in explicitMeasurementChecks.wave63; this charge must not be reused as standalone product postage or for other quantities.",
+          "nativeQuote": {
+            "costGrosze": 0,
+            "carrier": "Kurier InPost do 30kg - przelew",
+            "payment": "Przelew",
+            "checkedAt": "2026-10-27T15:45:30.229Z",
+            "expiresAt": "2026-10-27T15:55:30.229Z",
+            "sourceUrl": "https://winbud24.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "4b97aea6005232750600a9c757c9739d7916d725902d9246e3cab4619f7aaf41"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-mapegum-wps-20kg",
+      "name": "Mapei Mapegum WPS — folia w płynie 20 kg",
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543",
+      "ean": "8022452242502",
+      "sourceIds": [
+        "winbud-mapegum-wps-20kg"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://winbud24.pl/environment/cache/images/productGfx_10095_500_500/Mapei-Mapegum-WPS-folia-w-plynie-20kg.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapegum-wps-20kg",
+          "checkedAt": "2026-10-27T15:45:16.678Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 0,
+          "basketScope": "Whole selected store basket in explicitMeasurementChecks.wave63; this charge must not be reused as standalone product postage or for other quantities.",
+          "nativeQuote": {
+            "costGrosze": 0,
+            "carrier": "Kurier InPost do 30kg - przelew",
+            "payment": "Przelew",
+            "checkedAt": "2026-10-27T15:45:16.678Z",
+            "expiresAt": "2026-10-27T15:55:16.678Z",
+            "sourceUrl": "https://winbud24.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "c9472453f14f6ddd7d0836ae0024d6ad654dea8c76a552ff897de7e14a4b4fb5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-mapeband-w-10m",
+      "name": "Mapei Mapeband W — taśma uszczelniająca 120 mm × 10 m",
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapeband-W-10mb-Tasma-uszczelniajaca%2C-rolka/3088",
+      "ean": "8022452113932",
+      "sourceIds": [
+        "winbud-mapeband-w-10m"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://winbud24.pl/environment/cache/images/productGfx_445089b9b7c9b68ab49588317e73e9ce_500_500.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapeband-w-10m",
+          "checkedAt": "2026-10-27T15:45:16.678Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 0,
+          "basketScope": "Whole selected store basket in explicitMeasurementChecks.wave63; this charge must not be reused as standalone product postage or for other quantities.",
+          "nativeQuote": {
+            "costGrosze": 0,
+            "carrier": "Kurier InPost do 30kg - przelew",
+            "payment": "Przelew",
+            "checkedAt": "2026-10-27T15:45:16.678Z",
+            "expiresAt": "2026-10-27T15:55:16.678Z",
+            "sourceUrl": "https://winbud24.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "c9472453f14f6ddd7d0836ae0024d6ad654dea8c76a552ff897de7e14a4b4fb5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-mapeband-w-floor-300",
+      "name": "Mapei Mapeband W — mankiet podłogowy 300 × 300 mm (1 szt.)",
+      "referenceUrl": "https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091",
+      "ean": "8022452113895",
+      "sourceIds": [
+        "winbud-mapeband-w-floor-300"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://winbud24.pl/environment/cache/images/productGfx_19e0623a7a479d85b5c509f0f7dd6f7e_500_500.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "winbud-mapeband-w-floor-300",
+          "checkedAt": "2026-10-27T15:45:16.678Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 0,
+          "basketScope": "Whole selected store basket in explicitMeasurementChecks.wave63; this charge must not be reused as standalone product postage or for other quantities.",
+          "nativeQuote": {
+            "costGrosze": 0,
+            "carrier": "Kurier InPost do 30kg - przelew",
+            "payment": "Przelew",
+            "checkedAt": "2026-10-27T15:45:16.678Z",
+            "expiresAt": "2026-10-27T15:55:16.678Z",
+            "sourceUrl": "https://winbud24.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "c9472453f14f6ddd7d0836ae0024d6ad654dea8c76a552ff897de7e14a4b4fb5"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-primer-g-pro-1l",
+      "name": "Mapei Primer G Pro — koncentrat gruntujący 1 l",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970",
+      "ean": "8022452241123",
+      "sourceIds": [
+        "rabdom-primer-g-pro-1l"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_19574_500_500/4_primer-g-pro_1l_pl_2c7d4435f6894c59b7f19830a10992cc.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-primer-g-pro-5l",
+      "name": "Mapei Primer G Pro — koncentrat gruntujący 5 l",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969",
+      "ean": "8022452241130",
+      "sourceIds": [
+        "rabdom-primer-g-pro-5l"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_19572_500_500/4_primer-g-pro_5l_pl_ea1ad0866a074cc2a5352b1844b10324.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "rabdom-primer-g-pro-5l",
+          "checkedAt": "2026-10-27T15:45:11.702Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 1050,
+          "basketScope": "Whole selected store basket in explicitMeasurementChecks.wave63; this charge must not be reused as standalone product postage or for other quantities.",
+          "nativeQuote": {
+            "costGrosze": 1050,
+            "carrier": "Pocztex KURIER",
+            "payment": "Bezpieczne przelewy",
+            "checkedAt": "2026-10-27T15:45:11.702Z",
+            "expiresAt": "2026-10-27T15:55:11.702Z",
+            "sourceUrl": "https://www.rabdom.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "76b939b8dd8a0e56906327f67da5ecd95824dff448dc4004b01db28fe8b96143"
+          }
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 30,
   "browserVerifiedOffers": 11,
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T15:06:07.831Z",
-    "pricedLines": 84,
-    "totalLines": 240,
-    "unpricedLines": 156,
+    "checkedAt": "2026-10-27T15:46:02.176Z",
+    "pricedLines": 82,
+    "totalLines": 244,
+    "unpricedLines": 162,
     "fullyPricedScenarios": 8,
     "report": "recipe-coverage-2026-10-27.json"
   },
@@ -3499,6 +3715,14 @@
       "verifiedProducts": 129,
       "remaining": 24,
       "offers": 175,
+      "stores": 50
+    },
+    {
+      "checkedAt": "2026-10-27T15:06:07.831Z",
+      "total": 154,
+      "verifiedProducts": 130,
+      "remaining": 24,
+      "offers": 176,
       "stores": 50
     }
   ],
