@@ -1,6 +1,26 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044 (odczyt 2026-10-27T03:06:00.165Z)
+  // source: https://www.grupapsb.com.pl/produkt/tasma-antyrysowa-48-mm-x-20-m-blue-dolphin-5907758504369.html
+  {"id":"mat-joint-tape-bluedolphin-fsh-48mm-20m","materialType":"joint-tape","productLabel":"Blue Dolphin FSH, taśma spoinowa 48 mm × 20 m","brand":"Blue Dolphin","packageSize":20,"packageUnit":"m","pricePerPackage":6.26,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044","lastUpdated":"2026-10-27","currency":"PLN","notes":"Samoprzylepna siatka do wewnętrznych, stabilnych rys i spoin. Ilość w metrach, rolka 20 m. Nie jest taśmą malarską ani rozwiązaniem pęknięć konstrukcyjnych."},
+
+  // source: https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903 (odczyt 2026-10-27T03:05:58.657Z)
+  // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c
+  {"id":"mat-hand-paper-klingspor-pl28c-p240","materialType":"hand-abrasive-240","productLabel":"Klingspor PL 28 C P240, arkusz 230 × 280 mm","brand":"Klingspor","packageSize":1,"packageUnit":"szt","pricePerPackage":1.49,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903","lastUpdated":"2026-10-27","currency":"PLN","notes":"Pojedynczy suchy arkusz PL 28 C, nie wodny PS8A i nie krążek. Liczba arkuszy podawana osobno; gradacje mają odrębne EAN."},
+
+  // source: https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900 (odczyt 2026-10-27T03:05:57.067Z)
+  // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c
+  {"id":"mat-hand-paper-klingspor-pl28c-p150","materialType":"hand-abrasive-150","productLabel":"Klingspor PL 28 C P150, arkusz 230 × 280 mm","brand":"Klingspor","packageSize":1,"packageUnit":"szt","pricePerPackage":1.67,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900","lastUpdated":"2026-10-27","currency":"PLN","notes":"Pojedynczy suchy arkusz PL 28 C, nie wodny PS8A i nie krążek. Liczba arkuszy podawana osobno; gradacje mają odrębne EAN."},
+
+  // source: https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899 (odczyt 2026-10-27T03:05:55.534Z)
+  // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c
+  {"id":"mat-hand-paper-klingspor-pl28c-p120","materialType":"hand-abrasive-120","productLabel":"Klingspor PL 28 C P120, arkusz 230 × 280 mm","brand":"Klingspor","packageSize":1,"packageUnit":"szt","pricePerPackage":1.67,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899","lastUpdated":"2026-10-27","currency":"PLN","notes":"Pojedynczy suchy arkusz PL 28 C, nie wodny PS8A i nie krążek. Liczba arkuszy podawana osobno; gradacje mają odrębne EAN."},
+
+  // source: https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308 (odczyt 2026-10-27T03:05:54.013Z)
+  // source: https://www.acrylputz.pl/produkty/gladzie-sypkie/acrylputz-st10-start
+  {"id":"mat-skim-coat-acrylputz-st10-5kg","materialType":"skim-coat","productLabel":"ACRYL-PUTZ ST10 START 5 kg","brand":"ŚNIEŻKA","packageSize":5,"packageUnit":"kg","pricePerPackage":17.9,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308","lastUpdated":"2026-10-27","currency":"PLN","notes":"Sypka masa ST10, opakowanie 5 kg odrębne od 20 kg. Zużycie około 1 kg/m²/mm; wodę i przygotowanie sprawdź na etykiecie bieżącej partii."},
+
   // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922 (odczyt 2026-10-27T02:28:35.964Z)
   // source: https://www.soudal.pl/diy/produkty/masy-uszczelniajace/silikony/silikon-sanitarny-stop
   {"id":"mat-sanitary-silicone-soudal-stop-white-280ml","materialType":"silicone","productLabel":"Soudal Silikon Sanitarny STOP biały 280 ml","brand":"Soudal","packageSize":280,"packageUnit":"ml","pricePerPackage":23,"category":"standard","storeName":"Realbud","sourceUrl":"https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922","lastUpdated":"2026-10-27","currency":"PLN","notes":"Biały STOP 280 ml, EAN 5411183200326; odrębny od zwykłego silikonu sanitarnego 5411183157064. Również do akrylu według producenta; nie do kamienia naturalnego."},

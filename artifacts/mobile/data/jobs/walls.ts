@@ -1,3 +1,4 @@
+import { finishingMaterials, finishingInputs } from '@/features/calculator/wallFinishing';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
@@ -202,6 +203,7 @@ export const repaintJob: RenovationJob = {
 // ─── Naprawa pęknięć i ubytków ────────────────────────────────────────────────
 
 export const wallRepairJob: RenovationJob = {
+  // source: https://www.acrylputz.pl/produkty/gladzie-sypkie/acrylputz-st10-start
   id: 'wall-repair',
   slug: 'naprawa-pekniec-i-ubytkow',
   categoryId: 'wall-repair',
@@ -219,55 +221,29 @@ export const wallRepairJob: RenovationJob = {
     { condition: 'always', message: 'Wilgoć na ścianie: jeśli widzisz zacieki lub grzyb — najpierw usuń przyczynę wilgoci.', level: 'warning' },
   ],
   measurementInputs: [
-    { id: 'wallArea', label: 'Orientacyjna powierzchnia ściany', unit: 'm²', inputType: 'area',
-      placeholder: 'np. 10', min: 1, max: 200,
-      hint: 'Podaj powierzchnię całej ściany — kalkulacja masy jest szacunkowa.' },
+    { id: 'wallArea', label: 'Powierzchnia ściany do gruntowania', unit: 'm²', inputType: 'area',
+      placeholder: 'np. 10', min: 0.001, max: 200,
+      hint: 'Ta powierzchnia służy do obliczenia gruntu. Powierzchnię samych ubytków i głębokość podajesz osobno poniżej.' },
+    ...finishingInputs('wall-repair'),
     ...substratePrimerInputs('wall-repair'),
   ],
   materials: [
-    {
-      id: 'filler',
-      name: 'Masa szpachlowa do napraw',
-      unit: 'kg',
-      formulaKey: 'filler',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 5, label: 'wiaderko 5 kg', purchaseUnit: 'wiaderko' },
-      pricePerUnit: 8,
-      category: 'masa',
-      notes: 'Do małych ubytków — masa polimerowa lub gipsowa. Np. Knauf Uniflott.',
-    },
-    {
-      id: 'mesh-tape',
-      name: 'Taśma zbrojąca siatkowa',
-      unit: 'm',
-      formulaKey: 'mesh',
-      packaging: { size: 20, label: 'rolka 20 m', purchaseUnit: 'rolka' },
-      pricePerUnit: 0.5,
-      category: 'wzmocnienie',
-      notes: 'Na rysy — zapobiega ponownemu pękaniu. Szer. 5–10 cm.',
-    },
-    {
-      id: 'sandpaper-repair',
-      name: 'Papier ścierny 120 i 240',
-      unit: 'arkusz',
-      formulaKey: 'sandpaper',
-      pricePerUnit: 3,
-      category: 'szlifowanie',
-    },
+    ...finishingMaterials('wall-repair'),
     substratePrimerMaterial('wall-repair'),
   ],
   tools: [
     { id: 'spatula', name: 'Szpachelka 10 cm', icon: 'minus', required: true, estimatedBuyCostPLN: 10 },
-    { id: 'sandpaper', name: 'Papier ścierny 120 i 240', icon: 'layers', required: true },
+    // source: https://www.bosch-professional.com/pl/pl/klocki-szlifierskie-zapiecie-na-rzepy-2868585-ocs-ac/
+    // source: https://intercars.pl/produkty/9e076f-klocek-szlifierski-do-recznego-szlifowania-130-x-70mm-260101
+    { id: 'sanding-block', name: 'Klocek do szlifowania ręcznego', icon: 'layers', required: true, notes: 'Dobierz klocek do zwykłych arkuszy: owijany papierem lub z zaciskami. Sam rzep wymaga arkuszy z odpowiednim podkładem. Papier o wybranych gradacjach jest osobno w materiałach.' },
     { id: 'brush', name: 'Pędzelek do gruntowania', icon: 'edit-3', required: true, shopPrices: SHARED_SHOP_PRICES.brush50mm },
   ],
   instructions: [
     { step: 1, title: 'Powiększ i oczyść ubytek', description: 'Nożem lub szpachelką poszerz rysę do ok. 3–5 mm (klucz do trwałej naprawy). Usuń luźne kawałki tynku wokół dziury. Odkurz starannie z kurzu.', durationMin: 15 },
-    { step: 2, title: 'Zwilż ubytek', description: 'Pędzlem zwilż ubytek wodą — szpachla lepiej przyczepi się do wilgotnego podłoża.', durationMin: 5 },
-    { step: 3, title: 'Wypełnij masą', description: 'Szpachelką wciśnij masę w ubytek, wyrównaj z powierzchnią ściany. Na duże dziury nakładaj warstwy po 5–8 mm. Na rysy nałóż taśmę zbrojącą i dopiero na nią masę.', tip: 'Nie nakładaj od razu grubej warstwy — będzie pękać.', durationMin: 30 },
+    { step: 2, title: 'Przygotuj suche podłoże', description: 'ST10 wymaga nośnego, suchego i odpylonego podłoża. Podłoże chłonne przygotuj zgodnie z kartą gruntu i masy; gładki beton wymaga osobnego podkładu kontaktowego. Nie zastępuj gruntowania zwilżeniem wodą.', durationMin: 5 },
+    { step: 3, title: 'Wypełnij masą', description: 'Szpachelką wciśnij masę w ubytek, wyrównaj z powierzchnią ściany. ST10 nanosi się w warstwie 1–3 mm; do 30 mm wyłącznie przy pojedynczych ubytkach zgodnie z kartą produktu. Na stabilne rysy zastosuj przewidzianą taśmę i zatop ją w masie.', tip: 'Nie nakładaj od razu grubej warstwy — będzie pękać.', durationMin: 30 },
     { step: 4, title: 'Czekaj na pełne wyschnięcie', description: 'Poczekaj 2–8 godzin (zależy od produktu — sprawdź instrukcję). Masa zmieni kolor z ciemnego na jasny. Masa MUSI być całkowicie sucha przed szlifowaniem.', durationMin: 240, surfaceMustBeDry: true },
-    { step: 5, title: 'Szlifuj na gładko', description: 'Papierem 120 zgrubnie, potem 240 na gładko. Cel: wyrównać z resztą ściany.', tip: 'Wyczuj palcami czy jest równo.', durationMin: 20, removeDustBeforeNext: true },
+    { step: 5, title: 'Szlifuj na gładko', description: 'Po wyschnięciu szlifuj wybraną gradacją 100–150 zgodnie z kartą ST10. Drobniejszy P240 jest opcjonalny, jeśli wymaga go dalsze wykończenie. Odpyl podłoże.', tip: 'Wyczuj palcami czy jest równo.', durationMin: 20, removeDustBeforeNext: true },
     { step: 6, title: 'Odkurz z pyłu', description: 'Odkurzaczem lub wilgotną szmatką starannie usuń cały pył po szlifowaniu. Pył uniemożliwia prawidłowe gruntowanie i malowanie.', durationMin: 10 },
     { step: 7, title: 'Zagruntuj i maluj', description: 'Na naprawione miejsca nanieś grunt (obowiązkowy — naprawione miejsce jest chłonne). Poczekaj na wyschnięcie, a potem maluj.', durationMin: 30, surfaceMustBeDry: true },
   ],
@@ -292,6 +268,7 @@ export const wallRepairJob: RenovationJob = {
 // ─── Szpachlowanie ────────────────────────────────────────────────────────────
 
 export const skimCoatJob: RenovationJob = {
+  // source: https://www.acrylputz.pl/produkty/gladzie-sypkie/acrylputz-st10-start
   id: 'skim-coat',
   slug: 'szpachlowanie-scian',
   categoryId: 'skim-coat',
@@ -314,48 +291,22 @@ export const skimCoatJob: RenovationJob = {
       hint: 'Długość × wysokość każdej ściany. Zsumuj wszystkie.' },
     { id: 'layers', label: 'Liczba warstw szpachli', unit: 'warstwy', inputType: 'count',
       placeholder: '2', defaultValue: 2, min: 1, max: 4,
-      hint: 'Zwykle 2–3 warstwy dla ściany gotowej pod malowanie. Każda warstwa 1–2 mm.' },
+      hint: 'Zwykle 2–3 warstwy dla ściany gotowej pod malowanie. Grubość każdej warstwy ST10 wpisz osobno (1–3 mm).' },
+    ...finishingInputs('skim-coat'),
+    ...substratePrimerInputs('skim-coat'),
   ],
   materials: [
-    {
-      id: 'skim-coat',
-      name: 'Masa szpachlowa wykończeniowa',
-      unit: 'kg',
-      formulaKey: 'skimCoat',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 20, label: 'worek 20 kg', purchaseUnit: 'worek' },
-      pricePerUnit: 8,
-      category: 'masa',
-      notes: 'Np. Knauf Multifinish, Atlas Gips Sprint lub odpowiednik.',
-    },
-    {
-      id: 'primer-skim',
-      name: 'Grunt pod szpachlę (koncentrat)',
-      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 15,
-      category: 'grunt',
-      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
-    },
-    {
-      id: 'sandpaper',
-      name: 'Papier ścierny 150 i 240',
-      unit: 'arkusze',
-      formulaKey: 'sandpaper',
-      pricePerUnit: 3,
-      category: 'szlifowanie',
-    },
+    ...finishingMaterials('skim-coat'),
+    substratePrimerMaterial('skim-coat'),
   ],
   tools: [
     { id: 'trowel-large', name: 'Paca stalowa 40–60 cm', icon: 'minus', required: true, notes: 'Do rozkładania masy na dużej powierzchni', estimatedBuyCostPLN: 80 },
     { id: 'trowel-small', name: 'Szpachelka 15–20 cm', icon: 'minus', required: true, estimatedBuyCostPLN: 20 },
     { id: 'bucket', name: 'Wiadro 10–20 litrów', icon: 'circle', required: true },
     { id: 'drill-mixer', name: 'Wiertarka z mieszadłem', icon: 'settings', required: true, rentable: true, estimatedRentCostPLN: 40 },
-    { id: 'sander', name: 'Szlifierka rotacyjna lub papier', icon: 'layers', required: true, rentable: true },
+    // source: https://www.bosch-professional.com/pl/pl/klocki-szlifierskie-zapiecie-na-rzepy-2868585-ocs-ac/
+    // source: https://intercars.pl/produkty/9e076f-klocek-szlifierski-do-recznego-szlifowania-130-x-70mm-260101
+    { id: 'sander', name: 'Klocek do szlifowania ręcznego', icon: 'layers', required: true, notes: 'Do zwykłych arkuszy 230 × 280 mm dobierz klocek owijany papierem lub z zaciskami. Sam rzep nie trzyma zwykłego papieru. Przy wyborze szlifierki dobierz osobno pasujące krążki lub siatki.' },
     { id: 'lamp', name: 'Lampa robocza', icon: 'sun', required: false, notes: 'Boczne światło pokaże nierówności' },
     { id: 'mask', name: 'Maska przeciwpyłowa P2', icon: 'shield', required: true, safetyNote: 'Kurz gipsowy jest szkodliwy dla płuc.' },
   ],
@@ -374,7 +325,7 @@ export const skimCoatJob: RenovationJob = {
     { step: 3, title: 'Pierwsza warstwa', description: 'Pacą nanieś cienką warstwę masy (grubość zgodna z instrukcją produktu — zazwyczaj 1–3 mm, zależy od masy). Rób pasy poziome lub pionowe. Nie poprawiaj gdy zaczyna schnąć.', tip: 'Lepiej za mało niż za dużo — za gruba warstwa pęka. Sprawdź maksymalną grubość na opakowaniu.', durationMin: 120 },
     { step: 4, title: 'Czekaj na pełne wyschnięcie', description: 'Warstwa MUSI być całkowicie sucha w dotyku (czas schnięcia zależy od produktu i warunków — sprawdź instrukcję). Szlifuj dopiero po pełnym wyschnięciu.', durationMin: 300, surfaceMustBeDry: true },
     { step: 5, title: 'Kolejne warstwy', description: 'Przeszlifuj papierem 150, odkurz pył odkurzaczem (nie zdmuchuj — pył osiada z powrotem). Nanieś kolejną warstwę. Powtórz.', durationMin: 120, removeDustBeforeNext: true },
-    { step: 6, title: 'Finalne szlifowanie i odkurzenie', description: 'Papierem 240 wyszlifuj na gładko. Sprawdzaj pod kątem bocznym światłem. Po szlifowaniu odkurz CAŁY pył — pył gipsowy uniemożliwia prawidłowe gruntowanie i malowanie.', tip: 'Gładką ścianę czuć i widać. Czas na szlifowanie procentuje przy malowaniu.', durationMin: 180, removeDustBeforeNext: true },
+    { step: 6, title: 'Finalne szlifowanie i odkurzenie', description: 'Do ST10 producent zaleca gradację 100–150. Drobniejszy P240 dobierz opcjonalnie do dalszego wykończenia. Sprawdzaj pod kątem bocznym światłem. Po szlifowaniu odkurz CAŁY pył — pył gipsowy uniemożliwia prawidłowe gruntowanie i malowanie.', tip: 'Gładką ścianę czuć i widać. Czas na szlifowanie procentuje przy malowaniu.', durationMin: 180, removeDustBeforeNext: true },
   ],
   manufacturerPriorityNote: 'Grubość warstwy i czas schnięcia zależą od produktu — zawsze sprawdź instrukcję producenta.',
   removeDustBeforeFinishNote: 'Po każdym szlifowaniu odkurz pył odkurzaczem. Pył gipsowy uniemożliwia prawidłowe gruntowanie i malowanie.',

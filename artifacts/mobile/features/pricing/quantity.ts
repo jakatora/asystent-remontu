@@ -1,3 +1,4 @@
+import { isWallFinishingJob, finishingMaterials, finishingReference, WALL_FINISHING_MODEL } from '@/features/calculator/wallFinishing';
 import type { CalculationResult, MaterialLineItem } from '@/types/domain';
 import type { MaterialPriceReference } from '@/types/pricing';
 import { getRequiredQuantity } from '@/features/calculator/requirements';
@@ -61,6 +62,13 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(isWallFinishingJob(calc.jobId)&&ref.materialType!=='primer'){
+    const definition=finishingMaterials(calc.jobId,calc.measurements).find(row=>finishingReference(calc.jobId,row.id,calc.measurements)===ref.id);
+    if(!definition||calc.quantityModel!==WALL_FINISHING_MODEL)return null;
+    const source=calc.materials.find(row=>row.material.id===definition.id);
+    if(!source||source.quantityKnown===false||!('ean' in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit))return null;
+    const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
+  }
   const pattern = MATERIAL_IDS[ref.materialType];
   const candidates = calc.materials.filter(line =>
     line.material.id === ref.id || pattern?.test(line.material.id),

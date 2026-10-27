@@ -1,3 +1,4 @@
+import { isFinishingMaterial, finishingQuantity, WALL_FINISHING_MODEL } from './wallFinishing';
 import type { CalculationResult, MaterialLineItem } from '@/types/domain';
 import { getJobById } from '@/features/content/registry';
 import { computeRawQuantity } from './engine';
@@ -9,6 +10,7 @@ import { isSanitaryMaterial, sanitaryQuantity, SANITARY_MODEL } from './sanitary
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===WALL_FINISHING_MODEL&&isFinishingMaterial(calc.jobId,line.material.id))return finishingQuantity(calc.jobId,line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SANITARY_MODEL&&isSanitaryMaterial(calc.jobId,line.material.id))return sanitaryQuantity(calc.jobId,line.material.id,calc.measurements)??0;
   if (calc.jobId === 'self-leveling' && calc.quantityModel === SUBSTRATE_PRIMER_MODEL && line.material.id === 'expansion-tape') return levelingEdgeTapeMetres(calc.measurements) ?? 0;
   if (isCurrentSubstratePrimer(calc, line)) return substratePrimerQuantity(calc.jobId, calc.measurements) ?? 0;

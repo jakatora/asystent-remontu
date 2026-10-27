@@ -1024,10 +1024,36 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922
   {"id":"realbud-soudal-sanitary-stop-white-280ml","ean":"5411183200326","name":"SOUDAL SILIKON SANITARNY KUCHNIA ŁAZIENKA PLEŚŃ STOP BIAŁY 280ml","category":"silicone","brand":"Soudal","packageSize":280,"unit":"ml","store":"Realbud","format":"shoper-api","productId":75056922,"url":"https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922","imageUrl":"https://realbud.com/environment/cache/images/productGfx_23109_500_500/5daa6a798ad6adc9e8224e3b5a646bb7.jpg"},
 
+  // source: https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308
+  {"id":"sewera-acrylputz-st10-5kg","ean":"5903973104414","brand":"ŚNIEŻKA","packageSize":5,"unit":"kg","category":"skim-coat","name":"Acryl Putz ST10 Start gładź szpachlowa sypka 5kg","url":"https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308","format":"sewera","store":"Sewera","retailUnit":"SZT","imageUrl":"https://sklep.sewera.pl/photo/34284/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg.webp"},
+  // source: https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899
+  {"id":"sewera-klingspor-pl28c-p120-sheet","ean":"5907560017644","brand":"Klingspor","packageSize":1,"unit":"szt","category":"hand-abrasive-120","name":"Papier ścierny gr.120 arkusz 230x280mm","url":"https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899","format":"sewera","store":"Sewera","retailUnit":"SZT","imageUrl":"https://sklep.sewera.pl/photo/56971/papier-scierny-gr-120-arkusz-230x280mm.webp","variant":["120","230x280mm"],"packageDescription":"PL 28 C"},
+  // source: https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900
+  {"id":"sewera-klingspor-pl28c-p150-sheet","ean":"5907560023553","brand":"Klingspor","packageSize":1,"unit":"szt","category":"hand-abrasive-150","name":"Papier ścierny gr.150 arkusz 230x280mm","url":"https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900","format":"sewera","store":"Sewera","retailUnit":"SZT","imageUrl":"https://sklep.sewera.pl/photo/56973/papier-scierny-gr-150-arkusz-230x280mm.webp","variant":["150","230x280mm"],"packageDescription":"PL 28 C"},
+  // source: https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903
+  {"id":"sewera-klingspor-pl28c-p240-sheet","ean":"5907560039820","brand":"Klingspor","packageSize":1,"unit":"szt","category":"hand-abrasive-240","name":"Papier ścierny gr.240 arkusz 230x280mm","url":"https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903","format":"sewera","store":"Sewera","retailUnit":"SZT","imageUrl":"https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp","variant":["240","230x280mm"],"packageDescription":"PL 28 C"},
+  // source: https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044
+  {"id":"sewera-bluedolphin-fsh-48mm-20m","ean":"5907758504369","brand":"Blue Dolphin","packageSize":20,"unit":"m","category":"joint-tape","name":"Taśma spoinowa z włókna szklanego 48mm x 20m Blue Dolphin","url":"https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044","format":"sewera","store":"Sewera","retailUnit":"SZT","imageUrl":"https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp","variant":["48mm","20m"]},
+  // source: https://www.rabdom.pl/pl/p/SNIEZKA-ACRYL-PUTZ-ST10-Gladz-szpachlowa-START-FINISZ-5kg/1882
+  {"id":"rabdom-acrylputz-st10-5kg","ean":"5903973104414","brand":"Śnieżka","packageSize":5,"unit":"kg","category":"skim-coat","name":"ŚNIEŻKA ACRYL PUTZ ST10 Gładź szpachlowa START FINISZ 5kg","url":"https://www.rabdom.pl/pl/p/SNIEZKA-ACRYL-PUTZ-ST10-Gladz-szpachlowa-START-FINISZ-5kg/1882","format":"shoper-api","productId":1882,"store":"Rab-Dom","imageUrl":"https://sklep.sewera.pl/photo/34284/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg.webp"},
+
+  // source: https://realbud.com/Bandaz-z-wlokna-szklanego-8-cm-x-20-m
+  {"id":"realbud-bluedolphin-fsh-48mm-20m","ean":"5907758504369","name":"Bandaż z włókna szklanego 48mm x 20 m BLUE DOLPHIN","brand":"Blue Dolphin","category":"joint-tape","packageSize":20,"unit":"m","store":"Realbud","format":"shoper-api","productId":7826,"variant":["48mm","20 m"],"url":"https://realbud.com/Bandaz-z-wlokna-szklanego-8-cm-x-20-m","imageUrl":"https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp"},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308
+  'ACRYL-PUTZ ST10 START 5 kg': '5903973104414',
+  // source: https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899
+  'Klingspor PL 28 C P120, arkusz 230 × 280 mm': '5907560017644',
+  // source: https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900
+  'Klingspor PL 28 C P150, arkusz 230 × 280 mm': '5907560023553',
+  // source: https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903
+  'Klingspor PL 28 C P240, arkusz 230 × 280 mm': '5907560039820',
+  // source: https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044
+  'Blue Dolphin FSH, taśma spoinowa 48 mm × 20 m': '5907758504369',
   // source: https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481
   'Soudal Silicone Remover 100 ml': '5411183041899',
   // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922

@@ -22,6 +22,7 @@ import { parseMeasurements } from '@/shared/lib/measurements';
 import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
 import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
 import { isSanitaryJob } from '@/features/calculator/sanitarySealant';
+import { isWallFinishingJob } from '@/features/calculator/wallFinishing';
 
 function Field({
   label,
@@ -295,9 +296,11 @@ export default function EditProjectScreen() {
           </View>
 
           {epsJob && <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface, gap: 16 }}>
-            <Txt w="bold" style={{ fontSize: 17 }}>{isSanitaryJob(epsJob.id) ? (language === 'pl' ? 'Spoina i produkty do uszczelnienia' : 'Joint dimensions and sealing products') : substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
+            <Txt w="bold" style={{ fontSize: 17 }}>{isWallFinishingJob(epsJob.id) ? (language === 'pl' ? 'Masa, rysy i materiały ścierne' : 'Filler, cracks and sanding supplies') : isSanitaryJob(epsJob.id) ? (language === 'pl' ? 'Spoina i produkty do uszczelnienia' : 'Joint dimensions and sealing products') : substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
             <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{isSanitaryJob(epsJob.id)
               ? (language === 'pl' ? 'Sprawdź długość i przekrój spoiny, wybierz model silikonu oraz taśmy. Preparat do usuwania resztek liczysz osobno. Zapisz, aby przeliczyć zestaw. Zmiana produktu lub ilości może wymagać ponownego potwierdzenia „Mam” i „Kupione”.' : 'Check joint length and cross-section and select the silicone and tape models. Enter remover packs separately. Save to recalculate the set. Product or quantity changes may require confirming Owned and Purchased again.')
+              : isWallFinishingJob(epsJob.id)
+              ? (language === 'pl' ? 'Powierzchnię samych napraw i ich głębokość podaj osobno od powierzchni do gruntowania. Przy szpachlowaniu całych ścian wpisz grubość i liczbę warstw. Wybierz opakowanie masy, zmierz rysy i podaj liczbę arkuszy każdej gradacji. Zapisz, aby przeliczyć koszyk. Zmiana modelu lub ilości wymaga sprawdzenia oznaczeń „Mam” i „Kupione”.' : 'Enter the repaired area and depth separately from the area to prime. For full-wall skim coating, enter layer thickness and count. Select a filler pack, measure cracks and enter sheet counts for each grit. Save to recalculate the basket. Product or quantity changes require reviewing Owned and Purchased marks.')
               : substratePrimerSpecification(epsJob.id)
               ? (language === 'pl' ? 'Sprawdź powierzchnię i założenia gruntu, a przy wylewce także obwód. Zapisz, aby przeliczyć materiały. Wcześniejsze oznaczenia gruntu „Mam” i „Kupione” wymagają potwierdzenia, jeśli zmienił się produkt, ilość lub jednostka. Własne pozycje zakupowe pozostają zapisane.' : 'Check the area and primer allowance, and the perimeter for a screed. Save to recalculate materials. Earlier primer ownership and purchase marks require confirmation if the product, quantity or unit changed. Custom shopping items remain saved.')
               : epsJob.id === 'sink-installation'

@@ -1,3 +1,4 @@
+import { isWallFinishingJob, finishingMaterials, finishingReference } from '@/features/calculator/wallFinishing';
 import type { LaborPriceReference, MaterialPriceReference, MaterialCategory } from '@/types/pricing';
 import { LABOR_PRICES, MATERIAL_PRICES, getLaborIdsForJob, getMaterialIdsForJob } from '@/data/prices';
 import { BASELINE_REGION } from '@/data/prices/regions';
@@ -68,6 +69,11 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'primer') results.splice(i, 1);
     const ref = MATERIAL_BY_ID.get(primer.referenceId);
     if (ref) results.push(ref);
+  }
+  if(isWallFinishingJob(jobId)){
+    results.splice(0,results.length);
+    for(const material of finishingMaterials(jobId,measurements)){const id=finishingReference(jobId,material.id,measurements),ref=id?MATERIAL_BY_ID.get(id):undefined;if(ref)results.push(ref);}
+    const primerRef=primer?MATERIAL_BY_ID.get(primer.referenceId):undefined;if(primerRef)results.push(primerRef);
   }
   if (jobId === 'self-leveling') {
     // A separate reviewed merchant SKU, never an offer for Fola's EAN.

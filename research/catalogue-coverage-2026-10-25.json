@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T02:47:53.945Z",
-  "scope": "116 references, 110 with offers, 6 historical references unavailable. Two new distinct products (Soudal Silicone Remover 100ml and white Soudal Sanitarny STOP 280ml), three verified offers and exact photos. The separate recipe audit now prices 69 of 230 rows; 161 remain unpriced, not unique products. STOP at Rab-Dom was excluded for a conflicting EAN; standard silicone is not merged with STOP. Pickup eligibility and online prices do not confirm branch stock/stationary prices/travel. Castorama/OBI delivery and ABUD cloud transport remain unresolved.",
-  "total": 116,
-  "verifiedProducts": 110,
+  "checkedAt": "2026-10-27T03:25:25.781Z",
+  "scope": "121 references, 115 with offers, 6 historical references unavailable. Five new exact products, seven verified offers and photos. Independent recipe audit: 71/229 rows priced, 158 unpriced; those are not unique SKUs. Same audit measurements as wave46; optional repair tape and P240 default0, while missing repair area remains unknown. Whole repair delivery 119.55 PLN; mixed repair plus skim coat 199.98 PLN. Pickup/online prices do not confirm local branch stock, stationary prices or travel. Castorama/OBI delivery and ABUD cloud transport remain unresolved.",
+  "total": 121,
+  "verifiedProducts": 115,
   "remaining": 6,
-  "offers": 140,
+  "offers": 147,
   "stores": 38,
-  "productsWithPhotos": 116,
-  "registeredOffers": 142,
+  "productsWithPhotos": 121,
+  "registeredOffers": 149,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2488,6 +2488,113 @@
           "deliveredGrosze": 11549
         }
       ]
+    },
+    {
+      "id": "mat-skim-coat-acrylputz-st10-5kg",
+      "name": "ACRYL-PUTZ ST10 START 5 kg",
+      "referenceUrl": "https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308",
+      "status": "verified_offer",
+      "ean": "5903973104414",
+      "sourceIds": [
+        "sewera-acrylputz-st10-5kg",
+        "rabdom-acrylputz-st10-5kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/34284/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-hand-paper-klingspor-pl28c-p120",
+      "name": "Klingspor PL 28 C P120, arkusz 230 × 280 mm",
+      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899",
+      "status": "verified_offer",
+      "ean": "5907560017644",
+      "sourceIds": [
+        "sewera-klingspor-pl28c-p120-sheet"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/56971/papier-scierny-gr-120-arkusz-230x280mm.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-hand-paper-klingspor-pl28c-p150",
+      "name": "Klingspor PL 28 C P150, arkusz 230 × 280 mm",
+      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900",
+      "status": "verified_offer",
+      "ean": "5907560023553",
+      "sourceIds": [
+        "sewera-klingspor-pl28c-p150-sheet"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/56973/papier-scierny-gr-150-arkusz-230x280mm.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "mixedRenovation",
+          "deliveredGrosze": 19998
+        }
+      ]
+    },
+    {
+      "id": "mat-hand-paper-klingspor-pl28c-p240",
+      "name": "Klingspor PL 28 C P240, arkusz 230 × 280 mm",
+      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+      "status": "verified_offer",
+      "ean": "5907560039820",
+      "sourceIds": [
+        "sewera-klingspor-pl28c-p240-sheet"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-joint-tape-bluedolphin-fsh-48mm-20m",
+      "name": "Blue Dolphin FSH, taśma spoinowa 48 mm × 20 m",
+      "referenceUrl": "https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044",
+      "status": "verified_offer",
+      "ean": "5907758504369",
+      "sourceIds": [
+        "sewera-bluedolphin-fsh-48mm-20m",
+        "realbud-bluedolphin-fsh-48mm-20m"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -2503,11 +2610,11 @@
     }
   },
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T02:47:53.945Z",
-    "pricedLines": 69,
-    "totalLines": 230,
-    "unpricedLines": 161,
-    "fullyPricedScenarios": 9,
+    "checkedAt": "2026-10-27T03:25:25.781Z",
+    "pricedLines": 71,
+    "totalLines": 229,
+    "unpricedLines": 158,
+    "fullyPricedScenarios": 10,
     "report": "recipe-coverage-2026-10-27.json"
   }
 }

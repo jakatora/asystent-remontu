@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-27T02:47:53.945Z",
-  "scope": "Actual current calculator -> native bundle/production HTTPS -> real anonymous shop carts. Sealing volume is in ml before shared pack rounding; remover count is explicitly one jar per sample. No order/payment. One synthetic Standard scenario per job, not full installation or all dimensions/tiers. The added silicone-refresh silicone row was previously omitted at zero because the formula read another length key. Masking tape for silicone-sealing is now a material rather than a tool. Missing rows include links, physical quantities, units and new products, not 161 unique SKUs.",
+  "checkedAt": "2026-10-27T03:25:25.781Z",
+  "scope": "Current calculator -> native bundle/production HTTPS -> real anonymous carts. Two exact ST10 packs, measured repair volume, independent tape metres and sheet counts. No orders/payment. Same audit measurements as wave46; missing repair area remains unknown and optional tape/fine paper default0. Missing rows include links, quantities, units and new products, not 158 unique products. The generic audit is intentionally not given a fabricated repair area. Full repair and mixed-renovation examples are tested separately with explicit measurements.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 228,
-    "beforePriced": 59,
-    "afterLines": 230,
-    "afterPriced": 69,
-    "afterUnpriced": 161,
-    "fullyPricedScenarios": 9
+    "beforeLines": 230,
+    "beforePriced": 69,
+    "afterLines": 229,
+    "afterPriced": 71,
+    "afterUnpriced": 158,
+    "fullyPricedScenarios": 10
   },
   "history": [
     {
@@ -36,6 +36,19 @@
         "afterPriced": 59,
         "afterUnpriced": 169,
         "fullyPricedScenarios": 6
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T02:47:53.945Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 228,
+        "beforePriced": 59,
+        "afterLines": 230,
+        "afterPriced": 69,
+        "afterUnpriced": 161,
+        "fullyPricedScenarios": 9
       }
     }
   ],
@@ -279,39 +292,30 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "masa szpachlowa do napraw",
-            "category": "masa"
+            "normalizedName": "acryl putz st10 start 5 kg ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 5.5,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
-        },
-        {
-          "materialId": "mesh-tape",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "tasma zbrojaca siatkowa",
-            "category": "wzmocnienie"
-          },
-          "quantity": 11,
-          "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
           "materialId": "sandpaper-repair",
           "query": {
-            "ean": null,
+            "ean": "5907560017644",
             "gtin": null,
-            "normalizedName": "papier scierny 120 i 240",
-            "category": "szlifowanie"
+            "normalizedName": "klingspor pl 28 c p120 arkusz 230 280 mm",
+            "category": "hand-abrasive-120"
           },
-          "quantity": 2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907560017644",
+            "ean": "5907560017644",
+            "name": "Papier ścierny gr.120 arkusz 230x280mm"
+          }
         },
         {
           "materialId": "primer-repair",
@@ -394,29 +398,46 @@
         {
           "materialId": "skim-coat",
           "query": {
-            "ean": null,
+            "ean": "5903973104421",
             "gtin": null,
-            "normalizedName": "gotowa gladz polimerowa atlas gta 18 kg",
+            "normalizedName": "gladz gipsowa startowa acryl putz st10 start 20 kg",
             "category": "skim-coat"
           },
-          "quantity": 33,
+          "quantity": 22,
           "resolved": true,
           "reason": null,
           "matchedProduct": {
-            "id": "remont-5905400542509",
-            "ean": "5905400542509",
-            "name": "Atlas GTA gotowa gładź polimerowa 18kg"
+            "id": "remont-5903973104421",
+            "ean": "5903973104421",
+            "name": "Acryl Putz ST10 Start 20kg"
+          }
+        },
+        {
+          "materialId": "sandpaper",
+          "query": {
+            "ean": "5907560023553",
+            "gtin": null,
+            "normalizedName": "klingspor pl 28 c p150 arkusz 230 280 mm",
+            "category": "hand-abrasive-150"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907560023553",
+            "ean": "5907560023553",
+            "name": "Papier ścierny gr.150 arkusz 230x280mm"
           }
         },
         {
           "materialId": "primer-skim",
           "query": {
-            "ean": null,
+            "ean": "5901793357737",
             "gtin": null,
             "normalizedName": "grunt uniwersalny knauf 5 l",
             "category": "primer"
           },
-          "quantity": 1,
+          "quantity": 1.5,
           "resolved": true,
           "reason": null,
           "matchedProduct": {
@@ -424,19 +445,6 @@
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
-        },
-        {
-          "materialId": "sandpaper",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "papier scierny 150 i 240",
-            "category": "szlifowanie"
-          },
-          "quantity": 2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
         }
       ]
     },

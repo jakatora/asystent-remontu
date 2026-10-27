@@ -1,3 +1,4 @@
+import { isWallFinishingJob, reviewFinishingShopping } from '@/features/calculator/wallFinishing';
 import type { CalculationResult, ShoppingItem } from '@/types/domain';
 import type { PricingStageInput } from './pricingApi';
 import { EPS_JOB_ID } from '@/features/calculator/eps';
@@ -11,13 +12,13 @@ import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { isSanitaryJob, reviewSanitaryShopping } from '@/features/calculator/sanitarySealant';
 
 export function requiresCurrentShoppingQuantity(jobId: string): boolean {
-  return [EPS_JOB_ID, SINK_JOB_ID].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId);
+  return [EPS_JOB_ID, SINK_JOB_ID].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId) || isWallFinishingJob(jobId);
 }
 
 export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { allowed: boolean; confirmQuantity?: number } {
   if (!requiresCurrentShoppingQuantity(jobId) || item.itemType !== 'material') return { allowed: true };
   if (item.quantityKnown === false || item.requiredQuantity !== undefined && item.customQuantity !== undefined
-      && (substratePrimerSpecification(jobId)||isSanitaryJob(jobId) ? !Number.isFinite(item.customQuantity) || item.customQuantity + 1e-8 < item.requiredQuantity : Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8)) return { allowed: false };
+      && (substratePrimerSpecification(jobId)||isSanitaryJob(jobId)||isWallFinishingJob(jobId) ? !Number.isFinite(item.customQuantity) || item.customQuantity + 1e-8 < item.requiredQuantity : Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8)) return { allowed: false };
   return { allowed: true, ...(item.needsQuantityConfirmation && item.requiredQuantity !== undefined ? { confirmQuantity: item.requiredQuantity } : {}) };
 }
 
@@ -26,14 +27,14 @@ export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { all
  * silently remove a requirement. Source shopping rows are never modified. */
 export function applyProjectShopping(stage: PricingStageInput, calc: CalculationResult, projectId: string, items: readonly ShoppingItem[]) {
   calc = upgradeCalculation(calc)!;
-  items = reviewSanitaryShopping(reviewSubstrateShopping(items, calc),calc);
+  items = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(items, calc),calc),calc);
   let excludedMaterials = 0;
   const materialIds = new Set(calc.materials.map(line => line.material.id));
   const manual = items.filter(item => item.projectId === projectId && item.itemType !== 'tool' && !item.owned && !item.purchased && !materialIds.has(item.materialId));
   const materials = stage.materials.filter(line => {
     const matching = items.filter(item => item.projectId === projectId && item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
     const requirement = calc.materials.find(item => item.material.id === line.material.id);
-    const substrate = Boolean(substratePrimerSpecification(calc.jobId))||isSanitaryJob(calc.jobId);
+    const substrate = Boolean(substratePrimerSpecification(calc.jobId))||isSanitaryJob(calc.jobId)||isWallFinishingJob(calc.jobId);
     const required = requirement ? substrate ? getRequiredQuantity(requirement,calc) : requirement.quantity : NaN;
     const covers = (item: ShoppingItem) => (item.owned || item.purchased) && (!requiresCurrentShoppingQuantity(calc.jobId) ||
       requirement?.quantityKnown !== false && !item.needsQuantityConfirmation && Number.isFinite(item.customQuantity ?? item.quantity)

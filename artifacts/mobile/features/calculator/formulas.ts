@@ -1,3 +1,4 @@
+import { isFinishingMaterial, finishingQuantity } from './wallFinishing';
 import type { FormulaFn, FormulaRegistry, MeasurementMap } from '@/types/calculator';
 import { isSanitaryMaterial, sanitaryQuantity } from './sanitarySealant';
 import { groutMassKg } from './grout';
@@ -256,6 +257,10 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
 } as const;
 
 export function resolveFormula(key: string): FormulaFn {
+  if(key.startsWith('wallFinishing:')){
+    const [,jobId,id]=key.split(':');
+    if(isFinishingMaterial(jobId,id))return m=>finishingQuantity(jobId,id,m)??0;
+  }
   if(key.startsWith('sanitary:')){
     const [,jobId,id]=key.split(':');
     if(isSanitaryMaterial(jobId,id))return m=>sanitaryQuantity(jobId,id,m)??0;

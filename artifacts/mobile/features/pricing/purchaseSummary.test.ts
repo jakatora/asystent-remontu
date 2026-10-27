@@ -36,6 +36,23 @@ test('missing delivery and partial baskets never acquire a zero fee or a complet
   assert.equal(missing.status, 'partial'); assert.equal('missing' in missing && missing.missing, 1); assert.equal('totalGrosze' in missing && missing.totalGrosze, null);
 });
 
+test('a verified whole basket remains visible when competing delivery combinations are unavailable', () => {
+  const data = response();
+  data.deliveryComparison!.status = 'needs_delivery_costs';
+  data.deliveryComparison!.unavailableStores = [{store:'Castorama',reason:'retailer_access_required'}];
+  const summary = purchaseSummary(purchaseSnapshot(data, null, now), now);
+  assert.equal(summary.status, 'complete');
+  assert.equal('totalGrosze' in summary && summary.totalGrosze, 12000);
+  assert.equal('deliveryGrosze' in summary && summary.deliveryGrosze, 2000);
+  assert.equal('limited' in summary && summary.limited, true);
+  const absent = {...data,deliveryComparison:{...data.deliveryComparison!,best:null}};
+  assert.equal(purchaseSummary(purchaseSnapshot(absent,null,now),now).status,'shipping_unknown');
+  const partial = {...data,deliveryComparison:{...data.deliveryComparison!,missingProductCount:1}};
+  assert.equal(purchaseSummary(purchaseSnapshot(partial,null,now),now).status,'partial');
+  data.deliveryComparison!.best!.stores[0].source='unknown';
+  assert.equal(purchaseSummary(purchaseSnapshot(data,null,now),now).status,'shipping_unknown');
+});
+
 test('delivery expiry and manually verified offer expiry invalidate the overview before a copied total can survive them', () => {
   const snapshot = purchaseSnapshot(response(), null, now);
   assert.equal(purchaseSummary(snapshot, now + 60_000).status, 'expired');

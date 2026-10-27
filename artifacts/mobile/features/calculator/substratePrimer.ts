@@ -1,3 +1,4 @@
+import { WALL_FINISHING_MODEL, isWallFinishingJob } from './wallFinishing';
 import type { CalculationResult, MaterialItem, MaterialLineItem, Project, ShoppingItem } from '@/types/domain';
 import type { MeasurementInputDefinition } from '@/types/engine';
 import type { MeasurementMap } from '@/types/calculator';
@@ -22,6 +23,7 @@ const KNAUF_CARD = 'https://knauf.com/api/download-center/v1/assets/3ed7306f-27b
 // source: https://knauf.com/pl-PL/p/produkt/knauf-universalgrund-22064_0120
 const SPECIFICATIONS: Readonly<Record<string, PrimerSpecification>> = {
   'primer-walls': { materialId: 'primer', referenceId: 'mat-primer-deep-ceresit-ct17-10l', ean: '5900089617081', area: 'wallArea', usage: 0.1, maxArea: 500, source: 'https://www.ceresit.pl/produkty/grunty-i-gladzie/grunty/produkt.html/ceresit-ct-17-profi/SAP_0201JAC014F1.html' },
+  'skim-coat': { materialId: 'primer-skim', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 500, source: KNAUF_CARD },
   'wall-repair': { materialId: 'primer-repair', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 200, source: KNAUF_CARD },
   wallpaper: { materialId: 'primer-wallpaper', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 300, source: KNAUF_CARD },
   'wallpaper-install': { materialId: 'primer-wallpaper', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 400, source: KNAUF_CARD },
@@ -91,17 +93,19 @@ export function substratePrimerMaterial(jobId: string): MaterialItem {
   };
 }
 
+const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL;
+
 export function isCurrentSubstratePrimer(calc: CalculationResult, line: MaterialLineItem): boolean {
   const spec = SPECIFICATIONS[calc.jobId];
   return Boolean(spec && line.material.id === spec.materialId && 'ean' in line.material && line.material.ean === spec.ean
-    && calc.quantityModel === SUBSTRATE_PRIMER_MODEL);
+    && currentPrimerModel(calc));
 }
 
 /** Keep historical JSON untouched. Its former litre/constant allowance must not
  * silently acquire a kilogram price or become an apparently complete basket. */
 export function reviewHistoricalSubstratePrimer(calc: CalculationResult | undefined): CalculationResult | undefined {
   const spec = calc && SPECIFICATIONS[calc.jobId];
-  if (!calc || !spec || calc.quantityModel === SUBSTRATE_PRIMER_MODEL) return calc;
+  if (!calc || !spec || currentPrimerModel(calc)) return calc;
   const materials = calc.materials.map(line => line.material.id === spec.materialId
     ? { ...line, quantityKnown: false, material: { ...line.material, notes: 'Przelicz obmiary w edycji projektu, aby potwierdzić produkt i zużycie gruntu. Starsza kalkulacja nie określa ich jednoznacznie.' } }
     : line);
@@ -120,8 +124,8 @@ export function reviewSubstrateShopping(items: readonly ShoppingItem[], calc?: C
     if (item.itemType !== 'material') return item;
     const line = calc.materials.find(row => row.material.id === item.materialId);
     if (!line) return item;
-    if (calc.quantityModel !== SUBSTRATE_PRIMER_MODEL && item.materialId !== spec.materialId) return item;
-    if (calc.quantityModel !== SUBSTRATE_PRIMER_MODEL || line.quantityKnown === false) return {
+    if (!currentPrimerModel(calc) && item.materialId !== spec.materialId) return item;
+    if (!currentPrimerModel(calc) || line.quantityKnown === false) return {
       ...item, quantityKnown: false, needsQuantityConfirmation: true, owned: false, purchased: false,
       notes: 'Przelicz obmiary w edycji projektu, aby potwierdzić produkt i zużycie gruntu.',
     };

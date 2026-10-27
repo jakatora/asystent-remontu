@@ -13,8 +13,9 @@ import { upgradeCalculation, upgradeProject, projectShopping } from './upgrades'
 import { generateShoppingItems } from './shopping';
 import { substratePrimerSpecification, substratePrimerQuantity, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
 import type { CalculationResult, ShoppingItem, Project } from '@/types/domain';
+import { isWallFinishingJob, WALL_FINISHING_MODEL } from './wallFinishing';
 
-const ids = ['primer-walls','wall-repair','wallpaper','wallpaper-install','wallpaper-remove','floor-tiles','self-leveling'];
+const ids = ['primer-walls','wall-repair','skim-coat','wallpaper','wallpaper-install','wallpaper-remove','floor-tiles','self-leveling'];
 const calc = (id: string, more: Record<string, number> = {}) => calculatorEngine.calculate(getJobById(id)!, { wallArea: 10, floorArea: 10, perimeter: 14, levelingThickness: 5, ...more });
 const primer = (result: CalculationResult) => result.materials.find(line => line.material.id === substratePrimerSpecification(result.jobId)!.materialId)!;
 
@@ -28,7 +29,7 @@ test('self-leveling cannot omit edge tape when area was entered without a perime
   for(const result of [first,changed])assert.equal(toPricingStageInput(result).materials.find(row=>row.material.id==='expansion-tape')!.quantity,14.7);
 });
 
-test('seven preparation recipes use exactly one reviewed primer at every price tier', () => {
+test('eight preparation recipes use exactly one reviewed primer at every price tier, including the combined finishing model', () => {
   for (const id of ids) for (const tier of ['economy','standard','better'] as const) {
     const result = calc(id), spec = substratePrimerSpecification(id)!;
     const refs = getMaterialsForJob(id, tier).filter(ref => ref.materialType === 'primer');
@@ -36,7 +37,7 @@ test('seven preparation recipes use exactly one reviewed primer at every price t
     const input = toPricingStageInput(result, tier).materials.find(row => row.material.id === spec.materialId)!;
     assert.equal(input.material.ean, spec.ean); assert.equal(input.material.category, 'primer');
     assert.equal(input.material.unit, id === 'self-leveling' ? 'kg' : 'l');
-    assert.equal(result.quantityModel, SUBSTRATE_PRIMER_MODEL);
+    assert.equal(result.quantityModel, isWallFinishingJob(id) ? WALL_FINISHING_MODEL : SUBSTRATE_PRIMER_MODEL);
     assert.equal(computeRawQuantity(primer(result).material,result.measurements),primer(result).rawQuantity);
   }
 });

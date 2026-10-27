@@ -25,7 +25,10 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
   const data = snapshot.data, comparison = data.deliveryComparison;
   const missing = groupUnpricedLines(data.stages).length || comparison?.missingProductCount || 0;
   const best = comparison?.best;
-  const complete = comparison?.status === 'compared' && missing === 0 && data.stages.every(stage => stage.unresolvedCount === 0)
+  // needs_delivery_costs can describe unquoted competing combinations while
+  // best contains a complete, verified basket. Show that basket consistently
+  // with the comparison screen, retaining the limited-market notice below.
+  const complete = (comparison?.status === 'compared' || comparison?.status === 'needs_delivery_costs') && missing === 0 && data.stages.every(stage => stage.unresolvedCount === 0)
     && best && money(best.materialsGrosze) && money(best.deliveryGrosze) && money(best.totalGrosze)
     && best.materialsGrosze + best.deliveryGrosze === best.totalGrosze
     && best.stores.length > 0 && best.stores.every(store => comparison.mode === 'pickup' || store.source === 'retailer' && store.quote && Date.parse(store.quote.expiresAt) > now);
@@ -35,7 +38,7 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
     materialsGrosze: materials, deliveryGrosze: complete ? best.deliveryGrosze : null, totalGrosze: complete ? best.totalGrosze : null,
     mode: comparison?.mode ?? 'shipping', postalCode: comparison?.postalCode ?? null, missing,
     selectedStore: snapshot.selectedStore, observedAt: snapshot.observedAt,
-    limited: Boolean(comparison?.searchLimited || comparison?.unavailableStores?.length || comparison?.partiallyQuotedStores?.length),
+    limited: Boolean(comparison?.status === 'needs_delivery_costs' || comparison?.searchLimited || comparison?.unavailableStores?.length || comparison?.partiallyQuotedStores?.length),
     products: data.consolidated.lines.map(line => line.product.name),
   };
 }
