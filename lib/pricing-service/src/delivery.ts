@@ -86,6 +86,10 @@ export interface DeliveryComparison {
   missingProductCount: number;
   best: DeliveredBasket | null;
   lowerBound: DeliveredBasket | null;
+  /** A bounded, unfinished purchase plan: fewest stores without delivery
+   * confirmation, then lowest material + confirmed-delivery cost. No winner. */
+  purchasePlan?: DeliveredBasket | null;
+  purchasePlanBasis?: 'fewest_unquoted_stores';
   alternatives: DeliveredBasket[];
   missingDeliveryStores: string[];
   policies: StoreDeliveryPolicy[];

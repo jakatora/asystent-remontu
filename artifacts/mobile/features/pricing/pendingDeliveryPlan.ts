@@ -3,7 +3,7 @@ import type { DeliveryComparison, DeliveredBasket } from '../../../../lib/pricin
 /** A complete allocation of material packs, with explicitly unfinished delivery.
  * Never promote it to the payable total or the cheapest-delivered recommendation. */
 export function pendingDeliveryPlan(comparison: DeliveryComparison, current: boolean, now = Date.now()): DeliveredBasket | null {
-  const plan = comparison.lowerBound;
+  const plan = comparison.purchasePlan ?? comparison.lowerBound;
   if (!current || comparison.mode !== 'shipping' || comparison.status !== 'needs_delivery_costs' || comparison.best || comparison.missingProductCount !== 0
     || !/^\d{2}-\d{3}$/.test(comparison.postalCode ?? '') || !plan || plan.totalGrosze !== null || plan.deliveryGrosze !== null || !plan.stores.length) return null;
   const products = new Set(plan.stores.flatMap(store => store.lines.map(line => line.product.id)));

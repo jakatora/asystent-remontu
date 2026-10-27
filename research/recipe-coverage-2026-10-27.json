@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-27T10:54:28.734Z",
+  "checkedAt": "2026-10-27T12:46:06.593Z",
   "scope": "Same65 recorded measurements with no new hardware or profile assumptions. Explicitly selected full ceiling has13offered materials but transport remains incomplete in other stores. Counts are recipe rows, not unique SKU or completion percentage.",
   "summary": {
     "registeredJobs": 66,
@@ -4752,6 +4752,20 @@
       ],
       "completeDeliveryConfirmed": false,
       "abudNetworkFailure": "UND_ERR_CONNECT_TIMEOUT",
+      "fullRenovationCoverageProven": false
+    },
+    "wave59": {
+      "checkedAt": "2026-10-27T12:45:55.097Z",
+      "scenario": "Native Magento postcode quote,2newmerchant choices andconsolidated pending13-product ceiling plan",
+      "materialsGrosze": 80597,
+      "confirmedShippingGrosze": 12389,
+      "confirmedStores": 5,
+      "pendingStores": [
+        "Leroy Merlin",
+        "Marbet24"
+      ],
+      "twoProductDeliveredTotalGrosze": 8219,
+      "completeDeliveryConfirmed": false,
       "fullRenovationCoverageProven": false
     }
   }

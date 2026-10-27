@@ -5,7 +5,7 @@ import type { StageEstimate, PackagePlanEntry } from './types';
 import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy, type DeliveryStockLimit, type DeliveryQuoteResult } from './delivery';
 import { DELIVERY_LIMITS } from './delivery-limits';
 import { withOrderPartitions } from './order-partitions';
-import { materialPurchasePlan } from './material-purchase-plan';
+import { materialPurchasePlans } from './material-purchase-plan';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}`)).sort().join('|');
@@ -89,14 +89,21 @@ async function compareAutomaticDeliveryOnce(
   groups = groups.map(group => ({ ...group, offers: group.offers.filter(offer => !knownUnavailableStores[offer.store]) }));
   if (groups.some(group => !group.offers.length || !optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product)))) {
     result.status = 'needs_delivery_costs';
-    const orders = materialPurchasePlan(allGroups, now);
-    if (!orders) return result;
+    const plans = materialPurchasePlans(allGroups, now);
+    if (!plans.length) return result;
     // Keep a usable full material allocation when one mandatory merchant has
     // no automatic transport. Quote the other whole-store orders normally,
     // within the existing shared request budget and stock-limit replanning.
     const knownOnly: BasketQuoter = (order, postcode) => knownUnavailableStores[order.store]
       ? Promise.resolve({ reason: knownUnavailableStores[order.store] }) : quoteBasket(order, postcode);
-    return quoteAndRank([orders], new Map(orders.map(order => [signature(order), order])), result, settings, knownOnly, now);
+    const unique = new Map<string, DeliveredStoreBasket>(), candidates: DeliveredStoreBasket[][] = [];
+    const ordered = plans.sort((a,b) => a.length - b.length || a.reduce((n,o)=>n+o.materialsGrosze,0)-b.reduce((n,o)=>n+o.materialsGrosze,0));
+    for (const orders of ordered) {
+      if (unique.size + orders.filter(order => !unique.has(signature(order))).length > MAX_STORE_BASKETS) continue;
+      candidates.push(orders); for (const order of orders) unique.set(signature(order), order);
+    }
+    result.searchLimited = true;
+    return quoteAndRank(candidates, unique, result, settings, knownOnly, now);
   }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
   const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
@@ -343,6 +350,11 @@ async function quoteAndRank(
   result.comparedBasketCount = known.length;
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);
   result.lowerBound = baskets.sort((a,b) => a.lowerBoundGrosze - b.lowerBoundGrosze)[0] ?? null;
+  if (!result.best) {
+    const unquoted = (basket: DeliveredBasket) => basket.stores.filter(store => store.deliveryGrosze === null).length;
+    result.purchasePlan = [...baskets].filter(basket => basket.totalGrosze === null).sort((a,b) => unquoted(a)-unquoted(b) || a.lowerBoundGrosze-b.lowerBoundGrosze || a.stores.length-b.stores.length)[0] ?? null;
+    if (result.purchasePlan) result.purchasePlanBasis = 'fewest_unquoted_stores';
+  }
   const quotedStores=new Set([...unique.values()].filter(o=>o.quote).map(o=>o.store));
   result.missingDeliveryStores = [...failures.keys()].filter(store=>!quotedStores.has(store)).sort();
   result.partiallyQuotedStores = [...failures.keys()].filter(store=>quotedStores.has(store)).sort();

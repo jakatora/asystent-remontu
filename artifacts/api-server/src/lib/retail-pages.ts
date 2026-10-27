@@ -7,6 +7,7 @@ import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
 import { readWooProduct } from './woocommerce-product';
 import { readIrbudProduct } from './irbud-woo';
+import { readKowalczykProduct } from './kowalczyk-magento';
 import { readTokmetProduct } from './qshop-product';
 import { readTopbodenProduct } from './topboden-product';
 import { readPrestashopProduct } from './prestashop-product';
@@ -57,7 +58,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -204,6 +205,11 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:product.name,gtin13:source.ean,brand:source.brand,image:product.imageUrl,offers:{'@type':'Offer',price:(product.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url,priceValidUntil:product.validUntil}})}</script>`;
     return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:product.evidenceSha256};
   }
+  if(source.format==='kowalczyk-magento'){
+    const p=await readKowalczykProduct(source,fetchImpl);
+    const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:source.name,gtin13:source.ean,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
+    return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:p.evidenceSha256};
+  }
   if(source.format==='irbud-woo'){
     const p=await readIrbudProduct(source,fetchImpl);
     const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',sku:retailSkuCode(source),name:source.name,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
@@ -278,6 +284,12 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
   // source: https://rawlplug.com/global/en/p/r-gs-06040
   if (['ehw-rawlplug-gs-100','zpradem-rawlplug-gs-100'].includes(source.id)
       && (source.ean!=='5906675169347'||source.packageSize!==100||source.unit!=='szt'||source.apiPurchaseUnit!=='szt.')) throw Error('product_package_not_confirmed');
+  // Reviewed native purchase units bind one Shoper piece/package to the whole
+  // manufacturer's carton, not to a single screw or fixing.
+  // source: https://kim24.pl/Kolek-szybki-montaz-kolnierz-6x40-KOELNER
+  // source: https://zpradem.pl/wkret-fosfatowany-samowiercacy-35x95-ws-3595-1000szt/798230
+  if (source.id === 'kim-koelner-fx06k040-200' && (source.ean !== '5906675107622' || source.packageSize !== 200 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'op.' || source.productId !== 13330 || source.retailerSku !== 'MTZKKW06K040')) throw Error('product_package_not_confirmed');
+  if (source.id === 'zpradem-koelner-ws3595-1000' && (source.ean !== '5906675303024' || source.packageSize !== 1000 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'szt.' || source.productId !== 798230 || source.retailerSku !== '0004-00010-06761')) throw Error('product_package_not_confirmed');
   if (String(item.id) !== shoperProductId(source)) throw Error('product_id_not_confirmed');
   if (source.apiPurchaseUnit && (item.unit?.name !== source.apiPurchaseUnit || item.unit?.floating_point !== false)) throw Error('retailer_unit_not_confirmed');
   if (source.retailerSku && item.code !== source.retailerSku) throw Error('product_identity_not_confirmed');

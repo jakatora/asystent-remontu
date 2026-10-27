@@ -14,6 +14,7 @@ export class AnonymousShop {
   private calls = 0;
   private storeCartToken: string | null = null;
   private skyshopCartId: string | null = null;
+  private magentoCartId: string | null = null;
   constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30, private encoding: 'utf-8' | 'iso-8859-2' = 'utf-8') {
     if (encoding !== 'utf-8' && origin !== 'https://sklep.tokmet.pl') throw Error('unsupported_retailer_encoding');
   }
@@ -119,8 +120,50 @@ export class AnonymousShop {
     if(action==='calculate')return JSON.parse(await this.read('/order/?json=1&recalculate=1&c=PL&pay_id=5&shipment=s182be0c5c&wdt=0&gratis=',undefined,true));
     throw Error('invalid_cart_action');
   }
-  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string, forcePost=false): Promise<string> {
-    let url = new URL(path, this.origin), method = payload || forcePost ? 'POST' : 'GET';
+  /** Reviewed E-Kowalczyk anonymous quotation routes only. No address book,
+   * contact details, shipping-information, payment-information or order route.
+   * source: https://developer.adobe.com/commerce/webapi/rest/use-rest/anonymous-api-security
+   * source: https://developer.adobe.com/commerce/webapi/rest/tutorials/orders/order-prepare-checkout
+   */
+  async magento(action: 'create' | 'add' | 'items' | 'totals' | 'payments' | 'estimate' | 'calculate' | 'select-prepayment' | 'prepayment', args: { sku?: string; count?: number; postalCode?: string } = {}): Promise<any> {
+    if (this.origin !== 'https://sklep-kowalczyk.pl' || Object.keys(args).some(key => !['sku','count','postalCode'].includes(key))) throw Error('invalid_cart_action');
+    let path = '/rest/V1/guest-carts', body: object | undefined, method: 'PUT' | undefined;
+    if (action === 'create') {
+      if (this.magentoCartId || Object.keys(args).length) throw Error('invalid_cart_action');
+      const id = JSON.parse(await this.read(path, '{}', true, false, true, undefined, false, undefined, true));
+      if (typeof id !== 'string' || !/^[A-Za-z0-9]{32}$/.test(id)) throw Error('invalid_cart_session');
+      this.magentoCartId = id; return true;
+    }
+    if (!this.magentoCartId) throw Error('invalid_cart_session');
+    path += '/' + this.magentoCartId;
+    if (action === 'add') {
+      // Both reviewed SKUs are physical cartons, not individual fixings.
+      // source: https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html
+      // source: https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html
+      if (!['5906675303024','5906675107622'].includes(args.sku ?? '') || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined || Object.keys(args).length !== 2) throw Error('invalid_cart_action');
+      path += '/items'; body = { cartItem: { sku: args.sku, qty: args.count, quote_id: this.magentoCartId } };
+    } else if (action === 'estimate' || action === 'calculate') {
+      if (!/^\d{2}-\d{3}$/.test(args.postalCode ?? '') || Object.keys(args).length !== 1) throw Error('invalid_cart_action');
+      const address = { country_id: 'PL', postcode: args.postalCode };
+      path += action === 'estimate' ? '/estimate-shipping-methods' : '/totals-information';
+      body = action === 'estimate' ? { address } : { addressInformation: { address, shipping_carrier_code: 'inpostcourier', shipping_method_code: 'standard' } };
+    } else {
+      if (Object.keys(args).length) throw Error('invalid_cart_action');
+      const routes = { items: '/items', totals: '/totals', payments: '/payment-methods', prepayment: '/selected-payment-method', 'select-prepayment': '/selected-payment-method' };
+      if (!(action in routes)) throw Error('invalid_cart_action');
+      path += routes[action as keyof typeof routes];
+      if (action === 'select-prepayment') { body = { method: { method: 'checkmo' } }; method = 'PUT'; }
+    }
+    const data = JSON.parse(await this.read(path, body ? JSON.stringify(body) : undefined, true, false, true, undefined, false, method, true));
+    if (data && typeof data.message === 'string') {
+      if (/requested qty is not available|not enough items for sale|requested quantity is not available/i.test(data.message)) throw Error('insufficient_stock');
+      if (/product.*(?:not available|out of stock)/i.test(data.message)) throw Error('product_unavailable');
+      throw Error('retailer_unavailable');
+    }
+    return data;
+  }
+  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string, forcePost=false, overrideMethod?: 'PUT', magentoErrors=false): Promise<string> {
+    let url = new URL(path, this.origin), method = overrideMethod ?? (payload || forcePost ? 'POST' : 'GET');
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
       if (++this.calls > this.maxCalls) throw Error('request_limit');
@@ -136,11 +179,12 @@ export class AnonymousShop {
         if (eq > 0) this.cookies.set(pair.slice(0,eq), pair.slice(eq+1));
       }
       if ([301,302,303,307,308].includes(r.status)) {
+        if (magentoErrors) { await r.body?.cancel(); throw Error('invalid_cart_redirect'); }
         const target = r.headers.get('location'); await r.body?.cancel();
         if (!target) throw Error('invalid_redirect'); url = new URL(target, url);
         if ([301,302,303].includes(r.status)) { method = 'GET'; payload = undefined; } continue;
       }
-      if (!r.ok) { await r.body?.cancel(); throw Error('retailer_unavailable'); }
+      if (!r.ok && !(magentoErrors && this.origin === 'https://sklep-kowalczyk.pl' && r.status === 400)) { await r.body?.cancel(); throw Error('retailer_unavailable'); }
       if (json && !r.headers.get('content-type')?.includes('json')) { await r.body?.cancel(); throw Error('invalid_response'); }
       if (storeCart) {
         const token=r.headers.get('Cart-Token');

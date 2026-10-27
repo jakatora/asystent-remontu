@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T10:54:28.734Z",
-  "scope": "151 references/photos,188 observations. Two new explicit product references: same-EAN100-piece R-GS carton in two stores and a separate IRBUD merchant profile identity without invented GTIN. IRBUD quotes the actual requested postcode. Full renovation and local branch stock remain incomplete.",
+  "checkedAt": "2026-10-27T12:46:06.593Z",
+  "scope": "151 references/photos and127products with active offers.4newoffers for2existing products;2newregisteredretailers.192observations,171activeoffers. Same65baselineinputs remain84/240priced and156unpriced. Production native quotes prove one2-product delivered winner and a13-product pending plan with5confirmed/2unknown deliveries. No claim of allproducts,fullrenovationdeliveredcost,orlocalbranchstockcompletion.",
   "total": 151,
   "verifiedProducts": 127,
   "remaining": 24,
-  "offers": 167,
-  "stores": 46,
+  "offers": 171,
+  "stores": 48,
   "productsWithPhotos": 151,
-  "registeredOffers": 188,
+  "registeredOffers": 192,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3086,7 +3086,9 @@
       "status": "verified_offer",
       "ean": "5906675303024",
       "sourceIds": [
-        "abud-koelner-ws3595-1000"
+        "abud-koelner-ws3595-1000",
+        "kowalczyk-koelner-ws3595-1000",
+        "zpradem-koelner-ws3595-1000"
       ],
       "photoUrl": "https://www.abud.pl/hpeciai/c13753752e4f9725fd61b84075871cd7/pol_pl_Wkret-samowiercacy-3-5x9-5mm-1000-szt-63463_1.webp",
       "deliveryChecks": [
@@ -3096,6 +3098,36 @@
           "status": "confirmed_anonymous_cart",
           "scope": "retailer_basket_postcode 00-001",
           "quoteTtlMinutes": 10
+        },
+        {
+          "sourceId": "kowalczyk-koelner-ws3595-1000",
+          "checkedAt": "2026-10-27T12:45:28.418Z",
+          "expiresAt": "2026-10-27T12:55:28.418Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "00-001",
+          "costGrosze": 1699,
+          "orderOfferIds": [
+            "kowalczyk-koelner-ws3595-1000",
+            "kowalczyk-koelner-fx06k040-200"
+          ],
+          "materialsGrosze": 6520
+        },
+        {
+          "sourceId": "zpradem-koelner-ws3595-1000",
+          "checkedAt": "2026-10-27T12:45:23.237Z",
+          "expiresAt": "2026-10-27T12:55:23.237Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 2700,
+          "orderOfferIds": [
+            "zpradem-koelner-ws3595-1000"
+          ],
+          "materialsGrosze": 5630
         }
       ],
       "pickupRequiresConfirmation": true
@@ -3107,7 +3139,9 @@
       "status": "verified_offer",
       "ean": "5906675107622",
       "sourceIds": [
-        "abud-koelner-fx06k040-200"
+        "abud-koelner-fx06k040-200",
+        "kowalczyk-koelner-fx06k040-200",
+        "kim-koelner-fx06k040-200"
       ],
       "photoUrl": "https://www.abud.pl/hpeciai/a6c8238c098e65717875db7b7bcedfc1/pol_pl_Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt-1452_2.webp",
       "deliveryChecks": [
@@ -3117,6 +3151,36 @@
           "status": "confirmed_anonymous_cart",
           "scope": "retailer_basket_postcode 00-001",
           "quoteTtlMinutes": 10
+        },
+        {
+          "sourceId": "kowalczyk-koelner-fx06k040-200",
+          "checkedAt": "2026-10-27T12:45:28.418Z",
+          "expiresAt": "2026-10-27T12:55:28.418Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "00-001",
+          "costGrosze": 1699,
+          "orderOfferIds": [
+            "kowalczyk-koelner-ws3595-1000",
+            "kowalczyk-koelner-fx06k040-200"
+          ],
+          "materialsGrosze": 6520
+        },
+        {
+          "sourceId": "kim-koelner-fx06k040-200",
+          "checkedAt": "2026-10-27T12:45:23.317Z",
+          "expiresAt": "2026-10-27T12:55:23.317Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 1600,
+          "orderOfferIds": [
+            "kim-koelner-fx06k040-200"
+          ],
+          "materialsGrosze": 1990
         }
       ],
       "pickupRequiresConfirmation": true
@@ -3315,5 +3379,5 @@
     "report": "recipe-coverage-2026-10-27.json"
   },
   "expiredOffers": 19,
-  "activeStores": 43
+  "activeStores": 45
 }

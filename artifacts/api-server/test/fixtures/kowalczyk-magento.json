@@ -1,0 +1,2884 @@
+{
+  "checkedAt": "2026-10-27T12:15:53.498Z",
+  "scope": "Actual public native responses. Primary card fixtures retain exact canonical/headline/purchase-form/price/gallery fragments. Anonymous cart IDs are test placeholders; contact/customer forms and headers are omitted.",
+  "sources": [
+    {
+      "id": "kowalczyk-koelner-ws3595-1000",
+      "ean": "5906675303024",
+      "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+      "brand": "Koelner",
+      "category": "drywall-accessory",
+      "packageSize": 1000,
+      "unit": "szt",
+      "store": "E-Kowalczyk",
+      "format": "kowalczyk-magento",
+      "productId": 35759,
+      "retailerSku": "5906675303024",
+      "url": "https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html",
+      "imageUrl": "https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675303024.png",
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "kowalczyk-koelner-fx06k040-200",
+      "ean": "5906675107622",
+      "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+      "brand": "Koelner",
+      "category": "drywall-accessory",
+      "packageSize": 200,
+      "unit": "szt",
+      "store": "E-Kowalczyk",
+      "format": "kowalczyk-magento",
+      "productId": 35762,
+      "retailerSku": "5906675107622",
+      "url": "https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html",
+      "imageUrl": "https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675107622.jpg",
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "kim-koelner-fx06k040-200",
+      "ean": "5906675107622",
+      "name": "Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt. FX-06K040",
+      "brand": "Koelner",
+      "category": "drywall-accessory",
+      "packageSize": 200,
+      "unit": "szt",
+      "store": "KIM24",
+      "format": "shoper-api",
+      "productId": 13330,
+      "retailerSku": "MTZKKW06K040",
+      "apiPurchaseUnit": "op.",
+      "variant": [
+        "6x40",
+        "200 szt",
+        "FX-06K040"
+      ],
+      "url": "https://kim24.pl/Kolek-szybki-montaz-kolnierz-6x40-KOELNER",
+      "pickupRequiresConfirmation": true,
+      "imageUrl": "https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675107622.jpg"
+    },
+    {
+      "id": "zpradem-koelner-ws3595-1000",
+      "ean": "5906675303024",
+      "name": "Wkręt fosfatowany samowiercący 3,5x9,5 WS-3595 1000szt",
+      "brand": "Koelner",
+      "category": "drywall-accessory",
+      "packageSize": 1000,
+      "unit": "szt",
+      "store": "Z prądem",
+      "format": "shoper-api",
+      "productId": 798230,
+      "retailerSku": "0004-00010-06761",
+      "apiPurchaseUnit": "szt.",
+      "variant": [
+        "WS-3595",
+        "1000szt",
+        "3,5x9,5"
+      ],
+      "url": "https://zpradem.pl/wkret-fosfatowany-samowiercacy-35x95-ws-3595-1000szt/798230",
+      "imageUrl": "https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675303024.png",
+      "pickupRequiresConfirmation": true
+    }
+  ],
+  "records": [
+    {
+      "context": "read:kowalczyk-koelner-ws3595-1000",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html\" />\n<link rel='canonical' href='https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html' />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwva29lbG5lci13a3JldC1zYW1vd2llcmNhY3ktZm9zZmF0b3d5LXRleC0zLTV4OS01bW0tMTAwMC1zenQtd3MtMzU5NS5odG1s/product/35759/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675303024\"\n                            ></form>\n<span id=\"product-price-35759\"\n                      class=\"price-wrapper\">\n                    <span class=\"price\" x-html=\"getFormattedFinalPrice()\">\n                        43,33 zł                    </span>\n                </span>\n<span id=\"product-price-35759\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"hyva.formatPrice(activeProductsPriceData[regularPriceKey].amount + getCustomOptionPrice())\"></span>\n            </span>\n<span id=\"product-price-35759\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"getFormattedFinalPrice()\"></span>\n            </span>\n<script>\n    function initPrice35759() {\n\n                const regularPriceInclTaxKey = 'oldPrice',\n              regularPriceExclTaxKey = 'baseOldPrice',\n              finalPriceInclTaxKey = 'finalPrice',\n              finalPriceExclTaxKey = 'basePrice';\n\n        function calculateCustomOptionPrices(activeCustomOptions, customOptionPrices) {\n            return activeCustomOptions.reduce((priceAccumulator, activeCustomOptionId) => {\n                const customOptionPrice = customOptionPrices[activeCustomOptionId];\n                if (customOptionPrice) {\n                    return Number.parseFloat(priceAccumulator) + Number.parseFloat(customOptionPrice);\n                }\n                return priceAccumulator;\n            }, 0);\n        }\n\n        return {\n            regularPriceKey: regularPriceInclTaxKey,\n            finalPriceKey: finalPriceInclTaxKey,\n            activeProductsPriceData: false,\n            initialFinalPrice: 43.33,\n            calculatedFinalPrice: false,\n            calculatedFinalPriceWithCustomOptions: false,\n            initialTierPrices: [],\n            showRegularPriceLabel: false,\n            customOptionPrices: [],\n                        activeCustomOptions: [],\n            qty: 1,\n            updateCustomOptionActive(data) {\n                let activeCustomOptions = this.activeCustomOptions;\n                const customOptionId = data.customOptionId;\n\n                if (data.active) {\n                    if (!activeCustomOptions.includes(customOptionId)) {\n                        activeCustomOptions.push(data.customOptionId);\n                    }\n                } else {\n                    if (customOptionId && activeCustomOptions.includes(customOptionId)) {\n                        let index = activeCustomOptions.indexOf(customOptionId);\n                        activeCustomOptions.splice(index, 1);\n                    }\n                }\n                this.calculateFinalPriceWithCustomOptions()\n            },\n            updateCustomOptionPrices(prices, basePrices) {\n                if (prices) {\n                    this.customOptionPrices = prices;\n                }\n\n                \n                this.calculateFinalPriceWithCustomOptions();\n            },\n            calculateFinalPrice() {\n\n                                                                const getOptionTierPrice = (tierPrice, withTax) => {\n                                        return tierPrice[withTax ? 'price' : 'basePrice'];\n                                    }\n\n                const findApplicableTierPrice = (initialPrice, withTax) => {\n                    if (this.activeProductsPriceData && this.activeProductsPriceData.tierPrices) {\n                        return this.activeProductsPriceData.tierPrices.reduce((acc, tierPrice) => {\n                            const tierPriceCandidate = getOptionTierPrice(tierPrice, withTax);\n                            if (this.qty >= tierPrice.qty && tierPriceCandidate < acc) {\n                                return tierPriceCandidate;\n                            }\n                            return acc;\n                        }, this.activeProductsPriceData[withTax ? finalPriceInclTaxKey : finalPriceExclTaxKey].amount);\n\n                    } else {\n                        const key = withTax ? 'price_incl_tax' : 'price_excl_tax';\n                        return Object.values(this.initialTierPrices).reduce((acc, tierPrice) => {\n                            if (this.qty >= tierPrice.price_qty && tierPrice[key] < acc) {\n                                return tierPrice[key];\n                            }\n                            return acc;\n                        }, initialPrice);\n\n                    }\n                }\n\n                this.calculatedFinalPrice = findApplicableTierPrice(this.initialFinalPrice, true);\n                window.dispatchEvent(new CustomEvent(\"update-product-final-price\", {detail: this.calculatedFinalPrice}));\n\n                            },\n            calculatePriceLabelVisibility() {\n                this.showRegularPriceLabel =\n                    (this.calculatedFinalPrice === this.activeProductsPriceData[this.regularPriceKey].amount) &&\n                    this.activeProductsPriceData.isMinimalPrice;\n            },\n            calculateFinalPriceWithCustomOptions() {\n                const finalPrice = this.calculatedFinalPrice || this.initialFinalPrice;\n                this.calculatedFinalPriceWithCustomOptions = finalPrice + this.getCustomOptionPrice();\n                            },\n            getCustomOptionPrice() {\n                return calculateCustomOptionPrices(this.activeCustomOptions, this.customOptionPrices);\n            },\n                        getFormattedFinalPrice() {\n                return hyva.formatPrice(\n                    this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice\n                )\n            },\n                        isPriceHidden() {\n                const finalPrice = this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice;\n                return false && finalPrice === 0;\n            },\n            eventListeners: {\n                ['@update-prices-35759.window'](event) {\n                    this.activeProductsPriceData = event.detail;\n\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                    this.calculatePriceLabelVisibility();\n                },\n                ['@update-qty-35759.window'](event) {\n                    this.qty = event.detail;\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                },\n                ['@update-custom-option-active.window'](event) {\n                    this.updateCustomOptionActive(event.detail);\n                },\n                ['@update-custom-option-prices.window'](event) {\n                    this.updateCustomOptionPrices(event.detail);\n                },\n                            }\n        }\n    }\n</script>\n<script>var nativeGallery=[{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675303024.png\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675303024.png\"},{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675303024.png\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675303024.png\"}];</script>"
+    },
+    {
+      "context": "read:kowalczyk-koelner-ws3595-1000",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts",
+      "method": "POST",
+      "body": {},
+      "status": 200,
+      "response": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "context": "read:kowalczyk-koelner-ws3595-1000",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": []
+    },
+    {
+      "context": "read:kowalczyk-koelner-ws3595-1000",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675303024",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 108766,
+        "sku": "5906675303024",
+        "qty": 1,
+        "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+        "price": 35.23,
+        "product_type": "simple",
+        "quote_id": "1"
+      }
+    },
+    {
+      "context": "read:kowalczyk-koelner-ws3595-1000",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "item_id": 108766,
+          "sku": "5906675303024",
+          "qty": 1,
+          "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+          "price": 35.23,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    },
+    {
+      "context": "read:kowalczyk-koelner-ws3595-1000",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "grand_total": 43.33,
+        "base_grand_total": 43.33,
+        "subtotal": 35.23,
+        "base_subtotal": 35.23,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 35.23,
+        "base_subtotal_with_discount": 35.23,
+        "shipping_amount": 0,
+        "base_shipping_amount": 0,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 8.1,
+        "base_tax_amount": 8.1,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 0,
+        "base_shipping_tax_amount": 0,
+        "subtotal_incl_tax": 43.33,
+        "shipping_incl_tax": 0,
+        "base_shipping_incl_tax": 0,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "items_qty": 1,
+        "items": [
+          {
+            "item_id": 108766,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 43.33
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa",
+            "value": 0
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 8.1,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 8.1,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 43.33,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "read:kowalczyk-koelner-fx06k040-200",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html\" />\n<link rel='canonical' href='https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html' />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwvcmF3bHBsdWcta29lbG5lci1rb2xlay1zenlia2llZ28tbW9udGF6dS02eDQwLXota29sbmllcnplbS0yMDBzenQtb3AtZngtMDZrMDQwLmh0bWw~/product/35762/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675107622\"\n                            ></form>\n<span id=\"product-price-35762\"\n                      class=\"price-wrapper\">\n                    <span class=\"price\" x-html=\"getFormattedFinalPrice()\">\n                        21,87 zł                    </span>\n                </span>\n<span id=\"product-price-35762\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"hyva.formatPrice(activeProductsPriceData[regularPriceKey].amount + getCustomOptionPrice())\"></span>\n            </span>\n<span id=\"product-price-35762\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"getFormattedFinalPrice()\"></span>\n            </span>\n<script>\n    function initPrice35762() {\n\n                const regularPriceInclTaxKey = 'oldPrice',\n              regularPriceExclTaxKey = 'baseOldPrice',\n              finalPriceInclTaxKey = 'finalPrice',\n              finalPriceExclTaxKey = 'basePrice';\n\n        function calculateCustomOptionPrices(activeCustomOptions, customOptionPrices) {\n            return activeCustomOptions.reduce((priceAccumulator, activeCustomOptionId) => {\n                const customOptionPrice = customOptionPrices[activeCustomOptionId];\n                if (customOptionPrice) {\n                    return Number.parseFloat(priceAccumulator) + Number.parseFloat(customOptionPrice);\n                }\n                return priceAccumulator;\n            }, 0);\n        }\n\n        return {\n            regularPriceKey: regularPriceInclTaxKey,\n            finalPriceKey: finalPriceInclTaxKey,\n            activeProductsPriceData: false,\n            initialFinalPrice: 21.87,\n            calculatedFinalPrice: false,\n            calculatedFinalPriceWithCustomOptions: false,\n            initialTierPrices: [],\n            showRegularPriceLabel: false,\n            customOptionPrices: [],\n                        activeCustomOptions: [],\n            qty: 1,\n            updateCustomOptionActive(data) {\n                let activeCustomOptions = this.activeCustomOptions;\n                const customOptionId = data.customOptionId;\n\n                if (data.active) {\n                    if (!activeCustomOptions.includes(customOptionId)) {\n                        activeCustomOptions.push(data.customOptionId);\n                    }\n                } else {\n                    if (customOptionId && activeCustomOptions.includes(customOptionId)) {\n                        let index = activeCustomOptions.indexOf(customOptionId);\n                        activeCustomOptions.splice(index, 1);\n                    }\n                }\n                this.calculateFinalPriceWithCustomOptions()\n            },\n            updateCustomOptionPrices(prices, basePrices) {\n                if (prices) {\n                    this.customOptionPrices = prices;\n                }\n\n                \n                this.calculateFinalPriceWithCustomOptions();\n            },\n            calculateFinalPrice() {\n\n                                                                const getOptionTierPrice = (tierPrice, withTax) => {\n                                        return tierPrice[withTax ? 'price' : 'basePrice'];\n                                    }\n\n                const findApplicableTierPrice = (initialPrice, withTax) => {\n                    if (this.activeProductsPriceData && this.activeProductsPriceData.tierPrices) {\n                        return this.activeProductsPriceData.tierPrices.reduce((acc, tierPrice) => {\n                            const tierPriceCandidate = getOptionTierPrice(tierPrice, withTax);\n                            if (this.qty >= tierPrice.qty && tierPriceCandidate < acc) {\n                                return tierPriceCandidate;\n                            }\n                            return acc;\n                        }, this.activeProductsPriceData[withTax ? finalPriceInclTaxKey : finalPriceExclTaxKey].amount);\n\n                    } else {\n                        const key = withTax ? 'price_incl_tax' : 'price_excl_tax';\n                        return Object.values(this.initialTierPrices).reduce((acc, tierPrice) => {\n                            if (this.qty >= tierPrice.price_qty && tierPrice[key] < acc) {\n                                return tierPrice[key];\n                            }\n                            return acc;\n                        }, initialPrice);\n\n                    }\n                }\n\n                this.calculatedFinalPrice = findApplicableTierPrice(this.initialFinalPrice, true);\n                window.dispatchEvent(new CustomEvent(\"update-product-final-price\", {detail: this.calculatedFinalPrice}));\n\n                            },\n            calculatePriceLabelVisibility() {\n                this.showRegularPriceLabel =\n                    (this.calculatedFinalPrice === this.activeProductsPriceData[this.regularPriceKey].amount) &&\n                    this.activeProductsPriceData.isMinimalPrice;\n            },\n            calculateFinalPriceWithCustomOptions() {\n                const finalPrice = this.calculatedFinalPrice || this.initialFinalPrice;\n                this.calculatedFinalPriceWithCustomOptions = finalPrice + this.getCustomOptionPrice();\n                            },\n            getCustomOptionPrice() {\n                return calculateCustomOptionPrices(this.activeCustomOptions, this.customOptionPrices);\n            },\n                        getFormattedFinalPrice() {\n                return hyva.formatPrice(\n                    this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice\n                )\n            },\n                        isPriceHidden() {\n                const finalPrice = this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice;\n                return false && finalPrice === 0;\n            },\n            eventListeners: {\n                ['@update-prices-35762.window'](event) {\n                    this.activeProductsPriceData = event.detail;\n\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                    this.calculatePriceLabelVisibility();\n                },\n                ['@update-qty-35762.window'](event) {\n                    this.qty = event.detail;\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                },\n                ['@update-custom-option-active.window'](event) {\n                    this.updateCustomOptionActive(event.detail);\n                },\n                ['@update-custom-option-prices.window'](event) {\n                    this.updateCustomOptionPrices(event.detail);\n                },\n                            }\n        }\n    }\n</script>\n<script>var nativeGallery=[{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675107622.jpg\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675107622.jpg\"},{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675107622.jpg\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675107622.jpg\"}];</script>"
+    },
+    {
+      "context": "read:kowalczyk-koelner-fx06k040-200",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts",
+      "method": "POST",
+      "body": {},
+      "status": 200,
+      "response": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "context": "read:kowalczyk-koelner-fx06k040-200",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": []
+    },
+    {
+      "context": "read:kowalczyk-koelner-fx06k040-200",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675107622",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 108767,
+        "sku": "5906675107622",
+        "qty": 1,
+        "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+        "price": 17.78,
+        "product_type": "simple",
+        "quote_id": "1"
+      }
+    },
+    {
+      "context": "read:kowalczyk-koelner-fx06k040-200",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "item_id": 108767,
+          "sku": "5906675107622",
+          "qty": 1,
+          "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+          "price": 17.78,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    },
+    {
+      "context": "read:kowalczyk-koelner-fx06k040-200",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "grand_total": 21.87,
+        "base_grand_total": 21.87,
+        "subtotal": 17.78,
+        "base_subtotal": 17.78,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 17.78,
+        "base_subtotal_with_discount": 17.78,
+        "shipping_amount": 0,
+        "base_shipping_amount": 0,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 4.09,
+        "base_tax_amount": 4.09,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 0,
+        "base_shipping_tax_amount": 0,
+        "subtotal_incl_tax": 21.87,
+        "shipping_incl_tax": 0,
+        "base_shipping_incl_tax": 0,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "items_qty": 1,
+        "items": [
+          {
+            "item_id": 108767,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 21.87
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa",
+            "value": 0
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 4.09,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 4.09,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 21.87,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "read:kim-koelner-fx06k040-200",
+      "origin": "https://kim24.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/13330",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 13330,
+        "name": "Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt. FX-06K040",
+        "can_buy": true,
+        "ean": "5906675107622",
+        "code": "MTZKKW06K040",
+        "package": "0",
+        "unit": {
+          "name": "op.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 15459,
+        "url": "https://kim24.pl/Kolek-szybki-montaz-kolnierz-6x40-KOELNER",
+        "category": {
+          "name": "Akcesoria do suchej zabudowy",
+          "id": 88
+        },
+        "availability": {
+          "name": "ostatnia sztuka"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny ",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "19,90 zł",
+            "base_float": 19.9,
+            "final": "19,90 zł",
+            "final_float": 19.9,
+            "historical_lowest_price": "17,00 zł",
+            "historical_lowest_price_float": 17
+          },
+          "net": {
+            "base": "16,18 zł",
+            "base_float": 16.18,
+            "final": "16,18 zł",
+            "final_float": 16.18,
+            "historical_lowest_price": "13,82 zł",
+            "historical_lowest_price_float": 13.82
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 1,
+          "weight": "1 kg"
+        },
+        "producer": {
+          "name": "Koelner",
+          "id": 273
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt.</p>",
+        "main_image": "30825",
+        "main_image_filename": "30825.jpg",
+        "description": "<h2>Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt.</h2>\r\n<p>KOELNER FX-N-K Kołki do wbijania z kołnierzem z gwoździem stalowym</p>\r\n<p>Kołek szybki montaż 6x40 KOELNER FX-06K040 (200szt/op)</p>\r\n<p><strong>Zastosowania:</strong><br />mocowania lekkich elementów suchej zabudowy: listew, łat, itp…<br /> <br /><strong>Cechy charakterystyczne:</strong><br />Koszulka kołka: Poliproopylen PP lub Poliamid PA 6.6<br />Gwóźdź: stal ocynkowana galwanicznie, gr. powłoki 10μm.</p>",
+        "images": [
+          "30825"
+        ],
+        "images_filename": [
+          "30825.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "17,00 zł",
+        "net_historical_lowest_price": "13,82 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "52",
+          "name": "ORLEN 20 x 30 x 50 cm do 5 kg"
+        }
+      }
+    },
+    {
+      "context": "read:zpradem-koelner-ws3595-1000",
+      "origin": "https://zpradem.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/798230",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 798230,
+        "name": "Wkręt fosfatowany samowiercący 3,5x9,5 WS-3595 1000szt",
+        "can_buy": true,
+        "ean": "5906675303024",
+        "code": "0004-00010-06761",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 798161,
+        "url": "https://zpradem.pl/wkret-fosfatowany-samowiercacy-35x95-ws-3595-1000szt/798230",
+        "category": {
+          "name": "Wkręty",
+          "id": 3339
+        },
+        "availability": {
+          "name": "Dostępne"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "56,30 zł",
+            "base_float": 56.3,
+            "final": "56,30 zł",
+            "final_float": 56.3,
+            "historical_lowest_price": "48,10 zł",
+            "historical_lowest_price_float": 48.1
+          },
+          "net": {
+            "base": "45,77 zł",
+            "base_float": 45.77,
+            "final": "45,77 zł",
+            "final_float": 45.77,
+            "historical_lowest_price": "39,11 zł",
+            "historical_lowest_price_float": 39.11
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "KOELNER",
+          "id": 356,
+          "img": "https://zpradem.pl/userdata/public/producers/356.jpg"
+        },
+        "newProduct": false,
+        "shortDescription": "Wkręt fosfatowany samowiercący 3,5x9,5 WS-3595 1000szt, producent: Koelner",
+        "main_image": "446051",
+        "main_image_filename": "446051.jpg",
+        "description": "<b>CN: </b> 73181491<br> <b>PKWiU: </b> 25.94.11.0<br> <b>Zabezpieczenie powierzchni: </b> Ocynk ogniowy<br> <b>Materiał: </b> Stal<br> <b>Długość trzpienia [mm]: </b> 9.5000<br> <b>Średnica kołka [mm]: </b> 3.5000",
+        "images": [
+          "446051"
+        ],
+        "images_filename": [
+          "446051.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Średnica kołka [mm]",
+            "type": 0,
+            "value": "3.5000"
+          },
+          {
+            "name": "CN",
+            "type": 0,
+            "value": "73181491"
+          },
+          {
+            "name": "PKWiU",
+            "type": 0,
+            "value": "25.94.11.0"
+          },
+          {
+            "name": "Materiał",
+            "type": 0,
+            "value": "Stal"
+          },
+          {
+            "name": "Zabezpieczenie powierzchni",
+            "type": 0,
+            "value": "Ocynk ogniowy"
+          },
+          {
+            "name": "Długość trzpienia [mm]",
+            "type": 0,
+            "value": "9.5000"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "48,10 zł",
+        "net_historical_lowest_price": "39,11 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "8",
+          "name": "Paczkomat"
+        }
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html\" />\n<link rel='canonical' href='https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html' />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwva29lbG5lci13a3JldC1zYW1vd2llcmNhY3ktZm9zZmF0b3d5LXRleC0zLTV4OS01bW0tMTAwMC1zenQtd3MtMzU5NS5odG1s/product/35759/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675303024\"\n                            ></form>\n<span id=\"product-price-35759\"\n                      class=\"price-wrapper\">\n                    <span class=\"price\" x-html=\"getFormattedFinalPrice()\">\n                        43,33 zł                    </span>\n                </span>\n<span id=\"product-price-35759\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"hyva.formatPrice(activeProductsPriceData[regularPriceKey].amount + getCustomOptionPrice())\"></span>\n            </span>\n<span id=\"product-price-35759\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"getFormattedFinalPrice()\"></span>\n            </span>\n<script>\n    function initPrice35759() {\n\n                const regularPriceInclTaxKey = 'oldPrice',\n              regularPriceExclTaxKey = 'baseOldPrice',\n              finalPriceInclTaxKey = 'finalPrice',\n              finalPriceExclTaxKey = 'basePrice';\n\n        function calculateCustomOptionPrices(activeCustomOptions, customOptionPrices) {\n            return activeCustomOptions.reduce((priceAccumulator, activeCustomOptionId) => {\n                const customOptionPrice = customOptionPrices[activeCustomOptionId];\n                if (customOptionPrice) {\n                    return Number.parseFloat(priceAccumulator) + Number.parseFloat(customOptionPrice);\n                }\n                return priceAccumulator;\n            }, 0);\n        }\n\n        return {\n            regularPriceKey: regularPriceInclTaxKey,\n            finalPriceKey: finalPriceInclTaxKey,\n            activeProductsPriceData: false,\n            initialFinalPrice: 43.33,\n            calculatedFinalPrice: false,\n            calculatedFinalPriceWithCustomOptions: false,\n            initialTierPrices: [],\n            showRegularPriceLabel: false,\n            customOptionPrices: [],\n                        activeCustomOptions: [],\n            qty: 1,\n            updateCustomOptionActive(data) {\n                let activeCustomOptions = this.activeCustomOptions;\n                const customOptionId = data.customOptionId;\n\n                if (data.active) {\n                    if (!activeCustomOptions.includes(customOptionId)) {\n                        activeCustomOptions.push(data.customOptionId);\n                    }\n                } else {\n                    if (customOptionId && activeCustomOptions.includes(customOptionId)) {\n                        let index = activeCustomOptions.indexOf(customOptionId);\n                        activeCustomOptions.splice(index, 1);\n                    }\n                }\n                this.calculateFinalPriceWithCustomOptions()\n            },\n            updateCustomOptionPrices(prices, basePrices) {\n                if (prices) {\n                    this.customOptionPrices = prices;\n                }\n\n                \n                this.calculateFinalPriceWithCustomOptions();\n            },\n            calculateFinalPrice() {\n\n                                                                const getOptionTierPrice = (tierPrice, withTax) => {\n                                        return tierPrice[withTax ? 'price' : 'basePrice'];\n                                    }\n\n                const findApplicableTierPrice = (initialPrice, withTax) => {\n                    if (this.activeProductsPriceData && this.activeProductsPriceData.tierPrices) {\n                        return this.activeProductsPriceData.tierPrices.reduce((acc, tierPrice) => {\n                            const tierPriceCandidate = getOptionTierPrice(tierPrice, withTax);\n                            if (this.qty >= tierPrice.qty && tierPriceCandidate < acc) {\n                                return tierPriceCandidate;\n                            }\n                            return acc;\n                        }, this.activeProductsPriceData[withTax ? finalPriceInclTaxKey : finalPriceExclTaxKey].amount);\n\n                    } else {\n                        const key = withTax ? 'price_incl_tax' : 'price_excl_tax';\n                        return Object.values(this.initialTierPrices).reduce((acc, tierPrice) => {\n                            if (this.qty >= tierPrice.price_qty && tierPrice[key] < acc) {\n                                return tierPrice[key];\n                            }\n                            return acc;\n                        }, initialPrice);\n\n                    }\n                }\n\n                this.calculatedFinalPrice = findApplicableTierPrice(this.initialFinalPrice, true);\n                window.dispatchEvent(new CustomEvent(\"update-product-final-price\", {detail: this.calculatedFinalPrice}));\n\n                            },\n            calculatePriceLabelVisibility() {\n                this.showRegularPriceLabel =\n                    (this.calculatedFinalPrice === this.activeProductsPriceData[this.regularPriceKey].amount) &&\n                    this.activeProductsPriceData.isMinimalPrice;\n            },\n            calculateFinalPriceWithCustomOptions() {\n                const finalPrice = this.calculatedFinalPrice || this.initialFinalPrice;\n                this.calculatedFinalPriceWithCustomOptions = finalPrice + this.getCustomOptionPrice();\n                            },\n            getCustomOptionPrice() {\n                return calculateCustomOptionPrices(this.activeCustomOptions, this.customOptionPrices);\n            },\n                        getFormattedFinalPrice() {\n                return hyva.formatPrice(\n                    this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice\n                )\n            },\n                        isPriceHidden() {\n                const finalPrice = this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice;\n                return false && finalPrice === 0;\n            },\n            eventListeners: {\n                ['@update-prices-35759.window'](event) {\n                    this.activeProductsPriceData = event.detail;\n\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                    this.calculatePriceLabelVisibility();\n                },\n                ['@update-qty-35759.window'](event) {\n                    this.qty = event.detail;\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                },\n                ['@update-custom-option-active.window'](event) {\n                    this.updateCustomOptionActive(event.detail);\n                },\n                ['@update-custom-option-prices.window'](event) {\n                    this.updateCustomOptionPrices(event.detail);\n                },\n                            }\n        }\n    }\n</script>\n<script>var nativeGallery=[{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675303024.png\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675303024.png\"},{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675303024.png\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675303024.png\"}];</script>"
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html\" />\n<link rel='canonical' href='https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html' />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwvcmF3bHBsdWcta29lbG5lci1rb2xlay1zenlia2llZ28tbW9udGF6dS02eDQwLXota29sbmllcnplbS0yMDBzenQtb3AtZngtMDZrMDQwLmh0bWw~/product/35762/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675107622\"\n                            ></form>\n<span id=\"product-price-35762\"\n                      class=\"price-wrapper\">\n                    <span class=\"price\" x-html=\"getFormattedFinalPrice()\">\n                        21,87 zł                    </span>\n                </span>\n<span id=\"product-price-35762\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"hyva.formatPrice(activeProductsPriceData[regularPriceKey].amount + getCustomOptionPrice())\"></span>\n            </span>\n<span id=\"product-price-35762\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"getFormattedFinalPrice()\"></span>\n            </span>\n<script>\n    function initPrice35762() {\n\n                const regularPriceInclTaxKey = 'oldPrice',\n              regularPriceExclTaxKey = 'baseOldPrice',\n              finalPriceInclTaxKey = 'finalPrice',\n              finalPriceExclTaxKey = 'basePrice';\n\n        function calculateCustomOptionPrices(activeCustomOptions, customOptionPrices) {\n            return activeCustomOptions.reduce((priceAccumulator, activeCustomOptionId) => {\n                const customOptionPrice = customOptionPrices[activeCustomOptionId];\n                if (customOptionPrice) {\n                    return Number.parseFloat(priceAccumulator) + Number.parseFloat(customOptionPrice);\n                }\n                return priceAccumulator;\n            }, 0);\n        }\n\n        return {\n            regularPriceKey: regularPriceInclTaxKey,\n            finalPriceKey: finalPriceInclTaxKey,\n            activeProductsPriceData: false,\n            initialFinalPrice: 21.87,\n            calculatedFinalPrice: false,\n            calculatedFinalPriceWithCustomOptions: false,\n            initialTierPrices: [],\n            showRegularPriceLabel: false,\n            customOptionPrices: [],\n                        activeCustomOptions: [],\n            qty: 1,\n            updateCustomOptionActive(data) {\n                let activeCustomOptions = this.activeCustomOptions;\n                const customOptionId = data.customOptionId;\n\n                if (data.active) {\n                    if (!activeCustomOptions.includes(customOptionId)) {\n                        activeCustomOptions.push(data.customOptionId);\n                    }\n                } else {\n                    if (customOptionId && activeCustomOptions.includes(customOptionId)) {\n                        let index = activeCustomOptions.indexOf(customOptionId);\n                        activeCustomOptions.splice(index, 1);\n                    }\n                }\n                this.calculateFinalPriceWithCustomOptions()\n            },\n            updateCustomOptionPrices(prices, basePrices) {\n                if (prices) {\n                    this.customOptionPrices = prices;\n                }\n\n                \n                this.calculateFinalPriceWithCustomOptions();\n            },\n            calculateFinalPrice() {\n\n                                                                const getOptionTierPrice = (tierPrice, withTax) => {\n                                        return tierPrice[withTax ? 'price' : 'basePrice'];\n                                    }\n\n                const findApplicableTierPrice = (initialPrice, withTax) => {\n                    if (this.activeProductsPriceData && this.activeProductsPriceData.tierPrices) {\n                        return this.activeProductsPriceData.tierPrices.reduce((acc, tierPrice) => {\n                            const tierPriceCandidate = getOptionTierPrice(tierPrice, withTax);\n                            if (this.qty >= tierPrice.qty && tierPriceCandidate < acc) {\n                                return tierPriceCandidate;\n                            }\n                            return acc;\n                        }, this.activeProductsPriceData[withTax ? finalPriceInclTaxKey : finalPriceExclTaxKey].amount);\n\n                    } else {\n                        const key = withTax ? 'price_incl_tax' : 'price_excl_tax';\n                        return Object.values(this.initialTierPrices).reduce((acc, tierPrice) => {\n                            if (this.qty >= tierPrice.price_qty && tierPrice[key] < acc) {\n                                return tierPrice[key];\n                            }\n                            return acc;\n                        }, initialPrice);\n\n                    }\n                }\n\n                this.calculatedFinalPrice = findApplicableTierPrice(this.initialFinalPrice, true);\n                window.dispatchEvent(new CustomEvent(\"update-product-final-price\", {detail: this.calculatedFinalPrice}));\n\n                            },\n            calculatePriceLabelVisibility() {\n                this.showRegularPriceLabel =\n                    (this.calculatedFinalPrice === this.activeProductsPriceData[this.regularPriceKey].amount) &&\n                    this.activeProductsPriceData.isMinimalPrice;\n            },\n            calculateFinalPriceWithCustomOptions() {\n                const finalPrice = this.calculatedFinalPrice || this.initialFinalPrice;\n                this.calculatedFinalPriceWithCustomOptions = finalPrice + this.getCustomOptionPrice();\n                            },\n            getCustomOptionPrice() {\n                return calculateCustomOptionPrices(this.activeCustomOptions, this.customOptionPrices);\n            },\n                        getFormattedFinalPrice() {\n                return hyva.formatPrice(\n                    this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice\n                )\n            },\n                        isPriceHidden() {\n                const finalPrice = this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice;\n                return false && finalPrice === 0;\n            },\n            eventListeners: {\n                ['@update-prices-35762.window'](event) {\n                    this.activeProductsPriceData = event.detail;\n\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                    this.calculatePriceLabelVisibility();\n                },\n                ['@update-qty-35762.window'](event) {\n                    this.qty = event.detail;\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                },\n                ['@update-custom-option-active.window'](event) {\n                    this.updateCustomOptionActive(event.detail);\n                },\n                ['@update-custom-option-prices.window'](event) {\n                    this.updateCustomOptionPrices(event.detail);\n                },\n                            }\n        }\n    }\n</script>\n<script>var nativeGallery=[{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675107622.jpg\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675107622.jpg\"},{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675107622.jpg\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675107622.jpg\"}];</script>"
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts",
+      "method": "POST",
+      "body": {},
+      "status": 200,
+      "response": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": []
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675303024",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 108768,
+        "sku": "5906675303024",
+        "qty": 1,
+        "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+        "price": 35.23,
+        "product_type": "simple",
+        "quote_id": "1"
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675107622",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 108769,
+        "sku": "5906675107622",
+        "qty": 1,
+        "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+        "price": 17.78,
+        "product_type": "simple",
+        "quote_id": "1"
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "item_id": 108768,
+          "sku": "5906675303024",
+          "qty": 1,
+          "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+          "price": 35.23,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "item_id": 108769,
+          "sku": "5906675107622",
+          "qty": 1,
+          "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+          "price": 17.78,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "grand_total": 65.2,
+        "base_grand_total": 65.2,
+        "subtotal": 53.01,
+        "base_subtotal": 53.01,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 53.01,
+        "base_subtotal_with_discount": 53.01,
+        "shipping_amount": 0,
+        "base_shipping_amount": 0,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 12.19,
+        "base_tax_amount": 12.19,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 0,
+        "base_shipping_tax_amount": 0,
+        "subtotal_incl_tax": 65.2,
+        "shipping_incl_tax": 0,
+        "base_shipping_incl_tax": 0,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "items_qty": 2,
+        "items": [
+          {
+            "item_id": 108768,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 108769,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 65.2
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa",
+            "value": 0
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 12.19,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 12.19,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 65.2,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/payment-methods",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "code": "checkmo",
+          "title": "Przedpłata (przelew tradycyjny)"
+        },
+        {
+          "code": "purchaseorder",
+          "title": "Płatność przy odbiorze"
+        },
+        {
+          "code": "cashondelivery",
+          "title": "Zapłać po wycenie transportu"
+        },
+        {
+          "code": "axepta_paywall",
+          "title": "Axepta"
+        },
+        {
+          "code": "payu_gateway",
+          "title": "PayU"
+        },
+        {
+          "code": "payu_gateway_card",
+          "title": "PayU"
+        }
+      ]
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/estimate-shipping-methods",
+      "method": "POST",
+      "body": {
+        "address": {
+          "country_id": "PL",
+          "postcode": "00-001"
+        }
+      },
+      "status": 200,
+      "response": [
+        {
+          "carrier_code": "freeshipping",
+          "method_code": "freeshipping",
+          "carrier_title": "Odbiór osobisty",
+          "method_title": "Odbiór osobisty",
+          "amount": 0,
+          "base_amount": 0,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 0,
+          "price_incl_tax": 0
+        },
+        {
+          "carrier_code": "kurier",
+          "method_code": "kurier",
+          "carrier_title": "Wycena",
+          "method_title": "Usługa transportowa",
+          "amount": 0,
+          "base_amount": 0,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 0,
+          "price_incl_tax": 0
+        },
+        {
+          "carrier_code": "inpostlocker",
+          "method_code": "standard",
+          "carrier_title": "InPost Paczkomaty",
+          "method_title": "InPost Paczkomat® 24/7",
+          "amount": 14.99,
+          "base_amount": 14.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 12.19,
+          "price_incl_tax": 14.99
+        },
+        {
+          "carrier_code": "inpostcourier",
+          "method_code": "standard",
+          "carrier_title": "InPost Kurier",
+          "method_title": "Kurier",
+          "amount": 16.99,
+          "base_amount": 16.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 13.81,
+          "price_incl_tax": 16.99
+        },
+        {
+          "carrier_code": "inpostcourier",
+          "method_code": "standardcod",
+          "carrier_title": "InPost Kurier",
+          "method_title": "Kurier - płatność przy odbiorze",
+          "amount": 24.99,
+          "base_amount": 24.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 20.32,
+          "price_incl_tax": 24.99
+        }
+      ]
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals-information",
+      "method": "POST",
+      "body": {
+        "addressInformation": {
+          "address": {
+            "country_id": "PL",
+            "postcode": "00-001"
+          },
+          "shipping_carrier_code": "inpostcourier",
+          "shipping_method_code": "standard"
+        }
+      },
+      "status": 200,
+      "response": {
+        "grand_total": 82.19,
+        "base_grand_total": 82.19,
+        "subtotal": 53.01,
+        "base_subtotal": 53.01,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 53.01,
+        "base_subtotal_with_discount": 53.01,
+        "shipping_amount": 13.81,
+        "base_shipping_amount": 13.81,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 15.37,
+        "base_tax_amount": 15.37,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 3.18,
+        "base_shipping_tax_amount": 3.18,
+        "subtotal_incl_tax": 65.2,
+        "base_subtotal_incl_tax": 65.2,
+        "shipping_incl_tax": 16.99,
+        "base_shipping_incl_tax": 16.99,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "coupon_code": "",
+        "items_qty": 2,
+        "items": [
+          {
+            "item_id": 108768,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 108769,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 65.2
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa (InPost Kurier - Kurier)",
+            "value": 13.81
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 15.37,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 15.37,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 82.19,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/selected-payment-method",
+      "method": "PUT",
+      "body": {
+        "method": {
+          "method": "checkmo"
+        }
+      },
+      "status": 200,
+      "response": "21627"
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/selected-payment-method",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "method": "checkmo"
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals-information",
+      "method": "POST",
+      "body": {
+        "addressInformation": {
+          "address": {
+            "country_id": "PL",
+            "postcode": "00-001"
+          },
+          "shipping_carrier_code": "inpostcourier",
+          "shipping_method_code": "standard"
+        }
+      },
+      "status": 200,
+      "response": {
+        "grand_total": 82.19,
+        "base_grand_total": 82.19,
+        "subtotal": 53.01,
+        "base_subtotal": 53.01,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 53.01,
+        "base_subtotal_with_discount": 53.01,
+        "shipping_amount": 13.81,
+        "base_shipping_amount": 13.81,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 15.37,
+        "base_tax_amount": 15.37,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 3.18,
+        "base_shipping_tax_amount": 3.18,
+        "subtotal_incl_tax": 65.2,
+        "base_subtotal_incl_tax": 65.2,
+        "shipping_incl_tax": 16.99,
+        "base_shipping_incl_tax": 16.99,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "coupon_code": "",
+        "items_qty": 2,
+        "items": [
+          {
+            "item_id": 108768,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 108769,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 65.2
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa (InPost Kurier - Kurier)",
+            "value": 13.81
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 15.37,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 15.37,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 82.19,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:kim-fx",
+      "origin": "https://kim24.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/13330",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 13330,
+        "name": "Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt. FX-06K040",
+        "can_buy": true,
+        "ean": "5906675107622",
+        "code": "MTZKKW06K040",
+        "package": "0",
+        "unit": {
+          "name": "op.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 15459,
+        "url": "https://kim24.pl/Kolek-szybki-montaz-kolnierz-6x40-KOELNER",
+        "category": {
+          "name": "Akcesoria do suchej zabudowy",
+          "id": 88
+        },
+        "availability": {
+          "name": "ostatnia sztuka"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny ",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "19,90 zł",
+            "base_float": 19.9,
+            "final": "19,90 zł",
+            "final_float": 19.9,
+            "historical_lowest_price": "17,00 zł",
+            "historical_lowest_price_float": 17
+          },
+          "net": {
+            "base": "16,18 zł",
+            "base_float": 16.18,
+            "final": "16,18 zł",
+            "final_float": 16.18,
+            "historical_lowest_price": "13,82 zł",
+            "historical_lowest_price_float": 13.82
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 1,
+          "weight": "1 kg"
+        },
+        "producer": {
+          "name": "Koelner",
+          "id": 273
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt.</p>",
+        "main_image": "30825",
+        "main_image_filename": "30825.jpg",
+        "description": "<h2>Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt.</h2>\r\n<p>KOELNER FX-N-K Kołki do wbijania z kołnierzem z gwoździem stalowym</p>\r\n<p>Kołek szybki montaż 6x40 KOELNER FX-06K040 (200szt/op)</p>\r\n<p><strong>Zastosowania:</strong><br />mocowania lekkich elementów suchej zabudowy: listew, łat, itp…<br /> <br /><strong>Cechy charakterystyczne:</strong><br />Koszulka kołka: Poliproopylen PP lub Poliamid PA 6.6<br />Gwóźdź: stal ocynkowana galwanicznie, gr. powłoki 10μm.</p>",
+        "images": [
+          "30825"
+        ],
+        "images_filename": [
+          "30825.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "17,00 zł",
+        "net_historical_lowest_price": "13,82 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "52",
+          "name": "ORLEN 20 x 30 x 50 cm do 5 kg"
+        }
+      }
+    },
+    {
+      "context": "quote:kim-fx",
+      "origin": "https://kim24.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 15459,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:kim-fx",
+      "origin": "https://kim24.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Kołek szybki montaż kołnierz 6x40 KOELNER 200 szt. FX-06K040",
+            "stock_id": 15459,
+            "unit": {
+              "name": "op.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "19,90 zł",
+            "price_float": 19.9,
+            "sum": "19,90 zł",
+            "sum_float": 19.9
+          }
+        ],
+        "basket": {
+          "sum_products": "19,90 zł",
+          "sum_products_float": 19.9
+        },
+        "countries": [
+          {
+            "id": 12,
+            "name": "Austria",
+            "selected": false
+          },
+          {
+            "id": 20,
+            "name": "Belgia",
+            "selected": false
+          },
+          {
+            "id": 22,
+            "name": "Bułgaria",
+            "selected": false
+          },
+          {
+            "id": 98,
+            "name": "Chorwacja",
+            "selected": false
+          },
+          {
+            "id": 55,
+            "name": "Cypr",
+            "selected": false
+          },
+          {
+            "id": 56,
+            "name": "Czechy",
+            "selected": false
+          },
+          {
+            "id": 59,
+            "name": "Dania",
+            "selected": false
+          },
+          {
+            "id": 64,
+            "name": "Estonia",
+            "selected": false
+          },
+          {
+            "id": 70,
+            "name": "Finlandia",
+            "selected": false
+          },
+          {
+            "id": 75,
+            "name": "Francja",
+            "selected": false
+          },
+          {
+            "id": 89,
+            "name": "Grecja",
+            "selected": false
+          },
+          {
+            "id": 68,
+            "name": "Hiszpania",
+            "selected": false
+          },
+          {
+            "id": 166,
+            "name": "Holandia",
+            "selected": false
+          },
+          {
+            "id": 102,
+            "name": "Irlandia",
+            "selected": false
+          },
+          {
+            "id": 133,
+            "name": "Litwa",
+            "selected": false
+          },
+          {
+            "id": 134,
+            "name": "Luksemburg",
+            "selected": false
+          },
+          {
+            "id": 135,
+            "name": "Łotwa",
+            "selected": false
+          },
+          {
+            "id": 153,
+            "name": "Malta",
+            "selected": false
+          },
+          {
+            "id": 138,
+            "name": "Monako",
+            "selected": false
+          },
+          {
+            "id": 57,
+            "name": "Niemcy",
+            "selected": false
+          },
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          },
+          {
+            "id": 184,
+            "name": "Portugalia",
+            "selected": false
+          },
+          {
+            "id": 189,
+            "name": "Rumunia",
+            "selected": false
+          },
+          {
+            "id": 202,
+            "name": "Słowacja",
+            "selected": false
+          },
+          {
+            "id": 200,
+            "name": "Słowenia",
+            "selected": false
+          },
+          {
+            "id": 197,
+            "name": "Szwecja",
+            "selected": false
+          },
+          {
+            "id": 100,
+            "name": "Węgry",
+            "selected": false
+          },
+          {
+            "id": 77,
+            "name": "Wielka Brytania",
+            "selected": false
+          },
+          {
+            "id": 110,
+            "name": "Włochy",
+            "selected": false
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 31,
+            "selected": true,
+            "name": "external",
+            "title": "Raty Credit Agricole",
+            "description": ""
+          },
+          {
+            "payment_id": 24,
+            "selected": false,
+            "name": "custom",
+            "title": "iMoje",
+            "description": "(BLIK, karta, szybki przelew online)"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie - płatność za przesyłkę u kuriera",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 48,
+            "selected": false,
+            "title": "Odbiór osobisty zamówienia Warszawa",
+            "description": "PO OTRZYMANIU POTWIERDZENIA - pn-pt: 7:00-19:00, sb: 8:00-16:00 ",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 18
+              },
+              {
+                "payment_id": 24
+              },
+              {
+                "payment_id": 31
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": true,
+            "title": "Kurier",
+            "description": "",
+            "cost": "16,00 zł",
+            "cost_float": 16,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "6,00 zł",
+                "additional_cost_float": 6
+              },
+              {
+                "payment_id": 18
+              },
+              {
+                "payment_id": 24,
+                "additional_cost": "0,20 zł",
+                "additional_cost_float": 0.19899999999999998
+              },
+              {
+                "payment_id": 31
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "16,00 zł",
+                "cost_float": 16
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Paczkomaty InPost (do 2 dni)",
+            "description": "",
+            "cost": "15,00 zł",
+            "cost_float": 15,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 18
+              },
+              {
+                "payment_id": 24,
+                "additional_cost": "0,20 zł",
+                "additional_cost_float": 0.19899999999999998
+              },
+              {
+                "payment_id": 31
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "15,00 zł",
+                "cost_float": 15
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Kurier półpaleta",
+            "description": "Usługa bez wniesienia na teren lub do obiektu",
+            "cost": "129,00 zł",
+            "cost_float": 129,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "15,00 zł",
+                "additional_cost_float": 15
+              },
+              {
+                "payment_id": 18
+              },
+              {
+                "payment_id": 24,
+                "additional_cost": "0,20 zł",
+                "additional_cost_float": 0.19899999999999998
+              },
+              {
+                "payment_id": 31
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "129,00 zł",
+                "cost_float": 129
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "Transport firmowy (Warszawa) - wycena indywidualna",
+            "description": "Usługa bez wniesienia na teren lub do obiektu - cena od 299 zł",
+            "cost": "299,00 zł",
+            "cost_float": 299,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "299,00 zł",
+                "cost_float": 299
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Kurier Europa (do 5 dni)",
+            "description": "",
+            "cost": "99,00 zł",
+            "cost_float": 99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              },
+              {
+                "payment_id": 24,
+                "additional_cost": "0,20 zł",
+                "additional_cost_float": 0.19899999999999998
+              }
+            ],
+            "countries": [
+              {
+                "id": 12,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 20,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 22,
+                "cost": "120,00 zł",
+                "cost_float": 120
+              },
+              {
+                "id": 98,
+                "cost": "112,00 zł",
+                "cost_float": 112
+              },
+              {
+                "id": 55,
+                "cost": "570,00 zł",
+                "cost_float": 570
+              },
+              {
+                "id": 56,
+                "cost": "99,00 zł",
+                "cost_float": 99
+              },
+              {
+                "id": 59,
+                "cost": "112,00 zł",
+                "cost_float": 112
+              },
+              {
+                "id": 64,
+                "cost": "112,00 zł",
+                "cost_float": 112
+              },
+              {
+                "id": 70,
+                "cost": "112,00 zł",
+                "cost_float": 112
+              },
+              {
+                "id": 75,
+                "cost": "150,00 zł",
+                "cost_float": 150
+              },
+              {
+                "id": 89,
+                "cost": "120,00 zł",
+                "cost_float": 120
+              },
+              {
+                "id": 68,
+                "cost": "120,00 zł",
+                "cost_float": 120
+              },
+              {
+                "id": 166,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 102,
+                "cost": "570,00 zł",
+                "cost_float": 570
+              },
+              {
+                "id": 133,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 134,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 135,
+                "cost": "112,00 zł",
+                "cost_float": 112
+              },
+              {
+                "id": 153,
+                "cost": "570,00 zł",
+                "cost_float": 570
+              },
+              {
+                "id": 138,
+                "cost": "150,00 zł",
+                "cost_float": 150
+              },
+              {
+                "id": 57,
+                "cost": "99,00 zł",
+                "cost_float": 99
+              },
+              {
+                "id": 184,
+                "cost": "120,00 zł",
+                "cost_float": 120
+              },
+              {
+                "id": 189,
+                "cost": "120,00 zł",
+                "cost_float": 120
+              },
+              {
+                "id": 202,
+                "cost": "99,00 zł",
+                "cost_float": 99
+              },
+              {
+                "id": 200,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 197,
+                "cost": "112,00 zł",
+                "cost_float": 112
+              },
+              {
+                "id": 100,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              },
+              {
+                "id": 77,
+                "cost": "570,00 zł",
+                "cost_float": 570
+              },
+              {
+                "id": 110,
+                "cost": "150,00 zł",
+                "cost_float": 150
+              }
+            ]
+          },
+          {
+            "shipping_id": 57,
+            "selected": false,
+            "title": "Transport  (gabaryt) - WYCENA INDYWIDUALNA cena od:",
+            "description": "(płyty osb, fermacell, GKB,; wełna; styropian itp)",
+            "cost": "799,00 zł",
+            "cost_float": 799,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "799,00 zł",
+                "cost_float": 799
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Dostawa z wniesieniem wanny lub kabiny do g. 15.00 - tylko na terenie Warszawy od:",
+            "description": "wanny lub kabiny  do g. 15.00 - tylko na terenie Warszawy od: 499 zł",
+            "cost": "499,00 zł",
+            "cost_float": 499,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "12,00 zł",
+                "additional_cost_float": 12
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "499,00 zł",
+                "cost_float": 499
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:zpradem-ws",
+      "origin": "https://zpradem.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/798230",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 798230,
+        "name": "Wkręt fosfatowany samowiercący 3,5x9,5 WS-3595 1000szt",
+        "can_buy": true,
+        "ean": "5906675303024",
+        "code": "0004-00010-06761",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 798161,
+        "url": "https://zpradem.pl/wkret-fosfatowany-samowiercacy-35x95-ws-3595-1000szt/798230",
+        "category": {
+          "name": "Wkręty",
+          "id": 3339
+        },
+        "availability": {
+          "name": "Dostępne"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "56,30 zł",
+            "base_float": 56.3,
+            "final": "56,30 zł",
+            "final_float": 56.3,
+            "historical_lowest_price": "48,10 zł",
+            "historical_lowest_price_float": 48.1
+          },
+          "net": {
+            "base": "45,77 zł",
+            "base_float": 45.77,
+            "final": "45,77 zł",
+            "final_float": 45.77,
+            "historical_lowest_price": "39,11 zł",
+            "historical_lowest_price_float": 39.11
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "KOELNER",
+          "id": 356,
+          "img": "https://zpradem.pl/userdata/public/producers/356.jpg"
+        },
+        "newProduct": false,
+        "shortDescription": "Wkręt fosfatowany samowiercący 3,5x9,5 WS-3595 1000szt, producent: Koelner",
+        "main_image": "446051",
+        "main_image_filename": "446051.jpg",
+        "description": "<b>CN: </b> 73181491<br> <b>PKWiU: </b> 25.94.11.0<br> <b>Zabezpieczenie powierzchni: </b> Ocynk ogniowy<br> <b>Materiał: </b> Stal<br> <b>Długość trzpienia [mm]: </b> 9.5000<br> <b>Średnica kołka [mm]: </b> 3.5000",
+        "images": [
+          "446051"
+        ],
+        "images_filename": [
+          "446051.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "CN",
+            "type": 0,
+            "value": "73181491"
+          },
+          {
+            "name": "PKWiU",
+            "type": 0,
+            "value": "25.94.11.0"
+          },
+          {
+            "name": "Materiał",
+            "type": 0,
+            "value": "Stal"
+          },
+          {
+            "name": "Zabezpieczenie powierzchni",
+            "type": 0,
+            "value": "Ocynk ogniowy"
+          },
+          {
+            "name": "Długość trzpienia [mm]",
+            "type": 0,
+            "value": "9.5000"
+          },
+          {
+            "name": "Średnica kołka [mm]",
+            "type": 0,
+            "value": "3.5000"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "48,10 zł",
+        "net_historical_lowest_price": "39,11 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "8",
+          "name": "Paczkomat"
+        }
+      }
+    },
+    {
+      "context": "quote:zpradem-ws",
+      "origin": "https://zpradem.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 798161,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:zpradem-ws",
+      "origin": "https://zpradem.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Wkręt fosfatowany samowiercący 3,5x9,5 WS-3595 1000szt",
+            "stock_id": 798161,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "56,30 zł",
+            "price_float": 56.3,
+            "sum": "56,30 zł",
+            "sum_float": 56.3
+          }
+        ],
+        "basket": {
+          "sum_products": "56,30 zł",
+          "sum_products_float": 56.3
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 1,
+            "selected": true,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 17,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": "(Pro Forma)"
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 7,
+            "selected": true,
+            "title": "Paczka kurier  - przedpłata (wysyłka 24h)",
+            "description": "koszyk>1800zł = wysyłka gratis",
+            "cost": "27,00 zł",
+            "cost_float": 27,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 17
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "27,00 zł",
+                "cost_float": 27
+              }
+            ]
+          },
+          {
+            "shipping_id": 17,
+            "selected": false,
+            "title": "Paczka kurier - pobranie (wysyłka 2-3dni)",
+            "description": "",
+            "cost": "30,00 zł",
+            "cost_float": 30,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "30,00 zł",
+                "cost_float": 30
+              }
+            ]
+          },
+          {
+            "shipping_id": 13,
+            "selected": false,
+            "title": "Paczkomat InPost (MAX:41x38x64cm )",
+            "description": "(wysyłka 2-3dni) koszyk >590zł = wysyłka gratis",
+            "cost": "17,00 zł",
+            "cost_float": 17,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 17
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,00 zł",
+                "cost_float": 17
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty w Krzepicach",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 7
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 14,
+            "selected": false,
+            "title": "Paleta kurier - przedpłata (wysyłka 24h) ",
+            "description": "koszyk >6100zł = wysyłka gratis",
+            "cost": "200,00 zł",
+            "cost_float": 200,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 17
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "200,00 zł",
+                "cost_float": 200
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html\" />\n<link rel='canonical' href='https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html' />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwva29lbG5lci13a3JldC1zYW1vd2llcmNhY3ktZm9zZmF0b3d5LXRleC0zLTV4OS01bW0tMTAwMC1zenQtd3MtMzU5NS5odG1s/product/35759/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675303024\"\n                            ></form>\n<span id=\"product-price-35759\"\n                      class=\"price-wrapper\">\n                    <span class=\"price\" x-html=\"getFormattedFinalPrice()\">\n                        43,33 zł                    </span>\n                </span>\n<span id=\"product-price-35759\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"hyva.formatPrice(activeProductsPriceData[regularPriceKey].amount + getCustomOptionPrice())\"></span>\n            </span>\n<span id=\"product-price-35759\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"getFormattedFinalPrice()\"></span>\n            </span>\n<script>\n    function initPrice35759() {\n\n                const regularPriceInclTaxKey = 'oldPrice',\n              regularPriceExclTaxKey = 'baseOldPrice',\n              finalPriceInclTaxKey = 'finalPrice',\n              finalPriceExclTaxKey = 'basePrice';\n\n        function calculateCustomOptionPrices(activeCustomOptions, customOptionPrices) {\n            return activeCustomOptions.reduce((priceAccumulator, activeCustomOptionId) => {\n                const customOptionPrice = customOptionPrices[activeCustomOptionId];\n                if (customOptionPrice) {\n                    return Number.parseFloat(priceAccumulator) + Number.parseFloat(customOptionPrice);\n                }\n                return priceAccumulator;\n            }, 0);\n        }\n\n        return {\n            regularPriceKey: regularPriceInclTaxKey,\n            finalPriceKey: finalPriceInclTaxKey,\n            activeProductsPriceData: false,\n            initialFinalPrice: 43.33,\n            calculatedFinalPrice: false,\n            calculatedFinalPriceWithCustomOptions: false,\n            initialTierPrices: [],\n            showRegularPriceLabel: false,\n            customOptionPrices: [],\n                        activeCustomOptions: [],\n            qty: 1,\n            updateCustomOptionActive(data) {\n                let activeCustomOptions = this.activeCustomOptions;\n                const customOptionId = data.customOptionId;\n\n                if (data.active) {\n                    if (!activeCustomOptions.includes(customOptionId)) {\n                        activeCustomOptions.push(data.customOptionId);\n                    }\n                } else {\n                    if (customOptionId && activeCustomOptions.includes(customOptionId)) {\n                        let index = activeCustomOptions.indexOf(customOptionId);\n                        activeCustomOptions.splice(index, 1);\n                    }\n                }\n                this.calculateFinalPriceWithCustomOptions()\n            },\n            updateCustomOptionPrices(prices, basePrices) {\n                if (prices) {\n                    this.customOptionPrices = prices;\n                }\n\n                \n                this.calculateFinalPriceWithCustomOptions();\n            },\n            calculateFinalPrice() {\n\n                                                                const getOptionTierPrice = (tierPrice, withTax) => {\n                                        return tierPrice[withTax ? 'price' : 'basePrice'];\n                                    }\n\n                const findApplicableTierPrice = (initialPrice, withTax) => {\n                    if (this.activeProductsPriceData && this.activeProductsPriceData.tierPrices) {\n                        return this.activeProductsPriceData.tierPrices.reduce((acc, tierPrice) => {\n                            const tierPriceCandidate = getOptionTierPrice(tierPrice, withTax);\n                            if (this.qty >= tierPrice.qty && tierPriceCandidate < acc) {\n                                return tierPriceCandidate;\n                            }\n                            return acc;\n                        }, this.activeProductsPriceData[withTax ? finalPriceInclTaxKey : finalPriceExclTaxKey].amount);\n\n                    } else {\n                        const key = withTax ? 'price_incl_tax' : 'price_excl_tax';\n                        return Object.values(this.initialTierPrices).reduce((acc, tierPrice) => {\n                            if (this.qty >= tierPrice.price_qty && tierPrice[key] < acc) {\n                                return tierPrice[key];\n                            }\n                            return acc;\n                        }, initialPrice);\n\n                    }\n                }\n\n                this.calculatedFinalPrice = findApplicableTierPrice(this.initialFinalPrice, true);\n                window.dispatchEvent(new CustomEvent(\"update-product-final-price\", {detail: this.calculatedFinalPrice}));\n\n                            },\n            calculatePriceLabelVisibility() {\n                this.showRegularPriceLabel =\n                    (this.calculatedFinalPrice === this.activeProductsPriceData[this.regularPriceKey].amount) &&\n                    this.activeProductsPriceData.isMinimalPrice;\n            },\n            calculateFinalPriceWithCustomOptions() {\n                const finalPrice = this.calculatedFinalPrice || this.initialFinalPrice;\n                this.calculatedFinalPriceWithCustomOptions = finalPrice + this.getCustomOptionPrice();\n                            },\n            getCustomOptionPrice() {\n                return calculateCustomOptionPrices(this.activeCustomOptions, this.customOptionPrices);\n            },\n                        getFormattedFinalPrice() {\n                return hyva.formatPrice(\n                    this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice\n                )\n            },\n                        isPriceHidden() {\n                const finalPrice = this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice;\n                return false && finalPrice === 0;\n            },\n            eventListeners: {\n                ['@update-prices-35759.window'](event) {\n                    this.activeProductsPriceData = event.detail;\n\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                    this.calculatePriceLabelVisibility();\n                },\n                ['@update-qty-35759.window'](event) {\n                    this.qty = event.detail;\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                },\n                ['@update-custom-option-active.window'](event) {\n                    this.updateCustomOptionActive(event.detail);\n                },\n                ['@update-custom-option-prices.window'](event) {\n                    this.updateCustomOptionPrices(event.detail);\n                },\n                            }\n        }\n    }\n</script>\n<script>var nativeGallery=[{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675303024.png\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675303024.png\"},{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675303024.png\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675303024.png\"}];</script>"
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html\" />\n<link rel='canonical' href='https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html' />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwvcmF3bHBsdWcta29lbG5lci1rb2xlay1zenlia2llZ28tbW9udGF6dS02eDQwLXota29sbmllcnplbS0yMDBzenQtb3AtZngtMDZrMDQwLmh0bWw~/product/35762/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675107622\"\n                            ></form>\n<span id=\"product-price-35762\"\n                      class=\"price-wrapper\">\n                    <span class=\"price\" x-html=\"getFormattedFinalPrice()\">\n                        21,87 zł                    </span>\n                </span>\n<span id=\"product-price-35762\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"hyva.formatPrice(activeProductsPriceData[regularPriceKey].amount + getCustomOptionPrice())\"></span>\n            </span>\n<span id=\"product-price-35762\"\n                  class=\"price-wrapper\">\n                <span class=\"price\" x-html=\"getFormattedFinalPrice()\"></span>\n            </span>\n<script>\n    function initPrice35762() {\n\n                const regularPriceInclTaxKey = 'oldPrice',\n              regularPriceExclTaxKey = 'baseOldPrice',\n              finalPriceInclTaxKey = 'finalPrice',\n              finalPriceExclTaxKey = 'basePrice';\n\n        function calculateCustomOptionPrices(activeCustomOptions, customOptionPrices) {\n            return activeCustomOptions.reduce((priceAccumulator, activeCustomOptionId) => {\n                const customOptionPrice = customOptionPrices[activeCustomOptionId];\n                if (customOptionPrice) {\n                    return Number.parseFloat(priceAccumulator) + Number.parseFloat(customOptionPrice);\n                }\n                return priceAccumulator;\n            }, 0);\n        }\n\n        return {\n            regularPriceKey: regularPriceInclTaxKey,\n            finalPriceKey: finalPriceInclTaxKey,\n            activeProductsPriceData: false,\n            initialFinalPrice: 21.87,\n            calculatedFinalPrice: false,\n            calculatedFinalPriceWithCustomOptions: false,\n            initialTierPrices: [],\n            showRegularPriceLabel: false,\n            customOptionPrices: [],\n                        activeCustomOptions: [],\n            qty: 1,\n            updateCustomOptionActive(data) {\n                let activeCustomOptions = this.activeCustomOptions;\n                const customOptionId = data.customOptionId;\n\n                if (data.active) {\n                    if (!activeCustomOptions.includes(customOptionId)) {\n                        activeCustomOptions.push(data.customOptionId);\n                    }\n                } else {\n                    if (customOptionId && activeCustomOptions.includes(customOptionId)) {\n                        let index = activeCustomOptions.indexOf(customOptionId);\n                        activeCustomOptions.splice(index, 1);\n                    }\n                }\n                this.calculateFinalPriceWithCustomOptions()\n            },\n            updateCustomOptionPrices(prices, basePrices) {\n                if (prices) {\n                    this.customOptionPrices = prices;\n                }\n\n                \n                this.calculateFinalPriceWithCustomOptions();\n            },\n            calculateFinalPrice() {\n\n                                                                const getOptionTierPrice = (tierPrice, withTax) => {\n                                        return tierPrice[withTax ? 'price' : 'basePrice'];\n                                    }\n\n                const findApplicableTierPrice = (initialPrice, withTax) => {\n                    if (this.activeProductsPriceData && this.activeProductsPriceData.tierPrices) {\n                        return this.activeProductsPriceData.tierPrices.reduce((acc, tierPrice) => {\n                            const tierPriceCandidate = getOptionTierPrice(tierPrice, withTax);\n                            if (this.qty >= tierPrice.qty && tierPriceCandidate < acc) {\n                                return tierPriceCandidate;\n                            }\n                            return acc;\n                        }, this.activeProductsPriceData[withTax ? finalPriceInclTaxKey : finalPriceExclTaxKey].amount);\n\n                    } else {\n                        const key = withTax ? 'price_incl_tax' : 'price_excl_tax';\n                        return Object.values(this.initialTierPrices).reduce((acc, tierPrice) => {\n                            if (this.qty >= tierPrice.price_qty && tierPrice[key] < acc) {\n                                return tierPrice[key];\n                            }\n                            return acc;\n                        }, initialPrice);\n\n                    }\n                }\n\n                this.calculatedFinalPrice = findApplicableTierPrice(this.initialFinalPrice, true);\n                window.dispatchEvent(new CustomEvent(\"update-product-final-price\", {detail: this.calculatedFinalPrice}));\n\n                            },\n            calculatePriceLabelVisibility() {\n                this.showRegularPriceLabel =\n                    (this.calculatedFinalPrice === this.activeProductsPriceData[this.regularPriceKey].amount) &&\n                    this.activeProductsPriceData.isMinimalPrice;\n            },\n            calculateFinalPriceWithCustomOptions() {\n                const finalPrice = this.calculatedFinalPrice || this.initialFinalPrice;\n                this.calculatedFinalPriceWithCustomOptions = finalPrice + this.getCustomOptionPrice();\n                            },\n            getCustomOptionPrice() {\n                return calculateCustomOptionPrices(this.activeCustomOptions, this.customOptionPrices);\n            },\n                        getFormattedFinalPrice() {\n                return hyva.formatPrice(\n                    this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice\n                )\n            },\n                        isPriceHidden() {\n                const finalPrice = this.calculatedFinalPriceWithCustomOptions ||\n                    this.calculatedFinalPrice ||\n                    this.initialFinalPrice;\n                return false && finalPrice === 0;\n            },\n            eventListeners: {\n                ['@update-prices-35762.window'](event) {\n                    this.activeProductsPriceData = event.detail;\n\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                    this.calculatePriceLabelVisibility();\n                },\n                ['@update-qty-35762.window'](event) {\n                    this.qty = event.detail;\n                    this.calculateFinalPrice();\n                    this.calculateFinalPriceWithCustomOptions();\n                },\n                ['@update-custom-option-active.window'](event) {\n                    this.updateCustomOptionActive(event.detail);\n                },\n                ['@update-custom-option-prices.window'](event) {\n                    this.updateCustomOptionPrices(event.detail);\n                },\n                            }\n        }\n    }\n</script>\n<script>var nativeGallery=[{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675107622.jpg\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675107622.jpg\"},{\"img\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/d24a34bded6d2df740ef66d66d2112c9\\/5\\/9\\/5906675107622.jpg\"},{\"full\":\"https:\\/\\/sklep-kowalczyk.pl\\/media\\/catalog\\/product\\/cache\\/74c1057f7991b4edb2bc7bdaa94de933\\/5\\/9\\/5906675107622.jpg\"}];</script>"
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts",
+      "method": "POST",
+      "body": {},
+      "status": 200,
+      "response": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": []
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675303024",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 108770,
+        "sku": "5906675303024",
+        "qty": 1,
+        "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+        "price": 35.23,
+        "product_type": "simple",
+        "quote_id": "1"
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675107622",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 108771,
+        "sku": "5906675107622",
+        "qty": 1,
+        "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+        "price": 17.78,
+        "product_type": "simple",
+        "quote_id": "1"
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "item_id": 108770,
+          "sku": "5906675303024",
+          "qty": 1,
+          "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+          "price": 35.23,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "item_id": 108771,
+          "sku": "5906675107622",
+          "qty": 1,
+          "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+          "price": 17.78,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "grand_total": 65.2,
+        "base_grand_total": 65.2,
+        "subtotal": 53.01,
+        "base_subtotal": 53.01,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 53.01,
+        "base_subtotal_with_discount": 53.01,
+        "shipping_amount": 0,
+        "base_shipping_amount": 0,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 12.19,
+        "base_tax_amount": 12.19,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 0,
+        "base_shipping_tax_amount": 0,
+        "subtotal_incl_tax": 65.2,
+        "shipping_incl_tax": 0,
+        "base_shipping_incl_tax": 0,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "items_qty": 2,
+        "items": [
+          {
+            "item_id": 108770,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 108771,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 65.2
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa",
+            "value": 0
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 12.19,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 12.19,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 65.2,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/payment-methods",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "code": "checkmo",
+          "title": "Przedpłata (przelew tradycyjny)"
+        },
+        {
+          "code": "purchaseorder",
+          "title": "Płatność przy odbiorze"
+        },
+        {
+          "code": "cashondelivery",
+          "title": "Zapłać po wycenie transportu"
+        },
+        {
+          "code": "axepta_paywall",
+          "title": "Axepta"
+        },
+        {
+          "code": "payu_gateway",
+          "title": "PayU"
+        },
+        {
+          "code": "payu_gateway_card",
+          "title": "PayU"
+        }
+      ]
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/estimate-shipping-methods",
+      "method": "POST",
+      "body": {
+        "address": {
+          "country_id": "PL",
+          "postcode": "80-001"
+        }
+      },
+      "status": 200,
+      "response": [
+        {
+          "carrier_code": "freeshipping",
+          "method_code": "freeshipping",
+          "carrier_title": "Odbiór osobisty",
+          "method_title": "Odbiór osobisty",
+          "amount": 0,
+          "base_amount": 0,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 0,
+          "price_incl_tax": 0
+        },
+        {
+          "carrier_code": "kurier",
+          "method_code": "kurier",
+          "carrier_title": "Wycena",
+          "method_title": "Usługa transportowa",
+          "amount": 0,
+          "base_amount": 0,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 0,
+          "price_incl_tax": 0
+        },
+        {
+          "carrier_code": "inpostlocker",
+          "method_code": "standard",
+          "carrier_title": "InPost Paczkomaty",
+          "method_title": "InPost Paczkomat® 24/7",
+          "amount": 14.99,
+          "base_amount": 14.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 12.19,
+          "price_incl_tax": 14.99
+        },
+        {
+          "carrier_code": "inpostcourier",
+          "method_code": "standard",
+          "carrier_title": "InPost Kurier",
+          "method_title": "Kurier",
+          "amount": 16.99,
+          "base_amount": 16.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 13.81,
+          "price_incl_tax": 16.99
+        },
+        {
+          "carrier_code": "inpostcourier",
+          "method_code": "standardcod",
+          "carrier_title": "InPost Kurier",
+          "method_title": "Kurier - płatność przy odbiorze",
+          "amount": 24.99,
+          "base_amount": 24.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 20.32,
+          "price_incl_tax": 24.99
+        }
+      ]
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals-information",
+      "method": "POST",
+      "body": {
+        "addressInformation": {
+          "address": {
+            "country_id": "PL",
+            "postcode": "80-001"
+          },
+          "shipping_carrier_code": "inpostcourier",
+          "shipping_method_code": "standard"
+        }
+      },
+      "status": 200,
+      "response": {
+        "grand_total": 82.19,
+        "base_grand_total": 82.19,
+        "subtotal": 53.01,
+        "base_subtotal": 53.01,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 53.01,
+        "base_subtotal_with_discount": 53.01,
+        "shipping_amount": 13.81,
+        "base_shipping_amount": 13.81,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 15.37,
+        "base_tax_amount": 15.37,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 3.18,
+        "base_shipping_tax_amount": 3.18,
+        "subtotal_incl_tax": 65.2,
+        "base_subtotal_incl_tax": 65.2,
+        "shipping_incl_tax": 16.99,
+        "base_shipping_incl_tax": 16.99,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "coupon_code": "",
+        "items_qty": 2,
+        "items": [
+          {
+            "item_id": 108770,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 108771,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 65.2
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa (InPost Kurier - Kurier)",
+            "value": 13.81
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 15.37,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 15.37,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 82.19,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/selected-payment-method",
+      "method": "PUT",
+      "body": {
+        "method": {
+          "method": "checkmo"
+        }
+      },
+      "status": 200,
+      "response": "21628"
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/selected-payment-method",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "method": "checkmo"
+      }
+    },
+    {
+      "context": "quote:kowalczyk-both-80",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals-information",
+      "method": "POST",
+      "body": {
+        "addressInformation": {
+          "address": {
+            "country_id": "PL",
+            "postcode": "80-001"
+          },
+          "shipping_carrier_code": "inpostcourier",
+          "shipping_method_code": "standard"
+        }
+      },
+      "status": 200,
+      "response": {
+        "grand_total": 82.19,
+        "base_grand_total": 82.19,
+        "subtotal": 53.01,
+        "base_subtotal": 53.01,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 53.01,
+        "base_subtotal_with_discount": 53.01,
+        "shipping_amount": 13.81,
+        "base_shipping_amount": 13.81,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 15.37,
+        "base_tax_amount": 15.37,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 3.18,
+        "base_shipping_tax_amount": 3.18,
+        "subtotal_incl_tax": 65.2,
+        "base_subtotal_incl_tax": 65.2,
+        "shipping_incl_tax": 16.99,
+        "base_shipping_incl_tax": 16.99,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "coupon_code": "",
+        "items_qty": 2,
+        "items": [
+          {
+            "item_id": 108770,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 108771,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 65.2
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa (InPost Kurier - Kurier)",
+            "value": 13.81
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 15.37,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 15.37,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 82.19,
+            "area": "footer"
+          }
+        ]
+      }
+    }
+  ]
+}

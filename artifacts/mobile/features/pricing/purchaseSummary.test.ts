@@ -36,6 +36,18 @@ test('missing delivery and partial baskets never acquire a zero fee or a complet
   assert.equal(missing.status, 'partial'); assert.equal('missing' in missing && missing.missing, 1); assert.equal('totalGrosze' in missing && missing.totalGrosze, null);
 });
 
+test('the overview uses the selected pending plan material cost and expires its native delivery evidence', () => {
+  const data = response(), comparison = data.deliveryComparison!;
+  comparison.status = 'needs_delivery_costs'; comparison.best = null; comparison.productCount = 2;
+  comparison.purchasePlan = { materialsGrosze: 15000, deliveryGrosze: null, totalGrosze: null, lowerBoundGrosze: 17000, stores: [
+    { store: 'A', materialsGrosze: 10000, deliveryGrosze: 2000, deliveryMinimumGrosze: 2000, totalGrosze: 12000, source: 'retailer', quote: { costGrosze: 2000, checkedAt: new Date(now).toISOString(), expiresAt: new Date(now + 60000).toISOString(), destinationScope: 'PL' }, lines: [{ product: { id: 'p1', name: 'P1', imageUrl: null }, unit: 'szt', packages: [] }] },
+    { store: 'B', materialsGrosze: 5000, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [{ product: { id: 'p2', name: 'P2', imageUrl: null }, unit: 'szt', packages: [] }] },
+  ] } as unknown as NonNullable<typeof comparison.purchasePlan>;
+  const snapshot = purchaseSnapshot(data, null, now), summary = purchaseSummary(snapshot, now);
+  assert.equal(summary.status, 'shipping_unknown'); assert.equal('materialsGrosze' in summary && summary.materialsGrosze, 15000); assert.equal('totalGrosze' in summary && summary.totalGrosze, null);
+  assert.equal(purchaseSummary(snapshot, now + 60000).status, 'expired');
+});
+
 test('a verified whole basket remains visible when competing delivery combinations are unavailable', () => {
   const data = response();
   data.deliveryComparison!.status = 'needs_delivery_costs';

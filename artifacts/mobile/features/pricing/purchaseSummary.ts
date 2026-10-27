@@ -1,4 +1,5 @@
 import type { SerializedProject } from './pricingApi';
+import { pendingDeliveryPlan } from './pendingDeliveryPlan';
 import { groupUnpricedLines } from './unpricedGroups';
 
 export type PurchaseSnapshot = { kind: 'empty'; observedAt: number } | {
@@ -6,7 +7,7 @@ export type PurchaseSnapshot = { kind: 'empty'; observedAt: number } | {
 };
 export function purchaseSnapshot(data: SerializedProject, selectedStore: string | null, now = Date.now()): PurchaseSnapshot {
   const expiries = [now + 10 * 60_000];
-  for (const store of data.deliveryComparison?.best?.stores ?? []) {
+  for (const store of (data.deliveryComparison?.best ?? data.deliveryComparison?.purchasePlan ?? data.deliveryComparison?.lowerBound)?.stores ?? []) {
     if (store.quote) expiries.push(Date.parse(store.quote.expiresAt));
   }
   for (const line of data.consolidated.lines) for (const pack of line.packages ?? []) {
@@ -32,7 +33,8 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
     && best && money(best.materialsGrosze) && money(best.deliveryGrosze) && money(best.totalGrosze)
     && best.materialsGrosze + best.deliveryGrosze === best.totalGrosze
     && best.stores.length > 0 && best.stores.every(store => comparison.mode === 'pickup' || store.source === 'retailer' && store.quote && Date.parse(store.quote.expiresAt) > now);
-  const materials = complete ? best.materialsGrosze : data.consolidated.lines.length > 0 && money(data.consolidated.consolidatedTotalGrosze) ? data.consolidated.consolidatedTotalGrosze : null;
+  const pending = comparison ? pendingDeliveryPlan(comparison, true, now) : null;
+  const materials = complete ? best.materialsGrosze : pending ? pending.materialsGrosze : data.consolidated.lines.length > 0 && money(data.consolidated.consolidatedTotalGrosze) ? data.consolidated.consolidatedTotalGrosze : null;
   return {
     status: complete ? 'complete' as const : missing > 0 || comparison?.status === 'partial' ? 'partial' as const : 'shipping_unknown' as const,
     materialsGrosze: materials, deliveryGrosze: complete ? best.deliveryGrosze : null, totalGrosze: complete ? best.totalGrosze : null,

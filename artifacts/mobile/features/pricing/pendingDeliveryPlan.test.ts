@@ -29,3 +29,9 @@ test('unknown store fees cannot be presented as zero, nor can stale store totals
   assert.equal(pendingDeliveryPlan(value, true, now), null);
   const badSum = comparison(); badSum.lowerBound!.materialsGrosze = 19999; assert.equal(pendingDeliveryPlan(badSum, true, now), null);
 });
+
+test('the display follows the better-confirmed selected plan rather than a cheaper bound that assumes more unknown fees', () => {
+  const value = comparison(); value.purchasePlan = structuredClone(value.lowerBound!);
+  value.lowerBound!.stores[0].deliveryGrosze = null; value.lowerBound!.stores[0].totalGrosze = null; delete value.lowerBound!.stores[0].quote; value.lowerBound!.stores[0].source = 'unknown';
+  const plan = pendingDeliveryPlan(value, true, now); assert.equal(plan, value.purchasePlan); assert.equal(plan!.stores[0].deliveryGrosze, 2000);
+});

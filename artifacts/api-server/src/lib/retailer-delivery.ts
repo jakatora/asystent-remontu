@@ -15,10 +15,13 @@ import { quoteKronosfera } from './kronosfera-delivery';
 import { quoteSkyshop } from './skyshop-delivery';
 import { quoteAbud } from './abud-delivery';
 import { quoteIrbud } from './irbud-woo';
+import { quoteKowalczyk } from './kowalczyk-magento';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
 const ORIGINS: Readonly<Record<string, string>> = {
+  // source: https://kim24.pl/Kolek-szybki-montaz-kolnierz-6x40-KOELNER
+  KIM24: 'https://kim24.pl',
   'Z prądem': 'https://zpradem.pl', 'Elektro-Hurt': 'https://sklep.ehw.com.pl',
   'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl', Prescot: 'https://www.prescot.com.pl',
   WinBud: 'https://winbud24.pl', 'Dam-Bud': 'https://salonbudowlanydambud.pl', 'Plus-Market': 'https://www.plus-market.pl',
@@ -43,14 +46,14 @@ function unavailableReason(store: string): string | undefined {
   // source: https://marbet24.pl/zamowienie
   if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD','E-Kowalczyk'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD','E-Kowalczyk'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
-    postcodeStores:['Sewera','Cezar','ABUD','IRBUD'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
+    postcodeStores:['Sewera','Cezar','ABUD','IRBUD','E-Kowalczyk'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
 }
 export function knownUnavailableRetailers(): Readonly<Record<string,string>> {
@@ -160,6 +163,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
+        if(order.store==='E-Kowalczyk')return await quoteKowalczyk(order,postalCode,fetchImpl);
         if(order.store==='IRBUD')return await quoteIrbud(order,postalCode,fetchImpl);
         if(order.store==='Centrum Matbud')return await quoteSkyshop(order,fetchImpl);
         if(order.store==='ABUD')return await quoteAbud(order,postalCode,fetchImpl);
