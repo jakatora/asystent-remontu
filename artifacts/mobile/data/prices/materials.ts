@@ -1,6 +1,13 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
+  // source: https://www.wolfcraft.com/products/wolfcraft/pl/EUR/p/P_6931
+  {"id":"mat-laminate-kit-wolfcraft-6931000","materialType":"laminate-installation-kit","productLabel":"Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy","brand":"Wolfcraft","packageSize":1,"packageUnit":"szt","pricePerPackage":64.9,"category":"standard","storeName":"Mensura","sourceUrl":"https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN4006885693104. Jeden zestaw:1łyżka dociągająca,1dobijak drewniany,20klinów dylatacyjnych. Wielokrotnego użytku; ilość zestawów do kupienia podaje użytkownik. 0 oznacza posiadanie wszystkich potrzebnych elementów; nie podwajamy narzędzi w zakupach."},
+  // source: https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334
+  // source: https://arbiton.com/pl/podklad-pod-panele/akcesoria/tasma
+  {"id":"mat-underlay-joint-tape-arbiton-izo-25m","materialType":"underlay-joint-tape","productLabel":"Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m","brand":"Arbiton","packageSize":25,"packageUnit":"m","pricePerPackage":12.33,"category":"standard","storeName":"LiderzyCen","sourceUrl":"https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN5905167698778. Jedna rolka25m, szerokość50mm. Do łączenia podkładów i folii paroizolacyjnych, nie taśma malarska. Nie przyjmujemy całkowitej hydroizolacji pomieszczenia ani wydajności z samych m² podłogi."},
+
   // source: https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html
   // source: https://datasheets.tdx.henkel.com/METYLAN-Remover-pl_PL.pdf
   // source: https://www.grupapsb.com.pl/produkt/plyn-do-usuwania-tapet-500-ml-metylan-9000100222969.html

@@ -1,4 +1,5 @@
 import { REMOVAL_JOB, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
+import { LAMINATE_JOB, laminateSupplyReference } from '@/features/calculator/laminateSupplies';
 import { isGypsumJob, gypsumMaterials, gypsumReference } from '@/features/calculator/gypsumBoard';
 import { isFrameJob, frameMaterials, frameReference } from '@/features/calculator/framePainting';
 import { isWallFinishingJob, finishingMaterials, finishingReference } from '@/features/calculator/wallFinishing';
@@ -66,6 +67,14 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
   for (const id of ids) {
     const ref = MATERIAL_BY_ID.get(id);
     if (ref) results.push(ref);
+  }
+  if (jobId === LAMINATE_JOB) {
+    for (const id of ['underlay', 'vapor-barrier', 'threshold', 'spacers', 'laminate-joint-tape']) {
+      const referenceId = laminateSupplyReference(id, measurements), ref = referenceId ? MATERIAL_BY_ID.get(referenceId) : undefined;
+      if (!ref) continue;
+      for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === ref.materialType) results.splice(i, 1);
+      results.push(ref);
+    }
   }
   const primer = substratePrimerSpecification(jobId);
   if (primer) {

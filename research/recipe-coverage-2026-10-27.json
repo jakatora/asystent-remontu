@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-27T08:06:57.694Z",
-  "scope": "Same65 audit inputs. Corrected laminate m² demand, without pack counts labelled as m². Product selection precedes ownership filtering in project and renovation baskets. This audit does not prove complete delivery coverage.",
+  "checkedAt": "2026-10-27T08:52:34.475Z",
+  "scope": "Same65 recorded measurement maps, including missing new laminate choices. Two additional laminate supply/review rows remain unknown until explicitly measured. Counts are recipe rows, not unique missing products; complete delivery requires a separate postcode/cart proof.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 238,
-    "beforePriced": 84,
-    "afterLines": 238,
+    "beforePriced": 83,
+    "afterLines": 240,
     "afterPriced": 83,
-    "afterUnpriced": 155,
+    "afterUnpriced": 157,
     "fullyPricedScenarios": 8
   },
   "history": [
@@ -127,6 +127,19 @@
         "afterPriced": 84,
         "afterUnpriced": 153,
         "fullyPricedScenarios": 9
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T08:06:57.694Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 238,
+        "beforePriced": 84,
+        "afterLines": 238,
+        "afterPriced": 83,
+        "afterUnpriced": 155,
+        "fullyPricedScenarios": 8
       }
     },
     {
@@ -883,7 +896,7 @@
           "name": "Folia paroizolacyjna PE Diall 0,15 mm (20 m²)",
           "unit": "m2",
           "query": {
-            "ean": null,
+            "ean": "5059340141428",
             "gtin": null,
             "normalizedName": "folia paroizolacyjna pe diall 0 15 mm 20 m",
             "category": "vapor-barrier"
@@ -895,32 +908,62 @@
         },
         {
           "materialId": "threshold",
-          "name": "Listwa progowa (aluminium)",
-          "unit": "szt.",
+          "name": "Profil progowy aluminiowy Cezar 40 mm srebrny 1 m — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "listwa progowa aluminium",
-            "category": "wykończenie"
+            "normalizedName": "profil progowy aluminiowy cezar 40 mm srebrny 1 m ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
           "materialId": "spacers",
-          "name": "Kliny dystansowe",
-          "unit": "opak.",
+          "name": "Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "kliny dystansowe",
-            "category": "akcesoria"
+            "normalizedName": "zestaw do ukladania paneli wolfcraft 6931000 22 elementy ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "laminate-joint-tape",
+          "name": "Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma aluminiowa arbiton izo floor tape 50 mm 25 m ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "threshold-fixings",
+          "name": "Mocowania do profili progowych — dobierz do podłoża — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "mocowania do profili progowych dobierz do podloza ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]

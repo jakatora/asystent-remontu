@@ -10,9 +10,11 @@ import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MO
 import { ceilingPrimerLitres } from './ceilingPrimer';
 import { isCurrentSubstratePrimer, substratePrimerQuantity, levelingEdgeTapeMetres, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
 import { isSanitaryMaterial, sanitaryQuantity, SANITARY_MODEL } from './sanitarySealant';
+import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } from './laminateSupplies';
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if (calc.quantityModel === LAMINATE_SUPPLIES_MODEL && isLaminateSupply(calc.jobId, line.material.id)) return laminateSupplyQuantity(line.material.id, calc.measurements) ?? 0;
   // Old laminate snapshots stored a count of packs in a field labelled m².
   // Recover the original floor area plus its existing cutting allowance.
   // source: https://krono-shop.com/ro/en/faq

@@ -176,6 +176,12 @@ export function AppProvider({ children }: PropsWithChildren) {
         const fixing = generateShoppingItems(projectId, calc).find(item => item.materialId === 'basin-fixings');
         if (fixing) { await shoppingRepo.ensureBasinFixings(fixing); saved = await shoppingRepo.findByProject(projectId); }
       }
+      if (calc?.jobId === 'laminate-flooring' && saved.length > 0) {
+        const missing = generateShoppingItems(projectId, calc).filter(item => ['laminate-joint-tape', 'threshold-fixings'].includes(item.materialId)
+          && !saved.some(row => row.materialId === item.materialId && row.itemType === 'material'));
+        for (const item of missing) await shoppingRepo.ensureLaminateSupply(item);
+        if (missing.length) saved = await shoppingRepo.findByProject(projectId);
+      }
       const reviewed = projectShopping(saved, calc);
       if (!calc) return reviewed;
       const original = toPricingStageInput(calc, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier);

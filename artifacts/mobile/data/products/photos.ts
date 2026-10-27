@@ -12,6 +12,11 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
+  {"ids":["mat-laminate-kit-wolfcraft-6931000"],"ean":"4006885693104","sourceUrl":"https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000","imageUrl":"https://www.mensura.pl/environment/cache/images/productGfx_102546_0_0/Zestaw-do-ukladania-paneli-22el.-Wolfcraft-6931000.jpg"},
+  // source: https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334
+  {"ids":["mat-underlay-joint-tape-arbiton-izo-25m"],"ean":"5905167698778","sourceUrl":"https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg"},
+
   // source: https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html
   {"ids":["mat-wallpaper-remover-metylan-500ml"],"ean":"9000100222969","sourceUrl":"https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html","imageUrl":"https://www.abud.pl/hpeciai/da34e4afb4b30103e7a6affb323594aa/pol_pl_Plyn-do-usuwania-tapet-500ml-Metylan-5708_1.webp"},
 

@@ -12,11 +12,12 @@ import { upgradeCalculation } from '@/features/calculator/upgrades';
 import { substratePrimerSpecification, reviewSubstrateShopping } from '@/features/calculator/substratePrimer';
 import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { isSanitaryJob, reviewSanitaryShopping } from '@/features/calculator/sanitarySealant';
+import { LAMINATE_JOB, reviewLaminateShopping } from '@/features/calculator/laminateSupplies';
 import { restoreSelectionBasis, reviewSelectedShopping } from './selectedShopping';
 import type { ShoppingStageContext } from './selectedShopping';
 
 export function requiresCurrentShoppingQuantity(jobId: string): boolean {
-  return [EPS_JOB_ID, SINK_JOB_ID].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId) || isWallFinishingJob(jobId) || isFrameJob(jobId) || isGypsumJob(jobId);
+  return [EPS_JOB_ID, SINK_JOB_ID, LAMINATE_JOB].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId) || isWallFinishingJob(jobId) || isFrameJob(jobId) || isGypsumJob(jobId);
 }
 
 export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { allowed: boolean; confirmQuantity?: number } {
@@ -26,7 +27,7 @@ export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { all
   }
   if (!requiresCurrentShoppingQuantity(jobId) || item.itemType !== 'material') return { allowed: true };
   if (item.quantityKnown === false || item.requiredQuantity !== undefined && item.customQuantity !== undefined
-      && (substratePrimerSpecification(jobId)||isSanitaryJob(jobId)||isWallFinishingJob(jobId)||isFrameJob(jobId)||isGypsumJob(jobId) ? !Number.isFinite(item.customQuantity) || item.customQuantity + 1e-8 < item.requiredQuantity : Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8)) return { allowed: false };
+      && (jobId===LAMINATE_JOB||substratePrimerSpecification(jobId)||isSanitaryJob(jobId)||isWallFinishingJob(jobId)||isFrameJob(jobId)||isGypsumJob(jobId) ? !Number.isFinite(item.customQuantity) || item.customQuantity + 1e-8 < item.requiredQuantity : Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8)) return { allowed: false };
   return { allowed: true, ...(item.needsQuantityConfirmation && item.requiredQuantity !== undefined ? { confirmQuantity: item.requiredQuantity } : {}) };
 }
 
@@ -64,6 +65,7 @@ export function applyProjectShopping(stage: PricingStageInput, calc: Calculation
   const sources = items;
   items = reviewFrameShopping(reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(items, calc),calc),calc),calc);
   items = reviewGypsumShopping(items,calc);
+  items = reviewLaminateShopping(items,calc);
   items = reviewSelectedShopping(items, original, stage, sources);
   let excludedMaterials = 0;
   const materialIds = new Set(calc.materials.map(line => line.material.id));
@@ -71,7 +73,7 @@ export function applyProjectShopping(stage: PricingStageInput, calc: Calculation
   const materials = stage.materials.filter(line => {
     const matching = items.filter(item => item.projectId === projectId && item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
     const requirement = calc.materials.find(item => item.material.id === line.material.id);
-    const substrate = Boolean(substratePrimerSpecification(calc.jobId))||isSanitaryJob(calc.jobId)||isWallFinishingJob(calc.jobId)||isFrameJob(calc.jobId)||isGypsumJob(calc.jobId);
+    const substrate = calc.jobId===LAMINATE_JOB||Boolean(substratePrimerSpecification(calc.jobId))||isSanitaryJob(calc.jobId)||isWallFinishingJob(calc.jobId)||isFrameJob(calc.jobId)||isGypsumJob(calc.jobId);
     const required = requirement ? substrate ? getRequiredQuantity(requirement,calc) : requirement.quantity : NaN;
     const covers = (item: ShoppingItem) => item.selectedRequirement
       ? (item.owned || item.purchased) && item.quantityKnown !== false && !item.needsQuantityConfirmation

@@ -1,4 +1,5 @@
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
+import { laminateSupplyInputs, laminateExtraMaterials } from '@/features/calculator/laminateSupplies';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -119,6 +120,7 @@ export const laminateJob: RenovationJob = {
     { id: 'panelPackCoverageM2', label: 'Pokrycie paczki paneli (m²/paczka)', unit: 'm²/paczka',
       inputType: 'coverage', placeholder: '2.196', defaultValue: 2.196, min: 1, max: 5, required: false,
       hint: 'Podane na opakowaniu paneli. Sprawdź konkretny model.' },
+    ...laminateSupplyInputs,
   ],
   materials: [
     {
@@ -172,16 +174,19 @@ export const laminateJob: RenovationJob = {
       id: 'spacers',
       name: 'Kliny dystansowe',
       unit: 'opak.',
-      formula: formulaBuilder.fixed(1),
+      formulaKey: 'laminateSupply:spacers',
       pricePerUnit: 8,
       category: 'akcesoria',
     },
+    ...laminateExtraMaterials,
   ],
   tools: [
     { id: 'saw', name: 'Piła do paneli (ręczna lub ukośnica)', icon: 'scissors', required: true, rentable: true, estimatedRentCostPLN: 50 },
-    { id: 'tapping-block', name: 'Klocek dobijak z tworzywa', icon: 'square', required: true, estimatedBuyCostPLN: 15 },
-    { id: 'pull-bar', name: 'Ściągacz (hak montażowy)', icon: 'minus', required: true, estimatedBuyCostPLN: 10 },
-    { id: 'spacers', name: 'Kliny dystansowe', icon: 'grid', required: true },
+    // Included once in the explicitly measured kit, or declared already owned.
+    // source: https://www.wolfcraft.com/products/wolfcraft/pl/EUR/p/P_6931
+    { id: 'tapping-block', name: 'Dobijak — w zestawie montażowym lub już posiadany', icon: 'square', required: false },
+    { id: 'pull-bar', name: 'Ściągacz — w zestawie montażowym lub już posiadany', icon: 'minus', required: false },
+    { id: 'spacers', name: 'Kliny — w zestawie montażowym lub już posiadane', icon: 'grid', required: false },
     { id: 'tape-measure', name: 'Miara', icon: 'maximize-2', required: true },
   ],
   instructions: [

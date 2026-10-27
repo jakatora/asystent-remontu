@@ -10,10 +10,13 @@ import { upgradeCeilingCalculation, upgradeCeilingProject, projectCeilingShoppin
 import { reviewHistoricalSubstratePrimer, reviewSubstrateProject, reviewSubstrateShopping } from './substratePrimer';
 import { reviewHistoricalLevelingTape, reviewLevelingTapeProject } from './levelingTape';
 import { reviewSanitaryCalculation, reviewSanitaryProject, reviewSanitaryShopping } from './sanitarySealant';
+import { reviewLaminateCalculation, reviewLaminateProject, reviewLaminateShopping } from './laminateSupplies';
 
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewRemovalCalculation(reviewGypsumCalculation(reviewFrameCalculation(reviewFinishingCalculation(reviewSanitaryCalculation(reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc)))))))))));
-export const upgradeProject = (project: Project) => reviewRemovalProject(reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))))))));
+const upgradePreviousCalculation = (calc: CalculationResult | undefined) => reviewRemovalCalculation(reviewGypsumCalculation(reviewFrameCalculation(reviewFinishingCalculation(reviewSanitaryCalculation(reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc)))))))))));
+const upgradePreviousProject = (project: Project) => reviewRemovalProject(reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))))))));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewLaminateCalculation(upgradePreviousCalculation(calc));
+export const upgradeProject = (project: Project) => reviewLaminateProject(upgradePreviousProject(project));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
-  return reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc);
+  return reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc);
 };

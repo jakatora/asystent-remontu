@@ -20,6 +20,25 @@ function loadSource(file, dependencies = {}) {
   return mod.exports;
 }
 
+test('new laminate requirements append once without changing saved purchases, tools, custom prices or another project', async () => {
+  const sqlite = new DatabaseSync(':memory:');
+  const db = { execAsync: async sql => sqlite.exec(sql), runAsync: async (sql, values = []) => sqlite.prepare(sql).run(...values), getAllAsync: async (sql, values = []) => sqlite.prepare(sql).all(...values) };
+  try {
+    for (const [file, fn] of [['001_initial', 'migration_001'], ['002_shopping_extended', 'migration_002']]) await loadSource(path.join(__dirname, '../migrations', file + '.ts'))[fn](db);
+    sqlite.exec("INSERT INTO projects (id,name,job_id,job_name,category_id,created_at,updated_at) VALUES ('a','A','laminate-flooring','Panels','floor','2026-10-27','2026-10-27'),('b','B','laminate-flooring','Panels','floor','2026-10-27','2026-10-27')");
+    sqlite.exec("INSERT INTO shopping_items (id,project_id,material_id,name,quantity,unit,estimated_price,purchased,owned,custom_price,custom_quantity,created_at) VALUES ('saved','a','spacers','My wedges',50,'szt',9,1,0,8,50,'2026-10-27'),('other','b','laminate-joint-tape','Other room tape',25,'m',20,0,1,19,25,'2026-10-27')");
+    let sequence=0;
+    const { shoppingRepo } = loadSource(path.join(__dirname, 'shopping.repo.ts'), { '../client': { getDb: async () => db }, '@/shared/lib/id': { generateId: () => 'new-'+ ++sequence }, '@/shared/lib/date': { nowISO: () => '2026-10-27T00:00:00Z' } });
+    const before=sqlite.prepare('SELECT * FROM shopping_items ORDER BY id').all();
+    const item={projectId:'a',materialId:'laminate-joint-tape',name:'Arbiton tape',quantity:25,unit:'m',estimatedPrice:12.33,itemType:'material',createdAt:''};
+    await Promise.all([shoppingRepo.ensureLaminateSupply(item),shoppingRepo.ensureLaminateSupply(item)]);
+    await shoppingRepo.ensureLaminateSupply({...item,materialId:'threshold-fixings',name:'Confirm fixings',quantity:0,unit:'szt.',estimatedPrice:0});
+    assert.equal((await shoppingRepo.findByProject('a')).length,3);
+    for(const row of before)assert.deepEqual(sqlite.prepare('SELECT * FROM shopping_items WHERE id=?').get(row.id),row);
+    await assert.rejects(shoppingRepo.ensureLaminateSupply({...item,materialId:'unreviewed'}),/Unexpected/);
+  } finally { sqlite.close(); }
+});
+
 test('confirming a changed shopping product atomically drops its previous price and status while preserving other rows', async () => {
   const sqlite = new DatabaseSync(':memory:');
   const db = { execAsync: async sql => sqlite.exec(sql), runAsync: async (sql, values = []) => sqlite.prepare(sql).run(...values), getAllAsync: async (sql, values = []) => sqlite.prepare(sql).all(...values) };

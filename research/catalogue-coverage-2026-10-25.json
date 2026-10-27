@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T08:06:57.694Z",
-  "scope": "144 references/photos unchanged. Client53 fixes ownership after explicit product choices and corrects laminate pack-count/m² confusion. Further manual observations expired naturally; no dates renewed after failed refreshes. Same65 audit inputs:83/238 priced,155 unresolved,8 complete MATERIAL scenarios. Not a completion percentage or a complete delivery guarantee.",
-  "total": 144,
-  "verifiedProducts": 120,
+  "checkedAt": "2026-10-27T08:52:34.475Z",
+  "scope": "146 references with photos;181 registered observations, including two new native gross-priced laminate supplies. Same65 measurement maps produce83/240 priced recipe rows;157 unresolved includes two newly exposed laminate requirements. Missing input is not a unique missing SKU. Delivery is independently checked against real complete merchant carts; never infer full shipping from an active product offer.",
+  "total": 146,
+  "verifiedProducts": 122,
   "remaining": 24,
-  "offers": 158,
-  "stores": 40,
-  "productsWithPhotos": 144,
-  "registeredOffers": 179,
+  "offers": 160,
+  "stores": 42,
+  "productsWithPhotos": 146,
+  "registeredOffers": 181,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3131,6 +3131,30 @@
           "scope": "nationalPL,500ml bottle36.99+18.90=55.89,TTL10min"
         }
       ]
+    },
+    {
+      "id": "mat-laminate-kit-wolfcraft-6931000",
+      "name": "Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy",
+      "referenceUrl": "https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000",
+      "status": "verified_offer",
+      "ean": "4006885693104",
+      "sourceIds": [
+        "mensura-wolfcraft-6931000-kit"
+      ],
+      "photoUrl": "https://www.mensura.pl/environment/cache/images/productGfx_102546_0_0/Zestaw-do-ukladania-paneli-22el.-Wolfcraft-6931000.jpg",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-underlay-joint-tape-arbiton-izo-25m",
+      "name": "Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m",
+      "referenceUrl": "https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334",
+      "status": "verified_offer",
+      "ean": "5905167698778",
+      "sourceIds": [
+        "liderzy-arbiton-izo-floor-tape-25m"
+      ],
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg",
+      "deliveryChecks": []
     }
   ],
   "automaticDeliveryStores": 21,
@@ -3153,5 +3177,6 @@
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   },
-  "expiredOffers": 19
+  "expiredOffers": 19,
+  "activeStores": 39
 }
