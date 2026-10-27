@@ -2,7 +2,7 @@ import { groupProjectByProduct, isComparableOffer, computePackagesNeeded, buildP
 import { optimizePackages } from './package-optimizer';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { StageEstimate, PackagePlanEntry } from './types';
-import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy } from './delivery';
+import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy, type DeliveryStockLimit, type DeliveryQuoteResult } from './delivery';
 import { DELIVERY_LIMITS } from './delivery-limits';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
@@ -16,6 +16,56 @@ const removable = (pack:PackagePlanEntry) => pack.count-(pack.purchaseMultiple??
  * bounded comparison. Large baskets use a separately labelled selection of
  * complete orders, never presented as an exhaustive search. */
 export async function compareAutomaticDelivery(
+  stages: readonly StageEstimate[], settings: DeliverySettings, quoteBasket: BasketQuoter,
+  policies: readonly StoreDeliveryPolicy[] = [], now = new Date(),
+  knownUnavailableStores: Readonly<Record<string,string>> = {},
+): Promise<DeliveryComparison> {
+  if (settings.mode==='pickup'||settings.method==='manual') return compareDeliveredBaskets(stages,settings,policies,now);
+  const limits=new Map<string,DeliveryStockLimit>(),cache=new Map<string,Promise<DeliveryQuoteResult>>();
+  let allowNewQuotes=true;
+  const quoteWithStock: BasketQuoter=async(order,postalCode)=>{
+    const key=JSON.stringify([order.store,signature(order)]);
+    if(cache.has(key))return cache.get(key)!;
+    if(!allowNewQuotes||cache.size>=MAX_STORE_BASKETS)return {reason:'quote_limit'};
+    const pending=(async()=>{
+      const outcome=await quoteBasket(order,postalCode);
+      if (!('reason' in outcome)||outcome.reason!=='insufficient_stock'||!outcome.stockLimits) return outcome;
+      const accepted=outcome.stockLimits.filter(limit=>{
+        const line=order.lines.find(line=>line.packages.some(pack=>pack.offerId===limit.offerId));
+        const pack=line?.packages.find(pack=>pack.offerId===limit.offerId);
+        const checked=Date.parse(limit.checkedAt),expires=Date.parse(limit.expiresAt);
+        return pack&&limit.productId===line!.product.id&&limit.store===order.store&&limit.postalCode===postalCode&&Boolean(limit.dispatchFrom)&&
+          limit.unitPriceGrosze===pack.unitPriceGrosze&&limit.requestedPackages===pack.count&&
+          Number.isSafeInteger(limit.maxPackages)&&limit.maxPackages>=0&&limit.maxPackages<pack.count&&
+          Number.isFinite(checked)&&checked<=Date.now()&&Date.now()-checked<=600_000&&expires>Date.now()&&expires<=checked+600_000&&
+          /^https:\/\//.test(limit.sourceUrl)&&/^[a-f0-9]{64}$/.test(limit.evidenceSha256);
+      });
+      for(const limit of accepted){const previous=limits.get(limit.offerId);if(!previous||limit.maxPackages<previous.maxPackages)limits.set(limit.offerId,limit);}
+      return {reason:outcome.reason,...(accepted.length?{stockLimits:accepted}:{})};
+    })();
+    cache.set(key,pending);return pending;
+  };
+  let result:DeliveryComparison;
+  // Stop the current quote batch as soon as a verified native limit arrives.
+  // Reuse finished quotes and reserve the same total I/O budget for replanning.
+  for(let attempt=0;attempt<4;attempt++){
+    // A final cache-only pass applies the last discovered limit without more I/O.
+    allowNewQuotes=attempt<3;
+    const revision=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
+    const constrained=stages.map(stage=>({...stage,lines:stage.lines.map(line=>!line.resolved?line:{...line,offers:line.offers.flatMap(offer=>{
+      const limit=limits.get(offer.id);if(!limit||limit.store!==offer.store)return [offer];
+      if(limit.maxPackages===0)return [];
+      return [{...offer,maxPackages:Math.min(offer.maxPackages??Infinity,limit.maxPackages)}];
+    })})}));
+    result=await compareAutomaticDeliveryOnce(constrained,settings,quoteWithStock,policies,now,knownUnavailableStores);
+    const next=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
+    if(revision===next)break;
+  }
+  if(limits.size)result!.stockLimits=[...limits.values()];
+  return result!;
+}
+
+async function compareAutomaticDeliveryOnce(
   stages: readonly StageEstimate[], settings: DeliverySettings, quoteBasket: BasketQuoter,
   policies: readonly StoreDeliveryPolicy[] = [], now = new Date(),
   knownUnavailableStores: Readonly<Record<string,string>> = {},
@@ -245,9 +295,9 @@ async function quoteAndRank(
   for (const key of smallest.values()) priority.add(key);
   const keys=[...priority,...ordered.map(([key])=>key).filter(key=>!priority.has(key))];
   // Bounded I/O even when a list generates many possible store orders.
-  let cursor = 0;
+  let cursor = 0, stockChanged=false;
   await Promise.all(Array.from({ length: Math.min(3, keys.length) }, async () => {
-    while (cursor < keys.length) {
+    while (cursor < keys.length && !stockChanged) {
       const key = keys[cursor++], order = unique.get(key)!;
       try {
         const outcome = await quoteBasket(order, settings.postalCode!);
@@ -257,7 +307,10 @@ async function quoteAndRank(
           order.deliveryGrosze = outcome.quote.costGrosze; order.quote = outcome.quote;
           order.deliveryMinimumGrosze = outcome.quote.costGrosze;
           order.totalGrosze = order.materialsGrosze + outcome.quote.costGrosze; order.source = 'retailer';
-        } else failures.set(order.store, 'reason' in outcome ? outcome.reason : 'invalid_quote');
+        } else {
+          failures.set(order.store, 'reason' in outcome ? outcome.reason : 'invalid_quote');
+          if('reason' in outcome&&outcome.reason==='insufficient_stock'&&outcome.stockLimits?.length)stockChanged=true;
+        }
       } catch { failures.set(order.store, 'quote_unavailable'); }
     }
   }));

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { estimateStageCost } from './estimate';
 import { compareAutomaticDelivery } from './automatic-delivery';
-import type { BasketQuoter } from './delivery';
+import type { BasketQuoter, DeliveryStockLimit, DeliveredStoreBasket } from './delivery';
 import type { Database, Product, ProductOffer } from '@workspace/db/repositories';
 
 async function stage(quantity = 2) {
@@ -120,4 +120,52 @@ test('large basket quotes both broad and small orders early so transport alterna
   const result = await compareAutomaticDelivery([first,second], {mode:'shipping',postalCode:'00-001'}, async (order,postcode) => { calls.push({store:order.store,products:order.lines.length}); return known(order,postcode); });
   assert.ok(result.best); assert.equal(result.searchLimited,true);
   for (const store of ['A','B']) assert.ok(calls.slice(0,4).some(call => call.store === store && call.products === 1));
+});
+
+function checkoutLimit(order:DeliveredStoreBasket,maxPackages=2):DeliveryStockLimit {
+  const line=order.lines.find(line=>line.product.id==='product-0')!,pack=line.packages[0],checkedAt=new Date();
+  return {offerId:pack.offerId,store:order.store,productId:line.product.id,productName:line.product.name,maxPackages,requestedPackages:pack.count,unitPriceGrosze:pack.unitPriceGrosze,
+    postalCode:'00-001',dispatchFrom:'Katowice',checkedAt:checkedAt.toISOString(),expiresAt:new Date(checkedAt.getTime()+600_000).toISOString(),sourceUrl:'https://example.org/basket',evidenceSha256:'b'.repeat(64)};
+}
+async function nativeStockStage() {
+  const input=await manyProducts(21,12);
+  for(const [index,line] of input.lines.entries())if(line.resolved){
+    line.offers=line.offers.filter(offer=>offer.store==='S00'||index===0&&offer.store==='S01');
+    if(index===0){line.quantity=20;line.offers=line.offers.map(offer=>({...offer,price:offer.store==='S00'?'4.00':'5.00'}));}
+  }
+  return input;
+}
+test('native SKU cap replans a large basket, keeps mandatory goods at the same shop and quotes the remainder elsewhere',async()=>{
+  const input=await nativeStockStage(),calls:string[]=[];
+  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
+    const key=JSON.stringify([order.store,order.lines.flatMap(l=>l.packages.map(p=>[p.offerId,p.count]))]);assert.ok(!calls.includes(key));calls.push(key);
+    const paint=order.lines.find(line=>line.product.id==='product-0');
+    return order.store==='S00'&&paint&&paint.packages[0].count>2?{reason:'insufficient_stock',stockLimits:[checkoutLimit(order)]}:known(order,postcode);
+  });
+  assert.ok(result.best);assert.equal(result.searchLimited,true);assert.ok(calls.length<=80);
+  const paint=result.best.stores.flatMap(s=>s.lines).filter(l=>l.product.id==='product-0').flatMap(l=>l.packages);
+  assert.deepEqual(paint.map(p=>[p.store,p.count]).sort(),[['S00',2],['S01',2]]);
+  assert.equal(result.best.stores.find(s=>s.store==='S00')!.lines.length,21);
+  assert.equal(result.best.materialsGrosze+result.best.deliveryGrosze!,result.best.totalGrosze);
+  assert.equal(result.stockLimits?.[0].maxPackages,2);
+  assert.ok(input.lines.every(l=>!l.resolved||l.offers.every(o=>o.maxPackages===undefined)));
+  const pickup=await compareAutomaticDelivery([input],{mode:'pickup'},async()=>{throw Error('No checkout for pickup');});
+  assert.equal(pickup.stockLimits,undefined);assert.equal(pickup.best!.stores.flatMap(s=>s.lines).find(l=>l.product.id==='product-0')!.packages[0].count,4);
+});
+test('checkout stock hints require exact offer, count, price, postcode, whole packs and fresh evidence',async()=>{
+  const mutations:((limit:DeliveryStockLimit)=>void)[]=[l=>l.offerId='wrong',l=>l.postalCode='40-001',l=>l.unitPriceGrosze++,l=>l.requestedPackages++,l=>l.maxPackages=1.5,l=>l.expiresAt='2020-01-01T00:00:00Z',l=>l.evidenceSha256=''];
+  for(const mutate of mutations){
+    const result=await compareAutomaticDelivery([await nativeStockStage()],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
+      const paint=order.lines.find(line=>line.product.id==='product-0');
+      if(order.store!=='S00'||!paint)return known(order,postcode);
+      const limit=checkoutLimit(order);mutate(limit);return {reason:'insufficient_stock',stockLimits:[limit]};
+    });
+    assert.equal(result.stockLimits,undefined);
+    assert.ok(result.best?.stores.flatMap(s=>s.lines).filter(l=>l.product.id==='product-0').every(l=>l.packages.every(p=>p.store!=='S00')));
+  }
+});
+test('zero native stock cannot become a free or incomplete full basket',async()=>{
+  const input=await nativeStockStage();for(const line of input.lines)if(line.resolved&&line.product.id==='product-0')line.offers=line.offers.filter(o=>o.store==='S00');
+  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async order=>({reason:'insufficient_stock',stockLimits:[checkoutLimit(order,0)]}));
+  assert.equal(result.best,null);assert.equal(result.missingProductCount,1);assert.equal(result.stockLimits?.[0].maxPackages,0);
 });

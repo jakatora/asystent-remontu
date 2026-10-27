@@ -57,6 +57,16 @@ test('Sewera cart verifies actual quantity, SKU, gross price, total and dispatch
   assert.throws(()=>confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 1 OPA!'),packageExpected,2000),/insufficient_stock/);
   for(const changed of [html.replace('value="2"','value="1"'),html.replace('wybierz="123"','wybierz="321"'),html.replace('Katowice','Gliwice'),html.replace('10,00 zł','8,13 zł')]) assert.throws(()=>confirmSeweraBasket(changed,expected,2000));
 });
+test('native stock shortage is bound to a fully verified SKU, units, gross lines and full basket total',()=>{
+  const row=(pid:string,name:string,price:string,sum:string,stock='')=>`<tr><td><input wybierz="${pid}"><a href="https://sklep.sewera.pl/${pid}">${name}</a> ${stock}<input name="amount" value="4"><table><tr><td>Cena brutto:</td><td>${price} zł</td></tr><tr><td>Wartość:</td><td>${sum} zł</td></tr></table></td></tr>`;
+  const html=`Twój sklep to Katowice<table class="basket-product"><tbody>${row('123','Farba','98,50','394,00','W magazynie znajdują się jedynie 2 SZT!')}${row('456','Biały klej','96,36','385,44')}</tbody><tfoot><div class="basket_sum">Razem do zapłaty: 779,44 zł</div></tfoot></table>`;
+  const expected=[{url:'https://sklep.sewera.pl/123',pid:'123',count:4,price:9850},{url:'https://sklep.sewera.pl/456',pid:'456',count:4,price:9636}];
+  assert.throws(()=>confirmSeweraBasket(html,expected,77944),error=>{
+    assert.equal((error as Error).message,'insufficient_stock');assert.deepEqual((error as any).shortages,[{url:expected[0].url,count:4,price:9850,maxPackages:2}]);return true;
+  });
+  for(const changed of [html.replace('wybierz="123"','wybierz="999"'),html.replace('98,50 zł','98,49 zł'),html.replace('385,44 zł','385,43 zł'),html.replace('779,44 zł','779,43 zł'),html.replace('2 SZT','2 OPA'),html.replace('2 SZT','1,5 SZT')])assert.throws(()=>confirmSeweraBasket(changed,expected,77944),/basket_not_confirmed/);
+});
+
 test('Buduj24 decodes literal fragments only, verifies quantities and ignores crossed-out reference prices',()=>{
   const summary=`<div id="cart-summary"><div class="label">Suma koszyka:</div><div class="value">22,70 zł</div><div class="label">Koszt dostawy:</div><div class="value">15,00 zł</div><div class="label">Łącznie do zapłaty</div><div class="value">37,70 zł</div><div>Kwota zawiera podatek VAT</div></div>`;
   const fragment=`<div id="cart-details"><div>Kurier</div></div>`;

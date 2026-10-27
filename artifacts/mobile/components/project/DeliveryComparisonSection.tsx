@@ -106,6 +106,11 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {mode === 'shipping' && Boolean(comparison.partiallyQuotedStores?.length) && <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie wszystkie inne kombinacje koszyków udało się potwierdzić. Mogą wpłynąć na najniższą cenę.', 'Some other basket combinations could not be confirmed and may affect the lowest total.')}</Txt>}
     </View>}
     {current && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
+    {current && comparison.stockLimits?.map(limit => <View key={`${limit.store}:${limit.offerId}`} accessibilityRole="alert" style={{padding:12,gap:4,borderRadius:10,backgroundColor:Colors.warningBg}}>
+      <Txt w="semibold">{limit.productName}</Txt>
+      <Txt style={{fontSize:13,lineHeight:19}}>{tr(`${limit.store}: dostępne ${limit.maxPackages} z ${limit.requestedPackages} sprawdzanych opakowań. Uwzględniono limit przy doborze zestawu.`, `${limit.store}: ${limit.maxPackages} of ${limit.requestedPackages} requested packs available. The limit is included in basket selection.`)}</Txt>
+      <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Wysyłka z: ${limit.dispatchFrom}, kod ${limit.postalCode}. Stan przy sprawdzeniu, bez rezerwacji.`, `Dispatch: ${limit.dispatchFrom}, postcode ${limit.postalCode}. Stock when checked, without a reservation.`)}</Txt>
+    </View>)}
     {best && <Txt w="semibold">{tr(`Podział zakupów między sklepy (${best.stores.length})`, `Purchases by store (${best.stores.length})`)}</Txt>}
     {best?.stores.map(store => {
       const packs = store.lines.flatMap(line => line.packages.map(pack => ({ line, pack })));

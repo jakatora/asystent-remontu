@@ -58,16 +58,26 @@ export function confirmSeweraBasket(html: string, expected: { url:string; pid:st
   const body=one(nodes(table,(_,tag)=>tag==='tbody'));
   const rows=nodes(body,(_,tag)=>tag==='tr').filter(row=>nodes(row,a=>a.name==='amount').length===1);
   if (rows.length!==expected.length || !/Twój sklep to Katowice/.test(text(html))) throw Error('basket_not_confirmed');
+  const shortages: {url:string; count:number; price:number; maxPackages:number}[]=[];
   for (const wanted of expected) {
     const row=one(rows.filter(row=>nodes(row,a=>a.href===wanted.url).length>0));
     const stock = text(row).match(/W magazynie znajdują się jedynie (\d+(?:[.,]\d+)?)\s+(SZT|OPA)/i);
-    if (stock && (stock[2].toUpperCase() !== (wanted.retailUnit ?? 'SZT') || Number(stock[1].replace(',','.')) < wanted.count)) throw Error('insufficient_stock');
     const input=attr(one(nodes(row,a=>a.name==='amount')));
     const pid=attr(one(nodes(row,a=>a.wybierz!==undefined))).wybierz;
     if (Number(input.value)!==wanted.count || pid!==wanted.pid || checkoutMoney(tdValue(row,'Cena brutto:'))!==wanted.price || checkoutMoney(tdValue(row,'Wartość:'))!==wanted.count*wanted.price) throw Error('basket_not_confirmed');
+    if (stock) {
+      const maxPackages=Number(stock[1].replace(',','.'));
+      if (stock[2].toUpperCase()!==(wanted.retailUnit??'SZT') || !Number.isSafeInteger(maxPackages) || maxPackages<0) throw Error('basket_not_confirmed');
+      if (maxPackages<wanted.count) shortages.push({url:wanted.url,count:wanted.count,price:wanted.price,maxPackages});
+    }
   }
   const sum=text(one(nodes(table,a=>cls(a,'basket_sum')))).replace(/^Razem do zapłaty:\s*/, '');
   if (checkoutMoney(sum)!==total) throw Error('basket_not_confirmed');
+  if (shortages.length) throw new SeweraStockError(shortages);
+}
+
+class SeweraStockError extends Error {
+  constructor(readonly shortages: {url:string;count:number;price:number;maxPackages:number}[]) { super('insufficient_stock'); }
 }
 
 /** The store returns zero alongside block_order=1 when a carrier cannot serve
@@ -115,7 +125,18 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
     expected.push({url:source.url,pid,count:pack.count,price:pack.unitPriceGrosze,retailUnit:source.retailUnit});
   }
   const basket=await client.text('/index.php?page=koszyk');
-  confirmSeweraBasket(basket,expected,order.materialsGrosze);
+  try { confirmSeweraBasket(basket,expected,order.materialsGrosze); }
+  catch (error) {
+    if (!(error instanceof SeweraStockError)) throw error;
+    const checkedAt=new Date(),evidenceSha256=createHash('sha256').update(basket).digest('hex');
+    return {reason:'insufficient_stock',stockLimits:error.shortages.map(shortage=>{
+      const {pack}=prepared.find(item=>item.source.url===shortage.url)!;
+      const product=order.lines.find(line=>line.packages.some(item=>item.offerId===pack.offerId))!.product;
+      return {offerId:pack.offerId,store:order.store,productId:product.id,productName:product.name,maxPackages:shortage.maxPackages,requestedPackages:shortage.count,unitPriceGrosze:shortage.price,
+        postalCode,dispatchFrom:'Katowice',checkedAt:checkedAt.toISOString(),expiresAt:new Date(checkedAt.getTime()+600_000).toISOString(),
+        sourceUrl:'https://sklep.sewera.pl/index.php?page=koszyk',evidenceSha256};
+    })};
+  }
   const checkout=cleanHtml(await client.text('/zamowienie'));
   const country=one(nodes(checkout,a=>a.id==='selectCountryUser'));
   if (!nodes(country,a=>a.value==='1').some(n=>text(n)==='Polska')) throw Error('country_not_confirmed');

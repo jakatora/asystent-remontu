@@ -53,7 +53,15 @@ export interface DeliveryQuote {
   basis: 'retailer_basket_national' | 'retailer_basket_postcode' | 'retailer_tariff_national';
   evidenceSha256: string;
 }
-export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string };
+/** Native checkout stock evidence, valid only for this dispatch/postcode and
+ * current quote. It must never overwrite national or pickup availability. */
+export interface DeliveryStockLimit {
+  offerId: string; store: string; productId: string; productName: string;
+  maxPackages: number; requestedPackages: number; unitPriceGrosze: number;
+  postalCode: string; dispatchFrom: string;
+  checkedAt: string; expiresAt: string; sourceUrl: string; evidenceSha256: string;
+}
+export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string; stockLimits?: DeliveryStockLimit[] };
 export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string) => Promise<DeliveryQuoteResult>;
 export interface DeliveryComparison {
   mode: DeliverySettings['mode'];
@@ -66,6 +74,7 @@ export interface DeliveryComparison {
   comparedBasketCount?: number;
   unavailableStores?: { store: string; reason: string; partial?:boolean }[];
   partiallyQuotedStores?: string[];
+  stockLimits?: DeliveryStockLimit[];
   productCount: number;
   missingProductCount: number;
   best: DeliveredBasket | null;

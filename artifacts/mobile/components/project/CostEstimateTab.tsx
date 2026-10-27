@@ -413,7 +413,7 @@ function EstimateResult({
           </Txt>
           {consolidatedLines.map((line, idx) => (
             <ConsolidatedLineCard key={`c-${line.product.id}-${idx}`} line={line} offers={resolved.find(item => item.product?.id === line.product.id)?.offers}
-              stockUnconfirmed={data.deliveryComparison?.unavailableStores?.some(store => !store.partial && ['insufficient_stock','product_unavailable'].includes(store.reason) && (line.packages?.some(pack => pack.store === store.store) || line.cheapestOffer.store === store.store))} />
+              stockUnconfirmed={data.deliveryComparison?.stockLimits?.some(limit => limit.productId === line.product.id && line.packages?.some(pack => pack.store === limit.store && pack.unitPriceGrosze === limit.unitPriceGrosze && pack.count > limit.maxPackages)) || data.deliveryComparison?.unavailableStores?.some(store => !store.partial && ['insufficient_stock','product_unavailable'].includes(store.reason) && !data.deliveryComparison?.stockLimits?.some(limit => limit.store === store.store) && (line.packages?.some(pack => pack.store === store.store) || line.cheapestOffer.store === store.store))} />
           ))}
         </View>
       )}
