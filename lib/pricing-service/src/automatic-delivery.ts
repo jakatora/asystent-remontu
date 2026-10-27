@@ -5,6 +5,7 @@ import type { StageEstimate, PackagePlanEntry } from './types';
 import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, type DeliveredBasket, type DeliveryComparison, type DeliverySettings, type StoreDeliveryPolicy, type DeliveryStockLimit, type DeliveryQuoteResult } from './delivery';
 import { DELIVERY_LIMITS } from './delivery-limits';
 import { withOrderPartitions } from './order-partitions';
+import { materialPurchasePlan } from './material-purchase-plan';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}`)).sort().join('|');
@@ -84,8 +85,19 @@ async function compareAutomaticDeliveryOnce(
   if (!groups.length) return result;
   if (!settings.postalCode || !/^\d{2}-\d{3}$/.test(settings.postalCode)) { result.status = 'needs_postal_code'; return result; }
   result.unavailableStores = stores.filter(store => knownUnavailableStores[store]).map(store => ({ store, reason: knownUnavailableStores[store] }));
+  const allGroups = groups;
   groups = groups.map(group => ({ ...group, offers: group.offers.filter(offer => !knownUnavailableStores[offer.store]) }));
-  if (groups.some(group => !group.offers.length || !optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product)))) { result.status = 'needs_delivery_costs'; return result; }
+  if (groups.some(group => !group.offers.length || !optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product)))) {
+    result.status = 'needs_delivery_costs';
+    const orders = materialPurchasePlan(allGroups, now);
+    if (!orders) return result;
+    // Keep a usable full material allocation when one mandatory merchant has
+    // no automatic transport. Quote the other whole-store orders normally,
+    // within the existing shared request budget and stock-limit replanning.
+    const knownOnly: BasketQuoter = (order, postcode) => knownUnavailableStores[order.store]
+      ? Promise.resolve({ reason: knownUnavailableStores[order.store] }) : quoteBasket(order, postcode);
+    return quoteAndRank([orders], new Map(orders.map(order => [signature(order), order])), result, settings, knownOnly, now);
+  }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
   const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
   if (groups.length > DELIVERY_LIMITS.products || activeStores.length > DELIVERY_LIMITS.stores) return tooLarge();
@@ -284,6 +296,7 @@ async function quoteAndRank(
   settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,
 ): Promise<DeliveryComparison> {
   const failures = new Map<string, string>((result.unavailableStores ?? []).map(item => [item.store,item.reason]));
+  const invalidMaterialOrders = new Set<string>();
   // Quote a representative order from every store first. Full store baskets
   // get priority because their eligible couriers/thresholds can differ from
   // individual items. This also protects useful results under the I/O deadline.
@@ -313,6 +326,7 @@ async function quoteAndRank(
           order.totalGrosze = order.materialsGrosze + outcome.quote.costGrosze; order.source = 'retailer';
         } else {
           failures.set(order.store, 'reason' in outcome ? outcome.reason : 'invalid_quote');
+          if ('reason' in outcome && ['price_changed','product_unavailable','insufficient_stock','purchase_rules_changed'].includes(outcome.reason)) invalidMaterialOrders.add(key);
           if('reason' in outcome&&outcome.reason==='insufficient_stock'&&outcome.stockLimits?.length)stockChanged=true;
         }
       } catch { failures.set(order.store, 'quote_unavailable'); }
@@ -324,7 +338,7 @@ async function quoteAndRank(
     const deliveryGrosze = actual.every(o => o.deliveryGrosze !== null) ? actual.reduce((sum, o) => sum + o.deliveryGrosze!, 0) : null;
     return { stores: actual, materialsGrosze, deliveryGrosze, totalGrosze: deliveryGrosze === null ? null : materialsGrosze + deliveryGrosze,
       lowerBoundGrosze: materialsGrosze + actual.reduce((sum, o) => sum + (o.deliveryGrosze ?? 0), 0) };
-  }).filter(b => [b.materialsGrosze, b.lowerBoundGrosze, b.totalGrosze ?? 0].every(Number.isSafeInteger));
+  }).filter(b => b.stores.every(order => !invalidMaterialOrders.has(signature(order))) && [b.materialsGrosze, b.lowerBoundGrosze, b.totalGrosze ?? 0].every(Number.isSafeInteger));
   const known = baskets.filter(b => b.totalGrosze !== null).sort((a,b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
   result.comparedBasketCount = known.length;
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);

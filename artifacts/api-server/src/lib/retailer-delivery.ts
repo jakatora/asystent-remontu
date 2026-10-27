@@ -37,6 +37,11 @@ function unavailableReason(store: string): string | undefined {
   // The footer's 16/21 PLN is not a postcode/basket quote.
   // source: https://sklep.tokmet.pl/buyall.php
   if (sources.length && sources.every(source=>source.format === 'qshop')) return 'address_required';
+  // The anonymous basket has a provisional shipping amount, but the checkout
+  // requires customer/contact details before selecting a destination/carrier.
+  // That amount is not a confirmed home-delivery quote for the user's postcode.
+  // source: https://marbet24.pl/zamowienie
+  if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
   if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';

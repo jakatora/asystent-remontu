@@ -1,9 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { createRetailerQuoter, selectHomeDelivery, confirmedMoney } from '../src/lib/retailer-delivery';
+import { createRetailerQuoter, selectHomeDelivery, confirmedMoney, knownUnavailableRetailers } from '../src/lib/retailer-delivery';
 import type { DeliveredStoreBasket } from '../../../lib/pricing-service/src/delivery';
 
 const money = (cents: number) => ({ cost: (cents / 100).toFixed(2).replace('.', ',') + ' zł', cost_float: cents / 100 });
+test('Marbet24 requires customer details before delivery selection; its provisional cart fee is not a postcode quote', async () => {
+  assert.equal(knownUnavailableRetailers().Marbet24, 'customer_details_required');
+  const result = await createRetailerQuoter(async () => { throw Error('Do not submit a customer form'); })({ store: 'Marbet24', materialsGrosze: 9628, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [] }, '00-001');
+  assert.deepEqual(result, { reason: 'customer_details_required' });
+});
 function fixture(cents = 1050): any {
   return { countries: [{ id: 179, name: 'Polska', selected: true }], payments: [{ payment_id: 3, name: 'onlinePayment', title: 'Autopay' }, { payment_id: 2, name: 'cod', title: 'Pobranie' }],
     free_shipping: { missing: -100, shipping_id: 1 }, shippings: [

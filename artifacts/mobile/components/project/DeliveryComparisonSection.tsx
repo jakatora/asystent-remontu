@@ -7,6 +7,7 @@ import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatGrosze } from '@/features/pricing';
 import { normalizeDeliveryPostalCode } from '@/features/pricing/deliveryInput';
+import { pendingDeliveryPlan } from '@/features/pricing/pendingDeliveryPlan';
 import { ProductImage } from './ProductImage';
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
@@ -42,12 +43,15 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   }, [destination, mode, settings.postalCode, settings.method, allowSeparateOrders, onApply]);
   const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
   const best = current ? comparison.best : null;
+  const pendingPlan = pendingDeliveryPlan(comparison, current);
+  const displayedBasket = best ?? pendingPlan;
+  const pendingStores = pendingPlan?.stores.filter(store => store.deliveryGrosze === null) ?? [];
   useEffect(() => {
-    const expiries = best?.stores.flatMap(store => store.quote ? [Date.parse(store.quote.expiresAt)] : []) ?? [];
+    const expiries = displayedBasket?.stores.flatMap(store => store.quote ? [Date.parse(store.quote.expiresAt)] : []) ?? [];
     if (!expiries.length) return;
     const timer = setTimeout(() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) }), Math.max(0, Math.min(...expiries) - Date.now() + 100));
     return () => clearTimeout(timer);
-  }, [best, mode, destination, allowSeparateOrders, onApply]);
+  }, [displayedBasket, mode, destination, allowSeparateOrders, onApply]);
   const reason = (code: string) => ({
     integration_unavailable: tr('Sklep nie udostępnia jeszcze automatycznej wyceny.', 'Automatic quoting is not available yet.'),
     retailer_transport_quote_required: tr('Sklep wycenia transport indywidualnie. Koszt materiałów nie obejmuje tej opłaty.', 'The store quotes transport individually. The material cost excludes this fee.'),
@@ -55,6 +59,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     retailer_access_required: tr('Automatyczny odczyt kalkulatora sklepu jest niedostępny. Potrzebna integracja ze sklepem.', 'The store calculator cannot be read automatically. A store integration is required.'),
     retailer_checkout_unconfirmed: tr('Nie udało się potwierdzić zakupu w tym sklepie.', 'Purchasing from this store could not be confirmed.'),
     address_required: tr('Sklep wymaga pełnego adresu dla tego transportu.', 'This transport requires a full address.'),
+    customer_details_required: tr('Sklep wymaga danych klienta przed wyborem dostawy. Sam kod pocztowy nie wystarcza do potwierdzenia kosztu.', 'The store requires customer details before delivery selection. A postcode alone cannot confirm the cost.'),
     price_changed: tr('Cena produktu zmieniła się w koszyku sklepu.', 'The product price has changed in the store basket.'),
     product_unavailable: tr('Nie potwierdzono dostępności produktu.', 'Product availability could not be confirmed.'),
     insufficient_stock: tr('Sklep nie ma wystarczającej liczby sztuk do tego zamówienia.', 'The store does not have enough units for this order.'),
@@ -113,18 +118,28 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {mode === 'shipping' && Boolean(comparison.partiallyQuotedStores?.length) && <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie wszystkie inne kombinacje koszyków udało się potwierdzić. Mogą wpłynąć na najniższą cenę.', 'Some other basket combinations could not be confirmed and may affect the lowest total.')}</Txt>}
     </View>}
     {current && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
+    {pendingPlan && <View style={{ padding: 18, gap: 10, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface }}>
+      <Txt w="bold" style={{ fontSize: 18 }}>{tr('Plan zakupów — dostawy do potwierdzenia', 'Purchase plan — delivery pending')}</Txt>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt style={{ flex: 1 }}>{tr('Materiały w tym planie', 'Materials in this plan')}</Txt><Txt w="bold">{formatGrosze(pendingPlan.materialsGrosze)}</Txt></View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt style={{ flex: 1 }}>{tr(`Potwierdzone dostawy (${pendingPlan.stores.length - pendingStores.length} z ${pendingPlan.stores.length})`, `Confirmed delivery charges (${pendingPlan.stores.length - pendingStores.length} of ${pendingPlan.stores.length})`)}</Txt><Txt w="semibold">{formatGrosze(pendingPlan.stores.reduce((sum, store) => sum + (store.deliveryGrosze ?? 0), 0))}</Txt></View>
+      <Txt w="semibold" style={{ lineHeight: 22 }}>{tr('Dostawa do potwierdzenia', 'Delivery to confirm')}: {pendingStores.map(store => store.store).join(', ')}.</Txt>
+      <Txt style={{ lineHeight: 21, color: Colors.textSecondary }}>{tr('Poniżej znajdziesz wszystkie potrzebne opakowania i ceny materiałów w każdym sklepie. Pełny koszt i najtańszy zestaw z dostawą poznamy po potwierdzeniu brakujących opłat.', 'All required packs and each store’s material prices are listed below. The full total and lowest delivered basket depend on the missing delivery quotes.')}</Txt>
+    </View>}
     {current && comparison.stockLimits?.map(limit => <View key={`${limit.store}:${limit.offerId}`} accessibilityRole="alert" style={{padding:12,gap:4,borderRadius:10,backgroundColor:Colors.warningBg}}>
       <Txt w="semibold">{limit.productName}</Txt>
       <Txt style={{fontSize:13,lineHeight:19}}>{tr(`${limit.store}: dostępne ${limit.maxPackages} z ${limit.requestedPackages} sprawdzanych opakowań. Uwzględniono limit przy doborze zestawu.`, `${limit.store}: ${limit.maxPackages} of ${limit.requestedPackages} requested packs available. The limit is included in basket selection.`)}</Txt>
       <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Wysyłka z: ${limit.dispatchFrom}, kod ${limit.postalCode}. Stan przy sprawdzeniu, bez rezerwacji.`, `Dispatch: ${limit.dispatchFrom}, postcode ${limit.postalCode}. Stock when checked, without a reservation.`)}</Txt>
     </View>)}
     {best && <Txt w="semibold">{tr(`Podział zakupów między sklepy (${best.stores.length})`, `Purchases by store (${best.stores.length})`)}</Txt>}
-    {best?.stores.map(store => {
+    {pendingPlan && <Txt w="semibold">{tr(`Materiały do kupienia w sklepach (${pendingPlan.stores.length})`, `Materials to buy by store (${pendingPlan.stores.length})`)}</Txt>}
+    {displayedBasket?.stores.map(store => {
       const packs = store.lines.flatMap(line => line.packages.map(pack => ({ line, pack })));
       const expanded = Boolean(openProducts[store.store]);
+      const verifiedPacks = packs.filter(({pack}) => pack.verification);
       return <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
-      <Txt w="bold" style={{ fontSize: 16 }}>{store.store} · {formatGrosze(store.totalGrosze!)}</Txt>
-      <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)} · {tr('Dostawa', 'Delivery')}: {formatGrosze(store.deliveryGrosze!)}</Txt>
+      <Txt w="bold" style={{ fontSize: 16 }}>{store.store} · {store.totalGrosze === null ? tr(`materiały ${formatGrosze(store.materialsGrosze)}`, `materials ${formatGrosze(store.materialsGrosze)}`) : formatGrosze(store.totalGrosze)}</Txt>
+      <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)} · {tr('Dostawa', 'Delivery')}: {store.deliveryGrosze === null ? tr('do potwierdzenia', 'pending') : formatGrosze(store.deliveryGrosze)}</Txt>
+      {pendingPlan && store.deliveryGrosze === null && <Txt style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{reason(comparison.unavailableStores?.find(item => item.store === store.store)?.reason ?? 'quote_unavailable')}</Txt>}
       {store.quote && <View style={{ gap: 4 }}>
         <Txt style={{ color: Colors.primary, fontSize: 13 }}>{store.quote.carrier} · {store.quote.payment}</Txt>
         <Txt style={{ color: Colors.textSecondary, fontSize: 12 }}>{tr('Sprawdzono', 'Checked')}: {new Date(store.quote.checkedAt).toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', timeZone:'Europe/Warsaw' })} · {store.quote.destinationScope==='postal_code' ? tr(`wycena dla ${store.quote.postalCode}`, `quote for ${store.quote.postalCode}`) : tr('taryfa Polska', 'Poland tariff')}</Txt>
@@ -141,7 +156,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
           <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie łącz tych pozycji w jeden koszyk sklepu — sklep może naliczyć wtedy droższy transport. Każde zamówienie ma osobno sprawdzoną dostawę.', 'Keep these as separate merchant orders; combining them may trigger a higher shipping fee. Delivery was checked separately for every order.')}</Txt>
         </View>}
       </View>}
-      {packs.filter(({pack}) => pack.verification).map(({line,pack}) => <PriceVerificationNotice key={`verification:${line.product.id}:${pack.offerId}`} verification={pack.verification} store={`${store.store} · ${line.product.name}`} />)}
+      {pendingPlan && !expanded && verifiedPacks.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{tr(`${verifiedPacks.length} ofert sprawdzono ręcznie. Najwcześniejsze potwierdzenie wygasa:`, `${verifiedPacks.length} offers were checked manually. Earliest verification expires:`)} {new Date(Math.min(...verifiedPacks.map(({pack}) => Date.parse(pack.verification!.expiresAt)))).toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Warsaw' })}. {tr('Szczegóły rozwiniesz przy produktach.', 'Expand the products for details.')}</Txt>}
+      {(!pendingPlan || expanded) && verifiedPacks.map(({line,pack}) => <PriceVerificationNotice key={`verification:${line.product.id}:${pack.offerId}`} verification={pack.verification} store={`${store.store} · ${line.product.name}`} />)}
       {packs.filter(({pack}) => (pack.minimumPackages ?? 1) > 1 || (pack.purchaseMultiple ?? 1) > 1).map(({line,pack}) => <View key={`rules:${line.product.id}:${pack.offerId}`} accessibilityRole="alert" style={{ gap: 4, padding: 10, borderRadius: 10, backgroundColor: Colors.warningBg }}>
         <Txt w="semibold" style={{fontSize:13}}>{line.product.name}</Txt>
         {(pack.minimumPackages ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Minimalny zakup: ${pack.minimumPackages} opakowań (${pack.minimumPackages! * pack.packageSize} ${line.unit}). Kwota uwzględnia to minimum.`, `Minimum purchase: ${pack.minimumPackages} packs (${pack.minimumPackages! * pack.packageSize} ${line.unit}). The cost includes this minimum.`)}</Txt>}

@@ -4736,6 +4736,23 @@
       "anchorEhwTotalGrosze": 7054,
       "anchorZprademTotalGrosze": 14010,
       "fullRenovationCoverageProven": false
+    },
+    "wave58": {
+      "checkedAt": "2026-10-27T11:33:44.527Z",
+      "scenario": "Same explicit13-product ceiling, full store material allocation retained while transport is pending",
+      "productCount": 13,
+      "storeCount": 7,
+      "materialsGrosze": 81027,
+      "confirmedShippingGrosze": 10690,
+      "confirmedStoreCount": 4,
+      "pendingStores": [
+        "ABUD",
+        "Leroy Merlin",
+        "Marbet24"
+      ],
+      "completeDeliveryConfirmed": false,
+      "abudNetworkFailure": "UND_ERR_CONNECT_TIMEOUT",
+      "fullRenovationCoverageProven": false
     }
   }
 }
