@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-27T01:04:40.859Z",
-  "scope": "Fresh calculator inputs -> live production HTTPS. No catalogue/backend mutation; no orders/payment. One synthetic standard scenario per job; self-leveling now has an explicit 14m edge length (2x5m, 10m2), previously omitted. Missing rows are not unique products: some need existing reference links, units, explicit quantities or new products. A fully priced scenario does not prove every real installation accessory or dimension/tier is covered.",
+  "checkedAt": "2026-10-27T02:14:46.386Z",
+  "scope": "Actual calculator -> native bundle/production HTTPS -> real anonymous store carts. Full 3-material screed basket, explicit independent tape models, no order/payment. Older saved request smoke is not completeness of older user projects. One synthetic standard scenario per nonempty job, not all dimensions or tiers. Missing rows are not unique products. Wave45 changes the selected tape model and confirms delivery; 169 recipe rows still lack prices.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -49,6 +49,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5903973139188",
             "ean": "5903973139188",
             "name": "Farba Śnieżka Barwy Natury biała 5 l"
           }
@@ -65,6 +66,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -81,6 +83,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907758515952",
             "ean": "5907758515952",
             "name": "Taśma malarska niebieska 30mmx50m"
           }
@@ -97,6 +100,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907758504932",
             "ean": "5907758504932",
             "name": "Folia malarska gruba 4x5m CF_EP20_04932 Blue Dolphin"
           }
@@ -123,6 +127,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5059340271620",
             "ean": "5059340271620",
             "name": "Farba GoodHome Ściany i Sufit biały mat 10 l"
           }
@@ -139,6 +144,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -165,6 +171,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5903973139188",
             "ean": "5903973139188",
             "name": "Farba Śnieżka Barwy Natury biała 5 l"
           }
@@ -181,6 +188,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5903973000235",
             "ean": "5903973000235",
             "name": "Śnieżka Grunt - biała farba podkładowa 5l"
           }
@@ -197,6 +205,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907758515952",
             "ean": "5907758515952",
             "name": "Taśma malarska niebieska 30mmx50m"
           }
@@ -213,6 +222,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907758504932",
             "ean": "5907758504932",
             "name": "Folia malarska gruba 4x5m CF_EP20_04932 Blue Dolphin"
           }
@@ -238,6 +248,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5900089617081",
             "ean": "5900089617081",
             "name": "Ceresit CT 17, 10 l, głęboko penetrujący grunt bezrozpuszczalnikowy"
           }
@@ -301,6 +312,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -326,6 +338,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5902367206383",
             "ean": "5902367206383",
             "name": "GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg"
           }
@@ -377,6 +390,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400542509",
             "ean": "5905400542509",
             "name": "Atlas GTA gotowa gładź polimerowa 18kg"
           }
@@ -393,6 +407,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -456,6 +471,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -506,6 +522,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -556,6 +573,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -593,6 +611,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905167826942",
             "ean": "5905167826942",
             "name": "Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka"
           }
@@ -657,6 +676,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905167826942",
             "ean": "5905167826942",
             "name": "Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka"
           }
@@ -721,6 +741,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5063022676757",
             "ean": "5063022676757",
             "name": "Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m2"
           }
@@ -737,6 +758,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5061092900925",
             "ean": "5061092900925",
             "name": "Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op."
           }
@@ -753,6 +775,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5904584845215",
             "ean": "5904584845215",
             "name": "Profil progowy aluminiowy owalny szeroki 40mm Cezar Srebrny Mat 1m"
           }
@@ -778,6 +801,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5059340802435",
             "ean": "5059340802435",
             "name": "Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2"
           }
@@ -794,6 +818,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5411183028395",
             "ean": "5411183028395",
             "name": "Klej do wykładzin Soudal 26A 5kg"
           }
@@ -861,6 +886,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5900089111251",
             "ean": "5900089111251",
             "name": "Ceresit CM 11, 25 kg, uniwersalny klej do płytek"
           }
@@ -877,6 +903,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400572254",
             "ean": "5905400572254",
             "name": "Atlas Fuga ceramiczna 001 biały 2kg"
           }
@@ -893,6 +920,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905061016869",
             "ean": "5905061016869",
             "name": "Krzyżyki dystansowe 3mm 150szt."
           }
@@ -909,6 +937,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5900089617081",
             "ean": "5900089617081",
             "name": "Ceresit CT 17, 10 l, głęboko penetrujący grunt bezrozpuszczalnikowy"
           }
@@ -933,6 +962,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905167725719",
             "ean": "5905167725719",
             "name": "Listwa przypodłogowa PCV Arbiton INDO - biały połysk 01"
           }
@@ -983,7 +1013,8 @@
       "measurements": {
         "floorArea": 10,
         "levelingThickness": 10,
-        "perimeter": 14
+        "perimeter": 14,
+        "edgeTapeChoice": 0
       },
       "materials": [
         {
@@ -998,6 +1029,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400279245",
             "ean": "5905400279245",
             "name": "Atlas SAM 100 25kg szybkowiążący samopoziomujący podkład podłogowy"
           }
@@ -1014,6 +1046,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400520026",
             "ean": "5905400520026",
             "name": "Atlas Uni-Grunt 5kg emulsja gruntująca"
           }
@@ -1023,15 +1056,16 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tasma brzegowa dylatacyjna fola 5 mm 100 mm 50 mb",
+            "normalizedName": "tasma dylatacyjna 5mm x 10cm x 50m pack center tb fb00202",
             "category": "expansion-tape"
           },
           "quantity": 14.7,
           "resolved": true,
           "reason": null,
           "matchedProduct": {
-            "ean": "5906725207227",
-            "name": "Taśma brzegowa Fola 5 mm x 10 cm x 50 mb 5 m2"
+            "id": "remont-sku-sewera-465325",
+            "ean": null,
+            "name": "Taśma dylatacyjna 5mm x 10cm x 50m (Pack-Center TB-FB00202)"
           }
         }
       ]
@@ -1163,6 +1197,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400514506",
             "ean": "5905400514506",
             "name": "Folia w płynie szybkoschnąca Woder E 15kg Atlas"
           }
@@ -1179,6 +1214,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5900089115211",
             "ean": "5900089115211",
             "name": "Ceresit CL 152, 10 m, taśma uszczelniająca"
           }
@@ -1233,6 +1269,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400658866",
             "ean": "5905400658866",
             "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg"
           }
@@ -1249,6 +1286,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400572254",
             "ean": "5905400572254",
             "name": "Atlas Fuga ceramiczna 001 biały 2kg"
           }
@@ -1265,6 +1303,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905061016845",
             "ean": "5905061016845",
             "name": "Krzyżyki dystansowe Hardy 2mm 200szt."
           }
@@ -1318,6 +1357,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5900089140015",
             "ean": "5900089140015",
             "name": "Ceresit fuga CE40 01 wodoodporna elastyczna 2kg"
           }
@@ -1451,6 +1491,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5902194929837",
             "ean": "5902194929837",
             "name": "Ferro Stillo bateria umywalkowa stojąca chrom"
           }
@@ -1467,6 +1508,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5036484088390",
             "ean": "5036484088390",
             "name": "McAlpine WHB1-32"
           }
@@ -1483,6 +1525,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901095614033",
             "ean": "5901095614033",
             "name": "Zawór kątowy z filtrem Ferro 1/2\" x 3/8\""
           }
@@ -1499,6 +1542,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5411183157064",
             "ean": "5411183157064",
             "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
           }
@@ -1536,6 +1580,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5902115720833",
             "ean": "5902115720833",
             "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą"
           }
@@ -1552,6 +1597,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901095514395",
             "ean": "5901095514395",
             "name": "ZESTAW PRZYŁĄCZENIOWO-MOCUJĄCY WC"
           }
@@ -1568,6 +1614,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901095614033",
             "ean": "5901095614033",
             "name": "Zawór kątowy z filtrem Ferro 1/2\" x 3/8\""
           }
@@ -1584,6 +1631,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907798716258",
             "ean": "5907798716258",
             "name": "WĘŻYK DO BATERII STOJĄCEJ 3/8\" x M10*1 L - 30 CM DŁUGA KOŃCÓWKA"
           }
@@ -1638,6 +1686,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400313390",
             "ean": "5905400313390",
             "name": "Atlas Plus klej do płytek biały 25kg"
           }
@@ -1654,6 +1703,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-8022452132940",
             "ean": "8022452132940",
             "name": "Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100"
           }
@@ -1670,6 +1720,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5411183157064",
             "ean": "5411183157064",
             "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
           }
@@ -1686,6 +1737,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905061016845",
             "ean": "5905061016845",
             "name": "Krzyżyki dystansowe Hardy 2mm 200szt."
           }
@@ -1938,6 +1990,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907704499015",
             "ean": "5907704499015",
             "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas"
           }
@@ -1980,6 +2033,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907704466031",
             "ean": "5907704466031",
             "name": "Kołek szybkiego montażu 6x40mm 20szt. Klimas"
           }
@@ -2057,6 +2111,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5907704499015",
             "ean": "5907704499015",
             "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas"
           }
@@ -2120,6 +2175,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5903518052859",
             "ean": "5903518052859",
             "name": "Pianka montażowa pistoletowa 65 750ml Tytan"
           }
@@ -2170,6 +2226,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5903518052859",
             "ean": "5903518052859",
             "name": "Pianka montażowa pistoletowa 65 750ml Tytan"
           }
@@ -2357,6 +2414,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5411183048522",
             "ean": "5411183048522",
             "name": "Pianka pistoletowa Soudafoam Low Expansion -10"
           }
@@ -2394,6 +2452,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5901793357737",
             "ean": "5901793357737",
             "name": "Grunt uniwersalny Knauf 5 l"
           }
@@ -3306,6 +3365,7 @@
           "resolved": true,
           "reason": null,
           "matchedProduct": {
+            "id": "remont-5905400160253",
             "ean": "5905400160253",
             "name": "Atlas - zaprawa klejąca do styropianu Stopter K-20"
           }

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T00:42:42.841Z",
-  "scope": "113 catalogue references, 107 with offers, 6 historical references still unavailable. Catalogue/observations unchanged in wave44. Separate updated standard-tier synthetic recipe audit: 59 of 228 material rows priced, 169 unpriced in 65 non-empty scenarios. Seven primer references connected; self-leveling edge tape previously silently omitted now needs an explicit perimeter. Photo URLs are not universal runtime/branch stock proof. Castorama/OBI delivery and ABUD cloud transport remain unavailable.",
-  "total": 113,
-  "verifiedProducts": 107,
+  "checkedAt": "2026-10-27T02:14:46.386Z",
+  "scope": "114 catalogue references, 108 with offers, 6 historical references still unavailable. Pack-Center merchant SKU is separate from Fola and has no EAN. Full 3-material screed basket has a real Gliwice dispatch/postcode pallet quote. The separate synthetic standard-tier audit remains 59/228 material rows priced, 169 unpriced; these are not unique products. Photo URLs and pickup eligibility do not confirm all branch stock, stationary prices or travel costs. Castorama/OBI delivery and ABUD cloud transport remain unavailable.",
+  "total": 114,
+  "verifiedProducts": 108,
   "remaining": 6,
-  "offers": 136,
+  "offers": 137,
   "stores": 38,
-  "productsWithPhotos": 113,
-  "registeredOffers": 138,
+  "productsWithPhotos": 114,
+  "registeredOffers": 139,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2422,6 +2422,31 @@
           "deliveredGrosze": 7600
         }
       ]
+    },
+    {
+      "id": "mat-edge-tape-packcenter-tb-fb00202-50m",
+      "name": "Taśma dylatacyjna 5mm x 10cm x 50m (Pack-Center TB-FB00202)",
+      "referenceUrl": "https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282",
+      "status": "verified_offer",
+      "ean": null,
+      "manufacturerSku": "TB-FB00202",
+      "merchantProductId": "465325",
+      "sourceIds": [
+        "sewera-packcenter-edge-tape-50m"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-packcenter-edge-tape-50m",
+          "checkedAt": "2026-10-27T02:14:46.386Z",
+          "mode": "shipping",
+          "postalCode": "00-001",
+          "dispatchFrom": "Gliwice",
+          "confirmed": true,
+          "tapeOnlyGrosze": 3396,
+          "fullScreedBasketGrosze": 41720
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -2437,7 +2462,7 @@
     }
   },
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T01:04:40.859Z",
+    "checkedAt": "2026-10-27T02:14:46.386Z",
     "pricedLines": 59,
     "totalLines": 228,
     "unpricedLines": 169,

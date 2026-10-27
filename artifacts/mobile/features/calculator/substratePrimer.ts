@@ -54,6 +54,7 @@ export function substratePrimerQuantity(jobId: string, m: MeasurementMap): numbe
 }
 
 export function levelingEdgeTapeMetres(m: MeasurementMap): number | null {
+  if (m.edgeTapeChoice !== undefined && m.edgeTapeChoice !== 0 && m.edgeTapeChoice !== 1) return null;
   const length = m.perimeter;
   return Number.isFinite(length) && length > 0 && length <= 500 ? Number((length * 1.05).toFixed(6)) : null;
 }
@@ -126,10 +127,14 @@ export function reviewSubstrateShopping(items: readonly ShoppingItem[], calc?: C
     };
     if (line.quantity === 0) return [];
     const isPrimer = item.materialId === spec.materialId;
-    const matches = (!isPrimer || item.name === line.material.name) && item.unit === line.material.unit
-      && Math.abs((item.customQuantity ?? item.quantity) - line.quantity) < 1e-8;
-    return { ...item, name: isPrimer ? line.material.name : item.name, unit: line.material.unit, quantity: line.quantity,
-      estimatedPrice: line.cost, quantityKnown: true, requiredQuantity: line.quantity,
+    const specificProduct = isPrimer || calc.jobId === 'self-leveling' && item.materialId === 'expansion-tape';
+    const required = isPrimer ? substratePrimerQuantity(calc.jobId, calc.measurements)!
+      : calc.jobId === 'self-leveling' && item.materialId === 'expansion-tape' ? levelingEdgeTapeMetres(calc.measurements)!
+        : line.rawQuantity ?? line.quantity;
+    const matches = (!specificProduct || item.name === line.material.name) && item.unit === line.material.unit
+      && Number.isFinite(item.customQuantity ?? item.quantity) && (item.customQuantity ?? item.quantity) + 1e-8 >= required;
+    return { ...item, name: specificProduct ? line.material.name : item.name, unit: line.material.unit, quantity: line.quantity,
+      estimatedPrice: line.cost, quantityKnown: true, requiredQuantity: required,
       needsQuantityConfirmation: !matches, owned: matches && item.owned, purchased: matches && item.purchased,
       notes: line.material.notes };
   });

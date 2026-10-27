@@ -52,6 +52,9 @@ export const selfLevelingJob: RenovationJob = {
     { id: 'perimeter', label: 'Długość taśmy przy ścianach', unit: 'm', inputType: 'length',
       placeholder: 'np. 14', min: 1, max: 500,
       hint: 'Zsumuj krawędzie podłogi przy ścianach. Przykład: pokój 2 × 5 m ma obwód 14 m. Doliczamy jawny zapas 5% na łączenia i cięcia.' },
+    { id:'edgeTapeChoice',label:'Model taśmy dylatacyjnej',unit:'',inputType:'select',placeholder:'Wybierz model',min:0,max:1,defaultValue:0,required:false,
+      options:[{value:0,label:'Pack-Center TB-FB00202 · 5 mm × 10 cm × 50 m'},{value:1,label:'Fola · 5 mm × 10 cm × 50 m'}],
+      hint:'To różne produkty o tych samych wymiarach. Porównujemy wybrany model; cenę i możliwość dostawy potwierdzamy w koszyku sklepu.' },
     ...substratePrimerInputs('self-leveling'),
   ],
   materials: [
@@ -68,9 +71,14 @@ export const selfLevelingJob: RenovationJob = {
     {
       id: 'expansion-tape',
       name: 'Taśma dylatacyjna przy ścianach',
+      // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282
+      brand: 'Pack-Center TB-FB00202, 5 mm × 10 cm, rolka 50 m',
+      sourceUrl: 'https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282',
       unit: 'mb',
       formulaKey: 'levelingEdgeTape',
-      pricePerUnit: 2,
+      pricePerUnit: 14.06,
+      priceBasis: 'package',
+      packaging: { size: 50, label: 'rolka 50 m', purchaseUnit: 'rolka' },
       wasteFactor: 1.05,
       notes: 'Przyklejona przy podstawie ścian — zapobiega pękaniu masy przy ruchu budynku. Założenie zakupowe: długość krawędzi z obmiaru + 5% na łączenia i cięcia.',
     },

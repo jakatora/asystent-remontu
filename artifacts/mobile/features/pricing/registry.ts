@@ -5,6 +5,7 @@ import { tileSpacerReferences } from './tileSpacers';
 import { KITCHEN_EPOXY_REFERENCE, KITCHEN_WHITE_REFERENCE } from './kitchenMaterials';
 import { REPAINT_UNDERCOAT_REFERENCE } from '@/features/calculator/repaint';
 import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
+import { levelingTapeReference } from '@/features/calculator/levelingTape';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -66,6 +67,14 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'primer') results.splice(i, 1);
     const ref = MATERIAL_BY_ID.get(primer.referenceId);
     if (ref) results.push(ref);
+  }
+  if (jobId === 'self-leveling') {
+    // A separate reviewed merchant SKU, never an offer for Fola's EAN.
+    // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282
+    for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'expansion-tape') results.splice(i, 1);
+    const selected = levelingTapeReference(measurements);
+    const tape = selected ? MATERIAL_BY_ID.get(selected) : undefined;
+    if (tape) results.push(tape);
   }
   if(jobId==='paint-ceiling') {
     const ref=MATERIAL_BY_ID.get('mat-universal-primer-5l');if(ref&&!results.some(row=>row.id===ref.id))results.push(ref);

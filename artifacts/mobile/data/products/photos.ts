@@ -3,7 +3,8 @@
  */
 interface ProductPhoto {
   readonly ids: readonly string[];
-  readonly ean: string;
+  /** Reviewed merchant SKUs may have no manufacturer EAN. */
+  readonly ean?: string;
   readonly sourceUrl: string;
   /** Exact retail identity when the image itself comes from the manufacturer. */
   readonly identitySourceUrl?: string;
@@ -11,6 +12,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282 (odczyt 2026-10-27T01:34:02.370Z)
+  // source: https://tape.pl/marki/31-goldflex
+  {"ids":["mat-edge-tape-packcenter-tb-fb00202-50m"],"sourceUrl":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","imageUrl":"https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp"},
+
   // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
   {ids:['mat-epoxy-grout-mapei-kerapoxy-easy-100-3kg'],ean:'8022452132940',sourceUrl:'https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527',imageUrl:'https://www.rabdom.pl/environment/cache/images/productGfx_35202_500_500/Opakowanie-fugi-Mapei-o-gramaturze-3-kg..webp'},
   // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896
@@ -284,7 +289,7 @@ export function getProductPhoto(product: {
   // Prefer the reviewed catalogue image for an exact identity. Some shop
   // domains serve prices correctly on the backend but time out on the device.
   const reviewed = PRODUCT_PHOTOS.find(photo =>
-    (product.id && (photo.ids.includes(product.id) || product.id === `remont-${photo.ean}`)) ||
+    (product.id && (photo.ids.includes(product.id) || photo.ean && product.id === `remont-${photo.ean}`)) ||
     (product.ean && photo.ean === product.ean) || urls.includes(photo.sourceUrl),
   )?.imageUrl;
   return reviewed ?? (product.imageUrl?.startsWith('https://') ? product.imageUrl : undefined);

@@ -5,18 +5,19 @@ import { parseRetailPage } from './retail-pages';
 import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
 import { cleanHtml, htmlElements as nodes, htmlAttributes, htmlText as text } from './retail-microdata';
 import { QuoteQueue } from './quote-queue';
+import { isReviewedSkuSource } from './retail-sku';
 
 const cls = (a: Record<string,string>, name: string) => a.class?.split(/\s+/).includes(name) ?? false;
 const attr = (html: string) => htmlAttributes(html.match(/^<[^>]+>/)?.[0] ?? '');
 const one = (values: string[]) => { if (values.length !== 1) throw Error('basket_not_confirmed'); return values[0]; };
-export type CheckoutPageReader=(url:string,price:number,client:AnonymousShop)=>Promise<string>;
+export type CheckoutPageReader=(url:string,price:number,client:AnonymousShop,scope?:string)=>Promise<string>;
 /** Share only public product HTML, not cart sessions. The cart still confirms
  * every current quantity and gross price. A price change uses a new key. */
 export function createCheckoutPageReader():CheckoutPageReader {
   const cache=new Map<string,{until:number;value:Promise<string>}>();
   const reads=new QuoteQueue(3,12,15_000);
-  return (url,price,client)=>{
-    const key=JSON.stringify([url,price]), previous=cache.get(key);
+  return (url,price,client,scope)=>{
+    const key=JSON.stringify([url,price,scope??'']), previous=cache.get(key);
     if(previous&&previous.until>Date.now())return previous.value;
     if(cache.size>=32)cache.delete(cache.keys().next().value!);
     const value=(async()=>{const release=await reads.acquire();if(!release)throw Error('quote_busy');try{return await client.text(url);}finally{release();}})();
@@ -32,12 +33,12 @@ export function checkoutMoney(value: string): number {
   if (!Number.isSafeInteger(result) || result < 0) throw Error('invalid_money');
   return result;
 }
-function quote(order: DeliveredStoreBasket, costGrosze: number, carrier: string, payment: string, evidence: unknown, postalCode?: string): DeliveryQuoteResult {
+function quote(order: DeliveredStoreBasket, costGrosze: number, carrier: string, payment: string, evidence: unknown, postalCode?: string, dispatchFrom='Katowice'): DeliveryQuoteResult {
   const now = new Date();
   return { quote: { costGrosze, carrier, payment, checkedAt:now.toISOString(), expiresAt:new Date(now.getTime()+600_000).toISOString(),
     sourceUrl: order.store === 'Sewera' ? 'https://sklep.sewera.pl/zamowienie' : 'https://buduj24.pl/cart',
     basis:postalCode ? 'retailer_basket_postcode' : 'retailer_basket_national', destinationScope:postalCode ? 'postal_code' : 'PL',
-    ...(postalCode ? { postalCode, dispatchFrom:'Katowice' } : {}),
+    ...(postalCode ? { postalCode, dispatchFrom } : {}),
     evidenceSha256:createHash('sha256').update(JSON.stringify(evidence)).digest('hex') } };
 }
 function expectedPacks(order: DeliveredStoreBasket) {
@@ -53,11 +54,12 @@ function tdValue(html: string, label: string): string {
   return one(values);
 }
 
-export function confirmSeweraBasket(html: string, expected: { url:string; pid:string; count:number; price:number; retailUnit?: 'SZT' | 'OPA' }[], total: number) {
+export function confirmSeweraBasket(html: string, expected: { url:string; pid:string; count:number; price:number; retailUnit?: 'SZT' | 'OPA' }[], total: number, dispatchFrom='Katowice') {
   const table=one(nodes(cleanHtml(html),a=>cls(a,'basket-product')));
   const body=one(nodes(table,(_,tag)=>tag==='tbody'));
   const rows=nodes(body,(_,tag)=>tag==='tr').filter(row=>nodes(row,a=>a.name==='amount').length===1);
-  if (rows.length!==expected.length || !/Twój sklep to Katowice/.test(text(html))) throw Error('basket_not_confirmed');
+  const branch=dispatchFrom.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  if (rows.length!==expected.length || !new RegExp(`Twój sklep to ${branch}(?=\\s|$)`).test(text(html))) throw Error('basket_not_confirmed');
   const shortages: {url:string; count:number; price:number; maxPackages:number}[]=[];
   for (const wanted of expected) {
     const row=one(rows.filter(row=>nodes(row,a=>a.href===wanted.url).length>0));
@@ -98,21 +100,39 @@ export function readSeweraPayment(html: string): { costGrosze:number; payment:st
   return options.sort((a,b)=>a.costGrosze-b.costGrosze)[0] ?? null;
 }
 
+/** Heavy materials use the retailer's named pallet carriers. They still need
+ * a fresh postcode price from the same verified cart, just like parcel couriers.
+ * source: https://sklep.sewera.pl/zamowienie */
+export function seweraHomeDeliveryMethods(checkout:string) {
+  return nodes(cleanHtml(checkout),a=>{
+    const name=a['data-name']??'';
+    return a.name==='dostawa' && a['data-personal-collection']==='0' && a.disabled===undefined
+      && (/kurier/i.test(name)||/^(DHL|Raben) - Paleta do \d+\s*kg$/i.test(name))
+      && !/indywidual|zapytani|odbiór|paczkomat/i.test(name);
+  }).filter(node=>!/\sdisabled(?:\s|=|>)/i.test(node.match(/^<[^>]+>/)?.[0]??'')).map(attr);
+}
+
 // Public calculator used by the retailer's checkout; no customer/order form is
 // submitted. Only country and the user's postcode accompany this basket quote.
 // source: https://sklep.sewera.pl/js/zamowienie.js?v=20260716
 export async function quoteSewera(order: DeliveredStoreBasket, postalCode: string, fetchImpl: typeof fetch, pages:CheckoutPageReader=(_url,_price,client)=>client.text(_url)): Promise<DeliveryQuoteResult> {
+  const packs=expectedPacks(order);
+  const configured=packs.filter(({source})=>source.dispatchDepartment);
+  if(configured.some(({source})=>!isReviewedSkuSource(source)))throw Error('dispatch_department_not_confirmed');
+  const department=configured[0]?.source.dispatchDepartment??{id:'1',name:'Katowice'};
+  if(configured.some(({source})=>source.dispatchDepartment!.id!==department.id||source.dispatchDepartment!.name!==department.name))throw Error('dispatch_department_not_confirmed');
   const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
-  if ((await client.text('/ajax/ax_execute.php?operation=setDepartment',{model:'department',department:'1'})).trim()!=='1') throw Error('basket_not_confirmed');
+  if ((await client.text('/ajax/ax_execute.php?operation=setDepartment',{model:'department',department:department.id})).trim()!==department.id) throw Error('basket_not_confirmed');
   const expected: {url:string;pid:string;count:number;price:number;retailUnit?:'SZT'|'OPA'}[]=[];
-  const packs=expectedPacks(order), prepared: {source:typeof packs[number]['source'];pack:typeof packs[number]['pack'];pid:string}[]=[];
+  const prepared: {source:typeof packs[number]['source'];pack:typeof packs[number]['pack'];pid:string}[]=[];
   let next=0,hasFailure=false;let failure:unknown;
   // Read immutable public cards concurrently; cart mutations below remain
   // sequential. The shared page reader bounds requests across all quotes.
   await Promise.all(Array.from({length:Math.min(3,packs.length)},async()=>{while(next<packs.length&&!hasFailure){
     try {
     const index=next++,{source,pack}=packs[index];
-    const page=await pages(source.url,pack.unitPriceGrosze,client),observed=parseRetailPage(page,source,new Date());
+    const page=await pages(source.url,pack.unitPriceGrosze,client,`sewera:${department.id}`),observed=parseRetailPage(page,source,new Date());
+    if(configured.length&&text(one(nodes(cleanHtml(page),a=>cls(a,'b2cCSS-select-dept'))))!==department.name)throw Error('dispatch_department_not_confirmed');
     if(observed.priceGrosze!==pack.unitPriceGrosze)throw Error('price_changed');
     const pid=attr(one(nodes(cleanHtml(page),a=>a.name==='add_to_basket_pid'))).value;
     if(!/^\d+$/.test(pid))throw Error('basket_not_confirmed');
@@ -125,7 +145,7 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
     expected.push({url:source.url,pid,count:pack.count,price:pack.unitPriceGrosze,retailUnit:source.retailUnit});
   }
   const basket=await client.text('/index.php?page=koszyk');
-  try { confirmSeweraBasket(basket,expected,order.materialsGrosze); }
+  try { confirmSeweraBasket(basket,expected,order.materialsGrosze,department.name); }
   catch (error) {
     if (!(error instanceof SeweraStockError)) throw error;
     const checkedAt=new Date(),evidenceSha256=createHash('sha256').update(basket).digest('hex');
@@ -133,14 +153,14 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
       const {pack}=prepared.find(item=>item.source.url===shortage.url)!;
       const product=order.lines.find(line=>line.packages.some(item=>item.offerId===pack.offerId))!.product;
       return {offerId:pack.offerId,store:order.store,productId:product.id,productName:product.name,maxPackages:shortage.maxPackages,requestedPackages:shortage.count,unitPriceGrosze:shortage.price,
-        postalCode,dispatchFrom:'Katowice',checkedAt:checkedAt.toISOString(),expiresAt:new Date(checkedAt.getTime()+600_000).toISOString(),
+        postalCode,dispatchFrom:department.name,checkedAt:checkedAt.toISOString(),expiresAt:new Date(checkedAt.getTime()+600_000).toISOString(),
         sourceUrl:'https://sklep.sewera.pl/index.php?page=koszyk',evidenceSha256};
     })};
   }
   const checkout=cleanHtml(await client.text('/zamowienie'));
   const country=one(nodes(checkout,a=>a.id==='selectCountryUser'));
   if (!nodes(country,a=>a.value==='1').some(n=>text(n)==='Polska')) throw Error('country_not_confirmed');
-  const methods=nodes(checkout,a=>a.name==='dostawa' && a['data-personal-collection']==='0' && /kurier/i.test(a['data-name']??'') && !/indywidual|zapytani|odbiór|paczkomat/i.test(a['data-name'])).map(attr);
+  const methods=seweraHomeDeliveryMethods(checkout);
   if (!methods.length || methods.length>5) throw Error('no_home_delivery');
   const options: {costGrosze:number;payment:string;carrier:string;hash:string}[]=[];
   for (const method of methods) {
@@ -152,7 +172,7 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
   }
   const best=options.sort((a,b)=>a.costGrosze-b.costGrosze)[0];
   if (!best) throw Error('no_home_delivery');
-  return quote(order,best.costGrosze,best.carrier,best.payment,{expected,postalCode,options},postalCode);
+  return quote(order,best.costGrosze,best.carrier,best.payment,{expected,postalCode,options,department},postalCode,department.name);
 }
 
 function budujItemPrice(row: string) {

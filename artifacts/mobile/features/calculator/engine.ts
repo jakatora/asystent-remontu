@@ -12,6 +12,7 @@ import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MO
 import { REPAINT_JOB_ID, isRepaintQuantity, repaintQuantity } from './repaint';
 import { ceilingPrimerLitres } from './ceilingPrimer';
 import { substratePrimerSpecification, substratePrimerQuantity, levelingEdgeTapeMetres, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
+import { levelingTapeMaterial } from './levelingTape';
 
 const DEFAULT_WASTE_FACTOR = 1.1;
 
@@ -119,6 +120,7 @@ function buildSummaryText(
 
 class RenovationCalculatorEngine implements CalculatorEngine {
   calculate(job: RenovationJob, measurements: MeasurementMap): CalculationResult {
+    if(job.id==='self-leveling'&&measurements.edgeTapeChoice===undefined)measurements={...measurements,edgeTapeChoice:0};
     const materials = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : this.calculateMaterialItems(job, measurements);
     const totalCost = roundMoney(materials.reduce((sum, m) => sum + m.cost, 0));
     const warnings = resolveWarnings(job.warningRules, { measurements });
@@ -143,6 +145,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
    * Suitable for display in result screens and persistable as JSON.
    */
   calculateDetailed(job: RenovationJob, measurements: MeasurementMap): CalculationResultDetail {
+    if(job.id==='self-leveling'&&measurements.edgeTapeChoice===undefined)measurements={...measurements,edgeTapeChoice:0};
     const config = getJobConfig(job.id);
 
     // Run validation if config has a validator
@@ -186,6 +189,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if (job.id === 'self-leveling' && material.id === 'expansion-tape' && !isRichMaterial(material)) material = levelingTapeMaterial(material, measurements);
       const { rawQuantity, quantity, packs, quantityKnown } = resolveMaterialQuantity(material, measurements, job.id);
       const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
       const cost = roundMoney(billableQty * material.pricePerUnit);
@@ -200,6 +204,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if (job.id === 'self-leveling' && material.id === 'expansion-tape' && !isRichMaterial(material)) material = levelingTapeMaterial(material, measurements);
       const { rawQuantity, quantity, packs, quantityKnown } = epsItems?.[index] ?? resolveMaterialQuantity(material, measurements, job.id);
 
       const packaging = material.packaging;

@@ -38,6 +38,7 @@ function labelled(html: string, label: string, tag: 'strong' | 'em'): string {
   const regex = new RegExp(`<${tag}\\b[^>]*>\\s*${escaped}\\s*<\\/${tag}>([\\s\\S]*?)<\\/div>`, 'gi');
   return text(one([...html.matchAll(regex)].map(match => match[1]), 'microdata_identity_ambiguous'));
 }
+export { labelled as htmlLabel };
 
 export function readRetailMicrodata(html: string, format: 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', url: string, retailUnit: 'SZT' | 'OPA' = 'SZT'): Record<string, any> {
   const safe = clean(html);

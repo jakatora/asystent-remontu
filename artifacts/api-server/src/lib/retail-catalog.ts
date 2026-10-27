@@ -1014,6 +1014,9 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153
   {"id":"sewera-sniezka-undercoat-5l","ean":"5903973000235","name":"Śnieżka grunt 5l","category":"paint-undercoat","brand":"Śnieżka","packageSize":5,"unit":"l","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["Śnieżka","grunt","5l"],"url":"https://sklep.sewera.pl/sniezka-grunt-5l-p6153","imageUrl":"https://sklep.sewera.pl/photo/72152/sniezka-grunt-5l.webp"},
 
+  // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282
+  {"id":"sewera-packcenter-edge-tape-50m","ean":"","name":"Taśma dylatacyjna 5mm x 10cm x 50m","category":"expansion-tape","brand":"Pack-Center","packageSize":50,"unit":"mb","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["5mm","10cm","50m"],"url":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","skuIdentity":{"catalogKey":"sewera-465325","manufacturerSku":"TB-FB00202","merchantProductId":"465325","pageBarcode":"465325"},"imageUrl":"https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp","dispatchDepartment":{"id":"3","name":"Gliwice"}},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

@@ -9,6 +9,7 @@ import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
 import { projectRequestSchema } from './lib/pricing-schema';
 import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
+import { retailProductId, retailProductName } from './lib/retail-sku';
 import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
 import { compareAutomaticDelivery } from '../../../lib/pricing-service/src/automatic-delivery';
 import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
@@ -82,10 +83,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       if (!observation) continue;
       if (withdrawnAt.has(source.id) && Date.parse(withdrawnAt.get(source.id)!) >= Date.parse(observation.observedAt)) continue;
       if (observation.validUntil && !retailPriceIsValid(observation.validUntil, new Date())) continue;
-      const productId = `remont-${source.ean}`;
+      const productId = retailProductId(source), productName = retailProductName(source);
       if (!products.some(product => product.id === productId)) products.push({
-        id: productId, name: source.name, normalizedName: normalizeProductName(source.name),
-        ean: source.ean, gtin: null, manufacturer: source.brand || null, brand: source.brand || null,
+        id: productId, name: productName, normalizedName: normalizeProductName(productName),
+        ean: source.ean || null, gtin: null, manufacturer: source.brand || null, brand: source.brand || null,
         category: source.category, subcategory: null, variant: null,
         packageSize: String(source.packageSize), packageUnit: source.unit, technicalParameters: null,
         imageUrl: observation.imageUrl, productUrl: source.url,
@@ -190,7 +191,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     }
     for (const job of parsed.data.jobs) for (const line of job.materials) {
       const ean = line.material.ean ?? RETAIL_NAME_ALIASES[line.material.name];
-      const source = RETAIL_SOURCES.find(source => source.ean === ean);
+      const source = RETAIL_SOURCES.find(source => source.ean === ean)
+        ?? RETAIL_SOURCES.find(source => source.skuIdentity && source.category === line.material.category && normalizeProductName(retailProductName(source)) === normalizeProductName(line.material.name));
       if (source && normalUnit(line.material.unit) !== source.unit) {
         res.status(400).json({ error: 'incompatible_product_unit' }); return;
       }

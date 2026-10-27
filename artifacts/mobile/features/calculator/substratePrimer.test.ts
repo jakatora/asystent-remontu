@@ -6,8 +6,10 @@ import { toPricingStageInput } from '@/features/pricing/pricingApi';
 import { getMaterialsForJob } from '@/features/pricing/registry';
 import { resolveMaterialQuantity } from '@/features/pricing/quantity';
 import { buildRenovationBasket } from '@/features/pricing/renovationBasket';
+import { getProductPhoto } from '@/data/products/photos';
+import { PACKCENTER_EDGE_TAPE, FOLA_EDGE_TAPE } from './levelingTape';
 import { applyProjectShopping, shoppingQuantityAction } from '@/features/pricing/projectShoppingInput';
-import { upgradeCalculation, projectShopping } from './upgrades';
+import { upgradeCalculation, upgradeProject, projectShopping } from './upgrades';
 import { generateShoppingItems } from './shopping';
 import { substratePrimerSpecification, substratePrimerQuantity, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
 import type { CalculationResult, ShoppingItem, Project } from '@/types/domain';
@@ -113,13 +115,52 @@ test('recalculation projects a changed unit and all changed quantities; explicit
   const saved:ShoppingItem={id:'old',projectId:'p',materialId:'primer-leveling',name:'Dragon',quantity:5,unit:'litr',estimatedPrice:12,owned:true,purchased:true,itemType:'material',tier:'standard',createdAt:''};
   const tape={...saved,id:'tape',materialId:'expansion-tape',name:'Taśma dylatacyjna przy ścianach',quantity:5,unit:'mb'};
   const before=JSON.stringify([saved,tape]),projected=projectShopping([saved,tape],fresh);
-  assert.equal(projected[0].unit,'kg');assert.equal(projected[0].requiredQuantity,10);assert.equal(projected[0].owned,false);
+  assert.equal(projected[0].unit,'kg');assert.equal(projected[0].requiredQuantity,6);assert.equal(projected[0].quantity,10);assert.equal(projected[0].owned,false);
   assert.equal(projected[1].requiredQuantity,21);assert.equal(projected[1].purchased,false);
-  assert.deepEqual(shoppingQuantityAction(fresh.jobId,projected[0]),{allowed:true,confirmQuantity:10});
-  const confirmed={...saved,customQuantity:10,unit:projected[0].unit,name:projected[0].name};
+  assert.deepEqual(shoppingQuantityAction(fresh.jobId,projected[0]),{allowed:true,confirmQuantity:6});
+  const confirmed={...saved,customQuantity:6,unit:projected[0].unit,name:projected[0].name};
   assert.equal(projectShopping([confirmed],fresh)[0].owned,true);
   assert.ok(!applyProjectShopping(toPricingStageInput(fresh),fresh,'p',[confirmed]).stage.materials.some(row=>row.material.id==='primer-leveling'));
   assert.equal(JSON.stringify([saved,tape]),before);
+});
+
+test('a sufficient owned remainder covers actual consumption without owning a whole new retail pack',()=>{
+  const result=calc('self-leveling'),tape:ShoppingItem={id:'tape',projectId:'p',materialId:'expansion-tape',name:result.materials.find(line=>line.material.id==='expansion-tape')!.material.name,quantity:20,unit:'mb',estimatedPrice:0,owned:true,purchased:false,itemType:'material',tier:'standard',createdAt:''};
+  const projected=projectShopping([tape],result)[0];
+  assert.equal(projected.quantity,50);assert.equal(projected.requiredQuantity,14.7);assert.equal(projected.owned,true);
+  const pending=applyProjectShopping(toPricingStageInput(result),result,'p',[tape]);assert.ok(!pending.stage.materials.some(row=>row.material.id==='expansion-tape'));
+  const short={...tape,quantity:10};assert.equal(projectShopping([short],result)[0].owned,false);assert.ok(applyProjectShopping(toPricingStageInput(result),result,'p',[short]).stage.materials.some(row=>row.material.id==='expansion-tape'));
+});
+
+test('an explicit edge tape model selects its own product, photo and price in every tier without changing length',()=>{
+  for(const [choice,id,cost]of [[0,PACKCENTER_EDGE_TAPE,14.06],[1,FOLA_EDGE_TAPE,35.48]] as const){
+    const result=calc('self-leveling',{edgeTapeChoice:choice}),line=result.materials.find(row=>row.material.id==='expansion-tape')!;
+    assert.equal(line.rawQuantity,14.7);assert.equal(line.quantity,50);assert.equal(line.cost,cost);assert.ok(getProductPhoto(line.material));
+    for(const tier of ['economy','standard','better'] as const){
+      const refs=getMaterialsForJob(result.jobId,tier,result.measurements).filter(row=>row.materialType==='expansion-tape');
+      assert.equal(refs.length,1);assert.equal(refs[0].id,id);
+      const input=toPricingStageInput(result,tier).materials.find(row=>row.material.id==='expansion-tape')!;
+      assert.equal(input.material.name,refs[0].productLabel);assert.equal(input.quantity,14.7);assert.equal(input.material.unit,'mb');
+    }
+  }
+  const invalid=calc('self-leveling',{edgeTapeChoice:2});assert.equal(invalid.materials.find(row=>row.material.id==='expansion-tape')!.quantityKnown,false);
+  assert.equal(getProductPhoto({id:'remont-undefined'}),undefined);
+});
+
+test('saved Fola calculations keep the original manufacturer until the user explicitly chooses another model',()=>{
+  const fola=calc('self-leveling',{edgeTapeChoice:1}),{edgeTapeChoice:_,...measurements}=fola.measurements;
+  const saved={...fola,measurements},before=JSON.stringify(saved),upgraded=upgradeCalculation(saved)!;
+  assert.equal(upgraded.measurements.edgeTapeChoice,1);
+  const reference=getMaterialsForJob(saved.jobId,'standard',{...measurements,edgeTapeChoice:1}).find(row=>row.id===FOLA_EDGE_TAPE)!;
+  assert.equal(toPricingStageInput(saved).materials.find(row=>row.material.id==='expansion-tape')!.material.name,reference.productLabel);
+  assert.equal(JSON.stringify(saved),before);
+  assert.deepEqual(upgradeCalculation(upgraded),upgraded);
+  const p:Project={id:'saved',name:'Zapisana wylewka',jobId:saved.jobId,jobName:'Wylewka',categoryId:'floor-prep',measurements,calculationResult:saved,status:'planning',createdAt:'',updatedAt:''};
+  const oldProject=JSON.stringify(p),projection=upgradeProject(p);
+  assert.equal(projection.measurements.edgeTapeChoice,1);assert.equal(projection.calculationResult!.measurements.edgeTapeChoice,1);
+  assert.equal(JSON.stringify(p),oldProject);
+  assert.equal(calc('self-leveling').measurements.edgeTapeChoice,0);
+  assert.equal(calculatorEngine.calculateDetailed(getJobById('self-leveling')!,measurements).measurements.edgeTapeChoice,0);
 });
 
 test('simple and detailed calculators agree on product, money and unknown quantity explanation',()=>{

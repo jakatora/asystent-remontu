@@ -1,6 +1,10 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282 (odczyt 2026-10-27T01:34:02.370Z)
+  // source: https://tape.pl/marki/31-goldflex
+  {"id":"mat-edge-tape-packcenter-tb-fb00202-50m","materialType":"expansion-tape","productLabel":"Taśma dylatacyjna 5mm x 10cm x 50m (Pack-Center TB-FB00202)","brand":"Pack-Center","packageSize":50,"packageUnit":"mb","pricePerPackage":14.06,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","lastUpdated":"2026-10-27","currency":"PLN","notes":"PACK-CENTER TB-FB00202, pianka PE 5 mm × 10 cm, rolka 50 m. Kod sklepu 465325 nie jest EAN-em; model jest odrębny od Fola. Dobór do dylatacji cienkiej wylewki, długość krawędzi z obmiaru + jawny zapas 5%."},
+
   {
     id: 'mat-paint-economy-white-10l',
     materialType: 'paint',

@@ -17,10 +17,16 @@ import { inspectFolnetProduct } from './folnet-product';
 import { inspectKronosferaProduct } from './kronosfera-product';
 import { readSkyshopProduct, confirmSkyshopBasket, reviewedSkyshopSource, skyshopEvidenceHash, MATBUD_ORIGIN } from './skyshop-product';
 import type { PriceVerification } from '../../../../lib/pricing-service/src/types';
+import { confirmRetailSkuProduct, isReviewedSkuSource, type RetailSkuIdentity } from './retail-sku';
 
 export interface RetailSource {
   id: string;
   ean: string;
+  /** Empty ean is accepted only with an individually reviewed merchant SKU. */
+  skuIdentity?: RetailSkuIdentity;
+  /** Reviewed fulfilment branch for a merchant SKU. The whole cart must still
+   * confirm current stock, prices and delivery from this same branch. */
+  dispatchDepartment?: { id: string; name: string };
   name: string;
   category: string;
   brand: string;
@@ -97,9 +103,11 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if ((!source.ean || source.skuIdentity) && !isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
-  if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
+  if (source.skuIdentity) products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
+  else if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
   else if (source.format === 'folnet') {
     const reviewed = inspectFolnetProduct(html, source);
     products.push(reviewed.product); stockPackages = reviewed.stock;
@@ -117,7 +125,8 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
     if (products.length !== 1) throw Error('product_identity_ambiguous');
     products[0] = confirmRetailIdentity(html, products[0], source);
   }
-  const product = products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
+  const product = source.skuIdentity ? products.find(item => item.sku === source.skuIdentity!.manufacturerSku && !item.gtin13 && !item.gtin)
+    : products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
   const name = String(product.name ?? '');
   const normalize = (value: string) => normalizeProductName(value.replace(/(\d|mm|cm|m)\s*[x×/]\s*(?=\d)/gi, '$1 x ').replace(/(\d)([a-zA-Z])/g, '$1 $2'));

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import {readSeweraPayment,confirmSeweraBasket,confirmBudujBasket,decodeBudujDetails,checkoutMoney,createCheckoutPageReader,quoteSewera} from '../src/lib/retailer-checkouts';
+import {readSeweraPayment,confirmSeweraBasket,confirmBudujBasket,decodeBudujDetails,checkoutMoney,createCheckoutPageReader,quoteSewera,seweraHomeDeliveryMethods} from '../src/lib/retailer-checkouts';
 import type {AnonymousShop} from '../src/lib/retailer-http';
 import {RETAIL_SOURCES} from '../src/lib/retail-catalog';
 import type {DeliveredStoreBasket} from '../../../lib/pricing-service/src/delivery';
@@ -9,6 +9,16 @@ test('product reads can be coalesced across isolated carts; changed prices get a
   let calls=0;const client={text:async()=>{calls++;await new Promise(r=>setTimeout(r,1));return 'public product';}} as unknown as AnonymousShop;
   const read=createCheckoutPageReader();await Promise.all([read('https://sklep.sewera.pl/product',1000,client),read('https://sklep.sewera.pl/product',1000,client)]);
   assert.equal(calls,1);await read('https://sklep.sewera.pl/product',1100,client);assert.equal(calls,2);
+});
+
+test('branch-dependent stock cards never share the cache across dispatch departments',async()=>{
+  let calls=0;const client={text:async()=>String(++calls)} as unknown as AnonymousShop;
+  const read=createCheckoutPageReader(),url='https://sklep.sewera.pl/product';
+  assert.equal(await read(url,1406,client,'sewera:1'),'1');
+  assert.equal(await read(url,1406,client,'sewera:3'),'2');
+  assert.equal(await read(url,1406,client,'sewera:1'),'1');
+  assert.equal(await read(url,1406,client,'sewera:3'),'2');
+  assert.equal(calls,2);
 });
 
 test('failed Sewera prefetch waits for active reads and stops starting new ones before releasing its quote',async()=>{
@@ -45,11 +55,22 @@ test('Sewera explicit unavailable zero cannot become free shipping; visible and 
   assert.equal(readSeweraPayment(payment('23,90').replace('Płatność online','Za pobraniem')),null);
   assert.throws(()=>checkoutMoney('od 19,90 zł')); assert.throws(()=>checkoutMoney('19,90 netto'));
 });
+
+test('actual named pallet carriers can quote heavy baskets; pickup, individual transport and disabled methods cannot',()=>{
+  const method=(name:string,id:string,collection='0',extra='')=>`<input name="dostawa" data-name="${name}" value="${id}" data-personal-collection="${collection}" ${extra}>`;
+  const html=method('DHL - Paleta do 200 kg','5')+method('Raben - Paleta do 200kg','129')+method('Kurier InPost do 5kg','10')
+    +method('Odbiór osobisty','8','1')+method('Transport Sewera do 50km','12','3')+method('DHL - Paleta do 200 kg wycena indywidualna','13')
+    +method('Nieznany - Paleta do 200 kg','14')+method('Kurier DHL','15','0','disabled')+method('Kurier odbiór osobisty','16')+method('DHL - Paleta do 200 kg','17','1');
+  assert.deepEqual(seweraHomeDeliveryMethods(html).map(row=>row.value),['5','129','10']);
+});
 test('Sewera cart verifies actual quantity, SKU, gross price, total and dispatch branch',()=>{
   const row=`<tr><td><input wybierz="123"><a href="https://sklep.sewera.pl/test">Farba</a><input name="amount" value="2"><table><tr><td>Cena brutto:</td><td>10,00 zł</td></tr><tr><td>Wartość:</td><td>20,00 zł</td></tr></table></td></tr>`;
   const html=`Twój sklep to Katowice<table class="table basket-product"><tbody>${row}</tbody><tfoot><div class="basket_sum">Razem do zapłaty: 20,00 zł</div></tfoot></table>`;
   const expected=[{url:'https://sklep.sewera.pl/test',pid:'123',count:2,price:1000}];
   confirmSeweraBasket(html,expected,2000);
+  confirmSeweraBasket(html.replace('Katowice','Gliwice'),expected,2000,'Gliwice');
+  for(const branch of ['Gliwice2','Gliwice-stary','Katowice'])assert.throws(()=>confirmSeweraBasket(html.replace('Katowice',branch),expected,2000,'Gliwice'),/basket_not_confirmed/);
+  assert.throws(()=>confirmSeweraBasket(html.replace('Katowice','GliwiceX'),expected,2000,'Gliwice.'),/basket_not_confirmed/);
   assert.throws(()=>confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 1 SZT!'),expected,2000),/insufficient_stock/);
   confirmSeweraBasket(html.replace('Farba</a>','Farba</a> W magazynie znajdują się jedynie 2 SZT!'),expected,2000);
   const packageExpected = expected.map(row => ({ ...row, retailUnit: 'OPA' as const }));
