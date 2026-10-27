@@ -1,4 +1,5 @@
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
+import { wallpaperRollInputs } from '@/features/calculator/wallpaperRolls';
 import { wallpaperAdhesiveInputs } from '@/features/calculator/wallpaperAdhesive';
 import { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -34,6 +35,7 @@ export const wallpaperJob: RenovationJob = {
     },
     ...substratePrimerInputs('wallpaper'),
     ...wallpaperAdhesiveInputs,
+    ...wallpaperRollInputs,
   ],
   materials: [
     {

@@ -19,6 +19,7 @@ import { parsePriceToGrosze } from "@workspace/price-collector";
 
 import { optimizePackages } from "./package-optimizer";
 import { computePackagesNeeded } from './purchase-quantity';
+import { ERISMANN_3333_5_EAN, ERISMANN_3333_5_ROLL, planPlainWallpaperPanels, type WallpaperPanel, type WallpaperCutPlan } from './wallpaper-rolls';
 export { computePackagesNeeded } from './purchase-quantity';
 import type {
   CheapestOffer,
@@ -300,6 +301,7 @@ export async function estimateStageCost(
  * (compareStores) — grupowanie po `product.id` liczymy raz i tak samo.
  */
 interface ProductGroup {
+  wallpaperCutPlan?: WallpaperCutPlan;
   product: ResolvedLine["product"];
   /** Najtańsza oferta produktu (bez filtra sklepu) — koszyk optymalny. */
   cheapestOffer: CheapestOffer;
@@ -322,10 +324,17 @@ export function groupProjectByProduct(
   stages: readonly StageEstimate[],
 ): ProductGroup[] {
   const groups = new Map<string, ProductGroup>();
-  for (const stage of stages) {
+  const cuts = new Map<string, { panels: WallpaperPanel[]; quantity: number }>();
+  for (const [stageIndex, stage] of stages.entries()) {
     for (const line of stage.lines) {
       if (!line.resolved) continue;
       const key = line.product.id;
+      if (line.plainWallpaper && line.product.ean === ERISMANN_3333_5_EAN && line.unit === 'szt' && line.packageSize === 1) {
+        const entry = cuts.get(key) ?? { panels: [], quantity: 0 };
+        entry.quantity += line.quantity;
+        entry.panels.push(...line.plainWallpaper.panels.map(panel => ({ ...panel, id: `${stageIndex}:${panel.id}` })));
+        cuts.set(key, entry);
+      }
       const existing = groups.get(key);
       if (existing) {
         existing.totalQuantity += line.quantity;
@@ -345,6 +354,8 @@ export function groupProjectByProduct(
     }
   }
   return [...groups.values()].map(group => {
+    const request = cuts.get(group.product.id), plan = request && planPlainWallpaperPanels(request.panels, ERISMANN_3333_5_ROLL);
+    if (plan && plan.rollsNeeded <= request!.quantity) group = { ...group, totalQuantity: group.totalQuantity - request!.quantity + plan.rollsNeeded, wallpaperCutPlan: plan };
     const cheapest = selectCheapestOffer(group.offers, undefined, { quantity: group.totalQuantity, product: group.product });
     return cheapest ? { ...group, cheapestOffer: cheapest, packageSize: resolvePackageSize(cheapest.offer, group.product) } : group;
   });
@@ -362,6 +373,7 @@ export function consolidateProject(
     const packagesNeeded = packagePlan?.packages.reduce((sum, entry) => sum + entry.count, 0) ?? computePackagesNeeded(g.totalQuantity, g.packageSize);
     const lineCostGrosze = packagePlan?.totalGrosze ?? packagesNeeded * g.cheapestOffer.unitPriceGrosze;
     lines.push({
+      ...(g.wallpaperCutPlan ? { wallpaperCutPlan: g.wallpaperCutPlan } : {}),
       ...(packagePlan ? { packagePlan } : {}),
       product: g.product,
       cheapestOffer: g.cheapestOffer,

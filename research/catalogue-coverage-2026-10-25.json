@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T14:18:21.806Z",
-  "scope": "Fresh production HTTP. Current engine recalculated all65 saved baseline measurement maps without supplying new choices. Separate153-reference catalogue queries. No delivery quotes without a postcode; no project data writes. Wave61 maps an existing exact tape product to measured wallpaper protection demand; no new SKU or retailer added. Whole wallpaper remains partial.",
-  "total": 153,
-  "verifiedProducts": 129,
+  "checkedAt": "2026-10-27T15:06:07.831Z",
+  "scope": "Fresh production HTTP. Current engine recalculated all 65 saved baseline measurement maps without supplying new wallpaper choices or wall dimensions. Separate 154-reference catalogue queries. Native explicit two-wall examples are recorded separately. No project data writes. Wave62 adds one exact plain renovation lining, not a full decorative-wallpaper range. Actual shared cutting and delivery are separately verified.",
+  "total": 154,
+  "verifiedProducts": 130,
   "remaining": 24,
-  "offers": 175,
+  "offers": 176,
   "stores": 50,
-  "productsWithPhotos": 153,
-  "registeredOffers": 196,
+  "productsWithPhotos": 154,
+  "registeredOffers": 197,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3428,12 +3428,46 @@
       ],
       "status": "verified_offer",
       "photoUrl": "https://swiatsieklei.pl/environment/cache/images/productGfx_a44f7b5fc0ca152dba8e53e1ccae43fa_500_500.webp"
+    },
+    {
+      "id": "mat-wallpaper-erismann-rollover-3333-5",
+      "name": "Erismann RollOver 3333-5 — flizelina do malowania, rolka 0,75 × 25 m",
+      "referenceUrl": "https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972",
+      "ean": "4002790333357",
+      "sourceIds": [
+        "plejada-erismann-rollover-3333-5"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://plejadatapet.pl/environment/cache/images/productGfx_92091_500_500/Gladka-tapeta-flizelinowa-150gm2-25m--0%2C75m-3333-5-Erismann-RollOver.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "plejada-erismann-rollover-3333-5",
+          "checkedAt": "2026-10-27T15:04:19.167Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 2190,
+          "basketScope": "One physical 0.75 x 25 m roll plus one Direct 200 g adhesive package; shared order delivery, not per-product postage.",
+          "nativeQuote": {
+            "costGrosze": 2190,
+            "carrier": "Kurier DPD",
+            "payment": "Przelew tradycyjny",
+            "checkedAt": "2026-10-27T15:04:14.031Z",
+            "expiresAt": "2026-10-27T15:14:14.031Z",
+            "sourceUrl": "https://plejadatapet.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "51b8dfd9c74cdcbb9952ad741aab9a8d783aee98dc05f1dfdc0482583f7acff3"
+          }
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 30,
   "browserVerifiedOffers": 11,
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T14:18:21.806Z",
+    "checkedAt": "2026-10-27T15:06:07.831Z",
     "pricedLines": 84,
     "totalLines": 240,
     "unpricedLines": 156,
@@ -3453,6 +3487,14 @@
     },
     {
       "checkedAt": "2026-10-27T13:55:17.148Z",
+      "total": 153,
+      "verifiedProducts": 129,
+      "remaining": 24,
+      "offers": 175,
+      "stores": 50
+    },
+    {
+      "checkedAt": "2026-10-27T14:18:21.806Z",
       "total": 153,
       "verifiedProducts": 129,
       "remaining": 24,

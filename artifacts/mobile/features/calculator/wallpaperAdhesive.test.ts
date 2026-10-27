@@ -8,7 +8,7 @@ import { resolveMaterialQuantity } from '@/features/pricing/quantity';
 import { getRequiredQuantity } from './requirements';
 import { upgradeCalculation, projectShopping } from './upgrades';
 import { generateShoppingItems } from './shopping';
-import { wallpaperAdhesiveQuantity, WALLPAPER_SUPPLIES_MODEL } from './wallpaperAdhesive';
+import { wallpaperAdhesiveQuantity, WALLPAPER_ROLLS_MODEL } from './wallpaperAdhesive';
 
 const job = getJobById('wallpaper-install')!;
 const calculate = (type: number, area = 10, reserve = 10) => calculatorEngine.calculate(job, { wallArea: area, wallpaperAdhesiveType: type, wallpaperAdhesiveReservePercent: reserve });
@@ -18,7 +18,7 @@ const glueEan = (calc: ReturnType<typeof calculate>) => { const material = glue(
 test('each wallpaper type uses its actual manufacturer pack and dry-powder coverage, with one explicit reserve', () => {
   for (const [type, area, pack, ean] of [[1, 22, 200, '4015000402019'], [2, 18, 200, '4015000402019'], [3, 50, 125, '4015000095266'], [4, 40, 125, '4015000095266'], [5, 30, 125, '4015000095266']] as const) {
     const calc = calculate(type, area, 0), line = glue(calc);
-    assert.equal(calc.quantityModel, WALLPAPER_SUPPLIES_MODEL); assert.equal(line.material.unit, 'g'); assert.equal(line.rawQuantity, pack); assert.equal(line.packs, 1); assert.equal(glueEan(calc), ean);
+    assert.equal(calc.quantityModel, WALLPAPER_ROLLS_MODEL); assert.equal(line.material.unit, 'g'); assert.equal(line.rawQuantity, pack); assert.equal(line.packs, 1); assert.equal(glueEan(calc), ean);
     const input = toPricingStageInput(calc).materials.find(row => row.material.id === 'wallpaper-glue')!;
     assert.equal(input.quantity, pack); assert.equal(input.material.unit, 'g'); assert.equal(input.material.ean, ean);
     assert.equal(computeRawQuantity(line.material, calc.measurements), pack);
@@ -30,7 +30,7 @@ test('each wallpaper type uses its actual manufacturer pack and dry-powder cover
   }
   assert.equal(glue(calculate(1)).rawQuantity, 100); assert.equal(glue(calculate(1)).quantity, 200);
   const detailed = calculatorEngine.calculateDetailed(job, calculate(1).measurements);
-  assert.equal(detailed.quantityModel, WALLPAPER_SUPPLIES_MODEL); assert.match(detailed.materials.find(m => m.material.id === 'wallpaper-glue')!.explanation.text, /100 g suchego/);
+  assert.equal(detailed.quantityModel, WALLPAPER_ROLLS_MODEL); assert.match(detailed.materials.find(m => m.material.id === 'wallpaper-glue')!.explanation.text, /100 g suchego/);
 });
 
 test('unknown, fractional and incompatible type or coverage data remain missing instead of a zero-cost glue', () => {

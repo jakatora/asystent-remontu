@@ -15,7 +15,7 @@ import { substratePrimerSpecification, substratePrimerQuantity, SUBSTRATE_PRIMER
 import type { CalculationResult, ShoppingItem, Project } from '@/types/domain';
 import { isWallFinishingJob, WALL_FINISHING_MODEL } from './wallFinishing';
 import { REMOVAL_JOB, REMOVAL_MODEL } from './wallpaperRemoval';
-import { isWallpaperAdhesiveJob, WALLPAPER_ADHESIVE_MODEL, WALLPAPER_SUPPLIES_MODEL } from './wallpaperAdhesive';
+import { isWallpaperAdhesiveJob, WALLPAPER_ROLLS_MODEL } from './wallpaperAdhesive';
 
 const ids = ['primer-walls','wall-repair','skim-coat','wallpaper','wallpaper-install','wallpaper-remove','floor-tiles','self-leveling'];
 const calc = (id: string, more: Record<string, number> = {}) => calculatorEngine.calculate(getJobById(id)!, { wallArea: 10, floorArea: 10, perimeter: 14, levelingThickness: 5, ...more });
@@ -39,7 +39,7 @@ test('eight preparation recipes use exactly one reviewed primer at every price t
     const input = toPricingStageInput(result, tier).materials.find(row => row.material.id === spec.materialId)!;
     assert.equal(input.material.ean, spec.ean); assert.equal(input.material.category, 'primer');
     assert.equal(input.material.unit, id === 'self-leveling' ? 'kg' : 'l');
-    assert.equal(result.quantityModel, isWallFinishingJob(id) ? WALL_FINISHING_MODEL : id === REMOVAL_JOB ? REMOVAL_MODEL : id === 'wallpaper-install' ? WALLPAPER_SUPPLIES_MODEL : isWallpaperAdhesiveJob(id) ? WALLPAPER_ADHESIVE_MODEL : SUBSTRATE_PRIMER_MODEL);
+    assert.equal(result.quantityModel, isWallFinishingJob(id) ? WALL_FINISHING_MODEL : id === REMOVAL_JOB ? REMOVAL_MODEL : isWallpaperAdhesiveJob(id) ? WALLPAPER_ROLLS_MODEL : SUBSTRATE_PRIMER_MODEL);
     assert.equal(computeRawQuantity(primer(result).material,result.measurements),primer(result).rawQuantity);
   }
 });

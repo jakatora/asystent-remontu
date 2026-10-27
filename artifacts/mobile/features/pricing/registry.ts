@@ -1,5 +1,6 @@
 import { REMOVAL_JOB, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
 import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference } from '@/features/calculator/wallpaperAdhesive';
+import { wallpaperRollReference } from '@/features/calculator/wallpaperRolls';
 import { WALLPAPER_TAPE_REFERENCE } from '@/features/calculator/wallpaperTape';
 import { LAMINATE_JOB, laminateSupplyReference } from '@/features/calculator/laminateSupplies';
 import { isGypsumJob, gypsumMaterials, gypsumReference } from '@/features/calculator/gypsumBoard';
@@ -71,6 +72,8 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     if (ref) results.push(ref);
   }
   if (isWallpaperAdhesiveJob(jobId)) {
+    for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'wallpaper') results.splice(i, 1);
+    const roll = wallpaperRollReference(measurements ?? {}), rollRef = roll ? MATERIAL_BY_ID.get(roll) : undefined; if (rollRef) results.push(rollRef);
     const id = wallpaperAdhesiveReference(measurements ?? {}), ref = id ? MATERIAL_BY_ID.get(id) : undefined;
     for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'wallpaper-adhesive') results.splice(i, 1);
     if (ref) results.push(ref);

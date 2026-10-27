@@ -24,6 +24,8 @@ import { priceTileSpacer } from './tileSpacers';
 import { priceKitchenMaterial } from './kitchenMaterials';
 import type { MaterialCategory } from '@/types/pricing';
 import type { DeliverySettings, DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
+import { isWallpaperRoll, wallpaperRollPanels } from '@/features/calculator/wallpaperRolls';
+import type { PlainWallpaperRequirement, WallpaperCutPlan } from '../../../../lib/pricing-service/src/wallpaper-rolls';
 import type { UnresolvedReason as ServiceUnresolvedReason, PriceVerification } from '../../../../lib/pricing-service/src/types';
 
 // ─── Konfiguracja bazowego URL ────────────────────────────────────────────────
@@ -54,6 +56,7 @@ export interface PricingMaterialInput {
 }
 
 export interface PricingMaterialLineInput {
+  readonly plainWallpaper?: PlainWallpaperRequirement;
   readonly material: PricingMaterialInput;
   /** Ilość natywna policzona przez silnik (nieujemna). */
   readonly quantity: number;
@@ -245,6 +248,7 @@ export interface SerializedStage {
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
 export interface SerializedConsolidatedLine {
+  wallpaperCutPlan?: WallpaperCutPlan;
   packages?: SerializedPackage[];
   product: SerializedProduct;
   cheapestOffer: SerializedOffer;
@@ -436,6 +440,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
           gtin: readOptionalCode(line.material, 'gtin'),
         },
         quantity: reference ? resolveMaterialQuantity(reference, calc)!.quantity : getRequiredQuantity(line, calc),
+        ...(isWallpaperRoll(calc.jobId, line.material.id) && wallpaperRollPanels(calc.measurements) ? { plainWallpaper: { version: 1 as const, panels: wallpaperRollPanels(calc.measurements)! } } : {}),
         ...(line.packs !== undefined ? { packs: line.packs } : {}),
       }, calc.jobId, calc.measurements), calc.jobId);
     }),

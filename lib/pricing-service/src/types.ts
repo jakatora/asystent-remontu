@@ -143,6 +143,8 @@ export type UnresolvedReason =
 
 /** Wyceniona pozycja (produkt dopasowany, oferta z ceną). */
 export interface ResolvedLine {
+  /** Validated full-height cuts for the exact reviewed plain wallpaper roll. */
+  plainWallpaper?: import('./wallpaper-rolls').PlainWallpaperRequirement;
   resolved: true;
   query: ItemQuery;
   quantity: number;
@@ -216,11 +218,13 @@ export interface StageEstimate {
  * liczy się raz na zsumowanej ilości — stąd oszczędność względem sumy per-etap.
  */
 export interface ConsolidatedLine {
+  wallpaperCutPlan?: import('./wallpaper-rolls').WallpaperCutPlan;
   /** Exact purchase plan, including mixed package sizes and stores. */
   packagePlan?: PackagePlan;
   product: Product;
   cheapestOffer: CheapestOffer;
-  /** Łączna ilość natywna zsumowana ze wszystkich etapów (przed zaokrągleniem). */
+  /** Łączna ilość natywna; dla zwykłych materiałów suma etapów, a dla dokładnej
+   * gładkiej tapety liczba całych rolek wynikająca ze wspólnego planu pasów. */
   totalQuantity: number;
   /** Jednostka ilości (pierwsza niepusta spośród pozycji tego produktu). */
   unit: string | null;

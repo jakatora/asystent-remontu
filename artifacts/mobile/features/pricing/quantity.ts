@@ -1,5 +1,7 @@
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
-import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, isCurrentWallpaperAdhesiveModel, WALLPAPER_SUPPLIES_MODEL } from '@/features/calculator/wallpaperAdhesive';
+import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, isCurrentWallpaperAdhesiveModel, isCurrentWallpaperTapeModel, WALLPAPER_ROLLS_MODEL } from '@/features/calculator/wallpaperAdhesive';
+import { WALLPAPER_ROLL_REFERENCE } from '@/features/calculator/wallpaperRolls';
+import { ERISMANN_3333_5_EAN } from '../../../../lib/pricing-service/src/wallpaper-rolls';
 import { WALLPAPER_TAPE_ID, WALLPAPER_TAPE_REFERENCE, WALLPAPER_TAPE_EAN } from '@/features/calculator/wallpaperTape';
 import { LAMINATE_JOB, LAMINATE_SUPPLIES_MODEL, laminateSupplyReference } from '@/features/calculator/laminateSupplies';
 import { isGypsumJob, gypsumMaterials, gypsumReference, GYPSUM_MODEL } from '@/features/calculator/gypsumBoard';
@@ -68,9 +70,14 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if (isWallpaperAdhesiveJob(calc.jobId) && ref.materialType === 'wallpaper') {
+    const source = calc.materials.find(line => line.material.id === 'wallpaper');
+    if (ref.id !== WALLPAPER_ROLL_REFERENCE || calc.quantityModel !== WALLPAPER_ROLLS_MODEL || !source || source.quantityKnown === false || source.material.unit !== 'szt' || !('ean' in source.material) || source.material.ean !== ERISMANN_3333_5_EAN) return null;
+    const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
   if (calc.jobId === 'wallpaper-install' && ref.materialType === 'masking-tape') {
     const source = calc.materials.find(line => line.material.id === WALLPAPER_TAPE_ID);
-    if (ref.id !== WALLPAPER_TAPE_REFERENCE || calc.quantityModel !== WALLPAPER_SUPPLIES_MODEL || !source || source.quantityKnown === false || source.material.unit !== 'mb' || !('ean' in source.material) || source.material.ean !== WALLPAPER_TAPE_EAN) return null;
+    if (ref.id !== WALLPAPER_TAPE_REFERENCE || !isCurrentWallpaperTapeModel(calc.quantityModel) || !source || source.quantityKnown === false || source.material.unit !== 'mb' || !('ean' in source.material) || source.material.ean !== WALLPAPER_TAPE_EAN) return null;
     const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
   }
   if (isWallpaperAdhesiveJob(calc.jobId) && ref.materialType === 'wallpaper-adhesive') {

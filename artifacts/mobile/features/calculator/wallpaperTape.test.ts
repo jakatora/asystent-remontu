@@ -8,7 +8,7 @@ import { resolveMaterialQuantity } from '@/features/pricing/quantity';
 import { getRequiredQuantity } from './requirements';
 import { upgradeCalculation, projectShopping } from './upgrades';
 import { generateShoppingItems } from './shopping';
-import { WALLPAPER_ADHESIVE_MODEL, WALLPAPER_SUPPLIES_MODEL } from './wallpaperAdhesive';
+import { WALLPAPER_ADHESIVE_MODEL, WALLPAPER_ROLLS_MODEL } from './wallpaperAdhesive';
 import { wallpaperTapeQuantity, WALLPAPER_TAPE_ID, WALLPAPER_TAPE_REFERENCE, WALLPAPER_TAPE_EAN } from './wallpaperTape';
 
 const job = getJobById('wallpaper-install')!;
@@ -18,7 +18,7 @@ const tape = (calc: ReturnType<typeof calculate>) => calc.materials.find(line =>
 test('wallpaper protection tape uses measured metres and the exact50m product, never the wall-area roll formula', () => {
   for (const length of [0.1, 20, 50, 50.1, 1000]) {
     const calc = calculate(length), line = tape(calc);
-    assert.equal(calc.quantityModel, WALLPAPER_SUPPLIES_MODEL); assert.equal(line.rawQuantity, length); assert.equal(line.packs, Math.ceil(length / 50)); assert.equal(line.quantityKnown, true); assert.equal(line.material.unit, 'mb');
+    assert.equal(calc.quantityModel, WALLPAPER_ROLLS_MODEL); assert.equal(line.rawQuantity, length); assert.equal(line.packs, Math.ceil(length / 50)); assert.equal(line.quantityKnown, true); assert.equal(line.material.unit, 'mb');
     assert.equal('shopPrices' in line.material ? line.material.shopPrices : undefined, undefined);
     assert.equal(tape(calculate(length, 100)).rawQuantity, length);
     assert.equal(computeRawQuantity(line.material, calc.measurements), length);

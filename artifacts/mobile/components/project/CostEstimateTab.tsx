@@ -413,6 +413,14 @@ function EstimateResult({
         {t('upgrade.compare.materialsOnly')}
       </Txt>
 
+      {data.deliveryComparison?.best && consolidatedLines.filter(line => line.wallpaperCutPlan).map(line => (
+        <View key={`cuts-${line.product.id}`} style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
+          <Txt w="semibold" style={{ fontSize: 14 }}>{tr('Wspólne cięcie tapety', 'Combined wallpaper cutting')}</Txt>
+          <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{line.product.name}</Txt>
+          <WallpaperCutNotice plan={line.wallpaperCutPlan!} />
+        </View>
+      ))}
+
       {/* Skonsolidowana lista zakupowa całego remontu (kup raz, opak. łącznie) */}
       {consolidatedLines.length > 0 && !data.deliveryComparison?.best && (
         <View style={{ gap: 8 }}>
@@ -1010,6 +1018,16 @@ function StoreBasketRow({
  * koszt skonsolidowany oraz — gdy dodatnia — oszczędność vs suma per-etap. Nic nie
  * liczy: kwoty (grosze) i ilości pochodzą z backendu, tu tylko formatowanie.
  */
+function WallpaperCutNotice({ plan }: { plan: NonNullable<SerializedConsolidatedLine['wallpaperCutPlan']> }) {
+  const { language } = useLanguage();
+  return <View style={{ gap: 4 }}>
+    <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{language === 'pl'
+      ? `Pasy: ${plan.stripCount}. Rolki do kupienia: ${plan.rollsNeeded}. Pozostałe odcinki: łącznie ${formatQuantity(plan.totalUnusedLengthMm / 1000)} mb.`
+      : `Strips: ${plan.stripCount}. Rolls to buy: ${plan.rollsNeeded}. Remaining offcuts: ${formatQuantity(plan.totalUnusedLengthMm / 1000)} m in total.`}</Txt>
+    {!plan.optimal && <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.warning }}>{language === 'pl' ? 'Podane pasy mieszczą się w tych rolkach. Może istnieć oszczędniejszy sposób cięcia — sprawdź plan przed zakupem.' : 'These rolls fit the requested strips. A more economical cutting plan may exist; check before purchasing.'}</Txt>}
+  </View>;
+}
+
 function ConsolidatedLineCard({ line, offers, stockUnconfirmed }: { line: SerializedConsolidatedLine; offers?: SerializedProductOffer[]; stockUnconfirmed?: boolean }) {
   const { t, language } = useLanguage();
   const offer = line.cheapestOffer;
@@ -1025,6 +1043,7 @@ function ConsolidatedLineCard({ line, offers, stockUnconfirmed }: { line: Serial
       }}
     >
       <ProductImage uri={getProductPhoto(line.product ?? {})} name={line.product?.name ?? ""} size={64} />
+      {line.wallpaperCutPlan && <WallpaperCutNotice plan={line.wallpaperCutPlan} />}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
         <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>{line.product.name}</Txt>
         <Txt w="bold" style={{ fontSize: 14, color: stockUnconfirmed ? Colors.warning : Colors.text }}>{stockUnconfirmed ? (language === 'pl' ? 'Sprawdź dostępność' : 'Check availability') : formatGrosze(line.lineCostGrosze)}</Txt>

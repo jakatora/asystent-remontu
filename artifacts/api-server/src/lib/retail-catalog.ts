@@ -1137,10 +1137,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   {"id":"swiat-metylan-direct-200g","ean":"4015000402019","name":"METYLAN Direct 200g klej do tapet 24119","brand":"Metylan","category":"wallpaper-adhesive","packageSize":200,"unit":"g","store":"Świat Się Klei","url":"https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104","format":"shoper-api","productId":104,"retailerSku":"N-29","apiPurchaseUnit":"szt.","variant":["direct","200g"],"imageUrl":"https://swiatsieklei.pl/environment/cache/images/productGfx_8cf3f0b127670f2cfdd5620ec59b3e3e_500_500.webp","pickupRequiresConfirmation":true},
   // source: https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101
   {"id":"swiat-metylan-normal-125g","ean":"4015000095266","name":"METYLAN Normal 125g klej do tapet 24122","brand":"Metylan","category":"wallpaper-adhesive","packageSize":125,"unit":"g","store":"Świat Się Klei","url":"https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101","format":"shoper-api","productId":101,"retailerSku":"N-26","apiPurchaseUnit":"szt.","variant":["normal","125g"],"imageUrl":"https://swiatsieklei.pl/environment/cache/images/productGfx_a44f7b5fc0ca152dba8e53e1ccae43fa_500_500.webp","pickupRequiresConfirmation":true},
+  // source: https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972
+  // source: https://www.erismann.de/en/collection/rollover-27
+  {"id":"plejada-erismann-rollover-3333-5","ean":"4002790333357","name":"Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver","brand":"Erismann","category":"wallpaper","packageSize":1,"unit":"szt","store":"Plejada Tapet","url":"https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972","format":"shoper-api","productId":23972,"retailerSku":"ER 3333-5","apiPurchaseUnit":"szt.","variant":["3333-5","rollover"],"packageDescription":"25.00m * 0.75m","imageUrl":"https://plejadatapet.pl/environment/cache/images/productGfx_92091_500_500/Gladka-tapeta-flizelinowa-150gm2-25m--0%2C75m-3333-5-Erismann-RollOver.jpg","pickupRequiresConfirmation":true},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Erismann RollOver 3333-5 — flizelina do malowania, rolka 0,75 × 25 m": "4002790333357",
   'Metylan Direct — klej do tapet flizelinowych 200 g': '4015000402019',
   'Metylan Normal — klej do tapet papierowych 125 g': '4015000095266',
   "Kotwa stalowa sufitowa Rawlplug R-GS-06040 (100 szt.)": "5906675169347",

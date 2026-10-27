@@ -1,4 +1,5 @@
 import { wallpaperAdhesiveQuantity } from './wallpaperAdhesive';
+import { wallpaperRollQuantity } from './wallpaperRolls';
 import { wallpaperTapeQuantity } from './wallpaperTape';
 import { gypsumQuantity } from './gypsumBoard';
 import { frameQuantity } from './framePainting';
@@ -253,6 +254,7 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   wallpaperGlue:   wallpaperGlueFormula,
   wallpaperAdhesive: (m) => wallpaperAdhesiveQuantity(m) ?? 0,
   wallpaperProtectionTape: (m) => wallpaperTapeQuantity(m) ?? 0,
+  wallpaperRolls: (m) => wallpaperRollQuantity(m) ?? 0,
   skirting:        skirtingFormula,
   skirtingGlue:    skirtingGlueFormula,
   corners:         cornersFormula,

@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-27T14:18:21.806Z",
-  "scope": "Current engine recalculated the same65 saved measurement maps without supplying new tape lengths or adhesive choices. Unknown tape demand remains explicit. Separate measured examples prove tape and glue consolidation; whole wallpaper still lacks the selected wallpaper.",
+  "checkedAt": "2026-10-27T15:06:07.831Z",
+  "scope": "Current engine recalculated the same 65 saved measurement maps without supplying new wallpaper choices or dimensions. Separate explicit two-wall examples prove a complete four-product lining recipe with a confirmed-delivery plan. Subsequent paint/decorative wallpaper, tools and labour are separate.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -209,6 +209,19 @@
     },
     {
       "checkedAt": "2026-10-27T13:55:17.148Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 240,
+        "beforePriced": 84,
+        "afterLines": 240,
+        "afterPriced": 84,
+        "afterUnpriced": 156,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T14:18:21.806Z",
       "summary": {
         "registeredJobs": 66,
         "auditedJobs": 65,
@@ -661,15 +674,15 @@
       "materials": [
         {
           "materialId": "wallpaper",
-          "name": "Tapeta (rolki)",
-          "unit": "m²",
+          "name": "Tapeta — wybierz model i podaj wymiary ścian — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tapeta rolki",
+            "normalizedName": "tapeta wybierz model i podaj wymiary scian ilosc do ustalenia",
             "category": null
           },
-          "quantity": 11,
+          "quantity": 1,
           "resolved": false,
           "reason": "no-query",
           "matchedProduct": null
@@ -718,17 +731,17 @@
       "materials": [
         {
           "materialId": "wallpaper",
-          "name": "Tapeta (rolki)",
-          "unit": "m²",
+          "name": "Tapeta — wybierz model i podaj wymiary ścian — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tapeta rolki",
-            "category": "tapety"
+            "normalizedName": "tapeta wybierz model i podaj wymiary scian ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 11.5,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
@@ -4856,6 +4869,103 @@
       "fullWallpaperMissing": 1,
       "unknownTapeMissing": 2,
       "fullWallpaperTotalGrosze": null
+    },
+    "wave62": {
+      "checkedAt": "2026-10-27T15:04:19.167Z",
+      "measurementsPerWall": {
+        "wallArea": 7.5,
+        "wallpaperRollChoice": 1,
+        "wallpaperHeightM": 2.5,
+        "wallpaperWidth1M": 3,
+        "wallpaperCutAllowanceCm": 10,
+        "wallpaperAdhesiveType": 1,
+        "wallpaperProtectionTapeMetres": 20
+      },
+      "wallCount": 2,
+      "cutPlan": {
+        "rollsNeeded": 1,
+        "rolls": [
+          {
+            "strips": [
+              {
+                "panelId": "0:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "0:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "0:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "0:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "1:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "1:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "1:wall-1",
+                "lengthMm": 2600
+              },
+              {
+                "panelId": "1:wall-1",
+                "lengthMm": 2600
+              }
+            ],
+            "usedMm": 20800,
+            "remainingMm": 4200
+          }
+        ],
+        "stripCount": 8,
+        "totalCutLengthMm": 20800,
+        "totalUnusedLengthMm": 4200,
+        "optimal": true,
+        "searchLimited": false,
+        "stripsByPanel": {
+          "0:wall-1": 4,
+          "1:wall-1": 4
+        }
+      },
+      "rollOnlyTotalGrosze": 24980,
+      "rollAndGlueTotalGrosze": 28170,
+      "completeLiningRecipe": {
+        "products": 4,
+        "packs": [
+          {
+            "ean": "4002790333357",
+            "packs": 1
+          },
+          {
+            "ean": "4015000402019",
+            "packs": 1
+          },
+          {
+            "ean": "5901793357737",
+            "packs": 1
+          },
+          {
+            "ean": "5907758515952",
+            "packs": 1
+          }
+        ],
+        "materialsGrosze": 31571,
+        "deliveryGrosze": 5740,
+        "totalGrosze": 37311,
+        "scope": "Cheapest among confirmed delivery quotes. Some alternative delivery charges remain unknown. National PL tariffs; 00-001 is a QA postcode."
+      },
+      "unknownModelMissing": 1,
+      "missingDimensionsMissing": 1,
+      "incompatiblePaperGlueMissing": 1,
+      "selectedPlejadaMissingRowsAcrossTwoJobs": 4,
+      "selectedSwiatMissingRowsAcrossTwoJobs": 6
     }
   }
 }

@@ -63,7 +63,8 @@ test('material-only fallback never issues more than one query per distinct suppo
 test('pending plans consolidate slightly dearer material into one quoted order instead of paying two deliveries', async () => {
   const screws = await stage('screws', 132, 1000, 'A', '40.00');
   const fixings = await stage('fixings', 25, 200, 'B', '10.00');
-  const offer = fixings.lines[0].offers[0]; fixings.lines[0].offers.push({ ...offer, id: 'A:fixings', store: 'A', price: '11.00' });
+  const fixingLine = fixings.lines[0]; assert.ok(fixingLine.resolved);
+  const offer = fixingLine.offers[0]; fixingLine.offers = [...fixingLine.offers, { ...offer, id: 'A:fixings', store: 'A', price: '11.00' }];
   const result = await compareAutomaticDelivery([screws, fixings, await stage('paste', 3.3, 20, 'Marbet24', '96.28')], settings, async (order, postcode) => {
     const outcome = await courier(order, postcode); if ('quote' in outcome) outcome.quote.costGrosze = order.store === 'A' ? 1700 : 1600; return outcome;
   }, [], new Date(), blocked);
@@ -74,7 +75,8 @@ test('pending plans consolidate slightly dearer material into one quoted order i
 
 test('a better-confirmed purchase plan is separate from the mathematical bound with unknown store fees', async () => {
   const screws = await stage('screws', 132, 1000, 'A', '40.00');
-  screws.lines[0].offers.push({ ...screws.lines[0].offers[0], id: 'Down:screws', store: 'Down', price: '30.00' });
+  const screwLine = screws.lines[0]; assert.ok(screwLine.resolved);
+  screwLine.offers = [...screwLine.offers, { ...screwLine.offers[0], id: 'Down:screws', store: 'Down', price: '30.00' }];
   const result = await compareAutomaticDelivery([screws, await stage('paste', 3.3, 20, 'Marbet24', '96.28')], settings, async (order, postcode) => order.store === 'Down' ? { reason: 'quote_unavailable' } : courier(order, postcode), [], new Date(), blocked);
   assert.equal(result.best, null); assert.ok(result.lowerBound!.stores.some(store => store.store === 'Down'));
   assert.ok(!result.purchasePlan!.stores.some(store => store.store === 'Down')); assert.ok(result.purchasePlan!.stores.some(store => store.store === 'A'));

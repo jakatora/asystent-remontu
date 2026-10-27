@@ -279,6 +279,9 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // One native piece is the whole25m roll, not its18.75m² nominal area.
+  // source: https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972
+  if (source.id === 'plejada-erismann-rollover-3333-5' && (source.ean !== '4002790333357' || source.packageSize !== 1 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'szt.' || source.productId !== 23972 || source.retailerSku !== 'ER 3333-5')) throw Error('product_package_not_confirmed');
   // Native one-piece prices describe the entire dry-powder pack, not a gram
   // or a litre of mixed paste. Bind the exact reviewed manufacturer variant.
   // source: https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825

@@ -1,0 +1,1404 @@
+{
+  "checkedAt": "2026-10-27T14:34:24.696Z",
+  "scope": "Actual public Shoper product reads and anonymous roll/glue cart responses, narrowed to reviewed product and cart fields. No customer data or order action.",
+  "source": {
+    "id": "plejada-erismann-rollover-3333-5",
+    "ean": "4002790333357",
+    "name": "Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver",
+    "brand": "Erismann",
+    "category": "wallpaper",
+    "packageSize": 1,
+    "unit": "szt",
+    "store": "Plejada Tapet",
+    "url": "https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972",
+    "format": "shoper-api",
+    "productId": 23972,
+    "retailerSku": "ER 3333-5",
+    "apiPurchaseUnit": "szt.",
+    "variant": [
+      "3333-5",
+      "rollover"
+    ],
+    "packageDescription": "25.00m * 0.75m",
+    "imageUrl": "https://plejadatapet.pl/environment/cache/images/productGfx_92091_500_500/Gladka-tapeta-flizelinowa-150gm2-25m--0%2C75m-3333-5-Erismann-RollOver.jpg",
+    "pickupRequiresConfirmation": true
+  },
+  "records": [
+    {
+      "context": "read:plejada-erismann-rollover-3333-5",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/23972",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 23972,
+        "name": "Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver",
+        "can_buy": true,
+        "ean": "4002790333357",
+        "code": "ER 3333-5",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 24027,
+        "url": "https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972",
+        "loyalty": {
+          "points_float": 227,
+          "points": "227 pkt",
+          "price_float": 9200,
+          "price": "9 200 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Erismann RollOver do malowania",
+          "id": 813
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "price": {
+          "gross": {
+            "base": "227,90 zł",
+            "base_float": 227.9,
+            "final": "227,90 zł",
+            "final_float": 227.9,
+            "historical_lowest_price": "227,90 zł",
+            "historical_lowest_price_float": 227.9
+          },
+          "net": {
+            "base": "185,28 zł",
+            "base_float": 185.28,
+            "final": "185,28 zł",
+            "final_float": 185.28,
+            "historical_lowest_price": "185,28 zł",
+            "historical_lowest_price_float": 185.28
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Erismann",
+          "id": 43
+        },
+        "newProduct": true,
+        "delivery": {
+          "name": null,
+          "hours": null
+        },
+        "shortDescription": "<p>3333-5 Erismann RollOver</p>",
+        "main_image": "92091",
+        "main_image_filename": "92091.jpg",
+        "description": "<h1 class=\"h3\">Flizelina remontowa gładka - gładź w rolce - tapeta do malowania Erismann RollOver 3333-5</h1>\n<h3 data-pm-slice=\"1 1 []\">Gładka tapeta renowacyjna do ścian i sufitów jest grubym, sprasowanym materiałem celulozowo-flizelinowym bez żadnej struktury w kolorze białym. Doskonale maskuje pęknięcia, rysy i wyrównuje strukturę ściany.</h3>\n<h2><strong>Dane techniczne:</strong></h2>\n<ul>\n<li>Producent: <strong>Erismann</strong></li>\n<li>Kolekcja:<strong> <strong>RollOver</strong></strong></li>\n<li>Numer: <strong>3333-5</strong></li>\n<li>Rodzaj tapety: <strong>flizelina</strong></li>\n<li>Wymiary rolki tapety: <strong>25.00m * 0.75m</strong></li>\n<li>Gramatura: <strong>150g/m2</strong></li>\n<li>Przeznaczenie: <strong><strong><strong>uniwersalne, sypialnia, salon, jadalnia, przedpokój; </strong></strong></strong><strong>ściany i sufity, pomieszczenia mieszkalne oraz użytkowe. Flizelina przeznaczona do zastosowań renowacyjnych; może stanowić podłoże pod dalsze wykończenie powierzchni.</strong></li>\n<li>Kolorystyka: <strong>biała, przeznaczona do malowania na wybrany kolor</strong></li>\n<li>Struktura: <strong><strong>gładka</strong></strong></li>\n</ul>\n<h2><strong>Zalety produktu:</strong></h2>\n<ul>\n<li>Działa jak <strong>\"gładź w rolce\"</strong> – nakleja się ją na ścianę (klej nakłada się tylko na podłoże), a po wyschnięciu maluje dowolną farbą ścienną</li>\n<li>Brak szlifowania i pyłu</li>\n<li><strong>Biała powierzchnia</strong> gotowa do malowania już w <strong class=\"rQesXe MPyX\" data-complete=\"true\" data-sfc-cp=\"\" data-sfc-root=\"c\">24 godziny</strong></li>\n<li>Doskonale maskuje pęknięcia, rysy - tapeta elastycznie pracuje ze ścianą - pęknięcia nie wychodzą na wierzch</li>\n<li>Wyrównuje strukturę ściany - gładka powierzchnia ułatwiająca uzyskanie jednolitego wykończenia ścian</li>\n<li>Neutralna, biała powierzchnia przeznaczona do malowania lub jest idealnym podkładem pod \"wymagające\" tapety</li>\n<li>Nadaje się do aplikacji przy użyciu urządzeń do nakładania kleju.</li>\n</ul>\n<hr />\n<h3><a href=\"https://plejadatapet.pl/pl/i/Symbole-na-tapetach-piktogramy/21\" title=\"Oznaczenia - piktogramy na tapetach\">Oznaczenia na tapecie (szczegóły kliknij)</a></h3>\n<p><img alt=\"Tapeta jest bardzo odporna na mycie.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/Zmywanie3.jpg\" width=\"25\" /> <strong>Bardzo odporna na mycie.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Tapeta posiada dobrą światłoodporność\"><img alt=\"Tapeta posiada dobrą światłoodporność.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/%C5%9Awiat%C5%82o3.jpg\" width=\"25\" /></a> Dobra światłoodporność.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Pasowanie wzoru dowolne\"><img alt=\"Bez pasowania wzoru\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/Pasdo0.jpg\" width=\"25\" /></a> Brak pasowania wzoru.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Podłoże posmarować klejem\"><img alt=\"Podłoże posmarować klejem.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/KlejNa%C5%9Acian%C4%99.jpg\" width=\"25\" /></a> Klej nanosimy na podłoże</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Ściągalna bez pozostałości\"><img alt=\"Ściągalna bez pozostałości.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/UsUca%C5%82k.jpg\" width=\"25\" /></a> Ściągalna bez pozostałości.</strong></p>\n<hr />\n<h2 data-pm-slice=\"1 1 []\"><strong>Informacje dotyczące montażu:</strong></h2>\n<p>Przed montażem należy odpowiednio przygotować podłoże — powinno być stabilne, równe, czyste i pozbawione luźnych fragmentów. Klej należy dobrać do flizeliny zgodnie z zaleceniami producenta. Sposób dalszego wykończenia, w tym ewentualne malowanie, należy dostosować do instrukcji produktu i zastosowanych materiałów.</p>",
+        "images": [
+          "92091",
+          "92092",
+          "92093",
+          "92094",
+          "92095",
+          "92096"
+        ],
+        "images_filename": [
+          "92091.jpg",
+          "92092.jpg",
+          "92093.jpg",
+          "92094.jpg",
+          "92095.jpg",
+          "92096.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Motyw na tapecie",
+            "type": 2,
+            "value": "Różne"
+          },
+          {
+            "name": "Wymiar",
+            "type": 2,
+            "value": "25m x 0,75m"
+          },
+          {
+            "name": "Pasowanie wzoru",
+            "type": 2,
+            "value": "NIE"
+          },
+          {
+            "name": "Odporność na zmywanie",
+            "type": 2,
+            "value": "Bardzo odporna na mycie"
+          },
+          {
+            "name": "Rodzaj tapety",
+            "type": 2,
+            "value": "Tapeta flizelinowa do malowania"
+          },
+          {
+            "name": "Przeznaczenie tapet",
+            "type": 2,
+            "value": "Pokojowe uniwersalne"
+          },
+          {
+            "name": "Przesunięcie wzoru",
+            "type": 2,
+            "value": "NIE - 0 - brak pasowania"
+          },
+          {
+            "name": "Gramatura tapety",
+            "type": 2,
+            "value": "150 g/m2   +/- 5%"
+          },
+          {
+            "name": "Kolor dominujący",
+            "type": 2,
+            "value": "Biały Ecru Perłowy"
+          },
+          {
+            "name": "Klejenie",
+            "type": 2,
+            "value": "Klej tylko na ścianę"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "227,90 zł",
+        "net_historical_lowest_price": "185,28 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "3",
+          "name": "Tapeta szer. 1m"
+        }
+      }
+    },
+    {
+      "context": "read:plejada-metylan-direct-200g",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/825",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 825,
+        "name": "Klej do tapet Direct 200g Metylan",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "MT DIR200",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 872,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825",
+        "loyalty": {
+          "points_float": 31,
+          "points": "31 pkt",
+          "price_float": 1300,
+          "price": "1 300 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Flizelinowych",
+          "id": 82
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "31,90 zł",
+            "base_float": 31.9,
+            "final": "31,90 zł",
+            "final_float": 31.9,
+            "historical_lowest_price": "31,90 zł",
+            "historical_lowest_price_float": 31.9
+          },
+          "net": {
+            "base": "25,93 zł",
+            "base_float": 25.93,
+            "final": "25,93 zł",
+            "final_float": 25.93,
+            "historical_lowest_price": "25,93 zł",
+            "historical_lowest_price_float": 25.93
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Direct 200g</p>",
+        "main_image": "36488",
+        "main_image_filename": "36488.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Do nakładania bezpośrednio na ścianę</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Bez rozprysków</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Z wysokowartościowej metylocelulozy wzbogaconą syntetyczną żywicą</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza z dodatkiem żywic sztucznych</li>\n<li><strong>Wygląd roztworu:</strong> gęsty, mlecznobiały</li>\n<li><strong>Ciężar nasypowy:</strong> 460 – 530 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> w ciągu 3-5 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> lekko zasadowy (pH = 8-9)</li>\n<li><strong>Wydajność:</strong> 18-22 m²</li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZASTOSOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE KLEJU:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE PODŁOŻA:</span></h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w wodzie w proporcji 1:80 lub Metylan Direct w proporcji 1:40.</span></li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">TAPETOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Wymieszany klej Metylan Direct nanieść równomiernie bezpośrednio na ścianę za pomocą wałka. Zaczynając od strony okna tapetę przykleić bezpośrednio z rolki do posmarowanej klejem ściany. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Następnie tapetę rozwinąć do dołu, przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. Resztki kleju znajdujące się na przedniej powierzchni tapety należy niezwłocznie zmyć delikatnie gąbką i czystą wodą lub zetrzeć. Przy zmianie tapet flizelinowych wystarczy pociągnąć za górny brzeg tapety i oderwać ją na sucho. Metylan Direct można także nanieść tradycyjnie na spodnią stronę tapety i od razu przykleić ją do ściany.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZALECENIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Niniejsza karta techniczna określa zakres stosowania materiału i sposób prowadzenia robót, ale nie może zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania. Wraz z ukazaniem się tej karty technicznej tracą ważność karty wcześniejsze. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZECHOWYWANIE:</span></h3>\n<p><span style=\"color:#000000;\"><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span><span style=\"font-family:georgia, palatino;font-size:14pt;background-color:#ff00ff;\"> <br /></span></span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">DOSTĘPNE OPAKOWANIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\"><span style=\"font-size:12pt;\">200g</span></span></p>\n<h3> </h3>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ORIENTACYJNE ZUŻYCIE:</span></h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\"><colgroup><col width=\"181\" /><col width=\"95\" /><col width=\"113\" /><col width=\"113\" /><col width=\"113\" /></colgroup>\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Proporcje</span><br /><span style=\"font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Na opakowanie = 200g</span></td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">60-80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe gładkie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">20-22</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4*</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe tłoczone</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:17,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">18-20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3-4*</span></td>\n</tr>\n</tbody>\n</table>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:10pt;\">* Eurorolka (10,05m x 0,53m</span>)</p>\n<p> </p>\n<p> </p>",
+        "images": [
+          "36488"
+        ],
+        "images_filename": [
+          "36488.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "31,90 zł",
+        "net_historical_lowest_price": "25,93 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "quote:roll",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/23972",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 23972,
+        "name": "Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver",
+        "can_buy": true,
+        "ean": "4002790333357",
+        "code": "ER 3333-5",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 24027,
+        "url": "https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972",
+        "loyalty": {
+          "points_float": 227,
+          "points": "227 pkt",
+          "price_float": 9200,
+          "price": "9 200 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Erismann RollOver do malowania",
+          "id": 813
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "price": {
+          "gross": {
+            "base": "227,90 zł",
+            "base_float": 227.9,
+            "final": "227,90 zł",
+            "final_float": 227.9,
+            "historical_lowest_price": "227,90 zł",
+            "historical_lowest_price_float": 227.9
+          },
+          "net": {
+            "base": "185,28 zł",
+            "base_float": 185.28,
+            "final": "185,28 zł",
+            "final_float": 185.28,
+            "historical_lowest_price": "185,28 zł",
+            "historical_lowest_price_float": 185.28
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Erismann",
+          "id": 43
+        },
+        "newProduct": true,
+        "delivery": {
+          "name": null,
+          "hours": null
+        },
+        "shortDescription": "<p>3333-5 Erismann RollOver</p>",
+        "main_image": "92091",
+        "main_image_filename": "92091.jpg",
+        "description": "<h1 class=\"h3\">Flizelina remontowa gładka - gładź w rolce - tapeta do malowania Erismann RollOver 3333-5</h1>\n<h3 data-pm-slice=\"1 1 []\">Gładka tapeta renowacyjna do ścian i sufitów jest grubym, sprasowanym materiałem celulozowo-flizelinowym bez żadnej struktury w kolorze białym. Doskonale maskuje pęknięcia, rysy i wyrównuje strukturę ściany.</h3>\n<h2><strong>Dane techniczne:</strong></h2>\n<ul>\n<li>Producent: <strong>Erismann</strong></li>\n<li>Kolekcja:<strong> <strong>RollOver</strong></strong></li>\n<li>Numer: <strong>3333-5</strong></li>\n<li>Rodzaj tapety: <strong>flizelina</strong></li>\n<li>Wymiary rolki tapety: <strong>25.00m * 0.75m</strong></li>\n<li>Gramatura: <strong>150g/m2</strong></li>\n<li>Przeznaczenie: <strong><strong><strong>uniwersalne, sypialnia, salon, jadalnia, przedpokój; </strong></strong></strong><strong>ściany i sufity, pomieszczenia mieszkalne oraz użytkowe. Flizelina przeznaczona do zastosowań renowacyjnych; może stanowić podłoże pod dalsze wykończenie powierzchni.</strong></li>\n<li>Kolorystyka: <strong>biała, przeznaczona do malowania na wybrany kolor</strong></li>\n<li>Struktura: <strong><strong>gładka</strong></strong></li>\n</ul>\n<h2><strong>Zalety produktu:</strong></h2>\n<ul>\n<li>Działa jak <strong>\"gładź w rolce\"</strong> – nakleja się ją na ścianę (klej nakłada się tylko na podłoże), a po wyschnięciu maluje dowolną farbą ścienną</li>\n<li>Brak szlifowania i pyłu</li>\n<li><strong>Biała powierzchnia</strong> gotowa do malowania już w <strong class=\"rQesXe MPyX\" data-complete=\"true\" data-sfc-cp=\"\" data-sfc-root=\"c\">24 godziny</strong></li>\n<li>Doskonale maskuje pęknięcia, rysy - tapeta elastycznie pracuje ze ścianą - pęknięcia nie wychodzą na wierzch</li>\n<li>Wyrównuje strukturę ściany - gładka powierzchnia ułatwiająca uzyskanie jednolitego wykończenia ścian</li>\n<li>Neutralna, biała powierzchnia przeznaczona do malowania lub jest idealnym podkładem pod \"wymagające\" tapety</li>\n<li>Nadaje się do aplikacji przy użyciu urządzeń do nakładania kleju.</li>\n</ul>\n<hr />\n<h3><a href=\"https://plejadatapet.pl/pl/i/Symbole-na-tapetach-piktogramy/21\" title=\"Oznaczenia - piktogramy na tapetach\">Oznaczenia na tapecie (szczegóły kliknij)</a></h3>\n<p><img alt=\"Tapeta jest bardzo odporna na mycie.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/Zmywanie3.jpg\" width=\"25\" /> <strong>Bardzo odporna na mycie.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Tapeta posiada dobrą światłoodporność\"><img alt=\"Tapeta posiada dobrą światłoodporność.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/%C5%9Awiat%C5%82o3.jpg\" width=\"25\" /></a> Dobra światłoodporność.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Pasowanie wzoru dowolne\"><img alt=\"Bez pasowania wzoru\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/Pasdo0.jpg\" width=\"25\" /></a> Brak pasowania wzoru.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Podłoże posmarować klejem\"><img alt=\"Podłoże posmarować klejem.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/KlejNa%C5%9Acian%C4%99.jpg\" width=\"25\" /></a> Klej nanosimy na podłoże</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Ściągalna bez pozostałości\"><img alt=\"Ściągalna bez pozostałości.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/UsUca%C5%82k.jpg\" width=\"25\" /></a> Ściągalna bez pozostałości.</strong></p>\n<hr />\n<h2 data-pm-slice=\"1 1 []\"><strong>Informacje dotyczące montażu:</strong></h2>\n<p>Przed montażem należy odpowiednio przygotować podłoże — powinno być stabilne, równe, czyste i pozbawione luźnych fragmentów. Klej należy dobrać do flizeliny zgodnie z zaleceniami producenta. Sposób dalszego wykończenia, w tym ewentualne malowanie, należy dostosować do instrukcji produktu i zastosowanych materiałów.</p>",
+        "images": [
+          "92091",
+          "92092",
+          "92093",
+          "92094",
+          "92095",
+          "92096"
+        ],
+        "images_filename": [
+          "92091.jpg",
+          "92092.jpg",
+          "92093.jpg",
+          "92094.jpg",
+          "92095.jpg",
+          "92096.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Motyw na tapecie",
+            "type": 2,
+            "value": "Różne"
+          },
+          {
+            "name": "Wymiar",
+            "type": 2,
+            "value": "25m x 0,75m"
+          },
+          {
+            "name": "Pasowanie wzoru",
+            "type": 2,
+            "value": "NIE"
+          },
+          {
+            "name": "Odporność na zmywanie",
+            "type": 2,
+            "value": "Bardzo odporna na mycie"
+          },
+          {
+            "name": "Rodzaj tapety",
+            "type": 2,
+            "value": "Tapeta flizelinowa do malowania"
+          },
+          {
+            "name": "Przeznaczenie tapet",
+            "type": 2,
+            "value": "Pokojowe uniwersalne"
+          },
+          {
+            "name": "Przesunięcie wzoru",
+            "type": 2,
+            "value": "NIE - 0 - brak pasowania"
+          },
+          {
+            "name": "Gramatura tapety",
+            "type": 2,
+            "value": "150 g/m2   +/- 5%"
+          },
+          {
+            "name": "Kolor dominujący",
+            "type": 2,
+            "value": "Biały Ecru Perłowy"
+          },
+          {
+            "name": "Klejenie",
+            "type": 2,
+            "value": "Klej tylko na ścianę"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "227,90 zł",
+        "net_historical_lowest_price": "185,28 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "3",
+          "name": "Tapeta szer. 1m"
+        }
+      }
+    },
+    {
+      "context": "quote:roll",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 24027,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:roll",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver",
+            "stock_id": 24027,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "227,90 zł",
+            "price_float": 227.9,
+            "sum": "227,90 zł",
+            "sum_float": 227.9
+          }
+        ],
+        "basket": {
+          "sum_products": "227,90 zł",
+          "sum_products_float": 227.9
+        },
+        "countries": [
+          {
+            "id": 20,
+            "name": "Belgia",
+            "selected": false
+          },
+          {
+            "id": 56,
+            "name": "Czechy",
+            "selected": false
+          },
+          {
+            "id": 57,
+            "name": "Niemcy",
+            "selected": false
+          },
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 15,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 20,
+            "selected": false,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 3,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka / Karta",
+            "description": ""
+          },
+          {
+            "payment_id": 24,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 14,
+            "selected": true,
+            "title": "InPost kurier",
+            "description": "",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "InPost kurier - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 56,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "21,90 zł",
+            "cost_float": 21.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,90 zł",
+                "cost_float": 21.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier DPD - pobranie",
+            "description": "",
+            "cost": "26,90 zł",
+            "cost_float": 26.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,90 zł",
+                "cost_float": 26.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "KurierDPD Czechy",
+            "description": "UE [CZ]",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 56,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier DPD Niemcy",
+            "description": "UE [DE]",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 57,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 61,
+            "selected": false,
+            "title": "Kurier DPD Belgia",
+            "description": "",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 20,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty w siedzibie firmy",
+            "description": "- 41-922 Radzionków, ul. Męczenników Oświęcimia 32 - przelew",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:roll-and-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/23972",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 23972,
+        "name": "Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver",
+        "can_buy": true,
+        "ean": "4002790333357",
+        "code": "ER 3333-5",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 24027,
+        "url": "https://plejadatapet.pl/pl/p/Gladka-tapeta-flizelinowa-150gm2-25m-0%2C75m-3333-5-Erismann-RollOver/23972",
+        "loyalty": {
+          "points_float": 227,
+          "points": "227 pkt",
+          "price_float": 9200,
+          "price": "9 200 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Erismann RollOver do malowania",
+          "id": 813
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "price": {
+          "gross": {
+            "base": "227,90 zł",
+            "base_float": 227.9,
+            "final": "227,90 zł",
+            "final_float": 227.9,
+            "historical_lowest_price": "227,90 zł",
+            "historical_lowest_price_float": 227.9
+          },
+          "net": {
+            "base": "185,28 zł",
+            "base_float": 185.28,
+            "final": "185,28 zł",
+            "final_float": 185.28,
+            "historical_lowest_price": "185,28 zł",
+            "historical_lowest_price_float": 185.28
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Erismann",
+          "id": 43
+        },
+        "newProduct": true,
+        "delivery": {
+          "name": null,
+          "hours": null
+        },
+        "shortDescription": "<p>3333-5 Erismann RollOver</p>",
+        "main_image": "92091",
+        "main_image_filename": "92091.jpg",
+        "description": "<h1 class=\"h3\">Flizelina remontowa gładka - gładź w rolce - tapeta do malowania Erismann RollOver 3333-5</h1>\n<h3 data-pm-slice=\"1 1 []\">Gładka tapeta renowacyjna do ścian i sufitów jest grubym, sprasowanym materiałem celulozowo-flizelinowym bez żadnej struktury w kolorze białym. Doskonale maskuje pęknięcia, rysy i wyrównuje strukturę ściany.</h3>\n<h2><strong>Dane techniczne:</strong></h2>\n<ul>\n<li>Producent: <strong>Erismann</strong></li>\n<li>Kolekcja:<strong> <strong>RollOver</strong></strong></li>\n<li>Numer: <strong>3333-5</strong></li>\n<li>Rodzaj tapety: <strong>flizelina</strong></li>\n<li>Wymiary rolki tapety: <strong>25.00m * 0.75m</strong></li>\n<li>Gramatura: <strong>150g/m2</strong></li>\n<li>Przeznaczenie: <strong><strong><strong>uniwersalne, sypialnia, salon, jadalnia, przedpokój; </strong></strong></strong><strong>ściany i sufity, pomieszczenia mieszkalne oraz użytkowe. Flizelina przeznaczona do zastosowań renowacyjnych; może stanowić podłoże pod dalsze wykończenie powierzchni.</strong></li>\n<li>Kolorystyka: <strong>biała, przeznaczona do malowania na wybrany kolor</strong></li>\n<li>Struktura: <strong><strong>gładka</strong></strong></li>\n</ul>\n<h2><strong>Zalety produktu:</strong></h2>\n<ul>\n<li>Działa jak <strong>\"gładź w rolce\"</strong> – nakleja się ją na ścianę (klej nakłada się tylko na podłoże), a po wyschnięciu maluje dowolną farbą ścienną</li>\n<li>Brak szlifowania i pyłu</li>\n<li><strong>Biała powierzchnia</strong> gotowa do malowania już w <strong class=\"rQesXe MPyX\" data-complete=\"true\" data-sfc-cp=\"\" data-sfc-root=\"c\">24 godziny</strong></li>\n<li>Doskonale maskuje pęknięcia, rysy - tapeta elastycznie pracuje ze ścianą - pęknięcia nie wychodzą na wierzch</li>\n<li>Wyrównuje strukturę ściany - gładka powierzchnia ułatwiająca uzyskanie jednolitego wykończenia ścian</li>\n<li>Neutralna, biała powierzchnia przeznaczona do malowania lub jest idealnym podkładem pod \"wymagające\" tapety</li>\n<li>Nadaje się do aplikacji przy użyciu urządzeń do nakładania kleju.</li>\n</ul>\n<hr />\n<h3><a href=\"https://plejadatapet.pl/pl/i/Symbole-na-tapetach-piktogramy/21\" title=\"Oznaczenia - piktogramy na tapetach\">Oznaczenia na tapecie (szczegóły kliknij)</a></h3>\n<p><img alt=\"Tapeta jest bardzo odporna na mycie.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/Zmywanie3.jpg\" width=\"25\" /> <strong>Bardzo odporna na mycie.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Tapeta posiada dobrą światłoodporność\"><img alt=\"Tapeta posiada dobrą światłoodporność.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/%C5%9Awiat%C5%82o3.jpg\" width=\"25\" /></a> Dobra światłoodporność.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Pasowanie wzoru dowolne\"><img alt=\"Bez pasowania wzoru\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/Pasdo0.jpg\" width=\"25\" /></a> Brak pasowania wzoru.</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Podłoże posmarować klejem\"><img alt=\"Podłoże posmarować klejem.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/KlejNa%C5%9Acian%C4%99.jpg\" width=\"25\" /></a> Klej nanosimy na podłoże</strong></p>\n<p><strong><a href=\"https://plejadatapet.pl/pl/i/Oznaczenia-piktogramy-stosowane-na-tapetach/21\" title=\"Ściągalna bez pozostałości\"><img alt=\"Ściągalna bez pozostałości.\" height=\"25\" src=\"https://plejadatapet.pl/userdata/public/assets/symbole/Nowe/UsUca%C5%82k.jpg\" width=\"25\" /></a> Ściągalna bez pozostałości.</strong></p>\n<hr />\n<h2 data-pm-slice=\"1 1 []\"><strong>Informacje dotyczące montażu:</strong></h2>\n<p>Przed montażem należy odpowiednio przygotować podłoże — powinno być stabilne, równe, czyste i pozbawione luźnych fragmentów. Klej należy dobrać do flizeliny zgodnie z zaleceniami producenta. Sposób dalszego wykończenia, w tym ewentualne malowanie, należy dostosować do instrukcji produktu i zastosowanych materiałów.</p>",
+        "images": [
+          "92091",
+          "92092",
+          "92093",
+          "92094",
+          "92095",
+          "92096"
+        ],
+        "images_filename": [
+          "92091.jpg",
+          "92092.jpg",
+          "92093.jpg",
+          "92094.jpg",
+          "92095.jpg",
+          "92096.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Motyw na tapecie",
+            "type": 2,
+            "value": "Różne"
+          },
+          {
+            "name": "Wymiar",
+            "type": 2,
+            "value": "25m x 0,75m"
+          },
+          {
+            "name": "Pasowanie wzoru",
+            "type": 2,
+            "value": "NIE"
+          },
+          {
+            "name": "Odporność na zmywanie",
+            "type": 2,
+            "value": "Bardzo odporna na mycie"
+          },
+          {
+            "name": "Rodzaj tapety",
+            "type": 2,
+            "value": "Tapeta flizelinowa do malowania"
+          },
+          {
+            "name": "Przeznaczenie tapet",
+            "type": 2,
+            "value": "Pokojowe uniwersalne"
+          },
+          {
+            "name": "Przesunięcie wzoru",
+            "type": 2,
+            "value": "NIE - 0 - brak pasowania"
+          },
+          {
+            "name": "Gramatura tapety",
+            "type": 2,
+            "value": "150 g/m2   +/- 5%"
+          },
+          {
+            "name": "Kolor dominujący",
+            "type": 2,
+            "value": "Biały Ecru Perłowy"
+          },
+          {
+            "name": "Klejenie",
+            "type": 2,
+            "value": "Klej tylko na ścianę"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "227,90 zł",
+        "net_historical_lowest_price": "185,28 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "3",
+          "name": "Tapeta szer. 1m"
+        }
+      }
+    },
+    {
+      "context": "quote:roll-and-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 24027,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:roll-and-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/825",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 825,
+        "name": "Klej do tapet Direct 200g Metylan",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "MT DIR200",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 872,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825",
+        "loyalty": {
+          "points_float": 31,
+          "points": "31 pkt",
+          "price_float": 1300,
+          "price": "1 300 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Flizelinowych",
+          "id": 82
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "31,90 zł",
+            "base_float": 31.9,
+            "final": "31,90 zł",
+            "final_float": 31.9,
+            "historical_lowest_price": "31,90 zł",
+            "historical_lowest_price_float": 31.9
+          },
+          "net": {
+            "base": "25,93 zł",
+            "base_float": 25.93,
+            "final": "25,93 zł",
+            "final_float": 25.93,
+            "historical_lowest_price": "25,93 zł",
+            "historical_lowest_price_float": 25.93
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Direct 200g</p>",
+        "main_image": "36488",
+        "main_image_filename": "36488.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Do nakładania bezpośrednio na ścianę</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Bez rozprysków</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Z wysokowartościowej metylocelulozy wzbogaconą syntetyczną żywicą</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza z dodatkiem żywic sztucznych</li>\n<li><strong>Wygląd roztworu:</strong> gęsty, mlecznobiały</li>\n<li><strong>Ciężar nasypowy:</strong> 460 – 530 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> w ciągu 3-5 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> lekko zasadowy (pH = 8-9)</li>\n<li><strong>Wydajność:</strong> 18-22 m²</li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZASTOSOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE KLEJU:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE PODŁOŻA:</span></h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w wodzie w proporcji 1:80 lub Metylan Direct w proporcji 1:40.</span></li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">TAPETOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Wymieszany klej Metylan Direct nanieść równomiernie bezpośrednio na ścianę za pomocą wałka. Zaczynając od strony okna tapetę przykleić bezpośrednio z rolki do posmarowanej klejem ściany. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Następnie tapetę rozwinąć do dołu, przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. Resztki kleju znajdujące się na przedniej powierzchni tapety należy niezwłocznie zmyć delikatnie gąbką i czystą wodą lub zetrzeć. Przy zmianie tapet flizelinowych wystarczy pociągnąć za górny brzeg tapety i oderwać ją na sucho. Metylan Direct można także nanieść tradycyjnie na spodnią stronę tapety i od razu przykleić ją do ściany.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZALECENIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Niniejsza karta techniczna określa zakres stosowania materiału i sposób prowadzenia robót, ale nie może zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania. Wraz z ukazaniem się tej karty technicznej tracą ważność karty wcześniejsze. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZECHOWYWANIE:</span></h3>\n<p><span style=\"color:#000000;\"><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span><span style=\"font-family:georgia, palatino;font-size:14pt;background-color:#ff00ff;\"> <br /></span></span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">DOSTĘPNE OPAKOWANIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\"><span style=\"font-size:12pt;\">200g</span></span></p>\n<h3> </h3>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ORIENTACYJNE ZUŻYCIE:</span></h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\"><colgroup><col width=\"181\" /><col width=\"95\" /><col width=\"113\" /><col width=\"113\" /><col width=\"113\" /></colgroup>\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Proporcje</span><br /><span style=\"font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Na opakowanie = 200g</span></td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">60-80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe gładkie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">20-22</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4*</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe tłoczone</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:17,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">18-20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3-4*</span></td>\n</tr>\n</tbody>\n</table>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:10pt;\">* Eurorolka (10,05m x 0,53m</span>)</p>\n<p> </p>\n<p> </p>",
+        "images": [
+          "36488"
+        ],
+        "images_filename": [
+          "36488.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "31,90 zł",
+        "net_historical_lowest_price": "25,93 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "quote:roll-and-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 872,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:roll-and-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Gładka tapeta flizelinowa 150g/m2 25m * 0,75m 3333-5 Erismann RollOver",
+            "stock_id": 24027,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "227,90 zł",
+            "price_float": 227.9,
+            "sum": "227,90 zł",
+            "sum_float": 227.9
+          },
+          {
+            "name": "Klej do tapet Direct 200g Metylan",
+            "stock_id": 872,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "31,90 zł",
+            "price_float": 31.9,
+            "sum": "31,90 zł",
+            "sum_float": 31.9
+          }
+        ],
+        "basket": {
+          "sum_products": "259,80 zł",
+          "sum_products_float": 259.8
+        },
+        "countries": [
+          {
+            "id": 20,
+            "name": "Belgia",
+            "selected": false
+          },
+          {
+            "id": 56,
+            "name": "Czechy",
+            "selected": false
+          },
+          {
+            "id": 57,
+            "name": "Niemcy",
+            "selected": false
+          },
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 15,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 20,
+            "selected": false,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 3,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka / Karta",
+            "description": ""
+          },
+          {
+            "payment_id": 24,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 14,
+            "selected": true,
+            "title": "InPost kurier",
+            "description": "",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "InPost kurier - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 56,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "21,90 zł",
+            "cost_float": 21.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,90 zł",
+                "cost_float": 21.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier DPD - pobranie",
+            "description": "",
+            "cost": "26,90 zł",
+            "cost_float": 26.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,90 zł",
+                "cost_float": 26.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "KurierDPD Czechy",
+            "description": "UE [CZ]",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 56,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier DPD Niemcy",
+            "description": "UE [DE]",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 57,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 61,
+            "selected": false,
+            "title": "Kurier DPD Belgia",
+            "description": "",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 20,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty w siedzibie firmy",
+            "description": "- 41-922 Radzionków, ul. Męczenników Oświęcimia 32 - przelew",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    }
+  ]
+}

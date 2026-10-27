@@ -1,5 +1,6 @@
 import { reviewRemovalCalculation, reviewRemovalProject, reviewRemovalShopping } from './wallpaperRemoval';
 import { reviewWallpaperAdhesiveCalculation, reviewWallpaperAdhesiveProject, reviewWallpaperAdhesiveShopping } from './wallpaperAdhesive';
+import { reviewWallpaperRollCalculation, reviewWallpaperRollProject, reviewWallpaperRollShopping } from './wallpaperRolls';
 import { reviewWallpaperTapeCalculation, reviewWallpaperTapeProject, reviewWallpaperTapeShopping } from './wallpaperTape';
 import { reviewGypsumCalculation, reviewGypsumProject, reviewGypsumShopping } from './gypsumBoard';
 import { reviewFrameCalculation, reviewFrameProject, reviewFrameShopping } from './framePainting';
@@ -16,9 +17,9 @@ import { reviewLaminateCalculation, reviewLaminateProject, reviewLaminateShoppin
 
 const upgradePreviousCalculation = (calc: CalculationResult | undefined) => reviewRemovalCalculation(reviewGypsumCalculation(reviewFrameCalculation(reviewFinishingCalculation(reviewSanitaryCalculation(reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc)))))))))));
 const upgradePreviousProject = (project: Project) => reviewRemovalProject(reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))))))));
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewWallpaperTapeCalculation(reviewWallpaperAdhesiveCalculation(reviewLaminateCalculation(upgradePreviousCalculation(calc))));
-export const upgradeProject = (project: Project) => reviewWallpaperTapeProject(reviewWallpaperAdhesiveProject(reviewLaminateProject(upgradePreviousProject(project))));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewWallpaperRollCalculation(reviewWallpaperTapeCalculation(reviewWallpaperAdhesiveCalculation(reviewLaminateCalculation(upgradePreviousCalculation(calc)))));
+export const upgradeProject = (project: Project) => reviewWallpaperRollProject(reviewWallpaperTapeProject(reviewWallpaperAdhesiveProject(reviewLaminateProject(upgradePreviousProject(project)))));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
-  return reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc);
+  return reviewWallpaperRollShopping(reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc),calc);
 };

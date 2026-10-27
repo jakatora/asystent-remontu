@@ -1,4 +1,5 @@
 import { removalMaterials, removalInputs } from '@/features/calculator/wallpaperRemoval';
+import { wallpaperRollInputs } from '@/features/calculator/wallpaperRolls';
 import { wallpaperAdhesiveInputs } from '@/features/calculator/wallpaperAdhesive';
 import { wallpaperTapeInputs } from '@/features/calculator/wallpaperTape';
 import { finishingMaterials, finishingInputs } from '@/features/calculator/wallFinishing';
@@ -377,6 +378,7 @@ export const wallpaperInstallJob: RenovationJob = {
       hint: 'Długość × wysokość każdej ściany. Odejmij okna i drzwi.' },
     ...substratePrimerInputs('wallpaper-install'),
     ...wallpaperAdhesiveInputs,
+    ...wallpaperRollInputs,
     ...wallpaperTapeInputs,
   ],
   materials: [

@@ -5,7 +5,9 @@ import { MATERIAL_PRICES } from '@/data/prices/materials';
 
 export const WALLPAPER_ADHESIVE_MODEL = 'wallpaper-adhesive-v1';
 export const WALLPAPER_SUPPLIES_MODEL = 'wallpaper-supplies-v1';
-export const isCurrentWallpaperAdhesiveModel = (model?: string) => model === WALLPAPER_ADHESIVE_MODEL || model === WALLPAPER_SUPPLIES_MODEL;
+export const WALLPAPER_ROLLS_MODEL = 'wallpaper-rolls-v1';
+export const isCurrentWallpaperAdhesiveModel = (model?: string) => model === WALLPAPER_ADHESIVE_MODEL || model === WALLPAPER_SUPPLIES_MODEL || model === WALLPAPER_ROLLS_MODEL;
+export const isCurrentWallpaperTapeModel = (model?: string) => model === WALLPAPER_SUPPLIES_MODEL || model === WALLPAPER_ROLLS_MODEL;
 export const isWallpaperAdhesiveJob = (id: string) => id === 'wallpaper' || id === 'wallpaper-install';
 export const isWallpaperAdhesive = (jobId: string, id: string) => isWallpaperAdhesiveJob(jobId) && id === 'wallpaper-glue';
 const choices = [
@@ -17,6 +19,7 @@ const choices = [
 ] as const;
 function choice(m: MeasurementMap) {
   const type = m.wallpaperAdhesiveType;
+  if (m.wallpaperRollChoice === 1 && type !== 1 && type !== 2) return null;
   return Number.isSafeInteger(type) && type >= 1 && type <= choices.length ? choices[type - 1] : null;
 }
 export function wallpaperAdhesiveReference(m: MeasurementMap): string | null {

@@ -1,5 +1,6 @@
 import { REMOVAL_JOB, REMOVAL_MODEL } from './wallpaperRemoval';
 import { isWallpaperAdhesiveJob, isCurrentWallpaperAdhesiveModel, isWallpaperAdhesive } from './wallpaperAdhesive';
+import { isWallpaperRoll } from './wallpaperRolls';
 import { isWallpaperTape } from './wallpaperTape';
 import { WALL_FINISHING_MODEL, isWallFinishingJob } from './wallFinishing';
 import type { CalculationResult, MaterialItem, MaterialLineItem, Project, ShoppingItem } from '@/types/domain';
@@ -127,7 +128,7 @@ export function reviewSubstrateShopping(items: readonly ShoppingItem[], calc?: C
     if (item.itemType !== 'material') return item;
     // Dedicated wallpaper reviewers must compare the saved identity and unit
     // before a generic projection can replace them with current values.
-    if (isWallpaperAdhesive(calc.jobId, item.materialId) || isWallpaperTape(calc.jobId, item.materialId)) return item;
+    if (isWallpaperRoll(calc.jobId, item.materialId) || isWallpaperAdhesive(calc.jobId, item.materialId) || isWallpaperTape(calc.jobId, item.materialId)) return item;
     const line = calc.materials.find(row => row.material.id === item.materialId);
     if (!line) return item;
     if (!currentPrimerModel(calc) && item.materialId !== spec.materialId) return item;

@@ -2,7 +2,7 @@ import type { CalculationResult, MaterialItem, Project, ShoppingItem } from '@/t
 import type { MeasurementMap } from '@/types/calculator';
 import type { MeasurementInputDefinition } from '@/types/engine';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
-import { WALLPAPER_SUPPLIES_MODEL } from './wallpaperAdhesive';
+import { isCurrentWallpaperTapeModel } from './wallpaperAdhesive';
 
 export const WALLPAPER_TAPE_ID = 'masking-tape-wallpaper';
 export const WALLPAPER_TAPE_REFERENCE = 'mat-masking-tape-bluedolphin-30mm';
@@ -30,7 +30,7 @@ export function wallpaperTapeWarnings(lines: readonly { material: { id: string }
     ? [{ condition: 'always' as const, level: 'warning' as const, message: 'Niepełna wycena taśmy: podaj długość zabezpieczanych krawędzi. Wpisz 0, jeśli taśma nie jest potrzebna.' }] : [];
 }
 export function reviewWallpaperTapeCalculation(calc?: CalculationResult): CalculationResult | undefined {
-  if (!calc || calc.jobId !== 'wallpaper-install' || calc.quantityModel === WALLPAPER_SUPPLIES_MODEL) return calc;
+  if (!calc || calc.jobId !== 'wallpaper-install' || isCurrentWallpaperTapeModel(calc.quantityModel)) return calc;
   const materials = calc.materials.map(line => line.material.id === WALLPAPER_TAPE_ID ? { ...line, quantityKnown: false } : line);
   return { ...calc, materials, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) };
 }
@@ -40,7 +40,7 @@ export function reviewWallpaperTapeShopping(items: readonly ShoppingItem[], calc
   return items.flatMap(item => {
     if (item.itemType !== 'material' || item.materialId !== WALLPAPER_TAPE_ID) return [item];
     const line = calc.materials.find(row => row.material.id === WALLPAPER_TAPE_ID), required = wallpaperTapeQuantity(calc.measurements);
-    if (calc.quantityModel !== WALLPAPER_SUPPLIES_MODEL || !line || line.quantityKnown === false || required === null) return [{ ...item, quantityKnown: false, needsQuantityConfirmation: true, owned: false, purchased: false }];
+    if (!isCurrentWallpaperTapeModel(calc.quantityModel) || !line || line.quantityKnown === false || required === null) return [{ ...item, quantityKnown: false, needsQuantityConfirmation: true, owned: false, purchased: false }];
     if (required === 0) return [];
     const same = !item.needsQuantityConfirmation && item.name === line.material.name && item.unit === 'mb' && Number.isFinite(item.customQuantity ?? item.quantity) && (item.customQuantity ?? item.quantity) + 1e-8 >= required;
     return [{ ...item, name: line.material.name, unit: 'mb', quantity: line.quantity, estimatedPrice: line.cost, requiredQuantity: required, quantityKnown: true, needsQuantityConfirmation: !same, owned: same && item.owned, purchased: same && item.purchased, notes: line.material.notes }];

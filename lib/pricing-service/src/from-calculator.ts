@@ -28,6 +28,7 @@ import {
   type EstimateDeps,
 } from "./estimate";
 import { estimateStageLabor, type Measurements } from "./labor";
+import { ERISMANN_3333_5_EAN, ERISMANN_3333_5_ROLL, planPlainWallpaperPanels, type PlainWallpaperRequirement } from './wallpaper-rolls';
 import type {
   EstimateItem,
   EstimateOptions,
@@ -53,6 +54,7 @@ export interface CalculatorMaterial {
 
 /** Minimalny kształt pozycji z `CalculationResult.materials` (MaterialLineItem). */
 export interface CalculatorMaterialLine {
+  readonly plainWallpaper?: PlainWallpaperRequirement;
   readonly material: CalculatorMaterial;
   /** Ilość w jednostkach natywnych materiału (zaokrąglona przez silnik). */
   readonly quantity: number;
@@ -145,6 +147,13 @@ export async function estimateStageCostFromCalculation(
 ): Promise<StageEstimateFromCalculation> {
   const items = toEstimateItems(jobResult);
   const stage = await estimateStageCost(db, items, options, deps);
+  for (const [index, line] of stage.lines.entries()) {
+    const input = jobResult.materials[index], cut = input?.plainWallpaper;
+    if (!line.resolved || line.product.ean !== ERISMANN_3333_5_EAN || input.material.ean !== ERISMANN_3333_5_EAN || line.unit !== 'szt' || line.packageSize !== 1 || cut?.version !== 1 || !Array.isArray(cut.panels)) continue;
+    const plan = planPlainWallpaperPanels(cut.panels, ERISMANN_3333_5_ROLL);
+    // Manual/custom shopping quantities cannot retain stale full-wall cuts.
+    if (plan && input.quantity === plan.rollsNeeded) line.plainWallpaper = { version: 1, panels: cut.panels.map(panel => ({ ...panel })) };
+  }
   return withLabor(stage, jobResult.jobId, jobResult.measurements ?? {}, options);
 }
 
