@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T00:08:51.435Z",
-  "scope": "112 reference products and explicit alternatives; not every renovation product. 106 have an offer and 101 have an eligible pickup offer without verified branch inventory or travel costs. 112 photo URLs are registered. 21 registered delivery adapters do not guarantee every basket; ABUD cloud access and Castorama/OBI delivery remain unavailable. The verified mixed basket now replans around the exact Sewera paint stock cap (2 of 4 requested), keeps mandatory white adhesive at Sewera and confirms 1787.12 PLN delivered for four test jobs. Shipping stock evidence remains scoped to postcode and dispatch; this is a bounded comparison of quoted baskets, not a global optimum.",
-  "total": 112,
-  "verifiedProducts": 106,
+  "checkedAt": "2026-10-27T00:42:42.841Z",
+  "scope": "113 catalogue references, 107 with offers, 6 historical references still unavailable. This is not coverage of all renovation recipes: the separate standard-tier synthetic audit prices 51 of 227 material lines across 65 non-empty recipes. 113 photo URLs registered; the new undercoat photo is runtime verified. Pickup eligibility does not confirm branch stock or travel costs; Castorama/OBI delivery and ABUD cloud transport remain unavailable.",
+  "total": 113,
+  "verifiedProducts": 107,
   "remaining": 6,
-  "offers": 134,
+  "offers": 136,
   "stores": 38,
-  "productsWithPhotos": 112,
-  "registeredOffers": 136,
+  "productsWithPhotos": 113,
+  "registeredOffers": 138,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2394,11 +2394,39 @@
           "note": "Actual full tested basket quotation; not a fixed tariff for other quantities."
         }
       ]
+    },
+    {
+      "id": "mat-paint-undercoat-sniezka-grunt-5l",
+      "name": "Śnieżka Grunt biała farba podkładowa 5 l",
+      "referenceUrl": "https://sklep.sewera.pl/sniezka-grunt-5l-p6153",
+      "status": "verified_offer",
+      "ean": "5903973000235",
+      "sourceIds": [
+        "rabdom-sniezka-undercoat-5l",
+        "sewera-sniezka-undercoat-5l"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/72152/sniezka-grunt-5l.webp",
+      "deliveryChecks": [
+        {
+          "store": "rabdom-sniezka-undercoat-5l",
+          "mode": "shipping",
+          "postalCode": "00-001",
+          "confirmed": true,
+          "deliveredGrosze": 7040
+        },
+        {
+          "store": "sewera-sniezka-undercoat-5l",
+          "mode": "shipping",
+          "postalCode": "00-001",
+          "confirmed": true,
+          "deliveredGrosze": 7600
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
   "browserVerifiedOffers": 22,
-  "productsWithPickupOffers": 101,
+  "productsWithPickupOffers": 102,
   "confirmedPickupAddresses": 14,
   "deliveryProductionFailures": {
     "ABUD": {

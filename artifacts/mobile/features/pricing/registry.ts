@@ -3,6 +3,7 @@ import { LABOR_PRICES, MATERIAL_PRICES, getLaborIdsForJob, getMaterialIdsForJob 
 import { BASELINE_REGION } from '@/data/prices/regions';
 import { tileSpacerReferences } from './tileSpacers';
 import { KITCHEN_EPOXY_REFERENCE, KITCHEN_WHITE_REFERENCE } from './kitchenMaterials';
+import { REPAINT_UNDERCOAT_REFERENCE } from '@/features/calculator/repaint';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -59,6 +60,15 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     const ref = MATERIAL_BY_ID.get(id);
     if (ref) results.push(ref);
   }
+  if(jobId==='paint-ceiling') {
+    const ref=MATERIAL_BY_ID.get('mat-universal-primer-5l');if(ref&&!results.some(row=>row.id===ref.id))results.push(ref);
+  }
+  if(jobId==='repaint-walls') {
+    const paintId=tier==='economy'?'mat-paint-latex-dekoral-akrylit-w-white-5l':tier==='better'?'mat-paint-latex-dulux-easycare-white-9l':'mat-paint-latex-sniezka-barwy-natury-white-5l';
+    for(const id of [paintId,REPAINT_UNDERCOAT_REFERENCE,'mat-masking-tape-bluedolphin-30mm','mat-protective-film-bluedolphin-4x5m']) {
+      const ref=MATERIAL_BY_ID.get(id);if(ref&&!results.some(row=>row.id===id))results.push(ref);
+    }
+  }
   // A different price tier must not omit the required basin drain or explicit
   // extra hoses. Same exact references; quantities still come from calculator.
   // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/
@@ -86,7 +96,7 @@ export function hasLaborData(jobId: string): boolean {
 }
 
 export function hasMaterialData(jobId: string): boolean {
-  return getMaterialIdsForJob(jobId, 'standard').length > 0;
+  return getMaterialsForJob(jobId, 'standard').length > 0;
 }
 
 export function getLatestUpdateDate(): string {

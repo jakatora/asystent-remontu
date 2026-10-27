@@ -1,6 +1,7 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
+import { REPAINT_FILM_MATERIAL } from '@/features/calculator/repaint';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // WALLS & CEILINGS JOB GROUP
@@ -111,47 +112,59 @@ export const repaintJob: RenovationJob = {
     { id: 'coveragePerLiter', label: 'Wydajność farby (m²/litr)', unit: 'm²/litr',
       inputType: 'coverage', placeholder: '8', defaultValue: 8, min: 5, max: 15, required: false,
       hint: 'Farba kryjąca: ok. 6–8 m²/litr. Lepsza farba — większa wydajność.' },
+    {id:'undercoatChoice',label:'Biała farba podkładowa',unit:'',placeholder:'',inputType:'select',defaultValue:1,min:0,max:1,required:false,
+      options:[{value:1,label:'Potrzebuję podkładu kryjącego'},{value:0,label:'Podkład nie jest potrzebny lub już go mam'}],
+      hint:'Osobna warstwa przygotowująca jednolite podłoże. Stabilna stara powłoka nie zawsze wymaga podkładu; sprawdź instrukcję farby nawierzchniowej.'},
+    // source: https://www.sniezka.pl/produkt/sniezka-grunt/
+    {id:'undercoatCoverage',label:'Wydajność podkładu (jedna warstwa)',unit:'m²/litr',placeholder:'9',inputType:'coverage',defaultValue:9,min:1,max:10,required:false,
+      hint:'Śnieżka Grunt: do 10 m²/l według producenta; przyjmujemy 9 m²/l i 5% zapasu. Sprawdź etykietę i chłonność. Wydajność farby nawierzchniowej wpisujesz osobno.'},
+    {id:'tapeRolls',label:'Rolki taśmy 50 m do kupienia',unit:'szt.',placeholder:'1',inputType:'count',defaultValue:1,min:0,max:20,required:false,
+      hint:'Podaj własną liczbę rolek; 0 jeśli masz taśmę. Nie przeliczamy powierzchni ścian na rolki.'},
+    {id:'protectiveFilmPacks',label:'Opakowania folii 4 × 5 m do kupienia',unit:'szt.',placeholder:'1',inputType:'count',defaultValue:1,min:0,max:20,required:false,
+      hint:'Jedno opakowanie ma 20 m². Uwzględnij podłogę i meble; 0 jeśli masz odpowiednią osłonę.'},
   ],
   materials: [
     {
       id: 'paint',
       name: 'Farba kryjąca (zmywalna)',
-      brand: 'Magnat Ceramic C45 5 L (referencja)',
+      brand: 'Śnieżka Barwy Natury 173 biały / Majowa Konwalia 5 l (referencja Standard)',
       unit: 'litr',
       formula: formulaBuilder.coverage(8),
       wasteFactor: 1.05,
       roundingRule: 'ceil',
       packaging: { size: 5, label: 'puszka 5 L', purchaseUnit: 'puszka' },
-      pricePerUnit: 28,
+      // source: https://sklep.sewera.pl/barwy-natury-173-majowa-konwalia-5l-p7136
+      pricePerUnit: 98.50,
       category: 'farba',
-      notes: 'Wybierz farbę z dobrą krycialnością. Klasa kryjąca F lub A2.',
-      shopPrices: SHARED_SHOP_PRICES.paintMagnatCeramic5L,
+      // source: https://www.sniezka.pl/produkt/sniezka-barwy-natury/173-majowa-konwalia
+      notes: 'Referencja biała 173. W porównaniu zobaczysz dokładny wariant dla wybranego poziomu. Liczbę warstw i wydajność dopasuj do etykiety farby; obecne 8 m²/l to założenie użytkownika.',
     },
     {
       id: 'primer-repaint',
-      name: 'Grunt kryjący (biały/szary)',
-      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
+      name: 'Biała farba podkładowa Śnieżka Grunt 5 l',
+      brand: 'Śnieżka Grunt — lateksowa emulsja podkładowa biała 5 l',
       unit: 'litr',
-      formulaKey: 'primer',
+      formulaKey: 'repaintUndercoat',
       wasteFactor: 1.0,
       roundingRule: 'ceil',
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 6,
-      category: 'grunt',
+      packaging: { size: 5, label: 'wiadro 5 l', purchaseUnit: 'wiadro' },
+      // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153 (2026-10-27, 56,10 zł/5 l)
+      pricePerUnit: 56.10,
+      category: 'paint-undercoat',
       optional: true,
-      notes: 'Niezbędny przy zmianie koloru z ciemnego na jasny. Zmniejsza zużycie farby.',
-      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
+      notes: 'Jedna warstwa kryjącego białego podkładu, osobna od gruntu penetrującego. Ilość liczona z własnej wydajności 9 m²/l i 5% zapasu; potwierdź potrzebę i zgodność z farbą nawierzchniową.',
     },
     {
       id: 'painters-tape',
       name: 'Taśma malarska',
-      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
+      brand: 'Blue Dolphin niebieska 30 mm × 50 m (referencja)',
       unit: 'rolka',
-      formulaKey: 'tape',
-      pricePerUnit: 8,
+      formulaKey: 'repaintTapeRolls',
+      // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-do-wnetrz-i-na-zewnatrz-30mm-x-50m-niebieska/2526
+      pricePerUnit: 11.99,
       category: 'akcesoria',
-      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
     },
+    REPAINT_FILM_MATERIAL,
   ],
   tools: [
     { id: 'roller', name: 'Wałek malarski 18–22 cm', icon: 'edit-2', required: true, estimatedBuyCostPLN: 25, shopPrices: SHARED_SHOP_PRICES.roller18cm },
@@ -162,7 +175,8 @@ export const repaintJob: RenovationJob = {
   instructions: [
     { step: 1, title: 'Oceń stan starej farby', description: 'Sprawdź czy stara farba jest stabilna — dotknij i przeciągnij dłonią. Odchodząca farba (kredująca) musi być zmyta lub przeszlifowana.', tip: 'Jeśli stara farba "pudruje się" — zmyj ją mokrą szmatką i zagruntuj.', durationMin: 20 },
     { step: 2, title: 'Przygotuj pomieszczenie', description: 'Wynieś lub przykryj meble folią. Rozłóż folię na podłodze. Oklej taśmą listwy i okna.', durationMin: 25 },
-    { step: 3, title: 'Nanieś grunt kryjący (jeśli potrzebny)', description: 'Na ściany z ciemną farbą nanieś biały grunt kryjący. Poczekaj 2–4 godziny.', durationMin: 60 },
+    // source: https://www.sniezka.pl/produkt/sniezka-grunt/
+    { step: 3, title: 'Nanieś podkład kryjący (jeśli potrzebny)', description: 'Na przygotowane, stabilne podłoże nałóż jedną warstwę białej farby podkładowej Śnieżka Grunt. Z farbą nawierzchniową poczekaj do całkowitego wyschnięcia, według producenta około 4 godzin. Grunt penetrujący dobierz osobno, jeśli wymaga go podłoże.', durationMin: 60 },
     { step: 4, title: 'Maluj pierwszą warstwą', description: 'Pędzelkiem narożniki, wałkiem reszta. Maluj pasami, zachodząc o 1/3.', durationMin: 90 },
     { step: 5, title: 'Poczekaj 4 godziny i maluj drugą warstwą', description: 'Nie skracaj przerwy. Druga warstwa w kierunku prostopadłym do pierwszej.', durationMin: 90 },
     { step: 6, title: 'Zdejmij taśmę i posprzątaj', description: 'Gdy farba lekko wilgotna — zdejmij taśmę pod kątem 45°. Umyj narzędzia.', durationMin: 20 },

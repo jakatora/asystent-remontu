@@ -1009,10 +1009,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"winbud-kerapoxy-easy-design-100-3kg","ean":"8022452132940","name":"Mapei Kerapoxy Easy Design 100 3kg biała - fuga epoksydowa","category":"epoxy-grout","brand":"Mapei","packageSize":3,"unit":"kg","store":"WinBud","format":"shoper-api","productId":3748,"retailerSku":"8022452132940","apiPurchaseUnit":"szt.","variant":["Kerapoxy","Easy Design","100","3kg","biała"],"url":"https://winbud24.pl/pl/p/Mapei-Kerapoxy-Easy-Design-100-3kg-biala-fuga-epoksydowa/3748","imageUrl":"https://winbud24.pl/environment/cache/images/productGfx_10732_500_500/Mapei-Kerapoxy-Easy-Design-100-3kg-biala---fuga-epoksydowa.jpg"},
   // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896
   {"id":"sewera-atlas-plus-white-25kg","ean":"5905400313390","name":"Atlas Plus klej do płytek biały 25kg","category":"white-tile-adhesive","brand":"Atlas","packageSize":25,"unit":"kg","store":"Sewera","format":"sewera","variant":["Atlas Plus","biały","25kg"],"retailUnit":"SZT","url":"https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896","imageUrl":"https://sklep.sewera.pl/photo/38873/atlas-plus-klej-do-plytek-bialy-25kg.webp"},
+  // source: https://www.rabdom.pl/pl/p/Sniezka-Grunt-biala-farba-podkladowa-5l/97
+  {"id":"rabdom-sniezka-undercoat-5l","ean":"5903973000235","name":"Śnieżka Grunt - biała farba podkładowa 5l","category":"paint-undercoat","brand":"Śnieżka","packageSize":5,"unit":"l","store":"Rab-Dom","format":"shoper-api","productId":97,"retailerSku":"0109","apiPurchaseUnit":"szt.","variant":["Śnieżka","Grunt","biała","5l"],"url":"https://www.rabdom.pl/pl/p/Sniezka-Grunt-biala-farba-podkladowa-5l/97","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_10843_500_500/SNIEZKA.webp"},
+  // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153
+  {"id":"sewera-sniezka-undercoat-5l","ean":"5903973000235","name":"Śnieżka grunt 5l","category":"paint-undercoat","brand":"Śnieżka","packageSize":5,"unit":"l","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["Śnieżka","grunt","5l"],"url":"https://sklep.sewera.pl/sniezka-grunt-5l-p6153","imageUrl":"https://sklep.sewera.pl/photo/72152/sniezka-grunt-5l.webp"},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Śnieżka Grunt biała farba podkładowa 5 l": "5903973000235",
   // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
   'Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100': '8022452132940',
   // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896

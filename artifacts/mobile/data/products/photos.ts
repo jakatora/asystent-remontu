@@ -271,6 +271,9 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-basin-fixings-fischer-wst140k-2'], ean: '8590369454948',
     sourceUrl: 'https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html',
     imageUrl: 'https://www.abud.pl/hpeciai/cb2a8ab7ed9adcb860b818b21d8ad413/pol_pl_Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki-17848_1.webp' },
+  // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153
+  {"ids":["mat-paint-undercoat-sniezka-grunt-5l"],"ean":"5903973000235","sourceUrl":"https://sklep.sewera.pl/sniezka-grunt-5l-p6153","imageUrl":"https://sklep.sewera.pl/photo/72152/sniezka-grunt-5l.webp"},
+
 ];
 
 export function getProductPhoto(product: {

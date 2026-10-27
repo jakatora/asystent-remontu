@@ -17,6 +17,7 @@ export function normalizeUnit(unit: string): string {
 const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   paint: /^(paint|ceiling-paint|cabinet-paint)$/,
   primer: /primer/,
+  'paint-undercoat': /^primer-repaint$/,
   'skim-coat': /^skim-coat$/,
   plaster: /^plaster-base$/,
   'plaster-corner': /^plaster-corner$/,
@@ -67,6 +68,8 @@ export function resolveMaterialQuantity(
   if (source.quantityKnown === false) return null;
   if (['epoxy-grout','white-tile-adhesive'].includes(ref.materialType) && calc.jobId !== 'kitchen-backsplash') return null;
   if (calc.jobId === 'kitchen-backsplash' && ref.materialType === 'adhesive') return null;
+  if(ref.materialType==='paint-undercoat'&&calc.jobId!=='repaint-walls')return null;
+  if(calc.jobId==='repaint-walls'&&ref.materialType==='primer'&&source.material.id==='primer-repaint')return null;
   // The sink recipe explicitly counts cartridges of this exact 280 ml model.
   // Preserve that allowance; the API/catalogue require millilitres, not "1 ml".
   // source: https://www.castorama.pl/silikon-sanitarny-soudal-280-ml-bialy/5411183157064_CAPL.prd
@@ -91,7 +94,7 @@ export function resolveMaterialQuantity(
     const quantity = Number((getRequiredQuantity(source, calc) * 750).toFixed(8));
     return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
   }
-  const legacyPaintingTape = calc.jobId === 'paint-walls' && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
+  const legacyPaintingTape = (calc.jobId === 'paint-walls' || calc.jobId==='repaint-walls'&&ref.id==='mat-masking-tape-bluedolphin-30mm'&&ref.packageSize===50&&/50\s*m\b/.test(source.material.brand??'')) && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
   // Old tile snapshots called the crosses formula (a count of individual
   // spacers) but labelled its result "opak.". Never multiply that raw count
   // by a guessed bag size; accept only the known job/ID/formula combination.

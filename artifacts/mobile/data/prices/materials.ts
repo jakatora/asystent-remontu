@@ -2280,4 +2280,8 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896 (rzeczywisty odczyt 2026-10-26T23:28:20.037Z)
   // source: https://www.atlas.com.pl/produkt/atlas-plus-bialy/
   {"id":"mat-white-adhesive-atlas-plus-25kg","materialType":"white-tile-adhesive","productLabel":"Atlas Plus klej do płytek biały 25kg","brand":"Atlas","packageSize":25,"packageUnit":"kg","pricePerPackage":96.36,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/atlas-plus-klej-do-plytek-bialy-25kg-p8896","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN 5905400313390, PL-B-F-25. Biały klej ATLAS PLUS BIAŁY, cały worek 25 kg; odrębny od szarego ATLAS PLUS i Adesilex. Średnie zużycie producenta dla równej ściany 25×40 cm: 2,2 kg/m². Nierówności i metoda kombinowana zwiększają ilość. Nie jest szybkowiążącą odmianą Express."},
+  // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153 (rzeczywisty odczyt 2026-10-27T00:18:32.273Z)
+  // source: https://www.sniezka.pl/produkt/sniezka-grunt/
+  {"id":"mat-paint-undercoat-sniezka-grunt-5l","materialType":"paint-undercoat","productLabel":"Śnieżka Grunt biała farba podkładowa 5 l","brand":"Śnieżka","packageSize":5,"packageUnit":"l","pricePerPackage":56.1,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/sniezka-grunt-5l-p6153","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN 5903973000235. Kryjąca biała lateksowa farba podkładowa do wnętrz, jedna warstwa; odrębna od gruntu głęboko penetrującego. Producent podaje do 10 m²/l; karta sprzedawcy do 9 m²/l. Dla oszacowania 9 m²/l i 5% zapasu; potwierdź etykietę, chłonność i zgodność farby nawierzchniowej. Pełne wiadro 5 l."},
+
 ];

@@ -245,7 +245,7 @@ export default function WizardScreen() {
   const { jobId: initialJobId } = useLocalSearchParams<{ jobId?: string }>();
   const insets = useSafeAreaInsets();
   const { createProject, generateAndAddShoppingItems } = useApp();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   // ── Option lists (built inside component for translation) ───────────────────
   const CONDITION_OPTIONS: PickOption<WizardCondition>[] = [
@@ -385,6 +385,8 @@ export default function WizardScreen() {
   const categories = CATEGORIES.filter((c) => c.jobCount > 0);
   const availJobs  = draft.categoryId ? getJobsByCategory(draft.categoryId) : [];
   const selectedJob: RenovationJob | undefined = draft.jobId ? getJobById(draft.jobId) : undefined;
+  const invalidMeasurementIds = new Set(validationError && selectedJob
+    ? parseMeasurements(selectedJob, draft.measurements).errors.map(error => error.id) : []);
 
   // ── Navigation ──────────────────────────────────────────────────────────────
 
@@ -1070,10 +1072,7 @@ export default function WizardScreen() {
                   {selectedJob.measurementInputs.map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
-                    const hasError =
-                      validationError &&
-                      !isOptional &&
-                      (val === '' || isNaN(parseDecimal(val)));
+                    const hasError = invalidMeasurementIds.has(inp.id);
 
                     return (
                       <View key={inp.id} style={{ gap: 6 }}>
@@ -1157,8 +1156,10 @@ export default function WizardScreen() {
                         </View>}
 
                         {hasError && (
-                          <Txt style={{ fontSize: 12, color: Colors.danger }}>
-                            {t('wizard.measure.positiveValue')}
+                          <Txt accessibilityRole="alert" style={{ fontSize: 12, color: Colors.danger }}>
+                            {'inputType' in inp && inp.inputType === 'count'
+                              ? (language === 'pl' ? 'Podaj całkowitą liczbę sztuk w podanym zakresie.' : 'Enter a whole number of items within the allowed range.')
+                              : t('wizard.error.measureValue', { label: inp.label })}
                           </Txt>
                         )}
 
@@ -1179,10 +1180,8 @@ export default function WizardScreen() {
                   )}
                 </View>
 
-                {validationError && !selectedJob.measurementInputs.some((i) =>
-                  !draft.measurements[i.id]
-                ) && (
-                  <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
+                {validationError && (
+                  <Txt accessibilityRole="alert" style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
                 )}
 
                 <Button

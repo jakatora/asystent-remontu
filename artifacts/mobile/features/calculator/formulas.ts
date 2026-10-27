@@ -1,6 +1,8 @@
 import type { FormulaFn, FormulaRegistry, MeasurementMap } from '@/types/calculator';
 import { groutMassKg } from './grout';
 import { kitchenWhiteAdhesiveKg, kitchenEpoxyGroutKg, kitchenSpacerPieces } from './kitchen';
+import { repaintUndercoatLitres, repaintTapeRolls, repaintFilmArea } from './repaint';
+import { ceilingPrimerLitres } from './ceilingPrimer';
 
 // ─── Shared measurement helpers ────────────────────────────────────────────────
 // These are also exported from formula-builder.ts for inline use in job files.
@@ -201,6 +203,10 @@ const byPerimeterFormula: FormulaFn = skirtingFormula;
 export const FORMULA_REGISTRY: FormulaRegistry = {
   // ── Paint / primer ──────────────────────────────────────────────────────
   paint:           paintFormula,
+  repaintUndercoat: repaintUndercoatLitres,
+  repaintTapeRolls,
+  repaintFilmArea,
+  ceilingPrimer: m=>ceilingPrimerLitres(m)??0,
   primer:          primerFormula,
   // ── Masking / prep ──────────────────────────────────────────────────────
   tape:            tapeFormula,

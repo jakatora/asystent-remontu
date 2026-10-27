@@ -9,6 +9,8 @@ import { resolveWarnings } from '../warnings/resolver';
 import { roundMoney } from '@/shared/lib/currency';
 import { calculateEpsItems, EPS_JOB_ID, EPS_QUANTITY_MODEL } from './eps';
 import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MODEL } from './sink';
+import { REPAINT_JOB_ID, isRepaintQuantity, repaintQuantity } from './repaint';
+import { ceilingPrimerLitres } from './ceilingPrimer';
 
 const DEFAULT_WASTE_FACTOR = 1.1;
 
@@ -68,6 +70,14 @@ function resolveMaterialQuantity(
     const required = sinkConnectionQuantity(material.id, measurements, true);
     return { rawQuantity: required ?? 0, quantity: required ?? 0, packs: undefined, quantityKnown: required !== null };
   }
+  if(jobId===REPAINT_JOB_ID&&isRepaintQuantity(material.id)){
+    const required=repaintQuantity(material.id,measurements),rawQuantity=required??0;
+    return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
+  if(jobId==='paint-ceiling'&&material.id==='primer-ceiling'){
+    const required=ceilingPrimerLitres(measurements),rawQuantity=required??0;
+    return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
   const rawQty = Math.max(0, computeRawQuantity(material, measurements));
   const { quantity, packs } = applyRounding(rawQty, material);
   return { rawQuantity: rawQty, quantity, packs };
@@ -108,6 +118,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       jobId: job.id,
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id === REPAINT_JOB_ID ? {quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
       measurements,
       materials,
       totalCost,
@@ -147,6 +158,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       materials: detailedItems,
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id === REPAINT_JOB_ID ? {quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
       totalCost,
       totalDays: job.estimatedDays,
       warnings: allWarnings,

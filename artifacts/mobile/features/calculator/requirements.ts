@@ -3,11 +3,13 @@ import { getJobById } from '@/features/content/registry';
 import { computeRawQuantity } from './engine';
 import { epsRequirement, EPS_JOB_ID } from './eps';
 import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MODEL } from './sink';
+import { ceilingPrimerLitres } from './ceilingPrimer';
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
   if (calc.jobId === EPS_JOB_ID) return epsRequirement(line.material.id, calc.measurements) ?? 0;
   if (calc.jobId === SINK_JOB_ID && isSinkConnection(line.material.id)) return sinkConnectionQuantity(line.material.id, calc.measurements, calc.quantityModel === SINK_QUANTITY_MODEL) ?? 0;
+  if(calc.jobId==='paint-ceiling'&&line.material.id==='primer-ceiling')return ceilingPrimerLitres(calc.measurements)??0;
   // Historical grout snapshots contain the former unit/fallback error. Resolve
   // from saved dimensions instead of trusting that stale rounded/raw amount.
   if (['floor-tiles', 'wall-tiles-bathroom', 'kitchen-backsplash', 'grout-only'].includes(calc.jobId)) {

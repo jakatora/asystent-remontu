@@ -562,6 +562,11 @@ export const paintCeilingJob: RenovationJob = {
       inputType: 'coverage', placeholder: '10', defaultValue: 10, min: 6, max: 18,
       required: false, hint: 'Podane na opakowaniu. Farba sufitowa zwykle 8–10 m²/litr.',
     },
+    {id:'ceilingPrimerChoice',label:'Gruntowanie sufitu',unit:'',placeholder:'',inputType:'select',defaultValue:1,min:0,max:1,required:false,
+      options:[{value:1,label:'Potrzebuję gruntu do sufitu'},{value:0,label:'Grunt nie jest potrzebny lub już go mam'}]},
+    // source: https://knauf.com/api/download-center/v1/assets/3ed7306f-27be-4d9d-a14d-388477a68c24?country=pl&download=true
+    {id:'primerConsumption',label:'Zużycie gruntu do sufitu',unit:'l/m²',placeholder:'0,15',inputType:'coverage',defaultValue:0.15,min:0.01,max:1,step:0.01,required:false,
+      hint:'Osobno od wydajności farby. Dla Knauf Universalgrund przyjmujemy 0,15 l/m² na podstawie danych dla ściany; chłonność sufitu sprawdź próbą i etykietą.'},
   ],
 
   materials: [
@@ -587,21 +592,17 @@ export const paintCeilingJob: RenovationJob = {
     {
       id:           'primer-ceiling',
       name:         'Grunt pod farbę',
-      brand:        'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
+      brand:        'Knauf Universalgrund 5 l (referencja)',
       unit:         'litr',
-      formulaKey:   'primer',
+      formulaKey:   'ceilingPrimer',
       wasteFactor:  1.0,
       roundingRule: 'ceil',
       packaging: { size: 5, label: 'pojemnik 5 L', purchaseUnit: 'pojemnik' },
-      pricePerUnit: 14,
+      // source: https://realbud.com/pl/p/Grunt-KNAUF-Universalgrund-5-L-Srodek-gleboko-gruntujacy/75056675
+      pricePerUnit: 43.92,
       category:     'grunt',
       optional:     true,
-      shopPrices: [
-        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/grunt-g-boko-penetruj-cy-akrylowy-dragon-5l/5903649007612_CAPL.prd',                       verifiedAt: '2026-06-09' },
-        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/grunt-do-malowania-gleboko-penetrujacy-akrylowy-dragon-5-litrow-94230442.html',            verifiedAt: '2026-06-09' },
-        { shop: 'obi',         url: 'https://www.obi.pl/srodki-do-glebokiego-gruntowania/dragon-grunt-blauer-gleboko-penetrujacy-5l/p/7000094',                      verifiedAt: '2026-06-09' },
-        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/grunt-gleboko-penetrujacy-akrylowy-5-l-dragon',                                                      verifiedAt: '2026-06-09' },
-      ],
+      notes:'Referencja Knauf Universalgrund 5 l. Zużycie gruntu ma osobne pole i nie zależy od liczby warstw ani wydajności farby. Próbą potwierdź potrzebę gruntowania i chłonność sufitu.',
     },
   ],
 

@@ -1,0 +1,3677 @@
+{
+  "checkedAt": "2026-10-27T00:41:01.036Z",
+  "scope": "Synthetic single standard-tier scenario for each of 65 non-empty recipes among 66 registered jobs. Measurement assumptions are saved per job; no user project mutation. Missing rows may need a new product, an existing reference link, unit correction or an explicit quantity decision; they are not a count of unique products to buy.",
+  "summary": {
+    "registeredJobs": 66,
+    "auditedJobs": 65,
+    "beforeLines": 226,
+    "beforePriced": 46,
+    "afterLines": 227,
+    "afterPriced": 51,
+    "afterUnpriced": 176,
+    "fullyPricedScenarios": 4
+  },
+  "jobs": [
+    {
+      "jobId": "paint-walls",
+      "measurements": {
+        "wallArea": 10,
+        "coats": 2,
+        "coveragePerLiter": 10,
+        "tapeRolls": 1,
+        "protectiveFilmPacks": 1
+      },
+      "materials": [
+        {
+          "materialId": "paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "farba lateksowa sniezka barwy natury biala 5 l",
+            "category": "paint"
+          },
+          "quantity": 2.1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5903973139188",
+            "name": "Farba Śnieżka Barwy Natury biała 5 l"
+          }
+        },
+        {
+          "materialId": "primer-paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
+        },
+        {
+          "materialId": "painters-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma malarska blue dolphin niebieska 30 mm x 50 m",
+            "category": "masking-tape"
+          },
+          "quantity": 50,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907758515952",
+            "name": "Taśma malarska niebieska 30mmx50m"
+          }
+        },
+        {
+          "materialId": "drop-cloth",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "folia malarska gruba blue dolphin 4 x 5 m",
+            "category": "protective-film"
+          },
+          "quantity": 20,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907758504932",
+            "name": "Folia malarska gruba 4x5m CF_EP20_04932 Blue Dolphin"
+          }
+        }
+      ]
+    },
+    {
+      "jobId": "paint-ceiling",
+      "measurements": {
+        "ceilingArea": 10,
+        "coats": 2,
+        "coveragePerLiter": 10
+      },
+      "materials": [
+        {
+          "materialId": "ceiling-paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "farba goodhome sciany i sufit bialy mat 10 l",
+            "category": "paint"
+          },
+          "quantity": 2.1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5059340271620",
+            "name": "Farba GoodHome Ściany i Sufit biały mat 10 l"
+          }
+        },
+        {
+          "materialId": "primer-ceiling",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
+          },
+          "quantity": 1.5,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
+        }
+      ]
+    },
+    {
+      "jobId": "repaint-walls",
+      "measurements": {
+        "wallArea": 10,
+        "coats": 2,
+        "coveragePerLiter": 8
+      },
+      "materials": [
+        {
+          "materialId": "paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "farba lateksowa sniezka barwy natury biala 5 l",
+            "category": "paint"
+          },
+          "quantity": 2.6,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5903973139188",
+            "name": "Farba Śnieżka Barwy Natury biała 5 l"
+          }
+        },
+        {
+          "materialId": "primer-repaint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "sniezka grunt biala farba podkladowa 5 l",
+            "category": "paint-undercoat"
+          },
+          "quantity": 1.1667,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5903973000235",
+            "name": "Śnieżka Grunt - biała farba podkładowa 5l"
+          }
+        },
+        {
+          "materialId": "painters-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma malarska blue dolphin niebieska 30 mm x 50 m",
+            "category": "masking-tape"
+          },
+          "quantity": 50,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907758515952",
+            "name": "Taśma malarska niebieska 30mmx50m"
+          }
+        },
+        {
+          "materialId": "drop-cloth",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "folia malarska gruba blue dolphin 4 x 5 m",
+            "category": "protective-film"
+          },
+          "quantity": 20,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907758504932",
+            "name": "Folia malarska gruba 4x5m CF_EP20_04932 Blue Dolphin"
+          }
+        }
+      ]
+    },
+    {
+      "jobId": "primer-walls",
+      "measurements": {
+        "wallArea": 10,
+        "coveragePerLiter": 10
+      },
+      "materials": [
+        {
+          "materialId": "primer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt gleboko penetrujacy",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "wall-repair",
+      "measurements": {
+        "wallArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "filler",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "masa szpachlowa do napraw",
+            "category": "masa"
+          },
+          "quantity": 5.5,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "mesh-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma zbrojaca siatkowa",
+            "category": "wzmocnienie"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "sandpaper-repair",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "papier scierny 120 i 240",
+            "category": "szlifowanie"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "primer-repair",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt pod szpachle na naprawy",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "wall-plastering",
+      "measurements": {
+        "wallArea": 10,
+        "plasterThickness": 10
+      },
+      "materials": [
+        {
+          "materialId": "plaster-base",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tynk gipsowy reczny knauf goldband 25 kg",
+            "category": "plaster"
+          },
+          "quantity": 99,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5902367206383",
+            "name": "GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg"
+          }
+        },
+        {
+          "materialId": "plaster-primer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt kontakt pod tynk",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "plaster-mesh",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "siatka tynkarska tasma zbrojaca",
+            "category": "wzmocnienie"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "skim-coat",
+      "measurements": {
+        "wallArea": 10,
+        "layers": 2
+      },
+      "materials": [
+        {
+          "materialId": "skim-coat",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "gotowa gladz polimerowa atlas gta 18 kg",
+            "category": "skim-coat"
+          },
+          "quantity": 33,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400542509",
+            "name": "Atlas GTA gotowa gładź polimerowa 18kg"
+          }
+        },
+        {
+          "materialId": "primer-skim",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
+        },
+        {
+          "materialId": "sandpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "papier scierny 150 i 240",
+            "category": "szlifowanie"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "wallpaper",
+      "measurements": {
+        "wallArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "wallpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tapeta rolki",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wallpaper-glue",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej do tapet",
+            "category": null
+          },
+          "quantity": 0.1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "primer-wallpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt pod tapete",
+            "category": null
+          },
+          "quantity": 1.1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "wallpaper-install",
+      "measurements": {
+        "wallArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "wallpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tapeta rolki",
+            "category": "tapety"
+          },
+          "quantity": 11.5,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wallpaper-glue",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej do tapet",
+            "category": "klej"
+          },
+          "quantity": 0.1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "primer-wallpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt pod tapety tiefengrund",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "masking-tape-wallpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma malarska do zabezpieczenia",
+            "category": "akcesoria"
+          },
+          "quantity": 3,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "wallpaper-remove",
+      "measurements": {
+        "wallArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "wallpaper-remover",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "srodek do usuwania tapet koncentrat",
+            "category": "chemia"
+          },
+          "quantity": 0.1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "primer-after-remove",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt wzmacniajacy po zerwaniu tapet",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "filler-after",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "masa szpachlowa do napraw po tapetach",
+            "category": "masa"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "underlay-install",
+      "measurements": {
+        "floorArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "underlay",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "podklad arbiton xps smart aquastop thermo 1 6 mm 6 m",
+            "category": "underlay"
+          },
+          "quantity": 11,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905167826942",
+            "name": "Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka"
+          }
+        },
+        {
+          "materialId": "vapor-barrier",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "folia paroizolacyjna pe diall 0 15 mm 20 m",
+            "category": "vapor-barrier"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "adhesive-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma do folii paroizolacyjnej",
+            "category": "akcesoria"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "laminate-flooring",
+      "measurements": {
+        "floorArea": 10,
+        "panelPackCoverageM2": 2.196
+      },
+      "materials": [
+        {
+          "materialId": "laminate-panels",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "panele laminowane ac4 8 mm kronospan toledo 2 22 m paczka",
+            "category": "laminate"
+          },
+          "quantity": 6,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "underlay",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "podklad arbiton xps smart aquastop thermo 1 6 mm 6 m",
+            "category": "underlay"
+          },
+          "quantity": 11,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905167826942",
+            "name": "Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka"
+          }
+        },
+        {
+          "materialId": "vapor-barrier",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "folia paroizolacyjna pe diall 0 15 mm 20 m",
+            "category": "vapor-barrier"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "threshold",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "listwa progowa aluminium",
+            "category": "wykończenie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "spacers",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kliny dystansowe",
+            "category": "akcesoria"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "vinyl-flooring",
+      "measurements": {
+        "floorArea": 10,
+        "panelPackCoverageM2": 2
+      },
+      "materials": [
+        {
+          "materialId": "vinyl-panels",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "panele winylowe goodhome spc marvo click 2 235 m",
+            "category": "vinyl-panel"
+          },
+          "quantity": 6,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5063022676757",
+            "name": "Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m2"
+          }
+        },
+        {
+          "materialId": "underlay-vinyl",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "podklad pod panele winylowe corksystem lvt 1 5 mm 6 m",
+            "category": "underlay"
+          },
+          "quantity": 11,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5061092900925",
+            "name": "Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op."
+          }
+        },
+        {
+          "materialId": "threshold-vinyl",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil progowy aluminiowy cezar 40 mm srebrny 1 m",
+            "category": "threshold"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5904584845215",
+            "name": "Profil progowy aluminiowy owalny szeroki 40mm Cezar Srebrny Mat 1m"
+          }
+        }
+      ]
+    },
+    {
+      "jobId": "vinyl-glued",
+      "measurements": {
+        "floorArea": 10,
+        "perimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "vinyl-roll",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "panele winylowe klejone samoprzylepne lvt goodhome ragga ele marble 1 3 m",
+            "category": "vinyl-panel"
+          },
+          "quantity": 11,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5059340802435",
+            "name": "Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2"
+          }
+        },
+        {
+          "materialId": "vinyl-adhesive",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej do wykladzin winyl lvt pcv soudal 26a 5 kg",
+            "category": "adhesive"
+          },
+          "quantity": 4.2,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5411183028395",
+            "name": "Klej do wykładzin Soudal 26A 5kg"
+          }
+        },
+        {
+          "materialId": "primer-vinyl",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt pod klej do wykladzin",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "skirting-glued",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "listwy przypodlogowe pvc",
+            "category": "wykończenie"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "floor-tiles",
+      "measurements": {
+        "floorArea": 10,
+        "tileWidthCm": 30,
+        "tileHeightCm": 30,
+        "wastePercent": 15,
+        "groutWidthMm": 3
+      },
+      "materials": [
+        {
+          "materialId": "tiles",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "gres szkliwiony paradyz petro grey struktura mat 60 60 cm gatunek 2",
+            "category": "tile"
+          },
+          "quantity": 11.5,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "tile-adhesive",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zaprawa klejowa ceresit cm 11 25 kg",
+            "category": "adhesive"
+          },
+          "quantity": 44,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5900089111251",
+            "name": "Ceresit CM 11, 25 kg, uniwersalny klej do płytek"
+          }
+        },
+        {
+          "materialId": "grout",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "fuga ceramiczna atlas 001 biala 2 kg",
+            "category": "grout"
+          },
+          "quantity": 3.267,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400572254",
+            "name": "Atlas Fuga ceramiczna 001 biały 2kg"
+          }
+        },
+        {
+          "materialId": "tile-crosses",
+          "query": {
+            "ean": "5905061016869",
+            "gtin": null,
+            "normalizedName": "krzyzyki dystansowe do plytek hardy 3 mm 150 szt",
+            "category": "tile-spacer"
+          },
+          "quantity": 223,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905061016869",
+            "name": "Krzyżyki dystansowe 3mm 150szt."
+          }
+        },
+        {
+          "materialId": "primer-tiles",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt pod klej",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "skirting-boards",
+      "measurements": {
+        "perimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "skirting",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "listwa przypodlogowa pcv arbiton indo bialy polysk 01 2500 mm",
+            "category": "skirting"
+          },
+          "quantity": 11,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905167725719",
+            "name": "Listwa przypodłogowa PCV Arbiton INDO - biały połysk 01"
+          }
+        },
+        {
+          "materialId": "skirting-glue",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej montazowy do listew",
+            "category": "klej"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "corner-inside",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "narozniki wewnetrzne laczniki",
+            "category": "akcesoria"
+          },
+          "quantity": 4,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "silicone-skirting",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon akrylowy do malowania",
+            "category": "uszczelnienie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "self-leveling",
+      "measurements": {
+        "floorArea": 10,
+        "levelingThickness": 10
+      },
+      "materials": [
+        {
+          "materialId": "leveling-compound",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "samopoziomujacy podklad podlogowy atlas sam 100 25 kg 5 30 mm",
+            "category": "screed"
+          },
+          "quantity": 176,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400279245",
+            "name": "Atlas SAM 100 25kg szybkowiążący samopoziomujący podkład podłogowy"
+          }
+        },
+        {
+          "materialId": "primer-leveling",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt do podlozy gleboko penetrujacy",
+            "category": null
+          },
+          "quantity": 1.1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "epoxy-floor",
+      "measurements": {
+        "floorArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "epoxy-paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "farba epoksydowa dwuskladnikowa",
+            "category": null
+          },
+          "quantity": 2.2,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "epoxy-primer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt epoksydowy",
+            "category": null
+          },
+          "quantity": 1.1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "degreaser",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "odtluszczacz do betonu",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "decorative-chips",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolorowe platki dekoracyjne opcjonalnie",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "parquet-sanding",
+      "measurements": {
+        "floorArea": 10
+      },
+      "materials": [
+        {
+          "materialId": "sandpaper-parquet",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "papier scierny do cykliniarki 80 120",
+            "category": null
+          },
+          "quantity": 2.2,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "floor-lacquer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "lakier do parkietu wodorozcienczalny",
+            "category": null
+          },
+          "quantity": 0.2,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "filler-parquet",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "szpachlowka do drewna wypelnienie szczelin",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "bathroom-waterproofing",
+      "measurements": {
+        "wallArea": 10,
+        "floorArea": 10,
+        "perimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "membrane",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "folia w plynie masa hydroizolacyjna 1 skladnikowa atlas woder e 15 kg",
+            "category": "waterproofing"
+          },
+          "quantity": 22,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400514506",
+            "name": "Folia w płynie szybkoschnąca Woder E 15kg Atlas"
+          }
+        },
+        {
+          "materialId": "sealing-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma uszczelniajaca ceresit cl 152 10 m",
+            "category": "sealing-tape"
+          },
+          "quantity": 10,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5900089115211",
+            "name": "Ceresit CL 152, 10 m, taśma uszczelniająca"
+          }
+        },
+        {
+          "materialId": "primer-waterproof",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt przed hydroizolacja",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "wall-tiles-bathroom",
+      "measurements": {
+        "wallArea": 10,
+        "tileWidthCm": 30,
+        "tileHeightCm": 60,
+        "wastePercent": 10,
+        "groutWidthMm": 2
+      },
+      "materials": [
+        {
+          "materialId": "wall-tiles",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "plytka scienna paradyz nati bianco struktura 25 40 cm",
+            "category": "tile"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-tile-adhesive",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej wysokoelastyczny atlas plus odksztalcalny 25 kg",
+            "category": "adhesive"
+          },
+          "quantity": 44,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400658866",
+            "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg"
+          }
+        },
+        {
+          "materialId": "wall-grout",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "fuga ceramiczna atlas 001 biala 2 kg",
+            "category": "grout"
+          },
+          "quantity": 1.6335,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400572254",
+            "name": "Atlas Fuga ceramiczna 001 biały 2kg"
+          }
+        },
+        {
+          "materialId": "wall-crosses",
+          "query": {
+            "ean": "5905061016845",
+            "gtin": null,
+            "normalizedName": "krzyzyki dystansowe do plytek hardy 2 mm 200 szt",
+            "category": "tile-spacer"
+          },
+          "quantity": 112,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905061016845",
+            "name": "Krzyżyki dystansowe Hardy 2mm 200szt."
+          }
+        },
+        {
+          "materialId": "wall-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny narozniki",
+            "category": "uszczelnienie"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "tile-trim",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profile aluminiowe narozniki krawedzie",
+            "category": "wykończenie"
+          },
+          "quantity": 3,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "grout-only",
+      "measurements": {
+        "wallArea": 10,
+        "tileWidthCm": 30,
+        "tileHeightCm": 30,
+        "groutWidthMm": 3
+      },
+      "materials": [
+        {
+          "materialId": "grout",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "fuga elastyczna ceresit ce 40 biala 2 kg",
+            "category": "grout"
+          },
+          "quantity": 3.267,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5900089140015",
+            "name": "Ceresit fuga CE40 01 wodoodporna elastyczna 2kg"
+          }
+        },
+        {
+          "materialId": "silicone-grout",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny narozniki",
+            "category": "uszczelnienie"
+          },
+          "quantity": 3,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "grout-cleaner",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "srodek do czyszczenia fugi po 24h",
+            "category": "chemia"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "silicone-sealing",
+      "measurements": {
+        "linearMeters": 10
+      },
+      "materials": [
+        {
+          "materialId": "silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny z fungicydem",
+            "category": "uszczelnienie"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "silicone-remover",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "srodek do usuwania starego silikonu",
+            "category": "chemia"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "silicone-refresh",
+      "measurements": {
+        "siliconeLength": 10
+      },
+      "materials": [
+        {
+          "materialId": "silicone-remover",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "srodek do usuwania silikonu",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "masking-tape-sil",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma maskujaca do prostych krawedzi",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "sink-installation",
+      "measurements": {
+        "sinkCount": 1,
+        "sinkExtraHoses": 0,
+        "sinkFixingChoice": 0
+      },
+      "materials": [
+        {
+          "materialId": "washbasin",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "umywalka ceramiczna cersanit facile 50 cm z otworem przelew",
+            "category": "washbasin"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "basin-mixer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "bateria umywalkowa stojaca ferro stillo chrom bsl2",
+            "category": "faucet"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5902194929837",
+            "name": "Ferro Stillo bateria umywalkowa stojąca chrom"
+          }
+        },
+        {
+          "materialId": "basin-trap",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "syfon umywalkowy butelkowy niski mcalpine whb1 32 z membrana",
+            "category": "trap"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5036484088390",
+            "name": "McAlpine WHB1-32"
+          }
+        },
+        {
+          "materialId": "angle-valve",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zawor katowy z filtrem ferro 1 2 3 8 chrom",
+            "category": "valve"
+          },
+          "quantity": 2,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901095614033",
+            "name": "Zawór kątowy z filtrem Ferro 1/2\" x 3/8\""
+          }
+        },
+        {
+          "materialId": "sanitary-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
+          },
+          "quantity": 280,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
+        },
+        {
+          "materialId": "basin-fixings",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "mocowania scienne umywalki dwa punkty na umywalke ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "toilet-installation",
+      "measurements": {
+        "toiletCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "wc-compact",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kompakt wc cersanit seno bezkolnierzowy 3 5 l z deska wolnoopadajaca",
+            "category": "toilet"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5902115720833",
+            "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą"
+          }
+        },
+        {
+          "materialId": "wc-mounting-set",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zestaw przylaczeniowo mocujacy wc tycner rury uszczelki i akcesoria",
+            "category": "mounting-set"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901095514395",
+            "name": "ZESTAW PRZYŁĄCZENIOWO-MOCUJĄCY WC"
+          }
+        },
+        {
+          "materialId": "wc-angle-valve",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zawor katowy z filtrem ferro 1 2 3 8 chrom",
+            "category": "valve"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901095614033",
+            "name": "Zawór kątowy z filtrem Ferro 1/2\" x 3/8\""
+          }
+        },
+        {
+          "materialId": "wc-flex-hose",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wezyk przylaczeniowy w oplocie invena 3 8 m10 30 cm",
+            "category": "hose"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907798716258",
+            "name": "WĘŻYK DO BATERII STOJĄCEJ 3/8\" x M10*1 L - 30 CM DŁUGA KOŃCÓWKA"
+          }
+        },
+        {
+          "materialId": "wc-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny uszczelnienie podstawy",
+            "category": "uszczelnienie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "kitchen-backsplash",
+      "measurements": {
+        "wallArea": 10,
+        "tileWidthCm": 25,
+        "tileHeightCm": 40,
+        "tileThicknessMm": 8,
+        "groutWidthMm": 2
+      },
+      "materials": [
+        {
+          "materialId": "backsplash-tiles",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "plytka scienna paradyz nati bianco struktura 25 40 cm",
+            "category": "tile"
+          },
+          "quantity": 11.5,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "tile-adhesive",
+          "query": {
+            "ean": "5905400313390",
+            "gtin": null,
+            "normalizedName": "atlas plus klej do plytek bialy 25kg",
+            "category": "white-tile-adhesive"
+          },
+          "quantity": 24.2,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400313390",
+            "name": "Atlas Plus klej do płytek biały 25kg"
+          }
+        },
+        {
+          "materialId": "grout-kitchen",
+          "query": {
+            "ean": "8022452132940",
+            "gtin": null,
+            "normalizedName": "mapei kerapoxy easy design uniwersalna fuga epoksydowa 3kg bialy 100",
+            "category": "epoxy-grout"
+          },
+          "quantity": 1.8304,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "8022452132940",
+            "name": "Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100"
+          }
+        },
+        {
+          "materialId": "silicone-kitchen",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
+          },
+          "quantity": 560,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
+        },
+        {
+          "materialId": "tile-crosses-kitchen",
+          "query": {
+            "ean": "5905061016845",
+            "gtin": null,
+            "normalizedName": "krzyzyki dystansowe do plytek hardy 2 mm 200 szt",
+            "category": "tile-spacer"
+          },
+          "quantity": 200,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905061016845",
+            "name": "Krzyżyki dystansowe Hardy 2mm 200szt."
+          }
+        }
+      ]
+    },
+    {
+      "jobId": "kitchen-countertop",
+      "measurements": {
+        "linearMeters": 10
+      },
+      "materials": [
+        {
+          "materialId": "countertop",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "blat kuchenny laminowany 60cm",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "countertop-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon sanitarny uszczelnienie",
+            "category": null
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "countertop-screws",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "sruby i uchwyty montazowe",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "kitchen-cabinet-paint",
+      "measurements": {
+        "doorCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "cabinet-primer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt do trudnych powierzchni np zinsser bin",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "cabinet-paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "farba do szafek kuchennych emalia satynowa",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "degreaser-cabinet",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "odtluszczacz np acetone lub prep clean",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "kitchen-hardware",
+      "measurements": {
+        "handleCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "cabinet-handles",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowe uchwyty lub galki",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "longer-screws",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "dluzsze sruby jesli nowe uchwyty grubsze",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "kitchen-hood",
+      "measurements": {
+        "hoodWidth": 30
+      },
+      "materials": [
+        {
+          "materialId": "range-hood",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "okap kuchenny podszafkowy lub scienny",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "duct-pipe",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "rura wentylacyjna 125 lub 150 przy okap wyciagowym",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-plugs-hood",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki rozporowe mocowanie do sciany szafki",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "gypsum-wall",
+      "measurements": {
+        "wallArea": 10,
+        "perimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "gk-board",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "plyta gipsowo kartonowa gkb 12 5mm",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profile-cw",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil cw pionowy",
+            "category": null
+          },
+          "quantity": 25,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profile-uw",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil uw poziomy podloga i sufit",
+            "category": null
+          },
+          "quantity": 10.5,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "mineral-wool",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "welna mineralna 50mm izolacja",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "gk-screws",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wkrety samowiercace do plyt g k do metalu wkret met 3 5 25 mm 100 szt",
+            "category": "screws"
+          },
+          "quantity": 300,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907704499015",
+            "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas"
+          }
+        },
+        {
+          "materialId": "gk-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma papierowa do spoin",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "gk-filler",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "masa do spoin szpachla gk",
+            "category": null
+          },
+          "quantity": 5.5,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "dowels-uw",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki szybkiego montazu rozporowe wkret met sm 6 40 mm 20 szt",
+            "category": "dowels"
+          },
+          "quantity": 20,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907704466031",
+            "name": "Kołek szybkiego montażu 6x40mm 20szt. Klimas"
+          }
+        }
+      ]
+    },
+    {
+      "jobId": "gypsum-ceiling",
+      "measurements": {
+        "ceilingArea": 10,
+        "perimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "gk-ceiling",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "plyta gkb 12 5mm sufit",
+            "category": null
+          },
+          "quantity": 11.2,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profile-cd",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil cd nosny sufitowy",
+            "category": null
+          },
+          "quantity": 33,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profile-ud",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil ud obwodowy",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "hanger",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wieszak bezposredni do profilu cd",
+            "category": null
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "gk-screws-ceiling",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wkrety samowiercace do plyt g k do metalu wkret met 3 5 25 mm 100 szt",
+            "category": "screws"
+          },
+          "quantity": 300,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5907704499015",
+            "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas"
+          }
+        },
+        {
+          "materialId": "ceiling-filler",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "masa do spoin",
+            "category": null
+          },
+          "quantity": 5.5,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma papierowa do spoin",
+            "category": null
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "window-sealing",
+      "measurements": {
+        "perimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "window-gasket",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "uszczelka okienna epdm do skrzydla",
+            "category": "uszczelka"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "mounting-foam",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "piana pistoletowa tytan professional 65 niskoprezna 750 ml",
+            "category": "foam"
+          },
+          "quantity": 1050,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5903518052859",
+            "name": "Pianka montażowa pistoletowa 65 750ml Tytan"
+          }
+        },
+        {
+          "materialId": "silicone-window",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "akryl uszczelniajacy bialy malowalny do wnetrza",
+            "category": "uszczelnienie"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "windowsill-install",
+      "measurements": {
+        "linearMeters": 10
+      },
+      "materials": [
+        {
+          "materialId": "windowsill",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "parapet pvc bialy",
+            "category": "parapet"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "windowsill-foam",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "piana pistoletowa tytan professional 65 niskoprezna 750 ml",
+            "category": "foam"
+          },
+          "quantity": 750,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5903518052859",
+            "name": "Pianka montażowa pistoletowa 65 750ml Tytan"
+          }
+        },
+        {
+          "materialId": "windowsill-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon bialy uszczelnienie krawedzi parapetu",
+            "category": "uszczelnienie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "windowsill-endcap",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zatyczki boczne do parapetu pvc",
+            "category": "akcesoria"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "paint-frames",
+      "measurements": {
+        "wallArea": 10,
+        "coats": 2,
+        "coveragePerLiter": 10
+      },
+      "materials": [
+        {
+          "materialId": "frame-paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "lakier do drewna farba do oscieznic satynowy",
+            "category": "farba"
+          },
+          "quantity": 2.2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "frame-primer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt do drewna lakierniczy",
+            "category": "grunt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "frame-sandpaper",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "papier scierny 120 i 240",
+            "category": "szlifowanie"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "frame-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma malarska",
+            "category": "akcesoria"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "trim-finishing",
+      "measurements": {
+        "linearMeters": 10
+      },
+      "materials": [
+        {
+          "materialId": "door-trim",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "maskownica obudowa oscieznicy mdf",
+            "category": "maskownice"
+          },
+          "quantity": 11,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "door-threshold",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "listwa progowa aluminium",
+            "category": "próg"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "trim-adhesive",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej montazowy do maskownic",
+            "category": "klej"
+          },
+          "quantity": 2,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "trim-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "akryl malarski uszczelniacz akrylowy",
+            "category": "uszczelnienie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "interior-doors",
+      "measurements": {
+        "doorWidth": 60,
+        "doorHeight": 180,
+        "wallThickness": 10
+      },
+      "materials": [
+        {
+          "materialId": "door-set",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "komplet drzwi skrzydlo oscieznica",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "mounting-foam",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "pianka montazowa soudal low expansion pistoletowa zimowa 750 ml",
+            "category": "foam"
+          },
+          "quantity": 750,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5411183048522",
+            "name": "Pianka pistoletowa Soudafoam Low Expansion -10"
+          }
+        },
+        {
+          "materialId": "door-threshold",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "prog drzwiowy",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "door-painting",
+      "measurements": {
+        "doorCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "door-primer",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
+          },
+          "quantity": 1,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
+        },
+        {
+          "materialId": "door-paint",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "farba do drewna emalia satynowa lub mat",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "masking-tape-door",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma maskujaca",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "door-handle-replace",
+      "measurements": {
+        "handleCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "door-handle",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowa klamka z szyldem komplet",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "lock-cylinder",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wkladka zamka jesli wymiana zamka",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "door-seal-replace",
+      "measurements": {
+        "sealPerimeter": 10
+      },
+      "materials": [
+        {
+          "materialId": "cleaner-seal",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "alkohol izopropylowy do czyszczenia rowka",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "shelf-mounting",
+      "measurements": {
+        "shelfCount": 1,
+        "shelfLength": 10
+      },
+      "materials": [
+        {
+          "materialId": "shelf-brackets",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wsporniki do polek",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-plugs",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki rozporowe do sciany",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "screws-shelf",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wkrety do wspornikow",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "curtain-rod",
+      "measurements": {
+        "windowCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "curtain-rod-mat",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "karnisz lub prowadnica rolety",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-plugs-rod",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki rozporowe",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "screws-rod",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wkrety do uchwytow",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "bathroom-accessories",
+      "measurements": {
+        "accessoryCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "drill-bits-tile",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wiertlo do glazury",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "tile-plugs",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki do plytek ceramicznych",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "silicone-accs",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon bezbarwny uszczelnienie",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "mirror-install",
+      "measurements": {
+        "mirrorWeight": 10
+      },
+      "materials": [
+        {
+          "materialId": "mirror-clips",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klamry do luster chromowane",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "mirror-glue",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej do luster nie silikon",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-plugs-mirror",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki rozporowe",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "furniture-assembly",
+      "measurements": {
+        "furnitureCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "wall-anchor-furniture",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki do mocowania do sciany",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "picture-hanging",
+      "measurements": {
+        "pictureCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "picture-hooks",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "haczyki do obrazow rozne rozmiary",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "command-strips",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "paski samoprzylepne command do lekkich",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "toilet-seat-replace",
+      "measurements": {
+        "seatCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "toilet-seat-mat",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowa deska sedesowa",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "sink-trap-replace",
+      "measurements": {
+        "trapCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "sink-trap-mat",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowy syfon butelkowy lub rurowy",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "teflon-trap",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma teflonowa do gwintow",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "drain-unblock",
+      "measurements": {},
+      "materials": [
+        {
+          "materialId": "drain-cleaner",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "srodek do udrozniania odplywow zelowy",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "rubber-plunger",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "przepychacz gumowy tlok",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "light-fixture-replace",
+      "measurements": {
+        "fixtureCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "light-fixture-mat",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowa oprawa oswietleniowa",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wire-connectors",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zlaczki elektryczne wago lub srubowe",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "socket-frame-replace",
+      "measurements": {
+        "frameCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "socket-frames",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "ramki do gniazdek wlacznikow komplet",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "minor-plumbing",
+      "measurements": {
+        "faucetCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "faucet",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowy kran podaj model przy zakupie",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "sealing-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma teflonowa do uszczelnienia gwintow",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "washers",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "uszczelki i podkladki zestaw",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "electrical-overview",
+      "measurements": {
+        "socketCount": 1
+      },
+      "materials": [
+        {
+          "materialId": "socket",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "nowe gniazdko lub wylacznik",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "gas-installation",
+      "measurements": {},
+      "materials": [
+        {
+          "materialId": "gas-info",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "protokol odbioru od gazownika wymagany",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "structural-demolition",
+      "measurements": {},
+      "materials": [
+        {
+          "materialId": "structural-beam",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "belka nadprozowa lub stalowy dwuteownik wg projektu",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "main-electrical-panel",
+      "measurements": {},
+      "materials": [
+        {
+          "materialId": "electrical-protocol",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "protokol odbioru instalacji elektrycznej",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "roof-repair",
+      "measurements": {},
+      "materials": [
+        {
+          "materialId": "fall-arrest",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "uprzaz i lina asekuracyjna jesli praca samodzielna",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "roof-bitumen",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "bitumiczna masa uszczelniajaca do drobnych napraw",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "chimney-work",
+      "measurements": {},
+      "materials": [
+        {
+          "materialId": "co-detector",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "czujnik tlenku wegla czadu",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "air-conditioning-split",
+      "measurements": {
+        "pipeRunMeters": 5
+      },
+      "materials": [
+        {
+          "materialId": "split-unit-3-5kw",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klimatyzator split 3 5 kw inverter komplet wewn zewn",
+            "category": "urządzenie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "copper-pipe-set",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zestaw rur miedzianych chlodniczych 1 4 3 8 w izolacji",
+            "category": "rury"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "power-cable-3x1-5",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "przewod zasilajacy ydyp 3x1 5 mm",
+            "category": "elektryka"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "signal-cable-4x1",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "przewod sterujacy omy 4x1 0 mm ekran",
+            "category": "elektryka"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "condensate-hose",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "waz odplywu skroplin pvc 16 mm zlaczki",
+            "category": "odpływ"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-bracket",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wsporniki scienne jednostki zewnetrznej para",
+            "category": "mocowanie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "circuit-breaker-b16",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wylacznik nadpradowy b16a 1p rozlacznik izolacyjny",
+            "category": "elektryka"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-sleeve-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tuleja pcv 60 mm tasma izolacyjna chlodnicza",
+            "category": "wykończenie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "mechanical-ventilation-mvhr",
+      "measurements": {
+        "houseArea": 150
+      },
+      "materials": [
+        {
+          "materialId": "mvhr-unit",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "centrala rekuperacyjna 300 400 m h",
+            "category": "urządzenie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "duct-flex-75",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kanal elastyczny epp pe flex fi 75 mm",
+            "category": "kanały"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "duct-main-160",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kanal magistralny epp fi 160 200 mm",
+            "category": "kanały"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "manifold-brink",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "rozdzielacz nawiewu wywiewu 8 12 przylaczy",
+            "category": "rozdzielacze"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "grille-supply",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kratka nawiewna wywiewna z regulacja",
+            "category": "akcesoria"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "silencer-160",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tlumik akustyczny fi 160 mm dl 0 9 m",
+            "category": "akustyka"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "insulation-pipe",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "otulina welny mineralnej 50 mm folia paroszczelna",
+            "category": "izolacja"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "condensate-syphon",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "syfon kondensatu waz odplywowy",
+            "category": "odpływ"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "eps-insulation-bso",
+      "measurements": {
+        "wallArea": 150,
+        "wastePercent": 10,
+        "epsAdhesiveRate": 5,
+        "epsReinforcementRate": 3.5,
+        "epsMeshReservePercent": 15,
+        "epsAnchorCount": 1,
+        "epsPrimerLitres": 10,
+        "epsRenderKg": 10,
+        "epsProfilesLength": 10
+      },
+      "materials": [
+        {
+          "materialId": "eps-board-15cm",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "styropian fasadowy eps 70 040 gr 15 cm",
+            "category": "izolacja"
+          },
+          "quantity": 165,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "glue-k20",
+          "query": {
+            "ean": "5905400160253",
+            "gtin": null,
+            "normalizedName": "zaprawa klejaca do styropianu i siatki atlas stopter k 20 2w1 25 kg",
+            "category": "adhesive-eps"
+          },
+          "quantity": 825,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400160253",
+            "name": "Atlas - zaprawa klejąca do styropianu Stopter K-20"
+          }
+        },
+        {
+          "materialId": "glue-k50",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej do zatapiania siatki",
+            "category": "klej"
+          },
+          "quantity": 577.5,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "mesh-145",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "siatka zbrojaca szklana 145 g m",
+            "category": "zbrojenie"
+          },
+          "quantity": 172.5,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "anchors-eps",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki rozporowe do styropianu",
+            "category": "mocowanie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "primer-ct16",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "grunt podkladowy pod tynk",
+            "category": "grunt"
+          },
+          "quantity": 10,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "plaster-silicone",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tynk silikatowo silikonowy cienkowarstwowy",
+            "category": "tynk"
+          },
+          "quantity": 10,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profiles-start",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "listwy startowe i naroznikowe obrobki",
+            "category": "akcesoria"
+          },
+          "quantity": 10,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "acoustic-suspended-ceiling",
+      "measurements": {
+        "ceilingArea": 20
+      },
+      "materials": [
+        {
+          "materialId": "profile-t24-main",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil glowny t 24 dl 3 6 m",
+            "category": "ruszt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profile-t24-1200",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil poprzeczny t 24 dl 1200 mm",
+            "category": "ruszt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "profile-t24-600",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil poprzeczny t 24 dl 600 mm",
+            "category": "ruszt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-angle",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "profil przyscienny l 19 24 mm 3 m",
+            "category": "ruszt"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "hanger-noniusz",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wieszak noniuszowy z drutem",
+            "category": "mocowanie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "panel-mineral",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "plyta akustyczna mineralna 60 60 cm nrc 0 65",
+            "category": "panele"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "anchor-bolts",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kolki rozporowe wkrety do mocowania w stropie",
+            "category": "mocowanie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "safety-clips",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klipsy zabezpieczajace panel opcjonalnie",
+            "category": "akcesoria"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "fireplace-installation",
+      "measurements": {
+        "fireplacePower": 14
+      },
+      "materials": [
+        {
+          "materialId": "fireplace-insert",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wklad kominkowy stalowy zeliwny 10 20 kw",
+            "category": "urządzenie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "flue-pipe-200",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "rura kwasoodporna fi 200 mm dl 1 m stal 1 4404",
+            "category": "komin"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "vermiculite-plate",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "plyta wermikulitowa krzemianowo wapniowa skamol 30 mm",
+            "category": "obudowa"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "chimney-wool",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "welna kominkowa 50 mm folia aluminowa",
+            "category": "izolacja"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "air-duct-100",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kanal powietrza zewnetrznego fi 100 125 mm",
+            "category": "wentylacja"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ventilation-grids",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "kratka nawiewna wywiewna z regulacja",
+            "category": "wentylacja"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "silicate-glue",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej krzemianowy do plyt skamol",
+            "category": "klej"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "co-detector",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "czujnik czadu co z atestem",
+            "category": "bezpieczeństwo"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    },
+    {
+      "jobId": "interior-wooden-stairs",
+      "measurements": {
+        "stairsHeight": 270
+      },
+      "materials": [
+        {
+          "materialId": "tread-oak",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "stopnie debowe lite gr 40 mm",
+            "category": "drewno"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "riser-oak",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "podstopnice debowe gr 20 mm",
+            "category": "drewno"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "string-oak",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "policzki debowe 50 300 mm",
+            "category": "konstrukcja"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "balustrade-posts",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "slupki balustrady debowe 80 80 mm",
+            "category": "balustrada"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "balustrade-rails",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tralki debowe 30 30 mm",
+            "category": "balustrada"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "handrail",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "porecz debowa profilowana",
+            "category": "balustrada"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "pu-glue",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej pu do drewna",
+            "category": "klej"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "lacquer-pu",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "lakier poliuretanowy do drewna",
+            "category": "wykończenie"
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        }
+      ]
+    }
+  ]
+}
