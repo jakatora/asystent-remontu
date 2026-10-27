@@ -90,3 +90,20 @@ test('a fourth concurrent quote waits and duplicate requests share its job inste
   assert.equal(started,4);
   assert.ok(results.every(result=>'reason'in result&&result.reason==='quote_unavailable'));
 });
+
+test('cached delivery rates refresh before they can expire during another merchant call, without extending native validity', async t => {
+  t.mock.timers.enable({ apis: ['Date'], now: Date.now() }); let calls = 0;
+  const quoter = createRetailerQuoter(async (input, init) => {
+    calls++; const path = new URL(String(input)).pathname;
+    const data = path.includes('/products/') ? { id: 2526, ean: '5907758515952', stockId: 2526, can_buy: true, price: { gross: { final: '11,99 zł', final_float: 11.99 } } }
+      : init?.method === 'POST' ? {} : { ...fixture(), products: [{ stock_id: 2526, quantity: 1, price: '11,99 zł', price_float: 11.99, sum: '11,99 zł', sum_float: 11.99 }], basket: { sum_products: '11,99 zł', sum_products_float: 11.99 } };
+    return Response.json(data);
+  });
+  const first = await quoter(order(), '00-001'); assert.ok('quote' in first); assert.equal(calls, 3);
+  const expiry = first.quote.expiresAt; t.mock.timers.tick(570000);
+  const renewed = await quoter(order(), '00-001'); assert.ok('quote' in renewed); assert.equal(calls, 6);
+  assert.equal(first.quote.expiresAt, expiry); assert.ok(Date.parse(renewed.quote.expiresAt) > Date.parse(expiry));
+  await quoter(order(), '00-001'); assert.equal(calls, 6);
+  let failures = 0; const unavailable = createRetailerQuoter(async () => { failures++; return new Response('', { status: 503 }); });
+  await unavailable(order(), '00-001'); t.mock.timers.tick(5000); await unavailable(order(), '00-001'); assert.equal(failures, 1);
+});

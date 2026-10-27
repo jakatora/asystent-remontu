@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { pendingDeliveryPlan } from './pendingDeliveryPlan';
+import { pendingDeliveryPlan, deliveryRefreshDelay } from './pendingDeliveryPlan';
 import type { DeliveryComparison } from '../../../../lib/pricing-service/src/delivery';
 
 const now = Date.parse('2026-10-27T12:00:00Z');
@@ -34,4 +34,15 @@ test('the display follows the better-confirmed selected plan rather than a cheap
   const value = comparison(); value.purchasePlan = structuredClone(value.lowerBound!);
   value.lowerBound!.stores[0].deliveryGrosze = null; value.lowerBound!.stores[0].totalGrosze = null; delete value.lowerBound!.stores[0].quote; value.lowerBound!.stores[0].source = 'unknown';
   const plan = pendingDeliveryPlan(value, true, now); assert.equal(plan, value.purchasePlan); assert.equal(plan!.stores[0].deliveryGrosze, 2000);
+});
+
+test('expiry still schedules a bounded refresh when stale returned quotes prevent rendering the plan', () => {
+  const value = comparison(); value.purchasePlan = structuredClone(value.lowerBound!);
+  assert.equal(deliveryRefreshDelay(value, true, now), 600100);
+  assert.equal(pendingDeliveryPlan(value, true, now + 600200), null);
+  assert.equal(deliveryRefreshDelay(value, true, now + 600200), 5000);
+  assert.equal(deliveryRefreshDelay(value, false, now + 600200), null);
+  value.mode = 'pickup'; assert.equal(deliveryRefreshDelay(value, true, now), null);
+  value.mode = 'shipping'; for (const store of value.purchasePlan!.stores) delete store.quote;
+  assert.equal(deliveryRefreshDelay(value, true, now), null);
 });

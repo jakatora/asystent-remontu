@@ -7,7 +7,7 @@ import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatGrosze } from '@/features/pricing';
 import { normalizeDeliveryPostalCode } from '@/features/pricing/deliveryInput';
-import { pendingDeliveryPlan } from '@/features/pricing/pendingDeliveryPlan';
+import { pendingDeliveryPlan, deliveryRefreshDelay } from '@/features/pricing/pendingDeliveryPlan';
 import { ProductImage } from './ProductImage';
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
@@ -47,11 +47,11 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const displayedBasket = best ?? pendingPlan;
   const pendingStores = pendingPlan?.stores.filter(store => store.deliveryGrosze === null) ?? [];
   useEffect(() => {
-    const expiries = displayedBasket?.stores.flatMap(store => store.quote ? [Date.parse(store.quote.expiresAt)] : []) ?? [];
-    if (!expiries.length) return;
-    const timer = setTimeout(() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) }), Math.max(0, Math.min(...expiries) - Date.now() + 100));
+    const delay = deliveryRefreshDelay(comparison, current);
+    if (delay === null) return;
+    const timer = setTimeout(() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) }), delay);
     return () => clearTimeout(timer);
-  }, [displayedBasket, mode, destination, allowSeparateOrders, onApply]);
+  }, [comparison, current, mode, destination, allowSeparateOrders, onApply]);
   const reason = (code: string) => ({
     integration_unavailable: tr('Sklep nie udostępnia jeszcze automatycznej wyceny.', 'Automatic quoting is not available yet.'),
     retailer_transport_quote_required: tr('Sklep wycenia transport indywidualnie. Koszt materiałów nie obejmuje tej opłaty.', 'The store quotes transport individually. The material cost excludes this fee.'),
@@ -66,6 +66,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     purchase_rules_changed: tr('Sklep zmienił minimalną ilość zakupu. Oferta wymaga ponownego sprawdzenia.', 'The minimum order quantity changed. This offer needs to be checked again.'),
     no_home_delivery: tr('Brak potwierdzonej dostawy kurierskiej.', 'No confirmed home courier delivery.'),
     quote_busy: tr('Wycena zajęta. Spróbuj ponownie za chwilę.', 'Quoting is busy. Please retry shortly.'),
+    quote_expired: tr('Wycena dostawy wygasła podczas sprawdzania sklepów. Sprawdź dostawy ponownie.', 'This delivery quote expired while checking the stores. Check deliveries again.'),
   }[code] ?? tr('Nie udało się pobrać wyceny koszyka.', 'The basket quote could not be retrieved.'));
   return <View style={{ gap: 14 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>

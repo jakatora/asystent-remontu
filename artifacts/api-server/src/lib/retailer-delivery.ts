@@ -174,8 +174,12 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
     })();
     cache.set(key, { until: Date.now() + TTL, result: pending });
     const result = await pending;
-    if ('reason' in result && cache.get(key)?.result === pending) {
-      if (result.reason === 'quote_busy') cache.delete(key);
+    if (cache.get(key)?.result === pending) {
+      if ('quote' in result) {
+        // Leave enough time for the other merchant calls before returning a
+        // cached quotation. The original native expiry is never extended.
+        cache.set(key, { until: Math.min(Date.now() + TTL, Date.parse(result.quote.expiresAt)) - 60_000, result: Promise.resolve(result) });
+      } else if (result.reason === 'quote_busy') cache.delete(key);
       else cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
     }
     return result;

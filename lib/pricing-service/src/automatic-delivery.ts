@@ -339,6 +339,13 @@ async function quoteAndRank(
       } catch { failures.set(order.store, 'quote_unavailable'); }
     }
   }));
+  // A quote valid at request start may expire while another shop is still
+  // responding. Keep the material plan, but do not expose that fee as current.
+  for (const order of unique.values()) if (order.quote && Date.parse(order.quote.expiresAt) <= Date.now()) {
+    delete order.quote;
+    order.deliveryGrosze = null; order.deliveryMinimumGrosze = 0; order.totalGrosze = null; order.source = 'unknown';
+    failures.set(order.store, 'quote_expired');
+  }
   const baskets: DeliveredBasket[] = candidates.map(orders => {
     const actual = orders.map(o => unique.get(signature(o))!);
     const materialsGrosze = actual.reduce((sum, o) => sum + o.materialsGrosze, 0);

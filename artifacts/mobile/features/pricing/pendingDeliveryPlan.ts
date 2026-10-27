@@ -1,5 +1,16 @@
 import type { DeliveryComparison, DeliveredBasket } from '../../../../lib/pricing-service/src/delivery';
 
+/** Refresh from the returned quotation, even if its expiry already prevents
+ * rendering a payable total or a pending plan. Bound retries for older APIs. */
+export function deliveryRefreshDelay(comparison: DeliveryComparison, current: boolean, now = Date.now()): number | null {
+  if (!current || comparison.mode !== 'shipping') return null;
+  const basket = comparison.best ?? comparison.purchasePlan ?? comparison.lowerBound;
+  const expiries = basket?.stores.flatMap(store => store.quote ? [Date.parse(store.quote.expiresAt)] : []).filter(Number.isFinite) ?? [];
+  if (!expiries.length) return null;
+  const delay = Math.min(...expiries) - now + 100;
+  return delay <= 0 ? 5000 : delay;
+}
+
 /** A complete allocation of material packs, with explicitly unfinished delivery.
  * Never promote it to the payable total or the cheapest-delivered recommendation. */
 export function pendingDeliveryPlan(comparison: DeliveryComparison, current: boolean, now = Date.now()): DeliveredBasket | null {

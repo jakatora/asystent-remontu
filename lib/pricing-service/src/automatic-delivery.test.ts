@@ -169,3 +169,15 @@ test('zero native stock cannot become a free or incomplete full basket',async()=
   const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async order=>({reason:'insufficient_stock',stockLimits:[checkoutLimit(order,0)]}));
   assert.equal(result.best,null);assert.equal(result.missingProductCount,1);assert.equal(result.stockLimits?.[0].maxPackages,0);
 });
+
+test('a delivery expiring during the quote batch keeps materials but cannot remain a confirmed fee or winner', async t => {
+  t.mock.timers.enable({ apis: ['Date'], now: Date.now() });
+  const input = await stage(); for (const line of input.lines) if (line.resolved) line.offers = line.offers.filter(offer => offer.store === 'A');
+  const result = await compareAutomaticDelivery([input], { mode: 'shipping', postalCode: '00-001' }, async (order, postcode) => {
+    const outcome = await known(order, postcode); assert.ok('quote' in outcome);
+    outcome.quote.expiresAt = new Date(Date.now() + 10).toISOString(); t.mock.timers.tick(20); return outcome;
+  });
+  assert.equal(result.best, null); assert.equal(result.purchasePlan!.materialsGrosze, 1200);
+  const store = result.purchasePlan!.stores[0]; assert.equal(store.deliveryGrosze, null); assert.equal(store.totalGrosze, null); assert.equal(store.quote, undefined); assert.equal(store.source, 'unknown');
+  assert.ok(result.unavailableStores?.some(row => row.store === 'A' && row.reason === 'quote_expired'));
+});
