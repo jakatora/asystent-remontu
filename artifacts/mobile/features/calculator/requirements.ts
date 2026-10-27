@@ -5,9 +5,11 @@ import { epsRequirement, EPS_JOB_ID } from './eps';
 import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MODEL } from './sink';
 import { ceilingPrimerLitres } from './ceilingPrimer';
 import { isCurrentSubstratePrimer, substratePrimerQuantity, levelingEdgeTapeMetres, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
+import { isSanitaryMaterial, sanitaryQuantity, SANITARY_MODEL } from './sanitarySealant';
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===SANITARY_MODEL&&isSanitaryMaterial(calc.jobId,line.material.id))return sanitaryQuantity(calc.jobId,line.material.id,calc.measurements)??0;
   if (calc.jobId === 'self-leveling' && calc.quantityModel === SUBSTRATE_PRIMER_MODEL && line.material.id === 'expansion-tape') return levelingEdgeTapeMetres(calc.measurements) ?? 0;
   if (isCurrentSubstratePrimer(calc, line)) return substratePrimerQuantity(calc.jobId, calc.measurements) ?? 0;
   if (calc.jobId === EPS_JOB_ID) return epsRequirement(line.material.id, calc.measurements) ?? 0;

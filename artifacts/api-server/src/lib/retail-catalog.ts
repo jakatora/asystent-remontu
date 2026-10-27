@@ -1017,10 +1017,21 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282
   {"id":"sewera-packcenter-edge-tape-50m","ean":"","name":"Taśma dylatacyjna 5mm x 10cm x 50m","category":"expansion-tape","brand":"Pack-Center","packageSize":50,"unit":"mb","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["5mm","10cm","50m"],"url":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","skuIdentity":{"catalogKey":"sewera-465325","manufacturerSku":"TB-FB00202","merchantProductId":"465325","pageBarcode":"465325"},"imageUrl":"https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp","dispatchDepartment":{"id":"3","name":"Gliwice"}},
 
+  // source: https://sklep.sewera.pl/srodek-do-usuwania-silikonu-silicone-remover-100ml-soudal-p21277
+  {"id":"sewera-soudal-silicone-remover-100ml","ean":"5411183041899","name":"Środek do usuwania silikonu Silicone Remover 100ml Soudal","category":"silicone-remover","brand":"Soudal","packageSize":100,"unit":"ml","store":"Sewera","format":"sewera","url":"https://sklep.sewera.pl/srodek-do-usuwania-silikonu-silicone-remover-100ml-soudal-p21277","imageUrl":"https://sklep.sewera.pl/photo/343512/srodek-do-usuwania-silikonu-silicone-remover-100ml-soudal.webp"},
+  // source: https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481
+  {"id":"rabdom-soudal-silicone-remover-100ml","ean":"5411183041899","name":"SOUDAL ŚRODEK DO USUWANIA SILIKONU 100ml","category":"silicone-remover","brand":"Soudal","packageSize":100,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":12481,"url":"https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_24083_500_500/full_srodek-do-usuwania-silikonu-1366719941.webp"},
+  // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922
+  {"id":"realbud-soudal-sanitary-stop-white-280ml","ean":"5411183200326","name":"SOUDAL SILIKON SANITARNY KUCHNIA ŁAZIENKA PLEŚŃ STOP BIAŁY 280ml","category":"silicone","brand":"Soudal","packageSize":280,"unit":"ml","store":"Realbud","format":"shoper-api","productId":75056922,"url":"https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922","imageUrl":"https://realbud.com/environment/cache/images/productGfx_23109_500_500/5daa6a798ad6adc9e8224e3b5a646bb7.jpg"},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481
+  'Soudal Silicone Remover 100 ml': '5411183041899',
+  // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922
+  'Soudal Silikon Sanitarny STOP biały 280 ml': '5411183200326',
   "Śnieżka Grunt biała farba podkładowa 5 l": "5903973000235",
   // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
   'Mapei Kerapoxy Easy Design - Uniwersalna fuga epoksydowa 3kg Biały 100': '8022452132940',

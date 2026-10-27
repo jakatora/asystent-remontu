@@ -12,6 +12,14 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922 (odczyt 2026-10-27T02:28:35.964Z)
+  // source: https://www.soudal.pl/diy/produkty/masy-uszczelniajace/silikony/silikon-sanitarny-stop
+  {"ids":["mat-sanitary-silicone-soudal-stop-white-280ml"],"ean":"5411183200326","sourceUrl":"https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922","imageUrl":"https://realbud.com/environment/cache/images/productGfx_23109_500_500/5daa6a798ad6adc9e8224e3b5a646bb7.jpg"},
+
+  // source: https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481 (odczyt 2026-10-27T02:28:35.602Z)
+  // source: https://www.soudal.pl/diy/produkty/pistolety-i-materialy-pomocnicze/srodki-czyszczace/silicone-remover
+  {"ids":["mat-silicone-remover-soudal-100ml"],"ean":"5411183041899","sourceUrl":"https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_24083_500_500/full_srodek-do-usuwania-silikonu-1366719941.webp"},
+
   // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282 (odczyt 2026-10-27T01:34:02.370Z)
   // source: https://tape.pl/marki/31-goldflex
   {"ids":["mat-edge-tape-packcenter-tb-fb00202-50m"],"sourceUrl":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","imageUrl":"https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp"},

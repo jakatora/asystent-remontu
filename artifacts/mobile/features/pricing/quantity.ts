@@ -43,7 +43,8 @@ const MATERIAL_IDS: Readonly<Record<string, RegExp>> = {
   toilet: /^wc-compact$/,
   faucet: /^basin-mixer$/,
   trap: /^basin-trap$/,
-  silicone: /^(sanitary-silicone|silicone-kitchen)$/,
+  silicone: /^(sanitary-silicone|silicone-kitchen|wall-silicone|silicone-grout|wc-silicone|countertop-silicone|silicone|fresh-silicone)$/,
+  'silicone-remover': /^silicone-remover$/,
   valve: /angle-valve/,
   hose: /flex-hose/,
   'mounting-set': /^wc-mounting-set$/,
@@ -97,6 +98,10 @@ export function resolveMaterialQuantity(
     if (!knownCan) return null;
     const quantity = Number((getRequiredQuantity(source, calc) * 750).toFixed(8));
     return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
+  const legacySanitary={ 'wall-tiles-bathroom':'wall-silicone','grout-only':'silicone-grout','toilet-installation':'wc-silicone','kitchen-countertop':'countertop-silicone' } as const;
+  if(source.material.id===legacySanitary[calc.jobId as keyof typeof legacySanitary]&&ref.id==='mat-sanitary-silicone-soudal-280ml'&&source.material.unit==='kartusze'&&/Soudal.*280 ml/.test(source.material.brand??'')&&ref.packageUnit==='ml'&&ref.packageSize===280){
+    const quantity=getRequiredQuantity(source,calc)*280;return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
   }
   const legacyPaintingTape = (calc.jobId === 'paint-walls' || calc.jobId==='repaint-walls'&&ref.id==='mat-masking-tape-bluedolphin-30mm'&&ref.packageSize===50&&/50\s*m\b/.test(source.material.brand??'')) && source.material.id === 'painters-tape' && source.material.unit === 'rolka' && normalizeUnit(ref.packageUnit) === 'm';
   // Old tile snapshots called the crosses formula (a count of individual

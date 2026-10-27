@@ -5,7 +5,8 @@ import { upgradeRepaintCalculation, upgradeRepaintProject } from './repaint';
 import { upgradeCeilingCalculation, upgradeCeilingProject, projectCeilingShopping } from './ceilingPrimer';
 import { reviewHistoricalSubstratePrimer, reviewSubstrateProject, reviewSubstrateShopping } from './substratePrimer';
 import { reviewHistoricalLevelingTape, reviewLevelingTapeProject } from './levelingTape';
+import { reviewSanitaryCalculation, reviewSanitaryProject, reviewSanitaryShopping } from './sanitarySealant';
 
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc))))));
-export const upgradeProject = (project: Project) => reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project))))));
-export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc);
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewSanitaryCalculation(reviewHistoricalLevelingTape(reviewHistoricalSubstratePrimer(upgradeCeilingCalculation(upgradeRepaintCalculation(upgradeSinkCalculation(upgradeEpsCalculation(calc)))))));
+export const upgradeProject = (project: Project) => reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))));
+export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc);

@@ -6,6 +6,7 @@ import { KITCHEN_EPOXY_REFERENCE, KITCHEN_WHITE_REFERENCE } from './kitchenMater
 import { REPAINT_UNDERCOAT_REFERENCE } from '@/features/calculator/repaint';
 import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
 import { levelingTapeReference } from '@/features/calculator/levelingTape';
+import { isSanitaryJob, sanitaryReferences, REMOVER_REFERENCE, SANITARY_REFERENCE } from '@/features/calculator/sanitarySealant';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -75,6 +76,15 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
     const selected = levelingTapeReference(measurements);
     const tape = selected ? MATERIAL_BY_ID.get(selected) : undefined;
     if (tape) results.push(tape);
+  }
+  if(isSanitaryJob(jobId)){
+    for(let i=results.length-1;i>=0;i--)if(['silicone','silicone-remover','masking-tape'].includes(results[i].materialType))results.splice(i,1);
+    const chosen=sanitaryReferences(measurements);
+    for(const id of [chosen.silicone,REMOVER_REFERENCE,chosen.tape]){const ref=id?MATERIAL_BY_ID.get(id):undefined;if(ref)results.push(ref);}
+  }
+  if(['wall-tiles-bathroom','grout-only','toilet-installation','kitchen-countertop'].includes(jobId)){
+    for(let i=results.length-1;i>=0;i--)if(results[i].materialType==='silicone')results.splice(i,1);
+    const ref=MATERIAL_BY_ID.get(SANITARY_REFERENCE);if(ref)results.push(ref);
   }
   if(jobId==='paint-ceiling') {
     const ref=MATERIAL_BY_ID.get('mat-universal-primer-5l');if(ref&&!results.some(row=>row.id===ref.id))results.push(ref);

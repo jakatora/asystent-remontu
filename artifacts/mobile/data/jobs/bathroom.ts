@@ -1,3 +1,4 @@
+import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -405,35 +406,13 @@ export const siliconeJob: RenovationJob = {
     { id: 'linearMeters', label: 'Łączna długość fug do silikonowania', unit: 'mb', inputType: 'length',
       placeholder: 'np. 8', min: 0.5, max: 50,
       hint: 'Obwód wanny/brodzika + narożniki ściany. Wanna = ok. 5 mb.' },
+    ...sanitaryInputs('silicone-sealing'),
   ],
-  materials: [
-    {
-      id: 'silicone',
-      name: 'Silikon sanitarny z fungicydem',
-      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
-      unit: 'kartusze',
-      formulaKey: 'silicone',
-      pricePerUnit: 18,
-      category: 'uszczelnienie',
-      notes: 'Kolor: biały lub transparentny. 1 kartusz (280 ml) na ok. 8 mb fugi.',
-      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
-    },
-    {
-      id: 'silicone-remover',
-      name: 'Środek do usuwania starego silikonu',
-      unit: 'szt.',
-      formula: formulaBuilder.fixed(1),
-      pricePerUnit: 12,
-      category: 'chemia',
-      optional: true,
-      notes: 'Konieczny jeśli usuwasz stary silikon — ułatwia usunięcie resztek.',
-    },
-  ],
+  materials: sanitaryMaterials('silicone-sealing'),
   tools: [
     { id: 'caulk-gun', name: 'Pistolet do silikonu', icon: 'tool', required: true, notes: 'Tani pistolet za 10–15 zł wystarczy', estimatedBuyCostPLN: 15 },
     { id: 'cutter', name: 'Nóż do usunięcia starego silikonu', icon: 'scissors', required: true },
-    { id: 'masking-tape', name: 'Taśma malarska', icon: 'minus', required: true, notes: 'Dla prostej estetycznej linii silikonu' },
-    { id: 'wet-finger', name: 'Palec (zmoczony) do wygładzania', icon: 'circle', required: true },
+    { id: 'wet-finger', name: 'Szpachelka do wygładzania silikonu', icon: 'circle', required: true },
     { id: 'cloth', name: 'Szmatka do czyszczenia', icon: 'square', required: true },
     { id: 'alcohol', name: 'Alkohol (odtłuszczanie)', icon: 'droplet', required: true, notes: 'Odtłuść podłoże spirytusem lub IPA przed aplikacją' },
   ],
@@ -443,8 +422,8 @@ export const siliconeJob: RenovationJob = {
     { step: 3, title: 'Wstaw sznur dylatacyjny (przy głębokich fugach)', description: 'Jeśli fuga jest głębsza niż 10 mm, wstaw sznur dylatacyjny (backer rod) na dno szczeliny. Silikon powinien wypełniać max. 10 mm głębokości — głębszy silikon schnie nierówno i pęka.', tip: 'Sznur dylatacyjny to tania piankowa linka — kupisz w sklepie budowlanym.', durationMin: 5 },
     { step: 4, title: 'Naklej taśmę malarską', description: 'Po obu stronach fugi naklej taśmę malarską równolegle. Zostaw 5–8 mm szczelinę na silikon.', tip: 'Taśma zapewnia prostą, estetyczną linię silikonu.', durationMin: 15 },
     { step: 5, title: 'Nałóż silikon', description: 'Pod kątem 45°, prowadź pistolet równomiernie jednym ruchem. Nie zatrzymuj się.', tip: 'Ćwicz na kawałku kartonu zanim zaczniesz w łazience.', durationMin: 20 },
-    { step: 6, title: 'Wygładź palcem', description: 'Natychmiast zwilż palec wodą z detergentem i przejedź wzdłuż silikonu jednym ruchem.', tip: 'Masz ok. 5–10 minut zanim silikon zacznie schnąć.', durationMin: 10 },
-    { step: 7, title: 'Zdejmij taśmę NATYCHMIAST i czekaj', description: 'Zdejmij taśmę natychmiast po wygładzeniu — pod kątem 45°, jednym ruchem. NIE czekaj z taśmą — silikon zaschnie z taśmą i linia będzie zniszczona. Nie używaj przez 24 godziny.', durationMin: 10 },
+    { step: 6, title: 'Wygładź szpachelką', description: 'Natychmiast wygładź silikon szpachelką z preparatem dopuszczonym przez producenta. Unikaj kontaktu nieutwardzonego silikonu ze skórą.', tip: 'Wygładź spoinę przed utworzeniem naskórka.', durationMin: 10 },
+    { step: 7, title: 'Zdejmij taśmę i poczekaj na utwardzenie', description: 'Zdejmij taśmę od razu po wygładzeniu. Nie mocz spoiny do pełnego utwardzenia według karty wybranego silikonu; czas zależy od głębokości i warunków. Suchy naskórek nie oznacza gotowej spoiny.', durationMin: 10 },
   ],
   dryingTimes: [
     { afterStep: 7, description: 'Silikon sanitarny — gotowy do użycia', minHours: 24, maxHours: 48 },

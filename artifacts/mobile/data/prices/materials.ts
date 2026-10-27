@@ -1,6 +1,14 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922 (odczyt 2026-10-27T02:28:35.964Z)
+  // source: https://www.soudal.pl/diy/produkty/masy-uszczelniajace/silikony/silikon-sanitarny-stop
+  {"id":"mat-sanitary-silicone-soudal-stop-white-280ml","materialType":"silicone","productLabel":"Soudal Silikon Sanitarny STOP biały 280 ml","brand":"Soudal","packageSize":280,"packageUnit":"ml","pricePerPackage":23,"category":"standard","storeName":"Realbud","sourceUrl":"https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922","lastUpdated":"2026-10-27","currency":"PLN","notes":"Biały STOP 280 ml, EAN 5411183200326; odrębny od zwykłego silikonu sanitarnego 5411183157064. Również do akrylu według producenta; nie do kamienia naturalnego."},
+
+  // source: https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481 (odczyt 2026-10-27T02:28:35.602Z)
+  // source: https://www.soudal.pl/diy/produkty/pistolety-i-materialy-pomocnicze/srodki-czyszczace/silicone-remover
+  {"id":"mat-silicone-remover-soudal-100ml","materialType":"silicone-remover","productLabel":"Soudal Silicone Remover 100 ml","brand":"Soudal","packageSize":100,"packageUnit":"ml","pricePerPackage":45,"category":"standard","storeName":"Rab-Dom","sourceUrl":"https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481","lastUpdated":"2026-10-27","currency":"PLN","notes":"Żel 100 ml do resztek utwardzonego silikonu. Liczbę opakowań podaje użytkownik; brak wymyślonej wydajności na metr. Próba zgodności na tworzywie."},
+
   // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282 (odczyt 2026-10-27T01:34:02.370Z)
   // source: https://tape.pl/marki/31-goldflex
   {"id":"mat-edge-tape-packcenter-tb-fb00202-50m","materialType":"expansion-tape","productLabel":"Taśma dylatacyjna 5mm x 10cm x 50m (Pack-Center TB-FB00202)","brand":"Pack-Center","packageSize":50,"packageUnit":"mb","pricePerPackage":14.06,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","lastUpdated":"2026-10-27","currency":"PLN","notes":"PACK-CENTER TB-FB00202, pianka PE 5 mm × 10 cm, rolka 50 m. Kod sklepu 465325 nie jest EAN-em; model jest odrębny od Fola. Dobór do dylatacji cienkiej wylewki, długość krawędzi z obmiaru + jawny zapas 5%."},

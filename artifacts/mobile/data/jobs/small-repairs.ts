@@ -1,3 +1,4 @@
+import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
@@ -689,48 +690,20 @@ export const siliconeRefreshJob: RenovationJob = {
       max: 100,
       hint: 'Zmierz: obwód brodzika/wanny + połączenia ścian z podłogą.',
     },
+    ...sanitaryInputs('silicone-refresh'),
   ],
-  materials: [
-    {
-      id: 'silicone-remover',
-      name: 'Środek do usuwania silikonu',
-      unit: 'szt.',
-      formulaKey: 'constant',
-      pricePerUnit: 20,
-      notes: 'Np. Pattex Sili-Remover. Nakłada się i czeka 30–60 minut.',
-    },
-    {
-      id: 'fresh-silicone',
-      name: 'Silikon sanitarny antygrzybiczny',
-      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
-      unit: 'kartusze',
-      formulaKey: 'silicone',
-      pricePerUnit: 22,
-      notes: 'Jeden kartusze na ok. 8 mb spoiny. Wybierz kolor pasujący do fugi.',
-      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
-    },
-    {
-      id: 'masking-tape-sil',
-      name: 'Taśma maskująca (do prostych krawędzi)',
-      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
-      unit: 'rolka',
-      formulaKey: 'constant',
-      pricePerUnit: 8,
-      notes: 'Naklejona po obu stronach fugi da idealne proste krawędzie.',
-      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
-    },
-  ],
+  materials: sanitaryMaterials('silicone-refresh'),
   tools: [
     { id: 'silicone-tool', name: 'Narzędzie do usuwania silikonu', icon: 'scissors', required: true, notes: 'Plastikowe lub metalowe — w zestawie ze środkiem lub osobno' },
     { id: 'caulk-gun-sil', name: 'Pistolet do silikonu', icon: 'tool', required: true },
-    { id: 'spatula-sil', name: 'Szpachla silikonowa lub palec zwilżony wodą z płynem', icon: 'minus', required: true },
+    { id: 'spatula-sil', name: 'Szpachelka do wygładzania silikonu', icon: 'minus', required: true },
   ],
   instructions: [
-    { step: 1, title: 'Nanieś środek do usuwania silikonu', description: 'Nałóż środek na stary silikon. Poczekaj 30–60 minut wg instrukcji. Silikon zmieni konsystencję i łatwiej się odklei.', durationMin: 60 },
-    { step: 2, title: 'Usuń stary silikon', description: 'Narzędziem lub paznokciem wyciągnij zmiękczony silikon. Oczyść resztki szpachlą. Przetrzyj alkoholem izopropylowym do czysta.', durationMin: 30 },
+    { step: 1, title: 'Wytnij starą spoinę i zmiękcz resztki', description: 'Najpierw mechanicznie usuń jak najwięcej starego silikonu. Soudal Silicone Remover 100 ml nałóż cienko na pozostałości, po próbie zgodności podłoża. Pozostaw na 10–15 minut zgodnie z kartą produktu.', durationMin: 30 },
+    { step: 2, title: 'Usuń resztki i osusz podłoże', description: 'Usuń zmiękczone resztki szpachelką. Oczyść powierzchnię zgodnie z instrukcją preparatu i dokładnie ją osusz. Na tworzywach sprawdź zgodność środka w niewidocznym miejscu.', durationMin: 30 },
     { step: 3, title: 'Naklejaj taśmę maskującą', description: 'Po obu stronach fugi naklejaj taśmę maskującą — zostaw tylko szczelinę szerokości fugi. Taśma da proste, czyste krawędzie.', durationMin: 15 },
-    { step: 4, title: 'Nanieś nowy silikon', description: 'Pistoletem nanieś silikon ciągłą linią pod kątem 45°. Natychmiast wygładź wilgotnym palcem lub szpachlą. Zdejmij taśmę PRZED wysychaniem silikonu.', tip: 'Zdejmij taśmę od razu po wygładzeniu, nie czekaj — klej taśmy trafi w silikon.', durationMin: 30 },
-    { step: 5, title: 'Schnie 24h — nie moczyć', description: 'Pozostaw silikon do całkowitego wyschnięcia (min. 24h). W tym czasie nie używaj prysznica ani wanny.', durationMin: 5 },
+    { step: 4, title: 'Nanieś nowy silikon', description: 'Pistoletem nanieś silikon ciągłą linią. Natychmiast wygładź szpachelką z preparatem dopuszczonym przez producenta. Zdejmij taśmę przed utworzeniem naskórka i unikaj kontaktu nieutwardzonego silikonu ze skórą.', tip: 'Zdejmij taśmę od razu po wygładzeniu.', durationMin: 30 },
+    { step: 5, title: 'Poczekaj na pełne utwardzenie — nie moczyć', description: 'Nie używaj prysznica ani wanny do pełnego utwardzenia spoiny. Wymagany czas zależy od wybranego silikonu, głębokości i warunków; potwierdź go w karcie produktu. Sam suchy naskórek nie oznacza gotowej spoiny.', durationMin: 5 },
   ],
   commonMistakes: [
     'Nakładanie nowego silikonu na stary — odpada w ciągu kilku miesięcy',

@@ -13,6 +13,7 @@ import { REPAINT_JOB_ID, isRepaintQuantity, repaintQuantity } from './repaint';
 import { ceilingPrimerLitres } from './ceilingPrimer';
 import { substratePrimerSpecification, substratePrimerQuantity, levelingEdgeTapeMetres, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
 import { levelingTapeMaterial } from './levelingTape';
+import { isSanitaryJob, isSanitaryMaterial, sanitaryMaterials, sanitaryQuantity, SANITARY_MODEL } from './sanitarySealant';
 
 const DEFAULT_WASTE_FACTOR = 1.1;
 
@@ -68,6 +69,10 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isSanitaryMaterial(jobId,material.id)){
+    const required=sanitaryQuantity(jobId,material.id,measurements),rawQuantity=required??0;
+    return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
   if (jobId === 'self-leveling' && material.id === 'expansion-tape') {
     const required = levelingEdgeTapeMetres(measurements), rawQuantity = required ?? 0;
     return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null };
@@ -127,6 +132,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(isSanitaryJob(job.id)?{quantityModel:SANITARY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -167,6 +173,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(isSanitaryJob(job.id)?{quantityModel:SANITARY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       measurements,
       materials: detailedItems,
@@ -189,6 +196,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(isSanitaryJob(job.id))material=sanitaryMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if (job.id === 'self-leveling' && material.id === 'expansion-tape' && !isRichMaterial(material)) material = levelingTapeMaterial(material, measurements);
       const { rawQuantity, quantity, packs, quantityKnown } = resolveMaterialQuantity(material, measurements, job.id);
       const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
@@ -204,6 +212,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(isSanitaryJob(job.id))material=sanitaryMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if (job.id === 'self-leveling' && material.id === 'expansion-tape' && !isRichMaterial(material)) material = levelingTapeMaterial(material, measurements);
       const { rawQuantity, quantity, packs, quantityKnown } = epsItems?.[index] ?? resolveMaterialQuantity(material, measurements, job.id);
 
@@ -220,7 +229,10 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = substratePrimerSpecification(job.id)?.materialId === material.id ? {
+      const explanation = isSanitaryMaterial(job.id,material.id) ? {
+        text:quantityKnown===false?'Sprawdź długość, wymiary spoiny i wybrany produkt w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
+        assumptions:[material.notes??'','Przekrój silikonu: '+(measurements.sealantWidthMm??5)+' × '+(measurements.sealantDepthMm??5)+' mm; zapas '+(measurements.sealantReservePercent??10)+'%.','Pełne opakowania dobieramy po zsumowaniu prac.'],
+      } : substratePrimerSpecification(job.id)?.materialId === material.id ? {
         text: quantityKnown === false ? 'Uzupełnij powierzchnię i zużycie gruntu w obmiarach.' : `${rawQuantity} ${material.unit} gruntu z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions: [material.notes ?? '', 'Wspólny koszyk sumuje zużycie przed doborem pełnych opakowań.'],
       } : quantityKnown === false && !epsItems ? { text: job.id === 'self-leveling' ? 'Podaj długość taśmy przy ścianach w obmiarach.' : job.id === SINK_JOB_ID ? 'Podaj liczbę umywalek i dodatkowych wężyków w obmiarach.' : 'Uzupełnij ilość tego materiału w obmiarach.', assumptions: ['Nieznana ilość nie jest darmowym materiałem.'] } : epsItems ? {

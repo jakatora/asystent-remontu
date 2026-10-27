@@ -1,4 +1,5 @@
 import type { FormulaFn, FormulaRegistry, MeasurementMap } from '@/types/calculator';
+import { isSanitaryMaterial, sanitaryQuantity } from './sanitarySealant';
 import { groutMassKg } from './grout';
 import { kitchenWhiteAdhesiveKg, kitchenEpoxyGroutKg, kitchenSpacerPieces } from './kitchen';
 import { repaintUndercoatLitres, repaintTapeRolls, repaintFilmArea } from './repaint';
@@ -255,5 +256,9 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
 } as const;
 
 export function resolveFormula(key: string): FormulaFn {
+  if(key.startsWith('sanitary:')){
+    const [,jobId,id]=key.split(':');
+    if(isSanitaryMaterial(jobId,id))return m=>sanitaryQuantity(jobId,id,m)??0;
+  }
   return FORMULA_REGISTRY[key] ?? constantFormula;
 }

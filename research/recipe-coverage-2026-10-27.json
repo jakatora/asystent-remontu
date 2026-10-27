@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-27T02:14:46.386Z",
-  "scope": "Actual calculator -> native bundle/production HTTPS -> real anonymous store carts. Full 3-material screed basket, explicit independent tape models, no order/payment. Older saved request smoke is not completeness of older user projects. One synthetic standard scenario per nonempty job, not all dimensions or tiers. Missing rows are not unique products. Wave45 changes the selected tape model and confirms delivery; 169 recipe rows still lack prices.",
+  "checkedAt": "2026-10-27T02:47:53.945Z",
+  "scope": "Actual current calculator -> native bundle/production HTTPS -> real anonymous shop carts. Sealing volume is in ml before shared pack rounding; remover count is explicitly one jar per sample. No order/payment. One synthetic Standard scenario per job, not full installation or all dimensions/tiers. The added silicone-refresh silicone row was previously omitted at zero because the formula read another length key. Masking tape for silicone-sealing is now a material rather than a tool. Missing rows include links, physical quantities, units and new products, not 161 unique SKUs.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 227,
-    "beforePriced": 51,
-    "afterLines": 228,
-    "afterPriced": 59,
-    "afterUnpriced": 169,
-    "fullyPricedScenarios": 6
+    "beforeLines": 228,
+    "beforePriced": 59,
+    "afterLines": 230,
+    "afterPriced": 69,
+    "afterUnpriced": 161,
+    "fullyPricedScenarios": 9
   },
   "history": [
     {
@@ -23,6 +23,19 @@
         "afterPriced": 51,
         "afterUnpriced": 176,
         "fullyPricedScenarios": 4
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T02:14:46.386Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 227,
+        "beforePriced": 51,
+        "afterLines": 228,
+        "afterPriced": 59,
+        "afterUnpriced": 169,
+        "fullyPricedScenarios": 6
       }
     }
   ],
@@ -1313,13 +1326,17 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "silikon sanitarny narozniki",
-            "category": "uszczelnienie"
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
           },
-          "quantity": 2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 560,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183157064",
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
         },
         {
           "materialId": "tile-trim",
@@ -1367,13 +1384,17 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "silikon sanitarny narozniki",
-            "category": "uszczelnienie"
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
           },
-          "quantity": 3,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 840,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183157064",
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
         },
         {
           "materialId": "grout-cleaner",
@@ -1399,28 +1420,53 @@
         {
           "materialId": "silicone",
           "query": {
-            "ean": null,
+            "ean": "5411183157064",
             "gtin": null,
-            "normalizedName": "silikon sanitarny z fungicydem",
-            "category": "uszczelnienie"
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
           },
-          "quantity": 2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 275,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183157064",
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
         },
         {
           "materialId": "silicone-remover",
           "query": {
-            "ean": null,
+            "ean": "5411183041899",
             "gtin": null,
-            "normalizedName": "srodek do usuwania starego silikonu",
-            "category": "chemia"
+            "normalizedName": "soudal silicone remover 100 ml",
+            "category": "silicone-remover"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 100,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183041899",
+            "ean": "5411183041899",
+            "name": "Środek do usuwania silikonu Silicone Remover 100ml Soudal"
+          }
+        },
+        {
+          "materialId": "masking-tape-seal",
+          "query": {
+            "ean": "5907758515952",
+            "gtin": null,
+            "normalizedName": "tasma malarska blue dolphin niebieska 30 mm x 50 m",
+            "category": "masking-tape"
+          },
+          "quantity": 22,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907758515952",
+            "ean": "5907758515952",
+            "name": "Taśma malarska niebieska 30mmx50m"
+          }
         }
       ]
     },
@@ -1433,28 +1479,53 @@
         {
           "materialId": "silicone-remover",
           "query": {
-            "ean": null,
+            "ean": "5411183041899",
             "gtin": null,
-            "normalizedName": "srodek do usuwania silikonu",
-            "category": null
+            "normalizedName": "soudal silicone remover 100 ml",
+            "category": "silicone-remover"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 100,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183041899",
+            "ean": "5411183041899",
+            "name": "Środek do usuwania silikonu Silicone Remover 100ml Soudal"
+          }
+        },
+        {
+          "materialId": "fresh-silicone",
+          "query": {
+            "ean": "5411183157064",
+            "gtin": null,
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
+          },
+          "quantity": 275,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183157064",
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
         },
         {
           "materialId": "masking-tape-sil",
           "query": {
-            "ean": null,
+            "ean": "5907758515952",
             "gtin": null,
-            "normalizedName": "tasma maskujaca do prostych krawedzi",
-            "category": null
+            "normalizedName": "tasma malarska blue dolphin niebieska 30 mm x 50 m",
+            "category": "masking-tape"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 22,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907758515952",
+            "ean": "5907758515952",
+            "name": "Taśma malarska niebieska 30mmx50m"
+          }
         }
       ]
     },
@@ -1641,13 +1712,17 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "silikon sanitarny uszczelnienie podstawy",
-            "category": "uszczelnienie"
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 280,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183157064",
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
         }
       ]
     },
@@ -1768,13 +1843,17 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "silikon sanitarny uszczelnienie",
-            "category": null
+            "normalizedName": "silikon sanitarny soudal 280 ml",
+            "category": "silicone"
           },
-          "quantity": 2,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 560,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5411183157064",
+            "ean": "5411183157064",
+            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
+          }
         },
         {
           "materialId": "countertop-screws",

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T02:14:46.386Z",
-  "scope": "114 catalogue references, 108 with offers, 6 historical references still unavailable. Pack-Center merchant SKU is separate from Fola and has no EAN. Full 3-material screed basket has a real Gliwice dispatch/postcode pallet quote. The separate synthetic standard-tier audit remains 59/228 material rows priced, 169 unpriced; these are not unique products. Photo URLs and pickup eligibility do not confirm all branch stock, stationary prices or travel costs. Castorama/OBI delivery and ABUD cloud transport remain unavailable.",
-  "total": 114,
-  "verifiedProducts": 108,
+  "checkedAt": "2026-10-27T02:47:53.945Z",
+  "scope": "116 references, 110 with offers, 6 historical references unavailable. Two new distinct products (Soudal Silicone Remover 100ml and white Soudal Sanitarny STOP 280ml), three verified offers and exact photos. The separate recipe audit now prices 69 of 230 rows; 161 remain unpriced, not unique products. STOP at Rab-Dom was excluded for a conflicting EAN; standard silicone is not merged with STOP. Pickup eligibility and online prices do not confirm branch stock/stationary prices/travel. Castorama/OBI delivery and ABUD cloud transport remain unresolved.",
+  "total": 116,
+  "verifiedProducts": 110,
   "remaining": 6,
-  "offers": 137,
+  "offers": 140,
   "stores": 38,
-  "productsWithPhotos": 114,
-  "registeredOffers": 139,
+  "productsWithPhotos": 116,
+  "registeredOffers": 142,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2447,6 +2447,47 @@
           "fullScreedBasketGrosze": 41720
         }
       ]
+    },
+    {
+      "id": "mat-silicone-remover-soudal-100ml",
+      "name": "Soudal Silicone Remover 100 ml",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481",
+      "status": "verified_offer",
+      "ean": "5411183041899",
+      "sourceIds": [
+        "sewera-soudal-silicone-remover-100ml",
+        "rabdom-soudal-silicone-remover-100ml"
+      ],
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_24083_500_500/full_srodek-do-usuwania-silikonu-1366719941.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T02:47:53.945Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "whole sanitary replacement sample; mixed store baskets as needed",
+          "deliveredGrosze": 8399
+        }
+      ]
+    },
+    {
+      "id": "mat-sanitary-silicone-soudal-stop-white-280ml",
+      "name": "Soudal Silikon Sanitarny STOP biały 280 ml",
+      "referenceUrl": "https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922",
+      "status": "verified_offer",
+      "ean": "5411183200326",
+      "sourceIds": [
+        "realbud-soudal-sanitary-stop-white-280ml"
+      ],
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_23109_500_500/5daa6a798ad6adc9e8224e3b5a646bb7.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T02:47:53.945Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "whole sanitary replacement sample; mixed store baskets as needed",
+          "deliveredGrosze": 11549
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -2462,11 +2503,11 @@
     }
   },
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T02:14:46.386Z",
-    "pricedLines": 59,
-    "totalLines": 228,
-    "unpricedLines": 169,
-    "fullyPricedScenarios": 6,
+    "checkedAt": "2026-10-27T02:47:53.945Z",
+    "pricedLines": 69,
+    "totalLines": 230,
+    "unpricedLines": 161,
+    "fullyPricedScenarios": 9,
     "report": "recipe-coverage-2026-10-27.json"
   }
 }
