@@ -18,6 +18,7 @@ const BOARD = 'mat-gypsum-board-norgips-gkb-a-1200x';
 const FILLER = 'mat-gypsum-norgips-start-finish-20kg';
 const WOOL = 'mat-mineral-wool-isover-akuplyta-50mm';
 const EANS: Record<string,string> = {
+  'mat-ceiling-anchor-rawlplug-gs-100':'5906675169347',
   'mat-gypsum-cross-norgips-100':'5907651696468', 'mat-gypsum-cross-budmat-100':'5901323043369',
   [BOARD+'2600']:'5907651690442', [BOARD+'2000']:'5907651690879', [FILLER]:'5907651699056',
   [WOOL]:'5901644653131', 'mat-profile-cd60-norgips-3m':'5907651698899',
@@ -38,7 +39,8 @@ export function gypsumReference(id: string, m: MeasurementMap = {}): string | nu
   if (id === 'gk-board' || id === 'gk-ceiling') return (m.gypsumBoardSize ?? 0) === 0 ? BOARD+'2600' : m.gypsumBoardSize === 1 ? BOARD+'2000' : null;
   if (id === 'gk-filler' || id === 'ceiling-filler') return FILLER;
   if (id === 'mineral-wool') return WOOL;
-  if (id === 'profile-cd') return 'mat-profile-cd60-norgips-3m';
+  if (id === 'profile-cd') return (m.gypsumCdProfile??0)===0 ? 'mat-profile-cd60-norgips-3m' : m.gypsumCdProfile===1 ? 'mat-profile-cd60-irbud-3m' : null;
+  if (id === 'ceiling-steel-anchors') return m.gypsumCeilingSubstrate===1&&m.gypsumCeilingAnchors===1 ? 'mat-ceiling-anchor-rawlplug-gs-100' : null;
   if (id === 'ceiling-cross') return (m.gypsumCrossConnector??0)===0 ? 'mat-gypsum-cross-norgips-100' : m.gypsumCrossConnector===1 ? 'mat-gypsum-cross-budmat-100' : null;
   if (id === 'gk-screws' || id === 'gk-screws-ceiling') return m.gypsumFasteners===1 ? 'mat-gk-screws-koelner-fs3525-1000' : null;
   if (id === 'ceiling-metal-screws') return m.gypsumFasteners===1 ? 'mat-gk-profile-screws-koelner-ws3595-1000' : null;
@@ -91,7 +93,11 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
     return fixed(m.perimeter*factor);
   }
   if (id === 'ceiling-cross' && !integerChoice(m.gypsumCrossConnector??0,1)) return null;
-  if (id === 'ceiling-steel-anchors' && m.gypsumCeilingSubstrate !== 1) return null;
+  if(id==='profile-cd'&&!integerChoice(m.gypsumCdProfile??0,1))return null;
+  if(id==='ceiling-steel-anchors'){
+    if(m.gypsumCeilingSubstrate!==1||!integerChoice(m.gypsumCeilingAnchors??0,1))return null;
+    if(m.gypsumCeilingAnchors===1)return Number.isInteger(m.gypsumAnchorCount)&&finiteRange(m.gypsumAnchorCount,1,10000)?whole(m.gypsumAnchorCount*factor):null;
+  }
   // source: https://norgips.pl/rozwiazania/sufity-podwieszane/sufity-podwieszane-z-jednokrotnym-poszyciem-z-plyt-g-k-na-ruszcie-dwupoziomowym/sp-1x125-gkb-acd-60-es/
   if (id === 'ceiling-wall-dowels') return finiteRange(m.perimeter,4,100) ? whole(Math.max(area*1.5,Math.ceil(m.perimeter/0.8)+4)*factor) : null;
   const allowance: Record<string,number> = {'profile-cd':3.3,hanger:1.3,'ceiling-cross':2.5,'ceiling-longitudinal':0.6,'ceiling-metal-screws':12,'ceiling-steel-anchors':1.3,'ceiling-wall-dowels':1.5};
@@ -117,6 +123,13 @@ export const gypsumWallInputs: MeasurementInputDefinition[] = [
   {id:'gypsumOpenings',label:'Otwory drzwiowe i inne wymagające wzmocnień',unit:'szt.',inputType:'count',placeholder:'0',defaultValue:0,min:0,max:100,required:false,hint:'Podaj powierzchnię brutto, bez odejmowania otworów. Przy otworach pozostawiamy dodatkowe profile, nadproża i mocowania jako brak do doboru; nie ogłaszamy niepełnego zestawu kompletnym.'},
 ];
 export const gypsumCeilingInputs: MeasurementInputDefinition[] = [
+  // source: https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/
+  // source: https://norgips.pl/produkty/profil-cd-60-o-gr-blachy-06-mm-33.html
+  {id:'gypsumCdProfile',label:'Profil główny CD 60, 0,6 mm, 3 m',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips — produkt z EAN5907651698899'},{value:1,label:'Norgips w IRBUD — odrębna oferta bez EAN'}],hint:'IRBUD deklaruje ten format i markę, ale nie publikuje EAN. Nie łączymy ofert jako identycznego GTIN. Wybierz wariant zgodny z projektem i potwierdź produkt przed montażem.'},
+  // source: https://rawlplug.com/global/en/p/r-gs-06040
+  // source: https://rawlplug.com/media/catalog/reference_object/d/c/d/9/dcd99de317a157ac2c93d052079dcf0b80755dbc/1999.RAWLPLUG.EN.GS_CEILING_WEDGE_ANCHOR.pdf
+  {id:'gypsumCeilingAnchors',label:'Stalowe mocowania do stropu betonowego',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Mocowanie według projektu — wymaga doboru'},{value:1,label:'Rawlplug R-GS6×40 — potwierdzone warunki w betonie'}],hint:'Wybierz R-GS tylko po potwierdzeniu betonu C20/25–C50/60, grubości≥100mm, mocowanej warstwy wraz z wykończeniem≤4,5mm, otworu6mm/głębokości≥40mm, osadzenia32mm, rozstawu≥200mm i krawędzi≥150mm. Projekt ustala nośność i liczbę kotew. To nie kołki z tworzywa do profili obwodowych. Zaznacz też beton w polu podłoża.'},
+  {id:'gypsumAnchorCount',label:'Liczba stalowych kotew z projektu',unit:'szt.',inputType:'count',placeholder:'np.26',required:false,min:1,max:10000,hint:'Dla wybranego R-GS podaj liczbę kotew na to pomieszczenie przed zapasem. Doliczymy jawny zapas i dobierzemy pełne opakowania100szt. Brak liczby pozostawi pozycję do ustalenia; nie wyliczamy nośności z samej powierzchni.'},
   // source: https://norgips.pl/produkty/lacznik-krzyzowy-72.html
   // source: https://www.budmat.com/pl/produkt/lacznik-krzyzowy-152
   {id:'gypsumCrossConnector',label:'Łączniki krzyżowe CD 60',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips — karton 100 szt.'},{value:1,label:'Budmat 0,8 mm — opakowanie 100 szt.'}],hint:'Wybierz produkt zgodny z projektem sufitu. Budmat to inna marka: potwierdź zgodność z profilami i wymaganiami systemu. Liczbę łączników sumujemy dla remontu, potem zaokrąglamy do pełnych opakowań po 100 szt.'},
@@ -149,7 +162,7 @@ export function gypsumMaterials(jobId: string, m: MeasurementMap = {}): Material
   };
   return (wall?WALL:CEILING).map(id=>{
     const reference=gypsumReference(id,m), ref=MATERIAL_PRICES.find(row=>row.id===reference);
-    if (ref) return {id,name:ref.productLabel,brand:ref.brand,ean:EANS[ref.id],unit:ref.packageUnit,category:ref.materialType,sourceUrl:ref.sourceUrl,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:ref.pricePerPackage,priceBasis:'package',packaging:{size:ref.packageSize,label:`${ref.packageSize} ${ref.packageUnit}`,purchaseUnit:id==='gk-board'||id==='gk-ceiling'?'płyta':id.startsWith('profile-')?'profil':id==='gk-tape'||id==='ceiling-tape'||id.endsWith('acoustic-tape')?'rolka':id==='hanger'||id==='ceiling-longitudinal'?'szt.':'opakowanie'},notes:ref.materialType==='drywall-accessory'?ref.notes+' '+(descriptions[id]?.[2]??''):id==='mineral-wool'?'Aku-Płyta 037, 50 mm, 14,4 m²/paczka. Nie zastępuj wełną 100 mm w profilu CW 50.':id==='gk-filler'||id==='ceiling-filler'?`Gotowa masa Start & Finish, bez dodawania wody jak do proszku. Norma Q${(m.gypsumFinish??1)+1}, bez pełnej gładzi. Opakowanie 20 kg.`:id==='profile-cd'?'Norgips CD 60, 0,6 mm, 3 m. Norma rusztu DWUPOZIOMOWEGO 3,3 m/m² + zapas; nie stosujemy wzoru od gładzi.':'GKB typ A, 12,5 mm, suche wnętrza. Ścianka: jedna warstwa na KAŻDEJ z dwóch stron. Sufit: jedna warstwa. Pełne płyty po zsumowaniu remontu.'};
+    if (ref) return {id,name:ref.productLabel,brand:ref.brand,ean:EANS[ref.id],unit:ref.packageUnit,category:ref.materialType,sourceUrl:ref.sourceUrl,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:ref.pricePerPackage,priceBasis:'package',packaging:{size:ref.packageSize,label:`${ref.packageSize} ${ref.packageUnit}`,purchaseUnit:id==='gk-board'||id==='gk-ceiling'?'płyta':id.startsWith('profile-')?'profil':id==='gk-tape'||id==='ceiling-tape'||id.endsWith('acoustic-tape')?'rolka':id==='hanger'||id==='ceiling-longitudinal'?'szt.':'opakowanie'},notes:ref.materialType==='drywall-accessory'?ref.notes+' '+(descriptions[id]?.[2]??''):id==='mineral-wool'?'Aku-Płyta 037, 50 mm, 14,4 m²/paczka. Nie zastępuj wełną 100 mm w profilu CW 50.':id==='gk-filler'||id==='ceiling-filler'?`Gotowa masa Start & Finish, bez dodawania wody jak do proszku. Norma Q${(m.gypsumFinish??1)+1}, bez pełnej gładzi. Opakowanie 20 kg.`:id==='profile-cd'?(ref.notes??'')+' Norgips CD 60, 0,6 mm, 3 m. Norma rusztu DWUPOZIOMOWEGO 3,3 m/m² + zapas; nie stosujemy wzoru od gładzi.':'GKB typ A, 12,5 mm, suche wnętrza. Ścianka: jedna warstwa na KAŻDEJ z dwóch stron. Sufit: jedna warstwa. Pełne płyty po zsumowaniu remontu.'};
     const [name,unit,notes]=descriptions[id]??['Płyta / masa / izolacja — wymaga doboru','pozycja','Brak konkretnego produktu nie oznacza darmowego zakupu.'];
     return {id,name,unit,notes,sourceUrl:source,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:0,category:'drywall-accessory',...(id==='profile-cw'?{ean:'5907651698165',packaging:{size:3,label:'3 m',purchaseUnit:'profil'},priceBasis:'package' as const}: {})};
   });
@@ -158,7 +171,10 @@ export function gypsumMaterials(jobId: string, m: MeasurementMap = {}): Material
 export function reviewGypsumCalculation(calc: CalculationResult | undefined): CalculationResult | undefined {
   if (!calc || !isGypsumJob(calc.jobId)) return calc;
   const warnings=calc.warnings.filter(row=>!row.message.startsWith('Niepełna wycena:'));
-  if (calc.quantityModel===GYPSUM_MODEL) return {...calc,warnings:[...warnings,...gypsumPriceWarnings(calc.materials)]};
+  if (calc.quantityModel===GYPSUM_MODEL) {
+    const materials=calc.materials.map(line=>isGypsumMaterial(calc.jobId,line.material.id)&&gypsumQuantity(calc.jobId,line.material.id,calc.measurements)===null?{...line,quantityKnown:false}:line);
+    return {...calc,materials,warnings:[...warnings,...gypsumPriceWarnings(materials)]};
+  }
   const materials=calc.materials.map(line=>({...line,quantityKnown:false}));
   for (const material of gypsumMaterials(calc.jobId)) if (!materials.some(line=>line.material.id===material.id)) materials.push({material,quantity:0,rawQuantity:0,cost:0,quantityKnown:false});
   return {...calc,materials,warnings:[...warnings,...gypsumPriceWarnings(materials)],quantityIssues:materials.map(line=>line.material.name)};

@@ -5,15 +5,17 @@ import { cleanHtml, htmlElements, htmlAttributes, htmlText, htmlLabel } from './
  * namespace and cannot merge into a similar product with a real EAN. */
 export interface RetailSkuIdentity {
   readonly catalogKey: string;
-  readonly manufacturerSku: string;
+  readonly kind?: 'merchant-only';
+  readonly manufacturerSku?: string;
   readonly merchantProductId: string;
-  readonly pageBarcode: string;
+  readonly pageBarcode?: string;
 }
 
 const URL = 'https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282';
 // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282
 // source: https://tape.pl/marki/31-goldflex (manufacturer lists TB-FB00202)
 export function isReviewedSkuSource(source: RetailSource): boolean {
+  if (isReviewedIrbudSource(source)) return true;
   const sku = source.skuIdentity;
   return source.id === 'sewera-packcenter-edge-tape-50m' && source.ean === ''
     && source.store === 'Sewera' && source.format === 'sewera' && source.url === URL
@@ -24,6 +26,14 @@ export function isReviewedSkuSource(source: RetailSource): boolean {
     && source.dispatchDepartment?.id === '3' && source.dispatchDepartment.name === 'Gliwice';
 }
 
+// source: https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/
+export function isReviewedIrbudSource(source:RetailSource):boolean {
+ const sku=source.skuIdentity;
+ return source.id==='irbud-norgips-cd60-06-3m'&&source.ean===''&&source.store==='IRBUD'&&source.format==='irbud-woo'
+  &&source.name==='Profil główny sufitowy CD60 3 MB / 0,6'&&source.brand==='Norgips'&&source.category==='profile'&&source.packageSize===3&&source.unit==='mb'&&source.productId===10911
+  &&source.url==='https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/'&&sku?.kind==='merchant-only'&&sku.catalogKey==='irbud-10911'&&sku.merchantProductId==='10911'&&sku.manufacturerSku===undefined&&sku.pageBarcode===undefined;
+}
+export function retailSkuCode(source:RetailSource):string|undefined{return isReviewedIrbudSource(source)?source.skuIdentity!.merchantProductId:source.skuIdentity?.manufacturerSku;}
 export function retailProductId(source: RetailSource): string {
   if (source.skuIdentity) {
     if (!isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
@@ -36,11 +46,11 @@ export function retailProductId(source: RetailSource): string {
 export function retailProductName(source: RetailSource): string {
   if (!source.skuIdentity) return source.name;
   if (!isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
-  return `${source.name} (${source.brand} ${source.skuIdentity.manufacturerSku})`;
+  return isReviewedIrbudSource(source) ? `${source.name} (${source.brand}, oferta ${source.store})` : `${source.name} (${source.brand} ${source.skuIdentity.manufacturerSku})`;
 }
 
 export function confirmRetailSkuProduct(html: string, product: Record<string, any>, source: RetailSource): Record<string, any> {
-  if (!isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
+  if (!isReviewedSkuSource(source) || isReviewedIrbudSource(source)) throw Error('retailer_sku_source_not_reviewed');
   const safe = cleanHtml(html), sku = source.skuIdentity!;
   const one = (rows: string[]) => { if (rows.length !== 1) throw Error('retailer_sku_identity_not_confirmed'); return rows[0]; };
   const primary = one(htmlElements(safe, attributes => /\/Product$/.test(attributes.itemtype ?? '')));

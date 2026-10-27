@@ -1,0 +1,764 @@
+[
+  {
+    "sourceId": "ehw-rawlplug-gs-100",
+    "product": {
+      "id": 6807,
+      "name": "RAWLPLUG R-GS-06040 Kotwa do sufitów podwieszanych 6x40 mm",
+      "can_buy": true,
+      "ean": "5906675169347",
+      "code": "RAWLPLUG-304145",
+      "package": "0",
+      "unit": {
+        "name": "szt.",
+        "floating_point": false
+      },
+      "rate": 0,
+      "votes": 0,
+      "stockId": 6816,
+      "url": "https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm",
+      "category": {
+        "name": "Kotwy",
+        "id": 378
+      },
+      "availability": {
+        "name": "dostępny"
+      },
+      "visibility": {
+        "status": 1,
+        "cart_status": 1,
+        "search_status": 1
+      },
+      "delivery": {
+        "name": "24 godziny",
+        "hours": "24"
+      },
+      "price": {
+        "gross": {
+          "base": "49,54 zł",
+          "base_float": 49.54,
+          "final": "49,54 zł",
+          "final_float": 49.54,
+          "historical_lowest_price": "117,69 zł",
+          "historical_lowest_price_float": 117.69
+        },
+        "net": {
+          "base": "40,28 zł",
+          "base_float": 40.28,
+          "final": "40,28 zł",
+          "final_float": 40.28,
+          "historical_lowest_price": "95,68 zł",
+          "historical_lowest_price_float": 95.68
+        }
+      },
+      "productExists30DaysBeforePromotion": false,
+      "weight": {
+        "weight_float": 1,
+        "weight": "1 kg"
+      },
+      "producer": {
+        "name": "RAWLPLUG",
+        "id": 139,
+        "img": "https://sklep.ehw.com.pl/userdata/public/producers/139.jpg"
+      },
+      "newProduct": false,
+      "shortDescription": "<p><strong>RAWLPLUG R-GS-06040 Kotwa do sufitów podwieszanych 6x40 mm</strong></p>",
+      "main_image": "21763",
+      "main_image_filename": "21763.webp",
+      "description": "<p class=\"isSelectedEnd\"><strong>RAWLPLUG R-GS-06040</strong> to stalowa kotwa sufitowa przeznaczona do szybkiego i trwałego mocowania lekkich konstrukcji w betonie. Dzięki mechanizmowi rozprężnemu z klinem stalowym montaż odbywa się sprawnie przy użyciu zwykłego młotka, bez konieczności stosowania specjalistycznych narzędzi.</p>\n<p class=\"isSelectedEnd\">Produkt posiada klasyfikację ogniową A1 oraz jest przeznaczony do stosowania zarówno w betonie zarysowanym, jak i niezarysowanym.</p>\n<h2>Najważniejsze cechy</h2>\n<p class=\"isSelectedEnd\">✔ Wykonana z wytrzymałej stali z klinem rozprężnym.<br />✔ Certyfikowana do stosowania w betonie zarysowanym i niezarysowanym.<br />✔ Klasa odporności ogniowej A1.<br />✔ Mechanizm rozprężny aktywowany poprzez wbicie stalowego klina.<br />✔ Szybki montaż przy użyciu standardowego młotka.</p>\n<h2>Zastosowanie</h2>\n<p class=\"isSelectedEnd\">Kotwa sufitowa RAWLPLUG R-GS-06040 znajduje zastosowanie podczas montażu:</p>\n<ul data-spread=\"false\">\n<li>sufitów podwieszanych,</li>\n<li>sufitów kasetonowych,</li>\n<li>systemów klimatyzacyjnych,</li>\n<li>systemów wentylacyjnych,</li>\n<li>instalacji sanitarnych,</li>\n<li>instalacji gazowych,</li>\n<li>profili dachowych,</li>\n<li>systemów gipsowo-kartonowych.</li>\n</ul>\n<h2>Dane techniczne</h2>\n<p><strong>Model:</strong> RAWLPLUG R-GS-06040<br /><strong>Indeks:</strong> R-GS-06040<br /><strong>EAN:</strong> 5906675169347<br /><strong>Średnica:</strong> 6 mm<br /><strong>Długość:</strong> 40 mm<br /><strong>Materiał:</strong> stal<br /><strong>Rodzaj opakowania:</strong> opakowanie kartonowe</p>",
+      "images": [
+        "21763",
+        "21764"
+      ],
+      "images_filename": [
+        "21763.webp",
+        "21764.webp"
+      ],
+      "lowest_shipping_cost": {
+        "price": "0,00 zł",
+        "price_float": 0
+      },
+      "historical_lowest_price": "117,69 zł",
+      "net_historical_lowest_price": "95,68 zł",
+      "is_notification_enabled": false,
+      "gauge": {
+        "id": "6",
+        "name": "Średnie"
+      }
+    },
+    "cart": {
+      "shippings": [
+        {
+          "shipping_id": 13,
+          "selected": false,
+          "title": "Paczkomat InPost",
+          "description": "",
+          "cost": "17,00 zł",
+          "cost_float": 17,
+          "engine": "inpost",
+          "payments": [
+            {
+              "payment_id": 3
+            },
+            {
+              "payment_id": 23
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "17,00 zł",
+              "cost_float": 17
+            }
+          ]
+        },
+        {
+          "shipping_id": 12,
+          "selected": true,
+          "title": "Kurier InPost",
+          "description": "",
+          "cost": "21,00 zł",
+          "cost_float": 21,
+          "engine": "inpost",
+          "payments": [
+            {
+              "payment_id": 2,
+              "additional_cost": "8,00 zł",
+              "additional_cost_float": 8
+            },
+            {
+              "payment_id": 3
+            },
+            {
+              "payment_id": 23
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "21,00 zł",
+              "cost_float": 21
+            }
+          ]
+        },
+        {
+          "shipping_id": 18,
+          "selected": false,
+          "title": "Kurier FedEx",
+          "description": "",
+          "cost": "21,00 zł",
+          "cost_float": 21,
+          "engine": "",
+          "payments": [
+            {
+              "payment_id": 2,
+              "additional_cost": "8,00 zł",
+              "additional_cost_float": 8
+            },
+            {
+              "payment_id": 3
+            },
+            {
+              "payment_id": 23
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "21,00 zł",
+              "cost_float": 21
+            }
+          ]
+        },
+        {
+          "shipping_id": 19,
+          "selected": false,
+          "title": "Kurier DPD",
+          "description": "",
+          "cost": "21,00 zł",
+          "cost_float": 21,
+          "engine": "",
+          "payments": [
+            {
+              "payment_id": 2,
+              "additional_cost": "8,00 zł",
+              "additional_cost_float": 8
+            },
+            {
+              "payment_id": 3
+            },
+            {
+              "payment_id": 23
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "21,00 zł",
+              "cost_float": 21
+            }
+          ]
+        },
+        {
+          "shipping_id": 22,
+          "selected": false,
+          "title": "ORLEN paczka",
+          "description": "",
+          "cost": "21,00 zł",
+          "cost_float": 21,
+          "engine": "pickupPoint",
+          "payments": [
+            {
+              "payment_id": 2,
+              "additional_cost": "5,00 zł",
+              "additional_cost_float": 5
+            },
+            {
+              "payment_id": 3
+            },
+            {
+              "payment_id": 23
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "21,00 zł",
+              "cost_float": 21
+            }
+          ]
+        },
+        {
+          "shipping_id": 1,
+          "selected": false,
+          "title": "Odbiór osobisty w punkcie sprzedawcy",
+          "description": "odbiór w siedzibie firmy",
+          "cost": "0,00 zł",
+          "cost_float": 0,
+          "engine": "personal",
+          "payments": [
+            {
+              "payment_id": 1
+            },
+            {
+              "payment_id": 3
+            },
+            {
+              "payment_id": 23
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "0,00 zł",
+              "cost_float": 0
+            }
+          ]
+        }
+      ],
+      "payments": [
+        {
+          "payment_id": 1,
+          "selected": true,
+          "name": "cash",
+          "title": "Gotówka",
+          "description": ""
+        },
+        {
+          "payment_id": 2,
+          "selected": false,
+          "name": "cod",
+          "title": "Pobranie",
+          "description": ""
+        },
+        {
+          "payment_id": 3,
+          "selected": false,
+          "name": "onlinePayment",
+          "title": "Autopay",
+          "description": ""
+        },
+        {
+          "payment_id": 23,
+          "selected": false,
+          "name": "external",
+          "title": "PayPo",
+          "description": ""
+        }
+      ],
+      "promocode": null,
+      "promos": null,
+      "taxes": {
+        "23": 9.259999999999998
+      },
+      "free_shipping": {
+        "shipping_id": "13",
+        "title": "Paczkomat InPost",
+        "free_shipping_float": 499,
+        "free_shipping": "499,00 zł",
+        "missing_float": 449.46,
+        "missing": "449,46 zł"
+      },
+      "countries": [
+        {
+          "id": 179,
+          "name": "Polska",
+          "selected": true
+        }
+      ],
+      "basket": {
+        "count": 1,
+        "sum": "70,54 zł",
+        "sum_float": 70.53999999999999,
+        "sum_products": "49,54 zł",
+        "sum_products_float": 49.54,
+        "sum_no_shipping": "49,54 zł",
+        "sum_no_shipping_float": 49.54,
+        "loyalty_points": 0
+      },
+      "_flash_messenger": {
+        "error": [],
+        "warning": [],
+        "info": [],
+        "success": []
+      },
+      "products": [
+        {
+          "id": 11113,
+          "parent_id": null,
+          "stock_id": 6816,
+          "product_id": 6807,
+          "type": null,
+          "name": "RAWLPLUG R-GS-06040 Kotwa do sufitów podwieszanych 6x40 mm",
+          "variant": "",
+          "quantity": 1,
+          "image": "21763",
+          "image_filename": "21763.webp",
+          "unit": {
+            "name": "szt.",
+            "floating_point": false
+          },
+          "price_float": 49.54,
+          "price": "49,54 zł",
+          "sum_float": 49.54,
+          "sum": "49,54 zł",
+          "delivery": "24 godziny",
+          "loyalty": null,
+          "category": {
+            "category_id": 378,
+            "translation": {
+              "name": "Kotwy"
+            }
+          },
+          "producer": {
+            "producer_id": "139",
+            "name": "RAWLPLUG"
+          },
+          "url": "https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm",
+          "remove_url": "https://sklep.ehw.com.pl/pl/basket/remove/11113"
+        }
+      ],
+      "delivery": "24 godziny",
+      "comment": null,
+      "user_info": {
+        "mail": null
+      },
+      "billing_address": {
+        "company_name": null,
+        "tax_id": null,
+        "pesel": null,
+        "firstname": null,
+        "lastname": null,
+        "street_1": null,
+        "street_2": "",
+        "city": null,
+        "zip_code": null,
+        "state": null,
+        "phone": null,
+        "country_id": null
+      },
+      "shipping_address": {
+        "company_name": null,
+        "tax_id": null,
+        "pesel": null,
+        "firstname": null,
+        "lastname": null,
+        "street_1": null,
+        "street_2": "",
+        "city": null,
+        "zip_code": null,
+        "state": null,
+        "phone": null,
+        "country_id": null
+      },
+      "vat_eu": false,
+      "additional_fields": null
+    }
+  },
+  {
+    "sourceId": "zpradem-rawlplug-gs-100",
+    "product": {
+      "id": 836377,
+      "name": "Kotwa do sufitów podwieszanych 6x40mm R-GS-06040 /100szt./",
+      "can_buy": true,
+      "ean": "5906675169347",
+      "code": "0001-00012-27895",
+      "package": "0",
+      "unit": {
+        "name": "szt.",
+        "floating_point": false
+      },
+      "rate": 0,
+      "votes": 0,
+      "stockId": 836308,
+      "url": "https://zpradem.pl/kotwa-do-sufitow-podwieszanych-6x40mm-r-gs-06040-100szt/836377",
+      "category": {
+        "name": "Kotwy i tuleje rozporowe",
+        "id": 3343
+      },
+      "availability": {
+        "name": "Dostępne"
+      },
+      "visibility": {
+        "status": 1,
+        "cart_status": 1,
+        "search_status": 1
+      },
+      "delivery": {
+        "name": "24 godziny",
+        "hours": "24"
+      },
+      "price": {
+        "gross": {
+          "base": "113,10 zł",
+          "base_float": 113.1,
+          "final": "113,10 zł",
+          "final_float": 113.1,
+          "historical_lowest_price": "110,40 zł",
+          "historical_lowest_price_float": 110.4
+        },
+        "net": {
+          "base": "91,95 zł",
+          "base_float": 91.95,
+          "final": "91,95 zł",
+          "final_float": 91.95,
+          "historical_lowest_price": "89,76 zł",
+          "historical_lowest_price_float": 89.76
+        }
+      },
+      "productExists30DaysBeforePromotion": false,
+      "weight": {
+        "weight_float": 1,
+        "weight": "1 kg"
+      },
+      "producer": {
+        "name": "RAWLPLUG",
+        "id": 355,
+        "img": "https://zpradem.pl/userdata/public/producers/355.jpg"
+      },
+      "newProduct": false,
+      "shortDescription": "Kotwa do sufitów podwieszanych 6x40mm R-GS-06040 /100szt./, producent: RAWLPLUG",
+      "description": "<b>CN: </b> 73170080<br> <b>PKWiU: </b> 25.93.14.0<br> <b>Długość [mm]: </b> 36<br> <b>Dopuszczalne obciążenie (strefa rozciągana) [kN]: </b> 1.4300<br> <b>Średnica otworu montażowego [mm]: </b> 6<br> <b>Minimalna głębokość otworu montażowego [mm]: </b> 40<br> <b>Rozmiar gwintu metrycznego: </b> 5.8000<br> <b>Osadzak: </b> Inne<br> <b>Dopuszczenie: </b> Nie<br> <b>Materiał tulejki: </b> Stal<br> <b>Samowiercący: </b> Nie",
+      "attributes": [
+        {
+          "name": "Długość [mm]",
+          "type": 0,
+          "value": "36"
+        },
+        {
+          "name": "PKWiU",
+          "type": 0,
+          "value": "25.93.14.0"
+        },
+        {
+          "name": "Średnica otworu montażowego [mm]",
+          "type": 0,
+          "value": "6"
+        },
+        {
+          "name": "Materiał tulejki",
+          "type": 0,
+          "value": "Stal"
+        },
+        {
+          "name": "Rozmiar gwintu metrycznego",
+          "type": 0,
+          "value": "5.8000"
+        },
+        {
+          "name": "CN",
+          "type": 0,
+          "value": "73170080"
+        }
+      ],
+      "lowest_shipping_cost": {
+        "price": "0,00 zł",
+        "price_float": 0
+      },
+      "historical_lowest_price": "110,40 zł",
+      "net_historical_lowest_price": "89,76 zł",
+      "is_notification_enabled": false,
+      "gauge": {
+        "id": "8",
+        "name": "Paczkomat"
+      }
+    },
+    "cart": {
+      "shippings": [
+        {
+          "shipping_id": 7,
+          "selected": true,
+          "title": "Paczka kurier  - przedpłata (wysyłka 24h)",
+          "description": "koszyk>1800zł = wysyłka gratis",
+          "cost": "27,00 zł",
+          "cost_float": 27,
+          "engine": "",
+          "payments": [
+            {
+              "payment_id": 7
+            },
+            {
+              "payment_id": 17
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "27,00 zł",
+              "cost_float": 27
+            }
+          ]
+        },
+        {
+          "shipping_id": 17,
+          "selected": false,
+          "title": "Paczka kurier - pobranie (wysyłka 2-3dni)",
+          "description": "",
+          "cost": "30,00 zł",
+          "cost_float": 30,
+          "engine": "",
+          "payments": [
+            {
+              "payment_id": 2
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "30,00 zł",
+              "cost_float": 30
+            }
+          ]
+        },
+        {
+          "shipping_id": 13,
+          "selected": false,
+          "title": "Paczkomat InPost (MAX:41x38x64cm )",
+          "description": "(wysyłka 2-3dni) koszyk >590zł = wysyłka gratis",
+          "cost": "17,00 zł",
+          "cost_float": 17,
+          "engine": "inpost",
+          "payments": [
+            {
+              "payment_id": 7
+            },
+            {
+              "payment_id": 17
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "17,00 zł",
+              "cost_float": 17
+            }
+          ]
+        },
+        {
+          "shipping_id": 1,
+          "selected": false,
+          "title": "Odbiór osobisty w Krzepicach",
+          "description": "",
+          "cost": "0,00 zł",
+          "cost_float": 0,
+          "engine": "personal",
+          "payments": [
+            {
+              "payment_id": 1
+            },
+            {
+              "payment_id": 7
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "0,00 zł",
+              "cost_float": 0
+            }
+          ]
+        },
+        {
+          "shipping_id": 14,
+          "selected": false,
+          "title": "Paleta kurier - przedpłata (wysyłka 24h) ",
+          "description": "koszyk >6100zł = wysyłka gratis",
+          "cost": "200,00 zł",
+          "cost_float": 200,
+          "engine": "",
+          "payments": [
+            {
+              "payment_id": 7
+            },
+            {
+              "payment_id": 17
+            }
+          ],
+          "countries": [
+            {
+              "id": 179,
+              "cost": "200,00 zł",
+              "cost_float": 200
+            }
+          ]
+        }
+      ],
+      "payments": [
+        {
+          "payment_id": 1,
+          "selected": true,
+          "name": "cash",
+          "title": "Gotówka",
+          "description": ""
+        },
+        {
+          "payment_id": 2,
+          "selected": false,
+          "name": "cod",
+          "title": "Pobranie",
+          "description": ""
+        },
+        {
+          "payment_id": 7,
+          "selected": false,
+          "name": "przelewy24.pl",
+          "title": "Przelewy24.pl",
+          "description": ""
+        },
+        {
+          "payment_id": 17,
+          "selected": false,
+          "name": "transfer",
+          "title": "Przelew tradycyjny",
+          "description": "(Pro Forma)"
+        }
+      ],
+      "promocode": null,
+      "promos": null,
+      "taxes": {
+        "23": 21.14999999999999
+      },
+      "free_shipping": {
+        "shipping_id": "13",
+        "title": "Paczkomat InPost (MAX:41x38x64cm )",
+        "free_shipping_float": 590,
+        "free_shipping": "590,00 zł",
+        "missing_float": 476.9,
+        "missing": "476,90 zł"
+      },
+      "countries": [
+        {
+          "id": 179,
+          "name": "Polska",
+          "selected": true
+        }
+      ],
+      "basket": {
+        "count": 1,
+        "sum": "140,10 zł",
+        "sum_float": 140.1,
+        "sum_products": "113,10 zł",
+        "sum_products_float": 113.1,
+        "sum_no_shipping": "113,10 zł",
+        "sum_no_shipping_float": 113.1,
+        "loyalty_points": 0
+      },
+      "_flash_messenger": {
+        "error": [],
+        "warning": [],
+        "info": [],
+        "success": []
+      },
+      "products": [
+        {
+          "id": 1,
+          "parent_id": null,
+          "stock_id": 836308,
+          "product_id": 836377,
+          "type": null,
+          "name": "Kotwa do sufitów podwieszanych 6x40mm R-GS-06040 /100szt./",
+          "variant": "",
+          "quantity": 1,
+          "image": false,
+          "image_filename": null,
+          "unit": {
+            "name": "szt.",
+            "floating_point": false
+          },
+          "price_float": 113.1,
+          "price": "113,10 zł",
+          "sum_float": 113.1,
+          "sum": "113,10 zł",
+          "delivery": "24 godziny",
+          "loyalty": null,
+          "category": {
+            "category_id": "3343",
+            "translation": {
+              "name": "Kotwy i tuleje rozporowe"
+            }
+          },
+          "producer": {
+            "producer_id": "355",
+            "name": "RAWLPLUG"
+          },
+          "url": "https://zpradem.pl/kotwa-do-sufitow-podwieszanych-6x40mm-r-gs-06040-100szt/836377",
+          "remove_url": "https://zpradem.pl/pl/basket/remove/1"
+        }
+      ],
+      "delivery": "24 godziny",
+      "comment": null,
+      "user_info": {
+        "mail": null
+      },
+      "billing_address": {
+        "company_name": null,
+        "tax_id": null,
+        "pesel": null,
+        "firstname": null,
+        "lastname": null,
+        "street_1": null,
+        "street_2": "",
+        "city": null,
+        "zip_code": null,
+        "state": null,
+        "phone": null,
+        "country_id": null
+      },
+      "shipping_address": {
+        "company_name": null,
+        "tax_id": null,
+        "pesel": null,
+        "firstname": null,
+        "lastname": null,
+        "street_1": null,
+        "street_2": "",
+        "city": null,
+        "zip_code": null,
+        "state": null,
+        "phone": null,
+        "country_id": null
+      },
+      "vat_eu": false,
+      "additional_fields": null
+    }
+  }
+]

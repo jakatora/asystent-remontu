@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T10:14:37.771Z",
-  "scope": "149 references/photos,185 registered observations. Exact100-piece Norgips and Budmat cartons with actual national home-delivery quotes; explicit product choice. Full ceiling still has2missing products. Full catalogue, all renovation scenarios and local store stock remain incomplete.",
-  "total": 149,
-  "verifiedProducts": 125,
+  "checkedAt": "2026-10-27T10:54:28.734Z",
+  "scope": "151 references/photos,188 observations. Two new explicit product references: same-EAN100-piece R-GS carton in two stores and a separate IRBUD merchant profile identity without invented GTIN. IRBUD quotes the actual requested postcode. Full renovation and local branch stock remain incomplete.",
+  "total": 151,
+  "verifiedProducts": 127,
   "remaining": 24,
-  "offers": 164,
-  "stores": 43,
-  "productsWithPhotos": 149,
-  "registeredOffers": 185,
+  "offers": 167,
+  "stores": 46,
+  "productsWithPhotos": 151,
+  "registeredOffers": 188,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3237,6 +3237,61 @@
           "costGrosze": 2500
         }
       ]
+    },
+    {
+      "id": "mat-ceiling-anchor-rawlplug-gs-100",
+      "name": "Kotwa stalowa sufitowa Rawlplug R-GS-06040 (100 szt.)",
+      "referenceUrl": "https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm",
+      "status": "verified_offer",
+      "ean": "5906675169347",
+      "sourceIds": [
+        "ehw-rawlplug-gs-100",
+        "zpradem-rawlplug-gs-100"
+      ],
+      "photoUrl": "https://sklep.ehw.com.pl/environment/cache/images/productGfx_21763_500_500/858bd3358fa32304143b7a47e27c63b67c2f8593_0904f920e7ad3435db4d6ef5dd9e21e4a1468024_2a57cf4d4f4f771f6aaa3b51711fe54a3e05a012_GS_product__p.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "ehw-rawlplug-gs-100",
+          "checkedAt": "2026-10-27T10:53:14.608Z",
+          "expiresAt": "2026-10-27T11:03:14.608Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2100
+        },
+        {
+          "sourceId": "zpradem-rawlplug-gs-100",
+          "checkedAt": "2026-10-27T10:53:14.625Z",
+          "expiresAt": "2026-10-27T11:03:14.625Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2700
+        }
+      ]
+    },
+    {
+      "id": "mat-profile-cd60-irbud-3m",
+      "name": "Profil główny sufitowy CD60 3 MB / 0,6 (Norgips, oferta IRBUD)",
+      "referenceUrl": "https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/",
+      "status": "verified_offer",
+      "ean": "",
+      "sourceIds": [
+        "irbud-norgips-cd60-06-3m"
+      ],
+      "photoUrl": "https://irbudsklep.pl/wp-content/uploads/2023/11/Zrzut-ekranu-2025-09-05-114945.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "irbud-norgips-cd60-06-3m",
+          "checkedAt": "2026-10-27T10:53:13.995Z",
+          "expiresAt": "2026-10-27T11:03:13.995Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_postcode",
+          "costGrosze": 5200,
+          "postalCode": "00-001"
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -3260,5 +3315,5 @@
     "report": "recipe-coverage-2026-10-27.json"
   },
   "expiredOffers": 19,
-  "activeStores": 40
+  "activeStores": 43
 }

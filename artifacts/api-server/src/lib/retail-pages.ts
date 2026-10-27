@@ -6,6 +6,7 @@ import { AnonymousShop } from './retailer-http';
 import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
 import { readWooProduct } from './woocommerce-product';
+import { readIrbudProduct } from './irbud-woo';
 import { readTokmetProduct } from './qshop-product';
 import { readTopbodenProduct } from './topboden-product';
 import { readPrestashopProduct } from './prestashop-product';
@@ -17,7 +18,7 @@ import { inspectFolnetProduct } from './folnet-product';
 import { inspectKronosferaProduct } from './kronosfera-product';
 import { readSkyshopProduct, confirmSkyshopBasket, reviewedSkyshopSource, skyshopEvidenceHash, MATBUD_ORIGIN } from './skyshop-product';
 import type { PriceVerification } from '../../../../lib/pricing-service/src/types';
-import { confirmRetailSkuProduct, isReviewedSkuSource, type RetailSkuIdentity } from './retail-sku';
+import { confirmRetailSkuProduct, isReviewedSkuSource, retailSkuCode, type RetailSkuIdentity } from './retail-sku';
 
 export interface RetailSource {
   id: string;
@@ -56,7 +57,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -106,7 +107,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   if ((!source.ean || source.skuIdentity) && !isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
-  if (source.skuIdentity) products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
+  if (source.skuIdentity && source.format!=='irbud-woo') products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
   else if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
   else if (source.format === 'folnet') {
     const reviewed = inspectFolnetProduct(html, source);
@@ -120,7 +121,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
     products.push(reviewed.product); stockPackages=reviewed.maxPackages;
   }
   else if (source.format === 'modna') products.push(readModnaProduct(html, source).product);
-  else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
+  else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax','irbud-woo'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }
@@ -128,7 +129,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
     if (products.length !== 1) throw Error('product_identity_ambiguous');
     products[0] = confirmRetailIdentity(html, products[0], source);
   }
-  const product = source.skuIdentity ? products.find(item => item.sku === source.skuIdentity!.manufacturerSku && !item.gtin13 && !item.gtin)
+  const product = source.skuIdentity ? products.find(item => item.sku === retailSkuCode(source) && !item.gtin13 && !item.gtin)
     : products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
   const name = String(product.name ?? '');
@@ -140,7 +141,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   // A conflicting explicit brand must not be overwritten by this fallback.
   const brand = normalizeProductName(explicitBrand || (typeof product.manufacturer === 'string' ? product.manufacturer : product.manufacturer?.name) || '');
   const variantMatches = source.variant?.every(value => new RegExp(`(?:^| )${normalize(value)}(?: |$)`).test(normalized));
-  if (source.packageDescription && !normalize(String(product.description ?? '')).includes(normalize(source.packageDescription))) throw new Error('product_package_not_confirmed');
+  if (source.packageDescription && !normalize(htmlText(String(product.description ?? ''))).includes(normalize(source.packageDescription))) throw new Error('product_package_not_confirmed');
   const sourceBrand=normalizeProductName(source.brand);
   const unbranded=source.unbranded===true&&source.id==='castorama-paint-economy-10l'&&source.store==='Castorama'&&source.ean==='3663602567240'&&source.name==='Farba biała mat 10 l'&&sourceBrand==='';
   if(!sourceBrand&&!unbranded)throw Error('product_brand_not_confirmed');
@@ -202,6 +203,11 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const product=await readTopbodenProduct(source,fetchImpl);
     const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:product.name,gtin13:source.ean,brand:source.brand,image:product.imageUrl,offers:{'@type':'Offer',price:(product.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url,priceValidUntil:product.validUntil}})}</script>`;
     return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:product.evidenceSha256};
+  }
+  if(source.format==='irbud-woo'){
+    const p=await readIrbudProduct(source,fetchImpl);
+    const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',sku:retailSkuCode(source),name:source.name,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
+    return {...parseRetailPage(html,source,new Date()),evidenceSha256:p.evidenceSha256};
   }
   if (source.format==='woocommerce') {
     const product=await readWooProduct(source,fetchImpl);
@@ -267,6 +273,11 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // This EAN identifies the manufacturer's100-piece carton. EHW also explicitly
+  // describes a cardboard package, while Zpradem names100szt in its primary card.
+  // source: https://rawlplug.com/global/en/p/r-gs-06040
+  if (['ehw-rawlplug-gs-100','zpradem-rawlplug-gs-100'].includes(source.id)
+      && (source.ean!=='5906675169347'||source.packageSize!==100||source.unit!=='szt'||source.apiPurchaseUnit!=='szt.')) throw Error('product_package_not_confirmed');
   if (String(item.id) !== shoperProductId(source)) throw Error('product_id_not_confirmed');
   if (source.apiPurchaseUnit && (item.unit?.name !== source.apiPurchaseUnit || item.unit?.floating_point !== false)) throw Error('retailer_unit_not_confirmed');
   if (source.retailerSku && item.code !== source.retailerSku) throw Error('product_identity_not_confirmed');

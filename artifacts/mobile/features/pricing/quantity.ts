@@ -84,7 +84,13 @@ export function resolveMaterialQuantity(
     const definition=gypsumMaterials(calc.jobId,calc.measurements).find(row=>gypsumReference(row.id,calc.measurements)===ref.id);
     if(!definition||calc.quantityModel!==GYPSUM_MODEL)return null;
     const source=calc.materials.find(row=>row.material.id===definition.id);
-    if(!source||source.quantityKnown===false||!('ean' in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit))return null;
+    if(!source||source.quantityKnown===false||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit))return null;
+    const identityMatches=definition.ean
+      ? 'ean' in source.material&&source.material.ean===definition.ean
+      : !('ean' in source.material&&source.material.ean)
+        &&source.material.name===definition.name
+        &&'sourceUrl' in source.material&&source.material.sourceUrl===definition.sourceUrl;
+    if(!identityMatches)return null;
     const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
   }
   if(isFrameJob(calc.jobId)){

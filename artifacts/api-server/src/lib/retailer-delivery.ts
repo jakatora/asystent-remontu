@@ -14,10 +14,12 @@ import { quoteFolnet } from './folnet-delivery';
 import { quoteKronosfera } from './kronosfera-delivery';
 import { quoteSkyshop } from './skyshop-delivery';
 import { quoteAbud } from './abud-delivery';
+import { quoteIrbud } from './irbud-woo';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
 const ORIGINS: Readonly<Record<string, string>> = {
+  'Z prądem': 'https://zpradem.pl', 'Elektro-Hurt': 'https://sklep.ehw.com.pl',
   'Rab-Dom': 'https://www.rabdom.pl', Realbud: 'https://realbud.com', Zino: 'https://sklep.zino.pl', Prescot: 'https://www.prescot.com.pl',
   WinBud: 'https://winbud24.pl', 'Dam-Bud': 'https://salonbudowlanydambud.pl', 'Plus-Market': 'https://www.plus-market.pl',
   // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
@@ -36,14 +38,14 @@ function unavailableReason(store: string): string | undefined {
   // source: https://sklep.tokmet.pl/buyall.php
   if (sources.length && sources.every(source=>source.format === 'qshop')) return 'address_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
-    postcodeStores:['Sewera','Cezar','ABUD'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
+    postcodeStores:['Sewera','Cezar','ABUD','IRBUD'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
 }
 export function knownUnavailableRetailers(): Readonly<Record<string,string>> {
@@ -153,6 +155,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
+        if(order.store==='IRBUD')return await quoteIrbud(order,postalCode,fetchImpl);
         if(order.store==='Centrum Matbud')return await quoteSkyshop(order,fetchImpl);
         if(order.store==='ABUD')return await quoteAbud(order,postalCode,fetchImpl);
         return await (order.store === 'Kronosfera' ? quoteKronosfera(order,fetchImpl) : order.store === 'Folnet' ? quoteFolnet(order,fetchImpl) : order.store === 'Modna Łazienka' ? quoteModna(order,fetchImpl) : order.store === 'HIPPER' ? quoteCertusoft(order,fetchImpl) : order.store === 'Eelektryka' ? quotePrestashop(order,fetchImpl) : order.store === 'TopBoden' ? quoteTopboden(order,fetchImpl) : order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
