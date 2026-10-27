@@ -11,6 +11,7 @@ import { calculateEpsItems, EPS_JOB_ID, EPS_QUANTITY_MODEL } from './eps';
 import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MODEL } from './sink';
 import { REPAINT_JOB_ID, isRepaintQuantity, repaintQuantity } from './repaint';
 import { ceilingPrimerLitres } from './ceilingPrimer';
+import { substratePrimerSpecification, substratePrimerQuantity, levelingEdgeTapeMetres, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
 
 const DEFAULT_WASTE_FACTOR = 1.1;
 
@@ -66,6 +67,14 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if (jobId === 'self-leveling' && material.id === 'expansion-tape') {
+    const required = levelingEdgeTapeMetres(measurements), rawQuantity = required ?? 0;
+    return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null };
+  }
+  if (jobId && substratePrimerSpecification(jobId)?.materialId === material.id) {
+    const required = substratePrimerQuantity(jobId, measurements), rawQuantity = required ?? 0;
+    return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null };
+  }
   if (jobId === SINK_JOB_ID && isSinkConnection(material.id)) {
     const required = sinkConnectionQuantity(material.id, measurements, true);
     return { rawQuantity: required ?? 0, quantity: required ?? 0, packs: undefined, quantityKnown: required !== null };
@@ -116,6 +125,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SINK_JOB_ID ? { quantityModel: SINK_QUANTITY_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === REPAINT_JOB_ID ? {quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
@@ -154,6 +164,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       measurements,
       materials: detailedItems,
       ...(job.id === EPS_JOB_ID ? { quantityModel: EPS_QUANTITY_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -204,7 +215,10 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = quantityKnown === false && !epsItems ? { text: 'Podaj liczbę umywalek i dodatkowych wężyków w obmiarach.', assumptions: ['Nieznana ilość nie jest darmowym materiałem.'] } : epsItems ? {
+      const explanation = substratePrimerSpecification(job.id)?.materialId === material.id ? {
+        text: quantityKnown === false ? 'Uzupełnij powierzchnię i zużycie gruntu w obmiarach.' : `${rawQuantity} ${material.unit} gruntu z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
+        assumptions: [material.notes ?? '', 'Wspólny koszyk sumuje zużycie przed doborem pełnych opakowań.'],
+      } : quantityKnown === false && !epsItems ? { text: job.id === 'self-leveling' ? 'Podaj długość taśmy przy ścianach w obmiarach.' : job.id === SINK_JOB_ID ? 'Podaj liczbę umywalek i dodatkowych wężyków w obmiarach.' : 'Uzupełnij ilość tego materiału w obmiarach.', assumptions: ['Nieznana ilość nie jest darmowym materiałem.'] } : epsItems ? {
         text: epsItems[index].quantityKnown === false ? 'Podaj ilość z projektu lub karty wybranego produktu.' : `${quantity} ${material.unit} z obmiarów i jawnych założeń ocieplenia.`,
         assumptions: ['Zapas płyt i klejów oraz zapas siatki to osobne ustawienia.', 'Liczba łączników, ilości gruntu i tynku oraz długości profili wymagają osobnych danych.'],
       } : overrideFn

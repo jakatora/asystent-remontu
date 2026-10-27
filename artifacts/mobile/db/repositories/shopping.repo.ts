@@ -122,8 +122,14 @@ export const shoppingRepo = {
     );
   },
 
-  async updateQuantity(id: string, quantity: number): Promise<void> {
+  async updateQuantity(id: string, quantity: number, basis?: Pick<ShoppingItem, 'unit' | 'name'>): Promise<void> {
+    if (!Number.isFinite(quantity) || quantity < 0) throw new Error('Invalid shopping quantity');
     const db = await getDb();
+    if (basis) {
+      if (!basis.unit.trim() || !basis.name.trim()) throw new Error('Missing quantity basis');
+      await db.runAsync('UPDATE shopping_items SET custom_quantity = ?, unit = ?, name = ? WHERE id = ?', [quantity, basis.unit, basis.name, id]);
+      return;
+    }
     await db.runAsync(
       'UPDATE shopping_items SET custom_quantity = ? WHERE id = ?',
       [quantity, id]

@@ -2,6 +2,7 @@ import type { CalculationResult, MaterialLineItem } from '@/types/domain';
 import type { MaterialPriceReference } from '@/types/pricing';
 import { getRequiredQuantity } from '@/features/calculator/requirements';
 import { isTileSpacer } from './tileSpacers';
+import { substratePrimerSpecification, isCurrentSubstratePrimer } from '@/features/calculator/substratePrimer';
 
 export function normalizeUnit(unit: string): string {
   const key = unit.toLowerCase().replace(/[.\s]/g, '');
@@ -66,6 +67,9 @@ export function resolveMaterialQuantity(
   if (candidates.length !== 1) return null;
   const source = candidates[0];
   if (source.quantityKnown === false) return null;
+  const primer = substratePrimerSpecification(calc.jobId);
+  if (ref.materialType === 'primer' && primer &&
+      (ref.id !== primer.referenceId || !isCurrentSubstratePrimer(calc, source))) return null;
   if (['epoxy-grout','white-tile-adhesive'].includes(ref.materialType) && calc.jobId !== 'kitchen-backsplash') return null;
   if (calc.jobId === 'kitchen-backsplash' && ref.materialType === 'adhesive') return null;
   if(ref.materialType==='paint-undercoat'&&calc.jobId!=='repaint-walls')return null;

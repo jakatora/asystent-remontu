@@ -30,20 +30,23 @@ export function buildRenovationBasket(
   foilsByProject: Readonly<Record<string, readonly FoilChoice[]>> = {},
   washbasinsByProject: Readonly<Record<string, readonly WashbasinChoice[]>> = {},
   tilesByProject: Readonly<Record<string, readonly TileChoice[]>> = {},
-): { stages: PricingStageInput[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number } {
+): { stages: PricingStageInput[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
   let excludedMaterials = 0, manualItems = 0, missingCalculations = 0;
   const stages: PricingStageInput[] = [];
+  const measurementReviews: { projectId: string; projectName: string; materials: string[] }[] = [];
   for (const project of includedProjects) {
     const calc = upgradeCalculation(project.calculationResult);
     if (!calc) { missingCalculations++; continue; }
     const stage = toPricingStageInput(calc, tier, doorsByProject[project.id]);
     const items = shoppingByProject[project.id] ?? [];
     const pending = applyProjectShopping(stage, calc, project.id, items);
+    const unknown = calc.materials.filter(line => line.quantityKnown === false && pending.stage.materials.some(row => row.material.id === line.material.id));
+    if (unknown.length) measurementReviews.push({ projectId: project.id, projectName: project.name, materials: [...new Set(unknown.map(line => line.material.name))] });
     excludedMaterials += pending.excludedMaterials;
     manualItems += pending.manualItems;
     stages.push(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([pending.stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0]);
   }
-  return { stages, includedProjects, excludedMaterials, manualItems, missingCalculations };
+  return { stages, includedProjects, excludedMaterials, manualItems, missingCalculations, measurementReviews };
 }

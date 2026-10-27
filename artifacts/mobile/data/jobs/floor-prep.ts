@@ -1,3 +1,4 @@
+import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import type { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
@@ -48,6 +49,10 @@ export const selfLevelingJob: RenovationJob = {
       max: 30,
       hint: 'Zmierz największy ubytek pionowy poziomicą — to minimalna grubość. Standardowo 3–10 mm.',
     },
+    { id: 'perimeter', label: 'Długość taśmy przy ścianach', unit: 'm', inputType: 'length',
+      placeholder: 'np. 14', min: 1, max: 500,
+      hint: 'Zsumuj krawędzie podłogi przy ścianach. Przykład: pokój 2 × 5 m ma obwód 14 m. Doliczamy jawny zapas 5% na łączenia i cięcia.' },
+    ...substratePrimerInputs('self-leveling'),
   ],
   materials: [
     {
@@ -59,23 +64,15 @@ export const selfLevelingJob: RenovationJob = {
       wasteFactor: 1.1,
       notes: 'Zużycie: ok. 1,6 kg/m²/mm. Np. 10 m² × 5 mm ≈ 80 kg = 4 worki po 25 kg (z zapasem; masy Ceresit pakowane po 25 kg).',
     },
-    {
-      id: 'primer-leveling',
-      name: 'Grunt do podłoży (głęboko penetrujący)',
-      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      pricePerUnit: 12,
-      notes: 'Konieczny — bez gruntu masa się odkleja od podłoża. Na chłonne podłoża (beton komórkowy) grunty 2 razy.',
-      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
-    },
+    substratePrimerMaterial('self-leveling'),
     {
       id: 'expansion-tape',
       name: 'Taśma dylatacyjna przy ścianach',
       unit: 'mb',
-      formulaKey: 'skirting',
+      formulaKey: 'levelingEdgeTape',
       pricePerUnit: 2,
-      notes: 'Przyklejona przy podstawie ścian — zapobiega pękaniu masy przy ruchu budynku.',
+      wasteFactor: 1.05,
+      notes: 'Przyklejona przy podstawie ścian — zapobiega pękaniu masy przy ruchu budynku. Założenie zakupowe: długość krawędzi z obmiaru + 5% na łączenia i cięcia.',
     },
   ],
   tools: [

@@ -1,3 +1,4 @@
+import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
@@ -30,6 +31,7 @@ export const wallpaperJob: RenovationJob = {
       max: 300,
       hint: 'Zmierz każdą ścianę (długość × wysokość) i zsumuj.',
     },
+    ...substratePrimerInputs('wallpaper'),
   ],
   materials: [
     {
@@ -49,13 +51,7 @@ export const wallpaperJob: RenovationJob = {
       pricePerUnit: 15,
       notes: 'Dobierz klej do rodzaju tapety (papierowe, winylowe, flizelinowe). 1 opakowanie (200 g) na ok. 20–25 m².',
     },
-    {
-      id: 'primer-wallpaper',
-      name: 'Grunt pod tapetę',
-      unit: 'litr',
-      formulaKey: 'primer',
-      pricePerUnit: 15,
-    },
+    substratePrimerMaterial('wallpaper'),
   ],
   tools: [
     { id: 'wallpaper-table', name: 'Stół tapetarski (lub długi stół)', icon: 'minus', required: true, rentable: true },

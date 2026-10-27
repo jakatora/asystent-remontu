@@ -1,3 +1,4 @@
+import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -33,24 +34,11 @@ export const primerJob: RenovationJob = {
       placeholder: 'np. 30', min: 1, max: 500,
       hint: 'Długość ściany × wysokość. Zsumuj wszystkie ściany. Odejmij okna i drzwi.' },
     { id: 'coveragePerLiter', label: 'Wydajność gruntu (m²/litr)', unit: 'm²/litr',
-      inputType: 'coverage', placeholder: '10', defaultValue: 10, min: 6, max: 18, required: false,
-      hint: 'Podane na opakowaniu. Zwykle 8–12 m²/litr.' },
+      inputType: 'coverage', placeholder: '10', defaultValue: 10, min: 2, max: 10, required: false,
+      hint: 'Ceresit CT 17: 2–10 m²/l (0,10–0,50 l/m²). Domyślnie 10 m²/l; dopasuj do chłonności. Zużycie dotyczy produktu z opakowania, bez wody do rozcieńczenia.' },
   ],
   materials: [
-    {
-      id: 'primer',
-      name: 'Grunt głęboko penetrujący',
-      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      roundingRule: 'ceil',
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 15,
-      category: 'grunt',
-      notes: 'Na tynkach chłonnych użyj gruntu wzmacniającego. Na gipsie — pod farbę.',
-      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
-    },
+    substratePrimerMaterial('primer-walls'),
   ],
   tools: [
     { id: 'roller', name: 'Wałek malarski', icon: 'edit-2', required: true, shopPrices: SHARED_SHOP_PRICES.roller18cm },
@@ -234,6 +222,7 @@ export const wallRepairJob: RenovationJob = {
     { id: 'wallArea', label: 'Orientacyjna powierzchnia ściany', unit: 'm²', inputType: 'area',
       placeholder: 'np. 10', min: 1, max: 200,
       hint: 'Podaj powierzchnię całej ściany — kalkulacja masy jest szacunkowa.' },
+    ...substratePrimerInputs('wall-repair'),
   ],
   materials: [
     {
@@ -266,16 +255,7 @@ export const wallRepairJob: RenovationJob = {
       pricePerUnit: 3,
       category: 'szlifowanie',
     },
-    {
-      id: 'primer-repair',
-      name: 'Grunt pod szpachlę (na naprawy)',
-      unit: 'litr',
-      formula: formulaBuilder.fixed(1),
-      pricePerUnit: 15,
-      category: 'grunt',
-      optional: true,
-      notes: 'Na naprawione miejsca zawsze nakładaj grunt przed malowaniem.',
-    },
+    substratePrimerMaterial('wall-repair'),
   ],
   tools: [
     { id: 'spatula', name: 'Szpachelka 10 cm', icon: 'minus', required: true, estimatedBuyCostPLN: 10 },
@@ -441,6 +421,7 @@ export const wallpaperInstallJob: RenovationJob = {
     { id: 'wallArea', label: 'Łączna powierzchnia ścian do tapetowania', unit: 'm²', inputType: 'area',
       placeholder: 'np. 35', min: 1, max: 400,
       hint: 'Długość × wysokość każdej ściany. Odejmij okna i drzwi.' },
+    ...substratePrimerInputs('wallpaper-install'),
   ],
   materials: [
     {
@@ -466,19 +447,7 @@ export const wallpaperInstallJob: RenovationJob = {
       category: 'klej',
       notes: '1 opakowanie (200 g) na ok. 20–25 m² tapet. Sprawdź na opakowaniu.',
     },
-    {
-      id: 'primer-wallpaper',
-      name: 'Grunt pod tapety (Tiefengrund)',
-      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 6,
-      category: 'grunt',
-      notes: 'Grunt pod tapety wyrównuje chłonność ściany i ułatwia późniejsze zdjęcie tapet.',
-      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
-    },
+    substratePrimerMaterial('wallpaper-install'),
     {
       id: 'masking-tape-wallpaper',
       name: 'Taśma malarska (do zabezpieczenia)',
@@ -567,6 +536,7 @@ export const wallpaperRemoveJob: RenovationJob = {
     { id: 'wallArea', label: 'Powierzchnia tapet do zerwania', unit: 'm²', inputType: 'area',
       placeholder: 'np. 40', min: 1, max: 500,
       hint: 'Powierzchnia ścian pokrytych tapetą.' },
+    ...substratePrimerInputs('wallpaper-remove'),
   ],
   materials: [
     {
@@ -580,17 +550,7 @@ export const wallpaperRemoveJob: RenovationJob = {
       category: 'chemia',
       notes: 'Koncentrat rozcieńczaj wg instrukcji. Alternatywnie: woda z octem (bezpłatne).',
     },
-    {
-      id: 'primer-after-remove',
-      name: 'Grunt wzmacniający (po zerwaniu tapet)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 15,
-      category: 'grunt',
-      notes: 'Po zerwaniu tapet ściana jest chłonna i krucha — grunt jest obowiązkowy.',
-    },
+    substratePrimerMaterial('wallpaper-remove'),
     {
       id: 'filler-after',
       name: 'Masa szpachlowa (do napraw po tapetach)',

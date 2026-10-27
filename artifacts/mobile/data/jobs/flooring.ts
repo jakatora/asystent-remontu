@@ -1,3 +1,4 @@
+import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -450,6 +451,7 @@ export const floorTilesJob: RenovationJob = {
       hint: 'Prosty wzór bez cięć: 10%. Skomplikowany wzór lub ukos: 15–20%.' },
     { id: 'groutWidthMm', label: 'Szerokość spoiny', unit: 'mm', inputType: 'dimension',
       placeholder: '3', defaultValue: 3, min: 1, max: 10, required: false },
+    ...substratePrimerInputs('floor-tiles'),
   ],
   materials: [
     {
@@ -501,18 +503,7 @@ export const floorTilesJob: RenovationJob = {
       category: 'akcesoria',
       notes: 'Szerokość dobierz do spoiny. Szacunek jednostkowy dla 3 mm; wycena zakupów dobiera pełne paczki właściwego modelu.',
     },
-    {
-      id: 'primer-tiles',
-      name: 'Grunt pod klej',
-      brand: 'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 10,
-      category: 'grunt',
-      shopPrices: SHARED_SHOP_PRICES.primerDragon5L,
-    },
+    substratePrimerMaterial('floor-tiles'),
   ],
   tools: [
     { id: 'tile-cutter', name: 'Przecinarka do płytek', icon: 'scissors', required: true, rentable: true, estimatedRentCostPLN: 40 },

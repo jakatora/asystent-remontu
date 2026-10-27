@@ -20,6 +20,7 @@ import { getJobById } from '@/features/content/registry';
 import { calculateMaterials } from '@/features/calculator/engine';
 import { parseMeasurements } from '@/shared/lib/measurements';
 import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
+import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
 
 function Field({
   label,
@@ -84,7 +85,7 @@ export default function EditProjectScreen() {
   const { t, language } = useLanguage();
 
   const project = projects.find((p) => p.id === id);
-  const epsJob = project && ['eps-insulation-bso', 'sink-installation'].includes(project.jobId) ? getJobById(project.jobId) : undefined;
+  const epsJob = project && (['eps-insulation-bso', 'sink-installation'].includes(project.jobId) || substratePrimerSpecification(project.jobId)) ? getJobById(project.jobId) : undefined;
   const [epsMeasurements, setEpsMeasurements] = useState<Record<string, string>>({});
 
   const [name, setName] = useState('');
@@ -293,8 +294,10 @@ export default function EditProjectScreen() {
           </View>
 
           {epsJob && <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface, gap: 16 }}>
-            <Txt w="bold" style={{ fontSize: 17 }}>{epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
-            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{epsJob.id === 'sink-installation'
+            <Txt w="bold" style={{ fontSize: 17 }}>{substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
+            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{substratePrimerSpecification(epsJob.id)
+              ? (language === 'pl' ? 'Sprawdź powierzchnię i założenia gruntu, a przy wylewce także obwód. Zapisz, aby przeliczyć materiały. Wcześniejsze oznaczenia gruntu „Mam” i „Kupione” wymagają potwierdzenia, jeśli zmienił się produkt, ilość lub jednostka. Własne pozycje zakupowe pozostają zapisane.' : 'Check the area and primer allowance, and the perimeter for a screed. Save to recalculate materials. Earlier primer ownership and purchase marks require confirmation if the product, quantity or unit changed. Custom shopping items remain saved.')
+              : epsJob.id === 'sink-installation'
               ? (language === 'pl' ? 'Wpisz liczbę umywalek i dodatkowych wężyków. Mocowania pozostają do ustalenia, dopóki nie potwierdzisz dopasowanego zestawu lub posiadania wszystkich potrzebnych mocowań. Zmiana ilości wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Enter basin and extra hose counts. Fixings remain unconfirmed until you select a suitable kit or declare that all required fixings are owned. Quantity changes require confirming “Owned” and “Purchased” again.')
               : (language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.')}</Txt>
             {epsJob.measurementInputs.map(input => <View key={input.id} style={{ gap: 4 }}>

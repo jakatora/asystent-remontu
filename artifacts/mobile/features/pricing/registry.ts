@@ -4,6 +4,7 @@ import { BASELINE_REGION } from '@/data/prices/regions';
 import { tileSpacerReferences } from './tileSpacers';
 import { KITCHEN_EPOXY_REFERENCE, KITCHEN_WHITE_REFERENCE } from './kitchenMaterials';
 import { REPAINT_UNDERCOAT_REFERENCE } from '@/features/calculator/repaint';
+import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
 
 const LABOR_BY_ID = new Map<string, LaborPriceReference>(
   LABOR_PRICES.map((l) => [l.id, l])
@@ -58,6 +59,12 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
   const results: MaterialPriceReference[] = [];
   for (const id of ids) {
     const ref = MATERIAL_BY_ID.get(id);
+    if (ref) results.push(ref);
+  }
+  const primer = substratePrimerSpecification(jobId);
+  if (primer) {
+    for (let i = results.length - 1; i >= 0; i--) if (results[i].materialType === 'primer') results.splice(i, 1);
+    const ref = MATERIAL_BY_ID.get(primer.referenceId);
     if (ref) results.push(ref);
   }
   if(jobId==='paint-ceiling') {

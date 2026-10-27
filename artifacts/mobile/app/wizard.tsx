@@ -357,7 +357,8 @@ export default function WizardScreen() {
   ];
 
   // ── Draft state ──────────────────────────────────────────────────────────────
-  const { draft, patchDraft, clearDraft } = useWizardDraft();
+  const { draft, patchDraft, clearDraft, loaded: draftLoaded } = useWizardDraft();
+  const appliedInitialJob = useRef<string | null>(null);
 
   // ── Local wizard step state ───────────────────────────────────────────────────
   const [step, setStep] = useState<WizardStep>(() => {
@@ -369,13 +370,16 @@ export default function WizardScreen() {
 
   // Pre-select job if passed as param
   React.useEffect(() => {
-    if (initialJobId && !draft.jobId) {
+    if (draftLoaded && initialJobId && appliedInitialJob.current !== initialJobId) {
+      appliedInitialJob.current = initialJobId;
       const job = getJobById(initialJobId);
-      if (job) {
-        patchDraft({ jobId: job.id, categoryId: job.categoryId });
+      if (job && draft.jobId !== job.id) {
+        // An explicit job link wins after async draft hydration. Measurements
+        // and a custom name from another job must not enter its calculation.
+        patchDraft({ jobId: job.id, categoryId: job.categoryId, measurements: {}, projectName: '' });
       }
     }
-  }, [initialJobId]);
+  }, [initialJobId, draftLoaded, draft.jobId, patchDraft]);
 
   const scrollRef = useRef<ScrollView>(null);
 

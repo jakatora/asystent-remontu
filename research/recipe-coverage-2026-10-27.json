@@ -1,16 +1,31 @@
 {
-  "checkedAt": "2026-10-27T00:41:01.036Z",
-  "scope": "Synthetic single standard-tier scenario for each of 65 non-empty recipes among 66 registered jobs. Measurement assumptions are saved per job; no user project mutation. Missing rows may need a new product, an existing reference link, unit correction or an explicit quantity decision; they are not a count of unique products to buy.",
+  "checkedAt": "2026-10-27T01:04:40.859Z",
+  "scope": "Fresh calculator inputs -> live production HTTPS. No catalogue/backend mutation; no orders/payment. One synthetic standard scenario per job; self-leveling now has an explicit 14m edge length (2x5m, 10m2), previously omitted. Missing rows are not unique products: some need existing reference links, units, explicit quantities or new products. A fully priced scenario does not prove every real installation accessory or dimension/tier is covered.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 226,
-    "beforePriced": 46,
-    "afterLines": 227,
-    "afterPriced": 51,
-    "afterUnpriced": 176,
-    "fullyPricedScenarios": 4
+    "beforeLines": 227,
+    "beforePriced": 51,
+    "afterLines": 228,
+    "afterPriced": 59,
+    "afterUnpriced": 169,
+    "fullyPricedScenarios": 6
   },
+  "history": [
+    {
+      "checkedAt": "2026-10-27T00:41:01.036Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 226,
+        "beforePriced": 46,
+        "afterLines": 227,
+        "afterPriced": 51,
+        "afterUnpriced": 176,
+        "fullyPricedScenarios": 4
+      }
+    }
+  ],
   "jobs": [
     {
       "jobId": "paint-walls",
@@ -214,15 +229,18 @@
         {
           "materialId": "primer",
           "query": {
-            "ean": null,
+            "ean": "5900089617081",
             "gtin": null,
-            "normalizedName": "grunt gleboko penetrujacy",
-            "category": "grunt"
+            "normalizedName": "grunt gleboko penetrujacy ceresit ct 17 10 l",
+            "category": "primer"
           },
           "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5900089617081",
+            "name": "Ceresit CT 17, 10 l, głęboko penetrujący grunt bezrozpuszczalnikowy"
+          }
         }
       ]
     },
@@ -274,15 +292,18 @@
         {
           "materialId": "primer-repair",
           "query": {
-            "ean": null,
+            "ean": "5901793357737",
             "gtin": null,
-            "normalizedName": "grunt pod szpachle na naprawy",
-            "category": "grunt"
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 1.5,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
         }
       ]
     },
@@ -426,15 +447,18 @@
         {
           "materialId": "primer-wallpaper",
           "query": {
-            "ean": null,
+            "ean": "5901793357737",
             "gtin": null,
-            "normalizedName": "grunt pod tapete",
-            "category": null
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
           },
-          "quantity": 1.1,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 1.5,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
         }
       ]
     },
@@ -473,15 +497,18 @@
         {
           "materialId": "primer-wallpaper",
           "query": {
-            "ean": null,
+            "ean": "5901793357737",
             "gtin": null,
-            "normalizedName": "grunt pod tapety tiefengrund",
-            "category": "grunt"
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 1.5,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
         },
         {
           "materialId": "masking-tape-wallpaper",
@@ -520,15 +547,18 @@
         {
           "materialId": "primer-after-remove",
           "query": {
-            "ean": null,
+            "ean": "5901793357737",
             "gtin": null,
-            "normalizedName": "grunt wzmacniajacy po zerwaniu tapet",
-            "category": "grunt"
+            "normalizedName": "grunt uniwersalny knauf 5 l",
+            "category": "primer"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 1.5,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5901793357737",
+            "name": "Grunt uniwersalny Knauf 5 l"
+          }
         },
         {
           "materialId": "filler-after",
@@ -870,15 +900,18 @@
         {
           "materialId": "primer-tiles",
           "query": {
-            "ean": null,
+            "ean": "5900089617081",
             "gtin": null,
-            "normalizedName": "grunt pod klej",
-            "category": "grunt"
+            "normalizedName": "grunt gleboko penetrujacy ceresit ct 17 10 l",
+            "category": "primer"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 2,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5900089617081",
+            "name": "Ceresit CT 17, 10 l, głęboko penetrujący grunt bezrozpuszczalnikowy"
+          }
         }
       ]
     },
@@ -949,7 +982,8 @@
       "jobId": "self-leveling",
       "measurements": {
         "floorArea": 10,
-        "levelingThickness": 10
+        "levelingThickness": 10,
+        "perimeter": 14
       },
       "materials": [
         {
@@ -971,15 +1005,34 @@
         {
           "materialId": "primer-leveling",
           "query": {
+            "ean": "5905400520026",
+            "gtin": null,
+            "normalizedName": "grunt gleboko penetrujacy atlas uni grunt 5 kg",
+            "category": "primer"
+          },
+          "quantity": 2,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5905400520026",
+            "name": "Atlas Uni-Grunt 5kg emulsja gruntująca"
+          }
+        },
+        {
+          "materialId": "expansion-tape",
+          "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "grunt do podlozy gleboko penetrujacy",
-            "category": null
+            "normalizedName": "tasma brzegowa dylatacyjna fola 5 mm 100 mm 50 mb",
+            "category": "expansion-tape"
           },
-          "quantity": 1.1,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 14.7,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "ean": "5906725207227",
+            "name": "Taśma brzegowa Fola 5 mm x 10 cm x 50 mb 5 m2"
+          }
         }
       ]
     },

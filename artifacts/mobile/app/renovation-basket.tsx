@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, View } from 'react-native';
-import { Stack, useFocusEffect } from 'expo-router';
+import { Stack, useFocusEffect, router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { Txt } from '@/components/ui/Txt';
+import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { CostEstimateTab } from '@/components/project/CostEstimateTab';
 import { QualityTierSelector } from '@/components/project/QualityTierSelector';
@@ -134,6 +135,14 @@ export default function RenovationBasketScreen() {
       {selectedProjects.length > 0 && !itemsReady && !itemsFailed && <ActivityIndicator color={Colors.primary} />}
       {itemsFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie odczytano zakupów lub wyboru produktów. Otwórz koszyk ponownie, aby uwzględnić wybrane i posiadane materiały.' : 'Shopping lists or product choices could not be read. Reopen the basket to include your selected and owned materials.'}</Txt>}
       {basket.missingCalculations > 0 && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Uzupełnij obmiary zaznaczonych prac lub usuń je z wyboru. Wycena całego zestawu wymaga wszystkich obmiarów.' : 'Complete measurements for selected works or deselect them. The complete basket needs all measurements.'}</Txt>}
+      {itemsReady && basket.measurementReviews.map(review => <View key={review.projectId} style={{ padding: 16, gap: 10, borderRadius: 16, backgroundColor: Colors.warningBg }}>
+        <Txt w="semibold">{pl ? 'Uzupełnij ilości przed zakupem' : 'Confirm quantities before buying'}</Txt>
+        <Txt>{review.projectName}</Txt>
+        <Txt style={{ color: Colors.textSecondary }}>{review.materials.join(', ')}</Txt>
+        <Txt>{pl ? 'Otwórz obmiary, sprawdź ilości i zapisz przeliczenie. Te materiały pozostają na liście, ale nie mają jeszcze pełnej wyceny.' : 'Open measurements, check quantities and save the recalculation. These materials stay on your list but are not fully quoted yet.'}</Txt>
+        <Button label={pl ? `Uzupełnij obmiary: ${review.projectName}` : `Complete measurements: ${review.projectName}`} variant="outline" size="sm"
+          onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: review.projectId } })} />
+      </View>)}
       {loaded && itemsReady && extrasReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
         ? <CostEstimateTab projectId="renovation-basket" stages={stages} qualityTier={selectedQualityTier} region={selectedRegion} />
         : <Txt w="semibold">{pl ? 'Wszystkie materiały z wybranych obmiarów masz już lub są kupione.' : 'All measured materials for selected works are already owned or purchased.'}</Txt>)}

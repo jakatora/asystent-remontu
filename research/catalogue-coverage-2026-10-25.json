@@ -1,6 +1,6 @@
 {
   "checkedAt": "2026-10-27T00:42:42.841Z",
-  "scope": "113 catalogue references, 107 with offers, 6 historical references still unavailable. This is not coverage of all renovation recipes: the separate standard-tier synthetic audit prices 51 of 227 material lines across 65 non-empty recipes. 113 photo URLs registered; the new undercoat photo is runtime verified. Pickup eligibility does not confirm branch stock or travel costs; Castorama/OBI delivery and ABUD cloud transport remain unavailable.",
+  "scope": "113 catalogue references, 107 with offers, 6 historical references still unavailable. Catalogue/observations unchanged in wave44. Separate updated standard-tier synthetic recipe audit: 59 of 228 material rows priced, 169 unpriced in 65 non-empty scenarios. Seven primer references connected; self-leveling edge tape previously silently omitted now needs an explicit perimeter. Photo URLs are not universal runtime/branch stock proof. Castorama/OBI delivery and ABUD cloud transport remain unavailable.",
   "total": 113,
   "verifiedProducts": 107,
   "remaining": 6,
@@ -2435,5 +2435,13 @@
       "cause": "TCP connect timeout from Railway to ABUD; no confirmed production delivery amount",
       "positiveAcceptancePassed": false
     }
+  },
+  "recipeCoverage": {
+    "checkedAt": "2026-10-27T01:04:40.859Z",
+    "pricedLines": 59,
+    "totalLines": 228,
+    "unpricedLines": 169,
+    "fullyPricedScenarios": 6,
+    "report": "recipe-coverage-2026-10-27.json"
   }
 }

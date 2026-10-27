@@ -51,7 +51,7 @@ interface AppContextValue {
   toggleItem: (id: string, purchased: boolean) => Promise<void>;
   setItemOwned: (id: string, owned: boolean) => Promise<void>;
   updateItemPrice: (id: string, price: number) => Promise<void>;
-  updateItemQuantity: (id: string, quantity: number) => Promise<void>;
+  updateItemQuantity: (id: string, quantity: number, basis?: Pick<ShoppingItem, 'unit' | 'name'>) => Promise<void>;
   setItemTier: (id: string, tier: ShoppingTier) => Promise<void>;
   removeShoppingItem: (id: string) => Promise<void>;
   clearProjectShoppingItems: (projectId: string) => Promise<void>;
@@ -212,8 +212,8 @@ export function AppProvider({ children }: PropsWithChildren) {
     await shoppingRepo.updatePrice(id, price);
   }, []);
 
-  const updateItemQuantity = useCallback(async (id: string, quantity: number): Promise<void> => {
-    await shoppingRepo.updateQuantity(id, quantity);
+  const updateItemQuantity = useCallback(async (id: string, quantity: number, basis?: Pick<ShoppingItem, 'unit' | 'name'>): Promise<void> => {
+    await shoppingRepo.updateQuantity(id, quantity, basis);
   }, []);
 
   const setItemTier = useCallback(async (id: string, tier: ShoppingTier): Promise<void> => {

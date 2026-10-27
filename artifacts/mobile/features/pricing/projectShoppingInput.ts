@@ -6,9 +6,10 @@ import { doorOriginMaterialId } from './doorSelection';
 import { normalizeUnit } from './quantity';
 import { additionalMaterial } from './basketExtras';
 import { upgradeCalculation } from '@/features/calculator/upgrades';
+import { substratePrimerSpecification, reviewSubstrateShopping } from '@/features/calculator/substratePrimer';
 
 export function requiresCurrentShoppingQuantity(jobId: string): boolean {
-  return [EPS_JOB_ID, SINK_JOB_ID].includes(jobId);
+  return [EPS_JOB_ID, SINK_JOB_ID].includes(jobId) || Boolean(substratePrimerSpecification(jobId));
 }
 
 export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { allowed: boolean; confirmQuantity?: number } {
@@ -23,6 +24,7 @@ export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { all
  * silently remove a requirement. Source shopping rows are never modified. */
 export function applyProjectShopping(stage: PricingStageInput, calc: CalculationResult, projectId: string, items: readonly ShoppingItem[]) {
   calc = upgradeCalculation(calc)!;
+  items = reviewSubstrateShopping(items, calc);
   let excludedMaterials = 0;
   const materialIds = new Set(calc.materials.map(line => line.material.id));
   const manual = items.filter(item => item.projectId === projectId && item.itemType !== 'tool' && !item.owned && !item.purchased && !materialIds.has(item.materialId));

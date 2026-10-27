@@ -3,6 +3,7 @@ import { groutMassKg } from './grout';
 import { kitchenWhiteAdhesiveKg, kitchenEpoxyGroutKg, kitchenSpacerPieces } from './kitchen';
 import { repaintUndercoatLitres, repaintTapeRolls, repaintFilmArea } from './repaint';
 import { ceilingPrimerLitres } from './ceilingPrimer';
+import { SUBSTRATE_PRIMER_JOBS, substratePrimerQuantity, levelingEdgeTapeMetres } from './substratePrimer';
 
 // ─── Shared measurement helpers ────────────────────────────────────────────────
 // These are also exported from formula-builder.ts for inline use in job files.
@@ -201,6 +202,8 @@ const byPerimeterFormula: FormulaFn = skirtingFormula;
 // No other file needs to change.
 
 export const FORMULA_REGISTRY: FormulaRegistry = {
+  ...Object.fromEntries(SUBSTRATE_PRIMER_JOBS.map(jobId => [`substratePrimer:${jobId}`, (m: MeasurementMap) => substratePrimerQuantity(jobId, m) ?? 0])),
+  levelingEdgeTape: m => levelingEdgeTapeMetres(m) ?? 0,
   // ── Paint / primer ──────────────────────────────────────────────────────
   paint:           paintFormula,
   repaintUndercoat: repaintUndercoatLitres,

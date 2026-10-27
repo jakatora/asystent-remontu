@@ -226,7 +226,7 @@ export default function ProjectDetailScreen() {
       Alert.alert(language === 'pl' ? 'Potwierdź ilość materiału' : 'Confirm the material quantity', language === 'pl' ? 'Uzupełnij obmiary albo ustaw własną ilość na pełne zapotrzebowanie przed oznaczeniem całej pozycji jako posiadanej lub kupionej.' : 'Complete measurements or set the custom quantity to the full requirement before marking this whole item as owned or purchased.');
       return false;
     }
-    if (action.confirmQuantity !== undefined) await updateItemQuantity(item.id, action.confirmQuantity);
+    if (action.confirmQuantity !== undefined) await updateItemQuantity(item.id, action.confirmQuantity, { unit: item.unit, name: item.name });
     return true;
   };
 
