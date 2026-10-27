@@ -35,7 +35,7 @@ export class AnonymousShop {
       return JSON.parse(await this.read('/ajax/client-new.php?checkDeliveryZipcode=true&region_id=1143020003&zipcode='+args.postalCode,undefined,false));
     }
     if (action === 'add') {
-      if (![6204,64835,17848].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
+      if (![6204,64835,17848,63790].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
       return JSON.parse(await this.read('/basketchange.php',new URLSearchParams({getAjax:'true',mode:'1',product:String(args.productId),size:'onesize',number:String(args.count)}).toString(),false));
     }
     if (action !== 'shipping' || Object.keys(args).length) throw Error('invalid_cart_action');

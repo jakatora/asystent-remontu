@@ -1,3 +1,4 @@
+import { isFrameJob, isFrameMaterial, frameMaterials, frameQuantity, FRAME_MODEL } from './framePainting';
 import { isWallFinishingJob, isFinishingMaterial, finishingMaterials, finishingQuantity, WALL_FINISHING_MODEL } from './wallFinishing';
 import type { RenovationJob, CalculationResult, MaterialLineItem, MaterialItem } from '@/types/domain';
 import type { MaterialRequirement } from '@/types/engine';
@@ -70,6 +71,10 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isFrameMaterial(jobId,material.id)){
+    const required=frameQuantity(material.id,measurements),rawQuantity=required??0;
+    return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
   if(jobId&&isFinishingMaterial(jobId,material.id)){
     const required=finishingQuantity(jobId,material.id,measurements),rawQuantity=required??0;
     return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
@@ -137,6 +142,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(isFrameJob(job.id)?{quantityModel:FRAME_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isSanitaryJob(job.id)?{quantityModel:SANITARY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -179,6 +185,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(isFrameJob(job.id)?{quantityModel:FRAME_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isSanitaryJob(job.id)?{quantityModel:SANITARY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -203,6 +210,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(isFrameJob(job.id))material=frameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(isWallFinishingJob(job.id))material=finishingMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if(isSanitaryJob(job.id))material=sanitaryMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if (job.id === 'self-leveling' && material.id === 'expansion-tape' && !isRichMaterial(material)) material = levelingTapeMaterial(material, measurements);
@@ -220,6 +228,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(isFrameJob(job.id))material=frameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(isWallFinishingJob(job.id))material=finishingMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if(isSanitaryJob(job.id))material=sanitaryMaterials(job.id,measurements).find(row=>row.id===material.id)??material;
       if (job.id === 'self-leveling' && material.id === 'expansion-tape' && !isRichMaterial(material)) material = levelingTapeMaterial(material, measurements);

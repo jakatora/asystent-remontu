@@ -1,6 +1,7 @@
 import { parseDecimal } from '@/shared/lib/number';
 import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
 import { parseMeasurements } from '@/shared/lib/measurements';
+import { frameInputVisible } from '@/features/calculator/framePainting';
 import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
@@ -1073,7 +1074,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);
@@ -1286,7 +1287,7 @@ export default function WizardScreen() {
                   {/* Measurements */}
                   {selectedJob && selectedJob.measurementInputs.length > 0 && (
                     <View>
-                      {selectedJob.measurementInputs.map((inp) => {
+                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem)).map((inp) => {
                         const val = draft.measurements[inp.id];
                         const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
                         const displayVal = selectedOption?.label ?? (val

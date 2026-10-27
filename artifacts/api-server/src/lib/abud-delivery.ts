@@ -7,7 +7,7 @@ import { parseRetailPage, type RetailSource } from './retail-pages';
 import { cleanHtml, htmlAttributes, htmlElements } from './retail-microdata';
 
 const ORIGIN = 'https://www.abud.pl';
-const IDS = ['abud-teflon-12x10','abud-pex-elbow-16x16','abud-fischer-wst140k-2'];
+const IDS = ['abud-teflon-12x10','abud-pex-elbow-16x16','abud-fischer-wst140k-2','abud-dulux-rapidry-white-matt-1l'];
 function money(value: unknown, formatted?: unknown): number {
   if (!['string','number'].includes(typeof value)) throw Error('invalid_money');
   const amount = parsePriceToGrosze(value as string | number);

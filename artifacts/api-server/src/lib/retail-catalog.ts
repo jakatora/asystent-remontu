@@ -1040,10 +1040,37 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://realbud.com/Bandaz-z-wlokna-szklanego-8-cm-x-20-m
   {"id":"realbud-bluedolphin-fsh-48mm-20m","ean":"5907758504369","name":"Bandaż z włókna szklanego 48mm x 20 m BLUE DOLPHIN","brand":"Blue Dolphin","category":"joint-tape","packageSize":20,"unit":"m","store":"Realbud","format":"shoper-api","productId":7826,"variant":["48mm","20 m"],"url":"https://realbud.com/Bandaz-z-wlokna-szklanego-8-cm-x-20-m","imageUrl":"https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp"},
 
+  // source: https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691
+  {"id":"sewera-anser-extraction-solvent-500ml","ean":"5903231606117","name":"Benzyna ekstrakcyjna 0,5l Anser","brand":"Anser","category":"extraction-solvent","packageSize":500,"unit":"ml","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["ekstrakcyjna","0,5l"],"url":"https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691","imageUrl":"https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp"},
+  // source: https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990
+  {"id":"rabdom-supermal-acrylic-white-matt-800ml","ean":"5903973147756","name":"Śnieżka Eko Supermal Emalia Akrylowa 0,8l Biały Mat A500","brand":"Śnieżka","category":"frame-paint","packageSize":800,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":13990,"variant":["biały","mat","0,8l"],"url":"https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990","imageUrl":"https://sklep.sewera.pl/photo/186957/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l.webp"},
+  // source: https://sklep.sewera.pl/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l-p6121
+  {"id":"sewera-supermal-acrylic-white-matt-800ml","ean":"5903973147756","name":"Śnieżka Supermal Emalia akrylowa biały mat 0,8l","brand":"Śnieżka","category":"frame-paint","packageSize":800,"unit":"ml","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["biały","mat","0,8l"],"url":"https://sklep.sewera.pl/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l-p6121","imageUrl":"https://sklep.sewera.pl/photo/186957/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l.webp"},
+  // source: https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608
+  {"id":"sewera-supermal-acrylic-white-semigloss-800ml","ean":"5903973232131","name":"Supermal Emalia akrylowa biały a300 półpołysk 0,8l","brand":"Śnieżka","category":"frame-paint","packageSize":800,"unit":"ml","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["biały","półpołysk","0,8l"],"url":"https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608","imageUrl":"https://sklep.sewera.pl/photo/186834/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l.webp"},
+  // source: https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330
+  {"id":"sewera-urekor-d-white-800ml","ean":"5903973231684","name":"Grunt do drewna Urekor D biały 0,8l Śnieżka","brand":"Śnieżka","category":"frame-primer","packageSize":800,"unit":"ml","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["Urekor D","biały","0,8l"],"url":"https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330","imageUrl":"https://sklep.sewera.pl/photo/46745/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka.webp"},
+  // source: https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955
+  {"id":"sewera-urekor-s-white-800ml","ean":"5903973228790","name":"Urekor S Podkład antykorozyjny biały 0,8 l Śnieżka","brand":"Śnieżka","category":"frame-primer","packageSize":800,"unit":"ml","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["Urekor S","biały","0,8l"],"url":"https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955","imageUrl":"https://sklep.sewera.pl/photo/191092/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka.webp"},
+  // source: https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html
+  {"id":"abud-dulux-rapidry-white-matt-1l","ean":"5904078222379","name":"Dulux do drewna i metalu RAPIDRY Biały 1L matowa","brand":"Dulux","category":"frame-paint","packageSize":1000,"unit":"ml","store":"ABUD","format":"idosell","productId":63790,"apiPurchaseUnit":"op.","variant":["biały","1l","matowa"],"url":"https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html","imageUrl":"https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp"},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990
+  "Śnieżka Supermal akrylowa biały mat 0,8 l": "5903973147756",
+  // source: https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608
+  "Śnieżka Supermal akrylowa biały półpołysk 0,8 l": "5903973232131",
+  // source: https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330
+  "Śnieżka Urekor D grunt do drewna biały 0,8 l": "5903973231684",
+  // source: https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955
+  "Śnieżka Urekor S podkład antykorozyjny biały 0,8 l": "5903973228790",
+  // source: https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html
+  "Dulux Rapidry biały mat 1 l": "5904078222379",
+  // source: https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691
+  "Anser benzyna ekstrakcyjna 0,5 l": "5903231606117",
   // source: https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308
   'ACRYL-PUTZ ST10 START 5 kg': '5903973104414',
   // source: https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899

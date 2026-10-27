@@ -1,6 +1,30 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691 (odczyt 2026-10-27T03:49:02.460Z)
+  // source: https://sklep.anser.pl/pl/p/Benzyna-ekstrakcyjna-0%2C5l/502
+  {"id":"mat-extraction-solvent-anser-500ml","materialType":"extraction-solvent","productLabel":"Anser benzyna ekstrakcyjna 0,5 l","brand":"Anser","packageSize":500,"packageUnit":"ml","pricePerPackage":11.89,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691","lastUpdated":"2026-10-27","currency":"PLN","notes":"Osobno zadeklarowana liczba butelek do przygotowania powierzchni i narzędzi przy produktach olejno-ftalowych. Nie rozcieńczaj nią emalii wodnej i nie stosuj do PVC. Produkt łatwopalny; stosuj zgodnie z etykietą."},
+
+  // source: https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html (odczyt 2026-10-27T03:49:09.597Z)
+  // source: https://packshoty.duluxpolska.pl/wp-content/uploads/karta_techniczna_Dulux-Rapidry.pdf
+  {"id":"mat-frame-dulux-rapidry-white-matt-1l","materialType":"frame-paint","productLabel":"Dulux Rapidry biały mat 1 l","brand":"Dulux","packageSize":1000,"packageUnit":"ml","pricePerPackage":68.2,"category":"standard","storeName":"ABUD","sourceUrl":"https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html","lastUpdated":"2026-10-27","currency":"PLN","notes":"Biały wariant z określonym wykończeniem i pojemnością. Emalia wodna, a nie bezbarwny lakier. Dopuszczone podłoże i przygotowanie zgodnie z kartą danego modelu."},
+
+  // source: https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955 (odczyt 2026-10-27T03:49:09.079Z)
+  // source: https://www.sniezka.pl/produkt/urekor-s-podklad-antykorozyjny
+  {"id":"mat-frame-urekor-s-white-800ml","materialType":"frame-primer","productLabel":"Śnieżka Urekor S podkład antykorozyjny biały 0,8 l","brand":"Śnieżka","packageSize":800,"packageUnit":"ml","pricePerPackage":34.5,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955","lastUpdated":"2026-10-27","currency":"PLN","notes":"Właściwy podkład do wybranego podłoża: Urekor D do drewna, Urekor S do stali/żeliwa. Nie jest gruntem do ścian. Przed emalią odczekaj czas z karty produktu."},
+
+  // source: https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330 (odczyt 2026-10-27T03:49:07.833Z)
+  // source: https://www.sniezka.pl/produkt/urekor-d-grunt-do-drewna
+  {"id":"mat-frame-urekor-d-white-800ml","materialType":"frame-primer","productLabel":"Śnieżka Urekor D grunt do drewna biały 0,8 l","brand":"Śnieżka","packageSize":800,"packageUnit":"ml","pricePerPackage":38.6,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330","lastUpdated":"2026-10-27","currency":"PLN","notes":"Właściwy podkład do wybranego podłoża: Urekor D do drewna, Urekor S do stali/żeliwa. Nie jest gruntem do ścian. Przed emalią odczekaj czas z karty produktu."},
+
+  // source: https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608 (odczyt 2026-10-27T03:49:06.511Z)
+  // source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf
+  {"id":"mat-frame-supermal-acrylic-white-semigloss-800ml","materialType":"frame-paint","productLabel":"Śnieżka Supermal akrylowa biały półpołysk 0,8 l","brand":"Śnieżka","packageSize":800,"packageUnit":"ml","pricePerPackage":49.78,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608","lastUpdated":"2026-10-27","currency":"PLN","notes":"Biały wariant z określonym wykończeniem i pojemnością. Emalia wodna, a nie bezbarwny lakier. Dopuszczone podłoże i przygotowanie zgodnie z kartą danego modelu."},
+
+  // source: https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990 (odczyt 2026-10-27T03:49:03.722Z)
+  // source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf
+  {"id":"mat-frame-supermal-acrylic-white-matt-800ml","materialType":"frame-paint","productLabel":"Śnieżka Supermal akrylowa biały mat 0,8 l","brand":"Śnieżka","packageSize":800,"packageUnit":"ml","pricePerPackage":46.9,"category":"standard","storeName":"Rab-Dom","sourceUrl":"https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990","lastUpdated":"2026-10-27","currency":"PLN","notes":"Biały wariant z określonym wykończeniem i pojemnością. Emalia wodna, a nie bezbarwny lakier. Dopuszczone podłoże i przygotowanie zgodnie z kartą danego modelu."},
+
   // source: https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044 (odczyt 2026-10-27T03:06:00.165Z)
   // source: https://www.grupapsb.com.pl/produkt/tasma-antyrysowa-48-mm-x-20-m-blue-dolphin-5907758504369.html
   {"id":"mat-joint-tape-bluedolphin-fsh-48mm-20m","materialType":"joint-tape","productLabel":"Blue Dolphin FSH, taśma spoinowa 48 mm × 20 m","brand":"Blue Dolphin","packageSize":20,"packageUnit":"m","pricePerPackage":6.26,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044","lastUpdated":"2026-10-27","currency":"PLN","notes":"Samoprzylepna siatka do wewnętrznych, stabilnych rys i spoin. Ilość w metrach, rolka 20 m. Nie jest taśmą malarską ani rozwiązaniem pęknięć konstrukcyjnych."},

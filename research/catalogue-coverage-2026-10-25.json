@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T03:25:25.781Z",
-  "scope": "121 references, 115 with offers, 6 historical references unavailable. Five new exact products, seven verified offers and photos. Independent recipe audit: 71/229 rows priced, 158 unpriced; those are not unique SKUs. Same audit measurements as wave46; optional repair tape and P240 default0, while missing repair area remains unknown. Whole repair delivery 119.55 PLN; mixed repair plus skim coat 199.98 PLN. Pickup/online prices do not confirm local branch stock, stationary prices or travel. Castorama/OBI delivery and ABUD cloud transport remain unresolved.",
-  "total": 121,
-  "verifiedProducts": 115,
+  "checkedAt": "2026-10-27T04:14:06.521Z",
+  "scope": "127 references, 121 with offers, 6 historical references unavailable. Six new exact products with seven offers and photos. Independent recipe audit 76/230 priced, 154 unpriced, 11 fully priced sample scenarios; rows are not unique SKUs. Steel frame basket verified at 288.65 PLN including 125 PLN courier pallet. Wood Urekor D unavailable in dispatch Katowice. ABUD native local cart works but cloud connection fails. PVC detergent remains unpriced until explicitly owned. Pickup online prices do not confirm local branch stock, physical prices or travel. Castorama/OBI delivery remains unresolved.",
+  "total": 127,
+  "verifiedProducts": 121,
   "remaining": 6,
-  "offers": 147,
+  "offers": 154,
   "stores": 38,
-  "productsWithPhotos": 121,
-  "registeredOffers": 149,
+  "productsWithPhotos": 127,
+  "registeredOffers": 156,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2595,6 +2595,154 @@
           "deliveredGrosze": 11955
         }
       ]
+    },
+    {
+      "id": "mat-frame-supermal-acrylic-white-matt-800ml",
+      "name": "Śnieżka Supermal akrylowa biały mat 0,8 l",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990",
+      "status": "verified_offer",
+      "ean": "5903973147756",
+      "sourceIds": [
+        "rabdom-supermal-acrylic-white-matt-800ml",
+        "sewera-supermal-acrylic-white-matt-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/186957/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "wood",
+          "deliveredGrosze": null,
+          "unavailable": [
+            {
+              "store": "Sewera",
+              "reason": "product_unavailable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-supermal-acrylic-white-semigloss-800ml",
+      "name": "Śnieżka Supermal akrylowa biały półpołysk 0,8 l",
+      "referenceUrl": "https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608",
+      "status": "verified_offer",
+      "ean": "5903973232131",
+      "sourceIds": [
+        "sewera-supermal-acrylic-white-semigloss-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/186834/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "steel",
+          "deliveredGrosze": 28865,
+          "unavailable": []
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-urekor-d-white-800ml",
+      "name": "Śnieżka Urekor D grunt do drewna biały 0,8 l",
+      "referenceUrl": "https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330",
+      "status": "verified_offer",
+      "ean": "5903973231684",
+      "sourceIds": [
+        "sewera-urekor-d-white-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/46745/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "wood",
+          "deliveredGrosze": null,
+          "unavailable": [
+            {
+              "store": "Sewera",
+              "reason": "product_unavailable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-urekor-s-white-800ml",
+      "name": "Śnieżka Urekor S podkład antykorozyjny biały 0,8 l",
+      "referenceUrl": "https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955",
+      "status": "verified_offer",
+      "ean": "5903973228790",
+      "sourceIds": [
+        "sewera-urekor-s-white-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/191092/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "steel",
+          "deliveredGrosze": 28865,
+          "unavailable": []
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-dulux-rapidry-white-matt-1l",
+      "name": "Dulux Rapidry biały mat 1 l",
+      "referenceUrl": "https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html",
+      "status": "verified_offer",
+      "ean": "5904078222379",
+      "sourceIds": [
+        "abud-dulux-rapidry-white-matt-1l"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "pvcOwned",
+          "deliveredGrosze": null,
+          "unavailable": [
+            {
+              "store": "ABUD",
+              "reason": "quote_unavailable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-extraction-solvent-anser-500ml",
+      "name": "Anser benzyna ekstrakcyjna 0,5 l",
+      "referenceUrl": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+      "status": "verified_offer",
+      "ean": "5903231606117",
+      "sourceIds": [
+        "sewera-anser-extraction-solvent-500ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "steel",
+          "deliveredGrosze": 28865,
+          "unavailable": []
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -2610,11 +2758,11 @@
     }
   },
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T03:25:25.781Z",
-    "pricedLines": 71,
-    "totalLines": 229,
-    "unpricedLines": 158,
-    "fullyPricedScenarios": 10,
+    "checkedAt": "2026-10-27T04:14:06.521Z",
+    "pricedLines": 76,
+    "totalLines": 230,
+    "unpricedLines": 154,
+    "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   }
 }

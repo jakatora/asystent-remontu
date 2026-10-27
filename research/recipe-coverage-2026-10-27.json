@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-27T03:25:25.781Z",
-  "scope": "Current calculator -> native bundle/production HTTPS -> real anonymous carts. Two exact ST10 packs, measured repair volume, independent tape metres and sheet counts. No orders/payment. Same audit measurements as wave46; missing repair area remains unknown and optional tape/fine paper default0. Missing rows include links, quantities, units and new products, not 158 unique products. The generic audit is intentionally not given a fabricated repair area. Full repair and mixed-renovation examples are tested separately with explicit measurements.",
+  "checkedAt": "2026-10-27T04:14:06.521Z",
+  "scope": "Current frame calculator -> native bundle/production HTTPS -> real anonymous carts. Exact wood/steel/PVC variants, measured primer area, separate accessory counts. Same generic audit measurements as wave47. PVC detergent remains missing unless explicitly owned. No orders/payment. Missing rows include links, quantities, units and new products, not 154 unique products. Frame standard audit now uses an exact five-item default wood set. Wood has prices but dispatch stock prevents a full delivered quote. Steel is separately tested with explicit surface/finish.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 230,
-    "beforePriced": 69,
-    "afterLines": 229,
-    "afterPriced": 71,
-    "afterUnpriced": 158,
-    "fullyPricedScenarios": 10
+    "beforeLines": 229,
+    "beforePriced": 71,
+    "afterLines": 230,
+    "afterPriced": 76,
+    "afterUnpriced": 154,
+    "fullyPricedScenarios": 11
   },
   "history": [
     {
@@ -49,6 +49,19 @@
         "afterPriced": 69,
         "afterUnpriced": 161,
         "fullyPricedScenarios": 9
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T03:25:25.781Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 230,
+        "beforePriced": 69,
+        "afterLines": 229,
+        "afterPriced": 71,
+        "afterUnpriced": 158,
+        "fullyPricedScenarios": 10
       }
     }
   ],
@@ -2357,54 +2370,87 @@
         {
           "materialId": "frame-paint",
           "query": {
-            "ean": null,
+            "ean": "5903973147756",
             "gtin": null,
-            "normalizedName": "lakier do drewna farba do oscieznic satynowy",
-            "category": "farba"
+            "normalizedName": "sniezka supermal akrylowa bialy mat 0 8 l",
+            "category": "frame-paint"
           },
-          "quantity": 2.2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 2200,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5903973147756",
+            "ean": "5903973147756",
+            "name": "Śnieżka Eko Supermal Emalia Akrylowa 0,8l Biały Mat A500"
+          }
         },
         {
           "materialId": "frame-primer",
           "query": {
-            "ean": null,
+            "ean": "5903973231684",
             "gtin": null,
-            "normalizedName": "grunt do drewna lakierniczy",
-            "category": "grunt"
+            "normalizedName": "sniezka urekor d grunt do drewna bialy 0 8 l",
+            "category": "frame-primer"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 1222.222222,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5903973231684",
+            "ean": "5903973231684",
+            "name": "Grunt do drewna Urekor D biały 0,8l Śnieżka"
+          }
         },
         {
-          "materialId": "frame-sandpaper",
+          "materialId": "frame-paper-240",
           "query": {
-            "ean": null,
+            "ean": "5907560039820",
             "gtin": null,
-            "normalizedName": "papier scierny 120 i 240",
-            "category": "szlifowanie"
+            "normalizedName": "klingspor pl 28 c p240 arkusz 230 280 mm",
+            "category": "hand-abrasive-240"
           },
           "quantity": 2,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907560039820",
+            "ean": "5907560039820",
+            "name": "Papier ścierny gr.240 arkusz 230x280mm"
+          }
         },
         {
           "materialId": "frame-tape",
           "query": {
-            "ean": null,
+            "ean": "5907758515952",
             "gtin": null,
-            "normalizedName": "tasma malarska",
-            "category": "akcesoria"
+            "normalizedName": "tasma malarska blue dolphin niebieska 30 mm x 50 m",
+            "category": "masking-tape"
           },
-          "quantity": 1,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "quantity": 50,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907758515952",
+            "ean": "5907758515952",
+            "name": "Taśma malarska niebieska 30mmx50m"
+          }
+        },
+        {
+          "materialId": "frame-cleaner",
+          "query": {
+            "ean": "5903231606117",
+            "gtin": null,
+            "normalizedName": "anser benzyna ekstrakcyjna 0 5 l",
+            "category": "extraction-solvent"
+          },
+          "quantity": 500,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5903231606117",
+            "ean": "5903231606117",
+            "name": "Benzyna ekstrakcyjna 0,5l Anser"
+          }
         }
       ]
     },

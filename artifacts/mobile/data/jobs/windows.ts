@@ -1,3 +1,4 @@
+import { frameMaterials, frameInputs } from '@/features/calculator/framePainting';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -208,128 +209,73 @@ export const windowsillJob: RenovationJob = {
 
 // ─── Malowanie ościeżnic i ram ────────────────────────────────────────────────
 
+// source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf
+// source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_UREKOR_D_GRUNT_DO_DREWNA.pdf
+// source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_UREKOR_S_PODK%C5%81AD_ANTYKOROZYJNY.pdf
+// source: https://packshoty.duluxpolska.pl/wp-content/uploads/karta_techniczna_Dulux-Rapidry.pdf
 export const paintFramesJob: RenovationJob = {
-  id: 'paint-frames',
-  slug: 'malowanie-oscieznic-i-ram',
-  categoryId: 'paint',
-  subcategory: 'frames',
+  id: 'paint-frames', slug: 'malowanie-oscieznic-i-ram', categoryId: 'paint', subcategory: 'frames',
   name: 'Malowanie ościeżnic drzwi i okien',
-  shortDescription: 'Odmaluj ościeżnice i ramy — odświeżenie bez wymiany.',
-  description: 'Malowanie ościeżnic i ram drzwiowych to tania alternatywa dla wymiany. Wymaga dobrego gruntu, szlifowania starych warstw i lakieru dobrej jakości.',
-  beginnerFriendlyDescription:
-    'Ościeżnice to drewniane lub PVC ramy wokół drzwi i okien. Odświeżenie polega na szlifowaniu starych warstw, gruntowaniu i nałożeniu nowego lakieru lub farby. Praca precyzyjna, ale prosta.',
-  difficulty: 'easy',
-  riskLevel: 'low',
-  estimatedDays: 1,
-  estimatedMessLevel: 1,
-  visibilityMode: 'safe_diy',
-  coverIcon: 'square',
-  warningRules: [
-    { condition: 'always', message: 'Stara farba na ościeżnicach do 1980 roku może zawierać ołów — ścierając ją, używaj maski i wietrz pomieszczenie.', level: 'warning' },
-    { condition: 'always', message: 'PVC nie wymaga gruntu, ale grunt specjalny do PVC zwiększa przyczepność lakieru.', level: 'info' },
+  shortDescription: 'Odśwież ramy wewnątrz: dobierz zestaw do drewna, stali lub twardego PVC.',
+  description: 'Wybierz podłoże i białe wykończenie. Kalkulator dobiera konkretną emalię, właściwy podkład oraz osobno policzone arkusze, taśmę i preparat do przygotowania. Zakres obejmuje wnętrza; naprawy ubytków i usuwanie nieznanych starych powłok wymagają osobnego doboru.',
+  beginnerFriendlyDescription: 'Zmierz rzeczywistą powierzchnię ram: długość każdego elementu pomnóż przez szerokość wszystkich malowanych płaszczyzn i zsumuj wyniki. Wybierz drewno, stal/żeliwo albo twarde PVC. Zrób próbę przyczepności i sprawdź instrukcję wybranych produktów.',
+  difficulty:'medium', riskLevel:'medium', estimatedDays:3, estimatedMessLevel:1, visibilityMode:'safe_diy', coverIcon:'square',
+  warningRules:[
+    // source: https://www.hse.gov.uk/lead/faqs.htm
+    {condition:'always',message:'Przed usuwaniem starych powłok nieznanego składu sprawdź ryzyko ołowiu. Przy podejrzeniu zleć ocenę fachowcowi; zwykła maska przeciwpyłowa nie rozwiązuje problemu. Nie szlifuj takich powłok na sucho.',level:'warning'},
+    {condition:'always',message:'Wariant PVC dotyczy wyłącznie twardego tworzywa nadającego się do malowania wewnątrz, po umyciu, zmatowieniu i próbie. Nie stosuj do niego benzyny ani podkładu do drewna lub stali.',level:'info'},
+    {condition:'always',message:'Podkłady Urekor i benzyna wymagają wentylacji, ochrony według etykiety i braku źródeł zapłonu. Wodne emalie nawierzchniowe nie są rozcieńczane benzyną. Przed malowaniem sprawdź zgodność i wykonaj próbę.',level:'warning'},
   ],
-  measurementInputs: [
-    { id: 'wallArea', label: 'Łączna powierzchnia ościeżnic', unit: 'm²', inputType: 'area',
-      placeholder: 'np. 5', min: 0.5, max: 50,
-      hint: 'Szacuj: 1 para drzwi wewnętrznych ościeżnica = ok. 2,5 m². Okno = ok. 1,5 m².' },
-    { id: 'coats', label: 'Liczba warstw lakieru', unit: 'warstwy', inputType: 'count',
-      placeholder: '2', defaultValue: 2, min: 1, max: 3 },
-    { id: 'coveragePerLiter', label: 'Wydajność lakieru (m²/litr)', unit: 'm²/litr',
-      inputType: 'coverage', placeholder: '10', defaultValue: 10, min: 8, max: 18, required: false },
+  measurementInputs:[
+    {id:'wallArea',label:'Rzeczywista powierzchnia ram do malowania',unit:'m²',inputType:'area',placeholder:'np. 5',min:0.001,max:50,
+      hint:'Suma długość × szerokość malowanych płaszczyzn każdego elementu. Nie wpisuj powierzchni otworu drzwiowego ani liczby drzwi.'},
+    {id:'coats',label:'Warstwy emalii nawierzchniowej',unit:'warstwy',inputType:'count',placeholder:'2',defaultValue:2,min:1,max:3,
+      hint:'Supermal: zwykle 1–2 według krycia; Dulux Rapidry: co najmniej 2. Podkład liczysz oddzielnie.'},
+    {id:'coveragePerLiter',label:'Przyjęta wydajność emalii',unit:'m²/l',inputType:'coverage',placeholder:'10',defaultValue:10,min:0.1,max:16,required:false,
+      hint:'Domyślnie 10 m²/l na warstwę jako założenie do kosztorysu. Gotowy Supermal: do 14; Rapidry: do 16. Wpisz wynik próby na swojej powierzchni; przekroczenie limitu wybranej farby wymaga poprawy.'},
+    ...frameInputs,
   ],
-  materials: [
-    {
-      id: 'frame-paint',
-      name: 'Lakier do drewna/farba do ościeżnic (satynowy)',
-      unit: 'litr',
-      formula: formulaBuilder.coverage(10),
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 1, label: 'puszka 1 L', purchaseUnit: 'puszka' },
-      pricePerUnit: 45,
-      category: 'farba',
-      notes: 'Farba do drewna na bazie wody lub alkydu. Satyna lepiej ukrywa nierówności niż połysk.',
-    },
-    {
-      id: 'frame-primer',
-      name: 'Grunt do drewna/lakierniczy',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 1, label: 'puszka 1 L', purchaseUnit: 'puszka' },
-      pricePerUnit: 35,
-      category: 'grunt',
-      notes: 'Niezbędny na surowym drewnie lub mocno zużytej powierzchni. Jeden karton 1 L zazwyczaj wystarczy.',
-    },
-    {
-      id: 'frame-sandpaper',
-      name: 'Papier ścierny 120 i 240',
-      unit: 'arkusze',
-      formulaKey: 'sandpaper',
-      pricePerUnit: 3,
-      category: 'szlifowanie',
-    },
-    {
-      id: 'frame-tape',
-      name: 'Taśma malarska',
-      brand: 'Tesa Taśma malarska Standard 25 mm × 50 m (referencja)',
-      unit: 'rolka',
-      formula: formulaBuilder.fixed(1),
-      pricePerUnit: 8,
-      category: 'akcesoria',
-      notes: 'Do zabezpieczenia ściany i szyb.',
-      shopPrices: SHARED_SHOP_PRICES.paintersTape25mm,
-    },
+  // Repair the former mixed rich/legacy array in one step; preserve all four old IDs.
+  materials:frameMaterials(),
+  tools:[
+    {id:'brush-narrow',name:'Pędzel wąski 2,5–4 cm do emalii',icon:'edit-3',required:true,notes:'Dobierz włosie do emalii; osobny pędzel do podkładu rozpuszczalnikowego.'},
+    {id:'brush-flat',name:'Pędzel płaski 5 cm',icon:'edit-2',required:true,shopPrices:SHARED_SHOP_PRICES.brush50mm},
+    // source: https://www.bosch-professional.com/pl/pl/klocki-szlifierskie-zapiecie-na-rzepy-2868585-ocs-ac/
+    {id:'frame-sanding-block',name:'Klocek do ręcznego szlifowania',icon:'layers',required:true,notes:'Suche arkusze P120 i P240 kupujesz osobno w materiałach; gradację sprawdź na próbce.'},
+    {id:'rag',name:'Czyste ściereczki do usuwania pyłu',icon:'square',required:true},
   ],
-  tools: [
-    { id: 'brush-narrow', name: 'Pędzel wąski 2,5–4 cm', icon: 'edit-3', required: true, notes: 'Do ościeżnic i profili', estimatedBuyCostPLN: 15 },
-    { id: 'brush-flat', name: 'Pędzel płaski 5 cm', icon: 'edit-2', required: true, shopPrices: SHARED_SHOP_PRICES.brush50mm },
-    { id: 'sandpaper-frame', name: 'Papier ścierny 120 i 240', icon: 'layers', required: true },
-    { id: 'masking-tape-frame', name: 'Taśma malarska', icon: 'minus', required: true },
-    { id: 'rag', name: 'Szmata do ścierania pyłu', icon: 'square', required: true },
+  safetyEquipment:[
+    {id:'mask',name:'Ochrona dróg oddechowych do pyłu według oceny ryzyka',icon:'shield',required:true,notes:'Nie jest rozwiązaniem dla powłok podejrzanych o zawartość ołowiu. Do par rozpuszczalników potrzebny jest inny dobór ochrony.'},
+    {id:'frame-gloves',name:'Rękawice i ochrona oczu według etykiet',icon:'shield',required:true},
   ],
-  safetyEquipment: [
-    { id: 'mask', name: 'Maska pyłowa P2 (przy szlifowaniu)', icon: 'shield', required: false, notes: 'Ważne przy starych ościeżnicach (sprzed 1980) — mogą zawierać ołów.' },
+  preparationSteps:[
+    {step:1,phase:'preparation',title:'Sprawdź podłoże i stare powłoki',description:'Ustal materiał ramy i skład starych powłok przed ich usuwaniem. Ocenę podejrzanych powłok zleć fachowcowi. Uszkodzenia drewna, korozję i ubytki napraw odpowiednią metodą przed malowaniem.',durationMin:20},
+    {step:2,phase:'preparation',title:'Oczyść, zmatów i wykonaj próbę',description:'Przy bezpiecznej, dobrze przyczepnej powłoce usuń brud i drobno zmatów powierzchnię, następnie odpyl. Dla PVC użyj środka powierzchniowo czynnego i drobnego papieru, bez benzyny. Dla stali oraz tłustych/żywicznych miejsc drewna postępuj według kart podkładu i emalii. Pozostaw do wyschnięcia i sprawdź przyczepność na małym fragmencie.',durationMin:30},
+    {step:3,phase:'preparation',title:'Zabezpiecz krawędzie i nałóż właściwy podkład',description:'Oklej brzegi. Drewno: Urekor D, jedna warstwa na wymaganej powierzchni. Stal/żeliwo: Urekor S, 1–2 warstwy według warunków. Po podkładzie odczekaj co najmniej 24 h przed emalią. Wybrany wariant przygotowanego twardego PVC wewnątrz nie wymaga osobnego podkładu.',durationMin:30},
   ],
-  preparationSteps: [
-    { step: 1, phase: 'preparation', title: 'Oczyść i przeszlifuj', description: 'Papierem 120 przeszlifuj całą powierzchnię ościeżnicy. Usuń stare odpryski i bąble. Papierem 240 wygładź.', tip: 'Dobre szlifowanie = gładkie wykończenie. Nie pomijaj.', durationMin: 20, checkpoints: ['Brak odprysków i bąbli', 'Powierzchnia jest matowa po szlifowaniu'] },
-    { step: 2, phase: 'preparation', title: 'Odkurz i oklej taśmą', description: 'Zetrzyj pył wilgotną szmatką. Oklej taśmą malarską krawędzie ościeżnicy przy ścianie i szybę przy oknie.', durationMin: 15 },
-    { step: 3, phase: 'preparation', title: 'Nanieś grunt', description: 'Pędzlem nanieś grunt na ościeżnicę. Poczekaj na wyschnięcie (2–4 h).', durationMin: 60, requiresMaterial: 'frame-primer' },
+  workSteps:[
+    {step:1,phase:'work',title:'Nałóż emalię nawierzchniową',description:'Wymieszaj wybraną farbę. Maluj równomierną warstwą, bez zalewania okuć i uszczelek. Stosuj warunki, narzędzia i sposób aplikacji z etykiety. Rapidry do pędzla/wałka nie rozcieńczaj; do Supermal nie dodawaj obcych rozpuszczalników.',durationMin:30,requiresMaterial:'frame-paint'},
+    {step:2,phase:'drying',title:'Zachowaj odstęp między warstwami',description:'Supermal akrylowa: następna warstwa po około 4 h. Dulux Rapidry: 2–4 h. Chłód, wilgoć i grubsza warstwa wydłużają schnięcie. Suchość w dotyku nie oznacza gotowości do kolejnej warstwy ani pełnej twardości.',durationMin:240},
+    {step:3,phase:'work',title:'Dokończ wybraną liczbę warstw',description:'Sprawdź krycie i usuń pył po ewentualnym lekkim matowaniu zgodnym z kartą. Supermal zwykle 1–2 warstwy; Rapidry dwie. Po zakończeniu odczekaj czas do użytkowania z etykiety.',durationMin:30,requiresMaterial:'frame-paint'},
   ],
-  workSteps: [
-    { step: 1, phase: 'work', title: 'Pierwsza warstwa lakieru', description: 'Pędzlem maluj wzdłuż słojów (drewno) lub profili (PVC). Cieniutkie warstwy, bez smug. Zaczynaj od wklęsłych miejsc.', tip: 'Nie ładuj za dużo lakieru na pędzel — kapie i tworzy zacieki.', durationMin: 30, requiresMaterial: 'frame-paint' },
-    { step: 2, phase: 'drying', title: 'Czekaj 3–4 godziny', description: 'Lakier musi wyschnąć przed kolejną warstwą.', durationMin: 180 },
-    { step: 3, phase: 'work', title: 'Lekkie przeszlifowanie i druga warstwa', description: 'Papierem 240 delikatnie przeszlifuj (usuniesz drobne pyłki). Zetrzyj pył. Nanieś drugą warstwę lakieru.', durationMin: 35, requiresMaterial: 'frame-paint' },
+  dryingTimes:[
+    {afterStep:3,description:'Minimalna przerwa po Urekor D/S przed emalią',minHours:24,maxHours:24,conditions:'Co najmniej 24 h; warunki mogą wydłużyć schnięcie. Sprawdź kartę i wykonaj próbę zgodności, zwłaszcza przy Urekor S.'},
+    {afterStep:1,description:'Między warstwami emalii',minHours:2,maxHours:4,conditions:'Rapidry 2–4 h; Supermal około 4 h. Nie dotyczy schnięcia podkładu.'},
   ],
-  dryingTimes: [
-    { afterStep: 3, description: 'Grunt przed lakiowaniem', minHours: 2, maxHours: 4 },
-    { afterStep: 1, description: 'Pierwsza warstwa lakieru', minHours: 3, maxHours: 6 },
-    { afterStep: 3, description: 'Pełne utwardzenie lakieru', minHours: 24, maxHours: 72, conditions: 'Lakier alkydu — 72 h do pełnej twardości' },
+  instructions:[
+    {step:1,title:'Dobierz zestaw do podłoża',description:'W obmiarach wybierz drewno, stal/żeliwo lub twarde PVC wewnątrz oraz biały mat/półpołysk. Zmierz malowane płaszczyzny. Przed usuwaniem nieznanej starej powłoki sprawdź jej skład.',durationMin:20},
+    {step:2,title:'Przygotuj i sprawdź przyczepność',description:'Oczyść i zmatów bezpieczną powłokę, usuń pył i zrób próbę. PVC: środek powierzchniowo czynny, drobny papier, bez benzyny. Drewno/stal: przygotowanie zgodne z kartami wybranego zestawu.',durationMin:30},
+    {step:3,title:'Podkład tylko tam, gdzie potrzebny',description:'Drewno: Urekor D, jedna warstwa. Stal/żeliwo: Urekor S, 1–2. Przed emalią co najmniej 24 h. Przygotowane twarde PVC wewnątrz w wariancie Rapidry: bez osobnego podkładu.',durationMin:30},
+    {step:4,title:'Maluj i zachowaj przerwy',description:'Supermal: kolejna warstwa po około 4 h. Rapidry: dwie warstwy, odstęp 2–4 h. Czas do użytkowania sprawdź na etykiecie. Nie dodawaj benzyny do wodnych emalii.',durationMin:60},
   ],
-  instructions: [
-    { step: 1, title: 'Szlifuj i oczyść', description: 'Papierem 120 przeszlifuj, potem 240 wygładź. Zetrzyj pył wilgotną szmatką.', durationMin: 30 },
-    { step: 2, title: 'Oklej taśmą i nanieś grunt', description: 'Oklej krawędzie. Pędzlem nanieś grunt. Poczekaj 2–4 h.', durationMin: 60 },
-    { step: 3, title: 'Maluj cienką warstwą', description: 'Wzdłuż profili, bez smug. Dwie cienkie warstwy lepsze niż jedna gruba.', durationMin: 60 },
-    { step: 4, title: 'Przeszlifuj i druga warstwa', description: 'Po wyschnięciu — lekko papierem 240, zetrzyj pył, druga warstwa.', durationMin: 45 },
-  ],
-  cleanupSteps: ['Umyj pędzle wodą (farby wodne) lub rozpuszczalnikiem (alkydy) natychmiast po pracy.', 'Zdejmij taśmę gdy lakier jest lekko wilgotny.'],
-  commonMistakes: ['Pominięcie szlifowania — lakier nie trzyma się gładkiego starego lakieru', 'Za gruba warstwa — zacieki i zmarszczki', 'Malowanie bez taśmy — lakier na ścianie', 'Brak gruntu na surowym drewnie'],
-  qualityChecklist: [
-    { id: 'q1', description: 'Lakier jest gładki — brak śladów pędzla', critical: true },
-    { id: 'q2', description: 'Krawędzie są czyste — brak zacieku na ścianie' },
-    { id: 'q3', description: 'Kolor jednolity — brak prześwitów' },
-  ],
-  hireProfessionalRecommended: false,
-  tags: ['ościeżnica', 'malowanie', 'lakier', 'drzwi', 'okna'],
-
-  verifiedAt: '2026-06-10',
-  verifiedSources: [
-    {
-      title:       'Jak pomalować drzwi — przewodnik krok po kroku',
-      url:         'https://www.castorama.pl/jak-pomalowac-drzwi-przewodnik-krok-po-kroku-ins-106826.html',
-      domain:      'castorama.pl',
-      consultedAt: '2026-07-10',
-    },
+  cleanupSteps:['Wodne emalie z narzędzi usuń wodą według etykiety. Narzędzia po podkładzie rozpuszczalnikowym czyść odpowiednim preparatem osobno; nie wylewaj pozostałości do kanalizacji.','Taśmę usuń w czasie i sposobem podanym przez jej producenta, aby nie zerwać powłoki.'],
+  commonMistakes:['Farba lub podkład do innego podłoża','Powierzchnia otworu drzwi zamiast powierzchni ram','Pomylenie 0,8 l gotowego koloru z bazą 0,75 l','Zbyt wczesne malowanie na podkładzie','Suchy szlif nieznanej starej powłoki','Pominięcie przygotowania i próby przyczepności'],
+  qualityChecklist:[{id:'q1',description:'Powłoka równa i przyczepna, zgodna z wybranym wykończeniem',critical:true},{id:'q2',description:'Okucia, uszczelki i szyby pozostają czyste'},{id:'q3',description:'Jednolite krycie i zachowane przerwy schnięcia'}],
+  hireProfessionalRecommended:false,tags:['ościeżnica','malowanie','drewno','stal','PVC','drzwi','okna'],
+  verifiedAt:'2026-10-27',
+  verifiedSources:[
+    {title:'Supermal Emalia Akrylowa — gotowe kolory, karta techniczna',url:'https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf',domain:'karty-techniczne.sniezka.pl',consultedAt:'2026-10-27'},
+    {title:'Dulux Rapidry — karta techniczna',url:'https://packshoty.duluxpolska.pl/wp-content/uploads/karta_techniczna_Dulux-Rapidry.pdf',domain:'packshoty.duluxpolska.pl',consultedAt:'2026-10-27'},
   ],
 };
 

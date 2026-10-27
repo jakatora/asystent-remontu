@@ -304,10 +304,13 @@ registerJobConfig({
 
 registerJobConfig({
   jobId: 'paint-frames',
-  calculatorDescription: 'Oblicza farbę i grunt do malowania ościeżnic drzwi i okien.',
+  calculatorDescription: 'Oblicza wybrany zestaw do ram wewnątrz: farbę, podkład do podłoża i osobne ilości akcesoriów.',
   defaultAssumptions: {
-    sqmPerFrame: 'Powierzchnia 1 ościeżnicy drzwiowej: ok. 2,5 m²',
-    coveragePerLiter: 'Wydajność lakieru/farby: 8 m²/litr',
+    paintedArea: 'Rzeczywista suma malowanych płaszczyzn, bez przeliczania liczby drzwi na m²',
+    // source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf
+    coveragePerLiter: 'Założenie kosztorysowe 10 m²/l; gotowy Supermal do 14 m²/l, Rapidry do 16 m²/l. Potwierdź na swojej powierzchni.',
+    purchaseRounding: 'Surowe ml, metry i sztuki sumowane przed zaokrągleniem opakowań we wspólnym koszyku',
+    primer: 'Podkład Urekor D do drewna, Urekor S do stali/żeliwa. Przygotowane twarde PVC wewnątrz: wariant Rapidry bez osobnego podkładu.',
   },
 });
 

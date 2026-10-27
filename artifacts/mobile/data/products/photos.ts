@@ -12,6 +12,30 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691 (odczyt 2026-10-27T03:49:02.460Z)
+  // source: https://sklep.anser.pl/pl/p/Benzyna-ekstrakcyjna-0%2C5l/502
+  {"ids":["mat-extraction-solvent-anser-500ml"],"ean":"5903231606117","sourceUrl":"https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691","imageUrl":"https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp"},
+
+  // source: https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html (odczyt 2026-10-27T03:49:09.597Z)
+  // source: https://packshoty.duluxpolska.pl/wp-content/uploads/karta_techniczna_Dulux-Rapidry.pdf
+  {"ids":["mat-frame-dulux-rapidry-white-matt-1l"],"ean":"5904078222379","sourceUrl":"https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html","imageUrl":"https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp"},
+
+  // source: https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955 (odczyt 2026-10-27T03:49:09.079Z)
+  // source: https://www.sniezka.pl/produkt/urekor-s-podklad-antykorozyjny
+  {"ids":["mat-frame-urekor-s-white-800ml"],"ean":"5903973228790","sourceUrl":"https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955","imageUrl":"https://sklep.sewera.pl/photo/191092/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka.webp"},
+
+  // source: https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330 (odczyt 2026-10-27T03:49:07.833Z)
+  // source: https://www.sniezka.pl/produkt/urekor-d-grunt-do-drewna
+  {"ids":["mat-frame-urekor-d-white-800ml"],"ean":"5903973231684","sourceUrl":"https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330","imageUrl":"https://sklep.sewera.pl/photo/46745/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka.webp"},
+
+  // source: https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608 (odczyt 2026-10-27T03:49:06.511Z)
+  // source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf
+  {"ids":["mat-frame-supermal-acrylic-white-semigloss-800ml"],"ean":"5903973232131","sourceUrl":"https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608","imageUrl":"https://sklep.sewera.pl/photo/186834/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l.webp"},
+
+  // source: https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990 (odczyt 2026-10-27T03:49:03.722Z)
+  // source: https://www.karty-techniczne.sniezka.pl/pl/%C5%9ANIE%C5%BBKA_SUPERMAL%C2%AE_EMALIA_AKRYLOWA.pdf
+  {"ids":["mat-frame-supermal-acrylic-white-matt-800ml"],"ean":"5903973147756","sourceUrl":"https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990","imageUrl":"https://sklep.sewera.pl/photo/186957/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l.webp"},
+
   // source: https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044 (odczyt 2026-10-27T03:06:00.165Z)
   // source: https://www.grupapsb.com.pl/produkt/tasma-antyrysowa-48-mm-x-20-m-blue-dolphin-5907758504369.html
   {"ids":["mat-joint-tape-bluedolphin-fsh-48mm-20m"],"ean":"5907758504369","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044","imageUrl":"https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp"},

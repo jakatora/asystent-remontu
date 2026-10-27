@@ -1,3 +1,4 @@
+import { frameQuantity } from './framePainting';
 import { isFinishingMaterial, finishingQuantity } from './wallFinishing';
 import type { FormulaFn, FormulaRegistry, MeasurementMap } from '@/types/calculator';
 import { isSanitaryMaterial, sanitaryQuantity } from './sanitarySealant';
@@ -257,6 +258,7 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
 } as const;
 
 export function resolveFormula(key: string): FormulaFn {
+  if(key.startsWith('framePainting:'))return m=>frameQuantity(key.slice('framePainting:'.length),m)??0;
   if(key.startsWith('wallFinishing:')){
     const [,jobId,id]=key.split(':');
     if(isFinishingMaterial(jobId,id))return m=>finishingQuantity(jobId,id,m)??0;

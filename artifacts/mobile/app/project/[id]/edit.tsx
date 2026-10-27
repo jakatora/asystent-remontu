@@ -23,6 +23,7 @@ import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
 import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
 import { isSanitaryJob } from '@/features/calculator/sanitarySealant';
 import { isWallFinishingJob } from '@/features/calculator/wallFinishing';
+import { isFrameJob, frameInputVisible } from '@/features/calculator/framePainting';
 
 function Field({
   label,
@@ -87,7 +88,7 @@ export default function EditProjectScreen() {
   const { t, language } = useLanguage();
 
   const project = projects.find((p) => p.id === id);
-  const epsJob = project && (['eps-insulation-bso', 'sink-installation'].includes(project.jobId) || substratePrimerSpecification(project.jobId) || isSanitaryJob(project.jobId)) ? getJobById(project.jobId) : undefined;
+  const epsJob = project && (['eps-insulation-bso', 'sink-installation'].includes(project.jobId) || substratePrimerSpecification(project.jobId) || isSanitaryJob(project.jobId) || isFrameJob(project.jobId)) ? getJobById(project.jobId) : undefined;
   const [epsMeasurements, setEpsMeasurements] = useState<Record<string, string>>({});
 
   const [name, setName] = useState('');
@@ -296,8 +297,10 @@ export default function EditProjectScreen() {
           </View>
 
           {epsJob && <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface, gap: 16 }}>
-            <Txt w="bold" style={{ fontSize: 17 }}>{isWallFinishingJob(epsJob.id) ? (language === 'pl' ? 'Masa, rysy i materiały ścierne' : 'Filler, cracks and sanding supplies') : isSanitaryJob(epsJob.id) ? (language === 'pl' ? 'Spoina i produkty do uszczelnienia' : 'Joint dimensions and sealing products') : substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
-            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{isSanitaryJob(epsJob.id)
+            <Txt w="bold" style={{ fontSize: 17 }}>{isFrameJob(epsJob.id) ? (language === 'pl' ? 'Podłoże, farba i akcesoria do ram' : 'Frame surface, paint and supplies') : isWallFinishingJob(epsJob.id) ? (language === 'pl' ? 'Masa, rysy i materiały ścierne' : 'Filler, cracks and sanding supplies') : isSanitaryJob(epsJob.id) ? (language === 'pl' ? 'Spoina i produkty do uszczelnienia' : 'Joint dimensions and sealing products') : substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
+            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{isFrameJob(epsJob.id)
+              ? (language === 'pl' ? 'Wybierz podłoże i wykończenie. Powierzchnię do podkładu podaj osobno; arkusze, taśmę i preparat liczysz niezależnie. Zapis przeliczy koszyk. Zmiana produktu lub ilości wymaga sprawdzenia oznaczeń „Mam” i „Kupione”.' : 'Choose the surface and finish. Enter the primer area separately and count sheets, tape and cleaner independently. Save to recalculate the basket. Review Owned and Purchased marks after product or quantity changes.')
+              : isSanitaryJob(epsJob.id)
               ? (language === 'pl' ? 'Sprawdź długość i przekrój spoiny, wybierz model silikonu oraz taśmy. Preparat do usuwania resztek liczysz osobno. Zapisz, aby przeliczyć zestaw. Zmiana produktu lub ilości może wymagać ponownego potwierdzenia „Mam” i „Kupione”.' : 'Check joint length and cross-section and select the silicone and tape models. Enter remover packs separately. Save to recalculate the set. Product or quantity changes may require confirming Owned and Purchased again.')
               : isWallFinishingJob(epsJob.id)
               ? (language === 'pl' ? 'Powierzchnię samych napraw i ich głębokość podaj osobno od powierzchni do gruntowania. Przy szpachlowaniu całych ścian wpisz grubość i liczbę warstw. Wybierz opakowanie masy, zmierz rysy i podaj liczbę arkuszy każdej gradacji. Zapisz, aby przeliczyć koszyk. Zmiana modelu lub ilości wymaga sprawdzenia oznaczeń „Mam” i „Kupione”.' : 'Enter the repaired area and depth separately from the area to prime. For full-wall skim coating, enter layer thickness and count. Select a filler pack, measure cracks and enter sheet counts for each grit. Save to recalculate the basket. Product or quantity changes require reviewing Owned and Purchased marks.')
@@ -306,7 +309,7 @@ export default function EditProjectScreen() {
               : epsJob.id === 'sink-installation'
               ? (language === 'pl' ? 'Wpisz liczbę umywalek i dodatkowych wężyków. Mocowania pozostają do ustalenia, dopóki nie potwierdzisz dopasowanego zestawu lub posiadania wszystkich potrzebnych mocowań. Zmiana ilości wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Enter basin and extra hose counts. Fixings remain unconfirmed until you select a suitable kit or declare that all required fixings are owned. Quantity changes require confirming “Owned” and “Purchased” again.')
               : (language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.')}</Txt>
-            {epsJob.measurementInputs.map(input => <View key={input.id} style={{ gap: 4 }}>
+            {epsJob.measurementInputs.filter(input=>frameInputVisible(epsJob.id,input.id,epsMeasurements.frameSystem)).map(input => <View key={input.id} style={{ gap: 4 }}>
               {'inputType' in input && input.inputType === 'select' ? <>
                 <Txt w="medium" style={{ fontSize: 15 }}>{input.label}</Txt>
                 <MeasurementSelect label={input.label} options={input.options ?? []} value={epsMeasurements[input.id] ? parseDecimal(epsMeasurements[input.id]) : input.defaultValue}
