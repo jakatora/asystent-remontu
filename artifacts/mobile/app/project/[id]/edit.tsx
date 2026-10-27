@@ -24,6 +24,7 @@ import { substratePrimerSpecification } from '@/features/calculator/substratePri
 import { isSanitaryJob } from '@/features/calculator/sanitarySealant';
 import { isWallFinishingJob } from '@/features/calculator/wallFinishing';
 import { isFrameJob, frameInputVisible } from '@/features/calculator/framePainting';
+import { isGypsumJob } from '@/features/calculator/gypsumBoard';
 
 function Field({
   label,
@@ -88,7 +89,7 @@ export default function EditProjectScreen() {
   const { t, language } = useLanguage();
 
   const project = projects.find((p) => p.id === id);
-  const epsJob = project && (['eps-insulation-bso', 'sink-installation'].includes(project.jobId) || substratePrimerSpecification(project.jobId) || isSanitaryJob(project.jobId) || isFrameJob(project.jobId)) ? getJobById(project.jobId) : undefined;
+  const epsJob = project && (['eps-insulation-bso', 'sink-installation'].includes(project.jobId) || substratePrimerSpecification(project.jobId) || isSanitaryJob(project.jobId) || isFrameJob(project.jobId) || isGypsumJob(project.jobId)) ? getJobById(project.jobId) : undefined;
   const [epsMeasurements, setEpsMeasurements] = useState<Record<string, string>>({});
 
   const [name, setName] = useState('');
@@ -297,8 +298,10 @@ export default function EditProjectScreen() {
           </View>
 
           {epsJob && <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface, gap: 16 }}>
-            <Txt w="bold" style={{ fontSize: 17 }}>{isFrameJob(epsJob.id) ? (language === 'pl' ? 'Podłoże, farba i akcesoria do ram' : 'Frame surface, paint and supplies') : isWallFinishingJob(epsJob.id) ? (language === 'pl' ? 'Masa, rysy i materiały ścierne' : 'Filler, cracks and sanding supplies') : isSanitaryJob(epsJob.id) ? (language === 'pl' ? 'Spoina i produkty do uszczelnienia' : 'Joint dimensions and sealing products') : substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
-            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{isFrameJob(epsJob.id)
+            <Txt w="bold" style={{ fontSize: 17 }}>{isGypsumJob(epsJob.id) ? (language === 'pl' ? 'Konstrukcja g-k, płyty i spoiny' : 'Drywall structure, boards and joints') : isFrameJob(epsJob.id) ? (language === 'pl' ? 'Podłoże, farba i akcesoria do ram' : 'Frame surface, paint and supplies') : isWallFinishingJob(epsJob.id) ? (language === 'pl' ? 'Masa, rysy i materiały ścierne' : 'Filler, cracks and sanding supplies') : isSanitaryJob(epsJob.id) ? (language === 'pl' ? 'Spoina i produkty do uszczelnienia' : 'Joint dimensions and sealing products') : substratePrimerSpecification(epsJob.id) ? (language === 'pl' ? 'Obmiary i zużycie materiałów' : 'Measurements and material consumption') : epsJob.id === 'sink-installation' ? (language === 'pl' ? 'Umywalki i potrzebne przyłącza' : 'Basins and required connections') : (language === 'pl' ? 'Obmiary ocieplenia' : 'Facade insulation measurements')}</Txt>
+            <Txt style={{ lineHeight: 20, color: Colors.textSecondary }}>{isGypsumJob(epsJob.id)
+              ? (language === 'pl' ? 'Potwierdź wymiary, format płyt i mocowania. Ścianka ma płyty po obu stronach, a sufit ruszt dwupoziomowy. Wspólny koszyk sumuje zapotrzebowanie przed doborem opakowań. Rozkład konstrukcji sprawdź z projektem.' : 'Confirm dimensions, board format and fixings. The wall has boards on both faces; the ceiling has a two-level grid. Shared baskets aggregate demand before rounding packages.')
+              : isFrameJob(epsJob.id)
               ? (language === 'pl' ? 'Wybierz podłoże i wykończenie. Powierzchnię do podkładu podaj osobno; arkusze, taśmę i preparat liczysz niezależnie. Zapis przeliczy koszyk. Zmiana produktu lub ilości wymaga sprawdzenia oznaczeń „Mam” i „Kupione”.' : 'Choose the surface and finish. Enter the primer area separately and count sheets, tape and cleaner independently. Save to recalculate the basket. Review Owned and Purchased marks after product or quantity changes.')
               : isSanitaryJob(epsJob.id)
               ? (language === 'pl' ? 'Sprawdź długość i przekrój spoiny, wybierz model silikonu oraz taśmy. Preparat do usuwania resztek liczysz osobno. Zapisz, aby przeliczyć zestaw. Zmiana produktu lub ilości może wymagać ponownego potwierdzenia „Mam” i „Kupione”.' : 'Check joint length and cross-section and select the silicone and tape models. Enter remover packs separately. Save to recalculate the set. Product or quantity changes may require confirming Owned and Purchased again.')

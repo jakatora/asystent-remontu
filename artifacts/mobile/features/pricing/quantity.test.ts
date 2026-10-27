@@ -123,17 +123,17 @@ test('self-leveling demand scales with area and thickness and restores old const
 });
 
 test('drywall hardware uses counted pieces before rounding to retail packs; wool thickness is not guessed', () => {
-  const wall = toPricingStageInput(calculateMaterials(gypsumWallJob, { wallArea: 10, perimeter: 8 }));
+  const wall = toPricingStageInput(calculateMaterials(gypsumWallJob, { wallArea: 10, gypsumWallHeight: 2.5, perimeter: 13 }));
   const screws = wall.materials.find(line => line.material.id === 'gk-screws')!;
-  assert.match(screws.material.name, /Wkręt-Met/);
+  assert.match(screws.material.name, /Norgips TN/);
   assert.equal(screws.material.unit, 'szt');
-  assert.equal(screws.quantity, 300);
+  assert.equal(screws.quantity, 264);
   const dowels = wall.materials.find(line => line.material.id === 'dowels-uw')!;
-  assert.match(dowels.material.name, /6×40/);
-  assert.equal(dowels.quantity, 16);
+  assert.match(dowels.material.name, /dobór do podłoża/);
+  assert.equal(dowels.quantity, 25);
   const wool = wall.materials.find(line => line.material.id === 'mineral-wool')!;
-  assert.match(wool.material.name, /50mm/);
+  assert.match(wool.material.name, /50 mm/);
   assert.ok(!wool.material.name.includes('10 cm'));
   const ceiling = toPricingStageInput(calculateMaterials(gypsumCeilingJob, { ceilingArea: 10 }));
-  assert.match(ceiling.materials.find(line => line.material.id === 'gk-screws-ceiling')!.material.name, /Wkręt-Met/);
+  assert.match(ceiling.materials.find(line => line.material.id === 'gk-screws-ceiling')!.material.name, /Norgips TN/);
 });

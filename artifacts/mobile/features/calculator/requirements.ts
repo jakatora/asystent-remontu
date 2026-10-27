@@ -1,3 +1,4 @@
+import { isGypsumMaterial, gypsumQuantity, GYPSUM_MODEL } from './gypsumBoard';
 import { isFrameMaterial, frameQuantity, FRAME_MODEL } from './framePainting';
 import { isFinishingMaterial, finishingQuantity, WALL_FINISHING_MODEL } from './wallFinishing';
 import type { CalculationResult, MaterialLineItem } from '@/types/domain';
@@ -11,6 +12,7 @@ import { isSanitaryMaterial, sanitaryQuantity, SANITARY_MODEL } from './sanitary
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===GYPSUM_MODEL&&isGypsumMaterial(calc.jobId,line.material.id))return gypsumQuantity(calc.jobId,line.material.id,calc.measurements)??0;
   if(calc.quantityModel===FRAME_MODEL&&isFrameMaterial(calc.jobId,line.material.id))return frameQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===WALL_FINISHING_MODEL&&isFinishingMaterial(calc.jobId,line.material.id))return finishingQuantity(calc.jobId,line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SANITARY_MODEL&&isSanitaryMaterial(calc.jobId,line.material.id))return sanitaryQuantity(calc.jobId,line.material.id,calc.measurements)??0;

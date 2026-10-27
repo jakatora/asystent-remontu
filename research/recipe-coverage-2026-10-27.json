@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-27T04:14:06.521Z",
-  "scope": "Current frame calculator -> native bundle/production HTTPS -> real anonymous carts. Exact wood/steel/PVC variants, measured primer area, separate accessory counts. Same generic audit measurements as wave47. PVC detergent remains missing unless explicitly owned. No orders/payment. Missing rows include links, quantities, units and new products, not 154 unique products. Frame standard audit now uses an exact five-item default wood set. Wood has prices but dispatch stock prevents a full delivered quote. Steel is separately tested with explicit surface/finish.",
+  "checkedAt": "2026-10-27T05:01:56.845Z",
+  "scope": "Current gypsum-board-v1 -> real shared bundle/production HTTP -> anonymous carts. Gross wall area means both board faces. Complete current BOM with missing accessories visible. Same 65 sample jobs as48, only gypsum measurements explicitly updated to valid height/perimeters. No orders/payment. Count increased by7 because missing gypsum components are now represented; priced+3,unpriced+4.158 rows are not158 distinct products. All quantities/delivery still require valid scope and fulfilment evidence.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 229,
-    "beforePriced": 71,
-    "afterLines": 230,
-    "afterPriced": 76,
-    "afterUnpriced": 154,
+    "beforeLines": 230,
+    "beforePriced": 76,
+    "afterLines": 237,
+    "afterPriced": 79,
+    "afterUnpriced": 158,
     "fullyPricedScenarios": 11
   },
   "history": [
@@ -62,6 +62,19 @@
         "afterPriced": 71,
         "afterUnpriced": 158,
         "fullyPricedScenarios": 10
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T04:14:06.521Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 229,
+        "beforePriced": 71,
+        "afterLines": 230,
+        "afterPriced": 76,
+        "afterUnpriced": 154,
+        "fullyPricedScenarios": 11
       }
     }
   ],
@@ -2023,33 +2036,38 @@
       "jobId": "gypsum-wall",
       "measurements": {
         "wallArea": 10,
-        "perimeter": 10
+        "gypsumWallHeight": 2.5,
+        "perimeter": 13
       },
       "materials": [
         {
           "materialId": "gk-board",
           "query": {
-            "ean": null,
+            "ean": "5907651690442",
             "gtin": null,
-            "normalizedName": "plyta gipsowo kartonowa gkb 12 5mm",
-            "category": null
+            "normalizedName": "plyta gipsowo kartonowa zwykla norgips gkb typ a 1200 2600 12 5 mm",
+            "category": "gypsum-board"
           },
-          "quantity": 11,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 22,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651690442",
+            "ean": "5907651690442",
+            "name": "Płyta gipsowa GKB 12.5 1200*2600 BIAŁA"
+          }
         },
         {
           "materialId": "profile-cw",
           "query": {
-            "ean": null,
+            "ean": "5907651698165",
             "gtin": null,
-            "normalizedName": "profil cw pionowy",
-            "category": null
+            "normalizedName": "profil norgips cw 50 0 6 mm 3 m pionowy",
+            "category": "drywall-accessory"
           },
-          "quantity": 25,
+          "quantity": 24,
           "resolved": false,
-          "reason": "no-query",
+          "reason": "no-product",
           "matchedProduct": null
         },
         {
@@ -2057,86 +2075,99 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "profil uw poziomy podloga i sufit",
-            "category": null
+            "normalizedName": "profil norgips uw 50 0 6 mm podloga i sufit",
+            "category": "drywall-accessory"
           },
-          "quantity": 10.5,
+          "quantity": 8.8,
           "resolved": false,
-          "reason": "no-query",
+          "reason": "no-product",
           "matchedProduct": null
         },
         {
           "materialId": "mineral-wool",
           "query": {
-            "ean": null,
+            "ean": "5901644653131",
             "gtin": null,
-            "normalizedName": "welna mineralna 50mm izolacja",
-            "category": null
+            "normalizedName": "welna mineralna isover aku plyta 037 50 mm 14 4 m",
+            "category": "partition-wool-50mm"
           },
           "quantity": 11,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5901644653131",
+            "ean": "5901644653131",
+            "name": "Isover wełna mineralna Aku-Płyta 037 5cm wełna szklana"
+          }
         },
         {
           "materialId": "gk-screws",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "wkrety samowiercace do plyt g k do metalu wkret met 3 5 25 mm 100 szt",
-            "category": "screws"
+            "normalizedName": "wkrety norgips tn 3 5 25 mm ostre plyty scienne",
+            "category": "drywall-accessory"
           },
-          "quantity": 300,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907704499015",
-            "ean": "5907704499015",
-            "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas"
-          }
+          "quantity": 264,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
         },
         {
           "materialId": "gk-tape",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tasma papierowa do spoin",
-            "category": null
+            "normalizedName": "tasma papierowa norgips 50 mm spoiny scianki",
+            "category": "drywall-accessory"
           },
-          "quantity": 11,
+          "quantity": 28.6,
           "resolved": false,
-          "reason": "no-query",
+          "reason": "no-product",
           "matchedProduct": null
         },
         {
           "materialId": "gk-filler",
           "query": {
-            "ean": null,
+            "ean": "5907651699056",
             "gtin": null,
-            "normalizedName": "masa do spoin szpachla gk",
-            "category": null
+            "normalizedName": "gotowa masa do spoin norgips start finish 20 kg",
+            "category": "drywall-joint-compound"
           },
-          "quantity": 5.5,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 6.6,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651699056",
+            "ean": "5907651699056",
+            "name": "NORGIPS Gotowa dwufunkcyjna masa szpachlowa Start & Finish (20 kg)"
+          }
         },
         {
           "materialId": "dowels-uw",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "kolki szybkiego montazu rozporowe wkret met sm 6 40 mm 20 szt",
-            "category": "dowels"
+            "normalizedName": "mocowania obwodowe scianki dobor do podloza",
+            "category": "drywall-accessory"
           },
-          "quantity": 20,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907704466031",
-            "ean": "5907704466031",
-            "name": "Kołek szybkiego montażu 6x40mm 20szt. Klimas"
-          }
+          "quantity": 25,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "wall-acoustic-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma uszczelniajaca norgips 50 mm pod uw i skrajne cw",
+            "category": "drywall-accessory"
+          },
+          "quantity": 14.3,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
         }
       ]
     },
@@ -2144,46 +2175,55 @@
       "jobId": "gypsum-ceiling",
       "measurements": {
         "ceilingArea": 10,
-        "perimeter": 10
+        "perimeter": 14,
+        "gypsumCeilingSubstrate": 1
       },
       "materials": [
         {
           "materialId": "gk-ceiling",
           "query": {
-            "ean": null,
+            "ean": "5907651690442",
             "gtin": null,
-            "normalizedName": "plyta gkb 12 5mm sufit",
-            "category": null
+            "normalizedName": "plyta gipsowo kartonowa zwykla norgips gkb typ a 1200 2600 12 5 mm",
+            "category": "gypsum-board"
           },
-          "quantity": 11.2,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 11,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651690442",
+            "ean": "5907651690442",
+            "name": "Płyta gipsowa GKB 12.5 1200*2600 BIAŁA"
+          }
         },
         {
           "materialId": "profile-cd",
           "query": {
-            "ean": null,
+            "ean": "5907651698899",
             "gtin": null,
-            "normalizedName": "profil cd nosny sufitowy",
-            "category": null
+            "normalizedName": "profil sufitowy norgips cd60 0 6 mm 3 m",
+            "category": "profile"
           },
-          "quantity": 33,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 36.3,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651698899",
+            "ean": "5907651698899",
+            "name": "Profil sufitowy Norgips CD60 0,6 mm 3 mb"
+          }
         },
         {
           "materialId": "profile-ud",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "profil ud obwodowy",
-            "category": null
+            "normalizedName": "profil norgips ud 30 0 6 mm obwod sufitu",
+            "category": "drywall-accessory"
           },
-          "quantity": 11,
+          "quantity": 15.4,
           "resolved": false,
-          "reason": "no-query",
+          "reason": "no-product",
           "matchedProduct": null
         },
         {
@@ -2191,12 +2231,12 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "wieszak bezposredni do profilu cd",
-            "category": null
+            "normalizedName": "wieszak bezposredni norgips es 60 75",
+            "category": "drywall-accessory"
           },
-          "quantity": 2,
+          "quantity": 15,
           "resolved": false,
-          "reason": "no-query",
+          "reason": "no-product",
           "matchedProduct": null
         },
         {
@@ -2204,42 +2244,120 @@
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "wkrety samowiercace do plyt g k do metalu wkret met 3 5 25 mm 100 szt",
-            "category": "screws"
+            "normalizedName": "wkrety norgips tn 3 5 25 mm ostre plyty sufitowe",
+            "category": "drywall-accessory"
           },
-          "quantity": 300,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907704499015",
-            "ean": "5907704499015",
-            "name": "Wkręt samowiercący do metalu TB 3,5x25mm fosfatowany 100szt. Klimas"
-          }
+          "quantity": 275,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
         },
         {
           "materialId": "ceiling-filler",
           "query": {
-            "ean": null,
+            "ean": "5907651699056",
             "gtin": null,
-            "normalizedName": "masa do spoin",
-            "category": null
+            "normalizedName": "gotowa masa do spoin norgips start finish 20 kg",
+            "category": "drywall-joint-compound"
           },
-          "quantity": 5.5,
-          "resolved": false,
-          "reason": "no-query",
-          "matchedProduct": null
+          "quantity": 3.3,
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651699056",
+            "ean": "5907651699056",
+            "name": "NORGIPS Gotowa dwufunkcyjna masa szpachlowa Start & Finish (20 kg)"
+          }
         },
         {
           "materialId": "ceiling-tape",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tasma papierowa do spoin",
-            "category": null
+            "normalizedName": "tasma papierowa norgips 50 mm spoiny sufitu",
+            "category": "drywall-accessory"
           },
-          "quantity": 11,
+          "quantity": 14.3,
           "resolved": false,
-          "reason": "no-query",
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-cross",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "lacznik krzyzowy norgips cd 60 ruszt dwupoziomowy",
+            "category": "drywall-accessory"
+          },
+          "quantity": 28,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-longitudinal",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "lacznik wzdluzny norgips cd 60",
+            "category": "drywall-accessory"
+          },
+          "quantity": 7,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-metal-screws",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "wkrety samowiercace norgips 3 5 9 5 mm pchelki",
+            "category": "drywall-accessory"
+          },
+          "quantity": 132,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-steel-anchors",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "stalowe kotwy stropowe do wieszakow dobor do betonu",
+            "category": "drywall-accessory"
+          },
+          "quantity": 15,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-wall-dowels",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "mocowania profilu obwodowego ud dobor do sciany",
+            "category": "drywall-accessory"
+          },
+          "quantity": 25,
+          "resolved": false,
+          "reason": "no-product",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "ceiling-acoustic-tape",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma uszczelniajaca norgips 30 mm pod ud",
+            "category": "drywall-accessory"
+          },
+          "quantity": 15.4,
+          "resolved": false,
+          "reason": "no-product",
           "matchedProduct": null
         }
       ]

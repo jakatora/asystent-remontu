@@ -1,8 +1,7 @@
 import type { RetailSource } from './retail-pages';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
-export const RETAIL_SOURCES: readonly RetailSource[] = [
-  {
+export const RETAIL_SOURCES: readonly RetailSource[] = [  {
     id: 'castorama-sniezka-5l', ean: '5903973139188', name: 'Farba Śnieżka Barwy Natury biała 5 l',
     category: 'paint', brand: 'Śnieżka', packageSize: 5, unit: 'l', store: 'Castorama',
     // source: https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd
@@ -1055,10 +1054,31 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html
   {"id":"abud-dulux-rapidry-white-matt-1l","ean":"5904078222379","name":"Dulux do drewna i metalu RAPIDRY Biały 1L matowa","brand":"Dulux","category":"frame-paint","packageSize":1000,"unit":"ml","store":"ABUD","format":"idosell","productId":63790,"apiPurchaseUnit":"op.","variant":["biały","1l","matowa"],"url":"https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html","imageUrl":"https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp"},
 
+
+  // source: https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html
+  {"id":"marbet-norgips-startfinish-20kg","ean":"5907651699056","name":"NORGIPS Gotowa dwufunkcyjna masa szpachlowa Start & Finish (20 kg)","brand":"Norgips","category":"drywall-joint-compound","packageSize":20,"unit":"kg","store":"Marbet24","format":"jsonld","variant":["Start","Finish","20"],"url":"https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html","imageUrl":"https://marbet24.pl/6085-home_default/norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg.jpg","pickupRequiresConfirmation":true},
+  // source: https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html
+  {"id":"marbet-norgips-start-25kg","ean":"5907651693818","name":"NORGIPS Gips szpachlowy do spoinowania połączeń płyt gipsowo-kartonowych Start (25 kg)","brand":"Norgips","category":"drywall-joint-compound-powder","packageSize":25,"unit":"kg","store":"Marbet24","format":"jsonld","variant":["Start","25"],"url":"https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html","imageUrl":"https://marbet24.pl/1363-home_default/norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg.jpg","pickupRequiresConfirmation":true},
+  // source: https://marbet24.pl/plyty-karton-gips/1555-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2600-mm-5907651690442.html
+  {"id":"marbet-norgips-board-gkb-2600","ean":"5907651690442","name":"NORGIPS Płyta gipsowo-kartonowa standardowa – do wnętrz o normalnej wilgotności S GKB 12,5 mm typ A (1200 x 2600 mm)","brand":"Norgips","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Marbet24","format":"jsonld","variant":["GKB","12,5","1200","2600"],"url":"https://marbet24.pl/plyty-karton-gips/1555-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2600-mm-5907651690442.html","imageUrl":"https://marbet24.pl/1555-home_default/norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2600-mm.jpg","pickupRequiresConfirmation":true},
+  // source: https://marbet24.pl/plyty-karton-gips/1126-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm-5907651690879.html
+  {"id":"marbet-norgips-board-gkb-2000","ean":"5907651690879","name":"NORGIPS Płyta gipsowo-kartonowa standardowa – do wnętrz o normalnej wilgotności S GKB 12,5 mm typ A (1200 x 2000 mm)","brand":"Norgips","category":"gypsum-board","packageSize":2.4,"unit":"m2","store":"Marbet24","format":"jsonld","variant":["GKB","12,5","1200","2000"],"url":"https://marbet24.pl/plyty-karton-gips/1126-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm-5907651690879.html","imageUrl":"https://marbet24.pl/1126-home_default/norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm.jpg","pickupRequiresConfirmation":true},
+  // source: https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana-p11977
+  {"id":"sewera-isover-aku-plyta-50mm","ean":"5901644653131","name":"Isover wełna mineralna Aku-Płyta 037 5cm wełna szklana","brand":"Isover","category":"partition-wool-50mm","packageSize":14.4,"unit":"m2","store":"Sewera","format":"sewera","retailUnit":"OPA","variant":["5cm"],"packageDescription":"14,4m2","url":"https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana-p11977","imageUrl":"https://sklep.sewera.pl/photo/190047/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana.webp"},
+
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html
+  'Gotowa masa do spoin Norgips Start & Finish 20 kg': '5907651699056',
+  // source: https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html
+  'Gips do spoin Norgips Start 25 kg — proszek': '5907651693818',
+  // source: https://marbet24.pl/plyty-karton-gips/1126-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm-5907651690879.html
+  'Płyta gipsowa Norgips GKB typ A 12,5 mm 1200×2000 mm (2,4 m²)': '5907651690879',
+  // source: https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana-p11977
+  'Wełna mineralna Isover Aku-Płyta 037, 50 mm (14,4 m²)': '5901644653131',
   // source: https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990
   "Śnieżka Supermal akrylowa biały mat 0,8 l": "5903973147756",
   // source: https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608

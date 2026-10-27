@@ -112,7 +112,7 @@ const pl = {
   'wizard.measure.subtitle':
     'Na ich podstawie obliczymy ile materiałów potrzebujesz i ile to kosztuje.',
   'wizard.measure.tapeHint':
-    'Nie masz taśmy mierniczej? Krok dorosłego człowieka to ok. 75 cm. Możesz też podać przybliżone wartości — dokładność wystarczy na zakupy.',
+    'Do wstępnego budżetu możesz podać przybliżone wartości. Przed zakupem zmierz powierzchnie, wysokości i długości taśmą mierniczą oraz sprawdź ilości z planem prac.',
   'wizard.measure.optional': 'opcjonalne',
   'wizard.measure.positiveValue': 'Podaj wartość większą od zera.',
   'wizard.measure.defaultValue': 'Domyślna wartość: {value} {unit}',
@@ -247,7 +247,7 @@ const en: Record<K, string> = {
   'wizard.measure.subtitle':
     "We'll use them to calculate how much material you need and how much it costs.",
   'wizard.measure.tapeHint':
-    "No tape measure? An adult's step is about 75 cm. You can also enter approximate values — accuracy good enough for shopping.",
+    'Approximate values can help with an initial budget. Before buying, measure areas, heights and lengths with a tape measure and check quantities against your work plan.',
   'wizard.measure.optional': 'optional',
   'wizard.measure.positiveValue': 'Enter a value greater than zero.',
   'wizard.measure.defaultValue': 'Default value: {value} {unit}',

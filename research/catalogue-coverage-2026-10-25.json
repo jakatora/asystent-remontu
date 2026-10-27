@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T04:14:06.521Z",
-  "scope": "127 references, 121 with offers, 6 historical references unavailable. Six new exact products with seven offers and photos. Independent recipe audit 76/230 priced, 154 unpriced, 11 fully priced sample scenarios; rows are not unique SKUs. Steel frame basket verified at 288.65 PLN including 125 PLN courier pallet. Wood Urekor D unavailable in dispatch Katowice. ABUD native local cart works but cloud connection fails. PVC detergent remains unpriced until explicitly owned. Pickup online prices do not confirm local branch stock, physical prices or travel. Castorama/OBI delivery remains unresolved.",
-  "total": 127,
-  "verifiedProducts": 121,
+  "checkedAt": "2026-10-27T05:01:56.845Z",
+  "scope": "131 references,125 with offers,6 historical references unavailable. Four new exact products and five offers; Marbet pickup requires confirmation and shipping is not integrated, native zero ignored. Wool Sewera sample cart00-001 has no_home_delivery. Gypsum BOM now includes seven previously omitted net audit rows.79/237 priced rows,158 unpriced,11 fully priced MATERIAL scenarios. Missing rows are not distinct SKUs; tools/local stock/retailer delivery remain in the active goal.",
+  "total": 131,
+  "verifiedProducts": 125,
   "remaining": 6,
-  "offers": 154,
-  "stores": 38,
-  "productsWithPhotos": 127,
-  "registeredOffers": 156,
+  "offers": 159,
+  "stores": 39,
+  "productsWithPhotos": 131,
+  "registeredOffers": 161,
   "disabledOffers": 2,
   "rows": [
     {
@@ -547,7 +547,8 @@
       "status": "verified_offer",
       "ean": "5907651690442",
       "sourceIds": [
-        "domat-board-gkb"
+        "domat-board-gkb",
+        "marbet-norgips-board-gkb-2600"
       ],
       "inactiveSources": [
         {
@@ -2743,6 +2744,86 @@
           "unavailable": []
         }
       ]
+    },
+    {
+      "id": "mat-gypsum-norgips-start-finish-20kg",
+      "name": "Gotowa masa do spoin Norgips Start & Finish 20 kg",
+      "referenceUrl": "https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html",
+      "status": "verified_offer",
+      "ean": "5907651699056",
+      "sourceIds": [
+        "marbet-norgips-startfinish-20kg"
+      ],
+      "photoUrl": "https://marbet24.pl/6085-home_default/norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "integration_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-norgips-start-25kg",
+      "name": "Gips do spoin Norgips Start 25 kg — proszek",
+      "referenceUrl": "https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html",
+      "status": "verified_offer",
+      "ean": "5907651693818",
+      "sourceIds": [
+        "marbet-norgips-start-25kg"
+      ],
+      "photoUrl": "https://marbet24.pl/1363-home_default/norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "integration_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-board-norgips-gkb-a-1200x2000",
+      "name": "Płyta gipsowa Norgips GKB typ A 12,5 mm 1200×2000 mm (2,4 m²)",
+      "referenceUrl": "https://marbet24.pl/plyty-karton-gips/1126-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm-5907651690879.html",
+      "status": "verified_offer",
+      "ean": "5907651690879",
+      "sourceIds": [
+        "marbet-norgips-board-gkb-2000"
+      ],
+      "photoUrl": "https://marbet24.pl/1126-home_default/norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "integration_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-mineral-wool-isover-akuplyta-50mm",
+      "name": "Wełna mineralna Isover Aku-Płyta 037, 50 mm (14,4 m²)",
+      "referenceUrl": "https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana-p11977",
+      "status": "verified_offer",
+      "ean": "5901644653131",
+      "sourceIds": [
+        "sewera-isover-aku-plyta-50mm"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/190047/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 21,
@@ -2758,10 +2839,10 @@
     }
   },
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T04:14:06.521Z",
-    "pricedLines": 76,
-    "totalLines": 230,
-    "unpricedLines": 154,
+    "checkedAt": "2026-10-27T05:01:56.845Z",
+    "pricedLines": 79,
+    "totalLines": 237,
+    "unpricedLines": 158,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   }

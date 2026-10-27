@@ -26,5 +26,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
     if(!pvc&&values.framePrimerArea>values.wallArea)errors.push({id:'framePrimerArea',label:'Powierzchnia podkładu nie może przekraczać powierzchni ram',max:values.wallArea});
     if(pvc&&values.frameCoarseSheets>0)errors.push({id:'frameCoarseSheets',label:'Dla PVC wybierz drobny papier; pozostaw P120 = 0',max:0});
   }
+  if (job.id==='gypsum-wall'&&values.gypsumWallHeight>0&&values.wallArea>0&&values.perimeter!==undefined&&Math.abs(values.perimeter-2*(values.wallArea/values.gypsumWallHeight+values.gypsumWallHeight))>0.1)errors.push({id:'perimeter',label:'Obwód nie zgadza się z powierzchnią i wysokością; popraw lub pozostaw pusty'});
+  if (job.id==='gypsum-ceiling'&&values.ceilingArea>0&&values.perimeter+0.1<4*Math.sqrt(values.ceilingArea))errors.push({id:'perimeter',label:'Obwód jest za mały dla podanej powierzchni; sprawdź pomiary'});
   return { values, errors };
 }
