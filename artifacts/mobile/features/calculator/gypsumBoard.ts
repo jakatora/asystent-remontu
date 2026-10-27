@@ -29,12 +29,18 @@ const EANS: Record<string,string> = {
   'mat-gypsum-acoustic-norgips-30x30':'5907651698851',
   'mat-gypsum-hanger-norgips-es6075':'5907651699650',
   'mat-gypsum-longitudinal-norgips-cd60':'5907651699674',
+  'mat-gk-screws-koelner-fs3525-1000':'5906675305127',
+  'mat-gk-profile-screws-koelner-ws3595-1000':'5906675303024',
+  'mat-gk-perimeter-koelner-fx06k040-200':'5906675107622',
 };
 export function gypsumReference(id: string, m: MeasurementMap = {}): string | null {
   if (id === 'gk-board' || id === 'gk-ceiling') return (m.gypsumBoardSize ?? 0) === 0 ? BOARD+'2600' : m.gypsumBoardSize === 1 ? BOARD+'2000' : null;
   if (id === 'gk-filler' || id === 'ceiling-filler') return FILLER;
   if (id === 'mineral-wool') return WOOL;
   if (id === 'profile-cd') return 'mat-profile-cd60-norgips-3m';
+  if (id === 'gk-screws' || id === 'gk-screws-ceiling') return m.gypsumFasteners===1 ? 'mat-gk-screws-koelner-fs3525-1000' : null;
+  if (id === 'ceiling-metal-screws') return m.gypsumFasteners===1 ? 'mat-gk-profile-screws-koelner-ws3595-1000' : null;
+  if (id === 'dowels-uw' || id === 'ceiling-wall-dowels') return m.gypsumPerimeterFixings===1 ? 'mat-gk-perimeter-koelner-fx06k040-200' : null;
   if (id === 'gk-tape' || id === 'ceiling-tape') return (m.gypsumJointTape??0)===0 ? 'mat-gypsum-paper-norgips-50x75' : m.gypsumJointTape===1 ? 'mat-gypsum-fleece-norgips-50x25' : null;
   const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m','profile-ud':'mat-profile-ud30-norgips-06-3m','wall-acoustic-tape':'mat-gypsum-acoustic-norgips-50x30','ceiling-acoustic-tape':'mat-gypsum-acoustic-norgips-30x30',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
   if (accessories[id]) return accessories[id];
@@ -56,6 +62,8 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
   if (!finiteRange(area,wall?1:2,wall?200:300) || !finiteRange(reserve,0,30)
     || !integerChoice(finish,1) || !integerChoice(m.gypsumBoardSize??0,1)) return null;
   const factor = 1 + reserve / 100;
+  if (['gk-screws','gk-screws-ceiling','ceiling-metal-screws'].includes(id)&&!integerChoice(m.gypsumFasteners??0,1))return null;
+  if (['dowels-uw','ceiling-wall-dowels'].includes(id)&&!integerChoice(m.gypsumPerimeterFixings??0,1))return null;
   if (id === 'gypsum-openings') return integerChoice(m.gypsumOpenings??0,100) ? (m.gypsumOpenings??0) === 0 ? 0 : null : null;
   if (id === 'gk-board' || id === 'gk-ceiling') return fixed(area * (wall ? 2 : 1) * factor);
   if (id === 'mineral-wool') return fixed(area * factor);
@@ -89,6 +97,11 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
 }
 
 export const gypsumCommonInputs: MeasurementInputDefinition[] = [
+  // source: https://rawlplug.com/media/catalog/reference_object/8/6/4/5/8645bed8c1b633e727079ed69d412c22203e40c2/1954.KOELNER.PL.FS_DRYWALL_SCREWS_FOR_SHEET.pdf
+  // source: https://rawlplug.com/media/catalog/reference_object/f/c/c/e/fcce52b5d9e9da73d84e9b9ad937ffd32232c6c8/1986.KOELNER.PL.WS_SELF_DRILLING_DRYWALL_SCREWS.pdf
+  {id:'gypsumFasteners',label:'Wkręty do płyt i profili',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips zgodnie z projektem — cena do sprawdzenia'},{value:1,label:'Koelner: FS 3,5×25 do płyt / WS 3,5×9,5 do profili'}],hint:'Jawny wybór innej marki. FS: jedna płyta 12,5 mm na profilu stalowym 0,6 mm. WS: połączenia profili, nie płyt. Przy wymaganiach ogniowych lub akustycznych stosuj produkty wskazane w projekcie systemu. Kartony po 1000 szt. sumujemy wspólnie dla remontu.'},
+  // source: https://rawlplug.com/media/catalog/reference_object/2/2/c/2/22c27a831711122ca97348d9d058ecd7054427a1/1865.KOELNER.PL.FX_K_HAMMER_IN_FIXING_WITH_MUSHROOM_HEAD.pdf
+  {id:'gypsumPerimeterFixings',label:'Kołki pod profile obwodowe',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Podłoże / łącznik wymaga doboru'},{value:1,label:'Koelner FX 6×40 — potwierdzone warunki mocowania w betonie'}],hint:'Wybierz FX tylko dla nośnego betonu: grubość podłoża ≥100 mm, warstwa mocowana wraz z tynkiem i taśmą ≤11 mm; otwór ≥35 mm, osadzenie ≥29 mm, odległości od krawędzi i między kołkami ≥100 mm. Sprawdź to z projektem i kartą produktu. To kołki obwodu UW/CW/UD; nie zastępują stalowych kotew do wieszaków sufitu. Opakowanie 200 szt.'},
   // source: https://norgips.pl/rozwiazania/6005/json/
   // source: https://norgips.pl/rozwiazania/6325/json/
   {id:'gypsumJointTape',label:'Taśma do spoin płyt',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Papierowa Norgips 50 mm × 75 m'},{value:1,label:'Fizelinowa Norgips 50 mm × 25 m'}],hint:'Obie występują w zestawieniu tego systemu. Taśmę zatop w systemowej masie. Koszyk sumuje metry, a następnie dobiera pełne rolki wybranego produktu. Taśmę pod profile liczymy oddzielnie.'},

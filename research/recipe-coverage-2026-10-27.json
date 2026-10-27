@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-27T06:13:37.195Z",
-  "scope": "Same65 jobs and237 rows as the wave50 audit. Four older Castorama browser confirmations expired (06:04–06:11UTC); two sample rows lost their only eligible offer. Ten new wave50 offers remain valid. Expired evidence is never renewed without an actual read.151 unresolved rows are not151 distinct SKUs or all tools/delivery.",
+  "checkedAt": "2026-10-27T06:59:11.859Z",
+  "scope": "Same65 sample jobs and237 rows with prior user choices/default0 unchanged. Explicit Koelner choice is audited separately; confirmed concrete conditions required for FX perimeter fixings, never overhead. Actual shared HTTP/anonymous carts; no customer/order data.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 237,
-    "beforePriced": 88,
+    "beforePriced": 86,
     "afterLines": 237,
-    "afterPriced": 86,
-    "afterUnpriced": 151,
-    "fullyPricedScenarios": 10
+    "afterPriced": 84,
+    "afterUnpriced": 153,
+    "fullyPricedScenarios": 9
   },
   "history": [
     {
@@ -101,6 +101,19 @@
         "afterPriced": 88,
         "afterUnpriced": 149,
         "fullyPricedScenarios": 11
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T06:13:37.195Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 237,
+        "beforePriced": 88,
+        "afterLines": 237,
+        "afterPriced": 86,
+        "afterUnpriced": 151,
+        "fullyPricedScenarios": 10
       }
     }
   ],
@@ -1473,13 +1486,9 @@
             "category": "adhesive"
           },
           "quantity": 44,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5905400658866",
-            "ean": "5905400658866",
-            "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "wall-grout",
@@ -1882,13 +1891,9 @@
             "category": "toilet"
           },
           "quantity": 1,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5902115720833",
-            "ean": "5902115720833",
-            "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "wc-mounting-set",
@@ -4565,5 +4570,16 @@
         }
       ]
     }
-  ]
+  ],
+  "explicitChoiceChecks": {
+    "measurements": {
+      "gypsumFasteners": 1,
+      "gypsumPerimeterFixings": 1
+    },
+    "conditions": "Single12.5 board on0.6 steel; confirmed loadbearing concrete ≥100mm, fixture ≤11mm and factory embed/edge/spacing requirements. No overhead plastic anchors.",
+    "wallMaterialMissing": 0,
+    "wallDeliveredWinner": null,
+    "ceilingMaterialMissing": 3,
+    "hardwareMixedTotalGrosze": 11790
+  }
 }

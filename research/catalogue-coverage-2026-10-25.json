@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T06:13:37.195Z",
-  "scope": "Current usable offers after four older Castorama browser reads expired after24h. Nine new references and ten offers remain added; no fabricated renewals.130/140 references currently have offers:6 historical unavailable plus4 expired. The65-scenario material audit currently resolves86/237 rows,151 unresolved; missing rows are not distinct SKUs, tools or delivery.",
-  "total": 140,
-  "verifiedProducts": 130,
-  "remaining": 10,
-  "offers": 165,
+  "checkedAt": "2026-10-27T06:59:11.859Z",
+  "scope": "143 distinct reference products/photos after adding3 hardware products and4 automatic offers. Current eligible offers125 products/161 offers;12 prior Castorama browser reads expired without fabricated renewals,6 historical references unavailable. Same65 sample jobs retain prior/default selections:84/237 material rows priced,153 unpriced,9 full material scenarios. Explicit Koelner/concrete choices are reported separately, not silently substituted into baseline. Missing rows are not distinct SKUs or all tools/delivery.",
+  "total": 143,
+  "verifiedProducts": 125,
+  "remaining": 18,
+  "offers": 161,
   "stores": 40,
-  "productsWithPhotos": 140,
-  "registeredOffers": 171,
+  "productsWithPhotos": 143,
+  "registeredOffers": 175,
   "disabledOffers": 2,
   "rows": [
     {
@@ -224,7 +224,7 @@
       "id": "mat-tile-adhesive-buildfix-25kg",
       "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg",
       "referenceUrl": "https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5905400658866",
       "sourceIds": [
         "castorama-atlas-plus-promo-25kg"
@@ -793,7 +793,7 @@
       "id": "mat-wc-compact-cersanit-seno-3-5l",
       "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą",
       "referenceUrl": "https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5902115720833",
       "sourceIds": [
         "castorama-cersanit-seno"
@@ -859,7 +859,7 @@
       "id": "mat-wire-ydyp-3x15-akszielonka-100m",
       "name": "Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5904617573771",
       "sourceIds": [
         "castorama-aks-ydyp-3x15-100m"
@@ -876,7 +876,7 @@
       "id": "mat-wire-ydyp-3x25-akszielonka-100m",
       "name": "Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5904617573764",
       "sourceIds": [
         "castorama-aks-ydyp-3x25-100m"
@@ -932,7 +932,7 @@
       "id": "mat-flush-box-elektroplast-pk60-10",
       "name": "Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)",
       "referenceUrl": "https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5901752637337",
       "sourceIds": [
         "castorama-elektroplast-pk60-10"
@@ -1595,7 +1595,7 @@
       "id": "mat-plaster-gypsum-machine-knauf-mp75-25kg",
       "name": "Tynk gipsowy maszynowy Knauf MP 75 25 kg",
       "referenceUrl": "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5902367206352",
       "sourceIds": [
         "castorama-knauf-mp75-25kg"
@@ -1908,7 +1908,7 @@
       "id": "mat-door-leaf-opp-klasyk-70-white",
       "name": "Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)",
       "referenceUrl": "https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5063022524034",
       "sourceIds": [
         "castorama-opp-klasyk-70-right"
@@ -1950,7 +1950,7 @@
       "id": "mat-door-frame-perfectdoor-reg-80-100",
       "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma (drzwi wewnętrzne)",
       "referenceUrl": "https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5902659279118",
       "sourceIds": [
         "castorama-perfectdoor-base-80-100-right"
@@ -3017,6 +3017,77 @@
       ],
       "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|D09C4503-BAF4-43AE-A75D-C7A89B98C9B0|1/%C5%81%C4%85cznik%20wzd%C5%82u%C5%BCny%20%2060%20x%20110%20mm%201%20szt.%20Norgips.webp",
       "deliveryChecks": []
+    },
+    {
+      "id": "mat-gk-screws-koelner-fs3525-1000",
+      "name": "Wkręty do płyt GK Koelner FS 3,5×25 mm, 1000 szt.",
+      "referenceUrl": "https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak",
+      "status": "verified_offer",
+      "ean": "5906675305127",
+      "sourceIds": [
+        "buduj24-koelner-fs3525-1000",
+        "abud-koelner-fs3525-1000"
+      ],
+      "photoUrl": "https://buduj24.pl/files/_product/14398/5906675305127_1.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "buduj24-koelner-fs3525-1000",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_national PL",
+          "quoteTtlMinutes": 10
+        },
+        {
+          "sourceId": "abud-koelner-fs3525-1000",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_postcode 00-001",
+          "quoteTtlMinutes": 10
+        }
+      ],
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "mat-gk-profile-screws-koelner-ws3595-1000",
+      "name": "Wkręty do profili Koelner WS 3,5×9,5 mm, 1000 szt.",
+      "referenceUrl": "https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html",
+      "status": "verified_offer",
+      "ean": "5906675303024",
+      "sourceIds": [
+        "abud-koelner-ws3595-1000"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/c13753752e4f9725fd61b84075871cd7/pol_pl_Wkret-samowiercacy-3-5x9-5mm-1000-szt-63463_1.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-koelner-ws3595-1000",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_postcode 00-001",
+          "quoteTtlMinutes": 10
+        }
+      ],
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "mat-gk-perimeter-koelner-fx06k040-200",
+      "name": "Kołki do profili Koelner FX-06K040, 6×40 mm, 200 szt.",
+      "referenceUrl": "https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html",
+      "status": "verified_offer",
+      "ean": "5906675107622",
+      "sourceIds": [
+        "abud-koelner-fx06k040-200"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/a6c8238c098e65717875db7b7bcedfc1/pol_pl_Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt-1452_2.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-koelner-fx06k040-200",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_postcode 00-001",
+          "quoteTtlMinutes": 10
+        }
+      ],
+      "pickupRequiresConfirmation": true
     }
   ],
   "automaticDeliveryStores": 21,
@@ -3039,5 +3110,5 @@
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   },
-  "expiredOffers": 4
+  "expiredOffers": 12
 }
