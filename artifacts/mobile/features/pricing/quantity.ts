@@ -1,5 +1,6 @@
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
-import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, WALLPAPER_ADHESIVE_MODEL } from '@/features/calculator/wallpaperAdhesive';
+import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, isCurrentWallpaperAdhesiveModel, WALLPAPER_SUPPLIES_MODEL } from '@/features/calculator/wallpaperAdhesive';
+import { WALLPAPER_TAPE_ID, WALLPAPER_TAPE_REFERENCE, WALLPAPER_TAPE_EAN } from '@/features/calculator/wallpaperTape';
 import { LAMINATE_JOB, LAMINATE_SUPPLIES_MODEL, laminateSupplyReference } from '@/features/calculator/laminateSupplies';
 import { isGypsumJob, gypsumMaterials, gypsumReference, GYPSUM_MODEL } from '@/features/calculator/gypsumBoard';
 import { isFrameJob, frameMaterials, frameReference, FRAME_MODEL } from '@/features/calculator/framePainting';
@@ -67,9 +68,14 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if (calc.jobId === 'wallpaper-install' && ref.materialType === 'masking-tape') {
+    const source = calc.materials.find(line => line.material.id === WALLPAPER_TAPE_ID);
+    if (ref.id !== WALLPAPER_TAPE_REFERENCE || calc.quantityModel !== WALLPAPER_SUPPLIES_MODEL || !source || source.quantityKnown === false || source.material.unit !== 'mb' || !('ean' in source.material) || source.material.ean !== WALLPAPER_TAPE_EAN) return null;
+    const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
   if (isWallpaperAdhesiveJob(calc.jobId) && ref.materialType === 'wallpaper-adhesive') {
     const source = calc.materials.find(line => line.material.id === 'wallpaper-glue');
-    if (!source || source.quantityKnown === false || calc.quantityModel !== WALLPAPER_ADHESIVE_MODEL || wallpaperAdhesiveReference(calc.measurements) !== ref.id) return null;
+    if (!source || source.quantityKnown === false || !isCurrentWallpaperAdhesiveModel(calc.quantityModel) || wallpaperAdhesiveReference(calc.measurements) !== ref.id) return null;
     if (source.material.unit !== 'g' || !('ean' in source.material) || source.material.ean !== wallpaperAdhesiveEan(calc.measurements)) return null;
     const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
   }

@@ -620,7 +620,7 @@ function PackageBreakdown({
  * aktualnej, cenę za jednostkę, dostępność i link do produktu. Zwinięte domyślnie.
  */
 function OfferComparisonList({ offers, preferredOfferId }: { offers: SerializedProductOffer[]; preferredOfferId?: string | null }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
   // Prefer the backend's choice for the required quantity, not the cheapest can.
@@ -654,6 +654,9 @@ function OfferComparisonList({ offers, preferredOfferId }: { offers: SerializedP
             overflow: 'hidden',
           }}
         >
+          <Txt style={{ padding: 10, fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>
+            {language === 'pl' ? 'Porównanie cen materiału. Dostawę całego zamówienia sprawdzisz w podsumowaniu koszyka.' : 'Material price comparison. Check delivery for the whole order in the basket summary.'}
+          </Txt>
           {offers.map((offer, idx) => (
             <OfferRow
               key={offer.offerId}

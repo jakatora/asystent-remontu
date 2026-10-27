@@ -1,5 +1,6 @@
 import { REMOVAL_JOB, REMOVAL_MODEL } from './wallpaperRemoval';
-import { isWallpaperAdhesiveJob, WALLPAPER_ADHESIVE_MODEL } from './wallpaperAdhesive';
+import { isWallpaperAdhesiveJob, isCurrentWallpaperAdhesiveModel, isWallpaperAdhesive } from './wallpaperAdhesive';
+import { isWallpaperTape } from './wallpaperTape';
 import { WALL_FINISHING_MODEL, isWallFinishingJob } from './wallFinishing';
 import type { CalculationResult, MaterialItem, MaterialLineItem, Project, ShoppingItem } from '@/types/domain';
 import type { MeasurementInputDefinition } from '@/types/engine';
@@ -95,7 +96,7 @@ export function substratePrimerMaterial(jobId: string): MaterialItem {
   };
 }
 
-const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || calc.jobId === REMOVAL_JOB && calc.quantityModel === REMOVAL_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL || isWallpaperAdhesiveJob(calc.jobId) && calc.quantityModel === WALLPAPER_ADHESIVE_MODEL;
+const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || calc.jobId === REMOVAL_JOB && calc.quantityModel === REMOVAL_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL || isWallpaperAdhesiveJob(calc.jobId) && isCurrentWallpaperAdhesiveModel(calc.quantityModel);
 
 export function isCurrentSubstratePrimer(calc: CalculationResult, line: MaterialLineItem): boolean {
   const spec = SPECIFICATIONS[calc.jobId];
@@ -124,6 +125,9 @@ export function reviewSubstrateShopping(items: readonly ShoppingItem[], calc?: C
   if (!calc || !spec) return [...items];
   return items.flatMap(item => {
     if (item.itemType !== 'material') return item;
+    // Dedicated wallpaper reviewers must compare the saved identity and unit
+    // before a generic projection can replace them with current values.
+    if (isWallpaperAdhesive(calc.jobId, item.materialId) || isWallpaperTape(calc.jobId, item.materialId)) return item;
     const line = calc.materials.find(row => row.material.id === item.materialId);
     if (!line) return item;
     if (!currentPrimerModel(calc) && item.materialId !== spec.materialId) return item;

@@ -4,6 +4,8 @@ import type { MeasurementInputDefinition } from '@/types/engine';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 
 export const WALLPAPER_ADHESIVE_MODEL = 'wallpaper-adhesive-v1';
+export const WALLPAPER_SUPPLIES_MODEL = 'wallpaper-supplies-v1';
+export const isCurrentWallpaperAdhesiveModel = (model?: string) => model === WALLPAPER_ADHESIVE_MODEL || model === WALLPAPER_SUPPLIES_MODEL;
 export const isWallpaperAdhesiveJob = (id: string) => id === 'wallpaper' || id === 'wallpaper-install';
 export const isWallpaperAdhesive = (jobId: string, id: string) => isWallpaperAdhesiveJob(jobId) && id === 'wallpaper-glue';
 const choices = [
@@ -57,7 +59,7 @@ export function wallpaperAdhesiveMaterial(original: MaterialItem, m: Measurement
 }
 /** Old kg allowances never silently acquire a gram price or a new product. */
 export function reviewWallpaperAdhesiveCalculation(calc: CalculationResult | undefined): CalculationResult | undefined {
-  if (!calc || !isWallpaperAdhesiveJob(calc.jobId) || calc.quantityModel === WALLPAPER_ADHESIVE_MODEL) return calc;
+  if (!calc || !isWallpaperAdhesiveJob(calc.jobId) || isCurrentWallpaperAdhesiveModel(calc.quantityModel)) return calc;
   const materials = calc.materials.map(line => isWallpaperAdhesive(calc.jobId, line.material.id) ? { ...line, quantityKnown: false } : line);
   return { ...calc, materials, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) };
 }
@@ -67,8 +69,8 @@ export function reviewWallpaperAdhesiveShopping(items: readonly ShoppingItem[], 
   return items.map(item => {
     if (item.itemType !== 'material' || !isWallpaperAdhesive(calc.jobId, item.materialId)) return item;
     const line = calc.materials.find(row => row.material.id === item.materialId), required = wallpaperAdhesiveQuantity(calc.measurements);
-    if (calc.quantityModel !== WALLPAPER_ADHESIVE_MODEL || !line || line.quantityKnown === false || required === null) return { ...item, quantityKnown: false, needsQuantityConfirmation: true, owned: false, purchased: false };
-    const matches = item.name === line.material.name && item.unit === 'g' && Number.isFinite(item.customQuantity ?? item.quantity) && (item.customQuantity ?? item.quantity) + 1e-8 >= required;
+    if (!isCurrentWallpaperAdhesiveModel(calc.quantityModel) || !line || line.quantityKnown === false || required === null) return { ...item, quantityKnown: false, needsQuantityConfirmation: true, owned: false, purchased: false };
+    const matches = !item.needsQuantityConfirmation && item.name === line.material.name && item.unit === 'g' && Number.isFinite(item.customQuantity ?? item.quantity) && (item.customQuantity ?? item.quantity) + 1e-8 >= required;
     return { ...item, name: line.material.name, unit: 'g', quantity: line.quantity, estimatedPrice: line.cost, requiredQuantity: required, quantityKnown: true, needsQuantityConfirmation: !matches, owned: matches && item.owned, purchased: matches && item.purchased, notes: line.material.notes };
   });
 }

@@ -1,5 +1,6 @@
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalQuantity } from './wallpaperRemoval';
-import { isWallpaperAdhesive, WALLPAPER_ADHESIVE_MODEL, wallpaperAdhesiveQuantity } from './wallpaperAdhesive';
+import { isWallpaperAdhesive, isCurrentWallpaperAdhesiveModel, WALLPAPER_SUPPLIES_MODEL, wallpaperAdhesiveQuantity } from './wallpaperAdhesive';
+import { isWallpaperTape, wallpaperTapeQuantity } from './wallpaperTape';
 import { isGypsumMaterial, gypsumQuantity, GYPSUM_MODEL } from './gypsumBoard';
 import { isFrameMaterial, frameQuantity, FRAME_MODEL } from './framePainting';
 import { isFinishingMaterial, finishingQuantity, WALL_FINISHING_MODEL } from './wallFinishing';
@@ -15,7 +16,8 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
-  if (calc.quantityModel === WALLPAPER_ADHESIVE_MODEL && isWallpaperAdhesive(calc.jobId, line.material.id)) return wallpaperAdhesiveQuantity(calc.measurements) ?? 0;
+  if (isCurrentWallpaperAdhesiveModel(calc.quantityModel) && isWallpaperAdhesive(calc.jobId, line.material.id)) return wallpaperAdhesiveQuantity(calc.measurements) ?? 0;
+  if (calc.quantityModel === WALLPAPER_SUPPLIES_MODEL && isWallpaperTape(calc.jobId, line.material.id)) return wallpaperTapeQuantity(calc.measurements) ?? 0;
   if (calc.quantityModel === LAMINATE_SUPPLIES_MODEL && isLaminateSupply(calc.jobId, line.material.id)) return laminateSupplyQuantity(line.material.id, calc.measurements) ?? 0;
   // Old laminate and click-vinyl snapshots stored pack counts labelled m².
   // Recover the original floor area plus its existing cutting allowance.

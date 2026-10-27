@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-27T13:55:17.148Z",
-  "scope": "Current calculator recalculated all65 saved measurement maps; no new product or adhesive choices supplied. Counts are recipe rows, not unique missing products. New explicit wallpaper adhesive examples appear separately and do not imply full wallpaper coverage.",
+  "checkedAt": "2026-10-27T14:18:21.806Z",
+  "scope": "Current engine recalculated the same65 saved measurement maps without supplying new tape lengths or adhesive choices. Unknown tape demand remains explicit. Separate measured examples prove tape and glue consolidation; whole wallpaper still lacks the selected wallpaper.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -196,6 +196,19 @@
     },
     {
       "checkedAt": "2026-10-27T12:46:06.593Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 240,
+        "beforePriced": 84,
+        "afterLines": 240,
+        "afterPriced": 84,
+        "afterUnpriced": 156,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T13:55:17.148Z",
       "summary": {
         "registeredJobs": 66,
         "auditedJobs": 65,
@@ -754,17 +767,17 @@
         },
         {
           "materialId": "masking-tape-wallpaper",
-          "name": "Taśma malarska (do zabezpieczenia)",
-          "unit": "rolka",
+          "name": "Taśma malarska Blue Dolphin niebieska 30 mm x 50 m — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tasma malarska do zabezpieczenia",
-            "category": "akcesoria"
+            "normalizedName": "tasma malarska blue dolphin niebieska 30 mm x 50 m ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 3,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -4805,6 +4818,44 @@
       "unknownWallpaperMissing": 3,
       "wholeWallpaperTotalGrosze": null,
       "pickupConfirmed": false
+    },
+    "wave61": {
+      "checkedAt": "2026-10-27T14:15:18.170Z",
+      "measuredTapeTwoRooms": {
+        "metres": 40,
+        "packs50m": 1,
+        "materialsGrosze": 1199,
+        "deliveryGrosze": 1050,
+        "totalGrosze": 2249,
+        "store": "Rab-Dom",
+        "destinationScope": "PL"
+      },
+      "tape51metres": {
+        "packs": 2,
+        "totalGrosze": 3448
+      },
+      "selectedBudujTape": {
+        "materialsGrosze": 1135,
+        "deliveryGrosze": 1500,
+        "totalGrosze": 2635
+      },
+      "selectedSeweraTape": {
+        "materialsGrosze": 1472,
+        "deliveryGrosze": 1990,
+        "totalGrosze": 3462,
+        "postalCode": "00-001"
+      },
+      "tapeAndDirectTwoRooms": {
+        "rawTapeMetres": 40,
+        "rawGlueGrams": 200,
+        "packs": 2,
+        "materialsGrosze": 3693,
+        "deliveryGrosze": 2950,
+        "totalGrosze": 6643
+      },
+      "fullWallpaperMissing": 1,
+      "unknownTapeMissing": 2,
+      "fullWallpaperTotalGrosze": null
     }
   }
 }

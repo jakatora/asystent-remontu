@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-27T13:55:17.148Z",
-  "scope": "Fresh production HTTP. Current engine recalculated all65 saved baseline measurement maps without supplying new choices. Separate153-reference catalogue queries. No delivery quotes without a postcode; no project data writes. New explicit adhesive-only baskets do not prove complete wallpaper or whole-renovation delivery coverage.",
+  "checkedAt": "2026-10-27T14:18:21.806Z",
+  "scope": "Fresh production HTTP. Current engine recalculated all65 saved baseline measurement maps without supplying new choices. Separate153-reference catalogue queries. No delivery quotes without a postcode; no project data writes. Wave61 maps an existing exact tape product to measured wallpaper protection demand; no new SKU or retailer added. Whole wallpaper remains partial.",
   "total": 153,
   "verifiedProducts": 129,
   "remaining": 24,
@@ -3433,7 +3433,7 @@
   "automaticDeliveryStores": 30,
   "browserVerifiedOffers": 11,
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T13:55:17.148Z",
+    "checkedAt": "2026-10-27T14:18:21.806Z",
     "pricedLines": 84,
     "totalLines": 240,
     "unpricedLines": 156,
@@ -3450,6 +3450,14 @@
       "remaining": 24,
       "offers": 171,
       "stores": 48
+    },
+    {
+      "checkedAt": "2026-10-27T13:55:17.148Z",
+      "total": 153,
+      "verifiedProducts": 129,
+      "remaining": 24,
+      "offers": 175,
+      "stores": 50
     }
   ],
   "historicalPickupCoverage": {

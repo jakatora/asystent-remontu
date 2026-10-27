@@ -77,3 +77,29 @@ test('real HTTP sums raw grams across four rooms before buying one pack per adhe
     assert.ok(incomplete.stages[0].lines.some((l: any) => !l.resolved && l.query.normalizedName.includes('tapeta')));
   } finally { service.close(); await new Promise<void>(r => server.close(() => r())); }
 });
+
+test('HTTP sums measured wallpaper tape before whole50m rolls and keeps a confirmed retailer selection', async () => {
+  let calls = 0;
+  const quote: BasketQuoter = async basket => {
+    calls++;
+    assert.equal(basket.store, 'Rab-Dom'); assert.equal(basket.lines.length, 1);
+    assert.equal(basket.lines[0].product.id, 'remont-5907758515952');
+    assert.equal(basket.lines[0].packages[0].count, 1); assert.equal(basket.materialsGrosze, 1199);
+    // Captured national cart charge; this test exercises the quantity pipeline.
+    // The corresponding actual native HTTP result is recorded in wave61 proof.
+    return { quote: { costGrosze: 1050, carrier: 'Kurier', payment: 'Przelew', checkedAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 600000).toISOString(), sourceUrl: 'https://www.rabdom.pl/pl/basket', basis: 'retailer_basket_national', destinationScope: 'PL', evidenceSha256: 'a'.repeat(64) } };
+  };
+  const service = createRemontService({ initialObservations: seed as RetailObservation[], basketQuoter: quote, background: false });
+  const app = express(); app.use(express.json()); app.use(service.router); const server = app.listen(0, '127.0.0.1'); await new Promise<void>(r => server.once('listening', r));
+  try {
+    const job = getJobById('wallpaper-install')!;
+    const jobs = [20, 20].map(length => {
+      const stage = toPricingStageInput(calculatorEngine.calculate(job, { wallArea: 10, wallpaperAdhesiveType: 1, wallpaperProtectionTapeMetres: length }));
+      return { ...stage, materials: stage.materials.filter(m => m.material.id === 'masking-tape-wallpaper') };
+    });
+    const response = await fetch(`http://127.0.0.1:${(server.address() as any).port}/pricing/project`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jobs, options: { store: 'Rab-Dom', delivery: { mode: 'shipping', postalCode: '00-001', allowSeparateOrders: false } } }) });
+    assert.equal(response.status, 200); const result = await response.json();
+    assert.equal(result.consolidated.lines.length, 1); assert.equal(result.consolidated.lines[0].totalQuantity, 40); assert.equal(result.consolidated.lines[0].packagesNeeded, 1);
+    assert.equal(result.deliveryComparison.best.totalGrosze, 2249); assert.equal(calls, 1);
+  } finally { service.close(); await new Promise<void>(r => server.close(() => r())); }
+});
