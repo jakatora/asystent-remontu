@@ -44,8 +44,11 @@ test('maps search encodes the chosen store and user location; it does not imply 
     assert.equal(storeMapSearchUrl(store, '00-001'), null);
     assert.equal(storeLocatorUrl(store), null);
   }
-  assert.equal(storeLocatorUrl('Castorama'), 'https://www.castorama.pl/find-a-store');
+  assert.equal(storeLocatorUrl('Castorama'), 'https://www.castorama.pl/informacje/sklepy');
   assert.equal(storeLocatorUrl('OBI'), 'https://www.obi.pl/stores');
+  assert.equal(supportsStoreMapSearch('Leroy Merlin'),true);
+  assert.equal(storeLocatorUrl('Leroy Merlin'),'https://www.leroymerlin.pl/sklepy.html');
+  assert.equal(new URL(storeMapSearchUrl('Leroy Merlin','00-001')!).searchParams.get('query'),'Leroy Merlin market budowlany 00-001 Polska');
   assert.equal(storeLocatorUrl('Sewera'), 'https://sklep.sewera.pl/miejsca-odbioru');
   assert.equal(supportsStoreMapSearch('ABUD'), true);
   assert.equal(storeLocatorUrl('ABUD'), 'https://www.abud.pl/stocks.php');

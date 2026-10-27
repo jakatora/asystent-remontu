@@ -17,7 +17,7 @@ const calculate=(id='gypsum-wall',more:Record<string,number>={})=>calculatorEngi
 test('wall counts both board faces, 8 whole 3m studs and UW only along floor and ceiling',()=>{
   const c=calculate(),line=(id:string)=>c.materials.find(row=>row.material.id===id)!;
   assert.equal(c.quantityModel,GYPSUM_MODEL);
-  assert.ok(c.warnings.some(row=>row.message.includes('Niepełna wycena: 6 pozycji')),'reference amount cannot masquerade as the complete wall cost');
+  assert.ok(c.warnings.some(row=>row.message.includes('Niepełna wycena: 2 pozycji')),'reference amount cannot masquerade as the complete wall cost');
   assert.equal(line('gk-board').rawQuantity,22);assert.equal(line('gk-board').packs,8);
   assert.equal(line('profile-cw').rawQuantity,24);assert.equal(line('profile-cw').packs,8);
   assert.equal(line('profile-uw').rawQuantity,8.8);assert.equal(line('wall-acoustic-tape').rawQuantity,14.3);
@@ -83,4 +83,21 @@ test('owned stock must cover exact current identity and raw requirement; switchi
   assert.ok(!applyProjectShopping(toPricingStageInput(c),c,'p',[item]).stage.materials.some(row=>row.material.id==='gk-board'));
   for(const bad of [{...item,quantity:11},{...item,unit:'płyta'},{...item,name:'Inna płyta'}])assert.ok(applyProjectShopping(toPricingStageInput(c),c,'p',[bad]).stage.materials.some(row=>row.material.id==='gk-board'));
   const next=calculate('gypsum-wall',{gypsumBoardSize:1});assert.ok(applyProjectShopping(toPricingStageInput(next),next,'p',[item]).stage.materials.some(row=>row.material.id==='gk-board'));
+});
+
+test('paper and fleece use the same manufacturer allowance but their own EAN and whole rolls in all tiers',()=>{
+ for(const id of ['gypsum-wall','gypsum-ceiling'])for(const tier of ['economy','standard','better'] as const){
+  const a=calculate(id),b=calculate(id,{gypsumJointTape:1}),key=id==='gypsum-wall'?'gk-tape':'ceiling-tape',paper=a.materials.find(l=>l.material.id===key)!,fleece=b.materials.find(l=>l.material.id===key)!;
+  assert.ok('ean' in paper.material);assert.ok('ean' in fleece.material);
+  assert.equal(paper.rawQuantity,fleece.rawQuantity);assert.equal(paper.material.ean,'5907651699933');assert.equal(paper.material.packaging?.size,75);assert.equal(fleece.material.ean,'5907651699926');assert.equal(fleece.material.packaging?.size,25);assert.equal(fleece.material.packaging?.purchaseUnit,'rolka');assert.equal(fleece.packs,id==='gypsum-wall'?2:1);
+  const refs=getMaterialsForJob(id,tier,b.measurements),ref=refs.find(r=>r.id==='mat-gypsum-fleece-norgips-50x25')!;assert.ok(ref);assert.equal(resolveMaterialQuantity(ref,b)?.quantity,fleece.rawQuantity);assert.ok(!refs.some(r=>r.id==='mat-gypsum-paper-norgips-50x75'));
+ }
+ const invalid=calculate('gypsum-wall',{gypsumJointTape:5});assert.equal(invalid.materials.find(l=>l.material.id==='gk-tape')!.quantityKnown,false);
+});
+test('an owned paper roll cannot cover fleece; old explicit CW EAN is not silently replaced with current retail profile',()=>{
+ const a=calculate(),b=calculate('gypsum-wall',{gypsumJointTape:1}),line=a.materials.find(l=>l.material.id==='gk-tape')!,item:ShoppingItem={id:'t',projectId:'p',materialId:'gk-tape',name:line.material.name,quantity:75,unit:'m',estimatedPrice:0,owned:true,purchased:false,itemType:'material',tier:'standard',createdAt:''};
+ assert.equal(projectShopping([item],a)[0].owned,true);assert.equal(projectShopping([item],b)[0].owned,false);
+ const ref=getMaterialsForJob('gypsum-wall','standard',a.measurements).find(r=>r.id==='mat-profile-cw50-norgips-06-3m-retail')!;
+ const old={...a,materials:a.materials.map(l=>l.material.id==='profile-cw'?{...l,material:{...l.material,ean:'5907651698165'}}:l)};
+ assert.equal(resolveMaterialQuantity(ref,old),null);const cw=a.materials.find(l=>l.material.id==='profile-cw')!.material;assert.ok('ean' in cw);assert.equal(cw.ean,'5907651698912');
 });

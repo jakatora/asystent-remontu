@@ -17,6 +17,7 @@ import { createRetailerQuoter, knownUnavailableRetailers, retailerDeliveryCapabi
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
 import { isCastoramaBrowserSource } from './lib/castorama-browser-observation';
 import { isBricomarcheBrowserSource } from './lib/bricomarche-browser-observation';
+import { isLeroyBrowserSource } from './lib/leroy-browser-observation';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
@@ -53,10 +54,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     const previous = observations.get(source.id);
     // Complex Castorama purchase units have no automatic full-pack proof yet.
     // Removing provenance from a saved row must not bypass its 24h expiry.
-    if((isBricomarcheBrowserSource(source)||isCastoramaBrowserSource(source)&&['m2','m'].includes(source.unit))&&!observation.verification)return;
+    if((source.store==='Leroy Merlin'||isBricomarcheBrowserSource(source)||isCastoramaBrowserSource(source)&&['m2','m'].includes(source.unit))&&!observation.verification)return;
     if(observation.verification!==undefined){
       const v=observation.verification;
-      if(!v||v.method!=='browser'||!(isCastoramaBrowserSource(source)||isBricomarcheBrowserSource(source))||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
+      if(!v||v.method!=='browser'||!(isCastoramaBrowserSource(source)||isBricomarcheBrowserSource(source)||isLeroyBrowserSource(source))||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
     }
     if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
     if (Date.parse(observation.observedAt) >= Date.parse(withdrawnAt.get(source.id) ?? '')) withdrawnAt.delete(source.id);

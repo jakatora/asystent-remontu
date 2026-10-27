@@ -8,6 +8,7 @@ const only = (values: string[], reason: string) => {
 };
 const byClass = (html: string, name: string) => htmlElements(html, a => a.class?.split(/\s+/).includes(name) ?? false);
 const attrs = (node: string) => htmlAttributes(node.match(/^<[^>]+>/)?.[0] ?? '');
+const nameText = (value: string) => value.trim().replace(/\s+/g,' ');
 
 /** Read the public SSR JSON as data. Never execute the retailer's script.
  * source: https://hipper.pl/klamka-do-drzwi-wewnetrznych-lucy-zlota-r-schaffner-3069808860
@@ -27,13 +28,21 @@ export function readCertusoftState(html: string): Record<string, any> {
 export function readCertusoftProduct(html: string, source: RetailSource) {
   const url = new URL(source.url);
   if (url.origin !== 'https://hipper.pl' || !Number.isSafeInteger(source.productId) || !Number.isSafeInteger(source.retailerUnitId)) throw Error('product_id_not_confirmed');
-  if (source.unit !== 'szt' || source.packageSize !== 1 || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
+  // One native "szt" is this exact 25m roll, not one metre or a 40-roll carton.
+  // source: https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570
+  // source: https://norgips.pl/produkty/tasma-fizelinowa-150.html
+  const reviewedRoll = source.id === 'hipper-norgips-fleece-50x25' && source.ean === '5907651699926'
+    && source.brand === 'Norgips' && source.productId === 2682507570 && source.retailerUnitId === 2682507597
+    && source.url === 'https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570'
+    && source.unit === 'm' && source.packageSize === 25;
+  const singlePiece = source.unit === 'szt' && source.packageSize === 1;
+  if ((!singlePiece && !reviewedRoll) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
   const state = readCertusoftState(html), card = state.csAppWindowsUtils?.csAppWindows?.csB2BItemCard;
   const rows = card?.dataSets?.itemCard?.rows;
   if (!Array.isArray(rows) || rows.length !== 1) throw Error('product_identity_ambiguous');
   const row = rows[0], schema = JSON.parse(row.structuredData ?? 'null');
   if (row.EAN !== source.ean || schema?.sku !== source.ean || schema.mpn !== String(source.productId) || row.csItemsId !== source.productId || row.csItemsUnitsId !== source.retailerUnitId) throw Error('product_ean_not_confirmed');
-  if (row.itemName !== schema.name || schema.brand?.name !== source.brand || '/' + row.appWindowIdentRoute !== url.pathname) throw Error('product_identity_not_confirmed');
+  if (typeof row.itemName !== 'string' || typeof schema.name !== 'string' || nameText(row.itemName) !== nameText(schema.name) || schema.brand?.name !== source.brand || '/' + row.appWindowIdentRoute !== url.pathname) throw Error('product_identity_not_confirmed');
   if (row.stockUnit !== 'szt' || row.quantityUnits !== 1 || row.isNegative !== 0) throw Error('purchase_rules_changed');
   const maxPackages = row.qStockAv;
   if (!Number.isSafeInteger(maxPackages) || maxPackages < 1 || schema.offers?.availability !== 'InStock') throw Error('retailer_out_of_stock');
@@ -42,7 +51,7 @@ export function readCertusoftProduct(html: string, source: RetailSource) {
   const primary = only(htmlElements(cleanHtml(html), (a, tag) => tag === 'section' && a.id === 'item'), 'product_identity_ambiguous');
   const name = htmlText(only(htmlElements(primary, (_a, tag) => tag === 'h1'), 'product_name_ambiguous'));
   const ean = htmlText(only(byClass(primary, 'c-ean'), 'product_identity_ambiguous'));
-  if (name !== row.itemName || ean !== `(Kod produktu: ${source.ean})`) throw Error('product_identity_not_confirmed');
+  if (nameText(name) !== nameText(row.itemName) || ean !== `(Kod produktu: ${source.ean})`) throw Error('product_identity_not_confirmed');
   const price = htmlText(only(byClass(only(byClass(primary, 'c-prc'), 'product_price_ambiguous'), 'c-upad'), 'product_price_ambiguous'));
   if (!/^\d[\d\s]*,\d{2} zł$/.test(price) || parsePriceToGrosze(price.replace(/ zł$/, '')) !== priceGrosze) throw Error('retailer_gross_price_mismatch');
   const stock = htmlText(only(byClass(primary, 'c-itm-s'), 'retailer_stock_not_confirmed'));

@@ -35,13 +35,13 @@ function unavailableReason(store: string): string | undefined {
   if (sources.length && sources.every(source=>source.format === 'qshop')) return 'address_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
   if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD'].includes(store)) return undefined;
-  return ['Castorama','OBI'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
+  return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
     automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
-    postcodeStores:['Sewera','Cezar','ABUD'],accessRequiredStores:[...new Set(['Castorama','OBI',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
+    postcodeStores:['Sewera','Cezar','ABUD'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
 }
 export function knownUnavailableRetailers(): Readonly<Record<string,string>> {

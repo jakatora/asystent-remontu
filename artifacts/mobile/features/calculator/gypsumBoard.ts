@@ -20,12 +20,24 @@ const WOOL = 'mat-mineral-wool-isover-akuplyta-50mm';
 const EANS: Record<string,string> = {
   [BOARD+'2600']:'5907651690442', [BOARD+'2000']:'5907651690879', [FILLER]:'5907651699056',
   [WOOL]:'5901644653131', 'mat-profile-cd60-norgips-3m':'5907651698899',
+  'mat-profile-cw50-norgips-06-3m-retail':'5907651698912',
+  'mat-profile-uw50-norgips-super-06-3m':'5907651698547',
+  'mat-profile-ud30-norgips-06-3m':'5907651698905',
+  'mat-gypsum-paper-norgips-50x75':'5907651699933',
+  'mat-gypsum-fleece-norgips-50x25':'5907651699926',
+  'mat-gypsum-acoustic-norgips-50x30':'5907651698004',
+  'mat-gypsum-acoustic-norgips-30x30':'5907651698851',
+  'mat-gypsum-hanger-norgips-es6075':'5907651699650',
+  'mat-gypsum-longitudinal-norgips-cd60':'5907651699674',
 };
 export function gypsumReference(id: string, m: MeasurementMap = {}): string | null {
   if (id === 'gk-board' || id === 'gk-ceiling') return (m.gypsumBoardSize ?? 0) === 0 ? BOARD+'2600' : m.gypsumBoardSize === 1 ? BOARD+'2000' : null;
   if (id === 'gk-filler' || id === 'ceiling-filler') return FILLER;
   if (id === 'mineral-wool') return WOOL;
   if (id === 'profile-cd') return 'mat-profile-cd60-norgips-3m';
+  if (id === 'gk-tape' || id === 'ceiling-tape') return (m.gypsumJointTape??0)===0 ? 'mat-gypsum-paper-norgips-50x75' : m.gypsumJointTape===1 ? 'mat-gypsum-fleece-norgips-50x25' : null;
+  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m','profile-ud':'mat-profile-ud30-norgips-06-3m','wall-acoustic-tape':'mat-gypsum-acoustic-norgips-50x30','ceiling-acoustic-tape':'mat-gypsum-acoustic-norgips-30x30',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
+  if (accessories[id]) return accessories[id];
   return null;
 }
 const finiteRange = (n: number | undefined, min: number, max: number): n is number => Number.isFinite(n) && n! >= min && n! <= max;
@@ -48,7 +60,7 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
   if (id === 'gk-board' || id === 'gk-ceiling') return fixed(area * (wall ? 2 : 1) * factor);
   if (id === 'mineral-wool') return fixed(area * factor);
   if (id === 'gk-filler' || id === 'ceiling-filler') return fixed(area * (wall ? 0.4 : 0.2) * (finish === 1 ? 1.5 : 1) * factor);
-  if (id === 'gk-tape' || id === 'ceiling-tape') return fixed(area * (wall ? 2.6 : 1.3) * factor);
+  if (id === 'gk-tape' || id === 'ceiling-tape') return integerChoice(m.gypsumJointTape??0,1) ? fixed(area * (wall ? 2.6 : 1.3) * factor) : null;
   if (id === 'gk-screws' || id === 'gk-screws-ceiling') return whole(area * (wall ? 24 : 25) * factor);
   if (wall) {
     if (!finiteRange(m.gypsumWallHeight,0.5,3)) return null;
@@ -77,6 +89,9 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
 }
 
 export const gypsumCommonInputs: MeasurementInputDefinition[] = [
+  // source: https://norgips.pl/rozwiazania/6005/json/
+  // source: https://norgips.pl/rozwiazania/6325/json/
+  {id:'gypsumJointTape',label:'Taśma do spoin płyt',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Papierowa Norgips 50 mm × 75 m'},{value:1,label:'Fizelinowa Norgips 50 mm × 25 m'}],hint:'Obie występują w zestawieniu tego systemu. Taśmę zatop w systemowej masie. Koszyk sumuje metry, a następnie dobiera pełne rolki wybranego produktu. Taśmę pod profile liczymy oddzielnie.'},
   {id:'gypsumBoardSize',label:'Format płyty Norgips GKB typ A, 12,5 mm',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'1200 × 2600 mm — 3,12 m² / płyta'},{value:1,label:'1200 × 2000 mm — 2,40 m² / płyta'}],hint:'Suche wnętrze. Długość płyty zmienia liczbę płyt i spoin. H2, podwójne poszycie i wymagania ogniowe wymagają osobnego zestawu.'},
   {id:'gypsumFinish',label:'Wykończenie spoin',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:1,min:0,max:1,options:[{value:0,label:'Q1 — podstawowe spoinowanie'},{value:1,label:'Q2 — dodatkowe wykończenie spoin'}],hint:'Gotowa Norgips Start & Finish. Q2 nie oznacza gładzi na całej powierzchni. Malowanie i pełne szpachlowanie dodaj jako oddzielne prace.'},
   {id:'gypsumReservePercent',label:'Zapas na docinki i zużycie',unit:'%',inputType:'percent',placeholder:'10',defaultValue:10,min:0,max:30,required:false,hint:'Jawne założenie zakupowe, poza normą producenta. Płyty, wełnę i masę sumujemy między pracami przed doborem opakowań. Pionowe CW liczymy w całych profilach 3 m.'},
@@ -115,7 +130,7 @@ export function gypsumMaterials(jobId: string, m: MeasurementMap = {}): Material
   };
   return (wall?WALL:CEILING).map(id=>{
     const reference=gypsumReference(id,m), ref=MATERIAL_PRICES.find(row=>row.id===reference);
-    if (ref) return {id,name:ref.productLabel,brand:ref.brand,ean:EANS[ref.id],unit:ref.packageUnit,category:ref.materialType,sourceUrl:ref.sourceUrl,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:ref.pricePerPackage,priceBasis:'package',packaging:{size:ref.packageSize,label:`${ref.packageSize} ${ref.packageUnit}`,purchaseUnit:id==='gk-board'||id==='gk-ceiling'?'płyta':id==='profile-cd'?'profil':'opakowanie'},notes:id==='mineral-wool'?'Aku-Płyta 037, 50 mm, 14,4 m²/paczka. Nie zastępuj wełną 100 mm w profilu CW 50.':id==='gk-filler'||id==='ceiling-filler'?`Gotowa masa Start & Finish, bez dodawania wody jak do proszku. Norma Q${(m.gypsumFinish??1)+1}, bez pełnej gładzi. Opakowanie 20 kg.`:id==='profile-cd'?'Norgips CD 60, 0,6 mm, 3 m. Norma rusztu DWUPOZIOMOWEGO 3,3 m/m² + zapas; nie stosujemy wzoru od gładzi.':'GKB typ A, 12,5 mm, suche wnętrza. Ścianka: jedna warstwa na KAŻDEJ z dwóch stron. Sufit: jedna warstwa. Pełne płyty po zsumowaniu remontu.'};
+    if (ref) return {id,name:ref.productLabel,brand:ref.brand,ean:EANS[ref.id],unit:ref.packageUnit,category:ref.materialType,sourceUrl:ref.sourceUrl,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:ref.pricePerPackage,priceBasis:'package',packaging:{size:ref.packageSize,label:`${ref.packageSize} ${ref.packageUnit}`,purchaseUnit:id==='gk-board'||id==='gk-ceiling'?'płyta':id.startsWith('profile-')?'profil':id==='gk-tape'||id==='ceiling-tape'||id.endsWith('acoustic-tape')?'rolka':id==='hanger'||id==='ceiling-longitudinal'?'szt.':'opakowanie'},notes:ref.materialType==='drywall-accessory'?ref.notes+' '+(descriptions[id]?.[2]??''):id==='mineral-wool'?'Aku-Płyta 037, 50 mm, 14,4 m²/paczka. Nie zastępuj wełną 100 mm w profilu CW 50.':id==='gk-filler'||id==='ceiling-filler'?`Gotowa masa Start & Finish, bez dodawania wody jak do proszku. Norma Q${(m.gypsumFinish??1)+1}, bez pełnej gładzi. Opakowanie 20 kg.`:id==='profile-cd'?'Norgips CD 60, 0,6 mm, 3 m. Norma rusztu DWUPOZIOMOWEGO 3,3 m/m² + zapas; nie stosujemy wzoru od gładzi.':'GKB typ A, 12,5 mm, suche wnętrza. Ścianka: jedna warstwa na KAŻDEJ z dwóch stron. Sufit: jedna warstwa. Pełne płyty po zsumowaniu remontu.'};
     const [name,unit,notes]=descriptions[id]??['Płyta / masa / izolacja — wymaga doboru','pozycja','Brak konkretnego produktu nie oznacza darmowego zakupu.'];
     return {id,name,unit,notes,sourceUrl:source,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:0,category:'drywall-accessory',...(id==='profile-cw'?{ean:'5907651698165',packaging:{size:3,label:'3 m',purchaseUnit:'profil'},priceBasis:'package' as const}: {})};
   });

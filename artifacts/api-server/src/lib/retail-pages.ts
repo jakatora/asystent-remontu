@@ -115,7 +115,10 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   else if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
   else if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
   else if (source.format === 'abstore') products.push(readAbstoreProduct(html, source));
-  else if (source.format === 'certusoft') products.push(readCertusoftProduct(html, source).product);
+  else if (source.format === 'certusoft') {
+    const reviewed=readCertusoftProduct(html, source);
+    products.push(reviewed.product); stockPackages=reviewed.maxPackages;
+  }
   else if (source.format === 'modna') products.push(readModnaProduct(html, source).product);
   else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
@@ -180,6 +183,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if (source.store==='Leroy Merlin'&&source.browserReviewAllowed) throw Error('browser_refresh_required');
   if(source.format==='qshop'){
     const current=await readTokmetProduct(source,fetchImpl);
     return {...parseRetailPage(`<script type="application/ld+json">${JSON.stringify(current.product)}</script>`,{...source,format:'jsonld'},new Date()),stockPackages:current.stock,evidenceSha256:current.evidenceSha256};

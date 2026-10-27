@@ -12,6 +12,25 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html
+  {"ids":["mat-gypsum-paper-norgips-50x75"],"ean":"5907651699933","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html","imageUrl":"https://media.adeo.com/media/2629682/media.jpg"},
+  // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html
+  {"ids":["mat-gypsum-acoustic-norgips-50x30"],"ean":"5907651698004","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html","imageUrl":"https://media.adeo.com/media/2631597/media.jpg"},
+  // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html
+  {"ids":["mat-gypsum-acoustic-norgips-30x30"],"ean":"5907651698851","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html","imageUrl":"https://media.adeo.com/media/2629693/media.jpg"},
+  // source: https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html
+  {"ids":["mat-profile-cw50-norgips-06-3m-retail"],"ean":"5907651698912","sourceUrl":"https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html","imageUrl":"https://media.adeo.com/media/3186925/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds"},
+  // source: https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html
+  {"ids":["mat-profile-uw50-norgips-super-06-3m"],"ean":"5907651698547","sourceUrl":"https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html","imageUrl":"https://media.adeo.com/media/3191881/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds"},
+  // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html
+  {"ids":["mat-profile-ud30-norgips-06-3m"],"ean":"5907651698905","sourceUrl":"https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html","imageUrl":"https://media.adeo.com/media/3196086/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds"},
+  // source: https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html
+  {"ids":["mat-gypsum-hanger-norgips-es6075"],"ean":"5907651699650","sourceUrl":"https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html","imageUrl":"https://media.adeo.com/media/2629673/media.jpg"},
+  // source: https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570
+  {"ids":["mat-gypsum-fleece-norgips-50x25"],"ean":"5907651699926","sourceUrl":"https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|1403C532-C046-4095-BC51-32C96B8A2610|1/Ta%C5%9Bma%20flizelinowa%20z%20w%C5%82%C3%B3kna%20szklanego%2050%20mm%20Norgips.webp"},
+  // source: https://hipper.pl/lacznik-wzdluzny-60-x-110-mm-1-szt-norgips-2682631077
+  {"ids":["mat-gypsum-longitudinal-norgips-cd60"],"ean":"5907651699674","sourceUrl":"https://hipper.pl/lacznik-wzdluzny-60-x-110-mm-1-szt-norgips-2682631077","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|D09C4503-BAF4-43AE-A75D-C7A89B98C9B0|1/%C5%81%C4%85cznik%20wzd%C5%82u%C5%BCny%20%2060%20x%20110%20mm%201%20szt.%20Norgips.webp"},
+
   // source: https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html
   {"ids":["mat-gypsum-norgips-start-finish-20kg"],"ean":"5907651699056","sourceUrl":"https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html","imageUrl":"https://marbet24.pl/6085-home_default/norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg.jpg"},
   // source: https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html

@@ -23,7 +23,7 @@ function confirmedCart(raw: string, expected: Map<number, Expected>, subtotal: n
   const seen = new Set<number>(); let sum = 0;
   for (const row of positions) {
     const wanted = expected.get(row.csItemsId);
-    if (!wanted || seen.has(row.csItemsId) || row.csItemsUnitsId !== wanted.unitId || row.quantityUnits !== wanted.count || row.unit !== 'szt' || row.itemDesc !== wanted.name || row.menuPath !== wanted.path || row.isStock !== 1 || row.discount !== 0 || money(row.cUnitPrice) !== wanted.price || money(row.cUnitPriceADis) !== wanted.price || money(row.cGAmount) !== wanted.price * wanted.count) throw Error('basket_not_confirmed');
+    if (!wanted || seen.has(row.csItemsId) || row.csItemsUnitsId !== wanted.unitId || row.quantityUnits !== wanted.count || row.unit !== 'szt' || typeof row.itemDesc !== 'string' || row.itemDesc.trim().replace(/\s+/g,' ') !== wanted.name.trim().replace(/\s+/g,' ') || row.menuPath !== wanted.path || row.isStock !== 1 || row.discount !== 0 || money(row.cUnitPrice) !== wanted.price || money(row.cUnitPriceADis) !== wanted.price || money(row.cGAmount) !== wanted.price * wanted.count) throw Error('basket_not_confirmed');
     seen.add(row.csItemsId); sum += wanted.price * wanted.count;
   }
   const header = headers[0];

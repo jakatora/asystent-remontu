@@ -56,20 +56,21 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
 
 // Only established branch networks may be searched by location. A generic
 // online shop name can otherwise resolve to an unrelated local business.
-// source: https://www.castorama.pl/find-a-store
+// source: https://www.castorama.pl/informacje/sklepy
 // source: https://www.obi.pl/stores
 // source: https://mrowka.com.pl/sklepy-psb-mrowka
 // source: https://www.bricoman.pl/regulamin-zakupow.html
 // source: https://sklep.sewera.pl/miejsca-odbioru
 // source: https://www.abud.pl/stocks.php
-const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera', 'ABUD']);
+// source: https://www.leroymerlin.pl/sklepy.html
+const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera', 'ABUD', 'Leroy Merlin']);
 
 export function supportsStoreMapSearch(store: string): boolean {
   return store === 'Bricomarché Poznań (Al. Solidarności)' || store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
 }
 
 export function storeLocatorUrl(store: string): string | null {
-  return new Map([['Castorama', 'https://www.castorama.pl/find-a-store'], ['OBI', 'https://www.obi.pl/stores'],
+  return new Map([['Castorama', 'https://www.castorama.pl/informacje/sklepy'], ['OBI', 'https://www.obi.pl/stores'], ['Leroy Merlin', 'https://www.leroymerlin.pl/sklepy.html'],
     ['Mrówka', 'https://mrowka.com.pl/sklepy-psb-mrowka'], ['Sewera', 'https://sklep.sewera.pl/miejsca-odbioru'], ['ABUD', 'https://www.abud.pl/stocks.php']]).get(store) ?? null;
 }
 

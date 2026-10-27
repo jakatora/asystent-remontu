@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T05:01:56.845Z",
-  "scope": "131 references,125 with offers,6 historical references unavailable. Four new exact products and five offers; Marbet pickup requires confirmation and shipping is not integrated, native zero ignored. Wool Sewera sample cart00-001 has no_home_delivery. Gypsum BOM now includes seven previously omitted net audit rows.79/237 priced rows,158 unpriced,11 fully priced MATERIAL scenarios. Missing rows are not distinct SKUs; tools/local stock/retailer delivery remain in the active goal.",
-  "total": 131,
-  "verifiedProducts": 125,
+  "checkedAt": "2026-10-27T06:01:48.742Z",
+  "scope": "140 references, 134 with offers in the production audit; 6 historical references unavailable. Nine exact accessories and ten offers added. Leroy operator prices expire after24h and are not automatic delivery or local stock. HIPPER actual whole-roll cart shipping confirmed.88/237 sample material rows priced,149 unpriced; not149 distinct SKUs, tools or confirmed delivery for all jobs.",
+  "total": 140,
+  "verifiedProducts": 134,
   "remaining": 6,
-  "offers": 159,
-  "stores": 39,
-  "productsWithPhotos": 131,
-  "registeredOffers": 161,
+  "offers": 169,
+  "stores": 40,
+  "productsWithPhotos": 140,
+  "registeredOffers": 171,
   "disabledOffers": 2,
   "rows": [
     {
@@ -548,7 +548,8 @@
       "ean": "5907651690442",
       "sourceIds": [
         "domat-board-gkb",
-        "marbet-norgips-board-gkb-2600"
+        "marbet-norgips-board-gkb-2600",
+        "leroy-norgips-board-gkb-2600"
       ],
       "inactiveSources": [
         {
@@ -2824,6 +2825,198 @@
           "reason": "no_home_delivery"
         }
       ]
+    },
+    {
+      "id": "mat-gypsum-paper-norgips-50x75",
+      "name": "Taśma papierowa Norgips 50 mm × 75 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html",
+      "status": "verified_offer",
+      "ean": "5907651699933",
+      "sourceIds": [
+        "leroy-norgips-paper-50x75"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2629682/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-paper-50x75",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-gypsum-acoustic-norgips-50x30",
+      "name": "Taśma uszczelniająca Norgips 50 mm × 30 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html",
+      "status": "verified_offer",
+      "ean": "5907651698004",
+      "sourceIds": [
+        "leroy-norgips-acoustic-50x30"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2631597/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-acoustic-50x30",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-gypsum-acoustic-norgips-30x30",
+      "name": "Taśma uszczelniająca Norgips 30 mm × 30 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html",
+      "status": "verified_offer",
+      "ean": "5907651698851",
+      "sourceIds": [
+        "leroy-norgips-acoustic-30x30"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2629693/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-acoustic-30x30",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-profile-cw50-norgips-06-3m-retail",
+      "name": "Profil Norgips CW 50, 0,6 mm, 3 m (EAN 8912)",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html",
+      "status": "verified_offer",
+      "ean": "5907651698912",
+      "sourceIds": [
+        "leroy-norgips-cw50-06-3m"
+      ],
+      "photoUrl": "https://media.adeo.com/media/3186925/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-cw50-06-3m",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-profile-uw50-norgips-super-06-3m",
+      "name": "Profil Norgips UW 50 Super, 0,6 mm, 3 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html",
+      "status": "verified_offer",
+      "ean": "5907651698547",
+      "sourceIds": [
+        "leroy-norgips-uw50-06-3m"
+      ],
+      "photoUrl": "https://media.adeo.com/media/3191881/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-uw50-06-3m",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-profile-ud30-norgips-06-3m",
+      "name": "Profil Norgips UD 30, 0,6 mm, 3 m (EAN 8905)",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
+      "status": "verified_offer",
+      "ean": "5907651698905",
+      "sourceIds": [
+        "leroy-norgips-ud30-06-3m"
+      ],
+      "photoUrl": "https://media.adeo.com/media/3196086/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-ud30-06-3m",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-gypsum-hanger-norgips-es6075",
+      "name": "Wieszak płaski Norgips ES 60/75, 1 szt.",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html",
+      "status": "verified_offer",
+      "ean": "5907651699650",
+      "sourceIds": [
+        "leroy-norgips-es6075"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2629673/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-es6075",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      }
+    },
+    {
+      "id": "mat-gypsum-fleece-norgips-50x25",
+      "name": "Taśma fizelinowa Norgips 50 mm × 25 m",
+      "referenceUrl": "https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570",
+      "status": "verified_offer",
+      "ean": "5907651699926",
+      "sourceIds": [
+        "hipper-norgips-fleece-50x25"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|1403C532-C046-4095-BC51-32C96B8A2610|1/Ta%C5%9Bma%20flizelinowa%20z%20w%C5%82%C3%B3kna%20szklanego%2050%20mm%20Norgips.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gypsum-longitudinal-norgips-cd60",
+      "name": "Łącznik wzdłużny Norgips CD 60, 60×110 mm, 1 szt.",
+      "referenceUrl": "https://hipper.pl/lacznik-wzdluzny-60-x-110-mm-1-szt-norgips-2682631077",
+      "status": "verified_offer",
+      "ean": "5907651699674",
+      "sourceIds": [
+        "hipper-norgips-longitudinal-cd60"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|D09C4503-BAF4-43AE-A75D-C7A89B98C9B0|1/%C5%81%C4%85cznik%20wzd%C5%82u%C5%BCny%20%2060%20x%20110%20mm%201%20szt.%20Norgips.webp",
+      "deliveryChecks": []
     }
   ],
   "automaticDeliveryStores": 21,

@@ -1,0 +1,554 @@
+{
+  "cart": {
+    "version": 1,
+    "url": "https://www.leroymerlin.pl/checkout/cart",
+    "capturedAt": "2026-10-27T05:39:56.843Z",
+    "axState": "container app-checkout-content\n\t\t\t\t53 heading Koszyk (10), Value: 1\n\t\t\t\t\t54 text Koszyk (10)\n\t\t\t\t55 content list\n\t\t\t\t\t56 container\n\t\t\t\t\t\t57 heading Produkty sprzedawane i wysyłane przez LEROY MERLIN, Value: 2\n\t\t\t\t\t\t\t58 text Produkty sprzedawane i wysyłane przez\n\t\t\t\t\t\t\t59 text LEROY MERLIN\n\t\t\t\t\t\t60 content list\n\t\t\t\t\t\t\t61 container\n\t\t\t\t\t\t\t\t62 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t63 link Description: Wybierz sklep, aby sprawdzić dostępność, Value: leroymerlin.pl/checkout/cart\n\t\t\t\t\t\t\t64 container\n\t\t\t\t\t\t\t\t65 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t66 text Dostępne dla niektórych produktów\n\t\t\t\t\t\t\t67 container\n\t\t\t\t\t\t\t\t68 text Dostawa do domu\n\t\t\t\t\t\t\t\t69 text Dostępne\n\t\t\t\t\t\t70 content list\n\t\t\t\t\t\t\t71 container\n\t\t\t\t\t\t\t\t72 link Description: Taśma papierowa 50mm 75 mb NORGIPS, Help: Nr ref., Value: leroymerlin.pl/produkty/tasma…\n\t\t\t\t\t\t\t\t73 link Description: Taśma papierowa 50mm 75 mb NORGIPS, Value: leroymerlin.pl/produkty/tasma…\n\t\t\t\t\t\t\t\t74 text Nr ref.  43912694\n\t\t\t\t\t\t\t\t75 button Usuń produkt Taśma papierowa 50mm 75 mb NORGIPS z mojego koszyka\n\t\t\t\t\t\t\t\t76 content list\n\t\t\t\t\t\t\t\t\t77 container\n\t\t\t\t\t\t\t\t\t\t78 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t79 container\n\t\t\t\t\t\t\t\t\t\t80 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t81 container\n\t\t\t\t\t\t\t\t\t\t82 text Dostawa do domu\n\t\t\t\t\t\t\t\t83 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: 9ca2a4dd-3bce-4a18-9bce-972fbc021f9d\n\t\t\t\t\t\t\t\t84 button Odłóż na bok produkt Taśma papierowa 50mm 75 mb NORGIPS\n\t\t\t\t\t\t\t\t\t85 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t86 text Odłóż na bok produkt Taśma papierowa 50mm 75 mb NORGIPS\n\t\t\t\t\t\t\t\t87 text 54.99 zł\n\t\t\t\t\t\t\t88 container\n\t\t\t\t\t\t\t\t89 link Description: Profil ścienny CW50 3 m.b. Super Norgips, Help: Nr ref., Value: leroymerlin.pl/produkty/profi…\n\t\t\t\t\t\t\t\t90 link Description: Profil ścienny CW50 3 m.b. Super Norgips, Value: leroymerlin.pl/produkty/profi…\n\t\t\t\t\t\t\t\t91 text Nr ref.  44604350\n\t\t\t\t\t\t\t\t92 button Usuń produkt Profil ścienny CW50 3 m.b. Super Norgips z mojego koszyka\n\t\t\t\t\t\t\t\t93 content list\n\t\t\t\t\t\t\t\t\t94 container\n\t\t\t\t\t\t\t\t\t\t95 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t96 container\n\t\t\t\t\t\t\t\t\t\t97 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t98 container\n\t\t\t\t\t\t\t\t\t\t99 text Dostawa do domu\n\t\t\t\t\t\t\t\t100 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: abeeb35e-6739-4fdb-a189-d9a4422846e8\n\t\t\t\t\t\t\t\t101 button Odłóż na bok produkt Profil ścienny CW50 3 m.b. Super Norgips\n\t\t\t\t\t\t\t\t\t102 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t103 text Odłóż na bok produkt Profil ścienny CW50 3 m.b. Super Norgips\n\t\t\t\t\t\t\t\t104 text 29.99 zł\n\t\t\t\t\t\t\t105 container\n\t\t\t\t\t\t\t\t106 link Description: Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS, Help: Nr ref., Value: leroymerlin.pl/produkty/tasma…\n\t\t\t\t\t\t\t\t107 link Description: Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS, Value: leroymerlin.pl/produkty/tasma…\n\t\t\t\t\t\t\t\t108 text Nr ref.  43912722\n\t\t\t\t\t\t\t\t109 button Usuń produkt Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS z mojego koszyka\n\t\t\t\t\t\t\t\t110 content list\n\t\t\t\t\t\t\t\t\t111 container\n\t\t\t\t\t\t\t\t\t\t112 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t113 container\n\t\t\t\t\t\t\t\t\t\t114 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t115 container\n\t\t\t\t\t\t\t\t\t\t116 text Dostawa do domu\n\t\t\t\t\t\t\t\t117 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: b8c9ef92-8dac-48e5-b5d7-14a91a3cafeb\n\t\t\t\t\t\t\t\t118 button Odłóż na bok produkt Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS\n\t\t\t\t\t\t\t\t\t119 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t120 text Odłóż na bok produkt Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS\n\t\t\t\t\t\t\t\t121 text 51.99 zł\n\t\t\t\t\t\t\t122 container\n\t\t\t\t\t\t\t\t123 link Description: Profil ścienny UW50 3 m.b. Super Norgips, Help: Nr ref., Value: leroymerlin.pl/produkty/profi…\n\t\t\t\t\t\t\t\t124 link Description: Profil ścienny UW50 3 m.b. Super Norgips, Value: leroymerlin.pl/produkty/profi…\n\t\t\t\t\t\t\t\t125 text Nr ref.  45191853\n\t\t\t\t\t\t\t\t126 button Usuń produkt Profil ścienny UW50 3 m.b. Super Norgips z mojego koszyka\n\t\t\t\t\t\t\t\t127 content list\n\t\t\t\t\t\t\t\t\t128 container\n\t\t\t\t\t\t\t\t\t\t129 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t130 container\n\t\t\t\t\t\t\t\t\t\t131 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t132 container\n\t\t\t\t\t\t\t\t\t\t133 text Dostawa do domu\n\t\t\t\t\t\t\t\t134 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: 6aad1c2d-1e6e-4173-9062-99a206dc2a75\n\t\t\t\t\t\t\t\t135 button Odłóż na bok produkt Profil ścienny UW50 3 m.b. Super Norgips\n\t\t\t\t\t\t\t\t\t136 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t137 text Odłóż na bok produkt Profil ścienny UW50 3 m.b. Super Norgips\n\t\t\t\t\t\t\t\t138 text 27.99 zł\n\t\t\t\t\t\t\t139 container\n\t\t\t\t\t\t\t\t140 link Description: Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS, Help: Nr ref., Value: leroymerlin.pl/produkty/tasma…\n\t\t\t\t\t\t\t\t141 link Description: Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS, Value: leroymerlin.pl/produkty/tasma…\n\t\t\t\t\t\t\t\t142 text Nr ref.  44420222\n\t\t\t\t\t\t\t\t143 button Usuń produkt Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS z mojego koszyka\n\t\t\t\t\t\t\t\t144 content list\n\t\t\t\t\t\t\t\t\t145 container\n\t\t\t\t\t\t\t\t\t\t146 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t147 container\n\t\t\t\t\t\t\t\t\t\t148 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t149 container\n\t\t\t\t\t\t\t\t\t\t150 text Dostawa do domu\n\t\t\t\t\t\t\t\t151 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: d99406f1-fae4-48cf-89ea-de99ea9a8d0e\n\t\t\t\t\t\t\t\t152 button Odłóż na bok produkt Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS\n\t\t\t\t\t\t\t\t\t153 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t154 text Odłóż na bok produkt Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS\n\t\t\t\t\t\t\t\t155 text 36.49 zł\n\t\t\t\t\t\t\t156 container\n\t\t\t\t\t\t\t\t157 link Description: Łącznik krzyżowy 60 x 60 mm NORGIPS, Help: Nr ref., Value: leroymerlin.pl/produkty/laczn…\n\t\t\t\t\t\t\t\t158 link Description: Łącznik krzyżowy 60 x 60 mm NORGIPS, Value: leroymerlin.pl/produkty/laczn…\n\t\t\t\t\t\t\t\t159 text Nr ref.  43912414\n\t\t\t\t\t\t\t\t160 button Usuń produkt Łącznik krzyżowy 60 x 60 mm NORGIPS z mojego koszyka\n\t\t\t\t\t\t\t\t161 content list\n\t\t\t\t\t\t\t\t\t162 container\n\t\t\t\t\t\t\t\t\t\t163 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t164 container\n\t\t\t\t\t\t\t\t\t\t165 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t166 container\n\t\t\t\t\t\t\t\t\t\t167 text Dostawa do domu\n\t\t\t\t\t\t\t\t168 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: f1a06681-4b12-4ffa-b25c-8f06cf665016\n\t\t\t\t\t\t\t\t169 button Odłóż na bok produkt Łącznik krzyżowy 60 x 60 mm NORGIPS\n\t\t\t\t\t\t\t\t\t170 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t171 text Odłóż na bok produkt Łącznik krzyżowy 60 x 60 mm NORGIPS\n\t\t\t\t\t\t\t\t172 text 2.19 zł\n\t\t\t\t\t\t\t173 container\n\t\t\t\t\t\t\t\t174 link Description: Wieszak płaski ES 60/75 mm NORGIPS, Help: Nr ref., Value: leroymerlin.pl/produkty/wiesz…\n\t\t\t\t\t\t\t\t175 link Description: Wieszak płaski ES 60/75 mm NORGIPS, Value: leroymerlin.pl/produkty/wiesz…\n\t\t\t\t\t\t\t\t176 text Nr ref.  43912435\n\t\t\t\t\t\t\t\t177 button Usuń produkt Wieszak płaski ES 60/75 mm NORGIPS z mojego koszyka\n\t\t\t\t\t\t\t\t178 content list\n\t\t\t\t\t\t\t\t\t179 container\n\t\t\t\t\t\t\t\t\t\t180 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t181 container\n\t\t\t\t\t\t\t\t\t\t182 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t183 container\n\t\t\t\t\t\t\t\t\t\t184 text Dostawa do domu\n\t\t\t\t\t\t\t\t185 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: 3a1c2967-f0e3-4dcc-9af0-8263e7dc1172\n\t\t\t\t\t\t\t\t186 button Odłóż na bok produkt Wieszak płaski ES 60/75 mm NORGIPS\n\t\t\t\t\t\t\t\t\t187 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t188 text Odłóż na bok produkt Wieszak płaski ES 60/75 mm NORGIPS\n\t\t\t\t\t\t\t\t189 text 1.99 zł\n\t\t\t\t\t\t\t190 container\n\t\t\t\t\t\t\t\t191 link Description: Łącznik wzdłużny 60 x 110 mm NORGIPS, Help: Nr ref., Value: leroymerlin.pl/produkty/laczn…\n\t\t\t\t\t\t\t\t192 link Description: Łącznik wzdłużny 60 x 110 mm NORGIPS, Value: leroymerlin.pl/produkty/laczn…\n\t\t\t\t\t\t\t\t193 text Nr ref.  43912603\n\t\t\t\t\t\t\t\t194 button Usuń produkt Łącznik wzdłużny 60 x 110 mm NORGIPS z mojego koszyka\n\t\t\t\t\t\t\t\t195 content list\n\t\t\t\t\t\t\t\t\t196 container\n\t\t\t\t\t\t\t\t\t\t197 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t198 container\n\t\t\t\t\t\t\t\t\t\t199 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t200 container\n\t\t\t\t\t\t\t\t\t\t201 text Dostawa do domu\n\t\t\t\t\t\t\t\t202 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: eac4b5a0-d11f-41bf-b613-0d3f28279393\n\t\t\t\t\t\t\t\t203 button Odłóż na bok produkt Łącznik wzdłużny 60 x 110 mm NORGIPS\n\t\t\t\t\t\t\t\t\t204 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t205 text Odłóż na bok produkt Łącznik wzdłużny 60 x 110 mm NORGIPS\n\t\t\t\t\t\t\t\t206 text 1.49 zł\n\t\t\t\t\t\t\t207 container\n\t\t\t\t\t\t\t\t208 link Description: Profil sufitowy UD30 3 m.b. Super Norgips, Help: Nr ref., Value: leroymerlin.pl/produkty/profi…\n\t\t\t\t\t\t\t\t209 link Description: Profil sufitowy UD30 3 m.b. Super Norgips, Value: leroymerlin.pl/produkty/profi…\n\t\t\t\t\t\t\t\t210 text Nr ref.  44604343\n\t\t\t\t\t\t\t\t211 button Usuń produkt Profil sufitowy UD30 3 m.b. Super Norgips z mojego koszyka\n\t\t\t\t\t\t\t\t212 content list\n\t\t\t\t\t\t\t\t\t213 container\n\t\t\t\t\t\t\t\t\t\t214 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t215 container\n\t\t\t\t\t\t\t\t\t\t216 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t217 container\n\t\t\t\t\t\t\t\t\t\t218 text Dostawa do domu\n\t\t\t\t\t\t\t\t219 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: 6a590a44-8b14-4194-b1c4-b80faf12c116\n\t\t\t\t\t\t\t\t220 button Odłóż na bok produkt Profil sufitowy UD30 3 m.b. Super Norgips\n\t\t\t\t\t\t\t\t\t221 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t222 text Odłóż na bok produkt Profil sufitowy UD30 3 m.b. Super Norgips\n\t\t\t\t\t\t\t\t223 text 11.19 zł\n\t\t\t\t\t\t\t224 container\n\t\t\t\t\t\t\t\t225 link Description: Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips, Help: Nr ref., Value: leroymerlin.pl/produkty/plyta…\n\t\t\t\t\t\t\t\t226 link Description: Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips, Value: leroymerlin.pl/produkty/plyta…\n\t\t\t\t\t\t\t\t227 text Nr ref.  41661683\n\t\t\t\t\t\t\t\t228 button Usuń produkt Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips z mojego koszyka\n\t\t\t\t\t\t\t\t229 content list\n\t\t\t\t\t\t\t\t\t230 container\n\t\t\t\t\t\t\t\t\t\t231 text Odbiór w sklepie\n\t\t\t\t\t\t\t\t\t232 container\n\t\t\t\t\t\t\t\t\t\t233 text Odbiór w punkcie\n\t\t\t\t\t\t\t\t\t234 container\n\t\t\t\t\t\t\t\t\t\t235 text Dostawa do domu\n\t\t\t\t\t\t\t\t236 stepper (settable, integer) Description: Wprowadź ilość, Value: 1, ID: 7f0f3ff6-e52e-47a4-b26e-45be1289c03d\n\t\t\t\t\t\t\t\t237 button Odłóż na bok produkt Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips\n\t\t\t\t\t\t\t\t\t238 text Przenieś do ulubionych\n\t\t\t\t\t\t\t\t\t239 text Odłóż na bok produkt Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips\n\t\t\t\t\t\t\t\t240 text 30.28 zł\n\t\t\t\t241 container\n\t\t\t\t\t242 container\n\t\t\t\t\t\t243 container Loyalty card icon\n\t\t\t\t\t\t244 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t\t245 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/login.html, ID: loyalty-displayer-login-btn-link\n\t\t\t\t\t246 heading Kod rabatowy, Value: 2\n\t\t\t\t\t\t247 button (collapsed) Kod rabatowy, ID: cart-promo-codes, Secondary Actions: Expand\n\t\t\t\t\t248 container\n\t\t\t\t\t\t249 text Wartość brutto 248.59 zł\n\t\t\t\t\t250 container\n\t\t\t\t\t\t251 text Koszt dostawy 197.99 zł\n\t\t\t\t\t252 container\n\t\t\t\t\t\t253 text Wartość netto 363.10 zł\n\t\t\t\t\t254 container\n\t\t\t\t\t\t255 text Do zapłaty 446.58 zł\n\t\t\t\t\t256 button Przejdź do wyboru dostawy\n\t\t\t\t\t257 text 100% bezpieczna płatność"
+  },
+  "products": [
+    {
+      "sourceId": "leroy-norgips-paper-50x75",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html",
+        "ean": "5907651699933",
+        "capturedAt": "2026-10-27T05:26:37.468Z",
+        "heading": "Taśma papierowa 50mm 75 mb NORGIPS",
+        "domHeading": "Taśma papierowa 50mm 75 mb NORGIPS",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"54.99\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/2629682/media.jpg\",\n  \"gtin\" : \"5907651699933\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-07-02\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Kuba\"\n    },\n    \"reviewBody\" : \"Oki\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-03-29\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Blondyn\"\n    },\n    \"reviewBody\" : \"Używam jej jako łączenie narożne przy karton-gipsach.\\r\\nNadaje się też do spoinowania płyt (zamiast flizeliny).\\r\\nJest idealna.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  } ],\n  \"name\" : \"Taśma papierowa 50mm 75 mb NORGIPS\",\n  \"description\" : \"Taśma papierowa służy do wzmocnienia połączeń płyt gipsowo-kartonowych w systemach suchej zabudowy. Polecana do wykonania połączeń oryginalnych (podłużnych) jaki i ciętych (poprzecznych). Taśmę należy wtapiać w wcześniej naniesioną na połączenie systemową masę konstrukcyjną.\",\n  \"sku\" : \"43912694\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"2\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"5.0\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Taśma"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Papier"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Szerokość (w mm)",
+              "50"
+            ],
+            [
+              "Długość (w m)",
+              "75"
+            ],
+            [
+              "Kolor",
+              "Beżowy"
+            ],
+            [
+              "Rodzaj opakowania",
+              "Szpula"
+            ],
+            [
+              "Samoprzylepna",
+              "Nie"
+            ]
+          ]
+        ],
+        "axState": "heading Taśma papierowa 50mm 75 mb NORGIPS 54,99 PLN, Value: 1, ID: product-name\n\t\t\t\t\t84 text Taśma papierowa 50mm 75 mb NORGIPS\n\t\t\t\t85 link Description: Zobacz szczegóły produktu Taśma papierowa 50mm 75 mb NORGIPS, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t86 link Description: Wynik: 5 na 5, na 2 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t87 heading 54,99 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t88 text 54,99 PLN\n\t\t\t\t89 text Sprzedany 54,99 zł za szt. tj. Sprzedany 0,73 zł za metr\n\t\t\t\t90 container\n\t\t\t\t\t91 text Ilość\n\t\t\t\t\t92 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t93 button Increase\n\t\t\t\t\t94 button (disabled) Decrease\n\t\t\t\t95 button Dodaj do koszyka\n\t\t\t\t96 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t97 container\n\t\t\t\t\t98 image Leroy Merlin\n\t\t\t\t\t99 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t100 container\n\t\t\t\t\t101 container Loyalty card icon\n\t\t\t\t\t102 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t103 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t104 text Dostępność i dostawa\n\t\t\t\t105 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t106 text Dostępność w sklepie\n\t\t\t\t107 content list\n\t\t\t\t\t108 button Wyświetl zapas w sklepach\n\t\t\t\t109 container\n\t\t\t\t\t110 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t111 text Odbiór w sklepie\n\t\t\t\t\t112 content list\n\t\t\t\t\t\t113 container\n\t\t\t\t\t\t\t114 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t115 button Odbiór w sklepie\n\t\t\t\t116 container\n\t\t\t\t\t117 heading Dostawa, Value: 2\n\t\t\t\t\t\t118 text Dostawa\n\t\t\t\t\t119 content list\n\t\t\t\t\t\t120 container\n\t\t\t\t\t\t\t121 text 3 dni robocze do punktu odbioru  od  9,99 zł\n\t\t\t\t\t\t122 container\n\t\t\t\t\t\t\t123 text 3 dni robocze do domu  od  8,99 zł\n\t\t\t\t\t\t124 container\n\t\t\t\t\t\t\t125 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t126 button Dostawa\n\t\t\t\t127 container\n\t\t\t\t\t128 link Sponsorowany\n\t\t\t\t\t\t129 text Sponsorowany\n\t\t\t\t\t130 link Description: Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS, Value: leroymerlin.pl/prod…\n\t\t\t\t\t131 container Note 4,5 sur 5\n\t\t\t\t\t132 text (10)\n\t\t\t\t\t133 image Leroy Merlin\n\t\t\t\t\t134 text  Sprzedawany przez  LEROY MERLIN Sprzedany 51,99 zł za szt. tj. Sprzedany 1,73 zł za metr\n\t\t\t\t135 container product-informations\n\t\t\t\t\t136 container rag-productdetail\n\t\t\t\t\t\t137 image Leroy Merlin\n\t\t\t\t\t\t138 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t139 container\n\t\t\t\t\t\t\t140 text field (settable) rag--999\n\t\t\t\t\t\t\t141 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t142 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t143 text Propozycje\n\t\t\t\t\t\t144 button Do czego służy ta taśma?\n\t\t\t\t\t\t145 button Jakie są wymiary tej taśmy?\n\t\t\t\t\t\t146 button Czy taśma jest samoprzylepna?\n\t\t\t\t\t\t147 button Jaki jest kraj produkcji tej taśmy?\n\t\t\t\t\t148 heading Cechy, Value: 3\n\t\t\t\t\t\t149 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t150 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t151 button Wymiary i waga w opakowaniu, ID: packagingAccordion\n\t\t\t\t\t152 heading Dokumenty, Value: 3\n\t\t\t\t\t\t153 button Dokumenty, ID: attachmentAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-acoustic-50x30",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html",
+        "ean": "5907651698004",
+        "capturedAt": "2026-10-27T05:31:18.531Z",
+        "heading": "Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS",
+        "domHeading": "Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"51.99\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/2631597/media.jpg\",\n  \"gtin\" : \"5907651698004\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-09-17\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Squeer\"\n    },\n    \"reviewBody\" : \"Taśma łatwa w użyciu, odklejenie papieru łatwe, ale trzeba uważać, aby równo naklejać.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-08-25\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Paweł\"\n    },\n    \"reviewBody\" : \"Taśma dobrej jakości.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-02-28\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Wiesław\"\n    },\n    \"reviewBody\" : \"Produkt zgodny z oczekiwaniem\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-09-21\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Patryk\"\n    },\n    \"reviewBody\" : \"Aby odkleić papier od taśmy to jakiś wyczyn. Strasznie to męczące i wydłuża nie potrzebnie pracę.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 1\n    }\n  }, {\n    \"datePublished\" : \"2025-09-07\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Mariusz\"\n    },\n    \"reviewBody\" : \"Produkt dobry\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  }, {\n    \"datePublished\" : \"2025-03-26\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Mania7955\"\n    },\n    \"reviewBody\" : \"Super sprawa do profili idealna\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2024-09-16\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Pj_41\"\n    },\n    \"reviewBody\" : \"Gryfno tejpa\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2024-08-09\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Darek\"\n    },\n    \"reviewBody\" : \"Ok.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  } ],\n  \"name\" : \"Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS\",\n  \"description\" : \"Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS. Taśma uszczelniająca (akustyczna) o szerokości dostosowanej do profili UD 30, CW i UW 50, CW i UW 75 oraz CW i UW 100. Wykorzystywana szczególnie w przegrodach, którym stawiane są wymogi akustyczne. Taśmy mogą służyć również do mocowania wieszaków ES lub kapeluszowych.\",\n  \"sku\" : \"43912722\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"10\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"4.5\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Taśma"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Polietylen"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Szerokość (w mm)",
+              "50"
+            ],
+            [
+              "Długość (w m)",
+              "30"
+            ],
+            [
+              "Kolor",
+              "Szary"
+            ],
+            [
+              "Rodzaj opakowania",
+              "Szpula"
+            ],
+            [
+              "Samoprzylepna",
+              "Tak"
+            ]
+          ]
+        ],
+        "axState": "heading Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS 51,99 PLN, Value: 1, ID: product-name\n\t\t\t\t\t88 text Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS\n\t\t\t\t89 link Description: Zobacz szczegóły produktu Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t90 link Description: Wynik: 4,5 na 5, na 10 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t91 heading 51,99 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t92 text 51,99 PLN\n\t\t\t\t93 text Sprzedany 51,99 zł za szt. tj. Sprzedany 1,73 zł za metr\n\t\t\t\t94 container component-productrelationscdp\n\t\t\t\t\t95 heading Warianty, Value: 2\n\t\t\t\t\t\t96 text Warianty\n\t\t\t\t\t97 button Szerokość (w mm) 50 + 2 Warianty\n\t\t\t\t\t\t98 text Szerokość (w mm)\n\t\t\t\t\t\t99 text 50\n\t\t\t\t\t\t100 text + 2 Warianty\n\t\t\t\t101 container\n\t\t\t\t\t102 text Ilość\n\t\t\t\t\t103 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t104 button Increase\n\t\t\t\t\t105 button (disabled) Decrease\n\t\t\t\t106 button Dodaj do koszyka\n\t\t\t\t107 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t108 container\n\t\t\t\t\t109 image Leroy Merlin\n\t\t\t\t\t110 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t111 container\n\t\t\t\t\t112 container Loyalty card icon\n\t\t\t\t\t113 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t114 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t115 text Dostępność i dostawa\n\t\t\t\t116 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t117 text Dostępność w sklepie\n\t\t\t\t118 content list\n\t\t\t\t\t119 button Wyświetl zapas w sklepach\n\t\t\t\t120 container\n\t\t\t\t\t121 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t122 text Odbiór w sklepie\n\t\t\t\t\t123 content list\n\t\t\t\t\t\t124 container\n\t\t\t\t\t\t\t125 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t126 button Odbiór w sklepie\n\t\t\t\t127 container\n\t\t\t\t\t128 heading Dostawa, Value: 2\n\t\t\t\t\t\t129 text Dostawa\n\t\t\t\t\t130 content list\n\t\t\t\t\t\t131 container\n\t\t\t\t\t\t\t132 text 3 dni robocze do punktu odbioru  od  9,99 zł\n\t\t\t\t\t\t133 container\n\t\t\t\t\t\t\t134 text 3 dni robocze do domu  od  8,99 zł\n\t\t\t\t\t\t135 container\n\t\t\t\t\t\t\t136 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t137 button Dostawa\n\t\t\t\t138 container\n\t\t\t\t\t139 link Sponsorowany\n\t\t\t\t\t\t140 text Sponsorowany\n\t\t\t\t\t141 link Description: Szybkosprawna masa do spoinowania płyt g-k ATLAS STR+ 20 kg, Value: leroymerlin.pl/prod…\n\t\t\t\t\t142 container Note 5 sur 5\n\t\t\t\t\t143 text (6)\n\t\t\t\t\t144 image Leroy Merlin\n\t\t\t\t\t145 text  Sprzedawany przez  LEROY MERLIN Sprzedany 115 zł za szt. tj. Sprzedany 5,75 zł za kg\n\t\t\t\t146 container product-informations\n\t\t\t\t\t147 container rag-productdetail\n\t\t\t\t\t\t148 image Leroy Merlin\n\t\t\t\t\t\t149 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t150 container\n\t\t\t\t\t\t\t151 text field (settable) rag--999\n\t\t\t\t\t\t\t152 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t153 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t154 text Propozycje\n\t\t\t\t\t\t155 button Do czego służy taśma?\n\t\t\t\t\t\t156 button Jaki jest główny materiał, z którego wykonana jest taśma?\n\t\t\t\t\t\t157 button Czy taśma jest samoprzylepna?\n\t\t\t\t\t158 heading Cechy, Value: 3\n\t\t\t\t\t\t159 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t160 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t161 button Wymiary i waga w opakowaniu, ID: packagingAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-acoustic-30x30",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html",
+        "ean": "5907651698851",
+        "capturedAt": "2026-10-27T05:32:45.547Z",
+        "heading": "Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS",
+        "domHeading": "Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"36.49\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/2629693/media.jpg\",\n  \"gtin\" : \"5907651698851\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-07-30\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Leszek\"\n    },\n    \"reviewBody\" : \"Taśma głusząca jest łatwa w użyciu. Taśma separująca łatwo się odkleja, a klej trzyma mocno po przyklejeniu. Polecam.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-07-18\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"zadowolony +-\"\n    },\n    \"reviewBody\" : \"Przykleja się do ściany idealnie, izoluje dobrze. Produkt używałem przy wylewce samopoziomującej.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-07-02\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Aszur\"\n    },\n    \"reviewBody\" : \"Spełnia swoje zadanie\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-06-08\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Klient\"\n    },\n    \"reviewBody\" : \"Dobra taśma, łatwa w montażu i dobrze spełnia swoją funkcję. Przydatna przy uszczelnianiu i wygłuszaniu. Polecam.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  }, {\n    \"datePublished\" : \"2026-03-30\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Krzysztof\"\n    },\n    \"reviewBody\" : \"Klei nawet do brudnej powierzchni. Nie odpada.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-03-23\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Cadi\"\n    },\n    \"reviewBody\" : \"Już opisałem . \\r\\nProdukt spełnia zadanie.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-04-10\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"waldemar\"\n    },\n    \"reviewBody\" : \"dobrze uszczelnia\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-03-20\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Magda\"\n    },\n    \"reviewBody\" : \"Ok.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  } ],\n  \"name\" : \"Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS\",\n  \"description\" : \"Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS. Taśma uszczelniająca (akustyczna) o szerokości dostosowanej do profili UD 30, CW i UW 50, CW i UW 75 oraz CW i UW 100. Wykorzystywana szczególnie w przegrodach, którym stawiane są wymogi akustyczne. Taśmy mogą służyć również do mocowania wieszaków ES lub kapeluszowych.\",\n  \"sku\" : \"44420222\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"10\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"4.9\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Taśma"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Polietylen"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Szerokość (w mm)",
+              "30"
+            ],
+            [
+              "Długość (w m)",
+              "30"
+            ],
+            [
+              "Kolor",
+              "Szary"
+            ],
+            [
+              "Rodzaj opakowania",
+              "Szpula"
+            ],
+            [
+              "Samoprzylepna",
+              "Tak"
+            ]
+          ]
+        ],
+        "axState": "heading Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS 36,49 PLN, Value: 1, ID: product-name\n\t\t\t\t\t87 text Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS\n\t\t\t\t88 link Description: Zobacz szczegóły produktu Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t89 link Description: Wynik: 4,9 na 5, na 10 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t90 heading 36,49 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t91 text 36,49 PLN\n\t\t\t\t92 text Sprzedany 36,49 zł za szt. tj. Sprzedany 1,22 zł za metr\n\t\t\t\t93 container component-productrelationscdp\n\t\t\t\t\t94 heading Warianty, Value: 2\n\t\t\t\t\t\t95 text Warianty\n\t\t\t\t\t96 button Szerokość (w mm) 30 + 2 Warianty\n\t\t\t\t\t\t97 text Szerokość (w mm)\n\t\t\t\t\t\t98 text 30\n\t\t\t\t\t\t99 text + 2 Warianty\n\t\t\t\t100 container\n\t\t\t\t\t101 text Ilość\n\t\t\t\t\t102 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t103 button Increase\n\t\t\t\t\t104 button (disabled) Decrease\n\t\t\t\t105 button Dodaj do koszyka\n\t\t\t\t106 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t107 container\n\t\t\t\t\t108 image Leroy Merlin\n\t\t\t\t\t109 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t110 container\n\t\t\t\t\t111 container Loyalty card icon\n\t\t\t\t\t112 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t113 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t114 text Dostępność i dostawa\n\t\t\t\t115 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t116 text Dostępność w sklepie\n\t\t\t\t117 content list\n\t\t\t\t\t118 button Wyświetl zapas w sklepach\n\t\t\t\t119 container\n\t\t\t\t\t120 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t121 text Odbiór w sklepie\n\t\t\t\t\t122 content list\n\t\t\t\t\t\t123 container\n\t\t\t\t\t\t\t124 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t125 button Odbiór w sklepie\n\t\t\t\t126 container\n\t\t\t\t\t127 heading Dostawa, Value: 2\n\t\t\t\t\t\t128 text Dostawa\n\t\t\t\t\t129 content list\n\t\t\t\t\t\t130 container\n\t\t\t\t\t\t\t131 text 3 dni robocze do punktu odbioru  od  9,99 zł\n\t\t\t\t\t\t132 container\n\t\t\t\t\t\t\t133 text 3 dni robocze do domu  od  8,99 zł\n\t\t\t\t\t\t134 container\n\t\t\t\t\t\t\t135 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t136 button Dostawa\n\t\t\t\t137 container\n\t\t\t\t\t138 link Sponsorowany\n\t\t\t\t\t\t139 text Sponsorowany\n\t\t\t\t\t140 link Description: Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS, Value: leroymerlin.pl/prod…\n\t\t\t\t\t141 container Note 4,5 sur 5\n\t\t\t\t\t142 text (10)\n\t\t\t\t\t143 image Leroy Merlin\n\t\t\t\t\t144 text  Sprzedawany przez  LEROY MERLIN Sprzedany 51,99 zł za szt. tj. Sprzedany 1,73 zł za metr\n\t\t\t\t145 container product-informations\n\t\t\t\t\t146 container rag-productdetail\n\t\t\t\t\t\t147 image Leroy Merlin\n\t\t\t\t\t\t148 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t149 container\n\t\t\t\t\t\t\t150 text field (settable) rag--999\n\t\t\t\t\t\t\t151 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t152 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t153 text Propozycje\n\t\t\t\t\t\t154 button Do czego służy taśma uszczelniająca?\n\t\t\t\t\t\t155 button Jakie są wymiary taśmy?\n\t\t\t\t\t\t156 button Czy taśma jest samoprzylepna?\n\t\t\t\t\t157 heading Cechy, Value: 3\n\t\t\t\t\t\t158 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t159 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t160 button Wymiary i waga w opakowaniu, ID: packagingAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-cw50-06-3m",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html",
+        "ean": "5907651698912",
+        "capturedAt": "2026-10-27T05:28:33.766Z",
+        "heading": "Profil ścienny CW50 3 m.b. Super Norgips",
+        "domHeading": "Profil ścienny CW50 3 m.b. Super Norgips",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"29.99\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/3186925/media.png\",\n  \"gtin\" : \"5907651698912\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-08-25\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Pys\"\n    },\n    \"reviewBody\" : \"Oki\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-08-05\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"gbos73\"\n    },\n    \"reviewBody\" : \"Sztywny profil do zabudowy z blachy 0,6 [mm]\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2024-07-27\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"ASSA\"\n    },\n    \"reviewBody\" : \"Sztywne niczym pal Azji\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  } ],\n  \"name\" : \"Profil ścienny CW50 3 m.b. Super Norgips\",\n  \"description\" : \"Systemowy profil wzmocniony w procesie moletowania stosowany jako słupek w szkieletowej konstrukcji ścian działowych z płyt g-k. Stosowany w ścianach ogniochronnych.\",\n  \"sku\" : \"44604350\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"3\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"4.666666666666667\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Profil"
+            ],
+            [
+              "Długość (w m)",
+              "3"
+            ],
+            [
+              "Wysokość (w mm)",
+              "50"
+            ],
+            [
+              "Szerokość (w mm)",
+              "50"
+            ],
+            [
+              "Grubość (w mm)",
+              "0.6 ± 0.05"
+            ],
+            [
+              "Średnie zużycie na m²",
+              "1.8"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Stal"
+            ],
+            [
+              "Rodzina kolorów",
+              "Szary / srebrny"
+            ],
+            [
+              "Do sufitu podwieszonego",
+              "Nie"
+            ],
+            [
+              "Do betonu komórkowego",
+              "Nie"
+            ],
+            [
+              "Do płyty gipsowej",
+              "Tak"
+            ],
+            [
+              "Do płyt GK sufitowych",
+              "Nie"
+            ],
+            [
+              "Do płyt GK na ściany działowe",
+              "Tak"
+            ],
+            [
+              "Wykończenie produktu",
+              "Galwanizowany"
+            ],
+            [
+              "Waga netto (w kg)",
+              "1.7"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%)",
+              "0"
+            ]
+          ]
+        ],
+        "axState": "heading Profil ścienny CW50 3 m.b. Super Norgips 29,99 PLN, Value: 1, ID: product-name\n\t\t\t\t\t87 text Profil ścienny CW50 3 m.b. Super Norgips\n\t\t\t\t88 link Description: Zobacz szczegóły produktu Profil ścienny CW50 3 m.b. Super Norgips, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t89 link Description: Wynik: 4,7 na 5, na 3 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t90 heading 29,99 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t91 text 29,99 PLN\n\t\t\t\t92 text Sprzedany 29,99 zł za szt.\n\t\t\t\t93 container component-productrelationscdp\n\t\t\t\t\t94 heading Warianty, Value: 2\n\t\t\t\t\t\t95 text Warianty\n\t\t\t\t\t96 button Szerokość (w mm) 50 + 18 Wariantów\n\t\t\t\t\t\t97 text Szerokość (w mm)\n\t\t\t\t\t\t98 text 50\n\t\t\t\t\t\t99 text + 18 Wariantów\n\t\t\t\t\t100 button Długość (w m) 3 + 8 Wariantów\n\t\t\t\t\t\t101 text Długość (w m)\n\t\t\t\t\t\t102 text 3\n\t\t\t\t\t\t103 text + 8 Wariantów\n\t\t\t\t104 container\n\t\t\t\t\t105 text Ilość\n\t\t\t\t\t106 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t107 button Increase\n\t\t\t\t\t108 button (disabled) Decrease\n\t\t\t\t109 button Dodaj do koszyka\n\t\t\t\t110 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t111 container\n\t\t\t\t\t112 image Leroy Merlin\n\t\t\t\t\t113 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t114 container\n\t\t\t\t\t115 container Loyalty card icon\n\t\t\t\t\t116 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t117 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t118 text Dostępność i dostawa\n\t\t\t\t119 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t120 text Dostępność w sklepie\n\t\t\t\t121 content list\n\t\t\t\t\t122 button Wyświetl zapas w sklepach\n\t\t\t\t123 container\n\t\t\t\t\t124 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t125 text Odbiór w sklepie\n\t\t\t\t\t126 content list\n\t\t\t\t\t\t127 container\n\t\t\t\t\t\t\t128 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t129 button Odbiór w sklepie\n\t\t\t\t130 container\n\t\t\t\t\t131 heading Dostawa, Value: 2\n\t\t\t\t\t\t132 text Dostawa\n\t\t\t\t\t133 content list\n\t\t\t\t\t\t134 container\n\t\t\t\t\t\t\t135 text 3 dni robocze do domu  od  99 zł\n\t\t\t\t\t\t136 container\n\t\t\t\t\t\t\t137 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t138 button Dostawa\n\t\t\t\t139 container\n\t\t\t\t\t140 link Sponsorowany\n\t\t\t\t\t\t141 text Sponsorowany\n\t\t\t\t\t142 link Description: Płyta meblowa wiórowa laminowana Dąb Biszkopt 18 mm 207x280 cm 5,796 m2, Value: leroymerlin.pl/prod…\n\t\t\t\t\t143 container Note 4,3 sur 5\n\t\t\t\t\t144 text (6)\n\t\t\t\t\t145 image Leroy Merlin\n\t\t\t\t\t146 text  Sprzedawany przez  LEROY MERLIN Sprzedany 61,49 zł za m² tj. Sprzedany 61,49 zł za m²\n\t\t\t\t147 container product-informations\n\t\t\t\t\t148 container rag-productdetail\n\t\t\t\t\t\t149 image Leroy Merlin\n\t\t\t\t\t\t150 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t151 container\n\t\t\t\t\t\t\t152 text field (settable) rag--999\n\t\t\t\t\t\t\t153 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t154 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t155 text Propozycje\n\t\t\t\t\t\t156 button Do jakich typów ścian mogę zastosować ten profil?\n\t\t\t\t\t\t157 button Czy ten profil nadaje się do montażu sufitów podwieszanych?\n\t\t\t\t\t\t158 button Jaka jest grubość ścianki profilu?\n\t\t\t\t\t159 heading Cechy, Value: 3\n\t\t\t\t\t\t160 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t161 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t162 button Wymiary i waga w opakowaniu, ID: packagingAccordion\n\t\t\t\t\t163 heading Dokumenty, Value: 3\n\t\t\t\t\t\t164 button Dokumenty, ID: attachmentAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-uw50-06-3m",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html",
+        "ean": "5907651698547",
+        "capturedAt": "2026-10-27T05:32:38.459Z",
+        "heading": "Profil ścienny UW50 3 m.b. Super Norgips",
+        "domHeading": "Profil ścienny UW50 3 m.b. Super Norgips",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"27.99\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/3191881/media.png\",\n  \"gtin\" : \"5907651698547\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-06-30\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"olga\"\n    },\n    \"reviewBody\" : \"super\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2022-08-10\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Konrad\"\n    },\n    \"reviewBody\" : \"Jedne z najlepszych na rynku.  Mocne i solidne. Robię na nich jak tylko mam jakiegoś Leroya w pobliżu.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  } ],\n  \"name\" : \"Profil ścienny UW50 3 m.b. Super Norgips\",\n  \"description\" : \"Systemowy profil wzmocniony w procesie moletowania stosowany jako profil poziomy w szkieletowej konstrukcji ścian działowych z płyt g-k. Stosowany w ścianach ogniochronnych.\",\n  \"sku\" : \"45191853\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"2\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"5.0\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Profil"
+            ],
+            [
+              "Długość (w m)",
+              "3"
+            ],
+            [
+              "Wysokość (w mm)",
+              "40"
+            ],
+            [
+              "Szerokość (w mm)",
+              "50"
+            ],
+            [
+              "Grubość (w mm)",
+              "0.6 ± 0.05"
+            ],
+            [
+              "Średnie zużycie na m²",
+              "0.8"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Stal"
+            ],
+            [
+              "Rodzina kolorów",
+              "Szary / srebrny"
+            ],
+            [
+              "Do sufitu podwieszonego",
+              "Nie"
+            ],
+            [
+              "Do betonu komórkowego",
+              "Nie"
+            ],
+            [
+              "Do płyty gipsowej",
+              "Tak"
+            ],
+            [
+              "Do płyt GK sufitowych",
+              "Nie"
+            ],
+            [
+              "Do płyt GK na ściany działowe",
+              "Tak"
+            ],
+            [
+              "Wykończenie produktu",
+              "Galwanizowany"
+            ],
+            [
+              "Waga netto (w kg)",
+              "1.5"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%)",
+              "0"
+            ]
+          ]
+        ],
+        "axState": "heading Profil ścienny UW50 3 m.b. Super Norgips 27,99 PLN, Value: 1, ID: product-name\n\t\t\t\t\t87 text Profil ścienny UW50 3 m.b. Super Norgips\n\t\t\t\t88 link Description: Zobacz szczegóły produktu Profil ścienny UW50 3 m.b. Super Norgips, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t89 link Description: Wynik: 5 na 5, na 2 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t90 heading 27,99 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t91 text 27,99 PLN\n\t\t\t\t92 text Sprzedany 27,99 zł za szt.\n\t\t\t\t93 container component-productrelationscdp\n\t\t\t\t\t94 heading Warianty, Value: 2\n\t\t\t\t\t\t95 text Warianty\n\t\t\t\t\t96 button Szerokość (w mm) 50 + 18 Wariantów\n\t\t\t\t\t\t97 text Szerokość (w mm)\n\t\t\t\t\t\t98 text 50\n\t\t\t\t\t\t99 text + 18 Wariantów\n\t\t\t\t\t100 button Długość (w m) 3 + 8 Wariantów\n\t\t\t\t\t\t101 text Długość (w m)\n\t\t\t\t\t\t102 text 3\n\t\t\t\t\t\t103 text + 8 Wariantów\n\t\t\t\t104 container\n\t\t\t\t\t105 text Ilość\n\t\t\t\t\t106 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t107 button Increase\n\t\t\t\t\t108 button (disabled) Decrease\n\t\t\t\t109 button Dodaj do koszyka\n\t\t\t\t110 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t111 container\n\t\t\t\t\t112 image Leroy Merlin\n\t\t\t\t\t113 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t114 container\n\t\t\t\t\t343 container Loyalty card icon\n\t\t\t\t\t344 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t116 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t117 text Dostępność i dostawa\n\t\t\t\t118 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t119 text Dostępność w sklepie\n\t\t\t\t120 content list\n\t\t\t\t\t121 button Wyświetl zapas w sklepach\n\t\t\t\t122 container\n\t\t\t\t\t123 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t124 text Odbiór w sklepie\n\t\t\t\t\t125 content list\n\t\t\t\t\t\t126 container\n\t\t\t\t\t\t\t127 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t128 button Odbiór w sklepie\n\t\t\t\t129 container\n\t\t\t\t\t130 heading Dostawa, Value: 2\n\t\t\t\t\t\t131 text Dostawa\n\t\t\t\t\t132 content list\n\t\t\t\t\t\t133 container\n\t\t\t\t\t\t\t134 text 3 dni robocze do domu  od  99 zł\n\t\t\t\t\t\t135 container\n\t\t\t\t\t\t\t136 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t137 button Dostawa\n\t\t\t\t138 container\n\t\t\t\t\t139 link Sponsorowany\n\t\t\t\t\t\t140 text Sponsorowany\n\t\t\t\t\t141 link Description: Profil sufitowy UD30 3 m.b. Super Norgips, Value: leroymerlin.pl/prod…\n\t\t\t\t\t142 container Note 5 sur 5\n\t\t\t\t\t143 text (6)\n\t\t\t\t\t144 image Leroy Merlin\n\t\t\t\t\t145 text  Sprzedawany przez  LEROY MERLIN Sprzedany 11,19 zł za szt.\n\t\t\t\t146 container product-informations\n\t\t\t\t\t147 container rag-productdetail\n\t\t\t\t\t\t148 image Leroy Merlin\n\t\t\t\t\t\t149 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t150 container\n\t\t\t\t\t\t\t151 text field (settable) rag--999\n\t\t\t\t\t\t\t152 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t153 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t154 text Propozycje\n\t\t\t\t\t\t155 button Do jakich typów ścian mogę zastosować ten profil?\n\t\t\t\t\t\t156 button Czy ten profil nadaje się do ścian ogniochronnych?\n\t\t\t\t\t\t157 button Jaka jest grubość materiału, z którego wykonany jest profil?\n\t\t\t\t\t158 heading Cechy, Value: 3\n\t\t\t\t\t\t159 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t160 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t161 button Wymiary i waga w opakowaniu, ID: packagingAccordion\n\t\t\t\t\t162 heading Dokumenty, Value: 3\n\t\t\t\t\t\t163 button Dokumenty, ID: attachmentAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-ud30-06-3m",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
+        "ean": "5907651698905",
+        "capturedAt": "2026-10-27T05:37:28.390Z",
+        "heading": "Profil sufitowy UD30 3 m.b. Super Norgips",
+        "domHeading": "Profil sufitowy UD30 3 m.b. Super Norgips",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"11.19\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/3196086/media.png\",\n  \"gtin\" : \"5907651698905\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-09-04\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Jarek\"\n    },\n    \"reviewBody\" : \"Profesjonalny profil duża wytrzymałość\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-05-31\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Koczur\"\n    },\n    \"reviewBody\" : \"Solidny materiał\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-03-26\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"tom\"\n    },\n    \"reviewBody\" : \"mocny i dobrze zabezpieczony\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-02-24\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"MarcinSzn\"\n    },\n    \"reviewBody\" : \"Świetnie wykonany, silny profil\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-05-14\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"pawlas\"\n    },\n    \"reviewBody\" : \"Super profil z grubszej blachy 0,6 mm\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-03-16\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Rafał\"\n    },\n    \"reviewBody\" : \"Doskonały profil\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  } ],\n  \"name\" : \"Profil sufitowy UD30 3 m.b. Super Norgips\",\n  \"description\" : \"Systemowy profil wzmocniony w procesie moletowania stosowany jako profil przyścienny w szkieletowej konstrukcji sufitów podwieszanych, okładzin sufitowych i ściennych oraz zabudowy poddaszy z płyt g-k. Stosowany w przegrodach ogniochronnych.\",\n  \"sku\" : \"44604343\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"6\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"5.0\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Profil"
+            ],
+            [
+              "Długość (w m)",
+              "3"
+            ],
+            [
+              "Wysokość (w mm)",
+              "30"
+            ],
+            [
+              "Szerokość (w mm)",
+              "30"
+            ],
+            [
+              "Grubość (w mm)",
+              "0.6 ± 0.05"
+            ],
+            [
+              "Średnie zużycie na m²",
+              "0.3 - 0.8"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Stal"
+            ],
+            [
+              "Rodzina kolorów",
+              "Biały"
+            ],
+            [
+              "Do sufitu podwieszonego",
+              "Tak"
+            ],
+            [
+              "Do betonu komórkowego",
+              "Nie"
+            ],
+            [
+              "Do płyty gipsowej",
+              "Tak"
+            ],
+            [
+              "Do płyt GK sufitowych",
+              "Tak"
+            ],
+            [
+              "Do płyt GK na ściany działowe",
+              "Nie"
+            ],
+            [
+              "Wykończenie produktu",
+              "Galwanizowany"
+            ],
+            [
+              "Waga netto (w kg)",
+              "0.968"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%)",
+              "0"
+            ]
+          ]
+        ],
+        "axState": "heading Profil sufitowy UD30 3 m.b. Super Norgips 11,19 PLN, Value: 1, ID: product-name\n\t\t\t\t\t87 text Profil sufitowy UD30 3 m.b. Super Norgips\n\t\t\t\t88 link Description: Zobacz szczegóły produktu Profil sufitowy UD30 3 m.b. Super Norgips, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t89 link Description: Wynik: 5 na 5, na 6 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t90 heading 11,19 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t91 text 11,19 PLN\n\t\t\t\t92 text Sprzedany 11,19 zł za szt.\n\t\t\t\t93 container component-productrelationscdp\n\t\t\t\t\t94 heading Warianty, Value: 2\n\t\t\t\t\t\t95 text Warianty\n\t\t\t\t\t96 button Szerokość (w mm) 30 + 18 Wariantów\n\t\t\t\t\t\t97 text Szerokość (w mm)\n\t\t\t\t\t\t98 text 30\n\t\t\t\t\t\t99 text + 18 Wariantów\n\t\t\t\t\t100 button Długość (w m) 3 + 5 Wariantów\n\t\t\t\t\t\t101 text Długość (w m)\n\t\t\t\t\t\t102 text 3\n\t\t\t\t\t\t103 text + 5 Wariantów\n\t\t\t\t104 container\n\t\t\t\t\t105 text Ilość\n\t\t\t\t\t106 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t107 button Increase\n\t\t\t\t\t108 button (disabled) Decrease\n\t\t\t\t109 button Dodaj do koszyka\n\t\t\t\t110 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t111 container\n\t\t\t\t\t112 image Leroy Merlin\n\t\t\t\t\t113 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t114 container\n\t\t\t\t\t342 container Loyalty card icon\n\t\t\t\t\t343 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t116 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t117 text Dostępność i dostawa\n\t\t\t\t118 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t119 text Dostępność w sklepie\n\t\t\t\t120 content list\n\t\t\t\t\t121 button Wyświetl zapas w sklepach\n\t\t\t\t122 container\n\t\t\t\t\t123 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t124 text Odbiór w sklepie\n\t\t\t\t\t125 content list\n\t\t\t\t\t\t126 container\n\t\t\t\t\t\t\t127 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t128 button Odbiór w sklepie\n\t\t\t\t129 container\n\t\t\t\t\t130 heading Dostawa, Value: 2\n\t\t\t\t\t\t131 text Dostawa\n\t\t\t\t\t132 content list\n\t\t\t\t\t\t133 container\n\t\t\t\t\t\t\t134 text 3 dni robocze do domu  od  99 zł\n\t\t\t\t\t\t135 container\n\t\t\t\t\t\t\t136 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t137 button Dostawa\n\t\t\t\t138 container\n\t\t\t\t\t139 link Sponsorowany\n\t\t\t\t\t\t140 text Sponsorowany\n\t\t\t\t\t141 link Description: Płyta meblowa wiórowa laminowana Dąb Odwieczny 18 mm 207x280 cm 5,796 m2, Value: leroymerlin.pl/prod…\n\t\t\t\t\t142 container Note 5 sur 5\n\t\t\t\t\t143 text (4)\n\t\t\t\t\t144 image Leroy Merlin\n\t\t\t\t\t145 text  Sprzedawany przez  LEROY MERLIN Sprzedany 58,49 zł za m² tj. Sprzedany 58,49 zł za m²\n\t\t\t\t146 container product-informations\n\t\t\t\t\t147 container rag-productdetail\n\t\t\t\t\t\t148 image Leroy Merlin\n\t\t\t\t\t\t149 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t150 container\n\t\t\t\t\t\t\t151 text field (settable) rag--999\n\t\t\t\t\t\t\t152 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t153 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t344 text Propozycje\n\t\t\t\t\t\t154 button Do jakich rodzajów zabudowy mogę użyć tego profilu?\n\t\t\t\t\t\t155 button Czy ten profil nadaje się do montażu na ścianach działowych?\n\t\t\t\t\t\t156 button Jaka jest grubość materiału, z którego wykonany jest profil?\n\t\t\t\t\t157 heading Cechy, Value: 3\n\t\t\t\t\t\t158 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t159 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t160 button Wymiary i waga w opakowaniu, ID: packagingAccordion\n\t\t\t\t\t161 heading Dokumenty, Value: 3\n\t\t\t\t\t\t162 button Dokumenty, ID: attachmentAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-es6075",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html",
+        "ean": "5907651699650",
+        "capturedAt": "2026-10-27T05:33:44.656Z",
+        "heading": "Wieszak płaski ES 60/75 mm NORGIPS",
+        "domHeading": "Wieszak płaski ES 60/75 mm NORGIPS",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"1.99\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/2629673/media.jpg\",\n  \"gtin\" : \"5907651699650\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-09-13\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Straciłem pieniądze\"\n    },\n    \"reviewBody\" : \"Spoko\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-03-11\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Anita\"\n    },\n    \"reviewBody\" : \"Super\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-01-26\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Zdzisław\"\n    },\n    \"reviewBody\" : \"Spełnił moje oczekiwania w zupełności\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2025-12-11\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Daniel\"\n    },\n    \"reviewBody\" : \"Produkt spalił moje oczekiwania\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  }, {\n    \"datePublished\" : \"2023-11-14\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Wojciech\"\n    },\n    \"reviewBody\" : \"Otwory montażowe sa za male i trzeba nawiercać by weszły kołki stalowe 6mm. Nie polecam\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 2\n    }\n  } ],\n  \"name\" : \"Wieszak płaski ES 60/75 mm NORGIPS\",\n  \"description\" : \"Wieszak do mocowania profili CD 60. Stosowany w okładzinach ściennych, okładzinach sufitowych, sufitach podwieszanych oraz zabudowie poddaszy. Do łączenia z profilem CD 60 stosuje się 4 blachowkręty Norgips 3,5 x 9,5 mm z końcówką samowiercącą.\",\n  \"sku\" : \"43912435\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"5\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"4.2\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Wieszak do sufitu"
+            ],
+            [
+              "Typ osprzętu",
+              "Wieszak"
+            ],
+            [
+              "Przeznaczenie",
+              "Sufit"
+            ],
+            [
+              "Model produktu",
+              "ES 60/75 MM"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Stal"
+            ],
+            [
+              "Szerokość (w mm)",
+              "30"
+            ],
+            [
+              "Długość (w mm)",
+              "75"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Waga netto (w kg)",
+              "0.02"
+            ],
+            [
+              "Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%)",
+              "0"
+            ]
+          ]
+        ],
+        "axState": "heading Wieszak płaski ES 60/75 mm NORGIPS 1,99 PLN, Value: 1, ID: product-name\n\t\t\t\t\t99 text Wieszak płaski ES 60/75 mm NORGIPS\n\t\t\t\t100 link Description: Zobacz szczegóły produktu Wieszak płaski ES 60/75 mm NORGIPS, Value: leroymerlin.pl/prod…, ID: a11y-link-see-product-details\n\t\t\t\t101 link Description: Wynik: 4,2 na 5, na 5 opinii, Value: leroymerlin.pl/prod…\n\t\t\t\t102 heading 1,99 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t103 text 1,99 PLN\n\t\t\t\t104 text Sprzedany 1,99 zł za szt.\n\t\t\t\t105 container component-productrelationscdp\n\t\t\t\t\t106 heading Warianty, Value: 2\n\t\t\t\t\t\t107 text Warianty\n\t\t\t\t\t108 button Długość (w mm) 75 + 4 Warianty\n\t\t\t\t\t\t109 text Długość (w mm)\n\t\t\t\t\t\t110 text 75\n\t\t\t\t\t\t111 text + 4 Warianty\n\t\t\t\t112 container\n\t\t\t\t\t113 text Ilość\n\t\t\t\t\t114 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t115 button Increase\n\t\t\t\t\t116 button (disabled) Decrease\n\t\t\t\t117 button Dodaj do koszyka\n\t\t\t\t118 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t119 container\n\t\t\t\t\t120 image Leroy Merlin\n\t\t\t\t\t121 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t122 container\n\t\t\t\t\t123 container Loyalty card icon\n\t\t\t\t\t124 text Dołącz do Klubu! : Sprawdź, jakie korzyści, rabaty oraz promocje czekają na uczestników Klubu.\n\t\t\t\t\t125 link Description: Sign in to access your loyalty program, Value: leroymerlin.pl/logi…, ID: loyalty-displayer-login-btn-link\n\t\t\t\t126 text Dostępność i dostawa\n\t\t\t\t127 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t128 text Dostępność w sklepie\n\t\t\t\t129 content list\n\t\t\t\t\t130 button Wyświetl zapas w sklepach\n\t\t\t\t131 container\n\t\t\t\t\t132 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t133 text Odbiór w sklepie\n\t\t\t\t\t134 content list\n\t\t\t\t\t\t135 container\n\t\t\t\t\t\t\t136 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t137 button Odbiór w sklepie\n\t\t\t\t138 container\n\t\t\t\t\t139 heading Dostawa, Value: 2\n\t\t\t\t\t\t140 text Dostawa\n\t\t\t\t\t141 content list\n\t\t\t\t\t\t142 container\n\t\t\t\t\t\t\t143 text 3 dni robocze do punktu odbioru  od  9,99 zł\n\t\t\t\t\t\t144 container\n\t\t\t\t\t\t\t145 text 3 dni robocze do domu  od  8,99 zł\n\t\t\t\t\t\t146 container\n\t\t\t\t\t\t\t147 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t148 button Dostawa\n\t\t\t\t149 container\n\t\t\t\t\t150 link Sponsorowany\n\t\t\t\t\t\t151 text Sponsorowany\n\t\t\t\t\t152 link Description: Profil sufitowy UD30 3 m.b. Super Norgips, Value: leroymerlin.pl/prod…\n\t\t\t\t\t153 container Note 5 sur 5\n\t\t\t\t\t154 text (6)\n\t\t\t\t\t155 image Leroy Merlin\n\t\t\t\t\t156 text  Sprzedawany przez  LEROY MERLIN Sprzedany 11,19 zł za szt.\n\t\t\t\t157 container product-informations\n\t\t\t\t\t158 container rag-productdetail\n\t\t\t\t\t\t159 image Leroy Merlin\n\t\t\t\t\t\t160 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t161 container\n\t\t\t\t\t\t\t162 text field (settable) rag--999\n\t\t\t\t\t\t\t163 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t164 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t165 text Propozycje\n\t\t\t\t\t\t166 button Do jakich profili jest przeznaczony ten wieszak?\n\t\t\t\t\t\t167 button Jakie są wymiary tego wieszaka?\n\t\t\t\t\t\t168 button Z jakiego materiału jest wykonany?\n\t\t\t\t\t169 heading Cechy, Value: 3\n\t\t\t\t\t\t170 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t171 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t172 button Wymiary i waga w opakowaniu, ID: packagingAccordion\n\t\t\t\t\t173 heading Dokumenty, Value: 3\n\t\t\t\t\t\t174 button Dokumenty, ID: attachmentAccordion"
+      }
+    },
+    {
+      "sourceId": "leroy-norgips-board-gkb-2600",
+      "snapshot": {
+        "version": 1,
+        "url": "https://www.leroymerlin.pl/produkty/plyta-gipsowa-gkb-typ-a-2600-x-1200-x-12-5-mm-norgips-41661683.html",
+        "ean": "5907651690442",
+        "capturedAt": "2026-10-27T05:37:35.633Z",
+        "heading": "Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips",
+        "domHeading": "Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips",
+        "schemas": [
+          "\n      {\n  \"offers\" : {\n    \"priceCurrency\" : \"PLN\",\n    \"@type\" : \"Offer\",\n    \"price\" : \"30.28\",\n    \"availability\" : \"http://schema.org/OnlineOnly\",\n    \"url\" : \"https://www.leroymerlin.pl/produkty/plyta-gipsowa-gkb-typ-a-2600-x-1200-x-12-5-mm-norgips-41661683.html\",\n    \"itemCondition\" : \"NewCondition\"\n  },\n  \"image\" : \"https://media.adeo.com/media/4754081/media.png\",\n  \"gtin\" : \"5907651690442\",\n  \"@type\" : \"Product\",\n  \"review\" : [ {\n    \"datePublished\" : \"2026-10-08\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Grzegorz Skwarek\"\n    },\n    \"reviewBody\" : \"Wszystko Ok.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-10-06\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"ArturArtur\"\n    },\n    \"reviewBody\" : \"Bardzo dobry produkt.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-10-01\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"MATEUSZ\"\n    },\n    \"reviewBody\" : \"Spełnienia swoje przeznaczenie\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-09-27\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Sławo Mir\"\n    },\n    \"reviewBody\" : \"Płyta jak płyta , nie kruszyła się nie pękała więc myślę że osoby(a) montujące nie powinny być zawiedzione jakością produktu\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  }, {\n    \"datePublished\" : \"2026-09-25\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Andrzej\"\n    },\n    \"reviewBody\" : \"Ok.\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-09-24\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Andrzej\"\n    },\n    \"reviewBody\" : \"Dobry produkt\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 5\n    }\n  }, {\n    \"datePublished\" : \"2026-09-21\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Mariusz\"\n    },\n    \"reviewBody\" : \"Mogłaby być troszkę lepsza papier się troszeczkę rwie ale nie jest źle\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  }, {\n    \"datePublished\" : \"2026-09-19\",\n    \"@type\" : \"Review\",\n    \"author\" : {\n      \"@type\" : \"Person\",\n      \"name\" : \"Viktoriam\"\n    },\n    \"reviewBody\" : \"Za mały procent wlukna w płycie\",\n    \"reviewRating\" : {\n      \"@type\" : \"Rating\",\n      \"ratingValue\" : 4\n    }\n  } ],\n  \"name\" : \"Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips\",\n  \"description\" : \"Płyta GKB Typ A 1200x2600x12,5 mm przeznaczona jest do stosowania w pomieszczeniach, w których wilgotność względna nie przekracza 70%. Posiada obłożoną kartonem i spłaszczoną dłuższą krawędź Norgips S oraz równo obciętą krawędź krótką. Płyta ta jest najczęściej stosowana w systemach suchej zabudowy wnętrz. Przy jej użyciu można wykonywać okładziny ścienne i sufitowe, ściany działowe i osłonowe, sufity podwieszane i zabudowy poddaszy. Krawędź Norgips S - krawędź spłaszczona. Krawędź ta daje możliwość u zyskania gładkiej powierzchni na połączeniu płyt g-k. Niewielkie spłaszczenie zmniejsza zużycie masy szpachlowej w spoinie. Połączenia z krawędzią Norgips S wymagają wzmocnienia taśmami zbrojącymi.\",\n  \"sku\" : \"41661683\",\n  \"aggregateRating\" : {\n    \"reviewCount\" : \"135\",\n    \"@type\" : \"aggregateRating\",\n    \"ratingValue\" : \"4.807407407407408\"\n  },\n  \"@context\" : \"http://schema.org\",\n  \"brand\" : {\n    \"@type\" : \"Brand\",\n    \"name\" : \"NORGIPS\"\n  }\n}\n    "
+        ],
+        "tables": [
+          [
+            [
+              "Typ produktu",
+              "Płyta gipsowo-kartonowa"
+            ],
+            [
+              "Materiał główny w całkowitej masie produktu",
+              "Tynk"
+            ],
+            [
+              "Grubość (w mm)",
+              "12.5"
+            ],
+            [
+              "Powierzchnia pokryta przez produkt (w m²)",
+              "3.12"
+            ],
+            [
+              "Długość (w cm)",
+              "260"
+            ],
+            [
+              "Szerokość (w cm)",
+              "120"
+            ],
+            [
+              "Odporność na wysokie temperatury",
+              "Tak"
+            ],
+            [
+              "Pozwala na stosowanie dużych obciążeń",
+              "Nie"
+            ],
+            [
+              "Rodzina kolorów",
+              "Szary / srebrny"
+            ],
+            [
+              "Marka produktu",
+              "NORGIPS"
+            ],
+            [
+              "Produkt wygłuszający (ograniczanie hałasu)",
+              "Tak"
+            ],
+            [
+              "Waga netto (w kg)",
+              "20.3"
+            ],
+            [
+              "Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%)",
+              "0"
+            ]
+          ]
+        ],
+        "axState": "heading Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips 30,28 PLN, Value: 1, ID: product-name\n\t\t\t\t\t97 text Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips\n\t\t\t\t98 link Description: Zobacz szczegóły produktu Płyta gipsowa GKB TYP A 2600 x 1200 x 12.5 mm Norgips, Value: leroymerlin.pl/produkty/plyta-gipsowa-g…, ID: a11y-link-see-product-details\n\t\t\t\t99 link Description: Wynik: 4,8 na 5, na 135 opinii, Value: leroymerlin.pl/produkty/plyta-gipsowa-g…\n\t\t\t\t100 heading 30,28 PLN, Value: 2, ID: a11y-product-detail-info\n\t\t\t\t\t101 text 30,28 PLN\n\t\t\t\t102 text Sprzedany 30,28 zł za szt. tj. Sprzedany 9,71 zł za m²\n\t\t\t\t103 container component-productrelationscdp\n\t\t\t\t\t104 heading Warianty, Value: 2\n\t\t\t\t\t\t105 text Warianty\n\t\t\t\t\t106 button Grubość (w mm) 12.5 + 5 Wariantów\n\t\t\t\t\t\t107 text Grubość (w mm)\n\t\t\t\t\t\t108 text 12.5\n\t\t\t\t\t\t109 text + 5 Wariantów\n\t\t\t\t\t110 button Długość (w cm) 260 + 6 Wariantów\n\t\t\t\t\t\t111 text Długość (w cm)\n\t\t\t\t\t\t112 text 260\n\t\t\t\t\t\t113 text + 6 Wariantów\n\t\t\t\t\t114 button Szerokość (w cm) 120 + 3 Warianty\n\t\t\t\t\t\t115 text Szerokość (w cm)\n\t\t\t\t\t\t116 text 120\n\t\t\t\t\t\t117 text + 3 Warianty\n\t\t\t\t118 container\n\t\t\t\t\t119 text Ilość\n\t\t\t\t\t120 stepper (settable, integer) Ilość, Value: 1, ID: userQuantity--999\n\t\t\t\t\t121 button Increase\n\t\t\t\t\t122 button (disabled) Decrease\n\t\t\t\t123 button Dodaj do koszyka\n\t\t\t\t124 button Description: Dodaj do listy zakupów, ID: sl-product-detail-page\n\t\t\t\t125 container\n\t\t\t\t\t126 image Leroy Merlin\n\t\t\t\t\t127 text Sprzedawane i wysyłane przez  LEROY MERLIN\n\t\t\t\t128 text Dostępność i dostawa\n\t\t\t\t129 heading Dostępność w sklepie, Value: 2\n\t\t\t\t\t130 text Dostępność w sklepie\n\t\t\t\t131 content list\n\t\t\t\t\t132 button Wyświetl zapas w sklepach\n\t\t\t\t133 container\n\t\t\t\t\t134 heading Odbiór w sklepie, Value: 2\n\t\t\t\t\t\t135 text Odbiór w sklepie\n\t\t\t\t\t136 content list\n\t\t\t\t\t\t137 container\n\t\t\t\t\t\t\t138 text Za  2 godz. bezpłatnie  w sklepie\n\t\t\t\t\t139 button Odbiór w sklepie\n\t\t\t\t140 container\n\t\t\t\t\t141 heading Dostawa, Value: 2\n\t\t\t\t\t\t142 text Dostawa\n\t\t\t\t\t143 content list\n\t\t\t\t\t\t144 container\n\t\t\t\t\t\t\t145 text 3 dni robocze do domu  od  99 zł\n\t\t\t\t\t\t146 container\n\t\t\t\t\t\t\t147 text 1-2 dni robocze do domu  od  99 zł\n\t\t\t\t\t148 button Dostawa\n\t\t\t\t149 container\n\t\t\t\t\t150 link Sponsorowany\n\t\t\t\t\t\t151 text Sponsorowany\n\t\t\t\t\t152 link Description: Profil sufitowy UD30 3 m.b. Super Norgips, Value: leroymerlin.pl/produkty/profil-sufitowy…\n\t\t\t\t\t153 container Note 5 sur 5\n\t\t\t\t\t154 text (6)\n\t\t\t\t\t155 image Leroy Merlin\n\t\t\t\t\t156 text  Sprzedawany przez  LEROY MERLIN Sprzedany 11,19 zł za szt.\n\t\t\t\t157 container product-informations\n\t\t\t\t\t158 container rag-productdetail\n\t\t\t\t\t\t159 image Leroy Merlin\n\t\t\t\t\t\t160 text Znajdź odpowiedzi z naszym wirtualnym asystentem\n\t\t\t\t\t\t161 container\n\t\t\t\t\t\t\t162 text field (settable) rag--999\n\t\t\t\t\t\t\t163 button Zadaj moje pytanie gBosowo\n\t\t\t\t\t\t\t164 button (disabled) Zadaj mi pytanie\n\t\t\t\t\t\t165 text Propozycje\n\t\t\t\t\t\t166 button Czy płyta nadaje się do łazienki?\n\t\t\t\t\t\t167 button Jakie są wymiary płyty?\n\t\t\t\t\t\t168 button Czy płyta jest ognioodporna?\n\t\t\t\t\t169 heading Cechy, Value: 3\n\t\t\t\t\t\t170 button (collapsed) Cechy, ID: featuresAccordion, Secondary Actions: Expand\n\t\t\t\t\t171 heading Wymiary i waga w opakowaniu, Value: 3\n\t\t\t\t\t\t172 button Wymiary i waga w opakowaniu, ID: packagingAccordion\n\t\t\t\t\t173 heading Dokumenty, Value: 3\n\t\t\t\t\t\t174 button Dokumenty, ID: attachmentAccordion\n\t\t\t\t175 container\n\t\t\t\t\t176 button (disabled) Poprzedni\n\t\t\t\t\t177 button Dalej\n\t\t\t\t\t178 container\n\t\t\t\t\t\t179 image Paleta z płytami gipsowymi Norgips.\n\t\t\t\t\t\t180 text Płyta gipsowa GKB TYP A - polecana do użytku wewnętrznego Płyta gipsowo-kartonowa GKB TYP A marki Norgips to materiał budowlany przeznaczony do stosowania w budynkach. \n\t\t\t\t\t\t181 text Płytę g-k można stosować w pomieszczeniach o wilgotności powietrza na poziomie nieprzekraczającym 70%.\n\t\t\t\t\t\t182 text  Głównym zastosowaniem płyt gipsowo-kartonowych są systemy suchej zabudowy. Płyty mają wymiar 1200 × 2600 × 12,5 mm, dlatego przykrywają powierzchnię 3,12 m2 i ważą ponad 22 kg (22,2 kg).\n\t\t\t\t\t183 container\n\t\t\t\t\t\t184 image Ściany i sufit w stanie surowym, zabudowane płytami gipsowymi GKB 12,5 mm.\n\t\t\t\t\t\t185 text Szerokie zastosowanie Do najpopularniejszych rozwiązań z wykorzystaniem płyt gipsowych zaliczyć można:\n\t\t\t\t\t\t186 content list\n\t\t\t\t\t\t\t187 container\n\t\t\t\t\t\t\t\t188 AXListMarker • \n\t\t\t\t\t\t\t\t189 text okładziny na powierzchnie pionowe i poziome\n\t\t\t\t\t\t\t190 container\n\t\t\t\t\t\t\t\t191 AXListMarker • \n\t\t\t\t\t\t\t\t192 text ściany działowe i osłonowe\n\t\t\t\t\t\t\t193 container\n\t\t\t\t\t\t\t\t194 AXListMarker • \n\t\t\t\t\t\t\t\t195 text sufity podwieszane\n\t\t\t\t\t\t\t196 container\n\t\t\t\t\t\t\t\t197 AXListMarker • \n\t\t\t\t\t\t\t\t198 text zabudowa poddaszy\n\t\t\t\t\t199 container\n\t\t\t\t\t\t200 image Szpachlowanie spoin między płytami gipsowymi.\n\t\t\t\t\t\t201 text Odporność na wysokie temperatury Norgips GKB TYP A to standardowa płyta gipsowo-kartonowa. Natomiast nadal płyty cechują specjalne właściwości poszerzające możliwość zastosowania. \n\t\t\t\t\t\t202 text Produkt charakteryzuje przede wszystkim odporność na wysokie temperatury.\n\t\t\t\t\t\t203 text  Dodatkowo stosowanie płyt ogranicza poziom hałasu.\n\t\t\t\t\t204 container\n\t\t\t\t\t\t205 image Mocowanie płyty gipsowej.\n\t\t\t\t\t\t206 text Łatwe łączenie Płyta ma specjalnie wykończone krawędzie. Szczególne znaczenie ma dłuższa, odpowiednio wyprofilowana krawędź. \n\t\t\t\t\t\t207 text Spłaszczenie ułatwia uzyskania gładkiej powierzchni w miejscu łączenia taśmami zbrojącymi i spoinowania.\n\t\t\t\t\t\t208 text  Dodatkowo zmniejsza także zużycie masy szpachlowej.\n\t\t\t\t\t209 container\n\t\t\t\t\t\t210 image Wykańczanie spoin na suficie z płyt gipsowych.\n\t\t\t\t\t\t211 text Renomowana marka Norgips to ceniony dostawca systemów suchej zabudowy. Marka istnieje od 1993 roku i oferuje wysokiej jakości materiały budowlane, aktualnie już w kilkunastu krajach na całym świecie. Marka odpowiada za rozwiązania i materiały bezpieczne oraz łatwe w montażu. Zawsze \n\t\t\t\t\t\t212 text produkty marki przechodzą restrykcyjne testy gwarantujących znakomite właściwości użytkowe wymagane we współczesnym budownictwie.\n\t\t\t\t\t\t213 text  Najwyższą jakość materiałów budowlanych potwierdzają stosowne certyfikaty.\n\t\t\t\t214 container component-displaycomp\n\t\t\t\t\t215 container\n\t\t\t\t\t\t216 heading Twoja opinia, Value: 2\n\t\t\t\t\t\t\t217 text Twoja opinia\n\t\t\t\t\t\t218 text Opinie są subiektywnymi wypowiedziami użytkowników na temat Produktów i są widoczne dla wszystkich odwiedzających Serwis. Do wystawienia opinii nie jest konieczne nabycie lub używanie Produktu, za wyjątkiem opinii oznaczonych opisem „Zweryfikowany zakup” i „Klubowicz” Leroy Merlin nie weryfikuje czy publikowane opinie pochodzą od konsumentów, którzy używali danego Produktu lub go nabyli. Osoba, która wystawiała opinie ponosi odpowiedzialność za treść opinii.\n\t\t\t\t\t\t219 container Carousel d'avis avec photos\n\t\t\t\t396 container ID: cechy-998, Cechy Close marka NORGIPS Płyta GKB Typ A 1200x2600x12,5 mm przeznaczona jest do stosowania w pomieszczeniach, w których wilgotność względna nie przekracza 70%. Posiada obłożoną kartonem i spłaszczoną dłuższą krawędź Norgips S oraz równo obciętą krawędź krótką. Płyta ta jest najczęściej stosowana w systemach suchej zabudowy wnętrz. Przy jej użyciu można wykonywać okładziny ścienne i sufitowe, ściany działowe i osłonowe, sufity podwieszane i zabudowy poddaszy. Krawędź Norgips S - krawędź spłaszczona. Krawędź ta daje możliwość u zyskania gładkiej powierzchni na połączeniu płyt g-k. Niewielkie spłaszczenie zmniejsza zużycie masy szpachlowej w spoinie. Połączenia z krawędzią Norgips S wymagają wzmocnienia taśmami zbrojącymi. Czytaj więcej Tabela cech produktu Typ produktu Płyta gipsowo-kartonowa Materiał główny w całkowitej masie produktu Tynk Grubość (w mm) 12.5 Powierzchnia pokryta przez produkt (w m²) 3.12 Długość (w cm) 260 Szerokość (w cm) 120 Odporność na wysokie temperatury Tak Pozwala na stosowanie dużych obciążeń Nie Rodzina kolorów Szary / srebrny Marka produktu NORGIPS Produkt wygłuszający (ograniczanie hałasu) Tak Waga netto (w kg) 20.3 Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%) 0 Informacje dotyczące gwarancji\n\t\t\t\t\t397 container\n\t\t\t\t\t\t398 heading Cechy, Value: 2, ID: cechy-998\n\t\t\t\t\t\t\t399 text Cechy\n\t\t\t\t\t\t400 button Close\n\t\t\t\t\t\t401 link Description: marka NORGIPS, Help: Zobacz wszystkie produkty marki NORGIPS, Value: leroymerlin.pl/marki/marki-naszych-part…\n\t\t\t\t\t\t402 text Płyta GKB Typ A 1200x2600x12,5 mm przeznaczona jest do stosowania w pomieszczeniach, w których wilgotność względna nie przekracza 70%. Posiada obłożoną kartonem i spłaszczoną dłuższą krawędź Norgips S oraz równo obciętą krawędź krótką. Płyta ta jest najczęściej stosowana w systemach suchej zabudowy wnętrz. Przy jej użyciu można wykonywać okładziny ścienne i sufitowe, ściany działowe i osłonowe, sufity podwieszane i zabudowy poddaszy. Krawędź Norgips S - krawędź spłaszczona. Krawędź ta daje możliwość u zyskania gładkiej powierzchni na połączeniu płyt g-k. Niewielkie spłaszczenie zmniejsza zużycie masy szpachlowej w spoinie. Połączenia z krawędzią Norgips S wymagają wzmocnienia taśmami zbrojącymi.\n\t\t\t\t\t\t403 button (collapsed) Czytaj więcej , Secondary Actions: Expand\n\t\t\t\t\t\t\t404 text Czytaj więcej \n\t\t\t\t\t\t405 text Tabela cech produktu\n\t\t\t\t\t\t406 text Typ produktu\n\t\t\t\t\t\t407 text Płyta gipsowo-kartonowa\n\t\t\t\t\t\t408 text Materiał główny w całkowitej masie produktu\n\t\t\t\t\t\t409 text Tynk\n\t\t\t\t\t\t410 text Grubość (w mm)\n\t\t\t\t\t\t411 text 12.5\n\t\t\t\t\t\t412 text Powierzchnia pokryta przez produkt (w m²)\n\t\t\t\t\t\t413 text 3.12\n\t\t\t\t\t\t414 text Długość (w cm)\n\t\t\t\t\t\t415 text 260\n\t\t\t\t\t\t416 text Szerokość (w cm)\n\t\t\t\t\t\t417 text 120\n\t\t\t\t\t\t418 text Odporność na wysokie temperatury\n\t\t\t\t\t\t419 text Tak\n\t\t\t\t\t\t420 text Pozwala na stosowanie dużych obciążeń\n\t\t\t\t\t\t421 text Nie\n\t\t\t\t\t\t422 text Rodzina kolorów\n\t\t\t\t\t\t423 text Szary / srebrny\n\t\t\t\t\t\t424 text Marka produktu\n\t\t\t\t\t\t425 text NORGIPS\n\t\t\t\t\t\t426 text Produkt wygłuszający (ograniczanie hałasu)\n\t\t\t\t\t\t427 text Tak\n\t\t\t\t\t\t428 text Waga netto (w kg)\n\t\t\t\t\t\t429 text 20.3\n\t\t\t\t\t\t430 text Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%)\n\t\t\t\t\t\t431 text 0\n\t\t\t\t\t\t432 heading Informacje dotyczące gwarancji, Value: 4\n\t\t\t\t\t\t\t433 button (collapsed) Informacje dotyczące gwarancji, ID: guarantee, Secondary Actions: Expand\n\t\t\t\t\t\t434 heading Elementy zgodności produktu, Value: 4\n\t\t\t\t\t\t\t435 button (collapsed) Elementy zgodności produktu, ID: responsibleEconomicOperators, Secondary Actions: Expand\n\t\t\t\t\t436 container Cechy Close marka NORGIPS Płyta GKB Typ A 1200x2600x12,5 mm przeznaczona jest do stosowania w pomieszczeniach, w których wilgotność względna nie przekracza 70%. Posiada obłożoną kartonem i spłaszczoną dłuższą krawędź Norgips S oraz równo obciętą krawędź krótką. Płyta ta jest najczęściej stosowana w systemach suchej zabudowy wnętrz. Przy jej użyciu można wykonywać okładziny ścienne i sufitowe, ściany działowe i osłonowe, sufity podwieszane i zabudowy poddaszy. Krawędź Norgips S - krawędź spłaszczona. Krawędź ta daje możliwość u zyskania gładkiej powierzchni na połączeniu płyt g-k. Niewielkie spłaszczenie zmniejsza zużycie masy szpachlowej w spoinie. Połączenia z krawędzią Norgips S wymagają wzmocnienia taśmami zbrojącymi. Czytaj więcej Tabela cech produktu Typ produktu Płyta gipsowo-kartonowa Materiał główny w całkowitej masie produktu Tynk Grubość (w mm) 12.5 Powierzchnia pokryta przez produkt (w m²) 3.12 Długość (w cm) 260 Szerokość (w cm) 120 Odporność na wysokie temperatury Tak Pozwala na stosowanie dużych obciążeń Nie Rodzina kolorów Szary / srebrny Marka produktu NORGIPS Produkt wygłuszający (ograniczanie hałasu) Tak Waga netto (w kg) 20.3 Minimalny procent materiałów pochodzących z recyklingu w produkcie (w%) 0 Informacje dotyczące gwarancji\n\t\t220 button Description: Open chat, ID: chatbot-trigger\n\t\t\t221 text Potrzebujesz pomocy?\n\t\t222 container component-footer\n\t\t\t223 content list\n\t\t\t\t224 link Description: Odbiór w sklepie, Value: leroymerlin.pl/pomoc/przed-zakupami/\n\t\t\t\t225 link Description: Transport zakupów, Value: leroymerlin.pl/uslugi/transport/\n\t\t\t\t226 link Description: OneyRaty Teraz w Klubie Dom i PRO – 20x0%, Value: leroymerlin.pl/uslugi/uslugi-finansowe/…\n\t\t\t227 text Jeszcze więcej korzyści!\n\t\t\t228 link Description: Dołącz do Klubu!, Value: leroymerlin.pl/dolacz-do-klubu-i-zyskaj…\n\t\t\t229 text Nasza oferta\n\t\t\t230 content list\n\t\t\t\t231 link Description: Promocje, Value: leroymerlin.pl/promocje/\n\t\t\t\t232 link Description: Oferty dla Klubowiczów, Value: leroymerlin.pl/dolacz-do-klubu-i-zyskaj…\n\t\t\t\t233 link Description: Marki własne, Value: leroymerlin.pl/marki-wlasne/\n\t\t\t\t234 link Description: Strony marek, Value: leroymerlin.pl/marki/marki-naszych-part…\n\t\t\t\t235 link Description: Oszczędny dom, Value: leroymerlin.pl/produkty/oszczedny-dom/\n\t\t\t236 text Gazetka\n\t\t\t237 text Oferta ważna w dniach 21.10-16.11.2026 r.\n\t\t\t238 content list\n\t\t\t\t239 link Description: Okładka gazetki, Value: leroymerlin.pl/gazetka/gazetka-listopad/\n\t\t\t240 text Usługi\n\t\t\t241 content list\n\t\t\t\t242 link Description: Z montażem min. 12% taniej, Value: leroymerlin.pl/z-montazem-taniej/\n\t\t\t\t243 link Description: Projektowanie, Value: leroymerlin.pl/uslugi/projektowanie/\n\t\t\t\t244 link Description: Transport, Value: leroymerlin.pl/uslugi/transport/\n\t\t\t\t245 link Description: Usługi sklepowe, Value: leroymerlin.pl/uslugi/uslugi-w-sklepie/\n\t\t\t\t246 link Description: Usługi finansowe, Value: leroymerlin.pl/uslugi/uslugi-finansowe/\n\t\t\t\t247 link Description: Zobacz wszystkie usługi, Value: leroymerlin.pl/uslugi/\n\t\t\t\t248 link Description: Regulaminy usług, Value: leroymerlin.pl/uslugi/regulaminy-uslug/\n\t\t\t249 text Obsługa klienta\n\t\t\t250 content list\n\t\t\t\t251 link Description: Kontakt, Value: leroymerlin.pl/kontakt\n\t\t\t\t252 link Description: Sklepy stacjonarne, Value: leroymerlin.pl/sklepy.html\n\t\t\t\t253 link Description: Formy płatności, Value: leroymerlin.pl/pomoc/w-trakcie-zakupow/\n\t\t\t\t254 link Description: Czas i koszty dostawy, Value: leroymerlin.pl/dostawa/\n\t\t\t\t255 link Description: Zwroty i reklamacje, Value: leroymerlin.pl/pomoc/po-odebraniu-zamow…\n\t\t\t\t256 link Description: Odstąp od umowy tutaj, Value: leroymerlin.pl/kontakt\n\t\t\t\t257 link Description: Bezterminowe zwroty, Value: leroymerlin.pl/pomoc/nasze-zobowiazania/\n\t\t\t\t258 link Description: Regulaminy, Value: leroymerlin.pl/promocje/regulaminy/\n\t\t\t\t259 link Description: Pomoc, Value: leroymerlin.pl/pomoc/\n\t\t\t\t260 link Description: Komunikaty o produktach, Value: leroymerlin.pl/komunikaty-o-produktach/\n\t\t\t\t261 link Description: Wycofanie ze sprzedaży - PRZEDŁUŻACZ 3X2P 2XUSBA, Value: leroymerlin.pl/komunikaty-o-produktach/…\n\t\t\t\t262 link Description: Uwaga: oszustwa, wyłudzenia i phishing, Value: leroymerlin.pl/uwaga-oszustwa-wyludzeni…\n\t\t\t\t263 link Description: Ciche godziny, Help: Ciche godziny, otwiera nowe okno, Value: media.leroymerlin.pl/aktualnosci/ciche-…\n\t\t\t264 text Marketplace\n\t\t\t265 content list\n\t\t\t\t266 link Description: Kto sprzedaje na leroymerlin.pl, Help: Kto sprzedaje na leroymerlin.pl, otwiera nowe okno, Value: leroymerlin.pl/kto-sprzedaje-na-leroyme…\n\t\t\t\t267 link Description: Lista sprzedawców, Value: leroymerlin.pl/lista-sprzedawcow-market…\n\t\t\t\t268 link Description: Zostań sprzedawcą, Value: leroymerlin.pl/zostan-sprzedawca-market…\n\t\t\t\t269 link Description: Informacje regulacyjne, Value: leroymerlin.pl/informacje-prawne-market…\n\t\t\t\t270 link Description: Zgłoś nielegalną treść, Value: leroymerlin.pl/zglos-nielegalne-tresci-…\n\t\t\t271 text Przydatne linki\n\t\t\t272 content list\n\t\t\t\t273 link Description: Planer 3D, Value: leroymerlin.pl/uslugi/projektowanie/ler…\n\t\t\t\t274 link Description: Umów się z projektantem, Value: leroymerlin.pl/projektowanie/\n\t\t\t\t275 link Description: Klub DOM, Value: leroymerlin.pl/dolacz-do-klubu-i-zyskaj…\n\t\t\t\t276 link Description: Klub PRO, Value: leroymerlin.pl/dolacz-do-klubu-i-zyskaj…\n\t\t\t\t277 link Description: Szkolenia w Klubie, Value: leroymerlin.pl/szkolenia/\n\t\t\t\t278 link Description: Robi Klimat, Value: leroymerlin.pl/robi-klimat/\n\t\t\t\t279 link Description: Oszczędny dom z dofinansowaniem, Value: leroymerlin.pl/oszczedny-dom-z-dofinans…\n\t\t\t\t280 link Description: Karta podarunkowa, Value: leroymerlin.pl/karta-podarunkowa/\n\t\t\t\t281 link Description: LMpedia, Value: leroymerlin.pl/lmpedia/\n\t\t\t282 text Aplikacja mobilna\n\t\t\t283 content list\n\t\t\t\t284 link Description: Aplikacja Leroy Merlin, Value: leroymerlin.pl/aplikacja-leroy-merlin/\n\t\t\t\t285 link Description: aplikacja google, Help: Google Play, otwiera nowe okno, Value: play.google.com/store/apps/details\n\t\t\t\t286 link Description: Aplikacja IOS, Value: apps.apple.com/sk/app/leroy-merlin/id37…\n\t\t\t287 text Newsletter\n\t\t\t288 text Chcesz otrzymywać wyjątkowe oferty, inspiracje i porady?\n\t\t\t289 content list\n\t\t\t\t290 link Description: Zapisz się!, Value: leroymerlin.pl/newsletter\n\t\t\t291 text Poznaj Leroy Merlin\n\t\t\t292 content list\n\t\t\t\t293 link Description: Praca, Value: kariera.leroymerlin.pl/\n\t\t\t\t294 link Description: O nas, Value: media.leroymerlin.pl/o-nas\n\t\t\t\t295 link Description: Zrównoważony rozwój, Value: media.leroymerlin.pl/csr\n\t\t\t\t296 link Description: Biuro prasowe, Value: media.leroymerlin.pl/\n\t\t\t\t297 link Description: Dostawcy, Value: media.leroymerlin.pl/o-nas/dla-dostawcow\n\t\t\t\t298 link Description: Zostań naszym Wykonawcą, Value: kariera.leroymerlin.pl/fachowcy.html\n\t\t\t299 text Jesteśmy dla Was\n\t\t\t300 content list\n\t\t\t\t301 link Description: 1000. grant Fundacji Leroy Merlin, Value: leroymerlin.pl/1000-razy-dobro/\n\t\t\t\t302 link Description: Fundacja Leroy Merlin, Help: Fundacja Leroy Merlin, otwiera nowe okno, Value: fundacja.leroymerlin.pl/\n\t\t\t303 text Jesteśmy partnerem\n\t\t\t304 content list\n\t\t\t\t305 link Description: partner_polskiej_reprezentacji_olimpijskiej_logo, Help: Partner Polskiej Reprezentacji Olimpijskiej, otwiera nowe okno, Value: media.leroymerlin.pl/aktualnosci/leroy-…\n\t\t\t306 text Nasze social media\n\t\t\t307 link Description: Facebook, Help: Facebook, otwiera nowe okno, Value: facebook.com/LeroyMerlinPolska\n\t\t\t308 link Description: Youtube, Help: Youtube, otwiera nowe okno, Value: youtube.com/user/leroymerlinpolska\n\t\t\t309 link Description: Instagram, Help: Instagram, otwiera nowe okno, Value: instagram.com/leroymerlinpolska/\n\t\t\t310 link Description: Pinterest, Help: Pinterest, otwiera nowe okno, Value: pl.pinterest.com/leroymerlinpolska/\n\t\t\t311 link Description: Linkedin, Help: Linkedin, otwiera nowe okno, Value: linkedin.com/company/leroy-merlin/\n\t\t\t312 link Description: Facebook Kocham Ogród, Help: Facebook Kocham Ogród, otwiera nowe okno, Value: facebook.com/kochamogrod\n\t\t\t313 text Płatności\n\t\t\t314 link Description: undefined, otwiera nowe okno, Value: leroymerlin.pl/pomoc/w-trakcie-zakupow/\n\t\t\t315 link Description: undefined, otwiera nowe okno, Value: leroymerlin.pl/pomoc/w-trakcie-zakupow/\n\t\t\t316 link leroymerlin.pl/pomoc/w-trakcie-zakupow/\n\t\t\t317 link leroymerlin.pl/pomoc/w-trakcie-zakupow/\n\t\t\t318 link Description: undefined, otwiera nowe okno, Value: leroymerlin.pl/pomoc/w-trakcie-zakupow/\n\t\t\t319 link Description: Dostępność: częściowo zgodna, Value: leroymerlin.pl/deklaracja-dostepnosci.h…\n\t\t\t320 link Description: Regulamin sklepu internetowego, Value: leroymerlin.pl/regulamin.html\n\t\t\t321 link Description: Polityka prywatności, Value: leroymerlin.pl/polityka-prywatnosci.html\n\t\t\t322 link Description: Regulamin Marketplace, Help: Regulamin Marketplace, otwiera nowe okno, Value: leroymerlin.pl/regulamin-marketplace.ht…\n\t\t\t323 link Description: Regulamin Marketplace B2B, Value: leroymerlin.pl/regulamin-marketplace-b2…\n\t\t\t324 link Description: Polityka prywatności Marketplace, Help: Polityka prywatności Marketplace, otwiera nowe okno, Value: media.adeo.com/media/4680583/media.pdf\n\t\t\t325 link Description: Zastrzeżenia prawne, Value: leroymerlin.pl/zastrzezenia-prawne.html\n\t\t\t326 link Description: Plasowanie produktów, Value: leroymerlin.pl/wyswietlanie-produktow-p…\n\t\t\t327 link Description: Polityka cookies, Value: leroymerlin.pl/polityka-cookies.html\n\t\t\t328 button Ustawienia plików cookies, Otwórz okno modalne\n\t\t329 container Linki w stopce\n\t\t\t330 content list\n\t\t\t\t331 link Description: Mapa stron produktów, Value: leroymerlin.pl/mapa-produktu.html\n\t\t\t\t332 container\n\t\t\t\t\t333 link Description: Mapa stron kategorii, Value: leroymerlin.pl/mapa-stron-kategorii.html\n\t\t\t\t334 container\n\t\t\t\t\t335 link Description: Mapa stron sklepów, Value: leroymerlin.pl/mapa-stron-sklepow.html\n\t\t\t\t336 container\n\t\t\t\t\t337 link Description: Mapa stron usług, Value: leroymerlin.pl/mapa-stron-uslug.html\n\t\t\t\t338 container\n\t\t\t\t\t339 link Description: Mapa stron porad, Value: leroymerlin.pl/mapa-stron-porad.html\n\t\t\t\t340 container\n\t\t\t\t\t341 link Description: Mapa strony wyszukiwania, Value: …\n\t\t\t\t342 container\n\t\t\t\t\t343 link Description: Mapa tagów, Value: …\n\t\t\t\t344 container\n\t\t\t\t\t345 link Description: Mapa stron lokalnych, Value: …\n\t\t\t\t346 container\n\t\t\t\t\t347 link Description: Mapa stron producentów, Value: …\n\t\t348 container Wystąpił błąd podczas dodawania do koszyka, ID: o_tej_reklamie-999\n\t\t\t349 container Wystąpił błąd podczas dodawania do koszyka\n\nThe focused UI element is 400 button Close"
+      }
+    }
+  ]
+}
