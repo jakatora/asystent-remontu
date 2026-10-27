@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T12:46:06.593Z",
-  "scope": "151 references/photos and127products with active offers.4newoffers for2existing products;2newregisteredretailers.192observations,171activeoffers. Same65baselineinputs remain84/240priced and156unpriced. Production native quotes prove one2-product delivered winner and a13-product pending plan with5confirmed/2unknown deliveries. No claim of allproducts,fullrenovationdeliveredcost,orlocalbranchstockcompletion.",
-  "total": 151,
-  "verifiedProducts": 127,
+  "checkedAt": "2026-10-27T13:55:17.148Z",
+  "scope": "Fresh production HTTP. Current engine recalculated all65 saved baseline measurement maps without supplying new choices. Separate153-reference catalogue queries. No delivery quotes without a postcode; no project data writes. New explicit adhesive-only baskets do not prove complete wallpaper or whole-renovation delivery coverage.",
+  "total": 153,
+  "verifiedProducts": 129,
   "remaining": 24,
-  "offers": 171,
-  "stores": 48,
-  "productsWithPhotos": 151,
-  "registeredOffers": 192,
+  "offers": 175,
+  "stores": 50,
+  "productsWithPhotos": 153,
+  "registeredOffers": 196,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3356,28 +3356,114 @@
           "postalCode": "00-001"
         }
       ]
+    },
+    {
+      "id": "mat-wallpaper-adhesive-metylan-direct-200g",
+      "name": "Metylan Direct — klej do tapet flizelinowych 200 g",
+      "referenceUrl": "https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104",
+      "ean": "4015000402019",
+      "sourceIds": [
+        "swiat-metylan-direct-200g",
+        "plejada-metylan-direct-200g"
+      ],
+      "deliveryChecks": [
+        {
+          "sourceId": "swiat-metylan-direct-200g",
+          "checkedAt": "2026-10-27T13:55:19.407Z",
+          "expiresAt": "2026-10-27T14:05:19.407Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 1900,
+          "basketScope": "One pack of Direct200g plus one pack of Normal125g; whole-cart charge, not per-product postage."
+        },
+        {
+          "sourceId": "plejada-metylan-direct-200g",
+          "checkedAt": "2026-10-27T13:55:19.477Z",
+          "expiresAt": "2026-10-27T14:05:19.477Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 2190,
+          "basketScope": "One pack of Direct200g plus one pack of Normal125g; whole-cart charge, not per-product postage."
+        }
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://swiatsieklei.pl/environment/cache/images/productGfx_8cf3f0b127670f2cfdd5620ec59b3e3e_500_500.webp"
+    },
+    {
+      "id": "mat-wallpaper-adhesive-metylan-normal-125g",
+      "name": "Metylan Normal — klej do tapet papierowych 125 g",
+      "referenceUrl": "https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101",
+      "ean": "4015000095266",
+      "sourceIds": [
+        "swiat-metylan-normal-125g",
+        "plejada-metylan-normal-125g"
+      ],
+      "deliveryChecks": [
+        {
+          "sourceId": "swiat-metylan-normal-125g",
+          "checkedAt": "2026-10-27T13:55:19.407Z",
+          "expiresAt": "2026-10-27T14:05:19.407Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 1900,
+          "basketScope": "One pack of Direct200g plus one pack of Normal125g; whole-cart charge, not per-product postage."
+        },
+        {
+          "sourceId": "plejada-metylan-normal-125g",
+          "checkedAt": "2026-10-27T13:55:19.477Z",
+          "expiresAt": "2026-10-27T14:05:19.477Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 2190,
+          "basketScope": "One pack of Direct200g plus one pack of Normal125g; whole-cart charge, not per-product postage."
+        }
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://swiatsieklei.pl/environment/cache/images/productGfx_a44f7b5fc0ca152dba8e53e1ccae43fa_500_500.webp"
     }
   ],
-  "automaticDeliveryStores": 21,
-  "browserVerifiedOffers": 22,
-  "productsWithPickupOffers": 102,
-  "confirmedPickupAddresses": 14,
-  "deliveryProductionFailures": {
+  "automaticDeliveryStores": 30,
+  "browserVerifiedOffers": 11,
+  "recipeCoverage": {
+    "checkedAt": "2026-10-27T13:55:17.148Z",
+    "pricedLines": 84,
+    "totalLines": 240,
+    "unpricedLines": 156,
+    "fullyPricedScenarios": 8,
+    "report": "recipe-coverage-2026-10-27.json"
+  },
+  "expiredOffers": 19,
+  "activeStores": 47,
+  "history": [
+    {
+      "checkedAt": "2026-10-27T12:46:06.593Z",
+      "total": 151,
+      "verifiedProducts": 127,
+      "remaining": 24,
+      "offers": 171,
+      "stores": 48
+    }
+  ],
+  "historicalPickupCoverage": {
+    "checkedAt": "2026-10-27T05:01:56.845Z",
+    "productsWithPickupOffers": 102,
+    "confirmedPickupAddresses": 14,
+    "scope": "Historical audit retained; not revalidated by the current shipping/catalogue audit."
+  },
+  "historicalDeliveryFailures": {
     "ABUD": {
       "checkedAt": "2026-10-26T23:17:21.257Z",
       "reason": "quote_unavailable",
       "cause": "TCP connect timeout from Railway to ABUD; no confirmed production delivery amount",
       "positiveAcceptancePassed": false
     }
-  },
-  "recipeCoverage": {
-    "checkedAt": "2026-10-27T05:01:56.845Z",
-    "pricedLines": 79,
-    "totalLines": 237,
-    "unpricedLines": 158,
-    "fullyPricedScenarios": 11,
-    "report": "recipe-coverage-2026-10-27.json"
-  },
-  "expiredOffers": 19,
-  "activeStores": 45
+  }
 }

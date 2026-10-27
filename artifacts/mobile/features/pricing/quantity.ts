@@ -1,4 +1,5 @@
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
+import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, WALLPAPER_ADHESIVE_MODEL } from '@/features/calculator/wallpaperAdhesive';
 import { LAMINATE_JOB, LAMINATE_SUPPLIES_MODEL, laminateSupplyReference } from '@/features/calculator/laminateSupplies';
 import { isGypsumJob, gypsumMaterials, gypsumReference, GYPSUM_MODEL } from '@/features/calculator/gypsumBoard';
 import { isFrameJob, frameMaterials, frameReference, FRAME_MODEL } from '@/features/calculator/framePainting';
@@ -66,6 +67,12 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if (isWallpaperAdhesiveJob(calc.jobId) && ref.materialType === 'wallpaper-adhesive') {
+    const source = calc.materials.find(line => line.material.id === 'wallpaper-glue');
+    if (!source || source.quantityKnown === false || calc.quantityModel !== WALLPAPER_ADHESIVE_MODEL || wallpaperAdhesiveReference(calc.measurements) !== ref.id) return null;
+    if (source.material.unit !== 'g' || !('ean' in source.material) || source.material.ean !== wallpaperAdhesiveEan(calc.measurements)) return null;
+    const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
   if (calc.jobId === LAMINATE_JOB && ['underlay', 'vapor-barrier', 'threshold', 'laminate-installation-kit', 'underlay-joint-tape'].includes(ref.materialType)) {
     const id = ({ underlay: 'underlay', 'vapor-barrier': 'vapor-barrier', threshold: 'threshold', 'laminate-installation-kit': 'spacers', 'underlay-joint-tape': 'laminate-joint-tape' } as Record<string, string>)[ref.materialType];
     const expected = laminateSupplyReference(id, calc.measurements), source = calc.materials.find(line => line.material.id === id);

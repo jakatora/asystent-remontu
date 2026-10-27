@@ -279,6 +279,17 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // Native one-piece prices describe the entire dry-powder pack, not a gram
+  // or a litre of mixed paste. Bind the exact reviewed manufacturer variant.
+  // source: https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825
+  // source: https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101
+  const gluePacks: Record<string, [string, number]> = {
+    'plejada-metylan-direct-200g': ['4015000402019', 200], 'swiat-metylan-direct-200g': ['4015000402019', 200],
+    'plejada-metylan-normal-125g': ['4015000095266', 125], 'swiat-metylan-normal-125g': ['4015000095266', 125],
+  };
+  const glue = gluePacks[source.id];
+  if (glue && (source.ean !== glue[0] || source.packageSize !== glue[1] || source.unit !== 'g' || source.apiPurchaseUnit !== 'szt.'
+    || String(item.ean) !== glue[0] || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name))) throw Error('product_package_not_confirmed');
   // This EAN identifies the manufacturer's100-piece carton. EHW also explicitly
   // describes a cardboard package, while Zpradem names100szt in its primary card.
   // source: https://rawlplug.com/global/en/p/r-gs-06040

@@ -1,4 +1,5 @@
 import { REMOVAL_JOB, REMOVAL_MODEL } from './wallpaperRemoval';
+import { isWallpaperAdhesiveJob, WALLPAPER_ADHESIVE_MODEL } from './wallpaperAdhesive';
 import { WALL_FINISHING_MODEL, isWallFinishingJob } from './wallFinishing';
 import type { CalculationResult, MaterialItem, MaterialLineItem, Project, ShoppingItem } from '@/types/domain';
 import type { MeasurementInputDefinition } from '@/types/engine';
@@ -94,7 +95,7 @@ export function substratePrimerMaterial(jobId: string): MaterialItem {
   };
 }
 
-const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || calc.jobId === REMOVAL_JOB && calc.quantityModel === REMOVAL_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL;
+const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || calc.jobId === REMOVAL_JOB && calc.quantityModel === REMOVAL_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL || isWallpaperAdhesiveJob(calc.jobId) && calc.quantityModel === WALLPAPER_ADHESIVE_MODEL;
 
 export function isCurrentSubstratePrimer(calc: CalculationResult, line: MaterialLineItem): boolean {
   const spec = SPECIFICATIONS[calc.jobId];

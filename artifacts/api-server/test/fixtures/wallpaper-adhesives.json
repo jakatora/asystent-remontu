@@ -1,0 +1,3480 @@
+{
+  "checkedAt": "2026-10-27T13:35:40.885Z",
+  "scope": "Native public Shoper product and anonymous basket responses. Only product IDs/counts submitted; no customer data or order actions. Basket projection omits unrelated fields.",
+  "sources": [
+    {
+      "id": "plejada-metylan-direct-200g",
+      "ean": "4015000402019",
+      "name": "Klej do tapet Direct 200g Metylan",
+      "brand": "Metylan",
+      "category": "wallpaper-adhesive",
+      "packageSize": 200,
+      "unit": "g",
+      "store": "Plejada Tapet",
+      "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825",
+      "format": "shoper-api",
+      "productId": 825,
+      "retailerSku": "MT DIR200",
+      "apiPurchaseUnit": "szt.",
+      "variant": [
+        "direct",
+        "200g"
+      ],
+      "imageUrl": "https://plejadatapet.pl/environment/cache/images/productGfx_36488_500_500/Klej-do-tapet-na-flizelinie-Direct-200g-Metylan-Henkel.jpg",
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "plejada-metylan-normal-125g",
+      "ean": "4015000095266",
+      "name": "Klej do tapet Normal 125g Metylan",
+      "brand": "Metylan",
+      "category": "wallpaper-adhesive",
+      "packageSize": 125,
+      "unit": "g",
+      "store": "Plejada Tapet",
+      "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Normal-125g-Metylan/824",
+      "format": "shoper-api",
+      "productId": 824,
+      "retailerSku": "MT NOR125",
+      "apiPurchaseUnit": "szt.",
+      "variant": [
+        "normal",
+        "125g"
+      ],
+      "imageUrl": "https://plejadatapet.pl/environment/cache/images/productGfx_36489_500_500/Klej-do-tapet-papierowych-Normal-125g-Metylan-Henkel.jpg",
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "swiat-metylan-direct-200g",
+      "ean": "4015000402019",
+      "name": "METYLAN Direct 200g klej do tapet 24119",
+      "brand": "Metylan",
+      "category": "wallpaper-adhesive",
+      "packageSize": 200,
+      "unit": "g",
+      "store": "Świat Się Klei",
+      "url": "https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104",
+      "format": "shoper-api",
+      "productId": 104,
+      "retailerSku": "N-29",
+      "apiPurchaseUnit": "szt.",
+      "variant": [
+        "direct",
+        "200g"
+      ],
+      "imageUrl": "https://swiatsieklei.pl/environment/cache/images/productGfx_8cf3f0b127670f2cfdd5620ec59b3e3e_500_500.webp",
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "swiat-metylan-normal-125g",
+      "ean": "4015000095266",
+      "name": "METYLAN Normal 125g klej do tapet 24122",
+      "brand": "Metylan",
+      "category": "wallpaper-adhesive",
+      "packageSize": 125,
+      "unit": "g",
+      "store": "Świat Się Klei",
+      "url": "https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101",
+      "format": "shoper-api",
+      "productId": 101,
+      "retailerSku": "N-26",
+      "apiPurchaseUnit": "szt.",
+      "variant": [
+        "normal",
+        "125g"
+      ],
+      "imageUrl": "https://swiatsieklei.pl/environment/cache/images/productGfx_a44f7b5fc0ca152dba8e53e1ccae43fa_500_500.webp",
+      "pickupRequiresConfirmation": true
+    }
+  ],
+  "records": [
+    {
+      "context": "read:plejada-metylan-direct-200g",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/825",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 825,
+        "name": "Klej do tapet Direct 200g Metylan",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "MT DIR200",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 872,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825",
+        "loyalty": {
+          "points_float": 31,
+          "points": "31 pkt",
+          "price_float": 1300,
+          "price": "1 300 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Flizelinowych",
+          "id": 82
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "31,90 zł",
+            "base_float": 31.9,
+            "final": "31,90 zł",
+            "final_float": 31.9,
+            "historical_lowest_price": "31,90 zł",
+            "historical_lowest_price_float": 31.9
+          },
+          "net": {
+            "base": "25,93 zł",
+            "base_float": 25.93,
+            "final": "25,93 zł",
+            "final_float": 25.93,
+            "historical_lowest_price": "25,93 zł",
+            "historical_lowest_price_float": 25.93
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Direct 200g</p>",
+        "main_image": "36488",
+        "main_image_filename": "36488.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Do nakładania bezpośrednio na ścianę</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Bez rozprysków</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Z wysokowartościowej metylocelulozy wzbogaconą syntetyczną żywicą</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza z dodatkiem żywic sztucznych</li>\n<li><strong>Wygląd roztworu:</strong> gęsty, mlecznobiały</li>\n<li><strong>Ciężar nasypowy:</strong> 460 – 530 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> w ciągu 3-5 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> lekko zasadowy (pH = 8-9)</li>\n<li><strong>Wydajność:</strong> 18-22 m²</li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZASTOSOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE KLEJU:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE PODŁOŻA:</span></h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w wodzie w proporcji 1:80 lub Metylan Direct w proporcji 1:40.</span></li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">TAPETOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Wymieszany klej Metylan Direct nanieść równomiernie bezpośrednio na ścianę za pomocą wałka. Zaczynając od strony okna tapetę przykleić bezpośrednio z rolki do posmarowanej klejem ściany. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Następnie tapetę rozwinąć do dołu, przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. Resztki kleju znajdujące się na przedniej powierzchni tapety należy niezwłocznie zmyć delikatnie gąbką i czystą wodą lub zetrzeć. Przy zmianie tapet flizelinowych wystarczy pociągnąć za górny brzeg tapety i oderwać ją na sucho. Metylan Direct można także nanieść tradycyjnie na spodnią stronę tapety i od razu przykleić ją do ściany.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZALECENIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Niniejsza karta techniczna określa zakres stosowania materiału i sposób prowadzenia robót, ale nie może zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania. Wraz z ukazaniem się tej karty technicznej tracą ważność karty wcześniejsze. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZECHOWYWANIE:</span></h3>\n<p><span style=\"color:#000000;\"><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span><span style=\"font-family:georgia, palatino;font-size:14pt;background-color:#ff00ff;\"> <br /></span></span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">DOSTĘPNE OPAKOWANIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\"><span style=\"font-size:12pt;\">200g</span></span></p>\n<h3> </h3>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ORIENTACYJNE ZUŻYCIE:</span></h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\"><colgroup><col width=\"181\" /><col width=\"95\" /><col width=\"113\" /><col width=\"113\" /><col width=\"113\" /></colgroup>\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Proporcje</span><br /><span style=\"font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Na opakowanie = 200g</span></td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">60-80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe gładkie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">20-22</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4*</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe tłoczone</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:17,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">18-20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3-4*</span></td>\n</tr>\n</tbody>\n</table>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:10pt;\">* Eurorolka (10,05m x 0,53m</span>)</p>\n<p> </p>\n<p> </p>",
+        "images": [
+          "36488"
+        ],
+        "images_filename": [
+          "36488.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "31,90 zł",
+        "net_historical_lowest_price": "25,93 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "read:plejada-metylan-normal-125g",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/824",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 824,
+        "name": "Klej do tapet Normal 125g Metylan",
+        "can_buy": true,
+        "ean": "4015000095266",
+        "code": "MT NOR125",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 871,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Normal-125g-Metylan/824",
+        "loyalty": {
+          "points_float": 20,
+          "points": "20 pkt",
+          "price_float": 800,
+          "price": "800 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Papierowych",
+          "id": 64
+        },
+        "availability": {
+          "name": "2 szt. dostępne w magazynie"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "20,00 zł",
+            "base_float": 20,
+            "final": "20,00 zł",
+            "final_float": 20,
+            "historical_lowest_price": "18,90 zł",
+            "historical_lowest_price_float": 18.9
+          },
+          "net": {
+            "base": "16,26 zł",
+            "base_float": 16.26,
+            "final": "16,26 zł",
+            "final_float": 16.26,
+            "historical_lowest_price": "15,37 zł",
+            "historical_lowest_price_float": 15.37
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.125,
+          "weight": "0.125 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Normal 125g</p>",
+        "main_image": "36489",
+        "main_image_filename": "36489.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Czysta metyloceluloza</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Bezpieczny dla użytkownika</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Duża przyczepność</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Polecany do gruntowania przed tapetowaniem<br /></span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Wydajny</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza</li>\n<li><strong>Wygląd:</strong> gęsty, przeźroczysty kleisty roztwór</li>\n<li><strong>Ciężar nasypowy:</strong> 240 – 3000 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> około 20 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> pH 7 – roztwór chemicznie obojętny</li>\n<li><strong>Wydajność:</strong> 30-50 m² </li>\n</ul>\n<h3>ZASTOSOWANIE:</h3>\n<p><span style=\"font-size:12pt;font-family:arial, helvetica, sans-serif;\"><span style=\"background-color:#ffffff;\">Do klej</span>enia cienkich i grubych tapet papierowych oraz do gruntowania powierzchni przed tapetowaniem.</span></p>\n<h3>PRZYGOTOWANIE KLEJU:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając przez około 1 minutę (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 2-3 minut ponownie zamieszać. Odczekać 15 minut i jeszcze raz energicznie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3>PRZYGOTOWANIE PODŁOŻA:</h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w proporcji 1:80</span></li>\n</ul>\n<h3>TAPETOWANIE:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#ffffff;\">Klej rozprowadzić  równomiernie szerokim pędzlem po spodniej powierzchni tapety, najpierw wzdłuż brytu, a potem w poprzek, aż do brzegów. Ilość kleju dopasowujemy do możliwości chłonnych tapety (lekkie </span></span></span></span><span style=\"font-size:12pt;\">tapety – lżej</span><span style=\"font-size:12pt;\">, cięż<span style=\"background-color:#00ffff;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#ffffff;\">kie tapety – bardziej obficie). </span></span></span></span><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Pokryte klejem bryty składamy w połowie, klejem do środka i zwijamy. Po wykonaniu tej czynności odkładamy bryt na około 10 minut (w zależności od rodzaju materiału), aby jego warstwa uległa równomiernemu nasiąknięciu. Tapety ciężkie dwukrotnie pokryć klejem i pozostawić na dłuższy czas do namięknięcia. </span></p>\n<p><span style=\"font-size:12pt;\"><span style=\"font-family:arial, helvetica, sans-serif;\">Klejenie tapety zaczy</span><span style=\"font-family:arial, helvetica, sans-serif;\">namy od strony okna. Chwytając za górne naroża brytu pozwalamy, aby swobodnie rozwinął się pod własnym ciężarem. Tapetę przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Nadmiar kleju należy natychmiast usunąć gąbką i czystą wodą. Narzędzia myć zimną lub ciepłą wodą. Należy stosować zalecenia producenta tapet. </span></span></p>\n<h3>ZALECENIA:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Niniejsze informacje określają zakres stosowania materiału i sposób prowadzenia robót, ale nie mogą zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób  jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania.</span></p>\n<h3>PRZECHOWYWANIE:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span></p>\n<h3>DOSTĘPNE OPAKOWANIA:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">125g</span></p>\n<h3> </h3>\n<h3>ORIENTACYJNE ZUŻYCIE:</h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\">\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Proporcje</span><br /><span style=\"color:#000000;font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\">\n<p><span style=\"color:#000000;font-size:8pt;\">Na opakowanie = 125g</span></p>\n</td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"color:#000000;font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Wydajność</span><br /><span style=\"color:#000000;font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Wydajność</span><br /><span style=\"color:#000000;font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">10</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">100</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety lekkie papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:70</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">50</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">10</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety normalne papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:60</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">7,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">8</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety ciężkie papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:50</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">6,25</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">30</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">6</span></td>\n</tr>\n</tbody>\n</table>\n<p> </p>",
+        "images": [
+          "36489"
+        ],
+        "images_filename": [
+          "36489.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "18,90 zł",
+        "net_historical_lowest_price": "15,37 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "read:swiat-metylan-direct-200g",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/104",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 104,
+        "name": "METYLAN Direct 200g klej do tapet 24119",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "N-29",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 5,
+        "votes": 2,
+        "stockId": 181,
+        "url": "https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104",
+        "category": {
+          "name": "KLEJE DO TAPET",
+          "id": 26
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "24,94 zł",
+            "base_float": 24.94,
+            "final": "24,94 zł",
+            "final_float": 24.94,
+            "historical_lowest_price": "23,00 zł",
+            "historical_lowest_price_float": 23
+          },
+          "net": {
+            "base": "20,28 zł",
+            "base_float": 20.28,
+            "final": "20,28 zł",
+            "final_float": 20.28,
+            "historical_lowest_price": "18,70 zł",
+            "historical_lowest_price_float": 18.7
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "unit_calculation": {
+          "unit": "kg",
+          "unit_ratio": 0.2,
+          "price": {
+            "gross": {
+              "base": "124,70 zł",
+              "base_float": 124.7,
+              "final": "124,70 zł",
+              "final_float": 124.7
+            },
+            "net": {
+              "base": "101,40 zł",
+              "base_float": 101.4,
+              "final": "101,40 zł",
+              "final_float": null
+            }
+          }
+        },
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Henkel",
+          "id": 12
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Klej do tapet z flizeliny lub na flizelinie. Umożliwia szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety.</p>",
+        "main_image": "8cf3f0b127670f2cfdd5620ec59b3e3e",
+        "main_image_filename": "8cf3f0b127670f2cfdd5620ec59b3e3e.jpg",
+        "description": "<p style=\"text-align: justify;\"><strong>Metylan Direct</strong></p>\r\n<p style=\"text-align: justify;\">nadaje się do klejenia tapet z flizeliny lub na flizelinie nadaje się do nanoszenia wałkiem malarskim łatwy w stosowaniu klej o bardzo dobrej przyczepności początkowej gotowy do użycia już po 5 minutach</p>\r\n<p style=\"text-align: justify;\"><strong>Wydajność:</strong> ok. 20-24 mkw. (4-5 rolek - standardowych czyli 10.05/0.53 m.)</p>\r\n<p style=\"text-align: justify;\"><strong>ZASTOSOWANIE</strong></p>\r\n<p style=\"text-align: justify;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE KLEJU</strong> Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE PODŁOŻA</strong> Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. Starannie oczyścić ściany i sufi - ty. Stare tapety usunąć używając Płynu do usuwania tapet. Ubytki i pęknięcia zaszpachlować. Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan direct w proporcji 1:40.</p>\r\n<p style=\"text-align: justify;\">Przy tapetach na flizelinie klej nanosimy jedynie na ścianę. Musimy jednak pamiętać aby przy przyklejaniu było go zawsze pod dostatkiem, każde ponowne przyklejenie (np. po odklejeniu w celu poprawy ułożenia) musi być poprzedzone posmarowaniem ściany klejem w miejscu odklejenia. Klej powinien być wyczuwalny na ścianie ale też nie powinien z niej się lać.</p>\r\n<p style=\"text-align: justify;\">Tapety na flizelinie zakłada się o połowę czasu krócej niż tradycyjne tapety na podłożu winylowym.</p>",
+        "images": [
+          "8cf3f0b127670f2cfdd5620ec59b3e3e"
+        ],
+        "images_filename": [
+          "8cf3f0b127670f2cfdd5620ec59b3e3e.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Producent",
+            "type": 2,
+            "value": "Henkel"
+          },
+          {
+            "name": "Marka",
+            "type": 2,
+            "value": "Metylan"
+          },
+          {
+            "name": "Wydajność",
+            "type": 0,
+            "value": "18-20 m²"
+          },
+          {
+            "name": "Obszar zastosowania",
+            "type": 0,
+            "value": "wewnątrz pomieszczeń"
+          },
+          {
+            "name": "Zastosowanie",
+            "type": 0,
+            "value": "tapety flizelinowe gładkie, tłoczone oraz tapety z włókna szklanego"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "23,00 zł",
+        "net_historical_lowest_price": "18,70 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "2",
+          "name": "Tapeta z włókna szklanego"
+        }
+      }
+    },
+    {
+      "context": "read:swiat-metylan-normal-125g",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/101",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 101,
+        "name": "METYLAN Normal 125g klej do tapet 24122",
+        "can_buy": true,
+        "ean": "4015000095266",
+        "code": "N-26",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 178,
+        "url": "https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101",
+        "category": {
+          "name": "KLEJE DO TAPET",
+          "id": 26
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "16,98 zł",
+            "base_float": 16.98,
+            "final": "16,98 zł",
+            "final_float": 16.98,
+            "historical_lowest_price": "19,10 zł",
+            "historical_lowest_price_float": 19.1
+          },
+          "net": {
+            "base": "13,80 zł",
+            "base_float": 13.8,
+            "final": "13,80 zł",
+            "final_float": 13.8,
+            "historical_lowest_price": "15,53 zł",
+            "historical_lowest_price_float": 15.53
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "unit_calculation": {
+          "unit": "kg",
+          "unit_ratio": 0.125,
+          "price": {
+            "gross": {
+              "base": "135,84 zł",
+              "base_float": 135.84,
+              "final": "135,84 zł",
+              "final_float": 135.84
+            },
+            "net": {
+              "base": "110,40 zł",
+              "base_float": 110.4,
+              "final": "110,40 zł",
+              "final_float": null
+            }
+          }
+        },
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Henkel",
+          "id": 12
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Klej do cienkich i grubych tapet papierowych oraz gruntowania powierzchni przed tapetowaniem.</p>",
+        "main_image": "a44f7b5fc0ca152dba8e53e1ccae43fa",
+        "main_image_filename": "a44f7b5fc0ca152dba8e53e1ccae43fa.jpg",
+        "description": "<p style=\"text-align: center;\"> <span style=\"font-size: 12pt;\"><strong>Sklep Internetowy</strong></span></p>\r\n<p style=\"text-align: center;\"><span style=\"font-size: 12pt;\"><strong><img src=\"/public/assets/napis-allegro-3.png\" alt=\"\" width=\"486\" height=\"74\" /></strong></span></p>\r\n<p style=\"text-align: center;\"> </p>\r\n<p style=\"text-align: center;\"><span style=\"font-size: 14pt;\"> <strong>Klej METYLAN Normal</strong></span></p>\r\n<p><span style=\"font-size: 12pt;\">Klej do cienkich i grubych tapet papierowych oraz gruntowania powierzchni przed tapetowaniem.</span></p>\r\n<p style=\"text-align: center;\"><strong><span style=\"font-size: 12pt;\">Świetny do prac z papierem.</span></strong></p>\r\n<p style=\"text-align: center;\"> </p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE KLEJU</strong> :</p>\r\n<p style=\"text-align: justify;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając przez około 1 minutę (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 2-3 minut ponownie zamieszać. Odczekać 15 minut i jeszcze raz energicznie zamieszać. Klej jest gotowy do użycia.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE PODŁOŻA</strong> :</p>\r\n<p style=\"text-align: justify;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. Starannie oczyścić ściany i sufity. Stare tapety usunąć używając– Płynu do usuwania tapet. Ubytki i pęknięcia zaszpachlować. Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w proporcji 1:80</p>\r\n<p style=\"text-align: justify;\"> </p>\r\n<p style=\"text-align: justify;\">Klej rozprowadzić równomiernie szerokim pędzlem po spodniej powierzchni tapety, najpierw wzdłuż brytu, a potem w poprzek, aż do brzegów. Ilość kleju dopasowujemy do możliwości chłonnych tapety (lekkietapety – lżej, ciężkie tapety – bardziej obficie). Pokryte klejem bryty składamy w połowie, klejem do środka i zwijamy. Po wykonaniu tej czynności odkładamy bryt na około 10 minut (w zależności od rodzaju materiału), aby jego warstwa uległa równomiernemu nasiąknięciu. Tapety ciężkie dwukrotnie pokryć klejem i pozostawić na dłuższy czas do namięknięcia. Klejenie tapety zaczynamy od strony okna. Chwytając za górne naroża brytu pozwalamy, aby swobodnie rozwinął się pod własnym ciężarem. Tapetę przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Nadmiar kleju należy natychmiast usunąć gąbką i czystą wodą. Narzędzia myć zimną lub ciepłą wodą. Należy stosować zalecenia producenta tapet.</p>",
+        "images": [
+          "a44f7b5fc0ca152dba8e53e1ccae43fa"
+        ],
+        "images_filename": [
+          "a44f7b5fc0ca152dba8e53e1ccae43fa.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Producent",
+            "type": 2,
+            "value": "Henkel"
+          },
+          {
+            "name": "Marka",
+            "type": 2,
+            "value": "Metylan"
+          },
+          {
+            "name": "Wydajność",
+            "type": 0,
+            "value": "30-50 m² w zalezności od grubości tapet papierowych"
+          },
+          {
+            "name": "Obszar zastosowania",
+            "type": 0,
+            "value": "wewnątrz pomieszczeń"
+          },
+          {
+            "name": "Zastosowanie",
+            "type": 0,
+            "value": "lekkie, normalne oraz cięzkie tapety papierowe oraz do gruntowania"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "19,10 zł",
+        "net_historical_lowest_price": "15,53 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "2",
+          "name": "Tapeta z włókna szklanego"
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-both",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/825",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 825,
+        "name": "Klej do tapet Direct 200g Metylan",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "MT DIR200",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 872,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825",
+        "loyalty": {
+          "points_float": 31,
+          "points": "31 pkt",
+          "price_float": 1300,
+          "price": "1 300 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Flizelinowych",
+          "id": 82
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "31,90 zł",
+            "base_float": 31.9,
+            "final": "31,90 zł",
+            "final_float": 31.9,
+            "historical_lowest_price": "31,90 zł",
+            "historical_lowest_price_float": 31.9
+          },
+          "net": {
+            "base": "25,93 zł",
+            "base_float": 25.93,
+            "final": "25,93 zł",
+            "final_float": 25.93,
+            "historical_lowest_price": "25,93 zł",
+            "historical_lowest_price_float": 25.93
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Direct 200g</p>",
+        "main_image": "36488",
+        "main_image_filename": "36488.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Do nakładania bezpośrednio na ścianę</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Bez rozprysków</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Z wysokowartościowej metylocelulozy wzbogaconą syntetyczną żywicą</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza z dodatkiem żywic sztucznych</li>\n<li><strong>Wygląd roztworu:</strong> gęsty, mlecznobiały</li>\n<li><strong>Ciężar nasypowy:</strong> 460 – 530 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> w ciągu 3-5 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> lekko zasadowy (pH = 8-9)</li>\n<li><strong>Wydajność:</strong> 18-22 m²</li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZASTOSOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE KLEJU:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE PODŁOŻA:</span></h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w wodzie w proporcji 1:80 lub Metylan Direct w proporcji 1:40.</span></li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">TAPETOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Wymieszany klej Metylan Direct nanieść równomiernie bezpośrednio na ścianę za pomocą wałka. Zaczynając od strony okna tapetę przykleić bezpośrednio z rolki do posmarowanej klejem ściany. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Następnie tapetę rozwinąć do dołu, przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. Resztki kleju znajdujące się na przedniej powierzchni tapety należy niezwłocznie zmyć delikatnie gąbką i czystą wodą lub zetrzeć. Przy zmianie tapet flizelinowych wystarczy pociągnąć za górny brzeg tapety i oderwać ją na sucho. Metylan Direct można także nanieść tradycyjnie na spodnią stronę tapety i od razu przykleić ją do ściany.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZALECENIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Niniejsza karta techniczna określa zakres stosowania materiału i sposób prowadzenia robót, ale nie może zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania. Wraz z ukazaniem się tej karty technicznej tracą ważność karty wcześniejsze. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZECHOWYWANIE:</span></h3>\n<p><span style=\"color:#000000;\"><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span><span style=\"font-family:georgia, palatino;font-size:14pt;background-color:#ff00ff;\"> <br /></span></span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">DOSTĘPNE OPAKOWANIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\"><span style=\"font-size:12pt;\">200g</span></span></p>\n<h3> </h3>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ORIENTACYJNE ZUŻYCIE:</span></h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\"><colgroup><col width=\"181\" /><col width=\"95\" /><col width=\"113\" /><col width=\"113\" /><col width=\"113\" /></colgroup>\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Proporcje</span><br /><span style=\"font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Na opakowanie = 200g</span></td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">60-80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe gładkie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">20-22</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4*</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe tłoczone</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:17,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">18-20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3-4*</span></td>\n</tr>\n</tbody>\n</table>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:10pt;\">* Eurorolka (10,05m x 0,53m</span>)</p>\n<p> </p>\n<p> </p>",
+        "images": [
+          "36488"
+        ],
+        "images_filename": [
+          "36488.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "31,90 zł",
+        "net_historical_lowest_price": "25,93 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "quote:plejada-both",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 872,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-both",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/824",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 824,
+        "name": "Klej do tapet Normal 125g Metylan",
+        "can_buy": true,
+        "ean": "4015000095266",
+        "code": "MT NOR125",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 871,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Normal-125g-Metylan/824",
+        "loyalty": {
+          "points_float": 20,
+          "points": "20 pkt",
+          "price_float": 800,
+          "price": "800 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Papierowych",
+          "id": 64
+        },
+        "availability": {
+          "name": "2 szt. dostępne w magazynie"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "20,00 zł",
+            "base_float": 20,
+            "final": "20,00 zł",
+            "final_float": 20,
+            "historical_lowest_price": "18,90 zł",
+            "historical_lowest_price_float": 18.9
+          },
+          "net": {
+            "base": "16,26 zł",
+            "base_float": 16.26,
+            "final": "16,26 zł",
+            "final_float": 16.26,
+            "historical_lowest_price": "15,37 zł",
+            "historical_lowest_price_float": 15.37
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.125,
+          "weight": "0.125 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Normal 125g</p>",
+        "main_image": "36489",
+        "main_image_filename": "36489.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Czysta metyloceluloza</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Bezpieczny dla użytkownika</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Duża przyczepność</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Polecany do gruntowania przed tapetowaniem<br /></span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Wydajny</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza</li>\n<li><strong>Wygląd:</strong> gęsty, przeźroczysty kleisty roztwór</li>\n<li><strong>Ciężar nasypowy:</strong> 240 – 3000 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> około 20 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> pH 7 – roztwór chemicznie obojętny</li>\n<li><strong>Wydajność:</strong> 30-50 m² </li>\n</ul>\n<h3>ZASTOSOWANIE:</h3>\n<p><span style=\"font-size:12pt;font-family:arial, helvetica, sans-serif;\"><span style=\"background-color:#ffffff;\">Do klej</span>enia cienkich i grubych tapet papierowych oraz do gruntowania powierzchni przed tapetowaniem.</span></p>\n<h3>PRZYGOTOWANIE KLEJU:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając przez około 1 minutę (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 2-3 minut ponownie zamieszać. Odczekać 15 minut i jeszcze raz energicznie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3>PRZYGOTOWANIE PODŁOŻA:</h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w proporcji 1:80</span></li>\n</ul>\n<h3>TAPETOWANIE:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#ffffff;\">Klej rozprowadzić  równomiernie szerokim pędzlem po spodniej powierzchni tapety, najpierw wzdłuż brytu, a potem w poprzek, aż do brzegów. Ilość kleju dopasowujemy do możliwości chłonnych tapety (lekkie </span></span></span></span><span style=\"font-size:12pt;\">tapety – lżej</span><span style=\"font-size:12pt;\">, cięż<span style=\"background-color:#00ffff;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#ffffff;\">kie tapety – bardziej obficie). </span></span></span></span><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Pokryte klejem bryty składamy w połowie, klejem do środka i zwijamy. Po wykonaniu tej czynności odkładamy bryt na około 10 minut (w zależności od rodzaju materiału), aby jego warstwa uległa równomiernemu nasiąknięciu. Tapety ciężkie dwukrotnie pokryć klejem i pozostawić na dłuższy czas do namięknięcia. </span></p>\n<p><span style=\"font-size:12pt;\"><span style=\"font-family:arial, helvetica, sans-serif;\">Klejenie tapety zaczy</span><span style=\"font-family:arial, helvetica, sans-serif;\">namy od strony okna. Chwytając za górne naroża brytu pozwalamy, aby swobodnie rozwinął się pod własnym ciężarem. Tapetę przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Nadmiar kleju należy natychmiast usunąć gąbką i czystą wodą. Narzędzia myć zimną lub ciepłą wodą. Należy stosować zalecenia producenta tapet. </span></span></p>\n<h3>ZALECENIA:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Niniejsze informacje określają zakres stosowania materiału i sposób prowadzenia robót, ale nie mogą zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób  jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania.</span></p>\n<h3>PRZECHOWYWANIE:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span></p>\n<h3>DOSTĘPNE OPAKOWANIA:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">125g</span></p>\n<h3> </h3>\n<h3>ORIENTACYJNE ZUŻYCIE:</h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\">\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Proporcje</span><br /><span style=\"color:#000000;font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\">\n<p><span style=\"color:#000000;font-size:8pt;\">Na opakowanie = 125g</span></p>\n</td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"color:#000000;font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Wydajność</span><br /><span style=\"color:#000000;font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Wydajność</span><br /><span style=\"color:#000000;font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">10</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">100</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety lekkie papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:70</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">50</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">10</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety normalne papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:60</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">7,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">8</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety ciężkie papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:50</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">6,25</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">30</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">6</span></td>\n</tr>\n</tbody>\n</table>\n<p> </p>",
+        "images": [
+          "36489"
+        ],
+        "images_filename": [
+          "36489.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "18,90 zł",
+        "net_historical_lowest_price": "15,37 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "quote:plejada-both",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 871,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-both",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Klej do tapet Direct 200g Metylan",
+            "stock_id": 872,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "31,90 zł",
+            "price_float": 31.9,
+            "sum": "31,90 zł",
+            "sum_float": 31.9
+          },
+          {
+            "name": "Klej do tapet Normal 125g Metylan",
+            "stock_id": 871,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "20,00 zł",
+            "price_float": 20,
+            "sum": "20,00 zł",
+            "sum_float": 20
+          }
+        ],
+        "basket": {
+          "sum_products": "51,90 zł",
+          "sum_products_float": 51.9
+        },
+        "countries": [
+          {
+            "id": 20,
+            "name": "Belgia",
+            "selected": false
+          },
+          {
+            "id": 56,
+            "name": "Czechy",
+            "selected": false
+          },
+          {
+            "id": 102,
+            "name": "Irlandia",
+            "selected": false
+          },
+          {
+            "id": 133,
+            "name": "Litwa",
+            "selected": false
+          },
+          {
+            "id": 57,
+            "name": "Niemcy",
+            "selected": false
+          },
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          },
+          {
+            "id": 202,
+            "name": "Słowacja",
+            "selected": false
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 15,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 20,
+            "selected": false,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 3,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka / Karta",
+            "description": ""
+          },
+          {
+            "payment_id": 24,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 14,
+            "selected": true,
+            "title": "InPost kurier",
+            "description": "",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "InPost kurier - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 56,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "21,90 zł",
+            "cost_float": 21.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,90 zł",
+                "cost_float": 21.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier DPD - pobranie",
+            "description": "",
+            "cost": "26,90 zł",
+            "cost_float": 26.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,90 zł",
+                "cost_float": 26.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 54,
+            "selected": false,
+            "title": "InPost Paczkomat® 24/7",
+            "description": "- przelew",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Paczkomat® 24/7  - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Kurier DPD Litwa",
+            "description": "UE [LT]",
+            "cost": "69,00 zł",
+            "cost_float": 69,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 133,
+                "cost": "69,00 zł",
+                "cost_float": 69
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "KurierDPD Czechy",
+            "description": "UE [CZ]",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 56,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Słowacja",
+            "description": "UE",
+            "cost": "45,00 zł",
+            "cost_float": 45,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 202,
+                "cost": "45,00 zł",
+                "cost_float": 45
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier DPD Niemcy",
+            "description": "UE [DE]",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 57,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Punkt Orlen Paczka",
+            "description": "",
+            "cost": "12,90 zł",
+            "cost_float": 12.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "12,90 zł",
+                "cost_float": 12.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 39,
+            "selected": false,
+            "title": "Kurier DPD Irlandia",
+            "description": "Kurier",
+            "cost": "99,00 zł",
+            "cost_float": 99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 102,
+                "cost": "99,00 zł",
+                "cost_float": 99
+              }
+            ]
+          },
+          {
+            "shipping_id": 61,
+            "selected": false,
+            "title": "Kurier DPD Belgia",
+            "description": "",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 20,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty w siedzibie firmy",
+            "description": "- 41-922 Radzionków, ul. Męczenników Oświęcimia 32 - przelew",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-both",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/104",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 104,
+        "name": "METYLAN Direct 200g klej do tapet 24119",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "N-29",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 5,
+        "votes": 2,
+        "stockId": 181,
+        "url": "https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104",
+        "category": {
+          "name": "KLEJE DO TAPET",
+          "id": 26
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "24,94 zł",
+            "base_float": 24.94,
+            "final": "24,94 zł",
+            "final_float": 24.94,
+            "historical_lowest_price": "23,00 zł",
+            "historical_lowest_price_float": 23
+          },
+          "net": {
+            "base": "20,28 zł",
+            "base_float": 20.28,
+            "final": "20,28 zł",
+            "final_float": 20.28,
+            "historical_lowest_price": "18,70 zł",
+            "historical_lowest_price_float": 18.7
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "unit_calculation": {
+          "unit": "kg",
+          "unit_ratio": 0.2,
+          "price": {
+            "gross": {
+              "base": "124,70 zł",
+              "base_float": 124.7,
+              "final": "124,70 zł",
+              "final_float": 124.7
+            },
+            "net": {
+              "base": "101,40 zł",
+              "base_float": 101.4,
+              "final": "101,40 zł",
+              "final_float": null
+            }
+          }
+        },
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Henkel",
+          "id": 12
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Klej do tapet z flizeliny lub na flizelinie. Umożliwia szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety.</p>",
+        "main_image": "8cf3f0b127670f2cfdd5620ec59b3e3e",
+        "main_image_filename": "8cf3f0b127670f2cfdd5620ec59b3e3e.jpg",
+        "description": "<p style=\"text-align: justify;\"><strong>Metylan Direct</strong></p>\r\n<p style=\"text-align: justify;\">nadaje się do klejenia tapet z flizeliny lub na flizelinie nadaje się do nanoszenia wałkiem malarskim łatwy w stosowaniu klej o bardzo dobrej przyczepności początkowej gotowy do użycia już po 5 minutach</p>\r\n<p style=\"text-align: justify;\"><strong>Wydajność:</strong> ok. 20-24 mkw. (4-5 rolek - standardowych czyli 10.05/0.53 m.)</p>\r\n<p style=\"text-align: justify;\"><strong>ZASTOSOWANIE</strong></p>\r\n<p style=\"text-align: justify;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE KLEJU</strong> Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE PODŁOŻA</strong> Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. Starannie oczyścić ściany i sufi - ty. Stare tapety usunąć używając Płynu do usuwania tapet. Ubytki i pęknięcia zaszpachlować. Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan direct w proporcji 1:40.</p>\r\n<p style=\"text-align: justify;\">Przy tapetach na flizelinie klej nanosimy jedynie na ścianę. Musimy jednak pamiętać aby przy przyklejaniu było go zawsze pod dostatkiem, każde ponowne przyklejenie (np. po odklejeniu w celu poprawy ułożenia) musi być poprzedzone posmarowaniem ściany klejem w miejscu odklejenia. Klej powinien być wyczuwalny na ścianie ale też nie powinien z niej się lać.</p>\r\n<p style=\"text-align: justify;\">Tapety na flizelinie zakłada się o połowę czasu krócej niż tradycyjne tapety na podłożu winylowym.</p>",
+        "images": [
+          "8cf3f0b127670f2cfdd5620ec59b3e3e"
+        ],
+        "images_filename": [
+          "8cf3f0b127670f2cfdd5620ec59b3e3e.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Producent",
+            "type": 2,
+            "value": "Henkel"
+          },
+          {
+            "name": "Marka",
+            "type": 2,
+            "value": "Metylan"
+          },
+          {
+            "name": "Wydajność",
+            "type": 0,
+            "value": "18-20 m²"
+          },
+          {
+            "name": "Obszar zastosowania",
+            "type": 0,
+            "value": "wewnątrz pomieszczeń"
+          },
+          {
+            "name": "Zastosowanie",
+            "type": 0,
+            "value": "tapety flizelinowe gładkie, tłoczone oraz tapety z włókna szklanego"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "23,00 zł",
+        "net_historical_lowest_price": "18,70 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "2",
+          "name": "Tapeta z włókna szklanego"
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-both",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 181,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-both",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/101",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 101,
+        "name": "METYLAN Normal 125g klej do tapet 24122",
+        "can_buy": true,
+        "ean": "4015000095266",
+        "code": "N-26",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 178,
+        "url": "https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101",
+        "category": {
+          "name": "KLEJE DO TAPET",
+          "id": 26
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "16,98 zł",
+            "base_float": 16.98,
+            "final": "16,98 zł",
+            "final_float": 16.98,
+            "historical_lowest_price": "19,10 zł",
+            "historical_lowest_price_float": 19.1
+          },
+          "net": {
+            "base": "13,80 zł",
+            "base_float": 13.8,
+            "final": "13,80 zł",
+            "final_float": 13.8,
+            "historical_lowest_price": "15,53 zł",
+            "historical_lowest_price_float": 15.53
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "unit_calculation": {
+          "unit": "kg",
+          "unit_ratio": 0.125,
+          "price": {
+            "gross": {
+              "base": "135,84 zł",
+              "base_float": 135.84,
+              "final": "135,84 zł",
+              "final_float": 135.84
+            },
+            "net": {
+              "base": "110,40 zł",
+              "base_float": 110.4,
+              "final": "110,40 zł",
+              "final_float": null
+            }
+          }
+        },
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Henkel",
+          "id": 12
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Klej do cienkich i grubych tapet papierowych oraz gruntowania powierzchni przed tapetowaniem.</p>",
+        "main_image": "a44f7b5fc0ca152dba8e53e1ccae43fa",
+        "main_image_filename": "a44f7b5fc0ca152dba8e53e1ccae43fa.jpg",
+        "description": "<p style=\"text-align: center;\"> <span style=\"font-size: 12pt;\"><strong>Sklep Internetowy</strong></span></p>\r\n<p style=\"text-align: center;\"><span style=\"font-size: 12pt;\"><strong><img src=\"/public/assets/napis-allegro-3.png\" alt=\"\" width=\"486\" height=\"74\" /></strong></span></p>\r\n<p style=\"text-align: center;\"> </p>\r\n<p style=\"text-align: center;\"><span style=\"font-size: 14pt;\"> <strong>Klej METYLAN Normal</strong></span></p>\r\n<p><span style=\"font-size: 12pt;\">Klej do cienkich i grubych tapet papierowych oraz gruntowania powierzchni przed tapetowaniem.</span></p>\r\n<p style=\"text-align: center;\"><strong><span style=\"font-size: 12pt;\">Świetny do prac z papierem.</span></strong></p>\r\n<p style=\"text-align: center;\"> </p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE KLEJU</strong> :</p>\r\n<p style=\"text-align: justify;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając przez około 1 minutę (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 2-3 minut ponownie zamieszać. Odczekać 15 minut i jeszcze raz energicznie zamieszać. Klej jest gotowy do użycia.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE PODŁOŻA</strong> :</p>\r\n<p style=\"text-align: justify;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. Starannie oczyścić ściany i sufity. Stare tapety usunąć używając– Płynu do usuwania tapet. Ubytki i pęknięcia zaszpachlować. Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w proporcji 1:80</p>\r\n<p style=\"text-align: justify;\"> </p>\r\n<p style=\"text-align: justify;\">Klej rozprowadzić równomiernie szerokim pędzlem po spodniej powierzchni tapety, najpierw wzdłuż brytu, a potem w poprzek, aż do brzegów. Ilość kleju dopasowujemy do możliwości chłonnych tapety (lekkietapety – lżej, ciężkie tapety – bardziej obficie). Pokryte klejem bryty składamy w połowie, klejem do środka i zwijamy. Po wykonaniu tej czynności odkładamy bryt na około 10 minut (w zależności od rodzaju materiału), aby jego warstwa uległa równomiernemu nasiąknięciu. Tapety ciężkie dwukrotnie pokryć klejem i pozostawić na dłuższy czas do namięknięcia. Klejenie tapety zaczynamy od strony okna. Chwytając za górne naroża brytu pozwalamy, aby swobodnie rozwinął się pod własnym ciężarem. Tapetę przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Nadmiar kleju należy natychmiast usunąć gąbką i czystą wodą. Narzędzia myć zimną lub ciepłą wodą. Należy stosować zalecenia producenta tapet.</p>",
+        "images": [
+          "a44f7b5fc0ca152dba8e53e1ccae43fa"
+        ],
+        "images_filename": [
+          "a44f7b5fc0ca152dba8e53e1ccae43fa.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Producent",
+            "type": 2,
+            "value": "Henkel"
+          },
+          {
+            "name": "Marka",
+            "type": 2,
+            "value": "Metylan"
+          },
+          {
+            "name": "Wydajność",
+            "type": 0,
+            "value": "30-50 m² w zalezności od grubości tapet papierowych"
+          },
+          {
+            "name": "Obszar zastosowania",
+            "type": 0,
+            "value": "wewnątrz pomieszczeń"
+          },
+          {
+            "name": "Zastosowanie",
+            "type": 0,
+            "value": "lekkie, normalne oraz cięzkie tapety papierowe oraz do gruntowania"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "19,10 zł",
+        "net_historical_lowest_price": "15,53 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "2",
+          "name": "Tapeta z włókna szklanego"
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-both",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 178,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-both",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "METYLAN Direct 200g klej do tapet 24119",
+            "stock_id": 181,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "24,94 zł",
+            "price_float": 24.94,
+            "sum": "24,94 zł",
+            "sum_float": 24.94
+          },
+          {
+            "name": "METYLAN Normal 125g klej do tapet 24122",
+            "stock_id": 178,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "16,98 zł",
+            "price_float": 16.98,
+            "sum": "16,98 zł",
+            "sum_float": 16.98
+          }
+        ],
+        "basket": {
+          "sum_products": "41,92 zł",
+          "sum_products_float": 41.92
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 16,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew",
+            "description": "Przedpłata na konto"
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": "Gotówka"
+          },
+          {
+            "payment_id": 25,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 11,
+            "selected": true,
+            "title": "Kurier",
+            "description": "Kurier Inpost",
+            "cost": "19,00 zł",
+            "cost_float": 19,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 16
+              },
+              {
+                "payment_id": 25
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,00 zł",
+                "cost_float": 19
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty",
+            "description": "odbiór w siedzibie firmy",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-direct",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/104",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 104,
+        "name": "METYLAN Direct 200g klej do tapet 24119",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "N-29",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 5,
+        "votes": 2,
+        "stockId": 181,
+        "url": "https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104",
+        "category": {
+          "name": "KLEJE DO TAPET",
+          "id": 26
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "24,94 zł",
+            "base_float": 24.94,
+            "final": "24,94 zł",
+            "final_float": 24.94,
+            "historical_lowest_price": "23,00 zł",
+            "historical_lowest_price_float": 23
+          },
+          "net": {
+            "base": "20,28 zł",
+            "base_float": 20.28,
+            "final": "20,28 zł",
+            "final_float": 20.28,
+            "historical_lowest_price": "18,70 zł",
+            "historical_lowest_price_float": 18.7
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "unit_calculation": {
+          "unit": "kg",
+          "unit_ratio": 0.2,
+          "price": {
+            "gross": {
+              "base": "124,70 zł",
+              "base_float": 124.7,
+              "final": "124,70 zł",
+              "final_float": 124.7
+            },
+            "net": {
+              "base": "101,40 zł",
+              "base_float": 101.4,
+              "final": "101,40 zł",
+              "final_float": null
+            }
+          }
+        },
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Henkel",
+          "id": 12
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Klej do tapet z flizeliny lub na flizelinie. Umożliwia szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety.</p>",
+        "main_image": "8cf3f0b127670f2cfdd5620ec59b3e3e",
+        "main_image_filename": "8cf3f0b127670f2cfdd5620ec59b3e3e.jpg",
+        "description": "<p style=\"text-align: justify;\"><strong>Metylan Direct</strong></p>\r\n<p style=\"text-align: justify;\">nadaje się do klejenia tapet z flizeliny lub na flizelinie nadaje się do nanoszenia wałkiem malarskim łatwy w stosowaniu klej o bardzo dobrej przyczepności początkowej gotowy do użycia już po 5 minutach</p>\r\n<p style=\"text-align: justify;\"><strong>Wydajność:</strong> ok. 20-24 mkw. (4-5 rolek - standardowych czyli 10.05/0.53 m.)</p>\r\n<p style=\"text-align: justify;\"><strong>ZASTOSOWANIE</strong></p>\r\n<p style=\"text-align: justify;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE KLEJU</strong> Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE PODŁOŻA</strong> Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. Starannie oczyścić ściany i sufi - ty. Stare tapety usunąć używając Płynu do usuwania tapet. Ubytki i pęknięcia zaszpachlować. Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan direct w proporcji 1:40.</p>\r\n<p style=\"text-align: justify;\">Przy tapetach na flizelinie klej nanosimy jedynie na ścianę. Musimy jednak pamiętać aby przy przyklejaniu było go zawsze pod dostatkiem, każde ponowne przyklejenie (np. po odklejeniu w celu poprawy ułożenia) musi być poprzedzone posmarowaniem ściany klejem w miejscu odklejenia. Klej powinien być wyczuwalny na ścianie ale też nie powinien z niej się lać.</p>\r\n<p style=\"text-align: justify;\">Tapety na flizelinie zakłada się o połowę czasu krócej niż tradycyjne tapety na podłożu winylowym.</p>",
+        "images": [
+          "8cf3f0b127670f2cfdd5620ec59b3e3e"
+        ],
+        "images_filename": [
+          "8cf3f0b127670f2cfdd5620ec59b3e3e.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Producent",
+            "type": 2,
+            "value": "Henkel"
+          },
+          {
+            "name": "Marka",
+            "type": 2,
+            "value": "Metylan"
+          },
+          {
+            "name": "Wydajność",
+            "type": 0,
+            "value": "18-20 m²"
+          },
+          {
+            "name": "Obszar zastosowania",
+            "type": 0,
+            "value": "wewnątrz pomieszczeń"
+          },
+          {
+            "name": "Zastosowanie",
+            "type": 0,
+            "value": "tapety flizelinowe gładkie, tłoczone oraz tapety z włókna szklanego"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "23,00 zł",
+        "net_historical_lowest_price": "18,70 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "2",
+          "name": "Tapeta z włókna szklanego"
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-direct",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 181,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-direct",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "METYLAN Direct 200g klej do tapet 24119",
+            "stock_id": 181,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "24,94 zł",
+            "price_float": 24.94,
+            "sum": "24,94 zł",
+            "sum_float": 24.94
+          }
+        ],
+        "basket": {
+          "sum_products": "24,94 zł",
+          "sum_products_float": 24.94
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 16,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew",
+            "description": "Przedpłata na konto"
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": "Gotówka"
+          },
+          {
+            "payment_id": 25,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 11,
+            "selected": true,
+            "title": "Kurier",
+            "description": "Kurier Inpost",
+            "cost": "19,00 zł",
+            "cost_float": 19,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 16
+              },
+              {
+                "payment_id": 25
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,00 zł",
+                "cost_float": 19
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty",
+            "description": "odbiór w siedzibie firmy",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-normal",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/101",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 101,
+        "name": "METYLAN Normal 125g klej do tapet 24122",
+        "can_buy": true,
+        "ean": "4015000095266",
+        "code": "N-26",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 178,
+        "url": "https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101",
+        "category": {
+          "name": "KLEJE DO TAPET",
+          "id": 26
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "16,98 zł",
+            "base_float": 16.98,
+            "final": "16,98 zł",
+            "final_float": 16.98,
+            "historical_lowest_price": "19,10 zł",
+            "historical_lowest_price_float": 19.1
+          },
+          "net": {
+            "base": "13,80 zł",
+            "base_float": 13.8,
+            "final": "13,80 zł",
+            "final_float": 13.8,
+            "historical_lowest_price": "15,53 zł",
+            "historical_lowest_price_float": 15.53
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "unit_calculation": {
+          "unit": "kg",
+          "unit_ratio": 0.125,
+          "price": {
+            "gross": {
+              "base": "135,84 zł",
+              "base_float": 135.84,
+              "final": "135,84 zł",
+              "final_float": 135.84
+            },
+            "net": {
+              "base": "110,40 zł",
+              "base_float": 110.4,
+              "final": "110,40 zł",
+              "final_float": null
+            }
+          }
+        },
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Henkel",
+          "id": 12
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Klej do cienkich i grubych tapet papierowych oraz gruntowania powierzchni przed tapetowaniem.</p>",
+        "main_image": "a44f7b5fc0ca152dba8e53e1ccae43fa",
+        "main_image_filename": "a44f7b5fc0ca152dba8e53e1ccae43fa.jpg",
+        "description": "<p style=\"text-align: center;\"> <span style=\"font-size: 12pt;\"><strong>Sklep Internetowy</strong></span></p>\r\n<p style=\"text-align: center;\"><span style=\"font-size: 12pt;\"><strong><img src=\"/public/assets/napis-allegro-3.png\" alt=\"\" width=\"486\" height=\"74\" /></strong></span></p>\r\n<p style=\"text-align: center;\"> </p>\r\n<p style=\"text-align: center;\"><span style=\"font-size: 14pt;\"> <strong>Klej METYLAN Normal</strong></span></p>\r\n<p><span style=\"font-size: 12pt;\">Klej do cienkich i grubych tapet papierowych oraz gruntowania powierzchni przed tapetowaniem.</span></p>\r\n<p style=\"text-align: center;\"><strong><span style=\"font-size: 12pt;\">Świetny do prac z papierem.</span></strong></p>\r\n<p style=\"text-align: center;\"> </p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE KLEJU</strong> :</p>\r\n<p style=\"text-align: justify;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając przez około 1 minutę (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 2-3 minut ponownie zamieszać. Odczekać 15 minut i jeszcze raz energicznie zamieszać. Klej jest gotowy do użycia.</p>\r\n<p style=\"text-align: justify;\"><strong>PRZYGOTOWANIE PODŁOŻA</strong> :</p>\r\n<p style=\"text-align: justify;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. Starannie oczyścić ściany i sufity. Stare tapety usunąć używając– Płynu do usuwania tapet. Ubytki i pęknięcia zaszpachlować. Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w proporcji 1:80</p>\r\n<p style=\"text-align: justify;\"> </p>\r\n<p style=\"text-align: justify;\">Klej rozprowadzić równomiernie szerokim pędzlem po spodniej powierzchni tapety, najpierw wzdłuż brytu, a potem w poprzek, aż do brzegów. Ilość kleju dopasowujemy do możliwości chłonnych tapety (lekkietapety – lżej, ciężkie tapety – bardziej obficie). Pokryte klejem bryty składamy w połowie, klejem do środka i zwijamy. Po wykonaniu tej czynności odkładamy bryt na około 10 minut (w zależności od rodzaju materiału), aby jego warstwa uległa równomiernemu nasiąknięciu. Tapety ciężkie dwukrotnie pokryć klejem i pozostawić na dłuższy czas do namięknięcia. Klejenie tapety zaczynamy od strony okna. Chwytając za górne naroża brytu pozwalamy, aby swobodnie rozwinął się pod własnym ciężarem. Tapetę przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Nadmiar kleju należy natychmiast usunąć gąbką i czystą wodą. Narzędzia myć zimną lub ciepłą wodą. Należy stosować zalecenia producenta tapet.</p>",
+        "images": [
+          "a44f7b5fc0ca152dba8e53e1ccae43fa"
+        ],
+        "images_filename": [
+          "a44f7b5fc0ca152dba8e53e1ccae43fa.jpg"
+        ],
+        "attributes": [
+          {
+            "name": "Producent",
+            "type": 2,
+            "value": "Henkel"
+          },
+          {
+            "name": "Marka",
+            "type": 2,
+            "value": "Metylan"
+          },
+          {
+            "name": "Wydajność",
+            "type": 0,
+            "value": "30-50 m² w zalezności od grubości tapet papierowych"
+          },
+          {
+            "name": "Obszar zastosowania",
+            "type": 0,
+            "value": "wewnątrz pomieszczeń"
+          },
+          {
+            "name": "Zastosowanie",
+            "type": 0,
+            "value": "lekkie, normalne oraz cięzkie tapety papierowe oraz do gruntowania"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "19,10 zł",
+        "net_historical_lowest_price": "15,53 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "2",
+          "name": "Tapeta z włókna szklanego"
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-normal",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 178,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:swiat-normal",
+      "origin": "https://swiatsieklei.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "METYLAN Normal 125g klej do tapet 24122",
+            "stock_id": 178,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "16,98 zł",
+            "price_float": 16.98,
+            "sum": "16,98 zł",
+            "sum_float": 16.98
+          }
+        ],
+        "basket": {
+          "sum_products": "16,98 zł",
+          "sum_products_float": 16.98
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 16,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew",
+            "description": "Przedpłata na konto"
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": "Gotówka"
+          },
+          {
+            "payment_id": 25,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 11,
+            "selected": true,
+            "title": "Kurier",
+            "description": "Kurier Inpost",
+            "cost": "19,00 zł",
+            "cost_float": 19,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 16
+              },
+              {
+                "payment_id": 25
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,00 zł",
+                "cost_float": 19
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty",
+            "description": "odbiór w siedzibie firmy",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/825",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 825,
+        "name": "Klej do tapet Direct 200g Metylan",
+        "can_buy": true,
+        "ean": "4015000402019",
+        "code": "MT DIR200",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 872,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825",
+        "loyalty": {
+          "points_float": 31,
+          "points": "31 pkt",
+          "price_float": 1300,
+          "price": "1 300 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Flizelinowych",
+          "id": 82
+        },
+        "availability": {
+          "name": "Duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "31,90 zł",
+            "base_float": 31.9,
+            "final": "31,90 zł",
+            "final_float": 31.9,
+            "historical_lowest_price": "31,90 zł",
+            "historical_lowest_price_float": 31.9
+          },
+          "net": {
+            "base": "25,93 zł",
+            "base_float": 25.93,
+            "final": "25,93 zł",
+            "final_float": 25.93,
+            "historical_lowest_price": "25,93 zł",
+            "historical_lowest_price_float": 25.93
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.2,
+          "weight": "0.2 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Direct 200g</p>",
+        "main_image": "36488",
+        "main_image_filename": "36488.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Do nakładania bezpośrednio na ścianę</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Bez rozprysków</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;color:#000000;\">✅Z wysokowartościowej metylocelulozy wzbogaconą syntetyczną żywicą</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza z dodatkiem żywic sztucznych</li>\n<li><strong>Wygląd roztworu:</strong> gęsty, mlecznobiały</li>\n<li><strong>Ciężar nasypowy:</strong> 460 – 530 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> w ciągu 3-5 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> lekko zasadowy (pH = 8-9)</li>\n<li><strong>Wydajność:</strong> 18-22 m²</li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZASTOSOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Klej przeznaczony do klejenia tapet z flizeliny lub na flizelinie (włókninie). Tapety flizelinowe nie odkształcają się (nie kurczą i nie rozciągają się podczas przyklejania). Umożliwiają szybkie i łatwe tapetowanie, bez uprzedniego zmiękczania tapety. Formuła kleju ułatwiająca nanoszenie kleju wałkiem bezpośrednio na ścianę bez pryśnięć i chlapania. Umożliwia łatwe usuwanie starych tapet na sucho. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE KLEJU:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 3 minut jeszcze raz silnie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZYGOTOWANIE PODŁOŻA:</span></h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w wodzie w proporcji 1:80 lub Metylan Direct w proporcji 1:40.</span></li>\n</ul>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">TAPETOWANIE:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Wymieszany klej Metylan Direct nanieść równomiernie bezpośrednio na ścianę za pomocą wałka. Zaczynając od strony okna tapetę przykleić bezpośrednio z rolki do posmarowanej klejem ściany. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Następnie tapetę rozwinąć do dołu, przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. Resztki kleju znajdujące się na przedniej powierzchni tapety należy niezwłocznie zmyć delikatnie gąbką i czystą wodą lub zetrzeć. Przy zmianie tapet flizelinowych wystarczy pociągnąć za górny brzeg tapety i oderwać ją na sucho. Metylan Direct można także nanieść tradycyjnie na spodnią stronę tapety i od razu przykleić ją do ściany.</span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ZALECENIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;color:#000000;\">Niniejsza karta techniczna określa zakres stosowania materiału i sposób prowadzenia robót, ale nie może zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania. Wraz z ukazaniem się tej karty technicznej tracą ważność karty wcześniejsze. </span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">PRZECHOWYWANIE:</span></h3>\n<p><span style=\"color:#000000;\"><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span><span style=\"font-family:georgia, palatino;font-size:14pt;background-color:#ff00ff;\"> <br /></span></span></p>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">DOSTĘPNE OPAKOWANIA:</span></h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\"><span style=\"font-size:12pt;\">200g</span></span></p>\n<h3> </h3>\n<h3><span style=\"font-family:arial, helvetica, sans-serif;color:#000000;\">ORIENTACYJNE ZUŻYCIE:</span></h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\"><colgroup><col width=\"181\" /><col width=\"95\" /><col width=\"113\" /><col width=\"113\" /><col width=\"113\" /></colgroup>\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Proporcje</span><br /><span style=\"font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Na opakowanie = 200g</span></td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Wydajność</span><br /><span style=\"font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">60-80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe gładkie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">20-22</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">4*</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">Tapety flizelinowe tłoczone</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">1:17,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">18-20</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"font-size:8pt;\">3-4*</span></td>\n</tr>\n</tbody>\n</table>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:10pt;\">* Eurorolka (10,05m x 0,53m</span>)</p>\n<p> </p>\n<p> </p>",
+        "images": [
+          "36488"
+        ],
+        "images_filename": [
+          "36488.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "31,90 zł",
+        "net_historical_lowest_price": "25,93 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "quote:plejada-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 872,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-direct",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Klej do tapet Direct 200g Metylan",
+            "stock_id": 872,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "31,90 zł",
+            "price_float": 31.9,
+            "sum": "31,90 zł",
+            "sum_float": 31.9
+          }
+        ],
+        "basket": {
+          "sum_products": "31,90 zł",
+          "sum_products_float": 31.9
+        },
+        "countries": [
+          {
+            "id": 20,
+            "name": "Belgia",
+            "selected": false
+          },
+          {
+            "id": 56,
+            "name": "Czechy",
+            "selected": false
+          },
+          {
+            "id": 102,
+            "name": "Irlandia",
+            "selected": false
+          },
+          {
+            "id": 133,
+            "name": "Litwa",
+            "selected": false
+          },
+          {
+            "id": 57,
+            "name": "Niemcy",
+            "selected": false
+          },
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          },
+          {
+            "id": 202,
+            "name": "Słowacja",
+            "selected": false
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 15,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 20,
+            "selected": false,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 3,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka / Karta",
+            "description": ""
+          },
+          {
+            "payment_id": 24,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 14,
+            "selected": true,
+            "title": "InPost kurier",
+            "description": "",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "InPost kurier - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 56,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "21,90 zł",
+            "cost_float": 21.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,90 zł",
+                "cost_float": 21.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier DPD - pobranie",
+            "description": "",
+            "cost": "26,90 zł",
+            "cost_float": 26.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,90 zł",
+                "cost_float": 26.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 54,
+            "selected": false,
+            "title": "InPost Paczkomat® 24/7",
+            "description": "- przelew",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Paczkomat® 24/7  - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Kurier DPD Litwa",
+            "description": "UE [LT]",
+            "cost": "69,00 zł",
+            "cost_float": 69,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 133,
+                "cost": "69,00 zł",
+                "cost_float": 69
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "KurierDPD Czechy",
+            "description": "UE [CZ]",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 56,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Słowacja",
+            "description": "UE",
+            "cost": "45,00 zł",
+            "cost_float": 45,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 202,
+                "cost": "45,00 zł",
+                "cost_float": 45
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier DPD Niemcy",
+            "description": "UE [DE]",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 57,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Punkt Orlen Paczka",
+            "description": "",
+            "cost": "12,90 zł",
+            "cost_float": 12.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "12,90 zł",
+                "cost_float": 12.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 39,
+            "selected": false,
+            "title": "Kurier DPD Irlandia",
+            "description": "Kurier",
+            "cost": "99,00 zł",
+            "cost_float": 99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 102,
+                "cost": "99,00 zł",
+                "cost_float": 99
+              }
+            ]
+          },
+          {
+            "shipping_id": 61,
+            "selected": false,
+            "title": "Kurier DPD Belgia",
+            "description": "",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 20,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty w siedzibie firmy",
+            "description": "- 41-922 Radzionków, ul. Męczenników Oświęcimia 32 - przelew",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-normal",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/products/PLN/824",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "id": 824,
+        "name": "Klej do tapet Normal 125g Metylan",
+        "can_buy": true,
+        "ean": "4015000095266",
+        "code": "MT NOR125",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 871,
+        "url": "https://plejadatapet.pl/pl/p/Klej-do-tapet-Normal-125g-Metylan/824",
+        "loyalty": {
+          "points_float": 20,
+          "points": "20 pkt",
+          "price_float": 800,
+          "price": "800 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Papierowych",
+          "id": 64
+        },
+        "availability": {
+          "name": "2 szt. dostępne w magazynie"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "Natychmiast",
+          "hours": "0"
+        },
+        "price": {
+          "gross": {
+            "base": "20,00 zł",
+            "base_float": 20,
+            "final": "20,00 zł",
+            "final_float": 20,
+            "historical_lowest_price": "18,90 zł",
+            "historical_lowest_price_float": 18.9
+          },
+          "net": {
+            "base": "16,26 zł",
+            "base_float": 16.26,
+            "final": "16,26 zł",
+            "final_float": 16.26,
+            "historical_lowest_price": "15,37 zł",
+            "historical_lowest_price_float": 15.37
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0.125,
+          "weight": "0.125 kg"
+        },
+        "producer": {
+          "name": "Metylan",
+          "id": 45
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Metylan Normal 125g</p>",
+        "main_image": "36489",
+        "main_image_filename": "36489.jpg",
+        "description": "<h3>CECHY:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Czysta metyloceluloza</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Bezpieczny dla użytkownika</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Duża przyczepność</span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Polecany do gruntowania przed tapetowaniem<br /></span></p>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;background-color:#ffffff;\">✅Wydajny</span></p>\n<h3>DANE TECHNICZNE:</h3>\n<ul>\n<li><strong>Baza:</strong> wysokowartościowa metyloceluloza</li>\n<li><strong>Wygląd:</strong> gęsty, przeźroczysty kleisty roztwór</li>\n<li><strong>Ciężar nasypowy:</strong> 240 – 3000 g/litr</li>\n<li><strong>Czas rozpuszczania:</strong> około 20 minut w zimnej wodzie</li>\n<li><strong>pH roztworu:</strong> pH 7 – roztwór chemicznie obojętny</li>\n<li><strong>Wydajność:</strong> 30-50 m² </li>\n</ul>\n<h3>ZASTOSOWANIE:</h3>\n<p><span style=\"font-size:12pt;font-family:arial, helvetica, sans-serif;\"><span style=\"background-color:#ffffff;\">Do klej</span>enia cienkich i grubych tapet papierowych oraz do gruntowania powierzchni przed tapetowaniem.</span></p>\n<h3>PRZYGOTOWANIE KLEJU:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Zawartość opakowania wsypać do zimnej wody silnie mieszając przez około 1 minutę (proporcja według tabeli). Podczas wsypywania opakowanie trzymać tuż nad wodą. Po upływie 2-3 minut ponownie zamieszać. Odczekać 15 minut i jeszcze raz energicznie zamieszać. Klej jest gotowy do użycia.</span></p>\n<h3>PRZYGOTOWANIE PODŁOŻA:</h3>\n<ul>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Podłoże musi być gładkie, suche, czyste i wolne od kurzu, a także chłonne i wytrzymałe. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Starannie oczyścić ściany i sufity. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Stare tapety usunąć używając Płynu do usuwania tapet. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Ubytki i pęknięcia zaszpachlować. </span></li>\n<li><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Oczyszczone, szczególnie chłonne podłoże zagruntować klejem Metylan Normal, rozpuszczonym w proporcji 1:80</span></li>\n</ul>\n<h3>TAPETOWANIE:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#ffffff;\">Klej rozprowadzić  równomiernie szerokim pędzlem po spodniej powierzchni tapety, najpierw wzdłuż brytu, a potem w poprzek, aż do brzegów. Ilość kleju dopasowujemy do możliwości chłonnych tapety (lekkie </span></span></span></span><span style=\"font-size:12pt;\">tapety – lżej</span><span style=\"font-size:12pt;\">, cięż<span style=\"background-color:#00ffff;\"><span style=\"background-color:#00ffff;\"><span style=\"background-color:#ffffff;\">kie tapety – bardziej obficie). </span></span></span></span><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Pokryte klejem bryty składamy w połowie, klejem do środka i zwijamy. Po wykonaniu tej czynności odkładamy bryt na około 10 minut (w zależności od rodzaju materiału), aby jego warstwa uległa równomiernemu nasiąknięciu. Tapety ciężkie dwukrotnie pokryć klejem i pozostawić na dłuższy czas do namięknięcia. </span></p>\n<p><span style=\"font-size:12pt;\"><span style=\"font-family:arial, helvetica, sans-serif;\">Klejenie tapety zaczy</span><span style=\"font-family:arial, helvetica, sans-serif;\">namy od strony okna. Chwytając za górne naroża brytu pozwalamy, aby swobodnie rozwinął się pod własnym ciężarem. Tapetę przyciąć i docisnąć wałkiem z miękkiej gumy tak, by usunąć pęcherzyki powietrza. W przypadku tapet wzorzystych zwrócić uwagę na kierunek i zgranie wzoru. Nadmiar kleju należy natychmiast usunąć gąbką i czystą wodą. Narzędzia myć zimną lub ciepłą wodą. Należy stosować zalecenia producenta tapet. </span></span></p>\n<h3>ZALECENIA:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Niniejsze informacje określają zakres stosowania materiału i sposób prowadzenia robót, ale nie mogą zastąpić zawodowego przygotowania wykonawcy. Oprócz podanych informacji prace należy wykonywać zgodnie ze sztuką budowlaną i zasadami bhp. Producent gwarantuje jakość wyrobu, natomiast nie ma wpływu na warunki i sposób  jego użycia. W przypadku wątpliwości należy wykonać własne próby stosowania.</span></p>\n<h3>PRZECHOWYWANIE:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">Do 24 miesięcy od daty produkcji przy składowaniu w suchych warunkach i w oryginalnych, nieuszkodzonych opakowaniach. Chronić przed mrozem!</span></p>\n<h3>DOSTĘPNE OPAKOWANIA:</h3>\n<p><span style=\"font-family:arial, helvetica, sans-serif;font-size:12pt;\">125g</span></p>\n<h3> </h3>\n<h3>ORIENTACYJNE ZUŻYCIE:</h3>\n<table border=\"0\" cellspacing=\"0\" frame=\"void\" rules=\"none\" style=\"background:transparent none repeat scroll 0% 0%;border:2px solid #050505;\">\n<tbody>\n<tr>\n<td align=\"center\" rowspan=\"2\" style=\"width:181px;height:68px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Zastosowanie</span></td>\n<td align=\"center\" rowspan=\"2\" style=\"width:95px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Proporcje</span><br /><span style=\"color:#000000;font-size:8pt;\">mieszania</span></td>\n<td align=\"center\" colspan=\"3\" style=\"width:340px;border:1px solid #000000;\" valign=\"middle\">\n<p><span style=\"color:#000000;font-size:8pt;\">Na opakowanie = 125g</span></p>\n</td>\n</tr>\n<tr>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Ilość potrzebnych</span><br /><span style=\"color:#000000;font-size:8pt;\">litrów wody</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Wydajność</span><br /><span style=\"color:#000000;font-size:8pt;\">kleju w m2</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Wydajność</span><br /><span style=\"color:#000000;font-size:8pt;\">w rolkach tapety</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Gruntowanie</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:80</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">10</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">100</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">-</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety lekkie papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:70</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">8,75</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">50</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">10</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety normalne papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:60</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">7,5</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">40</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">8</span></td>\n</tr>\n<tr>\n<td align=\"left\" style=\"height:23px;border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">Tapety ciężkie papierowe</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">1:50</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">6,25</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">30</span></td>\n<td align=\"center\" style=\"border:1px solid #000000;\" valign=\"middle\"><span style=\"color:#000000;font-size:8pt;\">6</span></td>\n</tr>\n</tbody>\n</table>\n<p> </p>",
+        "images": [
+          "36489"
+        ],
+        "images_filename": [
+          "36489.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "18,90 zł",
+        "net_historical_lowest_price": "15,37 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      }
+    },
+    {
+      "context": "quote:plejada-normal",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "POST",
+      "body": {
+        "stock_id": 871,
+        "quantity": 1
+      },
+      "status": 200,
+      "response": {
+        "basket": {},
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Product added to cart."
+          ]
+        }
+      }
+    },
+    {
+      "context": "quote:plejada-normal",
+      "origin": "https://plejadatapet.pl",
+      "path": "/webapi/front/pl_PL/basket/PLN/",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "products": [
+          {
+            "name": "Klej do tapet Normal 125g Metylan",
+            "stock_id": 871,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "quantity": 1,
+            "price": "20,00 zł",
+            "price_float": 20,
+            "sum": "20,00 zł",
+            "sum_float": 20
+          }
+        ],
+        "basket": {
+          "sum_products": "20,00 zł",
+          "sum_products_float": 20
+        },
+        "countries": [
+          {
+            "id": 20,
+            "name": "Belgia",
+            "selected": false
+          },
+          {
+            "id": 56,
+            "name": "Czechy",
+            "selected": false
+          },
+          {
+            "id": 102,
+            "name": "Irlandia",
+            "selected": false
+          },
+          {
+            "id": 133,
+            "name": "Litwa",
+            "selected": false
+          },
+          {
+            "id": 57,
+            "name": "Niemcy",
+            "selected": false
+          },
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          },
+          {
+            "id": 202,
+            "name": "Słowacja",
+            "selected": false
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 15,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 20,
+            "selected": false,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": "- przelew online"
+          },
+          {
+            "payment_id": 3,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka / Karta",
+            "description": ""
+          },
+          {
+            "payment_id": 24,
+            "selected": false,
+            "name": "external",
+            "title": "PayPo",
+            "description": ""
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 14,
+            "selected": true,
+            "title": "InPost kurier",
+            "description": "",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "InPost kurier - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 56,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "21,90 zł",
+            "cost_float": 21.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,90 zł",
+                "cost_float": 21.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier DPD - pobranie",
+            "description": "",
+            "cost": "26,90 zł",
+            "cost_float": 26.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,90 zł",
+                "cost_float": 26.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 54,
+            "selected": false,
+            "title": "InPost Paczkomat® 24/7",
+            "description": "- przelew",
+            "cost": "14,90 zł",
+            "cost_float": 14.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "14,90 zł",
+                "cost_float": 14.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Paczkomat® 24/7  - pobranie",
+            "description": "",
+            "cost": "19,90 zł",
+            "cost_float": 19.9,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,90 zł",
+                "cost_float": 19.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Kurier DPD Litwa",
+            "description": "UE [LT]",
+            "cost": "69,00 zł",
+            "cost_float": 69,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 133,
+                "cost": "69,00 zł",
+                "cost_float": 69
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "KurierDPD Czechy",
+            "description": "UE [CZ]",
+            "cost": "49,00 zł",
+            "cost_float": 49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 56,
+                "cost": "49,00 zł",
+                "cost_float": 49
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Słowacja",
+            "description": "UE",
+            "cost": "45,00 zł",
+            "cost_float": 45,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 202,
+                "cost": "45,00 zł",
+                "cost_float": 45
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier DPD Niemcy",
+            "description": "UE [DE]",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 57,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Punkt Orlen Paczka",
+            "description": "",
+            "cost": "12,90 zł",
+            "cost_float": 12.9,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "12,90 zł",
+                "cost_float": 12.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 39,
+            "selected": false,
+            "title": "Kurier DPD Irlandia",
+            "description": "Kurier",
+            "cost": "99,00 zł",
+            "cost_float": 99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 102,
+                "cost": "99,00 zł",
+                "cost_float": 99
+              }
+            ]
+          },
+          {
+            "shipping_id": 61,
+            "selected": false,
+            "title": "Kurier DPD Belgia",
+            "description": "",
+            "cost": "89,00 zł",
+            "cost_float": 89,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              }
+            ],
+            "countries": [
+              {
+                "id": 20,
+                "cost": "89,00 zł",
+                "cost_float": 89
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty w siedzibie firmy",
+            "description": "- 41-922 Radzionków, ul. Męczenników Oświęcimia 32 - przelew",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 15
+              },
+              {
+                "payment_id": 20
+              },
+              {
+                "payment_id": 24
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { removalMaterials, removalInputs } from '@/features/calculator/wallpaperRemoval';
+import { wallpaperAdhesiveInputs } from '@/features/calculator/wallpaperAdhesive';
 import { finishingMaterials, finishingInputs } from '@/features/calculator/wallFinishing';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import type { RenovationJob } from '@/types/domain';
@@ -374,6 +375,7 @@ export const wallpaperInstallJob: RenovationJob = {
       placeholder: 'np. 35', min: 1, max: 400,
       hint: 'Długość × wysokość każdej ściany. Odejmij okna i drzwi.' },
     ...substratePrimerInputs('wallpaper-install'),
+    ...wallpaperAdhesiveInputs,
   ],
   materials: [
     {
@@ -397,7 +399,7 @@ export const wallpaperInstallJob: RenovationJob = {
       packaging: { size: 0.2, label: 'opakowanie 200 g', purchaseUnit: 'opakowanie' },
       pricePerUnit: 15,
       category: 'klej',
-      notes: '1 opakowanie (200 g) na ok. 20–25 m² tapet. Sprawdź na opakowaniu.',
+      notes: 'Wybierz rodzaj tapety w obmiarach. Dobieramy Metylan Direct 200 g do flizeliny lub Normal 125 g do papieru; zużycie zależy od wariantu tapety. Bez wyboru ilość i cena kleju pozostają nieustalone.',
     },
     substratePrimerMaterial('wallpaper-install'),
     {
@@ -422,7 +424,9 @@ export const wallpaperInstallJob: RenovationJob = {
   ],
   instructions: [
     { step: 1, title: 'Przygotuj ścianę', description: 'Ściana musi być sucha, gładka i czysta. Nanieś grunt pod tapety. Poczekaj na wyschnięcie.', durationMin: 60 },
-    { step: 2, title: 'Wymieszaj klej', description: 'Wsyp klej do zimnej wody (nie odwrotnie!), mieszaj chwilę i poczekaj kilka minut aż zgęstnieje.', tip: 'Klej nie może mieć grudek. Sprawdź instrukcję na opakowaniu.', durationMin: 10 },
+    // source: https://datasheets.tdx.henkel.com/METYLAN-Direct-pl_PL.pdf
+    // source: https://datasheets.tdx.henkel.com/METYLAN-Normal-pl_PL.pdf
+    { step: 2, title: 'Wymieszaj właściwy klej', description: 'Wsyp proszek do odmierzonej zimnej wody i wymieszaj według etykiety. Metylan Direct: około 3–5 minut przygotowania; Normal: około 20 minut. Ilość wody zależy od rodzaju tapety.', tip: 'Nie stosuj jednej proporcji do wszystkich klejów. Sprawdź kartę wybranego opakowania i zalecenia producenta tapety.', durationMin: 20 },
     { step: 3, title: 'Wyznacz pionową oś', description: 'Używając pionu wyznacz pionową linię na ścianie. Pierwszy pas przyklejaj wzdłuż tej linii.', tip: 'Ściany i podłogi rzadko są idealne pionowo/poziomo — zaufaj pionowi, nie narożniku.', durationMin: 15 },
     { step: 4, title: 'Nałóż klej i wieszaj tapetę', description: 'Sposób zależy od rodzaju tapety: tapety papierowe — nanieś klej na tapetę, złóż klejem do wewnątrz i odczekaj czas namaczania (3–10 min, wg instrukcji); tapety flizelinowe — nanieś klej bezpośrednio na ścianę (NIE na tapetę). Zawsze sprawdź symbole na opakowaniu.', tip: 'Czas namaczania i sposób klejenia różni się w zależności od tapety — ZAWSZE czytaj instrukcję na opakowaniu.', durationMin: 180 },
     { step: 5, title: 'Przyklejaj i wygładzaj', description: 'Rozłóż tapetę od góry, przyklejaj do ściany i wygładzaj szczotką od środka na zewnątrz — od góry do dołu. Usuń powietrze i nadmiar kleju.', tip: 'Klej na łączeniach — zetrzyj wilgotną gąbką natychmiast.', durationMin: 60 },
@@ -435,7 +439,7 @@ export const wallpaperInstallJob: RenovationJob = {
   cleanupSteps: [
     'Zetrzyj klej ze ścian i podłogi wilgotną gąbką — schnie trudno.',
     'Umyj szczotki i wałki ciepłą wodą natychmiast po pracy.',
-    'Zostaw okna otwarte — tapety muszą schnąć w normalnych warunkach, bez ciągów powietrza.',
+    'Pozostaw tapetę do wyschnięcia w warunkach wskazanych przez jej producenta.',
   ],
   commonMistakes: [
     'Nieodczekanie czasu namaczania kleju — tapeta się przesuwa',

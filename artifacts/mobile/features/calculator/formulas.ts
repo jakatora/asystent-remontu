@@ -1,3 +1,4 @@
+import { wallpaperAdhesiveQuantity } from './wallpaperAdhesive';
 import { gypsumQuantity } from './gypsumBoard';
 import { frameQuantity } from './framePainting';
 import { isFinishingMaterial, finishingQuantity } from './wallFinishing';
@@ -249,6 +250,7 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
   // ── Wallpaper & finishing ───────────────────────────────────────────────
   wallpaper:       wallpaperFormula,
   wallpaperGlue:   wallpaperGlueFormula,
+  wallpaperAdhesive: (m) => wallpaperAdhesiveQuantity(m) ?? 0,
   skirting:        skirtingFormula,
   skirtingGlue:    skirtingGlueFormula,
   corners:         cornersFormula,

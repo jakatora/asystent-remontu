@@ -387,6 +387,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153
   {"ids":["mat-paint-undercoat-sniezka-grunt-5l"],"ean":"5903973000235","sourceUrl":"https://sklep.sewera.pl/sniezka-grunt-5l-p6153","imageUrl":"https://sklep.sewera.pl/photo/72152/sniezka-grunt-5l.webp"},
 
+  // source: https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104
+  {"ids":["mat-wallpaper-adhesive-metylan-direct-200g"],"ean":"4015000402019","sourceUrl":"https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104","imageUrl":"https://swiatsieklei.pl/environment/cache/images/productGfx_8cf3f0b127670f2cfdd5620ec59b3e3e_500_500.webp"},
+  // source: https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101
+  {"ids":["mat-wallpaper-adhesive-metylan-normal-125g"],"ean":"4015000095266","sourceUrl":"https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101","imageUrl":"https://swiatsieklei.pl/environment/cache/images/productGfx_a44f7b5fc0ca152dba8e53e1ccae43fa_500_500.webp"},
 ];
 
 export function getProductPhoto(product: {

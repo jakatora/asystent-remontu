@@ -1,4 +1,5 @@
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
+import { wallpaperAdhesiveInputs } from '@/features/calculator/wallpaperAdhesive';
 import { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
@@ -32,6 +33,7 @@ export const wallpaperJob: RenovationJob = {
       hint: 'Zmierz każdą ścianę (długość × wysokość) i zsumuj.',
     },
     ...substratePrimerInputs('wallpaper'),
+    ...wallpaperAdhesiveInputs,
   ],
   materials: [
     {
@@ -49,7 +51,7 @@ export const wallpaperJob: RenovationJob = {
       formulaKey: 'wallpaperGlue',
       packaging: { size: 0.2, label: 'opakowanie 200 g', purchaseUnit: 'opakowanie' },
       pricePerUnit: 15,
-      notes: 'Dobierz klej do rodzaju tapety (papierowe, winylowe, flizelinowe). 1 opakowanie (200 g) na ok. 20–25 m².',
+      notes: 'Wybierz rodzaj tapety w obmiarach. Direct 200 g do flizeliny i Normal 125 g do papieru mają różne wydajności. Bez wyboru nie zakładamy jednego kleju ani stałej ilości dla wszystkich tapet.',
     },
     substratePrimerMaterial('wallpaper'),
   ],

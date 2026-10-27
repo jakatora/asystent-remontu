@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-27T12:46:06.593Z",
-  "scope": "Same65 recorded measurements with no new hardware or profile assumptions. Explicitly selected full ceiling has13offered materials but transport remains incomplete in other stores. Counts are recipe rows, not unique SKU or completion percentage.",
+  "checkedAt": "2026-10-27T13:55:17.148Z",
+  "scope": "Current calculator recalculated all65 saved measurement maps; no new product or adhesive choices supplied. Counts are recipe rows, not unique missing products. New explicit wallpaper adhesive examples appear separately and do not imply full wallpaper coverage.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -188,6 +188,19 @@
         "auditedJobs": 65,
         "beforeLines": 240,
         "beforePriced": 83,
+        "afterLines": 240,
+        "afterPriced": 84,
+        "afterUnpriced": 156,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T12:46:06.593Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 240,
+        "beforePriced": 84,
         "afterLines": 240,
         "afterPriced": 84,
         "afterUnpriced": 156,
@@ -650,15 +663,15 @@
         },
         {
           "materialId": "wallpaper-glue",
-          "name": "Klej do tapet",
-          "unit": "kg",
+          "name": "Klej do tapet — wybierz rodzaj tapety — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "klej do tapet",
+            "normalizedName": "klej do tapet wybierz rodzaj tapety ilosc do ustalenia",
             "category": null
           },
-          "quantity": 0.1,
+          "quantity": 1,
           "resolved": false,
           "reason": "no-query",
           "matchedProduct": null
@@ -707,17 +720,17 @@
         },
         {
           "materialId": "wallpaper-glue",
-          "name": "Klej do tapet",
-          "unit": "kg",
+          "name": "Klej do tapet — wybierz rodzaj tapety — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "klej do tapet",
-            "category": "klej"
+            "normalizedName": "klej do tapet wybierz rodzaj tapety ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 0.1,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
@@ -4767,6 +4780,31 @@
       "twoProductDeliveredTotalGrosze": 8219,
       "completeDeliveryConfirmed": false,
       "fullRenovationCoverageProven": false
+    },
+    "wave60": {
+      "checkedAt": "2026-10-27T13:55:18.407Z",
+      "directTwoRoomsRawGrams": 200,
+      "normalTwoRoomsRawGrams": 103.125,
+      "purchasedPacks": {
+        "direct200g": 1,
+        "normal125g": 1
+      },
+      "mixedAdhesives": {
+        "materialsGrosze": 4192,
+        "deliveryGrosze": 1900,
+        "totalGrosze": 6092,
+        "store": "Świat Się Klei",
+        "destinationScope": "PL"
+      },
+      "selectedPlejada": {
+        "materialsGrosze": 5190,
+        "deliveryGrosze": 2190,
+        "totalGrosze": 7380
+      },
+      "fullWallpaperMissing": 2,
+      "unknownWallpaperMissing": 3,
+      "wholeWallpaperTotalGrosze": null,
+      "pickupConfirmed": false
     }
   }
 }
