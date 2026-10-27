@@ -408,6 +408,14 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-primer-g-pro-1l"],"ean":"8022452241123","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19574_500_500/4_primer-g-pro_1l_pl_2c7d4435f6894c59b7f19830a10992cc.webp"},
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969
   {"ids":["mat-primer-g-pro-5l"],"ean":"8022452241130","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19572_500_500/4_primer-g-pro_5l_pl_ea1ad0866a074cc2a5352b1844b10324.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-naroznik-wewnetrzny-bialy-polysk-01-opakowanie-foliowe
+  {"ids":["mat-indo-inside-gloss-2"],"ean":"5905167726037","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/indo-naroznik-wewnetrzny-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726037_P_01.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-naroznik-zewnetrzny-bialy-polysk-01-opakowanie-foliowe
+  {"ids":["mat-indo-outside-gloss-2"],"ean":"5905167726198","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/indo-naroznik-zewnetrzny-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726198_P_02.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-lacznik-bialy-polysk-01-opakowanie-foliowe
+  {"ids":["mat-indo-connector-gloss-2"],"ean":"5905167725870","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/indo-lacznik-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167725870_P_01.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe
+  {"ids":["mat-indo-endcaps-gloss-pair"],"ean":"5905167726358","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726358_P_03.webp"},
 ];
 
 export function getProductPhoto(product: {

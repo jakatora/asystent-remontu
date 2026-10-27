@@ -1154,6 +1154,18 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   {"id":"rabdom-primer-g-pro-1l","ean":"8022452241123","name":"MAPEI PRIMER G PRO 1l KONCENTRAT GRUNTUJĄCY GRUNT","category":"primer","brand":"Mapei","packageSize":1,"unit":"l","store":"Rab-Dom","format":"shoper-api","url":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970","productId":10970,"retailerSku":"37969","apiPurchaseUnit":"szt.","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19574_500_500/4_primer-g-pro_1l_pl_2c7d4435f6894c59b7f19830a10992cc.webp","variant":["1l"],"pickupRequiresConfirmation":true},
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969
   {"id":"rabdom-primer-g-pro-5l","ean":"8022452241130","name":"MAPEI PRIMER G PRO 5l KONCENTRAT GRUNTUJĄCY GRUNT","category":"primer","brand":"Mapei","packageSize":5,"unit":"l","store":"Rab-Dom","format":"shoper-api","url":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969","productId":10969,"retailerSku":"37970","apiPurchaseUnit":"szt.","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19572_500_500/4_primer-g-pro_5l_pl_ea1ad0866a074cc2a5352b1844b10324.webp","variant":["5l"],"pickupRequiresConfirmation":true},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-naroznik-wewnetrzny-bialy-polysk-01-opakowanie-foliowe
+  // source: https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/naroznik-wew-indo-bialy-polysk-1-arbiton
+  {"id":"topboden-indo-inside-gloss-2","ean":"5905167726037","name":"Narożniki do listew przypodłogowych Arbiton INDO - biały połysk 01 - wewnętrzne - 2 szt.","brand":"Arbiton","category":"skirting-accessory","packageSize":2,"unit":"szt","store":"TopBoden","format":"topboden-api","productUuid":"9d18849b-1174-4fb0-a0ef-f78e5ee3e03f","apiPurchaseUnit":"opk.","variant":["INDO","biały połysk","2 szt"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/indo-naroznik-wewnetrzny-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726037_P_01.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-naroznik-zewnetrzny-bialy-polysk-01-opakowanie-foliowe
+  // source: https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/naroznik-zew-indo-bialy-polysk-1-arbiton
+  {"id":"topboden-indo-outside-gloss-2","ean":"5905167726198","name":"Narożniki do listew przypodłogowych Arbiton INDO - biały połysk 01 - zewnętrzne - 2 szt.","brand":"Arbiton","category":"skirting-accessory","packageSize":2,"unit":"szt","store":"TopBoden","format":"topboden-api","productUuid":"6d0e4dc7-6cc8-4f8a-bd57-4d5f7f634c62","apiPurchaseUnit":"opk.","variant":["INDO","biały połysk","2 szt"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/indo-naroznik-zewnetrzny-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726198_P_02.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-lacznik-bialy-polysk-01-opakowanie-foliowe
+  // source: https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/lacznik-indo-bialy-polysk-1-arbiton
+  {"id":"topboden-indo-connector-gloss-2","ean":"5905167725870","name":"Łączniki do listew przypodłogowych Arbiton INDO - biały połysk 01 - 2 szt.","brand":"Arbiton","category":"skirting-accessory","packageSize":2,"unit":"szt","store":"TopBoden","format":"topboden-api","productUuid":"46e7fec7-9ef8-4fb3-95c5-29c0b52b7f32","apiPurchaseUnit":"opk.","variant":["INDO","biały połysk","2 szt"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/indo-lacznik-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167725870_P_01.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe
+  // source: https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/zakonczenie-l-p-indo-bialy-polysk-1-arbiton
+  {"id":"topboden-indo-endcaps-gloss-pair","ean":"5905167726358","name":"Zakończenie listwy przypodłogowej Arbiton INDO - biały połysk 01 - lewe i prawe - 2 szt.","brand":"Arbiton","category":"skirting-accessory","packageSize":1,"unit":"kpl","store":"TopBoden","format":"topboden-api","productUuid":"7e8bcf6a-8e26-4f27-9785-8bb7d087ba48","apiPurchaseUnit":"opk.","variant":["INDO","biały połysk","2 szt"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726358_P_03.webp"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -1344,4 +1356,8 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   "Mapei Mapeband W — mankiet podłogowy 300 × 300 mm (1 szt.)": "8022452113895",
   "Mapei Primer G Pro — koncentrat gruntujący 1 l": "8022452241123",
   "Mapei Primer G Pro — koncentrat gruntujący 5 l": "8022452241130",
+  "Arbiton INDO biały połysk 01 — narożniki wewnętrzne (2 szt.)": "5905167726037",
+  "Arbiton INDO biały połysk 01 — narożniki zewnętrzne (2 szt.)": "5905167726198",
+  "Arbiton INDO biały połysk 01 — łączniki (2 szt.)": "5905167725870",
+  "Arbiton INDO biały połysk 01 — zakończenia lewe + prawe (1 para)": "5905167726358",
 };

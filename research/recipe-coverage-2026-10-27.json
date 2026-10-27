@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-27T15:46:02.176Z",
-  "scope": "Current engine recalculated the same 65 saved measurement maps without filling new waterproofing choices, substrate and detail counts. Old mixed-brand hydro rows remain pending and four accessory roles are explicit: 82/244 priced, 162 unpriced (previously 84/240,156). Separate explicit measured Mapei cases prove a complete seven-product waterproofing recipe with native cart delivery. Tools, labour, tiles and drain assembly are separate.",
+  "checkedAt": "2026-10-27T16:13:18.361Z",
+  "scope": "Same 65 saved measurement maps, no new choices or measurements filled. 82/244 priced,162 unpriced;8 complete MATERIAL scenarios. Four INDO accessory packs are separately available for explicit additional purchases. This does not complete the old automatic skirting installation recipe or add glue/fixings silently.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 240,
-    "beforePriced": 84,
+    "beforeLines": 244,
+    "beforePriced": 82,
     "afterLines": 244,
     "afterPriced": 82,
     "afterUnpriced": 162,
@@ -243,6 +243,19 @@
         "afterLines": 240,
         "afterPriced": 84,
         "afterUnpriced": 156,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T15:46:02.176Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 240,
+        "beforePriced": 84,
+        "afterLines": 244,
+        "afterPriced": 82,
+        "afterUnpriced": 162,
         "fullyPricedScenarios": 8
       }
     }
@@ -5312,6 +5325,42 @@
         "restoredCheapest": true
       },
       "baselineChange": "Two old mixed-brand rows are no longer priced before the required explicit choices; four detail roles are no longer silently omitted. The 162 rows overlap catalogue gaps and repeat materials; they are not unique missing SKUs."
+    },
+    "wave64": {
+      "checkedAt": "2026-10-27T16:13:20.120Z",
+      "scope": "Explicit selected purchases of INDO accessories and ten 2.5m skirting pieces, not an automatic complete installation recipe. National PL tariff; QA postcode00-001; no customer or order submission.",
+      "products": 5,
+      "packs": [
+        {
+          "ean": "5905167725719",
+          "packages": 10
+        },
+        {
+          "ean": "5905167726037",
+          "packages": 3
+        },
+        {
+          "ean": "5905167726198",
+          "packages": 2
+        },
+        {
+          "ean": "5905167725870",
+          "packages": 3
+        },
+        {
+          "ean": "5905167726358",
+          "packages": 3
+        }
+      ],
+      "materialsGrosze": 41380,
+      "deliveryGrosze": 2999,
+      "totalGrosze": 44379,
+      "accessoriesOnlyTotalGrosze": 12399,
+      "selectedTopbodenTotalGrosze": 44379,
+      "selectedWinbudMissingRows": 10,
+      "nationalTariff": true,
+      "automaticInstallationRecipeComplete": false,
+      "endcapRule": "One kpl is one left+right pair. Buyer must count each side and select max(left,right) pairs; this wave does not add automatic handedness inputs."
     }
   }
 }

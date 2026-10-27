@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T15:46:02.176Z",
-  "scope": "Fresh production HTTP, same 65 saved measurement maps recalculated by the current engine without filling new waterproofing choices or detail counts. Previous mixed-brand waterproofing is deliberately pending; four accessory roles are now explicit. Separate complete measured cases verify native delivery. No user project data writes. Seven exact Mapei waterproofing/primer packs added. Native complete measured basket checks are separate from the unchanged baseline input maps.",
-  "total": 161,
-  "verifiedProducts": 137,
+  "checkedAt": "2026-10-27T16:13:18.361Z",
+  "scope": "Fresh production HTTP, same 65 saved measurement maps recalculated by the current engine without filling new waterproofing choices or detail counts. Four INDO accessory packs added, with explicit purchases separately checked; no complete automatic skirting installation recipe claimed. No user project data writes.",
+  "total": 165,
+  "verifiedProducts": 141,
   "remaining": 24,
-  "offers": 183,
+  "offers": 187,
   "stores": 50,
-  "productsWithPhotos": 161,
-  "registeredOffers": 204,
+  "productsWithPhotos": 165,
+  "registeredOffers": 208,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3678,12 +3678,152 @@
           }
         }
       ]
+    },
+    {
+      "id": "mat-indo-inside-gloss-2",
+      "name": "Arbiton INDO biały połysk 01 — narożniki wewnętrzne (2 szt.)",
+      "referenceUrl": "https://topboden.pl/listwy-przypodlogowe/indo-naroznik-wewnetrzny-bialy-polysk-01-opakowanie-foliowe",
+      "ean": "5905167726037",
+      "sourceIds": [
+        "topboden-indo-inside-gloss-2"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167726037_P_01.webp",
+      "manufacturerUrl": "https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/naroznik-wew-indo-bialy-polysk-1-arbiton",
+      "deliveryChecks": [
+        {
+          "sourceId": "topboden-indo-inside-gloss-2",
+          "checkedAt": "2026-10-27T16:13:19.826Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_tariff_national",
+          "destinationScope": "PL",
+          "costGrosze": 2999,
+          "basketScope": "Entire five-product explicit purchase selection (10 skirting pieces, 3 inside packs, 2 outside packs, 3 connector packs, 3 L+R sets), not postage per product or a complete installation recipe.",
+          "nativeQuote": {
+            "costGrosze": 2999,
+            "carrier": "Kurier",
+            "payment": "Przelew tradycyjny",
+            "checkedAt": "2026-10-27T16:13:19.826Z",
+            "expiresAt": "2026-10-27T16:23:19.826Z",
+            "sourceUrl": "https://topboden.pl/dostawa-i-platnosc",
+            "destinationScope": "PL",
+            "basis": "retailer_tariff_national",
+            "evidenceSha256": "a97908d54187428d6c25b9b7ba96441ba676c8d5cc10144609d18163b563a50d"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-indo-outside-gloss-2",
+      "name": "Arbiton INDO biały połysk 01 — narożniki zewnętrzne (2 szt.)",
+      "referenceUrl": "https://topboden.pl/listwy-przypodlogowe/indo-naroznik-zewnetrzny-bialy-polysk-01-opakowanie-foliowe",
+      "ean": "5905167726198",
+      "sourceIds": [
+        "topboden-indo-outside-gloss-2"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167726198_P_02.webp",
+      "manufacturerUrl": "https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/naroznik-zew-indo-bialy-polysk-1-arbiton",
+      "deliveryChecks": [
+        {
+          "sourceId": "topboden-indo-outside-gloss-2",
+          "checkedAt": "2026-10-27T16:13:19.826Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_tariff_national",
+          "destinationScope": "PL",
+          "costGrosze": 2999,
+          "basketScope": "Entire five-product explicit purchase selection (10 skirting pieces, 3 inside packs, 2 outside packs, 3 connector packs, 3 L+R sets), not postage per product or a complete installation recipe.",
+          "nativeQuote": {
+            "costGrosze": 2999,
+            "carrier": "Kurier",
+            "payment": "Przelew tradycyjny",
+            "checkedAt": "2026-10-27T16:13:19.826Z",
+            "expiresAt": "2026-10-27T16:23:19.826Z",
+            "sourceUrl": "https://topboden.pl/dostawa-i-platnosc",
+            "destinationScope": "PL",
+            "basis": "retailer_tariff_national",
+            "evidenceSha256": "a97908d54187428d6c25b9b7ba96441ba676c8d5cc10144609d18163b563a50d"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-indo-connector-gloss-2",
+      "name": "Arbiton INDO biały połysk 01 — łączniki (2 szt.)",
+      "referenceUrl": "https://topboden.pl/listwy-przypodlogowe/indo-lacznik-bialy-polysk-01-opakowanie-foliowe",
+      "ean": "5905167725870",
+      "sourceIds": [
+        "topboden-indo-connector-gloss-2"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167725870_P_01.webp",
+      "manufacturerUrl": "https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/lacznik-indo-bialy-polysk-1-arbiton",
+      "deliveryChecks": [
+        {
+          "sourceId": "topboden-indo-connector-gloss-2",
+          "checkedAt": "2026-10-27T16:13:19.826Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_tariff_national",
+          "destinationScope": "PL",
+          "costGrosze": 2999,
+          "basketScope": "Entire five-product explicit purchase selection (10 skirting pieces, 3 inside packs, 2 outside packs, 3 connector packs, 3 L+R sets), not postage per product or a complete installation recipe.",
+          "nativeQuote": {
+            "costGrosze": 2999,
+            "carrier": "Kurier",
+            "payment": "Przelew tradycyjny",
+            "checkedAt": "2026-10-27T16:13:19.826Z",
+            "expiresAt": "2026-10-27T16:23:19.826Z",
+            "sourceUrl": "https://topboden.pl/dostawa-i-platnosc",
+            "destinationScope": "PL",
+            "basis": "retailer_tariff_national",
+            "evidenceSha256": "a97908d54187428d6c25b9b7ba96441ba676c8d5cc10144609d18163b563a50d"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mat-indo-endcaps-gloss-pair",
+      "name": "Arbiton INDO biały połysk 01 — zakończenia lewe + prawe (1 para)",
+      "referenceUrl": "https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe",
+      "ean": "5905167726358",
+      "sourceIds": [
+        "topboden-indo-endcaps-gloss-pair"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167726358_P_03.webp",
+      "manufacturerUrl": "https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/zakonczenie-l-p-indo-bialy-polysk-1-arbiton",
+      "deliveryChecks": [
+        {
+          "sourceId": "topboden-indo-endcaps-gloss-pair",
+          "checkedAt": "2026-10-27T16:13:19.826Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_tariff_national",
+          "destinationScope": "PL",
+          "costGrosze": 2999,
+          "basketScope": "Entire five-product explicit purchase selection (10 skirting pieces, 3 inside packs, 2 outside packs, 3 connector packs, 3 L+R sets), not postage per product or a complete installation recipe.",
+          "nativeQuote": {
+            "costGrosze": 2999,
+            "carrier": "Kurier",
+            "payment": "Przelew tradycyjny",
+            "checkedAt": "2026-10-27T16:13:19.826Z",
+            "expiresAt": "2026-10-27T16:23:19.826Z",
+            "sourceUrl": "https://topboden.pl/dostawa-i-platnosc",
+            "destinationScope": "PL",
+            "basis": "retailer_tariff_national",
+            "evidenceSha256": "a97908d54187428d6c25b9b7ba96441ba676c8d5cc10144609d18163b563a50d"
+          }
+        }
+      ]
     }
   ],
   "automaticDeliveryStores": 30,
   "browserVerifiedOffers": 11,
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T15:46:02.176Z",
+    "checkedAt": "2026-10-27T16:13:18.361Z",
     "pricedLines": 82,
     "totalLines": 244,
     "unpricedLines": 162,
@@ -3723,6 +3863,14 @@
       "verifiedProducts": 130,
       "remaining": 24,
       "offers": 176,
+      "stores": 50
+    },
+    {
+      "checkedAt": "2026-10-27T15:46:02.176Z",
+      "total": 161,
+      "verifiedProducts": 137,
+      "remaining": 24,
+      "offers": 183,
       "stores": 50
     }
   ],
