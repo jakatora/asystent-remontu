@@ -1,6 +1,13 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325
+  // source: https://norgips.pl/produkty/lacznik-krzyzowy-72.html
+  {"id":"mat-gypsum-cross-norgips-100","materialType":"drywall-accessory","productLabel":"Łącznik krzyżowy Norgips CD 60 (100 szt.)","brand":"Norgips","packageSize":100,"packageUnit":"szt","pricePerPackage":89.99,"category":"standard","storeName":"HIPPER","sourceUrl":"https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN5907651696468. Jeden karton = 100 łączników, nie jedna sztuka. Łącznik krzyżowy do prostopadłego łączenia CD 60 w ruszcie dwupoziomowym według producenta. Opis sklepu zawiera sprzeczne określenie „jednopoziomowy”; dobór opieramy na dokumentacji Norgips i projekcie, bez deklarowania parametrów całego sufitu."},
+  // source: https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138
+  // source: https://www.budmat.com/pl/produkt/lacznik-krzyzowy-152
+  {"id":"mat-gypsum-cross-budmat-100","materialType":"drywall-accessory","productLabel":"Łącznik krzyżowy Budmat CD 60, 0,8 mm (100 szt.)","brand":"Budmat","packageSize":100,"packageUnit":"szt","pricePerPackage":49,"category":"standard","storeName":"eBardo","sourceUrl":"https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN5901323043369. Jedno opakowanie sprzedawcy = 100 łączników. Jawny wybór innej marki, nie automatyczny zamiennik Norgips. Budmat podaje zastosowanie w ruszcie sufitu; zgodność z konkretnymi profilami i wymaganiami systemu potwierdź w projekcie."},
+
   // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534
   // source: https://simeplast.pl/wp-content/uploads/2024/03/katalog-produktow-02.2024.pdf
   {"id":"mat-vapor-foil-conkret-ecovil-p-100m2","materialType":"vapor-barrier","productLabel":"Folia paroizolacyjna Conkret Ecovil P 0,20 mm (100 m²)","brand":"Conkret","packageSize":100,"packageUnit":"m2","pricePerPackage":105,"pricePerM2":1.05,"category":"economy","storeName":"eBardo","sourceUrl":"https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534","lastUpdated":"2026-10-27","currency":"PLN","notes":"EAN5902096431131. Jedna rolka 2 × 50 m = 100 m². Grubość nominalna 0,20 mm; karta sklepu podaje tolerancję ±50%. Oddzielny produkt od Conpar (±30%), dobierz zgodnie z instrukcją podłogi/podkładu i wymaganą barierą. Nie deklarujemy uniwersalnej równoważności ani hydroizolacji pomieszczenia."},

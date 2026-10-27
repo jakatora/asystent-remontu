@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-27T09:20:34.362Z",
-  "scope": "Same65 recorded measurement maps; corrected raw click-vinyl m², with no new defaults or hidden supply omissions. Counts are recipe rows, not unique missing products; complete delivery requires a separate postcode/cart proof.",
+  "checkedAt": "2026-10-27T10:14:37.771Z",
+  "scope": "Same65 recorded measurements; native100-piece cross connectors add a priced ceiling row. Quantities, unknown substrate and unpriced requirements remain visible. Counts are recipe rows, not unique SKU or whole-renovation completion.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 240,
     "beforePriced": 83,
     "afterLines": 240,
-    "afterPriced": 83,
-    "afterUnpriced": 157,
+    "afterPriced": 84,
+    "afterUnpriced": 156,
     "fullyPricedScenarios": 8
   },
   "history": [
@@ -161,6 +161,19 @@
         "registeredJobs": 66,
         "auditedJobs": 65,
         "beforeLines": 238,
+        "beforePriced": 83,
+        "afterLines": 240,
+        "afterPriced": 83,
+        "afterUnpriced": 157,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T09:20:34.362Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 240,
         "beforePriced": 83,
         "afterLines": 240,
         "afterPriced": 83,
@@ -2678,18 +2691,22 @@
         },
         {
           "materialId": "ceiling-cross",
-          "name": "Łącznik krzyżowy Norgips CD 60 — ruszt dwupoziomowy",
+          "name": "Łącznik krzyżowy Norgips CD 60 (100 szt.)",
           "unit": "szt",
           "query": {
-            "ean": null,
+            "ean": "5907651696468",
             "gtin": null,
-            "normalizedName": "lacznik krzyzowy norgips cd 60 ruszt dwupoziomowy",
+            "normalizedName": "lacznik krzyzowy norgips cd 60 100 szt",
             "category": "drywall-accessory"
           },
           "quantity": 28,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651696468",
+            "ean": "5907651696468",
+            "name": "Łącznik krzyżowy 60 x 145 mm 100 szt. Norgips"
+          }
         },
         {
           "materialId": "ceiling-longitudinal",

@@ -18,6 +18,7 @@ const BOARD = 'mat-gypsum-board-norgips-gkb-a-1200x';
 const FILLER = 'mat-gypsum-norgips-start-finish-20kg';
 const WOOL = 'mat-mineral-wool-isover-akuplyta-50mm';
 const EANS: Record<string,string> = {
+  'mat-gypsum-cross-norgips-100':'5907651696468', 'mat-gypsum-cross-budmat-100':'5901323043369',
   [BOARD+'2600']:'5907651690442', [BOARD+'2000']:'5907651690879', [FILLER]:'5907651699056',
   [WOOL]:'5901644653131', 'mat-profile-cd60-norgips-3m':'5907651698899',
   'mat-profile-cw50-norgips-06-3m-retail':'5907651698912',
@@ -38,6 +39,7 @@ export function gypsumReference(id: string, m: MeasurementMap = {}): string | nu
   if (id === 'gk-filler' || id === 'ceiling-filler') return FILLER;
   if (id === 'mineral-wool') return WOOL;
   if (id === 'profile-cd') return 'mat-profile-cd60-norgips-3m';
+  if (id === 'ceiling-cross') return (m.gypsumCrossConnector??0)===0 ? 'mat-gypsum-cross-norgips-100' : m.gypsumCrossConnector===1 ? 'mat-gypsum-cross-budmat-100' : null;
   if (id === 'gk-screws' || id === 'gk-screws-ceiling') return m.gypsumFasteners===1 ? 'mat-gk-screws-koelner-fs3525-1000' : null;
   if (id === 'ceiling-metal-screws') return m.gypsumFasteners===1 ? 'mat-gk-profile-screws-koelner-ws3595-1000' : null;
   if (id === 'dowels-uw' || id === 'ceiling-wall-dowels') return m.gypsumPerimeterFixings===1 ? 'mat-gk-perimeter-koelner-fx06k040-200' : null;
@@ -88,6 +90,7 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
     if (id === 'ceiling-acoustic-tape' && !integerChoice(m.gypsumCeilingAcoustic??1,1)) return null;
     return fixed(m.perimeter*factor);
   }
+  if (id === 'ceiling-cross' && !integerChoice(m.gypsumCrossConnector??0,1)) return null;
   if (id === 'ceiling-steel-anchors' && m.gypsumCeilingSubstrate !== 1) return null;
   // source: https://norgips.pl/rozwiazania/sufity-podwieszane/sufity-podwieszane-z-jednokrotnym-poszyciem-z-plyt-g-k-na-ruszcie-dwupoziomowym/sp-1x125-gkb-acd-60-es/
   if (id === 'ceiling-wall-dowels') return finiteRange(m.perimeter,4,100) ? whole(Math.max(area*1.5,Math.ceil(m.perimeter/0.8)+4)*factor) : null;
@@ -114,6 +117,9 @@ export const gypsumWallInputs: MeasurementInputDefinition[] = [
   {id:'gypsumOpenings',label:'Otwory drzwiowe i inne wymagające wzmocnień',unit:'szt.',inputType:'count',placeholder:'0',defaultValue:0,min:0,max:100,required:false,hint:'Podaj powierzchnię brutto, bez odejmowania otworów. Przy otworach pozostawiamy dodatkowe profile, nadproża i mocowania jako brak do doboru; nie ogłaszamy niepełnego zestawu kompletnym.'},
 ];
 export const gypsumCeilingInputs: MeasurementInputDefinition[] = [
+  // source: https://norgips.pl/produkty/lacznik-krzyzowy-72.html
+  // source: https://www.budmat.com/pl/produkt/lacznik-krzyzowy-152
+  {id:'gypsumCrossConnector',label:'Łączniki krzyżowe CD 60',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips — karton 100 szt.'},{value:1,label:'Budmat 0,8 mm — opakowanie 100 szt.'}],hint:'Wybierz produkt zgodny z projektem sufitu. Budmat to inna marka: potwierdź zgodność z profilami i wymaganiami systemu. Liczbę łączników sumujemy dla remontu, potem zaokrąglamy do pełnych opakowań po 100 szt.'},
   {id:'gypsumCeilingSubstrate',label:'Podłoże do zamocowania wieszaków',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Wymaga sprawdzenia / inny strop'},{value:1,label:'Beton — mocowanie stalowe dobrane do stropu'}],hint:'Kotwa stalowa z właściwą aprobatą do mocowania nad głową. Kołek z tworzywa do profilu ściennego nie zastępuje kotwy stropowej. Typ i nośność potwierdza projekt / fachowiec.'},
   {id:'gypsumCeilingAcoustic',label:'Taśma uszczelniająca 30 mm pod UD',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:1,min:0,max:1,required:false,options:[{value:1,label:'Dodaj taśmę pod profile obwodowe'},{value:0,label:'Projekt nie wymaga taśmy'}],hint:'Opcjonalna w zestawieniu tego systemu. Wyciszenie obwodu nie oznacza potwierdzonej izolacyjności całego sufitu.'},
 ];

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T09:50:33.521Z",
-  "scope": "147 references/photos,183 observations. Native eBardo Conpar/Ecovil offers and independently verified separate merchant orders. Explicitly chosen floor:868.33PLN including delivery with two LiderzyCen orders versus1336.33PLN one order per store. Legacy clients remain single-order unless opted in. Same65 audit measurements:83/240 priced rows,157 unresolved; full catalogue and local branch availability remain incomplete.",
-  "total": 147,
-  "verifiedProducts": 123,
+  "checkedAt": "2026-10-27T10:14:37.771Z",
+  "scope": "149 references/photos,185 registered observations. Exact100-piece Norgips and Budmat cartons with actual national home-delivery quotes; explicit product choice. Full ceiling still has2missing products. Full catalogue, all renovation scenarios and local store stock remain incomplete.",
+  "total": 149,
+  "verifiedProducts": 125,
   "remaining": 24,
-  "offers": 162,
+  "offers": 164,
   "stores": 43,
-  "productsWithPhotos": 147,
-  "registeredOffers": 183,
+  "productsWithPhotos": 149,
+  "registeredOffers": 185,
   "disabledOffers": 2,
   "rows": [
     {
@@ -3187,6 +3187,50 @@
           "sourceId": "ebardo-ecovil-p-100m2",
           "checkedAt": "2026-10-27T09:20:09.081Z",
           "expiresAt": "2026-10-27T09:30:09.081Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2500
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-cross-norgips-100",
+      "name": "Łącznik krzyżowy Norgips CD 60 (100 szt.)",
+      "referenceUrl": "https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325",
+      "status": "verified_offer",
+      "ean": "5907651696468",
+      "sourceIds": [
+        "hipper-norgips-cross-100"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos%7CPhotoMed%7C9794D2D8-F401-4DEA-BF8D-D0FF361306EE%7C1/%C5%81%C4%85cznik%20krzy%C5%BCowy%2060%20x%20145%20mm%20100%20szt.%20Norgips.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "hipper-norgips-cross-100",
+          "checkedAt": "2026-10-27T10:13:20.766Z",
+          "expiresAt": "2026-10-27T10:23:20.766Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 1890
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-cross-budmat-100",
+      "name": "Łącznik krzyżowy Budmat CD 60, 0,8 mm (100 szt.)",
+      "referenceUrl": "https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138",
+      "status": "verified_offer",
+      "ean": "5901323043369",
+      "sourceIds": [
+        "ebardo-budmat-cross-100"
+      ],
+      "photoUrl": "https://ebardo.pl/environment/cache/images/productGfx_2897_500_500/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "ebardo-budmat-cross-100",
+          "checkedAt": "2026-10-27T10:13:21.347Z",
+          "expiresAt": "2026-10-27T10:23:21.347Z",
           "status": "quoted",
           "reason": null,
           "basis": "retailer_basket_national",

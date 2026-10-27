@@ -1111,10 +1111,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   {"id":"ebardo-conpar-100m2","ean":"5902096430103","name":"Folia paroizolacyjna Conpar 0,2mm 2mx50m","retailerSku":"FPAR-02C","brand":"Conkret","category":"vapor-barrier","packageSize":100,"unit":"m2","store":"eBardo","format":"shoper-api","productId":86,"apiPurchaseUnit":"szt.","variant":["2mx50m"],"url":"https://ebardo.pl/pl/p/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m/86","imageUrl":"https://ebardo.pl/environment/cache/images/productGfx_2143_500_500/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m.jpg","pickupRequiresConfirmation":true},
   // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534
   {"id":"ebardo-ecovil-p-100m2","ean":"5902096431131","name":"Folia paroizolacyjna Ecovil 0,2mm 2mx50m 100m2","retailerSku":"11-01","brand":"Conkret","category":"vapor-barrier","packageSize":100,"unit":"m2","store":"eBardo","format":"shoper-api","productId":534,"apiPurchaseUnit":"szt.","variant":["2mx50m"],"url":"https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534","imageUrl":"https://ebardo.pl/environment/cache/images/productGfx_2142_500_500/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2.jpg","pickupRequiresConfirmation":true},
+  // source: https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325
+  {"id":"hipper-norgips-cross-100","ean":"5907651696468","name":"Łącznik krzyżowy 60 x 145 mm 100 szt. Norgips","brand":"Norgips","category":"drywall-accessory","packageSize":100,"unit":"szt","store":"HIPPER","format":"certusoft","productId":3071669325,"retailerUnitId":3072059634,"apiPurchaseUnit":"szt","variant":["krzyżowy","60","145","100"],"url":"https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos%7CPhotoMed%7C9794D2D8-F401-4DEA-BF8D-D0FF361306EE%7C1/%C5%81%C4%85cznik%20krzy%C5%BCowy%2060%20x%20145%20mm%20100%20szt.%20Norgips.webp"},
+  // source: https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138
+  {"id":"ebardo-budmat-cross-100","ean":"5901323043369","name":"Łącznik krzyżowy GK do profil CD60 100szt BUDMAT 0,8mm","brand":"Budmat","category":"drywall-accessory","packageSize":100,"unit":"szt","store":"eBardo","format":"shoper-api","productId":138,"retailerSku":"68-02","apiPurchaseUnit":"szt.","variant":["CD60","100szt","0,8mm"],"url":"https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138","imageUrl":"https://ebardo.pl/environment/cache/images/productGfx_2897_500_500/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm.jpg","pickupRequiresConfirmation":true},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Łącznik krzyżowy Norgips CD 60 (100 szt.)": "5907651696468",
+  "Łącznik krzyżowy Budmat CD 60, 0,8 mm (100 szt.)": "5901323043369",
   "Folia paroizolacyjna Conkret Ecovil P 0,20 mm (100 m²)": "5902096431131",
   "Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy": "4006885693104",
   "Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m": "5905167698778",
