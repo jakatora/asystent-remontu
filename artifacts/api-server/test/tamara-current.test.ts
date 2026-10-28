@@ -28,7 +28,7 @@ test('real HTTP combines tile requirements from two rooms before buying boxes, k
  const service=createRemontService({initialObservations:[observed()],background:false}),api=express();api.use(express.json());api.use(service.router);
  const server=api.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
  const job=(id:string,quantity:number,ean='5907518303911')=>({jobId:id,materials:[{material:{id:'wall-tiles',name:'Glazura Tamara',category:'tile',unit:'m2',ean},quantity}]});
- const request=async(jobs:unknown[],mode='pickup')=>{const response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs,options:{store:'Castorama',delivery:{mode,postalCode:'00-001'}}})});assert.equal(response.status,200);return response.json();};
+ const request=async(jobs:unknown[],mode='shipping')=>{const response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs,options:{store:'Castorama',delivery:{mode,postalCode:'00-001'}}})});assert.equal(response.status,200);return response.json();};
  try{
   const combined=await request([job('room-a',4.8),job('room-b',1.2)]),line=combined.consolidated.lines[0];
   assert.equal(line.packages[0].count,4);assert.equal(line.packages[0].packageSize,1.5);assert.equal(combined.consolidated.consolidatedTotalGrosze,23988);

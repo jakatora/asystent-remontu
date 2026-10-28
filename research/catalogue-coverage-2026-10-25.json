@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-28T18:48:28.562Z",
-  "scope": "Fresh production HTTP on 2026-10-28; same 65 saved measurement maps, no new measurements filled. One current Izosystems offer restores the exact existing SWS Inside90mm30m reference. Explicit chosen-purchase roll consolidation and postcode quotes recorded separately, not a complete automatic window-sealing recipe. No user project data writes.",
+  "checkedAt": "2026-10-28T19:44:23.147Z",
+  "scope": "Same65 saved measurement maps and unchanged choices. Production HTTP after refreshing27 exact Castorama and Leroy Merlin offers using current native browser/cart evidence. No new products or offer sources. UD30 changed identity stays excluded. Shipping and branch prices/stock need separate proof.",
   "total": 166,
-  "verifiedProducts": 132,
-  "remaining": 34,
-  "offers": 177,
+  "verifiedProducts": 159,
+  "remaining": 7,
+  "offers": 204,
   "stores": 51,
   "productsWithPhotos": 166,
   "registeredOffers": 210,
@@ -14,7 +14,7 @@
       "id": "mat-paint-economy-white-10l",
       "name": "Farba biała mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-biala-mat-10-l/3663602567240_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "3663602567240",
       "sourceIds": [
         "castorama-paint-economy-10l"
@@ -25,13 +25,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:04:22.567Z",
         "expiresAt": "2026-10-27T06:04:22.567Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
       "id": "mat-paint-standard-white-10l",
       "name": "Farba GoodHome Ściany i Sufit biały mat 10 l",
       "referenceUrl": "https://www.castorama.pl/farba-goodhome-sciany-i-sufit-bialy-mat-10-l/5059340271620_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5059340271620",
       "sourceIds": [
         "castorama-paint-goodhome-10l"
@@ -42,6 +53,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:06:12.185Z",
         "expiresAt": "2026-10-27T06:06:12.185Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -87,7 +109,7 @@
       "id": "mat-skim-coat-economy-20kg",
       "name": "Gładź pod wałek GW180 gotowa polimerowa 20 kg",
       "referenceUrl": "https://www.castorama.pl/gladz-pod-walek-gw180-20-kg/5907418038791_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907418038791",
       "sourceIds": [
         "castorama-kreisel-gw180-20kg"
@@ -98,6 +120,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:07:40.029Z",
         "expiresAt": "2026-10-27T06:07:40.029Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -224,7 +257,7 @@
       "id": "mat-tile-adhesive-buildfix-25kg",
       "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg",
       "referenceUrl": "https://www.castorama.pl/klej-wysokoelastyczny-atlas-plus-odksztalcalny-25-kg/5905400658866_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5905400658866",
       "sourceIds": [
         "castorama-atlas-plus-promo-25kg"
@@ -235,6 +268,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:15:24.072Z",
         "expiresAt": "2026-10-27T06:15:24.072Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -664,7 +708,7 @@
       "id": "mat-profile-cd60-norgips-3m",
       "name": "Profil sufitowy Norgips CD60 0,6 mm 3 m",
       "referenceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651698899",
       "sourceIds": [
         "castorama-norgips-cd60-3m"
@@ -675,13 +719,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:11:04.395Z",
         "expiresAt": "2026-10-27T06:11:04.395Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
       "id": "mat-profile-ud27-budmat-3m",
       "name": "Profil przyścienny Budmat UD27 0,5 mm 3 m",
       "referenceUrl": "https://mrowka.com.pl/produkt/profil-sufitowy-ud27-0-50-mm-3-m-budmat-plock-5907738940163.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907738940163",
       "sourceIds": [
         "castorama-budmat-ud27-3m",
@@ -693,6 +748,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T07:56:16.087Z",
         "expiresAt": "2026-10-27T07:56:16.087Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -865,7 +931,7 @@
       "id": "mat-wc-compact-cersanit-seno-3-5l",
       "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą",
       "referenceUrl": "https://www.castorama.pl/kompakt-wc-cersanit-seno-bezkolnierzowy-3-5-l-z-deska-wolnoopadajaca/5902115720833_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5902115720833",
       "sourceIds": [
         "castorama-cersanit-seno"
@@ -876,6 +942,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:26:17.651Z",
         "expiresAt": "2026-10-27T06:26:17.651Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -931,7 +1008,7 @@
       "id": "mat-wire-ydyp-3x15-akszielonka-100m",
       "name": "Przewód YDYp 3×1,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-1-5-mm2-450-750-v-100-mb/5904617573771_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5904617573771",
       "sourceIds": [
         "castorama-aks-ydyp-3x15-100m"
@@ -942,13 +1019,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:28:51.728Z",
         "expiresAt": "2026-10-27T06:28:51.728Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
       "id": "mat-wire-ydyp-3x25-akszielonka-100m",
       "name": "Przewód YDYp 3×2,5 mm² 450/750 V AKS Zielonka (krąg 100 mb)",
       "referenceUrl": "https://www.castorama.pl/przewod-aks-zielonka-ydyp-3-x-2-5-mm2-450-750-v-100-mb/5904617573764_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5904617573764",
       "sourceIds": [
         "castorama-aks-ydyp-3x25-100m"
@@ -959,6 +1047,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:29:31.705Z",
         "expiresAt": "2026-10-27T06:29:31.705Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -1004,7 +1103,7 @@
       "id": "mat-flush-box-elektroplast-pk60-10",
       "name": "Puszka podtynkowa fi60 głęboka łączeniowa z wkrętem Elektro-Plast (10 szt.)",
       "referenceUrl": "https://www.castorama.pl/puszka-podtynkowa-elektro-plast-60-gleboka-laczeniowa-z-wkretem-10-szt-/5901752637337_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5901752637337",
       "sourceIds": [
         "castorama-elektroplast-pk60-10"
@@ -1015,6 +1114,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:30:49.885Z",
         "expiresAt": "2026-10-27T06:30:49.885Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -1534,7 +1644,7 @@
       "id": "mat-edge-tape-fola-100mm-50m",
       "name": "Taśma brzegowa dylatacyjna Fola 5 mm × 100 mm × 50 mb",
       "referenceUrl": "https://www.castorama.pl/tasma-brzegowa-fola-5-mm-x-10-cm-x-50-mb-5-m2/5906725207227_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5906725207227",
       "sourceIds": [
         "castorama-fola-50mb"
@@ -1545,6 +1655,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T07:16:15.115Z",
         "expiresAt": "2026-10-27T07:16:15.115Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -1747,7 +1868,7 @@
       "id": "mat-windowsill-pvc-form-30x216",
       "name": "Parapet wewnętrzny PCV Form 30 × 216 cm biały",
       "referenceUrl": "https://www.castorama.pl/parapet-wewnetrzny-pcv-form-30-x-216-cm-bialy/5906725219640_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5906725219640",
       "sourceIds": [
         "castorama-form-30x216"
@@ -1758,13 +1879,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T07:14:35.197Z",
         "expiresAt": "2026-10-27T07:14:35.197Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
       "id": "mat-plaster-gypsum-machine-knauf-mp75-25kg",
       "name": "Tynk gipsowy maszynowy Knauf MP 75 25 kg",
       "referenceUrl": "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5902367206352",
       "sourceIds": [
         "castorama-knauf-mp75-25kg"
@@ -1775,6 +1907,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:31:59.630Z",
         "expiresAt": "2026-10-27T06:31:59.630Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -2077,7 +2220,7 @@
       "id": "mat-door-leaf-opp-klasyk-70-white",
       "name": "Skrzydło drzwiowe OPP Klasyk 70 białe z podcięciem (przylgowe)",
       "referenceUrl": "https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5063022524034",
       "sourceIds": [
         "castorama-opp-klasyk-70-right"
@@ -2088,6 +2231,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:33:02.731Z",
         "expiresAt": "2026-10-27T06:33:02.731Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -2119,7 +2273,7 @@
       "id": "mat-door-frame-perfectdoor-reg-80-100",
       "name": "Baza ościeżnicy regulowana PerfectDoor 80-100 mm prawa dąb sonoma (drzwi wewnętrzne)",
       "referenceUrl": "https://www.castorama.pl/baza-oscieznicy-regulowana-perfectdoor-80-100-mm-prawa-dab-sonoma/5902659279118_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5902659279118",
       "sourceIds": [
         "castorama-perfectdoor-base-80-100-right"
@@ -2130,6 +2284,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T06:34:36.671Z",
         "expiresAt": "2026-10-27T06:34:36.671Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -2241,7 +2406,7 @@
       "id": "mat-vinyl-spc-click-goodhome-arilla-25m2",
       "name": "Panele winylowe GoodHome SPC Arilla Dark Grey click 2,5 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-dark-grey-2-5-m2/5059340969756_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5059340969756",
       "sourceIds": [
         "castorama-goodhome-arilla-25m2"
@@ -2252,6 +2417,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T07:12:02.842Z",
         "expiresAt": "2026-10-27T07:12:02.842Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -2285,7 +2461,7 @@
       "id": "mat-vinyl-glued-goodhome-ragga-13m2",
       "name": "Panele winylowe klejone (samoprzylepne LVT) GoodHome Ragga Ele Marble 1,3 m²",
       "referenceUrl": "https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-ragga-ele-marble-1-3-m2/5059340802435_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5059340802435",
       "sourceIds": [
         "castorama-goodhome-ragga-13m2"
@@ -2296,13 +2472,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T07:12:15.709Z",
         "expiresAt": "2026-10-27T07:12:15.709Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
       "id": "mat-vinyl-underlay-corksystem-lvt-6m2",
       "name": "Podkład pod panele winylowe Corksystem LVT 1,5 mm 6 m²",
       "referenceUrl": "https://www.castorama.pl/departments/podk-ad-pod-ogowy-corksystem-lvt-1-5-mm-pod-panele-winylowe-6-m2-1-op-/5061092900925_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5061092900925",
       "sourceIds": [
         "castorama-marketplace-corksystem-lvt-6m2"
@@ -2313,6 +2500,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T07:36:19.342Z",
         "expiresAt": "2026-10-27T07:36:19.342Z"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
       }
     },
     {
@@ -2387,7 +2585,7 @@
       "id": "mat-door-leaf-opp-archi-full-80-left",
       "name": "Skrzydło drzwiowe pełne OPP Archi 80 lewe białe (2035 × 844 mm)",
       "referenceUrl": "https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5063022524263",
       "sourceIds": [
         "castorama-opp-archi-full-80-left"
@@ -2407,22 +2605,22 @@
         "expiresAt": "2026-10-27T18:21:43.632Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "castorama-opp-archi-full-80-left",
-            "error": "retailer_http_503",
-            "checkedAt": "2026-10-26T18:21:43.632Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-washbasin-cersanit-atlantic-new-50",
       "name": "Umywalka ścienna Cersanit Atlantic New 50 (50,5 × 40 cm, z otworem i przelewem)",
       "referenceUrl": "https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5901771226987",
       "sourceIds": [
         "castorama-cersanit-atlantic-new-50"
@@ -2442,22 +2640,22 @@
         "expiresAt": "2026-10-27T19:31:10.236Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "castorama-cersanit-atlantic-new-50",
-            "error": "retailer_http_503",
-            "checkedAt": "2026-10-26T19:31:10.236Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-tile-wall-tamara-white-25x40",
       "name": "Glazura ścienna Ceramika Color Tamara white 25×40 cm (1,5 m²)",
       "referenceUrl": "https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907518303911",
       "sourceIds": [
         "castorama-tamara-white-15m2"
@@ -2477,16 +2675,16 @@
         "expiresAt": "2026-10-27T19:58:26.512Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "castorama-tamara-white-15m2",
-            "error": "retailer_http_503",
-            "checkedAt": "2026-10-26T19:58:26.512Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-tile-spacers-hardy-3mm-150",
@@ -3048,7 +3246,7 @@
       "id": "mat-gypsum-paper-norgips-50x75",
       "name": "Taśma papierowa Norgips 50 mm × 75 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651699933",
       "sourceIds": [
         "leroy-norgips-paper-50x75"
@@ -3068,22 +3266,22 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-paper-50x75",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-gypsum-acoustic-norgips-50x30",
       "name": "Taśma uszczelniająca Norgips 50 mm × 30 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651698004",
       "sourceIds": [
         "leroy-norgips-acoustic-50x30"
@@ -3103,22 +3301,22 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-acoustic-50x30",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-gypsum-acoustic-norgips-30x30",
       "name": "Taśma uszczelniająca Norgips 30 mm × 30 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651698851",
       "sourceIds": [
         "leroy-norgips-acoustic-30x30"
@@ -3138,22 +3336,22 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-acoustic-30x30",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-profile-cw50-norgips-06-3m-retail",
       "name": "Profil Norgips CW 50, 0,6 mm, 3 m (EAN 8912)",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651698912",
       "sourceIds": [
         "leroy-norgips-cw50-06-3m"
@@ -3173,22 +3371,22 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-cw50-06-3m",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-profile-uw50-norgips-super-06-3m",
       "name": "Profil Norgips UW 50 Super, 0,6 mm, 3 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651698547",
       "sourceIds": [
         "leroy-norgips-uw50-06-3m"
@@ -3208,16 +3406,16 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-uw50-06-3m",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-profile-ud30-norgips-06-3m",
@@ -3252,13 +3450,21 @@
             "checkedAt": "2026-10-27T05:39:56.843Z"
           }
         ]
+      },
+      "currentIdentityCheck": {
+        "checkedAt": "2026-10-28T19:24:57.933Z",
+        "status": "different_live_ean",
+        "sourceId": "leroy-norgips-ud30-06-3m",
+        "expectedEan": "5907651698905",
+        "observedEan": "5907651691197",
+        "note": "Current primary JSON-LD identifies a different barcode on retailer card44604343. No substitution or renewed verification for the old EAN."
       }
     },
     {
       "id": "mat-gypsum-hanger-norgips-es6075",
       "name": "Wieszak płaski Norgips ES 60/75, 1 szt.",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html",
-      "status": "browser_verification_expired",
+      "status": "verified_offer",
       "ean": "5907651699650",
       "sourceIds": [
         "leroy-norgips-es6075"
@@ -3278,16 +3484,16 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-es6075",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      }
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
     },
     {
       "id": "mat-gypsum-fleece-norgips-50x25",
@@ -4150,17 +4356,17 @@
     "E-Kowalczyk",
     "Izosystems"
   ],
-  "browserVerifiedOffers": 0,
+  "browserVerifiedOffers": 27,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T18:48:28.562Z",
-    "pricedLines": 72,
+    "checkedAt": "2026-10-28T19:44:23.147Z",
+    "pricedLines": 85,
     "totalLines": 250,
-    "unpricedLines": 178,
-    "fullyPricedScenarios": 8,
+    "unpricedLines": 165,
+    "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   },
-  "expiredOffers": 30,
-  "activeStores": 46,
+  "expiredOffers": 3,
+  "activeStores": 48,
   "history": [
     {
       "checkedAt": "2026-10-27T12:46:06.593Z",
@@ -4228,6 +4434,14 @@
     },
     {
       "checkedAt": "2026-10-28T18:24:45.850Z",
+      "total": 166,
+      "verifiedProducts": 132,
+      "remaining": 34,
+      "offers": 177,
+      "stores": 51
+    },
+    {
+      "checkedAt": "2026-10-28T18:48:28.562Z",
       "total": 166,
       "verifiedProducts": 132,
       "remaining": 34,

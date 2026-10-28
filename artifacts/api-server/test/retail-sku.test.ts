@@ -63,11 +63,11 @@ test('an identified branch card with zero stock and no purchase form is unavaila
 test('actual HTTP keeps EAN and merchant SKU products separate and aggregates exact named SKU demand',async()=>{
   const fola=RETAIL_SOURCES.find(row=>row.id==='castorama-fola-50mb')!;
   const observation=parseRetailPage(html,source,new Date());
-  const service=createRemontService({background:false,initialObservations:[observation,{...observation,sourceId:fola.id,ean:fola.ean,name:fola.name,sourceUrl:fola.url,priceGrosze:3548,verification:{method:'browser',checkedAt:observation.observedAt,expiresAt:new Date(Date.parse(observation.observedAt)+86400000).toISOString()}}]});
+  const service=createRemontService({background:false,basketQuoter:async()=>({reason:'integration_unavailable'}),initialObservations:[observation,{...observation,sourceId:fola.id,ean:fola.ean,name:fola.name,sourceUrl:fola.url,priceGrosze:3548,verification:{method:'browser',checkedAt:observation.observedAt,expiresAt:new Date(Date.parse(observation.observedAt)+86400000).toISOString()}}]});
   const app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
   const root='http://127.0.0.1:'+(server.address() as {port:number}).port;
   const material={id:'edge',name:retailProductName(source),category:'expansion-tape',unit:'mb'};
-  const post=async(materials:unknown[])=>{const r=await fetch(root+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'first',materials}],options:{delivery:{mode:'pickup'}}})});assert.equal(r.status,200);return r.json();};
+  const post=async(materials:unknown[])=>{const r=await fetch(root+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'first',materials}],options:{delivery:{mode:'shipping',postalCode:'00-001'}}})});assert.equal(r.status,200);return r.json();};
   try{
     const out=await post([{material,quantity:14.7},{material,quantity:14.7},{material:{id:'fola',name:fola.name,ean:fola.ean,category:fola.category,unit:'mb'},quantity:10}]);
     assert.equal(service.status().products,2);assert.equal(out.consolidated.lines.length,2);

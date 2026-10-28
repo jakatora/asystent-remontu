@@ -55,9 +55,10 @@ test('real HTTP consolidates fractional areas and lengths before rounding up com
  const material=(i:number,quantity:number)=>({material:{id:source(i).id,name:source(i).name,ean:source(i).ean,category:source(i).category,unit:source(i).unit},quantity});
  const request=async(mode:'shipping'|'pickup')=>{const response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'room-a',materials:[material(0,1.3),material(1,1.31),material(2,51),material(3,2.17)]},{jobId:'room-b',materials:[material(0,1.3)]}],options:{store:'Castorama',delivery:{mode,postalCode:'00-001'}}})});assert.equal(response.status,200);return response.json();};
  try{
-  const pickup=await request('pickup');assert.equal(pickup.consolidated.consolidatedTotalGrosze,82180);assert.equal(pickup.deliveryComparison.best.totalGrosze,82180);
-  for(const line of pickup.consolidated.lines){assert.equal(line.packages.length,1);assert.equal(line.packages[0].count,2);assert.equal(line.packages[0].verification.method,'browser');assert.equal(line.packages[0].maxPackages,undefined);}
-  const shipping=await request('shipping');assert.equal(shipping.deliveryComparison.best,null);assert.ok(shipping.deliveryComparison.unavailableStores.some((s:any)=>s.store==='Castorama'&&s.reason==='retailer_access_required'));
+  const shipping=await request('shipping');assert.equal(shipping.consolidated.consolidatedTotalGrosze,82180);
+  for(const line of shipping.consolidated.lines){assert.equal(line.packages.length,1);assert.equal(line.packages[0].count,2);assert.equal(line.packages[0].verification.method,'browser');assert.equal(line.packages[0].maxPackages,undefined);}
+  assert.equal(shipping.deliveryComparison.best,null);assert.ok(shipping.deliveryComparison.unavailableStores.some((s:any)=>s.store==='Castorama'&&s.reason==='retailer_access_required'));
+  const pickup=await request('pickup');assert.equal(pickup.deliveryComparison.best,null);assert.ok(pickup.stages.flatMap((s:any)=>s.lines).every((l:any)=>!l.resolved));
  }finally{service.close();await new Promise<void>(resolve=>server.close(()=>resolve()));}
 });
 

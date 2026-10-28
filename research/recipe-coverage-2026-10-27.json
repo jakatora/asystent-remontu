@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-10-28T18:48:28.562Z",
-  "scope": "Same65 saved measurement maps with no new choices filled. Window-repair-v2 adds an explicit manufacturer-bound foam choice and clears stale confirmations after scope/product changes. Existing65 measurements stay unchanged, explicit12 cases are separate. Mobile-only implementation, no backend release or user-project writes.",
+  "checkedAt": "2026-10-28T19:44:23.147Z",
+  "scope": "Same65 saved measurement maps and unchanged choices. Production HTTP after refreshing27 exact Castorama and Leroy Merlin offers using current native browser/cart evidence. No new products or offer sources. UD30 changed identity stays excluded. Shipping and branch prices/stock need separate proof.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 250,
     "beforePriced": 72,
     "afterLines": 250,
-    "afterPriced": 72,
-    "afterUnpriced": 178,
-    "fullyPricedScenarios": 8
+    "afterPriced": 85,
+    "afterUnpriced": 165,
+    "fullyPricedScenarios": 11
   },
   "history": [
     {
@@ -310,6 +310,19 @@
         "afterUnpriced": 178,
         "fullyPricedScenarios": 8
       }
+    },
+    {
+      "checkedAt": "2026-10-28T18:48:28.562Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 250,
+        "beforePriced": 72,
+        "afterLines": 250,
+        "afterPriced": 72,
+        "afterUnpriced": 178,
+        "fullyPricedScenarios": 8
+      }
     }
   ],
   "jobs": [
@@ -420,9 +433,13 @@
             "category": "paint"
           },
           "quantity": 2.1,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5059340271620",
+            "ean": "5059340271620",
+            "name": "Farba GoodHome Ściany i Sufit biały mat 10 l"
+          }
         },
         {
           "materialId": "primer-ceiling",
@@ -1161,9 +1178,13 @@
             "category": "underlay"
           },
           "quantity": 11,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5061092900925",
+            "ean": "5061092900925",
+            "name": "Podkład podłogowy Corksystem LVT 1.5 mm pod panele winylowe 6 m2 1 op."
+          }
         },
         {
           "materialId": "threshold-vinyl",
@@ -1204,9 +1225,13 @@
             "category": "vinyl-panel"
           },
           "quantity": 11,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5059340802435",
+            "ean": "5059340802435",
+            "name": "Panele podłogowe winylowe GoodHome Ragga Ele Marble 1,3 m2"
+          }
         },
         {
           "materialId": "vinyl-adhesive",
@@ -1815,9 +1840,13 @@
             "category": "adhesive"
           },
           "quantity": 44,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5905400658866",
+            "ean": "5905400658866",
+            "name": "Klej wysokoelastyczny Atlas Plus odkształcalny 25 kg"
+          }
         },
         {
           "materialId": "wall-grout",
@@ -2220,9 +2249,13 @@
             "category": "toilet"
           },
           "quantity": 1,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5902115720833",
+            "ean": "5902115720833",
+            "name": "Kompakt WC Cersanit Seno bezkołnierzowy 3/5 l z deską wolnoopadającą"
+          }
         },
         {
           "materialId": "wc-mounting-set",
@@ -2644,9 +2677,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 24,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651698912",
+            "ean": "5907651698912",
+            "name": "Profil ścienny CW50 3 m.b. Super Norgips"
+          }
         },
         {
           "materialId": "profile-uw",
@@ -2659,9 +2696,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 8.8,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651698547",
+            "ean": "5907651698547",
+            "name": "Profil ścienny UW50 3 m.b. Super Norgips"
+          }
         },
         {
           "materialId": "mineral-wool",
@@ -2708,9 +2749,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 28.6,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651699933",
+            "ean": "5907651699933",
+            "name": "Taśma papierowa 50mm 75 mb NORGIPS"
+          }
         },
         {
           "materialId": "gk-filler",
@@ -2757,9 +2802,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 14.3,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651698004",
+            "ean": "5907651698004",
+            "name": "Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS"
+          }
         }
       ]
     },
@@ -2801,9 +2850,13 @@
             "category": "profile"
           },
           "quantity": 36.3,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651698899",
+            "ean": "5907651698899",
+            "name": "Profil sufitowy Norgips CD60 0,6 mm 3 mb"
+          }
         },
         {
           "materialId": "profile-ud",
@@ -2831,9 +2884,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 15,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651699650",
+            "ean": "5907651699650",
+            "name": "Wieszak płaski ES 60/75 mm NORGIPS"
+          }
         },
         {
           "materialId": "gk-screws-ceiling",
@@ -2880,9 +2937,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 14.3,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651699933",
+            "ean": "5907651699933",
+            "name": "Taśma papierowa 50mm 75 mb NORGIPS"
+          }
         },
         {
           "materialId": "ceiling-cross",
@@ -2978,9 +3039,13 @@
             "category": "drywall-accessory"
           },
           "quantity": 15.4,
-          "resolved": false,
-          "reason": "no-offer",
-          "matchedProduct": null
+          "resolved": true,
+          "reason": null,
+          "matchedProduct": {
+            "id": "remont-5907651698851",
+            "ean": "5907651698851",
+            "name": "Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS"
+          }
         }
       ]
     },
@@ -5637,6 +5702,59 @@
         "browserId": "2",
         "tabId": "2",
         "proof": "catalog-wave68-ui-proof.json"
+      }
+    },
+    "wave69": {
+      "checkedAt": "2026-10-28T19:43:30.067Z",
+      "nativeCases": 6,
+      "refreshedOffers": 27,
+      "newProducts": 0,
+      "newOffers": 0,
+      "newStores": 0,
+      "newPhotos": 0,
+      "photoEntries": 167,
+      "arillaOverOnePack": {
+        "requestedM2": 2.51,
+        "packM2": 2.5,
+        "packs": 2,
+        "totalGrosze": 26490
+      },
+      "unconfirmedPickupExcluded": {
+        "store": "Castorama",
+        "onlineSourceDefinitions": 22
+      },
+      "priceChanges": [],
+      "windowRegression": {
+        "materialsGrosze": 16780,
+        "deliveryGrosze": 3490,
+        "totalGrosze": 20270
+      },
+      "uiVerification": {
+        "checkedAt": "2026-10-28T19:48:17.248Z",
+        "verified": true,
+        "browserId": "2",
+        "tabId": "3",
+        "url": "http://localhost:8082/project/proj_mvsh6irl0iits49gc?tab=estimate",
+        "projectId": "proj_mvsh6irl0iits49gc",
+        "newQaProjects": 0,
+        "existingProjectsEdited": false,
+        "qaEditorCancelled": true,
+        "castoramaPickupWarning": true,
+        "noCompletePickupPrice": true,
+        "storeCount": 48,
+        "final": "cheapest/shipping/00-001",
+        "materialsGrosze": 16780,
+        "shippingGrosze": 3490,
+        "totalGrosze": 20270,
+        "screenshot": {
+          "file": "catalog-wave69-delivered-basket.jpg",
+          "sha256": "5766d4311e47a3851088ad33c1a98050a06c8c5a16c53e64314af58eada485af",
+          "width": 1280,
+          "height": 720,
+          "format": "JPEG"
+        },
+        "markedDeliverable": true,
+        "browserNote": "Earlier tab2 binding returned browser.user unavailable; reused the working research tab3 in the same selected browser2. No browser permission or security settings changed."
       }
     }
   }

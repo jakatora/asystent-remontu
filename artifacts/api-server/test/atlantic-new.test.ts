@@ -31,7 +31,7 @@ test('real HTTP charges the exact number of new basins and leaves the old SKU an
     const old = await request('5907720650025'); assert.equal(old.stages[0].lines[0].resolved, false);
     const current = await request('5901771226987'); assert.equal(current.consolidated.consolidatedTotalGrosze, 31600);
     assert.equal(current.consolidated.lines[0].packages[0].count, 2); assert.equal(current.deliveryComparison.best, null);
-    const pickup = await request('5901771226987', 'pickup'); assert.equal(pickup.deliveryComparison.best.totalGrosze, 31600);
-    assert.equal(pickup.consolidated.lines[0].product.ean, '5901771226987');
+    const pickup = await request('5901771226987', 'pickup'); assert.equal(pickup.deliveryComparison.best, null);
+    assert.equal(pickup.stages[0].lines[0].resolved, false); assert.ok(pickup.coverage.pickupConfirmationStores.includes('Castorama'));
   } finally { service.close(); await new Promise<void>(resolve => server.close(() => resolve())); }
 });

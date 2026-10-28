@@ -17,6 +17,19 @@ const source=(id:string)=>RETAIL_SOURCES.find(s=>s.id===id)!;
 const fresh=(index=0)=>({...structuredClone(fixtures[index].snapshot),capturedAt:new Date().toISOString()});
 function changeProduct(snapshot:BrowserProductSnapshot,change:(p:any)=>void){const next=structuredClone(snapshot),product=JSON.parse(next.schemas[0]);change(product);next.schemas[0]=JSON.stringify(product);return next;}
 
+test('current online Castorama prices cannot win a collection basket without a branch price and stock confirmation',async()=>{
+ const rows=fixtures.map((fixture,index)=>observeCastoramaBrowser(fresh(index),source(fixture.sourceId)));
+ const service=createRemontService({initialObservations:rows,background:false,basketQuoter:async()=>({reason:'retailer_access_required'})});
+ const app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
+ try{
+  const materials=fixtures.map(fixture=>{const s=source(fixture.sourceId);return{material:{id:s.id,name:s.name,ean:s.ean,unit:s.unit,category:s.category},quantity:s.packageSize};});
+  const post=async(mode:'shipping'|'pickup')=>{const response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'renovation',materials}],options:{store:'Castorama',delivery:{mode,postalCode:'00-001'}}})});assert.equal(response.status,200);return response.json();};
+  const online=await post('shipping');assert.ok(online.stages[0].lines.every((line:any)=>line.resolved));assert.equal(online.deliveryComparison.best,null);
+  const pickup=await post('pickup');assert.ok(pickup.stages[0].lines.every((line:any)=>!line.resolved));assert.equal(pickup.deliveryComparison.best,null);assert.equal(pickup.deliveryComparison.missingProductCount,fixtures.length);assert.ok(pickup.coverage.pickupConfirmationStores.includes('Castorama'));
+  assert.equal(service.status().offers,fixtures.length,'online offers remain available for material and home-delivery comparisons');
+ }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));service.close();}
+});
+
 test('native online offers bind exact codes, whole purchase units and visible gross prices without importing local branch stock',()=>{
  const prices=[5498,7998,3848,2098,6398,48800,38800,59800,1524,2548,20800,41800];
  for(let i=0;i<fixtures.length;i++){
@@ -48,7 +61,7 @@ test('real HTTP counts full cable rolls, ten-piece boxes and single WC/frame uni
  const observations=[5,6,7,8,9,10,11].map(i=>observeCastoramaBrowser(fresh(i),source(fixtures[i].sourceId))),service=createRemontService({initialObservations:observations,background:false}),app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
  try{
   const cases=[[5,2,97600],[6,110,77600],[7,110,119600],[8,11,3048],[9,26,5096],[10,2,41600],[11,2,83600]];
-  for(const[i,quantity,total]of cases){const s=source(fixtures[i].sourceId),response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'quantity',materials:[{material:{id:s.id,name:s.name,ean:s.ean,unit:s.unit,category:s.category},quantity}]}],options:{store:'Castorama',delivery:{mode:'pickup'}}})});assert.equal(response.status,200);const data=await response.json();assert.equal(data.consolidated.lines[0].lineCostGrosze,total,s.id);assert.equal(data.consolidated.lines[0].packages[0].count,2);assert.equal(data.deliveryComparison.best.totalGrosze,total);assert.equal(data.deliveryComparison.best.stores[0].lines[0].packages[0].verification.method,'browser');}
+  for(const[i,quantity,total]of cases){const s=source(fixtures[i].sourceId),response=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'quantity',materials:[{material:{id:s.id,name:s.name,ean:s.ean,unit:s.unit,category:s.category},quantity}]}],options:{store:'Castorama',delivery:{mode:'shipping',postalCode:'00-001'}}})});assert.equal(response.status,200);const data=await response.json();assert.equal(data.consolidated.lines[0].lineCostGrosze,total,s.id);assert.equal(data.consolidated.lines[0].packages[0].count,2);assert.equal(data.deliveryComparison.best,null);assert.equal(data.consolidated.lines[0].packages[0].verification.method,'browser');}
  }finally{await new Promise<void>(resolve=>server.close(()=>resolve()));service.close();}
 });
 

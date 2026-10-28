@@ -19,7 +19,8 @@ test('actual HTTP preserves a chosen retailer across consolidation and delivery,
     const root='http://127.0.0.1:'+(server.address() as {port:number}).port;
     const jobs=[3,2].map((quantity,i)=>({jobId:'room-'+i,materials:[{material:{id:'paint',ean:paint.ean,name:paint.name,category:paint.category,unit:paint.unit},quantity}]}));
     const post=async (body:any)=>{const response=await fetch(root+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});assert.equal(response.status,200);return response.json();};
-    const all=await post({jobs,options:{delivery:{mode:'pickup'}}});assert.equal(all.consolidated.consolidatedTotalGrosze,10000);
+    const all=await post({jobs,options:{delivery:{mode:'pickup'}}});assert.equal(all.consolidated.consolidatedTotalGrosze,20000);
+    assert.ok(all.coverage.pickupConfirmationStores.includes('Castorama'));
     const selected=await post({jobs,options:{store:'Sewera',delivery:{mode:'shipping',postalCode:'00-001'}}});
     assert.equal(selected.consolidated.consolidatedTotalGrosze,20000);assert.equal(selected.deliveryComparison.best.totalGrosze,21000);
     assert.equal(estimateHonoursStore(selected,'Sewera'),true);assert.equal(quoted,1);
