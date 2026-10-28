@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-28T21:51:09.056Z",
-  "scope": "Same65 saved measurement maps. Historical plastering now explicitly requires product/substrate, reinforcement and corner measurements; prior assumed plaster/corner quantities are not treated as confirmed. New explicit choices and eight real production HTTP cases recorded separately.",
+  "checkedAt": "2026-10-28T22:34:38.267Z",
+  "scope": "Same65 saved measurement maps:84/251 priced requirements, not unique product counts. New explicit Grundiermittel60 substrate choices are verified separately in10 actual production HTTP cases; old unconfirmed choices are not silently changed.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -362,6 +362,24 @@
         "auditedJobs": 65,
         "beforeLines": 250,
         "beforePriced": 85,
+        "afterLines": 251,
+        "afterPriced": 84,
+        "afterUnpriced": 167,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 94,
+          "no-product": 72,
+          "no-offer": 1
+        }
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T21:51:09.056Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 251,
+        "beforePriced": 84,
         "afterLines": 251,
         "afterPriced": 84,
         "afterUnpriced": 167,

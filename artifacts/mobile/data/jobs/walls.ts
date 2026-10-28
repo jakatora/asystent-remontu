@@ -580,7 +580,8 @@ export const wallPlasteringJob: RenovationJob = {
   coverIcon: 'layers',
   warningRules: [
     { condition: 'always', message: 'Dobierz tynk do wilgotności i wykończenia. Knauf dopuszcza gipsowe także w zwykle użytkowanych kuchniach i łazienkach przy wilgotności do 70%; strefy narażone na wodę wymagają odpowiedniego systemu hydroizolacji.', level: 'warning' },
-    { condition: 'always', message: 'Dobierz przygotowanie do konkretnego tynku i podłoża. Betokontakt dotyczy niechłonnego betonu pod gipsowe Knauf; chłonny mur oraz system Baumit wymagają osobnego doboru według karty producenta.', level: 'warning' },
+    // source: https://knauf.com/api/download-center/v1/assets/7639fea2-44c7-4c59-b464-b436316de77a?country=pl&download=true
+    { condition: 'always', message: 'Dobierz przygotowanie do konkretnego tynku i podłoża. Pod gipsowe Knauf: Betokontakt na gładki niechłonny beton, Grundiermittel 60 na chłonny mur. Dla koncentratu potwierdź rozcieńczenie i wydajność po próbie na podłożu. System Baumit wymaga osobnego doboru według karty producenta.', level: 'warning' },
     { condition: 'large-area', message: 'Tynk maszynowy na dużych powierzchniach wymaga agregatu i wprawy — przy >30 m² rozważ ekipę tynkarską.', level: 'info' },
     { condition: 'always', message: 'Pył gipsowy i praca z agregatem — używaj maski P2 i okularów, wietrz pomieszczenie.', level: 'warning' },
   ],
@@ -612,7 +613,7 @@ export const wallPlasteringJob: RenovationJob = {
     { afterStep: 4, description: 'Tynk gipsowy — pełne wyschnięcie', minHours: 168, maxHours: 336, conditions: 'Ok. 1 dzień na 1 mm grubości; przed gładzią/malowaniem tynk musi być suchy.' },
   ],
   instructions: [
-    { step: 1, title: 'Przygotuj podłoże i zagruntuj', description: 'Oceń nośność, chłonność i wilgotność podłoża. Usuń kurz, luźne fragmenty i pozostałości środków antyadhezyjnych. Przygotowanie dobierz do karty konkretnego tynku. Dla niechłonnego betonu pod gipsowe Knauf użyj Betokontakt; do chłonnego muru lub MPI 25 dobierz rozwiązanie osobno. Zachowaj czas schnięcia producenta.', tip: 'Kontakt kwarcowy daje szorstką powierzchnię — tynk gipsowy trzyma się betonu.', durationMin: 90, surfaceMustBeDry: true },
+    { step: 1, title: 'Przygotuj podłoże i zagruntuj', description: 'Oceń nośność, chłonność i wilgotność podłoża. Usuń kurz, luźne fragmenty i pozostałości środków antyadhezyjnych. Pod gipsowe Knauf: Betokontakt na gładki niechłonny beton, Grundiermittel 60 na chłonny mur. Ten kalkulator dla koncentratu przyjmuje 1:2; dobierz rozcieńczenie według karty i próby na ścianie. Grunt musi całkowicie wyschnąć przed tynkowaniem, minimum 12 h w warunkach karty. Dla MPI 25 dobierz przygotowanie osobno.', tip: 'Inny grunt na beton i chłonny mur — wybierz według rzeczywistego podłoża.', durationMin: 90, surfaceMustBeDry: true },
     { step: 2, title: 'Zamontuj narożniki i pasy kierunkowe', description: 'Na zewnętrznych krawędziach (ościeża, słupki) osadź narożniki aluminiowe z siatką w zaprawie, ustaw w pionie poziomicą. Na dużych ścianach ustaw pasy/listwy kierunkowe wyznaczające płaszczyznę i grubość tynku.', durationMin: 90 },
     { step: 3, title: 'Wymieszaj tynk', description: 'Wsyp suchą mieszankę do odmierzonej wody (nie odwrotnie) i mieszaj mieszadłem/agregatem na jednolitą masę bez grudek. Zachowaj proporcje wody z opakowania — za rzadki tynk spływa, za gęsty źle się rozprowadza.', tip: 'Gips wiąże szybko — mieszaj tyle, ile zużyjesz w czasie roboczym (ok. 30–45 min).', durationMin: 20 },
     { step: 4, title: 'Narzuć i ściągnij tynk łatą', description: 'Narzuć tynk kielnią lub agregatem między narożnikami/pasami, z lekkim naddatkiem. Ściągnij łatą h do płaszczyzny listew, ruchem zygzakowym od dołu do góry. Uzupełnij zagłębienia i ściągnij ponownie.', warning: 'Nie nakładaj grubszej warstwy niż dopuszcza producent na raz — gruby gips pęka i odpada.', durationMin: 180 },
@@ -640,6 +641,7 @@ export const wallPlasteringJob: RenovationJob = {
     {title:'Knauf MP 75 — zastosowanie i karta systemu',url:'https://knauf.com/pl-PL/p/produkt/knauf-mp-75-10256_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
     {title:'Knauf Goldband — zastosowanie i karta systemu',url:'https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
     {title:'Knauf Betokontakt — grunt do betonu',url:'https://knauf.com/pl-PL/p/produkt/knauf-betokontakt-10251_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
+    {title:'Knauf Grundiermittel 60 — karta 08/2026, wydajność przy 1:2',url:'https://knauf.com/api/download-center/v1/assets/7639fea2-44c7-4c59-b464-b436316de77a?country=pl&download=true',domain:'knauf.com',consultedAt:'2026-10-28'},
     {title:'Knauf Profix — siatka do tynków gipsowych',url:'https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
     {
       title:       'Tynk maszynowy Knauf MP 75 25 kg — karta produktu (zużycie, grubość, zastosowanie)',

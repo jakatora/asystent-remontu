@@ -13,6 +13,7 @@ import { readTopbodenProduct } from './topboden-product';
 import { readPrestashopProduct } from './prestashop-product';
 import { readIzosystemsProduct } from './izosystems-product';
 import { readKrasnyStock } from './krasny-stock';
+import {readBmbCart} from './bmb';
 import { readAbstoreProduct } from './abstore-product';
 import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
@@ -60,7 +61,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -107,6 +108,7 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if(source.format==='bmb')throw Error('retailer_basket_required');
   if ((!source.ean || source.skuIdentity) && !isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
@@ -189,6 +191,11 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if(source.format==='bmb'){
+    const current=await readBmbCart(source,1,fetchImpl),p=current.product;
+    const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:p.name,gtin13:source.ean,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
+    return{...parseRetailPage(html,{...source,format:'jsonld'},new Date()),stockPackages:p.stock,evidenceSha256:current.evidenceSha256};
+  }
   if (source.store==='Leroy Merlin'&&source.browserReviewAllowed) throw Error('browser_refresh_required');
   if(source.format==='qshop'){
     const current=await readTokmetProduct(source,fetchImpl);

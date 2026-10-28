@@ -1,15 +1,32 @@
 {
-  "checkedAt": "2026-10-28T21:51:09.056Z",
-  "scope": "Same65 saved measurement maps. Historical plastering now explicitly requires product/substrate, reinforcement and corner measurements; prior assumed plaster/corner quantities are not treated as confirmed. New explicit choices and eight real production HTTP cases recorded separately.",
-  "total": 169,
-  "verifiedProducts": 162,
+  "checkedAt": "2026-10-28T22:34:38.267Z",
+  "scope": "170 exact catalogue references audited through production HTTP. Same65 saved measurement maps remain separately tracked; new explicit absorbent-wall scenarios have10 additional actual production HTTP cases. No overall app completion percentage is implied.",
+  "total": 170,
+  "verifiedProducts": 163,
   "remaining": 7,
-  "offers": 208,
-  "stores": 51,
-  "productsWithPhotos": 169,
-  "registeredOffers": 214,
+  "offers": 209,
+  "stores": 52,
+  "productsWithPhotos": 170,
+  "registeredOffers": 215,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-plaster-primer-knauf-grundiermittel60-15kg",
+      "productLabel": "Knauf Grundiermittel 60 — koncentrat gruntujący 15 kg",
+      "ean": "5901793357799",
+      "materialType": "plaster-primer",
+      "packageSize": 15,
+      "packageUnit": "kg",
+      "status": "verified_offer",
+      "sourceIds": [
+        "bmb-knauf-grundiermittel60-15kg"
+      ],
+      "referenceUrl": "https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html",
+      "photoUrl": "https://bmbtechnologie.pl/files/fotom/product-5454.png?ts=1649861303",
+      "photoSourceUrl": "https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html",
+      "checkedAt": "2026-10-28T22:27:07.370Z",
+      "availabilityScope": "online23 whole15kg buckets; actual anonymous national PL pallet quote includes carrier and mandatory KN-WO pallet; local pickup unconfirmed"
+    },
     {
       "id": "mat-plaster-mesh-knauf-profix-50m2",
       "productLabel": "Siatka tynkarska Knauf Profix 100 cm × 50 m (50 m²)",

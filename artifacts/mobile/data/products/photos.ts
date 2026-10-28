@@ -12,6 +12,8 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html
+  {ids:['mat-plaster-primer-knauf-grundiermittel60-15kg'],ean:'5901793357799',sourceUrl:'https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html',imageUrl:'https://bmbtechnologie.pl/files/fotom/product-5454.png?ts=1649861303'},
   // source: https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350
   {"ids":["mat-plaster-primer-knauf-betokontakt-5kg"],"ean":"4006379051014","sourceUrl":"https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350","imageUrl":"https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1"},
   // source: https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120

@@ -10,6 +10,7 @@ import {upgradeCalculation,projectShopping} from './upgrades';
 import {generateShoppingItems} from './shopping';
 import {PLASTER_JOB,PLASTER_MODEL,plasterQuantity,plasterInputVisible,withPlasterMeasurement} from './plastering';
 import type {ShoppingItem} from '@/types/domain';
+import {parseMeasurements} from '@/shared/lib/measurements';
 
 const job=getJobById(PLASTER_JOB)!;
 const measures={wallArea:10,plasterThickness:15,plasterSystem:2,plasterReservePercent:10,plasterPrimerChoice:1,plasterMeshArea:2,plasterMeshChoice:1,plasterCornerCount:2,plasterCornerFit:1};
@@ -33,6 +34,31 @@ test('primer uses kg of the whole5kg bucket and cannot become a generic litre or
  assert.equal(line('plaster-primer',{plasterSystem:3}).quantityKnown,false);
  assert.equal(line('plaster-primer',{plasterPrimerChoice:0}).quantityKnown,false);
  assert.equal(line('plaster-primer',{plasterPrimerChoice:2}).rawQuantity,0);
+});
+
+test('absorbent Knauf wall uses15kg concentrate divided by editable whole-bucket yield at1:2, with reserve once',()=>{
+ const primer=line('plaster-primer',{plasterPrimerChoice:3});assert.equal(primer.rawQuantity,0.4125);assert.equal(primer.packs,1);assert.equal(primer.quantity,15);assert.equal(primer.cost,198.99);assert.equal(primer.material.unit,'kg');
+ for(const tier of ['economy','standard','better']as const){const stage=toPricingStageInput(calculate({plasterPrimerChoice:3}),tier),input=stage.materials.find(l=>l.material.id==='plaster-primer')!;assert.equal(input.quantity,0.4125);assert.equal(input.material.ean,'5901793357799');}
+ assert.equal(line('plaster-primer',{plasterPrimerChoice:3,plasterPrimerCoverageM2:300}).rawQuantity,0.55);
+ assert.equal(line('plaster-primer',{plasterPrimerChoice:3,plasterPrimerCoverageM2:400,plasterReservePercent:0}).rawQuantity,0.375);
+ for(const coverage of [0,-1,1001,NaN,Infinity])assert.equal(line('plaster-primer',{plasterPrimerChoice:3,plasterPrimerCoverageM2:coverage}).quantityKnown,false);
+ assert.equal(line('plaster-primer',{plasterPrimerChoice:3,plasterSystem:3}).quantityKnown,false);
+ assert.equal(plasterInputVisible(PLASTER_JOB,'plasterPrimerCoverageM2',{plasterPrimerChoice:3,plasterSystem:2}),true);
+ for(const choice of [0,1,2])assert.equal(plasterInputVisible(PLASTER_JOB,'plasterPrimerCoverageM2',{plasterPrimerChoice:choice,plasterSystem:2}),false);
+});
+
+test('owned Betokontakt cannot cover a different Grundiermittel60 purchase after substrate selection changes',()=>{
+ const old=generateShoppingItems('a',calculate()).find(i=>i.materialId==='plaster-primer')!,calc=calculate({plasterPrimerChoice:3});
+ const saved={...old,id:'owned-betokontakt',quantity:15,owned:true,purchased:true};
+ const reviewed=projectShopping([saved],calc)[0];assert.equal(reviewed.owned,false);assert.equal(reviewed.purchased,false);assert.equal(reviewed.needsQuantityConfirmation,true);
+ assert.equal(applyProjectShopping(toPricingStageInput(calc),calc,'a',[saved]).excludedMaterials,0);
+});
+
+test('a hidden concentrate-yield error cannot block saving a different substrate; active concentrate still requires valid yield',()=>{
+ const raw=Object.fromEntries(Object.entries(measures).map(([k,v])=>[k,String(v)]));
+ const inactive=parseMeasurements(job,{...raw,plasterPrimerChoice:'1',plasterPrimerCoverageM2:'0'});assert.equal(inactive.errors.length,0);assert.equal(inactive.values.plasterPrimerCoverageM2,undefined);
+ const active=parseMeasurements(job,{...raw,plasterPrimerChoice:'3',plasterPrimerCoverageM2:'0'});assert.ok(active.errors.some(e=>e.id==='plasterPrimerCoverageM2'));
+ const defaulted=parseMeasurements(job,{...raw,plasterPrimerChoice:'3'});assert.equal(defaulted.errors.length,0);assert.equal(defaulted.values.plasterPrimerCoverageM2,400);
 });
 
 test('reinforcement uses the measured area with one overlap allowance and the required minimum15mm plaster',()=>{

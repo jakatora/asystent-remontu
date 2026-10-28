@@ -1185,10 +1185,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390
   // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
   {"id":"liderzycen-knauf-goldband-25kg","ean":"5902367206383","name":"Tynk gipsowy ręczny Knauf Goldband 25 kg","brand":"Knauf","category":"plaster","packageSize":25,"unit":"kg","store":"LiderzyCen","format":"shoper-api","productId":55390,"retailerSku":"ctma_5902367206383","apiPurchaseUnit":"szt.","pickupRequiresConfirmation":true,"url":"https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp"},
+  // source: https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-grundiermittel-60-28517_0120
+  {id:'bmb-knauf-grundiermittel60-15kg',ean:'5901793357799',name:'Środek gruntujący Knauf Grundiermittel 60 15KG',brand:'Knauf',category:'plaster-primer',packageSize:15,unit:'kg',store:'BMB Technologie',format:'bmb',productId:5454,retailerSku:'5901793357799',apiPurchaseUnit:'szt.',pickupRequiresConfirmation:true,url:'https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html',imageUrl:'https://bmbtechnologie.pl/files/fotom/product-5454.png?ts=1649861303'},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Knauf Grundiermittel 60 — koncentrat gruntujący 15 kg':'5901793357799',
   "Knauf Betokontakt — grunt sczepny 5 kg": "4006379051014",
   "Siatka tynkarska Knauf Profix 100 cm × 50 m (50 m²)": "5902367201067",
   "Erismann RollOver 3333-5 — flizelina do malowania, rolka 0,75 × 25 m": "4002790333357",

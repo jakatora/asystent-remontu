@@ -17,6 +17,7 @@ import { quoteAbud } from './abud-delivery';
 import { quoteIrbud } from './irbud-woo';
 import { quoteKowalczyk } from './kowalczyk-magento';
 import { quoteIzosystems } from './izosystems-delivery';
+import {quoteBmb} from './bmb';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
@@ -50,12 +51,12 @@ function unavailableReason(store: string): string | undefined {
   // source: https://marbet24.pl/zamowienie
   if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD','E-Kowalczyk','Izosystems'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD','E-Kowalczyk','Izosystems','BMB Technologie'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD','E-Kowalczyk','Izosystems'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Centrum Matbud','ABUD','IRBUD','E-Kowalczyk','Izosystems','BMB Technologie'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
     postcodeStores:['Sewera','Cezar','ABUD','IRBUD','E-Kowalczyk','Izosystems'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
@@ -167,6 +168,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
+        if(order.store==='BMB Technologie')return await quoteBmb(order,fetchImpl);
         if(order.store==='Izosystems')return await quoteIzosystems(order,postalCode,fetchImpl);
         if(order.store==='E-Kowalczyk')return await quoteKowalczyk(order,postalCode,fetchImpl);
         if(order.store==='IRBUD')return await quoteIrbud(order,postalCode,fetchImpl);
