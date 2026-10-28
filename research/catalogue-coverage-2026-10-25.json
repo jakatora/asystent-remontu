@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-28T21:14:54.962Z",
+  "checkedAt": "2026-10-28T21:51:09.056Z",
   "scope": "Same65 saved measurement maps. Historical plastering now explicitly requires product/substrate, reinforcement and corner measurements; prior assumed plaster/corner quantities are not treated as confirmed. New explicit choices and eight real production HTTP cases recorded separately.",
   "total": 169,
   "verifiedProducts": 162,
   "remaining": 7,
-  "offers": 207,
+  "offers": 208,
   "stores": 51,
   "productsWithPhotos": 169,
-  "registeredOffers": 213,
+  "registeredOffers": 214,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1978,9 +1978,10 @@
       "status": "verified_offer",
       "ean": "5902367206383",
       "sourceIds": [
-        "krasny-goldband-25kg"
+        "krasny-goldband-25kg",
+        "liderzycen-knauf-goldband-25kg"
       ],
-      "photoUrl": "https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca",
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp",
       "deliveryChecks": [
         {
           "sourceId": "krasny-goldband-25kg",
@@ -1989,7 +1990,10 @@
           "reason": "integration_unavailable",
           "postalCode": "00-001"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390",
+      "checkedAt": "2026-10-28T21:51:09.056Z",
+      "availabilityScope": "online; Krasny published stock2bags; LiderzyCen native12bag cart and current national PL courier quote; branch pickup unconfirmed"
     },
     {
       "id": "mat-plaster-cementlime-baumit-mpi25-30kg",
@@ -4409,7 +4413,7 @@
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T21:14:54.962Z",
+    "checkedAt": "2026-10-28T21:51:09.056Z",
     "pricedLines": 84,
     "totalLines": 251,
     "unpricedLines": 167,
@@ -4513,6 +4517,14 @@
       "verifiedProducts": 160,
       "remaining": 7,
       "offers": 205,
+      "stores": 51
+    },
+    {
+      "checkedAt": "2026-10-28T21:14:54.962Z",
+      "total": 169,
+      "verifiedProducts": 162,
+      "remaining": 7,
+      "offers": 207,
       "stores": 51
     }
   ],

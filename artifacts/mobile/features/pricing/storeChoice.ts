@@ -8,6 +8,29 @@ export interface StoreChoices {
   unresolvedCount: number;
   pickupUnavailableStores?: readonly string[];
   pickupOnlyStores?: readonly string[];
+  stockShortfalls?: readonly StoreStockShortfall[];
+}
+export interface StoreStockShortfall {store:string;productId:string;productName:string;requiredQuantity:number;availableQuantity:number;unit:string}
+
+/** Explain only an explicit capacity shortfall for the consolidated demand.
+ * Unknown stock, conflicting snapshots and incompatible units remain unknown.
+ * A repeated offer in two rooms describes one stock pool, never two pools. */
+export function collectStoreStockShortfalls(data:SerializedProject):StoreStockShortfall[]{
+  return (data.consolidated?.lines??[]).flatMap(line=>{
+    const offers=data.stages.flatMap(stage=>stage.lines.filter(row=>row.resolved&&row.product?.id===line.product.id).flatMap(row=>row.offers??[]));
+    return [...new Set(offers.map(offer=>offer.store))].flatMap(store=>{
+      const byId=new Map<string,typeof offers[number]>();let conflicting=false;
+      for(const offer of offers.filter(offer=>offer.store===store)){
+        const previous=byId.get(offer.offerId);
+        if(previous&&JSON.stringify([previous.maxPackages,previous.packageSize,previous.unit])!==JSON.stringify([offer.maxPackages,offer.packageSize,offer.unit]))conflicting=true;
+        byId.set(offer.offerId,offer);
+      }
+      const unique=[...byId.values()];
+      if(conflicting||!unique.length||!line.unit||!Number.isFinite(line.totalQuantity)||line.totalQuantity<=0||unique.some(offer=>!Number.isSafeInteger(offer.maxPackages)||offer.maxPackages!<0||offer.unit!==line.unit||!Number.isFinite(Number(offer.packageSize))||Number(offer.packageSize)<=0))return[];
+      const availableQuantity=unique.reduce((sum,offer)=>sum+offer.maxPackages!*Number(offer.packageSize),0);
+      return Number.isFinite(availableQuantity)&&availableQuantity+1e-8<line.totalQuantity?[{store,productId:line.product.id,productName:line.product.name,requiredQuantity:line.totalQuantity,availableQuantity,unit:line.unit}]:[];
+    });
+  });
 }
 
 export function collectStoreChoices(data: SerializedProject): StoreChoices {
@@ -17,6 +40,7 @@ export function collectStoreChoices(data: SerializedProject): StoreChoices {
     unresolvedCount: groupUnpricedLines(data.stages).filter(group => group.line.quantity > 0).length,
     pickupUnavailableStores: data.coverage?.pickupUnavailableStores ?? [],
     pickupOnlyStores: data.coverage?.pickupOnlyStores ?? [],
+    stockShortfalls:collectStoreStockShortfalls(data),
   };
 }
 

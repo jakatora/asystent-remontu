@@ -1,0 +1,702 @@
+{
+  "checkedAt": "2026-10-28T21:43:54.857Z",
+  "krasny": {
+    "product": {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "additionalProperty": [],
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock",
+        "inventoryLevel": 2,
+        "price": 49.89,
+        "priceCurrency": "PLN"
+      },
+      "brand": {
+        "@type": "Brand",
+        "name": null,
+        "description": null
+      },
+      "category": [
+        {
+          "@type": "CategoryCode",
+          "name": "Pozostałe"
+        }
+      ],
+      "depth": {
+        "@type": "QuantitativeValue",
+        "minValue": 0.15
+      },
+      "description": "Opakowanie zbiorcze:  &lt;br/&gt; Ręczny tynk gipsowy. Tynk jednowarstwowy na wszelkie podłoża mineralne wewnątrz budynków Zastosowanie: Tworzenie powierzchni gładkich. o dowolnej strukturze lub zatartych na ścianach i sufitach wewnątrz budynków. Jako tynk jednowarstwowy do wszystkich rodzajów podłoża.\r\nOd piwnicy po dach. do wszystkich pomieszczeń o maks. wilgotności powietrza 70%. łącznie z kuchniami i łazienkami o zwykłym wykorzystaniu (np. toalety w szkołach i łazienki w hotelach. szpitalach itp.).\r\nJako podłoże pod różnego rodzaju farby i tapety\r\nJako podłoże do układania płytek\r\nJako podłoże pod tynki wykończeniowe",
+      "gtin": "5902367206383",
+      "hasCertification": [],
+      "hasEnergyConsumptionDetails": {
+        "@type": "EnergyConsumptionDetails",
+        "url": null
+      },
+      "hasMeasurement": {
+        "@type": "QuantitativeValue",
+        "minValue": 1,
+        "unitCode": "C62"
+      },
+      "height": {
+        "@type": "QuantitativeValue",
+        "minValue": 0.6
+      },
+      "image": {
+        "@type": "ImageObject",
+        "name": "goldband_25.png",
+        "url": "https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca"
+      },
+      "isAccessoryOrSparePartFor": null,
+      "isRelatedTo": null,
+      "isSimilarTo": [
+        {
+          "@type": "Product",
+          "productId": "5907783220029"
+        },
+        {
+          "@type": "Product",
+          "productId": "5907783220241"
+        }
+      ],
+      "manufacturer": {
+        "@type": "Organization",
+        "logo": "",
+        "name": "KNAUF"
+      },
+      "name": "GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg",
+      "productID": "5902367206383",
+      "url": "https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383",
+      "weight": {
+        "@type": "QuantitativeValue",
+        "minValue": 25
+      },
+      "width": {
+        "@type": "QuantitativeValue",
+        "minValue": 0.5
+      }
+    },
+    "stockHtml": "<div id=\"gdtsq\" type=\"productStocks\" theme=\"[object Object]\" class=\"one-product-stocks-info one-cms-grid-renderer w-100 p-2 magazine-state\" data-v-2a2f7ae0> <div class=\"grid-table extended\" data-v-2a2f7ae0><div class=\"d-flex\" data-v-2a2f7ae0><div class=\"d-flex justify-content-center align-items-center\" data-v-2a2f7ae0> <span data-v-3d303f16><div class=\"one-stock-status-icon__line one-stock-status-icon__line--good\" data-v-3d303f16></div> <div class=\"one-stock-status-icon__line one-stock-status-icon__line--good\" data-v-3d303f16></div> <div class=\"one-stock-status-icon__line one-stock-status-icon__line--good\" data-v-3d303f16></div></span> <div class=\"mx-1\">\n    2 szt.\n  </div></div></div> <div class=\"d-flex align-items-center\" data-v-2a2f7ae0><i class=\"pr-1 icon-main-warehouse\" data-v-2a2f7ae0></i> <p class=\"one-product-stocks-info__warehouse m-0\" data-v-2a2f7ae0>\n            Magazyn Centralny\n          </p></div> <div class=\"d-flex\" data-v-2a2f7ae0><span title=\"Czas wysyłki\" data-v-2a2f7ae0><i class=\"pr-1 icon-basic-clock\" data-v-2a2f7ae0></i>24 h\n          </span></div></div> </div>"
+  },
+  "liderzy": {
+    "sourceId": "liderzycen-knauf-goldband-25kg",
+    "product": {
+      "id": 55390,
+      "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+      "can_buy": true,
+      "ean": "5902367206383",
+      "code": "ctma_5902367206383",
+      "package": "0",
+      "unit": {
+        "name": "szt.",
+        "floating_point": false
+      },
+      "rate": 0,
+      "votes": 0,
+      "stockId": 55478,
+      "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390",
+      "category": {
+        "name": "Tynki gipsowe ręczne",
+        "id": 8163
+      },
+      "availability": {
+        "name": "duża ilość"
+      },
+      "visibility": {
+        "status": 1,
+        "cart_status": 1,
+        "search_status": 1
+      },
+      "delivery": {
+        "name": "48 godzin",
+        "hours": "48"
+      },
+      "price": {
+        "gross": {
+          "base": "30,38 zł",
+          "base_float": 30.38,
+          "final": "30,38 zł",
+          "final_float": 30.38,
+          "historical_lowest_price": "28,78 zł",
+          "historical_lowest_price_float": 28.78
+        },
+        "net": {
+          "base": "24,70 zł",
+          "base_float": 24.7,
+          "final": "24,70 zł",
+          "final_float": 24.7,
+          "historical_lowest_price": "23,40 zł",
+          "historical_lowest_price_float": 23.4
+        }
+      },
+      "productExists30DaysBeforePromotion": false,
+      "weight": {
+        "weight_float": 0,
+        "weight": "0 kg"
+      },
+      "producer": {
+        "name": "knauf",
+        "id": 367
+      },
+      "newProduct": false,
+      "shortDescription": "",
+      "main_image": "77582",
+      "main_image_filename": "77582.jpg",
+      "description": "<p>Jednostka sprzedaży: sztuka</p><p>Tynk gipsowy ręczny Knauf Goldband 25 kg znajdzie niejedno zastosowanie podczas budowy czy remontu. Dzięki niemu będziesz w stanie zlikwidować bruzdy na tynkowanej powierzchni. Dotyczy to zarówno ubytków powstałych ze starości, jak i bruzd po wymianie instalacji elektrycznej lub wodno-kanalizacyjnej. Tynk gipsowy ręczny Knauf Goldband nadaje się także do otynkowania glifów wokół wstawionych okien lub drzwi. Produkt ten jest przeznaczony do ręcznego nakładania. Utrzymany został w beżowym kolorze. Bez trudu zatem zakryjesz go farbą podczas estetycznego wykańczania powierzchni. Tynk nadaje się także do wyrównywania krzywych ścian. Z asortymentu sklepów Castorama możesz wykorzystać również wiele innych materiałów budowlanych.</p><p></p><p>Tynk gipsowy ręczny Knauf Goldband idealnie nadaje się do wyrównywania krzywych ścian. Będzie także odpowiedni do wypełniania bruzd w ścianach czy na suficie. Produkt ten wykorzystasz wewnątrz budynków. Możesz nakładać go ręcznie bez wykorzystywania agregatu. Produkt pozwoli Ci przygotować ściany pod zaplanowany materiał wykończeniowy.</p><p> - Wymiary produktu: gr, 12 x szer. 35 x dł. 52 cm<br /> - Długość opakowania: 12 cm<br /> - Wysokość opakowania: 50 cm<br /> - Szerokość opakowania: 32 cm<br /> - Waga brutto: 25 kg<br /> - Obszary zastosowania: budownictwo<br /> - Wydajność: 13 kg/m2/15mm<br /> - Ilość warstw: 1<br /> - Powierzchnia aplikacji: szorstkie podłoża, tynki podkładowe i beton<br /> - Temperatura pracy: powyżej +5 st. C<br /> - Czas schnięcia: 14 dni przy grubości 10 mm<br /> - Grubość warstwy: do 50 mm<br /> - Metoda aplikacji: nakładnie ręczne<br /> - EAN: 5902367206383<br /> - Marka: Knauf<br /> - Okres używania: 6 miesięcy od daty produkcji<br /> - Typ/rodzaj: tynk gipsowy<br /> - Nr referencyjny: 96107<br /> - Kolor producenta: beżowy</p>",
+      "images": [
+        "77582"
+      ],
+      "images_filename": [
+        "77582.jpg"
+      ],
+      "lowest_shipping_cost": {
+        "price": "230,00 zł",
+        "price_float": 230
+      },
+      "historical_lowest_price": "28,78 zł",
+      "net_historical_lowest_price": "23,40 zł",
+      "is_notification_enabled": false,
+      "gauge": {
+        "id": "36",
+        "name": "Tynki"
+      }
+    },
+    "carts": [
+      {
+        "count": 1,
+        "order": {
+          "store": "LiderzyCen",
+          "materialsGrosze": 3038,
+          "deliveryGrosze": null,
+          "deliveryMinimumGrosze": 0,
+          "totalGrosze": null,
+          "source": "unknown",
+          "lines": [
+            {
+              "product": {
+                "id": "5902367206383",
+                "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+                "imageUrl": "https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp"
+              },
+              "unit": "kg",
+              "packages": [
+                {
+                  "offerId": "liderzycen-knauf-goldband-25kg",
+                  "count": 1,
+                  "packageSize": 25,
+                  "unitPriceGrosze": 3038,
+                  "lineCostGrosze": 3038,
+                  "store": "LiderzyCen",
+                  "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390"
+                }
+              ]
+            }
+          ]
+        },
+        "result": {
+          "quote": {
+            "costGrosze": 23000,
+            "carrier": "Kurier Materiały Budowalne 20",
+            "payment": "Przelewy24",
+            "checkedAt": "2026-10-28T21:41:14.939Z",
+            "expiresAt": "2026-10-28T21:51:14.939Z",
+            "sourceUrl": "https://liderzycen.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "923b080e8562bd9b9e038a5faf5ad8db8860d40b32d7281fb6a9988e6d884a5d"
+          }
+        },
+        "cart": {
+          "shippings": [
+            {
+              "shipping_id": 51,
+              "selected": true,
+              "title": "Kurier Materiały Budowalne 20",
+              "description": "",
+              "cost": "230,00 zł",
+              "cost_float": 230,
+              "engine": "",
+              "payments": [
+                {
+                  "payment_id": 18
+                }
+              ],
+              "countries": [
+                {
+                  "id": 179,
+                  "cost": "230,00 zł",
+                  "cost_float": 230
+                }
+              ]
+            }
+          ],
+          "payments": [
+            {
+              "payment_id": 18,
+              "selected": true,
+              "name": "shoperP24",
+              "title": "Przelewy24",
+              "description": ""
+            }
+          ],
+          "promocode": null,
+          "promos": null,
+          "taxes": {
+            "23": 5.68
+          },
+          "countries": [
+            {
+              "id": 179,
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "basket": {
+            "count": 1,
+            "sum": "260,38 zł",
+            "sum_float": 260.38,
+            "sum_products": "30,38 zł",
+            "sum_products_float": 30.38,
+            "sum_no_shipping": "30,38 zł",
+            "sum_no_shipping_float": 30.38,
+            "loyalty_points": 0
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": []
+          },
+          "products": [
+            {
+              "id": 155,
+              "parent_id": null,
+              "stock_id": 55478,
+              "product_id": 55390,
+              "type": null,
+              "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+              "variant": "",
+              "quantity": 1,
+              "image": "77582",
+              "image_filename": "77582.jpg",
+              "unit": {
+                "name": "szt.",
+                "floating_point": false
+              },
+              "price_float": 30.38,
+              "price": "30,38 zł",
+              "sum_float": 30.38,
+              "sum": "30,38 zł",
+              "delivery": "48 godzin",
+              "loyalty": null,
+              "category": {
+                "category_id": "8163",
+                "translation": {
+                  "name": "Tynki gipsowe ręczne"
+                }
+              },
+              "producer": {
+                "producer_id": 367,
+                "name": "knauf"
+              },
+              "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390",
+              "remove_url": "https://liderzycen.pl/pl/basket/remove/155"
+            }
+          ],
+          "delivery": "48 godzin",
+          "comment": null,
+          "user_info": {
+            "mail": null
+          },
+          "billing_address": {
+            "company_name": null,
+            "tax_id": null,
+            "pesel": null,
+            "firstname": null,
+            "lastname": null,
+            "street_1": null,
+            "street_2": "",
+            "city": null,
+            "zip_code": null,
+            "state": null,
+            "phone": null,
+            "country_id": null
+          },
+          "shipping_address": {
+            "company_name": null,
+            "tax_id": null,
+            "pesel": null,
+            "firstname": null,
+            "lastname": null,
+            "street_1": null,
+            "street_2": "",
+            "city": null,
+            "zip_code": null,
+            "state": null,
+            "phone": null,
+            "country_id": null
+          },
+          "vat_eu": false,
+          "additional_fields": null
+        }
+      },
+      {
+        "count": 6,
+        "order": {
+          "store": "LiderzyCen",
+          "materialsGrosze": 18228,
+          "deliveryGrosze": null,
+          "deliveryMinimumGrosze": 0,
+          "totalGrosze": null,
+          "source": "unknown",
+          "lines": [
+            {
+              "product": {
+                "id": "5902367206383",
+                "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+                "imageUrl": "https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp"
+              },
+              "unit": "kg",
+              "packages": [
+                {
+                  "offerId": "liderzycen-knauf-goldband-25kg",
+                  "count": 6,
+                  "packageSize": 25,
+                  "unitPriceGrosze": 3038,
+                  "lineCostGrosze": 18228,
+                  "store": "LiderzyCen",
+                  "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390"
+                }
+              ]
+            }
+          ]
+        },
+        "result": {
+          "quote": {
+            "costGrosze": 23000,
+            "carrier": "Kurier Materiały Budowalne 20",
+            "payment": "Przelewy24",
+            "checkedAt": "2026-10-28T21:41:15.303Z",
+            "expiresAt": "2026-10-28T21:51:15.303Z",
+            "sourceUrl": "https://liderzycen.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "269fd35b145e3f427a3994de64453daf4005f3c6a626224103b57deab52573cc"
+          }
+        },
+        "cart": {
+          "shippings": [
+            {
+              "shipping_id": 51,
+              "selected": true,
+              "title": "Kurier Materiały Budowalne 20",
+              "description": "",
+              "cost": "230,00 zł",
+              "cost_float": 230,
+              "engine": "",
+              "payments": [
+                {
+                  "payment_id": 18
+                }
+              ],
+              "countries": [
+                {
+                  "id": 179,
+                  "cost": "230,00 zł",
+                  "cost_float": 230
+                }
+              ]
+            }
+          ],
+          "payments": [
+            {
+              "payment_id": 18,
+              "selected": true,
+              "name": "shoperP24",
+              "title": "Przelewy24",
+              "description": ""
+            }
+          ],
+          "promocode": null,
+          "promos": null,
+          "taxes": {
+            "23": 34.08000000000001
+          },
+          "countries": [
+            {
+              "id": 179,
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "basket": {
+            "count": 6,
+            "sum": "412,28 zł",
+            "sum_float": 412.28,
+            "sum_products": "182,28 zł",
+            "sum_products_float": 182.28,
+            "sum_no_shipping": "182,28 zł",
+            "sum_no_shipping_float": 182.28,
+            "loyalty_points": 0
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": []
+          },
+          "products": [
+            {
+              "id": 156,
+              "parent_id": null,
+              "stock_id": 55478,
+              "product_id": 55390,
+              "type": null,
+              "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+              "variant": "",
+              "quantity": 6,
+              "image": "77582",
+              "image_filename": "77582.jpg",
+              "unit": {
+                "name": "szt.",
+                "floating_point": false
+              },
+              "price_float": 30.38,
+              "price": "30,38 zł",
+              "sum_float": 182.28,
+              "sum": "182,28 zł",
+              "delivery": "48 godzin",
+              "loyalty": null,
+              "category": {
+                "category_id": "8163",
+                "translation": {
+                  "name": "Tynki gipsowe ręczne"
+                }
+              },
+              "producer": {
+                "producer_id": 367,
+                "name": "knauf"
+              },
+              "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390",
+              "remove_url": "https://liderzycen.pl/pl/basket/remove/156"
+            }
+          ],
+          "delivery": "48 godzin",
+          "comment": null,
+          "user_info": {
+            "mail": null
+          },
+          "billing_address": {
+            "company_name": null,
+            "tax_id": null,
+            "pesel": null,
+            "firstname": null,
+            "lastname": null,
+            "street_1": null,
+            "street_2": "",
+            "city": null,
+            "zip_code": null,
+            "state": null,
+            "phone": null,
+            "country_id": null
+          },
+          "shipping_address": {
+            "company_name": null,
+            "tax_id": null,
+            "pesel": null,
+            "firstname": null,
+            "lastname": null,
+            "street_1": null,
+            "street_2": "",
+            "city": null,
+            "zip_code": null,
+            "state": null,
+            "phone": null,
+            "country_id": null
+          },
+          "vat_eu": false,
+          "additional_fields": null
+        }
+      },
+      {
+        "count": 12,
+        "order": {
+          "store": "LiderzyCen",
+          "materialsGrosze": 36456,
+          "deliveryGrosze": null,
+          "deliveryMinimumGrosze": 0,
+          "totalGrosze": null,
+          "source": "unknown",
+          "lines": [
+            {
+              "product": {
+                "id": "5902367206383",
+                "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+                "imageUrl": "https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp"
+              },
+              "unit": "kg",
+              "packages": [
+                {
+                  "offerId": "liderzycen-knauf-goldband-25kg",
+                  "count": 12,
+                  "packageSize": 25,
+                  "unitPriceGrosze": 3038,
+                  "lineCostGrosze": 36456,
+                  "store": "LiderzyCen",
+                  "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390"
+                }
+              ]
+            }
+          ]
+        },
+        "result": {
+          "quote": {
+            "costGrosze": 23000,
+            "carrier": "Kurier Materiały Budowalne 20",
+            "payment": "Przelewy24",
+            "checkedAt": "2026-10-28T21:41:15.679Z",
+            "expiresAt": "2026-10-28T21:51:15.679Z",
+            "sourceUrl": "https://liderzycen.pl/pl/basket",
+            "basis": "retailer_basket_national",
+            "destinationScope": "PL",
+            "evidenceSha256": "56376ebaaa4f905c7d76aa78223f3259d715f56411d3d8ae0ba4741186f93681"
+          }
+        },
+        "cart": {
+          "shippings": [
+            {
+              "shipping_id": 51,
+              "selected": true,
+              "title": "Kurier Materiały Budowalne 20",
+              "description": "",
+              "cost": "230,00 zł",
+              "cost_float": 230,
+              "engine": "",
+              "payments": [
+                {
+                  "payment_id": 18
+                }
+              ],
+              "countries": [
+                {
+                  "id": 179,
+                  "cost": "230,00 zł",
+                  "cost_float": 230
+                }
+              ]
+            }
+          ],
+          "payments": [
+            {
+              "payment_id": 18,
+              "selected": true,
+              "name": "shoperP24",
+              "title": "Przelewy24",
+              "description": ""
+            }
+          ],
+          "promocode": null,
+          "promos": null,
+          "taxes": {
+            "23": 68.16000000000003
+          },
+          "countries": [
+            {
+              "id": 179,
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "basket": {
+            "count": 12,
+            "sum": "594,56 zł",
+            "sum_float": 594.56,
+            "sum_products": "364,56 zł",
+            "sum_products_float": 364.56,
+            "sum_no_shipping": "364,56 zł",
+            "sum_no_shipping_float": 364.56,
+            "loyalty_points": 0
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": []
+          },
+          "products": [
+            {
+              "id": 157,
+              "parent_id": null,
+              "stock_id": 55478,
+              "product_id": 55390,
+              "type": null,
+              "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
+              "variant": "",
+              "quantity": 12,
+              "image": "77582",
+              "image_filename": "77582.jpg",
+              "unit": {
+                "name": "szt.",
+                "floating_point": false
+              },
+              "price_float": 30.38,
+              "price": "30,38 zł",
+              "sum_float": 364.56,
+              "sum": "364,56 zł",
+              "delivery": "48 godzin",
+              "loyalty": null,
+              "category": {
+                "category_id": "8163",
+                "translation": {
+                  "name": "Tynki gipsowe ręczne"
+                }
+              },
+              "producer": {
+                "producer_id": 367,
+                "name": "knauf"
+              },
+              "url": "https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390",
+              "remove_url": "https://liderzycen.pl/pl/basket/remove/157"
+            }
+          ],
+          "delivery": "48 godzin",
+          "comment": null,
+          "user_info": {
+            "mail": null
+          },
+          "billing_address": {
+            "company_name": null,
+            "tax_id": null,
+            "pesel": null,
+            "firstname": null,
+            "lastname": null,
+            "street_1": null,
+            "street_2": "",
+            "city": null,
+            "zip_code": null,
+            "state": null,
+            "phone": null,
+            "country_id": null
+          },
+          "shipping_address": {
+            "company_name": null,
+            "tax_id": null,
+            "pesel": null,
+            "firstname": null,
+            "lastname": null,
+            "street_1": null,
+            "street_2": "",
+            "city": null,
+            "zip_code": null,
+            "state": null,
+            "phone": null,
+            "country_id": null
+          },
+          "vat_eu": false,
+          "additional_fields": null
+        }
+      }
+    ]
+  }
+}

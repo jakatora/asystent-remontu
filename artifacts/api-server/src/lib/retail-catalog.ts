@@ -857,7 +857,7 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html
   {"id":"unimet-corner-mesh-25m","ean":"5900308102411","name":"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM","category":"plaster-corner","packageSize":2.5,"unit":"mb","store":"Unimet","url":"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html","imageUrl":"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp","brand":"Budmat","format":"unimet","variant":["250cm"]},
   // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383
-  {"id":"krasny-goldband-25kg","ean":"5902367206383","name":"GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg","category":"plaster","packageSize":25,"unit":"kg","store":"Krasny","url":"https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383","imageUrl":"https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca","brand":"Knauf","format":"jsonld"},
+  {"id":"krasny-goldband-25kg","ean":"5902367206383","name":"GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg","category":"plaster","packageSize":25,"unit":"kg","store":"Krasny","url":"https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383","imageUrl":"https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca","brand":"Knauf","format":"krasny","pickupRequiresConfirmation":true},
   // source: https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/
   {"id":"domat-board-gkbi","ean":"5907651691616","name":"Płyta gipsowa GKBI 12.5 1200*2600 ZIELONA","brand":"Norgips","category":"gypsum-board","packageSize":3.12,"unit":"m2","store":"Domat","url":"https://domat24.pl/produkt/plyta-gipsowa-gkbi-12-5-12002600-zielona/","format":"woocommerce","productId":29071,"variant":["GKBI","12.5","1200","2600"]},
   // source: https://domat24.pl/produkt/plyta-gipsowa-gkb-12-5-12002600-biala/
@@ -1182,6 +1182,9 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500
   // source: https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120
   {"id":"realbud-knauf-profix-50m2","ean":"5902367201067","name":"Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb","brand":"Knauf","category":"plaster-mesh","packageSize":50,"unit":"m2","store":"Realbud","format":"shoper-api","productId":75057500,"retailerSku":"11723","apiPurchaseUnit":"szt.","url":"https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500","imageUrl":"https://realbud.com/environment/cache/images/productGfx_23636_500_500/7ff3a7398c66270601e5d09d595d52a5.png","pickupRequiresConfirmation":true,"variant":["1000 mm","10x10 mm","50 mb"]},
+  // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
+  {"id":"liderzycen-knauf-goldband-25kg","ean":"5902367206383","name":"Tynk gipsowy ręczny Knauf Goldband 25 kg","brand":"Knauf","category":"plaster","packageSize":25,"unit":"kg","store":"LiderzyCen","format":"shoper-api","productId":55390,"retailerSku":"ctma_5902367206383","apiPurchaseUnit":"szt.","pickupRequiresConfirmation":true,"url":"https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

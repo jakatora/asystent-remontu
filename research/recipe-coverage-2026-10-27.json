@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-28T21:14:54.962Z",
+  "checkedAt": "2026-10-28T21:51:09.056Z",
   "scope": "Same65 saved measurement maps. Historical plastering now explicitly requires product/substrate, reinforcement and corner measurements; prior assumed plaster/corner quantities are not treated as confirmed. New explicit choices and eight real production HTTP cases recorded separately.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 250,
-    "beforePriced": 85,
+    "beforeLines": 251,
+    "beforePriced": 84,
     "afterLines": 251,
     "afterPriced": 84,
     "afterUnpriced": 167,
@@ -353,6 +353,24 @@
         "afterPriced": 85,
         "afterUnpriced": 165,
         "fullyPricedScenarios": 11
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T21:14:54.962Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 250,
+        "beforePriced": 85,
+        "afterLines": 251,
+        "afterPriced": 84,
+        "afterUnpriced": 167,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 94,
+          "no-product": 72,
+          "no-offer": 1
+        }
       }
     }
   ],
@@ -5974,6 +5992,88 @@
         "manufacturerPhotoReplacesRetailPlaceholder": true,
         "photoScope": "Manufacturer Profix range illustration; exact 1000 mm / 50 m variant verified separately by EAN 5902367201067.",
         "screenshot": "catalog-wave71-koszyk.jpg"
+      }
+    },
+    "wave72": {
+      "checkedAt": "2026-10-28T21:51:11.354Z",
+      "nativeCases": 12,
+      "newProducts": 0,
+      "newOffers": 1,
+      "newStores": 0,
+      "newPhotoEntries": 0,
+      "updatedPhotoEntries": 1,
+      "sourceIds": [
+        "krasny-goldband-25kg",
+        "liderzycen-knauf-goldband-25kg"
+      ],
+      "krasnyMaxPackages": 2,
+      "allThreeSelectedPurchasesPriced": true,
+      "oneRoom": {
+        "materialsGrosze": 47607,
+        "shippingGrosze": 25500,
+        "totalGrosze": 73107
+      },
+      "twoRooms": {
+        "materialsGrosze": 65835,
+        "shippingGrosze": 25500,
+        "totalGrosze": 91335
+      },
+      "newStoreNotMisreportedAsPriceDrop": true,
+      "uiVerification": {
+        "checkedAt": "2026-10-28T22:04:54.942Z",
+        "passed": true,
+        "browserId": "2",
+        "tabId": "8",
+        "url": "http://localhost:8082/renovation-basket",
+        "newQaProjects": 0,
+        "projectCount": 25,
+        "existingProjectsEdited": 0,
+        "selectedProjects": 2,
+        "postalCode": "00-001",
+        "selectionPreservedAfterReload": true,
+        "materialsGrosze": 65835,
+        "shippingGrosze": 25500,
+        "totalGrosze": 91335,
+        "deliveryScope": "national PL tariffs; not an individual address quote",
+        "storeTotals": {
+          "LiderzyCen": 59456,
+          "Realbud": 31879
+        },
+        "krasnyStockWarning": {
+          "requiredKg": 280.5,
+          "availableKg": 50,
+          "consolidatedUnpricedProducts": 3,
+          "fullTotalShown": false
+        },
+        "liderzySelection": {
+          "materialsGrosze": 36456,
+          "missingProducts": 2,
+          "fullTotalShown": false
+        },
+        "photos": [
+          {
+            "alt": "Zdjęcie produktu: GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg",
+            "complete": true,
+            "height": 800,
+            "src": "https://liderzycen.pl/environment/cache/images/productGfx_77582_0_0/32464cdd129db9bfb699808dae441565.webp",
+            "width": 340
+          },
+          {
+            "alt": "Zdjęcie produktu: Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+            "complete": true,
+            "height": 455,
+            "src": "https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1",
+            "width": 500
+          },
+          {
+            "alt": "Zdjęcie produktu: Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb",
+            "complete": true,
+            "height": 400,
+            "src": "https://media.knauf.com/a/TFdoGC4qvRKYeSJCpxp78W?fit=wrap&fmt=webp&hei=400&wid=632",
+            "width": 400
+          }
+        ],
+        "screenshot": "catalog-wave72-pelny-koszyk.jpg"
       }
     }
   }

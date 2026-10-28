@@ -14,6 +14,12 @@ test('one exact missing product from two jobs shows its combined quantity once w
 test('same product appearing twice in one job is combined without claiming it came from two jobs; resolved lines remain separate from missing items',()=>{
  const groups=groupUnpricedLines([{lines:[line(2),line(3),{...line(4),resolved:true}]}]);assert.equal(groups.length,1);assert.equal(groups[0].line.quantity,5);assert.equal(groups[0].sourceCount,1);
 });
+
+test('insufficient stock for the same exact product in two rooms shows the full unmet demand once without producing a purchase plan',()=>{
+ const shortage={...line(140.25),unit:'kg',reason:'insufficient-stock' as const,query:{...line().query,ean:'5902367206383',normalizedName:'tynk gipsowy reczny knauf goldband 25 kg',category:'plaster'}};
+ const stages=[{lines:[shortage]},{lines:[shortage]}],before=JSON.stringify(stages),groups=groupUnpricedLines(stages);
+ assert.equal(groups.length,1);assert.equal(groups[0].line.quantity,280.5);assert.equal(groups[0].sourceCount,2);assert.equal(groups[0].line.reason,'insufficient-stock');assert.equal(groups[0].line.packages,undefined);assert.equal(groups[0].line.resolved,false);assert.equal(JSON.stringify(stages),before);
+});
 test('different codes, conflicting identities, categories, quantities, units and reasons never collapse into one missing product',()=>{
  const changes=[{query:{...line().query,ean:'5905061016869'}},{query:{...line().query,gtin:'5905061016869'}},{query:{...line().query,category:'paint'}},{unit:'kg'},{unit:'pozycja'},{quantity:0},{quantity:NaN},{reason:'insufficient-stock' as const},{reason:'no-query' as const}];
  for(const change of changes)assert.equal(groupUnpricedLines([{lines:[line()]},{lines:[{...line(),...change}]}]).length,2,JSON.stringify(change));

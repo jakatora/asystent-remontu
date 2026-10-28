@@ -12,6 +12,7 @@ import { readTokmetProduct } from './qshop-product';
 import { readTopbodenProduct } from './topboden-product';
 import { readPrestashopProduct } from './prestashop-product';
 import { readIzosystemsProduct } from './izosystems-product';
+import { readKrasnyStock } from './krasny-stock';
 import { readAbstoreProduct } from './abstore-product';
 import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
@@ -59,7 +60,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento' | 'izosystems';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -109,6 +110,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   if ((!source.ean || source.skuIdentity) && !isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
+  if(source.format==='krasny')stockPackages=readKrasnyStock(html,source);
   if (source.skuIdentity && source.format!=='irbud-woo') products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
   else if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
   else if (source.format === 'folnet') {
@@ -124,7 +126,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
     products.push(reviewed.product); stockPackages=reviewed.maxPackages;
   }
   else if (source.format === 'modna') products.push(readModnaProduct(html, source).product);
-  else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax','irbud-woo'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
+  else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax','irbud-woo','krasny'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
   }
@@ -298,6 +300,8 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
   // source: https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120
   // One native piece is a whole5kg bucket or1m×50m roll, never one kg/metre.
   const plasterPacks:Record<string,readonly [string,number,string,number,string]>={
+    // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390
+    'liderzycen-knauf-goldband-25kg':['5902367206383',25,'kg',55390,'ctma_5902367206383'],
     'realbud-knauf-betokontakt-5kg':['4006379051014',5,'kg',74052350,'9341'],
     'realbud-knauf-profix-50m2':['5902367201067',50,'m2',75057500,'11723'],
   };

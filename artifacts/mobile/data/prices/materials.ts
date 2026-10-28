@@ -1802,11 +1802,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     notes: 'Jednowarstwowy tynk gipsowy nakładany agregatem. Zużycie ok. 10 kg/m² na 10 mm. Pomieszczenia o wilgotności do 70%.',
   },
 
-  // Tynk gipsowy ręczny Knauf Goldband 25 kg — EAN 5902367206383. Cena 31,98 zł/worek (1,28 zł/kg, Castorama).
-  // Nakładany ręcznie, warstwa 8–35 mm, zużycie ok. 13 kg/m²/15 mm. Do ręcznego tynkowania/wyrównań → tier standard.
-  // source: https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd (EAN 5902367206383, cena 31,98 zł, 25 kg)
-  // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (EAN 5902367206383, Knauf Goldband 25 kg)
-  // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (cena brutto, odczyt 2026-10-25T16:39:04.349Z)
+  // Tynk gipsowy ręczny Knauf Goldband 25 kg — EAN 5902367206383.
+  // Cena brutto całego worka30,38zł, odczyt2026-10-28; dostawa osobno.
+  // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
   {
     id: 'mat-plaster-gypsum-manual-knauf-goldband-25kg',
     materialType: 'plaster',
@@ -1814,15 +1813,17 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Knauf',
     packageSize: 25,
     packageUnit: 'kg',
-    pricePerPackage: 49.89,
-    pricePerKg: 2.00,
+    pricePerPackage: 30.38,
+    pricePerKg: 1.2152,
     category: 'standard',
-    storeName: 'Krasny',
+    storeName: 'LiderzyCen',
     sourceUrl:
-      'https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383',
-    lastUpdated: '2026-10-25',
+      'https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390',
+    lastUpdated: '2026-10-28',
     currency: 'PLN',
-    notes: 'Ręczny tynk gipsowy do wyrównywania krzywych ścian, ościeży, ubytków po instalacjach. Warstwa 8–35 mm (2 warstwy do 50 mm).',
+    // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390
+    // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
+    notes: 'Ręczny tynk gipsowy, cena brutto za cały worek 25 kg. Zużycie około 8,5 kg/m² przy 10 mm; grubość i przygotowanie podłoża dobierz według karty producenta. Dostawa liczona osobno dla całego koszyka.',
   },
 
   // Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg — EAN 5907534261158. Cena 27,99 zł/worek (0,93 zł/kg, Mrówka).

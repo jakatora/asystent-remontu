@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import {collectStoreStockShortfalls} from './storeChoice';
 import { rankStoreChoices, parsePreferredStore, storeMapSearchUrl, supportsStoreMapSearch, storeLocatorUrl, estimateHonoursStore, deliverySettingsForStore, type StoreChoices } from './storeChoice';
 import type { SerializedProject } from './pricingApi';
 
@@ -15,6 +16,14 @@ test('selecting a local collection or delivery-only merchant chooses its confirm
  for(const store of [null,'Unknown','Online'])assert.equal(deliverySettingsForStore(choices,current,store),current);
  assert.equal(deliverySettingsForStore({...choices,pickupUnavailableStores:['Local']},current,'Local'),current);
  assert.equal(current.mode,'shipping');assert.deepEqual(current.legacyFees,{Local:0});
+});
+
+test('store stock explanations use consolidated demand and one stock pool per offer, skipping unknown and contradictory capacities',()=>{
+ const offers=[{offerId:'limited',store:'Limited',maxPackages:2,packageSize:'25',unit:'kg'},{offerId:'unknown',store:'Unknown',packageSize:'25',unit:'kg'}];
+ const data={stages:[0,1].map(()=>({lines:[{resolved:true,product:{id:'plaster'},offers:JSON.parse(JSON.stringify(offers))}]})),consolidated:{lines:[{product:{id:'plaster',name:'Plaster'},totalQuantity:280.5,unit:'kg'}]}} as unknown as SerializedProject;
+ assert.deepEqual(collectStoreStockShortfalls(data),[{store:'Limited',productId:'plaster',productName:'Plaster',requiredQuantity:280.5,availableQuantity:50,unit:'kg'}]);
+ const changed=JSON.parse(JSON.stringify(data));changed.stages[1].lines[0].offers[0].maxPackages=10;assert.deepEqual(collectStoreStockShortfalls(changed),[]);
+ for(const mutate of [(d:any)=>d.stages.forEach((s:any)=>s.lines[0].offers[0].unit='m2'),(d:any)=>d.stages.forEach((s:any)=>s.lines[0].offers[0].maxPackages=-1),(d:any)=>d.consolidated.lines[0].totalQuantity=50]){const d=JSON.parse(JSON.stringify(data));mutate(d);assert.deepEqual(collectStoreStockShortfalls(d),[]);}
 });
 
 test('store choice preserves server amounts, places complete baskets before cheap fragments and keeps absent stores visible', () => {

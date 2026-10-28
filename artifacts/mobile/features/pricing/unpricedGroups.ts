@@ -13,7 +13,7 @@ export function groupUnpricedLines(stages: readonly Pick<SerializedStage, 'lines
     const code = codes.length === 1 && [8,12,13,14].includes(codes[0].length) && /^\d+$/.test(codes[0]) ? codes[0] : null;
     const unit = normalizeUnit(line.unit ?? ''), ref = codes.length < 2 ? unpricedReference(line) : null;
     const knownQuantity = Number.isFinite(line.quantity) && line.quantity > 0 && ['l','kg','ml','m','m2','szt'].includes(unit);
-    const missing = ['no-offer','no_offer','no_price','no-product','not_found'].includes(line.reason ?? '');
+    const missing = ['no-offer','no_offer','no_price','no-product','not_found','insufficient-stock'].includes(line.reason ?? '');
     const identity = ref ? ['reference',ref.id] : code ? ['code',code,line.query.category ?? line.product?.category ?? ''] : null;
     const key = identity && knownQuantity && missing ? JSON.stringify([identity,unit,line.reason]) : `single:${stageIndex}:${lineIndex}`;
     const found = groups.get(key), sum = found ? found.line.quantity + line.quantity : line.quantity;
