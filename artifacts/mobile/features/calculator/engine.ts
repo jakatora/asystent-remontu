@@ -1,3 +1,4 @@
+import {WINDOW_JOB, WINDOW_MODEL, isWindowMaterial, windowMaterials, windowQuantity} from './windowSealing';
 import { SKIRTING_JOB, SKIRTING_MODEL, isSkirtingMaterial, skirtingMaterials, skirtingQuantity } from './skirting';
 import { WATERPROOFING_JOB, WATERPROOFING_MODEL, isWaterproofingMaterial, waterproofingMaterials, waterproofingQuantity } from './waterproofing';
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalQuantity, removalWarnings } from './wallpaperRemoval';
@@ -79,6 +80,10 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if (jobId && isWindowMaterial(jobId, material.id)) {
+    const required=windowQuantity(material.id,measurements),rawQuantity=required??0;
+    return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
   if (jobId && isSkirtingMaterial(jobId, material.id)) {
     const required=skirtingQuantity(material.id,measurements),rawQuantity=required??0;
     return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
@@ -197,6 +202,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       ...(isWallpaperAdhesiveJob(job.id) ? { quantityModel: WALLPAPER_ROLLS_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === WATERPROOFING_JOB ? { quantityModel: WATERPROOFING_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SKIRTING_JOB ? {quantityModel:SKIRTING_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
+      ...(job.id === WINDOW_JOB ? {quantityModel:WINDOW_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
       ...(job.id===REMOVAL_JOB?{quantityModel:REMOVAL_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===LAMINATE_JOB?{quantityModel:LAMINATE_SUPPLIES_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -246,6 +252,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       ...(isWallpaperAdhesiveJob(job.id) ? { quantityModel: WALLPAPER_ROLLS_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === WATERPROOFING_JOB ? { quantityModel: WATERPROOFING_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === SKIRTING_JOB ? {quantityModel:SKIRTING_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
+      ...(job.id === WINDOW_JOB ? {quantityModel:WINDOW_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
       ...(job.id===REMOVAL_JOB?{quantityModel:REMOVAL_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===LAMINATE_JOB?{quantityModel:LAMINATE_SUPPLIES_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -270,6 +277,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if (job.id === WINDOW_JOB) material = windowMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === SKIRTING_JOB) material = skirtingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === WATERPROOFING_JOB) material = waterproofingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (isWallpaperRoll(job.id, material.id) && !isRichMaterial(material)) material = wallpaperRollMaterial(material, measurements);
@@ -296,6 +304,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if (job.id === WINDOW_JOB) material = windowMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === SKIRTING_JOB) material = skirtingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === WATERPROOFING_JOB) material = waterproofingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (isWallpaperRoll(job.id, material.id) && !isRichMaterial(material)) material = wallpaperRollMaterial(material, measurements);
@@ -319,11 +328,16 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
       const cost = roundMoney(billableQty * material.pricePerUnit);
 
-      const wasteQty = Math.max(0, rawQuantity - (rawQuantity / (material.wasteFactor ?? DEFAULT_WASTE_FACTOR)));
+      const appliedWasteFactor = job.id === WINDOW_JOB && quantityKnown !== false && ['silicone-window','window-tape'].includes(material.id)
+        ? 1 + (measurements.windowReservePercent ?? 10) / 100 : material.wasteFactor ?? DEFAULT_WASTE_FACTOR;
+      const wasteQty = Math.max(0, rawQuantity - (rawQuantity / appliedWasteFactor));
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = isWallpaperAdhesive(job.id,material.id) ? {text:quantityKnown===false?'Wybierz rodzaj tapety zgodny z kartą producenta.':`${rawQuantity} g suchego kleju → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Zapas z obmiarów. Gramy tego samego kleju sumujemy między pracami przed doborem opakowań.']} : isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
+      const explanation = isWindowMaterial(job.id,material.id) ? {
+        text:quantityKnown===false?'Wybierz zakres naprawy i uzupełnij dobór lub ilość w obmiarach.':rawQuantity===0?'Zakup pominięty w wybranym zakresie lub potwierdzono posiadanie.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
+        assumptions:[material.notes??'',`Zapas akrylu lub długości taśmy: ${measurements.windowReservePercent??10}%. Puszki pianki i rolki taśmy maskującej liczone oddzielnie.`,'Wspólny koszyk sumuje surowe zapotrzebowanie tego samego produktu przed doborem opakowań.'],
+      } : isWallpaperAdhesive(job.id,material.id) ? {text:quantityKnown===false?'Wybierz rodzaj tapety zgodny z kartą producenta.':`${rawQuantity} g suchego kleju → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Zapas z obmiarów. Gramy tego samego kleju sumujemy między pracami przed doborem opakowań.']} : isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Uzupełnij powierzchnię napraw, głębokość, długość rys lub liczbę arkuszy w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions:[material.notes??'','Opakowania zaokrąglamy dopiero po zsumowaniu prac w koszyku.'],
       } : isSanitaryMaterial(job.id,material.id) ? {

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-28T16:30:44.302Z",
+  "checkedAt": "2026-10-28T18:24:45.850Z",
   "scope": "Fresh production HTTP on 2026-10-28; same 65 saved measurement maps, no new measurements filled. One current Izosystems offer restores the exact existing SWS Inside90mm30m reference. Explicit chosen-purchase roll consolidation and postcode quotes recorded separately, not a complete automatic window-sealing recipe. No user project data writes.",
   "total": 166,
   "verifiedProducts": 132,
@@ -4096,10 +4096,10 @@
   ],
   "browserVerifiedOffers": 0,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T16:30:44.302Z",
-    "pricedLines": 73,
-    "totalLines": 247,
-    "unpricedLines": 174,
+    "checkedAt": "2026-10-28T18:24:45.850Z",
+    "pricedLines": 72,
+    "totalLines": 250,
+    "unpricedLines": 178,
     "fullyPricedScenarios": 8,
     "report": "recipe-coverage-2026-10-27.json"
   },
@@ -4161,6 +4161,14 @@
       "remaining": 35,
       "offers": 176,
       "stores": 50
+    },
+    {
+      "checkedAt": "2026-10-28T16:30:44.302Z",
+      "total": 166,
+      "verifiedProducts": 132,
+      "remaining": 34,
+      "offers": 177,
+      "stores": 51
     }
   ],
   "historicalPickupCoverage": {

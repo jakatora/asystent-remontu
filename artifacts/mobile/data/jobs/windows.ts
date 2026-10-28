@@ -1,3 +1,4 @@
+import {windowMaterials,windowInputs} from '@/features/calculator/windowSealing';
 import { frameMaterials, frameInputs } from '@/features/calculator/framePainting';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
@@ -10,105 +11,41 @@ import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
 // ─── Uszczelnienie okien ──────────────────────────────────────────────────────
 
+// source: https://www.soudal.pl/sites/default/files/soudal_api/document/900003230/TDS_AKRYL_UNIWERSALNY_2025.pdf
+// source: https://www.soudal.pl/sites/default/files/soudal_api/document/SWS_EXTRA_INSIDE_2025.pdf
 export const windowSealingJob: RenovationJob = {
-  id: 'window-sealing',
-  slug: 'uszczelnienie-okien',
-  categoryId: 'windows',
-  name: 'Uszczelnienie okien',
-  shortDescription: 'Usuń stare uszczelki i piankę, załóż nowe — okna przestaną przeciągać.',
-  description: 'Nieszczelne okna to jeden z największych strat ciepła w mieszkaniu. Wymiana uszczelek i piankowanie ościeżnicy to tania i skuteczna poprawa izolacji.',
-  difficulty: 'easy',
-  riskLevel: 'low',
-  estimatedDays: 1,
-  estimatedMessLevel: 1,
-  visibilityMode: 'safe_diy',
-  coverIcon: 'wind',
-  warningRules: [
-    { condition: 'always', message: 'Pianka montażowa ekspanduje — nie nakładaj za dużo. Nadmiar rozepchnie ościeżnicę.', level: 'warning' },
-    { condition: 'always', message: 'Stara pianka może zawierać formaldehyd — wietrz pomieszczenie przy usuwaniu.', level: 'info' },
+  id:'window-sealing',slug:'uszczelnienie-okien',categoryId:'windows',name:'Uszczelnienie okien',
+  shortDescription:'Sprawdź miejsce nieszczelności i dobierz uszczelkę, akryl lub warstwę wewnętrzną złącza.',
+  description:'Uszczelka skrzydła i połączenie ramy ze ścianą wymagają innych napraw. Kalkulator rozdziela trzy zakresy: indywidualny profil uszczelki, drobną spoinę akrylową wewnątrz oraz taśmę SWS Inside 90 mm. Wybrane produkty i ich ilości trafiają do wspólnego koszyka; brak dopasowania lub materiałów pomocniczych pozostaje widocznym brakiem wyceny.',
+  beginnerFriendlyDescription:'Najpierw ustal, którędy przepływa powietrze. Nie zakrywaj problemu luźnej ramy ani niesprawnych okuć pianką. Ten zakres nie obejmuje montażu okna ani naprawy ochrony zewnętrznej. Wybierz jeden rodzaj naprawy i sprawdź jego zastosowanie według instrukcji producentów.',
+  difficulty:'medium',riskLevel:'medium',estimatedDays:1,estimatedMessLevel:1,visibilityMode:'safe_diy',coverIcon:'wind',
+  warningRules:[
+    {condition:'always',message:'Luźna rama lub problem z jej zamocowaniem wymaga oceny fachowca. Pianka jest warstwą izolacji, a nie zamiennikiem poprawnego zamocowania okna.',level:'warning'},
+    {condition:'always',message:'SWS Inside to taśma paroszczelna od wewnątrz. Nie zastępuje uszczelki skrzydła, pianki ani ochrony zewnętrznej złącza. Sprawdź cały układ i szerokość 90 mm przed zakupem.',level:'info'},
+    {condition:'always',message:'Akryl uniwersalny: karta 2025 ogranicza ruch spoiny do 7,5%. Wybrany wariant dotyczy drobnych połączeń wewnętrznych przy drewnie lub metalu, nie dowolnego złącza PVC.',level:'info'},
   ],
-  measurementInputs: [
-    { id: 'perimeter', label: 'Łączny obwód okien', unit: 'm', inputType: 'length',
-      placeholder: 'np. 12', min: 1, max: 200,
-      hint: 'Dodaj obwody wszystkich okien. Jedno okno 100×120 cm = ok. 4,4 m.' },
+  measurementInputs:windowInputs,
+  // Repair the mixed legacy/rich array together; retain all four existing material IDs.
+  materials:windowMaterials(),
+  tools:[
+    {id:'knife-window',name:'Nóż lub nożyczki do dobranego materiału',icon:'scissors',required:false,notes:'Do uszczelki lub taśmy, według ich instrukcji. Nie uszkodź ramy.'},
+    {id:'foam-gun',name:'Pistolet do wybranej pianki pistoletowej',icon:'tool',required:false,notes:'Potrzebny tylko przy zakupie pianki. Sprawdź instrukcję czyszczenia i potrzebny preparat.'},
+    {id:'caulk-gun',name:'Pistolet do kartusza akrylu 280 ml',icon:'tool',required:false,notes:'Potrzebny w wariancie akrylowym. Nie oznacza zakupu silikonu.'},
+    {id:'scraper',name:'Szpachelka do przygotowania podłoża',icon:'tool',required:false},
+    {id:'window-tape-roller',name:'Miękka szpachelka lub gumowa rolka do taśmy',icon:'tool',required:false,notes:'Do dociśnięcia SWS bez pęcherzy, według karty.'},
   ],
-  materials: [
-    {
-      id: 'window-gasket',
-      name: 'Uszczelka okienna EPDM (do skrzydła)',
-      unit: 'm',
-      formulaKey: 'skirting',
-      pricePerUnit: 2.5,
-      wasteFactor: 1.1,
-      category: 'uszczelka',
-      notes: 'Pasuje do rowka skrzydła okna. Mierz i kupuj z zapasem.',
-    },
-    {
-      id: 'mounting-foam',
-      name: 'Pianka montażowa zimowa',
-      unit: 'szt',
-      formula: formulaBuilder.linear('perimeter', 0.125),
-      roundingRule: 'ceil',
-      pricePerUnit: 25,
-      category: 'pianka',
-      notes: '1 puszka na ok. 8 mb szczeliny. Pianka zimowa działa do -10°C.',
-    },
-    {
-      id: 'silicone-window',
-      name: 'Akryl uszczelniający biały (malowalny, do wnętrza)',
-      brand: 'Soudal Akryl 280 ml biały (referencja)',
-      unit: 'kartusze',
-      formulaKey: 'silicone',
-      pricePerUnit: 13,
-      category: 'uszczelnienie',
-      notes: 'Do uszczelnienia styku ościeżnicy ze ścianą od wewnątrz. Po utwardzeniu można malować.',
-      shopPrices: SHARED_SHOP_PRICES.acrylicSealant280ml,
-    },
-    {
-      id: 'window-tape',
-      name: 'Taśma rozprężna (Pro Clima lub podobna)',
-      unit: 'm',
-      formulaKey: 'linearMeters',
-      pricePerUnit: 8,
-      category: 'taśma',
-      optional: true,
-      notes: 'Paroprzepuszczalna — uszczelnia ościeżnicę lepiej niż pianka. Opcja premium.',
-    },
+  instructions:[
+    {step:1,title:'Ustal miejsce i zakres naprawy',description:'Sprawdź oddzielnie uszczelkę między skrzydłem a ramą oraz styk ramy ze ścianą. Usterkę okuć, mocowania lub ochrony zewnętrznej oceń osobno. W obmiarach wybierz właściwy zakres; nie kupuj wszystkich trzech rodzajów uszczelnień automatycznie.',durationMin:20},
+    {step:2,title:'Potwierdź dopasowanie i przygotuj podłoże',description:'Uszczelkę dobierz według profilu okna. Akryl: sprawdź nośne, czyste i suche podłoże oraz właściwy przekrój; sznur podpierający i gruntowanie wykonaj, jeśli wymaga tego karta. SWS: sprawdź miejsce przyklejenia po obu stronach złącza i potrzebny luz. Potwierdź posiadanie pozostałych materiałów dopiero po ich doborze.',durationMin:30},
+    {step:3,title:'Wykonaj tylko wybraną naprawę',description:'Uszczelka: montuj dopasowany profil według producenta okna. Akryl: zabezpiecz brzegi taśmą, nałóż pistoletem i wygładź wilgotną szpachelką przed naskórkowaniem; taśmę zdejmij po obróbce fugi. SWS: zadbaj najpierw o izolację złącza, przyklej taśmę bez naciągania, zachowaj minimum 3 cm na połączeniach i dociśnij bez pęcherzy.',durationMin:60},
+    {step:4,title:'Sprawdź efekt i czas do wykończenia',description:'Czasy schnięcia i warunki pracy sprawdź w karcie konkretnego produktu. Akryl można malować po utwardzeniu i próbie zgodności; nie przyjmuj jednego czasu dla każdej grubości. Taśmę SWS zabezpiecz przed uszkodzeniami według instrukcji. Sprawdź działanie okna i naprawione połączenie.',durationMin:20},
   ],
-  tools: [
-    { id: 'knife-window', name: 'Nóż do cięcia uszczelek', icon: 'scissors', required: true },
-    { id: 'foam-gun', name: 'Pistolet do pianki', icon: 'tool', required: false, notes: 'Daje lepszą kontrolę dozowania. Bez pistoletu — jednorazowe puszki.' },
-    { id: 'caulk-gun', name: 'Pistolet do silikonu', icon: 'tool', required: true },
-    { id: 'scraper', name: 'Skrobak (usuwanie starej pianki)', icon: 'tool', required: true },
-  ],
-  instructions: [
-    { step: 1, title: 'Usuń stare uszczelki', description: 'Wyciągnij ze rowków skrzydła stare uszczelki. Jeśli są przyklejone — potnij nożem i zerwij.', durationMin: 30 },
-    { step: 2, title: 'Wyczyść rowki', description: 'Dokładnie oczyść rowki z brudu i resztek kleju. Suche rowki lepiej trzymają uszczelkę.', durationMin: 20 },
-    { step: 3, title: 'Wciśnij nowe uszczelki', description: 'Wciśnij uszczelkę EPDM w rowek skrzydła. Zacznij od narożnika, idź dookoła. Tnie się nożem w narożnikach pod 45°.', tip: 'Uszczelka powinna być lekko dłuższa niż obwód — skrócisz ją po oklejeniu.', durationMin: 60 },
-    { step: 4, title: 'Uszczelnij ościeżnicę', description: 'Jeśli ościeżnica jest luźna lub widać szczeliny — napełnij pianką montażową. Taśma rozprężna jest trwalsza.', tip: 'Pianki jest zawsze za mało na początku — nadmiar po wyschnięciu łatwo zetrzeć.', durationMin: 45 },
-    { step: 5, title: 'Uszczelnij krawędzie od wewnątrz', description: 'Wypełnij styk ościeżnicy ze ścianą akrylem uszczelniającym od środka pomieszczenia.', durationMin: 30 },
-  ],
-  dryingTimes: [
-    { afterStep: 4, description: 'Pianka montażowa — ekspansja i twardnienie', minHours: 2, maxHours: 8 },
-    { afterStep: 5, description: 'Akryl uszczelniający', minHours: 12, maxHours: 24 },
-  ],
-  commonMistakes: ['Zła grubość uszczelki — za cienka nie uszczelnia, za gruba uniemożliwia zamknięcie okna', 'Za dużo pianki — rozepchnie ościeżnicę', 'Brak silikonowania od wewnątrz — mostki termiczne pozostają'],
-  qualityChecklist: [
-    { id: 'q1', description: 'Okno zamyka się bez oporu i nie przeciąga' },
-    { id: 'q2', description: 'Brak widocznych szczelin między ościeżnicą a ścianą' },
-    { id: 'q3', description: 'Uszczelki leżą równomiernie w rowkach' },
-  ],
-  hireProfessionalRecommended: false,
-  tags: ['okna', 'uszczelnienie', 'pianka', 'izolacja', 'przeciągi'],
-
-  verifiedAt: '2026-06-10',
-  verifiedSources: [
-    {
-      title:       'Uszczelnianie okien. Sprawdź, jak i czym uszczelnić okna — poradnik',
-      url:         'https://muratordom.pl/remont-domu/eksploatacja-domu/sposoby-uszczelniania-okien-aa-haki-daQv-Z5cu.html',
-      domain:      'muratordom.pl',
-      consultedAt: '2026-07-10',
-    },
+  commonMistakes:['Dowolna uszczelka zamiast profilu pasującego do okna','Pianka użyta do naprawienia luźnego mocowania ramy','Taśma Inside zastosowana jako warstwa zewnętrzna','Akryl użyty w złączu o zbyt dużym ruchu lub niepasującym podłożu','Pominięte zakłady, luz montażowy lub materiały do przygotowania'],
+  qualityChecklist:[{id:'q1',description:'Okno działa prawidłowo po naprawie'},{id:'q2',description:'Wybrany materiał pasuje do miejsca naprawy i podłoża'},{id:'q3',description:'Uszczelka lub spoina jest ciągła, bez naprężeń i przerw'}],
+  hireProfessionalRecommended:false,tags:['okna','uszczelnienie','akryl','taśma','uszczelka','przeciągi'],verifiedAt:'2026-10-28',
+  verifiedSources:[
+    {title:'Soudal Akryl uniwersalny — karta 2025',url:'https://www.soudal.pl/sites/default/files/soudal_api/document/900003230/TDS_AKRYL_UNIWERSALNY_2025.pdf',domain:'soudal.pl',consultedAt:'2026-10-28'},
+    {title:'Soudal SWS Extra / Basic Plus Inside — karta 2025',url:'https://www.soudal.pl/sites/default/files/soudal_api/document/SWS_EXTRA_INSIDE_2025.pdf',domain:'soudal.pl',consultedAt:'2026-10-28'},
   ],
 };
 

@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-28T16:30:44.302Z",
-  "scope": "Same65 saved measurement maps without new measurements filled. One currently available exact SWS Inside30m offer restored; selected purchase lengths and postcode delivery checked separately. Generic historical window-tape descriptions are not reclassified as this membrane or a complete window installation recipe.",
+  "checkedAt": "2026-10-28T18:24:45.850Z",
+  "scope": "Same65 saved measurement maps with no new choices filled. Window-sealing now requires explicit repair scope, fit and auxiliary materials; former generic or wrongly inferred purchases are not silently accepted. Explicit new window recipe cases are recorded separately. Mobile-only implementation, no backend release or user-project writes.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 247,
     "beforePriced": 73,
-    "afterLines": 247,
-    "afterPriced": 73,
-    "afterUnpriced": 174,
+    "afterLines": 250,
+    "afterPriced": 72,
+    "afterUnpriced": 178,
     "fullyPricedScenarios": 8
   },
   "history": [
@@ -279,6 +279,19 @@
         "auditedJobs": 65,
         "beforeLines": 244,
         "beforePriced": 82,
+        "afterLines": 247,
+        "afterPriced": 73,
+        "afterUnpriced": 174,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T16:30:44.302Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 247,
+        "beforePriced": 73,
         "afterLines": 247,
         "afterPriced": 73,
         "afterUnpriced": 174,
@@ -2966,51 +2979,92 @@
       "materials": [
         {
           "materialId": "window-gasket",
-          "name": "Uszczelka okienna EPDM (do skrzydła)",
-          "unit": "m",
+          "name": "Uszczelka skrzydła — dopasuj profil i potrzebną długość — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "uszczelka okienna epdm do skrzydla",
-            "category": "uszczelka"
+            "normalizedName": "uszczelka skrzydla dopasuj profil i potrzebna dlugosc ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 11,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
           "materialId": "mounting-foam",
-          "name": "Piana pistoletowa Tytan Professional 65 niskoprężna 750 ml",
-          "unit": "ml",
+          "name": "Pianka — ustal stan izolacji i potrzebne puszki — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "piana pistoletowa tytan professional 65 niskoprezna 750 ml",
-            "category": "foam"
+            "normalizedName": "pianka ustal stan izolacji i potrzebne puszki ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 1050,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5903518052859",
-            "ean": "5903518052859",
-            "name": "Pianka montażowa pistoletowa 65 750ml Tytan"
-          }
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
         },
         {
           "materialId": "silicone-window",
-          "name": "Akryl uszczelniający biały (malowalny, do wnętrza)",
-          "unit": "kartusze",
+          "name": "Akryl do drobnej spoiny wewnętrznej — sprawdź zastosowanie — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "akryl uszczelniajacy bialy malowalny do wnetrza",
-            "category": "uszczelnienie"
+            "normalizedName": "akryl do drobnej spoiny wewnetrznej sprawdz zastosowanie ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 2,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "window-tape",
+          "name": "Taśma wewnętrzna — sprawdź szerokość i układ złącza — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma wewnetrzna sprawdz szerokosc i uklad zlacza ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "window-masking-tape",
+          "name": "Taśma maskująca do akrylu — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "tasma maskujaca do akrylu ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "window-preparation",
+          "name": "Przygotowanie i materiały pomocnicze — potwierdź komplet — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "przygotowanie i materialy pomocnicze potwierdz komplet ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -5449,6 +5503,68 @@
       "fullWindowSealingRecipeComplete": false,
       "pickupPriceStockConfirmed": false,
       "uiVerification": "Pending: local browser use disabled in Work settings. Source photo HEAD and directory evidence verified; rendered UI not checked."
+    },
+    "wave67": {
+      "checkedAt": "2026-10-28T18:23:08.262Z",
+      "scope": "Actual app calculator -> live existing API; explicit fit, scope, quantities and already-prepared/owned auxiliaries. Synthetic QA postcodes only. No user-project writes, customer data, orders, payment or backend deployment.",
+      "quantityModel": "window-repair-v1",
+      "nativeCases": 13,
+      "newCatalogueProducts": 0,
+      "newOffers": 0,
+      "newStores": 0,
+      "sharedSws": {
+        "lengthMetres": 26.06,
+        "packages": 1,
+        "materialsGrosze": 14500,
+        "deliveryGrosze": 1500,
+        "totalGrosze": 16000,
+        "store": "Izosystems",
+        "destinationScope": "postal_code",
+        "postalCode": "00-001"
+      },
+      "twoSwsRolls": {
+        "lengthMetres": 60,
+        "packages": 2,
+        "totalGrosze": 30500,
+        "postalCode": "42-209"
+      },
+      "threeSwsRolls": {
+        "packages": 3,
+        "totalGrosze": 43500,
+        "deliveryGrosze": 0
+      },
+      "sharedAcrylic": {
+        "quantityMl": 275,
+        "packages": 1,
+        "materialsGrosze": 1400,
+        "deliveryGrosze": 1050,
+        "totalGrosze": 2450,
+        "store": "Rab-Dom",
+        "destinationScope": "PL"
+      },
+      "acrylicWithMasking": {
+        "acrylicMl": 330,
+        "acrylicPackages": 2,
+        "maskingRolls": 1,
+        "totalGrosze": 5049,
+        "store": "Rab-Dom",
+        "destinationScope": "PL"
+      },
+      "allRequiredPurchasesQuotedOnlyForExplicitPreparedScopes": true,
+      "notACompleteWindowInstallation": true,
+      "swsWithFoam": {
+        "materialsResolved": true,
+        "deliveryStatus": "needs_delivery_costs",
+        "missingDeliveryStores": [
+          "Folnet"
+        ],
+        "cheapestTotalConfirmed": false
+      },
+      "individualGasketPurchaseSupported": false,
+      "missingFitOrAuxiliaryMaterialsBlocksCompleteQuote": true,
+      "historicalSnapshotsReviewedReadOnly": true,
+      "pickupPriceStockConfirmed": false,
+      "uiVerification": "Pending: local browser use disabled in Work settings. Logic, source validation and real API requests verified; rendered wizard/editor/basket not visually verified."
     }
   }
 }

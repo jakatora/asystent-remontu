@@ -9,19 +9,22 @@ import { windowSealingJob, windowsillJob } from '@/data/jobs/windows';
 import { resolveMaterialQuantity } from './quantity';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 
-test('window foam preserves calculated can demand when converting the selected 750 ml reference', () => {
+test('window foam preserves an explicit can allowance in physical ml; perimeter alone is not a yield', () => {
   const ref = MATERIAL_PRICES.find(row => row.id === 'mat-foam-soudal-lowexp-750ml')!;
-  const calc = calculateMaterials(windowSealingJob, { perimeter: 8 });
+  const calc = calculateMaterials(windowSealingJob, { perimeter: 8, windowRepair: 3, windowFit: 1, windowFoamCans: 2 });
   const before = JSON.stringify(calc), original = calc.materials.find(line => line.material.id === 'mounting-foam')!;
-  assert.equal(original.rawQuantity, 1.1);
+  assert.equal(original.rawQuantity, 1500);
   const input = toPricingStageInput(calc, 'better').materials.find(line => line.material.id === 'mounting-foam')!;
-  assert.equal(input.material.name, ref.productLabel); assert.equal(input.material.unit, 'ml'); assert.equal(input.quantity, 825);
+  assert.equal(input.material.name, ref.productLabel); assert.equal(input.material.unit, 'ml'); assert.equal(input.quantity, 1500);
   const budget = computePricedBudget({ job: windowSealingJob, calc, regionCode: 'lodzkie', qualityTier: 'better', overrides: [] });
   const foam = budget.materialDetails.find(row => row.materialRef.id === ref.id)!;
-  assert.equal(foam.quantity, 825); assert.equal(foam.packagesNeeded, 2);
+  assert.equal(foam.quantity, 1500); assert.equal(foam.packagesNeeded, 2);
   assert.equal(JSON.stringify(calc), before);
   const saved = JSON.parse(before); delete saved.materials.find((line: any) => line.material.id === 'mounting-foam').rawQuantity;
-  assert.equal(toPricingStageInput(saved, 'better').materials.find(line => line.material.id === 'mounting-foam')!.quantity, 825);
+  assert.equal(toPricingStageInput(saved, 'better').materials.find(line => line.material.id === 'mounting-foam')!.quantity, 1500);
+  const bare = calculateMaterials(windowSealingJob, { perimeter: 8 });
+  assert.equal(bare.materials.find(line => line.material.id === 'mounting-foam')!.quantityKnown, false);
+  assert.equal(resolveMaterialQuantity(ref, bare), null);
   assert.equal(toPricingStageInput(calculateMaterials(windowsillJob, { linearMeters: 2 }), 'better').materials.find(line => line.material.id === 'windowsill-foam')!.quantity, 750);
   assert.equal(toPricingStageInput(calculateMaterials(doorsJob, { doorWidth: 90, doorHeight: 205, wallThickness: 10 }), 'better').materials.find(line => line.material.id === 'mounting-foam')!.quantity, 750);
   assert.equal(resolveMaterialQuantity({ ...ref, packageSize: 500 }, calc), null);

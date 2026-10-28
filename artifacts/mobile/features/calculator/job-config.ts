@@ -290,15 +290,15 @@ registerJobConfig({
 
 registerJobConfig({
   jobId: 'window-sealing',
-  calculatorDescription: 'Oblicza uszczelki, piankę montażową i silikon do okien.',
+  calculatorDescription: 'Dobiera materiały do wybranego zakresu naprawy: uszczelka skrzydła, drobna spoina akrylowa wewnątrz lub taśma SWS Inside 90 mm.',
   defaultAssumptions: {
-    lmPerFoamCan: '1 puszka pianki na ok. 8 mb szczeliny',
-  },
-  validate: (m) => {
-    const errors: string[] = [];
-    const err = requireLinearMeters(m);
-    if (err) errors.push(err);
-    return errors;
+    selection: 'Jeden zakres naprawy dla tej pracy; dopasowanie i przygotowanie trzeba potwierdzić.',
+    // source: https://www.soudal.pl/sites/default/files/soudal_api/document/900003230/TDS_AKRYL_UNIWERSALNY_2025.pdf
+    acrylic: 'Akryl 280 ml: długość × kwadratowy przekrój 5–20 mm + wskazany zapas. Wewnątrz, ruch do 7,5% według karty 2025.',
+    // source: https://www.soudal.pl/sites/default/files/soudal_api/document/SWS_EXTRA_INSIDE_2025.pdf
+    tape: 'SWS Inside 90 mm × 30 m: długość + minimum 3 cm na połączenie + zmierzony luz, następnie wskazany zapas.',
+    foam: 'Puszki pianki 750 ml ustalane osobno; nie przeliczamy obwodu na puszki bez danych o złączu.',
+    purchaseRounding: 'Surowe ml i metry sumujemy między pracami przed doborem pełnych opakowań.',
   },
 });
 
