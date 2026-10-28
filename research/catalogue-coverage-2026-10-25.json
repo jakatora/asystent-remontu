@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-28T11:55:00.658Z",
-  "scope": "Fresh production HTTP on 2026-10-28; same 65 saved measurement maps recalculated without filling new skirting, waterproofing or detail choices. INDO v1 adds seven explicit roles in place of the older generic three-row recipe. Native complete six-product and shared handed-endcap examples are recorded separately. No user project data writes.",
+  "checkedAt": "2026-10-28T16:30:44.302Z",
+  "scope": "Fresh production HTTP on 2026-10-28; same 65 saved measurement maps, no new measurements filled. One current Izosystems offer restores the exact existing SWS Inside90mm30m reference. Explicit chosen-purchase roll consolidation and postcode quotes recorded separately, not a complete automatic window-sealing recipe. No user project data writes.",
   "total": 166,
-  "verifiedProducts": 131,
-  "remaining": 35,
-  "offers": 176,
-  "stores": 50,
+  "verifiedProducts": 132,
+  "remaining": 34,
+  "offers": 177,
+  "stores": 51,
   "productsWithPhotos": 166,
-  "registeredOffers": 209,
+  "registeredOffers": 210,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1581,25 +1581,111 @@
     {
       "id": "mat-window-tape-soudal-sws-inside-90mm",
       "name": "Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m",
-      "referenceUrl": "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
-      "status": "out_of_stock",
+      "referenceUrl": "https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html",
+      "status": "verified_offer",
       "ean": "5411183151178",
       "sourceIds": [
-        "bestbudowa-soudal-inside-90mm"
+        "bestbudowa-soudal-inside-90mm",
+        "izosystems-sws-inside90-30m"
       ],
-      "photoUrl": "https://bestbudowa.pl/5742-home_default/soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m.jpg",
-      "deliveryChecks": [],
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "bestbudowa-soudal-inside-90mm",
-            "error": "retailer_out_of_stock",
-            "checkedAt": "2026-10-28T04:54:26.688Z"
+      "photoUrl": "https://izosystems.pl/10544-large_default/Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "izosystems-sws-inside90-30m",
+          "checkedAt": "2026-10-28T16:30:53.042Z",
+          "status": "quoted",
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "00-001",
+          "costGrosze": 1500,
+          "basketScope": "Entire order of 1 full30m rolls, not a per-product fee or a complete window-sealing recipe.",
+          "nativeQuote": {
+            "costGrosze": 1500,
+            "carrier": "DHL, GLS",
+            "payment": "Przelew bankowy",
+            "checkedAt": "2026-10-28T16:30:53.042Z",
+            "expiresAt": "2026-10-28T16:40:53.042Z",
+            "sourceUrl": "https://izosystems.pl/zamowienie",
+            "basis": "retailer_basket_postcode",
+            "destinationScope": "postal_code",
+            "postalCode": "00-001",
+            "evidenceSha256": "0759797490ccc8469044165993fe81cfc555ebcf6069a625bff0e8d728a17249"
           }
-        ]
-      }
+        },
+        {
+          "sourceId": "izosystems-sws-inside90-30m",
+          "checkedAt": "2026-10-28T16:31:24.133Z",
+          "status": "quoted",
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "42-209",
+          "costGrosze": 1500,
+          "basketScope": "Entire order of 2 full30m rolls, not a per-product fee or a complete window-sealing recipe.",
+          "nativeQuote": {
+            "costGrosze": 1500,
+            "carrier": "DHL, GLS",
+            "payment": "Przelew bankowy",
+            "checkedAt": "2026-10-28T16:31:24.133Z",
+            "expiresAt": "2026-10-28T16:41:24.133Z",
+            "sourceUrl": "https://izosystems.pl/zamowienie",
+            "basis": "retailer_basket_postcode",
+            "destinationScope": "postal_code",
+            "postalCode": "42-209",
+            "evidenceSha256": "574bb8c32458b931ad4334fc8fd9789885cc1cb8d9410175b767ca03cb2979d9"
+          }
+        },
+        {
+          "sourceId": "izosystems-sws-inside90-30m",
+          "checkedAt": "2026-10-28T16:31:09.623Z",
+          "status": "quoted",
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "00-001",
+          "costGrosze": 0,
+          "basketScope": "Entire order of 3 full30m rolls, not a per-product fee or a complete window-sealing recipe.",
+          "nativeQuote": {
+            "costGrosze": 0,
+            "carrier": "DHL, GLS",
+            "payment": "Przelew bankowy",
+            "checkedAt": "2026-10-28T16:31:09.623Z",
+            "expiresAt": "2026-10-28T16:41:09.623Z",
+            "sourceUrl": "https://izosystems.pl/zamowienie",
+            "basis": "retailer_basket_postcode",
+            "destinationScope": "postal_code",
+            "postalCode": "00-001",
+            "evidenceSha256": "c9205f50041e916c45850c65c00f2c1f914496ea4d83697e5b602fd6793cc345"
+          }
+        }
+      ],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T16:30:44.302Z",
+        "previous": "out_of_stock",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T11:55:00.658Z",
+          "status": "out_of_stock",
+          "detail": {
+            "checkedAt": "2026-10-28T11:55:00.658Z",
+            "previous": "verified_offer",
+            "errors": [
+              {
+                "sourceId": "bestbudowa-soudal-inside-90mm",
+                "error": "retailer_out_of_stock",
+                "checkedAt": "2026-10-28T04:54:26.688Z"
+              }
+            ]
+          }
+        }
+      ],
+      "referenceHistory": [
+        {
+          "checkedAt": "2026-10-28T11:55:00.658Z",
+          "referenceUrl": "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
+          "photoUrl": "https://bestbudowa.pl/5742-home_default/soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m.jpg"
+        }
+      ]
     },
     {
       "id": "mat-windowsill-pvc-form-30x216",
@@ -4005,19 +4091,20 @@
     "Centrum Matbud",
     "ABUD",
     "IRBUD",
-    "E-Kowalczyk"
+    "E-Kowalczyk",
+    "Izosystems"
   ],
-  "browserVerifiedOffers": 11,
+  "browserVerifiedOffers": 0,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T11:55:00.658Z",
+    "checkedAt": "2026-10-28T16:30:44.302Z",
     "pricedLines": 73,
     "totalLines": 247,
     "unpricedLines": 174,
     "fullyPricedScenarios": 8,
     "report": "recipe-coverage-2026-10-27.json"
   },
-  "expiredOffers": 19,
-  "activeStores": 45,
+  "expiredOffers": 30,
+  "activeStores": 46,
   "history": [
     {
       "checkedAt": "2026-10-27T12:46:06.593Z",
@@ -4065,6 +4152,14 @@
       "verifiedProducts": 141,
       "remaining": 24,
       "offers": 187,
+      "stores": 50
+    },
+    {
+      "checkedAt": "2026-10-28T11:55:00.658Z",
+      "total": 166,
+      "verifiedProducts": 131,
+      "remaining": 35,
+      "offers": 176,
       "stores": 50
     }
   ],

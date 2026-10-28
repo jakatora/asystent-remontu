@@ -11,6 +11,7 @@ import { readKowalczykProduct } from './kowalczyk-magento';
 import { readTokmetProduct } from './qshop-product';
 import { readTopbodenProduct } from './topboden-product';
 import { readPrestashopProduct } from './prestashop-product';
+import { readIzosystemsProduct } from './izosystems-product';
 import { readAbstoreProduct } from './abstore-product';
 import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
@@ -58,7 +59,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento' | 'izosystems';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -116,6 +117,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   }
   else if (source.format === 'betterial') products.push(readBetterialProduct(html, source));
   else if (source.format === 'prestashop') products.push(readPrestashopProduct(html, source).product);
+  else if(source.format==='izosystems'){const reviewed=readIzosystemsProduct(html,source);products.push(reviewed.product);stockPackages=reviewed.maxPackages;}
   else if (source.format === 'abstore') products.push(readAbstoreProduct(html, source));
   else if (source.format === 'certusoft') {
     const reviewed=readCertusoftProduct(html, source);

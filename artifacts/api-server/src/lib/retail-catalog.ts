@@ -1169,6 +1169,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
   // source: https://arbiton.com/pl/klej-montazowy-strongman-300ml
   {"id":"topboden-strongman-300ml","ean":"5905167788264","name":"Klej montażowy Arbiton Strongman 300 ml - klej do listew przypodłogowych","brand":"Arbiton","category":"skirting-adhesive","packageSize":300,"unit":"ml","store":"TopBoden","format":"topboden-api","productUuid":"9cc774ed-c24b-4f3b-a863-a935a86383f4","apiPurchaseUnit":"szt.","variant":["Strongman","300 ml"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167788264_I_01.webp"},
+  // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html
+  {"id":"izosystems-sws-inside90-30m","ean":"5411183151178","name":"Taśma paroszczelna wewnętrzna Soudal SWS Basic Plus Inside 90mm x 30m","brand":"Soudal","category":"window-tape","packageSize":30,"unit":"m","store":"Izosystems","format":"izosystems","productId":1783,"retailerSku":"135633","apiPurchaseUnit":"szt.","pickupRequiresConfirmation":true,"variant":["Inside","90mm","30m"],"url":"https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

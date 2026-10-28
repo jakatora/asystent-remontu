@@ -6,7 +6,8 @@ const katowice:PostalPlace={postalCode:'40-001',name:'Katowice',latitude:50.2667
 const response=(code='40-001')=>({'country abbreviation':'PL','post code':code,places:[{'place name':katowice.name,latitude:String(katowice.latitude),longitude:String(katowice.longitude)}]});
 
 test('pickup directory contains actual retailer addresses, not an invented office or a warehouse selling on site',()=>{
- assert.equal(PICKUP_LOCATIONS.length,14);assert.equal(new Set(PICKUP_LOCATIONS.map(row=>row.id)).size,14);assert.equal(pickupLocationsFor('Sewera').length,7);assert.equal(pickupLocationsFor('LiderzyCen').length,0);
+ assert.equal(PICKUP_LOCATIONS.length,15);assert.equal(new Set(PICKUP_LOCATIONS.map(row=>row.id)).size,15);assert.equal(pickupLocationsFor('Sewera').length,7);assert.equal(pickupLocationsFor('LiderzyCen').length,0);
+ const izo=pickupLocationsFor('Izosystems')[0];assert.equal(izo.city,'Częstochowa');assert.equal(izo.street,'ul. Morsztyna 10');assert.equal(izo.collectionOnly,true);assert.equal(izo.mapCentre,undefined);
  assert.equal(pickupLocationsFor('ABUD').length,3);assert.equal(rankPickupLocations('ABUD','Warszawa').length,2);assert.equal(rankPickupLocations('ABUD','Józefów')[0].location.street,'ul. Piłsudskiego 25');assert.ok(pickupLocationsFor('ABUD').every(row=>!row.mapCentre));
  const tokmet=pickupLocationsFor('TOK-MET');assert.equal(tokmet.length,1);assert.equal(tokmet[0].street,'ul. Bystrzańska 106A');assert.equal(tokmet[0].mapCentre,undefined);assert.equal(tokmet[0].city,'Bielsko-Biała');
  const folnet=pickupLocationsFor('Folnet')[0];assert.equal(folnet.city,'Batorowo');assert.equal(folnet.street,'ul. Stefana Batorego 97');assert.equal(folnet.collectionOnly,true);assert.equal(folnet.mapCentre,undefined);

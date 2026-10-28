@@ -20,6 +20,9 @@ const sewera = [
   {id:'tarnowskie-gory',city:'Tarnowskie Góry',street:'ul. Nakielska 24',postalCode:'42-600',phone:'+48323811777',latitude:50.442669,longitude:18.868043,mapCid:'8252299477358544826',hours:'Pn–pt 6:30–17:00, sob. 6:30–14:30'},
 ];
 export const PICKUP_LOCATIONS: readonly PickupLocation[] = [
+  // Published collection point; online stock and prices do not confirm a local purchase.
+  // source: https://izosystems.pl/pl/content/1-owd-ogolne-warunki-dostaw
+  {id:'izosystems-czestochowa-morsztyna',store:'Izosystems',city:'Częstochowa',street:'ul. Morsztyna 10',postalCode:'42-209',phone:'+48343070777',hours:'Pn–śr 8:00–16:00; czw. do 15:00; pt. do 14:00',collectionOnly:true,checkedAt:'2026-10-28',sourceUrl:'https://izosystems.pl/pl/content/1-owd-ogolne-warunki-dostaw'},
   // Official collection directory and individual branch pages. These addresses
   // are not confirmation of the product's branch price, inventory or readiness.
   // source: https://www.abud.pl/stocks.php

@@ -24,6 +24,29 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** Only the reviewed anonymous product addition and postcode/carrier quote.
+   * This module also places orders: never accept its generic method or form.
+   * source: https://izosystems.pl/themes/warehouse/assets/cache/bottom-d7c313566.js
+   */
+  async izosystems(action:'add'|'carriers'|'carrier'|'cart'|'payments',args:{token:string;productId?:number;count?:number;postalCode?:string;addressId?:string}):Promise<any> {
+    if(this.origin!=='https://izosystems.pl'||!args||!/^[a-f\d]{32}$/i.test(args.token)||Object.keys(args).some(k=>!['token','productId','count','postalCode','addressId'].includes(k)))throw Error('invalid_cart_action');
+    if(action==='add'){
+      if(args.productId!==1783||!Number.isSafeInteger(args.count)||args.count!<1||args.count!>MAX_RETAIL_PACKAGES||Object.keys(args).length!==3)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read('/koszyk-zakupow',new URLSearchParams({token:args.token,id_product:'1783',id_customization:'0',qty:String(args.count),add:'1',action:'update',ajax:'1'}).toString(),false));
+    }
+    let form:Record<string,string>={ajax:'true',token:args.token};
+    if(action==='carriers'){
+      if(!/^\d{2}-\d{3}$/.test(args.postalCode??'')||Object.keys(args).length!==2)throw Error('invalid_cart_action');
+      form={...form,id_country:'14',id_state:'0',postcode:args.postalCode!,vat_number:'',id_address_delivery:'',method:'loadCarriers'};
+    }else if(action==='carrier'){
+      if(!/^\d{1,12}$/.test(args.addressId??'')||Object.keys(args).length!==2)throw Error('invalid_cart_action');
+      form={...form,delivery_available:'true',['delivery_option['+args.addressId+']']:'992,',method:'updateCarrier'};
+    }else if(action==='cart'||action==='payments'){
+      if(Object.keys(args).length!==1)throw Error('invalid_cart_action');
+      form=action==='cart'?{...form,method:'loadCart',shippingId:'992,',id_country:'14',id_address_delivery:''}:{...form,method:'loadPayment'};
+    }else throw Error('invalid_cart_action');
+    return JSON.parse(await this.read('/module/supercheckout/supercheckout',new URLSearchParams(form).toString(),false));
+  }
   /** Only ABUD's public postcode check, anonymous add and basket-rate query.
    * The client-new endpoint is restricted to its postcode-only check; no
    * registration/customer submission, payment or order action is exposed.
@@ -169,8 +192,12 @@ export class AnonymousShop {
       if (++this.calls > this.maxCalls) throw Error('request_limit');
       const cookie = [...this.cookies].map(([k,v]) => `${k}=${v}`).join('; ');
       if (cookie.length > 8192 || this.cookies.size > 64) throw Error('invalid_cookie_size');
+      // This storefront returns an empty body for the combined HTML/JSON Accept
+      // value. Request HTML explicitly while keeping the honest agent identity.
+      // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
-        headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : 'text/html, application/json', Cookie: cookie,
+        headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : this.origin==='https://izosystems.pl'?'text/html':'text/html, application/json', Cookie: cookie,
+          ...(this.origin==='https://izosystems.pl'?{'Accept-Language':'pl-PL'}:{}),
           ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
           ...(modnaCsrf ? {'X-CSRF-Token':modnaCsrf,'X-Requested-With':'XMLHttpRequest',Origin:this.origin,Referer:this.origin+'/'} : {}),
           ...(payload || forcePost ? { 'Content-Type': storeCart||rawJson?'application/json':'application/x-www-form-urlencoded' } : {}) } });

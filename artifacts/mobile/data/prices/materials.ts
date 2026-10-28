@@ -1727,14 +1727,14 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Soudal',
     packageSize: 30,
     packageUnit: 'm',
-    pricePerPackage: 171.60,
+    pricePerPackage: 145.00,
     category: 'standard',
-    storeName: 'BestBudowa',
+    storeName: 'Izosystems',
     sourceUrl:
-      'https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html',
-    lastUpdated: '2026-08-24',
+      'https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html',
+    lastUpdated: '2026-10-28',
     currency: 'PLN',
-    notes: 'Wewnętrzna taśma paroszczelna do ciepłego montażu okien. Rolka 30 mb — zwykle 1 rolka na kilka okien.',
+    notes: 'Wewnętrzna taśma paroszczelna do ciepłego montażu okien. Jedna rolka 30 m. Długość i dopasowanie do połączenia sprawdź w obmiarze; dostawa liczona dla całego koszyka i kodu pocztowego.',
   },
 
   // Parapet wewnętrzny PCV Form 30 × 216 cm biały — EAN 5906725219640. Cena 178 zł/szt (82,41 zł/mb).

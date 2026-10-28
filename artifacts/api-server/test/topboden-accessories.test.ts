@@ -27,7 +27,9 @@ test('native accessory stock is in sealed packs; three packs still contain six c
  assert.throws(()=>confirmTopbodenProduct(p,source,4),/insufficient_stock/);
 });
 
-test('actual Express HTTP combines purchased accessories and minimum skirting lot before one delivery',async()=>{
+test('actual Express HTTP combines purchased accessories and minimum skirting lot before one delivery',async(t)=>{
+ // Replay at capture time; production freshness must still expire old observations.
+ t.mock.timers.enable({apis:['Date'],now:Date.parse(fixture.checkedAt)});
  const r=replay('quote:skirting-and-accessories');const service=createRemontService({initialObservations:seed.filter(o=>fixture.sources.some(s=>s.id===o.sourceId)) as RetailObservation[],background:false,basketQuoter:basket=>quoteTopboden(basket,r.fetcher)});
  const app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));
  const specs=[['5905167725719','mb',12.5,10],['5905167726037','szt',3,2],['5905167726198','szt',1,2],['5905167725870','szt',2,3],['5905167726358','kpl',1,2]] as const;

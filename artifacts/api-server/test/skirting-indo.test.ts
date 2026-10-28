@@ -16,7 +16,9 @@ test('Strongman is one300ml cartridge at the ordinary gross amount; optional cou
  for(const patch of [{packageSize:1},{unit:'kg'},{apiPurchaseUnit:'ml'}])await assert.rejects(readRetailSource({...s,...patch},replay('read:'+s.id).fetcher));
  for(const change of [(v:any)=>({...v,promotionCode:{...v.promotionCode,freeProductsMessage:'Requires bundle'}}),(v:any)=>({...v,promotionCode:{...v.promotionCode,code:'CHANGED'}}),(v:any)=>({...v,price:{...v.price,isDiscount:true,discountPackageGrossPrice:2551}}),(v:any)=>({...v,price:{...v.price,packageGrossPrice:2551}})])await assert.rejects(readRetailSource(s,replay('read:'+s.id,(v,i)=>i===0?change(v):v).fetcher));
 });
-test('actual HTTP prices a whole six-product glued recipe and combines opposite endcap sides across rooms',async()=>{
+test('actual HTTP prices a whole six-product glued recipe and combines opposite endcap sides across rooms',async(t)=>{
+ // The fixture proves captured native behaviour, not indefinitely fresh seed prices.
+ t.mock.timers.enable({apis:['Date'],now:Date.parse(fixture.checkedAt)});
  const job=getJobById('skirting-boards')!,base={perimeter:18,skirtingSystem:1,skirtingInside:5,skirtingOutside:3,skirtingConnectors:5,skirtingEndLeft:3,skirtingEndRight:1,skirtingLayoutFit:1,skirtingMounting:1,skirtingGlueCartridges:2,skirtingMountFit:1};
  const cases=[{context:'full-glued',jobs:[base],total:50757,pairs:3},{context:'complementary-rooms',jobs:[{...base,perimeter:4,skirtingInside:2,skirtingOutside:0,skirtingConnectors:0,skirtingEndLeft:1,skirtingEndRight:0,skirtingGlueCartridges:1},{...base,perimeter:4,skirtingInside:2,skirtingOutside:0,skirtingConnectors:0,skirtingEndLeft:0,skirtingEndRight:1,skirtingGlueCartridges:1}],total:43757,pairs:1}];
  for(const c of cases){const r=replay('quote:'+c.context),service=createRemontService({initialObservations:seed.filter(o=>fixture.sources.some(s=>s.id===o.sourceId))as RetailObservation[],background:false,basketQuoter:b=>quoteTopboden(b,r.fetcher)}),app=express();app.use(express.json());app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(resolve=>server.once('listening',resolve));

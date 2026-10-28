@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-28T11:55:00.658Z",
-  "scope": "Same 65 saved measurement maps with no newly required skirting or other choices filled. Current INDO has seven explicit material roles. Fresh 2026-10-28 prices include eleven newly expired/unavailable references. Explicit complete six-product and two-room INDO cases are recorded separately. Unpriced rows repeat across jobs and are not unique catalogue products.",
+  "checkedAt": "2026-10-28T16:30:44.302Z",
+  "scope": "Same65 saved measurement maps without new measurements filled. One currently available exact SWS Inside30m offer restored; selected purchase lengths and postcode delivery checked separately. Generic historical window-tape descriptions are not reclassified as this membrane or a complete window installation recipe.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 244,
-    "beforePriced": 82,
+    "beforeLines": 247,
+    "beforePriced": 73,
     "afterLines": 247,
     "afterPriced": 73,
     "afterUnpriced": 174,
@@ -269,6 +269,19 @@
         "afterLines": 244,
         "afterPriced": 82,
         "afterUnpriced": 162,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T11:55:00.658Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 244,
+        "beforePriced": 82,
+        "afterLines": 247,
+        "afterPriced": 73,
+        "afterUnpriced": 174,
         "fullyPricedScenarios": 8
       }
     }
@@ -5410,6 +5423,32 @@
       "glueQuantityRequiresExplicitAllowance": true,
       "globalCuttingOptimizer": false,
       "uiVerification": "Pending: local browser use disabled in Work settings. No UI completion claimed."
+    },
+    "wave66": {
+      "checkedAt": "2026-10-28T16:31:23.930Z",
+      "scope": "Explicit purchases of exact SWS Basic Plus Inside90mm30m; not a complete automatic window sealing recipe. Native fresh guest postcode/carrier requests, no personal customer data, address/contact, terms, order or payment submission.",
+      "sourceId": "izosystems-sws-inside90-30m",
+      "ean": "5411183151178",
+      "nativeCases": 9,
+      "rollMetres": 30,
+      "oneRoll": {
+        "materialsGrosze": 14500,
+        "deliveryGrosze": 1500,
+        "totalGrosze": 16000
+      },
+      "shared26m": {
+        "packages": 1,
+        "totalGrosze": 16000
+      },
+      "threeRolls": {
+        "materialsGrosze": 43500,
+        "deliveryGrosze": 0,
+        "totalGrosze": 43500
+      },
+      "postcodeSpecific": true,
+      "fullWindowSealingRecipeComplete": false,
+      "pickupPriceStockConfirmed": false,
+      "uiVerification": "Pending: local browser use disabled in Work settings. Source photo HEAD and directory evidence verified; rendered UI not checked."
     }
   }
 }
