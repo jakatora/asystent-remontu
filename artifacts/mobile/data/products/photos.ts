@@ -1,4 +1,4 @@
-/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–27.
+/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–28.
  * Match by stable catalogue ID, EAN or exact source URL, never by fuzzy name.
  */
 interface ProductPhoto {
@@ -12,6 +12,12 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350
+  {"ids":["mat-plaster-primer-knauf-betokontakt-5kg"],"ean":"4006379051014","sourceUrl":"https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350","imageUrl":"https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1"},
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120
+  // Manufacturer's Profix range photograph. Exact 1000 mm / 50 m variant is
+  // identified by EAN below; the merchant image is a coming-soon placeholder.
+  {"ids":["mat-plaster-mesh-knauf-profix-50m2"],"ean":"5902367201067","sourceUrl":"https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120","identitySourceUrl":"https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500","imageUrl":"https://media.knauf.com/a/TFdoGC4qvRKYeSJCpxp78W?fit=wrap&fmt=webp&hei=400&wid=632"},
   // source: https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm
   {"ids":["mat-ceiling-anchor-rawlplug-gs-100"],"ean":"5906675169347","sourceUrl":"https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm","imageUrl":"https://sklep.ehw.com.pl/environment/cache/images/productGfx_21763_500_500/858bd3358fa32304143b7a47e27c63b67c2f8593_0904f920e7ad3435db4d6ef5dd9e21e4a1468024_2a57cf4d4f4f771f6aaa3b51711fe54a3e05a012_GS_product__p.webp"},
   // source: https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/

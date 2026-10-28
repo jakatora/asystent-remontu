@@ -1,10 +1,11 @@
-import type { SQLiteDatabase, SQLiteBindParams } from 'expo-sqlite';
+import type { SQLiteDatabase, SQLiteBindParams, SQLiteRunResult } from 'expo-sqlite';
 
 export type DatabaseCommand = { sql: string; params?: SQLiteBindParams };
 export type DatabaseConnection = Pick<SQLiteDatabase, 'execAsync' | 'runAsync' | 'getAllAsync' | 'getFirstAsync'> & {
   runBatchAsync(commands: readonly DatabaseCommand[]): Promise<void>;
 };
 export const DATABASE_METHODS = ['execAsync', 'runAsync', 'getAllAsync', 'getFirstAsync', 'runBatchAsync'] as const;
+export const DATABASE_RUN_RESULT_FORMAT='plain-v1';
 export type DatabaseMethod = typeof DATABASE_METHODS[number];
 
 // source: https://www.sqlite.org/lang_transaction.html
@@ -24,6 +25,14 @@ export function queuedDatabase(raw: Pick<SQLiteDatabase, 'execAsync' | 'runAsync
     check(args[0]);
     const result = await (raw[method] as (...values: unknown[]) => Promise<unknown>).apply(raw, args);
     if (method === 'runAsync' || method === 'execAsync') changed();
+    // source: https://docs.expo.dev/versions/v54.0.0/sdk/sqlite/#sqliterunresult
+    // Expo returns an async generator with statement methods from runAsync.
+    // BroadcastChannel cannot clone it. Preserve the documented result fields,
+    // without sending the statement/generator or replaying the committed SQL.
+    if(method==='runAsync'){
+      const info=result as SQLiteRunResult;
+      return{lastInsertRowId:info.lastInsertRowId,changes:info.changes};
+    }
     return result;
   })])) as DatabaseConnection;
   connection.runBatchAsync = commands => enqueue(async () => {

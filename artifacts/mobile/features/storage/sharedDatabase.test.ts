@@ -55,6 +55,25 @@ class Tabs {
   }
 }
 
+test('Expo-shaped async-generator write results cross the real structured-clone boundary as metadata without a second SQL write',async t=>{
+  const {db,raw}=sqlite();t.after(()=>db.close());db.exec('CREATE TABLE projects(id TEXT PRIMARY KEY)');let writes=0;
+  const execute=raw.runAsync.bind(raw);
+  const expo={...raw,runAsync:async(...args:any[])=>{
+    writes++;const info=await execute(args[0],args[1]);
+    // source: https://github.com/expo/expo/blob/main/packages/expo-sqlite/src/SQLiteStatement.ts
+    // This is the upstream SDK result shape, not a clone of our queue logic.
+    const result=(async function*(){})();
+    Object.defineProperties(result,{changes:{value:info.changes,enumerable:true},lastInsertRowId:{value:info.lastInsertRowId,enumerable:true},getFirstAsync:{value:async()=>null,enumerable:true},resetAsync:{value:async()=>{},enumerable:true}});
+    assert.throws(()=>structuredClone(result),error=>error instanceof Error&&error.name==='DataCloneError');
+    return result as any;
+  }};
+  const tabs=new Tabs(),owner=tabs.add(t,'owner',async()=>expo),remote=tabs.add(t,'remote',async()=>{throw Error('must_not_open_second_database');});
+  await Promise.all([owner.ready(),remote.ready()]);tabs.duplicateRequests=true;
+  const result=await remote.connection.runAsync('INSERT INTO projects VALUES(?)',['one']);
+  assert.deepEqual(structuredClone(result),{lastInsertRowId:1,changes:1});assert.equal(writes,1);
+  assert.deepEqual(await remote.connection.getAllAsync('SELECT * FROM projects'),[{id:'one'}]);
+});
+
 test('real SQLite batch rollback preserves existing rows and a later queued read remains healthy', async t => {
   const { db, raw } = sqlite(); t.after(() => db.close()); let changes = 0;
   db.exec('CREATE TABLE items(id TEXT PRIMARY KEY, value TEXT); INSERT INTO items VALUES(\'saved\',\'before\')');

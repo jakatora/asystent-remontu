@@ -1,3 +1,4 @@
+import {PLASTER_JOB,plasterMaterials,plasterReference} from '@/features/calculator/plastering';
 import {WINDOW_JOB,WINDOW_IDS,windowReference} from '@/features/calculator/windowSealing';
 import {SKIRTING_JOB,SKIRTING_IDS,skirtingReference} from '@/features/calculator/skirting';
 import { WATERPROOFING_JOB, WATERPROOFING_IDS, waterproofingReference } from '@/features/calculator/waterproofing';
@@ -68,6 +69,7 @@ export function getLaborForJob(jobId: string, regionCode?: string): LaborPriceRe
 }
 
 export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measurements?: Readonly<Record<string, number>>): MaterialPriceReference[] {
+  if(jobId===PLASTER_JOB)return plasterMaterials(measurements).flatMap(m=>{const id=plasterReference(m.id,measurements??{}),ref=id?MATERIAL_BY_ID.get(id):undefined;return ref?[ref]:[];});
   if(jobId===WINDOW_JOB)return WINDOW_IDS.flatMap(id=>{const key=windowReference(id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===SKIRTING_JOB)return SKIRTING_IDS.flatMap(id=>{const key=skirtingReference(id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if (jobId === WATERPROOFING_JOB) return WATERPROOFING_IDS.flatMap(id => { const key = waterproofingReference(id, measurements ?? {}), ref = key ? MATERIAL_BY_ID.get(key) : undefined; return ref ? [ref] : []; });

@@ -1,4 +1,4 @@
-import { DATABASE_METHODS, queuedDatabase, type DatabaseConnection, type DatabaseMethod } from './connection';
+import { DATABASE_METHODS, DATABASE_RUN_RESULT_FORMAT, queuedDatabase, type DatabaseConnection, type DatabaseMethod } from './connection';
 
 // source: https://github.com/expo/expo/issues/36835
 // AccessHandlePoolVFS holds exclusive handles for the worker's whole lifetime.
@@ -138,6 +138,6 @@ export function sharedWebDatabase(open: () => Promise<Parameters<typeof queuedDa
     await new Promise<void>(() => {});
   }, abort.signal).catch(error => { if (!closed) { failed = error instanceof Error ? error.message : 'database_lock_failed'; settleReady(); } });
   send({ type: 'hello' });
-  return { connection, ready, subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; },
+  return { connection, ready, runResultFormat:DATABASE_RUN_RESULT_FORMAT, subscribe: (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; },
     dispose: () => { closed = true; abort.abort(); channel.close(); failPending('database_connection_closed'); failed = 'database_connection_closed'; settleReady(); listeners.clear(); } };
 }

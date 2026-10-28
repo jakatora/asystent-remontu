@@ -1,0 +1,467 @@
+{
+  "products": [
+    {
+      "sourceId": "realbud-knauf-betokontakt-5kg",
+      "product": {
+        "id": 74052350,
+        "name": "Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+        "can_buy": true,
+        "ean": "4006379051014",
+        "code": "9341",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 74052653,
+        "url": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+        "category": {
+          "name": "Tynki maszynowe i ręczne",
+          "id": 2595
+        },
+        "availability": {
+          "name": "24 godziny"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "1 - 7 dni",
+          "hours": "168"
+        },
+        "price": {
+          "gross": {
+            "base": "66,79 zł",
+            "base_float": 66.79,
+            "final": "66,79 zł",
+            "final_float": 66.79,
+            "historical_lowest_price": "63,91 zł",
+            "historical_lowest_price_float": 63.91
+          },
+          "net": {
+            "base": "54,30 zł",
+            "base_float": 54.3,
+            "final": "54,30 zł",
+            "final_float": 54.3,
+            "historical_lowest_price": "51,96 zł",
+            "historical_lowest_price_float": 51.96
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 5,
+          "weight": "5 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 13
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych</p>",
+        "main_image": "25859",
+        "main_image_filename": "25859.png",
+        "description": "<div class=\"description-wrapper\">  <div class=\"desc-left-col\">  <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\" /></div>  <div class=\"desc-left-col-list\">  <h3>Informacje o produkcie</h3>  <ul class=\"custom-list\">  <li>  <h4>Wprowadzenie do Knauf Betokontakt</h4>  <p>Knauf Betokontakt to zaawansowany środek gruntujący zaprojektowany z myślą o zapewnieniu optymalnej przyczepności na trudnych powierzchniach. Produkt ten idealnie nadaje się do zastosowania na ścisłych, gładkich i niechłonnych podłożach, takich jak elementy betonowe i żelbetowe. Dzięki temu, że łączy w sobie mieszaninę piasku kwarcowego oraz dyspersji tworzyw sztucznych, zapewnia doskonałą bazę pod późniejsze prace wykończeniowe. Nie tylko wzmacnia podłoże, ale również zwiększa jego trwałość i odporność na uszkodzenia mechaniczne.</p>  </li>  <li>  <h4>Właściwości techniczne i zastosowanie</h4>  <p>Produkt Knauf Betokontakt oferuje szereg właściwości, które czynią go niezastąpionym narzędziem w budownictwie. Jego gęstość 1,4 kg/l oraz lepka konsystencja gwarantują łatwość aplikacji, podczas gdy pH na poziomie około 9 sprawia, że jest bezpieczny dla użytkowania. Idealne parametry paroprzepuszczalności oraz brak rozpuszczalników pozwalają na naturalne odprowadzenie wilgoci, co zapobiega rozwoju pleśni i grzybów. Betokontakt jest gotowy do użycia po wymieszaniu, a jego charakterystyczny różowy kolor pomaga w równomiernym rozprowadzaniu na powierzchni.</p>  </li>  <li>  <h4>Zalety stosowania Knauf Betokontakt</h4>  <p>Jedną z kluczowych zalet Knauf Betokontakt jest jego wysoka wydajność, wynosząca 0,225 kg/m², co czyni go ekonomicznym rozwiązaniem dla dużych powierzchni. Czas schnięcia minimum 12 godzin pozwala na wygodne planowanie kolejnych etapów prac wykończeniowych. Produkt jest przeznaczony do stosowania w szerokim zakresie temperatur, od +5°C do +30°C, co czyni go uniwersalnym wyborem w różnych warunkach klimatycznych. Jego skład i właściwości czynią go bezpiecznym i efektywnym wyborem zarówno dla profesjonalistów, jak i majsterkowiczów.</p>  </li>  <li>  <h4>Idealne rozwiązanie do różnych projektów</h4>  <p>Niezależnie od tego, czy pracujesz nad projektem komercyjnym, czy wykończeniem wnętrza w swoim domu, Knauf Betokontakt stanowi niezawodny element każdego przedsięwzięcia budowlanego. Jego unikalne właściwości sprawiają, że jest szczególnie polecany do gruntowania powierzchni, które są narażone na trudne warunki użytkowania. Dzięki doskonałej przyczepności, Knauf Betokontakt zwiększa trwałość wykończenia, co przekłada się na długotrwały efekt wizualny i funkcjonalny.</p>  </li>  </ul>  </div>  <div class=\"desc-left-col-attr\">  <div class=\"desc-left-col-attr-h4\">  <h4>Dane techniczne</h4>  </div>  <div class=\"desc-left-col-attr-table\">  <div class=\"desc-left-col-attr-table-grey\">  <div>Kod EAN:</div>  <div>4006379051014</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Waga:</div>  <div>5kg</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Producent:</div>  <div>KNAUF</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Zastosowanie:</div>  <div>Do gruntowania ścisłych, gładkich i niechłonnych podłoży, np. z elementów betonowych i żelbetowych, wewnątrz pomieszczeń</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Skład:</div>  <div>Mieszanina piasku kwarcowego oraz dyspersji tworzyw sztucznych</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Gotowość do użycia:</div>  <div>Po wymieszaniu</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Brak rozpuszczalników:</div>  <div>Tak</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Paroprzepuszczalność:</div>  <div>Tak</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Kolor:</div>  <div>Różowy</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Wydajność:</div>  <div>0,225 kg/m²</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Gęstość:</div>  <div>1,4 kg/l</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Konsystencja:</div>  <div>Lepki</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>pH:</div>  <div>Ok. 9</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Temperatura stosowania:</div>  <div>Od +5°C do +30°C</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Czas schnięcia:</div>  <div>Min. 12 godzin</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Opakowanie:</div>  <div>5 kg</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Wydajność na opakowanie:</div>  <div>Ok. 14 do 20 m²</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Metoda aplikacji:</div>  <div>Ręczna i maszynowa</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Certyfikaty:</div>  <div>GEV EMICODE EC1 PLUS</div>  </div>  </div>  </div>  </div>  <div class=\"desc-right-col\">  <div class=\"desc-right-col-list\">  <div class=\"desc-right-col-list-title\">  <h3>Cechy produktu</h3>  </div>  <div class=\"desc-right-col-list-data\">  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\" /></div>  <div>Wysoka wydajność</div>  </div>  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\" /></div>  <div>Uniwersalne zastosowanie</div>  </div>  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\" /></div>  <div>Bezrozpuszczalnikowy skład</div>  </div>  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\" /></div>  <div>Paroprzepuszczalność</div>  </div>  </div>  </div>  <div class=\"desc-right-col-img\"><img src=\"https://pliki.realbud.com/storage/uploads/1783680275_9341.png\" alt=\"\" /></div>  <div class=\"desc-right-col-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\" /></div>  <div>  <p>Łatwa aplikacja i wysoka wydajność czynią Knauf Betokontakt niezastąpionym rozwiązaniem dla fachowców i amatorów.</p>  </div>  </div>  <div class=\"desc-right-col-producer\">  <h3>O producencie</h3>  <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\" />  <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p>  </div>  </div>  </div>",
+        "images": [
+          "25859",
+          "25663"
+        ],
+        "images_filename": [
+          "25859.png",
+          "25663.png"
+        ],
+        "attributes": [
+          {
+            "name": "Producent:",
+            "type": 0,
+            "value": "KNAUF"
+          },
+          {
+            "name": "Waga:",
+            "type": 0,
+            "value": "5kg"
+          },
+          {
+            "name": "Kod EAN:",
+            "type": 0,
+            "value": "4006379051014"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "63,91 zł",
+        "net_historical_lowest_price": "51,96 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "187",
+          "name": "Darmowa-powyżej-500"
+        }
+      }
+    },
+    {
+      "sourceId": "realbud-knauf-profix-50m2",
+      "product": {
+        "id": 75057500,
+        "name": "Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb",
+        "can_buy": true,
+        "ean": "5902367201067",
+        "code": "11723",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 5,
+        "votes": 55,
+        "stockId": 75057787,
+        "url": "https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500",
+        "category": {
+          "name": "Tynki maszynowe i ręczne",
+          "id": 2595
+        },
+        "availability": {
+          "name": "24 godziny"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "1 - 7 dni",
+          "hours": "168"
+        },
+        "price": {
+          "gross": {
+            "base": "227,00 zł",
+            "base_float": 227,
+            "final": "227,00 zł",
+            "final_float": 227,
+            "historical_lowest_price": "218,66 zł",
+            "historical_lowest_price_float": 218.66
+          },
+          "net": {
+            "base": "184,55 zł",
+            "base_float": 184.55,
+            "final": "184,55 zł",
+            "final_float": 184.55,
+            "historical_lowest_price": "177,77 zł",
+            "historical_lowest_price_float": 177.77
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 13
+        },
+        "newProduct": false,
+        "shortDescription": "Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb",
+        "main_image": "23636",
+        "main_image_filename": "23636.png",
+        "description": "<div class=\"description-wrapper\"> <div class=\"desc-left-col\"> <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\" /></div> <div class=\"desc-left-col-list\"> <h3>Informacje o produkcie</h3> <ul class=\"custom-list\"> <li> <h4>Charakterystyka produktu i kluczowe zalety</h4> <p>Siatka jest pleciona splotem gazejskim, co podnosi jej elastyczność oraz ułatwia montaż. Dzięki zastosowaniu włókna szklanego produkt charakteryzuje się zwiększoną odpornością na spękania oraz uszkodzenia mechaniczne, co przekłada się na solidność i trwałość tynków, zarówno wewnętrznych, jak i zewnętrznych.</p> </li> <li> <h4>Zastosowanie i praktyczne korzyści</h4> <p>Stosowanie siatki ułatwia także wykonanie tynków na bruzdach pod instalacje, zapewniając dodatkowe zbrojenie i ochronę. Przekłada się to na długotrwałą odporność powłok tynkarskich, a także na estetyczny i trwały efekt końcowy, co jest szczególnie ważne przy modernizacjach i nowych realizacjach.</p> </li> <li> <h4>Parametry techniczne, trwałość i właściwości użytkowe</h4> <p>Dzięki zastosowanym materiałom i technologii wykonania siatka charakteryzuje się odpornością na alkalia, co zapobiega jej degradacji pod wpływem składników zapraw tynkarskich. Właściwości te zapewniają długotrwałą wytrzymałość, stabilność i odporność mechaniczną powłok tynkarskich, co przekłada się na ich jakość oraz trwałość użytkowania w różnych warunkach.</p> </li> <li> <h4>Jakość wykonania i wygoda stosowania</h4> <p>Przechowywanie siatki jest wygodne dzięki standardowej formie rolki, która nie zajmuje dużo miejsca i jest odporna na uszkodzenia podczas transportu. To rozwiązanie sprzyja organizacji miejsca pracy oraz pozwala uniknąć strat materiału podczas przygotowania i aplikacji. Wszystkie te cechy czynią z siatki Knauf PROFIX doskonały wybór dla profesjonalistów i inwestorów.</p> </li> </ul> </div> <div class=\"desc-left-col-attr\"> <div class=\"desc-left-col-attr-h4\"> <h4>Dane techniczne</h4> </div> <div class=\"desc-left-col-attr-table\"> <div class=\"desc-left-col-attr-table-grey\"><div>Sygnatura:</div><div>11723</div></div><div class=\"desc-left-col-attr-table-white\"><div>Producent:</div><div>Knauf</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Kod producenta:</div><div>452016</div></div><div class=\"desc-left-col-attr-table-white\"><div>Materiał:</div><div>włókno szklane</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Szerokość:</div><div>1000 mm</div></div><div class=\"desc-left-col-attr-table-white\"><div>Długość:</div><div>50 mb</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Waga:</div><div>5.5</div></div><div class=\"desc-left-col-attr-table-white\"><div>Stan opakowania:</div><div>oryginalne</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Marka:</div><div>Knauf</div></div><div class=\"desc-left-col-attr-table-white\"><div>Rodzaj produktu:</div><div>inny</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Rodzaje tynków:</div><div>cementowo-wapienne, gipsowe, maszynowe, mineralne, wapienne, wewnętrzne</div></div><div class=\"desc-left-col-attr-table-white\"><div>Gramatura:</div><div>110 g/m2</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Wielkość oczek:</div><div>10x10 mm</div></div><div class=\"desc-left-col-attr-table-white\"><div>Splot:</div><div>gazejskim</div></div><div class=\"desc-left-col-attr-table-grey\"><div>Odporność:</div><div>odporna na działanie alkalii</div></div> </div> </div> </div> <div class=\"desc-right-col\"> <div class=\"desc-right-col-list\"> <div class=\"desc-right-col-list-title\"> <h3>Cechy produktu</h3> </div> <div class=\"desc-right-col-list-data\"> <div class=\"desc-right-col-list-data-box\"> <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\" /></div> <div>Wysokiej jakości włókno szklane odporne na alkalia</div> </div> <div class=\"desc-right-col-list-data-box\"> <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\" /></div> <div>Oczko siatki 10x10 mm gwarantujące trwałość</div> </div> <div class=\"desc-right-col-list-data-box\"> <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\" /></div> <div>Szerokość 1000 mm i długość 50 mb dla wygody użycia</div> </div> <div class=\"desc-right-col-list-data-box\"> <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\" /></div> <div>Gramatura 110 g/m2 zapewniająca wytrzymałość mechaniczną</div> </div> </div> </div> <div class=\"desc-right-col-img\"><img src=\"https://a.allegroimg.com/original/11a4ba/b2f2f15247af935a6f4b34350528\" alt=\"\" /></div> <div class=\"desc-right-col-box\"> <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\" /></div> <div> <p>Wytrzymała siatka tynkarska Knauf PROFIX to doskonały wybór do profesjonalnego wzmocnienia tynków.</p> </div> </div> <div class=\"desc-right-col-producer\"> <h3>O producencie</h3> <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\" /> <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p> </div> </div> </div>",
+        "images": [
+          "23636"
+        ],
+        "images_filename": [
+          "23636.png"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "218,66 zł",
+        "net_historical_lowest_price": "177,77 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "187",
+          "name": "Darmowa-powyżej-500"
+        }
+      }
+    }
+  ],
+  "cart": {
+    "shippings": [
+      {
+        "shipping_id": 205,
+        "selected": true,
+        "title": "Kurier",
+        "description": "Darmowa powyżej 500 zł",
+        "cost": "25,00 zł",
+        "cost_float": 25,
+        "engine": "",
+        "payments": [
+          {
+            "payment_id": 1
+          },
+          {
+            "payment_id": 3
+          },
+          {
+            "payment_id": 19
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "cost": "25,00 zł",
+            "cost_float": 25
+          }
+        ]
+      },
+      {
+        "shipping_id": 23,
+        "selected": false,
+        "title": "Transport na zapytanie",
+        "description": "",
+        "cost": "0,00 zł",
+        "cost_float": 0,
+        "engine": "personal",
+        "payments": [
+          {
+            "payment_id": 1
+          },
+          {
+            "payment_id": 3
+          },
+          {
+            "payment_id": 19
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "cost": "0,00 zł",
+            "cost_float": 0
+          }
+        ]
+      },
+      {
+        "shipping_id": 1,
+        "selected": false,
+        "title": "Odbiór własny Szczecin",
+        "description": "ul. 1 Maja 32",
+        "cost": "0,00 zł",
+        "cost_float": 0,
+        "engine": "personal",
+        "payments": [
+          {
+            "payment_id": 1
+          },
+          {
+            "payment_id": 3
+          },
+          {
+            "payment_id": 19
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "cost": "0,00 zł",
+            "cost_float": 0
+          }
+        ]
+      },
+      {
+        "shipping_id": 15,
+        "selected": false,
+        "title": "Odbiór własny Bydgoszcz",
+        "description": "ul. Fabryczna 6a",
+        "cost": "0,00 zł",
+        "cost_float": 0,
+        "engine": "personal",
+        "payments": [
+          {
+            "payment_id": 1
+          },
+          {
+            "payment_id": 3
+          },
+          {
+            "payment_id": 19
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "cost": "0,00 zł",
+            "cost_float": 0
+          }
+        ]
+      }
+    ],
+    "payments": [
+      {
+        "payment_id": 3,
+        "selected": true,
+        "name": "onlinePayment",
+        "title": "Autopay",
+        "description": ""
+      },
+      {
+        "payment_id": 19,
+        "selected": false,
+        "name": "custom",
+        "title": "Szybki przelew on-line",
+        "description": ""
+      },
+      {
+        "payment_id": 1,
+        "selected": false,
+        "name": "cash",
+        "title": "Płatność przy odbiorze",
+        "description": ""
+      }
+    ],
+    "promocode": null,
+    "promos": null,
+    "taxes": {
+      "23": 54.94
+    },
+    "free_shipping": {
+      "shipping_id": "89",
+      "title": "Darmowa dostawa",
+      "free_shipping_float": 0.01,
+      "free_shipping": "0,01 zł",
+      "missing_float": -293.78000000000003,
+      "missing": "-293,78 zł"
+    },
+    "countries": [
+      {
+        "id": 179,
+        "name": "Polska",
+        "selected": true
+      }
+    ],
+    "basket": {
+      "count": 2,
+      "sum": "318,79 zł",
+      "sum_float": 318.79,
+      "sum_products": "293,79 zł",
+      "sum_products_float": 293.79,
+      "sum_no_shipping": "293,79 zł",
+      "sum_no_shipping_float": 293.79,
+      "loyalty_points": 0
+    },
+    "_flash_messenger": {
+      "error": [],
+      "warning": [],
+      "info": [],
+      "success": []
+    },
+    "products": [
+      {
+        "id": 134730,
+        "parent_id": null,
+        "stock_id": 74052653,
+        "product_id": 74052350,
+        "type": null,
+        "name": "Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+        "variant": "",
+        "quantity": 1,
+        "image": "25859",
+        "image_filename": "25859.png",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "price_float": 66.79,
+        "price": "66,79 zł",
+        "sum_float": 66.79,
+        "sum": "66,79 zł",
+        "delivery": "1 - 7 dni",
+        "loyalty": null,
+        "category": {
+          "category_id": "2595",
+          "translation": {
+            "name": "Tynki maszynowe i ręczne"
+          }
+        },
+        "producer": {
+          "producer_id": "13",
+          "name": "Knauf"
+        },
+        "url": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+        "remove_url": "https://realbud.com/pl/basket/remove/134730"
+      },
+      {
+        "id": 134731,
+        "parent_id": null,
+        "stock_id": 75057787,
+        "product_id": 75057500,
+        "type": null,
+        "name": "Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb",
+        "variant": "",
+        "quantity": 1,
+        "image": "23636",
+        "image_filename": "23636.png",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "price_float": 227,
+        "price": "227,00 zł",
+        "sum_float": 227,
+        "sum": "227,00 zł",
+        "delivery": "1 - 7 dni",
+        "loyalty": null,
+        "category": {
+          "category_id": "2595",
+          "translation": {
+            "name": "Tynki maszynowe i ręczne"
+          }
+        },
+        "producer": {
+          "producer_id": "13",
+          "name": "Knauf"
+        },
+        "url": "https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500",
+        "remove_url": "https://realbud.com/pl/basket/remove/134731"
+      }
+    ],
+    "delivery": "1 - 7 dni",
+    "comment": null,
+    "user_info": {
+      "mail": null
+    },
+    "billing_address": {
+      "company_name": null,
+      "tax_id": null,
+      "pesel": null,
+      "firstname": null,
+      "lastname": null,
+      "street_1": null,
+      "street_2": "",
+      "city": null,
+      "zip_code": null,
+      "state": null,
+      "phone": null,
+      "country_id": null
+    },
+    "shipping_address": {
+      "company_name": null,
+      "tax_id": null,
+      "pesel": null,
+      "firstname": null,
+      "lastname": null,
+      "street_1": null,
+      "street_2": "",
+      "city": null,
+      "zip_code": null,
+      "state": null,
+      "phone": null,
+      "country_id": null
+    },
+    "vat_eu": false,
+    "additional_fields": null
+  }
+}

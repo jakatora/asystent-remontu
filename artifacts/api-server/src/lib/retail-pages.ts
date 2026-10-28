@@ -294,6 +294,15 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
     'rabdom-primer-g-pro-1l': ['8022452241123', 1, 'l', 10970, '37969'],
     'rabdom-primer-g-pro-5l': ['8022452241130', 5, 'l', 10969, '37970'],
   };
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-betokontakt-10251_0120
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120
+  // One native piece is a whole5kg bucket or1m×50m roll, never one kg/metre.
+  const plasterPacks:Record<string,readonly [string,number,string,number,string]>={
+    'realbud-knauf-betokontakt-5kg':['4006379051014',5,'kg',74052350,'9341'],
+    'realbud-knauf-profix-50m2':['5902367201067',50,'m2',75057500,'11723'],
+  };
+  const plaster=plasterPacks[source.id];
+  if(plaster&&(source.ean!==plaster[0]||source.packageSize!==plaster[1]||source.unit!==plaster[2]||source.productId!==plaster[3]||source.retailerSku!==plaster[4]||source.apiPurchaseUnit!=='szt.'||item.ean!==plaster[0]||normalizeProductName(item.name??'')!==normalizeProductName(source.name)))throw Error('product_package_not_confirmed');
   const hydro = hydroPacks[source.id];
   if (hydro && (source.ean !== hydro[0] || source.packageSize !== hydro[1] || source.unit !== hydro[2]
     || source.productId !== hydro[3] || source.retailerSku !== hydro[4] || source.apiPurchaseUnit !== 'szt.'

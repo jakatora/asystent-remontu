@@ -1,3 +1,4 @@
+import {PLASTER_JOB,reviewPlasterShopping} from '@/features/calculator/plastering';
 import { isGypsumJob, reviewGypsumShopping } from '@/features/calculator/gypsumBoard';
 import { isFrameJob, reviewFrameShopping } from '@/features/calculator/framePainting';
 import { isWallFinishingJob, reviewFinishingShopping } from '@/features/calculator/wallFinishing';
@@ -17,7 +18,7 @@ import { restoreSelectionBasis, reviewSelectedShopping } from './selectedShoppin
 import type { ShoppingStageContext } from './selectedShopping';
 
 export function requiresCurrentShoppingQuantity(jobId: string): boolean {
-  return [EPS_JOB_ID, SINK_JOB_ID, LAMINATE_JOB, 'vinyl-flooring'].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId) || isWallFinishingJob(jobId) || isFrameJob(jobId) || isGypsumJob(jobId);
+  return [EPS_JOB_ID, SINK_JOB_ID, LAMINATE_JOB, PLASTER_JOB, 'vinyl-flooring'].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId) || isWallFinishingJob(jobId) || isFrameJob(jobId) || isGypsumJob(jobId);
 }
 
 export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { allowed: boolean; confirmQuantity?: number } {
@@ -27,7 +28,7 @@ export function shoppingQuantityAction(jobId: string, item: ShoppingItem): { all
   }
   if (!requiresCurrentShoppingQuantity(jobId) || item.itemType !== 'material') return { allowed: true };
   if (item.quantityKnown === false || item.requiredQuantity !== undefined && item.customQuantity !== undefined
-      && (jobId===LAMINATE_JOB||jobId==='vinyl-flooring'||substratePrimerSpecification(jobId)||isSanitaryJob(jobId)||isWallFinishingJob(jobId)||isFrameJob(jobId)||isGypsumJob(jobId) ? !Number.isFinite(item.customQuantity) || item.customQuantity + 1e-8 < item.requiredQuantity : Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8)) return { allowed: false };
+      && (jobId===PLASTER_JOB||jobId===LAMINATE_JOB||jobId==='vinyl-flooring'||substratePrimerSpecification(jobId)||isSanitaryJob(jobId)||isWallFinishingJob(jobId)||isFrameJob(jobId)||isGypsumJob(jobId) ? !Number.isFinite(item.customQuantity) || item.customQuantity + 1e-8 < item.requiredQuantity : Math.abs(item.customQuantity - item.requiredQuantity) > 1e-8)) return { allowed: false };
   return { allowed: true, ...(item.needsQuantityConfirmation && item.requiredQuantity !== undefined ? { confirmQuantity: item.requiredQuantity } : {}) };
 }
 
@@ -66,6 +67,7 @@ export function applyProjectShopping(stage: PricingStageInput, calc: Calculation
   items = reviewFrameShopping(reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(items, calc),calc),calc),calc);
   items = reviewGypsumShopping(items,calc);
   items = reviewLaminateShopping(items,calc);
+  items = reviewPlasterShopping(items,calc);
   items = reviewSelectedShopping(items, original, stage, sources);
   let excludedMaterials = 0;
   const materialIds = new Set(calc.materials.map(line => line.material.id));
@@ -73,7 +75,7 @@ export function applyProjectShopping(stage: PricingStageInput, calc: Calculation
   const materials = stage.materials.filter(line => {
     const matching = items.filter(item => item.projectId === projectId && item.itemType !== 'tool' && item.materialId === doorOriginMaterialId(line.material.id));
     const requirement = calc.materials.find(item => item.material.id === line.material.id);
-    const substrate = calc.jobId===LAMINATE_JOB||calc.jobId==='vinyl-flooring'||Boolean(substratePrimerSpecification(calc.jobId))||isSanitaryJob(calc.jobId)||isWallFinishingJob(calc.jobId)||isFrameJob(calc.jobId)||isGypsumJob(calc.jobId);
+    const substrate = calc.jobId===PLASTER_JOB||calc.jobId===LAMINATE_JOB||calc.jobId==='vinyl-flooring'||Boolean(substratePrimerSpecification(calc.jobId))||isSanitaryJob(calc.jobId)||isWallFinishingJob(calc.jobId)||isFrameJob(calc.jobId)||isGypsumJob(calc.jobId);
     const required = requirement ? substrate ? getRequiredQuantity(requirement,calc) : requirement.quantity : NaN;
     const covers = (item: ShoppingItem) => item.selectedRequirement
       ? (item.owned || item.purchased) && item.quantityKnown !== false && !item.needsQuantityConfirmation

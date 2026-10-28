@@ -1,3 +1,4 @@
+import {PLASTER_JOB,plasterInputVisible,withPlasterMeasurement} from '@/features/calculator/plastering';
 import {windowInputVisible,windowInputHint,withWindowMeasurement} from '@/features/calculator/windowSealing';
 import {isGypsumJob,gypsumInputVisible,withGypsumMeasurement} from '@/features/calculator/gypsumBoard';
 import {skirtingInputVisible,skirtingInputHint} from '@/features/calculator/skirting';
@@ -12,7 +13,6 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Alert,
   Platform,
   KeyboardAvoidingView,
   Dimensions,
@@ -371,6 +371,9 @@ export default function WizardScreen() {
     return 'category';
   });
   const [saving, setSaving] = useState(false);
+  const saveInFlight=useRef(false);
+  const [saveError,setSaveError]=useState<string|null>(null);
+  const [savedProjectId,setSavedProjectId]=useState<string|null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
 
   // Pre-select job if passed as param
@@ -442,14 +445,15 @@ export default function WizardScreen() {
   // ── Save & calculate ─────────────────────────────────────────────────────────
 
   const handleSave = useCallback(async () => {
-    if (!selectedJob) return;
+    if (!selectedJob||saveInFlight.current||saveError) return;
     const parsed = parseMeasurements(selectedJob, draft.measurements);
     if (parsed.errors.length > 0) {
       goTo('measure');
       setValidationError(t('wizard.error.measureValue', { label: parsed.errors[0].label }));
       return;
     }
-    setSaving(true);
+    saveInFlight.current=true;setSaving(true);
+    let confirmedId:string|undefined;
     try {
       const meas = parsed.values;
 
@@ -468,6 +472,7 @@ export default function WizardScreen() {
         calculationResult: calcResult,
         status: 'planning',
       });
+      confirmedId=projectId;setSavedProjectId(projectId);
 
       // Auto-generate shopping list immediately
       await generateAndAddShoppingItems(projectId, calcResult, selectedJob);
@@ -476,11 +481,13 @@ export default function WizardScreen() {
       router.replace({ pathname: '/project/[id]', params: { id: projectId, fromWizard: '1' } });
     } catch (err) {
       console.error('[Wizard] save error:', err);
-      Alert.alert(t('wizard.saveError.title'), t('wizard.saveError.body'));
+      setSaveError(confirmedId
+        ?(language==='pl'?'Projekt jest zapisany. Nie udało się potwierdzić pełnej listy zakupów. Otwórz projekt i sprawdź zapisane pozycje.':'The project is saved. The complete shopping list could not be confirmed. Open the project and check its saved items.')
+        :(language==='pl'?'Nie udało się potwierdzić zapisu. Projekt mógł już powstać. Sprawdź listę projektów przed ponownym tworzeniem; odpowiedzi pozostają w formularzu.':'The save could not be confirmed. The project may already exist. Check your projects before creating another; your answers remain in this form.'));
     } finally {
-      setSaving(false);
+      saveInFlight.current=false;setSaving(false);
     }
-  }, [selectedJob, draft, createProject, generateAndAddShoppingItems, clearDraft, t]);
+  }, [selectedJob, draft, createProject, generateAndAddShoppingItems, clearDraft, t,language,saveError]);
 
   // ── Helper labels ────────────────────────────────────────────────────────────
 
@@ -1078,7 +1085,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);
@@ -1113,7 +1120,7 @@ export default function WizardScreen() {
 
                         {'inputType' in inp && inp.inputType === 'select' ? <MeasurementSelect label={inp.label} options={inp.options ?? []}
                           value={val ? parseDecimal(val) : inp.defaultValue} onChange={value => {
-                            patchDraft({ measurements: isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
+                            patchDraft({ measurements: selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
                           }}/> : <View style={{ flexDirection: 'row', gap: 8 }}>
                           <TextInput
                             style={{
@@ -1291,7 +1298,7 @@ export default function WizardScreen() {
                   {/* Measurements */}
                   {selectedJob && selectedJob.measurementInputs.length > 0 && (
                     <View>
-                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                         const val = draft.measurements[inp.id];
                         const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
                         const displayVal = selectedOption?.label ?? (val
@@ -1361,12 +1368,17 @@ export default function WizardScreen() {
                   />
                 )}
 
+                {saveError&&<View accessibilityRole="alert" style={{padding:14,borderRadius:12,backgroundColor:Colors.warningBg,gap:10}}>
+                  <Txt style={{color:Colors.text,lineHeight:20}}>{saveError}</Txt>
+                  <Button label={savedProjectId?(language==='pl'?'Otwórz zapisany projekt':'Open saved project'):(language==='pl'?'Sprawdź moje projekty':'Check my projects')} variant="outline" onPress={()=>router.replace(savedProjectId?{pathname:'/project/[id]',params:{id:savedProjectId}}:'/projects')}/>
+                </View>}
                 <Button
                   label={saving ? t('wizard.summary.calculating') : t('wizard.summary.calculate')}
                   onPress={handleSave}
                   size="lg"
                   fullWidth
                   loading={saving}
+                  disabled={saving||Boolean(saveError)}
                   icon={<Feather name="zap" size={18} color="#fff" />}
                 />
 

@@ -1,15 +1,20 @@
 {
-  "checkedAt": "2026-10-28T20:05:30.587Z",
-  "scope": "Same65 saved measurement maps; no automatic C2-to-C3 substitution or new confirmation. One separate current C3 reference/offer/photo is now explicitly selectable. Full selected ceiling and consolidation checks recorded separately in7 production cases.",
+  "checkedAt": "2026-10-28T21:14:54.962Z",
+  "scope": "Same65 saved measurement maps. Historical plastering now explicitly requires product/substrate, reinforcement and corner measurements; prior assumed plaster/corner quantities are not treated as confirmed. New explicit choices and eight real production HTTP cases recorded separately.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 250,
     "beforePriced": 85,
-    "afterLines": 250,
-    "afterPriced": 85,
-    "afterUnpriced": 165,
-    "fullyPricedScenarios": 11
+    "afterLines": 251,
+    "afterPriced": 84,
+    "afterUnpriced": 167,
+    "fullyPricedScenarios": 11,
+    "reasons": {
+      "no-query": 94,
+      "no-product": 72,
+      "no-offer": 1
+    }
   },
   "history": [
     {
@@ -331,6 +336,19 @@
         "auditedJobs": 65,
         "beforeLines": 250,
         "beforePriced": 72,
+        "afterLines": 250,
+        "afterPriced": 85,
+        "afterUnpriced": 165,
+        "fullyPricedScenarios": 11
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T20:05:30.587Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 250,
+        "beforePriced": 85,
         "afterLines": 250,
         "afterPriced": 85,
         "afterUnpriced": 165,
@@ -659,51 +677,62 @@
       "materials": [
         {
           "materialId": "plaster-base",
-          "name": "Tynk gipsowy ręczny Knauf Goldband 25 kg",
-          "unit": "kg",
+          "name": "Tynk — wybierz konkretny produkt — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tynk gipsowy reczny knauf goldband 25 kg",
-            "category": "plaster"
-          },
-          "quantity": 99,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5902367206383",
-            "ean": "5902367206383",
-            "name": "GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg"
-          }
-        },
-        {
-          "materialId": "plaster-primer",
-          "name": "Grunt / kontakt pod tynk",
-          "unit": "litr",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "grunt kontakt pod tynk",
-            "category": "grunt"
+            "normalizedName": "tynk wybierz konkretny produkt ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "plaster-primer",
+          "name": "Przygotowanie podłoża — dobierz grunt — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "przygotowanie podloza dobierz grunt ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "plaster-corner",
+          "name": "Narożniki tynkarskie — policz listwy i sprawdź dopasowanie — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "narozniki tynkarskie policz listwy i sprawdz dopasowanie ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
           "materialId": "plaster-mesh",
-          "name": "Siatka tynkarska / taśma zbrojąca",
-          "unit": "m²",
+          "name": "Siatka zbrojąca — zmierz potrzebny obszar — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "siatka tynkarska tasma zbrojaca",
-            "category": "wzmocnienie"
+            "normalizedName": "siatka zbrojaca zmierz potrzebny obszar ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 11,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -5848,6 +5877,103 @@
           "height": 720
         },
         "markedDeliverable": true
+      }
+    },
+    "wave71": {
+      "checkedAt": "2026-10-28T21:10:11.809Z",
+      "nativeCases": 8,
+      "newProducts": 2,
+      "newOffers": 2,
+      "newStores": 0,
+      "newPhotoEntries": 2,
+      "sourceIds": [
+        "realbud-knauf-betokontakt-5kg",
+        "realbud-knauf-profix-50m2"
+      ],
+      "chosenPlaster": {
+        "wallAreaM2": 10,
+        "thicknessMm": 15,
+        "system": "Knauf Goldband 25kg",
+        "rawPlasterKg": 140.25,
+        "bags": 6,
+        "primerKg": 2.475,
+        "meshM2": 2.2,
+        "cornerPurchase": 0
+      },
+      "allThreeSelectedPurchasesPriced": true,
+      "fullPlasterMaterialsGrosze": 59313,
+      "deliveredBasketComplete": false,
+      "sharedSupplySubset": {
+        "primerKg": 4.95,
+        "meshM2": 5.5,
+        "buckets": 1,
+        "rolls": 1,
+        "materialsGrosze": 29379,
+        "shippingGrosze": 2500,
+        "totalGrosze": 31879
+      },
+      "historicalChoicesNotAutomaticallyConfirmed": true,
+      "uiVerification": {
+        "checkedAt": "2026-10-28T21:30:07.152Z",
+        "passed": true,
+        "browserId": "2",
+        "tabId": "6",
+        "url": "http://localhost:8082/renovation-basket",
+        "projectCount": 25,
+        "newOwnQaProjects": 2,
+        "existingProjectsEdited": 0,
+        "projectIds": [
+          "proj_mvslcjwkn8428cytf",
+          "proj_mvsm9e9z5rr5zqjk9"
+        ],
+        "creationAndShoppingConfirmedAfterFix": true,
+        "firstShoppingGenerationObservedMs": 702,
+        "secondCreationAndShoppingObservedMs": 538,
+        "shoppingItemsPerProject": 10,
+        "reloadPreservesSelectionAndPostcode": true,
+        "selectedProjects": 2,
+        "postalCode": "00-001",
+        "pricedPurchases": 3,
+        "materialsGrosze": 89247,
+        "packSavingsGrosze": 29379,
+        "realbud": {
+          "materialsGrosze": 29379,
+          "shippingGrosze": 2500,
+          "totalGrosze": 31879,
+          "destinationScope": "PL"
+        },
+        "missingShipping": [
+          "Krasny"
+        ],
+        "fullDeliveredTotalKnown": false,
+        "cheapestDeliveredBasketClaimed": false,
+        "sharedSavingsLabelsCorrect": true,
+        "photos": [
+          {
+            "alt": "Zdjęcie produktu: GIPS GOLDBAND 25 Gips tynkarski GOLDBAND 25kg",
+            "complete": true,
+            "naturalHeight": 100,
+            "naturalWidth": 100,
+            "src": "https://static.krasny.pl/59/02/36/72/06/38/3/0/SMALL_100.webp?hash=d61d71b4ff1c4592683b9ceecda29fca"
+          },
+          {
+            "alt": "Zdjęcie produktu: Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+            "complete": true,
+            "naturalHeight": 455,
+            "naturalWidth": 500,
+            "src": "https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1"
+          },
+          {
+            "alt": "Zdjęcie produktu: Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb",
+            "complete": true,
+            "naturalHeight": 400,
+            "naturalWidth": 400,
+            "src": "https://media.knauf.com/a/TFdoGC4qvRKYeSJCpxp78W?fit=wrap&fmt=webp&hei=400&wid=632"
+          }
+        ],
+        "manufacturerPhotoReplacesRetailPlaceholder": true,
+        "photoScope": "Manufacturer Profix range illustration; exact 1000 mm / 50 m variant verified separately by EAN 5902367201067.",
+        "screenshot": "catalog-wave71-koszyk.jpg"
       }
     }
   }

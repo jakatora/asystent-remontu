@@ -1,7 +1,8 @@
 import type { RetailSource } from './retail-pages';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
-export const RETAIL_SOURCES: readonly RetailSource[] = [  {
+export const RETAIL_SOURCES: readonly RetailSource[] = [
+  {
     id: 'castorama-sniezka-5l', ean: '5903973139188', name: 'Farba Śnieżka Barwy Natury biała 5 l',
     category: 'paint', brand: 'Śnieżka', packageSize: 5, unit: 'l', store: 'Castorama', pickupRequiresConfirmation: true,
     // source: https://www.castorama.pl/farba-sniezka-barwy-natury-biala-5-l/5903973139188_CAPL.prd
@@ -1175,10 +1176,18 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   {"id":"topboden-strongman-300ml","ean":"5905167788264","name":"Klej montażowy Arbiton Strongman 300 ml - klej do listew przypodłogowych","brand":"Arbiton","category":"skirting-adhesive","packageSize":300,"unit":"ml","store":"TopBoden","format":"topboden-api","productUuid":"9cc774ed-c24b-4f3b-a863-a935a86383f4","apiPurchaseUnit":"szt.","variant":["Strongman","300 ml"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167788264_I_01.webp"},
   // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html
   {"id":"izosystems-sws-inside90-30m","ean":"5411183151178","name":"Taśma paroszczelna wewnętrzna Soudal SWS Basic Plus Inside 90mm x 30m","brand":"Soudal","category":"window-tape","packageSize":30,"unit":"m","store":"Izosystems","format":"izosystems","productId":1783,"retailerSku":"135633","apiPurchaseUnit":"szt.","pickupRequiresConfirmation":true,"variant":["Inside","90mm","30m"],"url":"https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html"},
+  // source: https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-betokontakt-10251_0120
+  {"id":"realbud-knauf-betokontakt-5kg","ean":"4006379051014","name":"Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych","brand":"Knauf","category":"plaster-primer","packageSize":5,"unit":"kg","store":"Realbud","format":"shoper-api","productId":74052350,"retailerSku":"9341","apiPurchaseUnit":"szt.","url":"https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350","imageUrl":"https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1","pickupRequiresConfirmation":true},
+  // source: https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120
+  {"id":"realbud-knauf-profix-50m2","ean":"5902367201067","name":"Siatka tynkarska - Knauf PROFIX szer. 1000 mm ( oczko 10x10 mm ) - 50 mb","brand":"Knauf","category":"plaster-mesh","packageSize":50,"unit":"m2","store":"Realbud","format":"shoper-api","productId":75057500,"retailerSku":"11723","apiPurchaseUnit":"szt.","url":"https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500","imageUrl":"https://realbud.com/environment/cache/images/productGfx_23636_500_500/7ff3a7398c66270601e5d09d595d52a5.png","pickupRequiresConfirmation":true,"variant":["1000 mm","10x10 mm","50 mb"]},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Knauf Betokontakt — grunt sczepny 5 kg": "4006379051014",
+  "Siatka tynkarska Knauf Profix 100 cm × 50 m (50 m²)": "5902367201067",
   "Erismann RollOver 3333-5 — flizelina do malowania, rolka 0,75 × 25 m": "4002790333357",
   'Metylan Direct — klej do tapet flizelinowych 200 g': '4015000402019',
   'Metylan Normal — klej do tapet papierowych 125 g': '4015000095266',

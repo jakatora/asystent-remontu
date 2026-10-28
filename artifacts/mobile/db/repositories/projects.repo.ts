@@ -90,9 +90,9 @@ export const projectsRepo = {
     return row ? fromRow(row) : null;
   },
 
-  async upsert(data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
+  async upsert(data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>, requestedId?:string): Promise<string> {
     const db = await getDb();
-    const id = generateId('proj');
+    const id = requestedId??generateId('proj');
     const now = nowISO();
     const project: Project = { ...data, id, createdAt: now, updatedAt: now };
     await db.runAsync(INSERT_SQL, toParams(project));

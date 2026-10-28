@@ -1054,7 +1054,9 @@ function ConsolidatedLineCard({ line, offers, stockUnconfirmed }: { line: Serial
         <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>{line.product.name}</Txt>
         <Txt w="bold" style={{ fontSize: 14, color: stockUnconfirmed ? Colors.warning : Colors.text }}>{stockUnconfirmed ? (language === 'pl' ? 'Sprawdź dostępność' : 'Check availability') : formatGrosze(line.lineCostGrosze)}</Txt>
       </View>
-      {stockUnconfirmed ? <Txt accessibilityRole="alert" style={{ fontSize: 13, lineHeight: 19, color: Colors.warning }}>{language === 'pl' ? 'Sklep nie potwierdził ilości wymaganej dla tego zestawu. Sprawdź dostępność przed zakupem.' : 'The store did not confirm the quantity required for this basket. Check availability before purchasing.'}</Txt> : line.packages && <PackageBreakdown packages={line.packages} unit={line.unit} totalGrosze={line.lineCostGrosze} savingsGrosze={line.savingsGrosze} />}
+      {/* Consolidated savings compare separate project purchases; they are not
+          evidence of a cheaper combination of different pack sizes. */}
+      {stockUnconfirmed ? <Txt accessibilityRole="alert" style={{ fontSize: 13, lineHeight: 19, color: Colors.warning }}>{language === 'pl' ? 'Sklep nie potwierdził ilości wymaganej dla tego zestawu. Sprawdź dostępność przed zakupem.' : 'The store did not confirm the quantity required for this basket. Check availability before purchasing.'}</Txt> : line.packages && <PackageBreakdown packages={line.packages} unit={line.unit} totalGrosze={line.lineCostGrosze} savingsGrosze={0} />}
       {line.packages?.map((entry, index) => entry.url?.startsWith('https://') ? (
         <Pressable key={`${entry.store}-${index}`} onPress={() => { void Linking.openURL(entry.url!).catch(() => {}); }} accessibilityRole="link" style={{ minHeight: 44, justifyContent: 'center', paddingVertical: 10 }}>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.primaryDark }}>{entry.store} · {t('upgrade.compare.open')}</Txt>
@@ -1070,7 +1072,7 @@ function ConsolidatedLineCard({ line, offers, stockUnconfirmed }: { line: Serial
         {!stockUnconfirmed && line.savingsGrosze > 0 && (
           <Badge
             icon="trending-down"
-            text={t('cmp.CostEstimate.savedBadge', { amount: formatGrosze(line.savingsGrosze) })}
+            text={language==='pl'?`Wspólne opakowania: oszczędzasz ${formatGrosze(line.savingsGrosze)}`:`Shared packs: save ${formatGrosze(line.savingsGrosze)}`}
             color={Colors.success}
             bg={Colors.successBg}
           />

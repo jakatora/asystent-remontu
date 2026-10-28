@@ -1,15 +1,49 @@
 {
-  "checkedAt": "2026-10-28T20:05:30.587Z",
-  "scope": "Same65 saved measurement maps; no automatic C2-to-C3 substitution or new confirmation. One separate current C3 reference/offer/photo is now explicitly selectable. Full selected ceiling and consolidation checks recorded separately in7 production cases.",
-  "total": 167,
-  "verifiedProducts": 160,
+  "checkedAt": "2026-10-28T21:14:54.962Z",
+  "scope": "Same65 saved measurement maps. Historical plastering now explicitly requires product/substrate, reinforcement and corner measurements; prior assumed plaster/corner quantities are not treated as confirmed. New explicit choices and eight real production HTTP cases recorded separately.",
+  "total": 169,
+  "verifiedProducts": 162,
   "remaining": 7,
-  "offers": 205,
+  "offers": 207,
   "stores": 51,
-  "productsWithPhotos": 167,
-  "registeredOffers": 211,
+  "productsWithPhotos": 169,
+  "registeredOffers": 213,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-plaster-mesh-knauf-profix-50m2",
+      "productLabel": "Siatka tynkarska Knauf Profix 100 cm × 50 m (50 m²)",
+      "ean": "5902367201067",
+      "materialType": "plaster-mesh",
+      "packageSize": 50,
+      "packageUnit": "m2",
+      "status": "verified_offer",
+      "sourceIds": [
+        "realbud-knauf-profix-50m2"
+      ],
+      "referenceUrl": "https://realbud.com/pl/p/Siatka-tynkarska-Knauf-PROFIX-szer.-1000-mm-oczko-10x10-mm-50-mb/75057500",
+      "photoUrl": "https://media.knauf.com/a/TFdoGC4qvRKYeSJCpxp78W?fit=wrap&fmt=webp&hei=400&wid=632",
+      "checkedAt": "2026-10-28T20:40:34.454Z",
+      "availabilityScope": "online; native whole-pack price and current national PL courier quote; branch pickup unconfirmed",
+      "photoSourceUrl": "https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120",
+      "photoScope": "Manufacturer Profix range illustration; exact 1000 mm / 50 m variant verified separately by EAN 5902367201067."
+    },
+    {
+      "id": "mat-plaster-primer-knauf-betokontakt-5kg",
+      "productLabel": "Knauf Betokontakt — grunt sczepny 5 kg",
+      "ean": "4006379051014",
+      "materialType": "plaster-primer",
+      "packageSize": 5,
+      "packageUnit": "kg",
+      "status": "verified_offer",
+      "sourceIds": [
+        "realbud-knauf-betokontakt-5kg"
+      ],
+      "referenceUrl": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1",
+      "checkedAt": "2026-10-28T20:40:34.364Z",
+      "availabilityScope": "online; native whole-pack price and current national PL courier quote; branch pickup unconfirmed"
+    },
     {
       "id": "mat-profile-ud30-norgips-super-c3-3m",
       "productLabel": "Profil Norgips UD 30 SUPER C3, 0,6 mm, 3 m (EAN 1197)",
@@ -4375,10 +4409,10 @@
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T20:05:30.587Z",
-    "pricedLines": 85,
-    "totalLines": 250,
-    "unpricedLines": 165,
+    "checkedAt": "2026-10-28T21:14:54.962Z",
+    "pricedLines": 84,
+    "totalLines": 251,
+    "unpricedLines": 167,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json"
   },
@@ -4471,6 +4505,14 @@
       "verifiedProducts": 159,
       "remaining": 7,
       "offers": 204,
+      "stores": 51
+    },
+    {
+      "checkedAt": "2026-10-28T20:05:30.587Z",
+      "total": 167,
+      "verifiedProducts": 160,
+      "remaining": 7,
+      "offers": 205,
       "stores": 51
     }
   ],

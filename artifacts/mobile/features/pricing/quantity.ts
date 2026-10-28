@@ -1,3 +1,4 @@
+import {PLASTER_JOB,PLASTER_MODEL,plasterMaterials,plasterReference} from '@/features/calculator/plastering';
 import {WINDOW_JOB,WINDOW_MODEL,windowMaterials,windowReference} from '@/features/calculator/windowSealing';
 import {SKIRTING_JOB,SKIRTING_MODEL,skirtingMaterials,skirtingReference} from '@/features/calculator/skirting';
 import { WATERPROOFING_JOB, WATERPROOFING_MODEL, waterproofingMaterials, waterproofingReference } from '@/features/calculator/waterproofing';
@@ -91,6 +92,11 @@ export function resolveMaterialQuantity(
     const source = definition && calc.materials.find(row => row.material.id === definition.id);
     if (!source || source.quantityKnown === false || !('ean' in source.material) || source.material.ean !== definition!.ean || normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
     const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
+  if(calc.jobId===PLASTER_JOB){
+    const definition=plasterMaterials(calc.measurements).find(row=>plasterReference(row.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(row=>row.material.id===definition.id);
+    if(calc.quantityModel!==PLASTER_MODEL||!source||source.quantityKnown===false||!definition?.ean||!('ean'in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit))return null;
+    const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
   }
   if (isWallpaperAdhesiveJob(calc.jobId) && ref.materialType === 'wallpaper') {
     const source = calc.materials.find(line => line.material.id === 'wallpaper');

@@ -1,3 +1,4 @@
+import {plasterInputs,plasterMaterials} from '@/features/calculator/plastering';
 import { removalMaterials, removalInputs } from '@/features/calculator/wallpaperRemoval';
 import { wallpaperRollInputs } from '@/features/calculator/wallpaperRolls';
 import { wallpaperAdhesiveInputs } from '@/features/calculator/wallpaperAdhesive';
@@ -558,6 +559,8 @@ export const wallpaperRemoveJob: RenovationJob = {
 // Materiały bazowe (tynk + grunt/kontakt + narożnik) mają realne EAN w katalogu cen
 // (data/prices/materials.ts) i mapowanie tierów w data/prices/mappings.ts.
 
+// source: https://knauf.com/pl-PL/p/produkt/knauf-mp-75-10256_0120
+// source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
 export const wallPlasteringJob: RenovationJob = {
   id: 'wall-plastering',
   slug: 'tynkowanie-scian',
@@ -566,9 +569,9 @@ export const wallPlasteringJob: RenovationJob = {
   name: 'Tynkowanie ścian',
   shortDescription: 'Wykonaj tynk bazowy na surowym murze — gipsowy lub cementowo-wapienny.',
   description:
-    'Tynk bazowy wyrównuje surowe ściany (cegła, pustak, beton komórkowy, beton) i tworzy nośne podłoże pod gładź, malowanie, tapetę lub płytki. Do wyboru: tynk gipsowy (maszynowy MP 75 lub ręczny Goldband) — szybki, gładki, do pomieszczeń suchych i o wilgotności do 70%; albo tynk cementowo-wapienny (Baumit MPI 25) — trwalszy, do pomieszczeń wilgotnych i mocno obciążonych. Kluczowe: grunt/kontakt dobrany do podłoża, narożniki na krawędziach zewnętrznych i ściąganie łatą h.',
+    'Tynk bazowy wyrównuje surowe ściany (cegła, pustak, beton komórkowy, beton) i tworzy nośne podłoże pod gładź, malowanie, tapetę lub płytki. Do wyboru: tynk gipsowy (maszynowy MP 75 lub ręczny Goldband), także do zwykle użytkowanych kuchni i łazienek przy wilgotności do 70%; albo cementowo-wapienny Baumit MPI 25 do odpowiednich warunków pomieszczenia. Strefy narażone na wodę wymagają dobranej hydroizolacji. Kluczowe: grunt/kontakt dobrany do podłoża, narożniki na krawędziach zewnętrznych i ściąganie łatą h.',
   beginnerFriendlyDescription:
-    'To pierwsza gruba warstwa na gołej ścianie — wyrównuje krzywizny i daje równe podłoże. Tynk gipsowy jest łatwiejszy i gładszy (pokoje suche), cementowo-wapienny twardszy i odporny na wilgoć (łazienka, garaż). Duże powierzchnie tynku maszynowego robi ekipa z agregatem — sam poradzisz sobie z gładzią ręczną na mniejszych ścianach i ościeżach.',
+    'To pierwsza gruba warstwa na gołej ścianie — wyrównuje krzywizny i daje równe podłoże. Wybierz konkretny tynk według podłoża, wilgotności i wykończenia. Gipsowy Knauf jest dopuszczony również w zwykle użytkowanych kuchniach i łazienkach przy wilgotności do 70%. Tynkowanie dużych powierzchni agregatem powierz ekipie; do pracy ręcznej dobierz tynk ręczny, np. Goldband. Gładź jest osobnym, cieńszym etapem wykończenia.',
   difficulty: 'hard',
   riskLevel: 'low',
   estimatedDays: 2,
@@ -576,8 +579,8 @@ export const wallPlasteringJob: RenovationJob = {
   visibilityMode: 'caution',
   coverIcon: 'layers',
   warningRules: [
-    { condition: 'always', message: 'Tynk gipsowy tylko w pomieszczeniach o wilgotności do 70% — w łazience z natryskiem, garażu i piwnicy użyj tynku cementowo-wapiennego.', level: 'warning' },
-    { condition: 'always', message: 'Dobierz grunt do podłoża: chłonny mur → grunt głęboko penetrujący; gładki beton → kontakt z piaskiem kwarcowym (np. Cerplast). Bez gruntu tynk odpada lub pęka.', level: 'warning' },
+    { condition: 'always', message: 'Dobierz tynk do wilgotności i wykończenia. Knauf dopuszcza gipsowe także w zwykle użytkowanych kuchniach i łazienkach przy wilgotności do 70%; strefy narażone na wodę wymagają odpowiedniego systemu hydroizolacji.', level: 'warning' },
+    { condition: 'always', message: 'Dobierz przygotowanie do konkretnego tynku i podłoża. Betokontakt dotyczy niechłonnego betonu pod gipsowe Knauf; chłonny mur oraz system Baumit wymagają osobnego doboru według karty producenta.', level: 'warning' },
     { condition: 'large-area', message: 'Tynk maszynowy na dużych powierzchniach wymaga agregatu i wprawy — przy >30 m² rozważ ekipę tynkarską.', level: 'info' },
     { condition: 'always', message: 'Pył gipsowy i praca z agregatem — używaj maski P2 i okularów, wietrz pomieszczenie.', level: 'warning' },
   ],
@@ -586,62 +589,11 @@ export const wallPlasteringJob: RenovationJob = {
       placeholder: 'np. 40', min: 1, max: 500,
       hint: 'Długość × wysokość każdej ściany. Zsumuj wszystkie. Odejmij okna i drzwi.' },
     { id: 'plasterThickness', label: 'Średnia grubość tynku', unit: 'mm', inputType: 'length',
-      placeholder: '10', defaultValue: 10, min: 6, max: 30, required: false,
-      hint: 'Tynk gipsowy zwykle 8–15 mm, cementowo-wapienny 10–20 mm. Na krzywych ścianach więcej.' },
+      placeholder: '10', defaultValue: 10, min: 8, max: 30, required: false,
+      hint: 'Średnia grubość według pomiarów. Gipsowe w tym kalkulatorze: 8–30 mm; Baumit MPI 25 na ścianie: 10–25 mm. Grubości poza zakresem wymagają osobnego doboru.' },
+    ...plasterInputs,
   ],
-  materials: [
-    {
-      id: 'plaster-base',
-      name: 'Tynk bazowy (gipsowy maszynowy)',
-      brand: 'Knauf MP 75 25 kg (referencja)',
-      unit: 'kg',
-      formulaKey: 'plaster',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 25, label: 'worek 25 kg', purchaseUnit: 'worek' },
-      pricePerUnit: 1.02,
-      category: 'tynk',
-      notes: 'Gips maszynowy MP 75 lub ręczny Goldband (pomieszczenia suche). W pomieszczeniach wilgotnych — tynk cementowo-wapienny (Baumit MPI 25), zużycie ok. 14 kg/m²/10 mm.',
-    },
-    {
-      id: 'plaster-primer',
-      name: 'Grunt / kontakt pod tynk',
-      brand: 'Atlas Cerplast 15 kg (referencja)',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      roundingRule: 'ceil',
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 15,
-      category: 'grunt',
-      notes: 'Kontakt z piaskiem kwarcowym (Cerplast) na gładki beton; grunt głęboko penetrujący na chłonny mur. Zawsze przed tynkowaniem.',
-    },
-    {
-      id: 'plaster-corner',
-      name: 'Narożnik tynkarski aluminiowy z siatką',
-      unit: 'm',
-      formulaKey: 'byPerimeter',
-      wasteFactor: 1.05,
-      roundingRule: 'ceil',
-      packaging: { size: 2.5, label: 'listwa 2,5 mb', purchaseUnit: 'listwa' },
-      pricePerUnit: 7.39,
-      category: 'akcesoria',
-      notes: 'Na zewnętrzne krawędzie (ościeża, słupki). Chroni narożnik i wyznacza płaszczyznę tynku.',
-    },
-    {
-      id: 'plaster-mesh',
-      name: 'Siatka tynkarska / taśma zbrojąca',
-      unit: 'm²',
-      formulaKey: 'byArea',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 50, label: 'rolka 50 m²', purchaseUnit: 'rolka' },
-      pricePerUnit: 2,
-      category: 'wzmocnienie',
-      optional: true,
-      notes: 'Na styki różnych materiałów (mur/beton), bruzdy po instalacjach i całe ściany zagrożone pękaniem.',
-    },
-  ],
+  materials: plasterMaterials(),
   tools: [
     { id: 'plaster-mixer', name: 'Wiertarka z mieszadłem / agregat tynkarski', icon: 'settings', required: true, rentable: true, estimatedRentCostPLN: 120, notes: 'Ręcznie — mieszadło; maszynowo — agregat PFT G4 (wynajem).' },
     { id: 'plaster-hawk', name: 'Paca stalowa i kielnia', icon: 'minus', required: true, estimatedBuyCostPLN: 60 },
@@ -656,21 +608,21 @@ export const wallPlasteringJob: RenovationJob = {
     { id: 'goggles', name: 'Okulary ochronne', icon: 'eye', required: false, notes: 'Przy pracy z agregatem i nad głową.' },
   ],
   dryingTimes: [
-    { afterStep: 1, description: 'Grunt / kontakt przed tynkowaniem', minHours: 4, maxHours: 24, conditions: 'Kontakt kwarcowy schnie 4–6 h; grunt głęboko penetrujący do 24 h.' },
+    { afterStep: 1, description: 'Betokontakt przed tynkiem gipsowym Knauf', minHours: 12, maxHours: 24, conditions: 'Minimum 12 h; wilgotność i temperatura mogą wydłużyć schnięcie. Inne przygotowanie według własnej karty produktu.' },
     { afterStep: 4, description: 'Tynk gipsowy — pełne wyschnięcie', minHours: 168, maxHours: 336, conditions: 'Ok. 1 dzień na 1 mm grubości; przed gładzią/malowaniem tynk musi być suchy.' },
   ],
   instructions: [
-    { step: 1, title: 'Przygotuj podłoże i zagruntuj', description: 'Oczyść ścianę z kurzu, luźnych fragmentów i tłuszczu. Uzupełnij duże ubytki. Dobierz grunt: chłonny mur → grunt głęboko penetrujący; gładki beton → kontakt z piaskiem kwarcowym (Cerplast). Nanieś i odczekaj do wyschnięcia.', tip: 'Kontakt kwarcowy daje szorstką powierzchnię — tynk gipsowy trzyma się betonu.', durationMin: 90, surfaceMustBeDry: true },
+    { step: 1, title: 'Przygotuj podłoże i zagruntuj', description: 'Oceń nośność, chłonność i wilgotność podłoża. Usuń kurz, luźne fragmenty i pozostałości środków antyadhezyjnych. Przygotowanie dobierz do karty konkretnego tynku. Dla niechłonnego betonu pod gipsowe Knauf użyj Betokontakt; do chłonnego muru lub MPI 25 dobierz rozwiązanie osobno. Zachowaj czas schnięcia producenta.', tip: 'Kontakt kwarcowy daje szorstką powierzchnię — tynk gipsowy trzyma się betonu.', durationMin: 90, surfaceMustBeDry: true },
     { step: 2, title: 'Zamontuj narożniki i pasy kierunkowe', description: 'Na zewnętrznych krawędziach (ościeża, słupki) osadź narożniki aluminiowe z siatką w zaprawie, ustaw w pionie poziomicą. Na dużych ścianach ustaw pasy/listwy kierunkowe wyznaczające płaszczyznę i grubość tynku.', durationMin: 90 },
     { step: 3, title: 'Wymieszaj tynk', description: 'Wsyp suchą mieszankę do odmierzonej wody (nie odwrotnie) i mieszaj mieszadłem/agregatem na jednolitą masę bez grudek. Zachowaj proporcje wody z opakowania — za rzadki tynk spływa, za gęsty źle się rozprowadza.', tip: 'Gips wiąże szybko — mieszaj tyle, ile zużyjesz w czasie roboczym (ok. 30–45 min).', durationMin: 20 },
     { step: 4, title: 'Narzuć i ściągnij tynk łatą', description: 'Narzuć tynk kielnią lub agregatem między narożnikami/pasami, z lekkim naddatkiem. Ściągnij łatą h do płaszczyzny listew, ruchem zygzakowym od dołu do góry. Uzupełnij zagłębienia i ściągnij ponownie.', warning: 'Nie nakładaj grubszej warstwy niż dopuszcza producent na raz — gruby gips pęka i odpada.', durationMin: 180 },
-    { step: 5, title: 'Zwilż i zatrzyj na gładko', description: 'Gdy tynk zwiąże (matowieje, opiera się dotykowi), zwilż powierzchnię i zatrzyj pacą gąbkową/filcową ruchem kolistym, wyciągając mleczko. Na koniec wygładź pacą stalową. Gips daje powierzchnię gotową pod malowanie po gładzi.', tip: 'Moment zacierania jest krótki — pracuj partiami, testuj palcem.', durationMin: 120 },
+    { step: 5, title: 'Zwilż i zatrzyj na gładko', description: 'Obróbkę i moment zacierania dobierz do konkretnego produktu. Gips pod płytki pozostaw szorstki: nie wygładzaj ani nie zacieraj, minimum 10 mm według karty Knauf. Pod malowanie, tapetę lub gładź wykończ zgodnie z kartą tynku i wymaganiami kolejnej warstwy.', tip: 'Moment zacierania jest krótki — pracuj partiami, testuj palcem.', durationMin: 120 },
   ],
   manufacturerPriorityNote: 'Maksymalna grubość jednej warstwy, proporcje wody i czas wiązania zależą od produktu — zawsze sprawdź instrukcję na worku.',
   commonMistakes: [
     'Tynkowanie bez gruntu/kontaktu — tynk odpada od gładkiego betonu lub „pije" wodę z chłonnego muru i pęka.',
     'Za gruba warstwa na raz — tynk pęka, spływa i odspaja się.',
-    'Tynk gipsowy w mokrej łazience/garażu — chłonie wilgoć, pleśnieje; tam potrzebny cementowo-wapienny.',
+    'Dobór tynku bez oceny wilgotności, obciążeń i planowanego wykończenia; brak hydroizolacji w strefie narażonej na wodę.',
     'Brak narożników na krawędziach zewnętrznych — róg się wykrusza.',
     'Zacieranie w złym momencie — za wcześnie ciągnie, za późno nie da się zatrzeć.',
   ],
@@ -685,6 +637,10 @@ export const wallPlasteringJob: RenovationJob = {
 
   verifiedAt: '2026-08-24',
   verifiedSources: [
+    {title:'Knauf MP 75 — zastosowanie i karta systemu',url:'https://knauf.com/pl-PL/p/produkt/knauf-mp-75-10256_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
+    {title:'Knauf Goldband — zastosowanie i karta systemu',url:'https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
+    {title:'Knauf Betokontakt — grunt do betonu',url:'https://knauf.com/pl-PL/p/produkt/knauf-betokontakt-10251_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
+    {title:'Knauf Profix — siatka do tynków gipsowych',url:'https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
     {
       title:       'Tynk maszynowy Knauf MP 75 25 kg — karta produktu (zużycie, grubość, zastosowanie)',
       url:         'https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd',

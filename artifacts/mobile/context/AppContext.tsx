@@ -21,6 +21,8 @@ import type { CalculationResult } from '@/types/domain';
 import type { PriceOverride, QualityTier } from '@/types/pricing';
 import { projectsRepo } from '@/db/repositories/projects.repo';
 import { saveProjectWithReadback } from '@/features/storage/projectSave';
+import { generateId } from '@/shared/lib/id';
+import { nowISO } from '@/shared/lib/date';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import { onboardingRepo } from '@/db/repositories/onboarding.repo';
 import { photosRepo } from '@/db/repositories/photos.repo';
@@ -136,16 +138,15 @@ export function AppProvider({ children }: PropsWithChildren) {
 
   const createProject = useCallback(
     async (data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> => {
-      const id = await projectsRepo.upsert(data);
-      const created = await projectsRepo.findById(id);
-      if (created) {
-        setProjects((prev) => [upgradeProject(created), ...prev]);
-      }
-      await activityRepo.insert({
+      const id=generateId('proj'),now=nowISO();
+      const requested:Project={...data,id,createdAt:now,updatedAt:now};
+      const created=await saveProjectWithReadback(requested,{write:async()=>{await projectsRepo.upsert(data,id);},read:projectsRepo.findById});
+      setProjects((prev)=>[upgradeProject(created),...prev.filter(p=>p.id!==id)]);
+      try{await activityRepo.insert({
         projectId: id,
         actionType: 'created',
         description: `Utworzono projekt "${data.name}"`,
-      });
+      });}catch(error){console.warn('[AppContext] project created; activity log unavailable:',error);}
       return id;
     },
     []
