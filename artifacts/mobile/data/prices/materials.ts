@@ -1,6 +1,9 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg
+  // source: https://www.atlas.com.pl/wp-content/uploads/2026/08/atlas_szop_plik_karta-techniczna.pdf
+  {"id":"mat-grout-cleaner-atlas-szop-1kg","materialType":"grout-cleaner","productLabel":"Atlas SZOP — środek do pozostałości cementowych, 1 kg","brand":"Atlas","packageSize":1,"packageUnit":"kg","pricePerPackage":15,"category":"standard","storeName":"KIM24","sourceUrl":"https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg","lastUpdated":"2026-10-29","currency":"PLN","notes":"EAN 5905400990010. Butelka 1 kg, nie litr. Preparat zawiera kwas; tylko powierzchnie odporne na kwasy, po próbie w mało widocznym miejscu i z rozcieńczeniem dobranym według karty. Może wymyć lub przebarwić cementową fugę; długi kontakt z kwasem osłabia jej hydrofobowość. Nie stosować automatycznie po 24 godzinach. Zużycie zależy od zabrudzeń; liczbę butelek podaje użytkownik po ocenie. Świeżą fugę Atlas czyść wodą według jej karty."},
   // source: https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html
   // source: https://knauf.com/api/download-center/v1/assets/7639fea2-44c7-4c59-b464-b436316de77a?country=pl&download=true
   {id:'mat-plaster-primer-knauf-grundiermittel60-15kg',materialType:'plaster-primer',productLabel:'Knauf Grundiermittel 60 — koncentrat gruntujący 15 kg',brand:'Knauf',packageSize:15,packageUnit:'kg',pricePerPackage:198.99,category:'standard',storeName:'BMB Technologie',sourceUrl:'https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html',lastUpdated:'2026-10-28',currency:'PLN',notes:'EAN 5901793357799. Wiadro 15 kg koncentratu do chłonnych podłoży mineralnych wewnątrz pod tynk gipsowy Knauf. Karta 08/2026: ok. 400–450 m² z wiadra przy rozcieńczeniu 1:2 (45 l mieszanki). Kalkulator przyjmuje 400 m² jako założenie zakupowe przed zapasem; skoryguj po próbie na podłożu. Rozcieńczenie dobierz do chłonności. Minimum 12 h schnięcia przy 20°C i 50% wilgotności; chłód i wilgoć wydłużają czas. Nie stosujemy automatycznie do Baumit.'},
@@ -1374,7 +1377,8 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   },
 
   // Fuga ceramiczna Atlas 001 biała 2 kg (spoina 1–20 mm, elastyczna) — EAN 5905400572254.
-  // source: https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd (EAN 5905400572254, cena 39,98 zł/2 kg)
+  // source: https://sklep.sewera.pl/atlas-fuga-ceramiczna-001-bialy-2kg-p11674
+  // source: https://www.atlas.com.pl/wp-content/uploads/2026/08/atlas_fuga_ceramiczna_plik_karta-techniczna.pdf
   // source: https://www.obi.pl/p/6552095/atlas-fuga-ceramiczna-001-bialy-2-kg (OBI: Atlas Fuga ceramiczna 001 biały 2 kg, EAN 5905400572254)
   {
     id: 'mat-grout-atlas-001-white-2kg',
@@ -1383,13 +1387,13 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Atlas',
     packageSize: 2,
     packageUnit: 'kg',
-    pricePerPackage: 39.98,
+    pricePerPackage: 26.90,
     category: 'standard',
-    storeName: 'Castorama',
-    sourceUrl:
-      'https://www.castorama.pl/fuga-ceramiczna-atlas-001-biala-2-kg/5905400572254_CAPL.prd',
-    lastUpdated: '2026-08-23',
+    storeName: 'Sewera',
+    sourceUrl: 'https://sklep.sewera.pl/atlas-fuga-ceramiczna-001-bialy-2kg-p11674',
+    lastUpdated: '2026-10-29',
     currency: 'PLN',
+    notes: 'Atlas Fuga Ceramiczna 001 biała, worek 2 kg. Spoiny 1–20 mm. Zużycie zależy od powierzchni, formatu płytek i przekroju spoin; wzór producenta stosuje gęstość gotowej spoiny 1650 kg/m³. Rzeczywistą głębokość wypełnienia należy zmierzyć. Zmywanie wodą: wstępne ok. 10–30 min, końcowe ok. 4–8 h; pierwsze mycie detergentem po 14 dniach według karty. Kolor i partię sprawdź na próbce. Długie działanie kwasu osłabia hydrofobowość.',
   },
 
   // Krzyżyki dystansowe do płytek Hardy (KAEM) 2 mm, 200 szt. — EAN 5905061016845.

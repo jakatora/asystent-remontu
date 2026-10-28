@@ -1,4 +1,4 @@
-/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–28.
+/** Product photographs observed on the linked retail/manufacturer pages on 2026-10-24–29.
  * Match by stable catalogue ID, EAN or exact source URL, never by fuzzy name.
  */
 interface ProductPhoto {
@@ -12,6 +12,8 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798
+  {"ids":["mat-grout-cleaner-atlas-szop-1kg"],"ean":"5905400990010","sourceUrl":"https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798","imageUrl":"https://sklep.sewera.pl/photo/92647/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg.webp"},
   // source: https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html
   {ids:['mat-plaster-primer-knauf-grundiermittel60-15kg'],ean:'5901793357799',sourceUrl:'https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html',imageUrl:'https://bmbtechnologie.pl/files/fotom/product-5454.png?ts=1649861303'},
   // source: https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350

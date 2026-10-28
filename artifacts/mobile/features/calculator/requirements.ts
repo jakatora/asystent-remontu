@@ -1,3 +1,4 @@
+import {GROUT_ONLY_MODEL,isGroutOnlyMaterial,groutOnlyQuantity} from './groutOnly';
 import {PLASTER_MODEL,isPlasterMaterial,plasterQuantity} from './plastering';
 import {WINDOW_JOB, WINDOW_MODEL, isWindowMaterial, windowMaterials, windowQuantity} from './windowSealing';
 import { SKIRTING_JOB, SKIRTING_MODEL, isSkirtingMaterial, skirtingMaterials, skirtingQuantity } from './skirting';
@@ -21,6 +22,7 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===GROUT_ONLY_MODEL&&isGroutOnlyMaterial(calc.jobId,line.material.id))return groutOnlyQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===PLASTER_MODEL&&isPlasterMaterial(calc.jobId,line.material.id))return plasterQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===WINDOW_MODEL&&isWindowMaterial(calc.jobId,line.material.id))return windowQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SKIRTING_MODEL&&isSkirtingMaterial(calc.jobId,line.material.id))return skirtingQuantity(line.material.id,calc.measurements)??0;

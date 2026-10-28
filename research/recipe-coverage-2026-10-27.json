@@ -1,18 +1,18 @@
 {
-  "checkedAt": "2026-10-28T22:34:38.267Z",
-  "scope": "Same65 saved measurement maps:84/251 priced requirements, not unique product counts. New explicit Grundiermittel60 substrate choices are verified separately in10 actual production HTTP cases; old unconfirmed choices are not silently changed.",
+  "checkedAt": "2026-10-28T23:30:35.271Z",
+  "scope": "Same65 saved measurement maps:82/251 priced requirements,169 unresolved, not169 unique products. The two fewer priced requirements are the old grout-only generic grout and assumed silicone: actual depth, selected exact colour and measured joints are now required. Optional cleaner decision is explicit. New measured grout scenarios are verified separately in12 real production HTTP cases; unconfirmed historic data is not silently filled.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 251,
     "beforePriced": 84,
     "afterLines": 251,
-    "afterPriced": 84,
-    "afterUnpriced": 167,
+    "afterPriced": 82,
+    "afterUnpriced": 169,
     "fullyPricedScenarios": 11,
     "reasons": {
-      "no-query": 94,
-      "no-product": 72,
+      "no-query": 97,
+      "no-product": 71,
       "no-offer": 1
     }
   },
@@ -375,6 +375,24 @@
     },
     {
       "checkedAt": "2026-10-28T21:51:09.056Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 251,
+        "beforePriced": 84,
+        "afterLines": 251,
+        "afterPriced": 84,
+        "afterUnpriced": 167,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 94,
+          "no-product": 72,
+          "no-offer": 1
+        }
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T22:34:38.267Z",
       "summary": {
         "registeredJobs": 66,
         "auditedJobs": 65,

@@ -1,3 +1,4 @@
+import {groutOnlyInputs,groutOnlyMaterials} from '@/features/calculator/groutOnly';
 import { waterproofingInputs, waterproofingMaterials } from '@/features/calculator/waterproofing';
 import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
@@ -256,74 +257,30 @@ export const groutJob: RenovationJob = {
   visibilityMode: 'safe_diy',
   coverIcon: 'grid',
   warningRules: [
-    { condition: 'always', message: 'Klej do płytek musi być całkowicie suchy przed fugowaniem — minimum 24 godziny.', level: 'warning' },
-    { condition: 'always', message: 'W narożnikach ściana-podłoga i ściana-ściana zawsze używaj silikonu, nie fugi.', level: 'info' },
+    { condition: 'always', message: 'Fuguj po stwardnieniu kleju, w terminie wskazanym w jego karcie. Usuń krzyżyki i resztki kleju ze spoin do jednakowej głębokości.', level: 'warning' },
+    { condition: 'always', message: 'Narożniki, dylatacje i połączenia z sanitariatami wymagają odpowiedniego uszczelnienia elastycznego. Dobierz silikon do powierzchni; nie zastępuj nim hydroizolacji.', level: 'info' },
   ],
-  measurementInputs: [
-    { id: 'wallArea', label: 'Łączna powierzchnia płytek', unit: 'm²', inputType: 'area',
-      placeholder: 'np. 10', min: 1, max: 300,
-      hint: 'Powierzchnia ścian lub podłogi z płytkami.' },
-    { id: 'tileWidthCm', label: 'Szerokość płytki', unit: 'cm', inputType: 'dimension',
-      placeholder: '30', defaultValue: 30, min: 5, max: 120, required: false },
-    { id: 'tileHeightCm', label: 'Długość/wysokość płytki', unit: 'cm', inputType: 'dimension',
-      placeholder: '30', defaultValue: 30, min: 5, max: 120, required: false },
-    { id: 'groutWidthMm', label: 'Szerokość spoiny', unit: 'mm', inputType: 'dimension',
-      placeholder: '3', defaultValue: 3, min: 1, max: 10, required: false },
-  ],
-  materials: [
-    {
-      id: 'grout',
-      name: 'Fuga cementowa do płytek',
-      brand: 'Atlas Fuga ceramiczna 2 kg (referencja)',
-      unit: 'kg',
-      formulaKey: 'grout',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 2, label: 'worek 2 kg', purchaseUnit: 'worek' },
-      pricePerUnit: 18,
-      category: 'fuga',
-      notes: 'Do spoin wąskich (1–6 mm) — fuga cementowa drobnoziarnista. Kolor dobierz do płytek.',
-      shopPrices: SHARED_SHOP_PRICES.tileGroutAtlas2kg,
-    },
-    {
-      id: 'silicone-grout',
-      name: 'Silikon sanitarny (narożniki)',
-      brand: 'Soudal Silikon sanitarny biały 280 ml (referencja)',
-      unit: 'kartusze',
-      formula: formulaBuilder.siliconeTubes(6, 'perimeter'),
-      pricePerUnit: 18,
-      category: 'uszczelnienie',
-      notes: 'Użyj silikonu zamiast fugi we wszystkich narożnikach i przy wannie/brodziku.',
-      shopPrices: SHARED_SHOP_PRICES.siliconeSanitary280ml,
-    },
-    {
-      id: 'grout-cleaner',
-      name: 'Środek do czyszczenia fugi (po 24h)',
-      unit: 'szt.',
-      formula: formulaBuilder.fixed(1),
-      pricePerUnit: 15,
-      category: 'chemia',
-      optional: true,
-      notes: 'Usuwa nalot fugi z powierzchni płytek po wyschnięciu.',
-    },
-  ],
+  measurementInputs: groutOnlyInputs,
+  materials: groutOnlyMaterials(),
   tools: [
     { id: 'rubber-float-grout', name: 'Paca gumowa do fugowania', icon: 'minus', required: true, estimatedBuyCostPLN: 20 },
     { id: 'sponge-grout', name: 'Gąbka do czyszczenia', icon: 'circle', required: true },
     { id: 'bucket-grout', name: 'Wiadro z czystą wodą', icon: 'circle', required: true },
     { id: 'caulk-gun-grout', name: 'Pistolet do silikonu', icon: 'tool', required: true },
   ],
+  // source: https://www.atlas.com.pl/wp-content/uploads/2026/08/atlas_fuga_ceramiczna_plik_karta-techniczna.pdf
+  // source: https://www.atlas.com.pl/wp-content/uploads/2026/08/atlas_szop_plik_karta-techniczna.pdf
   instructions: [
-    { step: 1, title: 'Usuń krzyżyki', description: 'Usuń wszystkie krzyżyki dystansowe. Sprawdź czy klej jest w pełni suchy.', durationMin: 20 },
-    { step: 2, title: 'Wymieszaj fugę', description: 'Dodaj suchą fugę do wody (nie odwrotnie!) i wymieszaj na jednolitą pastę. Konsystencja jak gęsty krem.', durationMin: 10 },
-    { step: 3, title: 'Nałóż fugę', description: 'Pacą gumową wciśnij fugę w spoiny pod kątem 45° do płytek. Pracuj ukośnie do spoin — lepiej wypełnia. Nanieś fugę na ok. 1 m², potem oczyść.', durationMin: 60 },
-    { step: 4, title: 'Oczyść po 15–20 min', description: 'Wilgotną gąbką zetrzyj nadmiar fugi z powierzchni płytek. Płukaj gąbkę często i zmieniaj wodę.', tip: 'Nie czekaj za długo — fuga zaschnie na płytkach.', durationMin: 40 },
-    { step: 5, title: 'Nałóż silikon w narożnikach', description: 'W narożnikach ściana-podłoga nanieś silikon zamiast fugi. Wygładź palcem, zdejmij taśmę.', durationMin: 30 },
-    { step: 6, title: 'Poleruj po 24 godzinach', description: 'Suchą szmatką wypoleruj powierzchnię płytek — zniknie nalot fugi.', durationMin: 20 },
+    {step: 1, title: 'Przygotuj spoiny i sprawdź kolor', description: 'Zaczekaj na stwardnienie kleju według jego karty. Usuń krzyżyki i klej ze spoin do jednakowej głębokości. Sprawdź kolor na próbce oraz zgodność partii fugi.', durationMin: 20},
+    {step: 2, title: 'Przygotuj wybraną fugę', description: 'Dla Atlas Fuga Ceramiczna odmierz wodę według aktualnej karty i masy proszku. Wymieszaj, odczekaj i ponownie wymieszaj według instrukcji. Zachowaj jednakowe proporcje w kolejnych partiach.', durationMin: 10},
+    {step: 3, title: 'Dokładnie wypełnij spoiny', description: 'Pacą gumową wprowadź fugę głęboko i szczelnie, prowadząc pacę ukośnie do spoin. Dostosuj wielkość obszaru pracy do czasu zmywania i warunków w pomieszczeniu.', durationMin: 60},
+    {step: 4, title: 'Wstępnie zmyj wodą', description: 'Dla wybranej fugi Atlas: po około 10–30 minutach użyj wilgotnej gąbki. Czas zależy od warunków i płytek. Często płucz gąbkę i zmieniaj wodę; nie wymywaj spoin.', durationMin: 40},
+    {step: 5, title: 'Wykonaj końcowe czyszczenie', description: 'Dla wybranej fugi Atlas: końcowe mycie czystą wodą po około 4–8 godzinach. Pierwsze mycie detergentem dopiero po 14 dniach według karty. Preparat kwaśny SZOP nie jest automatycznym etapem po 24 h: sprawdź odporność płytek, zrób próbę i zastosuj właściwe rozcieńczenie, chroniąc cementowe spoiny.', durationMin: 20},
+    {step: 6, title: 'Uszczelnij połączenia elastyczne', description: 'Przygotuj czyste i suche połączenia oraz dobierz silikon do materiału podłoża. Zachowaj geometrię, podparcie i czas utwardzania z karty wybranego silikonu przed użytkowaniem.', durationMin: 30},
   ],
   dryingTimes: [
-    { afterStep: 5, description: 'Fuga cementowa — użytkowanie', minHours: 24, maxHours: 48 },
-    { afterStep: 5, description: 'Silikon sanitarny', minHours: 24, maxHours: 48 },
+    {afterStep: 3, description: 'Atlas Fuga Ceramiczna — lekki ruch pieszy w warunkach karty (23°C, 55% RH)', minHours: 6, maxHours: 8},
+    {afterStep: 3, description: 'Atlas Fuga Ceramiczna — pełne obciążenie mechaniczne w warunkach karty, około 24 h', minHours: 24, maxHours: 24},
   ],
   cleanupSteps: [
     'Natychmiast umyj pacę gumową i wiadro — fuga zaschnie w narzędziach.',
@@ -339,8 +296,10 @@ export const groutJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['fuga', 'fugowanie', 'płytki', 'łazienka'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-10-29',
   verifiedSources: [
+    {title: 'Atlas Fuga Ceramiczna — aktualna karta techniczna', url: 'https://www.atlas.com.pl/wp-content/uploads/2026/08/atlas_fuga_ceramiczna_plik_karta-techniczna.pdf', domain: 'atlas.com.pl', consultedAt: '2026-10-29'},
+    {title: 'Atlas SZOP — karta techniczna', url: 'https://www.atlas.com.pl/wp-content/uploads/2026/08/atlas_szop_plik_karta-techniczna.pdf', domain: 'atlas.com.pl', consultedAt: '2026-10-29'},
     {
       title:       'Fugowanie płytek. Bezbłędne spoinowanie krok po kroku',
       url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/fugowanie-plytek-bezbledne-spoinowanie-krok-po-kroku-aa-orPn-4jeQ-rzYf.html',

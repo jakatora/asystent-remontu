@@ -1,3 +1,4 @@
+import {GROUT_ONLY_JOB,GROUT_ONLY_MODEL,isGroutOnlyMaterial,groutOnlyMaterials,groutOnlyQuantity,groutOnlyExplanation} from './groutOnly';
 import {PLASTER_JOB,PLASTER_MODEL,isPlasterMaterial,plasterMaterials,plasterQuantity} from './plastering';
 import {WINDOW_JOB, WINDOW_MODEL, isWindowMaterial, windowMaterials, windowQuantity} from './windowSealing';
 import { SKIRTING_JOB, SKIRTING_MODEL, isSkirtingMaterial, skirtingMaterials, skirtingQuantity } from './skirting';
@@ -81,6 +82,7 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isGroutOnlyMaterial(jobId,material.id)){const required=groutOnlyQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if(jobId&&isPlasterMaterial(jobId,material.id)){const required=plasterQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if (jobId && isWindowMaterial(jobId, material.id)) {
     const required=windowQuantity(material.id,measurements),rawQuantity=required??0;
@@ -197,6 +199,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id===GROUT_ONLY_JOB?{quantityModel:GROUT_ONLY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===PLASTER_JOB?{quantityModel:PLASTER_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isGypsumJob(job.id)?{quantityModel:GYPSUM_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isFrameJob(job.id)?{quantityModel:FRAME_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -248,6 +251,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id===GROUT_ONLY_JOB?{quantityModel:GROUT_ONLY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===PLASTER_JOB?{quantityModel:PLASTER_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isGypsumJob(job.id)?{quantityModel:GYPSUM_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isFrameJob(job.id)?{quantityModel:FRAME_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -281,6 +285,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(job.id===GROUT_ONLY_JOB)material=groutOnlyMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===PLASTER_JOB)material=plasterMaterials(measurements).find(r=>r.id===material.id)??material;
       if (job.id === WINDOW_JOB) material = windowMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === SKIRTING_JOB) material = skirtingMaterials(measurements).find(row => row.id === material.id) ?? material;
@@ -309,6 +314,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(job.id===GROUT_ONLY_JOB)material=groutOnlyMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===PLASTER_JOB)material=plasterMaterials(measurements).find(r=>r.id===material.id)??material;
       if (job.id === WINDOW_JOB) material = windowMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === SKIRTING_JOB) material = skirtingMaterials(measurements).find(row => row.id === material.id) ?? material;
@@ -340,7 +346,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = isWindowMaterial(job.id,material.id) ? {
+      const explanation = isGroutOnlyMaterial(job.id,material.id) ? groutOnlyExplanation(material.id,measurements,rawQuantity,packs,material.unit) : isWindowMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Wybierz zakres naprawy i uzupełnij dobór lub ilość w obmiarach.':rawQuantity===0?'Zakup pominięty w wybranym zakresie lub potwierdzono posiadanie.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions:[material.notes??'',`Zapas akrylu lub długości taśmy: ${measurements.windowReservePercent??10}%. Puszki pianki i rolki taśmy maskującej liczone oddzielnie.`,'Wspólny koszyk sumuje surowe zapotrzebowanie tego samego produktu przed doborem opakowań.'],
       } : isWallpaperAdhesive(job.id,material.id) ? {text:quantityKnown===false?'Wybierz rodzaj tapety zgodny z kartą producenta.':`${rawQuantity} g suchego kleju → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Zapas z obmiarów. Gramy tego samego kleju sumujemy między pracami przed doborem opakowań.']} : isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {

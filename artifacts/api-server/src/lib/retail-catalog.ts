@@ -1188,10 +1188,15 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html
   // source: https://knauf.com/pl-PL/p/produkt/knauf-grundiermittel-60-28517_0120
   {id:'bmb-knauf-grundiermittel60-15kg',ean:'5901793357799',name:'Środek gruntujący Knauf Grundiermittel 60 15KG',brand:'Knauf',category:'plaster-primer',packageSize:15,unit:'kg',store:'BMB Technologie',format:'bmb',productId:5454,retailerSku:'5901793357799',apiPurchaseUnit:'szt.',pickupRequiresConfirmation:true,url:'https://bmbtechnologie.pl/grunty-do-tynkowania/srodek-gruntujacy-knauf-grundiermittel-60-15kg.html',imageUrl:'https://bmbtechnologie.pl/files/fotom/product-5454.png?ts=1649861303'},
+  // source: https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798
+  {"id":"sewera-atlas-szop-1kg","ean":"5905400990010","name":"Atlas Szop środek do usuwania zabrudzeń cementowych i wapiennych 1kg","category":"grout-cleaner","brand":"Atlas","packageSize":1,"unit":"kg","store":"Sewera","format":"sewera","url":"https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798"},
+  // source: https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg
+  {"id":"kim-atlas-szop-1kg","ean":"5905400990010","name":"Środek do usuwania zabrudzeń cementowych i wapiennych Atlas Szop  1 Kg","category":"grout-cleaner","brand":"Atlas","packageSize":1,"unit":"kg","store":"KIM24","format":"shoper-api","productId":13906,"retailerSku":"BSZA1IMSZOP01","apiPurchaseUnit":"szt.","variant":["1 kg"],"url":"https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg","imageUrl":"https://kim24.pl/environment/cache/images/productGfx_32646_800_800/atlas-szop.webp"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Atlas SZOP — środek do pozostałości cementowych, 1 kg':'5905400990010',
   'Knauf Grundiermittel 60 — koncentrat gruntujący 15 kg':'5901793357799',
   "Knauf Betokontakt — grunt sczepny 5 kg": "4006379051014",
   "Siatka tynkarska Knauf Profix 100 cm × 50 m (50 m²)": "5902367201067",

@@ -1,3 +1,4 @@
+import {groutOnlyInputVisible} from '@/features/calculator/groutOnly';
 import {windowInputVisible} from '@/features/calculator/windowSealing';
 import {plasterInputVisible} from '@/features/calculator/plastering';
 import type { RenovationJob } from '@/types/domain';
@@ -8,7 +9,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   const values: Record<string, number> = {};
   const errors: { label: string; id: string; min?: number; max?: number }[] = [];
   for (const input of job.measurementInputs) {
-    if (!frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
+    if (!groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
     if (!text && input.defaultValue === undefined && input.required === false) continue;
     const value = text ? parseDecimal(text) : input.defaultValue;

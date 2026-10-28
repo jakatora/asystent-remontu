@@ -1,15 +1,33 @@
 {
-  "checkedAt": "2026-10-28T22:34:38.267Z",
-  "scope": "170 exact catalogue references audited through production HTTP. Same65 saved measurement maps remain separately tracked; new explicit absorbent-wall scenarios have10 additional actual production HTTP cases. No overall app completion percentage is implied.",
-  "total": 170,
-  "verifiedProducts": 163,
+  "checkedAt": "2026-10-28T23:30:35.271Z",
+  "scope": "171 exact references audited through production HTTP:164 with active offers and7 historic exact identities unresolved. Measured grout-only is now complete with12 additional actual production cases. Same65 historical measurement maps separately audited; no overall completion percentage implied.",
+  "total": 171,
+  "verifiedProducts": 164,
   "remaining": 7,
-  "offers": 209,
+  "offers": 211,
   "stores": 52,
-  "productsWithPhotos": 170,
-  "registeredOffers": 215,
+  "productsWithPhotos": 171,
+  "registeredOffers": 217,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-grout-cleaner-atlas-szop-1kg",
+      "productLabel": "Atlas SZOP — środek do pozostałości cementowych, 1 kg",
+      "ean": "5905400990010",
+      "materialType": "grout-cleaner",
+      "packageSize": 1,
+      "packageUnit": "kg",
+      "status": "verified_offer",
+      "sourceIds": [
+        "sewera-atlas-szop-1kg",
+        "kim-atlas-szop-1kg"
+      ],
+      "referenceUrl": "https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg",
+      "photoUrl": "https://sklep.sewera.pl/photo/92647/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg.webp",
+      "photoSourceUrl": "https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798",
+      "checkedAt": "2026-10-28T23:30:35.271Z",
+      "availabilityScope": "Sewera exact postcode quote, KIM24 national PL courier tariff;1kg bottle; optional explicit purchase after compatibility check. No per-area consumption assumed."
+    },
     {
       "id": "mat-plaster-primer-knauf-grundiermittel60-15kg",
       "productLabel": "Knauf Grundiermittel 60 — koncentrat gruntujący 15 kg",

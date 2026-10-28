@@ -91,7 +91,7 @@ test('sufficient same-product leftovers cover raw demand; another model, unit or
 });
 
 test('existing explicitly identified cartridge allowances become 280ml only for their exact reviewed product',()=>{
-  for(const[jobId,id]of [['wall-tiles-bathroom','wall-silicone'],['grout-only','silicone-grout'],['toilet-installation','wc-silicone'],['kitchen-countertop','countertop-silicone']]){
+  for(const[jobId,id]of [['wall-tiles-bathroom','wall-silicone'],['toilet-installation','wc-silicone'],['kitchen-countertop','countertop-silicone']]){
     const c=calculatorEngine.calculate(getJobById(jobId)!,{wallArea:10,linearMeters:10,toiletCount:1}),line=c.materials.find(row=>row.material.id===id)!;
     for(const tier of ['economy','standard','better'] as const){const input=toPricingStageInput(c,tier).materials.find(row=>row.material.id===id)!;assert.equal(input.material.unit,'ml');assert.equal(input.quantity,line.rawQuantity!*280);}
     const ref=getMaterialsForJob(jobId,'standard',c.measurements).find(row=>row.id==='mat-sanitary-silicone-soudal-280ml')!;
