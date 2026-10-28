@@ -51,6 +51,8 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html
   {"ids":["mat-profile-uw50-norgips-super-06-3m"],"ean":"5907651698547","sourceUrl":"https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html","imageUrl":"https://media.adeo.com/media/3191881/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds"},
   // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html
+  {ids:['mat-profile-ud30-norgips-super-c3-3m'],ean:'5907651691197',sourceUrl:'https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html',imageUrl:'https://media.adeo.com/media/3196086/media.png'},
+  // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html
   {"ids":["mat-profile-ud30-norgips-06-3m"],"ean":"5907651698905","sourceUrl":"https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html","imageUrl":"https://media.adeo.com/media/3196086/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds"},
   // source: https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html
   {"ids":["mat-gypsum-hanger-norgips-es6075"],"ean":"5907651699650","sourceUrl":"https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html","imageUrl":"https://media.adeo.com/media/2629673/media.jpg"},

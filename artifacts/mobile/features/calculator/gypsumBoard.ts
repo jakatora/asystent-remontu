@@ -25,6 +25,7 @@ const EANS: Record<string,string> = {
   'mat-profile-cw50-norgips-06-3m-retail':'5907651698912',
   'mat-profile-uw50-norgips-super-06-3m':'5907651698547',
   'mat-profile-ud30-norgips-06-3m':'5907651698905',
+  'mat-profile-ud30-norgips-super-c3-3m':'5907651691197',
   'mat-gypsum-paper-norgips-50x75':'5907651699933',
   'mat-gypsum-fleece-norgips-50x25':'5907651699926',
   'mat-gypsum-acoustic-norgips-50x30':'5907651698004',
@@ -40,13 +41,14 @@ export function gypsumReference(id: string, m: MeasurementMap = {}): string | nu
   if (id === 'gk-filler' || id === 'ceiling-filler') return FILLER;
   if (id === 'mineral-wool') return WOOL;
   if (id === 'profile-cd') return (m.gypsumCdProfile??0)===0 ? 'mat-profile-cd60-norgips-3m' : m.gypsumCdProfile===1 ? 'mat-profile-cd60-irbud-3m' : null;
+  if (id === 'profile-ud') return (m.gypsumUdProfile??0)===0 ? 'mat-profile-ud30-norgips-06-3m' : m.gypsumUdProfile===1 ? 'mat-profile-ud30-norgips-super-c3-3m' : null;
   if (id === 'ceiling-steel-anchors') return m.gypsumCeilingSubstrate===1&&m.gypsumCeilingAnchors===1 ? 'mat-ceiling-anchor-rawlplug-gs-100' : null;
   if (id === 'ceiling-cross') return (m.gypsumCrossConnector??0)===0 ? 'mat-gypsum-cross-norgips-100' : m.gypsumCrossConnector===1 ? 'mat-gypsum-cross-budmat-100' : null;
   if (id === 'gk-screws' || id === 'gk-screws-ceiling') return m.gypsumFasteners===1 ? 'mat-gk-screws-koelner-fs3525-1000' : null;
   if (id === 'ceiling-metal-screws') return m.gypsumFasteners===1 ? 'mat-gk-profile-screws-koelner-ws3595-1000' : null;
   if (id === 'dowels-uw' || id === 'ceiling-wall-dowels') return m.gypsumPerimeterFixings===1 ? 'mat-gk-perimeter-koelner-fx06k040-200' : null;
   if (id === 'gk-tape' || id === 'ceiling-tape') return (m.gypsumJointTape??0)===0 ? 'mat-gypsum-paper-norgips-50x75' : m.gypsumJointTape===1 ? 'mat-gypsum-fleece-norgips-50x25' : null;
-  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m','profile-ud':'mat-profile-ud30-norgips-06-3m','wall-acoustic-tape':'mat-gypsum-acoustic-norgips-50x30','ceiling-acoustic-tape':'mat-gypsum-acoustic-norgips-30x30',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
+  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m','wall-acoustic-tape':'mat-gypsum-acoustic-norgips-50x30','ceiling-acoustic-tape':'mat-gypsum-acoustic-norgips-30x30',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
   if (accessories[id]) return accessories[id];
   return null;
 }
@@ -54,6 +56,16 @@ const finiteRange = (n: number | undefined, min: number, max: number): n is numb
 const integerChoice = (n: number | undefined, max: number) => Number.isInteger(n) && finiteRange(n,0,max);
 const fixed = (n: number) => Number(n.toFixed(6));
 const whole = (n: number) => Math.ceil(fixed(n));
+
+/** The confirmation belongs to the selected UD/CD combination, not to a prior model. */
+export function withGypsumMeasurement(job:string,current:Readonly<Record<string,string>>,id:string,value:string|number):Record<string,string>{
+  const next={...current,[id]:String(value)};
+  if(job==='gypsum-ceiling'&&['gypsumUdProfile','gypsumCdProfile'].includes(id)&&Number(current[id]??0)!==Number(value))next.gypsumUdFit='0';
+  return next;
+}
+export function gypsumInputVisible(job:string,id:string,m:Readonly<Record<string,number|string|undefined>>):boolean{
+  return job!=='gypsum-ceiling'||id!=='gypsumUdFit'||Number(m.gypsumUdProfile)===1;
+}
 
 // source: https://norgips.pl/rozwiazania/6005/json/
 // source: https://norgips.pl/rozwiazania/6325/json/
@@ -87,6 +99,7 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
     return null;
   }
   if (id === 'profile-ud' || id === 'ceiling-acoustic-tape') {
+    if(id==='profile-ud'&&(!integerChoice(m.gypsumUdProfile??0,1)||m.gypsumUdProfile===1&&m.gypsumUdFit!==1))return null;
     if (!finiteRange(m.perimeter,4,100) || m.perimeter+0.1<4*Math.sqrt(area)) return null;
     if (id === 'ceiling-acoustic-tape' && (m.gypsumCeilingAcoustic??1) === 0) return 0;
     if (id === 'ceiling-acoustic-tape' && !integerChoice(m.gypsumCeilingAcoustic??1,1)) return null;
@@ -123,6 +136,11 @@ export const gypsumWallInputs: MeasurementInputDefinition[] = [
   {id:'gypsumOpenings',label:'Otwory drzwiowe i inne wymagające wzmocnień',unit:'szt.',inputType:'count',placeholder:'0',defaultValue:0,min:0,max:100,required:false,hint:'Podaj powierzchnię brutto, bez odejmowania otworów. Przy otworach pozostawiamy dodatkowe profile, nadproża i mocowania jako brak do doboru; nie ogłaszamy niepełnego zestawu kompletnym.'},
 ];
 export const gypsumCeilingInputs: MeasurementInputDefinition[] = [
+  // source: https://norgips.pl/produkty/profil-ud-30-super-o-gr-blachy-06-mm-c3-26.html
+  // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html
+  {id:'gypsumUdProfile',label:'Dokładny profil obwodowy UD 30, 0,6 mm, 3 m',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips C2 — EAN 5907651698905, oferta do sprawdzenia'},{value:1,label:'Norgips SUPER C3 — EAN 5907651691197'}],hint:'To osobne modele. Zachowujemy starszy wybór C2; aktualna karta Leroy Merlin dotyczy SUPER C3. Wybierz produkt zgodny z projektem sufitu. Sama zmiana profilu obwodowego nie potwierdza klasy całego systemu ani odporności ogniowej.'},
+  // source: https://norgips.pl/produkty/profil-ud-30-super-o-gr-blachy-06-mm-c3-26.html
+  {id:'gypsumUdFit',label:'Dopasowanie profilu SUPER C3 do konstrukcji sufitu',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Jeszcze sprawdzę projekt i zgodność elementów'},{value:1,label:'Potwierdzone według projektu i zaleceń Norgips'}],hint:'Potwierdź właściwy profil 3 m, współpracę z wybranym CD 60, taśmą i mocowaniami. Zestaw dotyczy suchego wnętrza z płytą GKB; wybór C3 nie zmienia go w projekt łazienki, basenu ani przegrody ogniowej. Zmiana UD lub CD usuwa to potwierdzenie.'},
   // source: https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/
   // source: https://norgips.pl/produkty/profil-cd-60-o-gr-blachy-06-mm-33.html
   {id:'gypsumCdProfile',label:'Profil główny CD 60, 0,6 mm, 3 m',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips — produkt z EAN5907651698899'},{value:1,label:'Norgips w IRBUD — odrębna oferta bez EAN'}],hint:'IRBUD deklaruje ten format i markę, ale nie publikuje EAN. Nie łączymy ofert jako identycznego GTIN. Wybierz wariant zgodny z projektem i potwierdź produkt przed montażem.'},

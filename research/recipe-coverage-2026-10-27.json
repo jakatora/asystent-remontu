@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-28T19:44:23.147Z",
-  "scope": "Same65 saved measurement maps and unchanged choices. Production HTTP after refreshing27 exact Castorama and Leroy Merlin offers using current native browser/cart evidence. No new products or offer sources. UD30 changed identity stays excluded. Shipping and branch prices/stock need separate proof.",
+  "checkedAt": "2026-10-28T20:05:30.587Z",
+  "scope": "Same65 saved measurement maps; no automatic C2-to-C3 substitution or new confirmation. One separate current C3 reference/offer/photo is now explicitly selectable. Full selected ceiling and consolidation checks recorded separately in7 production cases.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 250,
-    "beforePriced": 72,
+    "beforePriced": 85,
     "afterLines": 250,
     "afterPriced": 85,
     "afterUnpriced": 165,
@@ -322,6 +322,19 @@
         "afterPriced": 72,
         "afterUnpriced": 178,
         "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T19:44:23.147Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 250,
+        "beforePriced": 72,
+        "afterLines": 250,
+        "afterPriced": 85,
+        "afterUnpriced": 165,
+        "fullyPricedScenarios": 11
       }
     }
   ],
@@ -5755,6 +5768,86 @@
         },
         "markedDeliverable": true,
         "browserNote": "Earlier tab2 binding returned browser.user unavailable; reused the working research tab3 in the same selected browser2. No browser permission or security settings changed."
+      }
+    },
+    "wave70": {
+      "checkedAt": "2026-10-28T20:04:44.093Z",
+      "nativeCases": 7,
+      "newProducts": 1,
+      "newOffers": 1,
+      "newStores": 0,
+      "newPhotoEntries": 1,
+      "ean": "5907651691197",
+      "sourceId": "leroy-norgips-ud30-super-c3-3m",
+      "oneCeiling": {
+        "rawMb": 15.4,
+        "profiles": 6,
+        "materialsGrosze": 6714
+      },
+      "twoCeilings": {
+        "rawMb": 30.8,
+        "profiles": 11,
+        "materialsGrosze": 12309
+      },
+      "all13SelectedCeilingMaterialsPriced": true,
+      "deliveredBasketComplete": false,
+      "oldC2AutomaticallyChanged": false,
+      "uiVerification": {
+        "checkedAt": "2026-10-28T20:21:14.772Z",
+        "verified": true,
+        "browserId": "2",
+        "tabId": "5",
+        "url": "http://localhost:8082/project/proj_mvqj35dlrykdtbczn",
+        "qaProjectId": "proj_mvqj35dlrykdtbczn",
+        "qaProjectName": "Test kompletu — sufit 10 m², łączniki 100 szt.",
+        "newQaProjects": 0,
+        "existingQaEdited": true,
+        "otherProjectsEdited": false,
+        "observedProjectCount": 23,
+        "beforePricedMaterials": 12,
+        "afterPricedMaterials": 13,
+        "profile": {
+          "ean": "5907651691197",
+          "pieces": 6,
+          "pieceMetres": 3,
+          "materialsGrosze": 6714
+        },
+        "projectFitResetAfterCdChange": true,
+        "explicitSelectionPersistedAfterReload": true,
+        "qaNotePersistedAfterReload": true,
+        "inlineValidationVisible": true,
+        "saveButtonsDisabledWhilePending": true,
+        "oneActualSaveAttemptAfterNewReadbackLogic": true,
+        "initialRuntimeProblem": "First save before readback fix timed out but had committed; verified by reloading before taking any next write action.",
+        "saveRecovery": "Actual new save returned to the project; notes and exact model/fit survived reload. Fault-injection SQLite tests prove lost-reply recovery without repeat writes. Root transport timing is not declared universally resolved.",
+        "delivery": {
+          "fullTotalKnown": false,
+          "planMaterialsGrosze": 83680,
+          "quotedShippingGrosze": 13989,
+          "quotedMerchantOrders": 6,
+          "totalMerchantOrders": 8,
+          "missingQuoteStores": [
+            "Leroy Merlin",
+            "Marbet24"
+          ]
+        },
+        "images": [
+          {
+            "alt": "Zdjęcie produktu: Profil sufitowy UD30 3 m.b. Super Norgips",
+            "complete": true,
+            "height": 2500,
+            "url": "https://media.adeo.com/media/3196086/media.png",
+            "width": 3333
+          }
+        ],
+        "screenshot": {
+          "file": "catalog-wave70-ud30-prices.jpg",
+          "sha256": "2316a8e7a27e8a6b5d84257305e951128cd347b5c1659cb2455034e3f18eb2da",
+          "format": "JPEG",
+          "width": 1280,
+          "height": 720
+        },
+        "markedDeliverable": true
       }
     }
   }

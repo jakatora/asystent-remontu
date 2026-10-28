@@ -13,6 +13,9 @@ const PRODUCTS:Readonly<Record<string,{sku:string;ean:string;unit:string;size:nu
  'leroy-norgips-cw50-06-3m':{sku:'44604350',ean:'5907651698912',unit:'mb',size:3,facts:{'Długość (w m)':'3','Szerokość (w mm)':'50','Grubość (w mm)':'0.6 ± 0.05'}},
  'leroy-norgips-uw50-06-3m':{sku:'45191853',ean:'5907651698547',unit:'mb',size:3,facts:{'Długość (w m)':'3','Szerokość (w mm)':'50','Grubość (w mm)':'0.6 ± 0.05'}},
  'leroy-norgips-ud30-06-3m':{sku:'44604343',ean:'5907651698905',unit:'mb',size:3,facts:{'Długość (w m)':'3','Szerokość (w mm)':'30','Grubość (w mm)':'0.6 ± 0.05'}},
+ // Distinct SUPER C3 barcode confirmed by the manufacturer and current card.
+ // source: https://norgips.pl/produkty/profil-ud-30-super-o-gr-blachy-06-mm-c3-26.html
+ 'leroy-norgips-ud30-super-c3-3m':{sku:'44604343',ean:'5907651691197',unit:'mb',size:3,facts:{'Długość (w m)':'3','Szerokość (w mm)':'30','Grubość (w mm)':'0.6 ± 0.05'}},
  'leroy-norgips-es6075':{sku:'43912435',ean:'5907651699650',unit:'szt',size:1,facts:{'Model produktu':'ES 60/75 MM','Długość (w mm)':'75'}},
  'leroy-norgips-board-gkb-2600':{sku:'41661683',ean:'5907651690442',unit:'m2',size:3.12,facts:{'Powierzchnia pokryta przez produkt (w m²)':'3.12','Długość (w cm)':'260','Szerokość (w cm)':'120','Grubość (w mm)':'12.5'}},
 };

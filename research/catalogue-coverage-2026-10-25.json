@@ -1,15 +1,32 @@
 {
-  "checkedAt": "2026-10-28T19:44:23.147Z",
-  "scope": "Same65 saved measurement maps and unchanged choices. Production HTTP after refreshing27 exact Castorama and Leroy Merlin offers using current native browser/cart evidence. No new products or offer sources. UD30 changed identity stays excluded. Shipping and branch prices/stock need separate proof.",
-  "total": 166,
-  "verifiedProducts": 159,
+  "checkedAt": "2026-10-28T20:05:30.587Z",
+  "scope": "Same65 saved measurement maps; no automatic C2-to-C3 substitution or new confirmation. One separate current C3 reference/offer/photo is now explicitly selectable. Full selected ceiling and consolidation checks recorded separately in7 production cases.",
+  "total": 167,
+  "verifiedProducts": 160,
   "remaining": 7,
-  "offers": 204,
+  "offers": 205,
   "stores": 51,
-  "productsWithPhotos": 166,
-  "registeredOffers": 210,
+  "productsWithPhotos": 167,
+  "registeredOffers": 211,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-profile-ud30-norgips-super-c3-3m",
+      "productLabel": "Profil Norgips UD 30 SUPER C3, 0,6 mm, 3 m (EAN 1197)",
+      "ean": "5907651691197",
+      "materialType": "drywall-accessory",
+      "packageSize": 3,
+      "packageUnit": "mb",
+      "status": "verified_offer",
+      "sourceIds": [
+        "leroy-norgips-ud30-super-c3-3m"
+      ],
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
+      "photoUrl": "https://media.adeo.com/media/3196086/media.png",
+      "checkedAt": "2026-10-28T19:58:11.441Z",
+      "availabilityScope": "online only; no branch or delivered-price claim",
+      "separateFrom": "mat-profile-ud30-norgips-06-3m"
+    },
     {
       "id": "mat-paint-economy-white-10l",
       "name": "Farba biała mat 10 l",
@@ -4356,9 +4373,9 @@
     "E-Kowalczyk",
     "Izosystems"
   ],
-  "browserVerifiedOffers": 27,
+  "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T19:44:23.147Z",
+    "checkedAt": "2026-10-28T20:05:30.587Z",
     "pricedLines": 85,
     "totalLines": 250,
     "unpricedLines": 165,
@@ -4446,6 +4463,14 @@
       "verifiedProducts": 132,
       "remaining": 34,
       "offers": 177,
+      "stores": 51
+    },
+    {
+      "checkedAt": "2026-10-28T19:44:23.147Z",
+      "total": 166,
+      "verifiedProducts": 159,
+      "remaining": 7,
+      "offers": 204,
       "stores": 51
     }
   ],

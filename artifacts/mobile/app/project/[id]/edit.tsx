@@ -2,14 +2,13 @@ import {windowInputVisible,windowInputHint,withWindowMeasurement,WINDOW_JOB} fro
 import {skirtingInputVisible,skirtingInputHint} from '@/features/calculator/skirting';
 import { waterproofingInputVisible } from '@/features/calculator/waterproofing';
 import { parseDecimal } from '@/shared/lib/number';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import {
   View,
   ScrollView,
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { useLocalSearchParams, router, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -27,7 +26,7 @@ import { substratePrimerSpecification } from '@/features/calculator/substratePri
 import { isSanitaryJob } from '@/features/calculator/sanitarySealant';
 import { isWallFinishingJob } from '@/features/calculator/wallFinishing';
 import { isFrameJob, frameInputVisible } from '@/features/calculator/framePainting';
-import { isGypsumJob } from '@/features/calculator/gypsumBoard';
+import { isGypsumJob,gypsumInputVisible,withGypsumMeasurement } from '@/features/calculator/gypsumBoard';
 
 function Field({
   label,
@@ -102,6 +101,8 @@ export default function EditProjectScreen() {
   const [roomHeight, setRoomHeight] = useState('');
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
+  const saveInFlight = useRef(false);
+  const [saveError,setSaveError] = useState<string|null>(null);
   const leaveEditor = () => {
     if (router.canGoBack()) router.back();
     else router.replace({ pathname: '/project/[id]', params: { id, tab: 'estimate' } });
@@ -119,18 +120,19 @@ export default function EditProjectScreen() {
   }, [project?.id]);
 
   const handleSave = async () => {
-    if (!project) return;
+    if (!project||saveInFlight.current) return;
+    setSaveError(null);
     if (!name.trim()) {
-      Alert.alert(t('project.edit.errorTitle'), t('project.edit.emptyNameError'));
+      setSaveError(t('project.edit.emptyNameError'));
       return;
     }
     const parsed = epsJob ? parseMeasurements(epsJob, epsMeasurements) : undefined;
     if (parsed?.errors.length) {
-      Alert.alert(t('project.edit.errorTitle'), `${language === 'pl' ? 'Sprawdź pole' : 'Check field'}: ${parsed.errors[0].label}`);
+      setSaveError(`${language === 'pl' ? 'Sprawdź pole' : 'Check field'}: ${parsed.errors[0].label}`);
       return;
     }
 
-    setSaving(true);
+    saveInFlight.current=true;setSaving(true);
     try {
       const w = parseDecimal(roomWidth);
       const l = parseDecimal(roomLength);
@@ -147,13 +149,16 @@ export default function EditProjectScreen() {
         ...(epsJob && parsed ? { measurements: parsed.values, calculationResult: calculateMaterials(epsJob, parsed.values) } : {}),
       });
 
-      await logActivity(project.id, 'edited', t('project.edit.activityEdited'));
+      // The project has been read back and confirmed. An activity-log failure
+      // must not encourage the user to repeat an already committed edit.
+      try{await logActivity(project.id, 'edited', t('project.edit.activityEdited'));}
+      catch(error){console.warn('[EditProject] saved; activity log unavailable:',error);}
       leaveEditor();
     } catch (err) {
       console.error('[EditProject] save error:', err);
-      Alert.alert(t('project.edit.errorTitle'), t('project.edit.saveError'));
+      setSaveError(language==='pl'?'Nie udało się potwierdzić zapisu. Zmiany mogły zostać zapisane. Sprawdź zapisany projekt przed kolejną próbą; wpisane dane pozostają w tym formularzu.':'The save could not be confirmed. Changes may already be saved. Check the saved project before retrying; your entries remain in this form.');
     } finally {
-      setSaving(false);
+      saveInFlight.current=false;setSaving(false);
     }
   };
 
@@ -315,20 +320,22 @@ export default function EditProjectScreen() {
               : epsJob.id === 'sink-installation'
               ? (language === 'pl' ? 'Wpisz liczbę umywalek i dodatkowych wężyków. Mocowania pozostają do ustalenia, dopóki nie potwierdzisz dopasowanego zestawu lub posiadania wszystkich potrzebnych mocowań. Zmiana ilości wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Enter basin and extra hose counts. Fixings remain unconfirmed until you select a suitable kit or declare that all required fixings are owned. Quantity changes require confirming “Owned” and “Purchased” again.')
               : (language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.')}</Txt>
-            {epsJob.measurementInputs.filter(input=>frameInputVisible(epsJob.id,input.id,epsMeasurements.frameSystem) && waterproofingInputVisible(epsJob.id,input.id,epsMeasurements) && skirtingInputVisible(epsJob.id,input.id,epsMeasurements) && windowInputVisible(epsJob.id,input.id,epsMeasurements)).map(input => <View key={input.id} style={{ gap: 4 }}>
+            {epsJob.measurementInputs.filter(input=>frameInputVisible(epsJob.id,input.id,epsMeasurements.frameSystem) && waterproofingInputVisible(epsJob.id,input.id,epsMeasurements) && skirtingInputVisible(epsJob.id,input.id,epsMeasurements) && windowInputVisible(epsJob.id,input.id,epsMeasurements) && gypsumInputVisible(epsJob.id,input.id,epsMeasurements)).map(input => <View key={input.id} style={{ gap: 4 }}>
               {'inputType' in input && input.inputType === 'select' ? <>
                 <Txt w="medium" style={{ fontSize: 15 }}>{input.label}</Txt>
                 <MeasurementSelect label={input.label} options={input.options ?? []} value={epsMeasurements[input.id] ? parseDecimal(epsMeasurements[input.id]) : input.defaultValue}
-                  onChange={value => setEpsMeasurements(current => withWindowMeasurement(epsJob.id,current,input.id,value))}/>
+                  onChange={value => setEpsMeasurements(current => isGypsumJob(epsJob.id) ? withGypsumMeasurement(epsJob.id,current,input.id,value) : withWindowMeasurement(epsJob.id,current,input.id,value))}/>
               </> : <Field label={input.label} icon="maximize-2" value={epsMeasurements[input.id] ?? ''} onChangeText={value => setEpsMeasurements(current => ({ ...current, [input.id]: value }))} placeholder={input.defaultValue !== undefined ? String(input.defaultValue) : input.placeholder} keyboardType={'inputType' in input && input.inputType === 'count' ? 'number-pad' : 'decimal-pad'} suffix={input.unit} />}
               {input.hint && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{windowInputHint(epsJob.id,input.id,epsMeasurements,skirtingInputHint(epsJob.id,input.id,epsMeasurements,input.hint))}</Txt>}
             </View>)}
           </View>}
 
           <View style={{ gap: 10 }}>
+            {saveError&&<View accessibilityRole="alert" style={{padding:14,borderRadius:12,backgroundColor:Colors.warningBg}}><Txt style={{color:Colors.text,lineHeight:20}}>{saveError}</Txt></View>}
             <Button
               label={saving ? t('project.edit.saving') : t('project.edit.saveCta')}
               onPress={handleSave}
+              disabled={saving}
               fullWidth
               icon={<Feather name="check" size={16} color="#fff" />}
             />
@@ -336,6 +343,7 @@ export default function EditProjectScreen() {
               label={t('project.edit.cancelCta')}
               variant="outline"
               onPress={leaveEditor}
+              disabled={saving}
               fullWidth
             />
           </View>

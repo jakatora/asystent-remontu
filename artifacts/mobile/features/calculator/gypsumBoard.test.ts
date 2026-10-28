@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { calculatorEngine } from './engine';
-import { GYPSUM_MODEL, gypsumQuantity } from './gypsumBoard';
+import { GYPSUM_MODEL, gypsumQuantity,gypsumInputVisible,withGypsumMeasurement } from './gypsumBoard';
 import { getJobById } from '@/features/content/registry';
 import { toPricingStageInput } from '@/features/pricing/pricingApi';
 import { getMaterialsForJob } from '@/features/pricing/registry';
@@ -14,6 +14,22 @@ import type { ShoppingItem } from '@/types/domain';
 
 const wall=getJobById('gypsum-wall')!,ceiling=getJobById('gypsum-ceiling')!;
 const calculate=(id='gypsum-wall',more:Record<string,number>={})=>calculatorEngine.calculate(getJobById(id)!,{wallArea:10,gypsumWallHeight:2.5,ceilingArea:10,perimeter:id==='gypsum-wall'?13:14,...more});
+test('SUPER C3 is an explicit different UD profile, whose quantity stays unknown until its fit is confirmed',()=>{
+ const old=calculate('gypsum-ceiling'),waiting=calculate('gypsum-ceiling',{gypsumUdProfile:1}),chosen=calculate('gypsum-ceiling',{gypsumUdProfile:1,gypsumUdFit:1});
+ const ud=(c:typeof chosen)=>c.materials.find(l=>l.material.id==='profile-ud')!;
+ const oldMaterial=ud(old).material,waitingMaterial=ud(waiting).material;assert.ok('ean' in oldMaterial);assert.ok('ean' in waitingMaterial);
+ assert.equal(oldMaterial.ean,'5907651698905');assert.equal(waitingMaterial.ean,'5907651691197');assert.equal(ud(waiting).quantityKnown,false);
+ assert.equal(ud(chosen).rawQuantity,15.4);assert.equal(ud(chosen).packs,6);assert.equal(ud(chosen).cost,67.14);assert.equal(ud(chosen).material.packaging?.size,3);
+ for(const tier of ['economy','standard','better'] as const){const row=toPricingStageInput(chosen,tier).materials.find(l=>l.material.id==='profile-ud')!;assert.equal(row.material.ean,'5907651691197');assert.equal(row.quantity,15.4);const ref=getMaterialsForJob(chosen.jobId,tier,chosen.measurements).find(r=>r.id==='mat-profile-ud30-norgips-super-c3-3m')!;assert.ok(ref);assert.equal(resolveMaterialQuantity(ref,old),null);assert.equal(resolveMaterialQuantity(ref,waiting),null);assert.ok(getProductPhoto(row.material));}
+ for(const value of [NaN,0.5,2])assert.equal(gypsumQuantity('gypsum-ceiling','profile-ud',{ceilingArea:10,perimeter:14,gypsumUdProfile:value,gypsumUdFit:1}),null);
+});
+test('changing UD or CD clears SUPER fit and owned C2 stock cannot silently cover C3',()=>{
+ const fields={gypsumUdProfile:'1',gypsumUdFit:'1',gypsumCdProfile:'0'};
+ assert.equal(withGypsumMeasurement('gypsum-ceiling',fields,'gypsumUdProfile',0).gypsumUdFit,'0');assert.equal(withGypsumMeasurement('gypsum-ceiling',fields,'gypsumCdProfile',1).gypsumUdFit,'0');assert.equal(withGypsumMeasurement('gypsum-ceiling',fields,'gypsumUdProfile',1).gypsumUdFit,'1');
+ assert.equal(gypsumInputVisible('gypsum-ceiling','gypsumUdFit',{}),false);assert.equal(gypsumInputVisible('gypsum-ceiling','gypsumUdFit',fields),true);
+ const old=calculate('gypsum-ceiling'),line=old.materials.find(l=>l.material.id==='profile-ud')!,item:ShoppingItem={id:'ud',projectId:'p',materialId:'profile-ud',name:line.material.name,unit:'mb',quantity:18,estimatedPrice:0,owned:true,purchased:true,itemType:'material',tier:'standard',createdAt:''};assert.equal(projectShopping([item],old)[0].owned,true);
+ const next=calculate('gypsum-ceiling',{gypsumUdProfile:1,gypsumUdFit:1}),review=projectShopping([item],next)[0];assert.equal(review.owned,false);assert.equal(review.purchased,false);assert.equal(review.needsQuantityConfirmation,true);assert.ok(applyProjectShopping(toPricingStageInput(next),next,'p',[item]).stage.materials.some(l=>l.material.id==='profile-ud'));
+});
 test('wall counts both board faces, 8 whole 3m studs and UW only along floor and ceiling',()=>{
   const c=calculate(),line=(id:string)=>c.materials.find(row=>row.material.id===id)!;
   assert.equal(c.quantityModel,GYPSUM_MODEL);

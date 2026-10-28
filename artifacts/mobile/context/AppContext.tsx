@@ -20,6 +20,7 @@ import type {
 import type { CalculationResult } from '@/types/domain';
 import type { PriceOverride, QualityTier } from '@/types/pricing';
 import { projectsRepo } from '@/db/repositories/projects.repo';
+import { saveProjectWithReadback } from '@/features/storage/projectSave';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import { onboardingRepo } from '@/db/repositories/onboarding.repo';
 import { photosRepo } from '@/db/repositories/photos.repo';
@@ -151,11 +152,8 @@ export function AppProvider({ children }: PropsWithChildren) {
   );
 
   const updateProject = useCallback(async (project: Project): Promise<void> => {
-    await projectsRepo.update(project);
-    const updated = await projectsRepo.findById(project.id);
-    if (updated) {
-      setProjects((prev) => prev.map((p) => (p.id === updated.id ? upgradeProject(updated) : p)));
-    }
+    const updated = await saveProjectWithReadback(project,{write:projectsRepo.update,read:projectsRepo.findById});
+    setProjects((prev) => prev.map((p) => (p.id === updated.id ? upgradeProject(updated) : p)));
   }, []);
 
   const removeProject = useCallback(async (id: string): Promise<void> => {
