@@ -202,6 +202,7 @@ export interface SerializedStage {
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
 export interface SerializedConsolidatedLine {
+  indoEndcapPlan?: ConsolidatedLine['indoEndcapPlan'];
   wallpaperCutPlan?: ConsolidatedLine['wallpaperCutPlan'];
   packages?: SerializedPackage[];
   product: SerializedProduct;
@@ -460,6 +461,7 @@ function serializeConsolidatedLine(
 ): SerializedConsolidatedLine {
   return {
     ...(line.wallpaperCutPlan ? { wallpaperCutPlan: line.wallpaperCutPlan } : {}),
+    ...(line.indoEndcapPlan ? {indoEndcapPlan:line.indoEndcapPlan} : {}),
     ...(line.packagePlan ? { packages: line.packagePlan.packages.map(entry => ({
       ...(entry.purchaseMultiple ? { purchaseMultiple: entry.purchaseMultiple } : {}),
       ...(entry.minimumPackages ? { minimumPackages: entry.minimumPackages } : {}),

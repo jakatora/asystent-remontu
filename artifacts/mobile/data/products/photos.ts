@@ -416,6 +416,9 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-indo-connector-gloss-2"],"ean":"5905167725870","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/indo-lacznik-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167725870_P_01.webp"},
   // source: https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe
   {"ids":["mat-indo-endcaps-gloss-pair"],"ean":"5905167726358","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726358_P_03.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
+  // source: https://arbiton.com/pl/klej-montazowy-strongman-300ml
+  {"ids":["mat-strongman-300ml"],"ean":"5905167788264","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167788264_I_01.webp"},
 ];
 
 export function getProductPhoto(product: {

@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-27T16:13:18.361Z",
-  "scope": "Fresh production HTTP, same 65 saved measurement maps recalculated by the current engine without filling new waterproofing choices or detail counts. Four INDO accessory packs added, with explicit purchases separately checked; no complete automatic skirting installation recipe claimed. No user project data writes.",
-  "total": 165,
-  "verifiedProducts": 141,
-  "remaining": 24,
-  "offers": 187,
+  "checkedAt": "2026-10-28T11:55:00.658Z",
+  "scope": "Fresh production HTTP on 2026-10-28; same 65 saved measurement maps recalculated without filling new skirting, waterproofing or detail choices. INDO v1 adds seven explicit roles in place of the older generic three-row recipe. Native complete six-product and shared handed-endcap examples are recorded separately. No user project data writes.",
+  "total": 166,
+  "verifiedProducts": 131,
+  "remaining": 35,
+  "offers": 176,
   "stores": 50,
-  "productsWithPhotos": 165,
-  "registeredOffers": 208,
+  "productsWithPhotos": 166,
+  "registeredOffers": 209,
   "disabledOffers": 2,
   "rows": [
     {
@@ -1582,13 +1582,24 @@
       "id": "mat-window-tape-soudal-sws-inside-90mm",
       "name": "Taśma paroszczelna okienna Soudal SWS Basic Plus Inside 90 mm × 30 m",
       "referenceUrl": "https://bestbudowa.pl/tasmy-uszczelniajace-/8055-soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m-5411183151178.html",
-      "status": "verified_offer",
+      "status": "out_of_stock",
       "ean": "5411183151178",
       "sourceIds": [
         "bestbudowa-soudal-inside-90mm"
       ],
       "photoUrl": "https://bestbudowa.pl/5742-home_default/soudal-tasma-okienna-sws-basic-plus-90-inside-90mmx30m.jpg",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "bestbudowa-soudal-inside-90mm",
+            "error": "retailer_out_of_stock",
+            "checkedAt": "2026-10-28T04:54:26.688Z"
+          }
+        ]
+      }
     },
     {
       "id": "mat-windowsill-pvc-form-30x216",
@@ -2234,7 +2245,7 @@
       "id": "mat-door-leaf-opp-archi-full-80-left",
       "name": "Skrzydło drzwiowe pełne OPP Archi 80 lewe białe (2035 × 844 mm)",
       "referenceUrl": "https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5063022524263",
       "sourceIds": [
         "castorama-opp-archi-full-80-left"
@@ -2252,13 +2263,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T18:21:43.632Z",
         "expiresAt": "2026-10-27T18:21:43.632Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "castorama-opp-archi-full-80-left",
+            "error": "retailer_http_503",
+            "checkedAt": "2026-10-26T18:21:43.632Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-washbasin-cersanit-atlantic-new-50",
       "name": "Umywalka ścienna Cersanit Atlantic New 50 (50,5 × 40 cm, z otworem i przelewem)",
       "referenceUrl": "https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5901771226987",
       "sourceIds": [
         "castorama-cersanit-atlantic-new-50"
@@ -2276,13 +2298,24 @@
         "method": "browser",
         "checkedAt": "2026-10-26T19:31:10.236Z",
         "expiresAt": "2026-10-27T19:31:10.236Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "castorama-cersanit-atlantic-new-50",
+            "error": "retailer_http_503",
+            "checkedAt": "2026-10-26T19:31:10.236Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-tile-wall-tamara-white-25x40",
       "name": "Glazura ścienna Ceramika Color Tamara white 25×40 cm (1,5 m²)",
       "referenceUrl": "https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907518303911",
       "sourceIds": [
         "castorama-tamara-white-15m2"
@@ -2300,6 +2333,17 @@
         "method": "browser",
         "checkedAt": "2026-10-26T19:58:26.512Z",
         "expiresAt": "2026-10-27T19:58:26.512Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "castorama-tamara-white-15m2",
+            "error": "retailer_http_503",
+            "checkedAt": "2026-10-26T19:58:26.512Z"
+          }
+        ]
       }
     },
     {
@@ -2862,7 +2906,7 @@
       "id": "mat-gypsum-paper-norgips-50x75",
       "name": "Taśma papierowa Norgips 50 mm × 75 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651699933",
       "sourceIds": [
         "leroy-norgips-paper-50x75"
@@ -2880,13 +2924,24 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-paper-50x75",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-gypsum-acoustic-norgips-50x30",
       "name": "Taśma uszczelniająca Norgips 50 mm × 30 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651698004",
       "sourceIds": [
         "leroy-norgips-acoustic-50x30"
@@ -2904,13 +2959,24 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-acoustic-50x30",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-gypsum-acoustic-norgips-30x30",
       "name": "Taśma uszczelniająca Norgips 30 mm × 30 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651698851",
       "sourceIds": [
         "leroy-norgips-acoustic-30x30"
@@ -2928,13 +2994,24 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-acoustic-30x30",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-profile-cw50-norgips-06-3m-retail",
       "name": "Profil Norgips CW 50, 0,6 mm, 3 m (EAN 8912)",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651698912",
       "sourceIds": [
         "leroy-norgips-cw50-06-3m"
@@ -2952,13 +3029,24 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-cw50-06-3m",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-profile-uw50-norgips-super-06-3m",
       "name": "Profil Norgips UW 50 Super, 0,6 mm, 3 m",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651698547",
       "sourceIds": [
         "leroy-norgips-uw50-06-3m"
@@ -2976,13 +3064,24 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-uw50-06-3m",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-profile-ud30-norgips-06-3m",
       "name": "Profil Norgips UD 30, 0,6 mm, 3 m (EAN 8905)",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651698905",
       "sourceIds": [
         "leroy-norgips-ud30-06-3m"
@@ -3000,13 +3099,24 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-ud30-06-3m",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
       "id": "mat-gypsum-hanger-norgips-es6075",
       "name": "Wieszak płaski Norgips ES 60/75, 1 szt.",
       "referenceUrl": "https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html",
-      "status": "verified_offer",
+      "status": "browser_verification_expired",
       "ean": "5907651699650",
       "sourceIds": [
         "leroy-norgips-es6075"
@@ -3024,6 +3134,17 @@
         "method": "browser",
         "checkedAt": "2026-10-27T05:39:56.843Z",
         "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-es6075",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
       }
     },
     {
@@ -3818,20 +3939,85 @@
           }
         }
       ]
+    },
+    {
+      "id": "mat-strongman-300ml",
+      "name": "Arbiton Strongman — klej montażowy 300 ml",
+      "referenceUrl": "https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml",
+      "ean": "5905167788264",
+      "sourceIds": [
+        "topboden-strongman-300ml"
+      ],
+      "status": "verified_offer",
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167788264_I_01.webp",
+      "manufacturerUrl": "https://arbiton.com/pl/klej-montazowy-strongman-300ml",
+      "deliveryChecks": [
+        {
+          "sourceId": "topboden-strongman-300ml",
+          "checkedAt": "2026-10-28T11:53:43.135Z",
+          "status": "quoted",
+          "basis": "retailer_tariff_national",
+          "destinationScope": "PL",
+          "costGrosze": 2999,
+          "basketScope": "Six-product current INDO v1 recipe; whole-order tariff including ten 2.5m skirting pieces, accessory packs, three L+R sets and two 300ml cartridges; optional coupon excluded.",
+          "nativeQuote": {
+            "costGrosze": 2999,
+            "carrier": "Kurier",
+            "payment": "Przelew tradycyjny",
+            "checkedAt": "2026-10-28T11:53:43.135Z",
+            "expiresAt": "2026-10-28T12:03:43.135Z",
+            "sourceUrl": "https://topboden.pl/dostawa-i-platnosc",
+            "destinationScope": "PL",
+            "basis": "retailer_tariff_national",
+            "evidenceSha256": "98f7251b6b371f0f9afd330bc705892503992938f9ddf621764be329469ef500"
+          }
+        }
+      ]
     }
   ],
-  "automaticDeliveryStores": 30,
+  "automaticDeliveryStores": [
+    "Plejada Tapet",
+    "Świat Się Klei",
+    "KIM24",
+    "Z prądem",
+    "Elektro-Hurt",
+    "Rab-Dom",
+    "Realbud",
+    "Zino",
+    "Prescot",
+    "WinBud",
+    "Dam-Bud",
+    "Plus-Market",
+    "eBardo",
+    "Mensura",
+    "KELOT",
+    "LiderzyCen",
+    "TGS",
+    "Sewera",
+    "Buduj24",
+    "Cezar",
+    "TopBoden",
+    "Eelektryka",
+    "HIPPER",
+    "Modna Łazienka",
+    "Folnet",
+    "Kronosfera",
+    "Centrum Matbud",
+    "ABUD",
+    "IRBUD",
+    "E-Kowalczyk"
+  ],
   "browserVerifiedOffers": 11,
   "recipeCoverage": {
-    "checkedAt": "2026-10-27T16:13:18.361Z",
-    "pricedLines": 82,
-    "totalLines": 244,
-    "unpricedLines": 162,
+    "checkedAt": "2026-10-28T11:55:00.658Z",
+    "pricedLines": 73,
+    "totalLines": 247,
+    "unpricedLines": 174,
     "fullyPricedScenarios": 8,
     "report": "recipe-coverage-2026-10-27.json"
   },
   "expiredOffers": 19,
-  "activeStores": 47,
+  "activeStores": 45,
   "history": [
     {
       "checkedAt": "2026-10-27T12:46:06.593Z",
@@ -3871,6 +4057,14 @@
       "verifiedProducts": 137,
       "remaining": 24,
       "offers": 183,
+      "stores": 50
+    },
+    {
+      "checkedAt": "2026-10-27T16:13:18.361Z",
+      "total": 165,
+      "verifiedProducts": 141,
+      "remaining": 24,
+      "offers": 187,
       "stores": 50
     }
   ],

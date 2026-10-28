@@ -1,3 +1,4 @@
+import {skirtingQuantity} from './skirting';
 import { waterproofingQuantity } from './waterproofing';
 import { wallpaperAdhesiveQuantity } from './wallpaperAdhesive';
 import { wallpaperRollQuantity } from './wallpaperRolls';
@@ -272,6 +273,7 @@ export const FORMULA_REGISTRY: FormulaRegistry = {
 } as const;
 
 export function resolveFormula(key: string): FormulaFn {
+  if(key.startsWith('skirting-v1:'))return m=>skirtingQuantity(key.slice(12),m)??0;
   if (key.startsWith('waterproofing:')) return m => waterproofingQuantity(key.slice(14), m) ?? 0;
   if(key.startsWith('gypsumBoard:')) {const [,jobId,id]=key.split(':');return m=>gypsumQuantity(jobId,id,m)??0;}
   if(key.startsWith('framePainting:'))return m=>frameQuantity(key.slice('framePainting:'.length),m)??0;

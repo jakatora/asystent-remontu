@@ -1,3 +1,4 @@
+import {skirtingInputs,skirtingMaterials,skirtingInstructions} from '@/features/calculator/skirting';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import { laminateSupplyInputs, laminateExtraMaterials } from '@/features/calculator/laminateSupplies';
 import type { RenovationJob } from '@/types/domain';
@@ -566,7 +567,7 @@ export const skirtingBoardsJob: RenovationJob = {
   categoryId: 'skirting',
   name: 'Montaż listew przypodłogowych',
   shortDescription: 'Zamontuj listwy — zakrywają szczelinę dylatacyjną i wykańczają ścianę.',
-  description: 'Listwy przypodłogowe to ostatni element wykończenia podłogi. Można je mocować klejem, gwoździami ukrytymi lub specjalnym systemem klikowym.',
+  description: 'Dobierz listwy INDO 70 mm biały połysk 01, narożniki, łączniki i zakończenia. Sprawdź plan docinek oraz mocowanie do ściany; kalkulator policzy pełne opakowania i wspólny zakup dla pomieszczeń.',
   difficulty: 'easy',
   riskLevel: 'low',
   estimatedDays: 1,
@@ -576,78 +577,29 @@ export const skirtingBoardsJob: RenovationJob = {
   warningRules: [
     { condition: 'always', message: 'Nie przyklejaj listew do paneli — tylko do ściany. Panele muszą się swobodnie rozszerzać.', level: 'warning' },
   ],
-  measurementInputs: [
-    { id: 'perimeter', label: 'Obwód pomieszczenia (długość listew)', unit: 'm.b.', inputType: 'length',
-      placeholder: 'np. 20', min: 1, max: 200,
-      hint: 'Zsumuj wszystkie ściany. Odejmij szerokość drzwi.' },
-  ],
-  materials: [
-    {
-      id: 'skirting',
-      name: 'Listwy przypodłogowe MDF/PVC',
-      brand: 'Arbiton Laque MDF 60 mm × 2.4 m biała (referencja)',
-      unit: 'm.b.',
-      formulaKey: 'byPerimeter',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 2.4, label: 'listwa 2,4 m', purchaseUnit: 'listwa' },
-      pricePerUnit: 14,
-      category: 'listwy',
-      notes: 'MDF — malowalna, drewno-podobna (11–18 zł/mb za 60 mm). PVC — wodoodporna, biała, tańsza (od ok. 8 zł/mb).',
-      shopPrices: SHARED_SHOP_PRICES.baseboardMDF60mm,
-    },
-    {
-      id: 'skirting-glue',
-      name: 'Klej montażowy do listew',
-      unit: 'kartusze',
-      formulaKey: 'skirtingGlue',
-      pricePerUnit: 12,
-      category: 'klej',
-      notes: '1 kartusze na ok. 8 mb listew.',
-    },
-    {
-      id: 'corner-inside',
-      name: 'Narożniki wewnętrzne (łączniki)',
-      unit: 'szt.',
-      formulaKey: 'corners',
-      pricePerUnit: 3,
-      category: 'akcesoria',
-      notes: 'Plastikowe narożniki eliminują trudne cięcia pod kątem 45°.',
-    },
-    {
-      id: 'silicone-skirting',
-      name: 'Silikon akrylowy (do malowania)',
-      unit: 'kartusze',
-      formula: formulaBuilder.fixed(1),
-      pricePerUnit: 15,
-      category: 'uszczelnienie',
-      optional: true,
-      notes: 'Uszczelnia szczelinę między listwą a ścianą przed malowaniem.',
-    },
-  ],
+  measurementInputs:[{id:'perimeter',label:'Długość ścian po odjęciu drzwi',unit:'mb',inputType:'length',placeholder:'np. 18',min:0.5,max:200,hint:'Łączna długość netto do wykończenia. Zapas i pełne odcinki liczymy osobno.'},...skirtingInputs],
+  materials:skirtingMaterials(),
+  // source: https://topboden.pl/files/0PeVEtM3BdxD3EXs.pdf
   tools: [
-    { id: 'miter-saw', name: 'Ukośnica lub skrzynka uciosowa', icon: 'scissors', required: true, notes: 'Do cięć pod 45° w narożnikach', rentable: true },
-    { id: 'caulk-gun', name: 'Pistolet do kleju', icon: 'tool', required: true },
+    { id: 'miter-saw', name: 'Piłka do listew i skrzynka do cięcia', icon: 'scissors', required: true, notes: 'Do cięcia odcinków według planu i instrukcji INDO', rentable: true },
+    { id: 'caulk-gun', name: 'Pistolet do kleju', icon: 'tool', required: false, notes: 'Potrzebny przy wyborze kleju w kartuszu' },
     { id: 'tape-measure', name: 'Miara', icon: 'maximize-2', required: true },
     { id: 'pencil', name: 'Ołówek', icon: 'edit', required: true },
   ],
-  instructions: [
-    { step: 1, title: 'Zmierz i zaplanuj cięcia', description: 'Zmierz każdy odcinek ściany. Zaplanuj narożniki — wewnętrzne pod 45° lub z łącznikami. Zaznacz miejsca cięcia na listwach.', durationMin: 30 },
-    { step: 2, title: 'Przytnij listwy', description: 'Przecinaj ukośnicą pod kątem 45° lub prosto (jeśli używasz łączników plastikowych). Sprawdzaj dopasowanie przed klejeniem.', durationMin: 30 },
-    { step: 3, title: 'Nanieś klej i przyklejaj', description: 'Na spód listwy nanieś klej montażowy zygzakiem. Dociśnij do ściany i przytrzymaj lub użyj taśmy malarskiej jako tymczasowego mocowania.', tip: 'Klej potrzebuje kilku godzin do pełnego wiązania — taśma trzyma do tego czasu.', durationMin: 60 },
-    { step: 4, title: 'Silikonuj szczelinę', description: 'Silikonem akrylowym wypełnij szczelinę między listwą a ścianą (jeśli jest). Wygładź palcem, zetrzyj nadmiar.', durationMin: 20 },
-  ],
-  commonMistakes: ['Przyklejanie listwy do paneli — panele nie mogą się rozszerzać', 'Złe cięcie narożnika — widoczna szczelina', 'Brak kleju na końcach — listwy odchodzą od ściany'],
+  instructions:skirtingInstructions,
+  commonMistakes: ['Mocowanie listwy do pływającej podłogi zamiast do ściany', 'Pomieszanie kolorów lub serii akcesoriów', 'Zakup na podstawie sumy metrów bez sprawdzenia docinek i połączeń', 'Liczenie zakończeń bez rozróżnienia strony lewej i prawej'],
   qualityChecklist: [
     { id: 'q1', description: 'Listwy szczelnie przy ścianie — brak widocznych szczelin' },
     { id: 'q2', description: 'Narożniki są czyste — bez widocznej szczeliny' },
     { id: 'q3', description: 'Listwy są poziome — nie unoszą się przy podłodze' },
   ],
   hireProfessionalRecommended: false,
-  tags: ['listwy', 'przypodłogowe', 'MDF', 'PVC', 'wykończenie'],
+  tags: ['listwy', 'przypodłogowe', 'INDO', 'PVC', 'wykończenie'],
 
-  verifiedAt: '2026-07-10',
+  verifiedAt: '2026-10-27',
   verifiedSources: [
+    { title: 'INDO — instrukcja montażu producenta', url: 'https://topboden.pl/files/0PeVEtM3BdxD3EXs.pdf', domain: 'topboden.pl', consultedAt: '2026-10-27' },
+    { title: 'Arbiton Strongman 300 ml — klej do listew', url: 'https://arbiton.com/pl/klej-montazowy-strongman-300ml', domain: 'arbiton.com', consultedAt: '2026-10-27' },
     {
       title:       'Montaż listew przypodłogowych krok po kroku',
       url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/montaz-listew-przypodlogowych-krok-po-kroku-aa-WF7w-fTkS-6P9h.html',

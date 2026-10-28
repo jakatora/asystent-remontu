@@ -195,9 +195,17 @@ export class AnonymousShop {
       }
       const reader = r.body?.getReader(); if (!reader) throw Error('invalid_response');
       const chunks: Uint8Array[] = []; let size = 0;
+      // This reviewed public product embeds its related-product catalogue in
+      // both API and HTML (~1.3MB). Keep the ordinary 1MB bound everywhere
+      // else, including other products, POSTs and redirects to another path.
+      // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
+      const largeStrongman=method==='GET'&&!url.search&&(
+        url.origin==='https://api.topboden.pl'&&url.pathname==='/api/product/by-uuid/9cc774ed-c24b-4f3b-a863-a935a86383f4'
+        ||url.origin==='https://topboden.pl'&&url.pathname==='/listwy-przypodlogowe/klej-montazowy-strongman-300ml');
+      const responseLimit=largeStrongman?2_000_000:1_000_000;
       try {
         while (true) { const { done, value } = await reader.read(); if (done) break;
-          size += value.byteLength; if (size > 1_000_000) throw Error('response_too_large'); chunks.push(value); }
+          size += value.byteLength; if (size > responseLimit) throw Error('response_too_large'); chunks.push(value); }
       } finally { await reader.cancel().catch(() => {}); }
       const bytes = Buffer.concat(chunks);
       return this.encoding === 'iso-8859-2' ? new TextDecoder('iso-8859-2').decode(bytes) : bytes.toString('utf8');

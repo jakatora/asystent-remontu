@@ -1,3 +1,4 @@
+import {skirtingInputVisible,skirtingInputHint} from '@/features/calculator/skirting';
 import { waterproofingInputVisible } from '@/features/calculator/waterproofing';
 import { parseDecimal } from '@/shared/lib/number';
 import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
@@ -1075,7 +1076,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);
@@ -1104,7 +1105,7 @@ export default function WizardScreen() {
 
                         {inp.hint && (
                           <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
-                            💡 {inp.hint}
+                            💡 {skirtingInputHint(selectedJob.id,inp.id,draft.measurements,inp.hint)}
                           </Txt>
                         )}
 
@@ -1288,7 +1289,7 @@ export default function WizardScreen() {
                   {/* Measurements */}
                   {selectedJob && selectedJob.measurementInputs.length > 0 && (
                     <View>
-                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                         const val = draft.measurements[inp.id];
                         const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
                         const displayVal = selectedOption?.label ?? (val

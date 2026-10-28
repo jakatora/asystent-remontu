@@ -24,15 +24,26 @@ export function confirmTopbodenProduct(product:any,source:RetailSource,count=sou
   };
   const accessory=accessoryPacks[source.id];
   if(accessory&&(source.ean!==accessory[0]||source.productUuid!==accessory[1]||source.packageSize!==accessory[2]||source.unit!==accessory[3]||source.apiPurchaseUnit!=='opk.'||multiple!==1))throw Error('product_package_not_confirmed');
+  // source: https://arbiton.com/pl/klej-montazowy-strongman-300ml
+  const glue=source.id==='topboden-strongman-300ml';
+  if(glue&&(source.ean!=='5905167788264'||source.productUuid!=='9cc774ed-c24b-4f3b-a863-a935a86383f4'||source.packageSize!==300||source.unit!=='ml'||source.apiPurchaseUnit!=='szt.'||multiple!==1))throw Error('product_package_not_confirmed');
   if(units&&Number.isSafeInteger(units.multiple)&&Number.isSafeInteger(units.minOrderQuantity)&&(units.multiple!==multiple||units.minOrderQuantity!==multiple))throw Error('purchase_rules_changed');
-  const nativeUnit=accessory?'opk.':source.unit,nativeOrderUnit=accessory?'opk.':'szt.',nativePackSize=accessory?1:source.packageSize;
+  const nativeUnit=accessory?'opk.':glue?'szt.':source.unit,nativeOrderUnit=accessory?'opk.':'szt.',nativePackSize=accessory||glue?1:source.packageSize;
   if(!Number.isSafeInteger(multiple)||multiple<1||multiple>10000||!units||units.orderUnit!==nativeOrderUnit||units.priceListUnit!==nativeUnit||units.basicUnit!==nativeUnit||!Number.isFinite(units.numerator)||!Number.isFinite(units.denominator)||units.denominator<=0||units.numerator/units.denominator!==nativePackSize||units.multiple!==multiple||units.minOrderQuantity!==multiple)throw Error('retailer_unit_not_confirmed');
   if(!Number.isSafeInteger(count)||count<multiple||count%multiple||count>10000)throw Error('purchase_multiple_required');
   if(product.available===false)throw Error('retailer_out_of_stock');
   if(product.available!==true||!Number.isFinite(product.baseUnitStock))throw Error('retailer_stock_not_confirmed');
   if(product.baseUnitStock<count*nativePackSize)throw Error(count===multiple?'retailer_out_of_stock':'insufficient_stock');
   const price=product.price;
-  if(!price||typeof price.isDiscount!=='boolean'||product.promotionCode)throw Error('conditional_price_not_supported');
+  // The reviewed Strongman card explicitly separates the ordinary add-to-cart
+  // price from an optional EXTRA20 code. Import only that ordinary price;
+  // a coupon, gift, changed discount or already-discounted price is not inferred.
+  // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
+  const regularStrongman=glue&&product.promotionCode?.code==='EXTRA20'&&product.promotionCode?.discount==='20'
+    &&product.promotionCode?.freeProductsMessage===null&&price?.isDiscount===false&&price.discountValue===0
+    &&['discountNetPrice','discountGrossPrice','discountPackageNetPrice','discountPackageGrossPrice'].every(key=>price[key]===null)
+    &&price.grossPrice===price.packageGrossPrice;
+  if(!price||typeof price.isDiscount!=='boolean'||product.promotionCode&&!regularStrongman)throw Error('conditional_price_not_supported');
   const priceGrosze=price.isDiscount?price.discountPackageGrossPrice:price.packageGrossPrice;
   if(!Number.isSafeInteger(priceGrosze)||priceGrosze<=0)throw Error('retailer_gross_price_not_confirmed');
   const photo=product.images?.find((image:any)=>image.category==='Packshot')??product.images?.[0];
@@ -63,11 +74,12 @@ export async function readTopbodenProduct(source:RetailSource,fetchImpl:typeof f
   // Accessory cards use the SEO title in JSON-LD, not the catalogue name.
   // Both primary records already bind the reviewed UUID/EAN/pack. Tie this
   // differently named price record to their exact SEO title, brand and photo.
-  const accessoryIdentity=source.apiPurchaseUnit==='opk.'&&records.length===1
+  const reviewedNativePack=source.apiPurchaseUnit==='opk.'||source.id==='topboden-strongman-300ml';
+  const accessoryIdentity=reviewedNativePack&&records.length===1
     &&typeof product.metaTitle==='string'&&product.metaTitle.length>0&&card.metaTitle===product.metaTitle
     &&records[0].name===product.metaTitle&&records[0].brand===source.brand
     &&typeof records[0].image==='string'&&records[0].image.includes(source.ean);
-  if(records.length!==1||!(source.apiPurchaseUnit==='opk.'?accessoryIdentity:records[0].name?.startsWith(product.name)))throw Error('product_identity_not_confirmed');
+  if(records.length!==1||!(reviewedNativePack?accessoryIdentity:records[0].name?.startsWith(product.name)))throw Error('product_identity_not_confirmed');
   const offer=records[0].offers;
   if(offer?.priceCurrency!=='PLN'||parsePriceToGrosze(offer.price)!==confirmed.priceGrosze||!/\/InStock$/.test(String(offer.availability)))throw Error('retailer_gross_price_not_confirmed');
   return {...confirmed,product,validUntil:offer.priceValidUntil??null,evidenceSha256:createHash('sha256').update(JSON.stringify([product,html])).digest('hex')};

@@ -421,6 +421,12 @@ function EstimateResult({
         </View>
       ))}
 
+      {consolidatedLines.filter(line=>line.indoEndcapPlan).map(line=><View key={'pairs-'+line.product.id} style={{padding:12,borderRadius:12,backgroundColor:Colors.surface,gap:6}}>
+        <Txt w="semibold">{tr('Zakończenia listew — wspólny zakup','Skirting endcaps — combined purchase')}</Txt>
+        <Txt>{tr('Lewe: '+line.indoEndcapPlan!.left+'. Prawe: '+line.indoEndcapPlan!.right+'. Potrzebne pary L+P: '+line.indoEndcapPlan!.pairs+'.','Left: '+line.indoEndcapPlan!.left+'. Right: '+line.indoEndcapPlan!.right+'. Required L+R pairs: '+line.indoEndcapPlan!.pairs+'.')}</Txt>
+        {line.indoEndcapPlan!.additionalPairs>0&&<Txt>{tr('Dodatkowo wybrane gotowe pary: '+line.indoEndcapPlan!.additionalPairs+'.','Additional selected pairs: '+line.indoEndcapPlan!.additionalPairs+'.')}</Txt>}
+        {line.indoEndcapPlan!.savedPairs>0&&<Txt>{tr('Wspólny zakup zmniejsza liczbę par o '+line.indoEndcapPlan!.savedPairs+'.','Combining rooms saves '+line.indoEndcapPlan!.savedPairs+' pairs.')}</Txt>}
+      </View>)}
       {/* Skonsolidowana lista zakupowa całego remontu (kup raz, opak. łącznie) */}
       {consolidatedLines.length > 0 && !data.deliveryComparison?.best && (
         <View style={{ gap: 8 }}>

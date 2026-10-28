@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-10-27T16:13:18.361Z",
-  "scope": "Same 65 saved measurement maps, no new choices or measurements filled. 82/244 priced,162 unpriced;8 complete MATERIAL scenarios. Four INDO accessory packs are separately available for explicit additional purchases. This does not complete the old automatic skirting installation recipe or add glue/fixings silently.",
+  "checkedAt": "2026-10-28T11:55:00.658Z",
+  "scope": "Same 65 saved measurement maps with no newly required skirting or other choices filled. Current INDO has seven explicit material roles. Fresh 2026-10-28 prices include eleven newly expired/unavailable references. Explicit complete six-product and two-room INDO cases are recorded separately. Unpriced rows repeat across jobs and are not unique catalogue products.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 244,
     "beforePriced": 82,
-    "afterLines": 244,
-    "afterPriced": 82,
-    "afterUnpriced": 162,
+    "afterLines": 247,
+    "afterPriced": 73,
+    "afterUnpriced": 174,
     "fullyPricedScenarios": 8
   },
   "history": [
@@ -253,6 +253,19 @@
         "auditedJobs": 65,
         "beforeLines": 240,
         "beforePriced": 84,
+        "afterLines": 244,
+        "afterPriced": 82,
+        "afterUnpriced": 162,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-27T16:13:18.361Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 244,
+        "beforePriced": 82,
         "afterLines": 244,
         "afterPriced": 82,
         "afterUnpriced": 162,
@@ -1318,66 +1331,107 @@
       "materials": [
         {
           "materialId": "skirting",
-          "name": "Listwa przypodłogowa PCV Arbiton Indo biały połysk 01, 2500 mm",
-          "unit": "mb",
+          "name": "Listwy — wybierz model i sprawdź plan docinek — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "listwa przypodlogowa pcv arbiton indo bialy polysk 01 2500 mm",
-            "category": "skirting"
+            "normalizedName": "listwy wybierz model i sprawdz plan docinek ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 11,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5905167725719",
-            "ean": "5905167725719",
-            "name": "Listwa przypodłogowa PCV Arbiton INDO - biały połysk 01"
-          }
-        },
-        {
-          "materialId": "skirting-glue",
-          "name": "Klej montażowy do listew",
-          "unit": "kartusze",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "klej montazowy do listew",
-            "category": "klej"
-          },
-          "quantity": 2,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
           "materialId": "corner-inside",
-          "name": "Narożniki wewnętrzne (łączniki)",
-          "unit": "szt.",
+          "name": "Narożniki wewnętrzne — policz miejsca — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "narozniki wewnetrzne laczniki",
-            "category": "akcesoria"
-          },
-          "quantity": 4,
-          "resolved": false,
-          "reason": "no-product",
-          "matchedProduct": null
-        },
-        {
-          "materialId": "silicone-skirting",
-          "name": "Silikon akrylowy (do malowania)",
-          "unit": "kartusze",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "silikon akrylowy do malowania",
-            "category": "uszczelnienie"
+            "normalizedName": "narozniki wewnetrzne policz miejsca ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "skirting-corner-outside",
+          "name": "Narożniki zewnętrzne — policz miejsca — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "narozniki zewnetrzne policz miejsca ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "skirting-connectors",
+          "name": "Łączniki proste — policz połączenia — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "laczniki proste policz polaczenia ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "skirting-endcaps",
+          "name": "Zakończenia lewe i prawe — policz osobno — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "zakonczenia lewe i prawe policz osobno ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "skirting-glue",
+          "name": "Klej — wybierz sposób mocowania — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klej wybierz sposob mocowania ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "skirting-fixings",
+          "name": "Materiały montażowe — dobierz do ściany — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "materialy montazowe dobierz do sciany ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -2551,13 +2605,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 24,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651698912",
-            "ean": "5907651698912",
-            "name": "Profil ścienny CW50 3 m.b. Super Norgips"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "profile-uw",
@@ -2570,13 +2620,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 8.8,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651698547",
-            "ean": "5907651698547",
-            "name": "Profil ścienny UW50 3 m.b. Super Norgips"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "mineral-wool",
@@ -2623,13 +2669,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 28.6,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651699933",
-            "ean": "5907651699933",
-            "name": "Taśma papierowa 50mm 75 mb NORGIPS"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "gk-filler",
@@ -2676,13 +2718,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 14.3,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651698004",
-            "ean": "5907651698004",
-            "name": "Taśma uszczelniająca akustyczna 50 mm/30 mb NORGIPS"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         }
       ]
     },
@@ -2739,13 +2777,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 15.4,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651698905",
-            "ean": "5907651698905",
-            "name": "Profil sufitowy UD30 3 m.b. Super Norgips"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "hanger",
@@ -2758,13 +2792,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 15,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651699650",
-            "ean": "5907651699650",
-            "name": "Wieszak płaski ES 60/75 mm NORGIPS"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "gk-screws-ceiling",
@@ -2811,13 +2841,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 14.3,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651699933",
-            "ean": "5907651699933",
-            "name": "Taśma papierowa 50mm 75 mb NORGIPS"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         },
         {
           "materialId": "ceiling-cross",
@@ -2913,13 +2939,9 @@
             "category": "drywall-accessory"
           },
           "quantity": 15.4,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5907651698851",
-            "ean": "5907651698851",
-            "name": "Taśma uszczelniająca akustyczna 30 mm/30 mb NORGIPS"
-          }
+          "resolved": false,
+          "reason": "no-offer",
+          "matchedProduct": null
         }
       ]
     },
@@ -5361,6 +5383,33 @@
       "nationalTariff": true,
       "automaticInstallationRecipeComplete": false,
       "endcapRule": "One kpl is one left+right pair. Buyer must count each side and select max(left,right) pairs; this wave does not add automatic handedness inputs."
+    },
+    "wave65": {
+      "checkedAt": "2026-10-28T11:53:46.790Z",
+      "scope": "Actual current INDO calculator recipe and shared handed pairs. Native anonymous public tariff for Poland; QA postal code00-001; ordinary Strongman price excluding optional coupon; no customer, checkout or order submission.",
+      "model": "skirting-indo-v1",
+      "products": 6,
+      "full": {
+        "materialsGrosze": 47758,
+        "deliveryGrosze": 2999,
+        "totalGrosze": 50757
+      },
+      "twoRooms": {
+        "left": 1,
+        "right": 1,
+        "pairs": 1,
+        "additionalPairs": 0,
+        "savedPairs": 1,
+        "materialsGrosze": 40758,
+        "deliveryGrosze": 2999,
+        "totalGrosze": 43757
+      },
+      "nativeCases": 10,
+      "optionalCouponIncluded": false,
+      "layoutRequiresConfirmation": true,
+      "glueQuantityRequiresExplicitAllowance": true,
+      "globalCuttingOptimizer": false,
+      "uiVerification": "Pending: local browser use disabled in Work settings. No UI completion claimed."
     }
   }
 }

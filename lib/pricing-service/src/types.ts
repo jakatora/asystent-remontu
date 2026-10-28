@@ -143,6 +143,7 @@ export type UnresolvedReason =
 
 /** Wyceniona pozycja (produkt dopasowany, oferta z ceną). */
 export interface ResolvedLine {
+  indoEndcaps?: import('./indo-endcaps').IndoEndcapDemand;
   /** Validated full-height cuts for the exact reviewed plain wallpaper roll. */
   plainWallpaper?: import('./wallpaper-rolls').PlainWallpaperRequirement;
   resolved: true;
@@ -218,6 +219,7 @@ export interface StageEstimate {
  * liczy się raz na zsumowanej ilości — stąd oszczędność względem sumy per-etap.
  */
 export interface ConsolidatedLine {
+  indoEndcapPlan?: import('./indo-endcaps').IndoEndcapPlan;
   wallpaperCutPlan?: import('./wallpaper-rolls').WallpaperCutPlan;
   /** Exact purchase plan, including mixed package sizes and stores. */
   packagePlan?: PackagePlan;

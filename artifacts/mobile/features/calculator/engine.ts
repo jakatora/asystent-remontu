@@ -1,3 +1,4 @@
+import { SKIRTING_JOB, SKIRTING_MODEL, isSkirtingMaterial, skirtingMaterials, skirtingQuantity } from './skirting';
 import { WATERPROOFING_JOB, WATERPROOFING_MODEL, isWaterproofingMaterial, waterproofingMaterials, waterproofingQuantity } from './waterproofing';
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalQuantity, removalWarnings } from './wallpaperRemoval';
 import { WALLPAPER_ADHESIVE_MODEL, WALLPAPER_SUPPLIES_MODEL, WALLPAPER_ROLLS_MODEL, isWallpaperAdhesiveJob, isWallpaperAdhesive, wallpaperAdhesiveMaterial, wallpaperAdhesiveQuantity, wallpaperAdhesiveWarnings } from './wallpaperAdhesive';
@@ -78,6 +79,10 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if (jobId && isSkirtingMaterial(jobId, material.id)) {
+    const required=skirtingQuantity(material.id,measurements),rawQuantity=required??0;
+    return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};
+  }
   if (jobId && isWaterproofingMaterial(jobId, material.id)) {
     const required = waterproofingQuantity(material.id, measurements), rawQuantity = required ?? 0;
     return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null };
@@ -191,6 +196,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(isWallpaperAdhesiveJob(job.id) ? { quantityModel: WALLPAPER_ROLLS_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === WATERPROOFING_JOB ? { quantityModel: WATERPROOFING_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id === SKIRTING_JOB ? {quantityModel:SKIRTING_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
       ...(job.id===REMOVAL_JOB?{quantityModel:REMOVAL_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===LAMINATE_JOB?{quantityModel:LAMINATE_SUPPLIES_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -239,6 +245,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       ...(substratePrimerSpecification(job.id) ? { quantityModel: SUBSTRATE_PRIMER_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(isWallpaperAdhesiveJob(job.id) ? { quantityModel: WALLPAPER_ROLLS_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === WATERPROOFING_JOB ? { quantityModel: WATERPROOFING_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
+      ...(job.id === SKIRTING_JOB ? {quantityModel:SKIRTING_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)} : {}),
       ...(job.id===REMOVAL_JOB?{quantityModel:REMOVAL_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===LAMINATE_JOB?{quantityModel:LAMINATE_SUPPLIES_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(isWallFinishingJob(job.id)?{quantityModel:WALL_FINISHING_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -263,6 +270,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if (job.id === SKIRTING_JOB) material = skirtingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === WATERPROOFING_JOB) material = waterproofingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (isWallpaperRoll(job.id, material.id) && !isRichMaterial(material)) material = wallpaperRollMaterial(material, measurements);
       if (isWallpaperTape(job.id, material.id) && !isRichMaterial(material)) material = wallpaperTapeMaterial(material);
@@ -288,6 +296,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if (job.id === SKIRTING_JOB) material = skirtingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (job.id === WATERPROOFING_JOB) material = waterproofingMaterials(measurements).find(row => row.id === material.id) ?? material;
       if (isWallpaperRoll(job.id, material.id) && !isRichMaterial(material)) material = wallpaperRollMaterial(material, measurements);
       if (isWallpaperTape(job.id, material.id) && !isRichMaterial(material)) material = wallpaperTapeMaterial(material);

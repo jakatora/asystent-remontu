@@ -1,3 +1,5 @@
+import {SKIRTING_JOB,SKIRTING_MODEL,skirtingEndcapDemand} from '@/features/calculator/skirting';
+import type {IndoEndcapDemand,IndoEndcapPlan} from '../../../../lib/pricing-service/src/indo-endcaps';
 // Klient HTTP do backendu wyceny (artifacts/api-server, router /pricing/*).
 //
 // Woła POST /pricing/stage (jeden etap) i POST /pricing/project (cały remont) na
@@ -56,6 +58,7 @@ export interface PricingMaterialInput {
 }
 
 export interface PricingMaterialLineInput {
+  readonly indoEndcaps?: IndoEndcapDemand;
   readonly plainWallpaper?: PlainWallpaperRequirement;
   readonly material: PricingMaterialInput;
   /** Ilość natywna policzona przez silnik (nieujemna). */
@@ -248,6 +251,7 @@ export interface SerializedStage {
 
 /** Skonsolidowana pozycja zakupowa całego remontu (jeden produkt ze wszystkich etapów). */
 export interface SerializedConsolidatedLine {
+  indoEndcapPlan?: IndoEndcapPlan;
   wallpaperCutPlan?: WallpaperCutPlan;
   packages?: SerializedPackage[];
   product: SerializedProduct;
@@ -441,6 +445,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
         },
         quantity: reference ? resolveMaterialQuantity(reference, calc)!.quantity : getRequiredQuantity(line, calc),
         ...(isWallpaperRoll(calc.jobId, line.material.id) && wallpaperRollPanels(calc.measurements) ? { plainWallpaper: { version: 1 as const, panels: wallpaperRollPanels(calc.measurements)! } } : {}),
+        ...(calc.jobId===SKIRTING_JOB&&calc.quantityModel===SKIRTING_MODEL&&line.material.id==='skirting-endcaps'&&skirtingEndcapDemand(calc.measurements)?{indoEndcaps:skirtingEndcapDemand(calc.measurements)!}:{}),
         ...(line.packs !== undefined ? { packs: line.packs } : {}),
       }, calc.jobId, calc.measurements), calc.jobId);
     }),

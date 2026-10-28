@@ -1166,6 +1166,9 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [  {
   // source: https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe
   // source: https://arbiton.com/pl/listwy-przypodlogowe/akcesoria/zakonczenie-l-p-indo-bialy-polysk-1-arbiton
   {"id":"topboden-indo-endcaps-gloss-pair","ean":"5905167726358","name":"Zakończenie listwy przypodłogowej Arbiton INDO - biały połysk 01 - lewe i prawe - 2 szt.","brand":"Arbiton","category":"skirting-accessory","packageSize":1,"unit":"kpl","store":"TopBoden","format":"topboden-api","productUuid":"7e8bcf6a-8e26-4f27-9785-8bb7d087ba48","apiPurchaseUnit":"opk.","variant":["INDO","biały połysk","2 szt"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/indo-zakonczenie-prawe-lewe-bialy-polysk-01-opakowanie-foliowe","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167726358_P_03.webp"},
+  // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
+  // source: https://arbiton.com/pl/klej-montazowy-strongman-300ml
+  {"id":"topboden-strongman-300ml","ean":"5905167788264","name":"Klej montażowy Arbiton Strongman 300 ml - klej do listew przypodłogowych","brand":"Arbiton","category":"skirting-adhesive","packageSize":300,"unit":"ml","store":"TopBoden","format":"topboden-api","productUuid":"9cc774ed-c24b-4f3b-a863-a935a86383f4","apiPurchaseUnit":"szt.","variant":["Strongman","300 ml"],"pickupRequiresConfirmation":true,"url":"https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167788264_I_01.webp"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -1360,4 +1363,5 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   "Arbiton INDO biały połysk 01 — narożniki zewnętrzne (2 szt.)": "5905167726198",
   "Arbiton INDO biały połysk 01 — łączniki (2 szt.)": "5905167725870",
   "Arbiton INDO biały połysk 01 — zakończenia lewe + prawe (1 para)": "5905167726358",
+  "Arbiton Strongman — klej montażowy 300 ml": "5905167788264",
 };

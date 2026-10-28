@@ -1,3 +1,4 @@
+import {confirmedIndoEndcapDemand,type IndoEndcapDemand} from './indo-endcaps';
 // Adapter: wynik kalkulatora (engine.calculate z mobile) -> wejście wyceny.
 //
 // Bierze REALNY `CalculationResult` pojedynczego joba/etapu (lista materiałów z
@@ -54,6 +55,7 @@ export interface CalculatorMaterial {
 
 /** Minimalny kształt pozycji z `CalculationResult.materials` (MaterialLineItem). */
 export interface CalculatorMaterialLine {
+  readonly indoEndcaps?: IndoEndcapDemand;
   readonly plainWallpaper?: PlainWallpaperRequirement;
   readonly material: CalculatorMaterial;
   /** Ilość w jednostkach natywnych materiału (zaokrąglona przez silnik). */
@@ -149,6 +151,7 @@ export async function estimateStageCostFromCalculation(
   const stage = await estimateStageCost(db, items, options, deps);
   for (const [index, line] of stage.lines.entries()) {
     const input = jobResult.materials[index], cut = input?.plainWallpaper;
+    if(line.resolved&&input?.material.ean===line.product.ean){const pair=confirmedIndoEndcapDemand(line.product.ean,line.unit,line.packageSize,input.quantity,input.indoEndcaps);if(pair)line.indoEndcaps=pair;}
     if (!line.resolved || line.product.ean !== ERISMANN_3333_5_EAN || input.material.ean !== ERISMANN_3333_5_EAN || line.unit !== 'szt' || line.packageSize !== 1 || cut?.version !== 1 || !Array.isArray(cut.panels)) continue;
     const plan = planPlainWallpaperPanels(cut.panels, ERISMANN_3333_5_ROLL);
     // Manual/custom shopping quantities cannot retain stale full-wall cuts.

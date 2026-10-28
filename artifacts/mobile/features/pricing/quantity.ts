@@ -1,3 +1,4 @@
+import {SKIRTING_JOB,SKIRTING_MODEL,skirtingMaterials,skirtingReference} from '@/features/calculator/skirting';
 import { WATERPROOFING_JOB, WATERPROOFING_MODEL, waterproofingMaterials, waterproofingReference } from '@/features/calculator/waterproofing';
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalReference } from '@/features/calculator/wallpaperRemoval';
 import { isWallpaperAdhesiveJob, wallpaperAdhesiveReference, wallpaperAdhesiveEan, isCurrentWallpaperAdhesiveModel, isCurrentWallpaperTapeModel, WALLPAPER_ROLLS_MODEL } from '@/features/calculator/wallpaperAdhesive';
@@ -71,6 +72,12 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(calc.jobId===SKIRTING_JOB){
+    if(calc.quantityModel!==SKIRTING_MODEL)return null;
+    const definition=skirtingMaterials(calc.measurements).find(m=>skirtingReference(m.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(l=>l.material.id===definition.id);
+    if(!source||source.quantityKnown===false||!('ean' in source.material)||source.material.ean!==definition!.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit))return null;
+    const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
+  }
   if (calc.jobId === WATERPROOFING_JOB) {
     if (calc.quantityModel !== WATERPROOFING_MODEL) return null;
     const definition = waterproofingMaterials(calc.measurements).find(row => waterproofingReference(row.id, calc.measurements) === ref.id);

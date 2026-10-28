@@ -1,3 +1,4 @@
+import { SKIRTING_JOB, SKIRTING_MODEL, isSkirtingMaterial, skirtingMaterials, skirtingQuantity } from './skirting';
 import { WATERPROOFING_JOB, WATERPROOFING_MODEL, isWaterproofingMaterial, waterproofingMaterials, waterproofingQuantity } from './waterproofing';
 import { REMOVAL_JOB, REMOVAL_MODEL, isRemovalMaterial, removalMaterials, removalQuantity } from './wallpaperRemoval';
 import { isWallpaperAdhesive, isCurrentWallpaperAdhesiveModel, isCurrentWallpaperTapeModel, WALLPAPER_ROLLS_MODEL, wallpaperAdhesiveQuantity } from './wallpaperAdhesive';
@@ -18,6 +19,7 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===SKIRTING_MODEL&&isSkirtingMaterial(calc.jobId,line.material.id))return skirtingQuantity(line.material.id,calc.measurements)??0;
   if (calc.quantityModel === WATERPROOFING_MODEL && isWaterproofingMaterial(calc.jobId, line.material.id)) return waterproofingQuantity(line.material.id, calc.measurements) ?? 0;
   if (calc.quantityModel === WALLPAPER_ROLLS_MODEL && isWallpaperRoll(calc.jobId, line.material.id)) return wallpaperRollQuantity(calc.measurements) ?? 0;
   if (isCurrentWallpaperAdhesiveModel(calc.quantityModel) && isWallpaperAdhesive(calc.jobId, line.material.id)) return wallpaperAdhesiveQuantity(calc.measurements) ?? 0;

@@ -1,3 +1,4 @@
+import {skirtingInputs,skirtingMaterials,skirtingInstructions} from '@/features/calculator/skirting';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import { wallpaperRollInputs } from '@/features/calculator/wallpaperRolls';
 import { wallpaperAdhesiveInputs } from '@/features/calculator/wallpaperAdhesive';
@@ -90,68 +91,23 @@ export const skirtingJob: RenovationJob = {
   id: 'skirting-boards',
   categoryId: 'skirting',
   name: 'Listwy przypodłogowe',
-  description: 'Zamontuj listwy przypodłogowe — estetyczne wykończenie podłogi.',
+  description: 'Dobierz listwy INDO 70 mm biały połysk 01, narożniki, łączniki i zakończenia. Sprawdź plan docinek oraz mocowanie do ściany; kalkulator policzy pełne opakowania i wspólny zakup dla pomieszczeń.',
   difficulty: 'easy',
   riskLevel: 'low',
   estimatedDays: 1,
   coverIcon: 'align-left',
   warningRules: [],
-  measurementInputs: [
-    {
-      id: 'perimeter',
-      label: 'Obwód pomieszczenia',
-      unit: 'mb',
-      placeholder: 'np. 18',
-      min: 2,
-      max: 200,
-      hint: 'Zmierz wszystkie ściany (2 × długość + 2 × szerokość).',
-    },
-  ],
-  materials: [
-    {
-      id: 'skirting',
-      name: 'Listwy przypodłogowe',
-      brand: 'Arbiton Laque MDF 60 mm × 2.4 m biała (referencja)',
-      unit: 'mb',
-      formulaKey: 'skirting',
-      pricePerUnit: 8,
-      notes: 'Kupuj z 10% naddatkiem. MDF lub drewno — do wyboru.',
-      shopPrices: SHARED_SHOP_PRICES.baseboardMDF60mm,
-    },
-    {
-      id: 'skirting-glue',
-      name: 'Klej montażowy do listew',
-      unit: 'tuba',
-      formulaKey: 'skirtingGlue',
-      pricePerUnit: 12,
-      notes: 'Np. Tytan SBS FIX (listwy, panele, profile) lub odpowiednik.',
-    },
-    {
-      id: 'corner-pieces',
-      name: 'Narożniki wewnętrzne i zewnętrzne',
-      unit: 'szt.',
-      formulaKey: 'corners',
-      pricePerUnit: 5,
-    },
-  ],
+  measurementInputs:[{id:'perimeter',label:'Długość ścian po odjęciu drzwi',unit:'mb',inputType:'length',placeholder:'np. 18',min:0.5,max:200,hint:'Łączna długość netto do wykończenia. Zapas i pełne odcinki liczymy osobno.'},...skirtingInputs],
+  materials:skirtingMaterials(),
+  // source: https://topboden.pl/files/0PeVEtM3BdxD3EXs.pdf
   tools: [
-    { id: 'miter-saw', name: 'Skrzynka uciosowa lub piłka', icon: 'scissors', required: true, notes: 'Do cięcia listew pod 45°' },
-    { id: 'hammer', name: 'Młotek', icon: 'tool', required: false },
-    { id: 'nails', name: 'Pistol do gwoździ (opcjonalnie)', icon: 'tool', required: false, rentable: true },
-    { id: 'level', name: 'Poziomica', icon: 'minus', required: false },
+    { id: 'miter-saw', name: 'Piłka do listew i skrzynka do cięcia', icon: 'scissors', required: true, notes: 'Do cięcia odcinków według planu i instrukcji INDO', rentable: true },
+    { id: 'caulk-gun', name: 'Pistolet do kleju', icon: 'tool', required: false, notes: 'Potrzebny przy wyborze kleju w kartuszu' },
+    { id: 'tape-measure', name: 'Miara', icon: 'maximize-2', required: true },
+    { id: 'pencil', name: 'Ołówek', icon: 'edit', required: true },
   ],
-  instructions: [
-    { step: 1, title: 'Zmierz i zaplanuj', description: 'Zmierz każdą ścianę osobno. Zaplanuj gdzie będą narożniki i złączenia.', durationMin: 20 },
-    { step: 2, title: 'Przytnij listwy', description: 'W narożnikach wewnętrznych tniej pod 45° (skrzynką uciosową). W zewnętrznych — podobnie, ale w drugą stronę. Testuj dopasowanie na sucho.', durationMin: 45 },
-    { step: 3, title: 'Klej na listwę', description: 'Nanieś klej montażowy zygzakiem na tylną część listwy. Dociśnij do ściany.', durationMin: 60 },
-    { step: 4, title: 'Mocuj gwoździami (opcjonalnie)', description: 'Dla pewniejszego mocowania dobij listwę gwoździkami tapicerskimi lub pistoletem.', durationMin: 30 },
-    { step: 5, title: 'Silikonuj połączenia', description: 'W narożnikach i przy podłodze nanieś cienką warstwę silikonu w kolorze listwy.', durationMin: 20 },
-  ],
-  commonMistakes: [
-    'Złe cięcia narożników — szpary w kątach',
-    'Listwy nie przylegają do ściany — nierówna ściana wymaga dużej ilości kleju',
-    'Brak silikonu w narożnikach — szpary wyglądają nieprofesjonalnie',
-  ],
+  instructions:skirtingInstructions,
+  commonMistakes: ['Mocowanie listwy do pływającej podłogi zamiast do ściany', 'Pomieszanie kolorów lub serii akcesoriów', 'Zakup na podstawie sumy metrów bez sprawdzenia docinek i połączeń', 'Liczenie zakończeń bez rozróżnienia strony lewej i prawej'],
   qualityChecklist: [
     { id: 'q1', description: 'Narożniki są szczelne bez szpar' },
     { id: 'q2', description: 'Listwy przylegają do ściany na całej długości' },
@@ -159,8 +115,10 @@ export const skirtingJob: RenovationJob = {
   ],
   hireProfessionalRecommended: false,
 
-  verifiedAt: '2026-07-10',
+  verifiedAt: '2026-10-27',
   verifiedSources: [
+    { title: 'INDO — instrukcja montażu producenta', url: 'https://topboden.pl/files/0PeVEtM3BdxD3EXs.pdf', domain: 'topboden.pl', consultedAt: '2026-10-27' },
+    { title: 'Arbiton Strongman 300 ml — klej do listew', url: 'https://arbiton.com/pl/klej-montazowy-strongman-300ml', domain: 'arbiton.com', consultedAt: '2026-10-27' },
     {
       title:       'Montaż listew przypodłogowych krok po kroku',
       url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/montaz-listew-przypodlogowych-krok-po-kroku-aa-WF7w-fTkS-6P9h.html',

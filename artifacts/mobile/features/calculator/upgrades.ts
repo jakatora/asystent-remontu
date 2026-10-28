@@ -1,3 +1,4 @@
+import {reviewSkirtingCalculation,reviewSkirtingProject,reviewSkirtingShopping} from './skirting';
 import { reviewWaterproofingCalculation, reviewWaterproofingProject, reviewWaterproofingShopping } from './waterproofing';
 import { reviewRemovalCalculation, reviewRemovalProject, reviewRemovalShopping } from './wallpaperRemoval';
 import { reviewWallpaperAdhesiveCalculation, reviewWallpaperAdhesiveProject, reviewWallpaperAdhesiveShopping } from './wallpaperAdhesive';
@@ -20,9 +21,9 @@ const upgradePreviousCalculation = (calc: CalculationResult | undefined) => revi
 const upgradePreviousProject = (project: Project) => reviewRemovalProject(reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))))))));
 const upgradeWithWallpaperCalculation = (calc: CalculationResult | undefined) => reviewWallpaperRollCalculation(reviewWallpaperTapeCalculation(reviewWallpaperAdhesiveCalculation(reviewLaminateCalculation(upgradePreviousCalculation(calc)))));
 const upgradeWithWallpaperProject = (project: Project) => reviewWallpaperRollProject(reviewWallpaperTapeProject(reviewWallpaperAdhesiveProject(reviewLaminateProject(upgradePreviousProject(project)))));
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewWaterproofingCalculation(upgradeWithWallpaperCalculation(calc));
-export const upgradeProject = (project: Project) => reviewWaterproofingProject(upgradeWithWallpaperProject(project));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewSkirtingCalculation(reviewWaterproofingCalculation(upgradeWithWallpaperCalculation(calc)));
+export const upgradeProject = (project: Project) => reviewSkirtingProject(reviewWaterproofingProject(upgradeWithWallpaperProject(project)));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
-  return reviewWaterproofingShopping(reviewWallpaperRollShopping(reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc),calc),calc);
+  return reviewSkirtingShopping(reviewWaterproofingShopping(reviewWallpaperRollShopping(reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc),calc),calc),calc);
 };

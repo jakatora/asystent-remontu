@@ -30,7 +30,9 @@ test('window foam preserves calculated can demand when converting the selected 7
 });
 
 test('the reference budget includes the retailer lot, including a custom piece price',()=>{
- const calc=calculateMaterials(skirtingJob,{perimeter:5});
+ const calc=calculateMaterials(skirtingJob,{perimeter:5,skirtingSystem:1,skirtingLayoutFit:1,
+   skirtingInside:0,skirtingOutside:0,skirtingConnectors:0,skirtingEndLeft:0,skirtingEndRight:0,
+   skirtingMounting:2,skirtingMountFit:1});
  const input={job:skirtingJob,calc,regionCode:'lodzkie',qualityTier:'standard' as const,overrides:[]};
  const line=computePricedBudget(input).materialDetails.find(line=>line.materialRef.id==='mat-skirting-arbiton-2500')!;
  assert.ok(line);assert.equal(line.packagesNeeded,10);assert.equal(line.totalCost,319.80);

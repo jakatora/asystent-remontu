@@ -1,3 +1,4 @@
+import {confirmedIndoEndcapDemand,type IndoEndcapPlan} from './indo-endcaps';
 // Serwis wyceny etapu i całego remontu — most między kalkulatorem a katalogiem
 // cen. Dla każdej pozycji: dopasuj produkt (EAN/GTIN, potem nazwa+kategoria),
 // wybierz NAJTAŃSZĄ aktualną ofertę, zaokrąglij ilość w górę do pełnych
@@ -301,6 +302,7 @@ export async function estimateStageCost(
  * (compareStores) — grupowanie po `product.id` liczymy raz i tak samo.
  */
 interface ProductGroup {
+  indoEndcapPlan?: IndoEndcapPlan;
   wallpaperCutPlan?: WallpaperCutPlan;
   product: ResolvedLine["product"];
   /** Najtańsza oferta produktu (bez filtra sklepu) — koszyk optymalny. */
@@ -325,10 +327,13 @@ export function groupProjectByProduct(
 ): ProductGroup[] {
   const groups = new Map<string, ProductGroup>();
   const cuts = new Map<string, { panels: WallpaperPanel[]; quantity: number }>();
+  const pairs = new Map<string,{left:number;right:number;quantity:number}>();
   for (const [stageIndex, stage] of stages.entries()) {
     for (const line of stage.lines) {
       if (!line.resolved) continue;
       const key = line.product.id;
+      const pair=confirmedIndoEndcapDemand(line.product.ean,line.unit,line.packageSize,line.quantity,line.indoEndcaps);
+      if(pair){const entry=pairs.get(key)??{left:0,right:0,quantity:0};entry.left+=pair.left;entry.right+=pair.right;entry.quantity+=line.quantity;pairs.set(key,entry);}
       if (line.plainWallpaper && line.product.ean === ERISMANN_3333_5_EAN && line.unit === 'szt' && line.packageSize === 1) {
         const entry = cuts.get(key) ?? { panels: [], quantity: 0 };
         entry.quantity += line.quantity;
@@ -354,6 +359,11 @@ export function groupProjectByProduct(
     }
   }
   return [...groups.values()].map(group => {
+    const pair=pairs.get(group.product.id);
+    if(pair&&[pair.left,pair.right].every(Number.isSafeInteger)){
+      const count=Math.max(pair.left,pair.right),additionalPairs=group.totalQuantity-pair.quantity;
+      group={...group,totalQuantity:additionalPairs+count,indoEndcapPlan:{left:pair.left,right:pair.right,pairs:count,additionalPairs,savedPairs:pair.quantity-count}};
+    }
     const request = cuts.get(group.product.id), plan = request && planPlainWallpaperPanels(request.panels, ERISMANN_3333_5_ROLL);
     if (plan && plan.rollsNeeded <= request!.quantity) group = { ...group, totalQuantity: group.totalQuantity - request!.quantity + plan.rollsNeeded, wallpaperCutPlan: plan };
     const cheapest = selectCheapestOffer(group.offers, undefined, { quantity: group.totalQuantity, product: group.product });
@@ -374,6 +384,7 @@ export function consolidateProject(
     const lineCostGrosze = packagePlan?.totalGrosze ?? packagesNeeded * g.cheapestOffer.unitPriceGrosze;
     lines.push({
       ...(g.wallpaperCutPlan ? { wallpaperCutPlan: g.wallpaperCutPlan } : {}),
+      ...(g.indoEndcapPlan ? {indoEndcapPlan:g.indoEndcapPlan} : {}),
       ...(packagePlan ? { packagePlan } : {}),
       product: g.product,
       cheapestOffer: g.cheapestOffer,

@@ -191,6 +191,6 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {comparison.alternatives.slice(0,2).map((basket,index) => <View key={index} style={{ borderWidth: 1, borderColor: Colors.border, borderRadius: 12, padding: 12, gap: 6 }}><Txt>{basket.stores.map(store => store.store).join(' + ')}</Txt><Txt w="semibold">{formatGrosze(basket.totalGrosze!)} · +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt></View>)}
     </View>}
     {current && destination && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
-    {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Tools and labour are separate.')}</Txt>}
+    {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}
   </View>;
 }
