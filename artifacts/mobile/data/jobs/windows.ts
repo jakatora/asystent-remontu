@@ -46,6 +46,8 @@ export const windowSealingJob: RenovationJob = {
   verifiedSources:[
     {title:'Soudal Akryl uniwersalny — karta 2025',url:'https://www.soudal.pl/sites/default/files/soudal_api/document/900003230/TDS_AKRYL_UNIWERSALNY_2025.pdf',domain:'soudal.pl',consultedAt:'2026-10-28'},
     {title:'Soudal SWS Extra / Basic Plus Inside — karta 2025',url:'https://www.soudal.pl/sites/default/files/soudal_api/document/SWS_EXTRA_INSIDE_2025.pdf',domain:'soudal.pl',consultedAt:'2026-10-28'},
+    // source: https://tytan.com/pl/produkt/piany-poliuretanowe/piana-pistoletowa-65/
+    {title:'Tytan Professional 65 — zastosowanie, temperatury i EAN 750 ml',url:'https://tytan.com/pl/produkt/piany-poliuretanowe/piana-pistoletowa-65/',domain:'tytan.com',consultedAt:'2026-10-28'},
   ],
 };
 

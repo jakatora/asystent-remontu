@@ -11,7 +11,7 @@ import { MATERIAL_PRICES } from '@/data/prices/materials';
 
 test('window foam preserves an explicit can allowance in physical ml; perimeter alone is not a yield', () => {
   const ref = MATERIAL_PRICES.find(row => row.id === 'mat-foam-soudal-lowexp-750ml')!;
-  const calc = calculateMaterials(windowSealingJob, { perimeter: 8, windowRepair: 3, windowFit: 1, windowFoamCans: 2 });
+  const calc = calculateMaterials(windowSealingJob, { perimeter: 8, windowRepair: 3, windowFit: 1, windowFoamCans: 2, windowFoamProduct: 1 });
   const before = JSON.stringify(calc), original = calc.materials.find(line => line.material.id === 'mounting-foam')!;
   assert.equal(original.rawQuantity, 1500);
   const input = toPricingStageInput(calc, 'better').materials.find(line => line.material.id === 'mounting-foam')!;

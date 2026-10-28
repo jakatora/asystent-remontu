@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-28T18:24:45.850Z",
+  "checkedAt": "2026-10-28T18:48:28.562Z",
   "scope": "Fresh production HTTP on 2026-10-28; same 65 saved measurement maps, no new measurements filled. One current Izosystems offer restores the exact existing SWS Inside90mm30m reference. Explicit chosen-purchase roll consolidation and postcode quotes recorded separately, not a complete automatic window-sealing recipe. No user project data writes.",
   "total": 166,
   "verifiedProducts": 132,
@@ -381,7 +381,7 @@
     {
       "id": "mat-foam-tytan-pro65-750ml",
       "name": "Piana pistoletowa Tytan Professional 65 niskoprężna 750 ml",
-      "referenceUrl": "https://mrowka.com.pl/produkt/piana-pistoletowa-65-750-ml-tytan-professional-5903518052859.html",
+      "referenceUrl": "https://sklep.sewera.pl/pianka-montazowa-pistoletowa-65-750ml-tytan-p12439",
       "status": "verified_offer",
       "ean": "5903518052859",
       "sourceIds": [
@@ -394,6 +394,62 @@
           "checkedAt": "2026-10-25T13:51:36.352Z",
           "status": "quoted",
           "reason": null
+        },
+        {
+          "sourceId": "sewera-foam-tytan-pro65-750ml",
+          "checkedAt": "2026-10-28T18:42:03.369Z",
+          "status": "quoted",
+          "basis": "retailer_basket_postcode",
+          "postalCode": "00-001",
+          "costGrosze": 1990,
+          "basketScope": "One merchant order; whole selected window recipe also needs the separately quoted SWS order.",
+          "nativeQuote": {
+            "costGrosze": 1990,
+            "carrier": "Kurier InPost do 5kg",
+            "payment": "Płatność online",
+            "checkedAt": "2026-10-28T18:42:03.369Z",
+            "expiresAt": "2026-10-28T18:52:03.369Z",
+            "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+            "basis": "retailer_basket_postcode",
+            "destinationScope": "postal_code",
+            "postalCode": "00-001",
+            "dispatchFrom": "Katowice",
+            "evidenceSha256": "ba3b3f7cd94eb629c291e6442897fcd917e15e4ac6bfbb0f7823033176f62f1e"
+          }
+        },
+        {
+          "sourceId": "sewera-foam-tytan-pro65-750ml",
+          "checkedAt": "2026-10-28T18:46:09.814Z",
+          "status": "quoted",
+          "basis": "retailer_basket_postcode",
+          "postalCode": "00-001",
+          "costGrosze": 1990,
+          "basketScope": "One merchant order; whole selected window recipe also needs the separately quoted SWS order.",
+          "nativeQuote": {
+            "costGrosze": 1990,
+            "carrier": "Kurier InPost do 5kg",
+            "payment": "Płatność online",
+            "checkedAt": "2026-10-28T18:46:09.814Z",
+            "expiresAt": "2026-10-28T18:56:09.814Z",
+            "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+            "basis": "retailer_basket_postcode",
+            "destinationScope": "postal_code",
+            "postalCode": "00-001",
+            "dispatchFrom": "Katowice",
+            "evidenceSha256": "aa4903e4a11578a362e2c191018ca4868d9e1beeecd15393e70e7966fc2497f0"
+          }
+        }
+      ],
+      "referenceHistory": [
+        {
+          "checkedAt": "2026-10-28T18:24:45.850Z",
+          "referenceUrl": "https://mrowka.com.pl/produkt/piana-pistoletowa-65-750-ml-tytan-professional-5903518052859.html",
+          "priceReference": {
+            "store": "Mrówka",
+            "pricePerPackage": 40.99,
+            "lastUpdated": "2026-08-23"
+          },
+          "note": "Historical reference from a different seller; not a same-store price-decrease event."
         }
       ]
     },
@@ -4096,7 +4152,7 @@
   ],
   "browserVerifiedOffers": 0,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T18:24:45.850Z",
+    "checkedAt": "2026-10-28T18:48:28.562Z",
     "pricedLines": 72,
     "totalLines": 250,
     "unpricedLines": 178,
@@ -4164,6 +4220,14 @@
     },
     {
       "checkedAt": "2026-10-28T16:30:44.302Z",
+      "total": 166,
+      "verifiedProducts": 132,
+      "remaining": 34,
+      "offers": 177,
+      "stores": 51
+    },
+    {
+      "checkedAt": "2026-10-28T18:24:45.850Z",
       "total": 166,
       "verifiedProducts": 132,
       "remaining": 34,

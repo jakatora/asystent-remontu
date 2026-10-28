@@ -1,4 +1,4 @@
-import {windowInputVisible,windowInputHint} from '@/features/calculator/windowSealing';
+import {windowInputVisible,windowInputHint,withWindowMeasurement} from '@/features/calculator/windowSealing';
 import {skirtingInputVisible,skirtingInputHint} from '@/features/calculator/skirting';
 import { waterproofingInputVisible } from '@/features/calculator/waterproofing';
 import { parseDecimal } from '@/shared/lib/number';
@@ -1112,7 +1112,7 @@ export default function WizardScreen() {
 
                         {'inputType' in inp && inp.inputType === 'select' ? <MeasurementSelect label={inp.label} options={inp.options ?? []}
                           value={val ? parseDecimal(val) : inp.defaultValue} onChange={value => {
-                            patchDraft({ measurements: { ...draft.measurements, [inp.id]: String(value) } }); setValidationError(null);
+                            patchDraft({ measurements: withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
                           }}/> : <View style={{ flexDirection: 'row', gap: 8 }}>
                           <TextInput
                             style={{

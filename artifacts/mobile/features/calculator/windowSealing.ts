@@ -4,7 +4,7 @@ import type {MeasurementInputDefinition} from '@/types/engine';
 import {MATERIAL_PRICES} from '@/data/prices/materials';
 
 export const WINDOW_JOB = 'window-sealing';
-export const WINDOW_MODEL = 'window-repair-v1';
+export const WINDOW_MODEL = 'window-repair-v2';
 export const WINDOW_IDS = ['window-gasket', 'mounting-foam', 'silicone-window', 'window-tape', 'window-masking-tape', 'window-preparation'] as const;
 export const isWindowMaterial = (job: string, id: string) => job === WINDOW_JOB && WINDOW_IDS.includes(id as typeof WINDOW_IDS[number]);
 const refs: Record<string, [string, string]> = {
@@ -13,6 +13,10 @@ const refs: Record<string, [string, string]> = {
   'window-tape': ['mat-window-tape-soudal-sws-inside-90mm', '5411183151178'],
   'window-masking-tape': ['mat-masking-tape-bluedolphin-30mm', '5907758515952'],
 };
+const foamRefs: Record<number, [string, string]> = {
+  1: ['mat-foam-soudal-lowexp-750ml', '5411183048522'],
+  2: ['mat-foam-tytan-pro65-750ml', '5903518052859'],
+};
 const finite = (n: unknown, min: number, max: number): n is number => typeof n === 'number' && Number.isFinite(n) && n >= min && n <= max;
 const whole = (n: unknown, min = 0, max = 200): n is number => finite(n, min, max) && Number.isSafeInteger(n);
 const method = (m: MeasurementMap) => whole(m.windowRepair, 1, 3) ? m.windowRepair : null;
@@ -20,14 +24,16 @@ const reserve = (m: MeasurementMap) => finite(m.windowReservePercent ?? 10, 0, 3
 
 export function windowReference(id: string, m: MeasurementMap = {}): string | null {
   const selected = method(m);
+  if (selected === 3 && id === 'mounting-foam') return foamRefs[m.windowFoamProduct]?.[0] ?? null;
   if (selected === 2 && ['silicone-window', 'window-masking-tape'].includes(id)
-    || selected === 3 && ['window-tape', 'mounting-foam'].includes(id)) return refs[id][0];
+    || selected === 3 && id === 'window-tape') return refs[id][0];
   return null;
 }
 
 // source: https://www.soudal.pl/sites/default/files/soudal_api/document/900003230/TDS_AKRYL_UNIWERSALNY_2025.pdf
 // source: https://www.soudal.pl/sites/default/files/soudal_api/document/SWS_EXTRA_INSIDE_2025.pdf
 // source: https://media.soudal.pl/katalogi/Katalog_Prof_Soudal.pdf
+// source: https://tytan.com/pl/produkt/piany-poliuretanowe/piana-pistoletowa-65/
 /** Physical demand, before rounding and before combining the same SKU across rooms. */
 export function windowQuantity(id: string, m: MeasurementMap): number | null {
   if (!isWindowMaterial(WINDOW_JOB, id) || method(m) === null) return null;
@@ -43,7 +49,8 @@ export function windowQuantity(id: string, m: MeasurementMap): number | null {
     || selected === 3 && ['silicone-window', 'window-masking-tape'].includes(id)) return 0;
   if (m.windowFit !== 1) return null;
   if (id === 'window-masking-tape') return whole(m.windowMaskingRolls ?? 1, 0, 20) ? (m.windowMaskingRolls ?? 1) * 50 : null;
-  if (id === 'mounting-foam') return whole(m.windowFoamCans, 0, 100) ? m.windowFoamCans * 750 : null;
+  if (id === 'mounting-foam') return m.windowFoamCans === 0 ? 0
+    : whole(m.windowFoamCans, 1, 100) && [1, 2].includes(m.windowFoamProduct) ? m.windowFoamCans * 750 : null;
   const allowance = reserve(m);
   if (!finite(m.perimeter, 0.01, 200) || allowance === null) return null;
   if (id === 'silicone-window') {
@@ -76,14 +83,21 @@ const notes: Record<string, string> = {
   'window-preparation': 'Sprawdź podłoże, środki do czyszczenia oraz potrzebne podparcie spoiny, gruntowanie, ochronę i materiały wykończeniowe. Potwierdź tylko przygotowane podłoże i posiadany komplet. Brak doboru pozostaje brakiem wyceny.',
   'window-gasket': 'Uszczelkę dobierz do profilu okna i zaleceń jego producenta. Nie przyklejaj dowolnego profilu na fabryczną uszczelkę. Zakup wymaga indywidualnego doboru; potwierdzenie posiadania dotyczy całej zmierzonej długości.',
 };
+// source: https://tytan.com/pl/produkt/piany-poliuretanowe/piana-pistoletowa-65/
+function foamNote(m: Readonly<Record<string, number | string | undefined>>): string {
+  return Number(m.windowFoamProduct) === 2
+    ? 'Tytan Professional 65, pistoletowa, 750 ml, EAN 5903518052859. Producent: otoczenie +5 do +30°C, puszka +10 do +30°C. To wariant do takich warunków, nie zimowy. Ilość ustal dla tego produktu i złącza; nie przeliczamy deklarowanych litrów piany na metry naprawy. Dobierz pistolet, czyścik i przygotowanie według etykiety.'
+    : Number(m.windowFoamProduct) === 1 ? notes['mounting-foam']
+      : 'Podaj sprawdzoną liczbę puszek wybranego produktu. 0 oznacza sprawną izolację lub posiadanie całej potrzebnej ilości. Przy zakupie wybierz dokładny model i sprawdź warunki jego użycia.';
+}
 export function windowMaterials(m: MeasurementMap = {}): MaterialItem[] {
   return WINDOW_IDS.map(id => {
     const ref = MATERIAL_PRICES.find(r => r.id === windowReference(id, m));
-    return ref ? {id, name: ref.productLabel, brand: ref.brand, ean: refs[id][1], unit: ref.packageUnit,
+    return ref ? {id, name: ref.productLabel, brand: ref.brand, ean: id === 'mounting-foam' ? foamRefs[m.windowFoamProduct][1] : refs[id][1], unit: ref.packageUnit,
       category: ref.materialType, formulaKey: 'window-v1:' + id, wasteFactor: 1, pricePerUnit: ref.pricePerPackage, priceBasis: 'package' as const,
       packaging: {size: ref.packageSize, label: `${ref.packageSize} ${ref.packageUnit}`, purchaseUnit: id === 'mounting-foam' ? 'puszka' : id === 'silicone-window' ? 'kartusz' : 'rolka'},
-      sourceUrl: ref.sourceUrl, notes: notes[id]}
-      : {id, name: names[id], unit: 'pozycja', formulaKey: 'window-v1:' + id, wasteFactor: 1, pricePerUnit: 0, notes: notes[id]};
+      sourceUrl: ref.sourceUrl, notes: id === 'mounting-foam' ? foamNote(m) : notes[id]}
+      : {id, name: names[id], unit: 'pozycja', formulaKey: 'window-v1:' + id, wasteFactor: 1, pricePerUnit: 0, notes: id === 'mounting-foam' ? foamNote(m) : notes[id]};
   });
 }
 
@@ -105,7 +119,10 @@ export const windowInputs: MeasurementInputDefinition[] = [
   {id: 'windowTapeJoints', label: 'Połączenia końców taśmy', unit: 'szt.', inputType: 'count', min: 0, max: 200, required: false, placeholder: 'np. 2 dla dwóch zamkniętych obwodów', hint: 'Policz każde łączenie, także przy dołączaniu kolejnego odcinka. Wpisz 0 dla odcinka bez łączenia końców. Na każde połączenie dodajemy minimum 3 cm zakładu według karty. Narożniki i luz policz osobno poniżej.'},
   {id: 'windowTapeExtraMetres', label: 'Dodatkowa długość na narożniki i luz montażowy', unit: 'm', inputType: 'length', min: 0, max: 200, required: false, placeholder: 'Wpisz zmierzoną wartość, także 0',
     hint: 'Ustal na swoim złączu, bez naciągania taśmy. Nie zgadujemy długości z liczby okien. Minimalne zakłady końców dodajemy osobno, potem wskazany zapas.'},
-  {id: 'windowFoamCans', label: 'Puszki pianki 750 ml potrzebne do naprawy izolacji', unit: 'szt.', inputType: 'count', min: 0, max: 100, required: false, placeholder: 'Ustal ilość; wpisz 0, gdy zakup niepotrzebny', hint: notes['mounting-foam']},
+  {id: 'windowFoamProduct', label: 'Dokładna pianka do zakupu', unit: '', inputType: 'select', placeholder: 'Dobierz do warunków naprawy', defaultValue: 0, min: 0, max: 2, required: false,
+    options: [{value: 0, label: 'Jeszcze dobiorę produkt'}, {value: 1, label: 'Soudal Low Expansion −10, zimowa, 750 ml'}, {value: 2, label: 'Tytan Professional 65, 750 ml — otoczenie +5 do +30°C'}],
+    hint: 'Porównujemy oferty tego modelu, który wybierzesz. Zmiana produktu usuwa poprzednią liczbę puszek i wymaga ponownego sprawdzenia dopasowania oraz przygotowania. Nie zastępuj zimowej pianki inną tylko z powodu ceny.'},
+  {id: 'windowFoamCans', label: 'Puszki pianki 750 ml potrzebne do naprawy izolacji', unit: 'szt.', inputType: 'count', min: 0, max: 100, required: false, placeholder: 'Ustal ilość; wpisz 0, gdy zakup niepotrzebny', hint: 'Ilość dotyczy wybranego modelu. Przy zmianie produktu ustal ją ponownie; 0 oznacza brak zakupu.'},
   {id: 'windowFit', label: 'Czy wybrany sposób naprawy pasuje do okna?', unit: '', inputType: 'select', placeholder: 'Sprawdź zastosowanie', defaultValue: 0, min: 0, max: 1, required: false,
     options: [{value: 0, label: 'Jeszcze sprawdzę dopasowanie'}, {value: 1, label: 'Potwierdzone według instrukcji producentów'}], hint: 'Sprawdź zastosowanie, podłoże i pełny zakres naprawy. Bez potwierdzenia nie pokazujemy przypadkowego zestawu jako gotowego do kupienia.'},
   {id: 'windowPreparation', label: 'Podłoże i potrzebne materiały pomocnicze', unit: '', inputType: 'select', placeholder: 'Sprawdź przygotowanie', defaultValue: 0, min: 0, max: 1, required: false,
@@ -121,14 +138,26 @@ export function windowInputVisible(job: string, id: string, m: Readonly<Record<s
   if (['windowGasketMetres', 'windowGasketOwned'].includes(id)) return selected === 1;
   if (['windowJointSize', 'windowMaskingRolls'].includes(id)) return selected === 2;
   if (['windowTapeJoints', 'windowTapeExtraMetres', 'windowFoamCans'].includes(id)) return selected === 3;
+  if (id === 'windowFoamProduct') return selected === 3 && !(m.windowFoamCans !== undefined && String(m.windowFoamCans).trim() !== '' && Number(m.windowFoamCans) === 0);
   if (['perimeter', 'windowReservePercent'].includes(id)) return selected !== 1;
   return true;
 }
+/** A fit/preparation confirmation belongs to the chosen repair, not its sibling. */
+export function withWindowMeasurement(job: string, current: Readonly<Record<string, string>>, id: string, value: string | number): Record<string, string> {
+  const next = {...current, [id]: String(value)};
+  if (job === WINDOW_JOB && ['windowRepair', 'windowFoamProduct'].includes(id) && Number(current[id]) !== Number(value)) {
+    next.windowFit = '0';
+    next.windowPreparation = '0';
+    if (id === 'windowFoamProduct') delete next.windowFoamCans;
+  }
+  return next;
+}
 export function windowInputHint(job: string, id: string, m: Readonly<Record<string, number | string | undefined>>, fallback?: string): string | undefined {
+  if (job === WINDOW_JOB && id === 'windowFoamCans') return foamNote(m);
   if (job !== WINDOW_JOB || id !== 'windowFit') return fallback;
   return Number(m.windowRepair) === 1 ? 'Sprawdź profil według producenta okna, sposób mocowania i długość. Po naprawie sprawdź prawidłowe działanie okna.'
     : Number(m.windowRepair) === 2 ? 'Karta Soudal 2025: wewnętrzne spoiny przy ramach drewnianych lub metalowych, ruch do 7,5%, przekrój 1:1 od 5 × 5 mm. Ten wariant nie potwierdza dopasowania do PVC, szkła, kamienia ani stałego kontaktu z wodą. Sprawdź podparcie i przygotowanie podłoża.'
-      : 'Potwierdź, że 90 mm wystarczy do przyklejenia taśmy do ramy i nośnego, suchego, niepylącego ościeża oraz zostawienia luzu. Taśma od wewnątrz jest paroszczelna. Izolacja i ochrona zewnętrzna złącza muszą być sprawne lub osobno naprawione; luźna rama wymaga oceny fachowca.';
+      : 'Potwierdź, że 90 mm wystarczy do przyklejenia taśmy do ramy i nośnego, suchego, niepylącego ościeża oraz zostawienia luzu. Taśma od wewnątrz jest paroszczelna. Jeśli kupujesz piankę, sprawdź warunki i liczbę puszek dla wybranego modelu. Izolacja i ochrona zewnętrzna złącza muszą być sprawne lub osobno naprawione; luźna rama wymaga oceny fachowca.';
 }
 
 export function reviewWindowCalculation(calc?: CalculationResult): CalculationResult | undefined {

@@ -443,7 +443,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   },
 
   // Piana pistoletowa Tytan Professional 65 niskoprężna 750 ml — EAN 5903518052859.
-  // source: https://mrowka.com.pl/produkt/piana-pistoletowa-65-750-ml-tytan-professional-5903518052859.html (EAN + cena 40,99 zł)
+  // source: https://sklep.sewera.pl/pianka-montazowa-pistoletowa-65-750ml-tytan-p12439 (22,80 zł brutto, 2026-10-28)
   // source: https://www.unimet.pl/piany-i-kleje-43/331828-pianka-pistoletowa-tytan-65-750ml-02-niskoprezna-5903518052859.html (EAN 5903518052859)
   {
     id: 'mat-foam-tytan-pro65-750ml',
@@ -452,12 +452,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Tytan',
     packageSize: 750,
     packageUnit: 'ml',
-    pricePerPackage: 40.99,
+    pricePerPackage: 22.80,
     category: 'standard',
-    storeName: 'Mrówka',
+    storeName: 'Sewera',
     sourceUrl:
-      'https://mrowka.com.pl/produkt/piana-pistoletowa-65-750-ml-tytan-professional-5903518052859.html',
-    lastUpdated: '2026-08-23',
+      'https://sklep.sewera.pl/pianka-montazowa-pistoletowa-65-750ml-tytan-p12439',
+    lastUpdated: '2026-10-28',
     currency: 'PLN',
   },
 

@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-28T18:24:45.850Z",
-  "scope": "Same65 saved measurement maps with no new choices filled. Window-sealing now requires explicit repair scope, fit and auxiliary materials; former generic or wrongly inferred purchases are not silently accepted. Explicit new window recipe cases are recorded separately. Mobile-only implementation, no backend release or user-project writes.",
+  "checkedAt": "2026-10-28T18:48:28.562Z",
+  "scope": "Same65 saved measurement maps with no new choices filled. Window-repair-v2 adds an explicit manufacturer-bound foam choice and clears stale confirmations after scope/product changes. Existing65 measurements stay unchanged, explicit12 cases are separate. Mobile-only implementation, no backend release or user-project writes.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 247,
-    "beforePriced": 73,
+    "beforeLines": 250,
+    "beforePriced": 72,
     "afterLines": 250,
     "afterPriced": 72,
     "afterUnpriced": 178,
@@ -295,6 +295,19 @@
         "afterLines": 247,
         "afterPriced": 73,
         "afterUnpriced": 174,
+        "fullyPricedScenarios": 8
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T18:24:45.850Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 247,
+        "beforePriced": 73,
+        "afterLines": 250,
+        "afterPriced": 72,
+        "afterUnpriced": 178,
         "fullyPricedScenarios": 8
       }
     }
@@ -5565,6 +5578,66 @@
       "historicalSnapshotsReviewedReadOnly": true,
       "pickupPriceStockConfirmed": false,
       "uiVerification": "Pending: local browser use disabled in Work settings. Logic, source validation and real API requests verified; rendered wizard/editor/basket not visually verified."
+    },
+    "wave68": {
+      "checkedAt": "2026-10-28T18:47:15.296Z",
+      "scope": "Actual window-repair-v2 calculator -> live API, explicit warm-weather Tytan65 choice with user-confirmed quantity/fit/prepared auxiliaries. Synthetic QA postcode only, no user-project/order/payment/customer writes. Soudal winter remains a different choice, not automatically replaced.",
+      "quantityModel": "window-repair-v2",
+      "nativeCases": 12,
+      "newProducts": 0,
+      "newOffers": 0,
+      "newStores": 0,
+      "newPhotos": 0,
+      "chosenTytanKit": {
+        "swsMetres": 12.03,
+        "foamMl": 750,
+        "materialsGrosze": 16780,
+        "shippingGrosze": 3490,
+        "totalGrosze": 20270,
+        "stores": [
+          {
+            "store": "Izosystems",
+            "materialsGrosze": 14500,
+            "deliveryGrosze": 1500,
+            "postalCode": "00-001",
+            "basis": "retailer_basket_postcode"
+          },
+          {
+            "store": "Sewera",
+            "materialsGrosze": 2280,
+            "deliveryGrosze": 1990,
+            "postalCode": "00-001",
+            "basis": "retailer_basket_postcode"
+          }
+        ]
+      },
+      "twoJobsSharedSws": {
+        "swsMetres": 26.06,
+        "foamMl": 1500,
+        "totalGrosze": 22550
+      },
+      "foamConditions": "Tytan65 is a separate explicitly selected product: ambient +5..+30C, can +10..+30C, not the winter Soudal SKU. Quantity/fit/preparation must be reviewed after a change.",
+      "folnetConnection": "Fresh Railway direct request failed UND_ERR_CONNECT_TIMEOUT; cannot repair supplier availability by inventing a rate.",
+      "eshopping24": "Primary exact SKU page found, but script/rate requests failed and no verified cart quote exists. Discovery only, not added as an offer.",
+      "allRequiredMaterialPurchasesQuotedForExplicitPreparedScope": true,
+      "completeWindowInstallation": false,
+      "pickupPriceStockConfirmed": false,
+      "uiVerification": {
+        "checkedAt": "2026-10-28T19:07:34.031Z",
+        "verified": true,
+        "projectId": "proj_mvsh6irl0iits49gc",
+        "wizard": true,
+        "editor": true,
+        "photosLoaded": 2,
+        "fullDeliveryTotalGrosze": 20270,
+        "selectedStoreMissingProductVisible": true,
+        "originalProjectCount": 22,
+        "newQaProjects": 1,
+        "qaEditorChangesCancelled": true,
+        "browserId": "2",
+        "tabId": "2",
+        "proof": "catalog-wave68-ui-proof.json"
+      }
     }
   }
 }

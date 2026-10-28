@@ -9,12 +9,12 @@ import {MATERIAL_PRICES} from '@/data/prices/materials';
 import {upgradeCalculation, upgradeProject, projectShopping} from './upgrades';
 import {generateShoppingItems} from './shopping';
 import {parseMeasurements} from '@/shared/lib/measurements';
-import {WINDOW_MODEL, windowQuantity, windowInputVisible, windowInputHint} from './windowSealing';
+import {WINDOW_MODEL, windowQuantity, windowInputVisible, windowInputHint, withWindowMeasurement} from './windowSealing';
 import type {CalculationResult, Project} from '@/types/domain';
 
 const job = getJobById('window-sealing')!;
 const acrylic = {windowRepair:2, perimeter:12, windowJointSize:5, windowMaskingRolls:1, windowFit:1, windowPreparation:1};
-const membrane = {windowRepair:3, perimeter:12, windowTapeJoints:2, windowTapeExtraMetres:0.5, windowFoamCans:2, windowFit:1, windowPreparation:1};
+const membrane = {windowRepair:3, perimeter:12, windowTapeJoints:2, windowTapeExtraMetres:0.5, windowFoamCans:2, windowFoamProduct:1, windowFit:1, windowPreparation:1};
 const calc = (m:Record<string,number>) => calculatorEngine.calculate(job,m);
 const row = (c:CalculationResult,id:string) => c.materials.find(l=>l.material.id===id)!;
 
@@ -104,4 +104,34 @@ test('wizard parsing and editing discard hidden stale sibling inputs while prese
   assert.ok(windowInputHint(job.id,'windowFit',{windowRepair:2})!.includes('7,5%'));assert.ok(windowInputHint(job.id,'windowFit',{windowRepair:3})!.includes('90 mm'));
   assert.equal(parseMeasurements(job,{...fields,windowJointSize:'4'}).errors[0].id,'windowJointSize');
   assert.equal(parseMeasurements(job,{windowRepair:'3',windowTapeJoints:'1.5'}).errors[0].id,'windowTapeJoints');
+});
+
+test('switching a window repair clears fit and preparation confirmations before its sibling can be quoted',()=>{
+  const current=Object.fromEntries(Object.entries({...acrylic,...membrane,windowRepair:2}).map(([k,v])=>[k,String(v)])),before=JSON.stringify(current);
+  const changed=withWindowMeasurement(job.id,current,'windowRepair',3);
+  assert.equal(changed.windowFit,'0');assert.equal(changed.windowPreparation,'0');assert.equal(JSON.stringify(current),before);
+  const parsed=parseMeasurements(job,changed);assert.deepEqual(parsed.errors,[]);
+  const c=calc(parsed.values);assert.equal(row(c,'window-tape').quantityKnown,false);assert.equal(row(c,'mounting-foam').quantityKnown,false);assert.equal(row(c,'window-preparation').quantityKnown,false);
+  const same=withWindowMeasurement(job.id,current,'windowRepair',2);assert.equal(same.windowFit,'1');assert.equal(same.windowPreparation,'1');
+  assert.equal(withWindowMeasurement('paint-walls',current,'windowRepair',3).windowFit,'1');
+  const partial=withWindowMeasurement(job.id,changed,'windowFit',1);assert.equal(partial.windowPreparation,'0');
+  assert.equal(windowQuantity('window-preparation',parseMeasurements(job,partial).values),null);
+});
+
+test('an explicit warm-weather Tytan choice keeps its EAN and cannot inherit Soudal can counts or owned statuses',()=>{
+  const m={...membrane,windowFoamProduct:2},c=calc(m),input=toPricingStageInput(c,'better');
+  const foam=input.materials.find(l=>l.material.id==='mounting-foam')!;assert.equal(foam.material.ean,'5903518052859');assert.equal(foam.quantity,1500);
+  assert.match(row(c,'mounting-foam').material.notes!,/\+5 do \+30°C/);
+  const soudal=MATERIAL_PRICES.find(r=>r.id==='mat-foam-soudal-lowexp-750ml')!,tytan=MATERIAL_PRICES.find(r=>r.id==='mat-foam-tytan-pro65-750ml')!;
+  assert.equal(resolveMaterialQuantity(soudal,c),null);assert.equal(resolveMaterialQuantity(tytan,c)!.quantity,1500);
+  assert.equal(windowQuantity('mounting-foam',{...m,windowFoamProduct:0}),null);
+  assert.equal(windowQuantity('mounting-foam',{...m,windowFoamProduct:99}),null);
+  assert.equal(windowQuantity('mounting-foam',{...m,windowFoamCans:0,windowFoamProduct:0}),0);
+  for(const tier of ['economy','standard','better']as const)assert.ok(getMaterialsForJob(job.id,tier,m).some(r=>r.id===tytan.id));
+  const previous=Object.fromEntries(Object.entries(membrane).map(([k,v])=>[k,String(v)])),next=withWindowMeasurement(job.id,previous,'windowFoamProduct',2);
+  assert.equal(next.windowFoamCans,undefined);assert.equal(next.windowFit,'0');assert.equal(next.windowPreparation,'0');
+  assert.equal(windowInputVisible(job.id,'windowFoamProduct',next),true);assert.equal(windowInputVisible(job.id,'windowFoamProduct',{...next,windowFoamCans:'0'}),false);
+  const old={...calc(membrane),quantityModel:'window-repair-v1'};assert.ok(upgradeCalculation(old)!.materials.every(l=>l.quantityKnown===false));
+  const oldItems=generateShoppingItems('old',calc(membrane)).map((i,n)=>({...i,id:String(n),owned:true,purchased:true}));
+  const reviewed=projectShopping(oldItems,c);assert.equal(reviewed.find(i=>i.materialId==='mounting-foam')!.owned,false);
 });
