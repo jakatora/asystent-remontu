@@ -75,7 +75,8 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
     && data.consolidated.lines.every(line => line.cheapestOffer.store === store && (line.packages ?? []).every(pack => pack.store === store))
     && data.storeComparison.stores.every(row => row.store === store)
     && data.storeComparison.optimalByStore.every(row => row.store === store)
-    && [data.deliveryComparison?.best, data.deliveryComparison?.lowerBound, ...(data.deliveryComparison?.alternatives ?? [])].every(basket => !basket || basket.stores.every(row => row.store === store));
+    && (!data.deliveryComparison?.availablePart||data.deliveryComparison.availablePart.store===store)
+    && [data.deliveryComparison?.best, data.deliveryComparison?.lowerBound, data.deliveryComparison?.availablePart?.basket, ...(data.deliveryComparison?.alternatives ?? [])].every(basket => !basket || basket.stores.every(row => row.store === store));
 }
 
 // Only established branch networks may be searched by location. A generic

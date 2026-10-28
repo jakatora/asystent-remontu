@@ -29,6 +29,10 @@ export function ProjectPurchaseSummary({ snapshot, onCompare }: { snapshot: Purc
       </> : <Txt accessibilityRole="alert" style={{lineHeight:21}}>{summary.status === 'partial'
         ? (pl?`Niepełny koszyk. Braki do potwierdzenia: ${summary.missing || '—'}. Pełna suma nie jest jeszcze dostępna.`:`Incomplete basket. Items to confirm: ${summary.missing || '—'}. A complete total is not available yet.`)
         : (pl?'Brakuje pełnej wyceny dostawy. Kwota materiałów nie jest ceną całego zestawu z transportem.':'A complete delivery quote is missing. The material amount is not the total including transport.')}</Txt>}
+      {summary.availablePart&&<View style={{gap:4}}>
+        <Txt w="semibold">{pl?'Dostępna część z dostawą':'Available part with delivery'}: {formatGrosze(summary.availablePart.totalGrosze)}</Txt>
+        <Txt style={{fontSize:13,lineHeight:19}}>{pl?'Materiały':'Materials'}: {formatGrosze(summary.availablePart.materialsGrosze)} · {pl?'ich dostawa':'their delivery'}: {formatGrosze(summary.availablePart.deliveryGrosze)}. {pl?'Brakujące zakupy nie są wliczone.':'Missing purchases are excluded.'}</Txt>
+      </View>}
       {summary.separateOrders.map(part=><Txt key={part.store} accessibilityRole="alert" w="semibold" style={{fontSize:13,lineHeight:19}}>{pl?`Ta cena wymaga ${part.count} osobnych zamówień w ${part.store}. Podział produktów sprawdzisz w „Gdzie najtaniej”.`:`This price requires ${part.count} separate orders at ${part.store}. See the product grouping in the price comparison.`}</Txt>)}
       {summary.limited && <Txt style={{fontSize:13,lineHeight:19}}>{pl?'Porównanie obejmuje potwierdzone wyceny. Inne sklepy lub kombinacje mogą być tańsze.':'The comparison covers confirmed quotes. Other stores or combinations may cost less.'}</Txt>}
       {summary.products.length > 0 && <Txt numberOfLines={3} style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl?'Modele w wycenie':'Quoted models'}: {summary.products.join(' · ')}</Txt>}

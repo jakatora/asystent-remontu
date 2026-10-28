@@ -84,6 +84,14 @@ export interface DeliveryComparison {
   stockLimits?: DeliveryStockLimit[];
   productCount: number;
   missingProductCount: number;
+  /** Only an explicitly selected store may quote the available part of an
+   * incomplete renovation. It never becomes best/lowerBound/alternatives. */
+  availablePart?: {
+    store: string;
+    productCount: number;
+    basket: DeliveredBasket | null;
+    unavailableReason?: string;
+  };
   best: DeliveredBasket | null;
   lowerBound: DeliveredBasket | null;
   /** A bounded, unfinished purchase plan: fewest stores without delivery

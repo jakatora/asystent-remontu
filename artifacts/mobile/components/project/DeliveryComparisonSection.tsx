@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { formatGrosze } from '@/features/pricing';
 import { normalizeDeliveryPostalCode } from '@/features/pricing/deliveryInput';
 import { pendingDeliveryPlan, deliveryRefreshDelay } from '@/features/pricing/pendingDeliveryPlan';
+import {availableStoreBasket} from '@/features/pricing/availableStoreBasket';
 import { ProductImage } from './ProductImage';
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
@@ -43,8 +44,9 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   }, [destination, mode, settings.postalCode, settings.method, allowSeparateOrders, onApply]);
   const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
   const best = current ? comparison.best : null;
+  const available = availableStoreBasket(comparison,current,selectedStore);
   const pendingPlan = pendingDeliveryPlan(comparison, current);
-  const displayedBasket = best ?? pendingPlan;
+  const displayedBasket = best ?? available ?? pendingPlan;
   const pendingStores = pendingPlan?.stores.filter(store => store.deliveryGrosze === null) ?? [];
   useEffect(() => {
     const delay = deliveryRefreshDelay(comparison, current);
@@ -104,6 +106,15 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       </>}
     </View>
     {comparison.status === 'partial' && <Txt accessibilityRole="alert" style={{ color: Colors.danger, lineHeight: 21 }}>{tr(`Brakuje wyceny produktów: ${missingItemCount ?? comparison.missingProductCount}. Nie można jeszcze wycenić całego zestawu.`, `Products without a price: ${missingItemCount ?? comparison.missingProductCount}. The full basket cannot be priced yet.`)}</Txt>}
+    {available && <View style={{backgroundColor:Colors.warningBg,padding:18,borderRadius:16,gap:10}}>
+      <Txt w="bold" style={{fontSize:16}}>{tr(`Dostępna część zakupów: ${selectedStore}`, `Available part of the purchase: ${selectedStore}`)}</Txt>
+      <Txt style={{lineHeight:21}}>{tr(`Produkty objęte wyceną: ${comparison.availablePart!.productCount}. Brakujące pozycje kupisz osobno; ich koszt nie jest w tej kwocie.`, `Products covered by this quote: ${comparison.availablePart!.productCount}. Missing items require a separate purchase; their cost is excluded.`)}</Txt>
+      <View style={{flexDirection:'row',justifyContent:'space-between',gap:12}}><Txt>{tr('Materiały z tej części', 'Materials in this part')}</Txt><Txt w="semibold">{formatGrosze(available.materialsGrosze)}</Txt></View>
+      <View style={{flexDirection:'row',justifyContent:'space-between',gap:12}}><Txt>{tr('Dostawa tej części', 'Delivery for this part')}</Txt><Txt w="semibold">{formatGrosze(available.deliveryGrosze!)}</Txt></View>
+      <View style={{borderTopWidth:1,borderTopColor:Colors.border,paddingTop:10,gap:4}}><Txt>{tr('Razem za dostępną część', 'Total for the available part')}</Txt><Txt w="bold" style={{fontSize:28}}>{formatGrosze(available.totalGrosze!)}</Txt></View>
+      <Txt accessibilityRole="alert" style={{fontSize:13,lineHeight:20}}>{tr('To niepełny koszyk remontu. Kwota obejmuje wskazane opakowania i ich dostawę przy płatności z góry. Pozostałe materiały, ich transport, narzędzia i robociznę sprawdź osobno. Podstawę i termin wyceny dostawy znajdziesz poniżej.', 'This renovation basket is incomplete. The amount covers these packs and their prepaid delivery. Check the remaining materials, their transport, tools and labour separately. The delivery basis and quote time are shown below.')}</Txt>
+    </View>}
+    {current&&selectedStore&&comparison.availablePart?.store===selectedStore&&!available&&<Txt accessibilityRole="alert" style={{lineHeight:21,color:Colors.textSecondary}}>{tr('Dostawa dostępnej części:', 'Delivery for the available part:')} {reason(comparison.availablePart.unavailableReason??'quote_expired')}</Txt>}
     {current && comparison.status === 'limit_exceeded' && <Txt>{tr('Ten zestaw przekracza zakres porównania. Podziel zakupy na mniejsze zestawy.', 'This basket exceeds the comparison limit. Split it into smaller purchases.')}</Txt>}
     {current && comparison.searchLimited && !pendingPlan && <View style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg }}><Txt accessibilityRole="alert" style={{ lineHeight: 20 }}>{tr(`Sprawdzono wybrane pełne zestawy. Wyceny z dostawą: ${comparison.comparedBasketCount ?? 0}. Inne podziały zakupów mogą być tańsze.`, `Selected complete baskets were checked. Baskets quoted with delivery: ${comparison.comparedBasketCount ?? 0}. Other purchase allocations may cost less.`)}</Txt></View>}
     {best && <View style={{ backgroundColor: Colors.primaryBg, padding: 18, borderRadius: 16, gap: 10 }}>
@@ -115,7 +126,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{mode === 'pickup'
         ? tr('Do sumy nie doliczamy dojazdu. Potwierdź dostępność w wybranych placówkach.', 'Travel is excluded. Confirm availability at the chosen branches.')
         : tr('Ceny brutto produktów i dostaw przy płatności z góry. Przy każdej dostawie pokazujemy podstawę: koszyk dla Twojego kodu lub aktualną taryfę krajową sklepu. Dostępność pełnego adresu potwierdzisz przy zakupie.', 'Gross product and delivery prices with prepayment. Each delivery shows its basis: a basket for your postcode or the current national store tariff. Confirm full address availability when purchasing.')}</Txt>
-      {mode === 'shipping' && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Porównano dostępne wyceny. Pozostałe sklepy bez wyceny: ${comparison.missingDeliveryStores.length}. Ich oferta może być tańsza.`, `Available quotes compared. Stores without delivery quotes: ${comparison.missingDeliveryStores.length}. They may have a cheaper offer.`)}</Txt>}
+      {mode === 'shipping' && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Wynik obejmuje potwierdzone koszyki. Pozostałe sklepy (${comparison.missingDeliveryStores.length}) mają niepotwierdzoną dostawę lub nie pokrywają potrzebnej ilości. Szczegóły sprawdzisz poniżej.`, `The result covers confirmed baskets. Other stores (${comparison.missingDeliveryStores.length}) have unconfirmed delivery or cannot cover the required quantity. See the details below.`)}</Txt>}
       {mode === 'shipping' && Boolean(comparison.partiallyQuotedStores?.length) && <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie wszystkie inne kombinacje koszyków udało się potwierdzić. Mogą wpłynąć na najniższą cenę.', 'Some other basket combinations could not be confirmed and may affect the lowest total.')}</Txt>}
     </View>}
     {current && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}

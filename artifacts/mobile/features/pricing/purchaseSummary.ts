@@ -1,13 +1,14 @@
 import type { SerializedProject } from './pricingApi';
 import { pendingDeliveryPlan } from './pendingDeliveryPlan';
 import { groupUnpricedLines } from './unpricedGroups';
+import {availableStoreBasket} from './availableStoreBasket';
 
 export type PurchaseSnapshot = { kind: 'empty'; observedAt: number } | {
   kind: 'quote'; observedAt: number; validUntil: number; selectedStore: string | null; data: SerializedProject;
 };
 export function purchaseSnapshot(data: SerializedProject, selectedStore: string | null, now = Date.now()): PurchaseSnapshot {
   const expiries = [now + 10 * 60_000];
-  for (const store of (data.deliveryComparison?.best ?? data.deliveryComparison?.purchasePlan ?? data.deliveryComparison?.lowerBound)?.stores ?? []) {
+  for (const store of (data.deliveryComparison?.best ?? data.deliveryComparison?.purchasePlan ?? data.deliveryComparison?.lowerBound ?? data.deliveryComparison?.availablePart?.basket)?.stores ?? []) {
     if (store.quote) expiries.push(Date.parse(store.quote.expiresAt));
   }
   for (const line of data.consolidated.lines) for (const pack of line.packages ?? []) {
@@ -34,14 +35,16 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
     && best.materialsGrosze + best.deliveryGrosze === best.totalGrosze
     && best.stores.length > 0 && best.stores.every(store => comparison.mode === 'pickup' || store.source === 'retailer' && store.quote && Date.parse(store.quote.expiresAt) > now);
   const pending = comparison ? pendingDeliveryPlan(comparison, true, now) : null;
-  const materials = complete ? best.materialsGrosze : pending ? pending.materialsGrosze : data.consolidated.lines.length > 0 && money(data.consolidated.consolidatedTotalGrosze) ? data.consolidated.consolidatedTotalGrosze : null;
+  const available=comparison?availableStoreBasket(comparison,true,snapshot.selectedStore,now):null;
+  const materials = complete ? best.materialsGrosze : available ? available.materialsGrosze : pending ? pending.materialsGrosze : data.consolidated.lines.length > 0 && money(data.consolidated.consolidatedTotalGrosze) ? data.consolidated.consolidatedTotalGrosze : null;
   return {
     status: complete ? 'complete' as const : missing > 0 || comparison?.status === 'partial' ? 'partial' as const : 'shipping_unknown' as const,
     materialsGrosze: materials, deliveryGrosze: complete ? best.deliveryGrosze : null, totalGrosze: complete ? best.totalGrosze : null,
     mode: comparison?.mode ?? 'shipping', postalCode: comparison?.postalCode ?? null, missing,
     selectedStore: snapshot.selectedStore, observedAt: snapshot.observedAt,
+    availablePart:available?{materialsGrosze:available.materialsGrosze,deliveryGrosze:available.deliveryGrosze!,totalGrosze:available.totalGrosze!,productCount:comparison!.availablePart!.productCount}:null,
     separateOrders: complete ? best.stores.filter(store => (store.quote?.orders?.length ?? 0) > 1).map(store => ({ store: store.store, count: store.quote!.orders!.length })) : [],
     limited: Boolean(comparison?.status === 'needs_delivery_costs' || comparison?.searchLimited || comparison?.unavailableStores?.length || comparison?.partiallyQuotedStores?.length),
-    products: data.consolidated.lines.map(line => line.product.name),
+    products: available?available.stores.flatMap(store=>store.lines.map(line=>line.product.name)):data.consolidated.lines.map(line => line.product.name),
   };
 }

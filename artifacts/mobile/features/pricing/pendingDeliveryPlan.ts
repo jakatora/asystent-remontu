@@ -4,7 +4,7 @@ import type { DeliveryComparison, DeliveredBasket } from '../../../../lib/pricin
  * rendering a payable total or a pending plan. Bound retries for older APIs. */
 export function deliveryRefreshDelay(comparison: DeliveryComparison, current: boolean, now = Date.now()): number | null {
   if (!current || comparison.mode !== 'shipping') return null;
-  const basket = comparison.best ?? comparison.purchasePlan ?? comparison.lowerBound;
+  const basket = comparison.best ?? comparison.purchasePlan ?? comparison.lowerBound ?? comparison.availablePart?.basket;
   const expiries = basket?.stores.flatMap(store => store.quote ? [Date.parse(store.quote.expiresAt)] : []).filter(Number.isFinite) ?? [];
   if (!expiries.length) return null;
   const delay = Math.min(...expiries) - now + 100;

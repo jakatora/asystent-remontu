@@ -27,6 +27,7 @@ test('actual HTTP preserves a chosen retailer across consolidation and delivery,
     const missing={jobId:'primer',materials:[{material:{id:'primer',ean:primer.ean,name:primer.name,category:primer.category,unit:primer.unit},quantity:1}]};
     const partial=await post({jobs:[...jobs,missing],options:{store:'Sewera',delivery:{mode:'shipping',postalCode:'00-001'}}});
     assert.equal(partial.stages.flatMap((s:any)=>s.lines).length,3);assert.equal(partial.stages[2].lines[0].resolved,false);
-    assert.equal(partial.deliveryComparison.best,null);assert.equal(partial.deliveryComparison.missingProductCount,1);assert.equal(quoted,1);
+    assert.equal(partial.deliveryComparison.best,null);assert.equal(partial.deliveryComparison.missingProductCount,1);assert.equal(quoted,2);
+    assert.equal(partial.deliveryComparison.availablePart.store,'Sewera');assert.equal(partial.deliveryComparison.availablePart.productCount,1);assert.equal(partial.deliveryComparison.availablePart.basket.materialsGrosze,20000);assert.equal(partial.deliveryComparison.availablePart.basket.deliveryGrosze,1000);assert.equal(partial.deliveryComparison.availablePart.basket.totalGrosze,21000);assert.equal(estimateHonoursStore(partial,'Sewera'),true);
   } finally { await new Promise<void>(resolve=>server.close(()=>resolve()));service.close(); }
 });

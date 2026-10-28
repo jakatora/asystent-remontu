@@ -11,7 +11,7 @@ import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
 import { retailProductId, retailProductName } from './lib/retail-sku';
 import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
-import { compareAutomaticDelivery } from '../../../lib/pricing-service/src/automatic-delivery';
+import {compareDeliveryWithAvailablePart} from '../../../lib/pricing-service/src/selected-store-delivery';
 import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
 import { createRetailerQuoter, knownUnavailableRetailers, retailerDeliveryCapabilities } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
@@ -210,9 +210,9 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
       const deadline = Date.now() + 20_000;
-      const deliveryComparison = stageOnly ? undefined : await compareAutomaticDelivery(estimate.stages, parsed.data.options?.delivery ?? { mode: 'shipping' },
+      const deliveryComparison = stageOnly ? undefined : await compareDeliveryWithAvailablePart(estimate.stages, parsed.data.options?.delivery ?? { mode: 'shipping' },
         (order, postalCode) => Date.now() < deadline || ['Castorama','OBI'].includes(order.store) ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES, new Date(),
-        knownUnavailableRetailers());
+        knownUnavailableRetailers(),parsed.data.options?.store??undefined);
       res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(), priceRefresh,
         deliveryComparison,
       });
