@@ -38,10 +38,11 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   const observations = new Map<string, RetailObservation>();
   const errors = new Map<string, string>();
   const withdrawnAt = new Map<string, string>();
-  let running = false;
-  let refreshPromise: Promise<void> | null = null;
-  let refreshedAt = 0;
-  let refreshResult = { confirmedOfferIds: [] as string[], failedOfferIds: [] as string[] };
+  let activeRefreshes = 0;
+  let fullRefreshPromise: Promise<void> | null = null;
+  const inFlightReads = new Map<string, Promise<boolean>>();
+  const lastReadAt = new Map<string, number>();
+  const lastReadSucceeded = new Map<string, boolean>();
   let lastAttemptAt: string | null = null;
   const accept = (observation: RetailObservation) => {
     if (!observation || typeof observation !== 'object') return;
@@ -122,29 +123,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     return { products, offers, deps };
   }
 
-  function refresh(): Promise<void> {
-    if (refreshPromise) return refreshPromise;
-    running = true;
-    lastAttemptAt = new Date().toISOString();
-    const confirmedOfferIds: string[] = [], failedOfferIds: string[] = [];
-    refreshPromise = (async () => {
-    try {
-      let cursor = 0;
-      await Promise.all(Array.from({ length: 3 }, async () => { while (cursor < RETAIL_SOURCES.length) {
-        const source = RETAIL_SOURCES[cursor++];
-        try {
-          accept(await readRetailSource(source, options.fetchImpl));
-          errors.delete(source.id);
-          confirmedOfferIds.push(source.id);
-        } catch (error) {
-          failedOfferIds.push(source.id);
-          // Keep the original observation timestamp. A failed read is not a new price.
-          const message = error instanceof Error ? error.message : 'retailer_read_failed';
-          errors.set(source.id, message);
-          // A confirmed withdrawal must also survive a restart, even with old bootstrap observations.
-          if (message === 'retailer_out_of_stock'||message==='purchase_rules_changed') withdrawnAt.set(source.id, new Date().toISOString());
-        }
-      } }));
+  function persistCache() {
       if (options.cachePath) {
         try {
           mkdirSync(dirname(options.cachePath), { recursive: true });
@@ -153,9 +132,72 @@ export function createRemontService(options: SharedPricingOptions = {}) {
           errors.delete('cache');
         } catch { errors.set('cache', 'cache_write_failed'); }
       }
-    } finally { running = false; refreshedAt = Date.now(); refreshResult = { confirmedOfferIds, failedOfferIds }; refreshPromise = null; }
+  }
+
+  function readSource(source: (typeof RETAIL_SOURCES)[number]): Promise<boolean> {
+    const pending = inFlightReads.get(source.id);
+    if (pending) return pending;
+    const read = (async () => {
+      let succeeded = false;
+      try {
+        accept(await readRetailSource(source, options.fetchImpl));
+        errors.delete(source.id);
+        succeeded = true;
+      } catch (error) {
+        // Keep the old observation timestamp. A failed read is not a new price.
+        const message = error instanceof Error ? error.message : 'retailer_read_failed';
+        errors.set(source.id, message);
+        if (message === 'retailer_out_of_stock'||message==='purchase_rules_changed') withdrawnAt.set(source.id, new Date().toISOString());
+      } finally {
+        lastReadAt.set(source.id, Date.now());
+        lastReadSucceeded.set(source.id, succeeded);
+      }
+      return succeeded;
     })();
-    return refreshPromise;
+    inFlightReads.set(source.id, read);
+    void read.then(() => { if (inFlightReads.get(source.id) === read) inFlightReads.delete(source.id); });
+    return read;
+  }
+
+  async function refreshSources(sources: readonly (typeof RETAIL_SOURCES)[number][]) {
+    activeRefreshes++;
+    lastAttemptAt = new Date().toISOString();
+    const outcome = new Map<string, boolean>();
+    try {
+      let cursor = 0;
+      await Promise.all(Array.from({ length: Math.min(3, sources.length) }, async () => { while (cursor < sources.length) {
+        const source = sources[cursor++];
+        outcome.set(source.id, await readSource(source));
+      } }));
+      return {
+        confirmedOfferIds: sources.filter(source => outcome.get(source.id)).map(source => source.id),
+        failedOfferIds: sources.filter(source => !outcome.get(source.id)).map(source => source.id),
+      };
+    } finally {
+      persistCache();
+      activeRefreshes--;
+    }
+  }
+
+  function refresh(): Promise<void> {
+    if (fullRefreshPromise) return fullRefreshPromise;
+    fullRefreshPromise = refreshSources(RETAIL_SOURCES).then(() => {}).finally(() => { fullRefreshPromise = null; });
+    return fullRefreshPromise;
+  }
+
+  async function refreshProjectSources(sources: readonly (typeof RETAIL_SOURCES)[number][]) {
+    const now = Date.now();
+    const stale = sources.filter(source => now - (lastReadAt.get(source.id) ?? -Infinity) >= 60_000);
+    if (stale.length) await refreshSources(stale);
+    const checkedTimes = sources.map(source => lastReadAt.get(source.id)).filter((value): value is number => value !== undefined);
+    const retryAfterSeconds = checkedTimes.length ? Math.max(0, Math.ceil((Math.min(...checkedTimes) + 60_000 - Date.now()) / 1000)) : 0;
+    return {
+      status: stale.length ? 'updated' as const : 'recent' as const,
+      checkedAt: checkedTimes.length ? new Date(Math.max(...checkedTimes)).toISOString() : null,
+      confirmedOfferIds: sources.filter(source => lastReadSucceeded.get(source.id)).map(source => source.id),
+      failedOfferIds: sources.filter(source => !lastReadSucceeded.get(source.id)).map(source => source.id),
+      retryAfterSeconds,
+    };
   }
 
   function status() {
@@ -165,7 +207,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       status: eligible.length > 0 ? 'ok' : 'no-current-offers',
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
       browserVerifiedOffers:eligible.filter(offer=>offer.verification?.method==='browser').length,
-      stores: [...new Set(eligible.map(offer => offer.store))], running, lastAttemptAt,
+      stores: [...new Set(eligible.map(offer => offer.store))], running: activeRefreshes > 0, lastAttemptAt,
       pickupConfirmationStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupRequiresConfirmation).map(source => source.store))],
       pickupUnavailableStores: [...new Set(RETAIL_SOURCES.filter(source => source.pickupUnavailable).map(source => source.store))],
       pickupOnlyStores:[...new Set(RETAIL_SOURCES.filter(source=>source.pickupOnly).map(source=>source.store))],
@@ -206,10 +248,12 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     try {
       let priceRefresh;
       if (parsed.data.options?.refreshPrices) {
-        const recent = !running && Date.now() - refreshedAt < 60_000;
-        if (!recent) await refresh();
-        priceRefresh = { status: recent ? 'recent' : 'updated', checkedAt:lastAttemptAt, ...refreshResult,
-          retryAfterSeconds:Math.max(0,Math.ceil((refreshedAt+60_000-Date.now())/1000)) };
+        const materials = parsed.data.jobs.flatMap(job => job.materials.map(line => line.material));
+        const requestedEans = new Set(materials.map(material => material.ean ?? RETAIL_NAME_ALIASES[material.name]).filter((ean): ean is string => Boolean(ean)));
+        const sources = RETAIL_SOURCES.filter(source => requestedEans.has(source.ean) || materials.some(material =>
+          !material.ean && !RETAIL_NAME_ALIASES[material.name] && source.skuIdentity &&
+          source.category === material.category && normalizeProductName(retailProductName(source)) === normalizeProductName(material.name)));
+        priceRefresh = await refreshProjectSources(sources);
       }
       const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog(parsed.data.options?.delivery?.mode === 'pickup').deps);
       res.setHeader('Cache-Control', 'no-store');
