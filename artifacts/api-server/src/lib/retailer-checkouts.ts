@@ -5,7 +5,7 @@ import { parseRetailPage } from './retail-pages';
 import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
 import { cleanHtml, htmlElements as nodes, htmlAttributes, htmlText as text } from './retail-microdata';
 import { QuoteQueue } from './quote-queue';
-import { isReviewedSkuSource } from './retail-sku';
+import { isReviewedSeweraDispatchSource } from './retail-sku';
 
 const cls = (a: Record<string,string>, name: string) => a.class?.split(/\s+/).includes(name) ?? false;
 const attr = (html: string) => htmlAttributes(html.match(/^<[^>]+>/)?.[0] ?? '');
@@ -118,7 +118,7 @@ export function seweraHomeDeliveryMethods(checkout:string) {
 export async function quoteSewera(order: DeliveredStoreBasket, postalCode: string, fetchImpl: typeof fetch, pages:CheckoutPageReader=(_url,_price,client)=>client.text(_url)): Promise<DeliveryQuoteResult> {
   const packs=expectedPacks(order);
   const configured=packs.filter(({source})=>source.dispatchDepartment);
-  if(configured.some(({source})=>!isReviewedSkuSource(source)))throw Error('dispatch_department_not_confirmed');
+  if(configured.some(({source})=>!isReviewedSeweraDispatchSource(source)))throw Error('dispatch_department_not_confirmed');
   const department=configured[0]?.source.dispatchDepartment??{id:'1',name:'Katowice'};
   if(configured.some(({source})=>source.dispatchDepartment!.id!==department.id||source.dispatchDepartment!.name!==department.name))throw Error('dispatch_department_not_confirmed');
   const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));

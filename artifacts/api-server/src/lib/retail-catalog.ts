@@ -71,6 +71,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     category: 'paint', brand: 'Dulux', packageSize: 9, unit: 'l', store: 'Sewera', format: 'sewera',
     // source: https://sklep.sewera.pl/farba-wewnetrzna-biala-easycare-nieskazitelna-biel-9l-mat-dulux-p21385
     url: 'https://sklep.sewera.pl/farba-wewnetrzna-biala-easycare-nieskazitelna-biel-9l-mat-dulux-p21385',
+    imageUrl: 'https://sklep.sewera.pl/photo/346399/farba-wewnetrzna-biala-easycare-nieskazitelna-biel-9l-mat-dulux.webp',
+    dispatchDepartment: { id: '4', name: 'Tarnowskie Góry' },
   },
   // source: https://lobo.pl/dulux-easycare-nieskazitelna-biel-9l
   {id:'lobo-dulux-easycare-white-9l',ean:'5904078198759',name:'DULUX EasyCare Nieskazitelna Biel 9L',category:'paint',brand:'Dulux',packageSize:9,unit:'l',store:'Lobo',format:'shoper-api',productId:6379,apiProductCode:'S7.0065237346',apiPurchaseUnit:'szt.',variant:['easycare','nieskazitelna biel','9l'],url:'https://lobo.pl/dulux-easycare-nieskazitelna-biel-9l',imageUrl:'https://lobo.pl/environment/cache/images/productGfx_58351_500_500/DULUX-EASYCARE-NIESKAZITELNA-BIEL-9L.webp'},

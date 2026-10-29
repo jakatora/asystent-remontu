@@ -26,6 +26,18 @@ export function isReviewedSkuSource(source: RetailSource): boolean {
     && source.dispatchDepartment?.id === '3' && source.dispatchDepartment.name === 'Gliwice';
 }
 
+/** An EAN-verified paint card and its observed shipping branch. A changed
+ * merchant card or branch must be reviewed before checkout uses it. */
+export function isReviewedSeweraDispatchSource(source: RetailSource): boolean {
+  if (isReviewedSkuSource(source)) return true;
+  return source.id === 'sewera-dulux-9l' && source.ean === '5904078198759'
+    && source.skuIdentity === undefined && source.store === 'Sewera' && source.format === 'sewera'
+    && source.url === 'https://sklep.sewera.pl/farba-wewnetrzna-biala-easycare-nieskazitelna-biel-9l-mat-dulux-p21385'
+    && source.name === 'Farba wewnętrzna biała Easycare nieskazitelna biel 9l mat Dulux'
+    && source.brand === 'Dulux' && source.packageSize === 9 && source.unit === 'l'
+    && source.dispatchDepartment?.id === '4' && source.dispatchDepartment.name === 'Tarnowskie Góry';
+}
+
 // source: https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/
 export function isReviewedIrbudSource(source:RetailSource):boolean {
  const sku=source.skuIdentity;

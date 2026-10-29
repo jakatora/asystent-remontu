@@ -22,7 +22,7 @@ test('branch-dependent stock cards never share the cache across dispatch departm
 });
 
 test('failed Sewera prefetch waits for active reads and stops starting new ones before releasing its quote',async()=>{
-  const sources=RETAIL_SOURCES.filter(source=>source.store==='Sewera').slice(0,4);
+  const sources=RETAIL_SOURCES.filter(source=>source.store==='Sewera'&&!source.dispatchDepartment).slice(0,4);
   assert.equal(sources.length,4);
   const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:4000,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',
     lines:sources.map(source=>({product:{id:source.id,name:source.id,imageUrl:null},unit:null,

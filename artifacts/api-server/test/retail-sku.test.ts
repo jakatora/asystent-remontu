@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import express from 'express';
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
 import { parseRetailPage } from '../src/lib/retail-pages';
-import { retailProductId, retailProductName } from '../src/lib/retail-sku';
+import { retailProductId, retailProductName, isReviewedSeweraDispatchSource } from '../src/lib/retail-sku';
 import { createRemontService } from '../src/shared-backend';
 
 const source=RETAIL_SOURCES.find(row=>row.id==='sewera-packcenter-edge-tape-50m')!;
@@ -22,6 +22,16 @@ const html=`<link rel="canonical" href="${source.url}">
 <meta itemprop="price" content="14.06"><meta itemprop="priceCurrency" content="PLN">
 <span class="priceShow">14,06 zł brutto / SZT</span></div></div>`;
 const now=new Date('2026-10-27T01:34:02Z');
+
+test('Sewera dispatch can use only the verified paint branch and product identity',()=>{
+  const paint=RETAIL_SOURCES.find(row=>row.id==='sewera-dulux-9l')!;
+  assert.equal(isReviewedSeweraDispatchSource(paint),true);
+  for(const changed of [
+    {...paint,ean:'5904078198758'},
+    {...paint,dispatchDepartment:{id:'1',name:'Katowice'}},
+    {...paint,url:'https://sklep.sewera.pl/other'},
+  ])assert.equal(isReviewedSeweraDispatchSource(changed),false);
+});
 
 test('a reviewed merchant SKU has a distinct identity, real gross price and no invented EAN',()=>{
   const observation=parseRetailPage(html,source,now);
