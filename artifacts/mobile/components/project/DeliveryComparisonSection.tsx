@@ -44,6 +44,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   }, [destination, mode, settings.postalCode, settings.method, allowSeparateOrders, onApply]);
   const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
   const best = current ? comparison.best : null;
+  const postcodeQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'postal_code').length ?? 0;
+  const nationallyQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'PL').length ?? 0;
   const available = availableStoreBasket(comparison,current,selectedStore);
   const pendingPlan = pendingDeliveryPlan(comparison, current);
   const displayedBasket = best ?? available ?? pendingPlan;
@@ -119,7 +121,11 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     {current && comparison.searchLimited && !pendingPlan && <View style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg }}><Txt accessibilityRole="alert" style={{ lineHeight: 20 }}>{tr(`Sprawdzono wybrane pełne zestawy. Wyceny z dostawą: ${comparison.comparedBasketCount ?? 0}. Inne podziały zakupów mogą być tańsze.`, `Selected complete baskets were checked. Baskets quoted with delivery: ${comparison.comparedBasketCount ?? 0}. Other purchase allocations may cost less.`)}</Txt></View>}
     {best && <View style={{ backgroundColor: Colors.primaryBg, padding: 18, borderRadius: 16, gap: 10 }}>
       <Txt w="bold" style={{ fontSize: 16 }}>{selectedStore ? (mode === 'pickup' ? tr(`Materiały: ${selectedStore} — bez dostawy`, `Materials: ${selectedStore} — excluding delivery`) : tr(`Zestaw z dostawą: ${selectedStore}`, `Basket with delivery: ${selectedStore}`)) : mode === 'pickup' ? tr('Najtańszy zestaw do odbioru', 'Lowest basket for self collection') : tr('Najtańszy zestaw z wycenioną dostawą', 'Lowest basket with quoted delivery')}</Txt>
-      {comparison.postalCode && <Txt style={{ color: Colors.textSecondary }}>{tr('Dostawa do', 'Delivery to')}: {comparison.postalCode}</Txt>}
+      {comparison.postalCode && <Txt style={{ color: Colors.textSecondary }}>{tr('Podany kod pocztowy', 'Entered postcode')}: {comparison.postalCode}</Txt>}
+      {mode === 'shipping' && <View style={{ padding: 10, borderRadius: 10, backgroundColor: Colors.surface, gap: 4 }}>
+        {postcodeQuotedStores > 0 && <Txt style={{fontSize:13,lineHeight:19}}>{tr(`Dostawa dla Twojego kodu: ${postcodeQuotedStores} ${postcodeQuotedStores === 1 ? 'sklep' : 'sklepy'}.`, `Delivery quoted for your postcode: ${postcodeQuotedStores} ${postcodeQuotedStores === 1 ? 'store' : 'stores'}.`)}</Txt>}
+        {nationallyQuotedStores > 0 && <Txt style={{fontSize:13,lineHeight:19}}>{tr(`Wycena krajowa: ${nationallyQuotedStores} ${nationallyQuotedStores === 1 ? 'sklep' : 'sklepy'}. To stawka dla Polski, bez osobnej wyceny dla Twojego kodu.`, `Nationwide quote: ${nationallyQuotedStores} ${nationallyQuotedStores === 1 ? 'store' : 'stores'}. This is a Poland-wide rate, without a separate quote for your postcode.`)}</Txt>}
+      </View>}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt>{tr('Materiały', 'Materials')}</Txt><Txt w="semibold">{formatGrosze(best.materialsGrosze)}</Txt></View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt>{tr('Dostawa', 'Delivery')}</Txt><Txt w="semibold">{formatGrosze(best.deliveryGrosze!)}</Txt></View>
       <View style={{ borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 10, gap: 4 }}><Txt>{tr('Łączny koszt', 'Total cost')}</Txt><Txt w="bold" style={{ fontSize: 30, color: Colors.primaryDark }}>{formatGrosze(best.totalGrosze!)}</Txt></View>

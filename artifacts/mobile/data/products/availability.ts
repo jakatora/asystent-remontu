@@ -86,6 +86,8 @@ export const PRODUCT_REFERENCE_STATUS: readonly { id: string; state: 'store_conf
   {"id":"mat-skirting-krono-lk100f-mdf-240","state":"no_online_offer","observedAt":"2026-10-25T14:20:55.697Z","sourceUrl":"https://www.castorama.pl/listwa-przypodlogowa-mdf-krono-original-biala-lk100f/5907555424969_CAPL.prd"},
   // source: https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd
   {"id":"mat-profile-cd60-norgips-3m","state":"store_confirmation_required","observedAt":"2026-10-25T14:19:35.307Z","sourceUrl":"https://www.castorama.pl/profil-sufitowy-norgips-cd60-0-6-mm-3-mb/5907651698899_CAPL.prd"},
+  // source: https://www.castorama.pl/profil-sufitowy-norgips-ud30-0-6-mm-3-mb/5907651698905_CAPL.prd
+  {"id":"mat-profile-ud30-norgips-06-3m","state":"store_confirmation_required","observedAt":"2026-10-29T11:06:58.968Z","sourceUrl":"https://www.castorama.pl/profil-sufitowy-norgips-ud30-0-6-mm-3-mb/5907651698905_CAPL.prd"},
   // source: https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd
   {"id":"mat-skirting-clips-cezar-25","state":"store_confirmation_required","observedAt":"2026-10-25T14:20:57.084Z","sourceUrl":"https://www.castorama.pl/klipsy-montazowe-do-listew-cezar-25-szt-/5907684672217_CAPL.prd"},
   // source: https://www.castorama.pl/departments/w-w-yk-przy-czeniowy-do-baterii-gw-gz-3-8-x-m10-30-cm-oplot-invena-1-szt-/5907798716258_CAPL.prd

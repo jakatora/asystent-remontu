@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-29T10:54:18.281Z",
-  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów; trzy oryginalne deski Cersanit Carina mają teraz dwóch zweryfikowanych sprzedawców (TGS i Arena Łazienek) oraz krajową wycenę natywnych koszyków z dostawą. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności, mocowań i dostępności narzędzia; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
+  "checkedAt": "2026-10-29T11:07:18.837Z",
+  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów, 234 aktywne oferty. Trzy deski Carina mają oferty TGS i Arena Łazienek z natywną krajową dostawą. Profil Norgips UD 30 C2 EAN 5907651698905 ma teraz dokładne zdjęcie i publiczną cenę karty Castorama, lecz bez potwierdzonej dostawy pozostaje poza najtańszym pełnym koszykiem. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności, mocowań i dostępności narzędzia; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
   "total": 187,
   "verifiedProducts": 180,
   "remaining": 7,
@@ -805,13 +805,13 @@
     {
       "id": "mat-profile-ud30-norgips-06-3m",
       "name": "Profil Norgips UD 30, 0,6 mm, 3 m (EAN 8905)",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
-      "status": "browser_verification_expired",
+      "referenceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-ud30-0-6-mm-3-mb/5907651698905_CAPL.prd",
+      "status": "needs_verified_offer",
       "ean": "5907651698905",
       "sourceIds": [
         "leroy-norgips-ud30-06-3m"
       ],
-      "photoUrl": "https://media.adeo.com/media/3196086/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "photoUrl": "https://media2.castorama.pl/is/image/CastoramaPL/profil-sufitowy-norgips-ud30-0-6-mm-3-mb~5907651698905_03c_CP?$MOB_PREV$&$width=650&$height=650",
       "deliveryChecks": [
         {
           "sourceId": "leroy-norgips-ud30-06-3m",
@@ -826,15 +826,9 @@
         "expiresAt": "2026-10-28T05:39:56.843Z"
       },
       "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-ud30-06-3m",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
+        "checkedAt": "2026-10-29T11:07:18.837Z",
+        "previous": "browser_verification_expired",
+        "note": "Exact Castorama card and photo; native basket with delivery still unverified. Earlier Leroy Merlin card now carries EAN 5907651691197 and cannot be substituted."
       },
       "currentIdentityCheck": {
         "checkedAt": "2026-10-28T19:24:57.933Z",
@@ -843,6 +837,17 @@
         "expectedEan": "5907651698905",
         "observedEan": "5907651691197",
         "note": "Current primary JSON-LD identifies a different barcode on retailer card44604343. No substitution or renewed verification for the old EAN."
+      },
+      "photoSourceUrl": "https://www.castorama.pl/profil-sufitowy-norgips-ud30-0-6-mm-3-mb/5907651698905_CAPL.prd",
+      "photoCheckedAt": "2026-10-29T11:04:37.314Z",
+      "currentReferenceCard": {
+        "checkedAt": "2026-10-29T11:07:18.837Z",
+        "seller": "Castorama",
+        "ean": "5907651698905",
+        "priceGrosze": 1048,
+        "unit": "szt",
+        "scope": "public_product_page_only",
+        "delivery": "unconfirmed"
       }
     },
     {
