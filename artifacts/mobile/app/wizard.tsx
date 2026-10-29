@@ -1,3 +1,4 @@
+import {UNDERLAY_JOB,underlayInputVisible,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,groutOnlyInputVisible} from '@/features/calculator/groutOnly';
 import {PLASTER_JOB,plasterInputVisible,withPlasterMeasurement} from '@/features/calculator/plastering';
 import {windowInputVisible,windowInputHint,withWindowMeasurement} from '@/features/calculator/windowSealing';
@@ -1086,7 +1087,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);
@@ -1121,7 +1122,7 @@ export default function WizardScreen() {
 
                         {'inputType' in inp && inp.inputType === 'select' ? <MeasurementSelect label={inp.label} options={inp.options ?? []}
                           value={val ? parseDecimal(val) : inp.defaultValue} onChange={value => {
-                            patchDraft({ measurements: selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
+                            patchDraft({ measurements: selectedJob.id===UNDERLAY_JOB ? withUnderlayMeasurement(draft.measurements,inp.id,value) : selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
                           }}/> : <View style={{ flexDirection: 'row', gap: 8 }}>
                           <TextInput
                             style={{
@@ -1299,7 +1300,7 @@ export default function WizardScreen() {
                   {/* Measurements */}
                   {selectedJob && selectedJob.measurementInputs.length > 0 && (
                     <View>
-                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                         const val = draft.measurements[inp.id];
                         const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
                         const displayVal = selectedOption?.label ?? (val

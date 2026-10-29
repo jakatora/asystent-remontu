@@ -27,8 +27,18 @@ export function confirmTopbodenProduct(product:any,source:RetailSource,count=sou
   // source: https://arbiton.com/pl/klej-montazowy-strongman-300ml
   const glue=source.id==='topboden-strongman-300ml';
   if(glue&&(source.ean!=='5905167788264'||source.productUuid!=='9cc774ed-c24b-4f3b-a863-a935a86383f4'||source.packageSize!==300||source.unit!=='ml'||source.apiPurchaseUnit!=='szt.'||multiple!==1))throw Error('product_package_not_confirmed');
+  // Reviewed floor supplies have different native units:10m² per foil roll,
+  // but one native piece per25m tape roll. Do not multiply stock or price twice.
+  // source: https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna
+  // source: https://topboden.pl/podklad-pod-panele/arbiton-izo-floor-tape-50mmx25m
+  const supplies:Record<string,[string,string,number,string,string,number]>={
+    'topboden-aquaprotec-vapour-10m2':['5905167875223','7a0956bd-3e86-4fd7-b9eb-43215294ebf2',10,'m2','m<sup>2</sup>',10],
+    'topboden-arbiton-izo-floor-tape-25m':['5905167698778','87657644-0281-4fd4-9857-4864c6aa2c63',25,'m','szt.',1],
+  };
+  const supply=supplies[source.id];
+  if(supply&&(source.ean!==supply[0]||source.productUuid!==supply[1]||source.packageSize!==supply[2]||source.unit!==supply[3]||source.apiPurchaseUnit!==supply[4]||multiple!==1))throw Error('product_package_not_confirmed');
   if(units&&Number.isSafeInteger(units.multiple)&&Number.isSafeInteger(units.minOrderQuantity)&&(units.multiple!==multiple||units.minOrderQuantity!==multiple))throw Error('purchase_rules_changed');
-  const nativeUnit=accessory?'opk.':glue?'szt.':source.unit,nativeOrderUnit=accessory?'opk.':'szt.',nativePackSize=accessory||glue?1:source.packageSize;
+  const nativeUnit=supply?supply[4]:accessory?'opk.':glue?'szt.':source.unit,nativeOrderUnit=accessory?'opk.':'szt.',nativePackSize=supply?supply[5]:accessory||glue?1:source.packageSize;
   if(!Number.isSafeInteger(multiple)||multiple<1||multiple>10000||!units||units.orderUnit!==nativeOrderUnit||units.priceListUnit!==nativeUnit||units.basicUnit!==nativeUnit||!Number.isFinite(units.numerator)||!Number.isFinite(units.denominator)||units.denominator<=0||units.numerator/units.denominator!==nativePackSize||units.multiple!==multiple||units.minOrderQuantity!==multiple)throw Error('retailer_unit_not_confirmed');
   if(!Number.isSafeInteger(count)||count<multiple||count%multiple||count>10000)throw Error('purchase_multiple_required');
   if(product.available===false)throw Error('retailer_out_of_stock');
@@ -39,11 +49,12 @@ export function confirmTopbodenProduct(product:any,source:RetailSource,count=sou
   // price from an optional EXTRA20 code. Import only that ordinary price;
   // a coupon, gift, changed discount or already-discounted price is not inferred.
   // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
-  const regularStrongman=glue&&product.promotionCode?.code==='EXTRA20'&&product.promotionCode?.discount==='20'
+  const regularReviewedPrice=(glue||supply)&&product.promotionCode?.code==='EXTRA20'&&product.promotionCode?.discount==='20'
     &&product.promotionCode?.freeProductsMessage===null&&price?.isDiscount===false&&price.discountValue===0
     &&['discountNetPrice','discountGrossPrice','discountPackageNetPrice','discountPackageGrossPrice'].every(key=>price[key]===null)
-    &&price.grossPrice===price.packageGrossPrice;
-  if(!price||typeof price.isDiscount!=='boolean'||product.promotionCode&&!regularStrongman)throw Error('conditional_price_not_supported');
+    &&price.grossPrice*nativePackSize===price.packageGrossPrice;
+  if(!price||typeof price.isDiscount!=='boolean'||product.promotionCode&&!regularReviewedPrice)throw Error('conditional_price_not_supported');
+  if(supply&&(!Number.isSafeInteger(price.grossPrice)||price.grossPrice<=0||price.grossPrice*nativePackSize!==price.packageGrossPrice))throw Error('retailer_gross_price_not_confirmed');
   const priceGrosze=price.isDiscount?price.discountPackageGrossPrice:price.packageGrossPrice;
   if(!Number.isSafeInteger(priceGrosze)||priceGrosze<=0)throw Error('retailer_gross_price_not_confirmed');
   const photo=product.images?.find((image:any)=>image.category==='Packshot')??product.images?.[0];
@@ -74,7 +85,7 @@ export async function readTopbodenProduct(source:RetailSource,fetchImpl:typeof f
   // Accessory cards use the SEO title in JSON-LD, not the catalogue name.
   // Both primary records already bind the reviewed UUID/EAN/pack. Tie this
   // differently named price record to their exact SEO title, brand and photo.
-  const reviewedNativePack=source.apiPurchaseUnit==='opk.'||source.id==='topboden-strongman-300ml';
+  const reviewedNativePack=source.apiPurchaseUnit==='opk.'||['topboden-strongman-300ml','topboden-aquaprotec-vapour-10m2','topboden-arbiton-izo-floor-tape-25m'].includes(source.id);
   const accessoryIdentity=reviewedNativePack&&records.length===1
     &&typeof product.metaTitle==='string'&&product.metaTitle.length>0&&card.metaTitle===product.metaTitle
     &&records[0].name===product.metaTitle&&records[0].brand===source.brand

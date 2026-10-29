@@ -1,3 +1,4 @@
+import {UNDERLAY_JOB,UNDERLAY_MODEL,underlayMaterials,underlayReference} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,GROUT_ONLY_MODEL,groutOnlyMaterials,groutOnlyReference} from '@/features/calculator/groutOnly';
 import {PLASTER_JOB,PLASTER_MODEL,plasterMaterials,plasterReference} from '@/features/calculator/plastering';
 import {WINDOW_JOB,WINDOW_MODEL,windowMaterials,windowReference} from '@/features/calculator/windowSealing';
@@ -93,6 +94,11 @@ export function resolveMaterialQuantity(
     const source = definition && calc.materials.find(row => row.material.id === definition.id);
     if (!source || source.quantityKnown === false || !('ean' in source.material) || source.material.ean !== definition!.ean || normalizeUnit(source.material.unit) !== normalizeUnit(ref.packageUnit)) return null;
     const quantity = getRequiredQuantity(source, calc); return Number.isFinite(quantity) && quantity >= 0 ? { quantity, source } : null;
+  }
+  if(calc.jobId===UNDERLAY_JOB){
+    const definition=underlayMaterials(calc.measurements).find(m=>underlayReference(m.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(l=>l.material.id===definition.id);
+    if(calc.quantityModel!==UNDERLAY_MODEL||!source||source.quantityKnown===false||!definition?.ean||!('ean'in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit)||definition.packaging?.size!==ref.packageSize)return null;
+    const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
   }
   if(calc.jobId===GROUT_ONLY_JOB){
     const definition=groutOnlyMaterials(calc.measurements).find(row=>groutOnlyReference(row.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(row=>row.material.id===definition.id);

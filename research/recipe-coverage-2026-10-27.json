@@ -1,18 +1,18 @@
 {
-  "checkedAt": "2026-10-28T23:30:35.271Z",
-  "scope": "Same65 saved measurement maps:82/251 priced requirements,169 unresolved, not169 unique products. The two fewer priced requirements are the old grout-only generic grout and assumed silicone: actual depth, selected exact colour and measured joints are now required. Optional cleaner decision is explicit. New measured grout scenarios are verified separately in12 real production HTTP cases; unconfirmed historic data is not silently filled.",
+  "checkedAt": "2026-10-29T00:02:43.608Z",
+  "scope": "Same65 historical maps:81/251 priced requirements,170 unresolved, not170 unique SKUs. Standalone underlay now explicitly requires chosen compatible product, actual foil layout area and tape length; one formerly assumed underlay line requires review. New complete explicit scenarios verified separately in12 actual productionHTTP cases;3in1 material known but Kronodom shipping still unavailable.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 251,
-    "beforePriced": 84,
+    "beforePriced": 82,
     "afterLines": 251,
-    "afterPriced": 82,
-    "afterUnpriced": 169,
+    "afterPriced": 81,
+    "afterUnpriced": 170,
     "fullyPricedScenarios": 11,
     "reasons": {
-      "no-query": 97,
-      "no-product": 71,
+      "no-query": 100,
+      "no-product": 69,
       "no-offer": 1
     }
   },
@@ -405,6 +405,24 @@
         "reasons": {
           "no-query": 94,
           "no-product": 72,
+          "no-offer": 1
+        }
+      }
+    },
+    {
+      "checkedAt": "2026-10-28T23:30:35.271Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 251,
+        "beforePriced": 84,
+        "afterLines": 251,
+        "afterPriced": 82,
+        "afterUnpriced": 169,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 97,
+          "no-product": 71,
           "no-offer": 1
         }
       }

@@ -1192,10 +1192,15 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"sewera-atlas-szop-1kg","ean":"5905400990010","name":"Atlas Szop środek do usuwania zabrudzeń cementowych i wapiennych 1kg","category":"grout-cleaner","brand":"Atlas","packageSize":1,"unit":"kg","store":"Sewera","format":"sewera","url":"https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798"},
   // source: https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg
   {"id":"kim-atlas-szop-1kg","ean":"5905400990010","name":"Środek do usuwania zabrudzeń cementowych i wapiennych Atlas Szop  1 Kg","category":"grout-cleaner","brand":"Atlas","packageSize":1,"unit":"kg","store":"KIM24","format":"shoper-api","productId":13906,"retailerSku":"BSZA1IMSZOP01","apiPurchaseUnit":"szt.","variant":["1 kg"],"url":"https://kim24.pl/Srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-Atlas-Szop-1-Kg","imageUrl":"https://kim24.pl/environment/cache/images/productGfx_32646_800_800/atlas-szop.webp"},
+  // source: https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna
+  {"id":"topboden-aquaprotec-vapour-10m2","ean":"5905167875223","name":"Folia paroizolacyjna Aquaprotec Vapour Barrier","category":"vapor-barrier","brand":"Arbiton","packageSize":10,"unit":"m2","store":"TopBoden","format":"topboden-api","productUuid":"7a0956bd-3e86-4fd7-b9eb-43215294ebf2","apiPurchaseUnit":"m<sup>2</sup>","url":"https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167875223_P_01.webp","pickupRequiresConfirmation":true,"variant":["Aquaprotec","Vapour","Barrier"]},
+  // source: https://topboden.pl/podklad-pod-panele/arbiton-izo-floor-tape-50mmx25m
+  {"id":"topboden-arbiton-izo-floor-tape-25m","ean":"5905167698778","name":"Taśma do podkładów pod panele Arbiton Izo Floor - 50 mm x 25 m","category":"underlay-joint-tape","brand":"Arbiton","packageSize":25,"unit":"m","store":"TopBoden","format":"topboden-api","productUuid":"87657644-0281-4fd4-9857-4864c6aa2c63","apiPurchaseUnit":"szt.","url":"https://topboden.pl/podklad-pod-panele/arbiton-izo-floor-tape-50mmx25m","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167698778_P_01.webp","pickupRequiresConfirmation":true,"variant":["50 mm","25 m"]},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'Arbiton Aquaprotec Vapour Barrier 0,18 mm — folia 10 m²':'5905167875223',
   'Atlas SZOP — środek do pozostałości cementowych, 1 kg':'5905400990010',
   'Knauf Grundiermittel 60 — koncentrat gruntujący 15 kg':'5901793357799',
   "Knauf Betokontakt — grunt sczepny 5 kg": "4006379051014",

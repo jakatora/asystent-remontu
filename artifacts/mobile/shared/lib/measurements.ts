@@ -1,3 +1,4 @@
+import {UNDERLAY_JOB,underlayInputVisible} from '@/features/calculator/underlayInstall';
 import {groutOnlyInputVisible} from '@/features/calculator/groutOnly';
 import {windowInputVisible} from '@/features/calculator/windowSealing';
 import {plasterInputVisible} from '@/features/calculator/plastering';
@@ -9,7 +10,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   const values: Record<string, number> = {};
   const errors: { label: string; id: string; min?: number; max?: number }[] = [];
   for (const input of job.measurementInputs) {
-    if (!groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
+    if (!underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
     if (!text && input.defaultValue === undefined && input.required === false) continue;
     const value = text ? parseDecimal(text) : input.defaultValue;
@@ -31,5 +32,6 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   }
   if (job.id==='gypsum-wall'&&values.gypsumWallHeight>0&&values.wallArea>0&&values.perimeter!==undefined&&Math.abs(values.perimeter-2*(values.wallArea/values.gypsumWallHeight+values.gypsumWallHeight))>0.1)errors.push({id:'perimeter',label:'Obwód nie zgadza się z powierzchnią i wysokością; popraw lub pozostaw pusty'});
   if (job.id==='gypsum-ceiling'&&values.ceilingArea>0&&values.perimeter+0.1<4*Math.sqrt(values.ceilingArea))errors.push({id:'perimeter',label:'Obwód jest za mały dla podanej powierzchni; sprawdź pomiary'});
+  if(job.id===UNDERLAY_JOB&&values.underlayFoilAreaM2<values.floorArea)errors.push({id:'underlayFoilAreaM2',label:'Powierzchnia folii nie może być mniejsza od podłogi',min:values.floorArea});
   return { values, errors };
 }

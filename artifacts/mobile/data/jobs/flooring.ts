@@ -1,3 +1,4 @@
+import {underlayInputs,underlayMaterials} from '@/features/calculator/underlayInstall';
 import {skirtingInputs,skirtingMaterials,skirtingInstructions} from '@/features/calculator/skirting';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
 import { laminateSupplyInputs, laminateExtraMaterials } from '@/features/calculator/laminateSupplies';
@@ -17,9 +18,9 @@ export const underlayJob: RenovationJob = {
   id: 'underlay-install',
   slug: 'podklad-podlogowy',
   categoryId: 'underlay',
-  name: 'Podkład pod panele i wykładziny',
-  shortDescription: 'Połóż podkład piankowy lub wygłuszający — krok przed panelami.',
-  description: 'Podkład wyrównuje drobne nierówności, wycisza kroki i działa jak bariera termiczna. Na betonowej podłodze zawsze najpierw folia paroizolacyjna.',
+  name: 'Podkład pod panele laminowane',
+  shortDescription: 'Dobierz podkład, ochronę przed wilgocią i potrzebną taśmę.',
+  description: 'Dobierz podkład do podłogi pływającej z paneli laminowanych i instrukcji producenta. Sprawdź równość oraz wilgotność podłoża, ochronę przed parą wodną i wymagania ogrzewania. Podkład nie zastępuje wyrównania ani osuszenia podłoża.',
   difficulty: 'easy',
   riskLevel: 'low',
   estimatedDays: 1,
@@ -27,65 +28,33 @@ export const underlayJob: RenovationJob = {
   visibilityMode: 'safe_diy',
   coverIcon: 'layers',
   warningRules: [
-    { condition: 'always', message: 'Na betonowym podłożu zawsze najpierw folia paroizolacyjna — podkład sam nie chroni przed wilgocią.', level: 'warning' },
+    { condition: 'always', message: 'Dobierz ochronę przed wilgocią według instrukcji podłogi i podłoża. Podkład 3 w 1 ma zintegrowaną barierę: nie dokupuj automatycznie drugiej folii. Nie stosuj tych podkładów automatycznie pod winyl lub podłogę klejoną.', level: 'warning' },
   ],
-  measurementInputs: [
-    { id: 'floorArea', label: 'Powierzchnia podłogi', unit: 'm²', inputType: 'area',
-      placeholder: 'np. 20', min: 1, max: 300,
-      hint: 'Długość × szerokość pomieszczenia.' },
-  ],
-  materials: [
-    {
-      id: 'underlay',
-      name: 'Podkład piankowy / wygłuszający',
-      unit: 'm²',
-      formulaKey: 'underlay',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 10, label: 'rolka 10 m²', purchaseUnit: 'rolka' },
-      pricePerUnit: 8,
-      category: 'podkład',
-      notes: 'Grubość 2–3 mm do paneli click. Do paneli klejonej podłogi — nie stosuj grubego podkładu.',
-    },
-    {
-      id: 'vapor-barrier',
-      name: 'Folia paroizolacyjna (PE 0,2 mm)',
-      unit: 'm²',
-      formulaKey: 'floorPanels',
-      wasteFactor: 1.1,
-      packaging: { size: 50, label: 'rolka 50 m²', purchaseUnit: 'rolka' },
-      pricePerUnit: 3,
-      category: 'folia',
-      notes: 'Na betonowym podłożu. Zakłady 15–20 cm, zaklej taśmą.',
-    },
-    {
-      id: 'adhesive-tape',
-      name: 'Taśma do folii paroizolacyjnej',
-      unit: 'rolka',
-      formula: formulaBuilder.fixed(1),
-      pricePerUnit: 8,
-      category: 'akcesoria',
-    },
-  ],
+  measurementInputs: underlayInputs,
+  materials: underlayMaterials(),
   tools: [
     { id: 'scissors', name: 'Nożyczki lub nóż', icon: 'scissors', required: true },
     { id: 'tape-measure', name: 'Miara', icon: 'maximize-2', required: true },
   ],
+  // source: https://pim.decora.pl/files/gHiJ3PFoVKBHE5Ep.pdf
+  // source: https://arbiton.com/content/uploads/ARBITON-underlayments-2025.pdf
   instructions: [
-    { step: 1, title: 'Rozłóż folię paroizolacyjną', description: 'Na betonowym podłożu rozłóż folię z zakładem 15–20 cm na ściany. Łączenia folii klej taśmą.', durationMin: 20 },
-    { step: 2, title: 'Rozłóż podkład', description: 'Rozłóż podkład na całej powierzchni. Nie zachodź pasami na siebie — łącz na styk. Podkład musi pokrywać całą podłogę.', durationMin: 20 },
-    { step: 3, title: 'Przytnij przy ścianach', description: 'Podkład zostaw z 2–3 cm nadmiarem przy ścianie — zostanie zakryty listwą. Nadmiar folii podwijamy pod podkład.', durationMin: 15 },
+    {step:1,title:'Sprawdź podłoże i dobrany układ',description:'Podłoże musi być równe, czyste, twarde i suche, zgodnie z wymaganiami podłogi. Sprawdź rodzaj paneli i cały układ ogrzewania. Podkład nie naprawia nierównego ani wilgotnego jastrychu.',durationMin:20},
+    {step:2,title:'Wykonaj właściwą barierę',description:'Jeżeli wymagana jest osobna folia, ułóż ją i uszczelnij zakłady oraz wywinięcia według instrukcji systemu. Jeśli wybrano zgodny podkład3w1, wykorzystaj jego zintegrowaną barierę i taśmę. Zaplanuj dodatkowe uszczelnienia po docinaniu.',durationMin:20},
+    {step:3,title:'Rozłóż i połącz podkład',description:'Łącz podkład na styk, bez nakładania jego pasów na siebie. Zasady ułożenia względem paneli, docinania oraz łączenia sprawdź w instrukcji wybranego produktu. Nie myl zakładki folii z zakładaniem grubych warstw podkładu.',durationMin:20},
   ],
-  commonMistakes: ['Zakładanie pasów podkładu na siebie — tworzy nierówności pod panelami', 'Brak folii na betonie — wilgoć niszczy panele'],
+  commonMistakes: ['Zakładanie pasów podkładu na siebie — tworzy nierówności pod panelami', 'Brak wymaganej bariery paroszczelnej lub nieszczelne połączenia — ryzyko zawilgocenia paneli'],
   qualityChecklist: [
     { id: 'q1', description: 'Podkład pokrywa całą podłogę bez zakładów' },
-    { id: 'q2', description: 'Folia paroizolacyjna jest szczelna — zakłady zaklejone' },
+    { id: 'q2', description: 'Wymagana bariera paroszczelna jest szczelna, także na połączeniach i przy ścianach' },
   ],
   hireProfessionalRecommended: false,
   tags: ['podkład', 'panele', 'podłoga', 'folia'],
 
-  verifiedAt: '2026-07-10',
+  verifiedAt: '2026-10-29',
   verifiedSources: [
+    {title:'Arbiton — instrukcja montażu podkładu i bariery',url:'https://pim.decora.pl/files/gHiJ3PFoVKBHE5Ep.pdf',domain:'decora.pl',consultedAt:'2026-10-29'},
+    {title:'Arbiton — katalog podkładów i akcesoriów',url:'https://arbiton.com/content/uploads/ARBITON-underlayments-2025.pdf',domain:'arbiton.com',consultedAt:'2026-10-29'},
     {
       title:       'Podkład pod panele podłogowe. Jaki wybrać i jak go ułożyć?',
       url:         'https://muratordom.pl/wnetrza/prace-wykonczeniowe/podklad-pod-panele-podlogowe-jak-jak-ulozyc-aa-7Qfz-RZ25-NCML.html',

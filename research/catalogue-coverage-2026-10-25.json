@@ -1,15 +1,32 @@
 {
-  "checkedAt": "2026-10-28T23:30:35.271Z",
-  "scope": "171 exact references audited through production HTTP:164 with active offers and7 historic exact identities unresolved. Measured grout-only is now complete with12 additional actual production cases. Same65 historical measurement maps separately audited; no overall completion percentage implied.",
-  "total": 171,
-  "verifiedProducts": 164,
+  "checkedAt": "2026-10-29T00:02:43.608Z",
+  "scope": "172 exact references through productionHTTP;165 with active offers,7historic exact identities unresolved. New standalone underlay scenarios separately verified. No overall completion percentage implied.",
+  "total": 172,
+  "verifiedProducts": 165,
   "remaining": 7,
-  "offers": 211,
+  "offers": 213,
   "stores": 52,
-  "productsWithPhotos": 171,
-  "registeredOffers": 217,
+  "productsWithPhotos": 172,
+  "registeredOffers": 219,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-vapor-foil-arbiton-aquaprotec-10m2",
+      "productLabel": "Arbiton Aquaprotec Vapour Barrier 0,18 mm — folia 10 m²",
+      "ean": "5905167875223",
+      "materialType": "vapor-barrier",
+      "packageSize": 10,
+      "packageUnit": "m2",
+      "status": "verified_offer",
+      "sourceIds": [
+        "topboden-aquaprotec-vapour-10m2"
+      ],
+      "referenceUrl": "https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna",
+      "photoUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167875223_P_01.webp",
+      "photoSourceUrl": "https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna",
+      "checkedAt": "2026-10-29T00:02:43.608Z",
+      "availabilityScope": "Current exact native10m² pack; ordinary49PLN not optional coupon; national PL tariff39.99PLN confirmed in actual browser cart. User must verify compatibility, not an automatic substitute for minimum0.20mm foil."
+    },
     {
       "id": "mat-grout-cleaner-atlas-szop-1kg",
       "productLabel": "Atlas SZOP — środek do pozostałości cementowych, 1 kg",
@@ -3790,10 +3807,12 @@
       "status": "verified_offer",
       "ean": "5905167698778",
       "sourceIds": [
-        "liderzy-arbiton-izo-floor-tape-25m"
+        "liderzy-arbiton-izo-floor-tape-25m",
+        "topboden-arbiton-izo-floor-tape-25m"
       ],
       "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg",
-      "deliveryChecks": []
+      "deliveryChecks": [],
+      "checkedAt": "2026-10-29T00:02:43.608Z"
     },
     {
       "id": "mat-vapor-foil-conkret-ecovil-p-100m2",

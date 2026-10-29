@@ -15,7 +15,7 @@ const choice = { from: diall.id, to: conpar.id };
 const stages = (): PricingStageInput[] => [10.5, 14.5].map((quantity, index) => ({ jobId: 'room-' + index, measurements: { floorArea: quantity / 1.1 }, materials: [{ material: { id: 'vapor-barrier', name: diall.productLabel, category: 'vapor-barrier', unit: 'm²', ean: '5059340141428' }, quantity, packs: 77 }] }));
 
 test('foil choices bind exact category, barcode and m² demand without accepting paint, flooring, a breathable membrane or a roll count', () => {
-  assert.equal(FOIL_PRODUCTS.length, 3); assert.equal(conpar.packageSize, 100); assert.equal(diall.packageSize, 20);
+  assert.equal(FOIL_PRODUCTS.length, 4); assert.equal(conpar.packageSize, 100); assert.equal(diall.packageSize, 20);
   const material = stages()[0].materials[0].material;
   assert.equal(foilReference(material)?.id, diall.id);
   for (const row of [{ ...material, category: 'laminate' }, { ...material, unit: 'rolka' }, { ...material, unit: 'szt' },
