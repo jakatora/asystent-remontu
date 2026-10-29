@@ -125,6 +125,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput]);
   const input = pending.stages;
   const [state, setState] = useState<LoadState>({ status: 'idle' });
+  const [refreshing, setRefreshing] = useState(false);
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const deliveryRef = useRef(delivery);
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
@@ -168,10 +169,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     if (!hasInput || !shoppingReady || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed || !adhesives.ready || adhesives.readFailed) return;
     const version = ++requestVersion.current;
     if (!input.some(stage => stage.materials.length > 0)) {
-      setState({ status: 'idle' }); onPurchaseSnapshot?.({ kind: 'empty', observedAt: Date.now() }); return;
+      setRefreshing(false); setState({ status: 'idle' }); onPurchaseSnapshot?.({ kind: 'empty', observedAt: Date.now() }); return;
     }
-    onPurchaseSnapshot?.(null);
-    setState({ status: 'loading' });
+    if (!refreshPrices) onPurchaseSnapshot?.(null);
+    setRefreshing(refreshPrices);
+    setState(previous => refreshPrices && previous.status === 'success' && loadedScope === scope ? previous : { status: 'loading' });
     try {
       const rememberChoices = (data: SerializedProject) => {
         const choices = { ...collectStoreChoices(data), scope,mode:delivery.mode };
@@ -196,6 +198,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         setPriceSaveFailed(false);
         priceWrites.current=priceWrites.current.catch(()=>{}).then(()=>AsyncStorage.setItem(priceStorageKey,saved)).catch(()=>{ if (version===requestVersion.current) setPriceSaveFailed(true); });
         setState({ status: 'success', data, priceChanges, hasPriceBaseline });
+        setRefreshing(false);
         onPurchaseSnapshot?.(purchaseSnapshot(data, selectedStore));
       }
     } catch (err) {
@@ -205,7 +208,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : err instanceof ApiError
           ? t('cmp.CostEstimate.errorHttp', { status: err.status })
           : t('cmp.CostEstimate.errorNetwork');
-      if (version === requestVersion.current) setState({ status: 'error', message });
+      if (version === requestVersion.current) { setRefreshing(false); setState({ status: 'error', message }); }
     }
   }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, onPurchaseSnapshot]);
 
@@ -324,8 +327,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
+      {refreshing && state.status === 'success' && loadedScope === scope && <View style={{flexDirection:'row',alignItems:'center',gap:10,padding:14,borderRadius:12,backgroundColor:Colors.primaryBg}}>
+        <ActivityIndicator size="small" color={Colors.primary} />
+        <Txt style={{flex:1,fontSize:14,lineHeight:20,color:Colors.text}}>{language==='pl'?'Sprawdzamy aktualne ceny. Poniżej widzisz ostatnią wycenę.':'Checking current prices. The last quote remains visible below.'}</Txt>
+      </View>}
       {state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
-        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
+        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
           requestVersion.current++;
           deliveryRef.current=settings;
           setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
@@ -343,6 +350,7 @@ function EstimateResult({
   selectedStore,
   priceChanges,
   hasPriceBaseline,
+  refreshing,
   onRefresh,
   delivery,
   onDeliveryChange,
@@ -351,6 +359,7 @@ function EstimateResult({
   selectedStore: string | null;
   priceChanges:PriceChange[];
   hasPriceBaseline:boolean;
+  refreshing:boolean;
   onRefresh: () => void;
   delivery: DeliverySettings;
   onDeliveryChange: (settings: DeliverySettings) => void;
@@ -527,6 +536,7 @@ function EstimateResult({
       <Button
         label={t('cmp.CostEstimate.refresh')}
         onPress={onRefresh}
+        loading={refreshing}
         variant="outline"
         fullWidth
       />
