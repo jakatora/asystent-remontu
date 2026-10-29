@@ -109,8 +109,8 @@ export class AnonymousShop {
    * only. Contact/address lines, checkout and order routes remain forbidden. */
   async cartJson(path: string, body?: object): Promise<any> {
     const courierId=this.origin==='https://irbudsklep.pl'?'flexible_shipping_single:3':this.origin==='https://patiartstudio.pl'?'flexible_shipping_single:7':null;
-    const budshopCouriers=['wsds_simple_dimensional:3:medium_parcel_dhl','wsds_simple_dimensional:3:large_parcel_dhl','wsds_simple_dimensional:3:multi_medium_parcel_large_parcel'];
-    if (this.origin==='https://budshop24.pl'&&path==='/wp-json/wc/store/v1/cart/add-item'&&(!body||Object.keys(body).sort().join(',')!=='id,quantity'||![4808,7381].includes((body as any).id)||!Number.isSafeInteger((body as any).quantity)||(body as any).quantity<1||(body as any).quantity>MAX_RETAIL_PACKAGES))throw Error('invalid_cart_route');
+    const budshopCouriers=['wsds_simple_dimensional:3:medium_parcel_dhl','wsds_simple_dimensional:3:large_parcel_dhl','wsds_simple_dimensional:3:multi_medium_parcel_large_parcel','wsds_simple_dimensional:3:multi_large_parcel_large_parcel','wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel'];
+    if (this.origin==='https://budshop24.pl'&&path==='/wp-json/wc/store/v1/cart/add-item'&&(!body||Object.keys(body).sort().join(',')!=='id,quantity'||![4808,7381,6484].includes((body as any).id)||!Number.isSafeInteger((body as any).quantity)||(body as any).quantity<1||(body as any).quantity>MAX_RETAIL_PACKAGES))throw Error('invalid_cart_route');
     const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&((courierId&&((body as any).rate_id===courierId))||(this.origin==='https://budshop24.pl'&&budshopCouriers.includes((body as any).rate_id)));
     const address=(body as any)?.shipping_address;
     const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&(courierId||this.origin==='https://budshop24.pl')&&body&&Object.keys(body).join(',')==='shipping_address'

@@ -21,11 +21,21 @@ const PRODUCTS = [{
   category: 'waterproofing', packageSize: 16,
   url: ORIGIN + '/produkt/atlas-woder-duo-16kg-hydroizolacja-dwuskladnikowa/',
   image: ORIGIN + '/wp-content/uploads/2025/08/2044418.jpg',
+}, {
+  sourceId: 'budshop-atlas-woder-e-15kg', id: 6484, sku: 'BS00295', ean: '5905400514506',
+  name: 'ATLAS WODER E 15kg - Szybkoschnąca folia w płynie',
+  apiName: 'ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie',
+  cartName: 'ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie',
+  category: 'waterproofing', packageSize: 15,
+  url: ORIGIN + '/produkt/szybkoschnaca-folia-w-plynie-woder-e-15kg-atlas/',
+  image: ORIGIN + '/wp-content/uploads/2025/08/2047356.png',
 }] as const;
 const COURIERS = {
   'wsds_simple_dimensional:3:medium_parcel_dhl': { name: 'DHL – Średnia Paczka', label: 'DHL – Średnia Paczka' },
   'wsds_simple_dimensional:3:large_parcel_dhl': { name: 'DHL – Duża Paczka', label: 'DHL – Duża Paczka' },
   'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel': { name: 'Paczki/Worki: Średnia Paczka + Duża Paczka', label: 'Paczki/Worki: Średnia Paczka + Duża Paczka' },
+  'wsds_simple_dimensional:3:multi_large_parcel_large_parcel': { name: 'Paczki/Worki: 2× Duża Paczka', label: 'Paczki/Worki: 2× Duża Paczka' },
+  'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel': { name: 'Paczki/Worki: Średnia Paczka + 2× Duża Paczka', label: 'Paczki/Worki: Średnia Paczka + 2× Duża Paczka' },
 } as const;
 const cents = (value: unknown): number => {
   if (typeof value !== 'string' || !/^\d+$/.test(value) || !Number.isSafeInteger(Number(value))) throw Error('invalid_money');
@@ -53,6 +63,10 @@ function reviewed(source: RetailSource) {
 // Woder Duo's 16 kg variant and EAN are independently published by PSB.
 // source: https://budshop24.pl/produkt/atlas-woder-duo-16kg-hydroizolacja-dwuskladnikowa/
 // source: https://www.grupapsb.com.pl/produkt/hydroizolacja-dwuskladnikowa-elastyczna-woder-duo-16-kg-atlas-5905400195088.html
+// Woder E's exact 15 kg variant and EAN are independently published by Remontownia24 and PSB.
+// source: https://budshop24.pl/produkt/szybkoschnaca-folia-w-plynie-woder-e-15kg-atlas/
+// source: https://remontownia24.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-15-kg%2C61%2C2509.html
+// source: https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html
 export function inspectBudshopProduct(product: any, source: RetailSource) {
   const expected = reviewed(source);
   if (product?.id !== expected.id || product.sku !== expected.sku || product.name !== expected.apiName ||
@@ -158,9 +172,18 @@ export async function quoteBudshop(order: DeliveredStoreBasket, postalCode: stri
     groups[0].destination?.country !== 'PL' || groups[0].destination?.postcode !== postalCode ||
     Object.entries(groups[0].destination).some(([key, value]) => !['country','postcode'].includes(key) && value !== ''))
     throw Error('no_home_delivery');
-  const ids = new Set(result.packs.map(pack => pack.product.id));
-  const courierId = ids.size === 2 ? 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel' :
-    ids.has(4808) ? 'wsds_simple_dimensional:3:medium_parcel_dhl' : 'wsds_simple_dimensional:3:large_parcel_dhl';
+  const mediumCount = result.packs.find(pack => pack.product.id === 4808)?.count ?? 0;
+  const largeCount = result.packs.reduce((count, pack) => count + (pack.product.id === 4808 ? 0 : pack.count), 0);
+  const shape = `${mediumCount}:${largeCount}`;
+  const reviewedRates: Record<string, keyof typeof COURIERS> = {
+    '1:0': 'wsds_simple_dimensional:3:medium_parcel_dhl',
+    '0:1': 'wsds_simple_dimensional:3:large_parcel_dhl',
+    '1:1': 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel',
+    '0:2': 'wsds_simple_dimensional:3:multi_large_parcel_large_parcel',
+    '1:2': 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel',
+  };
+  const courierId = reviewedRates[shape];
+  if (!courierId) throw Error('no_home_delivery');
   const courier = COURIERS[courierId];
   const couriers = groups[0].shipping_rates?.filter((rate: any) =>
     rate.rate_id === courierId && rate.method_id === 'wsds_simple_dimensional' && rate.name === courier.name);
