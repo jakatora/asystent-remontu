@@ -7,6 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { getProductPhoto } from '@/data/products/photos';
 import { estimateProject, formatGrosze, type SerializedProject } from '@/features/pricing/pricingApi';
 import { deliveredFloorKit, type FloorKitCandidate } from '@/features/pricing/floorKits';
+import { deliveredKitRecheckAt } from '@/features/pricing/deliveredKit';
 import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 import { ProductImage } from './ProductImage';
 
@@ -33,10 +34,11 @@ export function FloorKitSection({ candidates, scope, ready, settings, onSettings
   useEffect(() => { if (!editingPostal.current) setPostcode(settings.postalCode ?? ''); }, [settings.postalCode]);
   const rows = result?.scope === scope ? result.rows : [];
   const summaries = rows.map(row => row.data && deliveredFloorKit(row.data, settings)).filter(Boolean);
-  const earliest = summaries.length ? Math.min(...summaries.map(summary => summary!.expiresAt)) : null;
+  const boundaries = [...summaries.map(summary => summary!.expiresAt + 10), ...rows.flatMap(row => row.data ? [deliveredKitRecheckAt(row.data)] : [])].filter((n): n is number => n !== null);
+  const earliest = boundaries.length ? Math.min(...boundaries) : null;
   useEffect(() => {
     if (!earliest) return;
-    const timer = setTimeout(() => tick(value => value + 1), Math.max(1, earliest - Date.now() + 10));
+    const timer = setTimeout(() => tick(value => value + 1), Math.max(1, earliest - Date.now()));
     return () => clearTimeout(timer);
   }, [earliest]);
   if (!candidates.length || settings.mode !== 'shipping') return null;

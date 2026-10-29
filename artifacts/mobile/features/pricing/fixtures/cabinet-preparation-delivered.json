@@ -1,0 +1,1620 @@
+{
+  "provenance": "Actual production SDK responses from2026-10-29 wave85 for the explicitly selected cabinet preparation alternatives. Public exact-product prices and real whole-store freight quotes; no customer fields, orders or merchant sessions. Only the unchanged response sections used for identity, demand, store selection and complete-delivered-quote validation are retained.",
+  "verificationTime": 1793248545186,
+  "cases": [
+    {
+      "name": "tenFullChem",
+      "data": {
+        "stages": [
+          {
+            "jobId": "kitchen-cabinet-paint",
+            "lines": [
+              {
+                "resolved": true,
+                "quantity": 1833.33333333,
+                "unit": "ml",
+                "query": {
+                  "ean": null,
+                  "gtin": null,
+                  "normalizedName": "v33 easy renowacja kuchnia bialy satyna dobor opakowan",
+                  "category": "cabinet-paint",
+                  "packageFamily": "v33-easy-kitchen-white-satin-v1"
+                },
+                "lineCostGrosze": 17528,
+                "product": {
+                  "id": "remont-family-v33-easy-kitchen-white-satin-v1",
+                  "name": "V33 Easy Renowacja Kuchnia — biały satyna, dobór opakowań",
+                  "ean": null,
+                  "gtin": null,
+                  "category": "cabinet-paint",
+                  "packageSize": null,
+                  "packageUnit": "ml"
+                },
+                "cheapestOffer": {
+                  "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                  "store": "Rab-Dom",
+                  "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                  "unitPriceGrosze": 17528
+                },
+                "offers": [
+                  {
+                    "packageSize": "750",
+                    "offerId": "rabdom-v33-easy-kitchen-white-750ml",
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                    "priceGrosze": 8541,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 11,
+                    "unit": "ml",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:07:11.110Z",
+                    "source": "retailer-page-microdata"
+                  },
+                  {
+                    "packageSize": "2000",
+                    "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                    "priceGrosze": 17528,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 9,
+                    "unit": "ml",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:07:11.210Z",
+                    "source": "retailer-page-microdata"
+                  }
+                ],
+                "packageSize": 2000,
+                "packagesNeeded": 1,
+                "packages": [
+                  {
+                    "product": {
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                      "id": "remont-3153895149228",
+                      "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                      "ean": "3153895149228",
+                      "gtin": null,
+                      "category": "cabinet-paint",
+                      "packageSize": "2000",
+                      "packageUnit": "ml"
+                    },
+                    "packageSize": 2000,
+                    "count": 1,
+                    "unitPriceGrosze": 17528,
+                    "lineCostGrosze": 17528,
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613"
+                  }
+                ],
+                "packagesTotalGrosze": 17528,
+                "packagesSavingsGrosze": 0,
+                "packagesOverage": 166.66666667000004
+              },
+              {
+                "resolved": true,
+                "quantity": 4,
+                "unit": "szt",
+                "query": {
+                  "ean": "5907560039820",
+                  "gtin": null,
+                  "normalizedName": "klingspor pl 28 c p240 arkusz 230 280 mm",
+                  "category": "hand-abrasive-240"
+                },
+                "lineCostGrosze": 596,
+                "product": {
+                  "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
+                  "id": "remont-5907560039820",
+                  "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                  "ean": "5907560039820",
+                  "gtin": null,
+                  "category": "hand-abrasive-240",
+                  "packageSize": "1",
+                  "packageUnit": "szt"
+                },
+                "cheapestOffer": {
+                  "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                  "store": "Sewera",
+                  "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                  "unitPriceGrosze": 149
+                },
+                "offers": [
+                  {
+                    "packageSize": "1",
+                    "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                    "priceGrosze": 149,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 149,
+                    "unit": "szt",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:35:27.691Z",
+                    "source": "retailer-page-microdata"
+                  }
+                ],
+                "packageSize": 1,
+                "packagesNeeded": 4,
+                "packages": [
+                  {
+                    "packageSize": 1,
+                    "count": 4,
+                    "unitPriceGrosze": 149,
+                    "lineCostGrosze": 596,
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903"
+                  }
+                ],
+                "packagesTotalGrosze": 596,
+                "packagesSavingsGrosze": 0,
+                "packagesOverage": 0
+              },
+              {
+                "resolved": true,
+                "quantity": 500,
+                "unit": "ml",
+                "query": {
+                  "ean": "5906681230253",
+                  "gtin": null,
+                  "normalizedName": "chem rozlew benzyna ekstrakcyjna 0 5 l",
+                  "category": "extraction-solvent"
+                },
+                "lineCostGrosze": 890,
+                "product": {
+                  "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp",
+                  "id": "remont-5906681230253",
+                  "name": "Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L",
+                  "ean": "5906681230253",
+                  "gtin": null,
+                  "category": "extraction-solvent",
+                  "packageSize": "500",
+                  "packageUnit": "ml"
+                },
+                "cheapestOffer": {
+                  "offerId": "rabdom-chem-rozlew-extraction-solvent-500ml",
+                  "store": "Rab-Dom",
+                  "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+                  "unitPriceGrosze": 890
+                },
+                "offers": [
+                  {
+                    "packageSize": "500",
+                    "offerId": "rabdom-chem-rozlew-extraction-solvent-500ml",
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+                    "priceGrosze": 890,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 2,
+                    "unit": "ml",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:26:30.203Z",
+                    "source": "retailer-page-microdata"
+                  }
+                ],
+                "packageSize": 500,
+                "packagesNeeded": 1,
+                "packages": [
+                  {
+                    "packageSize": 500,
+                    "count": 1,
+                    "unitPriceGrosze": 890,
+                    "lineCostGrosze": 890,
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316"
+                  }
+                ],
+                "packagesTotalGrosze": 890,
+                "packagesSavingsGrosze": 0,
+                "packagesOverage": 0
+              }
+            ],
+            "unresolvedCount": 0,
+            "stageTotalGrosze": 19014
+          }
+        ],
+        "consolidated": {
+          "lines": [
+            {
+              "packages": [
+                {
+                  "product": {
+                    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                    "id": "remont-3153895149228",
+                    "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                    "ean": "3153895149228",
+                    "gtin": null,
+                    "category": "cabinet-paint",
+                    "packageSize": "2000",
+                    "packageUnit": "ml"
+                  },
+                  "packageSize": 2000,
+                  "count": 1,
+                  "unitPriceGrosze": 17528,
+                  "lineCostGrosze": 17528,
+                  "store": "Rab-Dom",
+                  "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613"
+                }
+              ],
+              "product": {
+                "id": "remont-family-v33-easy-kitchen-white-satin-v1",
+                "name": "V33 Easy Renowacja Kuchnia — biały satyna, dobór opakowań",
+                "ean": null,
+                "gtin": null,
+                "category": "cabinet-paint",
+                "packageSize": null,
+                "packageUnit": "ml"
+              },
+              "cheapestOffer": {
+                "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                "unitPriceGrosze": 17528
+              },
+              "totalQuantity": 1833.33333333,
+              "unit": "ml",
+              "packageSize": 2000,
+              "packagesNeeded": 1,
+              "lineCostGrosze": 17528,
+              "perStageCostGrosze": 17528,
+              "savingsGrosze": 0
+            },
+            {
+              "packages": [
+                {
+                  "packageSize": 1,
+                  "count": 4,
+                  "unitPriceGrosze": 149,
+                  "lineCostGrosze": 596,
+                  "store": "Sewera",
+                  "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903"
+                }
+              ],
+              "product": {
+                "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
+                "id": "remont-5907560039820",
+                "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                "ean": "5907560039820",
+                "gtin": null,
+                "category": "hand-abrasive-240",
+                "packageSize": "1",
+                "packageUnit": "szt"
+              },
+              "cheapestOffer": {
+                "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                "store": "Sewera",
+                "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                "unitPriceGrosze": 149
+              },
+              "totalQuantity": 4,
+              "unit": "szt",
+              "packageSize": 1,
+              "packagesNeeded": 4,
+              "lineCostGrosze": 596,
+              "perStageCostGrosze": 596,
+              "savingsGrosze": 0
+            },
+            {
+              "packages": [
+                {
+                  "packageSize": 500,
+                  "count": 1,
+                  "unitPriceGrosze": 890,
+                  "lineCostGrosze": 890,
+                  "store": "Rab-Dom",
+                  "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316"
+                }
+              ],
+              "product": {
+                "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp",
+                "id": "remont-5906681230253",
+                "name": "Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L",
+                "ean": "5906681230253",
+                "gtin": null,
+                "category": "extraction-solvent",
+                "packageSize": "500",
+                "packageUnit": "ml"
+              },
+              "cheapestOffer": {
+                "offerId": "rabdom-chem-rozlew-extraction-solvent-500ml",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+                "unitPriceGrosze": 890
+              },
+              "totalQuantity": 500,
+              "unit": "ml",
+              "packageSize": 500,
+              "packagesNeeded": 1,
+              "lineCostGrosze": 890,
+              "perStageCostGrosze": 890,
+              "savingsGrosze": 0
+            }
+          ],
+          "consolidatedTotalGrosze": 19014,
+          "perStageTotalGrosze": 19014,
+          "savingsGrosze": 0
+        },
+        "storeComparison": {
+          "productCount": 3,
+          "optimalBasketGrosze": 19014,
+          "optimalByStore": [
+            {
+              "store": "Sewera",
+              "totalGrosze": 596,
+              "itemCount": 1
+            },
+            {
+              "store": "Rab-Dom",
+              "totalGrosze": 18418,
+              "itemCount": 2
+            }
+          ],
+          "stores": [
+            {
+              "store": "Sewera",
+              "totalGrosze": 596,
+              "coveredCount": 1,
+              "missingCount": 2,
+              "missingProductIds": [
+                "remont-family-v33-easy-kitchen-white-satin-v1",
+                "remont-5906681230253"
+              ]
+            },
+            {
+              "store": "Rab-Dom",
+              "totalGrosze": 18418,
+              "coveredCount": 2,
+              "missingCount": 1,
+              "missingProductIds": [
+                "remont-5907560039820"
+              ]
+            }
+          ],
+          "cheapestFullStore": null,
+          "singleStoreExtraGrosze": null
+        },
+        "deliveryComparison": {
+          "mode": "shipping",
+          "postalCode": "00-001",
+          "allowSeparateOrders": true,
+          "missingProductCount": 0,
+          "best": {
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 18418,
+                "deliveryGrosze": 1050,
+                "deliveryMinimumGrosze": 1050,
+                "totalGrosze": 19468,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-3153895149228",
+                      "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                      "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                      "ean": "3153895149228",
+                      "gtin": null,
+                      "manufacturer": "V33",
+                      "brand": "V33",
+                      "category": "cabinet-paint",
+                      "subcategory": null,
+                      "variant": null,
+                      "packageSize": "2000",
+                      "packageUnit": "ml",
+                      "technicalParameters": null,
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                      "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                      "createdAt": "2026-10-29T04:07:11.210Z",
+                      "updatedAt": "2026-10-29T04:07:11.210Z"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "packageSize": 2000,
+                        "product": {
+                          "id": "remont-3153895149228",
+                          "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                          "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                          "ean": "3153895149228",
+                          "gtin": null,
+                          "manufacturer": "V33",
+                          "brand": "V33",
+                          "category": "cabinet-paint",
+                          "subcategory": null,
+                          "variant": null,
+                          "packageSize": "2000",
+                          "packageUnit": "ml",
+                          "technicalParameters": null,
+                          "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                          "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                          "createdAt": "2026-10-29T04:07:11.210Z",
+                          "updatedAt": "2026-10-29T04:07:11.210Z"
+                        },
+                        "unitPriceGrosze": 17528,
+                        "store": "Rab-Dom",
+                        "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                        "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                        "count": 1,
+                        "lineCostGrosze": 17528
+                      }
+                    ]
+                  },
+                  {
+                    "product": {
+                      "id": "remont-5906681230253",
+                      "name": "Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L",
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "offerId": "rabdom-chem-rozlew-extraction-solvent-500ml",
+                        "store": "Rab-Dom",
+                        "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+                        "packageSize": 500,
+                        "count": 1,
+                        "unitPriceGrosze": 890,
+                        "lineCostGrosze": 890
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-29T04:35:00.819Z",
+                  "expiresAt": "2026-10-29T04:45:00.819Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "8d0d72c658734e3be858389d7909d5c5350d62016de42420b47cfc003687b114"
+                }
+              },
+              {
+                "store": "Sewera",
+                "materialsGrosze": 596,
+                "deliveryGrosze": 1990,
+                "deliveryMinimumGrosze": 1990,
+                "totalGrosze": 2586,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-5907560039820",
+                      "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                      "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"
+                    },
+                    "unit": "szt",
+                    "packages": [
+                      {
+                        "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                        "store": "Sewera",
+                        "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                        "packageSize": 1,
+                        "count": 4,
+                        "unitPriceGrosze": 149,
+                        "lineCostGrosze": 596
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 1990,
+                  "carrier": "Kurier InPost do 5kg",
+                  "payment": "Płatność online",
+                  "checkedAt": "2026-10-29T04:35:04.838Z",
+                  "expiresAt": "2026-10-29T04:45:04.838Z",
+                  "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                  "basis": "retailer_basket_postcode",
+                  "destinationScope": "postal_code",
+                  "postalCode": "00-001",
+                  "dispatchFrom": "Katowice",
+                  "evidenceSha256": "2e48660f4c118b928a7db29575de7c27a971877ace67ee5ce55ad4ade5f82513"
+                }
+              }
+            ],
+            "materialsGrosze": 19014,
+            "deliveryGrosze": 3040,
+            "totalGrosze": 22054,
+            "lowerBoundGrosze": 22054
+          },
+          "lowerBound": {
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 18418,
+                "deliveryGrosze": 1050,
+                "deliveryMinimumGrosze": 1050,
+                "totalGrosze": 19468,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-3153895149228",
+                      "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                      "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                      "ean": "3153895149228",
+                      "gtin": null,
+                      "manufacturer": "V33",
+                      "brand": "V33",
+                      "category": "cabinet-paint",
+                      "subcategory": null,
+                      "variant": null,
+                      "packageSize": "2000",
+                      "packageUnit": "ml",
+                      "technicalParameters": null,
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                      "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                      "createdAt": "2026-10-29T04:07:11.210Z",
+                      "updatedAt": "2026-10-29T04:07:11.210Z"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "packageSize": 2000,
+                        "product": {
+                          "id": "remont-3153895149228",
+                          "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                          "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                          "ean": "3153895149228",
+                          "gtin": null,
+                          "manufacturer": "V33",
+                          "brand": "V33",
+                          "category": "cabinet-paint",
+                          "subcategory": null,
+                          "variant": null,
+                          "packageSize": "2000",
+                          "packageUnit": "ml",
+                          "technicalParameters": null,
+                          "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                          "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                          "createdAt": "2026-10-29T04:07:11.210Z",
+                          "updatedAt": "2026-10-29T04:07:11.210Z"
+                        },
+                        "unitPriceGrosze": 17528,
+                        "store": "Rab-Dom",
+                        "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                        "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                        "count": 1,
+                        "lineCostGrosze": 17528
+                      }
+                    ]
+                  },
+                  {
+                    "product": {
+                      "id": "remont-5906681230253",
+                      "name": "Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L",
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "offerId": "rabdom-chem-rozlew-extraction-solvent-500ml",
+                        "store": "Rab-Dom",
+                        "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+                        "packageSize": 500,
+                        "count": 1,
+                        "unitPriceGrosze": 890,
+                        "lineCostGrosze": 890
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-29T04:35:00.819Z",
+                  "expiresAt": "2026-10-29T04:45:00.819Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "8d0d72c658734e3be858389d7909d5c5350d62016de42420b47cfc003687b114"
+                }
+              },
+              {
+                "store": "Sewera",
+                "materialsGrosze": 596,
+                "deliveryGrosze": 1990,
+                "deliveryMinimumGrosze": 1990,
+                "totalGrosze": 2586,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-5907560039820",
+                      "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                      "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"
+                    },
+                    "unit": "szt",
+                    "packages": [
+                      {
+                        "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                        "store": "Sewera",
+                        "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                        "packageSize": 1,
+                        "count": 4,
+                        "unitPriceGrosze": 149,
+                        "lineCostGrosze": 596
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 1990,
+                  "carrier": "Kurier InPost do 5kg",
+                  "payment": "Płatność online",
+                  "checkedAt": "2026-10-29T04:35:04.838Z",
+                  "expiresAt": "2026-10-29T04:45:04.838Z",
+                  "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                  "basis": "retailer_basket_postcode",
+                  "destinationScope": "postal_code",
+                  "postalCode": "00-001",
+                  "dispatchFrom": "Katowice",
+                  "evidenceSha256": "2e48660f4c118b928a7db29575de7c27a971877ace67ee5ce55ad4ade5f82513"
+                }
+              }
+            ],
+            "materialsGrosze": 19014,
+            "deliveryGrosze": 3040,
+            "totalGrosze": 22054,
+            "lowerBoundGrosze": 22054
+          },
+          "alternatives": [
+            {
+              "stores": [
+                {
+                  "store": "Rab-Dom",
+                  "materialsGrosze": 26513,
+                  "deliveryGrosze": 1050,
+                  "deliveryMinimumGrosze": 1050,
+                  "totalGrosze": 27563,
+                  "source": "retailer",
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-3153895149044",
+                        "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 0,75L",
+                        "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 0 75l",
+                        "ean": "3153895149044",
+                        "gtin": null,
+                        "manufacturer": "V33",
+                        "brand": "V33",
+                        "category": "cabinet-paint",
+                        "subcategory": null,
+                        "variant": null,
+                        "packageSize": "750",
+                        "packageUnit": "ml",
+                        "technicalParameters": null,
+                        "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                        "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                        "createdAt": "2026-10-29T04:07:11.110Z",
+                        "updatedAt": "2026-10-29T04:07:11.110Z"
+                      },
+                      "unit": "ml",
+                      "packages": [
+                        {
+                          "packageSize": 750,
+                          "product": {
+                            "id": "remont-3153895149044",
+                            "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 0,75L",
+                            "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 0 75l",
+                            "ean": "3153895149044",
+                            "gtin": null,
+                            "manufacturer": "V33",
+                            "brand": "V33",
+                            "category": "cabinet-paint",
+                            "subcategory": null,
+                            "variant": null,
+                            "packageSize": "750",
+                            "packageUnit": "ml",
+                            "technicalParameters": null,
+                            "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                            "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                            "createdAt": "2026-10-29T04:07:11.110Z",
+                            "updatedAt": "2026-10-29T04:07:11.110Z"
+                          },
+                          "unitPriceGrosze": 8541,
+                          "store": "Rab-Dom",
+                          "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                          "offerId": "rabdom-v33-easy-kitchen-white-750ml",
+                          "count": 3,
+                          "lineCostGrosze": 25623
+                        }
+                      ]
+                    },
+                    {
+                      "product": {
+                        "id": "remont-5906681230253",
+                        "name": "Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L",
+                        "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp"
+                      },
+                      "unit": "ml",
+                      "packages": [
+                        {
+                          "offerId": "rabdom-chem-rozlew-extraction-solvent-500ml",
+                          "store": "Rab-Dom",
+                          "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+                          "packageSize": 500,
+                          "count": 1,
+                          "unitPriceGrosze": 890,
+                          "lineCostGrosze": 890
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 1050,
+                    "carrier": "Pocztex KURIER",
+                    "payment": "Bezpieczne przelewy",
+                    "checkedAt": "2026-10-29T04:35:00.520Z",
+                    "expiresAt": "2026-10-29T04:45:00.520Z",
+                    "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                    "basis": "retailer_basket_national",
+                    "destinationScope": "PL",
+                    "evidenceSha256": "0dc3812afc68c86eec4c82956f3aadcc1617093e34798404ece032f5053e0490"
+                  }
+                },
+                {
+                  "store": "Sewera",
+                  "materialsGrosze": 596,
+                  "deliveryGrosze": 1990,
+                  "deliveryMinimumGrosze": 1990,
+                  "totalGrosze": 2586,
+                  "source": "retailer",
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-5907560039820",
+                        "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                        "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"
+                      },
+                      "unit": "szt",
+                      "packages": [
+                        {
+                          "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                          "packageSize": 1,
+                          "count": 4,
+                          "unitPriceGrosze": 149,
+                          "lineCostGrosze": 596
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 1990,
+                    "carrier": "Kurier InPost do 5kg",
+                    "payment": "Płatność online",
+                    "checkedAt": "2026-10-29T04:35:04.838Z",
+                    "expiresAt": "2026-10-29T04:45:04.838Z",
+                    "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                    "basis": "retailer_basket_postcode",
+                    "destinationScope": "postal_code",
+                    "postalCode": "00-001",
+                    "dispatchFrom": "Katowice",
+                    "evidenceSha256": "2e48660f4c118b928a7db29575de7c27a971877ace67ee5ce55ad4ade5f82513"
+                  }
+                }
+              ],
+              "materialsGrosze": 27109,
+              "deliveryGrosze": 3040,
+              "totalGrosze": 30149,
+              "lowerBoundGrosze": 30149
+            }
+          ],
+          "unavailableStores": [],
+          "searchLimited": true
+        }
+      }
+    },
+    {
+      "name": "tenFullAnser",
+      "data": {
+        "stages": [
+          {
+            "jobId": "kitchen-cabinet-paint",
+            "lines": [
+              {
+                "resolved": true,
+                "quantity": 1833.33333333,
+                "unit": "ml",
+                "query": {
+                  "ean": null,
+                  "gtin": null,
+                  "normalizedName": "v33 easy renowacja kuchnia bialy satyna dobor opakowan",
+                  "category": "cabinet-paint",
+                  "packageFamily": "v33-easy-kitchen-white-satin-v1"
+                },
+                "lineCostGrosze": 17528,
+                "product": {
+                  "id": "remont-family-v33-easy-kitchen-white-satin-v1",
+                  "name": "V33 Easy Renowacja Kuchnia — biały satyna, dobór opakowań",
+                  "ean": null,
+                  "gtin": null,
+                  "category": "cabinet-paint",
+                  "packageSize": null,
+                  "packageUnit": "ml"
+                },
+                "cheapestOffer": {
+                  "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                  "store": "Rab-Dom",
+                  "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                  "unitPriceGrosze": 17528
+                },
+                "offers": [
+                  {
+                    "packageSize": "750",
+                    "offerId": "rabdom-v33-easy-kitchen-white-750ml",
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                    "priceGrosze": 8541,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 11,
+                    "unit": "ml",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:07:11.110Z",
+                    "source": "retailer-page-microdata"
+                  },
+                  {
+                    "packageSize": "2000",
+                    "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                    "priceGrosze": 17528,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 9,
+                    "unit": "ml",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:07:11.210Z",
+                    "source": "retailer-page-microdata"
+                  }
+                ],
+                "packageSize": 2000,
+                "packagesNeeded": 1,
+                "packages": [
+                  {
+                    "product": {
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                      "id": "remont-3153895149228",
+                      "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                      "ean": "3153895149228",
+                      "gtin": null,
+                      "category": "cabinet-paint",
+                      "packageSize": "2000",
+                      "packageUnit": "ml"
+                    },
+                    "packageSize": 2000,
+                    "count": 1,
+                    "unitPriceGrosze": 17528,
+                    "lineCostGrosze": 17528,
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613"
+                  }
+                ],
+                "packagesTotalGrosze": 17528,
+                "packagesSavingsGrosze": 0,
+                "packagesOverage": 166.66666667000004
+              },
+              {
+                "resolved": true,
+                "quantity": 4,
+                "unit": "szt",
+                "query": {
+                  "ean": "5907560039820",
+                  "gtin": null,
+                  "normalizedName": "klingspor pl 28 c p240 arkusz 230 280 mm",
+                  "category": "hand-abrasive-240"
+                },
+                "lineCostGrosze": 596,
+                "product": {
+                  "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
+                  "id": "remont-5907560039820",
+                  "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                  "ean": "5907560039820",
+                  "gtin": null,
+                  "category": "hand-abrasive-240",
+                  "packageSize": "1",
+                  "packageUnit": "szt"
+                },
+                "cheapestOffer": {
+                  "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                  "store": "Sewera",
+                  "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                  "unitPriceGrosze": 149
+                },
+                "offers": [
+                  {
+                    "packageSize": "1",
+                    "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                    "priceGrosze": 149,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 149,
+                    "unit": "szt",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:35:27.691Z",
+                    "source": "retailer-page-microdata"
+                  }
+                ],
+                "packageSize": 1,
+                "packagesNeeded": 4,
+                "packages": [
+                  {
+                    "packageSize": 1,
+                    "count": 4,
+                    "unitPriceGrosze": 149,
+                    "lineCostGrosze": 596,
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903"
+                  }
+                ],
+                "packagesTotalGrosze": 596,
+                "packagesSavingsGrosze": 0,
+                "packagesOverage": 0
+              },
+              {
+                "resolved": true,
+                "quantity": 500,
+                "unit": "ml",
+                "query": {
+                  "ean": "5903231606117",
+                  "gtin": null,
+                  "normalizedName": "anser benzyna ekstrakcyjna 0 5 l",
+                  "category": "extraction-solvent"
+                },
+                "lineCostGrosze": 1189,
+                "product": {
+                  "imageUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp",
+                  "id": "remont-5903231606117",
+                  "name": "Benzyna ekstrakcyjna 0,5l Anser",
+                  "ean": "5903231606117",
+                  "gtin": null,
+                  "category": "extraction-solvent",
+                  "packageSize": "500",
+                  "packageUnit": "ml"
+                },
+                "cheapestOffer": {
+                  "offerId": "sewera-anser-extraction-solvent-500ml",
+                  "store": "Sewera",
+                  "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+                  "unitPriceGrosze": 1189
+                },
+                "offers": [
+                  {
+                    "packageSize": "500",
+                    "offerId": "sewera-anser-extraction-solvent-500ml",
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+                    "priceGrosze": 1189,
+                    "regularPriceGrosze": null,
+                    "pricePerUnitGrosze": 2,
+                    "unit": "ml",
+                    "availability": "in_stock",
+                    "fetchedAt": "2026-10-29T04:35:29.768Z",
+                    "source": "retailer-page-microdata"
+                  }
+                ],
+                "packageSize": 500,
+                "packagesNeeded": 1,
+                "packages": [
+                  {
+                    "packageSize": 500,
+                    "count": 1,
+                    "unitPriceGrosze": 1189,
+                    "lineCostGrosze": 1189,
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691"
+                  }
+                ],
+                "packagesTotalGrosze": 1189,
+                "packagesSavingsGrosze": 0,
+                "packagesOverage": 0
+              }
+            ],
+            "unresolvedCount": 0,
+            "stageTotalGrosze": 19313
+          }
+        ],
+        "consolidated": {
+          "lines": [
+            {
+              "packages": [
+                {
+                  "product": {
+                    "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                    "id": "remont-3153895149228",
+                    "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                    "ean": "3153895149228",
+                    "gtin": null,
+                    "category": "cabinet-paint",
+                    "packageSize": "2000",
+                    "packageUnit": "ml"
+                  },
+                  "packageSize": 2000,
+                  "count": 1,
+                  "unitPriceGrosze": 17528,
+                  "lineCostGrosze": 17528,
+                  "store": "Rab-Dom",
+                  "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613"
+                }
+              ],
+              "product": {
+                "id": "remont-family-v33-easy-kitchen-white-satin-v1",
+                "name": "V33 Easy Renowacja Kuchnia — biały satyna, dobór opakowań",
+                "ean": null,
+                "gtin": null,
+                "category": "cabinet-paint",
+                "packageSize": null,
+                "packageUnit": "ml"
+              },
+              "cheapestOffer": {
+                "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                "unitPriceGrosze": 17528
+              },
+              "totalQuantity": 1833.33333333,
+              "unit": "ml",
+              "packageSize": 2000,
+              "packagesNeeded": 1,
+              "lineCostGrosze": 17528,
+              "perStageCostGrosze": 17528,
+              "savingsGrosze": 0
+            },
+            {
+              "packages": [
+                {
+                  "packageSize": 1,
+                  "count": 4,
+                  "unitPriceGrosze": 149,
+                  "lineCostGrosze": 596,
+                  "store": "Sewera",
+                  "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903"
+                }
+              ],
+              "product": {
+                "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
+                "id": "remont-5907560039820",
+                "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                "ean": "5907560039820",
+                "gtin": null,
+                "category": "hand-abrasive-240",
+                "packageSize": "1",
+                "packageUnit": "szt"
+              },
+              "cheapestOffer": {
+                "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                "store": "Sewera",
+                "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                "unitPriceGrosze": 149
+              },
+              "totalQuantity": 4,
+              "unit": "szt",
+              "packageSize": 1,
+              "packagesNeeded": 4,
+              "lineCostGrosze": 596,
+              "perStageCostGrosze": 596,
+              "savingsGrosze": 0
+            },
+            {
+              "packages": [
+                {
+                  "packageSize": 500,
+                  "count": 1,
+                  "unitPriceGrosze": 1189,
+                  "lineCostGrosze": 1189,
+                  "store": "Sewera",
+                  "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691"
+                }
+              ],
+              "product": {
+                "imageUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp",
+                "id": "remont-5903231606117",
+                "name": "Benzyna ekstrakcyjna 0,5l Anser",
+                "ean": "5903231606117",
+                "gtin": null,
+                "category": "extraction-solvent",
+                "packageSize": "500",
+                "packageUnit": "ml"
+              },
+              "cheapestOffer": {
+                "offerId": "sewera-anser-extraction-solvent-500ml",
+                "store": "Sewera",
+                "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+                "unitPriceGrosze": 1189
+              },
+              "totalQuantity": 500,
+              "unit": "ml",
+              "packageSize": 500,
+              "packagesNeeded": 1,
+              "lineCostGrosze": 1189,
+              "perStageCostGrosze": 1189,
+              "savingsGrosze": 0
+            }
+          ],
+          "consolidatedTotalGrosze": 19313,
+          "perStageTotalGrosze": 19313,
+          "savingsGrosze": 0
+        },
+        "storeComparison": {
+          "productCount": 3,
+          "optimalBasketGrosze": 19313,
+          "optimalByStore": [
+            {
+              "store": "Sewera",
+              "totalGrosze": 1785,
+              "itemCount": 2
+            },
+            {
+              "store": "Rab-Dom",
+              "totalGrosze": 17528,
+              "itemCount": 1
+            }
+          ],
+          "stores": [
+            {
+              "store": "Sewera",
+              "totalGrosze": 1785,
+              "coveredCount": 2,
+              "missingCount": 1,
+              "missingProductIds": [
+                "remont-family-v33-easy-kitchen-white-satin-v1"
+              ]
+            },
+            {
+              "store": "Rab-Dom",
+              "totalGrosze": 17528,
+              "coveredCount": 1,
+              "missingCount": 2,
+              "missingProductIds": [
+                "remont-5907560039820",
+                "remont-5903231606117"
+              ]
+            }
+          ],
+          "cheapestFullStore": null,
+          "singleStoreExtraGrosze": null
+        },
+        "deliveryComparison": {
+          "mode": "shipping",
+          "postalCode": "00-001",
+          "allowSeparateOrders": true,
+          "missingProductCount": 0,
+          "best": {
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 17528,
+                "deliveryGrosze": 1050,
+                "deliveryMinimumGrosze": 1050,
+                "totalGrosze": 18578,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-3153895149228",
+                      "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                      "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                      "ean": "3153895149228",
+                      "gtin": null,
+                      "manufacturer": "V33",
+                      "brand": "V33",
+                      "category": "cabinet-paint",
+                      "subcategory": null,
+                      "variant": null,
+                      "packageSize": "2000",
+                      "packageUnit": "ml",
+                      "technicalParameters": null,
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                      "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                      "createdAt": "2026-10-29T04:07:11.210Z",
+                      "updatedAt": "2026-10-29T04:07:11.210Z"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "packageSize": 2000,
+                        "product": {
+                          "id": "remont-3153895149228",
+                          "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                          "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                          "ean": "3153895149228",
+                          "gtin": null,
+                          "manufacturer": "V33",
+                          "brand": "V33",
+                          "category": "cabinet-paint",
+                          "subcategory": null,
+                          "variant": null,
+                          "packageSize": "2000",
+                          "packageUnit": "ml",
+                          "technicalParameters": null,
+                          "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                          "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                          "createdAt": "2026-10-29T04:07:11.210Z",
+                          "updatedAt": "2026-10-29T04:07:11.210Z"
+                        },
+                        "unitPriceGrosze": 17528,
+                        "store": "Rab-Dom",
+                        "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                        "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                        "count": 1,
+                        "lineCostGrosze": 17528
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-29T04:35:01.429Z",
+                  "expiresAt": "2026-10-29T04:45:01.429Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "19d4bbd3d0a829f1791641e6eadb8f68015620e429eb903d90d6e25b37fa7970"
+                }
+              },
+              {
+                "store": "Sewera",
+                "materialsGrosze": 1785,
+                "deliveryGrosze": 12500,
+                "deliveryMinimumGrosze": 12500,
+                "totalGrosze": 14285,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-5907560039820",
+                      "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                      "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"
+                    },
+                    "unit": "szt",
+                    "packages": [
+                      {
+                        "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                        "store": "Sewera",
+                        "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                        "packageSize": 1,
+                        "count": 4,
+                        "unitPriceGrosze": 149,
+                        "lineCostGrosze": 596
+                      }
+                    ]
+                  },
+                  {
+                    "product": {
+                      "id": "remont-5903231606117",
+                      "name": "Benzyna ekstrakcyjna 0,5l Anser",
+                      "imageUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "offerId": "sewera-anser-extraction-solvent-500ml",
+                        "store": "Sewera",
+                        "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+                        "packageSize": 500,
+                        "count": 1,
+                        "unitPriceGrosze": 1189,
+                        "lineCostGrosze": 1189
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 12500,
+                  "carrier": "Kurier Raben półpaleta do 50kg",
+                  "payment": "Płatność online",
+                  "checkedAt": "2026-10-29T04:35:44.186Z",
+                  "expiresAt": "2026-10-29T04:45:44.186Z",
+                  "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                  "basis": "retailer_basket_postcode",
+                  "destinationScope": "postal_code",
+                  "postalCode": "00-001",
+                  "dispatchFrom": "Katowice",
+                  "evidenceSha256": "61cff48e6478a671752e58c138f65cd2d87fdaf34d48f93d09e5019f7f718229"
+                }
+              }
+            ],
+            "materialsGrosze": 19313,
+            "deliveryGrosze": 13550,
+            "totalGrosze": 32863,
+            "lowerBoundGrosze": 32863
+          },
+          "lowerBound": {
+            "stores": [
+              {
+                "store": "Rab-Dom",
+                "materialsGrosze": 17528,
+                "deliveryGrosze": 1050,
+                "deliveryMinimumGrosze": 1050,
+                "totalGrosze": 18578,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-3153895149228",
+                      "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                      "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                      "ean": "3153895149228",
+                      "gtin": null,
+                      "manufacturer": "V33",
+                      "brand": "V33",
+                      "category": "cabinet-paint",
+                      "subcategory": null,
+                      "variant": null,
+                      "packageSize": "2000",
+                      "packageUnit": "ml",
+                      "technicalParameters": null,
+                      "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                      "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                      "createdAt": "2026-10-29T04:07:11.210Z",
+                      "updatedAt": "2026-10-29T04:07:11.210Z"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "packageSize": 2000,
+                        "product": {
+                          "id": "remont-3153895149228",
+                          "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+                          "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 2l",
+                          "ean": "3153895149228",
+                          "gtin": null,
+                          "manufacturer": "V33",
+                          "brand": "V33",
+                          "category": "cabinet-paint",
+                          "subcategory": null,
+                          "variant": null,
+                          "packageSize": "2000",
+                          "packageUnit": "ml",
+                          "technicalParameters": null,
+                          "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                          "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                          "createdAt": "2026-10-29T04:07:11.210Z",
+                          "updatedAt": "2026-10-29T04:07:11.210Z"
+                        },
+                        "unitPriceGrosze": 17528,
+                        "store": "Rab-Dom",
+                        "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+                        "offerId": "rabdom-v33-easy-kitchen-white-2000ml",
+                        "count": 1,
+                        "lineCostGrosze": 17528
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 1050,
+                  "carrier": "Pocztex KURIER",
+                  "payment": "Bezpieczne przelewy",
+                  "checkedAt": "2026-10-29T04:35:01.429Z",
+                  "expiresAt": "2026-10-29T04:45:01.429Z",
+                  "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                  "basis": "retailer_basket_national",
+                  "destinationScope": "PL",
+                  "evidenceSha256": "19d4bbd3d0a829f1791641e6eadb8f68015620e429eb903d90d6e25b37fa7970"
+                }
+              },
+              {
+                "store": "Sewera",
+                "materialsGrosze": 1785,
+                "deliveryGrosze": 12500,
+                "deliveryMinimumGrosze": 12500,
+                "totalGrosze": 14285,
+                "source": "retailer",
+                "lines": [
+                  {
+                    "product": {
+                      "id": "remont-5907560039820",
+                      "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                      "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"
+                    },
+                    "unit": "szt",
+                    "packages": [
+                      {
+                        "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                        "store": "Sewera",
+                        "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                        "packageSize": 1,
+                        "count": 4,
+                        "unitPriceGrosze": 149,
+                        "lineCostGrosze": 596
+                      }
+                    ]
+                  },
+                  {
+                    "product": {
+                      "id": "remont-5903231606117",
+                      "name": "Benzyna ekstrakcyjna 0,5l Anser",
+                      "imageUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp"
+                    },
+                    "unit": "ml",
+                    "packages": [
+                      {
+                        "offerId": "sewera-anser-extraction-solvent-500ml",
+                        "store": "Sewera",
+                        "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+                        "packageSize": 500,
+                        "count": 1,
+                        "unitPriceGrosze": 1189,
+                        "lineCostGrosze": 1189
+                      }
+                    ]
+                  }
+                ],
+                "quote": {
+                  "costGrosze": 12500,
+                  "carrier": "Kurier Raben półpaleta do 50kg",
+                  "payment": "Płatność online",
+                  "checkedAt": "2026-10-29T04:35:44.186Z",
+                  "expiresAt": "2026-10-29T04:45:44.186Z",
+                  "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                  "basis": "retailer_basket_postcode",
+                  "destinationScope": "postal_code",
+                  "postalCode": "00-001",
+                  "dispatchFrom": "Katowice",
+                  "evidenceSha256": "61cff48e6478a671752e58c138f65cd2d87fdaf34d48f93d09e5019f7f718229"
+                }
+              }
+            ],
+            "materialsGrosze": 19313,
+            "deliveryGrosze": 13550,
+            "totalGrosze": 32863,
+            "lowerBoundGrosze": 32863
+          },
+          "alternatives": [
+            {
+              "stores": [
+                {
+                  "store": "Rab-Dom",
+                  "materialsGrosze": 25623,
+                  "deliveryGrosze": 1050,
+                  "deliveryMinimumGrosze": 1050,
+                  "totalGrosze": 26673,
+                  "source": "retailer",
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-3153895149044",
+                        "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 0,75L",
+                        "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 0 75l",
+                        "ean": "3153895149044",
+                        "gtin": null,
+                        "manufacturer": "V33",
+                        "brand": "V33",
+                        "category": "cabinet-paint",
+                        "subcategory": null,
+                        "variant": null,
+                        "packageSize": "750",
+                        "packageUnit": "ml",
+                        "technicalParameters": null,
+                        "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                        "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                        "createdAt": "2026-10-29T04:07:11.110Z",
+                        "updatedAt": "2026-10-29T04:07:11.110Z"
+                      },
+                      "unit": "ml",
+                      "packages": [
+                        {
+                          "packageSize": 750,
+                          "product": {
+                            "id": "remont-3153895149044",
+                            "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 0,75L",
+                            "normalizedName": "v33 easy renowacja kuchnia farba do mebli kuchennych i plytek sciennych bialy satyna 0 75l",
+                            "ean": "3153895149044",
+                            "gtin": null,
+                            "manufacturer": "V33",
+                            "brand": "V33",
+                            "category": "cabinet-paint",
+                            "subcategory": null,
+                            "variant": null,
+                            "packageSize": "750",
+                            "packageUnit": "ml",
+                            "technicalParameters": null,
+                            "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+                            "productUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                            "createdAt": "2026-10-29T04:07:11.110Z",
+                            "updatedAt": "2026-10-29T04:07:11.110Z"
+                          },
+                          "unitPriceGrosze": 8541,
+                          "store": "Rab-Dom",
+                          "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+                          "offerId": "rabdom-v33-easy-kitchen-white-750ml",
+                          "count": 3,
+                          "lineCostGrosze": 25623
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 1050,
+                    "carrier": "Pocztex KURIER",
+                    "payment": "Bezpieczne przelewy",
+                    "checkedAt": "2026-10-29T04:35:01.111Z",
+                    "expiresAt": "2026-10-29T04:45:01.111Z",
+                    "sourceUrl": "https://www.rabdom.pl/pl/basket",
+                    "basis": "retailer_basket_national",
+                    "destinationScope": "PL",
+                    "evidenceSha256": "7b9ea74bac4839eea8b1cce40436dc3f05e65a8b51067c5e16e4d6122d09e313"
+                  }
+                },
+                {
+                  "store": "Sewera",
+                  "materialsGrosze": 1785,
+                  "deliveryGrosze": 12500,
+                  "deliveryMinimumGrosze": 12500,
+                  "totalGrosze": 14285,
+                  "source": "retailer",
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-5907560039820",
+                        "name": "Papier ścierny gr.240 arkusz 230x280mm",
+                        "imageUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"
+                      },
+                      "unit": "szt",
+                      "packages": [
+                        {
+                          "offerId": "sewera-klingspor-pl28c-p240-sheet",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+                          "packageSize": 1,
+                          "count": 4,
+                          "unitPriceGrosze": 149,
+                          "lineCostGrosze": 596
+                        }
+                      ]
+                    },
+                    {
+                      "product": {
+                        "id": "remont-5903231606117",
+                        "name": "Benzyna ekstrakcyjna 0,5l Anser",
+                        "imageUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp"
+                      },
+                      "unit": "ml",
+                      "packages": [
+                        {
+                          "offerId": "sewera-anser-extraction-solvent-500ml",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+                          "packageSize": 500,
+                          "count": 1,
+                          "unitPriceGrosze": 1189,
+                          "lineCostGrosze": 1189
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 12500,
+                    "carrier": "Kurier Raben półpaleta do 50kg",
+                    "payment": "Płatność online",
+                    "checkedAt": "2026-10-29T04:35:44.186Z",
+                    "expiresAt": "2026-10-29T04:45:44.186Z",
+                    "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                    "basis": "retailer_basket_postcode",
+                    "destinationScope": "postal_code",
+                    "postalCode": "00-001",
+                    "dispatchFrom": "Katowice",
+                    "evidenceSha256": "61cff48e6478a671752e58c138f65cd2d87fdaf34d48f93d09e5019f7f718229"
+                  }
+                }
+              ],
+              "materialsGrosze": 27408,
+              "deliveryGrosze": 13550,
+              "totalGrosze": 40958,
+              "lowerBoundGrosze": 40958
+            }
+          ],
+          "unavailableStores": [],
+          "searchLimited": true
+        }
+      }
+    }
+  ]
+}

@@ -4823,5 +4823,22 @@
     "quantityBasis": "Measured painted area, two coats,12m²/l and10% reserve; four declared P240 sheets and one declared500ml bottle. Appropriate detergent explicitly owned. Counted supplies are not inferred from area.",
     "shipping": "Rab-Dom national whole-cart tariff; Sewera quote for postcode. Greater Rab-Dom cart changes courier cost. No fabricated free pickup/local stock.",
     "decimalDatabaseSizesRegression": true
+  },
+  "cabinetPreparationPreviewVerification": {
+    "checkedAt": "2026-10-29T04:53:54.266Z",
+    "report": "research/porownanie-przygotowania-frontow-2026-10-29.md",
+    "productionSdkCases": 10,
+    "completePreviews": 7,
+    "independentFullBasketRequests": true,
+    "previewDoesNotSave": true,
+    "explicitChoiceSavedInProject": true,
+    "ownedProductsAndManualItems": true,
+    "ownedAnserVariantGrosze": 21164,
+    "newChemVariantGrosze": 22054,
+    "fullAnserVariantGrosze": 32863,
+    "fullKitDifferenceGrosze": 10809,
+    "twoPostcodesAndSingleOrderPreference": true,
+    "selectedStoreAndUnconfirmedTotalsBlocked": true,
+    "frontendOnly": true
   }
 }
