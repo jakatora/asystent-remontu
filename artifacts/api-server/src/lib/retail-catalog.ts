@@ -50,6 +50,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-do-wnetrz-i-na-zewnatrz-30mm-x-50m-niebieska/2526
     url: 'https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-do-wnetrz-i-na-zewnatrz-30mm-x-50m-niebieska/2526',
   },
+  // source: https://lobo.pl/blue-dolphin-tasma-papierowa-niebieska-30mm-x-50m
+  {id:'lobo-tape-30mm',ean:'5907758515952',name:'BLUE DOLPHIN taśma papierowa niebieska 30mm x 50m',category:'masking-tape',brand:'Blue Dolphin',packageSize:50,unit:'mb',store:'Lobo',format:'shoper-api',productId:5220,apiProductCode:'s3.566758515952',apiPurchaseUnit:'szt.',variant:['30mm','50m'],url:'https://lobo.pl/blue-dolphin-tasma-papierowa-niebieska-30mm-x-50m',imageUrl:'https://lobo.pl/environment/cache/images/productGfx_68169_500_500/BLUE-DOLPHIN-tasma-papierowa-niebieska-30mm-x-50m.webp'},
   {
     id: 'rabdom-film-20m2', ean: '5907758504932', name: 'Folia ochronna malarska Blue Dolphin GRUBA 4m x 5m',
     category: 'protective-film', brand: 'Blue Dolphin', packageSize: 20, unit: 'm2', store: 'Rab-Dom', format: 'shoper', variant: ['4mx5m'],

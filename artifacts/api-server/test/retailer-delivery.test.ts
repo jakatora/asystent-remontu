@@ -77,6 +77,37 @@ test('anonymous carts: basket quantity, gross prices, destination cache isolatio
   const unsupported = await quote({ ...order(), store:'Castorama' }, '00-001'); assert.deepEqual(unsupported,{ reason:'retailer_access_required' });
 });
 
+test('Lobo combines Dulux paint and Blue Dolphin tape in one prepaid home courier basket', async () => {
+  const items = new Map([[55967,{ean:'5904078222379',code:'S7.005777249',stockId:56100,name:'DULUX RAPIDRY Farba do drewna metalu PCV Mat Biały 1 L',price:49.99}],
+    [5220,{ean:'5907758515952',code:'s3.566758515952',stockId:5225,name:'BLUE DOLPHIN taśma papierowa niebieska 30mm x 50m',price:15.99}]]);
+  const added=new Map<number,number>(); let calls=0;
+  const fakeFetch:typeof fetch=async(input,options)=>{
+    calls++; const url=new URL(String(input));
+    assert.equal(url.origin,'https://lobo.pl');
+    assert.match(url.pathname,/^\/webapi\/front\/pl_PL\/(?:products\/PLN\/\d+|basket\/PLN\/?)$/);
+    let body:any;
+    const id=Number(url.pathname.match(/\/products\/PLN\/(\d+)/)?.[1]);
+    if(id){const item=items.get(id)!;body={id,ean:item.ean,code:item.code,stockId:item.stockId,name:item.name,producer:{name:id===55967?'DULUX':'BLUE DOLPHIN'},unit:{name:'szt.',floating_point:false},can_buy:true,price:{gross:{final:item.price.toFixed(2).replace('.',',')+' zł',final_float:item.price}}};}
+    else if(options?.method==='POST'){const addedItem=JSON.parse(String(options.body));added.set(addedItem.stock_id,addedItem.quantity);body={};}
+    else {const products=[...items.values()].filter(item=>added.has(item.stockId)).map(item=>{const quantity=added.get(item.stockId)!;return {stock_id:item.stockId,quantity,unit:{name:'szt.',floating_point:false},price:item.price.toFixed(2).replace('.',',')+' zł',price_float:item.price,sum:(item.price*quantity).toFixed(2).replace('.',',')+' zł',sum_float:item.price*quantity};});
+      const sum=products.reduce((n,p)=>n+p.sum_float,0);
+      body={products,basket:{sum_products:sum.toFixed(2).replace('.',',')+' zł',sum_products_float:sum},countries:[{id:179,name:'Polska',selected:true}],payments:[{payment_id:16,name:'transfer',title:'Przelew'}],shippings:[
+        {title:'InPost Paczkomat 24/7',engine:'inpost',...money(1899),countries:[{id:179,...money(1899)}],payments:[{payment_id:16}]},
+        {title:'Przesyłka kurierska (InPost)',description:'Przesyłki paletowe nie zawierają usługi wniesienia.',engine:'inpost',...money(2290),countries:[{id:179,...money(2290)}],payments:[{payment_id:16}]}
+      ],_flash_messenger:{error:[]}};}
+    return Response.json(body,{headers:{'set-cookie':'sid=lobo-test; Path=/; HttpOnly'}});
+  };
+  const order:DeliveredStoreBasket={store:'Lobo',materialsGrosze:11597,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:[
+    {product:{id:'dulux',name:'Dulux Rapidry',imageUrl:null},unit:'ml',packages:[{packageSize:1000,count:2,unitPriceGrosze:4999,lineCostGrosze:9998,offerId:'lobo-dulux-rapidry-white-matt-1l',store:'Lobo',url:null}]},
+    {product:{id:'tape',name:'Taśma Blue Dolphin',imageUrl:null},unit:'mb',packages:[{packageSize:50,count:1,unitPriceGrosze:1599,lineCostGrosze:1599,offerId:'lobo-tape-30mm',store:'Lobo',url:null}]}
+  ]};
+  const result=await createRetailerQuoter(fakeFetch)(order,'00-001');
+  assert.ok('quote' in result);assert.equal(result.quote.costGrosze,2290);
+  assert.equal(result.quote.basis,'retailer_basket_national');
+  assert.deepEqual([...added],[[56100,2],[5225,1]]);
+  assert.equal(calls,5);
+});
+
 test('cross-origin redirect never receives storefront cookies or a request', async () => {
   let calls = 0;
   const quote = createRetailerQuoter(async () => { calls++; return new Response('',{status:302,headers:{ location:'https://example.org/', 'set-cookie':'sid=secret' }}); });
