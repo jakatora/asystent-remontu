@@ -7,6 +7,7 @@ import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './ret
 const ORIGIN = 'https://budshop24.pl';
 const PRODUCTS = [{
   sourceId: 'budshop-atlas-cerplast-15kg', id: 4808, sku: 'BS00215', ean: '5905400530032',
+  brand: 'Atlas',
   name: 'ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)',
   apiName: 'ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)',
   cartName: 'ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)',
@@ -15,6 +16,7 @@ const PRODUCTS = [{
   image: ORIGIN + '/wp-content/uploads/2025/08/da2d66e8959c2ed6b638d0231c3e78cb.jpg',
 }, {
   sourceId: 'budshop-atlas-woder-duo-16kg', id: 7381, sku: 'BS00293', ean: '5905400195088',
+  brand: 'Atlas',
   name: 'ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna',
   apiName: 'ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna',
   cartName: 'ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna',
@@ -23,12 +25,22 @@ const PRODUCTS = [{
   image: ORIGIN + '/wp-content/uploads/2025/08/2044418.jpg',
 }, {
   sourceId: 'budshop-atlas-woder-e-15kg', id: 6484, sku: 'BS00295', ean: '5905400514506',
+  brand: 'Atlas',
   name: 'ATLAS WODER E 15kg - Szybkoschnąca folia w płynie',
   apiName: 'ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie',
   cartName: 'ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie',
   category: 'waterproofing', packageSize: 15,
   url: ORIGIN + '/produkt/szybkoschnaca-folia-w-plynie-woder-e-15kg-atlas/',
   image: ORIGIN + '/wp-content/uploads/2025/08/2047356.png',
+}, {
+  sourceId: 'budshop-mapei-mapegum-wps-10kg', id: 6240, sku: 'BS02039', ean: '8022452002120',
+  brand: 'Mapei',
+  name: 'MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg',
+  apiName: 'MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg',
+  cartName: 'MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg',
+  category: 'waterproofing', packageSize: 10,
+  url: ORIGIN + '/produkt/hydroizolacja-plynna-folia-mapei-mapegum-wps-10kg/',
+  image: ORIGIN + '/wp-content/uploads/2025/08/2046500.jpg',
 }] as const;
 const COURIERS = {
   'wsds_simple_dimensional:3:medium_parcel_dhl': { name: 'DHL – Średnia Paczka', label: 'DHL – Średnia Paczka' },
@@ -36,6 +48,8 @@ const COURIERS = {
   'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel': { name: 'Paczki/Worki: Średnia Paczka + Duża Paczka', label: 'Paczki/Worki: Średnia Paczka + Duża Paczka' },
   'wsds_simple_dimensional:3:multi_large_parcel_large_parcel': { name: 'Paczki/Worki: 2× Duża Paczka', label: 'Paczki/Worki: 2× Duża Paczka' },
   'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel': { name: 'Paczki/Worki: Średnia Paczka + 2× Duża Paczka', label: 'Paczki/Worki: Średnia Paczka + 2× Duża Paczka' },
+  'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel': { name: 'Paczki/Worki: 2× Średnia Paczka', label: 'Paczki/Worki: 2× Średnia Paczka' },
+  'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel_large_parcel': { name: 'Paczki/Worki: 2× Średnia Paczka + 2× Duża Paczka', label: 'Paczki/Worki: 2× Średnia Paczka + 2× Duża Paczka' },
 } as const;
 const cents = (value: unknown): number => {
   if (typeof value !== 'string' || !/^\d+$/.test(value) || !Number.isSafeInteger(Number(value))) throw Error('invalid_money');
@@ -49,7 +63,7 @@ function reviewed(source: RetailSource) {
   if (!product || source.store !== 'Budshop24' || source.format !== 'budshop-woo' ||
     source.productId !== product.id || source.apiProductCode !== product.sku || source.ean !== product.ean ||
     source.name !== product.name || source.url !== product.url || source.imageUrl !== product.image ||
-    source.brand !== 'Atlas' || source.category !== product.category || source.packageSize !== product.packageSize || source.unit !== 'kg')
+    source.brand !== product.brand || source.category !== product.category || source.packageSize !== product.packageSize || source.unit !== 'kg')
     throw Error('product_identity_not_confirmed');
   return product;
 }
@@ -67,6 +81,9 @@ function reviewed(source: RetailSource) {
 // source: https://budshop24.pl/produkt/szybkoschnaca-folia-w-plynie-woder-e-15kg-atlas/
 // source: https://remontownia24.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-15-kg%2C61%2C2509.html
 // source: https://mrowka.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html
+// Mapei's product catalogue independently binds Mapegum WPS 10 kg to EAN 8022452002120.
+// source: https://budshop24.pl/produkt/hydroizolacja-plynna-folia-mapei-mapegum-wps-10kg/
+// source: https://cdnmedia.mapei.com/docs/librariesprovider15/preislisten/produktkatalog_2026.pdf?sfvrsn=d545668b_9
 export function inspectBudshopProduct(product: any, source: RetailSource) {
   const expected = reviewed(source);
   if (product?.id !== expected.id || product.sku !== expected.sku || product.name !== expected.apiName ||
@@ -172,8 +189,8 @@ export async function quoteBudshop(order: DeliveredStoreBasket, postalCode: stri
     groups[0].destination?.country !== 'PL' || groups[0].destination?.postcode !== postalCode ||
     Object.entries(groups[0].destination).some(([key, value]) => !['country','postcode'].includes(key) && value !== ''))
     throw Error('no_home_delivery');
-  const mediumCount = result.packs.find(pack => pack.product.id === 4808)?.count ?? 0;
-  const largeCount = result.packs.reduce((count, pack) => count + (pack.product.id === 4808 ? 0 : pack.count), 0);
+  const mediumCount = result.packs.reduce((count, pack) => count + ([4808, 6240].includes(pack.product.id) ? pack.count : 0), 0);
+  const largeCount = result.packs.reduce((count, pack) => count + ([4808, 6240].includes(pack.product.id) ? 0 : pack.count), 0);
   const shape = `${mediumCount}:${largeCount}`;
   const reviewedRates: Record<string, keyof typeof COURIERS> = {
     '1:0': 'wsds_simple_dimensional:3:medium_parcel_dhl',
@@ -181,6 +198,8 @@ export async function quoteBudshop(order: DeliveredStoreBasket, postalCode: stri
     '1:1': 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel',
     '0:2': 'wsds_simple_dimensional:3:multi_large_parcel_large_parcel',
     '1:2': 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel',
+    '2:0': 'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel',
+    '2:2': 'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel_large_parcel',
   };
   const courierId = reviewedRates[shape];
   if (!courierId) throw Error('no_home_delivery');
