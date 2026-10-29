@@ -1,0 +1,447 @@
+{
+  "empty": {
+    "items_count": 0,
+    "errors": [],
+    "coupons": [],
+    "fees": [],
+    "items": [],
+    "totals": {
+      "currency_code": "PLN",
+      "currency_minor_unit": 2,
+      "total_items": "0",
+      "total_items_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_shipping": null,
+      "total_shipping_tax": null,
+      "total_price": "0"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "phone": ""
+    },
+    "has_calculated_shipping": false,
+    "needs_shipping": false,
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "shipping_rates": []
+  },
+  "product": {
+    "id": 4808,
+    "sku": "BS00215",
+    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+    "permalink": "https://budshop24.pl/produkt/cerplast-podkladowa-masa-tynkarska-15kg-baza-biala-atlas/",
+    "type": "simple",
+    "has_options": false,
+    "is_purchasable": true,
+    "is_in_stock": true,
+    "is_on_backorder": false,
+    "stock_availability": {
+      "text": "1 w magazynie",
+      "class": "in-stock"
+    },
+    "low_stock_remaining": 1,
+    "prices": {
+      "currency_code": "PLN",
+      "currency_minor_unit": 2,
+      "price": "13900"
+    },
+    "images": [
+      {
+        "src": "https://budshop24.pl/wp-content/uploads/2025/08/da2d66e8959c2ed6b638d0231c3e78cb.jpg"
+      }
+    ]
+  },
+  "added": {
+    "items_count": 1,
+    "errors": [],
+    "coupons": [],
+    "fees": [],
+    "items": [
+      {
+        "id": 4808,
+        "sku": "BS00215",
+        "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+        "quantity": 1,
+        "show_backorder_badge": false,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 1,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "prices": {
+          "currency_code": "PLN",
+          "currency_minor_unit": 2,
+          "price": "13900"
+        },
+        "totals": {
+          "currency_code": "PLN",
+          "currency_minor_unit": 2,
+          "line_total": "13900",
+          "line_total_tax": "0",
+          "line_subtotal": "13900",
+          "line_subtotal_tax": "0"
+        }
+      }
+    ],
+    "totals": {
+      "currency_code": "PLN",
+      "currency_minor_unit": 2,
+      "total_items": "13900",
+      "total_items_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_shipping": "1899",
+      "total_shipping_tax": "0",
+      "total_price": "15799"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "phone": ""
+    },
+    "has_calculated_shipping": true,
+    "needs_shipping": true,
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "",
+          "country": "PL"
+        },
+        "shipping_rates": [
+          {
+            "rate_id": "wsds_simple_dimensional:3:medium_parcel_dhl",
+            "method_id": "wsds_simple_dimensional",
+            "name": "DHL – Średnia Paczka",
+            "price": "1899",
+            "taxes": "0",
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "wsds_simple_dimensional:3:medium_parcel_dpd",
+            "method_id": "wsds_simple_dimensional",
+            "name": "DPD – Średnia Paczka",
+            "price": "1899",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "easypack_parcel_machines:4",
+            "method_id": "easypack_parcel_machines",
+            "name": "InPost Paczkomat 24/7 (gabaryt C)",
+            "price": "1999",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "easypack_parcel_machines_cod:5",
+            "method_id": "easypack_parcel_machines_cod",
+            "name": "InPost Paczkomat 24/7 Pobranie (gabaryt C)",
+            "price": "1999",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          }
+        ]
+      }
+    ]
+  },
+  "located": {
+    "items_count": 1,
+    "errors": [],
+    "coupons": [],
+    "fees": [],
+    "items": [
+      {
+        "id": 4808,
+        "sku": "BS00215",
+        "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+        "quantity": 1,
+        "show_backorder_badge": false,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 1,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "prices": {
+          "currency_code": "PLN",
+          "currency_minor_unit": 2,
+          "price": "13900"
+        },
+        "totals": {
+          "currency_code": "PLN",
+          "currency_minor_unit": 2,
+          "line_total": "13900",
+          "line_total_tax": "0",
+          "line_subtotal": "13900",
+          "line_subtotal_tax": "0"
+        }
+      }
+    ],
+    "totals": {
+      "currency_code": "PLN",
+      "currency_minor_unit": 2,
+      "total_items": "13900",
+      "total_items_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_shipping": "1899",
+      "total_shipping_tax": "0",
+      "total_price": "15799"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "00-001",
+      "country": "PL",
+      "phone": ""
+    },
+    "has_calculated_shipping": true,
+    "needs_shipping": true,
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL"
+        },
+        "shipping_rates": [
+          {
+            "rate_id": "wsds_simple_dimensional:3:medium_parcel_dhl",
+            "method_id": "wsds_simple_dimensional",
+            "name": "DHL – Średnia Paczka",
+            "price": "1899",
+            "taxes": "0",
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "wsds_simple_dimensional:3:medium_parcel_dpd",
+            "method_id": "wsds_simple_dimensional",
+            "name": "DPD – Średnia Paczka",
+            "price": "1899",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "easypack_parcel_machines:4",
+            "method_id": "easypack_parcel_machines",
+            "name": "InPost Paczkomat 24/7 (gabaryt C)",
+            "price": "1999",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "easypack_parcel_machines_cod:5",
+            "method_id": "easypack_parcel_machines_cod",
+            "name": "InPost Paczkomat 24/7 Pobranie (gabaryt C)",
+            "price": "1999",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          }
+        ]
+      }
+    ]
+  },
+  "selected": {
+    "items_count": 1,
+    "errors": [],
+    "coupons": [],
+    "fees": [],
+    "items": [
+      {
+        "id": 4808,
+        "sku": "BS00215",
+        "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+        "quantity": 1,
+        "show_backorder_badge": false,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 1,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "prices": {
+          "currency_code": "PLN",
+          "currency_minor_unit": 2,
+          "price": "13900"
+        },
+        "totals": {
+          "currency_code": "PLN",
+          "currency_minor_unit": 2,
+          "line_total": "13900",
+          "line_total_tax": "0",
+          "line_subtotal": "13900",
+          "line_subtotal_tax": "0"
+        }
+      }
+    ],
+    "totals": {
+      "currency_code": "PLN",
+      "currency_minor_unit": 2,
+      "total_items": "13900",
+      "total_items_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_shipping": "1899",
+      "total_shipping_tax": "0",
+      "total_price": "15799"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "00-001",
+      "country": "PL",
+      "phone": ""
+    },
+    "has_calculated_shipping": true,
+    "needs_shipping": true,
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL"
+        },
+        "shipping_rates": [
+          {
+            "rate_id": "wsds_simple_dimensional:3:medium_parcel_dhl",
+            "method_id": "wsds_simple_dimensional",
+            "name": "DHL – Średnia Paczka",
+            "price": "1899",
+            "taxes": "0",
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "wsds_simple_dimensional:3:medium_parcel_dpd",
+            "method_id": "wsds_simple_dimensional",
+            "name": "DPD – Średnia Paczka",
+            "price": "1899",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "easypack_parcel_machines:4",
+            "method_id": "easypack_parcel_machines",
+            "name": "InPost Paczkomat 24/7 (gabaryt C)",
+            "price": "1999",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          },
+          {
+            "rate_id": "easypack_parcel_machines_cod:5",
+            "method_id": "easypack_parcel_machines_cod",
+            "name": "InPost Paczkomat 24/7 Pobranie (gabaryt C)",
+            "price": "1999",
+            "taxes": "0",
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_minor_unit": 2
+          }
+        ]
+      }
+    ]
+  }
+}
