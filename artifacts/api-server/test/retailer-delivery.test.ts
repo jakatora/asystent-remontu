@@ -151,6 +151,56 @@ test('Lobo quotes ST10 20 kg with a home courier, not the cheaper parcel locker'
   assert.equal(result.quote.destinationScope, 'PL');
 });
 
+test('Lobo combines Dulux EasyCare 9 l and Atlas GTA 18 kg into one courier basket', async () => {
+  const items = new Map([
+    [6379, { ean: '5904078198759', stockId: 6384, price: 171.90 }],
+    [42682, { ean: '5905400542509', stockId: 42812, price: 59.90 }],
+  ]);
+  const added = new Map<number, number>();
+  const quote = createRetailerQuoter(async (input, options) => {
+    const url = new URL(String(input));
+    assert.equal(url.origin, 'https://lobo.pl');
+    const id = Number(url.pathname.match(/\/products\/PLN\/(\d+)/)?.[1]);
+    if (id) {
+      const item = items.get(id)!;
+      return Response.json({ id, ean: item.ean, stockId: item.stockId, can_buy: true,
+        unit: { name: 'szt.', floating_point: false },
+        price: { gross: { final: item.price.toFixed(2).replace('.', ',') + ' zł', final_float: item.price } } });
+    }
+    if (options?.method === 'POST') {
+      const body = JSON.parse(String(options.body));
+      added.set(body.stock_id, body.quantity);
+      return Response.json({});
+    }
+    assert.deepEqual([...added].sort((a, b) => a[0] - b[0]), [[6384, 1], [42812, 1]]);
+    return Response.json({
+      products: [...items.values()].map(item => ({ stock_id: item.stockId, quantity: 1, unit: { name: 'szt.', floating_point: false },
+        price: item.price.toFixed(2).replace('.', ',') + ' zł', price_float: item.price,
+        sum: item.price.toFixed(2).replace('.', ',') + ' zł', sum_float: item.price })),
+      basket: { sum_products: '231,80 zł', sum_products_float: 231.80 },
+      countries: [{ id: 179, name: 'Polska', selected: true }],
+      payments: [{ payment_id: 16, name: 'transfer', title: 'Przelew' }],
+      shippings: [
+        { title: 'InPost Paczkomat 24/7', engine: 'inpost', ...money(5690), countries: [{ id: 179, ...money(5690) }], payments: [{ payment_id: 16 }] },
+        { title: 'Przesyłka kurierska (InPost)', engine: 'inpost', ...money(6690), countries: [{ id: 179, ...money(6690) }], payments: [{ payment_id: 16 }] },
+      ],
+    });
+  });
+  const basket: DeliveredStoreBasket = { store: 'Lobo', materialsGrosze: 23180, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [
+    { product: { id: 'paint', name: 'Dulux EasyCare', imageUrl: null }, unit: 'l', packages: [
+      { packageSize: 9, count: 1, unitPriceGrosze: 17190, lineCostGrosze: 17190, offerId: 'lobo-dulux-easycare-white-9l', store: 'Lobo', url: null },
+    ] },
+    { product: { id: 'skim', name: 'Atlas GTA', imageUrl: null }, unit: 'kg', packages: [
+      { packageSize: 18, count: 1, unitPriceGrosze: 5990, lineCostGrosze: 5990, offerId: 'lobo-atlas-gta-18kg', store: 'Lobo', url: null },
+    ] },
+  ] };
+  const result = await quote(basket, '00-001');
+  assert.ok('quote' in result);
+  assert.equal(result.quote.costGrosze, 6690);
+  assert.equal(result.quote.basis, 'retailer_basket_national');
+  assert.equal(result.quote.destinationScope, 'PL');
+});
+
 test('cross-origin redirect never receives storefront cookies or a request', async () => {
   let calls = 0;
   const quote = createRetailerQuoter(async () => { calls++; return new Response('',{status:302,headers:{ location:'https://example.org/', 'set-cookie':'sid=secret' }}); });
