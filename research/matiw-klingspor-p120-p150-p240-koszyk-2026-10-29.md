@@ -25,4 +25,8 @@ Oba wybrane koszyki mają zero braków i jedną dostawę. Sewera zwróciła wyce
 
 ## Weryfikacja i następny krok
 
-Test HTTP pilnuje wyboru pojedynczych arkuszy dla małych ilości i paczek dla dużych oraz jednej dostawy. API i mobile typecheck, test Matiw 3/3, mobile 369/369, pricing 149/149 i kontrola legacy IDs przeszły. Przed ogłoszeniem wdrożenia trzeba jeszcze sprawdzić pakiet wspólnego backendu i produkcyjny HTTP. W następnej iteracji warto ograniczyć nadmiarowe odpytywanie mieszanych koszyków, zachowując matematycznie poprawne porównanie i jawne braki dostawy.
+Test HTTP pilnuje wyboru pojedynczych arkuszy dla małych ilości i paczek dla dużych oraz jednej dostawy. API i mobile typecheck, test Matiw 3/3, mobile 369/369, pricing 149/149 i kontrola legacy IDs przeszły. Wynik wspólnego backendu oraz produkcyjnego HTTP znajduje się poniżej. Ograniczenie nadmiarowego odpytywania mieszanych koszyków zostało wdrożone w następnym, osobnym wydaniu.
+
+## Wdrożenie
+
+Aplikacja: commit `740a370` wypchnięty. Backend [PR 115](https://github.com/jakatora/przetargai/pull/115) scalono jako `956007a810dfae1b5002617c76c8f35f9c45d9e0`. Railway deployment `d923f1cd-e309-4744-a659-bacaca45c300` osiągnął `SUCCESS`. Świeża migawka produkcji miała 264 obserwacje i 148 plików; przygotowanie dodało trzy obserwacje, zmieniło seed i moduł pricing, zachowując 146 plików. Po wdrożeniu 267 obserwacji i 148/148 plików zgodnych; SHA modułu `9f1c019e9a6943f12d1f6e1e45cf355ddcc3c79629ad0cb6f20f3e59e9b1eb4e`. Wspólny backend 1054/1054 testów. Produkcyjny HTTP potwierdził wszystkie trzy aktywne źródła, kwoty 27,94 zł dla Sewery i 201,24 zł dla Matiw oraz opisany powyżej niepełny globalny ranking. Następna poprawka rankingu i jej osobne wdrożenie są opisane w `research/szybszy-globalny-koszyk-dostawa-2026-10-29.md`.
