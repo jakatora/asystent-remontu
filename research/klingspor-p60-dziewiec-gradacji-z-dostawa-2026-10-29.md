@@ -27,3 +27,11 @@ Lokalny HTTP do serwisu aplikacji z rzeczywistą anonimową wyceną sklepów dla
 Globalne porównanie wskazało te same zestawy. Sewera wycenia kod `00-001`, Matiw podaje krajową dostawę dla Polski. Wyszukiwanie ma znacznik `searchLimited`, więc kwota jest najtańsza w porównanych potwierdzonych zestawach, bez obietnicy przeszukania wszystkich możliwych sklepów i podziałów paczek. Przed powiązaniem paczki P60 koszt zestawu po 50 sztuk wynosił 474,14 zł z dwiema dostawami, z czego P60 było kupowane w Sewerze; nowa potwierdzona paczka Matiw obniża ten wynik o 98,16 zł dla badanego kodu i czasu.
 
 Osobne wejście po EAN opakowania `5907560018016` wybiera paczkę Matiw: 44,24 zł + 19,00 zł dostawa = 63,24 zł. Wejście po EAN sztuki `4014855194896` z `refreshPrices: true` odświeżyło obie oferty bez błędów i podało ten sam najtańszy koszyk przy 50 sztukach.
+
+## Odbiór produkcyjny 2026-10-29
+
+Backend [PR #119](https://github.com/jakatora/przetargai/pull/119) został scalony do `main` (`69a6bd2`), a wdrożenie Railway `97df47e5-2d2b-4851-88a2-89355cc31e21` ma status `SUCCESS`. Produkcyjny `/api/remont/health` wykazał 275 aktywnych źródeł, w tym obie oferty P60.
+
+Produkcyjny HTTP dla kodu testowego `00-001` potwierdził dziewięć pozycji i jedno zamówienie z jedną stawką dostawy: Sewera po jednym arkuszu `15,77 + 19,90 = 35,67 zł`; Matiw po 50 arkuszy każdej gradacji `356,98 + 19,00 = 375,98 zł`. Ranking globalny dla dużego zestawu również wskazał Matiw `375,98 zł`. Wszystkie trzy odpowiedzi miały `compared`, zero braków; Sewera podała stawkę dla kodu, Matiw stawkę krajową PL. To porównanie potwierdzonych ofert, z jawnym ograniczeniem przeszukiwania kombinacji.
+
+Migawka przed wdrożeniem miała 148 plików i 273 obserwacje. W przygotowanym pakiecie zmieniono tylko plik danych ofert i wygenerowany moduł cenowy; pozostałe 146 plików zachowano. Po wdrożeniu wszystkie 148 plików odpowiadają przygotowanemu pakietowi, w tym 275 obserwacji i SHA-256 modułu `c59ee7b94a7df56b339b949e300d817bc1f50d03f99abacdb695a4226e58b351`. Testy: backend `1054/1054`, mobilne `370/370`, API skupione na zmianie `19/19`, serwis wyceny `151/151`; typecheck mobilny, API i wyceny przeszedł.
