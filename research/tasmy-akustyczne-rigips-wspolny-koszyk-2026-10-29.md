@@ -19,4 +19,10 @@ Anonimowy koszyk Sewery z trzema produktami: papierowa Rigips 75 m (21,94 zł) o
 
 ## Kontrole
 
-Testy obejmują świadomy wybór i zachowanie starego wariantu, dokładne EAN/zdjęcia we wszystkich trzech poziomach jakości, pełne rolki, zmianę statusu posiadanej taśmy i blokadę przypadkowego przepięcia oddziału. Realny anonimowy koszyk jest osobnym dowodem poza testami. Wyniki odbioru produkcyjnego zostaną dopisane po wdrożeniu.
+Testy obejmują świadomy wybór i zachowanie starego wariantu, dokładne EAN/zdjęcia we wszystkich trzech poziomach jakości, pełne rolki, zmianę statusu posiadanej taśmy i blokadę przypadkowego przepięcia oddziału. Realny anonimowy koszyk jest osobnym dowodem poza testami. API 15/15 w obszarze tożsamości i parsera, mobile 372/372, silnik cen 151/151, shared backend 1054/1054, typecheck API/mobile. Zdjęcia HTTP 200 `image/webp`.
+
+## Odbiór produkcyjny
+
+Backend [PR 122](https://github.com/jakatora/przetargai/pull/122) scalono jako `43648e3`; Railway deployment `05078625-de59-4ec3-a619-9eb92dc64025` ma status **SUCCESS**. Produkcyjne `/api/remont/health` pokazuje 278 źródeł, 243 aktywne oferty i oba nowe źródła aktywne. Dwa żądania HTTPS wyceny pełnego zestawu dla `00-001` zwróciły `compared`, brakujących produktów 0, produkty 6953 gr + jedna dostawa 1990 gr = **8943 gr**. Sklep Sewera, oddział Sosnowiec, identyczne `checkedAt` cytatu `2026-10-29T22:01:58.656Z`. Snapshot serwera: 148/148 plików identycznych z przygotowaną paczką, 278 obserwacji, SHA256 modułu `e4d251b4bbc6987dc916b1a0667738af59cffe30a56f18b2b395fb01d668fabf`.
+
+To potwierdza koszt trzech taśm w jednym zamówieniu dla wskazanego kodu. Pozostałe materiały ściany lub sufitu g-k nadal mogą wymagać potwierdzonych ofert albo doboru technicznego; aplikacja nie może oznaczać całego remontu jako kompletnego na podstawie tych trzech produktów.
