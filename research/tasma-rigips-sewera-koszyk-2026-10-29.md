@@ -19,3 +19,7 @@ Kontrola anonimowego koszyka dla **jednej rolki** i kodu testowego `00-001` (202
 Audyt przed zmianą: 195 referencji materiałowych, 196 wpisów zdjęć, 275 obserwacji ofert i 34 referencje bez aktywnej oferty w produkcji. Pozycje historyczne bez potwierdzonego koszyka nie otrzymały wymyślonych cen. Karta produktu Norgips nie jest ceną Rigips.
 
 Testy: API 15/15 w obszarze tożsamości i parsera; mobile 371/371; silnik cen 151/151; typecheck mobile i API. Parsowanie żywej karty oraz wycena dostawy były dodatkowo sprawdzone po HTTP. Dalsza praca: kolejne świadome alternatywy dla brakujących materiałów i stabilne wyceny dostawy, szczególnie kart Castoramy i Leroy Merlin.
+
+## Odbiór produkcyjny
+
+Backend [PR 121](https://github.com/jakatora/przetargai/pull/121) scalony jako `f7f51a1`; Railway deployment `e8ac1360-7c17-4ee4-a6f0-640c93c76632` ma status **SUCCESS**. Produkcyjne `/api/remont/health` pokazuje 276 źródeł i nową ofertę aktywną. Dwa kolejne żądania HTTPS pełnej wyceny tej samej rolki dla `00-001` zwróciły `compared`, brakujących produktów 0, materiały 2194 gr + dostawa 1990 gr = 4184 gr, oddział Sosnowiec. Drugie żądanie miało ten sam `checkedAt` potwierdzonej dostawy, zgodnie z krótką pamięcią cytatu. Snapshot produkcji: 148/148 plików identycznych z przygotowaną paczką, 276 obserwacji, SHA256 modułu `bc6cf7a0f58bbd4ca269e7e35aa573f2ccee32eb472a4c236edd4acb6068f68e`.
