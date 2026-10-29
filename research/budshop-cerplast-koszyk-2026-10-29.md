@@ -16,3 +16,9 @@ W tym samym dniu [Adamex](https://eadamex.pl/grunty-uniwersalne/14763-masa-podkl
 ## Zabezpieczenia i kontrola
 
 Adapter dopuszcza jeden dokładny produkt `4808`, jedną anonimową sesję koszyka, kod pocztowy i konkretną usługę DHL. Sprawdza każdy grosz ceny produktu i koszyka, brak backorderu, stan jednej sztuki, zgodność zdjęcia oraz bezpieczne trasy HTTP. Zmiana ceny, przewoźnika, opakowania, SKU, kodu, waluty, liczby sztuk lub sumy kończy się brakiem potwierdzenia zamiast błędnie taniego wyniku. Replay fixture pochodzi z żywych odpowiedzi sklepu, a testy obejmują także odrzucenie ścieżki checkout. Testy aplikacji: 906/906 bez pominięć; kontrole typów API i mobile przeszły. Dodatkowo wykonano żywy odczyt adaptera z `readRetailSource` i `quoteBudshop` (13900 + 1899 = 15799 gr).
+
+## Wdrożenie i wynik porównania
+
+Backend: [PR #95](https://github.com/jakatora/przetargai/pull/95) scalony 2026-10-29; Railway deployment `2d4fee1b-f775-4156-8522-aa4604c71974` zakończony `SUCCESS` 2026-10-29 13:29 UTC. Po wdrożeniu porównano 148/148 plików produkcji z przygotowaną wersją; 245 obserwacji, 239 aktywnych ofert i 180 produktów. Testy współdzielonego backendu: 1054/1054, bez błędów i pominięć.
+
+Produkcyjne `POST /api/remont/pricing/project` dla jednej sztuki Cerplast i kodu `00-001` potwierdziło Budshop24: 139,00 zł materiały + 18,99 zł dostawa = 157,99 zł, `retailer_basket_postcode`, bez brakujących produktów. W porównaniu wszystkich dostępnych sklepów dla tej jednej pozycji wygrała Sewera: 120,00 zł + 37,90 zł dostawa = **157,90 zł**, o 0,09 zł taniej od Budshop24. Dla innych produktów i kodów pocztowych kolejność może być inna; rankingu nie należy zastępować samą ceną produktu.
