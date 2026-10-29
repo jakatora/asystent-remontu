@@ -24,6 +24,18 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** One reviewed anonymous product addition. The store calls this an order
+   * update, but the frontend uses it to add to the unsubmitted shopping cart.
+   * No generic strategy, customer data, agreement or order submission exposed.
+   * source: https://kronodom.pl/abs/1793195254635/js/8301.js
+   */
+  async kronodomAdd(packCount:number,csrf:string):Promise<any>{
+    if(this.origin!=='https://kronodom.pl'||!Number.isSafeInteger(packCount)||packCount<1||packCount>MAX_RETAIL_PACKAGES||!Number.isSafeInteger(packCount*6)||!/^[a-f0-9]{64}$/.test(csrf))throw Error('invalid_cart_action');
+    const form:Record<string,string>={strategy:'add'};
+    for(const [key,value]of Object.entries({productId:'423',offerPositionId:'423',offerId:'1',saleUnitId:'1007',qty:String(packCount*6),determinant:'op-423',ack:'false',fastCart:'false',_id:'p423-op423'}))form['positions[0]['+key+']']=value;
+    // This reviewed endpoint returns JSON with a text/html content type.
+    return JSON.parse(await this.read('/offer/ajax/triggerOrderUpdate',new URLSearchParams(form).toString(),false,false,false,csrf));
+  }
   /** Only the reviewed anonymous product addition and postcode/carrier quote.
    * This module also places orders: never accept its generic method or form.
    * source: https://izosystems.pl/themes/warehouse/assets/cache/bottom-d7c313566.js

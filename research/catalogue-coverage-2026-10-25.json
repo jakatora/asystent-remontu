@@ -4459,11 +4459,13 @@
     "Modna Łazienka",
     "Folnet",
     "Kronosfera",
+    "Kronodom",
     "Centrum Matbud",
     "ABUD",
     "IRBUD",
     "E-Kowalczyk",
-    "Izosystems"
+    "Izosystems",
+    "BMB Technologie"
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
@@ -4595,5 +4597,11 @@
       "cause": "TCP connect timeout from Railway to ABUD; no confirmed production delivery amount",
       "positiveAcceptancePassed": false
     }
+  },
+  "deliveryCheckedAt": "2026-10-29T00:27:30.648Z",
+  "deliveryVerification": {
+    "report": "research/kronodom-automatyczna-dostawa-2026-10-29.md",
+    "scope": "Supported products and native baskets only; Kronodom national Poland quote, not postcode-specific. Quantities of one product are not yet split across multiple orders.",
+    "productionCases": 10
   }
 }

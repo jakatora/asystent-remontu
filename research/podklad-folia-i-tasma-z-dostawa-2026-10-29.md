@@ -44,7 +44,7 @@ Pełny zestaw 314,44 zł: LiderzyCen 154,45 zł materiałów + 22 zł dostawy, T
 
 Sprawdzono także inny kod 42-209, wybór Conpar i Ecovil, brak zgodności, za mały obmiar folii oraz wybrany sklep oferujący tylko część zestawu. TopBoden zwraca aktualną taryfę krajową dla Polski, nie indywidualną wycenę adresu. Podstawę pokazujemy przy dostawie, ważność 10 minut.
 
-Ograniczenie: podkład Arbiton 3 w 1 ma potwierdzoną cenę produktów 123,96 zł za 2 opakowania po 6 m² w Kronodom, ale automatyczna dostawa Kronodom nie jest jeszcze zintegrowana. Łączna kwota pozostaje nieustalona. Kwota „od” z karty produktu nie może zastąpić wyceny koszyka. To kolejny konkretny etap rozwoju.
+Ograniczenie w chwili tego wydania: podkład Arbiton 3 w 1 miał potwierdzoną cenę produktów 123,96 zł za 2 opakowania po 6 m² w Kronodom, bez automatycznej dostawy. Kwota „od” z karty produktu nie zastępowała wyceny koszyka. Aktualizacja 2026-10-29: brak uzupełniono w kolejnym wydaniu, opisanym w [raporcie dostawy Kronodom](kronodom-automatyczna-dostawa-2026-10-29.md); pełny koszyk 2 opakowań kosztował 192,96 zł z dostawą. Pozostałe wyniki poniżej opisują wcześniejszy etap walidacji.
 
 ## Walidacja i wydanie
 

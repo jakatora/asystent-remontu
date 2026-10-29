@@ -41,7 +41,7 @@ test('ABStore rejects wrong primary identity, currency, VAT mode, conditional of
   assert.throws(() => parseRetailPage(html(), { ...source, packageSize: 2.5 }, now), /unit_not_confirmed/);
 });
 
-test('ABStore live reader uses public GET only; a cart transport placeholder cannot become an automatic quote', async () => {
+test('ABStore live reader uses public GET only; an empty cart cannot become an automatic quote', async () => {
   let calls = 0;
   const observed = await readRetailSource(source, async (input, init) => {
     calls++; assert.equal(String(input), source.url); assert.equal(init?.body, undefined);
@@ -49,12 +49,12 @@ test('ABStore live reader uses public GET only; a cart transport placeholder can
   });
   assert.equal(observed.priceGrosze, 6198); assert.equal(calls, 1);
   const result = await createRetailerQuoter(async () => { throw Error('unsupported cart must not be called'); })({ store: 'Kronodom', materialsGrosze: 6198, lines: [], deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown' }, '00-001');
-  assert.deepEqual(result, { reason: 'integration_unavailable' });
+  assert.deepEqual(result, { reason: 'quote_unavailable' });
 });
 
 test('ABStore whole-renovation HTTP consolidates two rooms before rounding to the six-square-metre pack', async () => {
   const observed = parseRetailPage(html(), source, new Date());
-  const service = createRemontService({ initialObservations: [observed], background: false });
+  const service = createRemontService({ initialObservations: [observed], background: false, basketQuoter: async()=>({reason:'quote_unavailable'}) });
   const app = express(); app.use(express.json()); app.use(service.router);
   const server = app.listen(0, '127.0.0.1'); await new Promise<void>(resolve => server.once('listening', resolve));
   const ref = MATERIAL_PRICES.find(row => row.id === 'mat-underlay-arbiton-xps-aquastop-6m2')!;
@@ -69,6 +69,6 @@ test('ABStore whole-renovation HTTP consolidates two rooms before rounding to th
     assert.equal(exact.deliveryComparison.best.totalGrosze, 6198); assert.equal(exact.deliveryComparison.best.stores[0].lines[0].packages[0].count, 1);
     const rounded = await request(3, 4); assert.equal(rounded.deliveryComparison.best.totalGrosze, 12396);
     const shipping = await request(3, 3, 'shipping'); assert.equal(shipping.deliveryComparison.best, null);
-    assert.equal(shipping.deliveryComparison.unavailableStores[0].reason, 'integration_unavailable');
+    assert.equal(shipping.deliveryComparison.unavailableStores[0].reason, 'quote_unavailable');
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });
