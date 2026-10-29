@@ -25,6 +25,14 @@ export function ProjectPurchaseSummary({ snapshot, onCompare }: { snapshot: Purc
       {summary.status === 'complete' ? <>
         {summary.mode === 'shipping' && <Txt>{pl?'Dostawa':'Delivery'}{summary.postalCode ? ` (${summary.postalCode})` : ''}: {formatGrosze(summary.deliveryGrosze!)}</Txt>}
         <Txt w="bold" style={{fontSize:24,color:Colors.primaryDark}}>{formatGrosze(summary.totalGrosze!)}</Txt>
+        {summary.storeSteps.length > 1 && <View style={{padding:12,gap:9,borderRadius:12,borderWidth:1,borderColor:Colors.border,backgroundColor:Colors.surface}}>
+          <Txt w="bold" style={{fontSize:15}}>{pl?`Kup w ${summary.storeSteps.length} sklepach`:`Buy from ${summary.storeSteps.length} stores`}</Txt>
+          {summary.storeSteps.map((step,index)=><View key={step.store} style={{gap:3,paddingTop:8,borderTopWidth:1,borderTopColor:Colors.borderLight}}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',gap:10}}><Txt w="semibold" style={{flex:1,fontSize:15}}>{index+1}. {step.store}</Txt><Txt w="bold" style={{fontSize:15}}>{formatGrosze(step.totalGrosze)}</Txt></View>
+            <Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{pl?'Dostawa':'Delivery'}: {formatGrosze(step.deliveryGrosze)}{step.orderCount>1?pl?` · ${step.orderCount} osobne zamówienia`:` · ${step.orderCount} separate orders`:''}</Txt>
+            <Txt style={{fontSize:13,lineHeight:19}}>{step.products.slice(0,2).join(' · ')}{step.products.length>2?pl?` · +${step.products.length-2} produktów`:` · +${step.products.length-2} products`:''}</Txt>
+          </View>)}
+        </View>}
         <Txt style={{fontSize:13,lineHeight:19}}>{summary.mode === 'pickup' ? (pl?'Zestaw do odbioru. Dojazd nie jest wliczony; potwierdź cenę i zapas w wybranych placówkach.':'Basket for collection. Travel is excluded; confirm prices and stock at the chosen branches.') : (pl?'Wycenione materiały z dostawą. Narzędzia i robocizna są osobno.':'Quoted materials including delivery. Tools and labour are separate.')}</Txt>
       </> : <Txt accessibilityRole="alert" style={{lineHeight:21}}>{summary.status === 'partial'
         ? (pl?`Niepełny koszyk. Braki do potwierdzenia: ${summary.missing || '—'}. Pełna suma nie jest jeszcze dostępna.`:`Incomplete basket. Items to confirm: ${summary.missing || '—'}. A complete total is not available yet.`)

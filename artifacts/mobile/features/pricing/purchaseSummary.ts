@@ -27,16 +27,29 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
   const data = snapshot.data, comparison = data.deliveryComparison;
   const missing = groupUnpricedLines(data.stages).length || comparison?.missingProductCount || 0;
   const best = comparison?.best;
+  const validStoreAmounts = Boolean(best && best.stores.length > 0
+    && best.stores.every(store => money(store.materialsGrosze) && money(store.deliveryGrosze) && money(store.totalGrosze)
+      && store.materialsGrosze + store.deliveryGrosze === store.totalGrosze)
+    && best.stores.reduce((sum, store) => sum + store.materialsGrosze, 0) === best.materialsGrosze
+    && best.stores.reduce((sum, store) => sum + store.deliveryGrosze!, 0) === best.deliveryGrosze
+    && best.stores.reduce((sum, store) => sum + store.totalGrosze!, 0) === best.totalGrosze);
   // needs_delivery_costs can describe unquoted competing combinations while
   // best contains a complete, verified basket. Show that basket consistently
   // with the comparison screen, retaining the limited-market notice below.
   const complete = (comparison?.status === 'compared' || comparison?.status === 'needs_delivery_costs') && missing === 0 && data.stages.every(stage => stage.unresolvedCount === 0)
     && best && money(best.materialsGrosze) && money(best.deliveryGrosze) && money(best.totalGrosze)
-    && best.materialsGrosze + best.deliveryGrosze === best.totalGrosze
+    && best.materialsGrosze + best.deliveryGrosze === best.totalGrosze && validStoreAmounts
     && best.stores.length > 0 && best.stores.every(store => comparison.mode === 'pickup' || store.source === 'retailer' && store.quote && Date.parse(store.quote.expiresAt) > now);
   const pending = comparison ? pendingDeliveryPlan(comparison, true, now) : null;
   const available=comparison?availableStoreBasket(comparison,true,snapshot.selectedStore,now):null;
   const materials = complete ? best.materialsGrosze : available ? available.materialsGrosze : pending ? pending.materialsGrosze : data.consolidated.lines.length > 0 && money(data.consolidated.consolidatedTotalGrosze) ? data.consolidated.consolidatedTotalGrosze : null;
+  const storeSteps = complete ? best.stores.map(store => ({
+      store: store.store,
+      totalGrosze: store.totalGrosze!,
+      deliveryGrosze: store.deliveryGrosze!,
+      orderCount: Math.max(1, store.quote?.orders?.length ?? 1),
+      products: store.lines.map(line => line.product.name),
+    })) : [];
   return {
     status: complete ? 'complete' as const : missing > 0 || comparison?.status === 'partial' ? 'partial' as const : 'shipping_unknown' as const,
     materialsGrosze: materials, deliveryGrosze: complete ? best.deliveryGrosze : null, totalGrosze: complete ? best.totalGrosze : null,
@@ -44,6 +57,7 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
     selectedStore: snapshot.selectedStore, observedAt: snapshot.observedAt,
     availablePart:available?{materialsGrosze:available.materialsGrosze,deliveryGrosze:available.deliveryGrosze!,totalGrosze:available.totalGrosze!,productCount:comparison!.availablePart!.productCount}:null,
     separateOrders: complete ? best.stores.filter(store => (store.quote?.orders?.length ?? 0) > 1).map(store => ({ store: store.store, count: store.quote!.orders!.length })) : [],
+    storeSteps,
     limited: Boolean(comparison?.status === 'needs_delivery_costs' || comparison?.searchLimited || comparison?.unavailableStores?.length || comparison?.partiallyQuotedStores?.length),
     products: available?available.stores.flatMap(store=>store.lines.map(line=>line.product.name)):data.consolidated.lines.map(line => line.product.name),
   };

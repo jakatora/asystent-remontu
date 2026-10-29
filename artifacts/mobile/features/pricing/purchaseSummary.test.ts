@@ -10,7 +10,8 @@ function response(mode: 'shipping' | 'pickup' = 'shipping'): SerializedProject {
     consolidated: { consolidatedTotalGrosze: 10000, lines: [{ product: { name: 'Wybrany model' }, packages: [{ count: 1, verification: undefined }] }] },
     deliveryComparison: { mode, postalCode: mode === 'shipping' ? '00-001' : null, status: 'compared', missingProductCount: 0,
       best: { materialsGrosze: 10000, deliveryGrosze: mode === 'shipping' ? 2000 : 0, totalGrosze: mode === 'shipping' ? 12000 : 10000,
-        stores: [{ source: mode === 'shipping' ? 'retailer' : 'pickup', quote: mode === 'shipping' ? { expiresAt: new Date(now + 60_000).toISOString() } : undefined }] } },
+        stores: [{ store: 'Wybrany sklep', materialsGrosze: 10000, deliveryGrosze: mode === 'shipping' ? 2000 : 0, totalGrosze: mode === 'shipping' ? 12000 : 10000,
+          lines: [{product:{name:'Wybrany model'}}], source: mode === 'shipping' ? 'retailer' : 'pickup', quote: mode === 'shipping' ? { expiresAt: new Date(now + 60_000).toISOString() } : undefined }] } },
   } as unknown as SerializedProject;
 }
 
@@ -63,6 +64,29 @@ test('a verified whole basket remains visible when competing delivery combinatio
   assert.equal(purchaseSummary(purchaseSnapshot(partial,null,now),now).status,'partial');
   data.deliveryComparison!.best!.stores[0].source='unknown';
   assert.equal(purchaseSummary(purchaseSnapshot(data,null,now),now).status,'shipping_unknown');
+});
+
+test('overview lists verified store totals and products for a split purchase', () => {
+  const data = response(), comparison = data.deliveryComparison!;
+  comparison.status = 'needs_delivery_costs';
+  comparison.unavailableStores = [{store:'Inny sklep',reason:'retailer_access_required'}];
+  comparison.best!.stores = [
+    {store:'Lobo', materialsGrosze:6000, deliveryGrosze:1000, totalGrosze:7000, source:'retailer',
+      quote:{expiresAt:new Date(now+60_000).toISOString()}, lines:[{product:{name:'Farba'}}]},
+    {store:'Sewera', materialsGrosze:4000, deliveryGrosze:1000, totalGrosze:5000, source:'retailer',
+      quote:{expiresAt:new Date(now+60_000).toISOString(),orders:[{},{}]}, lines:[{product:{name:'Gładź'}}]},
+  ] as unknown as NonNullable<typeof comparison.best>['stores'];
+  const summary = purchaseSummary(purchaseSnapshot(data, null, now), now);
+  assert.equal(summary.status, 'complete');
+  assert.equal(summary.limited, true);
+  assert.deepEqual(summary.storeSteps, [
+    {store:'Lobo',totalGrosze:7000,deliveryGrosze:1000,orderCount:1,products:['Farba']},
+    {store:'Sewera',totalGrosze:5000,deliveryGrosze:1000,orderCount:2,products:['Gładź']},
+  ]);
+  comparison.best!.stores[1].totalGrosze = 4999;
+  const inconsistent = purchaseSummary(purchaseSnapshot(data,null,now),now);
+  assert.equal(inconsistent.status, 'shipping_unknown');
+  assert.deepEqual(inconsistent.storeSteps, []);
 });
 
 test('delivery expiry and manually verified offer expiry invalidate the overview before a copied total can survive them', () => {
