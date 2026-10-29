@@ -32,6 +32,8 @@ const ORIGINS: Readonly<Record<string, string>> = {
   // source: https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825
   // source: https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101
   'Plejada Tapet': 'https://plejadatapet.pl', 'Świat Się Klei': 'https://swiatsieklei.pl',
+  // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P180-50szt/25771
+  Matiw: 'https://matiw.pl',
   // source: https://kim24.pl/Kolek-szybki-montaz-kolnierz-6x40-KOELNER
   KIM24: 'https://kim24.pl',
   'Z prądem': 'https://zpradem.pl', 'Elektro-Hurt': 'https://sklep.ehw.com.pl',

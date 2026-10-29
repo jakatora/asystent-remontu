@@ -329,6 +329,20 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
   if (cabinet && (source.ean !== cabinet[0] || source.packageSize !== cabinet[1] || source.unit !== 'ml' || source.productId !== cabinet[2]
     || source.retailerSku !== cabinet[3] || source.apiPurchaseUnit !== 'szt.' || item.ean !== cabinet[0]
     || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name))) throw Error('product_package_not_confirmed');
+  // Matiw's native "szt." is one sealed 50-sheet pack. Sewera sells the same
+  // grades as individual sheets while showing the manufacturer's pack EAN.
+  // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P180-50szt/25771
+  // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P220-50szt/25772
+  const paperPacks: Record<string, readonly [string, number, string, string]> = {
+    'matiw-klingspor-pl28c-p180-50': ['5907560023560', 25771, '000622', 'P180'],
+    'matiw-klingspor-pl28c-p220-50': ['5907560027483', 25772, '000632', 'P220'],
+  };
+  const paper = paperPacks[source.id];
+  if (paper && (source.ean !== paper[0] || source.productId !== paper[1] || source.apiProductCode !== paper[2]
+    || source.retailerSku !== paper[2] || source.packageSize !== 50 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'szt.'
+    || item.ean !== paper[0] || item.code !== paper[2] || item.producer?.name !== 'Klingspor'
+    || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name)
+    || !normalizeProductName(htmlText(String(item.description ?? ''))).includes(normalizeProductName(`${paper[3]} 50szt`)))) throw Error('product_package_not_confirmed');
   // Exact native pieces contain the reviewed kilograms, litres or whole roll.
   // The 300 mm floor collar is one piece; the existing 120 mm wall pack is two.
   // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091
