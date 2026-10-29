@@ -14,7 +14,8 @@ const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => l
 const removable = (pack:PackagePlanEntry) => pack.count-(pack.purchaseMultiple??1)>=(pack.minimumPackages??1) ? (pack.purchaseMultiple??1) : pack.count;
 
 /** Enumerate all distributions of the required packs, including splitting the
- * same EAN between shops. Quote every distinct whole-store order once. Variable
+ * same EAN between shops. Quote each useful whole-store order at most once; a
+ * proven material-cost loser needs no retailer quote. Variable
  * shipping/weight/free thresholds cannot use the fixed-fee subset algorithm.
  * Mixed sizes enumerate irreducible whole-pack allocations, including locked
  * size requirements. Additional unneeded packs remain outside this bounded
@@ -330,11 +331,16 @@ async function quoteAndRank(
   const smallest = new Map<string,string>();
   for (const [key,order] of [...ordered].reverse()) if (!smallest.has(order.store)) smallest.set(order.store,key);
   for (const key of smallest.values()) priority.add(key);
-  const keys=[...priority,...ordered.map(([key])=>key).filter(key=>!priority.has(key))];
-  // Bounded I/O even when a list generates many possible store orders.
-  let cursor = 0, stockChanged=false;
-  await Promise.all(Array.from({ length: Math.min(3, keys.length) }, async () => {
-    while (cursor < keys.length && !stockChanged) {
+  // Confirm complete plans before spending the retailer request budget on
+  // partial orders. A later plan whose material-only lower bound already
+  // exceeds a delivered total cannot win even with free shipping. Subtract
+  // the maximum accepted merchant rounding (one grosz per pack) so pruning
+  // remains valid for shops that round m² line totals.
+  let stockChanged=false;
+  const quoteKeys = async (keys: string[]) => {
+    let cursor = 0;
+    await Promise.all(Array.from({ length: Math.min(3, keys.length) }, async () => {
+      while (cursor < keys.length && !stockChanged) {
       const key = keys[cursor++], order = unique.get(key)!;
       try {
         const outcome = await quoteBasket(order, settings.postalCode!);
@@ -353,8 +359,20 @@ async function quoteAndRank(
           if('reason' in outcome&&outcome.reason==='insufficient_stock'&&outcome.stockLimits?.length)stockChanged=true;
         }
       } catch { failures.set(order.store, 'quote_unavailable'); }
-    }
-  }));
+      }
+    }));
+  };
+  await quoteKeys([...priority]);
+  const confirmedUpperBound = Math.min(...candidates.flatMap(orders => orders.every(order => order.quote && order.totalGrosze !== null
+    && Date.parse(order.quote.expiresAt) > Date.now())
+    ? [orders.reduce((sum, order) => sum + order.totalGrosze!, 0)] : []));
+  const canStillWin = new Set(candidates.filter(orders => {
+    if (!Number.isFinite(confirmedUpperBound)) return true;
+    const optimisticMaterials = orders.reduce((sum, order) => sum + order.materialsGrosze
+      - order.lines.reduce((packs, line) => packs + line.packages.reduce((count, pack) => count + pack.count, 0), 0), 0);
+    return optimisticMaterials <= confirmedUpperBound;
+  }).flatMap(orders => orders.map(signature)));
+  await quoteKeys(ordered.map(([key])=>key).filter(key=>!priority.has(key) && canStillWin.has(key)));
   // A quote valid at request start may expire while another shop is still
   // responding. Keep the material plan, but do not expose that fee as current.
   for (const order of unique.values()) if (order.quote && Date.parse(order.quote.expiresAt) <= Date.now()) {

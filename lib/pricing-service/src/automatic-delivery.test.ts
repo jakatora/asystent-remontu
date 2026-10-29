@@ -72,6 +72,48 @@ async function manyProducts(productCount: number, storeCount: number) {
   }))};
 }
 
+test('proved material lower bounds avoid unnecessary mixed-cart retailer quotes', async () => {
+  const input = await manyProducts(5, 2);
+  for (const line of input.lines) if (line.resolved) line.offers = line.offers.map(offer => ({
+    ...offer, price: offer.store === 'S00' ? '1.00' : '20.00',
+  }));
+  const called: DeliveredStoreBasket[] = [];
+  const result = await compareAutomaticDelivery([input], { mode: 'shipping', postalCode: '00-001' }, async order => {
+    called.push(order);
+    return { quote: { costGrosze: order.store === 'S00' ? 100 : 0,
+      carrier: 'Kurier', payment: 'Przelew', checkedAt: new Date().toISOString(),
+      expiresAt: new Date(Date.now() + 600_000).toISOString(), sourceUrl: 'https://example.org/cart',
+      destinationScope: 'PL', basis: 'retailer_basket_national', evidenceSha256: 'a'.repeat(64) } };
+  });
+  assert.equal(result.status, 'compared');
+  assert.equal(result.best?.totalGrosze, 600);
+  assert.equal(result.best?.stores[0].store, 'S00');
+  assert.ok(called.some(order => order.store === 'S01'));
+  assert.ok(called.length < 20, `Expected proven losers to be pruned, got ${called.length} quotes`);
+});
+
+test('material bounds still quote a mixed basket that can beat a complete store', async () => {
+  const input = await manyProducts(5, 2);
+  for (const [index, line] of input.lines.entries()) if (line.resolved) line.offers = line.offers.map(offer => ({
+    ...offer, price: index === 4
+      ? offer.store === 'S00' ? '2.00' : '0.50'
+      : offer.store === 'S00' ? '1.00' : '20.00',
+  }));
+  const called: DeliveredStoreBasket[] = [];
+  const result = await compareAutomaticDelivery([input], { mode: 'shipping', postalCode: '00-001' }, async order => {
+    called.push(order);
+    return { quote: { costGrosze: order.store === 'S00' ? 100 : 0,
+      carrier: 'Kurier', payment: 'Przelew', checkedAt: new Date().toISOString(),
+      expiresAt: new Date(Date.now() + 600_000).toISOString(), sourceUrl: 'https://example.org/cart',
+      destinationScope: 'PL', basis: 'retailer_basket_national', evidenceSha256: 'a'.repeat(64) } };
+  });
+  assert.equal(result.status, 'compared');
+  assert.equal(result.best?.totalGrosze, 550);
+  assert.deepEqual(result.best?.stores.map(store => store.store), ['S00', 'S01']);
+  assert.ok(called.some(order => order.store === 'S00' && order.lines.length === 4));
+  assert.ok(called.some(order => order.store === 'S01' && order.lines.length === 1));
+});
+
 test('all 103 product needs survive a large renovation with 12 stores and bounded quote work',async()=>{
   const input=await manyProducts(103,12);let calls=0;
   const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
