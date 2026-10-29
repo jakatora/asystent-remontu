@@ -83,6 +83,9 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     purchase_rules_changed: tr('Sklep zmienił minimalną ilość zakupu. Oferta wymaga ponownego sprawdzenia.', 'The minimum order quantity changed. This offer needs to be checked again.'),
     no_home_delivery: tr('Brak potwierdzonej dostawy kurierskiej.', 'No confirmed home courier delivery.'),
     quote_busy: tr('Wycena zajęta. Spróbuj ponownie za chwilę.', 'Quoting is busy. Please retry shortly.'),
+    quote_limit: tr('Limit sprawdzanych koszyków został osiągnięty. Wynik obejmuje tylko potwierdzone warianty.', 'The basket quote limit was reached. The result covers only confirmed options.'),
+    quote_timeout: tr('Nie zdążyliśmy potwierdzić dostawy tego wariantu. Sprawdź dostawy ponownie.', 'Delivery for this option could not be confirmed in time. Retry delivery quotes.'),
+    invalid_quote: tr('Sklep zwrócił niezgodną wycenę. Ten wariant pominięto do ponownego sprawdzenia.', 'The store returned an inconsistent quote. This option was excluded until it can be checked again.'),
     quote_expired: tr('Wycena dostawy wygasła podczas sprawdzania sklepów. Sprawdź dostawy ponownie.', 'This delivery quote expired while checking the stores. Check deliveries again.'),
   }[code] ?? tr('Nie udało się pobrać wyceny koszyka.', 'The basket quote could not be retrieved.'));
   return <View style={{ gap: 14 }}>
