@@ -1,6 +1,6 @@
 # Ennis: dwa nowe kolory i rzeczywiste rozliczenie koszyka
 
-Stan: 29 października 2026. Rozwój aplikacji trwa; pełny zestaw podłogi nadal wymaga potwierdzenia dostawy kleju.
+Stan historyczny wave79: 29 października 2026. Opisuje brak dostawy kleju przed dodaniem odrębnego wyboru opakowania. Aktualna kompletna wycena jest w [raporcie ATLAS PLUS](./atlas-plus-standard-kompletny-koszyk-2026-10-29.md).
 
 ## Produkty i świadomy wybór
 

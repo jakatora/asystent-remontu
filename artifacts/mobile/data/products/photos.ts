@@ -12,6 +12,8 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893
+  {"ids":["mat-tile-adhesive-atlas-plus-standard-25kg"],"ean":"5905400488579","sourceUrl":"https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893","imageUrl":"https://sklep.sewera.pl/photo/38894/atlas-plus-podwojna-moc-klej-do-plytek-25kg.webp"},
   // source: https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155
   {"ids":["mat-gres-rekt-paradyz-u117-light-grey-60x60"],"ean":"5904584158285","sourceUrl":"https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155","imageUrl":"https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-grey-gres-szkl-rekt-mat-598x598.jpg"},
   // source: https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162

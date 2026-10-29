@@ -8,6 +8,7 @@ import { applyLaminateChoices, type LaminateChoice } from './laminateChoice';
 import { applyFoilChoices, type FoilChoice } from './foilChoice';
 import { applyWashbasinChoices, type WashbasinChoice } from './washbasinChoice';
 import { applyTileChoices, type TileChoice } from './tileChoice';
+import { applyTileAdhesiveChoices, type TileAdhesiveChoice } from './tileAdhesiveChoice';
 import type { ShoppingStageContext } from './selectedShopping';
 
 export const MAX_BASKET_PROJECTS = 20;
@@ -31,6 +32,7 @@ export function buildRenovationBasket(
   foilsByProject: Readonly<Record<string, readonly FoilChoice[]>> = {},
   washbasinsByProject: Readonly<Record<string, readonly WashbasinChoice[]>> = {},
   tilesByProject: Readonly<Record<string, readonly TileChoice[]>> = {},
+  tileAdhesivesByProject: Readonly<Record<string, readonly TileAdhesiveChoice[]>> = {},
 ): { stages: PricingStageInput[]; selectionStages: PricingStageInput[]; shoppingContexts: ShoppingStageContext[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
@@ -43,7 +45,7 @@ export function buildRenovationBasket(
     if (!calc) { missingCalculations++; continue; }
     const items = shoppingByProject[project.id] ?? [];
     const stage = withManualShopping(toPricingStageInput(calc, tier, doorsByProject[project.id]), calc, project.id, items);
-    const chosen = applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? [])[0];
+    const chosen = applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [])[0];
     const pending = applyProjectShopping(chosen, calc, project.id, items, stage);
     selectionStages.push(chosen);
     shoppingContexts.push({ projectId: project.id, calc, original: stage, items });

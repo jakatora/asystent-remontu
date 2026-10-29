@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-29T01:23:07.823Z",
-  "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved (100no-query,69no-product,1no-offer),11 fully priced scenarios.170 requirements are not170 unique products. New explicit Ennis colour choices have5/5 floor materials priced but require adhesive delivery confirmation; tile-only actual cart totals verified separately. Kronodom automatic shipping and quantity splits are already verified in research/kronodom-automatyczna-dostawa-2026-10-29.md and research/podzial-ilosci-na-zamowienia-2026-10-29.md. Current tile evidence: research/ennis-kolory-koszyk-2026-10-29.md.",
+  "checkedAt": "2026-10-29T01:47:08.903Z",
+  "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved (100no-query,69no-product,1no-offer),11 fully priced scenarios.170 requirements are not170 unique products. Explicit Ennis tiles and standard ATLAS PLUS adhesive now form a complete5-product floor kit with native shipping:1678.92PLN one order per store or1575.62PLN with displayed separate orders.10 real productionHTTP scenarios and a mixed two-project basket verified separately in research/atlas-plus-standard-kompletny-koszyk-2026-10-29.md. No automatic replacement of historical models or unspecified measurements.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -445,6 +445,25 @@
         }
       },
       "scope": "Same65 historical maps:81/251 priced requirements,170 unresolved, not170 unique SKUs. Standalone underlay now explicitly requires chosen compatible product, actual foil layout area and tape length; one formerly assumed underlay line requires review. New complete explicit scenarios verified separately in12 actual productionHTTP cases;3in1 material known but Kronodom shipping still unavailable."
+    },
+    {
+      "checkedAt": "2026-10-29T01:23:07.823Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 251,
+        "beforePriced": 81,
+        "afterLines": 251,
+        "afterPriced": 81,
+        "afterUnpriced": 170,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 100,
+          "no-product": 69,
+          "no-offer": 1
+        }
+      },
+      "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved (100no-query,69no-product,1no-offer),11 fully priced scenarios.170 requirements are not170 unique products. New explicit Ennis colour choices have5/5 floor materials priced but require adhesive delivery confirmation; tile-only actual cart totals verified separately. Kronodom automatic shipping and quantity splits are already verified in research/kronodom-automatyczna-dostawa-2026-10-29.md and research/podzial-ilosci-na-zamowienia-2026-10-29.md. Current tile evidence: research/ennis-kolory-koszyk-2026-10-29.md."
     }
   ],
   "jobs": [

@@ -1201,10 +1201,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162
   {"id":"modna-paradyz-u117-light-beige-143m2","ean":"5904584158247","name":"U117 LIGHT BEIGE GRES SZKL. REKT. MAT. 59,8X59,8","category":"tile","brand":"Paradyż","packageSize":1.43,"unit":"m2","store":"Modna Łazienka","format":"modna","productId":34162,"apiPurchaseUnit":"m2","variant":["U117","LIGHT BEIGE","MAT.","59,8X59,8"],"url":"https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162","pickupRequiresConfirmation":true},
 
+  // source: https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893
+  {"id":"sewera-atlas-plus-standard-25kg","ean":"5905400488579","name":"Atlas Plus Podwójna Moc klej do płytek 25kg","category":"adhesive","brand":"Atlas","packageSize":25,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893","pickupRequiresConfirmation":true},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "ATLAS PLUS Podwójna Moc — klej do płytek 25 kg (opakowanie standardowe)": "5905400488579",
   'Gres rektyfikowany Paradyż U117 Light Grey mat 59,8×59,8 cm, gatunek 1':'5904584158285',
   'Gres rektyfikowany Paradyż U117 Light Beige mat 59,8×59,8 cm, gatunek 1':'5904584158247',
   'Arbiton Aquaprotec Vapour Barrier 0,18 mm — folia 10 m²':'5905167875223',

@@ -3,12 +3,13 @@ import { applyLaminateChoices, LAMINATE_CHOICE_PREFIX, parseLaminateChoices } fr
 import { applyFoilChoices, FOIL_CHOICE_PREFIX, parseFoilChoices } from './foilChoice';
 import { applyWashbasinChoices, WASHBASIN_CHOICE_PREFIX, parseWashbasinChoices } from './washbasinChoice';
 import { applyTileChoices, TILE_CHOICE_PREFIX, parseTileChoices } from './tileChoice';
+import { applyTileAdhesiveChoices, TILE_ADHESIVE_CHOICE_PREFIX, parseTileAdhesiveChoices } from './tileAdhesiveChoice';
 import type { PricingStageInput } from './pricingApi';
 
 export async function readSelectedStage(projectId: string, original: PricingStageInput): Promise<PricingStageInput> {
-  const [panels, foils, basins, tiles] = await Promise.all([
-    LAMINATE_CHOICE_PREFIX, FOIL_CHOICE_PREFIX, WASHBASIN_CHOICE_PREFIX, TILE_CHOICE_PREFIX,
+  const [panels, foils, basins, tiles, adhesives] = await Promise.all([
+    LAMINATE_CHOICE_PREFIX, FOIL_CHOICE_PREFIX, WASHBASIN_CHOICE_PREFIX, TILE_CHOICE_PREFIX, TILE_ADHESIVE_CHOICE_PREFIX,
   ].map(prefix => AsyncStorage.getItem(prefix + projectId)));
-  return applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([original], parseLaminateChoices(panels)),
-    parseFoilChoices(foils)), parseWashbasinChoices(basins)), parseTileChoices(tiles))[0];
+  return applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([original], parseLaminateChoices(panels)),
+    parseFoilChoices(foils)), parseWashbasinChoices(basins)), parseTileChoices(tiles)), parseTileAdhesiveChoices(adhesives))[0];
 }

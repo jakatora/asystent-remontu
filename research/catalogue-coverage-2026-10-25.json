@@ -1,15 +1,32 @@
 {
-  "checkedAt": "2026-10-29T01:23:07.823Z",
-  "scope": "174 exact catalogue references checked through productionHTTP;167 with active offers,7 historical identities unresolved.13 separate Ennis production scenarios prove native tile orders and honest incomplete full-kit delivery. Same65 historical maps are not automatically changed by optional product choices. No overall completion percentage implied.",
-  "total": 174,
-  "verifiedProducts": 167,
+  "checkedAt": "2026-10-29T01:47:08.903Z",
+  "scope": "175 exact catalogue references checked through productionHTTP;168 with active offers,7 historical identities unresolved.10 separate ATLAS PLUS scenarios prove5 complete native delivered floor kits after an explicit adhesive-pack choice. Same65 historical measurement maps remain unchanged; no overall completion percentage implied.",
+  "total": 175,
+  "verifiedProducts": 168,
   "remaining": 7,
-  "offers": 215,
+  "offers": 216,
   "stores": 52,
-  "productsWithPhotos": 174,
-  "registeredOffers": 221,
+  "productsWithPhotos": 175,
+  "registeredOffers": 222,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-tile-adhesive-atlas-plus-standard-25kg",
+      "productLabel": "ATLAS PLUS Podwójna Moc — klej do płytek 25 kg (opakowanie standardowe)",
+      "ean": "5905400488579",
+      "materialType": "adhesive",
+      "packageSize": 25,
+      "packageUnit": "kg",
+      "status": "verified_offer",
+      "sourceIds": [
+        "sewera-atlas-plus-standard-25kg"
+      ],
+      "referenceUrl": "https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893",
+      "photoUrl": "https://sklep.sewera.pl/photo/38894/atlas-plus-podwojna-moc-klej-do-plytek-25kg.webp",
+      "photoSourceUrl": "https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893",
+      "checkedAt": "2026-10-29T01:47:08.903Z",
+      "availabilityScope": "Distinct standard25kg ATLAS PLUS bag, EAN5905400488579. Explicit floor-adhesive choice preserves already calculated kg; not a merged Castorama promotional barcode. Native Sewera cart confirms gross63.97PLN/bag and postcode shipping. Two bags with grout/spacers cost199PLN shipping together; independently quoted two single-bag orders37.90PLN each plus grout/spacers19.90PLN reduce shipping to95.70PLN. Local pickup stock requires confirmation."
+    },
     {
       "id": "mat-gres-rekt-paradyz-u117-light-grey-60x60",
       "productLabel": "Gres rektyfikowany Paradyż U117 Light Grey mat 59,8×59,8 cm, gatunek 1",
@@ -4646,5 +4663,15 @@
     "fullFloorKitDelivery": "unconfirmed: Castorama adhesive",
     "sources": 221,
     "activeOffers": 215
+  },
+  "floorKitDeliveryVerification": {
+    "checkedAt": "2026-10-29T01:44:05.223Z",
+    "report": "research/atlas-plus-standard-kompletny-koszyk-2026-10-29.md",
+    "productionCases": 10,
+    "completeFullKits": 5,
+    "fullFloorKitDelivery": "confirmed after explicit standard adhesive-pack choice",
+    "oneRoomSingleOrderPerStoreGrosze": 167892,
+    "oneRoomSeparateOrdersGrosze": 157562,
+    "extraMixedRenovationUiGrosze": 189006
   }
 }
