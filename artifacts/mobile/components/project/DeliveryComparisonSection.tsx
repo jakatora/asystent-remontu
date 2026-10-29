@@ -57,6 +57,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const unquotedStoreLabel = unquotedStoreNames.length <= 2 ? unquotedStoreNames.join(', ') : tr(`${unquotedStoreNames.length} ${unquotedStoreNames.length < 5 ? 'sklepy' : 'sklepów'}`, `${unquotedStoreNames.length} stores`);
   const postcodeQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'postal_code').length ?? 0;
   const nationallyQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'PL').length ?? 0;
+  const purchaseOrders = best?.stores.reduce((count, store) => count + Math.max(1, store.quote?.orders?.length ?? 1), 0) ?? 0;
   const available = availableStoreBasket(comparison,current,selectedStore);
   const pendingPlan = pendingDeliveryPlan(comparison, current);
   const displayedBasket = best ?? available ?? pendingPlan;
@@ -154,6 +155,21 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         )}</Txt>
         <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Retry delivery quotes')} onPress={() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) })} />
       </View>}
+      {mode === 'shipping' && best.stores.length > 1 && <View style={{ padding: 14, gap: 10, borderRadius: 12, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Feather name="shopping-bag" size={18} color={Colors.primary} />
+          <Txt w="bold" style={{ fontSize: 16, flex: 1 }}>{tr(`Plan zakupów: ${best.stores.length} ${best.stores.length < 5 ? 'sklepy' : 'sklepów'}, ${purchaseOrders} ${purchaseOrders === 1 ? 'zamówienie' : purchaseOrders < 5 ? 'zamówienia' : 'zamówień'}`, `Purchase plan: ${best.stores.length} stores, ${purchaseOrders} orders`)}</Txt>
+        </View>
+        <Txt style={{ color: Colors.textSecondary, fontSize: 14, lineHeight: 21 }}>{tr('Każdy sklep rozlicza swoje produkty i dostawę. Pełną listę opakowań oraz dostępne linki do ofert znajdziesz w kartach poniżej.', 'Each store charges for its own products and delivery. Full pack lists and available product links are in the cards below.')}</Txt>
+        {best.stores.map((store, index) => <View key={store.store} style={{ paddingTop: 10, borderTopWidth: 1, borderTopColor: Colors.borderLight, gap: 5 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10 }}>
+            <Txt w="semibold" style={{ fontSize: 15, flex: 1 }}>{index + 1}. {store.store}</Txt>
+            <Txt w="bold" style={{ fontSize: 15 }}>{store.totalGrosze === null ? tr('Do potwierdzenia', 'Pending') : formatGrosze(store.totalGrosze)}</Txt>
+          </View>
+          <Txt style={{ color: Colors.textSecondary, fontSize: 14, lineHeight: 20 }}>{tr('Dostawa', 'Delivery')}: {store.deliveryGrosze === null ? tr('do potwierdzenia', 'pending') : formatGrosze(store.deliveryGrosze)}{(store.quote?.orders?.length ?? 0) > 1 ? tr(` · ${store.quote!.orders!.length} osobne zamówienia`, ` · ${store.quote!.orders!.length} separate orders`) : ''}</Txt>
+          <Txt style={{ fontSize: 14, lineHeight: 20 }}>{store.lines.slice(0, 2).map(line => displayProductName(line.product)).join(' · ')}{store.lines.length > 2 ? tr(` · +${store.lines.length - 2} pozostałych produktów`, ` · +${store.lines.length - 2} more products`) : ''}</Txt>
+        </View>)}
+      </View>}
       <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{mode === 'pickup'
         ? tr('Do sumy nie doliczamy dojazdu. Potwierdź dostępność w wybranych placówkach.', 'Travel is excluded. Confirm availability at the chosen branches.')
         : tr('Ceny brutto produktów i dostaw przy płatności z góry. Przy każdej dostawie pokazujemy podstawę: koszyk dla Twojego kodu lub aktualną taryfę krajową sklepu. Dostępność pełnego adresu potwierdzisz przy zakupie.', 'Gross product and delivery prices with prepayment. Each delivery shows its basis: a basket for your postcode or the current national store tariff. Confirm full address availability when purchasing.')}</Txt>
@@ -176,12 +192,12 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     </View>)}
     {best && <Txt w="semibold">{whereToBuy(best.stores.length)}</Txt>}
     {pendingPlan && <Txt w="semibold">{whereToBuy(pendingPlan.stores.length)}</Txt>}
-    {displayedBasket?.stores.map(store => {
+    {displayedBasket?.stores.map((store, storeIndex) => {
       const packs = store.lines.flatMap(line => line.packages.map(pack => ({ line, pack })));
-      const expanded = openProducts[store.store] ?? (displayedBasket.stores.length === 1 && store.lines.length <= 3);
+      const expanded = openProducts[store.store] ?? Boolean(best && displayedBasket.stores.length <= 2 && store.lines.length <= 3);
       const verifiedPacks = packs.filter(({pack}) => pack.verification);
       return <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
-      <Txt w="bold" style={{ fontSize: 16 }}>{store.store} · {store.totalGrosze === null ? tr(`materiały ${formatGrosze(store.materialsGrosze)}`, `materials ${formatGrosze(store.materialsGrosze)}`) : formatGrosze(store.totalGrosze)}</Txt>
+      <Txt w="bold" style={{ fontSize: 16 }}>{best && best.stores.length > 1 ? `${storeIndex + 1}. ` : ''}{store.store} · {store.totalGrosze === null ? tr(`materiały ${formatGrosze(store.materialsGrosze)}`, `materials ${formatGrosze(store.materialsGrosze)}`) : formatGrosze(store.totalGrosze)}</Txt>
       <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)} · {tr('Dostawa', 'Delivery')}: {store.deliveryGrosze === null ? tr('do potwierdzenia', 'pending') : formatGrosze(store.deliveryGrosze)}</Txt>
       {!!store.quote?.materialsRoundingGrosze && <Txt style={{color:Colors.textSecondary,fontSize:13}}>{tr('Rozliczenie ceny za m² w koszyku sklepu', 'Per-m² rounding in the store cart')}: {store.quote.materialsRoundingGrosze>0?'+':''}{formatGrosze(store.quote.materialsRoundingGrosze)}. {tr('Uwzględnione w materiałach.', 'Included in materials.')}</Txt>}
       {pendingPlan && store.deliveryGrosze === null && <Txt style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{reason(comparison.unavailableStores?.find(item => item.store === store.store)?.reason ?? 'quote_unavailable')}</Txt>}
