@@ -1,0 +1,2666 @@
+{
+  "products": [
+    {
+      "id": 1550,
+      "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+      "slug": "cersanit-deska-carina-zwykla-k98-0068",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/",
+      "sku": "K98-0068",
+      "short_description": "",
+      "description": "<div>\n<h4><b style=\"font-size: 16px\">Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych. </b><b style=\"font-size: 16px\">Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania. </b></h4>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 43,6 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt Prostokątny</b></li>\n<li><b>Materiał: Duroplast</b></li>\n<li><b>Metalowe zawiasy</b></li>\n<li><strong>antybakteryjna</strong></li>\n</ul>\n<p><b>Deska CARINA to świetny wybór dla osób poszukujących estetycznego, a zarazem funkcjonalnego rozwiązania do łazienki. Dzięki właściwościom antybakteryjnym i klasycznemu wzornictwu sprawdzi się zarówno w domach rodzinnych, jak i w mieszkaniach, a także w obiektach użyteczności publicznej, gdzie liczy się trwałość, higiena i łatwość codziennej pielęgnacji.</b></p>\n<p>&nbsp;</p>\n</div>",
+      "on_sale": true,
+      "prices": {
+        "price": "17920",
+        "regular_price": "25200",
+        "sale_price": "17920",
+        "price_range": null,
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": " ",
+        "currency_prefix": "",
+        "currency_suffix": " zł"
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\">252.00&nbsp;<span class=\"woocommerce-Price-currencySymbol\" dir=\"auto\">&#122;&#322;</span></span></del> <span class=\"screen-reader-text\">Pierwotna cena wynosiła: 252.00&nbsp;&#122;&#322;.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\">179.20&nbsp;<span class=\"woocommerce-Price-currencySymbol\" dir=\"auto\">&#122;&#322;</span></span></ins><span class=\"screen-reader-text\">Aktualna cena wynosi: 179.20&nbsp;&#122;&#322;.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 1584,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg",
+          "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w",
+          "sizes": "(max-width: 1900px) 100vw, 1900px",
+          "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "132.jpg",
+          "alt": ""
+        },
+        {
+          "id": 1585,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+          "srcset": "",
+          "sizes": "(max-width: 627px) 100vw, 627px",
+          "thumbnail_srcset": "",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "133.jpg",
+          "alt": ""
+        }
+      ],
+      "categories": [
+        {
+          "id": 2747,
+          "name": "CERSANIT",
+          "slug": "cersanit",
+          "link": "https://patiartstudio.pl/cersanit/"
+        },
+        {
+          "id": 133,
+          "name": "Deski Sedesowe",
+          "slug": "deski-sedesowe",
+          "link": "https://patiartstudio.pl/lazienka/ubikacje-i-toalety/deski-sedesowe/"
+        },
+        {
+          "id": 42,
+          "name": "Ubikacje i Toalety",
+          "slug": "ubikacje-i-toalety",
+          "link": "https://patiartstudio.pl/lazienka/ubikacje-i-toalety/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [
+        {
+          "id": 4,
+          "name": "Producent",
+          "taxonomy": "pa_producent",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 416,
+              "name": "Cersanit",
+              "slug": "cersanit"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "Linia produktowa",
+          "taxonomy": "pa_seria",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 585,
+              "name": "Cersanit Carina",
+              "slug": "cersanit-carina"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Kolor",
+          "taxonomy": "pa_kolor",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 823,
+              "name": "Biały",
+              "slug": "bialy"
+            }
+          ]
+        }
+      ],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": 2,
+      "stock_availability": {
+        "text": "2 w magazynie (może być zamówiony)",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "weight": "2.8",
+      "dimensions": {
+        "length": "36.4",
+        "width": "",
+        "height": ""
+      },
+      "formatted_weight": "2.8 kg",
+      "formatted_dimensions": "36.4 cm",
+      "add_to_cart": {
+        "text": "Dodaj do koszyka",
+        "description": "Dodaj do koszyka: &bdquo;CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068&rdquo;",
+        "url": "/wp-json/wc/store/v1/products/1550?add-to-cart=1550",
+        "single_text": "Dodaj do koszyka",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "is_password_protected": false,
+      "extensions": {
+        "gtm4wp": {
+          "item": {
+            "internal_id": 1550,
+            "item_id": "1550",
+            "item_name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+            "sku": "K98-0068",
+            "price": 179.2,
+            "stocklevel": 2,
+            "stockstatus": "instock",
+            "google_business_vertical": "retail",
+            "item_category": "Deski Sedesowe",
+            "id": "1550"
+          }
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products/1550",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products"
+          }
+        ],
+        "upsells": [
+          {
+            "embeddable": true,
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products?include=1548,2084"
+          }
+        ],
+        "related": [
+          {
+            "embeddable": true,
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products?related=1550&per_page=10"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1549,
+      "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+      "slug": "cersanit-deska-carina-wolnoopadajaca-k98-0069",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/",
+      "sku": "K98-0069",
+      "short_description": "",
+      "description": "<div>\n<h1>DESKA CARINA DUROPLASTOWA, WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><b>Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych.</b></p>\n<p><b> Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania.</b></p>\n<p><b> Deskę dodatkowo wyposażono w funkcję wolnego opadania i łatwego wypinania. </b></p>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 44 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt</b></li>\n<li><b>Prostokątny</b></li>\n<li><b>Łatwe wypinanie</b></li>\n<li><b>Materiał/tworzywo Duroplast</b></li>\n<li><b>Rodzaj zawiasów Z wolnym opadem</b></li>\n</ul>\n</div>",
+      "on_sale": true,
+      "prices": {
+        "price": "26597",
+        "regular_price": "37401",
+        "sale_price": "26597",
+        "price_range": null,
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": " ",
+        "currency_prefix": "",
+        "currency_suffix": " zł"
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\">374.01&nbsp;<span class=\"woocommerce-Price-currencySymbol\" dir=\"auto\">&#122;&#322;</span></span></del> <span class=\"screen-reader-text\">Pierwotna cena wynosiła: 374.01&nbsp;&#122;&#322;.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\">265.97&nbsp;<span class=\"woocommerce-Price-currencySymbol\" dir=\"auto\">&#122;&#322;</span></span></ins><span class=\"screen-reader-text\">Aktualna cena wynosi: 265.97&nbsp;&#122;&#322;.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 1582,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg",
+          "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w",
+          "sizes": "(max-width: 1900px) 100vw, 1900px",
+          "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "130.jpg",
+          "alt": ""
+        },
+        {
+          "id": 1583,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+          "srcset": "",
+          "sizes": "(max-width: 627px) 100vw, 627px",
+          "thumbnail_srcset": "",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "131.jpg",
+          "alt": ""
+        }
+      ],
+      "categories": [
+        {
+          "id": 2747,
+          "name": "CERSANIT",
+          "slug": "cersanit",
+          "link": "https://patiartstudio.pl/cersanit/"
+        },
+        {
+          "id": 138,
+          "name": "Deski Wolnoopadające",
+          "slug": "deski-wolnoopadajace",
+          "link": "https://patiartstudio.pl/lazienka/ubikacje-i-toalety/deski-wolnoopadajace/"
+        },
+        {
+          "id": 42,
+          "name": "Ubikacje i Toalety",
+          "slug": "ubikacje-i-toalety",
+          "link": "https://patiartstudio.pl/lazienka/ubikacje-i-toalety/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [
+        {
+          "id": 4,
+          "name": "Producent",
+          "taxonomy": "pa_producent",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 416,
+              "name": "Cersanit",
+              "slug": "cersanit"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "Linia produktowa",
+          "taxonomy": "pa_seria",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 585,
+              "name": "Cersanit Carina",
+              "slug": "cersanit-carina"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Kolor",
+          "taxonomy": "pa_kolor",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 823,
+              "name": "Biały",
+              "slug": "bialy"
+            }
+          ]
+        }
+      ],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": null,
+      "stock_availability": {
+        "text": "12 w magazynie (może być zamówiony)",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "weight": "2.6",
+      "dimensions": {
+        "length": "44",
+        "width": "34.4",
+        "height": ""
+      },
+      "formatted_weight": "2.6 kg",
+      "formatted_dimensions": "44 × 34.4 cm",
+      "add_to_cart": {
+        "text": "Dodaj do koszyka",
+        "description": "Dodaj do koszyka: &bdquo;CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069&rdquo;",
+        "url": "/wp-json/wc/store/v1/products/1549?add-to-cart=1549",
+        "single_text": "Dodaj do koszyka",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "is_password_protected": false,
+      "extensions": {
+        "gtm4wp": {
+          "item": {
+            "internal_id": 1549,
+            "item_id": "1549",
+            "item_name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+            "sku": "K98-0069",
+            "price": 265.97,
+            "stocklevel": 12,
+            "stockstatus": "instock",
+            "google_business_vertical": "retail",
+            "item_category": "Deski Wolnoopadające",
+            "id": "1549"
+          }
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products/1549",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products"
+          }
+        ],
+        "related": [
+          {
+            "embeddable": true,
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products?related=1549&per_page=10"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3065,
+      "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+      "slug": "cersanit-deska-carina-slim-wolnoopadajaca-k98-0135",
+      "parent": 0,
+      "type": "simple",
+      "variation": "",
+      "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-slim-wolnoopadajaca-k98-0135/",
+      "sku": "K98-0135",
+      "short_description": "",
+      "description": "<div>\n<h1>DESKA CARINA SLIM DUROPLASTOWA WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><strong>Duroplastowa deska CARINA SLIM została wzbogacona jonami srebra o działaniu antybakteryjnym. </strong></p>\n<p><strong>Czoło modelu zostało poddane profilowaniu, dzięki któremu osiągnięto opływowy kształt.</strong></p>\n<p><strong> Deskę wyposażono w metalowe zawiasy, funkcję wolnego opadania i łatwego wypinania. </strong></p>\n</div>\n<div>\n<ul>\n<li><strong>Głębokość 44,7 cm</strong></li>\n<li><strong>Szerokość 35,8 cm</strong></li>\n<li><strong>Kolor Biały</strong></li>\n<li><strong>Kształt Prostokątny</strong></li>\n<li><strong>Łatwe wypinanie Tak</strong></li>\n<li><strong>Materiał/tworzywo Duroplast</strong></li>\n<li><strong>Rodzaj zawiasów z wolnym opadem</strong></li>\n</ul>\n</div>",
+      "on_sale": true,
+      "prices": {
+        "price": "27093",
+        "regular_price": "38100",
+        "sale_price": "27093",
+        "price_range": null,
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": " ",
+        "currency_prefix": "",
+        "currency_suffix": " zł"
+      },
+      "price_html": "<del aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\">381.00&nbsp;<span class=\"woocommerce-Price-currencySymbol\" dir=\"auto\">&#122;&#322;</span></span></del> <span class=\"screen-reader-text\">Pierwotna cena wynosiła: 381.00&nbsp;&#122;&#322;.</span><ins aria-hidden=\"true\"><span class=\"woocommerce-Price-amount amount\">270.93&nbsp;<span class=\"woocommerce-Price-currencySymbol\" dir=\"auto\">&#122;&#322;</span></span></ins><span class=\"screen-reader-text\">Aktualna cena wynosi: 270.93&nbsp;&#122;&#322;.</span>",
+      "average_rating": "0",
+      "review_count": 0,
+      "images": [
+        {
+          "id": 3185,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg",
+          "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w",
+          "sizes": "(max-width: 1291px) 100vw, 1291px",
+          "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "1596.jpg",
+          "alt": ""
+        },
+        {
+          "id": 3186,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg",
+          "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w",
+          "sizes": "(max-width: 1024px) 100vw, 1024px",
+          "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "1597.jpg",
+          "alt": ""
+        },
+        {
+          "id": 3187,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg",
+          "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w",
+          "sizes": "(max-width: 704px) 100vw, 704px",
+          "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "1598.jpg",
+          "alt": ""
+        },
+        {
+          "id": 3188,
+          "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+          "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+          "srcset": "",
+          "sizes": "(max-width: 627px) 100vw, 627px",
+          "thumbnail_srcset": "",
+          "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+          "name": "1599.jpg",
+          "alt": ""
+        }
+      ],
+      "categories": [
+        {
+          "id": 2747,
+          "name": "CERSANIT",
+          "slug": "cersanit",
+          "link": "https://patiartstudio.pl/cersanit/"
+        },
+        {
+          "id": 138,
+          "name": "Deski Wolnoopadające",
+          "slug": "deski-wolnoopadajace",
+          "link": "https://patiartstudio.pl/lazienka/ubikacje-i-toalety/deski-wolnoopadajace/"
+        }
+      ],
+      "tags": [],
+      "brands": [],
+      "attributes": [
+        {
+          "id": 4,
+          "name": "Producent",
+          "taxonomy": "pa_producent",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 416,
+              "name": "Cersanit",
+              "slug": "cersanit"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "Linia produktowa",
+          "taxonomy": "pa_seria",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 585,
+              "name": "Cersanit Carina",
+              "slug": "cersanit-carina"
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "Szerokość",
+          "taxonomy": "pa_szerokosc",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 1470,
+              "name": "36 cm",
+              "slug": "36-cm"
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "name": "Długość",
+          "taxonomy": "pa_dlugosc",
+          "has_variations": true,
+          "terms": []
+        },
+        {
+          "id": 5,
+          "name": "Kolor",
+          "taxonomy": "pa_kolor",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": 823,
+              "name": "Biały",
+              "slug": "bialy"
+            }
+          ]
+        }
+      ],
+      "variations": [],
+      "grouped_products": [],
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "low_stock_remaining": 1,
+      "stock_availability": {
+        "text": "1 w magazynie (może być zamówiony)",
+        "class": "in-stock"
+      },
+      "sold_individually": false,
+      "weight": "3.2",
+      "dimensions": {
+        "length": "",
+        "width": "35.8",
+        "height": ""
+      },
+      "formatted_weight": "3.2 kg",
+      "formatted_dimensions": "35.8 cm",
+      "add_to_cart": {
+        "text": "Dodaj do koszyka",
+        "description": "Dodaj do koszyka: &bdquo;CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135&rdquo;",
+        "url": "/wp-json/wc/store/v1/products/3065?add-to-cart=3065",
+        "single_text": "Dodaj do koszyka",
+        "minimum": 1,
+        "maximum": 9999,
+        "multiple_of": 1
+      },
+      "is_password_protected": false,
+      "extensions": {
+        "gtm4wp": {
+          "item": {
+            "internal_id": 3065,
+            "item_id": "3065",
+            "item_name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+            "sku": "K98-0135",
+            "price": 270.93,
+            "stocklevel": 1,
+            "stockstatus": "instock",
+            "google_business_vertical": "retail",
+            "item_category": "Deski Wolnoopadające",
+            "id": "3065"
+          }
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products/3065",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products"
+          }
+        ],
+        "related": [
+          {
+            "embeddable": true,
+            "href": "https://patiartstudio.pl/wp-json/wc/store/v1/products?related=3065&per_page=10"
+          }
+        ]
+      }
+    }
+  ],
+  "empty": {
+    "items": [],
+    "coupons": [],
+    "fees": [],
+    "totals": {
+      "total_items": "0",
+      "total_items_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_shipping": null,
+      "total_shipping_tax": null,
+      "total_price": "0",
+      "total_tax": "0",
+      "tax_lines": [],
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "currency_minor_unit": 2,
+      "currency_decimal_separator": ".",
+      "currency_thousand_separator": " ",
+      "currency_prefix": "",
+      "currency_suffix": " zł"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "phone": ""
+    },
+    "billing_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "email": "",
+      "phone": ""
+    },
+    "needs_payment": false,
+    "needs_shipping": false,
+    "payment_requirements": [
+      "products"
+    ],
+    "has_calculated_shipping": false,
+    "shipping_rates": [],
+    "items_count": 0,
+    "items_weight": 0,
+    "cross_sells": [],
+    "errors": [],
+    "payment_methods": [
+      "p24-online-payments",
+      "bacs",
+      "cod",
+      "p24-card"
+    ],
+    "extensions": {
+      "flexible-shipping-free-shipping-notice-block-integration": {
+        "page_type": "other"
+      }
+    }
+  },
+  "added": [
+    {
+      "items": [
+        {
+          "key": "6b8eba43551742214453411664a0dcc8",
+          "id": 1550,
+          "type": "simple",
+          "quantity": 1,
+          "quantity_limits": {
+            "minimum": 1,
+            "maximum": 9999,
+            "multiple_of": 1,
+            "editable": true
+          },
+          "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+          "short_description": "",
+          "description": "<div>\n<h4><b style=\"font-size: 16px\">Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych. </b><b style=\"font-size: 16px\">Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania. </b></h4>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 43,6 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt Prostokątny</b></li>\n<li><b>Materiał: Duroplast</b></li>\n<li><b>Metalowe zawiasy</b></li>\n<li><strong>antybakteryjna</strong></li>\n</ul>\n<p><b>Deska CARINA to świetny wybór dla osób poszukujących estetycznego, a zarazem funkcjonalnego rozwiązania do łazienki. Dzięki właściwościom antybakteryjnym i klasycznemu wzornictwu sprawdzi się zarówno w domach rodzinnych, jak i w mieszkaniach, a także w obiektach użyteczności publicznej, gdzie liczy się trwałość, higiena i łatwość codziennej pielęgnacji.</b></p>\n<p>&nbsp;</p>\n</div>",
+          "sku": "K98-0068",
+          "low_stock_remaining": 2,
+          "backorders_allowed": true,
+          "show_backorder_badge": false,
+          "sold_individually": false,
+          "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/",
+          "images": [
+            {
+              "id": 1584,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w",
+              "sizes": "(max-width: 1900px) 100vw, 1900px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "132.jpg",
+              "alt": ""
+            },
+            {
+              "id": 1585,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+              "srcset": "",
+              "sizes": "(max-width: 627px) 100vw, 627px",
+              "thumbnail_srcset": "",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "133.jpg",
+              "alt": ""
+            }
+          ],
+          "variation": [],
+          "item_data": [],
+          "prices": {
+            "price": "17920",
+            "regular_price": "25200",
+            "sale_price": "17920",
+            "price_range": null,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł",
+            "raw_prices": {
+              "precision": 6,
+              "price": "179200000",
+              "regular_price": "252000000",
+              "sale_price": "179200000"
+            }
+          },
+          "totals": {
+            "line_subtotal": "17920",
+            "line_subtotal_tax": "0",
+            "line_total": "17920",
+            "line_total_tax": "0",
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          "catalog_visibility": "visible",
+          "extensions": {
+            "gtm4wp": {
+              "item": "{\"internal_id\":1550,\"item_id\":\"1550\",\"item_name\":\"CERSANIT CARINA DESKA DUROPLASTOWA BIA\\u0141A K98-0068\",\"sku\":\"K98-0068\",\"price\":179.2,\"stocklevel\":2,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Sedesowe\",\"id\":\"1550\",\"quantity\":1}"
+            }
+          }
+        }
+      ],
+      "coupons": [],
+      "fees": [],
+      "totals": {
+        "total_items": "17920",
+        "total_items_tax": "0",
+        "total_fees": "0",
+        "total_fees_tax": "0",
+        "total_discount": "0",
+        "total_discount_tax": "0",
+        "total_shipping": "2500",
+        "total_shipping_tax": "0",
+        "total_price": "20420",
+        "total_tax": "0",
+        "tax_lines": [],
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": " ",
+        "currency_prefix": "",
+        "currency_suffix": " zł"
+      },
+      "shipping_address": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "state": "",
+        "postcode": "",
+        "country": "PL",
+        "phone": ""
+      },
+      "billing_address": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "state": "",
+        "postcode": "",
+        "country": "PL",
+        "email": "",
+        "phone": ""
+      },
+      "needs_payment": true,
+      "needs_shipping": true,
+      "payment_requirements": [
+        "products"
+      ],
+      "has_calculated_shipping": true,
+      "shipping_rates": [
+        {
+          "package_id": 0,
+          "name": "Przesyłka",
+          "destination": {
+            "address_1": "",
+            "address_2": "",
+            "city": "",
+            "state": "",
+            "postcode": "",
+            "country": "PL"
+          },
+          "items": [
+            {
+              "key": "6b8eba43551742214453411664a0dcc8",
+              "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+              "quantity": 1
+            }
+          ],
+          "shipping_rates": [
+            {
+              "rate_id": "flexible_shipping_single:7",
+              "name": "Kurier",
+              "description": "",
+              "delivery_time": "",
+              "price": "2500",
+              "taxes": "0",
+              "instance_id": 7,
+              "method_id": "flexible_shipping_single",
+              "meta_data": [
+                {
+                  "key": "description",
+                  "value": ""
+                },
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1"
+                }
+              ],
+              "selected": true,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            },
+            {
+              "rate_id": "flexible_shipping_single:8",
+              "name": "Kurier za pobraniem",
+              "description": "",
+              "delivery_time": "",
+              "price": "3500",
+              "taxes": "0",
+              "instance_id": 8,
+              "method_id": "flexible_shipping_single",
+              "meta_data": [
+                {
+                  "key": "description",
+                  "value": ""
+                },
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1"
+                }
+              ],
+              "selected": false,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            },
+            {
+              "rate_id": "local_pickup:21",
+              "name": "Odbiór osobisty",
+              "description": "",
+              "delivery_time": "",
+              "price": "0",
+              "taxes": "0",
+              "instance_id": 21,
+              "method_id": "local_pickup",
+              "meta_data": [
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1"
+                }
+              ],
+              "selected": false,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            }
+          ]
+        }
+      ],
+      "items_count": 1,
+      "items_weight": 2800,
+      "cross_sells": [],
+      "errors": [],
+      "payment_methods": [
+        "p24-online-payments",
+        "bacs",
+        "p24-card"
+      ],
+      "extensions": {
+        "flexible-shipping-free-shipping-notice-block-integration": {
+          "page_type": "other"
+        }
+      }
+    },
+    {
+      "items": [
+        {
+          "key": "6b8eba43551742214453411664a0dcc8",
+          "id": 1550,
+          "type": "simple",
+          "quantity": 1,
+          "quantity_limits": {
+            "minimum": 1,
+            "maximum": 9999,
+            "multiple_of": 1,
+            "editable": true
+          },
+          "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+          "short_description": "",
+          "description": "<div>\n<h4><b style=\"font-size: 16px\">Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych. </b><b style=\"font-size: 16px\">Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania. </b></h4>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 43,6 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt Prostokątny</b></li>\n<li><b>Materiał: Duroplast</b></li>\n<li><b>Metalowe zawiasy</b></li>\n<li><strong>antybakteryjna</strong></li>\n</ul>\n<p><b>Deska CARINA to świetny wybór dla osób poszukujących estetycznego, a zarazem funkcjonalnego rozwiązania do łazienki. Dzięki właściwościom antybakteryjnym i klasycznemu wzornictwu sprawdzi się zarówno w domach rodzinnych, jak i w mieszkaniach, a także w obiektach użyteczności publicznej, gdzie liczy się trwałość, higiena i łatwość codziennej pielęgnacji.</b></p>\n<p>&nbsp;</p>\n</div>",
+          "sku": "K98-0068",
+          "low_stock_remaining": 2,
+          "backorders_allowed": true,
+          "show_backorder_badge": false,
+          "sold_individually": false,
+          "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/",
+          "images": [
+            {
+              "id": 1584,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w",
+              "sizes": "(max-width: 1900px) 100vw, 1900px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "132.jpg",
+              "alt": ""
+            },
+            {
+              "id": 1585,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+              "srcset": "",
+              "sizes": "(max-width: 627px) 100vw, 627px",
+              "thumbnail_srcset": "",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "133.jpg",
+              "alt": ""
+            }
+          ],
+          "variation": [],
+          "item_data": [],
+          "prices": {
+            "price": "17920",
+            "regular_price": "25200",
+            "sale_price": "17920",
+            "price_range": null,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł",
+            "raw_prices": {
+              "precision": 6,
+              "price": "179200000",
+              "regular_price": "252000000",
+              "sale_price": "179200000"
+            }
+          },
+          "totals": {
+            "line_subtotal": "17920",
+            "line_subtotal_tax": "0",
+            "line_total": "17920",
+            "line_total_tax": "0",
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          "catalog_visibility": "visible",
+          "extensions": {
+            "gtm4wp": {
+              "item": "{\"internal_id\":1550,\"item_id\":\"1550\",\"item_name\":\"CERSANIT CARINA DESKA DUROPLASTOWA BIA\\u0141A K98-0068\",\"sku\":\"K98-0068\",\"price\":179.2,\"stocklevel\":2,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Sedesowe\",\"id\":\"1550\",\"quantity\":1}"
+            }
+          }
+        },
+        {
+          "key": "c88d8d0a6097754525e02c2246d8d27f",
+          "id": 1549,
+          "type": "simple",
+          "quantity": 1,
+          "quantity_limits": {
+            "minimum": 1,
+            "maximum": 9999,
+            "multiple_of": 1,
+            "editable": true
+          },
+          "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+          "short_description": "",
+          "description": "<div>\n<h1>DESKA CARINA DUROPLASTOWA, WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><b>Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych.</b></p>\n<p><b> Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania.</b></p>\n<p><b> Deskę dodatkowo wyposażono w funkcję wolnego opadania i łatwego wypinania. </b></p>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 44 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt</b></li>\n<li><b>Prostokątny</b></li>\n<li><b>Łatwe wypinanie</b></li>\n<li><b>Materiał/tworzywo Duroplast</b></li>\n<li><b>Rodzaj zawiasów Z wolnym opadem</b></li>\n</ul>\n</div>",
+          "sku": "K98-0069",
+          "low_stock_remaining": null,
+          "backorders_allowed": true,
+          "show_backorder_badge": false,
+          "sold_individually": false,
+          "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/",
+          "images": [
+            {
+              "id": 1582,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w",
+              "sizes": "(max-width: 1900px) 100vw, 1900px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "130.jpg",
+              "alt": ""
+            },
+            {
+              "id": 1583,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+              "srcset": "",
+              "sizes": "(max-width: 627px) 100vw, 627px",
+              "thumbnail_srcset": "",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "131.jpg",
+              "alt": ""
+            }
+          ],
+          "variation": [],
+          "item_data": [],
+          "prices": {
+            "price": "26597",
+            "regular_price": "37401",
+            "sale_price": "26597",
+            "price_range": null,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł",
+            "raw_prices": {
+              "precision": 6,
+              "price": "265970000",
+              "regular_price": "374010000",
+              "sale_price": "265970000"
+            }
+          },
+          "totals": {
+            "line_subtotal": "26597",
+            "line_subtotal_tax": "0",
+            "line_total": "26597",
+            "line_total_tax": "0",
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          "catalog_visibility": "visible",
+          "extensions": {
+            "gtm4wp": {
+              "item": "{\"internal_id\":1549,\"item_id\":\"1549\",\"item_name\":\"CERSANIT CARINA DESKA WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0069\",\"sku\":\"K98-0069\",\"price\":265.97,\"stocklevel\":12,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"1549\",\"quantity\":1}"
+            }
+          }
+        }
+      ],
+      "coupons": [],
+      "fees": [],
+      "totals": {
+        "total_items": "44517",
+        "total_items_tax": "0",
+        "total_fees": "0",
+        "total_fees_tax": "0",
+        "total_discount": "0",
+        "total_discount_tax": "0",
+        "total_shipping": "2500",
+        "total_shipping_tax": "0",
+        "total_price": "47017",
+        "total_tax": "0",
+        "tax_lines": [],
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": " ",
+        "currency_prefix": "",
+        "currency_suffix": " zł"
+      },
+      "shipping_address": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "state": "",
+        "postcode": "",
+        "country": "PL",
+        "phone": ""
+      },
+      "billing_address": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "state": "",
+        "postcode": "",
+        "country": "PL",
+        "email": "",
+        "phone": ""
+      },
+      "needs_payment": true,
+      "needs_shipping": true,
+      "payment_requirements": [
+        "products"
+      ],
+      "has_calculated_shipping": true,
+      "shipping_rates": [
+        {
+          "package_id": 0,
+          "name": "Przesyłka",
+          "destination": {
+            "address_1": "",
+            "address_2": "",
+            "city": "",
+            "state": "",
+            "postcode": "",
+            "country": "PL"
+          },
+          "items": [
+            {
+              "key": "6b8eba43551742214453411664a0dcc8",
+              "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+              "quantity": 1
+            },
+            {
+              "key": "c88d8d0a6097754525e02c2246d8d27f",
+              "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+              "quantity": 1
+            }
+          ],
+          "shipping_rates": [
+            {
+              "rate_id": "flexible_shipping_single:7",
+              "name": "Kurier",
+              "description": "",
+              "delivery_time": "",
+              "price": "2500",
+              "taxes": "0",
+              "instance_id": 7,
+              "method_id": "flexible_shipping_single",
+              "meta_data": [
+                {
+                  "key": "description",
+                  "value": ""
+                },
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1"
+                }
+              ],
+              "selected": true,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            },
+            {
+              "rate_id": "flexible_shipping_single:8",
+              "name": "Kurier za pobraniem",
+              "description": "",
+              "delivery_time": "",
+              "price": "3500",
+              "taxes": "0",
+              "instance_id": 8,
+              "method_id": "flexible_shipping_single",
+              "meta_data": [
+                {
+                  "key": "description",
+                  "value": ""
+                },
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1"
+                }
+              ],
+              "selected": false,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            },
+            {
+              "rate_id": "local_pickup:21",
+              "name": "Odbiór osobisty",
+              "description": "",
+              "delivery_time": "",
+              "price": "0",
+              "taxes": "0",
+              "instance_id": 21,
+              "method_id": "local_pickup",
+              "meta_data": [
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1"
+                }
+              ],
+              "selected": false,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            }
+          ]
+        }
+      ],
+      "items_count": 2,
+      "items_weight": 5400,
+      "cross_sells": [],
+      "errors": [],
+      "payment_methods": [
+        "p24-online-payments",
+        "bacs",
+        "p24-card"
+      ],
+      "extensions": {
+        "flexible-shipping-free-shipping-notice-block-integration": {
+          "page_type": "other"
+        }
+      }
+    },
+    {
+      "items": [
+        {
+          "key": "6b8eba43551742214453411664a0dcc8",
+          "id": 1550,
+          "type": "simple",
+          "quantity": 1,
+          "quantity_limits": {
+            "minimum": 1,
+            "maximum": 9999,
+            "multiple_of": 1,
+            "editable": true
+          },
+          "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+          "short_description": "",
+          "description": "<div>\n<h4><b style=\"font-size: 16px\">Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych. </b><b style=\"font-size: 16px\">Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania. </b></h4>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 43,6 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt Prostokątny</b></li>\n<li><b>Materiał: Duroplast</b></li>\n<li><b>Metalowe zawiasy</b></li>\n<li><strong>antybakteryjna</strong></li>\n</ul>\n<p><b>Deska CARINA to świetny wybór dla osób poszukujących estetycznego, a zarazem funkcjonalnego rozwiązania do łazienki. Dzięki właściwościom antybakteryjnym i klasycznemu wzornictwu sprawdzi się zarówno w domach rodzinnych, jak i w mieszkaniach, a także w obiektach użyteczności publicznej, gdzie liczy się trwałość, higiena i łatwość codziennej pielęgnacji.</b></p>\n<p>&nbsp;</p>\n</div>",
+          "sku": "K98-0068",
+          "low_stock_remaining": 2,
+          "backorders_allowed": true,
+          "show_backorder_badge": false,
+          "sold_individually": false,
+          "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/",
+          "images": [
+            {
+              "id": 1584,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w",
+              "sizes": "(max-width: 1900px) 100vw, 1900px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "132.jpg",
+              "alt": ""
+            },
+            {
+              "id": 1585,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+              "srcset": "",
+              "sizes": "(max-width: 627px) 100vw, 627px",
+              "thumbnail_srcset": "",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "133.jpg",
+              "alt": ""
+            }
+          ],
+          "variation": [],
+          "item_data": [],
+          "prices": {
+            "price": "17920",
+            "regular_price": "25200",
+            "sale_price": "17920",
+            "price_range": null,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł",
+            "raw_prices": {
+              "precision": 6,
+              "price": "179200000",
+              "regular_price": "252000000",
+              "sale_price": "179200000"
+            }
+          },
+          "totals": {
+            "line_subtotal": "17920",
+            "line_subtotal_tax": "0",
+            "line_total": "17920",
+            "line_total_tax": "0",
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          "catalog_visibility": "visible",
+          "extensions": {
+            "gtm4wp": {
+              "item": "{\"internal_id\":1550,\"item_id\":\"1550\",\"item_name\":\"CERSANIT CARINA DESKA DUROPLASTOWA BIA\\u0141A K98-0068\",\"sku\":\"K98-0068\",\"price\":179.2,\"stocklevel\":2,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Sedesowe\",\"id\":\"1550\",\"quantity\":1}"
+            }
+          }
+        },
+        {
+          "key": "c88d8d0a6097754525e02c2246d8d27f",
+          "id": 1549,
+          "type": "simple",
+          "quantity": 1,
+          "quantity_limits": {
+            "minimum": 1,
+            "maximum": 9999,
+            "multiple_of": 1,
+            "editable": true
+          },
+          "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+          "short_description": "",
+          "description": "<div>\n<h1>DESKA CARINA DUROPLASTOWA, WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><b>Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych.</b></p>\n<p><b> Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania.</b></p>\n<p><b> Deskę dodatkowo wyposażono w funkcję wolnego opadania i łatwego wypinania. </b></p>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 44 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt</b></li>\n<li><b>Prostokątny</b></li>\n<li><b>Łatwe wypinanie</b></li>\n<li><b>Materiał/tworzywo Duroplast</b></li>\n<li><b>Rodzaj zawiasów Z wolnym opadem</b></li>\n</ul>\n</div>",
+          "sku": "K98-0069",
+          "low_stock_remaining": null,
+          "backorders_allowed": true,
+          "show_backorder_badge": false,
+          "sold_individually": false,
+          "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/",
+          "images": [
+            {
+              "id": 1582,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w",
+              "sizes": "(max-width: 1900px) 100vw, 1900px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "130.jpg",
+              "alt": ""
+            },
+            {
+              "id": 1583,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+              "srcset": "",
+              "sizes": "(max-width: 627px) 100vw, 627px",
+              "thumbnail_srcset": "",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "131.jpg",
+              "alt": ""
+            }
+          ],
+          "variation": [],
+          "item_data": [],
+          "prices": {
+            "price": "26597",
+            "regular_price": "37401",
+            "sale_price": "26597",
+            "price_range": null,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł",
+            "raw_prices": {
+              "precision": 6,
+              "price": "265970000",
+              "regular_price": "374010000",
+              "sale_price": "265970000"
+            }
+          },
+          "totals": {
+            "line_subtotal": "26597",
+            "line_subtotal_tax": "0",
+            "line_total": "26597",
+            "line_total_tax": "0",
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          "catalog_visibility": "visible",
+          "extensions": {
+            "gtm4wp": {
+              "item": "{\"internal_id\":1549,\"item_id\":\"1549\",\"item_name\":\"CERSANIT CARINA DESKA WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0069\",\"sku\":\"K98-0069\",\"price\":265.97,\"stocklevel\":12,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"1549\",\"quantity\":1}"
+            }
+          }
+        },
+        {
+          "key": "6fec24eac8f18ed793f5eaad3dd7977c",
+          "id": 3065,
+          "type": "simple",
+          "quantity": 1,
+          "quantity_limits": {
+            "minimum": 1,
+            "maximum": 9999,
+            "multiple_of": 1,
+            "editable": true
+          },
+          "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+          "short_description": "",
+          "description": "<div>\n<h1>DESKA CARINA SLIM DUROPLASTOWA WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><strong>Duroplastowa deska CARINA SLIM została wzbogacona jonami srebra o działaniu antybakteryjnym. </strong></p>\n<p><strong>Czoło modelu zostało poddane profilowaniu, dzięki któremu osiągnięto opływowy kształt.</strong></p>\n<p><strong> Deskę wyposażono w metalowe zawiasy, funkcję wolnego opadania i łatwego wypinania. </strong></p>\n</div>\n<div>\n<ul>\n<li><strong>Głębokość 44,7 cm</strong></li>\n<li><strong>Szerokość 35,8 cm</strong></li>\n<li><strong>Kolor Biały</strong></li>\n<li><strong>Kształt Prostokątny</strong></li>\n<li><strong>Łatwe wypinanie Tak</strong></li>\n<li><strong>Materiał/tworzywo Duroplast</strong></li>\n<li><strong>Rodzaj zawiasów z wolnym opadem</strong></li>\n</ul>\n</div>",
+          "sku": "K98-0135",
+          "low_stock_remaining": 1,
+          "backorders_allowed": true,
+          "show_backorder_badge": false,
+          "sold_individually": false,
+          "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-slim-wolnoopadajaca-k98-0135/",
+          "images": [
+            {
+              "id": 3185,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w",
+              "sizes": "(max-width: 1291px) 100vw, 1291px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "1596.jpg",
+              "alt": ""
+            },
+            {
+              "id": 3186,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w",
+              "sizes": "(max-width: 1024px) 100vw, 1024px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "1597.jpg",
+              "alt": ""
+            },
+            {
+              "id": 3187,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg",
+              "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w",
+              "sizes": "(max-width: 704px) 100vw, 704px",
+              "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "1598.jpg",
+              "alt": ""
+            },
+            {
+              "id": 3188,
+              "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+              "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+              "srcset": "",
+              "sizes": "(max-width: 627px) 100vw, 627px",
+              "thumbnail_srcset": "",
+              "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+              "name": "1599.jpg",
+              "alt": ""
+            }
+          ],
+          "variation": [],
+          "item_data": [],
+          "prices": {
+            "price": "27093",
+            "regular_price": "38100",
+            "sale_price": "27093",
+            "price_range": null,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł",
+            "raw_prices": {
+              "precision": 6,
+              "price": "270930000",
+              "regular_price": "381000000",
+              "sale_price": "270930000"
+            }
+          },
+          "totals": {
+            "line_subtotal": "27093",
+            "line_subtotal_tax": "0",
+            "line_total": "27093",
+            "line_total_tax": "0",
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          "catalog_visibility": "visible",
+          "extensions": {
+            "gtm4wp": {
+              "item": "{\"internal_id\":3065,\"item_id\":\"3065\",\"item_name\":\"CERSANIT CARINA DESKA SLIM WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0135\",\"sku\":\"K98-0135\",\"price\":270.93,\"stocklevel\":1,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"3065\",\"quantity\":1}"
+            }
+          }
+        }
+      ],
+      "coupons": [],
+      "fees": [],
+      "totals": {
+        "total_items": "71610",
+        "total_items_tax": "0",
+        "total_fees": "0",
+        "total_fees_tax": "0",
+        "total_discount": "0",
+        "total_discount_tax": "0",
+        "total_shipping": "2500",
+        "total_shipping_tax": "0",
+        "total_price": "74110",
+        "total_tax": "0",
+        "tax_lines": [],
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": " ",
+        "currency_prefix": "",
+        "currency_suffix": " zł"
+      },
+      "shipping_address": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "state": "",
+        "postcode": "",
+        "country": "PL",
+        "phone": ""
+      },
+      "billing_address": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "state": "",
+        "postcode": "",
+        "country": "PL",
+        "email": "",
+        "phone": ""
+      },
+      "needs_payment": true,
+      "needs_shipping": true,
+      "payment_requirements": [
+        "products"
+      ],
+      "has_calculated_shipping": true,
+      "shipping_rates": [
+        {
+          "package_id": 0,
+          "name": "Przesyłka",
+          "destination": {
+            "address_1": "",
+            "address_2": "",
+            "city": "",
+            "state": "",
+            "postcode": "",
+            "country": "PL"
+          },
+          "items": [
+            {
+              "key": "6b8eba43551742214453411664a0dcc8",
+              "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+              "quantity": 1
+            },
+            {
+              "key": "c88d8d0a6097754525e02c2246d8d27f",
+              "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+              "quantity": 1
+            },
+            {
+              "key": "6fec24eac8f18ed793f5eaad3dd7977c",
+              "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+              "quantity": 1
+            }
+          ],
+          "shipping_rates": [
+            {
+              "rate_id": "flexible_shipping_single:7",
+              "name": "Kurier",
+              "description": "",
+              "delivery_time": "",
+              "price": "2500",
+              "taxes": "0",
+              "instance_id": 7,
+              "method_id": "flexible_shipping_single",
+              "meta_data": [
+                {
+                  "key": "description",
+                  "value": ""
+                },
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+                }
+              ],
+              "selected": true,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            },
+            {
+              "rate_id": "flexible_shipping_single:8",
+              "name": "Kurier za pobraniem",
+              "description": "",
+              "delivery_time": "",
+              "price": "3500",
+              "taxes": "0",
+              "instance_id": 8,
+              "method_id": "flexible_shipping_single",
+              "meta_data": [
+                {
+                  "key": "description",
+                  "value": ""
+                },
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+                }
+              ],
+              "selected": false,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            },
+            {
+              "rate_id": "local_pickup:21",
+              "name": "Odbiór osobisty",
+              "description": "",
+              "delivery_time": "",
+              "price": "0",
+              "taxes": "0",
+              "instance_id": 21,
+              "method_id": "local_pickup",
+              "meta_data": [
+                {
+                  "key": "Elementy",
+                  "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+                }
+              ],
+              "selected": false,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": " ",
+              "currency_prefix": "",
+              "currency_suffix": " zł"
+            }
+          ]
+        }
+      ],
+      "items_count": 3,
+      "items_weight": 8600.000000000002,
+      "cross_sells": [],
+      "errors": [],
+      "payment_methods": [
+        "p24-online-payments",
+        "bacs",
+        "p24-card"
+      ],
+      "extensions": {
+        "flexible-shipping-free-shipping-notice-block-integration": {
+          "page_type": "other"
+        }
+      }
+    }
+  ],
+  "located": {
+    "items": [
+      {
+        "key": "6b8eba43551742214453411664a0dcc8",
+        "id": 1550,
+        "type": "simple",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 9999,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+        "short_description": "",
+        "description": "<div>\n<h4><b style=\"font-size: 16px\">Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych. </b><b style=\"font-size: 16px\">Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania. </b></h4>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 43,6 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt Prostokątny</b></li>\n<li><b>Materiał: Duroplast</b></li>\n<li><b>Metalowe zawiasy</b></li>\n<li><strong>antybakteryjna</strong></li>\n</ul>\n<p><b>Deska CARINA to świetny wybór dla osób poszukujących estetycznego, a zarazem funkcjonalnego rozwiązania do łazienki. Dzięki właściwościom antybakteryjnym i klasycznemu wzornictwu sprawdzi się zarówno w domach rodzinnych, jak i w mieszkaniach, a także w obiektach użyteczności publicznej, gdzie liczy się trwałość, higiena i łatwość codziennej pielęgnacji.</b></p>\n<p>&nbsp;</p>\n</div>",
+        "sku": "K98-0068",
+        "low_stock_remaining": 2,
+        "backorders_allowed": true,
+        "show_backorder_badge": false,
+        "sold_individually": false,
+        "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/",
+        "images": [
+          {
+            "id": 1584,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w",
+            "sizes": "(max-width: 1900px) 100vw, 1900px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "132.jpg",
+            "alt": ""
+          },
+          {
+            "id": 1585,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+            "srcset": "",
+            "sizes": "(max-width: 627px) 100vw, 627px",
+            "thumbnail_srcset": "",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "133.jpg",
+            "alt": ""
+          }
+        ],
+        "variation": [],
+        "item_data": [],
+        "prices": {
+          "price": "17920",
+          "regular_price": "25200",
+          "sale_price": "17920",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "179200000",
+            "regular_price": "252000000",
+            "sale_price": "179200000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "17920",
+          "line_subtotal_tax": "0",
+          "line_total": "17920",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł"
+        },
+        "catalog_visibility": "visible",
+        "extensions": {
+          "gtm4wp": {
+            "item": "{\"internal_id\":1550,\"item_id\":\"1550\",\"item_name\":\"CERSANIT CARINA DESKA DUROPLASTOWA BIA\\u0141A K98-0068\",\"sku\":\"K98-0068\",\"price\":179.2,\"stocklevel\":2,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Sedesowe\",\"id\":\"1550\",\"quantity\":1}"
+          }
+        }
+      },
+      {
+        "key": "c88d8d0a6097754525e02c2246d8d27f",
+        "id": 1549,
+        "type": "simple",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 9999,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+        "short_description": "",
+        "description": "<div>\n<h1>DESKA CARINA DUROPLASTOWA, WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><b>Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych.</b></p>\n<p><b> Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania.</b></p>\n<p><b> Deskę dodatkowo wyposażono w funkcję wolnego opadania i łatwego wypinania. </b></p>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 44 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt</b></li>\n<li><b>Prostokątny</b></li>\n<li><b>Łatwe wypinanie</b></li>\n<li><b>Materiał/tworzywo Duroplast</b></li>\n<li><b>Rodzaj zawiasów Z wolnym opadem</b></li>\n</ul>\n</div>",
+        "sku": "K98-0069",
+        "low_stock_remaining": null,
+        "backorders_allowed": true,
+        "show_backorder_badge": false,
+        "sold_individually": false,
+        "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/",
+        "images": [
+          {
+            "id": 1582,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w",
+            "sizes": "(max-width: 1900px) 100vw, 1900px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "130.jpg",
+            "alt": ""
+          },
+          {
+            "id": 1583,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+            "srcset": "",
+            "sizes": "(max-width: 627px) 100vw, 627px",
+            "thumbnail_srcset": "",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "131.jpg",
+            "alt": ""
+          }
+        ],
+        "variation": [],
+        "item_data": [],
+        "prices": {
+          "price": "26597",
+          "regular_price": "37401",
+          "sale_price": "26597",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "265970000",
+            "regular_price": "374010000",
+            "sale_price": "265970000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "26597",
+          "line_subtotal_tax": "0",
+          "line_total": "26597",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł"
+        },
+        "catalog_visibility": "visible",
+        "extensions": {
+          "gtm4wp": {
+            "item": "{\"internal_id\":1549,\"item_id\":\"1549\",\"item_name\":\"CERSANIT CARINA DESKA WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0069\",\"sku\":\"K98-0069\",\"price\":265.97,\"stocklevel\":12,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"1549\",\"quantity\":1}"
+          }
+        }
+      },
+      {
+        "key": "6fec24eac8f18ed793f5eaad3dd7977c",
+        "id": 3065,
+        "type": "simple",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 9999,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+        "short_description": "",
+        "description": "<div>\n<h1>DESKA CARINA SLIM DUROPLASTOWA WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><strong>Duroplastowa deska CARINA SLIM została wzbogacona jonami srebra o działaniu antybakteryjnym. </strong></p>\n<p><strong>Czoło modelu zostało poddane profilowaniu, dzięki któremu osiągnięto opływowy kształt.</strong></p>\n<p><strong> Deskę wyposażono w metalowe zawiasy, funkcję wolnego opadania i łatwego wypinania. </strong></p>\n</div>\n<div>\n<ul>\n<li><strong>Głębokość 44,7 cm</strong></li>\n<li><strong>Szerokość 35,8 cm</strong></li>\n<li><strong>Kolor Biały</strong></li>\n<li><strong>Kształt Prostokątny</strong></li>\n<li><strong>Łatwe wypinanie Tak</strong></li>\n<li><strong>Materiał/tworzywo Duroplast</strong></li>\n<li><strong>Rodzaj zawiasów z wolnym opadem</strong></li>\n</ul>\n</div>",
+        "sku": "K98-0135",
+        "low_stock_remaining": 1,
+        "backorders_allowed": true,
+        "show_backorder_badge": false,
+        "sold_individually": false,
+        "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-slim-wolnoopadajaca-k98-0135/",
+        "images": [
+          {
+            "id": 3185,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w",
+            "sizes": "(max-width: 1291px) 100vw, 1291px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1596.jpg",
+            "alt": ""
+          },
+          {
+            "id": 3186,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w",
+            "sizes": "(max-width: 1024px) 100vw, 1024px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1597.jpg",
+            "alt": ""
+          },
+          {
+            "id": 3187,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w",
+            "sizes": "(max-width: 704px) 100vw, 704px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1598.jpg",
+            "alt": ""
+          },
+          {
+            "id": 3188,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+            "srcset": "",
+            "sizes": "(max-width: 627px) 100vw, 627px",
+            "thumbnail_srcset": "",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1599.jpg",
+            "alt": ""
+          }
+        ],
+        "variation": [],
+        "item_data": [],
+        "prices": {
+          "price": "27093",
+          "regular_price": "38100",
+          "sale_price": "27093",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "270930000",
+            "regular_price": "381000000",
+            "sale_price": "270930000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "27093",
+          "line_subtotal_tax": "0",
+          "line_total": "27093",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł"
+        },
+        "catalog_visibility": "visible",
+        "extensions": {
+          "gtm4wp": {
+            "item": "{\"internal_id\":3065,\"item_id\":\"3065\",\"item_name\":\"CERSANIT CARINA DESKA SLIM WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0135\",\"sku\":\"K98-0135\",\"price\":270.93,\"stocklevel\":1,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"3065\",\"quantity\":1}"
+          }
+        }
+      }
+    ],
+    "coupons": [],
+    "fees": [],
+    "totals": {
+      "total_items": "71610",
+      "total_items_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_shipping": "2500",
+      "total_shipping_tax": "0",
+      "total_price": "74110",
+      "total_tax": "0",
+      "tax_lines": [],
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "currency_minor_unit": 2,
+      "currency_decimal_separator": ".",
+      "currency_thousand_separator": " ",
+      "currency_prefix": "",
+      "currency_suffix": " zł"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "00-001",
+      "country": "PL",
+      "phone": ""
+    },
+    "billing_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "email": "",
+      "phone": ""
+    },
+    "needs_payment": true,
+    "needs_shipping": true,
+    "payment_requirements": [
+      "products"
+    ],
+    "has_calculated_shipping": true,
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "name": "Przesyłka",
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL"
+        },
+        "items": [
+          {
+            "key": "6b8eba43551742214453411664a0dcc8",
+            "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+            "quantity": 1
+          },
+          {
+            "key": "c88d8d0a6097754525e02c2246d8d27f",
+            "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+            "quantity": 1
+          },
+          {
+            "key": "6fec24eac8f18ed793f5eaad3dd7977c",
+            "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+            "quantity": 1
+          }
+        ],
+        "shipping_rates": [
+          {
+            "rate_id": "flexible_shipping_single:7",
+            "name": "Kurier",
+            "description": "",
+            "delivery_time": "",
+            "price": "2500",
+            "taxes": "0",
+            "instance_id": 7,
+            "method_id": "flexible_shipping_single",
+            "meta_data": [
+              {
+                "key": "description",
+                "value": ""
+              },
+              {
+                "key": "Elementy",
+                "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+              }
+            ],
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          {
+            "rate_id": "flexible_shipping_single:8",
+            "name": "Kurier za pobraniem",
+            "description": "",
+            "delivery_time": "",
+            "price": "3500",
+            "taxes": "0",
+            "instance_id": 8,
+            "method_id": "flexible_shipping_single",
+            "meta_data": [
+              {
+                "key": "description",
+                "value": ""
+              },
+              {
+                "key": "Elementy",
+                "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+              }
+            ],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          {
+            "rate_id": "local_pickup:21",
+            "name": "Odbiór osobisty",
+            "description": "",
+            "delivery_time": "",
+            "price": "0",
+            "taxes": "0",
+            "instance_id": 21,
+            "method_id": "local_pickup",
+            "meta_data": [
+              {
+                "key": "Elementy",
+                "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+              }
+            ],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          }
+        ]
+      }
+    ],
+    "items_count": 3,
+    "items_weight": 8600.000000000002,
+    "cross_sells": [],
+    "errors": [],
+    "payment_methods": [
+      "p24-online-payments",
+      "bacs",
+      "p24-card"
+    ],
+    "extensions": {
+      "flexible-shipping-free-shipping-notice-block-integration": {
+        "page_type": "other"
+      }
+    }
+  },
+  "selected": {
+    "items": [
+      {
+        "key": "6b8eba43551742214453411664a0dcc8",
+        "id": 1550,
+        "type": "simple",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 9999,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+        "short_description": "",
+        "description": "<div>\n<h4><b style=\"font-size: 16px\">Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych. </b><b style=\"font-size: 16px\">Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania. </b></h4>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 43,6 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt Prostokątny</b></li>\n<li><b>Materiał: Duroplast</b></li>\n<li><b>Metalowe zawiasy</b></li>\n<li><strong>antybakteryjna</strong></li>\n</ul>\n<p><b>Deska CARINA to świetny wybór dla osób poszukujących estetycznego, a zarazem funkcjonalnego rozwiązania do łazienki. Dzięki właściwościom antybakteryjnym i klasycznemu wzornictwu sprawdzi się zarówno w domach rodzinnych, jak i w mieszkaniach, a także w obiektach użyteczności publicznej, gdzie liczy się trwałość, higiena i łatwość codziennej pielęgnacji.</b></p>\n<p>&nbsp;</p>\n</div>",
+        "sku": "K98-0068",
+        "low_stock_remaining": 2,
+        "backorders_allowed": true,
+        "show_backorder_badge": false,
+        "sold_individually": false,
+        "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/",
+        "images": [
+          {
+            "id": 1584,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w",
+            "sizes": "(max-width: 1900px) 100vw, 1900px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/132-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg 1900w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "132.jpg",
+            "alt": ""
+          },
+          {
+            "id": 1585,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/133.jpg",
+            "srcset": "",
+            "sizes": "(max-width: 627px) 100vw, 627px",
+            "thumbnail_srcset": "",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "133.jpg",
+            "alt": ""
+          }
+        ],
+        "variation": [],
+        "item_data": [],
+        "prices": {
+          "price": "17920",
+          "regular_price": "25200",
+          "sale_price": "17920",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "179200000",
+            "regular_price": "252000000",
+            "sale_price": "179200000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "17920",
+          "line_subtotal_tax": "0",
+          "line_total": "17920",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł"
+        },
+        "catalog_visibility": "visible",
+        "extensions": {
+          "gtm4wp": {
+            "item": "{\"internal_id\":1550,\"item_id\":\"1550\",\"item_name\":\"CERSANIT CARINA DESKA DUROPLASTOWA BIA\\u0141A K98-0068\",\"sku\":\"K98-0068\",\"price\":179.2,\"stocklevel\":2,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Sedesowe\",\"id\":\"1550\",\"quantity\":1}"
+          }
+        }
+      },
+      {
+        "key": "c88d8d0a6097754525e02c2246d8d27f",
+        "id": 1549,
+        "type": "simple",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 9999,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+        "short_description": "",
+        "description": "<div>\n<h1>DESKA CARINA DUROPLASTOWA, WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><b>Deska CARINA wykonana została z wysokiej jakości duroplastu, o właściwościach antybakteryjnych.</b></p>\n<p><b> Deska jest idealnie dopasowana do ceramiki, a jej kształt gwarantuje najwyższy komfort użytkowania.</b></p>\n<p><b> Deskę dodatkowo wyposażono w funkcję wolnego opadania i łatwego wypinania. </b></p>\n</div>\n<div>\n<ul>\n<li><b>Głębokość 44 cm</b></li>\n<li><b>Szerokość 36,4 cm</b></li>\n<li><b>Kolor Biały</b></li>\n<li><b>Kształt</b></li>\n<li><b>Prostokątny</b></li>\n<li><b>Łatwe wypinanie</b></li>\n<li><b>Materiał/tworzywo Duroplast</b></li>\n<li><b>Rodzaj zawiasów Z wolnym opadem</b></li>\n</ul>\n</div>",
+        "sku": "K98-0069",
+        "low_stock_remaining": null,
+        "backorders_allowed": true,
+        "show_backorder_badge": false,
+        "sold_individually": false,
+        "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/",
+        "images": [
+          {
+            "id": 1582,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w, https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w",
+            "sizes": "(max-width: 1900px) 100vw, 1900px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/130-700x466.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg 1900w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "130.jpg",
+            "alt": ""
+          },
+          {
+            "id": 1583,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/131.jpg",
+            "srcset": "",
+            "sizes": "(max-width: 627px) 100vw, 627px",
+            "thumbnail_srcset": "",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "131.jpg",
+            "alt": ""
+          }
+        ],
+        "variation": [],
+        "item_data": [],
+        "prices": {
+          "price": "26597",
+          "regular_price": "37401",
+          "sale_price": "26597",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "265970000",
+            "regular_price": "374010000",
+            "sale_price": "265970000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "26597",
+          "line_subtotal_tax": "0",
+          "line_total": "26597",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł"
+        },
+        "catalog_visibility": "visible",
+        "extensions": {
+          "gtm4wp": {
+            "item": "{\"internal_id\":1549,\"item_id\":\"1549\",\"item_name\":\"CERSANIT CARINA DESKA WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0069\",\"sku\":\"K98-0069\",\"price\":265.97,\"stocklevel\":12,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"1549\",\"quantity\":1}"
+          }
+        }
+      },
+      {
+        "key": "6fec24eac8f18ed793f5eaad3dd7977c",
+        "id": 3065,
+        "type": "simple",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 9999,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+        "short_description": "",
+        "description": "<div>\n<h1>DESKA CARINA SLIM DUROPLASTOWA WOLNOOPADAJĄCA Z FUNCKJĄ ŁATWEGO WYPINANIA</h1>\n</div>\n<div>\n<p><strong>Duroplastowa deska CARINA SLIM została wzbogacona jonami srebra o działaniu antybakteryjnym. </strong></p>\n<p><strong>Czoło modelu zostało poddane profilowaniu, dzięki któremu osiągnięto opływowy kształt.</strong></p>\n<p><strong> Deskę wyposażono w metalowe zawiasy, funkcję wolnego opadania i łatwego wypinania. </strong></p>\n</div>\n<div>\n<ul>\n<li><strong>Głębokość 44,7 cm</strong></li>\n<li><strong>Szerokość 35,8 cm</strong></li>\n<li><strong>Kolor Biały</strong></li>\n<li><strong>Kształt Prostokątny</strong></li>\n<li><strong>Łatwe wypinanie Tak</strong></li>\n<li><strong>Materiał/tworzywo Duroplast</strong></li>\n<li><strong>Rodzaj zawiasów z wolnym opadem</strong></li>\n</ul>\n</div>",
+        "sku": "K98-0135",
+        "low_stock_remaining": 1,
+        "backorders_allowed": true,
+        "show_backorder_badge": false,
+        "sold_individually": false,
+        "permalink": "https://patiartstudio.pl/produkt/cersanit-deska-carina-slim-wolnoopadajaca-k98-0135/",
+        "images": [
+          {
+            "id": 3185,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w",
+            "sizes": "(max-width: 1291px) 100vw, 1291px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1596-700x347.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1596.jpg 1291w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1596.jpg",
+            "alt": ""
+          },
+          {
+            "id": 3186,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w",
+            "sizes": "(max-width: 1024px) 100vw, 1024px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1597-700x345.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1597.jpg 1024w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1597.jpg",
+            "alt": ""
+          },
+          {
+            "id": 3187,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg",
+            "srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w",
+            "sizes": "(max-width: 704px) 100vw, 704px",
+            "thumbnail_srcset": "https://patiartstudio.pl/wp-content/uploads/2021/06/1598-700x764.jpg 700w, https://patiartstudio.pl/wp-content/uploads/2021/06/1598.jpg 704w",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1598.jpg",
+            "alt": ""
+          },
+          {
+            "id": 3188,
+            "src": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+            "thumbnail": "https://patiartstudio.pl/wp-content/uploads/2021/06/1599.jpg",
+            "srcset": "",
+            "sizes": "(max-width: 627px) 100vw, 627px",
+            "thumbnail_srcset": "",
+            "thumbnail_sizes": "(max-width: 350px) 100vw, 350px",
+            "name": "1599.jpg",
+            "alt": ""
+          }
+        ],
+        "variation": [],
+        "item_data": [],
+        "prices": {
+          "price": "27093",
+          "regular_price": "38100",
+          "sale_price": "27093",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "270930000",
+            "regular_price": "381000000",
+            "sale_price": "270930000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "27093",
+          "line_subtotal_tax": "0",
+          "line_total": "27093",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": " ",
+          "currency_prefix": "",
+          "currency_suffix": " zł"
+        },
+        "catalog_visibility": "visible",
+        "extensions": {
+          "gtm4wp": {
+            "item": "{\"internal_id\":3065,\"item_id\":\"3065\",\"item_name\":\"CERSANIT CARINA DESKA SLIM WOLNOOPADAJ\\u0104CA BIA\\u0141A K98-0135\",\"sku\":\"K98-0135\",\"price\":270.93,\"stocklevel\":1,\"stockstatus\":\"instock\",\"google_business_vertical\":\"retail\",\"item_category\":\"Deski Wolnoopadaj\\u0105ce\",\"id\":\"3065\",\"quantity\":1}"
+          }
+        }
+      }
+    ],
+    "coupons": [],
+    "fees": [],
+    "totals": {
+      "total_items": "71610",
+      "total_items_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_shipping": "2500",
+      "total_shipping_tax": "0",
+      "total_price": "74110",
+      "total_tax": "0",
+      "tax_lines": [],
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "currency_minor_unit": 2,
+      "currency_decimal_separator": ".",
+      "currency_thousand_separator": " ",
+      "currency_prefix": "",
+      "currency_suffix": " zł"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "00-001",
+      "country": "PL",
+      "phone": ""
+    },
+    "billing_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "email": "",
+      "phone": ""
+    },
+    "needs_payment": true,
+    "needs_shipping": true,
+    "payment_requirements": [
+      "products"
+    ],
+    "has_calculated_shipping": true,
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "name": "Przesyłka",
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL"
+        },
+        "items": [
+          {
+            "key": "6b8eba43551742214453411664a0dcc8",
+            "name": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068",
+            "quantity": 1
+          },
+          {
+            "key": "c88d8d0a6097754525e02c2246d8d27f",
+            "name": "CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069",
+            "quantity": 1
+          },
+          {
+            "key": "6fec24eac8f18ed793f5eaad3dd7977c",
+            "name": "CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135",
+            "quantity": 1
+          }
+        ],
+        "shipping_rates": [
+          {
+            "rate_id": "flexible_shipping_single:7",
+            "name": "Kurier",
+            "description": "",
+            "delivery_time": "",
+            "price": "2500",
+            "taxes": "0",
+            "instance_id": 7,
+            "method_id": "flexible_shipping_single",
+            "meta_data": [
+              {
+                "key": "description",
+                "value": ""
+              },
+              {
+                "key": "Elementy",
+                "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+              }
+            ],
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          {
+            "rate_id": "flexible_shipping_single:8",
+            "name": "Kurier za pobraniem",
+            "description": "",
+            "delivery_time": "",
+            "price": "3500",
+            "taxes": "0",
+            "instance_id": 8,
+            "method_id": "flexible_shipping_single",
+            "meta_data": [
+              {
+                "key": "description",
+                "value": ""
+              },
+              {
+                "key": "Elementy",
+                "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+              }
+            ],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          },
+          {
+            "rate_id": "local_pickup:21",
+            "name": "Odbiór osobisty",
+            "description": "",
+            "delivery_time": "",
+            "price": "0",
+            "taxes": "0",
+            "instance_id": 21,
+            "method_id": "local_pickup",
+            "meta_data": [
+              {
+                "key": "Elementy",
+                "value": "CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068 &times; 1, CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069 &times; 1, CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135 &times; 1"
+              }
+            ],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": " ",
+            "currency_prefix": "",
+            "currency_suffix": " zł"
+          }
+        ]
+      }
+    ],
+    "items_count": 3,
+    "items_weight": 8600.000000000002,
+    "cross_sells": [],
+    "errors": [],
+    "payment_methods": [
+      "p24-online-payments",
+      "bacs",
+      "p24-card"
+    ],
+    "extensions": {
+      "flexible-shipping-free-shipping-notice-block-integration": {
+        "page_type": "other"
+      }
+    }
+  }
+}

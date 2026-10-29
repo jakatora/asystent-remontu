@@ -8,6 +8,7 @@ import { confirmShopifyProduct } from './shopify-product';
 import { confirmRetailIdentity } from './retail-identity';
 import { readWooProduct } from './woocommerce-product';
 import { readIrbudProduct } from './irbud-woo';
+import { readPatiProduct } from './pati-woo';
 import { readKowalczykProduct } from './kowalczyk-magento';
 import { readTokmetProduct } from './qshop-product';
 import { readTopbodenProduct } from './topboden-product';
@@ -62,7 +63,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -233,6 +234,11 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const p=await readIrbudProduct(source,fetchImpl);
     const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',sku:retailSkuCode(source),name:source.name,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
     return {...parseRetailPage(html,source,new Date()),evidenceSha256:p.evidenceSha256};
+  }
+  if(source.format==='pati-woo'){
+    const p=await readPatiProduct(source,fetchImpl);
+    const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:p.name,gtin13:source.ean,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
+    return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),stockPackages:p.stockPackages,evidenceSha256:p.evidenceSha256};
   }
   if (source.format==='woocommerce') {
     const product=await readWooProduct(source,fetchImpl);

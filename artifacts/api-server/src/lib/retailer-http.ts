@@ -105,12 +105,13 @@ export class AnonymousShop {
     return JSON.parse(await this.read('/csAPIServer_Hipper/invokeAction', JSON.stringify(body), true, false, true));
   }
   /** WooCommerce anonymous-cart token stays private to this one shop session.
-   * Reviewed cart reads/additions, IRBUD's country+postcode and courier selection
+   * Reviewed cart reads/additions, IRBUD/Pati country+postcode and courier selection
    * only. Contact/address lines, checkout and order routes remain forbidden. */
   async cartJson(path: string, body?: object): Promise<any> {
-    const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&this.origin==='https://irbudsklep.pl'&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&(body as any).rate_id==='flexible_shipping_single:3';
+    const courierId=this.origin==='https://irbudsklep.pl'?'flexible_shipping_single:3':this.origin==='https://patiartstudio.pl'?'flexible_shipping_single:7':null;
+    const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&courierId&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&(body as any).rate_id===courierId;
     const address=(body as any)?.shipping_address;
-    const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&this.origin==='https://irbudsklep.pl'&&body&&Object.keys(body).join(',')==='shipping_address'
+    const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&courierId&&body&&Object.keys(body).join(',')==='shipping_address'
       &&address&&typeof address==='object'&&Object.keys(address).sort().join(',')==='country,postcode'&&address.country==='PL'&&typeof address.postcode==='string'&&/^\d{2}-\d{3}$/.test(address.postcode);
     if (!['/wp-json/wc/store/v1/cart','/wp-json/wc/store/v1/cart/add-item'].includes(path)&&!shipping&&!destination) throw Error('invalid_cart_route');
     if (body && !this.storeCartToken) throw Error('cart_session_not_confirmed');
