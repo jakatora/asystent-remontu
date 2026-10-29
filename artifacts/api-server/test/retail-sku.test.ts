@@ -11,6 +11,12 @@ test('Rigips paper tape dispatch is tied to its reviewed Sosnowiec identity',()=
   const tape=RETAIL_SOURCES.find(row=>row.id==='sewera-rigips-paper-50x75')!;
   assert.equal(isReviewedSeweraDispatchSource(tape),true);
   assert.equal(isReviewedSeweraDispatchSource({...tape,dispatchDepartment:{id:'1',name:'Katowice'}}),false);
+  for(const id of ['sewera-rigips-acoustic-50x30','sewera-rigips-acoustic-30x30']){
+    const acoustic=RETAIL_SOURCES.find(row=>row.id===id)!;
+    assert.equal(isReviewedSeweraDispatchSource(acoustic),true);
+    assert.equal(isReviewedSeweraDispatchSource({...acoustic,dispatchDepartment:{id:'1',name:'Katowice'}}),false);
+    assert.equal(isReviewedSeweraDispatchSource({...acoustic,ean:'5905637118010'}),false);
+  }
   assert.equal(isReviewedSeweraDispatchSource({...tape,ean:'5907651699933'}),false);
 });
 // Minimal fields from the actual main retail card, read 2026-10-27. The

@@ -31,6 +31,8 @@ const EANS: Record<string,string> = {
   'mat-gypsum-fleece-norgips-50x25':'5907651699926',
   'mat-gypsum-acoustic-norgips-50x30':'5907651698004',
   'mat-gypsum-acoustic-norgips-30x30':'5907651698851',
+  'mat-gypsum-acoustic-rigips-50x30':'5905637113503',
+  'mat-gypsum-acoustic-rigips-30x30':'5905637148819',
   'mat-gypsum-hanger-norgips-es6075':'5907651699650',
   'mat-gypsum-longitudinal-norgips-cd60':'5907651699674',
   'mat-gk-screws-koelner-fs3525-1000':'5906675305127',
@@ -49,7 +51,9 @@ export function gypsumReference(id: string, m: MeasurementMap = {}): string | nu
   if (id === 'ceiling-metal-screws') return m.gypsumFasteners===1 ? 'mat-gk-profile-screws-koelner-ws3595-1000' : null;
   if (id === 'dowels-uw' || id === 'ceiling-wall-dowels') return m.gypsumPerimeterFixings===1 ? 'mat-gk-perimeter-koelner-fx06k040-200' : null;
   if (id === 'gk-tape' || id === 'ceiling-tape') return (m.gypsumJointTape??0)===0 ? 'mat-gypsum-paper-norgips-50x75' : m.gypsumJointTape===1 ? 'mat-gypsum-fleece-norgips-50x25' : m.gypsumJointTape===2 ? 'mat-gypsum-paper-rigips-50x75' : null;
-  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m','wall-acoustic-tape':'mat-gypsum-acoustic-norgips-50x30','ceiling-acoustic-tape':'mat-gypsum-acoustic-norgips-30x30',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
+  if (id === 'wall-acoustic-tape') return (m.gypsumWallAcousticBrand??0)===0 ? 'mat-gypsum-acoustic-norgips-50x30' : m.gypsumWallAcousticBrand===1 ? 'mat-gypsum-acoustic-rigips-50x30' : null;
+  if (id === 'ceiling-acoustic-tape') return (m.gypsumCeilingAcousticBrand??0)===0 ? 'mat-gypsum-acoustic-norgips-30x30' : m.gypsumCeilingAcousticBrand===1 ? 'mat-gypsum-acoustic-rigips-30x30' : null;
+  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
   if (accessories[id]) return accessories[id];
   return null;
 }
@@ -95,15 +99,15 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
     // For low partitions one stock length can provide several complete studs.
     if (id === 'profile-cw') return Math.ceil((Math.ceil(length / 0.6 - 1e-10) + 1) / Math.floor(3 / height + 1e-10)) * 3;
     if (id === 'profile-uw') return fixed(2 * length * factor);
-    if (id === 'wall-acoustic-tape') return fixed(outline * factor);
+    if (id === 'wall-acoustic-tape') return integerChoice(m.gypsumWallAcousticBrand??0,1) ? fixed(outline * factor) : null;
     if (id === 'dowels-uw') return whole(Math.max(area*1.5,2*(Math.ceil(length/0.8)+1)+2*(Math.ceil(height/0.8)+1))*factor);
     return null;
   }
   if (id === 'profile-ud' || id === 'ceiling-acoustic-tape') {
     if(id==='profile-ud'&&(!integerChoice(m.gypsumUdProfile??0,1)||m.gypsumUdProfile===1&&m.gypsumUdFit!==1))return null;
     if (!finiteRange(m.perimeter,4,100) || m.perimeter+0.1<4*Math.sqrt(area)) return null;
+    if (id === 'ceiling-acoustic-tape' && (!integerChoice(m.gypsumCeilingAcoustic??1,1)||!integerChoice(m.gypsumCeilingAcousticBrand??0,1))) return null;
     if (id === 'ceiling-acoustic-tape' && (m.gypsumCeilingAcoustic??1) === 0) return 0;
-    if (id === 'ceiling-acoustic-tape' && !integerChoice(m.gypsumCeilingAcoustic??1,1)) return null;
     return fixed(m.perimeter*factor);
   }
   if (id === 'ceiling-cross' && !integerChoice(m.gypsumCrossConnector??0,1)) return null;
@@ -133,10 +137,12 @@ export const gypsumCommonInputs: MeasurementInputDefinition[] = [
   {id:'gypsumReservePercent',label:'Zapas na docinki i zużycie',unit:'%',inputType:'percent',placeholder:'10',defaultValue:10,min:0,max:30,required:false,hint:'Jawne założenie zakupowe, poza normą producenta. Płyty, wełnę i masę sumujemy między pracami przed doborem opakowań. Pionowe CW liczymy w całych profilach 3 m.'},
 ];
 export const gypsumWallInputs: MeasurementInputDefinition[] = [
+  {id:'gypsumWallAcousticBrand',label:'Taśma akustyczna 50 mm pod profile ścianki',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips 50 mm × 30 m — ofertę trzeba potwierdzić'},{value:1,label:'Rigips 50 mm × 30 m — Sewera'}],hint:'Rigips to osobny produkt i marka. Sprawdź zgodność z projektem systemu i gwarancją. Koszyk sumuje metry dla całego remontu i dobiera pełne rolki; dostawę sprawdza dla kodu pocztowego.'},
   {id:'gypsumWallHeight',label:'Wysokość ścianki',unit:'m',inputType:'length',placeholder:'np. 2,5',min:0.5,max:3,hint:'Dla tego wariantu pojedyncze CW 50 o grubości 0,6 mm i długości 3 m, maks. rozstaw 60 cm. Wyższa lub obciążona ścianka wymaga osobnego doboru konstrukcji.'},
   {id:'gypsumOpenings',label:'Otwory drzwiowe i inne wymagające wzmocnień',unit:'szt.',inputType:'count',placeholder:'0',defaultValue:0,min:0,max:100,required:false,hint:'Podaj powierzchnię brutto, bez odejmowania otworów. Przy otworach pozostawiamy dodatkowe profile, nadproża i mocowania jako brak do doboru; nie ogłaszamy niepełnego zestawu kompletnym.'},
 ];
 export const gypsumCeilingInputs: MeasurementInputDefinition[] = [
+  {id:'gypsumCeilingAcousticBrand',label:'Taśma akustyczna 30 mm pod UD',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips 30 mm × 30 m — ofertę trzeba potwierdzić'},{value:1,label:'Rigips 30 mm × 30 m — Sewera'}],hint:'Wariant Rigips wymaga świadomego wyboru i sprawdzenia zgodności z projektem systemu. Rolki zsumujemy w koszyku; koszt dostawy zależy od kodu pocztowego i całego zamówienia.'},
   // source: https://norgips.pl/produkty/profil-ud-30-super-o-gr-blachy-06-mm-c3-26.html
   // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html
   {id:'gypsumUdProfile',label:'Dokładny profil obwodowy UD 30, 0,6 mm, 3 m',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips C2 — EAN 5907651698905, oferta do sprawdzenia'},{value:1,label:'Norgips SUPER C3 — EAN 5907651691197'}],hint:'To osobne modele. Zachowujemy starszy wybór C2; aktualna karta Leroy Merlin dotyczy SUPER C3. Wybierz produkt zgodny z projektem sufitu. Sama zmiana profilu obwodowego nie potwierdza klasy całego systemu ani odporności ogniowej.'},

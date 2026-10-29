@@ -83,8 +83,12 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-gypsum-paper-rigips-50x75"],"ean":"5905637118010","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-papierowa-50mm-x-75m-rigips-p7448","imageUrl":"https://sklep.sewera.pl/photo/25025/tasma-spoinowa-papierowa-50mm-x-75m-rigips.webp"},
   // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html
   {"ids":["mat-gypsum-acoustic-norgips-50x30"],"ean":"5907651698004","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html","imageUrl":"https://media.adeo.com/media/2631597/media.jpg"},
+  // source: https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips-p7445
+  {"ids":["mat-gypsum-acoustic-rigips-50x30"],"ean":"5905637113503","sourceUrl":"https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips-p7445","imageUrl":"https://sklep.sewera.pl/photo/191957/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips.webp"},
   // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html
   {"ids":["mat-gypsum-acoustic-norgips-30x30"],"ean":"5907651698851","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html","imageUrl":"https://media.adeo.com/media/2629693/media.jpg"},
+  // source: https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-30mm-x-30m-rigips-p7444
+  {"ids":["mat-gypsum-acoustic-rigips-30x30"],"ean":"5905637148819","sourceUrl":"https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-30mm-x-30m-rigips-p7444","imageUrl":"https://sklep.sewera.pl/photo/191959/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-30mm-x-30m-rigips.webp"},
   // source: https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html
   {"ids":["mat-profile-cw50-norgips-06-3m-retail"],"ean":"5907651698912","sourceUrl":"https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html","imageUrl":"https://media.adeo.com/media/3186925/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds"},
   // source: https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html

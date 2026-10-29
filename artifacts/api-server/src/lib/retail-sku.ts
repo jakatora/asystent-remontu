@@ -38,6 +38,18 @@ export function isReviewedSeweraDispatchSource(source: RetailSource): boolean {
     && source.name === 'Taśma spoinowa papierowa 50mm x 75m Rigips'
     && source.brand === 'Rigips' && source.category === 'drywall-accessory' && source.packageSize === 75 && source.unit === 'm'
     && source.dispatchDepartment?.id === '2' && source.dispatchDepartment.name === 'Sosnowiec';
+  // Branch-specific cards checked on 2026-10-29: Sosnowiec stocked 27 rolls
+  // of 50 mm and 30 rolls of 30 mm. Keep distinct GTINs and widths.
+  const acoustic = {
+    'sewera-rigips-acoustic-50x30': {ean:'5905637113503',width:'50',url:'https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips-p7445'},
+    'sewera-rigips-acoustic-30x30': {ean:'5905637148819',width:'30',url:'https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-30mm-x-30m-rigips-p7444'},
+  }[source.id];
+  if (acoustic) return source.ean === acoustic.ean && source.skuIdentity === undefined
+    && source.store === 'Sewera' && source.format === 'sewera' && source.retailUnit === 'SZT'
+    && source.url === acoustic.url
+    && source.name === `Taśma akustyczna do profili piankowa uszczelniająca ${acoustic.width}mm x 30m Rigips`
+    && source.brand === 'Rigips' && source.category === 'drywall-accessory' && source.packageSize === 30 && source.unit === 'm'
+    && source.dispatchDepartment?.id === '2' && source.dispatchDepartment.name === 'Sosnowiec';
   if (source.id === 'sewera-atlas-gta-18kg') return source.ean === '5905400542509'
     && source.skuIdentity === undefined && source.store === 'Sewera' && source.format === 'sewera'
     && source.url === 'https://sklep.sewera.pl/atlas-gta-gotowa-gladz-polimerowa-18kg-p6321'

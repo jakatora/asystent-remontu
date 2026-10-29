@@ -126,6 +126,32 @@ test('Rigips paper tape is an explicit 75 m choice with its own EAN and photogra
   assert.ok(!references.some(ref=>ref.id==='mat-gypsum-paper-norgips-50x75'));
  }
 });
+test('Rigips acoustic tapes are explicit 50 mm wall and 30 mm ceiling choices with separate photos',()=>{
+ for(const [job,key,field,ean,refId,image] of [
+  ['gypsum-wall','wall-acoustic-tape','gypsumWallAcousticBrand','5905637113503','mat-gypsum-acoustic-rigips-50x30','191957'],
+  ['gypsum-ceiling','ceiling-acoustic-tape','gypsumCeilingAcousticBrand','5905637148819','mat-gypsum-acoustic-rigips-30x30','191959'],
+ ]){
+  const before=calculate(job),after=calculate(job,{[field]:1});
+  const original=before.materials.find(line=>line.material.id===key)!,selected=after.materials.find(line=>line.material.id===key)!;
+  assert.equal(selected.rawQuantity,original.rawQuantity);
+  assert.ok('ean' in selected.material);
+  assert.equal(selected.material.ean,ean);
+  assert.equal(selected.material.packaging?.size,30);
+  assert.equal(selected.material.packaging?.purchaseUnit,'rolka');
+  assert.match(getProductPhoto({ean})??'',new RegExp(`/photo/${image}/`));
+  for(const tier of ['economy','standard','better'] as const){
+   const stage=toPricingStageInput(after,tier),row=stage.materials.find(line=>line.material.id===key)!;
+   assert.ok('ean' in row.material);assert.equal(row.material.ean,ean);
+   const refs=getMaterialsForJob(job,tier,after.measurements);
+   assert.ok(refs.some(ref=>ref.id===refId));
+   assert.ok(!refs.some(ref=>ref.id===refId.replace('rigips','norgips')));
+  }
+  const owned:ShoppingItem={id:key,projectId:'p',materialId:key,name:original.material.name,quantity:original.rawQuantity??0,unit:'m',estimatedPrice:0,owned:true,purchased:true,itemType:'material',tier:'standard',createdAt:''};
+  assert.equal(projectShopping([owned],after)[0].owned,false);
+  assert.equal(projectShopping([owned],after)[0].needsQuantityConfirmation,true);
+  assert.equal(calculate(job,{[field]:2}).materials.find(line=>line.material.id===key)!.quantityKnown,false);
+ }
+});
 test('an owned paper roll cannot cover fleece; old explicit CW EAN is not silently replaced with current retail profile',()=>{
  const a=calculate(),b=calculate('gypsum-wall',{gypsumJointTape:1}),line=a.materials.find(l=>l.material.id==='gk-tape')!,item:ShoppingItem={id:'t',projectId:'p',materialId:'gk-tape',name:line.material.name,quantity:75,unit:'m',estimatedPrice:0,owned:true,purchased:false,itemType:'material',tier:'standard',createdAt:''};
  assert.equal(projectShopping([item],a)[0].owned,true);assert.equal(projectShopping([item],b)[0].owned,false);
