@@ -1262,10 +1262,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"pati-cersanit-carina-k98-0068","ean":"5907720651077","name":"CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068","brand":"Cersanit","category":"toilet-seat","packageSize":1,"unit":"szt","store":"Pati Art Studio","format":"pati-woo","productId":1550,"apiProductCode":"K98-0068","variant":["Carina","K98-0068"],"pickupRequiresConfirmation":true,"url":"https://patiartstudio.pl/produkt/cersanit-deska-carina-zwykla-k98-0068/","imageUrl":"https://patiartstudio.pl/wp-content/uploads/2021/06/132.jpg"},
   // source: https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/
   {"id":"pati-cersanit-carina-k98-0069","ean":"5907720651084","name":"CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069","brand":"Cersanit","category":"toilet-seat","packageSize":1,"unit":"szt","store":"Pati Art Studio","format":"pati-woo","productId":1549,"apiProductCode":"K98-0069","variant":["Carina","K98-0069"],"pickupRequiresConfirmation":true,"url":"https://patiartstudio.pl/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/","imageUrl":"https://patiartstudio.pl/wp-content/uploads/2021/06/130.jpg"},
+  // source: https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/ (12 szt. / 1,2 m²; exact manufacturer SKU SS--250X400-1-NATI.BI)
+  // EAN: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/
+  {"id":"pati-paradyz-nati-bianco-struktura-25x40","ean":"5902610507960","name":"PARADYŻ NATI BIANCO ŚCIANA STRUKTURA 25×40","brand":"Paradyż","category":"wall-tile","packageSize":1.2,"unit":"m2","store":"Pati Art Studio","format":"pati-woo","productId":103591,"apiProductCode":"SS&#8211;250X400-1-NATI.BI","variant":["Nati","Bianco","struktura","25×40"],"pickupRequiresConfirmation":true,"url":"https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/","imageUrl":"https://patiartstudio.pl/wp-content/uploads/2022/09/NATI_-Bianco_sciana_struktura_250x400.jpg"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Płytka ścienna Paradyż Nati Bianco struktura 25×40 cm": "5902610507960",
   "Cersanit Carina K98-0068 — deska standardowa 36,1 × 43,4 cm": "5907720651077",
   "Cersanit Carina K98-0069 — deska wolnoopadająca 36,1 × 43,8 cm": "5907720651084",
   "Cersanit Carina SLIM K98-0135 — deska wolnoopadająca 35,7 × 44,8 cm": "5902115712524",

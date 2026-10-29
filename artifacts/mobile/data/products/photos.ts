@@ -292,8 +292,9 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-washbasin-cersanit-facile-50"],"ean":"5907720650025","sourceUrl":"https://www.grupapsb.com.pl/produkt/umywalka-facile-50-cm-cersanit-5907720650025.html","imageUrl":"https://pliki.grupapsb.com.pl/files/InfoverProduct/h1/ej7ro0igtlm8/Photos/lm63o5p0lldq4u/Body_umywalka-facile-50-cm-cersanit_1.jpg"},
   // source: https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html
   {"ids":["mat-wc-mounting-set-tycner"],"ean":"5901095514395","sourceUrl":"https://www.unimet.pl/pozostale-18/3744291-zestaw-przylaczeniowo-mocujacy-wc-5901095514395.html","imageUrl":"https://www.unimet.pl/2023449-large_default/zestaw-przylaczeniowo-mocujacy-wc.webp"},
-  // source: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/
-  {"ids":["mat-tile-wall-paradyz-nati-bianco-25x40"],"ean":"5902610507960","sourceUrl":"https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/","imageUrl":"https://elazienki.pl/wp-content/uploads/2025/02/SS-250X400-1-NATI.BI_.jpg"},
+  // exact EAN: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/
+  // current product photograph: https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/
+  {"ids":["mat-tile-wall-paradyz-nati-bianco-25x40"],"ean":"5902610507960","sourceUrl":"https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/","imageUrl":"https://patiartstudio.pl/wp-content/uploads/2022/09/NATI_-Bianco_sciana_struktura_250x400.jpg"},
   // source: https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m
   {"ids":["mat-tile-trim-cezar-corner-8mm-25m"],"ean":"5904584853500","sourceUrl":"https://cezar.eu/products/profil-do-glazury-narozny-aluminiowy-8mm-cezar-tytan-szczotkowany-mat-2-5m","imageUrl":"https://cezar.eu/cdn/shop/files/f3af291d90963eeb125a6e5cb54a3887_9d9ddc5e-8cc3-42ba-b7e6-bd37c74886eb.png?v=1791543548&width=1200"},
   // source: https://www.blu.com.pl/plytki-uniwersalne/34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261.html?url=plytki-podlogowe%2F34276-ceramika-paradyz-u117-grey-gres-szkl-rekt-mat-5904584158261

@@ -127,6 +127,18 @@ export class AnonymousShop {
     if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
     return JSON.parse(raw);
   }
+  /** Pati's measurement calculator requires the reviewed area form. Its Store
+   * API silently creates a zero-quantity line for this tile, so use the same
+   * anonymous product form as the shop and then re-read the native cart. */
+  async patiTileAdd(packCount: number): Promise<void> {
+    if (this.origin !== 'https://patiartstudio.pl' || !Number.isSafeInteger(packCount) || packCount < 1 || packCount > MAX_RETAIL_PACKAGES) throw Error('invalid_cart_action');
+    const area = (packCount * 1.2).toFixed(1);
+    await this.read('/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/',
+      new URLSearchParams({ area_needed: area, _measurement_needed: area, _measurement_needed_unit: 'sq m', quantity: '1', 'add-to-cart': '103591' }).toString(), false);
+    // The classic form sets a WooCommerce session cookie; the previous empty
+    // Store API cart token belongs to a separate session.
+    this.storeCartToken = null;
+  }
   /** Reviewed Sky-Shop operations for two pinned Matbud products. Cart IDs are
    * obtained from this fresh session, never supplied by the app or browser.
    * The order json=1 routes calculate shipping; no final order/customer route.

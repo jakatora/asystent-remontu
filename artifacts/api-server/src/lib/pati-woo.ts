@@ -7,11 +7,14 @@ import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './ret
 const ORIGIN = 'https://patiartstudio.pl';
 // The merchant publishes manufacturer SKUs, but no GTIN. Each SKU is matched
 // against the independently verified barcode of the same Cersanit model.
-const PRODUCTS: Readonly<Record<string, { id: number; sku: string; ean: string; name: string; url: string; image: string }>> = {
-  'pati-cersanit-carina-k98-0068': { id: 1550, sku: 'K98-0068', ean: '5907720651077', name: 'CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068', url: ORIGIN + '/produkt/cersanit-deska-carina-zwykla-k98-0068/', image: ORIGIN + '/wp-content/uploads/2021/06/132.jpg' },
-  'pati-cersanit-carina-k98-0069': { id: 1549, sku: 'K98-0069', ean: '5907720651084', name: 'CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069', url: ORIGIN + '/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/', image: ORIGIN + '/wp-content/uploads/2021/06/130.jpg' },
-  'pati-cersanit-carina-k98-0135': { id: 3065, sku: 'K98-0135', ean: '5902115712524', name: 'CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135', url: ORIGIN + '/produkt/cersanit-deska-carina-slim-wolnoopadajaca-k98-0135/', image: ORIGIN + '/wp-content/uploads/2021/06/1596.jpg' },
+type PatiProduct = { id: number; sku: string; ean: string; name: string; url: string; image: string; brand: string; packageSize: number; unit: string; measurement?: true };
+const PRODUCTS: Readonly<Record<string, PatiProduct>> = {
+  'pati-cersanit-carina-k98-0068': { id: 1550, sku: 'K98-0068', ean: '5907720651077', name: 'CERSANIT CARINA DESKA DUROPLASTOWA BIAŁA K98-0068', url: ORIGIN + '/produkt/cersanit-deska-carina-zwykla-k98-0068/', image: ORIGIN + '/wp-content/uploads/2021/06/132.jpg', brand: 'Cersanit', packageSize: 1, unit: 'szt' },
+  'pati-cersanit-carina-k98-0069': { id: 1549, sku: 'K98-0069', ean: '5907720651084', name: 'CERSANIT CARINA DESKA WOLNOOPADAJĄCA BIAŁA K98-0069', url: ORIGIN + '/produkt/cersanit-deska-carina-wolnoopadajaca-k98-0069/', image: ORIGIN + '/wp-content/uploads/2021/06/130.jpg', brand: 'Cersanit', packageSize: 1, unit: 'szt' },
+  'pati-cersanit-carina-k98-0135': { id: 3065, sku: 'K98-0135', ean: '5902115712524', name: 'CERSANIT CARINA DESKA SLIM WOLNOOPADAJĄCA BIAŁA K98-0135', url: ORIGIN + '/produkt/cersanit-deska-carina-slim-wolnoopadajaca-k98-0135/', image: ORIGIN + '/wp-content/uploads/2021/06/1596.jpg', brand: 'Cersanit', packageSize: 1, unit: 'szt' },
+  'pati-paradyz-nati-bianco-struktura-25x40': { id: 103591, sku: 'SS&#8211;250X400-1-NATI.BI', ean: '5902610507960', name: 'PARADYŻ NATI BIANCO ŚCIANA STRUKTURA 25&#215;40', url: ORIGIN + '/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/', image: ORIGIN + '/wp-content/uploads/2022/09/NATI_-Bianco_sciana_struktura_250x400.jpg', brand: 'Paradyż', packageSize: 1.2, unit: 'm2', measurement: true },
 };
+const displayName = (value: string) => value.replaceAll('&#215;', '×');
 const SHIPPING_ID = 'flexible_shipping_single:7';
 const cents = (v: unknown): number => {
   if (typeof v !== 'string' || !/^\d+$/.test(v) || !Number.isSafeInteger(Number(v))) throw Error('invalid_money');
@@ -23,8 +26,8 @@ const pln = (v: any) => {
 function reviewed(source: RetailSource) {
   const p = PRODUCTS[source.id];
   if (!p || source.store !== 'Pati Art Studio' || source.format !== 'pati-woo' || source.productId !== p.id ||
-    source.apiProductCode !== p.sku || source.ean !== p.ean || source.name !== p.name || source.url !== p.url ||
-    source.imageUrl !== p.image || source.packageSize !== 1 || source.unit !== 'szt' || source.brand !== 'Cersanit') throw Error('product_identity_not_confirmed');
+    source.apiProductCode !== p.sku || source.ean !== p.ean || source.name !== displayName(p.name) || source.url !== p.url ||
+    source.imageUrl !== p.image || source.packageSize !== p.packageSize || source.unit !== p.unit || source.brand !== p.brand) throw Error('product_identity_not_confirmed');
   return p;
 }
 
@@ -43,12 +46,21 @@ export function inspectPatiProduct(product: any, source: RetailSource) {
   if (imageUrl !== p.image) throw Error('product_photo_not_confirmed');
   const stockPackages = product.low_stock_remaining;
   if (stockPackages !== null && (!Number.isSafeInteger(stockPackages) || stockPackages < 1)) throw Error('product_unavailable');
+  if (p.measurement) {
+    const text = product.stock_availability?.text;
+    const stock = typeof text === 'string' && /^(\d+(?:\.\d{1,2})?) m² na stanie \(dozwolone zamówienia oczekujące\)$/.exec(text);
+    const nativeStock = product.extensions?.gtm4wp?.item?.stocklevel;
+    if (!stock || typeof nativeStock !== 'number' || Number(stock[1]) !== nativeStock) throw Error('product_unavailable');
+    const packs = Math.floor((nativeStock + 1e-9) / p.packageSize);
+    if (packs < 1) throw Error('product_unavailable');
+    return { name: displayName(p.name), priceGrosze, imageUrl, stockPackages: packs };
+  }
   return { name: p.name, priceGrosze, imageUrl, stockPackages: stockPackages ?? undefined };
 }
 
-type Expected = Map<number, { sku: string; name: string; count: number; price: number }>;
+type Expected = Map<number, { sku: string; name: string; count: number; price: number; measurement?: true }>;
 function confirmCart(cart: any, expected: Expected, postalCode: string, shipping?: number) {
-  const count = [...expected.values()].reduce((n, p) => n + p.count, 0);
+  const count = [...expected.values()].reduce((n, p) => n + (p.measurement ? 1 : p.count), 0);
   if (!Array.isArray(cart.items) || cart.items.length !== expected.size || cart.items_count !== count || cart.errors?.length || cart.coupons?.length || cart.fees?.length) throw Error('basket_not_confirmed');
   pln(cart.totals);
   const seen = new Set<number>();
@@ -81,14 +93,18 @@ async function prepare(packs: { source: RetailSource; count: number }[], fetchIm
   if (!Array.isArray(empty.items) || empty.items.length || empty.items_count !== 0) throw Error('basket_not_confirmed');
   const expected: Expected = new Map(), evidence: any[] = [];
   const cards: { sourceId: string; name: string; priceGrosze: number; imageUrl: string; stockPackages?: number }[] = [];
-  for (const pack of packs) {
+  // The classic area form starts a cookie-backed Woo session. Add it first so
+  // later ordinary Store API products share that session and one delivery fee.
+  for (const pack of [...packs].sort((a,b) => Number(Boolean(reviewed(b.source).measurement)) - Number(Boolean(reviewed(a.source).measurement)))) {
     const p = reviewed(pack.source);
     if (expected.has(p.id)) throw Error('invalid_basket');
     const product = await client.json('/wp-json/wc/store/v1/products/' + p.id);
     const card = inspectPatiProduct(product, pack.source);
     if (card.stockPackages !== undefined && pack.count > card.stockPackages) throw Error('insufficient_stock');
-    expected.set(p.id, { sku: p.sku, name: p.name, count: pack.count, price: card.priceGrosze });
-    const added = await client.cartJson('/wp-json/wc/store/v1/cart/add-item', { id: p.id, quantity: pack.count });
+    expected.set(p.id, { sku: p.sku, name: p.name, count: pack.count, price: card.priceGrosze, ...(p.measurement ? { measurement: true } : {}) });
+    const added = p.measurement
+      ? (await client.patiTileAdd(pack.count), await client.cartJson('/wp-json/wc/store/v1/cart'))
+      : await client.cartJson('/wp-json/wc/store/v1/cart/add-item', { id: p.id, quantity: pack.count });
     confirmCart(added, expected, '');
     cards.push({ sourceId: pack.source.id, ...card }); evidence.push(product, added);
   }
