@@ -1,0 +1,84 @@
+{
+  "provenance": "Actual anonymous public productAPI responses; only identity, unit, gross/net price fields used by reader; no session/customer data.",
+  "snapshots": [
+    {
+      "sourceId": "prescot-virone-dc11",
+      "capturedAt": "2026-10-29T02:53:15.887Z",
+      "item": {
+        "id": 18444,
+        "code": "OSP001720",
+        "ean": "5908254851223",
+        "name": "BATERYJNY CZUJNIK TLENKU WĘGLA ( CZADU    ) 10 LAT 3V ORNO",
+        "producer": {
+          "name": "ORNO GROUP",
+          "id": 5210
+        },
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "can_buy": true,
+        "price": {
+          "gross": {
+            "base": "73,00 zł",
+            "base_float": 73,
+            "final": "73,00 zł",
+            "final_float": 73,
+            "historical_lowest_price": "73,00 zł",
+            "historical_lowest_price_float": 73
+          },
+          "net": {
+            "base": "59,35 zł",
+            "base_float": 59.35,
+            "final": "59,35 zł",
+            "final_float": 59.35,
+            "historical_lowest_price": "59,35 zł",
+            "historical_lowest_price_float": 59.35
+          }
+        },
+        "url": "https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444",
+        "description": ""
+      }
+    },
+    {
+      "sourceId": "zpradem-virone-dc11",
+      "capturedAt": "2026-10-29T02:53:17.095Z",
+      "item": {
+        "id": 1089222,
+        "code": "0001-00021-04285",
+        "ean": "5908254851223",
+        "name": "Bateryjny czujnik tlenku węgla (czadu), 2xAA, żywotność sensora 10 lat,DC-11",
+        "producer": {
+          "name": "ORNO POLSKA",
+          "id": 144,
+          "img": "https://zpradem.pl/userdata/public/producers/144.jpg"
+        },
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "can_buy": true,
+        "price": {
+          "gross": {
+            "base": "94,40 zł",
+            "base_float": 94.4,
+            "final": "94,40 zł",
+            "final_float": 94.4,
+            "historical_lowest_price": "72,00 zł",
+            "historical_lowest_price_float": 72
+          },
+          "net": {
+            "base": "76,75 zł",
+            "base_float": 76.75,
+            "final": "76,75 zł",
+            "final_float": 76.75,
+            "historical_lowest_price": "58,54 zł",
+            "historical_lowest_price_float": 58.54
+          }
+        },
+        "url": "https://zpradem.pl/bateryjny-czujnik-tlenku-wegla-czadu-2xaa-zywotnosc-sensora-10-latdc-11/1089222",
+        "description": ""
+      }
+    }
+  ]
+}

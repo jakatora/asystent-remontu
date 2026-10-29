@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-29T01:47:08.903Z",
-  "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved (100no-query,69no-product,1no-offer),11 fully priced scenarios.170 requirements are not170 unique products. Explicit Ennis tiles and standard ATLAS PLUS adhesive now form a complete5-product floor kit with native shipping:1678.92PLN one order per store or1575.62PLN with displayed separate orders.10 real productionHTTP scenarios and a mixed two-project basket verified separately in research/atlas-plus-standard-kompletny-koszyk-2026-10-29.md. No automatic replacement of historical models or unspecified measurements.",
+  "checkedAt": "2026-10-29T03:06:06.971Z",
+  "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved,11 fully priced scenarios. Explicit CO detector model/count now enables a full1-product materials basket with native shipping;5 delivered productionSDK scenarios verified separately. Historical unselected generic devices are not automatically replaced.170 unresolved requirements are not170 distinct products. Earlier explicitly selected floor kits remain available.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -1126,51 +1126,47 @@
       "materials": [
         {
           "materialId": "underlay",
-          "name": "Podkład Arbiton XPS Smart Aquastop Thermo 1,6 mm (6 m²)",
-          "unit": "m2",
+          "name": "Podkład — wybierz model dopasowany do podłogi — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "podklad arbiton xps smart aquastop thermo 1 6 mm 6 m",
-            "category": "underlay"
+            "normalizedName": "podklad wybierz model dopasowany do podlogi ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 11,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5905167826942",
-            "ean": "5905167826942",
-            "name": "Podkład pod panele ARBITON SECURA THERMO AQUASTOP SMART 1,6mm (1opk.=6m2) czerwona harmonijka"
-          }
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
         },
         {
           "materialId": "vapor-barrier",
-          "name": "Folia paroizolacyjna PE Diall 0,15 mm (20 m²)",
-          "unit": "m2",
+          "name": "Ochrona przed wilgocią — dobierz folię lub potwierdź istniejącą — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "folia paroizolacyjna pe diall 0 15 mm 20 m",
-            "category": "vapor-barrier"
+            "normalizedName": "ochrona przed wilgocia dobierz folie lub potwierdz istniejaca ilosc do ustalenia",
+            "category": null
           },
-          "quantity": 11,
+          "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         },
         {
           "materialId": "adhesive-tape",
-          "name": "Taśma do folii paroizolacyjnej",
-          "unit": "rolka",
+          "name": "Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tasma do folii paroizolacyjnej",
-            "category": "akcesoria"
+            "normalizedName": "tasma aluminiowa arbiton izo floor tape 50 mm 25 m ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -2085,55 +2081,47 @@
       "materials": [
         {
           "materialId": "grout",
-          "name": "Fuga elastyczna Ceresit CE 40 biała 2 kg",
-          "unit": "kg",
+          "name": "Fuga — wybierz produkt i zmierz spoiny — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "fuga elastyczna ceresit ce 40 biala 2 kg",
-            "category": "grout"
-          },
-          "quantity": 3.267,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5900089140015",
-            "ean": "5900089140015",
-            "name": "Ceresit fuga CE40 01 wodoodporna elastyczna 2kg"
-          }
-        },
-        {
-          "materialId": "silicone-grout",
-          "name": "Silikon sanitarny Soudal 280 ml",
-          "unit": "ml",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "silikon sanitarny soudal 280 ml",
-            "category": "silicone"
-          },
-          "quantity": 840,
-          "resolved": true,
-          "reason": null,
-          "matchedProduct": {
-            "id": "remont-5411183157064",
-            "ean": "5411183157064",
-            "name": "Soudal Silikon Sanitarny BIAŁY 280ml"
-          }
-        },
-        {
-          "materialId": "grout-cleaner",
-          "name": "Środek do czyszczenia fugi (po 24h)",
-          "unit": "szt.",
-          "query": {
-            "ean": null,
-            "gtin": null,
-            "normalizedName": "srodek do czyszczenia fugi po 24h",
-            "category": "chemia"
+            "normalizedName": "fuga wybierz produkt i zmierz spoiny ilosc do ustalenia",
+            "category": null
           },
           "quantity": 1,
           "resolved": false,
-          "reason": "no-product",
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "silicone-grout",
+          "name": "Silikon — zmierz połączenia i dobierz produkt — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "silikon zmierz polaczenia i dobierz produkt ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "grout-cleaner",
+          "name": "Czyszczenie — zdecyduj, czy potrzebujesz preparatu — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "czyszczenie zdecyduj czy potrzebujesz preparatu ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
           "matchedProduct": null
         }
       ]
@@ -4334,12 +4322,12 @@
       "materials": [
         {
           "materialId": "co-detector",
-          "name": "Czujnik tlenku węgla (czadu)",
-          "unit": "szt.",
+          "name": "Czujnik czadu — wybierz model i podaj liczbę urządzeń — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "czujnik tlenku wegla czadu",
+            "normalizedName": "czujnik czadu wybierz model i podaj liczbe urzadzen ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -6174,5 +6162,17 @@
     "report": "research/gotowe-zestawy-podlogi-2026-10-29.md",
     "historicalMapsChanged": false,
     "scope": "Two complete floor alternatives previewed for user postcode before one explicit saved kit choice. Historical recipe counts above are unchanged;170 requirements are not170 distinct products."
+  },
+  "coDetectorVerification": {
+    "checkedAt": "2026-10-29T03:05:17.824Z",
+    "report": "research/czujnik-czadu-ceny-i-dostawa-2026-10-29.md",
+    "productionSdkCases": 8,
+    "completeDeliveredCases": 5,
+    "merchantCartChecks": 6,
+    "oneDeviceDeliveredGrosze": 9760,
+    "twoDevicesDeliveredGrosze": 17060,
+    "selectedZprademTwoDevicesGrosze": 21580,
+    "twoProjectsThreeDevicesGrosze": 24360,
+    "pickup": "unconfirmed;online offers not reused as local branch prices"
   }
 }

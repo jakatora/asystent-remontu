@@ -1,3 +1,4 @@
+import { coDetectorInputs, coDetectorMaterial } from '@/features/calculator/coDetector';
 import { RenovationJob } from '@/types/domain';
 
 export const minorPlumbingJob: RenovationJob = {
@@ -583,23 +584,16 @@ export const chimneyWorkJob: RenovationJob = {
       level: 'warning',
     },
   ],
-  measurementInputs: [],
-  materials: [
-    {
-      id: 'co-detector',
-      name: 'Czujnik tlenku węgla (czadu)',
-      unit: 'szt.',
-      formulaKey: 'constant',
-      pricePerUnit: 120,
-      notes: 'OBOWIĄZKOWY przy piecu lub kotle gazowym / na paliwa stałe. Montuj na wysokości ok. 150–160 cm. Sprawdzaj co roku.',
-    },
-  ],
+  // source: https://www.virone.pl/pl/czujnik-czadu/744-bateryjny-czujnik-tlenku-wegla-czadu-2xaa-zywotnosc-sensora-10-lat-5908254851223.html
+  measurementInputs: coDetectorInputs,
+  materials: [coDetectorMaterial()],
   tools: [],
   instructions: [
     {
       step: 1,
-      title: 'Zainstaluj czujnik czadu TERAZ',
-      description: 'Jeśli masz piec, kocioł, kominek lub kuchenkę gazową — zainstaluj czujnik tlenku węgla. Rocznie w Polsce kilkadziesiąt osób ginie z powodu czadu, setki trafiają do szpitala.',
+      title: 'Dobierz, ustaw i sprawdź czujnik czadu',
+      // source: https://files.orno.pl/support/ManualsUserPDF/VIRONE/PL-EN-DE/DC-11_manual_PL_EN_DE.pdf
+      description: 'Dobierz liczbę i rozmieszczenie czujników według instrukcji konkretnego urządzenia i warunków w domu. Wybrany Virone DC-11 jest urządzeniem przenośnym, bez montażu na stałe. Po włożeniu dołączonych baterii sprawdź przyciskiem TEST; instrukcja DC-11 zaleca ponawiać test raz w miesiącu. Żywotność sensora nie oznacza takiej samej trwałości baterii. Czujnik nie zastępuje przeglądu komina ani sprawnej wentylacji.',
       durationMin: 15,
       warning: 'Czad jest bezwonny — nie poczujesz go zanim nie będzie za późno.',
     },

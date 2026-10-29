@@ -1,3 +1,4 @@
+import { CO_JOB, CO_MODEL, coDetectorMaterial, coDetectorQuantity } from './coDetector';
 import {UNDERLAY_JOB,UNDERLAY_MODEL,isUnderlayMaterial,underlayMaterials,underlayQuantity} from './underlayInstall';
 import {GROUT_ONLY_JOB,GROUT_ONLY_MODEL,isGroutOnlyMaterial,groutOnlyMaterials,groutOnlyQuantity,groutOnlyExplanation} from './groutOnly';
 import {PLASTER_JOB,PLASTER_MODEL,isPlasterMaterial,plasterMaterials,plasterQuantity} from './plastering';
@@ -83,6 +84,7 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if (jobId === CO_JOB && material.id === 'co-detector') { const required = coDetectorQuantity(measurements), rawQuantity = required ?? 0; return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null }; }
   if(jobId&&isUnderlayMaterial(jobId,material.id)){const required=underlayQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if(jobId&&isGroutOnlyMaterial(jobId,material.id)){const required=groutOnlyQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if(jobId&&isPlasterMaterial(jobId,material.id)){const required=plasterQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
@@ -201,6 +203,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id === CO_JOB ? { quantityModel: CO_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id===UNDERLAY_JOB?{quantityModel:UNDERLAY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===GROUT_ONLY_JOB?{quantityModel:GROUT_ONLY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===PLASTER_JOB?{quantityModel:PLASTER_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -254,6 +257,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id === CO_JOB ? { quantityModel: CO_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id===UNDERLAY_JOB?{quantityModel:UNDERLAY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===GROUT_ONLY_JOB?{quantityModel:GROUT_ONLY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===PLASTER_JOB?{quantityModel:PLASTER_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -289,6 +293,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if (job.id === CO_JOB && material.id === 'co-detector') material = coDetectorMaterial(measurements);
       if(job.id===UNDERLAY_JOB)material=underlayMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===GROUT_ONLY_JOB)material=groutOnlyMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===PLASTER_JOB)material=plasterMaterials(measurements).find(r=>r.id===material.id)??material;
@@ -319,6 +324,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if (job.id === CO_JOB && material.id === 'co-detector') material = coDetectorMaterial(measurements);
       if(job.id===UNDERLAY_JOB)material=underlayMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===GROUT_ONLY_JOB)material=groutOnlyMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===PLASTER_JOB)material=plasterMaterials(measurements).find(r=>r.id===material.id)??material;

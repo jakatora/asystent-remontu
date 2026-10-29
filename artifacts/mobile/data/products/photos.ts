@@ -12,6 +12,8 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444
+  {"ids":["mat-co-detector-virone-dc11"],"ean":"5908254851223","sourceUrl":"https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_62267_500_500/1.jpg"},
   // source: https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893
   {"ids":["mat-tile-adhesive-atlas-plus-standard-25kg"],"ean":"5905400488579","sourceUrl":"https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893","imageUrl":"https://sklep.sewera.pl/photo/38894/atlas-plus-podwojna-moc-klej-do-plytek-25kg.webp"},
   // source: https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155

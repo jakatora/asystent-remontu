@@ -1204,10 +1204,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893
   {"id":"sewera-atlas-plus-standard-25kg","ean":"5905400488579","name":"Atlas Plus Podwójna Moc klej do płytek 25kg","category":"adhesive","brand":"Atlas","packageSize":25,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893","pickupRequiresConfirmation":true},
 
+  // source: https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444
+  {"id":"prescot-virone-dc11","ean":"5908254851223","name":"BATERYJNY CZUJNIK TLENKU WĘGLA ( CZADU    ) 10 LAT 3V ORNO","brand":"ORNO","category":"co-detector","packageSize":1,"unit":"szt","store":"Prescot","format":"shoper-api","productId":18444,"retailerSku":"OSP001720","apiPurchaseUnit":"szt.","variant":["10 LAT","3V"],"pickupRequiresConfirmation":true,"url":"https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_62267_500_500/1.jpg"},
+  // source: https://zpradem.pl/bateryjny-czujnik-tlenku-wegla-czadu-2xaa-zywotnosc-sensora-10-latdc-11/1089222
+  {"id":"zpradem-virone-dc11","ean":"5908254851223","name":"Bateryjny czujnik tlenku węgla (czadu), 2xAA, żywotność sensora 10 lat,DC-11","brand":"ORNO","category":"co-detector","packageSize":1,"unit":"szt","store":"Z prądem","format":"shoper-api","productId":1089222,"retailerSku":"0001-00021-04285","apiPurchaseUnit":"szt.","variant":["DC-11"],"pickupRequiresConfirmation":true,"url":"https://zpradem.pl/bateryjny-czujnik-tlenku-wegla-czadu-2xaa-zywotnosc-sensora-10-latdc-11/1089222","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_62267_500_500/1.jpg"},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Czujnik tlenku węgla Virone DC-11, wyświetlacz LCD, 2 × AA": "5908254851223",
   "ATLAS PLUS Podwójna Moc — klej do płytek 25 kg (opakowanie standardowe)": "5905400488579",
   'Gres rektyfikowany Paradyż U117 Light Grey mat 59,8×59,8 cm, gatunek 1':'5904584158285',
   'Gres rektyfikowany Paradyż U117 Light Beige mat 59,8×59,8 cm, gatunek 1':'5904584158247',

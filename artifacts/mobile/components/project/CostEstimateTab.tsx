@@ -20,6 +20,7 @@ import { TileAdhesiveChoiceSection } from './TileAdhesiveChoiceSection';
 import { applyTileAdhesiveChoices, tileAdhesiveRequirements } from '@/features/pricing/tileAdhesiveChoice';
 import { useTileAdhesiveChoices } from '@/features/pricing/useTileAdhesiveChoices';
 import { FloorKitSection } from './FloorKitSection';
+import { CO_JOB } from '@/features/calculator/coDetector';
 import { floorKitCandidates, preserveFloorKitAdhesive, updateFloorKitAdhesive } from '@/features/pricing/floorKits';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
@@ -238,6 +239,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       }} />}
       {state.status === 'idle' && shoppingReady && input.length > 0 && input.every(stage => stage.materials.length === 0) && <Txt w="semibold">{language === 'pl' ? 'Wybrane materiały są już posiadane lub kupione. Możesz zmienić produkt poniżej, aby porównać inny model.' : 'Selected materials are already owned or purchased. You can choose a different product below to compare another model.'}</Txt>}
 
+      {projectId && calc?.jobId === CO_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień model lub liczbę czujników' : 'Change detector model or count'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
       {projectId && calc?.jobId === 'laminate-flooring' && <View style={{gap:8}}>
         <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Zestaw obejmuje materiały i wybraną liczbę zestawów montażowych Wolfcraft. Piła i miara są osobno w Narzędziach. Liczbę profili, mocowania, długość taśmy i podkład potwierdź w obmiarach.' : 'The basket includes materials and your selected number of Wolfcraft installation kits. Saw and tape measure are separate under Tools. Confirm profiles, fixings, tape length and underlay in measurements.'}</Txt>

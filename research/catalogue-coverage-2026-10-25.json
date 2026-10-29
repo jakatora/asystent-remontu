@@ -1,15 +1,33 @@
 {
-  "checkedAt": "2026-10-29T01:47:08.903Z",
-  "scope": "175 exact catalogue references checked through productionHTTP;168 with active offers,7 historical identities unresolved.10 separate ATLAS PLUS scenarios prove5 complete native delivered floor kits after an explicit adhesive-pack choice. Same65 historical measurement maps remain unchanged; no overall completion percentage implied.",
-  "total": 175,
-  "verifiedProducts": 168,
+  "checkedAt": "2026-10-29T03:06:06.971Z",
+  "scope": "176 exact catalogue references queried through productionHTTP:169 with active offers,7 historical identities unresolved. Explicit CO detector model/count has5 complete delivered scenarios from8 actual productionSDK cases. Same65 historical maps retain81/251 priced requirements;170 unresolved requirements are not170 distinct SKUs. Optional floor kits remain verified separately.",
+  "total": 176,
+  "verifiedProducts": 169,
   "remaining": 7,
-  "offers": 216,
+  "offers": 218,
   "stores": 52,
-  "productsWithPhotos": 175,
-  "registeredOffers": 222,
+  "productsWithPhotos": 176,
+  "registeredOffers": 224,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-co-detector-virone-dc11",
+      "productLabel": "Czujnik tlenku węgla Virone DC-11, wyświetlacz LCD, 2 × AA",
+      "ean": "5908254851223",
+      "materialType": "co-detector",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "prescot-virone-dc11",
+        "zpradem-virone-dc11"
+      ],
+      "referenceUrl": "https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444",
+      "photoUrl": "https://www.prescot.com.pl/environment/cache/images/productGfx_62267_500_500/1.jpg",
+      "photoSourceUrl": "https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444",
+      "checkedAt": "2026-10-29T02:53:15.887Z",
+      "availabilityScope": "One complete Virone DC-11, EAN5908254851223, with2AA batteries. Explicit model and whole-device count required in chimney-work; older generic calculations stay unpriced until reviewed. Current gross73PLN Prescot or94.40PLN Z prądem. Actual complete native carts confirm national PL courier24.60/27PLN respectively, not postcode-specific tariffs. Branch pickup price/stock not confirmed."
+    },
     {
       "id": "mat-tile-adhesive-atlas-plus-standard-25kg",
       "productLabel": "ATLAS PLUS Podwójna Moc — klej do płytek 25 kg (opakowanie standardowe)",
@@ -4684,5 +4702,17 @@
     "oneRoomSingleOrderPerStoreGrosze": 167892,
     "commonRenovationUiGrosze": 189006,
     "scope": "Two independent full-floor alternatives shown before selection; same productionSDK, exact postcode and order preference, current retailer quotes, no partial or expired selectable total. No catalogue/offers/backend changes in wave81."
+  },
+  "coDetectorVerification": {
+    "checkedAt": "2026-10-29T03:05:17.824Z",
+    "report": "research/czujnik-czadu-ceny-i-dostawa-2026-10-29.md",
+    "productionSdkCases": 8,
+    "completeDeliveredCases": 5,
+    "merchantCartChecks": 6,
+    "oneDeviceDeliveredGrosze": 9760,
+    "twoDevicesDeliveredGrosze": 17060,
+    "selectedZprademTwoDevicesGrosze": 21580,
+    "twoProjectsThreeDevicesGrosze": 24360,
+    "pickup": "unconfirmed;online offers not reused as local branch prices"
   }
 }
