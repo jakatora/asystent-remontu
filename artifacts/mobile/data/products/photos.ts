@@ -67,15 +67,15 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334
   {"ids":["mat-underlay-joint-tape-arbiton-izo-25m"],"ean":"5905167698778","sourceUrl":"https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg"},
 
-  // source: https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html
-  {"ids":["mat-wallpaper-remover-metylan-500ml"],"ean":"9000100222969","sourceUrl":"https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html","imageUrl":"https://www.abud.pl/hpeciai/da34e4afb4b30103e7a6affb323594aa/pol_pl_Plyn-do-usuwania-tapet-500ml-Metylan-5708_1.webp"},
+  // source: https://hipper.pl/metylan-plyn-do-usuwania-tapet-0-5-l-956213124
+  {"ids":["mat-wallpaper-remover-metylan-500ml"],"ean":"9000100222969","sourceUrl":"https://hipper.pl/metylan-plyn-do-usuwania-tapet-0-5-l-956213124","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|2948D411-51EF-432E-69FC-B6D536F816EC|2/Metylan%20P%C5%82yn%20do%20usuwania%20tapet%200,5%20l.webp"},
 
   // source: https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak
   {"ids":["mat-gk-screws-koelner-fs3525-1000"],"ean":"5906675305127","sourceUrl":"https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak","imageUrl":"https://buduj24.pl/files/_product/14398/5906675305127_1.webp"},
-  // source: https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html
-  {"ids":["mat-gk-profile-screws-koelner-ws3595-1000"],"ean":"5906675303024","sourceUrl":"https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html","imageUrl":"https://www.abud.pl/hpeciai/c13753752e4f9725fd61b84075871cd7/pol_pl_Wkret-samowiercacy-3-5x9-5mm-1000-szt-63463_1.webp"},
-  // source: https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html
-  {"ids":["mat-gk-perimeter-koelner-fx06k040-200"],"ean":"5906675107622","sourceUrl":"https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html","imageUrl":"https://www.abud.pl/hpeciai/a6c8238c098e65717875db7b7bcedfc1/pol_pl_Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt-1452_2.webp"},
+  // source: https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html
+  {"ids":["mat-gk-profile-screws-koelner-ws3595-1000"],"ean":"5906675303024","sourceUrl":"https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675303024.png"},
+  // source: https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html
+  {"ids":["mat-gk-perimeter-koelner-fx06k040-200"],"ean":"5906675107622","sourceUrl":"https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675107622.jpg"},
 
   // source: https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html
   {"ids":["mat-gypsum-paper-norgips-50x75"],"ean":"5907651699933","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html","imageUrl":"https://media.adeo.com/media/2629682/media.jpg"},
@@ -411,6 +411,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
     sourceUrl: 'https://conkret.com.pl/conkret-products/folia-budowlana-conpar/',
     identitySourceUrl: 'https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html',
     imageUrl: 'https://conkret.com.pl/wp-content/uploads/2022/05/Conpar-148mm-nowy.png' },
+  // source: https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576
+  { ids: ['mat-acrylic-soudal-gk-white-280ml'], ean: '5411183157248',
+    sourceUrl: 'https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576',
+    imageUrl: 'https://realbud.com/environment/cache/images/productGfx_12733_500_500/ec4c20934e6690a4201ae5ae86b7b915.jpg' },
   { ids: ['mat-door-leaf-opp-archi-full-80-left'], ean: '5063022524263',
     sourceUrl: 'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-opp-archi-80-lewe-biale~5063022524263_02c?$MOB_PREV$&$width=600&$height=600' },
@@ -422,10 +426,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-tile-wall-tamara-white-25x40'], ean: '5907518303911',
     sourceUrl: 'https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/glazura-tamara-25-x-40-cm-white-1-5-m2~5907518303911_02c_PL_CP?$MOB_PREV$&$width=600&$height=600' },
-  // source: https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html
+  // source: https://www.fischer-si.si/sl-si/products/sanitary-fixings/ceramic-wash-basins-urinals-and-sanitary-installations/wash-basin-fixing-wst/45494-wst-10-x-140-k-nv
   { ids: ['mat-basin-fixings-fischer-wst140k-2'], ean: '8590369454948',
-    sourceUrl: 'https://www.abud.pl/product-pol-17848-Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki.html',
-    imageUrl: 'https://www.abud.pl/hpeciai/cb2a8ab7ed9adcb860b818b21d8ad413/pol_pl_Mocowanie-umywalki-WST-10x140-Fischer-2-sztuki-17848_1.webp' },
+    sourceUrl: 'https://www.fischer-si.si/sl-si/products/sanitary-fixings/ceramic-wash-basins-urinals-and-sanitary-installations/wash-basin-fixing-wst/45494-wst-10-x-140-k-nv',
+    imageUrl: 'https://media.fischer.group/v7/_pim-media-prod_/Product%20Pictures/Product%20Pictures%20fischer/W1_P_P_WST001_F_SALL_AQQ_V4.jpg?w=1000&h=1000&func=fit&bg_colour=white' },
   // source: https://sklep.sewera.pl/sniezka-grunt-5l-p6153
   {"ids":["mat-paint-undercoat-sniezka-grunt-5l"],"ean":"5903973000235","sourceUrl":"https://sklep.sewera.pl/sniezka-grunt-5l-p6153","imageUrl":"https://sklep.sewera.pl/photo/72152/sniezka-grunt-5l.webp"},
 

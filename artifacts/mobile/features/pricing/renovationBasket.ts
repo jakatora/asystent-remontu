@@ -14,6 +14,11 @@ import type { ShoppingStageContext } from './selectedShopping';
 export const MAX_BASKET_PROJECTS = 20;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
 
+/** Bulk selection only includes works that can already contribute to a quote. */
+export function measuredBasketProjectIds(projects: readonly Pick<Project, 'id' | 'calculationResult'>[]): string[] {
+  return projects.filter(project => Boolean(project.calculationResult)).slice(0, MAX_BASKET_PROJECTS).map(project => project.id);
+}
+
 /** The user explicitly chooses which works belong to this renovation. */
 export function parseBasketSelection(raw: string | null): string[] {
   if (!raw || raw.length > 20_000) return [];

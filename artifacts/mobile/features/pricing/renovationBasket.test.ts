@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { buildRenovationBasket, parseBasketSelection } from './renovationBasket';
+import { buildRenovationBasket, MAX_BASKET_PROJECTS, measuredBasketProjectIds, parseBasketSelection } from './renovationBasket';
 import { calculatorEngine } from '@/features/calculator/engine';
 import { getJobById } from '@/features/content/registry';
 import type { Project, ShoppingItem } from '@/types/domain';
@@ -10,6 +10,15 @@ function project(id: string, area = 10): Project {
   return { id, name: id, jobId: 'paint-walls', jobName: 'Malowanie', categoryId: 'paint', measurements: calc.measurements, calculationResult: calc, status: 'planning', createdAt: '', updatedAt: '' };
 }
 const item = (projectId: string, materialId: string, owned = false, purchased = false) => ({ id: materialId, projectId, materialId, name: materialId, owned, purchased, itemType: 'material' }) as ShoppingItem;
+test('bulk selection includes measured works only and respects the quote limit', () => {
+  const ready = Array.from({ length: MAX_BASKET_PROJECTS + 2 }, (_, index) => project(`ready-${index}`));
+  const pending = { ...project('pending'), calculationResult: undefined };
+  const ids = measuredBasketProjectIds([pending, ...ready]);
+  assert.equal(ids.length, MAX_BASKET_PROJECTS);
+  assert.equal(ids[0], 'ready-0');
+  assert.equal(ids.at(-1), `ready-${MAX_BASKET_PROJECTS - 1}`);
+  assert.ok(!ids.includes('pending'));
+});
 test('explicit project selection is deduplicated; unrelated and deleted projects cannot enter the basket', () => {
   const selected = parseBasketSelection(JSON.stringify({ version: 1, projectIds: ['a', 'a', 4, '', 'deleted'] }));
   assert.deepEqual(selected, ['a', 'deleted']);

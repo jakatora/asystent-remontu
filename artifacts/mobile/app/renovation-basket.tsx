@@ -14,7 +14,7 @@ import { BasketExtrasSection } from '@/components/project/BasketExtrasSection';
 import { BASKET_EXTRAS_KEY, parseBasketExtras, withBasketExtras, type BasketExtra } from '@/features/pricing/basketExtras';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import type { ShoppingItem } from '@/types/domain';
-import { buildRenovationBasket, MAX_BASKET_PROJECTS, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
+import { buildRenovationBasket, MAX_BASKET_PROJECTS, measuredBasketProjectIds, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
 import { DOOR_SELECTION_PREFIX, parseDoorSelection, type DoorSelection } from '@/features/pricing/doorSelection';
 import { LAMINATE_CHOICE_PREFIX, parseLaminateChoices, type LaminateChoice } from '@/features/pricing/laminateChoice';
 import { FOIL_CHOICE_PREFIX, parseFoilChoices, type FoilChoice } from '@/features/pricing/foilChoice';
@@ -66,6 +66,8 @@ export default function RenovationBasketScreen() {
     return () => { active = false; };
   }, []);
   const selectedProjects = useMemo(() => projects.filter(project => selected.includes(project.id)), [projects, selected]);
+  const measuredProjectIds = useMemo(() => measuredBasketProjectIds(projects), [projects]);
+  const measuredProjectCount = projects.filter(project => Boolean(project.calculationResult)).length;
   const showProjects = projectsExpanded ?? (selectedProjects.length === 0 && extras.length === 0);
   // Refresh after returning from a project's Shopping tab as well as selection changes.
   useFocusEffect(React.useCallback(() => {
@@ -82,13 +84,15 @@ export default function RenovationBasketScreen() {
   const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates, foils, washbasins, tiles, tileAdhesives), [projects, selected, selectedQualityTier, items, doors, laminates, foils, washbasins, tiles, tileAdhesives]);
   const stages = useMemo(() => withBasketExtras(basket.selectionStages, extras), [basket.selectionStages, extras]);
   const hasBasket = selectedProjects.length > 0 || extras.length > 0;
-  const toggle = (id: string) => {
-    const current = selected.filter(key => projects.some(project => project.id === key));
-    const next = current.includes(id) ? current.filter(key => key !== id) : [...current, id];
+  const saveSelection = (next: string[]) => {
     if (next.length > MAX_BASKET_PROJECTS) return;
     setSelected(next); setItemsReady(false); setSaveFailed(false);
     writes.current = writes.current.catch(() => {}).then(() => AsyncStorage.setItem(RENOVATION_BASKET_KEY, JSON.stringify({ version: 1, projectIds: next })))
       .catch(() => setSaveFailed(true));
+  };
+  const toggle = (id: string) => {
+    const current = selected.filter(key => projects.some(project => project.id === key));
+    saveSelection(current.includes(id) ? current.filter(key => key !== id) : [...current, id]);
   };
   return <>
     <Stack.Screen options={{ headerShown: true, title: pl ? 'Koszyk całego remontu' : 'Whole renovation basket', headerBackTitle: pl ? 'Projekty' : 'Projects', headerStyle: { backgroundColor: Colors.background }, headerShadowVisible: false }} />
@@ -108,6 +112,11 @@ export default function RenovationBasketScreen() {
         {!showProjects && selectedProjects.slice(0,3).map(project=><Txt key={project.id} numberOfLines={1} style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{[project.roomName,project.name].filter(Boolean).join(' · ')}</Txt>)}
         {!showProjects && selectedProjects.length > 3 && <Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?`Pozostałe wybrane prace: ${selectedProjects.length-3}.`:`Other selected works: ${selectedProjects.length-3}.`}</Txt>}
         {!projects.length && <Txt>{pl ? 'Najpierw utwórz projekt z obmiarami.' : 'Create a project with measurements first.'}</Txt>}
+        {showProjects && measuredProjectCount > 0 && <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+          <Button variant="outline" size="sm" label={pl ? `Wybierz prace z obmiarami (${Math.min(measuredProjectCount, MAX_BASKET_PROJECTS)})` : `Select measured works (${Math.min(measuredProjectCount, MAX_BASKET_PROJECTS)})`} onPress={() => saveSelection(measuredProjectIds)} />
+          {selectedProjects.length > 0 && <Button variant="ghost" size="sm" label={pl ? 'Wyczyść wybór' : 'Clear selection'} onPress={() => saveSelection([])} />}
+        </View>}
+        {showProjects && measuredProjectCount > MAX_BASKET_PROJECTS && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? `Koszyk obejmuje maksymalnie ${MAX_BASKET_PROJECTS} prac. Wybór zbiorczy zaznaczy pierwsze ${MAX_BASKET_PROJECTS}; pozostałe możesz wybrać ręcznie zamiast nich.` : `A basket supports up to ${MAX_BASKET_PROJECTS} works. Bulk selection picks the first ${MAX_BASKET_PROJECTS}; you can replace them manually.`}</Txt>}
         {showProjects && projects.map(project => {
           const checked = selected.includes(project.id);
           const disabled = !checked && selectedProjects.length >= MAX_BASKET_PROJECTS;

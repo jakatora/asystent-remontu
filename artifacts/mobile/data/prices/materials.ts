@@ -2291,6 +2291,16 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     notes: 'Akryl (NIE silikon) — malowalny po wyschnięciu, do wypełnienia styku opaska/ościeżnica ze ścianą. Bezrozpuszczalnikowy, do wnętrz.',
   },
+  // source: https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576
+  {
+    id: 'mat-acrylic-soudal-gk-white-280ml', materialType: 'acrylic',
+    productLabel: 'Akryl Soudal biały do płyt G-K 280 ml', brand: 'Soudal',
+    packageSize: 280, packageUnit: 'ml', pricePerPackage: 15.01,
+    category: 'standard', storeName: 'Realbud',
+    sourceUrl: 'https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576',
+    lastUpdated: '2026-10-29', currency: 'PLN',
+    notes: 'Malowalny akryl do spoin płyt gipsowo-kartonowych i szczelin przy ramach oraz listwach. Osobny produkt i EAN od akrylu uniwersalnego Soudal.',
+  },
 
   // --- Etap podłóg winylowych: panele SPC click, LVT klejony, podkład, klej, listwa ---
   // Materiały etapu układania podłóg winylowych (joby vinyl-flooring / vinyl-click-flooring /
