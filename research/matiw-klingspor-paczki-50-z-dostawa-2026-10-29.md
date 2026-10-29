@@ -25,3 +25,7 @@ API lokalne dla obu koszyków zwróciło `compared` i zero braków. Dla dużego 
 ## Kontrole i dalsza praca
 
 Nowe źródła korzystają z istniejącego czytnika i anonimowego koszyka Shoper. Zapisano dwie nowe obserwacje bez zmiany poprzednich 262. Test HTTP sprawdza zmianę wyboru sklepu między 1 i 50 arkuszami oraz jedną dostawę na zamówienie. Dalsze produkty i sklepy należy dodawać z dokładną jednostką zakupu, zdjęciem oraz natywną wyceną dostawy; brak stawki ma pozostać jawną luką w porównaniu.
+
+Testy: API dla tych źródeł i wcześniejszych zestawów 4/4, mobile 369/369, pricing 149/149, wspólny backend 1054/1054; API/mobile typecheck, zdjęcia 192/192, źródłowe linki 3/3 i kontrola starych ID przeszły. Szerszy historyczny pakiet API w izolowanej kopii ma znany problem ładowania części importów TypeScript pod Node 24; nie traktujemy testów celowanych jako dowodu pełnego pakietu.
+
+Backend [PR 114](https://github.com/jakatora/przetargai/pull/114) scalono jako `54f09367befa8dc20783e63258aef56234445d11`. Railway deployment `65f74093-fa65-475d-932a-f9a3e043dffc` zakończył się `SUCCESS`. Produkcyjny HTTP potwierdził `compared/missing=0` i wybór Sewery 2311 gr dla 1+1 oraz Matiw 9100 gr dla 50+50, również w globalnym rankingu. Nowy seed ma 264 obserwacje, a migawka po wdrożeniu jest zgodna w 148/148 plikach z przygotowaną paczką; SHA modułu `59c5490e4731ac0b3474fd845cac8f5fe6229d4024b0fc31167c050b422881d8`.
