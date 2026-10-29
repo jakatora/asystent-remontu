@@ -19,6 +19,8 @@ export interface PriceVerification {
 /** Storefront purchase rules supplement the persisted price row. A lot of ten
  * individually barcoded pieces still has a one-piece packageSize and price. */
 export type PurchaseOffer = ProductOffer & {
+  /** Authoritative catalogue identity for a reviewed family member. */
+  product?: Product;
   /** Order quantity must be a positive multiple of this many packages. */
   purchaseMultiple?: number;
   /** Minimum physical packs when this offer is used; further packs need not
@@ -32,6 +34,7 @@ export type PurchaseOffer = ProductOffer & {
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
 export interface ItemQuery {
+  packageFamily?: 'v33-easy-kitchen-white-satin-v1';
   /** EAN-13/8 produktu. Priorytet dopasowania #1. */
   ean?: string | null;
   /** GTIN (gdy sklep rozróżnia od EAN). Priorytet dopasowania #2. */
@@ -78,6 +81,7 @@ export interface CheapestOffer {
  * Reprezentuje JEDNĄ wielkość opakowania materiału wraz z jej najtańszą ofertą.
  */
 export interface PackageVariant {
+  product?: Product;
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
@@ -96,6 +100,7 @@ export interface PackageVariant {
 
 /** Jedna wybrana wielkość opakowania w optymalnej kombinacji zakupu. */
 export interface PackagePlanEntry {
+  product?: Product;
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;

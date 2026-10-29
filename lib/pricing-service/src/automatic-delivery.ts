@@ -1,3 +1,5 @@
+import {mixedPackagePlans} from './mixed-package-plans';
+import {optimizeGroupPackages} from './estimate';
 import { groupProjectByProduct, isComparableOffer, computePackagesNeeded, buildPackageVariants } from './estimate';
 import { optimizePackages } from './package-optimizer';
 import { parsePriceToGrosze } from '@workspace/price-collector';
@@ -14,8 +16,9 @@ const removable = (pack:PackagePlanEntry) => pack.count-(pack.purchaseMultiple??
 /** Enumerate all distributions of the required packs, including splitting the
  * same EAN between shops. Quote every distinct whole-store order once. Variable
  * shipping/weight/free thresholds cannot use the fixed-fee subset algorithm.
- * Additional, unneeded packs and mixed pack sizes are deliberately outside this
- * bounded comparison. Large baskets use a separately labelled selection of
+ * Mixed sizes enumerate irreducible whole-pack allocations, including locked
+ * size requirements. Additional unneeded packs remain outside this bounded
+ * comparison. Large baskets use a separately labelled selection of
  * complete orders, never presented as an exhaustive search. */
 export async function compareAutomaticDelivery(
   stages: readonly StageEstimate[], settings: DeliverySettings, quoteBasket: BasketQuoter,
@@ -79,7 +82,7 @@ async function compareAutomaticDeliveryOnce(
   let groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
   const stores = [...new Set(groups.flatMap(g => g.offers.filter(o => isComparableOffer(o, now.getTime())).map(o => o.store)))].sort();
   const result: DeliveryComparison = { method: 'automatic', comparisonScope: 'quoted_baskets', mode: 'shipping', postalCode: settings.postalCode ?? null,
-    status: 'empty', productCount: groups.length, missingProductCount: stages.flatMap(s => s.lines).filter(l => !l.resolved && l.quantity > 0).length+groups.filter(g=>!optimizePackages(g.totalQuantity,buildPackageVariants(g.offers,g.product))).length,
+    status: 'empty', productCount: groups.length, missingProductCount: stages.flatMap(s => s.lines).filter(l => !l.resolved && l.quantity > 0).length+groups.filter(g=>!optimizeGroupPackages(g)).length,
     best: null, lowerBound: null, alternatives: [], missingDeliveryStores: stores, policies: policies.filter(p => stores.includes(p.store)), unavailableStores: [] };
   if (result.missingProductCount) { result.status = 'partial'; return result; }
   if (!groups.length) return result;
@@ -87,7 +90,7 @@ async function compareAutomaticDeliveryOnce(
   result.unavailableStores = stores.filter(store => knownUnavailableStores[store]).map(store => ({ store, reason: knownUnavailableStores[store] }));
   const allGroups = groups;
   groups = groups.map(group => ({ ...group, offers: group.offers.filter(offer => !knownUnavailableStores[offer.store]) }));
-  if (groups.some(group => !group.offers.length || !optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product)))) {
+  if (groups.some(group => !group.offers.length || !optimizeGroupPackages(group))) {
     result.status = 'needs_delivery_costs';
     const plans = materialPurchasePlans(allGroups, now);
     if (!plans.length) return result;
@@ -114,7 +117,14 @@ async function compareAutomaticDeliveryOnce(
   for (const group of groups) {
     const offers = group.offers.filter(o => isComparableOffer(o, now.getTime()));
     const sizes = offers.map(o => Number(o.packageSize ?? group.product.packageSize));
-    if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return tooLarge();
+    if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0)) return tooLarge();
+    if(group.requiredBySize||sizes.some(size=>size!==sizes[0])){
+      const mixed=mixedPackagePlans(group.totalQuantity,offers.flatMap(offer=>buildPackageVariants([offer],group.product)),group.requiredBySize);
+      candidateCount*=mixed.plans.length;
+      if(mixed.limited||candidateCount>MAX_CANDIDATES)return compareSelectedBaskets(groups,activeStores,result,settings,quoteBasket,now);
+      if(!mixed.plans.length)return tooLarge();
+      choices.push(mixed.plans.map(plan=>plan.packages));continue;
+    }
     const count = computePackagesNeeded(group.totalQuantity, sizes[0]);
     if (!Number.isSafeInteger(count) || count > DELIVERY_LIMITS.packagesPerProduct) return tooLarge();
     if (count > 60) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
@@ -138,7 +148,7 @@ async function compareAutomaticDeliveryOnce(
       if (max>DELIVERY_LIMITS.packagesPerProduct) return;
       for (let n = index === offers.length - 1 ? max : 0; n <= max; n+=multiple) {
         if(n>0&&n<minimum)continue;
-        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}),...(minimum>1?{minimumPackages:minimum}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}),...(offer.verification?{verification:offer.verification}:{}) }] : packs);
+        visit(index + 1, Math.max(0,remaining - n), n ? [...packs, { offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count: n, ...(offer.product?{product:offer.product}:{}), unitPriceGrosze: price, lineCostGrosze: n * price, ...(multiple>1?{purchaseMultiple:multiple}:{}),...(minimum>1?{minimumPackages:minimum}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}),...(offer.verification?{verification:offer.verification}:{}) }] : packs);
       }
     };
     visit(0, count, []);
@@ -156,8 +166,8 @@ async function compareAutomaticDeliveryOnce(
       let order = orders.get(pack.store);
       if (!order) { order = { store: pack.store, materialsGrosze: 0, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [] }; orders.set(pack.store, order); }
       order.materialsGrosze += pack.lineCostGrosze;
-      let line = order.lines.find(l => l.product.id === group.product.id);
-      if (!line) { line = { product: { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [] }; order.lines.push(line); }
+      let line = order.lines.find(l => l.product.id === (pack.product?.id??group.product.id));
+      if (!line) { line = { product: pack.product ?? { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [] }; order.lines.push(line); }
       line.packages.push(pack);
     }
     const actual = [...orders.values()].sort((a,b) => a.store.localeCompare(b.store));
@@ -180,12 +190,14 @@ async function compareSelectedBaskets(
   const options = groups.map(group => {
     const offers = group.offers.filter(offer => isComparableOffer(offer, now.getTime()));
     const sizes = offers.map(offer => Number(offer.packageSize ?? group.product.packageSize));
-    if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0 || size !== sizes[0])) return null;
+    if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0)) return null;
     return offers.flatMap(offer => {
-      const count=computePackagesNeeded(group.totalQuantity,sizes[0],offer.purchaseMultiple,offer.minimumPackages);
+      const size=Number(offer.packageSize??group.product.packageSize);
+      if(group.requiredBySize&&Object.entries(group.requiredBySize).some(([locked,n])=>n>0&&Number(locked)!==size))return [];
+      const count=computePackagesNeeded(group.totalQuantity,size,offer.purchaseMultiple,offer.minimumPackages);
       if (!Number.isSafeInteger(count)||count<1||count>DELIVERY_LIMITS.packagesPerProduct||offer.maxPackages!==undefined&&count>offer.maxPackages) return [];
       const price = parsePriceToGrosze(offer.promoPrice ?? offer.price);
-      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: sizes[0], count, unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}),...(offer.minimumPackages?{minimumPackages:offer.minimumPackages}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}),...(offer.verification?{verification:offer.verification}:{}) }];
+      return price === null || price <= 0 || !Number.isSafeInteger(price * count) ? [] : [{ offerId: offer.id, store: offer.store, url: offer.productUrl, packageSize: size, count, ...(offer.product?{product:offer.product}:{}), unitPriceGrosze: price, lineCostGrosze: count * price, ...(offer.purchaseMultiple?{purchaseMultiple:offer.purchaseMultiple}:{}),...(offer.minimumPackages?{minimumPackages:offer.minimumPackages}:{}),...(offer.maxPackages!==undefined?{maxPackages:offer.maxPackages}:{}),...(offer.verification?{verification:offer.verification}:{}) }];
     });
   });
   if (options.some(option => !option)) { result.status = 'limit_exceeded'; return result; }
@@ -205,8 +217,8 @@ async function compareSelectedBaskets(
       let order = orders.get(pack.store);
       if (!order) { order = { store: pack.store, materialsGrosze: 0, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [] }; orders.set(pack.store, order); }
       order.materialsGrosze += pack.lineCostGrosze;
-      let line=order.lines.find(line=>line.product.id===group.product.id);
-      if(!line){line={product:{id:group.product.id,name:group.product.name,imageUrl:group.product.imageUrl},unit:group.unit,packages:[]};order.lines.push(line);}line.packages.push(pack);
+      let line=order.lines.find(line=>line.product.id===(pack.product?.id??group.product.id));
+      if(!line){line={product:pack.product??{id:group.product.id,name:group.product.name,imageUrl:group.product.imageUrl},unit:group.unit,packages:[]};order.lines.push(line);}line.packages.push(pack);
       }
     }
     const actual = [...orders.values()].sort((a,b) => a.store.localeCompare(b.store));
@@ -216,7 +228,8 @@ async function compareSelectedBaskets(
   }
   // A complete large order may require finite stocks from several shops even
   // when none can supply the whole product alone. Keep that valid allocation.
-  const materialPlans=groups.map(g=>optimizePackages(g.totalQuantity,buildPackageVariants(g.offers,g.product)));
+  const materialPlans=groups.map(g=>optimizeGroupPackages(g));
+  for(const store of stores){const perStore=groups.map(g=>optimizeGroupPackages(g,g.offers.filter(o=>o.store===store)));if(perStore.every(Boolean))addGroupedPlan(perStore.map(plan=>plan!.packages),true);}
   if(materialPlans.every(Boolean))addGroupedPlan(materialPlans.map(plan=>plan!.packages),materialPlans.every(plan=>plan!.packages.length===1));
   const orderedOptions = options.map(option=>option!.sort((a,b)=>a.lineCostGrosze-b.lineCostGrosze || a.offerId.localeCompare(b.offerId)));
   function addBase(selected: (PackagePlanEntry | undefined)[]) {
@@ -251,7 +264,7 @@ async function compareSelectedBaskets(
     if (proposed.size >= MAX_PROPOSED) break expandPlans;
     if (alternative.offerId === seed[index].offerId) continue;
     const changed = [...seed]; changed[index] = alternative; addPlan(changed);
-    if (alternative.store !== seed[index].store && seed[index].count > 1) {
+    if (!groups[index].requiredBySize && alternative.packageSize===seed[index].packageSize && alternative.store !== seed[index].store && seed[index].count > 1) {
       const count = seed[index].count;
       const multiple=seed[index].purchaseMultiple??1;
       const minimum=Math.ceil((seed[index].minimumPackages??1)/multiple)*multiple;

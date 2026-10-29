@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-29T03:38:28.290Z",
-  "scope": "178 exact catalogue references checked through production HTTP:171 active,7 unresolved historical identities. Same65 historical measurement maps now yield81/252 priced requirements;171 unresolved requirements are not171 different SKUs. New explicitly selected cabinet kit separately verified in11SDK scenarios,6 complete delivered baskets. Wider renovation coverage remains in progress.",
+  "checkedAt": "2026-10-29T04:08:04.873Z",
+  "scope": "178 exact references,171 with active offers,220offers and226sources. Same65 historical maps retain81/252 priced requirements and171 unresolved requirements, not171 unique SKUs. Automatic V33 pack family separately verified in20SDK scenarios,15 complete delivered baskets; mixed cans and locked sizes share contents across rooms. Other complete renovation kits remain in development.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 251,
+    "beforeLines": 252,
     "beforePriced": 81,
     "afterLines": 252,
     "afterPriced": 81,
@@ -6202,6 +6202,29 @@
     "sixSquareMetresOwnedPreparationLargeGrosze": 18578,
     "twoRoomsRawDemandOneCanGrosze": 18578,
     "pickup": "unconfirmed; no online price reused as local stock/price",
-    "packComparison": "explicit user selection; tested both packs, no claim of automatic cross-EAN pack optimization"
+    "packComparison": "Automatic reviewed family added in wave84; explicit750ml/2000ml choices remain available. See packageFamilyVerification for actual mixed-can and whole-delivery evidence."
+  },
+  "packageFamilyVerification": {
+    "checkedAt": "2026-10-29T04:06:49.040Z",
+    "report": "research/automatyczny-dobor-puszek-i-dostawa-2026-10-29.md",
+    "productionSdkCases": 20,
+    "completeDeliveredCases": 15,
+    "merchantCartChecks": 5,
+    "reviewedFamily": "v33-easy-kitchen-white-satin-v1",
+    "barcodes": [
+      "3153895149044",
+      "3153895149228"
+    ],
+    "sizesMl": [
+      750,
+      2000
+    ],
+    "sixSquareMetresGrosze": 18132,
+    "tenSquareMetresGrosze": 18578,
+    "fifteenSquareMetresMixedGrosze": 27119,
+    "pinnedSmallAndAutomaticTwoRoomsOneCanGrosze": 9591,
+    "fullRenovationWithTwoCOGrosze": 44179,
+    "selection": "Explicit automatic family or locked750/2000ml. Native SKU identities preserved. Raw demand summed across rooms; pinned size requirements retained and shared contents reused.",
+    "limits": "Only the reviewed V33 Easy white satin family is enabled. CPU/candidate/merchant quote budgets retain limited-search labels for larger baskets; unneeded extra packs for discount thresholds are excluded. Pickup still needs confirmation."
   }
 }

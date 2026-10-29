@@ -59,6 +59,7 @@ import type {
  * For richer control use `MaterialRequirement` from types/engine.
  */
 export interface MaterialItem {
+  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1';
   readonly ean?: string;
   readonly sourceUrl?: string;
   readonly imageUrl?: string;

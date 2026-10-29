@@ -5,6 +5,7 @@
 import { z } from "zod";
 
 const materialSchema = z.object({
+  packageFamily: z.literal('v33-easy-kitchen-white-satin-v1').optional(),
   id: z.string(),
   name: z.string(),
   unit: z.string(),

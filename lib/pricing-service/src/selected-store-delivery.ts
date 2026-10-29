@@ -1,3 +1,4 @@
+import {optimizeGroupPackages} from './estimate';
 import {compareAutomaticDelivery} from './automatic-delivery';
 import {groupProjectByProduct,buildPackageVariants,isComparableOffer} from './estimate';
 import {optimizePackages} from './package-optimizer';
@@ -21,7 +22,7 @@ export async function compareDeliveryWithAvailablePart(
  const accepted=new Set(groups.filter(group=>{
   const identities:ItemQuery[]=[{ean:group.product.ean,gtin:group.product.gtin,normalizedName:group.product.normalizedName,category:group.product.category},...selected.flatMap(s=>s.lines).flatMap(l=>l.resolved&&l.product.id===group.product.id?[l.query]:[])];
   if(unresolved.some(line=>identities.some(id=>matches(line.query,id))))return false;
-  return Boolean(optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product)));
+  return Boolean(optimizeGroupPackages(group));
  }).map(group=>group.product.id));
  if(!accepted.size)return comparison;
  const subset=selected.map(stage=>({...stage,lines:stage.lines.filter(line=>line.resolved&&accepted.has(line.product.id)),unresolved:[]}));

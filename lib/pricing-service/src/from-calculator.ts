@@ -45,6 +45,7 @@ import type {
  * ma priorytet bez zmian w tym adapterze.
  */
 export interface CalculatorMaterial {
+  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1';
   readonly id: string;
   readonly name: string;
   readonly unit: string;
@@ -116,7 +117,7 @@ function toItemQuery(material: CalculatorMaterial): ItemQuery {
   const rawName = material.name?.trim();
   const normalizedName = rawName ? normalizeProductName(rawName) || null : null;
   const category = material.category?.trim() || null;
-  return { ean, gtin, normalizedName, category };
+  return { ean, gtin, normalizedName, category, ...(material.packageFamily?{packageFamily:material.packageFamily}:{}) };
 }
 
 /** Mapuje pojedynczą pozycję kalkulatora na `EstimateItem` wyceny. */

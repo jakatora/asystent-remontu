@@ -49,6 +49,7 @@ export const isPricingApiConfigured = pricingApiBaseUrl !== null;
 // ─── Kontrakt WEJŚCIA (zgodny z api-server/lib/pricing-schema.ts) ─────────────
 
 export interface PricingMaterialInput {
+  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1';
   readonly id: string;
   readonly name: string;
   readonly unit: string;
@@ -148,6 +149,7 @@ export interface SerializedProductOffer {
  * Kwoty w GROSZACH. Zgodny z api-server/lib/pricing-serialize.ts#SerializedPackage.
  */
 export interface SerializedPackage {
+  product?: SerializedProduct;
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
@@ -437,6 +439,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
       return priceKitchenMaterial(priceTileSpacer({
         material: {
           id: line.material.id,
+            ...('packageFamily' in line.material && line.material.packageFamily === 'v33-easy-kitchen-white-satin-v1' ? {packageFamily:line.material.packageFamily} : {}),
           name: reference?.productLabel ?? line.material.name,
           unit: reference?.packageUnit ?? line.material.unit,
           category: reference?.materialType ?? line.material.category ?? null,

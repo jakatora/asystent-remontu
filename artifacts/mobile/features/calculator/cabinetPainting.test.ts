@@ -9,7 +9,7 @@ import { parseMeasurements } from '@/shared/lib/measurements';
 import { upgradeCalculation, projectShopping } from './upgrades';
 import { generateShoppingItems } from './shopping';
 import { applyProjectShopping } from '@/features/pricing/projectShoppingInput';
-import { CABINET_JOB, CABINET_MODEL, cabinetQuantity, cabinetInputVisible } from './cabinetPainting';
+import { CABINET_JOB, CABINET_MODEL, cabinetQuantity, cabinetInputVisible, cabinetReferencePlan } from './cabinetPainting';
 import type { ShoppingItem } from '@/types/domain';
 
 const job = getJobById(CABINET_JOB)!;
@@ -75,4 +75,20 @@ test('normal and detailed cabinet calculations agree, preserve all four legacy I
   const raw = Object.fromEntries(Object.entries({ ...m, cabinetSurface: 2, cabinetPreparation: 1 }).map(([k, v]) => [k, String(v)]));
   assert.equal(parseMeasurements(job, { ...raw, cabinetP240Sheets: 'bad', cabinetSolventBottles: 'bad' }).errors.length, 0);
   assert.ok(parseMeasurements(job, { ...raw, cabinetCoats: '1' }).errors.some(e => e.id === 'cabinetCoats'));
+});
+test('automatic cabinet cans retain raw ml, explicit reviewed family and a nonzero reference budget',()=>{
+  for(const [area,price]of [[6,17082],[10,17528],[14,26069],[15,26069]]){
+    const c=calc({cabinetPaintPack:3,cabinetArea:area,cabinetSurface:2,cabinetPreparation:1}),line=toPricingStageInput(c).materials[0];
+    assert.equal(line.material.packageFamily,'v33-easy-kitchen-white-satin-v1');assert.equal(line.material.ean,null);assert.equal(line.material.unit,'ml');assert.equal(cabinetReferencePlan(c.measurements)?.totalGrosze,price);assert.equal(c.totalCost,price/100);
+    assert.equal(calculatorEngine.calculateDetailed(job,c.measurements).totalCost,c.totalCost);
+  }
+});
+test('tampered automatic family identity and old owned cabinet materials cannot hide an unresolved purchase',()=>{
+  const c=calc({cabinetPaintPack:3}),items=generateShoppingItems('c84',c).map((i,n)=>({...i,id:String(n),owned:true,purchased:true}))as ShoppingItem[];
+  assert.equal(applyProjectShopping(toPricingStageInput(c),c,'c84',items).stage.materials.length,0);
+  for(const patch of [{ean:'3153895149044'},{packageFamily:undefined},{unit:'l'},{packaging:{size:750,label:'750ml',purchaseUnit:'puszka'}}]){
+    const bad={...c,materials:c.materials.map(l=>l.material.id==='cabinet-paint'?{...l,material:{...l.material,...patch}}:l)};
+    const stage=toPricingStageInput(bad);assert.equal(stage.materials[0].material.unit,'pozycja');assert.ok(applyProjectShopping(stage,bad,'c84',items).stage.materials.some(l=>l.material.unit==='pozycja'));
+  }
+  const old={...c,quantityModel:undefined};assert.ok(applyProjectShopping(toPricingStageInput(old),old,'c84',items).stage.materials.length>0);
 });

@@ -1,3 +1,4 @@
+import {optimizeGroupPackages} from './estimate';
 import { buildPackageVariants, groupProjectByProduct, isComparableOffer } from './estimate';
 import { optimizePackages } from './package-optimizer';
 import type { DeliveredStoreBasket } from './delivery';
@@ -13,8 +14,8 @@ export function materialPurchasePlan(groups: ReturnType<typeof groupProjectByPro
   for (const group of groups) {
     const offers = group.offers.filter(offer => isComparableOffer(offer, now.getTime()));
     const preferred = preferredStore ? offers.filter(offer => offer.store === preferredStore) : [];
-    const plan = (preferred.length ? optimizePackages(group.totalQuantity, buildPackageVariants(preferred, group.product)) : null)
-      ?? optimizePackages(group.totalQuantity, buildPackageVariants(offers, group.product));
+    const plan = (preferred.length ? optimizeGroupPackages(group,preferred) : null)
+      ?? optimizeGroupPackages(group,offers);
     if (!plan || !Number.isSafeInteger(plan.totalGrosze)) return null;
     for (const pack of plan.packages) {
       if (!Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > DELIVERY_LIMITS.packagesPerProduct) return null;
@@ -25,7 +26,7 @@ export function materialPurchasePlan(groups: ReturnType<typeof groupProjectByPro
       }
       order.materialsGrosze += pack.lineCostGrosze;
       if (!Number.isSafeInteger(order.materialsGrosze)) return null;
-      order.lines.push({ product: { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [pack] });
+      order.lines.push({ product: pack.product ?? { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [pack] });
     }
   }
   if (orders.size > DELIVERY_LIMITS.stores) return null;

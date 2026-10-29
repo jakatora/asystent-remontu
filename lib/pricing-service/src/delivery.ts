@@ -1,3 +1,4 @@
+import {optimizeGroupPackages} from './estimate';
 import { buildPackageVariants, groupProjectByProduct, isComparableOffer, computePackagesNeeded } from './estimate';
 import { optimizePackages } from './package-optimizer';
 import type { PackagePlan, PackagePlanEntry, StageEstimate } from './types';
@@ -118,7 +119,7 @@ export function compareDeliveredBaskets(
   now = new Date(),
 ): DeliveryComparison {
   const groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
-  const missingProductCount = stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length + groups.filter(group=>!optimizePackages(group.totalQuantity,buildPackageVariants(group.offers,group.product))).length;
+  const missingProductCount = stages.flatMap(stage => stage.lines).filter(line => !line.resolved && line.quantity > 0).length + groups.filter(group=>!optimizeGroupPackages(group)).length;
   const names = [...new Set(groups.flatMap(group => group.offers.filter(offer => isComparableOffer(offer, now.getTime())).map(offer => offer.store)))].sort();
   const currentPolicies = names.map(store => {
     const policy = policies.find(policy => policy.store === store);
@@ -158,14 +159,14 @@ export function compareDeliveredBaskets(
         let plan: PackagePlan | null;
         // Current exact-EAN catalogue uses one pack size. Avoid a large DP grid
         // for large quantities when simple integer pack rounding is sufficient.
-        if (variants.length === 1 && variants[0].maxPackages === undefined) {
+        if (variants.length === 1 && !group.requiredBySize && variants[0].maxPackages === undefined) {
           const variant = variants[0], count = computePackagesNeeded(group.totalQuantity, variant.packageSize, variant.purchaseMultiple,variant.minimumPackages);
           const total = count * variant.unitPriceGrosze;
           plan = { requiredQuantity: group.totalQuantity, coveredQuantity: count * variant.packageSize,
             overage: count * variant.packageSize - group.totalQuantity, totalGrosze: total,
             packages: [{ ...variant, count, lineCostGrosze: total }],
           };
-        } else plan = optimizePackages(group.totalQuantity, variants);
+        } else plan = optimizeGroupPackages(group,offers);
         cached[index].set(key, plan);
       }
       const plan = cached[index].get(key);
@@ -179,8 +180,8 @@ export function compareDeliveredBaskets(
           orders.set(entry.store, order);
         }
         order.materialsGrosze += entry.lineCostGrosze;
-        let line = order.lines.find(line => line.product.id === group.product.id);
-        if (!line) { line = { product: { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [] }; order.lines.push(line); }
+        let line = order.lines.find(line => line.product.id === (entry.product?.id??group.product.id));
+        if (!line) { line = { product: entry.product ?? { id: group.product.id, name: group.product.name, imageUrl: group.product.imageUrl }, unit: group.unit, packages: [] }; order.lines.push(line); }
         line.packages.push(entry);
       }
     }

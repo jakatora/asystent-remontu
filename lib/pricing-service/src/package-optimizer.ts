@@ -60,6 +60,7 @@ function buildEntries(
       existing.lineCostGrosze += v.unitPriceGrosze * count;
     } else {
       byKey.set(key, {
+        ...(v.product ? {product:v.product} : {}),
         packageSize: v.packageSize,
         count,
         unitPriceGrosze: v.unitPriceGrosze,

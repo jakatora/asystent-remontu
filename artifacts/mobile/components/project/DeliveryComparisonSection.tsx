@@ -200,7 +200,12 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     </> : null}
     {current && best && comparison.alternatives.length > 0 && <View style={{ gap: 8 }}>
       <Txt w="semibold">{tr('Inne wycenione zestawy', 'Other quoted baskets')}</Txt>
-      {comparison.alternatives.slice(0,2).map((basket,index) => <View key={index} style={{ borderWidth: 1, borderColor: Colors.border, borderRadius: 12, padding: 12, gap: 6 }}><Txt>{basket.stores.map(store => store.store).join(' + ')}</Txt><Txt w="semibold">{formatGrosze(basket.totalGrosze!)} · +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt></View>)}
+      {comparison.alternatives.slice(0,2).map((basket,index) => <View key={index} style={{ borderWidth: 1, borderColor: Colors.border, borderRadius: 12, padding: 12, gap: 6 }}>
+        <Txt>{basket.stores.map(store => store.store).join(' + ')}</Txt>
+        <Txt w="semibold">{formatGrosze(basket.totalGrosze!)} · +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt>
+        <Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{tr('Materiały','Materials')}: {formatGrosze(basket.materialsGrosze)} · {tr('Dostawa','Delivery')}: {formatGrosze(basket.deliveryGrosze!)}</Txt>
+        <Txt numberOfLines={3} style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{basket.stores.flatMap(store=>store.lines.map(line=>`${line.product.name}: ${line.packages.map(pack=>`${pack.count} × ${pack.packageSize} ${line.unit??''}`).join(' + ')}`)).join('\n')}</Txt>
+      </View>)}
     </View>}
     {current && destination && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
     {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}

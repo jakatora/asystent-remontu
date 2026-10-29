@@ -7,6 +7,7 @@ import { upgradeCalculation, projectShopping } from './upgrades';
 import { CO_EAN, CO_JOB, CO_MODEL, coDetectorQuantity } from './coDetector';
 import type { CalculationResult, ShoppingItem } from '@/types/domain';
 import type { MeasurementMap } from '@/types/calculator';
+import { applyProjectShopping } from '@/features/pricing/projectShoppingInput';
 
 const make = (n = 1) => calculatorEngine.calculate(getJobById(CO_JOB)!, { coDetectorChoice: 1, coDetectorCount: n });
 test('explicit reviewed CO detector quantity is whole devices, without a second battery pack or waste', () => {
@@ -40,4 +41,11 @@ test('owned old generic detector cannot hide the newly selected DC-11 while matc
   const item = { id:'co',projectId:'qa',materialId:'co-detector',name:'Czujnik czadu',unit:'szt',quantity:1,owned:true,purchased:true,itemType:'material' } as ShoppingItem;
   const reviewed = projectShopping([item], calc)[0]; assert.equal(reviewed.owned, false); assert.equal(reviewed.purchased, false); assert.equal(reviewed.needsQuantityConfirmation, true);
   const matching = projectShopping([{ ...item, name:source.material.name, quantity:2 }], calc)[0]; assert.equal(matching.owned, true); assert.equal(matching.requiredQuantity, 2);
+});
+test('the actual purchase input also rejects old owned CO rows and insufficient changed counts',()=>{
+  const c=make(2),line=c.materials[0];
+  const item={id:'co84',projectId:'qa',materialId:'co-detector',name:line.material.name,unit:'szt',quantity:2,owned:true,purchased:true,itemType:'material'}as ShoppingItem;
+  assert.equal(applyProjectShopping(toPricingStageInput(c),c,'qa',[item]).stage.materials.length,0);
+  assert.equal(applyProjectShopping(toPricingStageInput(make(3)),make(3),'qa',[item]).stage.materials.length,1);
+  const old={...c,quantityModel:undefined};assert.equal(applyProjectShopping(toPricingStageInput(old),old,'qa',[item]).stage.materials.length,1);
 });

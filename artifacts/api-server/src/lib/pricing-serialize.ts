@@ -86,6 +86,7 @@ export interface SerializedProductOffer {
  * Wszystkie kwoty w GROSZACH. Serializer przepisuje pola 1:1 z PackagePlanEntry.
  */
 export interface SerializedPackage {
+  product?: SerializedProduct;
   purchaseMultiple?: number;
   minimumPackages?: number;
   maxPackages?: number;
@@ -379,6 +380,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
     packageSize: line.packageSize,
     packagesNeeded: line.packagesNeeded,
     packages: line.packagePlan.packages.map((p) => ({
+      ...(p.product?{product:serializeProduct(p.product)}:{}),
       ...(p.purchaseMultiple ? { purchaseMultiple: p.purchaseMultiple } : {}),
       ...(p.minimumPackages ? { minimumPackages: p.minimumPackages } : {}),
       ...(p.maxPackages !== undefined ? {maxPackages:p.maxPackages} : {}),
@@ -463,6 +465,7 @@ function serializeConsolidatedLine(
     ...(line.wallpaperCutPlan ? { wallpaperCutPlan: line.wallpaperCutPlan } : {}),
     ...(line.indoEndcapPlan ? {indoEndcapPlan:line.indoEndcapPlan} : {}),
     ...(line.packagePlan ? { packages: line.packagePlan.packages.map(entry => ({
+      ...(entry.product?{product:serializeProduct(entry.product)}:{}),
       ...(entry.purchaseMultiple ? { purchaseMultiple: entry.purchaseMultiple } : {}),
       ...(entry.minimumPackages ? { minimumPackages: entry.minimumPackages } : {}),
       ...(entry.maxPackages !== undefined ? {maxPackages:entry.maxPackages} : {}),

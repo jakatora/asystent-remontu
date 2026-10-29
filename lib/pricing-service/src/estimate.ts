@@ -1,3 +1,5 @@
+import {resolvePackageFamily,mergePackageFamilyGroups} from './package-families';
+import {mixedPackagePlans} from './mixed-package-plans';
 import {confirmedIndoEndcapDemand,type IndoEndcapPlan} from './indo-endcaps';
 // Serwis wyceny etapu i całego remontu — most między kalkulatorem a katalogiem
 // cen. Dla każdej pozycji: dopasuj produkt (EAN/GTIN, potem nazwa+kategoria),
@@ -166,6 +168,7 @@ export function buildPackageVariants(
     if (existing === undefined || unitPriceGrosze < existing.unitPriceGrosze) {
       bySize.set(key, {
         packageSize,
+        ...(offer.product?{product:offer.product}:{}),
         ...(purchaseMultiple > 1 ? { purchaseMultiple } : {}),
         ...(minimumPackages > 1 ? { minimumPackages } : {}),
         ...(offer.maxPackages !== undefined ? {maxPackages:offer.maxPackages} : {}),
@@ -218,7 +221,8 @@ async function estimateLine(
   const unit = item.unit ?? null;
   const base = { query: item.query, quantity: item.quantity, unit };
 
-  const { product, hadCriteria } = await resolveProduct(db, deps, item.query);
+  const family=item.query.packageFamily?await resolvePackageFamily(db,deps,item.query,unit):null;
+  const {product,hadCriteria}=item.query.packageFamily?{product:family?.product??null,hadCriteria:true}:await resolveProduct(db,deps,item.query);
   if (!product) {
     const reason: UnresolvedReason = hadCriteria ? "no-product" : "no-query";
     return { resolved: false, ...base, reason, lineCost: 0 };
@@ -227,13 +231,13 @@ async function estimateLine(
   // A user's store choice applies to every downstream plan, including project
   // consolidation and delivery. Retaining other stores here let those plans
   // silently undo the choice after the individual stage had respected it.
-  const offers = (await deps.listOffers(db, product.id)).filter(offer =>
+  const offers = (family?.offers ?? await deps.listOffers(db, product.id)).filter(offer =>
     isComparableOffer(offer) && (!options.store || offer.store === options.store));
   if (!offers.length) {
     return { resolved: false, ...base, reason: "no-offer", lineCost: 0 };
   }
   const variants = buildPackageVariants(offers, product, options.store);
-  const packagePlan = optimizePackages(item.quantity, variants);
+  const packagePlan = family ? mixedPackagePlans(item.quantity,variants).plans[0]??null : optimizePackages(item.quantity, variants);
   if (!packagePlan) return {resolved:false,...base,reason:offers.some(o=>o.maxPackages!==undefined)?'insufficient-stock':'no-offer',lineCost:0};
   const wholeOffer=selectCheapestOffer(offers,options.store,{quantity:item.quantity,product});
   // The detailed package plan also supports a split when no single shop can
@@ -241,8 +245,8 @@ async function estimateLine(
   const cheapestOffer=wholeOffer??selectCheapestOffer(offers,options.store)!;
 
   const packageSize = resolvePackageSize(cheapestOffer.offer, product);
-  const packagesNeeded = wholeOffer ? computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple,cheapestOffer.offer.minimumPackages) : packagePlan.packages.reduce((sum,entry)=>sum+entry.count,0);
-  const lineCost = wholeOffer ? packagesNeeded * cheapestOffer.unitPriceGrosze : packagePlan.totalGrosze;
+  const packagesNeeded = family ? packagePlan.packages.reduce((n,p)=>n+p.count,0) : wholeOffer ? computePackagesNeeded(item.quantity, packageSize, cheapestOffer.offer.purchaseMultiple,cheapestOffer.offer.minimumPackages) : packagePlan.packages.reduce((sum,entry)=>sum+entry.count,0);
+  const lineCost = family ? packagePlan.totalGrosze : wholeOffer ? packagesNeeded * cheapestOffer.unitPriceGrosze : packagePlan.totalGrosze;
 
   return {
     resolved: true,
@@ -301,7 +305,8 @@ export async function estimateStageCost(
  * Wspólna baza dla konsolidacji (consolidateProject) i porównania sklepów
  * (compareStores) — grupowanie po `product.id` liczymy raz i tak samo.
  */
-interface ProductGroup {
+export interface ProductGroup {
+  requiredBySize?: Readonly<Record<string,number>>;
   indoEndcapPlan?: IndoEndcapPlan;
   wallpaperCutPlan?: WallpaperCutPlan;
   product: ResolvedLine["product"];
@@ -358,7 +363,7 @@ export function groupProjectByProduct(
       }
     }
   }
-  return [...groups.values()].map(group => {
+  const aggregated = [...groups.values()].map(group => {
     const pair=pairs.get(group.product.id);
     if(pair&&[pair.left,pair.right].every(Number.isSafeInteger)){
       const count=Math.max(pair.left,pair.right),additionalPairs=group.totalQuantity-pair.quantity;
@@ -369,6 +374,13 @@ export function groupProjectByProduct(
     const cheapest = selectCheapestOffer(group.offers, undefined, { quantity: group.totalQuantity, product: group.product });
     return cheapest ? { ...group, cheapestOffer: cheapest, packageSize: resolvePackageSize(cheapest.offer, group.product) } : group;
   });
+  return mergePackageFamilyGroups(aggregated);
+}
+
+/** Same native size requirements apply to material totals, stock and delivery. */
+export function optimizeGroupPackages(group:ProductGroup,offers:readonly ProductOffer[]=group.offers){
+  const variants=buildPackageVariants(offers,group.product);
+  return group.requiredBySize||group.product.id.startsWith('remont-family-')?mixedPackagePlans(group.totalQuantity,variants,group.requiredBySize).plans[0]??null:optimizePackages(group.totalQuantity,variants);
 }
 
 export function consolidateProject(
@@ -378,7 +390,7 @@ export function consolidateProject(
 
   const lines: ConsolidatedLine[] = [];
   for (const g of groups) {
-    const packagePlan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product));
+    const packagePlan = optimizeGroupPackages(g);
     if (!packagePlan) continue;
     const packagesNeeded = packagePlan?.packages.reduce((sum, entry) => sum + entry.count, 0) ?? computePackagesNeeded(g.totalQuantity, g.packageSize);
     const lineCostGrosze = packagePlan?.totalGrosze ?? packagesNeeded * g.cheapestOffer.unitPriceGrosze;
@@ -433,7 +445,7 @@ export function compareStores(
   let optimalBasketGrosze = 0;
   const optimalByStoreMap = new Map<string, OptimalBasketStoreLine>();
   for (const g of groups) {
-    const plan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product));
+    const plan = optimizeGroupPackages(g);
     if (!plan) continue;
     optimalBasketGrosze += plan.totalGrosze;
     const countedStores = new Set<string>();
@@ -467,7 +479,7 @@ export function compareStores(
     let coveredCount = 0;
     const missingProductIds: string[] = [];
     for (const g of groups) {
-      const plan = optimizePackages(g.totalQuantity, buildPackageVariants(g.offers, g.product, store));
+      const plan = optimizeGroupPackages(g,g.offers.filter(offer=>offer.store===store));
       if (!plan) {
         missingProductIds.push(g.product.id);
         continue;
@@ -543,7 +555,7 @@ export function estimateProjectCost(
  * stage/room. Withdraw all affected stage prices when their shared demand
  * cannot be covered; otherwise a partial project could look fully priced. */
 export function reconcileStock(stages:readonly StageEstimate[]):StageEstimate[]{
-  const missing=new Set(groupProjectByProduct(stages).filter(g=>g.offers.some(o=>o.maxPackages!==undefined)&&!optimizePackages(g.totalQuantity,buildPackageVariants(g.offers,g.product))).map(g=>g.product.id));
+  const missing=new Set(groupProjectByProduct(stages).filter(g=>g.offers.some(o=>o.maxPackages!==undefined)&&!optimizeGroupPackages(g)).map(g=>g.product.id));
   if(!missing.size)return [...stages];
   return stages.map(stage=>{
     const lines:EstimateLine[]=stage.lines.map(line=>line.resolved&&missing.has(line.product.id)?{resolved:false,query:line.query,quantity:line.quantity,unit:line.unit,reason:'insufficient-stock',lineCost:0}:line);

@@ -187,7 +187,12 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   async function handleEstimate(req: Request, res: Response) {
     const stageOnly = req.path.endsWith('/stage');
     const parsed = projectRequestSchema.safeParse(stageOnly ? { jobs: [req.body?.job], options: req.body?.options } : req.body);
-    if (!parsed.success || parsed.data.jobs.length > 20 || parsed.data.jobs.some(job => job.materials.length > DELIVERY_LIMITS.products || job.materials.some(line => line.quantity > 100_000))) {
+    const withinQuantityLimit = (job: {jobId:string}, line: {quantity:number;material:{id:string;unit:string;ean?:string|null;packageFamily?:string}}) => {
+      const cabinet = job.jobId==='kitchen-cabinet-paint'&&line.material.id==='cabinet-paint'&&line.material.unit==='ml'
+        && (line.material.packageFamily==='v33-easy-kitchen-white-satin-v1'||['3153895149044','3153895149228'].includes(line.material.ean??''));
+      return line.quantity <= (cabinet ? 2_000_000 : 100_000);
+    };
+    if (!parsed.success || parsed.data.jobs.length > 20 || parsed.data.jobs.some(job => job.materials.length > DELIVERY_LIMITS.products || job.materials.some(line => !withinQuantityLimit(job,line)))) {
       res.status(400).json({ error: 'invalid_request' }); return;
     }
     for (const job of parsed.data.jobs) for (const line of job.materials) {
