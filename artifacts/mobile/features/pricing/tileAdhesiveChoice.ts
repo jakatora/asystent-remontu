@@ -1,5 +1,6 @@
 import { createProductChoiceGroup, type ProductChoice } from './productChoice';
 import type { PricingStageInput } from './pricingApi';
+import { parseTileChoices, tileReference, type TileChoice } from './tileChoice';
 
 export const TILE_ADHESIVE_CHOICE_PREFIX = 'remont.tile-adhesive-choice.v1:';
 // Both references describe ATLAS PLUS, but identify different retail packs.
@@ -19,7 +20,16 @@ export const tileAdhesiveReference = group.reference;
 export const tileAdhesiveRequirements = (stages: readonly PricingStageInput[]) =>
   group.requirements(stages.filter(stage => stage.jobId === 'floor-tiles'));
 
-export function applyTileAdhesiveChoices(stages: readonly PricingStageInput[], choices: readonly TileAdhesiveChoice[]): PricingStageInput[] {
+export function applyTileAdhesiveChoices(stages: readonly PricingStageInput[], choices: readonly TileAdhesiveChoice[], tiles: readonly TileChoice[] = []): PricingStageInput[] {
   const validated = group.parse(JSON.stringify({ version: 1, choices }));
-  return stages.map(stage => stage.jobId === 'floor-tiles' ? group.apply([stage], validated)[0] : stage);
+  const tileChoices = parseTileChoices(JSON.stringify({ version: 1, choices: tiles }));
+  return stages.map(stage => {
+    if (stage.jobId !== 'floor-tiles') return stage;
+    const tile = stage.materials.find(line => line.material.id === 'tiles');
+    const selected = tile && tileReference(tile.material);
+    // A reviewed kit is one saved choice. Older independent pack preferences
+    // must not silently override the pack explicitly selected in that kit.
+    if (selected && tileChoices.some(choice => choice.use === 'floor' && choice.to === selected.id && choice.floorAdhesive !== undefined)) return stage;
+    return group.apply([stage], validated)[0];
+  });
 }

@@ -19,6 +19,8 @@ import { useTileChoices } from '@/features/pricing/useTileChoices';
 import { TileAdhesiveChoiceSection } from './TileAdhesiveChoiceSection';
 import { applyTileAdhesiveChoices, tileAdhesiveRequirements } from '@/features/pricing/tileAdhesiveChoice';
 import { useTileAdhesiveChoices } from '@/features/pricing/useTileAdhesiveChoices';
+import { FloorKitSection } from './FloorKitSection';
+import { floorKitCandidates, preserveFloorKitAdhesive, updateFloorKitAdhesive } from '@/features/pricing/floorKits';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, deliverySettingsForStore, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
@@ -105,13 +107,15 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const washbasins = useWashbasinChoices(projectId, washbasinReferences.length > 0);
   const tileReferences = useMemo(() => tileRequirements(rawInput), [rawInput]);
   const tiles = useTileChoices(projectId, tileReferences.length > 0);
-  const selectedProducts = useMemo(() => applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), tiles.choices), [rawInput, panels.choices, foils.choices, washbasins.choices, tiles.choices]);
+  const baseProducts = useMemo(() => applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), [rawInput, panels.choices, foils.choices, washbasins.choices]);
+  const selectedProducts = useMemo(() => applyTileChoices(baseProducts, tiles.choices), [baseProducts, tiles.choices]);
   const adhesiveReferences = useMemo(() => tileAdhesiveRequirements(selectedProducts), [selectedProducts]);
   const adhesives = useTileAdhesiveChoices(projectId, adhesiveReferences.length > 0);
   const pending = useMemo(() => {
-    const chosen = applyTileAdhesiveChoices(selectedProducts, adhesives.choices);
+    const chosen = applyTileAdhesiveChoices(selectedProducts, adhesives.choices, tiles.choices);
     return applyShoppingContexts(chosen, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : []));
-  }, [selectedProducts, adhesives.choices, rawInput, shoppingContexts, stages, calc, projectId, shoppingItems]);
+  }, [selectedProducts, adhesives.choices, tiles.choices, rawInput, shoppingContexts, stages, calc, projectId, shoppingItems]);
+  const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput]);
   const input = pending.stages;
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
@@ -225,6 +229,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {shoppingItems && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Porównanie obejmuje materiały pozostałe do kupienia, z uwzględnieniem oznaczeń „Mam” i „Kupione” oraz dodatkowych pozycji z Zakupów.' : 'This comparison covers remaining materials, accounting for owned and purchased items and additional shopping rows.'}</Txt>}
       {pending.excluded > 0 && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? `Posiadane lub kupione pozycje pokrywające wybrane produkty: ${pending.excluded}.` : `Owned or purchased items covering the selected products: ${pending.excluded}.`}</Txt>}
       {(panels.choices.length > 0 || foils.choices.length > 0 || washbasins.choices.length > 0 || tiles.choices.length > 0 || adhesives.choices.length > 0) && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Po zmianie produktu sprawdzamy ponownie posiadane materiały i potrzebne ilości. Oznaczenie poprzedniego modelu nie usuwa nowego produktu z koszyka.' : 'After a product change we recheck ownership and required quantities. Marks for an earlier model do not exclude the new product.'}</Txt>}
+      {!stages && calc?.jobId === 'floor-tiles' && selectedStore === null && <FloorKitSection candidates={kitCandidates} scope={JSON.stringify([scope, delivery])} ready={loadedScope === scope && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} settings={delivery} onSettings={settings => {
+        requestVersion.current++;
+        deliveryRef.current = settings; setDelivery(settings); setState({ status: 'loading' }); setSaveFailed(false);
+        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
+      }} onApply={candidate => {
+        requestVersion.current++; setState({ status: 'loading' }); tiles.onChange(candidate.choices);
+      }} />}
       {state.status === 'idle' && shoppingReady && input.length > 0 && input.every(stage => stage.materials.length === 0) && <Txt w="semibold">{language === 'pl' ? 'Wybrane materiały są już posiadane lub kupione. Możesz zmienić produkt poniżej, aby porównać inny model.' : 'Selected materials are already owned or purchased. You can choose a different product below to compare another model.'}</Txt>}
 
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
@@ -250,12 +261,14 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       <TileChoiceSection references={tileReferences} {...tiles} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
         requestVersion.current++;
         setState({ status: 'loading' });
-        tiles.onChange(choices);
+        tiles.onChange(preserveFloorKitAdhesive(choices, tiles.choices));
       }} />
-      <TileAdhesiveChoiceSection references={adhesiveReferences} {...adhesives} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
+      <TileAdhesiveChoiceSection references={adhesiveReferences} {...adhesives} choices={tiles.choices.some(choice => choice.floorAdhesive) ? [] : adhesives.choices} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
         requestVersion.current++;
         setState({ status: 'loading' });
-        adhesives.onChange(choices);
+        if (tiles.choices.some(choice => choice.floorAdhesive)) {
+          tiles.onChange(updateFloorKitAdhesive(tiles.choices, choices));
+        } else adhesives.onChange(choices);
       }} />
       {projectId && calc?.jobId === 'eps-insulation-bso' && <Button label={language === 'pl' ? 'Uzupełnij obmiary ocieplenia' : 'Update insulation measurements'} variant="outline" onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} fullWidth />}
 

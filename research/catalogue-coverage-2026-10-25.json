@@ -42,7 +42,7 @@
       "photoUrl": "https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-grey-gres-szkl-rekt-mat-598x598.jpg",
       "photoSourceUrl": "https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155",
       "checkedAt": "2026-10-29T01:23:07.823Z",
-      "availabilityScope": "Exact colour, grade1, matte59.8×59.8cm, four-tile1.43m² pack. Explicit indoor floor/wall choice, minimum recommended joint1.5mm. Current Modna cart quotes native PL pallet229PLN and exact merchandise totals including m² rounding; no confirmed local pickup stock. Full floor kit still awaits Castorama adhesive delivery confirmation."
+      "availabilityScope": "Exact colour, grade1, matte59.8×59.8cm, four-tile1.43m² pack. Explicit indoor floor/wall choice, minimum recommended joint1.5mm. Current Modna cart quotes native PL pallet229PLN and exact merchandise totals including m² rounding; no confirmed local pickup stock. The older promotional Castorama adhesive pack still has unconfirmed delivery. An explicitly chosen ready floor kit with the distinct standard Sewera ATLAS PLUS pack has confirmed full delivery; see readyFloorKitPreviewVerification."
     },
     {
       "id": "mat-gres-rekt-paradyz-u117-light-beige-60x60",
@@ -59,7 +59,7 @@
       "photoUrl": "https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-beige-gres-szkl-rekt-mat-598x598.jpg",
       "photoSourceUrl": "https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162",
       "checkedAt": "2026-10-29T01:23:07.823Z",
-      "availabilityScope": "Exact colour, grade1, matte59.8×59.8cm, four-tile1.43m² pack. Explicit indoor floor/wall choice, minimum recommended joint1.5mm. Current Modna cart quotes native PL pallet229PLN and exact merchandise totals including m² rounding; no confirmed local pickup stock. Full floor kit still awaits Castorama adhesive delivery confirmation."
+      "availabilityScope": "Exact colour, grade1, matte59.8×59.8cm, four-tile1.43m² pack. Explicit indoor floor/wall choice, minimum recommended joint1.5mm. Current Modna cart quotes native PL pallet229PLN and exact merchandise totals including m² rounding; no confirmed local pickup stock. The older promotional Castorama adhesive pack still has unconfirmed delivery. An explicitly chosen ready floor kit with the distinct standard Sewera ATLAS PLUS pack has confirmed full delivery; see readyFloorKitPreviewVerification."
     },
     {
       "id": "mat-vapor-foil-arbiton-aquaprotec-10m2",
@@ -4673,5 +4673,16 @@
     "oneRoomSingleOrderPerStoreGrosze": 167892,
     "oneRoomSeparateOrdersGrosze": 157562,
     "extraMixedRenovationUiGrosze": 189006
+  },
+  "readyFloorKitPreviewVerification": {
+    "checkedAt": "2026-10-29T02:31:08.436Z",
+    "report": "research/gotowe-zestawy-podlogi-2026-10-29.md",
+    "productionSdkCases": 4,
+    "completePreviews": 3,
+    "explicitSingleRecordChoice": true,
+    "oneRoomSeparateOrdersGrosze": 157562,
+    "oneRoomSingleOrderPerStoreGrosze": 167892,
+    "commonRenovationUiGrosze": 189006,
+    "scope": "Two independent full-floor alternatives shown before selection; same productionSDK, exact postcode and order preference, current retailer quotes, no partial or expired selectable total. No catalogue/offers/backend changes in wave81."
   }
 }

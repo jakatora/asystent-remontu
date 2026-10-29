@@ -6168,5 +6168,11 @@
         "screenshot": "catalog-wave72-pelny-koszyk.jpg"
       }
     }
+  },
+  "readyFloorKitPreviewVerification": {
+    "checkedAt": "2026-10-29T02:31:08.436Z",
+    "report": "research/gotowe-zestawy-podlogi-2026-10-29.md",
+    "historicalMapsChanged": false,
+    "scope": "Two complete floor alternatives previewed for user postcode before one explicit saved kit choice. Historical recipe counts above are unchanged;170 requirements are not170 distinct products."
   }
 }

@@ -1,0 +1,349 @@
+{
+  "capturedAt": "2026-10-29T01:42:45.055Z",
+  "verificationTime": 1793238170034,
+  "sourceUrl": "https://backend-production-a43e3.up.railway.app/api/remont/pricing/project",
+  "scope": "Actual native delivered five-product floor kit. Stage identity fields omitted; exact gross money, retailer quotes, scopes, stock evidence hashes and order counts retained.",
+  "data": {
+    "stages": [
+      {
+        "lines": [
+          {
+            "quantity": 11.5,
+            "resolved": true
+          },
+          {
+            "quantity": 47.3,
+            "resolved": true
+          },
+          {
+            "quantity": 1.45685619,
+            "resolved": true
+          },
+          {
+            "quantity": 56,
+            "resolved": true
+          },
+          {
+            "quantity": 2,
+            "resolved": true
+          }
+        ]
+      }
+    ],
+    "deliveryComparison": {
+      "mode": "shipping",
+      "postalCode": "00-001",
+      "allowSeparateOrders": true,
+      "missingProductCount": 0,
+      "best": {
+        "stores": [
+          {
+            "store": "Modna Łazienka",
+            "materialsGrosze": 96563,
+            "deliveryGrosze": 22900,
+            "deliveryMinimumGrosze": 22900,
+            "totalGrosze": 119463,
+            "source": "retailer",
+            "lines": [
+              {
+                "product": {
+                  "id": "remont-5904584158247",
+                  "name": "U117 LIGHT BEIGE GRES SZKL. REKT. MAT. 59,8X59,8",
+                  "imageUrl": "https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-beige-gres-szkl-rekt-mat-598x598.jpg"
+                },
+                "unit": "m2",
+                "packages": [
+                  {
+                    "offerId": "modna-paradyz-u117-light-beige-143m2",
+                    "store": "Modna Łazienka",
+                    "url": "https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162",
+                    "packageSize": 1.43,
+                    "count": 9,
+                    "unitPriceGrosze": 10729,
+                    "lineCostGrosze": 96561
+                  }
+                ]
+              }
+            ],
+            "quote": {
+              "costGrosze": 22900,
+              "carrier": "Kurier (1 × paleta)",
+              "payment": "Przelew bankowy",
+              "materialsRoundingGrosze": 2,
+              "checkedAt": "2026-10-29T01:42:43.105Z",
+              "expiresAt": "2026-10-29T01:52:43.105Z",
+              "sourceUrl": "https://modnalazienka.pl/cart/",
+              "destinationScope": "PL",
+              "basis": "retailer_basket_national",
+              "evidenceSha256": "3a11423d667e99f9154cc3b1fd8e80003586f9272263bede993cd02e04df0e50"
+            }
+          },
+          {
+            "store": "Rab-Dom",
+            "materialsGrosze": 10900,
+            "deliveryGrosze": 1799,
+            "deliveryMinimumGrosze": 1799,
+            "totalGrosze": 12699,
+            "source": "retailer",
+            "lines": [
+              {
+                "product": {
+                  "id": "remont-5900089617081",
+                  "name": "Ceresit CT 17, 10 l, głęboko penetrujący grunt bezrozpuszczalnikowy",
+                  "imageUrl": "https://realbud.com/environment/cache/images/productGfx_23320_500_500/4f6162f89165674a20b43a12f287acd2.png"
+                },
+                "unit": "l",
+                "packages": [
+                  {
+                    "offerId": "rabdom-primer-deep-ceresit-ct17-10l",
+                    "store": "Rab-Dom",
+                    "url": "https://www.rabdom.pl/pl/p/CERESIT-CT-17-Grunt-gleboko-penetrujacy-10L/9787",
+                    "packageSize": 10,
+                    "count": 1,
+                    "unitPriceGrosze": 10900,
+                    "lineCostGrosze": 10900
+                  }
+                ]
+              }
+            ],
+            "quote": {
+              "costGrosze": 1799,
+              "carrier": "InPost Kurier",
+              "payment": "Bezpieczne przelewy",
+              "checkedAt": "2026-10-29T01:42:43.403Z",
+              "expiresAt": "2026-10-29T01:52:43.403Z",
+              "sourceUrl": "https://www.rabdom.pl/pl/basket",
+              "basis": "retailer_basket_national",
+              "destinationScope": "PL",
+              "evidenceSha256": "0f10310ef89a0646f159556bfdfcd4432e7229234948ffec14caac975b42e3c0"
+            }
+          },
+          {
+            "store": "Sewera",
+            "materialsGrosze": 15830,
+            "deliveryGrosze": 9570,
+            "deliveryMinimumGrosze": 9570,
+            "totalGrosze": 25400,
+            "source": "retailer",
+            "lines": [
+              {
+                "product": {
+                  "id": "remont-5905400488579",
+                  "name": "Atlas Plus Podwójna Moc klej do płytek 25kg",
+                  "imageUrl": "https://sklep.sewera.pl/photo/38894/atlas-plus-podwojna-moc-klej-do-plytek-25kg.webp"
+                },
+                "unit": "kg",
+                "packages": [
+                  {
+                    "offerId": "sewera-atlas-plus-standard-25kg",
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893",
+                    "packageSize": 25,
+                    "count": 2,
+                    "unitPriceGrosze": 6397,
+                    "lineCostGrosze": 12794
+                  }
+                ]
+              },
+              {
+                "product": {
+                  "id": "remont-5905400572254",
+                  "name": "Atlas Fuga ceramiczna 001 biały 2kg",
+                  "imageUrl": "https://sklep.sewera.pl/photo/257132/atlas-fuga-ceramiczna-001-bialy-2kg.webp"
+                },
+                "unit": "kg",
+                "packages": [
+                  {
+                    "offerId": "sewera-grout-atlas-001-white-2kg",
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/atlas-fuga-ceramiczna-001-bialy-2kg-p11674",
+                    "packageSize": 2,
+                    "count": 1,
+                    "unitPriceGrosze": 2690,
+                    "lineCostGrosze": 2690
+                  }
+                ]
+              },
+              {
+                "product": {
+                  "id": "remont-5905061016869",
+                  "name": "Krzyżyki dystansowe 3mm 150szt.",
+                  "imageUrl": "https://sklep.sewera.pl/photo/310569/krzyzyki-dystansowe-3mm-150szt-.webp"
+                },
+                "unit": "szt",
+                "packages": [
+                  {
+                    "offerId": "sewera-tile-spacers-hardy-3mm-150",
+                    "store": "Sewera",
+                    "url": "https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505",
+                    "packageSize": 150,
+                    "count": 1,
+                    "unitPriceGrosze": 346,
+                    "lineCostGrosze": 346
+                  }
+                ]
+              }
+            ],
+            "quote": {
+              "costGrosze": 9570,
+              "carrier": "Kurier DHL - Paczka do 30 kg + Kurier InPost do 5kg",
+              "payment": "Płatność online",
+              "checkedAt": "2026-10-29T01:42:49.034Z",
+              "expiresAt": "2026-10-29T01:52:49.034Z",
+              "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+              "basis": "retailer_basket_postcode",
+              "destinationScope": "postal_code",
+              "postalCode": "00-001",
+              "dispatchFrom": "Katowice",
+              "evidenceSha256": "ebbb0a8924630089f8acfeba3f3daca6826f345838aee6d968aeddd9d19a90c8",
+              "orders": [
+                {
+                  "materialsGrosze": 6397,
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-5905400488579",
+                        "name": "Atlas Plus Podwójna Moc klej do płytek 25kg",
+                        "imageUrl": "https://sklep.sewera.pl/photo/38894/atlas-plus-podwojna-moc-klej-do-plytek-25kg.webp"
+                      },
+                      "unit": "kg",
+                      "packages": [
+                        {
+                          "offerId": "sewera-atlas-plus-standard-25kg",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893",
+                          "packageSize": 25,
+                          "count": 1,
+                          "unitPriceGrosze": 6397,
+                          "lineCostGrosze": 6397
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 3790,
+                    "carrier": "Kurier DHL - Paczka do 30 kg",
+                    "payment": "Płatność online",
+                    "checkedAt": "2026-10-29T01:42:58.236Z",
+                    "expiresAt": "2026-10-29T01:52:58.236Z",
+                    "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                    "basis": "retailer_basket_postcode",
+                    "destinationScope": "postal_code",
+                    "postalCode": "00-001",
+                    "dispatchFrom": "Katowice",
+                    "evidenceSha256": "19077dcaf35b37c7d6a600f4e744dca6fffd852b9b86c333b785b44ce926d1b0"
+                  }
+                },
+                {
+                  "materialsGrosze": 6397,
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-5905400488579",
+                        "name": "Atlas Plus Podwójna Moc klej do płytek 25kg",
+                        "imageUrl": "https://sklep.sewera.pl/photo/38894/atlas-plus-podwojna-moc-klej-do-plytek-25kg.webp"
+                      },
+                      "unit": "kg",
+                      "packages": [
+                        {
+                          "offerId": "sewera-atlas-plus-standard-25kg",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893",
+                          "packageSize": 25,
+                          "count": 1,
+                          "unitPriceGrosze": 6397,
+                          "lineCostGrosze": 6397
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 3790,
+                    "carrier": "Kurier DHL - Paczka do 30 kg",
+                    "payment": "Płatność online",
+                    "checkedAt": "2026-10-29T01:42:58.236Z",
+                    "expiresAt": "2026-10-29T01:52:58.236Z",
+                    "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                    "basis": "retailer_basket_postcode",
+                    "destinationScope": "postal_code",
+                    "postalCode": "00-001",
+                    "dispatchFrom": "Katowice",
+                    "evidenceSha256": "19077dcaf35b37c7d6a600f4e744dca6fffd852b9b86c333b785b44ce926d1b0"
+                  }
+                },
+                {
+                  "materialsGrosze": 3036,
+                  "lines": [
+                    {
+                      "product": {
+                        "id": "remont-5905400572254",
+                        "name": "Atlas Fuga ceramiczna 001 biały 2kg",
+                        "imageUrl": "https://sklep.sewera.pl/photo/257132/atlas-fuga-ceramiczna-001-bialy-2kg.webp"
+                      },
+                      "unit": "kg",
+                      "packages": [
+                        {
+                          "offerId": "sewera-grout-atlas-001-white-2kg",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/atlas-fuga-ceramiczna-001-bialy-2kg-p11674",
+                          "packageSize": 2,
+                          "count": 1,
+                          "unitPriceGrosze": 2690,
+                          "lineCostGrosze": 2690
+                        }
+                      ]
+                    },
+                    {
+                      "product": {
+                        "id": "remont-5905061016869",
+                        "name": "Krzyżyki dystansowe 3mm 150szt.",
+                        "imageUrl": "https://sklep.sewera.pl/photo/310569/krzyzyki-dystansowe-3mm-150szt-.webp"
+                      },
+                      "unit": "szt",
+                      "packages": [
+                        {
+                          "offerId": "sewera-tile-spacers-hardy-3mm-150",
+                          "store": "Sewera",
+                          "url": "https://sklep.sewera.pl/krzyzyki-dystansowe-3mm-150szt--p12505",
+                          "packageSize": 150,
+                          "count": 1,
+                          "unitPriceGrosze": 346,
+                          "lineCostGrosze": 346
+                        }
+                      ]
+                    }
+                  ],
+                  "quote": {
+                    "costGrosze": 1990,
+                    "carrier": "Kurier InPost do 5kg",
+                    "payment": "Płatność online",
+                    "checkedAt": "2026-10-29T01:42:49.034Z",
+                    "expiresAt": "2026-10-29T01:52:49.034Z",
+                    "sourceUrl": "https://sklep.sewera.pl/zamowienie",
+                    "basis": "retailer_basket_postcode",
+                    "destinationScope": "postal_code",
+                    "postalCode": "00-001",
+                    "dispatchFrom": "Katowice",
+                    "evidenceSha256": "3a86d576dc9d2e5bf864e271c808c99b23ea3b6e1e545ec9839aa57870e327f7"
+                  }
+                }
+              ],
+              "singleOrderCostGrosze": 19900
+            }
+          }
+        ],
+        "materialsGrosze": 123293,
+        "deliveryGrosze": 34269,
+        "totalGrosze": 157562,
+        "lowerBoundGrosze": 157562
+      },
+      "searchLimited": true,
+      "unavailableStores": [
+        {
+          "store": "Realbud",
+          "reason": "no_home_delivery"
+        }
+      ]
+    }
+  }
+}

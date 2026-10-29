@@ -10,7 +10,8 @@ import { priceTileSpacer, tileJointWidth } from './tileSpacers';
 import type { PricingMaterialLineInput, PricingStageInput } from './pricingApi';
 
 export type TileUse = 'wall' | 'floor';
-export type TileChoice = { from: string; to: string; use: TileUse };
+export type FloorKitAdhesive = 'mat-tile-adhesive-buildfix-25kg' | 'mat-tile-adhesive-atlas-plus-standard-25kg';
+export type TileChoice = { from: string; to: string; use: TileUse; floorAdhesive?: FloorKitAdhesive };
 type Specification = { id: string; widthCm: number; heightCm: number; depthMm: number; uses: readonly TileUse[]; minJointMm?: number };
 export const TILE_CHOICE_PREFIX = 'remont.tile-choice.v1:';
 const specifications: readonly Specification[] = [
@@ -52,8 +53,10 @@ export function parseTileChoices(raw: string | null): TileChoice[] {
   return saved.choices.map((row: any) => {
     const from = TILE_PRODUCTS.find(p => p.id === row?.from), to = TILE_PRODUCTS.find(p => p.id === row?.to);
     const use = row?.use as TileUse, key = use + ':' + row?.from;
-    if (!from || !to || from.id === to.id || !['wall', 'floor'].includes(use) || !from.uses.includes(use) || !to.uses.includes(use) || used.has(key)) throw Error('invalid_tile_choices');
-    used.add(key); return { from: from.id, to: to.id, use };
+    const floorAdhesive = row?.floorAdhesive as FloorKitAdhesive | undefined;
+    if (floorAdhesive !== undefined && (use !== 'floor' || !['mat-tile-adhesive-buildfix-25kg', 'mat-tile-adhesive-atlas-plus-standard-25kg'].includes(floorAdhesive))) throw Error('invalid_tile_choices');
+    if (!from || !to || from.id === to.id && floorAdhesive === undefined || !['wall', 'floor'].includes(use) || !from.uses.includes(use) || !to.uses.includes(use) || used.has(key)) throw Error('invalid_tile_choices');
+    used.add(key); return { from: from.id, to: to.id, use, ...(floorAdhesive === undefined ? {} : { floorAdhesive }) };
   });
 }
 export function tileRequirements(stages: readonly PricingStageInput[]): TileRequirement[] {
@@ -79,17 +82,17 @@ export function applyTileChoices(stages: readonly PricingStageInput[], choices: 
   const validated = parseTileChoices(JSON.stringify({ version: 1, choices }));
   if (!validated.length) return [...stages];
   return stages.map(stage => {
-    let selected: TileRequirement | undefined;
+    let selected: (TileRequirement & { floorAdhesive?: FloorKitAdhesive }) | undefined;
     const materials = stage.materials.map(line => {
       const from = tileReference(line.material), use = from && useFor(stage, from);
       const choice = from && use && validated.find(row => row.from === from.id && row.use === use);
       const to = choice && TILE_PRODUCTS.find(row => row.id === choice.to);
       if (!to || !use) return line;
-      if (line.material.id === primaryId(stage.jobId)) selected = { product: to, use };
+      if (line.material.id === primaryId(stage.jobId)) selected = { product: to, use, floorAdhesive: choice?.floorAdhesive };
       return catalogueLine(line, to.id);
     });
     if (!selected) return { ...stage, materials };
-    const { product, use } = selected as TileRequirement;
+    const { product, use, floorAdhesive } = selected as TileRequirement & { floorAdhesive?: FloorKitAdhesive };
     const joint = tileJointWidth(stage.jobId, stage.measurements);
     const kitchen=stage.jobId==='kitchen-backsplash',density=kitchen?KITCHEN_EPOXY_DENSITY:1650;
     const m = { ...stage.measurements, tileWidthCm: product.widthCm, tileHeightCm: product.heightCm, tileThicknessMm: product.depthMm, groutDensityKgM3: density, groutWidthMm: joint };
@@ -105,7 +108,7 @@ export function applyTileChoices(stages: readonly PricingStageInput[], choices: 
         const {packs:_packs,...demand}=line,{ean:_ean,gtin:_gtin,...identity}=line.material;
         return{...demand,quantity:1,material:{...identity,name:`${line.material.id.includes('cross')?'Krzyżyki':'Fuga'} — sprawdź spoinę: producent zaleca minimum ${String(product.minJointMm).replace('.',',')} mm; edytuj szerokość w obmiarach`,unit:'pozycja',category:'tile-joint-review'}};
       }
-      if (['tile-adhesive', 'wall-tile-adhesive'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_WHITE_REFERENCE : 'mat-tile-adhesive-buildfix-25kg', Number((area! * adhesiveRate * reserve(line.material.id)).toFixed(8)));
+      if (['tile-adhesive', 'wall-tile-adhesive'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_WHITE_REFERENCE : floorAdhesive ?? 'mat-tile-adhesive-buildfix-25kg', Number((area! * adhesiveRate * reserve(line.material.id)).toFixed(8)));
       if (['grout', 'wall-grout', 'grout-kitchen'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_EPOXY_REFERENCE : 'mat-grout-atlas-001-white-2kg', groutMassKg(area!, product.widthCm, product.heightCm, product.depthMm, joint, density, reserve(line.material.id)));
       if (['tile-crosses', 'wall-crosses', 'tile-crosses-kitchen'].includes(line.material.id)) {
         const quantity = resolveFormula('crosses')(m, 1);

@@ -45,7 +45,7 @@ export function buildRenovationBasket(
     if (!calc) { missingCalculations++; continue; }
     const items = shoppingByProject[project.id] ?? [];
     const stage = withManualShopping(toPricingStageInput(calc, tier, doorsByProject[project.id]), calc, project.id, items);
-    const chosen = applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [])[0];
+    const chosen = applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [], tilesByProject[project.id] ?? [])[0];
     const pending = applyProjectShopping(chosen, calc, project.id, items, stage);
     selectionStages.push(chosen);
     shoppingContexts.push({ projectId: project.id, calc, original: stage, items });

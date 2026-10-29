@@ -10,6 +10,7 @@ export async function readSelectedStage(projectId: string, original: PricingStag
   const [panels, foils, basins, tiles, adhesives] = await Promise.all([
     LAMINATE_CHOICE_PREFIX, FOIL_CHOICE_PREFIX, WASHBASIN_CHOICE_PREFIX, TILE_CHOICE_PREFIX, TILE_ADHESIVE_CHOICE_PREFIX,
   ].map(prefix => AsyncStorage.getItem(prefix + projectId)));
+  const tileChoices = parseTileChoices(tiles);
   return applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([original], parseLaminateChoices(panels)),
-    parseFoilChoices(foils)), parseWashbasinChoices(basins)), parseTileChoices(tiles)), parseTileAdhesiveChoices(adhesives))[0];
+    parseFoilChoices(foils)), parseWashbasinChoices(basins)), tileChoices), parseTileAdhesiveChoices(adhesives), tileChoices)[0];
 }
