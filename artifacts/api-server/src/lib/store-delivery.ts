@@ -4,6 +4,8 @@ import type { StoreDeliveryPolicy } from '../../../../lib/pricing-service/src/de
  * prepaid home delivery in Poland, not guessed fees for an arbitrary basket.
  * Weight, dimensions, payment and postcode can change the checkout quote. */
 export const STORE_DELIVERY_POLICIES: readonly StoreDeliveryPolicy[] = [
+  // source: https://integra-bielinscy.pl/content/1-koszty-dostawy
+  {store:'Integra Bielińscy',minimumGrosze:null,checkedAt:null,sourceUrl:'https://integra-bielinscy.pl/content/1-koszty-dostawy'},
   // Separate seller and checkout shipping; do not inherit Castorama's tariff.
   // source: https://www.castorama.pl/verified-sellers/seller/2601
   {store:'Corksystem (Castorama)',minimumGrosze:null,checkedAt:null,sourceUrl:'https://www.castorama.pl/verified-sellers/seller/2601'},

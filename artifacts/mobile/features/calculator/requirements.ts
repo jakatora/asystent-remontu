@@ -1,3 +1,4 @@
+import {HARDWARE_MODEL,isHardwareMaterial,hardwareQuantity} from './cabinetHardware';
 import {CABINET_MODEL,isCabinetMaterial,cabinetQuantity} from './cabinetPainting';
 import {UNDERLAY_MODEL,isUnderlayMaterial,underlayQuantity} from './underlayInstall';
 import {GROUT_ONLY_MODEL,isGroutOnlyMaterial,groutOnlyQuantity} from './groutOnly';
@@ -24,6 +25,7 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===HARDWARE_MODEL&&isHardwareMaterial(calc.jobId,line.material.id))return hardwareQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===CABINET_MODEL&&isCabinetMaterial(calc.jobId,line.material.id))return cabinetQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===UNDERLAY_MODEL&&isUnderlayMaterial(calc.jobId,line.material.id))return underlayQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===GROUT_ONLY_MODEL&&isGroutOnlyMaterial(calc.jobId,line.material.id))return groutOnlyQuantity(line.material.id,calc.measurements)??0;

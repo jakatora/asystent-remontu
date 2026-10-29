@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-29T04:35:37.892Z",
-  "scope": "179 exact references and photos, 172 with active offers, 221 offers and 227 registered source observations. Same 65 historical measurement maps retain 81/252 priced requirements and 171 unresolved requirements; these are not 171 unique SKUs. The separately selected Chem-Rozlew preparation option is verified in 20 actual SDK scenarios, 14 complete delivered baskets, with real whole-store shipping. V33 automatic cans remain verified; other complete renovation kits are still being developed.",
+  "checkedAt": "2026-10-29T05:36:13.169Z",
+  "scope": "Same 65 historical measurement maps without adding unrecorded product choices. New hardware variants require measured 128mm pitch and confirmed screw fit. Fifteen current actual SDK scenarios additionally verify nine complete delivered baskets including shared cabinet renovation and handles; missing gold weight and screw fit remain incomplete.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -464,6 +464,24 @@
         }
       },
       "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved (100no-query,69no-product,1no-offer),11 fully priced scenarios.170 requirements are not170 unique products. New explicit Ennis colour choices have5/5 floor materials priced but require adhesive delivery confirmation; tile-only actual cart totals verified separately. Kronodom automatic shipping and quantity splits are already verified in research/kronodom-automatyczna-dostawa-2026-10-29.md and research/podzial-ilosci-na-zamowienia-2026-10-29.md. Current tile evidence: research/ennis-kolory-koszyk-2026-10-29.md."
+    },
+    {
+      "checkedAt": "2026-10-29T04:35:37.892Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 252,
+        "beforePriced": 81,
+        "afterLines": 252,
+        "afterPriced": 81,
+        "afterUnpriced": 171,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 101,
+          "no-product": 69,
+          "no-offer": 1
+        }
+      }
     }
   ],
   "jobs": [
@@ -2711,12 +2729,12 @@
       "materials": [
         {
           "materialId": "cabinet-handles",
-          "name": "Nowe uchwyty lub gałki",
-          "unit": "szt.",
+          "name": "Uchwyty — wybierz model i zmierz rozstaw — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "nowe uchwyty lub galki",
+            "normalizedName": "uchwyty wybierz model i zmierz rozstaw ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -2726,12 +2744,12 @@
         },
         {
           "materialId": "longer-screws",
-          "name": "Dłuższe śruby (jeśli nowe uchwyty grubsze)",
-          "unit": "szt.",
+          "name": "Śruby — potwierdź pasowanie zestawu lub dobierz długość — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "dluzsze sruby jesli nowe uchwyty grubsze",
+            "normalizedName": "sruby potwierdz pasowanie zestawu lub dobierz dlugosc ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -6264,5 +6282,24 @@
     "twoPostcodesAndSingleOrderPreference": true,
     "selectedStoreAndUnconfirmedTotalsBlocked": true,
     "frontendOnly": true
+  },
+  "hardwareVerification": {
+    "checkedAt": "2026-10-29T05:34:48.647Z",
+    "report": "research/uchwyty-nyxa-kompletny-koszyk-2026-10-29.md",
+    "productionSdkCases": 15,
+    "completeDeliveredCases": 9,
+    "nativeBaskets": 6,
+    "quantityModel": "cabinet-nyxa-128-v1",
+    "references": [
+      "mat-handle-gtv-nyxa-128-black",
+      "mat-handle-gtv-nyxa-128-gold"
+    ],
+    "twoIncludedM4x22": true,
+    "measuredPitchRequired": true,
+    "ownedProductReview": true,
+    "goldWeightUnknownNotFree": true,
+    "fourHandlesDeliveredGrosze": 6091,
+    "fifteenHandlesDeliveredGrosze": 19485,
+    "sharedCabinetRenovationGrosze": 28145
   }
 }

@@ -1,15 +1,49 @@
 {
-  "checkedAt": "2026-10-29T04:35:37.892Z",
-  "scope": "179 exact references and photos, 172 with active offers, 221 offers and 227 registered source observations. Same 65 historical measurement maps retain 81/252 priced requirements and 171 unresolved requirements; these are not 171 unique SKUs. The separately selected Chem-Rozlew preparation option is verified in 20 actual SDK scenarios, 14 complete delivered baskets, with real whole-store shipping. V33 automatic cans remain verified; other complete renovation kits are still being developed.",
-  "total": 179,
-  "verifiedProducts": 172,
+  "checkedAt": "2026-10-29T05:36:13.169Z",
+  "scope": "181 exact references and photos; 174 active products, 223 offers, 229 source observations. Native NYXA handle variants require explicit measured pitch and screw fit. Fifteen actual SDK cases include nine complete delivered baskets and shared cabinet renovation. Historical 65 measurement maps retain 81/252 priced requirements and 171 unresolved requirements; these are not unique SKUs. Overall goal remains active.",
+  "total": 181,
+  "verifiedProducts": 174,
   "remaining": 7,
-  "offers": 221,
-  "stores": 52,
-  "productsWithPhotos": 179,
-  "registeredOffers": 227,
+  "offers": 223,
+  "stores": 53,
+  "productsWithPhotos": 181,
+  "registeredOffers": 229,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-handle-gtv-nyxa-128-black",
+      "productLabel": "GTV NYXA 128 mm — czarny mat, 2 × M4×22 w zestawie",
+      "ean": "5902801422652",
+      "materialType": "cabinet-handle",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "integra-gtv-nyxa-128-black"
+      ],
+      "referenceUrl": "https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html",
+      "photoUrl": "https://integra-bielinscy.pl/2693-home_default/uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat.jpg",
+      "photoSourceUrl": "https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html",
+      "checkedAt": "2026-10-29T05:35:10.646Z",
+      "availabilityScope": "Whole-piece exact black variant, available79 at check. Home InPost national tariff from fresh native cart with live weight; pickup unconfirmed."
+    },
+    {
+      "id": "mat-handle-gtv-nyxa-128-gold",
+      "productLabel": "GTV NYXA 128 mm — złoto szczotkowane, 2 × M4×22 w zestawie",
+      "ean": "5902801422737",
+      "materialType": "cabinet-handle",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "integra-gtv-nyxa-128-gold"
+      ],
+      "referenceUrl": "https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html",
+      "photoUrl": "https://integra-bielinscy.pl/2695-home_default/uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane.jpg",
+      "photoSourceUrl": "https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html",
+      "checkedAt": "2026-10-29T05:35:10.849Z",
+      "availabilityScope": "Whole-piece exact gold variant, available5 at check; shipping weight unknown, no complete automatic delivered total. Pickup unconfirmed."
+    },
     {
       "id": "mat-extraction-solvent-chem-rozlew-500ml",
       "productLabel": "Chem-Rozlew benzyna ekstrakcyjna 0,5 l",
@@ -28,23 +62,6 @@
       "availabilityScope": "Exact non-aerosol liquid500ml native bottle, distinct from spray and5l. Explicit preparation brand choice; manufacturer cleaning/degreasing use and V33 preparation instructions reviewed. Whole-store cart shipping with paint; no confirmed local pickup price/stock."
     },
     {
-      "id": "mat-cabinet-v33-easy-white-2000ml",
-      "productLabel": "V33 Easy Renowacja Kuchnia — biały satyna 2 l",
-      "ean": "3153895149228",
-      "materialType": "cabinet-paint",
-      "packageSize": 2000,
-      "packageUnit": "ml",
-      "status": "verified_offer",
-      "sourceIds": [
-        "rabdom-v33-easy-kitchen-white-2000ml"
-      ],
-      "referenceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
-      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
-      "photoSourceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
-      "checkedAt": "2026-10-29T03:22:38.925Z",
-      "availabilityScope": "Exact white satin V33 Easy can, distinct barcode and native whole-piece SKU. Explicit cabinet surface, measured painted area, coats, pack and preparation decisions. National PL whole-cart paint courier; Sewera auxiliary shipping quoted for postcode. No automatic substitution for unsupported/old generic surfaces; local branch stock and price unconfirmed."
-    },
-    {
       "id": "mat-cabinet-v33-easy-white-750ml",
       "productLabel": "V33 Easy Renowacja Kuchnia — biały satyna 0,75 l",
       "ean": "3153895149044",
@@ -59,6 +76,23 @@
       "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
       "photoSourceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
       "checkedAt": "2026-10-29T03:22:38.094Z",
+      "availabilityScope": "Exact white satin V33 Easy can, distinct barcode and native whole-piece SKU. Explicit cabinet surface, measured painted area, coats, pack and preparation decisions. National PL whole-cart paint courier; Sewera auxiliary shipping quoted for postcode. No automatic substitution for unsupported/old generic surfaces; local branch stock and price unconfirmed."
+    },
+    {
+      "id": "mat-cabinet-v33-easy-white-2000ml",
+      "productLabel": "V33 Easy Renowacja Kuchnia — biały satyna 2 l",
+      "ean": "3153895149228",
+      "materialType": "cabinet-paint",
+      "packageSize": 2000,
+      "packageUnit": "ml",
+      "status": "verified_offer",
+      "sourceIds": [
+        "rabdom-v33-easy-kitchen-white-2000ml"
+      ],
+      "referenceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+      "photoSourceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+      "checkedAt": "2026-10-29T03:22:38.925Z",
       "availabilityScope": "Exact white satin V33 Easy can, distinct barcode and native whole-piece SKU. Explicit cabinet surface, measured painted area, coats, pack and preparation decisions. National PL whole-cart paint courier; Sewera auxiliary shipping quoted for postcode. No automatic substitution for unsupported/old generic surfaces; local branch stock and price unconfirmed."
     },
     {
@@ -183,6 +217,22 @@
       "availabilityScope": "online23 whole15kg buckets; actual anonymous national PL pallet quote includes carrier and mandatory KN-WO pallet; local pickup unconfirmed"
     },
     {
+      "id": "mat-plaster-primer-knauf-betokontakt-5kg",
+      "productLabel": "Knauf Betokontakt — grunt sczepny 5 kg",
+      "ean": "4006379051014",
+      "materialType": "plaster-primer",
+      "packageSize": 5,
+      "packageUnit": "kg",
+      "status": "verified_offer",
+      "sourceIds": [
+        "realbud-knauf-betokontakt-5kg"
+      ],
+      "referenceUrl": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1",
+      "checkedAt": "2026-10-28T20:40:34.364Z",
+      "availabilityScope": "online; native whole-pack price and current national PL courier quote; branch pickup unconfirmed"
+    },
+    {
       "id": "mat-plaster-mesh-knauf-profix-50m2",
       "productLabel": "Siatka tynkarska Knauf Profix 100 cm × 50 m (50 m²)",
       "ean": "5902367201067",
@@ -201,22 +251,6 @@
       "photoScope": "Manufacturer Profix range illustration; exact 1000 mm / 50 m variant verified separately by EAN 5902367201067."
     },
     {
-      "id": "mat-plaster-primer-knauf-betokontakt-5kg",
-      "productLabel": "Knauf Betokontakt — grunt sczepny 5 kg",
-      "ean": "4006379051014",
-      "materialType": "plaster-primer",
-      "packageSize": 5,
-      "packageUnit": "kg",
-      "status": "verified_offer",
-      "sourceIds": [
-        "realbud-knauf-betokontakt-5kg"
-      ],
-      "referenceUrl": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
-      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1",
-      "checkedAt": "2026-10-28T20:40:34.364Z",
-      "availabilityScope": "online; native whole-pack price and current national PL courier quote; branch pickup unconfirmed"
-    },
-    {
       "id": "mat-profile-ud30-norgips-super-c3-3m",
       "productLabel": "Profil Norgips UD 30 SUPER C3, 0,6 mm, 3 m (EAN 1197)",
       "ean": "5907651691197",
@@ -232,6 +266,993 @@
       "checkedAt": "2026-10-28T19:58:11.441Z",
       "availabilityScope": "online only; no branch or delivered-price claim",
       "separateFrom": "mat-profile-ud30-norgips-06-3m"
+    },
+    {
+      "id": "mat-ceiling-anchor-rawlplug-gs-100",
+      "name": "Kotwa stalowa sufitowa Rawlplug R-GS-06040 (100 szt.)",
+      "referenceUrl": "https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm",
+      "status": "verified_offer",
+      "ean": "5906675169347",
+      "sourceIds": [
+        "ehw-rawlplug-gs-100",
+        "zpradem-rawlplug-gs-100"
+      ],
+      "photoUrl": "https://sklep.ehw.com.pl/environment/cache/images/productGfx_21763_500_500/858bd3358fa32304143b7a47e27c63b67c2f8593_0904f920e7ad3435db4d6ef5dd9e21e4a1468024_2a57cf4d4f4f771f6aaa3b51711fe54a3e05a012_GS_product__p.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "ehw-rawlplug-gs-100",
+          "checkedAt": "2026-10-27T10:53:14.608Z",
+          "expiresAt": "2026-10-27T11:03:14.608Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2100
+        },
+        {
+          "sourceId": "zpradem-rawlplug-gs-100",
+          "checkedAt": "2026-10-27T10:53:14.625Z",
+          "expiresAt": "2026-10-27T11:03:14.625Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2700
+        }
+      ]
+    },
+    {
+      "id": "mat-profile-cd60-irbud-3m",
+      "name": "Profil główny sufitowy CD60 3 MB / 0,6 (Norgips, oferta IRBUD)",
+      "referenceUrl": "https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/",
+      "status": "verified_offer",
+      "ean": "",
+      "sourceIds": [
+        "irbud-norgips-cd60-06-3m"
+      ],
+      "photoUrl": "https://irbudsklep.pl/wp-content/uploads/2023/11/Zrzut-ekranu-2025-09-05-114945.png",
+      "deliveryChecks": [
+        {
+          "sourceId": "irbud-norgips-cd60-06-3m",
+          "checkedAt": "2026-10-27T10:53:13.995Z",
+          "expiresAt": "2026-10-27T11:03:13.995Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_postcode",
+          "costGrosze": 5200,
+          "postalCode": "00-001"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-cross-norgips-100",
+      "name": "Łącznik krzyżowy Norgips CD 60 (100 szt.)",
+      "referenceUrl": "https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325",
+      "status": "verified_offer",
+      "ean": "5907651696468",
+      "sourceIds": [
+        "hipper-norgips-cross-100"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos%7CPhotoMed%7C9794D2D8-F401-4DEA-BF8D-D0FF361306EE%7C1/%C5%81%C4%85cznik%20krzy%C5%BCowy%2060%20x%20145%20mm%20100%20szt.%20Norgips.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "hipper-norgips-cross-100",
+          "checkedAt": "2026-10-27T10:13:20.766Z",
+          "expiresAt": "2026-10-27T10:23:20.766Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 1890
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-cross-budmat-100",
+      "name": "Łącznik krzyżowy Budmat CD 60, 0,8 mm (100 szt.)",
+      "referenceUrl": "https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138",
+      "status": "verified_offer",
+      "ean": "5901323043369",
+      "sourceIds": [
+        "ebardo-budmat-cross-100"
+      ],
+      "photoUrl": "https://ebardo.pl/environment/cache/images/productGfx_2897_500_500/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "ebardo-budmat-cross-100",
+          "checkedAt": "2026-10-27T10:13:21.347Z",
+          "expiresAt": "2026-10-27T10:23:21.347Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2500
+        }
+      ]
+    },
+    {
+      "id": "mat-vapor-foil-conkret-ecovil-p-100m2",
+      "name": "Folia paroizolacyjna Conkret Ecovil P 0,20 mm (100 m²)",
+      "referenceUrl": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534",
+      "status": "verified_offer",
+      "ean": "5902096431131",
+      "sourceIds": [
+        "ebardo-ecovil-p-100m2"
+      ],
+      "photoUrl": "https://ebardo.pl/environment/cache/images/productGfx_2142_500_500/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "ebardo-ecovil-p-100m2",
+          "checkedAt": "2026-10-27T09:20:09.081Z",
+          "expiresAt": "2026-10-27T09:30:09.081Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "costGrosze": 2500
+        }
+      ]
+    },
+    {
+      "id": "mat-laminate-kit-wolfcraft-6931000",
+      "name": "Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy",
+      "referenceUrl": "https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000",
+      "status": "verified_offer",
+      "ean": "4006885693104",
+      "sourceIds": [
+        "mensura-wolfcraft-6931000-kit"
+      ],
+      "photoUrl": "https://www.mensura.pl/environment/cache/images/productGfx_102546_0_0/Zestaw-do-ukladania-paneli-22el.-Wolfcraft-6931000.jpg",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-underlay-joint-tape-arbiton-izo-25m",
+      "name": "Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m",
+      "referenceUrl": "https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334",
+      "status": "verified_offer",
+      "ean": "5905167698778",
+      "sourceIds": [
+        "liderzy-arbiton-izo-floor-tape-25m",
+        "topboden-arbiton-izo-floor-tape-25m"
+      ],
+      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg",
+      "deliveryChecks": [],
+      "checkedAt": "2026-10-29T00:02:43.608Z"
+    },
+    {
+      "id": "mat-wallpaper-remover-metylan-500ml",
+      "name": "Metylan Remover — koncentrat do usuwania tapet 500 ml",
+      "referenceUrl": "https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html",
+      "status": "verified_offer",
+      "ean": "9000100222969",
+      "sourceIds": [
+        "abud-metylan-remover-500ml",
+        "hipper-metylan-remover-500ml"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/da34e4afb4b30103e7a6affb323594aa/pol_pl_Plyn-do-usuwania-tapet-500ml-Metylan-5708_1.webp",
+      "pickupRequiresConfirmation": true,
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T07:27:35.996Z",
+          "sourceId": "abud-metylan-remover-500ml",
+          "status": "confirmed_anonymous_cart",
+          "scope": "postcode00-001,500ml bottle35.20+13.00=48.20,TTL10min"
+        },
+        {
+          "checkedAt": "2026-10-27T07:27:35.996Z",
+          "sourceId": "hipper-metylan-remover-500ml",
+          "status": "confirmed_anonymous_cart",
+          "scope": "nationalPL,500ml bottle36.99+18.90=55.89,TTL10min"
+        }
+      ]
+    },
+    {
+      "id": "mat-gk-screws-koelner-fs3525-1000",
+      "name": "Wkręty do płyt GK Koelner FS 3,5×25 mm, 1000 szt.",
+      "referenceUrl": "https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak",
+      "status": "verified_offer",
+      "ean": "5906675305127",
+      "sourceIds": [
+        "buduj24-koelner-fs3525-1000",
+        "abud-koelner-fs3525-1000"
+      ],
+      "photoUrl": "https://buduj24.pl/files/_product/14398/5906675305127_1.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "buduj24-koelner-fs3525-1000",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_national PL",
+          "quoteTtlMinutes": 10
+        },
+        {
+          "sourceId": "abud-koelner-fs3525-1000",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_postcode 00-001",
+          "quoteTtlMinutes": 10
+        }
+      ],
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "mat-gk-profile-screws-koelner-ws3595-1000",
+      "name": "Wkręty do profili Koelner WS 3,5×9,5 mm, 1000 szt.",
+      "referenceUrl": "https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html",
+      "status": "verified_offer",
+      "ean": "5906675303024",
+      "sourceIds": [
+        "abud-koelner-ws3595-1000",
+        "kowalczyk-koelner-ws3595-1000",
+        "zpradem-koelner-ws3595-1000"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/c13753752e4f9725fd61b84075871cd7/pol_pl_Wkret-samowiercacy-3-5x9-5mm-1000-szt-63463_1.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-koelner-ws3595-1000",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_postcode 00-001",
+          "quoteTtlMinutes": 10
+        },
+        {
+          "sourceId": "kowalczyk-koelner-ws3595-1000",
+          "checkedAt": "2026-10-27T12:45:28.418Z",
+          "expiresAt": "2026-10-27T12:55:28.418Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "00-001",
+          "costGrosze": 1699,
+          "orderOfferIds": [
+            "kowalczyk-koelner-ws3595-1000",
+            "kowalczyk-koelner-fx06k040-200"
+          ],
+          "materialsGrosze": 6520
+        },
+        {
+          "sourceId": "zpradem-koelner-ws3595-1000",
+          "checkedAt": "2026-10-27T12:45:23.237Z",
+          "expiresAt": "2026-10-27T12:55:23.237Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 2700,
+          "orderOfferIds": [
+            "zpradem-koelner-ws3595-1000"
+          ],
+          "materialsGrosze": 5630
+        }
+      ],
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "mat-gk-perimeter-koelner-fx06k040-200",
+      "name": "Kołki do profili Koelner FX-06K040, 6×40 mm, 200 szt.",
+      "referenceUrl": "https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html",
+      "status": "verified_offer",
+      "ean": "5906675107622",
+      "sourceIds": [
+        "abud-koelner-fx06k040-200",
+        "kowalczyk-koelner-fx06k040-200",
+        "kim-koelner-fx06k040-200"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/a6c8238c098e65717875db7b7bcedfc1/pol_pl_Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt-1452_2.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "abud-koelner-fx06k040-200",
+          "checkedAt": "2026-10-27T06:59:11.859Z",
+          "status": "confirmed_anonymous_cart",
+          "scope": "retailer_basket_postcode 00-001",
+          "quoteTtlMinutes": 10
+        },
+        {
+          "sourceId": "kowalczyk-koelner-fx06k040-200",
+          "checkedAt": "2026-10-27T12:45:28.418Z",
+          "expiresAt": "2026-10-27T12:55:28.418Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_postcode",
+          "destinationScope": "postal_code",
+          "postalCode": "00-001",
+          "costGrosze": 1699,
+          "orderOfferIds": [
+            "kowalczyk-koelner-ws3595-1000",
+            "kowalczyk-koelner-fx06k040-200"
+          ],
+          "materialsGrosze": 6520
+        },
+        {
+          "sourceId": "kim-koelner-fx06k040-200",
+          "checkedAt": "2026-10-27T12:45:23.317Z",
+          "expiresAt": "2026-10-27T12:55:23.317Z",
+          "status": "quoted",
+          "reason": null,
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "costGrosze": 1600,
+          "orderOfferIds": [
+            "kim-koelner-fx06k040-200"
+          ],
+          "materialsGrosze": 1990
+        }
+      ],
+      "pickupRequiresConfirmation": true
+    },
+    {
+      "id": "mat-gypsum-paper-norgips-50x75",
+      "name": "Taśma papierowa Norgips 50 mm × 75 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html",
+      "status": "verified_offer",
+      "ean": "5907651699933",
+      "sourceIds": [
+        "leroy-norgips-paper-50x75"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2629682/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-paper-50x75",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-acoustic-norgips-50x30",
+      "name": "Taśma uszczelniająca Norgips 50 mm × 30 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html",
+      "status": "verified_offer",
+      "ean": "5907651698004",
+      "sourceIds": [
+        "leroy-norgips-acoustic-50x30"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2631597/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-acoustic-50x30",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-acoustic-norgips-30x30",
+      "name": "Taśma uszczelniająca Norgips 30 mm × 30 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html",
+      "status": "verified_offer",
+      "ean": "5907651698851",
+      "sourceIds": [
+        "leroy-norgips-acoustic-30x30"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2629693/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-acoustic-30x30",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
+    },
+    {
+      "id": "mat-profile-cw50-norgips-06-3m-retail",
+      "name": "Profil Norgips CW 50, 0,6 mm, 3 m (EAN 8912)",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html",
+      "status": "verified_offer",
+      "ean": "5907651698912",
+      "sourceIds": [
+        "leroy-norgips-cw50-06-3m"
+      ],
+      "photoUrl": "https://media.adeo.com/media/3186925/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-cw50-06-3m",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
+    },
+    {
+      "id": "mat-profile-uw50-norgips-super-06-3m",
+      "name": "Profil Norgips UW 50 Super, 0,6 mm, 3 m",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html",
+      "status": "verified_offer",
+      "ean": "5907651698547",
+      "sourceIds": [
+        "leroy-norgips-uw50-06-3m"
+      ],
+      "photoUrl": "https://media.adeo.com/media/3191881/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-uw50-06-3m",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
+    },
+    {
+      "id": "mat-profile-ud30-norgips-06-3m",
+      "name": "Profil Norgips UD 30, 0,6 mm, 3 m (EAN 8905)",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
+      "status": "browser_verification_expired",
+      "ean": "5907651698905",
+      "sourceIds": [
+        "leroy-norgips-ud30-06-3m"
+      ],
+      "photoUrl": "https://media.adeo.com/media/3196086/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-ud30-06-3m",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T11:55:00.658Z",
+        "previous": "verified_offer",
+        "errors": [
+          {
+            "sourceId": "leroy-norgips-ud30-06-3m",
+            "error": "browser_refresh_required",
+            "checkedAt": "2026-10-27T05:39:56.843Z"
+          }
+        ]
+      },
+      "currentIdentityCheck": {
+        "checkedAt": "2026-10-28T19:24:57.933Z",
+        "status": "different_live_ean",
+        "sourceId": "leroy-norgips-ud30-06-3m",
+        "expectedEan": "5907651698905",
+        "observedEan": "5907651691197",
+        "note": "Current primary JSON-LD identifies a different barcode on retailer card44604343. No substitution or renewed verification for the old EAN."
+      }
+    },
+    {
+      "id": "mat-gypsum-hanger-norgips-es6075",
+      "name": "Wieszak płaski Norgips ES 60/75, 1 szt.",
+      "referenceUrl": "https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html",
+      "status": "verified_offer",
+      "ean": "5907651699650",
+      "sourceIds": [
+        "leroy-norgips-es6075"
+      ],
+      "photoUrl": "https://media.adeo.com/media/2629673/media.jpg",
+      "deliveryChecks": [
+        {
+          "sourceId": "leroy-norgips-es6075",
+          "checkedAt": "2026-10-27T06:01:48.742Z",
+          "status": "unavailable",
+          "reason": "retailer_access_required"
+        }
+      ],
+      "browserVerification": {
+        "method": "browser",
+        "checkedAt": "2026-10-27T05:39:56.843Z",
+        "expiresAt": "2026-10-28T05:39:56.843Z"
+      },
+      "lastStatusChange": {
+        "checkedAt": "2026-10-28T19:44:23.147Z",
+        "previous": "browser_verification_expired",
+        "status": "verified_offer"
+      },
+      "statusHistory": [
+        {
+          "checkedAt": "2026-10-28T18:48:28.562Z",
+          "status": "browser_verification_expired"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-fleece-norgips-50x25",
+      "name": "Taśma fizelinowa Norgips 50 mm × 25 m",
+      "referenceUrl": "https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570",
+      "status": "verified_offer",
+      "ean": "5907651699926",
+      "sourceIds": [
+        "hipper-norgips-fleece-50x25"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|1403C532-C046-4095-BC51-32C96B8A2610|1/Ta%C5%9Bma%20flizelinowa%20z%20w%C5%82%C3%B3kna%20szklanego%2050%20mm%20Norgips.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gypsum-longitudinal-norgips-cd60",
+      "name": "Łącznik wzdłużny Norgips CD 60, 60×110 mm, 1 szt.",
+      "referenceUrl": "https://hipper.pl/lacznik-wzdluzny-60-x-110-mm-1-szt-norgips-2682631077",
+      "status": "verified_offer",
+      "ean": "5907651699674",
+      "sourceIds": [
+        "hipper-norgips-longitudinal-cd60"
+      ],
+      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|D09C4503-BAF4-43AE-A75D-C7A89B98C9B0|1/%C5%81%C4%85cznik%20wzd%C5%82u%C5%BCny%20%2060%20x%20110%20mm%201%20szt.%20Norgips.webp",
+      "deliveryChecks": []
+    },
+    {
+      "id": "mat-gypsum-norgips-start-finish-20kg",
+      "name": "Gotowa masa do spoin Norgips Start & Finish 20 kg",
+      "referenceUrl": "https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html",
+      "status": "verified_offer",
+      "ean": "5907651699056",
+      "sourceIds": [
+        "marbet-norgips-startfinish-20kg"
+      ],
+      "photoUrl": "https://marbet24.pl/6085-home_default/norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "integration_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-norgips-start-25kg",
+      "name": "Gips do spoin Norgips Start 25 kg — proszek",
+      "referenceUrl": "https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html",
+      "status": "verified_offer",
+      "ean": "5907651693818",
+      "sourceIds": [
+        "marbet-norgips-start-25kg"
+      ],
+      "photoUrl": "https://marbet24.pl/1363-home_default/norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "integration_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-gypsum-board-norgips-gkb-a-1200x2000",
+      "name": "Płyta gipsowa Norgips GKB typ A 12,5 mm 1200×2000 mm (2,4 m²)",
+      "referenceUrl": "https://marbet24.pl/plyty-karton-gips/1126-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm-5907651690879.html",
+      "status": "verified_offer",
+      "ean": "5907651690879",
+      "sourceIds": [
+        "marbet-norgips-board-gkb-2000"
+      ],
+      "photoUrl": "https://marbet24.pl/1126-home_default/norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "integration_unavailable"
+        }
+      ]
+    },
+    {
+      "id": "mat-mineral-wool-isover-akuplyta-50mm",
+      "name": "Wełna mineralna Isover Aku-Płyta 037, 50 mm (14,4 m²)",
+      "referenceUrl": "https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana-p11977",
+      "status": "verified_offer",
+      "ean": "5901644653131",
+      "sourceIds": [
+        "sewera-isover-aku-plyta-50mm"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/190047/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T05:01:56.845Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "status": "unavailable",
+          "reason": "no_home_delivery"
+        }
+      ]
+    },
+    {
+      "id": "mat-extraction-solvent-anser-500ml",
+      "name": "Anser benzyna ekstrakcyjna 0,5 l",
+      "referenceUrl": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
+      "status": "verified_offer",
+      "ean": "5903231606117",
+      "sourceIds": [
+        "sewera-anser-extraction-solvent-500ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "steel",
+          "deliveredGrosze": 28865,
+          "unavailable": []
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-dulux-rapidry-white-matt-1l",
+      "name": "Dulux Rapidry biały mat 1 l",
+      "referenceUrl": "https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html",
+      "status": "verified_offer",
+      "ean": "5904078222379",
+      "sourceIds": [
+        "abud-dulux-rapidry-white-matt-1l"
+      ],
+      "photoUrl": "https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "pvcOwned",
+          "deliveredGrosze": null,
+          "unavailable": [
+            {
+              "store": "ABUD",
+              "reason": "quote_unavailable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-urekor-s-white-800ml",
+      "name": "Śnieżka Urekor S podkład antykorozyjny biały 0,8 l",
+      "referenceUrl": "https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955",
+      "status": "verified_offer",
+      "ean": "5903973228790",
+      "sourceIds": [
+        "sewera-urekor-s-white-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/191092/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "steel",
+          "deliveredGrosze": 28865,
+          "unavailable": []
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-urekor-d-white-800ml",
+      "name": "Śnieżka Urekor D grunt do drewna biały 0,8 l",
+      "referenceUrl": "https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330",
+      "status": "verified_offer",
+      "ean": "5903973231684",
+      "sourceIds": [
+        "sewera-urekor-d-white-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/46745/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "wood",
+          "deliveredGrosze": null,
+          "unavailable": [
+            {
+              "store": "Sewera",
+              "reason": "product_unavailable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-supermal-acrylic-white-semigloss-800ml",
+      "name": "Śnieżka Supermal akrylowa biały półpołysk 0,8 l",
+      "referenceUrl": "https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608",
+      "status": "verified_offer",
+      "ean": "5903973232131",
+      "sourceIds": [
+        "sewera-supermal-acrylic-white-semigloss-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/186834/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "steel",
+          "deliveredGrosze": 28865,
+          "unavailable": []
+        }
+      ]
+    },
+    {
+      "id": "mat-frame-supermal-acrylic-white-matt-800ml",
+      "name": "Śnieżka Supermal akrylowa biały mat 0,8 l",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990",
+      "status": "verified_offer",
+      "ean": "5903973147756",
+      "sourceIds": [
+        "rabdom-supermal-acrylic-white-matt-800ml",
+        "sewera-supermal-acrylic-white-matt-800ml"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/186957/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T04:14:06.521Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
+          "sampleKey": "wood",
+          "deliveredGrosze": null,
+          "unavailable": [
+            {
+              "store": "Sewera",
+              "reason": "product_unavailable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-joint-tape-bluedolphin-fsh-48mm-20m",
+      "name": "Blue Dolphin FSH, taśma spoinowa 48 mm × 20 m",
+      "referenceUrl": "https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044",
+      "status": "verified_offer",
+      "ean": "5907758504369",
+      "sourceIds": [
+        "sewera-bluedolphin-fsh-48mm-20m",
+        "realbud-bluedolphin-fsh-48mm-20m"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-hand-paper-klingspor-pl28c-p240",
+      "name": "Klingspor PL 28 C P240, arkusz 230 × 280 mm",
+      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
+      "status": "verified_offer",
+      "ean": "5907560039820",
+      "sourceIds": [
+        "sewera-klingspor-pl28c-p240-sheet"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-hand-paper-klingspor-pl28c-p150",
+      "name": "Klingspor PL 28 C P150, arkusz 230 × 280 mm",
+      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900",
+      "status": "verified_offer",
+      "ean": "5907560023553",
+      "sourceIds": [
+        "sewera-klingspor-pl28c-p150-sheet"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/56973/papier-scierny-gr-150-arkusz-230x280mm.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "mixedRenovation",
+          "deliveredGrosze": 19998
+        }
+      ]
+    },
+    {
+      "id": "mat-hand-paper-klingspor-pl28c-p120",
+      "name": "Klingspor PL 28 C P120, arkusz 230 × 280 mm",
+      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899",
+      "status": "verified_offer",
+      "ean": "5907560017644",
+      "sourceIds": [
+        "sewera-klingspor-pl28c-p120-sheet"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/56971/papier-scierny-gr-120-arkusz-230x280mm.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-skim-coat-acrylputz-st10-5kg",
+      "name": "ACRYL-PUTZ ST10 START 5 kg",
+      "referenceUrl": "https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308",
+      "status": "verified_offer",
+      "ean": "5903973104414",
+      "sourceIds": [
+        "sewera-acrylputz-st10-5kg",
+        "rabdom-acrylputz-st10-5kg"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/34284/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T03:25:25.781Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
+          "sampleKey": "repair",
+          "deliveredGrosze": 11955
+        }
+      ]
+    },
+    {
+      "id": "mat-sanitary-silicone-soudal-stop-white-280ml",
+      "name": "Soudal Silikon Sanitarny STOP biały 280 ml",
+      "referenceUrl": "https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922",
+      "status": "verified_offer",
+      "ean": "5411183200326",
+      "sourceIds": [
+        "realbud-soudal-sanitary-stop-white-280ml"
+      ],
+      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_23109_500_500/5daa6a798ad6adc9e8224e3b5a646bb7.jpg",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T02:47:53.945Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "whole sanitary replacement sample; mixed store baskets as needed",
+          "deliveredGrosze": 11549
+        }
+      ]
+    },
+    {
+      "id": "mat-silicone-remover-soudal-100ml",
+      "name": "Soudal Silicone Remover 100 ml",
+      "referenceUrl": "https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481",
+      "status": "verified_offer",
+      "ean": "5411183041899",
+      "sourceIds": [
+        "sewera-soudal-silicone-remover-100ml",
+        "rabdom-soudal-silicone-remover-100ml"
+      ],
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_24083_500_500/full_srodek-do-usuwania-silikonu-1366719941.webp",
+      "deliveryChecks": [
+        {
+          "checkedAt": "2026-10-27T02:47:53.945Z",
+          "mode": "shipping",
+          "samplePostalCode": "00-001",
+          "scope": "whole sanitary replacement sample; mixed store baskets as needed",
+          "deliveredGrosze": 8399
+        }
+      ]
+    },
+    {
+      "id": "mat-edge-tape-packcenter-tb-fb00202-50m",
+      "name": "Taśma dylatacyjna 5mm x 10cm x 50m (Pack-Center TB-FB00202)",
+      "referenceUrl": "https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282",
+      "status": "verified_offer",
+      "ean": null,
+      "manufacturerSku": "TB-FB00202",
+      "merchantProductId": "465325",
+      "sourceIds": [
+        "sewera-packcenter-edge-tape-50m"
+      ],
+      "photoUrl": "https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp",
+      "deliveryChecks": [
+        {
+          "sourceId": "sewera-packcenter-edge-tape-50m",
+          "checkedAt": "2026-10-27T02:14:46.386Z",
+          "mode": "shipping",
+          "postalCode": "00-001",
+          "dispatchFrom": "Gliwice",
+          "confirmed": true,
+          "tapeOnlyGrosze": 3396,
+          "fullScreedBasketGrosze": 41720
+        }
+      ]
     },
     {
       "id": "mat-paint-economy-white-10l",
@@ -3069,993 +4090,6 @@
       ]
     },
     {
-      "id": "mat-edge-tape-packcenter-tb-fb00202-50m",
-      "name": "Taśma dylatacyjna 5mm x 10cm x 50m (Pack-Center TB-FB00202)",
-      "referenceUrl": "https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282",
-      "status": "verified_offer",
-      "ean": null,
-      "manufacturerSku": "TB-FB00202",
-      "merchantProductId": "465325",
-      "sourceIds": [
-        "sewera-packcenter-edge-tape-50m"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp",
-      "deliveryChecks": [
-        {
-          "sourceId": "sewera-packcenter-edge-tape-50m",
-          "checkedAt": "2026-10-27T02:14:46.386Z",
-          "mode": "shipping",
-          "postalCode": "00-001",
-          "dispatchFrom": "Gliwice",
-          "confirmed": true,
-          "tapeOnlyGrosze": 3396,
-          "fullScreedBasketGrosze": 41720
-        }
-      ]
-    },
-    {
-      "id": "mat-silicone-remover-soudal-100ml",
-      "name": "Soudal Silicone Remover 100 ml",
-      "referenceUrl": "https://www.rabdom.pl/pl/p/SOUDAL-SRODEK-DO-USUWANIA-SILIKONU-100ml/12481",
-      "status": "verified_offer",
-      "ean": "5411183041899",
-      "sourceIds": [
-        "sewera-soudal-silicone-remover-100ml",
-        "rabdom-soudal-silicone-remover-100ml"
-      ],
-      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_24083_500_500/full_srodek-do-usuwania-silikonu-1366719941.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T02:47:53.945Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "whole sanitary replacement sample; mixed store baskets as needed",
-          "deliveredGrosze": 8399
-        }
-      ]
-    },
-    {
-      "id": "mat-sanitary-silicone-soudal-stop-white-280ml",
-      "name": "Soudal Silikon Sanitarny STOP biały 280 ml",
-      "referenceUrl": "https://realbud.com/pl/p/SOUDAL-SILIKON-SANITARNY-KUCHNIA-LAZIENKA-PLESN-STOP-BIALY-280ml/75056922",
-      "status": "verified_offer",
-      "ean": "5411183200326",
-      "sourceIds": [
-        "realbud-soudal-sanitary-stop-white-280ml"
-      ],
-      "photoUrl": "https://realbud.com/environment/cache/images/productGfx_23109_500_500/5daa6a798ad6adc9e8224e3b5a646bb7.jpg",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T02:47:53.945Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "whole sanitary replacement sample; mixed store baskets as needed",
-          "deliveredGrosze": 11549
-        }
-      ]
-    },
-    {
-      "id": "mat-skim-coat-acrylputz-st10-5kg",
-      "name": "ACRYL-PUTZ ST10 START 5 kg",
-      "referenceUrl": "https://sklep.sewera.pl/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg-p13308",
-      "status": "verified_offer",
-      "ean": "5903973104414",
-      "sourceIds": [
-        "sewera-acrylputz-st10-5kg",
-        "rabdom-acrylputz-st10-5kg"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/34284/acryl-putz-st10-start-gladz-szpachlowa-sypka-5kg.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T03:25:25.781Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
-          "sampleKey": "repair",
-          "deliveredGrosze": 11955
-        }
-      ]
-    },
-    {
-      "id": "mat-hand-paper-klingspor-pl28c-p120",
-      "name": "Klingspor PL 28 C P120, arkusz 230 × 280 mm",
-      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899",
-      "status": "verified_offer",
-      "ean": "5907560017644",
-      "sourceIds": [
-        "sewera-klingspor-pl28c-p120-sheet"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/56971/papier-scierny-gr-120-arkusz-230x280mm.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T03:25:25.781Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
-          "sampleKey": "repair",
-          "deliveredGrosze": 11955
-        }
-      ]
-    },
-    {
-      "id": "mat-hand-paper-klingspor-pl28c-p150",
-      "name": "Klingspor PL 28 C P150, arkusz 230 × 280 mm",
-      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900",
-      "status": "verified_offer",
-      "ean": "5907560023553",
-      "sourceIds": [
-        "sewera-klingspor-pl28c-p150-sheet"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/56973/papier-scierny-gr-150-arkusz-230x280mm.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T03:25:25.781Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
-          "sampleKey": "mixedRenovation",
-          "deliveredGrosze": 19998
-        }
-      ]
-    },
-    {
-      "id": "mat-hand-paper-klingspor-pl28c-p240",
-      "name": "Klingspor PL 28 C P240, arkusz 230 × 280 mm",
-      "referenceUrl": "https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903",
-      "status": "verified_offer",
-      "ean": "5907560039820",
-      "sourceIds": [
-        "sewera-klingspor-pl28c-p240-sheet"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T03:25:25.781Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
-          "sampleKey": "repair",
-          "deliveredGrosze": 11955
-        }
-      ]
-    },
-    {
-      "id": "mat-joint-tape-bluedolphin-fsh-48mm-20m",
-      "name": "Blue Dolphin FSH, taśma spoinowa 48 mm × 20 m",
-      "referenceUrl": "https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044",
-      "status": "verified_offer",
-      "ean": "5907758504369",
-      "sourceIds": [
-        "sewera-bluedolphin-fsh-48mm-20m",
-        "realbud-bluedolphin-fsh-48mm-20m"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T03:25:25.781Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole repair or skim-coat basket; mixed stores as needed. Sewera tape unavailable in Katowice, fulfilled from Realbud.",
-          "sampleKey": "repair",
-          "deliveredGrosze": 11955
-        }
-      ]
-    },
-    {
-      "id": "mat-frame-supermal-acrylic-white-matt-800ml",
-      "name": "Śnieżka Supermal akrylowa biały mat 0,8 l",
-      "referenceUrl": "https://www.rabdom.pl/pl/p/Sniezka-Eko-Supermal-Emalia-Akrylowa-0%2C8l-Bialy-Mat-A500/13990",
-      "status": "verified_offer",
-      "ean": "5903973147756",
-      "sourceIds": [
-        "rabdom-supermal-acrylic-white-matt-800ml",
-        "sewera-supermal-acrylic-white-matt-800ml"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/186957/sniezka-supermal-emalia-akrylowa-bialy-mat-0-8l.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T04:14:06.521Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
-          "sampleKey": "wood",
-          "deliveredGrosze": null,
-          "unavailable": [
-            {
-              "store": "Sewera",
-              "reason": "product_unavailable"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "mat-frame-supermal-acrylic-white-semigloss-800ml",
-      "name": "Śnieżka Supermal akrylowa biały półpołysk 0,8 l",
-      "referenceUrl": "https://sklep.sewera.pl/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l-p13608",
-      "status": "verified_offer",
-      "ean": "5903973232131",
-      "sourceIds": [
-        "sewera-supermal-acrylic-white-semigloss-800ml"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/186834/supermal-emalia-akrylowa-bialy-a300-polpolysk-0-8l.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T04:14:06.521Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
-          "sampleKey": "steel",
-          "deliveredGrosze": 28865,
-          "unavailable": []
-        }
-      ]
-    },
-    {
-      "id": "mat-frame-urekor-d-white-800ml",
-      "name": "Śnieżka Urekor D grunt do drewna biały 0,8 l",
-      "referenceUrl": "https://sklep.sewera.pl/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka-p17330",
-      "status": "verified_offer",
-      "ean": "5903973231684",
-      "sourceIds": [
-        "sewera-urekor-d-white-800ml"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/46745/grunt-do-drewna-urekor-d-bialy-0-8l-sniezka.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T04:14:06.521Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
-          "sampleKey": "wood",
-          "deliveredGrosze": null,
-          "unavailable": [
-            {
-              "store": "Sewera",
-              "reason": "product_unavailable"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "mat-frame-urekor-s-white-800ml",
-      "name": "Śnieżka Urekor S podkład antykorozyjny biały 0,8 l",
-      "referenceUrl": "https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955",
-      "status": "verified_offer",
-      "ean": "5903973228790",
-      "sourceIds": [
-        "sewera-urekor-s-white-800ml"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/191092/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T04:14:06.521Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
-          "sampleKey": "steel",
-          "deliveredGrosze": 28865,
-          "unavailable": []
-        }
-      ]
-    },
-    {
-      "id": "mat-frame-dulux-rapidry-white-matt-1l",
-      "name": "Dulux Rapidry biały mat 1 l",
-      "referenceUrl": "https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html",
-      "status": "verified_offer",
-      "ean": "5904078222379",
-      "sourceIds": [
-        "abud-dulux-rapidry-white-matt-1l"
-      ],
-      "photoUrl": "https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T04:14:06.521Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
-          "sampleKey": "pvcOwned",
-          "deliveredGrosze": null,
-          "unavailable": [
-            {
-              "store": "ABUD",
-              "reason": "quote_unavailable"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "mat-extraction-solvent-anser-500ml",
-      "name": "Anser benzyna ekstrakcyjna 0,5 l",
-      "referenceUrl": "https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691",
-      "status": "verified_offer",
-      "ean": "5903231606117",
-      "sourceIds": [
-        "sewera-anser-extraction-solvent-500ml"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T04:14:06.521Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "scope": "Actual whole frame-material basket; not a guarantee of the whole market or physical-branch price.",
-          "sampleKey": "steel",
-          "deliveredGrosze": 28865,
-          "unavailable": []
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-norgips-start-finish-20kg",
-      "name": "Gotowa masa do spoin Norgips Start & Finish 20 kg",
-      "referenceUrl": "https://marbet24.pl/gladzie/1288-norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg-5907651699056.html",
-      "status": "verified_offer",
-      "ean": "5907651699056",
-      "sourceIds": [
-        "marbet-norgips-startfinish-20kg"
-      ],
-      "photoUrl": "https://marbet24.pl/6085-home_default/norgips-gotowa-dwufunkcyjna-masa-szpachlowa-start-finish-20-kg.jpg",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T05:01:56.845Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "status": "unavailable",
-          "reason": "integration_unavailable"
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-norgips-start-25kg",
-      "name": "Gips do spoin Norgips Start 25 kg — proszek",
-      "referenceUrl": "https://marbet24.pl/gladzie/1363-norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg-5907651693818.html",
-      "status": "verified_offer",
-      "ean": "5907651693818",
-      "sourceIds": [
-        "marbet-norgips-start-25kg"
-      ],
-      "photoUrl": "https://marbet24.pl/1363-home_default/norgips-gips-szpachlowy-do-spoinowania-polaczen-plyt-gipsowo-kartonowych-start-25-kg.jpg",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T05:01:56.845Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "status": "unavailable",
-          "reason": "integration_unavailable"
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-board-norgips-gkb-a-1200x2000",
-      "name": "Płyta gipsowa Norgips GKB typ A 12,5 mm 1200×2000 mm (2,4 m²)",
-      "referenceUrl": "https://marbet24.pl/plyty-karton-gips/1126-norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm-5907651690879.html",
-      "status": "verified_offer",
-      "ean": "5907651690879",
-      "sourceIds": [
-        "marbet-norgips-board-gkb-2000"
-      ],
-      "photoUrl": "https://marbet24.pl/1126-home_default/norgips-plyta-gipsowo-kartonowa-standardowa-do-wnetrz-o-normalnej-wilgotnosci-s-gkb-125-mm-typ-a-1200-x-2000-mm.jpg",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T05:01:56.845Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "status": "unavailable",
-          "reason": "integration_unavailable"
-        }
-      ]
-    },
-    {
-      "id": "mat-mineral-wool-isover-akuplyta-50mm",
-      "name": "Wełna mineralna Isover Aku-Płyta 037, 50 mm (14,4 m²)",
-      "referenceUrl": "https://sklep.sewera.pl/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana-p11977",
-      "status": "verified_offer",
-      "ean": "5901644653131",
-      "sourceIds": [
-        "sewera-isover-aku-plyta-50mm"
-      ],
-      "photoUrl": "https://sklep.sewera.pl/photo/190047/isover-welna-mineralna-aku-plyta-037-5cm-welna-szklana.webp",
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T05:01:56.845Z",
-          "mode": "shipping",
-          "samplePostalCode": "00-001",
-          "status": "unavailable",
-          "reason": "no_home_delivery"
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-paper-norgips-50x75",
-      "name": "Taśma papierowa Norgips 50 mm × 75 m",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html",
-      "status": "verified_offer",
-      "ean": "5907651699933",
-      "sourceIds": [
-        "leroy-norgips-paper-50x75"
-      ],
-      "photoUrl": "https://media.adeo.com/media/2629682/media.jpg",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-paper-50x75",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T19:44:23.147Z",
-        "previous": "browser_verification_expired",
-        "status": "verified_offer"
-      },
-      "statusHistory": [
-        {
-          "checkedAt": "2026-10-28T18:48:28.562Z",
-          "status": "browser_verification_expired"
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-acoustic-norgips-50x30",
-      "name": "Taśma uszczelniająca Norgips 50 mm × 30 m",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html",
-      "status": "verified_offer",
-      "ean": "5907651698004",
-      "sourceIds": [
-        "leroy-norgips-acoustic-50x30"
-      ],
-      "photoUrl": "https://media.adeo.com/media/2631597/media.jpg",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-acoustic-50x30",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T19:44:23.147Z",
-        "previous": "browser_verification_expired",
-        "status": "verified_offer"
-      },
-      "statusHistory": [
-        {
-          "checkedAt": "2026-10-28T18:48:28.562Z",
-          "status": "browser_verification_expired"
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-acoustic-norgips-30x30",
-      "name": "Taśma uszczelniająca Norgips 30 mm × 30 m",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html",
-      "status": "verified_offer",
-      "ean": "5907651698851",
-      "sourceIds": [
-        "leroy-norgips-acoustic-30x30"
-      ],
-      "photoUrl": "https://media.adeo.com/media/2629693/media.jpg",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-acoustic-30x30",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T19:44:23.147Z",
-        "previous": "browser_verification_expired",
-        "status": "verified_offer"
-      },
-      "statusHistory": [
-        {
-          "checkedAt": "2026-10-28T18:48:28.562Z",
-          "status": "browser_verification_expired"
-        }
-      ]
-    },
-    {
-      "id": "mat-profile-cw50-norgips-06-3m-retail",
-      "name": "Profil Norgips CW 50, 0,6 mm, 3 m (EAN 8912)",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-cw50-3-m-b-super-norgips-44604350.html",
-      "status": "verified_offer",
-      "ean": "5907651698912",
-      "sourceIds": [
-        "leroy-norgips-cw50-06-3m"
-      ],
-      "photoUrl": "https://media.adeo.com/media/3186925/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-cw50-06-3m",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T19:44:23.147Z",
-        "previous": "browser_verification_expired",
-        "status": "verified_offer"
-      },
-      "statusHistory": [
-        {
-          "checkedAt": "2026-10-28T18:48:28.562Z",
-          "status": "browser_verification_expired"
-        }
-      ]
-    },
-    {
-      "id": "mat-profile-uw50-norgips-super-06-3m",
-      "name": "Profil Norgips UW 50 Super, 0,6 mm, 3 m",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-scienny-uw50-3-m-b-super-norgips-45191853.html",
-      "status": "verified_offer",
-      "ean": "5907651698547",
-      "sourceIds": [
-        "leroy-norgips-uw50-06-3m"
-      ],
-      "photoUrl": "https://media.adeo.com/media/3191881/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-uw50-06-3m",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T19:44:23.147Z",
-        "previous": "browser_verification_expired",
-        "status": "verified_offer"
-      },
-      "statusHistory": [
-        {
-          "checkedAt": "2026-10-28T18:48:28.562Z",
-          "status": "browser_verification_expired"
-        }
-      ]
-    },
-    {
-      "id": "mat-profile-ud30-norgips-06-3m",
-      "name": "Profil Norgips UD 30, 0,6 mm, 3 m (EAN 8905)",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html",
-      "status": "browser_verification_expired",
-      "ean": "5907651698905",
-      "sourceIds": [
-        "leroy-norgips-ud30-06-3m"
-      ],
-      "photoUrl": "https://media.adeo.com/media/3196086/media.png?width=650&height=650&format=jpg&quality=80&fit=bounds",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-ud30-06-3m",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T11:55:00.658Z",
-        "previous": "verified_offer",
-        "errors": [
-          {
-            "sourceId": "leroy-norgips-ud30-06-3m",
-            "error": "browser_refresh_required",
-            "checkedAt": "2026-10-27T05:39:56.843Z"
-          }
-        ]
-      },
-      "currentIdentityCheck": {
-        "checkedAt": "2026-10-28T19:24:57.933Z",
-        "status": "different_live_ean",
-        "sourceId": "leroy-norgips-ud30-06-3m",
-        "expectedEan": "5907651698905",
-        "observedEan": "5907651691197",
-        "note": "Current primary JSON-LD identifies a different barcode on retailer card44604343. No substitution or renewed verification for the old EAN."
-      }
-    },
-    {
-      "id": "mat-gypsum-hanger-norgips-es6075",
-      "name": "Wieszak płaski Norgips ES 60/75, 1 szt.",
-      "referenceUrl": "https://www.leroymerlin.pl/produkty/wieszak-plaski-es-60-75-mm-norgips-43912435.html",
-      "status": "verified_offer",
-      "ean": "5907651699650",
-      "sourceIds": [
-        "leroy-norgips-es6075"
-      ],
-      "photoUrl": "https://media.adeo.com/media/2629673/media.jpg",
-      "deliveryChecks": [
-        {
-          "sourceId": "leroy-norgips-es6075",
-          "checkedAt": "2026-10-27T06:01:48.742Z",
-          "status": "unavailable",
-          "reason": "retailer_access_required"
-        }
-      ],
-      "browserVerification": {
-        "method": "browser",
-        "checkedAt": "2026-10-27T05:39:56.843Z",
-        "expiresAt": "2026-10-28T05:39:56.843Z"
-      },
-      "lastStatusChange": {
-        "checkedAt": "2026-10-28T19:44:23.147Z",
-        "previous": "browser_verification_expired",
-        "status": "verified_offer"
-      },
-      "statusHistory": [
-        {
-          "checkedAt": "2026-10-28T18:48:28.562Z",
-          "status": "browser_verification_expired"
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-fleece-norgips-50x25",
-      "name": "Taśma fizelinowa Norgips 50 mm × 25 m",
-      "referenceUrl": "https://hipper.pl/tasma-flizelinowa-z-wlokna-szklanego-50-mm-norgips-2682507570",
-      "status": "verified_offer",
-      "ean": "5907651699926",
-      "sourceIds": [
-        "hipper-norgips-fleece-50x25"
-      ],
-      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|1403C532-C046-4095-BC51-32C96B8A2610|1/Ta%C5%9Bma%20flizelinowa%20z%20w%C5%82%C3%B3kna%20szklanego%2050%20mm%20Norgips.webp",
-      "deliveryChecks": []
-    },
-    {
-      "id": "mat-gypsum-longitudinal-norgips-cd60",
-      "name": "Łącznik wzdłużny Norgips CD 60, 60×110 mm, 1 szt.",
-      "referenceUrl": "https://hipper.pl/lacznik-wzdluzny-60-x-110-mm-1-szt-norgips-2682631077",
-      "status": "verified_offer",
-      "ean": "5907651699674",
-      "sourceIds": [
-        "hipper-norgips-longitudinal-cd60"
-      ],
-      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|D09C4503-BAF4-43AE-A75D-C7A89B98C9B0|1/%C5%81%C4%85cznik%20wzd%C5%82u%C5%BCny%20%2060%20x%20110%20mm%201%20szt.%20Norgips.webp",
-      "deliveryChecks": []
-    },
-    {
-      "id": "mat-gk-screws-koelner-fs3525-1000",
-      "name": "Wkręty do płyt GK Koelner FS 3,5×25 mm, 1000 szt.",
-      "referenceUrl": "https://buduj24.pl/produkt/14398,koelner-wkret-fs-z-drobnym-gwintem-do-mocowania-plyt-gk-do-blach-3-5x25mm-1000szt-opak",
-      "status": "verified_offer",
-      "ean": "5906675305127",
-      "sourceIds": [
-        "buduj24-koelner-fs3525-1000",
-        "abud-koelner-fs3525-1000"
-      ],
-      "photoUrl": "https://buduj24.pl/files/_product/14398/5906675305127_1.webp",
-      "deliveryChecks": [
-        {
-          "sourceId": "buduj24-koelner-fs3525-1000",
-          "checkedAt": "2026-10-27T06:59:11.859Z",
-          "status": "confirmed_anonymous_cart",
-          "scope": "retailer_basket_national PL",
-          "quoteTtlMinutes": 10
-        },
-        {
-          "sourceId": "abud-koelner-fs3525-1000",
-          "checkedAt": "2026-10-27T06:59:11.859Z",
-          "status": "confirmed_anonymous_cart",
-          "scope": "retailer_basket_postcode 00-001",
-          "quoteTtlMinutes": 10
-        }
-      ],
-      "pickupRequiresConfirmation": true
-    },
-    {
-      "id": "mat-gk-profile-screws-koelner-ws3595-1000",
-      "name": "Wkręty do profili Koelner WS 3,5×9,5 mm, 1000 szt.",
-      "referenceUrl": "https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html",
-      "status": "verified_offer",
-      "ean": "5906675303024",
-      "sourceIds": [
-        "abud-koelner-ws3595-1000",
-        "kowalczyk-koelner-ws3595-1000",
-        "zpradem-koelner-ws3595-1000"
-      ],
-      "photoUrl": "https://www.abud.pl/hpeciai/c13753752e4f9725fd61b84075871cd7/pol_pl_Wkret-samowiercacy-3-5x9-5mm-1000-szt-63463_1.webp",
-      "deliveryChecks": [
-        {
-          "sourceId": "abud-koelner-ws3595-1000",
-          "checkedAt": "2026-10-27T06:59:11.859Z",
-          "status": "confirmed_anonymous_cart",
-          "scope": "retailer_basket_postcode 00-001",
-          "quoteTtlMinutes": 10
-        },
-        {
-          "sourceId": "kowalczyk-koelner-ws3595-1000",
-          "checkedAt": "2026-10-27T12:45:28.418Z",
-          "expiresAt": "2026-10-27T12:55:28.418Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_postcode",
-          "destinationScope": "postal_code",
-          "postalCode": "00-001",
-          "costGrosze": 1699,
-          "orderOfferIds": [
-            "kowalczyk-koelner-ws3595-1000",
-            "kowalczyk-koelner-fx06k040-200"
-          ],
-          "materialsGrosze": 6520
-        },
-        {
-          "sourceId": "zpradem-koelner-ws3595-1000",
-          "checkedAt": "2026-10-27T12:45:23.237Z",
-          "expiresAt": "2026-10-27T12:55:23.237Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "destinationScope": "PL",
-          "costGrosze": 2700,
-          "orderOfferIds": [
-            "zpradem-koelner-ws3595-1000"
-          ],
-          "materialsGrosze": 5630
-        }
-      ],
-      "pickupRequiresConfirmation": true
-    },
-    {
-      "id": "mat-gk-perimeter-koelner-fx06k040-200",
-      "name": "Kołki do profili Koelner FX-06K040, 6×40 mm, 200 szt.",
-      "referenceUrl": "https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html",
-      "status": "verified_offer",
-      "ean": "5906675107622",
-      "sourceIds": [
-        "abud-koelner-fx06k040-200",
-        "kowalczyk-koelner-fx06k040-200",
-        "kim-koelner-fx06k040-200"
-      ],
-      "photoUrl": "https://www.abud.pl/hpeciai/a6c8238c098e65717875db7b7bcedfc1/pol_pl_Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt-1452_2.webp",
-      "deliveryChecks": [
-        {
-          "sourceId": "abud-koelner-fx06k040-200",
-          "checkedAt": "2026-10-27T06:59:11.859Z",
-          "status": "confirmed_anonymous_cart",
-          "scope": "retailer_basket_postcode 00-001",
-          "quoteTtlMinutes": 10
-        },
-        {
-          "sourceId": "kowalczyk-koelner-fx06k040-200",
-          "checkedAt": "2026-10-27T12:45:28.418Z",
-          "expiresAt": "2026-10-27T12:55:28.418Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_postcode",
-          "destinationScope": "postal_code",
-          "postalCode": "00-001",
-          "costGrosze": 1699,
-          "orderOfferIds": [
-            "kowalczyk-koelner-ws3595-1000",
-            "kowalczyk-koelner-fx06k040-200"
-          ],
-          "materialsGrosze": 6520
-        },
-        {
-          "sourceId": "kim-koelner-fx06k040-200",
-          "checkedAt": "2026-10-27T12:45:23.317Z",
-          "expiresAt": "2026-10-27T12:55:23.317Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "destinationScope": "PL",
-          "costGrosze": 1600,
-          "orderOfferIds": [
-            "kim-koelner-fx06k040-200"
-          ],
-          "materialsGrosze": 1990
-        }
-      ],
-      "pickupRequiresConfirmation": true
-    },
-    {
-      "id": "mat-wallpaper-remover-metylan-500ml",
-      "name": "Metylan Remover — koncentrat do usuwania tapet 500 ml",
-      "referenceUrl": "https://www.abud.pl/product-pol-5708-Plyn-do-usuwania-tapet-500ml-Metylan.html",
-      "status": "verified_offer",
-      "ean": "9000100222969",
-      "sourceIds": [
-        "abud-metylan-remover-500ml",
-        "hipper-metylan-remover-500ml"
-      ],
-      "photoUrl": "https://www.abud.pl/hpeciai/da34e4afb4b30103e7a6affb323594aa/pol_pl_Plyn-do-usuwania-tapet-500ml-Metylan-5708_1.webp",
-      "pickupRequiresConfirmation": true,
-      "deliveryChecks": [
-        {
-          "checkedAt": "2026-10-27T07:27:35.996Z",
-          "sourceId": "abud-metylan-remover-500ml",
-          "status": "confirmed_anonymous_cart",
-          "scope": "postcode00-001,500ml bottle35.20+13.00=48.20,TTL10min"
-        },
-        {
-          "checkedAt": "2026-10-27T07:27:35.996Z",
-          "sourceId": "hipper-metylan-remover-500ml",
-          "status": "confirmed_anonymous_cart",
-          "scope": "nationalPL,500ml bottle36.99+18.90=55.89,TTL10min"
-        }
-      ]
-    },
-    {
-      "id": "mat-laminate-kit-wolfcraft-6931000",
-      "name": "Zestaw do układania paneli Wolfcraft 6931000 — 22 elementy",
-      "referenceUrl": "https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000",
-      "status": "verified_offer",
-      "ean": "4006885693104",
-      "sourceIds": [
-        "mensura-wolfcraft-6931000-kit"
-      ],
-      "photoUrl": "https://www.mensura.pl/environment/cache/images/productGfx_102546_0_0/Zestaw-do-ukladania-paneli-22el.-Wolfcraft-6931000.jpg",
-      "deliveryChecks": []
-    },
-    {
-      "id": "mat-underlay-joint-tape-arbiton-izo-25m",
-      "name": "Taśma aluminiowa Arbiton Izo Floor Tape 50 mm × 25 m",
-      "referenceUrl": "https://liderzycen.pl/pl/p/Tasma-aluminiowa-do-laczenia-podkladow-Arbiton-Izo-Floor-Tape-25-m/31334",
-      "status": "verified_offer",
-      "ean": "5905167698778",
-      "sourceIds": [
-        "liderzy-arbiton-izo-floor-tape-25m",
-        "topboden-arbiton-izo-floor-tape-25m"
-      ],
-      "photoUrl": "https://liderzycen.pl/environment/cache/images/productGfx_51949_500_500/7eb856643e33613605516b295006cacd.jpg",
-      "deliveryChecks": [],
-      "checkedAt": "2026-10-29T00:02:43.608Z"
-    },
-    {
-      "id": "mat-vapor-foil-conkret-ecovil-p-100m2",
-      "name": "Folia paroizolacyjna Conkret Ecovil P 0,20 mm (100 m²)",
-      "referenceUrl": "https://ebardo.pl/pl/p/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2/534",
-      "status": "verified_offer",
-      "ean": "5902096431131",
-      "sourceIds": [
-        "ebardo-ecovil-p-100m2"
-      ],
-      "photoUrl": "https://ebardo.pl/environment/cache/images/productGfx_2142_500_500/Folia-paroizolacyjna-Ecovil-0%2C2mm-2mx50m-100m2.jpg",
-      "deliveryChecks": [
-        {
-          "sourceId": "ebardo-ecovil-p-100m2",
-          "checkedAt": "2026-10-27T09:20:09.081Z",
-          "expiresAt": "2026-10-27T09:30:09.081Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "costGrosze": 2500
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-cross-norgips-100",
-      "name": "Łącznik krzyżowy Norgips CD 60 (100 szt.)",
-      "referenceUrl": "https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325",
-      "status": "verified_offer",
-      "ean": "5907651696468",
-      "sourceIds": [
-        "hipper-norgips-cross-100"
-      ],
-      "photoUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos%7CPhotoMed%7C9794D2D8-F401-4DEA-BF8D-D0FF361306EE%7C1/%C5%81%C4%85cznik%20krzy%C5%BCowy%2060%20x%20145%20mm%20100%20szt.%20Norgips.webp",
-      "deliveryChecks": [
-        {
-          "sourceId": "hipper-norgips-cross-100",
-          "checkedAt": "2026-10-27T10:13:20.766Z",
-          "expiresAt": "2026-10-27T10:23:20.766Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "costGrosze": 1890
-        }
-      ]
-    },
-    {
-      "id": "mat-gypsum-cross-budmat-100",
-      "name": "Łącznik krzyżowy Budmat CD 60, 0,8 mm (100 szt.)",
-      "referenceUrl": "https://ebardo.pl/pl/p/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm/138",
-      "status": "verified_offer",
-      "ean": "5901323043369",
-      "sourceIds": [
-        "ebardo-budmat-cross-100"
-      ],
-      "photoUrl": "https://ebardo.pl/environment/cache/images/productGfx_2897_500_500/Lacznik-krzyzowy-GK-do-profil-CD60-100szt-BUDMAT-0%2C8mm.jpg",
-      "deliveryChecks": [
-        {
-          "sourceId": "ebardo-budmat-cross-100",
-          "checkedAt": "2026-10-27T10:13:21.347Z",
-          "expiresAt": "2026-10-27T10:23:21.347Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "costGrosze": 2500
-        }
-      ]
-    },
-    {
-      "id": "mat-ceiling-anchor-rawlplug-gs-100",
-      "name": "Kotwa stalowa sufitowa Rawlplug R-GS-06040 (100 szt.)",
-      "referenceUrl": "https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm",
-      "status": "verified_offer",
-      "ean": "5906675169347",
-      "sourceIds": [
-        "ehw-rawlplug-gs-100",
-        "zpradem-rawlplug-gs-100"
-      ],
-      "photoUrl": "https://sklep.ehw.com.pl/environment/cache/images/productGfx_21763_500_500/858bd3358fa32304143b7a47e27c63b67c2f8593_0904f920e7ad3435db4d6ef5dd9e21e4a1468024_2a57cf4d4f4f771f6aaa3b51711fe54a3e05a012_GS_product__p.webp",
-      "deliveryChecks": [
-        {
-          "sourceId": "ehw-rawlplug-gs-100",
-          "checkedAt": "2026-10-27T10:53:14.608Z",
-          "expiresAt": "2026-10-27T11:03:14.608Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "costGrosze": 2100
-        },
-        {
-          "sourceId": "zpradem-rawlplug-gs-100",
-          "checkedAt": "2026-10-27T10:53:14.625Z",
-          "expiresAt": "2026-10-27T11:03:14.625Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_national",
-          "costGrosze": 2700
-        }
-      ]
-    },
-    {
-      "id": "mat-profile-cd60-irbud-3m",
-      "name": "Profil główny sufitowy CD60 3 MB / 0,6 (Norgips, oferta IRBUD)",
-      "referenceUrl": "https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/",
-      "status": "verified_offer",
-      "ean": "",
-      "sourceIds": [
-        "irbud-norgips-cd60-06-3m"
-      ],
-      "photoUrl": "https://irbudsklep.pl/wp-content/uploads/2023/11/Zrzut-ekranu-2025-09-05-114945.png",
-      "deliveryChecks": [
-        {
-          "sourceId": "irbud-norgips-cd60-06-3m",
-          "checkedAt": "2026-10-27T10:53:13.995Z",
-          "expiresAt": "2026-10-27T11:03:13.995Z",
-          "status": "quoted",
-          "reason": null,
-          "basis": "retailer_basket_postcode",
-          "costGrosze": 5200,
-          "postalCode": "00-001"
-        }
-      ]
-    },
-    {
       "id": "mat-wallpaper-adhesive-metylan-direct-200g",
       "name": "Metylan Direct — klej do tapet flizelinowych 200 g",
       "referenceUrl": "https://swiatsieklei.pl/pl/p/METYLAN-Direct-200g-klej-do-tapet-24119/104",
@@ -4585,19 +4619,21 @@
     "IRBUD",
     "E-Kowalczyk",
     "Izosystems",
-    "BMB Technologie"
+    "BMB Technologie",
+    "Integra Bielińscy"
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-28T21:51:09.056Z",
-    "pricedLines": 84,
-    "totalLines": 251,
-    "unpricedLines": 167,
+    "checkedAt": "2026-10-29T05:36:13.169Z",
+    "pricedLines": 81,
+    "totalLines": 252,
+    "unpricedLines": 171,
     "fullyPricedScenarios": 11,
-    "report": "recipe-coverage-2026-10-27.json"
+    "report": "recipe-coverage-2026-10-27.json",
+    "scope": "Same65 historical measurement maps; new explicit choices verified separately."
   },
   "expiredOffers": 3,
-  "activeStores": 48,
+  "activeStores": 50,
   "history": [
     {
       "checkedAt": "2026-10-27T12:46:06.593Z",
@@ -4702,6 +4738,14 @@
       "remaining": 7,
       "offers": 207,
       "stores": 51
+    },
+    {
+      "checkedAt": "2026-10-29T04:35:37.892Z",
+      "total": 179,
+      "verifiedProducts": 172,
+      "remaining": 7,
+      "offers": 221,
+      "stores": 52
     }
   ],
   "historicalPickupCoverage": {
@@ -4840,5 +4884,24 @@
     "twoPostcodesAndSingleOrderPreference": true,
     "selectedStoreAndUnconfirmedTotalsBlocked": true,
     "frontendOnly": true
+  },
+  "hardwareVerification": {
+    "checkedAt": "2026-10-29T05:34:48.647Z",
+    "report": "research/uchwyty-nyxa-kompletny-koszyk-2026-10-29.md",
+    "productionSdkCases": 15,
+    "completeDeliveredCases": 9,
+    "nativeBaskets": 6,
+    "quantityModel": "cabinet-nyxa-128-v1",
+    "references": [
+      "mat-handle-gtv-nyxa-128-black",
+      "mat-handle-gtv-nyxa-128-gold"
+    ],
+    "twoIncludedM4x22": true,
+    "measuredPitchRequired": true,
+    "ownedProductReview": true,
+    "goldWeightUnknownNotFree": true,
+    "fourHandlesDeliveredGrosze": 6091,
+    "fifteenHandlesDeliveredGrosze": 19485,
+    "sharedCabinetRenovationGrosze": 28145
   }
 }

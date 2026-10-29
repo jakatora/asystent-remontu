@@ -1,3 +1,4 @@
+import {hardwareInputs,hardwareMaterials} from '@/features/calculator/cabinetHardware';
 import {cabinetInputs,cabinetMaterials} from '@/features/calculator/cabinetPainting';
 import type { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -358,46 +359,20 @@ export const kitchenHardwareJob: RenovationJob = {
   warningRules: [
     {
       condition: 'always',
-      message: 'Przed zakupem zmierz rozstaw otworów w uchwycie (zazwyczaj 96 mm lub 128 mm). Nowy uchwyt musi pasować do istniejących otworów.',
+      message: 'Przed zakupem zmierz odległość między środkami otworów i sprawdź długość śrub dla grubości frontu. Wybrany wariant NYXA ma rozstaw 128 mm; długość całego uchwytu to 138 mm.',
       level: 'info',
     },
   ],
-  measurementInputs: [
-    {
-      id: 'handleCount',
-      label: 'Liczba uchwytów / gałek do wymiany',
-      unit: 'szt.',
-      placeholder: 'np. 15',
-      min: 1,
-      max: 100,
-    },
-  ],
-  materials: [
-    {
-      id: 'cabinet-handles',
-      name: 'Nowe uchwyty lub gałki',
-      unit: 'szt.',
-      formulaKey: 'faucets',
-      pricePerUnit: 15,
-      notes: 'Sprawdź rozstaw otworów (96 lub 128 mm). Zrób zdjęcie starego uchwytu z podziałką.',
-    },
-    {
-      id: 'longer-screws',
-      name: 'Dłuższe śruby (jeśli nowe uchwyty grubsze)',
-      unit: 'szt.',
-      formulaKey: 'faucets',
-      pricePerUnit: 0.5,
-      notes: 'Często uchwyty różnią się grubością — śruby w zestawie mogą nie pasować.',
-    },
-  ],
+  measurementInputs: hardwareInputs,
+  materials: hardwareMaterials(),
   tools: [
     { id: 'screwdriver-hard', name: 'Wkrętarka lub wkrętak krzyżakowy', icon: 'tool', required: true },
     { id: 'tape-measure-hard', name: 'Miarka (do sprawdzenia rozstawu)', icon: 'minus', required: true },
   ],
   instructions: [
-    { step: 1, title: 'Zmierz rozstaw i kup uchwyty', description: 'Zmierz odległość między środkami otworów na jednej szafce. Standard: 96 mm lub 128 mm. Kup uchwyty z pasującym rozstawem.', durationMin: 10 },
+    { step: 1, title: 'Zmierz rozstaw i kup uchwyty', description: 'Zmierz odległość między środkami otworów na każdym rodzaju frontu. Wybierz pasujący rozstaw i kolor oraz policz uchwyty. Nie utożsamiaj rozstawu z długością całkowitą uchwytu.', durationMin: 10 },
     { step: 2, title: 'Odkręć stare uchwyty', description: 'Od wewnętrznej strony frontu odkręć śruby trzymające uchwyt. Zrób to dla wszystkich szafek.', durationMin: 20 },
-    { step: 3, title: 'Przykręć nowe uchwyty', description: 'Wstaw nową śrubę z zewnątrz przez otwór, od środka przykręć nakrętkę lub gwint uchwytu. Dokręć wkrętakiem. Nie za mocno na MDF.', durationMin: 20 },
+    { step: 3, title: 'Przykręć nowe uchwyty', description: 'Przyłóż uchwyt do zewnętrznej strony frontu. Włóż śruby od wewnątrz szafki przez otwory i wkręć je w gwinty uchwytu. Sprawdź ich długość: uchwyt ma zostać dociśnięty bez opierania śruby o dno gwintu. Dokręć ręcznie z wyczuciem.', durationMin: 20 },
     { step: 4, title: 'Sprawdź wyrównanie', description: 'Sprawdź czy wszystkie uchwyty są na tej samej wysokości i wyśrodkowane. Przy nierównościach — koryguj pozycję.', durationMin: 10 },
   ],
   commonMistakes: [
@@ -413,8 +388,11 @@ export const kitchenHardwareJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'uchwyty', 'gałki', 'szafki', 'wymiana'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-10-29',
+  // source: https://gtv.com.pl/produkt/UZ-NYXA-128-20M/
+  // source: https://api2.gtv.com.pl/pimcore/assets/attachments/karta_produktowa/UZ-NYXA__PL-EN-UA-HU__uchwyt__KP.pdf
   verifiedSources: [
+    {title:'GTV NYXA 128 — wymiary i śruby w zestawie',url:'https://gtv.com.pl/produkt/UZ-NYXA-128-20M/',domain:'gtv.com.pl',consultedAt:'2026-10-29'},
     {
       title:       'Uchwyty do szafek kuchennych – jak je prawidłowo zamontować?',
       url:         'https://www.castorama.pl/uchwyty-do-szafek-kuchennych-jak-je-prawidlowo-zamontowac-ins-264.html',

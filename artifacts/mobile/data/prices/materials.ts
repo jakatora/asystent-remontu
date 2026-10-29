@@ -1,6 +1,14 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html
+  // source: https://gtv.com.pl/produkt/UZ-NYXA-128-20M/
+  // source: https://gtv.com.pl/wp-content/uploads/2024/05/Regulamin_konkursu_SolidnaEkipa.pdf
+  {"id":"mat-handle-gtv-nyxa-128-black","materialType":"cabinet-handle","productLabel":"GTV NYXA 128 mm — czarny mat, 2 × M4×22 w zestawie","brand":"GTV","packageSize":1,"packageUnit":"szt","pricePerPackage":12.99,"category":"standard","storeName":"Integra Bielińscy","sourceUrl":"https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html","lastUpdated":"2026-10-29","currency":"PLN","notes":"EAN 5902801422652. Jeden uchwyt, rozstaw otworów 128 mm, długość całkowita 138 mm, stop ZnAl. Dwie śruby M4×22 w zestawie według producenta; sprawdź pasowanie do grubości frontu i gwintu. Nie doliczamy ich ponownie ani automatycznego zapasu uchwytów. Inny kolor, rozstaw lub długość śruby wymaga świadomego doboru. Dostępność sprawdzamy dla całej liczby sztuk, koszt dostawy dla całego zamówienia. Złoty wariant nie ma potwierdzonej wagi w sklepie; automatyczna dostawa pozostaje niedostępna do wyjaśnienia."},
+  // source: https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html
+  // source: https://gtv.com.pl/produkt/UZ-NYXA-128-20M/
+  // source: https://gtv.com.pl/wp-content/uploads/2024/05/Regulamin_konkursu_SolidnaEkipa.pdf
+  {"id":"mat-handle-gtv-nyxa-128-gold","materialType":"cabinet-handle","productLabel":"GTV NYXA 128 mm — złoto szczotkowane, 2 × M4×22 w zestawie","brand":"GTV","packageSize":1,"packageUnit":"szt","pricePerPackage":13.5,"category":"standard","storeName":"Integra Bielińscy","sourceUrl":"https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html","lastUpdated":"2026-10-29","currency":"PLN","notes":"EAN 5902801422737. Jeden uchwyt, rozstaw otworów 128 mm, długość całkowita 138 mm, stop ZnAl. Dwie śruby M4×22 w zestawie według producenta; sprawdź pasowanie do grubości frontu i gwintu. Nie doliczamy ich ponownie ani automatycznego zapasu uchwytów. Inny kolor, rozstaw lub długość śruby wymaga świadomego doboru. Dostępność sprawdzamy dla całej liczby sztuk, koszt dostawy dla całego zamówienia. Złoty wariant nie ma potwierdzonej wagi w sklepie; automatyczna dostawa pozostaje niedostępna do wyjaśnienia."},
   // source: https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316
   // source: https://www.chem-rozlew.com/benzyna-ekstrakcyjna/
   // source: https://www.v33.pl/faq/

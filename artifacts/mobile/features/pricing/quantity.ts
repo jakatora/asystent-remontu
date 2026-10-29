@@ -1,3 +1,4 @@
+import {HARDWARE_JOB,HARDWARE_MODEL,hardwareMaterials,hardwareReference,hardwareQuantity} from '@/features/calculator/cabinetHardware';
 import {CABINET_JOB,CABINET_MODEL,cabinetMaterials,cabinetReference} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,UNDERLAY_MODEL,underlayMaterials,underlayReference} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,GROUT_ONLY_MODEL,groutOnlyMaterials,groutOnlyReference} from '@/features/calculator/groutOnly';
@@ -77,6 +78,12 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(calc.jobId===HARDWARE_JOB){
+    const definition=hardwareMaterials(calc.measurements).find(row=>hardwareReference(row.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(row=>row.material.id===definition.id);
+    const quantity=definition&&hardwareQuantity(definition.id,calc.measurements);
+    if(calc.quantityModel!==HARDWARE_MODEL||!source||source.quantityKnown===false||!definition?.ean||!('ean'in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit)||ref.packageSize!==1||source.material.packaging?.size!==1||quantity==null||source.rawQuantity!==quantity)return null;
+    return{quantity,source};
+  }
   if(calc.jobId===CABINET_JOB){
     const definition=cabinetMaterials(calc.measurements).find(row=>cabinetReference(row.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(row=>row.material.id===definition.id);
     if(calc.quantityModel!==CABINET_MODEL||!source||source.quantityKnown===false||!definition?.ean||!('ean' in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit)||definition.packaging?.size!==ref.packageSize)return null;

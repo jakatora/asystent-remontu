@@ -12,6 +12,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html
+  {"ids":["mat-handle-gtv-nyxa-128-black"],"ean":"5902801422652","sourceUrl":"https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html","imageUrl":"https://integra-bielinscy.pl/2693-home_default/uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat.jpg"},
+  // source: https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html
+  {"ids":["mat-handle-gtv-nyxa-128-gold"],"ean":"5902801422737","sourceUrl":"https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html","imageUrl":"https://integra-bielinscy.pl/2695-home_default/uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane.jpg"},
   // source: https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316
   {"ids":["mat-extraction-solvent-chem-rozlew-500ml"],"ean":"5906681230253","sourceUrl":"https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp"},
   // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607

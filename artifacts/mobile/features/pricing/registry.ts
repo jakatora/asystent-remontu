@@ -1,3 +1,4 @@
+import {HARDWARE_JOB,hardwareMaterials,hardwareReference} from '@/features/calculator/cabinetHardware';
 import {CABINET_JOB,cabinetMaterials,cabinetReference} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,underlayMaterials,underlayReference} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,groutOnlyMaterials,groutOnlyReference} from '@/features/calculator/groutOnly';
@@ -72,6 +73,7 @@ export function getLaborForJob(jobId: string, regionCode?: string): LaborPriceRe
 }
 
 export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measurements?: Readonly<Record<string, number>>): MaterialPriceReference[] {
+  if(jobId===HARDWARE_JOB)return hardwareMaterials(measurements??{}).flatMap(m=>{const key=hardwareReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===CABINET_JOB)return cabinetMaterials(measurements??{}).flatMap(m=>{const key=cabinetReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===UNDERLAY_JOB)return underlayMaterials(measurements??{}).flatMap(m=>{const key=underlayReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===GROUT_ONLY_JOB)return groutOnlyMaterials(measurements??{}).flatMap(m=>{const key=groutOnlyReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});

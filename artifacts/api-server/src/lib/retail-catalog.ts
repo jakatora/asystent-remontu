@@ -1216,10 +1216,16 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
 
   // source: https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316
   {"id":"rabdom-chem-rozlew-extraction-solvent-500ml","ean":"5906681230253","name":"Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L","brand":"Chem-Rozlew","category":"extraction-solvent","packageSize":500,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":316,"retailerSku":"0175","apiPurchaseUnit":"szt.","variant":["ekstrakcyjna","0,5L"],"pickupRequiresConfirmation":true,"url":"https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp"},
+  // source: https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html
+  {"id":"integra-gtv-nyxa-128-black","ean":"5902801422652","name":"Uchwyt meblowy NYXA C-128 / L-138 czarny mat","category":"cabinet-handle","brand":"GTV","packageSize":1,"unit":"szt","store":"Integra Bielińscy","format":"integra","variant":["NYXA"],"productId":1614,"pickupRequiresConfirmation":true,"url":"https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html","imageUrl":"https://integra-bielinscy.pl/2693-home_default/uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat.jpg"},
+  // source: https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html
+  {"id":"integra-gtv-nyxa-128-gold","ean":"5902801422737","name":"Uchwyt meblowy NYXA C-128 / L-138 złoto szczotkowane","category":"cabinet-handle","brand":"GTV","packageSize":1,"unit":"szt","store":"Integra Bielińscy","format":"integra","variant":["NYXA"],"productId":1613,"pickupRequiresConfirmation":true,"url":"https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html","imageUrl":"https://integra-bielinscy.pl/2695-home_default/uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane.jpg"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  'GTV NYXA 128 mm — czarny mat, 2 × M4×22 w zestawie':'5902801422652',
+  'GTV NYXA 128 mm — złoto szczotkowane, 2 × M4×22 w zestawie':'5902801422737',
   "V33 Easy Renowacja Kuchnia — biały satyna 0,75 l": "3153895149044",
   "V33 Easy Renowacja Kuchnia — biały satyna 2 l": "3153895149228",
   "Czujnik tlenku węgla Virone DC-11, wyświetlacz LCD, 2 × AA": "5908254851223",

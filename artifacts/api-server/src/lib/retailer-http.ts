@@ -207,8 +207,10 @@ export class AnonymousShop {
       // This storefront returns an empty body for the combined HTML/JSON Accept
       // value. Request HTML explicitly while keeping the honest agent identity.
       // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html
+      // source: https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html
+      const htmlOnly = ['https://izosystems.pl', 'https://integra-bielinscy.pl'].includes(this.origin);
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
-        headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : this.origin==='https://izosystems.pl'?'text/html':'text/html, application/json', Cookie: cookie,
+        headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : htmlOnly ? 'text/html' : 'text/html, application/json', Cookie: cookie,
           ...(this.origin==='https://izosystems.pl'?{'Accept-Language':'pl-PL'}:{}),
           ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
           ...(modnaCsrf ? {'X-CSRF-Token':modnaCsrf,'X-Requested-With':'XMLHttpRequest',Origin:this.origin,Referer:this.origin+'/'} : {}),
