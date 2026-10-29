@@ -5,8 +5,8 @@ import {MATERIAL_PRICES} from '@/data/prices/materials';
 import {PRODUCT_PHOTOS} from '@/data/products/photos';
 
 export const SEAT_JOB = 'toilet-seat-replace';
-export const SEAT_MODEL = 'carina-seats-v1';
-const IDS = ['toilet-seat-mat', 'seat-mounting-parts'];
+export const SEAT_MODEL = 'carina-seats-v2';
+const IDS = ['toilet-seat-mat', 'seat-mounting-parts', 'seat-installation-tool'];
 const REFS: Record<number, string> = {
   1: 'mat-seat-cersanit-carina-standard',
   2: 'mat-seat-cersanit-carina-softclose',
@@ -16,7 +16,7 @@ export const isSeatMaterial = (job: string, id: string) => job === SEAT_JOB && I
 export const seatReference = (id: string, m: MeasurementMap = {}) => id === 'toilet-seat-mat' ? REFS[m.seatVariant ?? 0] ?? null : null;
 export function withSeatMeasurement(current: Readonly<Record<string, string>>, id: string, value: string | number): Record<string, string> {
   const next = String(value);
-  if ((id === 'seatVariant' || id === 'seatCount') && current[id] !== next) return {...current, [id]: next, seatFit: '0', seatMounts: '0'};
+  if ((id === 'seatVariant' || id === 'seatCount') && current[id] !== next) return {...current, [id]: next, seatFit: '0', seatMounts: '0', seatTools: '0'};
   return {...current, [id]: next};
 }
 
@@ -26,14 +26,15 @@ export function withSeatMeasurement(current: Readonly<Record<string, string>>, i
 // source: https://www.cersanit.com.pl/lazienka/deska-carina-slim-duroplastowa-antybakteryjna-wolnoopadajaca-z-funkcja-latwego-wypinania-jednym-przyciskiem,190.html
 export function seatQuantity(id: string, m: MeasurementMap): number | null {
   if (!IDS.includes(id) || !REFS[m.seatVariant ?? 0] || m.seatFit !== 1 || !Number.isSafeInteger(m.seatCount) || m.seatCount! < 1 || m.seatCount! > 10) return null;
-  return id === 'toilet-seat-mat' ? m.seatCount! : m.seatMounts === 1 ? 0 : null;
+  if (id === 'toilet-seat-mat') return m.seatCount!;
+  return id === 'seat-mounting-parts' ? (m.seatMounts === 1 ? 0 : null) : (m.seatTools === 1 ? 0 : null);
 }
 
 export function seatMaterials(m: MeasurementMap = {}): MaterialItem[] {
   return IDS.map(id => {
     const ref = MATERIAL_PRICES.find(r => r.id === seatReference(id, m));
     const photo = ref && PRODUCT_PHOTOS.find(p => p.ids.includes(ref.id));
-    if (!ref) return {id, name: id === 'toilet-seat-mat' ? 'Deska sedesowa — wybierz dokładny model i sprawdź miskę' : 'Mocowania i podkładki — potwierdź komplet lub dobierz brakujące', unit: 'szt', formulaKey: 'toiletSeatReplacement:' + id, pricePerUnit: 0, wasteFactor: 1, roundingRule: 'none', notes: 'Pełna cena wymaga sprawdzenia modelu miski, wymiarów, sposobu mocowania i kompletu elementów. Jeśli potrzebne są inne śruby, zawiasy lub podkładki, wymagają osobnego doboru i wyceny.'};
+    if (!ref) return {id, name: id === 'toilet-seat-mat' ? 'Deska sedesowa — wybierz dokładny model i sprawdź miskę' : id === 'seat-mounting-parts' ? 'Mocowania i podkładki — potwierdź komplet lub dobierz brakujące' : 'Narzędzie do montażu — potwierdź, że masz właściwy wkrętak lub klucz', unit: 'szt', formulaKey: 'toiletSeatReplacement:' + id, pricePerUnit: 0, wasteFactor: 1, roundingRule: 'none', notes: id === 'seat-installation-tool' ? 'Sprawdź instrukcję wybranej deski i sposób mocowania. Jeśli musisz kupić narzędzie, dobierz je i wyceń przed podaniem pełnego kosztu zestawu.' : 'Pełna cena wymaga sprawdzenia modelu miski, wymiarów, sposobu mocowania i kompletu elementów. Jeśli potrzebne są inne śruby, zawiasy lub podkładki, wymagają osobnego doboru i wyceny.'};
     return {id, name: ref.productLabel, brand: ref.brand, ean: photo?.ean, imageUrl: photo?.imageUrl, sourceUrl: ref.sourceUrl, category: ref.materialType, unit: 'szt', formulaKey: 'toiletSeatReplacement:' + id, pricePerUnit: ref.pricePerPackage, priceBasis: 'package', wasteFactor: 1, roundingRule: 'none', packaging: {size: 1, label: '1 deska', purchaseUnit: 'szt'}, notes: `Oryginalna deska Cersanit ${ref.productLabel}, EAN ${photo?.ean}. Potwierdź oznaczenie miski WC, jej kształt i wymiary oraz sposób montażu z instrukcją. Oferty innych kodów i zamienników nie są ceną tego produktu.`};
   });
 }
@@ -43,6 +44,7 @@ export const seatInputs: MeasurementInputDefinition[] = [
   {id: 'seatVariant', label: 'Dokładny model deski Carina', unit: '', inputType: 'select', placeholder: 'Wybierz kod produktu', min: 0, max: 3, defaultValue: 0, required: false, options: [{value: 0, label: 'Inny model lub jeszcze wybieram'}, {value: 1, label: 'K98-0068 — standardowa, 36,1 × 43,4 cm'}, {value: 2, label: 'K98-0069 — wolnoopadająca, 36,1 × 43,8 cm'}, {value: 3, label: 'K98-0135 — SLIM wolnoopadająca, 35,7 × 44,8 cm'}], hint: 'To trzy różne oryginalne produkty Cersanit. Porównujemy oferty tylko tego samego kodu i EAN.'},
   {id: 'seatFit', label: 'Zgodność z miską WC', unit: '', inputType: 'select', placeholder: 'Sprawdź miskę i mocowanie', min: 0, max: 2, defaultValue: 0, required: false, options: [{value: 0, label: 'Jeszcze nie sprawdzono — wycena niepełna'}, {value: 1, label: 'Potwierdzam zgodność wszystkich misek, wymiarów i mocowań'}, {value: 2, label: 'Inna miska lub mocowanie — potrzebny dobór'}], hint: 'Sprawdź nazwę lub kod każdej miski, kształt, rzeczywiste wymiary i rozstaw mocowań z rysunkiem producenta. Sama nazwa „Carina” albo ogólny rozstaw śrub nie wystarczą. Po zmianie modelu lub liczby potwierdź ponownie.'},
   {id: 'seatMounts', label: 'Mocowania, podkładki i zawiasy', unit: '', inputType: 'select', placeholder: 'Sprawdź zawartość opakowania', min: 0, max: 2, defaultValue: 0, required: false, options: [{value: 0, label: 'Jeszcze nie sprawdzono — części do ustalenia'}, {value: 1, label: 'Potwierdzam kompletny, pasujący zestaw bez dodatkowych części'}, {value: 2, label: 'Potrzebuję innych lub brakujących elementów'}], hint: 'Sprawdź zawartość wybranej oferty oraz instrukcję montażu dla swojej miski. Bez potwierdzenia dodatkowych elementów pokażemy cenę częściową.'},
+  {id: 'seatTools', label: 'Narzędzie do montażu', unit: '', inputType: 'select', placeholder: 'Sprawdź instrukcję montażu', min: 0, max: 2, defaultValue: 0, required: false, options: [{value: 0, label: 'Jeszcze nie sprawdzono — koszt niepełny'}, {value: 1, label: 'Mam odpowiedni wkrętak lub klucz, albo montaż nie wymaga narzędzi'}, {value: 2, label: 'Muszę kupić narzędzie — potrzebna wycena'}], hint: 'Wymagane narzędzie zależy od wybranej deski i mocowania miski. Nie doliczamy go jako darmowego. Po zmianie modelu lub liczby desek potwierdź ponownie.'},
 ];
 
 export function reviewSeatCalculation(calc: CalculationResult | undefined): CalculationResult | undefined {
@@ -62,6 +64,7 @@ export function reviewSeatShopping(items: readonly ShoppingItem[], calc?: Calcul
   if (calc?.jobId !== SEAT_JOB) return [...items];
   const reviewed = reviewSeatCalculation(calc)!;
   return items.flatMap(item => {
+    if (item.itemType === 'tool' && item.materialId === 'screwdriver-seat' && calc.measurements.seatTools === 1 && !item.owned && !item.purchased && !item.customPrice && !item.customQuantity && item.estimatedPrice === 0) return [];
     if (item.itemType !== 'material' || !isSeatMaterial(calc.jobId, item.materialId)) return [item];
     const n = seatQuantity(item.materialId, calc.measurements), line = reviewed.materials.find(l => l.material.id === item.materialId);
     if (n === null || !line || line.quantityKnown === false) return [{...item, quantityKnown: false, needsQuantityConfirmation: true, owned: false, purchased: false}];

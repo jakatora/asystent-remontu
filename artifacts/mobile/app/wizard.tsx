@@ -1080,7 +1080,7 @@ export default function WizardScreen() {
                     {selectedJob.id === SEAT_JOB ? (language === 'pl' ? 'Dobierz deskę do miski WC' : 'Choose a seat for your toilet bowl') : t('wizard.measure.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {selectedJob.id === SEAT_JOB ? (language === 'pl' ? 'Podaj liczbę desek, wybierz dokładny model i potwierdź zgodność oraz mocowania.' : 'Enter the seat count, choose the exact model and confirm fit and fixings.') : t('wizard.measure.subtitle')}
+                    {selectedJob.id === SEAT_JOB ? (language === 'pl' ? 'Podaj liczbę desek, wybierz dokładny model i potwierdź zgodność, mocowania oraz narzędzie.' : 'Enter the seat count, choose the exact model and confirm fit, fixings and tool availability.') : t('wizard.measure.subtitle')}
                   </Txt>
                 </View>
 

@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-29T09:46:27.436Z",
-  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów; trzy oryginalne deski Cersanit Carina z krajową dostawą TGS. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności i mocowań; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
+  "checkedAt": "2026-10-29T10:00:44.609Z",
+  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów; trzy oryginalne deski Cersanit Carina z krajową dostawą TGS. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności, mocowań i dostępności narzędzia; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
   "total": 187,
   "verifiedProducts": 180,
   "remaining": 7,
@@ -4733,13 +4733,13 @@
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-29T09:46:27.436Z",
+    "checkedAt": "2026-10-29T10:00:44.609Z",
     "pricedLines": 81,
-    "totalLines": 255,
-    "unpricedLines": 174,
+    "totalLines": 256,
+    "unpricedLines": 175,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json",
-    "scope": "65 historycznych map; wybór dokładnego modelu deski jest testowany osobno."
+    "scope": "65 historycznych map; wybór dokładnego modelu i narzędzia testowany osobno."
   },
   "expiredOffers": 3,
   "activeStores": 52,
@@ -5080,12 +5080,12 @@
     "wholeRenovationGrosze": 41441
   },
   "toiletSeatVerification": {
-    "checkedAt": "2026-10-29T09:46:27.436Z",
+    "checkedAt": "2026-10-29T10:00:44.609Z",
     "report": "research/deski-carina-pelny-koszyk-2026-10-29.md",
     "productionSdkCases": 16,
     "completeDeliveredCases": 9,
     "nativeCarts": 10,
-    "quantityModel": "carina-seats-v1",
+    "quantityModel": "carina-seats-v2",
     "references": [
       "mat-seat-cersanit-carina-standard",
       "mat-seat-cersanit-carina-softclose",
@@ -5098,6 +5098,7 @@
     "nationalBasketShipping": true,
     "compatibilityRequired": true,
     "completeMountsRequired": true,
-    "modelOrQuantityChangeResetsConfirmation": true
+    "modelOrQuantityChangeResetsConfirmation": true,
+    "installationToolConfirmationRequired": true
   }
 }

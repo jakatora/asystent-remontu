@@ -295,7 +295,7 @@ export const toiletSeatReplaceJob: RenovationJob = {
   measurementInputs: seatInputs,
   materials: seatMaterials(),
   tools: [
-    { id: 'screwdriver-seat', name: 'Wkrętaki lub klucz do nakrętek', icon: 'tool', required: true },
+    { id: 'screwdriver-seat', name: 'Wkrętaki lub klucz do nakrętek', icon: 'tool', required: false },
     { id: 'adjustable-wrench-seat', name: 'Klucz nastawny (do plastikowych nakrętek)', icon: 'tool', required: false },
   ],
   instructions: [

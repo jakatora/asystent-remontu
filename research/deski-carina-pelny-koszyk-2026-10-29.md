@@ -32,20 +32,20 @@ Dwie deski standardowe w dwóch pomieszczeniach są jednym zamówieniem za 477,6
 
 ## Zachowanie w aplikacji
 
-- Kalkulator przyjmuje 1–10 całych desek, dokładny kod, zgodność wszystkich misek oraz potwierdzenie, że zawiasy, śruby i podkładki są kompletne i pasują. Nie zgaduje ceny brakujących części.
-- Zmiana kodu lub liczby desek kasuje poprzednie potwierdzenie zgodności i mocowań. Do czasu ponownego potwierdzenia całkowita cena zestawu pozostaje niepełna.
+- Kalkulator przyjmuje 1–10 całych desek, dokładny kod, zgodność wszystkich misek oraz potwierdzenie, że zawiasy, śruby i podkładki są kompletne i pasują. Pyta także, czy użytkownik ma odpowiednie narzędzie do montażu. Nie zgaduje ceny brakujących części ani narzędzia.
+- Zmiana kodu lub liczby desek kasuje poprzednie potwierdzenie zgodności, mocowań i narzędzia. Do czasu ponownego potwierdzenia całkowita cena zestawu pozostaje niepełna.
 - Kupienie lub posiadanie własnej deski, brak kodu, niewłaściwa miska, brak mocowań, brak kodu pocztowego i niepotwierdzony odbiór osobisty są osobnymi scenariuszami bez mylącej pełnej ceny.
 - Zdjęcie, kod EAN i źródło oferty są widoczne w projekcie. Wspólny koszyk grupuje sztuki z różnych pomieszczeń oraz nalicza dostawę dla całego zamówienia.
 
-Interfejs przetestowano w projekcie `proj_mvtcq8i11aydwb93l`: 2 × standardowa dało 477,60 zł; po zmianie na SLIM wycena stała się niepełna; po ponownym potwierdzeniu 2 × SLIM dało 594,38 zł i wynik przetrwał odświeżenie strony. Zrzuty: `work/catalog-wave90-two-seats.jpg` i `work/catalog-wave90-slim-two.jpg` w katalogu roboczym tego zadania.
+Interfejs przetestowano w projekcie `proj_mvtcq8i11aydwb93l`: 2 × standardowa dało 477,60 zł; po zmianie na SLIM wycena stała się niepełna; po ponownym potwierdzeniu 2 × SLIM dało 594,38 zł i wynik przetrwał odświeżenie strony. Dodatkowo „muszę kupić narzędzie” zablokowało pełną sumę i pokazało jedną pozycję bez wyceny. Po jawnym potwierdzeniu posiadanego narzędzia suma 594,38 zł wróciła; licznik zakupów starego projektu został skorygowany z 0/2 do 0/1, bez kasowania historii zakupu. Zrzuty: `work/catalog-wave90-two-seats.jpg`, `work/catalog-wave90-slim-two.jpg` i `work/catalog-wave90-tool-guard-price.jpg` w katalogu roboczym tego zadania.
 
 ## Weryfikacja
 
-- Testy aplikacji: **889 zaliczonych, 0 błędów**; TypeScript dla mobile i API bez błędów.
+- Testy aplikacji: **890 zaliczonych, 0 błędów**; TypeScript dla mobile i API bez błędów.
 - Testy wspólnego backendu: **1054 zaliczone, 0 błędów**.
 - Produkcja po wdrożeniu: **16 scenariuszy SDK, 9 z kompletną ceną z dostawą**; wszystkie oczekiwane sumy zgadzają się co do grosza. Nowy release obejmuje wyłącznie dwie zmienione pozycje katalogu, pozostałe 146 plików backendu zachowano. Oferta wyświetlana jako krajowa taryfa koszyka, nie jako indywidualna wycena dla adresu.
-- Pokrycie po tej partii: **187 referencji ze zdjęciami, 180 aktywnych produktów, 231 aktywnych ofert, 52 aktywne sklepy, 7 dotychczasowych referencji bez aktywnej oferty**. Audyt 65 historycznych map: 255 wymagań, 81 wycenionych i 174 niewycenione; są to wymagania w scenariuszach, a nie liczba różnych produktów do dodania. 11 starych scenariuszy ma pełną wycenę. Nowe wybory desek są sprawdzone osobno.
+- Pokrycie po tej partii: **187 referencji ze zdjęciami, 180 aktywnych produktów, 231 aktywnych ofert, 52 aktywne sklepy, 7 dotychczasowych referencji bez aktywnej oferty**. Audyt 65 historycznych map: 256 wymagań, 81 wycenionych i 175 niewycenionych; są to wymagania w scenariuszach, a nie liczba różnych produktów do dodania. Nowa linia narzędzia wymaga jawnego potwierdzenia. 11 starych scenariuszy ma pełną wycenę. Nowe wybory desek są sprawdzone osobno.
 
 ## Dalszy rozwój
 
-Następne partie powinny obejmować brakujące produkty w najczęściej wybieranych pracach i drugi sklep dla dokładnie tych samych EAN desek, o ile jego koszyk i dostawa są weryfikowalne. Następnie warto skrócić kreator oraz oddzielić elementy do kupienia od potwierdzonych części w zestawie w liczniku zakupów.
+Następne partie powinny obejmować brakujące produkty w najczęściej wybieranych pracach, konkretny wariant narzędzia dla użytkowników, którzy go nie mają, i drugi sklep dla dokładnie tych samych EAN desek, o ile jego koszyk i dostawa są weryfikowalne. Warto też skrócić kreator.

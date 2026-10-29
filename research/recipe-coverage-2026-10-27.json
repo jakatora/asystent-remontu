@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-10-29T09:46:27.436Z",
-  "scope": "65 historycznych map pomiarów; wybór trzech oryginalnych desek Carina testowany osobno. Jedna dodatkowa linia mocowań pozostaje niewyceniona do potwierdzenia kompletu. Niepełne wymagania nie oznaczają tylu unikalnych SKU.",
+  "checkedAt": "2026-10-29T10:00:44.609Z",
+  "scope": "65 historycznych map pomiarów; wybór trzech oryginalnych desek Carina testowany osobno. Wymóg potwierdzenia narzędzia do montażu dodaje jedną niewycenioną linię. Niepełne wymagania nie oznaczają tylu unikalnych SKU.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 254,
     "beforePriced": 81,
-    "afterLines": 255,
+    "afterLines": 256,
     "afterPriced": 81,
-    "afterUnpriced": 174,
+    "afterUnpriced": 175,
     "fullyPricedScenarios": 11,
     "reasons": {
-      "no-query": 104,
+      "no-query": 105,
       "no-product": 69,
       "no-offer": 1
     }
@@ -532,6 +532,24 @@
         "fullyPricedScenarios": 11,
         "reasons": {
           "no-query": 103,
+          "no-product": 69,
+          "no-offer": 1
+        }
+      }
+    },
+    {
+      "checkedAt": "2026-10-29T09:46:27.436Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 254,
+        "beforePriced": 81,
+        "afterLines": 255,
+        "afterPriced": 81,
+        "afterUnpriced": 174,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 104,
           "no-product": 69,
           "no-offer": 1
         }
@@ -4078,12 +4096,42 @@
       "materials": [
         {
           "materialId": "toilet-seat-mat",
-          "name": "Nowa deska sedesowa",
-          "unit": "szt.",
+          "name": "Deska sedesowa — wybierz dokładny model i sprawdź miskę — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "nowa deska sedesowa",
+            "normalizedName": "deska sedesowa wybierz dokladny model i sprawdz miske ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "seat-mounting-parts",
+          "name": "Mocowania i podkładki — potwierdź komplet lub dobierz brakujące — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "mocowania i podkladki potwierdz komplet lub dobierz brakujace ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "seat-installation-tool",
+          "name": "Narzędzie do montażu — potwierdź, że masz właściwy wkrętak lub klucz — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "narzedzie do montazu potwierdz ze masz wlasciwy wkretak lub klucz ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -6429,12 +6477,12 @@
     "wholeRenovationGrosze": 41441
   },
   "toiletSeatVerification": {
-    "checkedAt": "2026-10-29T09:46:27.436Z",
+    "checkedAt": "2026-10-29T10:00:44.609Z",
     "report": "research/deski-carina-pelny-koszyk-2026-10-29.md",
     "productionSdkCases": 16,
     "completeDeliveredCases": 9,
     "nativeCarts": 10,
-    "quantityModel": "carina-seats-v1",
+    "quantityModel": "carina-seats-v2",
     "references": [
       "mat-seat-cersanit-carina-standard",
       "mat-seat-cersanit-carina-softclose",
@@ -6447,6 +6495,7 @@
     "nationalBasketShipping": true,
     "compatibilityRequired": true,
     "completeMountsRequired": true,
-    "modelOrQuantityChangeResetsConfirmation": true
+    "modelOrQuantityChangeResetsConfirmation": true,
+    "installationToolConfirmationRequired": true
   }
 }
