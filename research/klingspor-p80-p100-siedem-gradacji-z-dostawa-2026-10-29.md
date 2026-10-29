@@ -29,3 +29,11 @@ Każdy zestaw ma jeden sklep i jedną dostawę. Sewera zwróciła wycenę dla `0
 ## Weryfikacja
 
 API i mobile typecheck PASS. Test tożsamości opakowań i rankingu 3/3 PASS, wszystkie testy mobilne 370/370 PASS, kontrola historycznych ID PASS. Cztery nowe adresy produktów i dwa zdjęcia zostały sprawdzone bezpośrednio. Szeroki walidator wszystkich historycznych linków uruchomiono, lecz przerwano po wykryciu wcześniejszych błędów 404 w niepowiązanych źródłach; nie jest podstawą do stwierdzenia, że wszystkie linki katalogu działają.
+
+## Wdrożenie i potwierdzenie produkcyjne
+
+Commit aplikacji `6b86d2d` wypchnięto na `codex/remont-zakupy-20261024`. Backendowy [PR 117](https://github.com/jakatora/przetargai/pull/117) scalono do `main` (merge `49d0cd5d8798ed48d0825a3b57945a3213639234`). Świeża migawka Railway miała 267 obserwacji i 148 plików; przygotowano 271 obserwacji, zmieniając wyłącznie seed ofert i moduł wycen. Testy przygotowanego backendu: 1054/1054 PASS. Wdrożenie Railway `f8e9bfbb-3cff-417a-a065-ca80e28d8159` ma status `SUCCESS`.
+
+Po wdrożeniu rzeczywisty produkcyjny HTTP dla testowego `00-001` potwierdził siedem różnych gradacji i brak brakujących produktów: po jednym arkuszu selected Sewera `compared/missing 0`, materiały 1165 gr + dostawa 1990 gr = 3155 gr; po 50 arkuszy selected Matiw `compared/missing 0`, materiały 26024 gr + dostawa 1900 gr = 27924 gr. Globalny ranking dla 50 sztuk również zwrócił Matiw 27924 gr, `compared/missing 0`, bez niewycenionych sklepów. Odczyt archiwum z działającej usługi wykazał 148/148 zgodnych plików i 271 obserwacji; SHA modułu wycen `e025f1be808ba44b29cc703abfdb70441f56814ac7a77984f4c70d1669d5736d`.
+
+Wynik obejmuje tylko zweryfikowane oferty i dostępne natywne wyceny, a nie wszystkie sklepy na rynku. Sewera wyceniła dostawę dla kodu `00-001`, Matiw według taryfy krajowej `PL`. Zmian w mobilnej aplikacji nie opublikowano w sklepie z aplikacjami w tej fali.
