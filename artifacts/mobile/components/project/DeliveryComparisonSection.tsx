@@ -35,6 +35,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const [details, setDetails] = useState(false);
   const [comparisonOptionsOpen, setComparisonOptionsOpen] = useState(false);
   const [openProducts, setOpenProducts] = useState<Record<string, boolean>>({});
+  const [openAlternatives, setOpenAlternatives] = useState<Record<string, boolean>>({});
+  const [showAllAlternatives, setShowAllAlternatives] = useState(false);
   const destination = normalizeDeliveryPostalCode(postalCode);
   const commitDestination = () => {
     // Clearing or leaving an incomplete postcode must also forget the saved
@@ -229,12 +231,36 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     </> : null}
     {current && best && comparison.alternatives.length > 0 && <View style={{ gap: 8 }}>
       <Txt w="semibold">{tr('Inne wycenione zestawy', 'Other quoted baskets')}</Txt>
-      {comparison.alternatives.slice(0,2).map((basket,index) => <View key={index} style={{ borderWidth: 1, borderColor: Colors.border, borderRadius: 12, padding: 12, gap: 6 }}>
-        <Txt>{basket.stores.map(store => store.store).join(' + ')}</Txt>
-        <Txt w="semibold">{formatGrosze(basket.totalGrosze!)} · +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt>
-        <Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{tr('Materiały','Materials')}: {formatGrosze(basket.materialsGrosze)} · {tr('Dostawa','Delivery')}: {formatGrosze(basket.deliveryGrosze!)}</Txt>
-        <Txt numberOfLines={3} style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{basket.stores.flatMap(store=>store.lines.map(line=>`${displayProductName(line.product)}: ${line.packages.map(pack=>`${pack.count} × ${pack.packageSize} ${line.unit??''}`).join(' + ')}`)).join('\n')}</Txt>
-      </View>)}
+      {(showAllAlternatives ? comparison.alternatives : comparison.alternatives.slice(0, 2)).map((basket,index) => {
+        const key = `${index}:${basket.stores.map(store => store.store).join('|')}:${basket.totalGrosze}`;
+        const expanded = openAlternatives[key] ?? false;
+        const productCount = basket.stores.reduce((count, store) => count + store.lines.length, 0);
+        return <View key={key} style={{ borderWidth: 1, borderColor: Colors.border, borderRadius: 12, padding: 12, gap: 8, backgroundColor: Colors.surface }}>
+          <Txt w="semibold" style={{fontSize:15}}>{basket.stores.map(store => store.store).join(' + ')}</Txt>
+          <Txt w="bold" style={{fontSize:18}}>{formatGrosze(basket.totalGrosze!)} <Txt style={{fontSize:13,color:Colors.textSecondary}}>· +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt></Txt>
+          <Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{tr('Materiały','Materials')}: {formatGrosze(basket.materialsGrosze)} · {tr('Dostawa','Delivery')}: {formatGrosze(basket.deliveryGrosze!)}</Txt>
+          <Pressable accessibilityRole="button" aria-expanded={expanded} accessibilityState={{expanded}} onPress={() => setOpenAlternatives(previous => ({...previous,[key]:!expanded}))} style={{minHeight:48,flexDirection:'row',alignItems:'center',gap:8}}>
+            <Feather name={expanded?'chevron-up':'chevron-down'} size={18} color={Colors.primary}/>
+            <Txt w="semibold" style={{flex:1,color:Colors.primary}}>{expanded?tr('Ukryj produkty i dostawę','Hide products and delivery'):tr(`Zobacz ${productCount} ${productCount===1?'produkt':productCount<5?'produkty':'produktów'} i dostawę`,`View ${productCount} products and delivery`)}</Txt>
+          </Pressable>
+          {expanded && basket.stores.map(store => <View key={store.store} style={{gap:10,paddingTop:8,borderTopWidth:1,borderTopColor:Colors.border}}>
+            <Txt w="bold">{store.store} · {formatGrosze(store.totalGrosze!)}</Txt>
+            <Txt style={{fontSize:13,color:Colors.textSecondary}}>{tr('Dostawa','Delivery')}: {formatGrosze(store.deliveryGrosze!)}{store.quote ? ` · ${store.quote.carrier}` : ''}</Txt>
+            {(store.quote?.orders?.length ?? 0) > 1 && <View accessibilityRole="alert" style={{gap:6,padding:10,borderRadius:10,backgroundColor:Colors.warningBg}}>
+              <Txt w="semibold" style={{fontSize:13}}>{tr(`Złóż ${store.quote!.orders!.length} osobne zamówienia w tym sklepie:`, `Place ${store.quote!.orders!.length} separate orders at this store:`)}</Txt>
+              {store.quote!.orders!.map((part,partIndex) => <Txt key={partIndex} style={{fontSize:13,lineHeight:19}}>{tr('Zamówienie','Order')} {partIndex+1}: {part.lines.map(line=>`${displayProductName(line.product)} (${line.packages.map(pack=>`${pack.count} × ${pack.packageSize} ${line.unit}`).join(' + ')})`).join(', ')}. {tr('Dostawa','Delivery')}: {formatGrosze(part.quote.costGrosze)}.</Txt>)}
+            </View>}
+            {store.lines.map(line => <View key={line.product.id} style={{gap:4}}>
+              <View style={{flexDirection:'row',alignItems:'center',gap:10}}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={48}/><Txt w="medium" style={{flex:1,fontSize:14,lineHeight:20}}>{displayProductName(line.product)}</Txt></View>
+              {line.packages.map(pack => <View key={pack.offerId} style={{paddingLeft:58,gap:2}}>
+                <Txt style={{fontSize:13}}>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
+                {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{minHeight:44,justifyContent:'center'}}><Txt w="semibold" style={{color:Colors.primary,fontSize:13}}>{tr('Sprawdź w sklepie ↗','View in store ↗')}</Txt></Pressable>}
+              </View>)}
+            </View>)}
+          </View>)}
+        </View>;
+      })}
+      {!showAllAlternatives && comparison.alternatives.length > 2 && <Button variant="outline" label={tr(`Pokaż pozostałe zestawy (${comparison.alternatives.length - 2})`, `Show other baskets (${comparison.alternatives.length - 2})`)} onPress={() => setShowAllAlternatives(true)} />}
     </View>}
     {current && destination && !incompleteCompetition && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
     {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}

@@ -1,0 +1,4303 @@
+{
+  "cases": {
+    "medium_medium_large_a": {
+      "checkedAt": "2026-10-29T14:33:36.831Z",
+      "steps": [
+        {
+          "id": 4808,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 4808,
+                "sku": "BS00215",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 1,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "13900",
+                  "regular_price": "13900",
+                  "sale_price": "13900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "139000000",
+                    "regular_price": "139000000",
+                    "sale_price": "139000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "13900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "13900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 1,
+            "totals": {
+              "total_items": "13900",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "1899",
+              "total_shipping_tax": "0",
+              "total_price": "15799",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:medium_parcel_dhl",
+                    "name": "DHL – Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1899",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:medium_parcel_dpd",
+                    "name": "DPD – Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1899",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "easypack_parcel_machines:4",
+                    "name": "InPost Paczkomat 24/7 (gabaryt C)",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1999",
+                    "taxes": "0",
+                    "instance_id": 4,
+                    "method_id": "easypack_parcel_machines",
+                    "meta_data": [
+                      {
+                        "key": "logo",
+                        "value": ""
+                      },
+                      {
+                        "key": "delivery_terms",
+                        "value": ""
+                      }
+                    ],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "easypack_parcel_machines_cod:5",
+                    "name": "InPost Paczkomat 24/7 Pobranie (gabaryt C)",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1999",
+                    "taxes": "0",
+                    "instance_id": 5,
+                    "method_id": "easypack_parcel_machines_cod",
+                    "meta_data": [
+                      {
+                        "key": "logo",
+                        "value": ""
+                      },
+                      {
+                        "key": "delivery_terms",
+                        "value": ""
+                      }
+                    ],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        },
+        {
+          "id": 7381,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 4808,
+                "sku": "BS00215",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 1,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "13900",
+                  "regular_price": "13900",
+                  "sale_price": "13900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "139000000",
+                    "regular_price": "139000000",
+                    "sale_price": "139000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "13900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "13900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 7381,
+                "sku": "BS00293",
+                "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24900",
+                  "regular_price": "24900",
+                  "sale_price": "24900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "249000000",
+                    "regular_price": "249000000",
+                    "sale_price": "249000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 2,
+            "totals": {
+              "total_items": "38800",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "4398",
+              "total_shipping_tax": "0",
+              "total_price": "43198",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "64de166633d61c8326232568b42beef1",
+                    "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_large_parcel",
+                    "name": "Paczki/Worki: Średnia Paczka + Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "4398",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        },
+        {
+          "id": 6240,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 4808,
+                "sku": "BS00215",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 1,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "13900",
+                  "regular_price": "13900",
+                  "sale_price": "13900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "139000000",
+                    "regular_price": "139000000",
+                    "sale_price": "139000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "13900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "13900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 7381,
+                "sku": "BS00293",
+                "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24900",
+                  "regular_price": "24900",
+                  "sale_price": "24900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "249000000",
+                    "regular_price": "249000000",
+                    "sale_price": "249000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 6240,
+                "sku": "BS02039",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24899",
+                  "regular_price": "24899",
+                  "sale_price": "24899",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "248990000",
+                    "regular_price": "248990000",
+                    "sale_price": "248990000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24899",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24899",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 3,
+            "totals": {
+              "total_items": "63699",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "6297",
+              "total_shipping_tax": "0",
+              "total_price": "69996",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "64de166633d61c8326232568b42beef1",
+                    "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "405075699f065e43581f27d67bb68478",
+                    "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel",
+                    "name": "Paczki/Worki: 2× Średnia Paczka + Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "6297",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        }
+      ],
+      "located": {
+        "items": [
+          {
+            "id": 4808,
+            "sku": "BS00215",
+            "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 1,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "13900",
+              "regular_price": "13900",
+              "sale_price": "13900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "139000000",
+                "regular_price": "139000000",
+                "sale_price": "139000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "13900",
+              "line_subtotal_tax": "0",
+              "line_total": "13900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 7381,
+            "sku": "BS00293",
+            "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24900",
+              "regular_price": "24900",
+              "sale_price": "24900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "249000000",
+                "regular_price": "249000000",
+                "sale_price": "249000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24900",
+              "line_subtotal_tax": "0",
+              "line_total": "24900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24899",
+              "line_subtotal_tax": "0",
+              "line_total": "24899",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "63699",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "6297",
+          "total_shipping_tax": "0",
+          "total_price": "69996",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1
+              },
+              {
+                "key": "64de166633d61c8326232568b42beef1",
+                "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1
+              },
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel",
+                "name": "Paczki/Worki: 2× Średnia Paczka + Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "6297",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      },
+      "selected": {
+        "items": [
+          {
+            "id": 4808,
+            "sku": "BS00215",
+            "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 1,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "13900",
+              "regular_price": "13900",
+              "sale_price": "13900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "139000000",
+                "regular_price": "139000000",
+                "sale_price": "139000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "13900",
+              "line_subtotal_tax": "0",
+              "line_total": "13900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 7381,
+            "sku": "BS00293",
+            "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24900",
+              "regular_price": "24900",
+              "sale_price": "24900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "249000000",
+                "regular_price": "249000000",
+                "sale_price": "249000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24900",
+              "line_subtotal_tax": "0",
+              "line_total": "24900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24899",
+              "line_subtotal_tax": "0",
+              "line_total": "24899",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "63699",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "6297",
+          "total_shipping_tax": "0",
+          "total_price": "69996",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1
+              },
+              {
+                "key": "64de166633d61c8326232568b42beef1",
+                "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1
+              },
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel",
+                "name": "Paczki/Worki: 2× Średnia Paczka + Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "6297",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      }
+    },
+    "medium_medium_large_b": {
+      "checkedAt": "2026-10-29T14:33:36.882Z",
+      "steps": [
+        {
+          "id": 4808,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 4808,
+                "sku": "BS00215",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 1,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "13900",
+                  "regular_price": "13900",
+                  "sale_price": "13900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "139000000",
+                    "regular_price": "139000000",
+                    "sale_price": "139000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "13900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "13900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 1,
+            "totals": {
+              "total_items": "13900",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "1899",
+              "total_shipping_tax": "0",
+              "total_price": "15799",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:medium_parcel_dhl",
+                    "name": "DHL – Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1899",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:medium_parcel_dpd",
+                    "name": "DPD – Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1899",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "easypack_parcel_machines:4",
+                    "name": "InPost Paczkomat 24/7 (gabaryt C)",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1999",
+                    "taxes": "0",
+                    "instance_id": 4,
+                    "method_id": "easypack_parcel_machines",
+                    "meta_data": [
+                      {
+                        "key": "logo",
+                        "value": ""
+                      },
+                      {
+                        "key": "delivery_terms",
+                        "value": ""
+                      }
+                    ],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "easypack_parcel_machines_cod:5",
+                    "name": "InPost Paczkomat 24/7 Pobranie (gabaryt C)",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1999",
+                    "taxes": "0",
+                    "instance_id": 5,
+                    "method_id": "easypack_parcel_machines_cod",
+                    "meta_data": [
+                      {
+                        "key": "logo",
+                        "value": ""
+                      },
+                      {
+                        "key": "delivery_terms",
+                        "value": ""
+                      }
+                    ],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        },
+        {
+          "id": 6484,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 4808,
+                "sku": "BS00215",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 1,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "13900",
+                  "regular_price": "13900",
+                  "sale_price": "13900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "139000000",
+                    "regular_price": "139000000",
+                    "sale_price": "139000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "13900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "13900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 6484,
+                "sku": "BS00295",
+                "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 5,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "32500",
+                  "regular_price": "32500",
+                  "sale_price": "32500",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "325000000",
+                    "regular_price": "325000000",
+                    "sale_price": "325000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "32500",
+                  "line_subtotal_tax": "0",
+                  "line_total": "32500",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 2,
+            "totals": {
+              "total_items": "46400",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "4398",
+              "total_shipping_tax": "0",
+              "total_price": "50798",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "cfa45151ccad6bf11ea146ed563f2119",
+                    "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_large_parcel",
+                    "name": "Paczki/Worki: Średnia Paczka + Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "4398",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        },
+        {
+          "id": 6240,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 4808,
+                "sku": "BS00215",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 1,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "13900",
+                  "regular_price": "13900",
+                  "sale_price": "13900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "139000000",
+                    "regular_price": "139000000",
+                    "sale_price": "139000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "13900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "13900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 6484,
+                "sku": "BS00295",
+                "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 5,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "32500",
+                  "regular_price": "32500",
+                  "sale_price": "32500",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "325000000",
+                    "regular_price": "325000000",
+                    "sale_price": "325000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "32500",
+                  "line_subtotal_tax": "0",
+                  "line_total": "32500",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 6240,
+                "sku": "BS02039",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24899",
+                  "regular_price": "24899",
+                  "sale_price": "24899",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "248990000",
+                    "regular_price": "248990000",
+                    "sale_price": "248990000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24899",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24899",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 3,
+            "totals": {
+              "total_items": "71299",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "6297",
+              "total_shipping_tax": "0",
+              "total_price": "77596",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                    "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "cfa45151ccad6bf11ea146ed563f2119",
+                    "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "405075699f065e43581f27d67bb68478",
+                    "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel",
+                    "name": "Paczki/Worki: 2× Średnia Paczka + Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "6297",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        }
+      ],
+      "located": {
+        "items": [
+          {
+            "id": 4808,
+            "sku": "BS00215",
+            "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 1,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "13900",
+              "regular_price": "13900",
+              "sale_price": "13900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "139000000",
+                "regular_price": "139000000",
+                "sale_price": "139000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "13900",
+              "line_subtotal_tax": "0",
+              "line_total": "13900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6484,
+            "sku": "BS00295",
+            "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 5,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "32500",
+              "regular_price": "32500",
+              "sale_price": "32500",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "325000000",
+                "regular_price": "325000000",
+                "sale_price": "325000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "32500",
+              "line_subtotal_tax": "0",
+              "line_total": "32500",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24899",
+              "line_subtotal_tax": "0",
+              "line_total": "24899",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "71299",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "6297",
+          "total_shipping_tax": "0",
+          "total_price": "77596",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1
+              },
+              {
+                "key": "cfa45151ccad6bf11ea146ed563f2119",
+                "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                "quantity": 1
+              },
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel",
+                "name": "Paczki/Worki: 2× Średnia Paczka + Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "6297",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      },
+      "selected": {
+        "items": [
+          {
+            "id": 4808,
+            "sku": "BS00215",
+            "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 1,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "13900",
+              "regular_price": "13900",
+              "sale_price": "13900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "139000000",
+                "regular_price": "139000000",
+                "sale_price": "139000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "13900",
+              "line_subtotal_tax": "0",
+              "line_total": "13900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6484,
+            "sku": "BS00295",
+            "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 5,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "32500",
+              "regular_price": "32500",
+              "sale_price": "32500",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "325000000",
+                "regular_price": "325000000",
+                "sale_price": "325000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "32500",
+              "line_subtotal_tax": "0",
+              "line_total": "32500",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24899",
+              "line_subtotal_tax": "0",
+              "line_total": "24899",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "71299",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "6297",
+          "total_shipping_tax": "0",
+          "total_price": "77596",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "22f2729737ae3dc9702e4cee0eb3e900",
+                "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+                "quantity": 1
+              },
+              {
+                "key": "cfa45151ccad6bf11ea146ed563f2119",
+                "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                "quantity": 1
+              },
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel",
+                "name": "Paczki/Worki: 2× Średnia Paczka + Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "6297",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      }
+    },
+    "medium_three": {
+      "checkedAt": "2026-10-29T14:33:37.731Z",
+      "steps": [
+        {
+          "id": 6240,
+          "count": 3,
+          "cart": {
+            "items": [
+              {
+                "id": 6240,
+                "sku": "BS02039",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 3,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24899",
+                  "regular_price": "24899",
+                  "sale_price": "24899",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "248990000",
+                    "regular_price": "248990000",
+                    "sale_price": "248990000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "74697",
+                  "line_subtotal_tax": "0",
+                  "line_total": "74697",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 3,
+            "totals": {
+              "total_items": "74697",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "5697",
+              "total_shipping_tax": "0",
+              "total_price": "80394",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "405075699f065e43581f27d67bb68478",
+                    "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                    "quantity": 3
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_medium_parcel",
+                    "name": "Paczki/Worki: 3× Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "5697",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        }
+      ],
+      "located": {
+        "items": [
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 3,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "74697",
+              "line_subtotal_tax": "0",
+              "line_total": "74697",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "74697",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "5697",
+          "total_shipping_tax": "0",
+          "total_price": "80394",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 3
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_medium_parcel",
+                "name": "Paczki/Worki: 3× Średnia Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "5697",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      },
+      "selected": {
+        "items": [
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 3,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "74697",
+              "line_subtotal_tax": "0",
+              "line_total": "74697",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "74697",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "5697",
+          "total_shipping_tax": "0",
+          "total_price": "80394",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 3
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_medium_parcel",
+                "name": "Paczki/Worki: 3× Średnia Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "5697",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      }
+    },
+    "large_three": {
+      "checkedAt": "2026-10-29T14:33:37.713Z",
+      "steps": [
+        {
+          "id": 7381,
+          "count": 3,
+          "cart": {
+            "items": [
+              {
+                "id": 7381,
+                "sku": "BS00293",
+                "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 3,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24900",
+                  "regular_price": "24900",
+                  "sale_price": "24900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "249000000",
+                    "regular_price": "249000000",
+                    "sale_price": "249000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "74700",
+                  "line_subtotal_tax": "0",
+                  "line_total": "74700",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 3,
+            "totals": {
+              "total_items": "74700",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "7497",
+              "total_shipping_tax": "0",
+              "total_price": "82197",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "64de166633d61c8326232568b42beef1",
+                    "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                    "quantity": 3
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_large_parcel_large_parcel_large_parcel",
+                    "name": "Paczki/Worki: 3× Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "7497",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        }
+      ],
+      "located": {
+        "items": [
+          {
+            "id": 7381,
+            "sku": "BS00293",
+            "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 3,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24900",
+              "regular_price": "24900",
+              "sale_price": "24900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "249000000",
+                "regular_price": "249000000",
+                "sale_price": "249000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "74700",
+              "line_subtotal_tax": "0",
+              "line_total": "74700",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "74700",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "7497",
+          "total_shipping_tax": "0",
+          "total_price": "82197",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "64de166633d61c8326232568b42beef1",
+                "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 3
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_large_parcel_large_parcel_large_parcel",
+                "name": "Paczki/Worki: 3× Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "7497",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      },
+      "selected": {
+        "items": [
+          {
+            "id": 7381,
+            "sku": "BS00293",
+            "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 3,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24900",
+              "regular_price": "24900",
+              "sale_price": "24900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "249000000",
+                "regular_price": "249000000",
+                "sale_price": "249000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "74700",
+              "line_subtotal_tax": "0",
+              "line_total": "74700",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 3,
+        "totals": {
+          "total_items": "74700",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "7497",
+          "total_shipping_tax": "0",
+          "total_price": "82197",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "64de166633d61c8326232568b42beef1",
+                "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 3
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_large_parcel_large_parcel_large_parcel",
+                "name": "Paczki/Worki: 3× Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "7497",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      }
+    },
+    "medium_large_three": {
+      "checkedAt": "2026-10-29T14:33:37.656Z",
+      "steps": [
+        {
+          "id": 6240,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 6240,
+                "sku": "BS02039",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24899",
+                  "regular_price": "24899",
+                  "sale_price": "24899",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "248990000",
+                    "regular_price": "248990000",
+                    "sale_price": "248990000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24899",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24899",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 1,
+            "totals": {
+              "total_items": "24899",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "1899",
+              "total_shipping_tax": "0",
+              "total_price": "26798",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "405075699f065e43581f27d67bb68478",
+                    "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:medium_parcel_dhl",
+                    "name": "DHL – Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1899",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:medium_parcel_dpd",
+                    "name": "DPD – Średnia Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1899",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "easypack_parcel_machines:4",
+                    "name": "InPost Paczkomat 24/7 (gabaryt C)",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1999",
+                    "taxes": "0",
+                    "instance_id": 4,
+                    "method_id": "easypack_parcel_machines",
+                    "meta_data": [
+                      {
+                        "key": "logo",
+                        "value": ""
+                      },
+                      {
+                        "key": "delivery_terms",
+                        "value": ""
+                      }
+                    ],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "easypack_parcel_machines_cod:5",
+                    "name": "InPost Paczkomat 24/7 Pobranie (gabaryt C)",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "1999",
+                    "taxes": "0",
+                    "instance_id": 5,
+                    "method_id": "easypack_parcel_machines_cod",
+                    "meta_data": [
+                      {
+                        "key": "logo",
+                        "value": ""
+                      },
+                      {
+                        "key": "delivery_terms",
+                        "value": ""
+                      }
+                    ],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        },
+        {
+          "id": 7381,
+          "count": 1,
+          "cart": {
+            "items": [
+              {
+                "id": 6240,
+                "sku": "BS02039",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24899",
+                  "regular_price": "24899",
+                  "sale_price": "24899",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "248990000",
+                    "regular_price": "248990000",
+                    "sale_price": "248990000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24899",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24899",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 7381,
+                "sku": "BS00293",
+                "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24900",
+                  "regular_price": "24900",
+                  "sale_price": "24900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "249000000",
+                    "regular_price": "249000000",
+                    "sale_price": "249000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 2,
+            "totals": {
+              "total_items": "49799",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "4398",
+              "total_shipping_tax": "0",
+              "total_price": "54197",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "405075699f065e43581f27d67bb68478",
+                    "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "64de166633d61c8326232568b42beef1",
+                    "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                    "quantity": 1
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_large_parcel",
+                    "name": "Paczki/Worki: Średnia Paczka + Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "4398",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        },
+        {
+          "id": 6484,
+          "count": 2,
+          "cart": {
+            "items": [
+              {
+                "id": 6240,
+                "sku": "BS02039",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24899",
+                  "regular_price": "24899",
+                  "sale_price": "24899",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "248990000",
+                    "regular_price": "248990000",
+                    "sale_price": "248990000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24899",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24899",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 7381,
+                "sku": "BS00293",
+                "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 3,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "24900",
+                  "regular_price": "24900",
+                  "sale_price": "24900",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "249000000",
+                    "regular_price": "249000000",
+                    "sale_price": "249000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "24900",
+                  "line_subtotal_tax": "0",
+                  "line_total": "24900",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              },
+              {
+                "id": 6484,
+                "sku": "BS00295",
+                "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+                "quantity": 2,
+                "quantity_limits": {
+                  "minimum": 1,
+                  "maximum": 5,
+                  "multiple_of": 1,
+                  "editable": true
+                },
+                "show_backorder_badge": false,
+                "prices": {
+                  "price": "32500",
+                  "regular_price": "32500",
+                  "sale_price": "32500",
+                  "price_range": null,
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł",
+                  "raw_prices": {
+                    "precision": 6,
+                    "price": "325000000",
+                    "regular_price": "325000000",
+                    "sale_price": "325000000"
+                  }
+                },
+                "totals": {
+                  "line_subtotal": "65000",
+                  "line_subtotal_tax": "0",
+                  "line_total": "65000",
+                  "line_total_tax": "0",
+                  "currency_code": "PLN",
+                  "currency_symbol": "zł",
+                  "currency_minor_unit": 2,
+                  "currency_decimal_separator": ".",
+                  "currency_thousand_separator": ",",
+                  "currency_prefix": "",
+                  "currency_suffix": "zł"
+                }
+              }
+            ],
+            "items_count": 4,
+            "totals": {
+              "total_items": "114799",
+              "total_items_tax": "0",
+              "total_fees": "0",
+              "total_fees_tax": "0",
+              "total_discount": "0",
+              "total_discount_tax": "0",
+              "total_shipping": "9396",
+              "total_shipping_tax": "0",
+              "total_price": "124195",
+              "total_tax": "0",
+              "tax_lines": [],
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            },
+            "shipping_address": {
+              "first_name": "",
+              "last_name": "",
+              "company": "",
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "",
+              "country": "PL",
+              "phone": ""
+            },
+            "shipping_rates": [
+              {
+                "package_id": 0,
+                "name": "Przesyłka",
+                "destination": {
+                  "address_1": "",
+                  "address_2": "",
+                  "city": "",
+                  "state": "",
+                  "postcode": "",
+                  "country": "PL"
+                },
+                "items": [
+                  {
+                    "key": "405075699f065e43581f27d67bb68478",
+                    "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "64de166633d61c8326232568b42beef1",
+                    "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                    "quantity": 1
+                  },
+                  {
+                    "key": "cfa45151ccad6bf11ea146ed563f2119",
+                    "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                    "quantity": 2
+                  }
+                ],
+                "shipping_rates": [
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel_large_parcel",
+                    "name": "Paczki/Worki: Średnia Paczka + 3× Duża Paczka",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "9396",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": true,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  },
+                  {
+                    "rate_id": "wsds_simple_dimensional:3:half_pallet",
+                    "name": "Półpaleta",
+                    "description": "",
+                    "delivery_time": "",
+                    "price": "17500",
+                    "taxes": "0",
+                    "instance_id": 3,
+                    "method_id": "wsds_simple_dimensional",
+                    "meta_data": [],
+                    "selected": false,
+                    "currency_code": "PLN",
+                    "currency_symbol": "zł",
+                    "currency_minor_unit": 2,
+                    "currency_decimal_separator": ".",
+                    "currency_thousand_separator": ",",
+                    "currency_prefix": "",
+                    "currency_suffix": "zł"
+                  }
+                ]
+              }
+            ],
+            "payment_methods": [
+              "p24-online-payments-303",
+              "p24-online-payments-154",
+              "p24-online-payments-298",
+              "woocommerce_payments",
+              "cod",
+              "p24-blik",
+              "p24-online-payments"
+            ],
+            "has_calculated_shipping": true,
+            "needs_shipping": true,
+            "fees": [],
+            "coupons": [],
+            "errors": []
+          }
+        }
+      ],
+      "located": {
+        "items": [
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24899",
+              "line_subtotal_tax": "0",
+              "line_total": "24899",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 7381,
+            "sku": "BS00293",
+            "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24900",
+              "regular_price": "24900",
+              "sale_price": "24900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "249000000",
+                "regular_price": "249000000",
+                "sale_price": "249000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24900",
+              "line_subtotal_tax": "0",
+              "line_total": "24900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6484,
+            "sku": "BS00295",
+            "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+            "quantity": 2,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 5,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "32500",
+              "regular_price": "32500",
+              "sale_price": "32500",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "325000000",
+                "regular_price": "325000000",
+                "sale_price": "325000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "65000",
+              "line_subtotal_tax": "0",
+              "line_total": "65000",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 4,
+        "totals": {
+          "total_items": "114799",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "9396",
+          "total_shipping_tax": "0",
+          "total_price": "124195",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1
+              },
+              {
+                "key": "64de166633d61c8326232568b42beef1",
+                "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1
+              },
+              {
+                "key": "cfa45151ccad6bf11ea146ed563f2119",
+                "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                "quantity": 2
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel_large_parcel",
+                "name": "Paczki/Worki: Średnia Paczka + 3× Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "9396",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              },
+              {
+                "rate_id": "wsds_simple_dimensional:3:half_pallet",
+                "name": "Półpaleta",
+                "description": "",
+                "delivery_time": "",
+                "price": "17500",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": false,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      },
+      "selected": {
+        "items": [
+          {
+            "id": 6240,
+            "sku": "BS02039",
+            "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24899",
+              "regular_price": "24899",
+              "sale_price": "24899",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "248990000",
+                "regular_price": "248990000",
+                "sale_price": "248990000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24899",
+              "line_subtotal_tax": "0",
+              "line_total": "24899",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 7381,
+            "sku": "BS00293",
+            "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 3,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "24900",
+              "regular_price": "24900",
+              "sale_price": "24900",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "249000000",
+                "regular_price": "249000000",
+                "sale_price": "249000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "24900",
+              "line_subtotal_tax": "0",
+              "line_total": "24900",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          },
+          {
+            "id": 6484,
+            "sku": "BS00295",
+            "name": "ATLAS WODER E 15kg &#8211; Szybkoschnąca folia w płynie",
+            "quantity": 2,
+            "quantity_limits": {
+              "minimum": 1,
+              "maximum": 5,
+              "multiple_of": 1,
+              "editable": true
+            },
+            "show_backorder_badge": false,
+            "prices": {
+              "price": "32500",
+              "regular_price": "32500",
+              "sale_price": "32500",
+              "price_range": null,
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł",
+              "raw_prices": {
+                "precision": 6,
+                "price": "325000000",
+                "regular_price": "325000000",
+                "sale_price": "325000000"
+              }
+            },
+            "totals": {
+              "line_subtotal": "65000",
+              "line_subtotal_tax": "0",
+              "line_total": "65000",
+              "line_total_tax": "0",
+              "currency_code": "PLN",
+              "currency_symbol": "zł",
+              "currency_minor_unit": 2,
+              "currency_decimal_separator": ".",
+              "currency_thousand_separator": ",",
+              "currency_prefix": "",
+              "currency_suffix": "zł"
+            }
+          }
+        ],
+        "items_count": 4,
+        "totals": {
+          "total_items": "114799",
+          "total_items_tax": "0",
+          "total_fees": "0",
+          "total_fees_tax": "0",
+          "total_discount": "0",
+          "total_discount_tax": "0",
+          "total_shipping": "9396",
+          "total_shipping_tax": "0",
+          "total_price": "124195",
+          "total_tax": "0",
+          "tax_lines": [],
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        },
+        "shipping_address": {
+          "first_name": "",
+          "last_name": "",
+          "company": "",
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL",
+          "phone": ""
+        },
+        "shipping_rates": [
+          {
+            "package_id": 0,
+            "name": "Przesyłka",
+            "destination": {
+              "address_1": "",
+              "address_2": "",
+              "city": "",
+              "state": "",
+              "postcode": "00-001",
+              "country": "PL"
+            },
+            "items": [
+              {
+                "key": "405075699f065e43581f27d67bb68478",
+                "name": "MAPEI Hydroizolacja Płynna folia MAPEGUM WPS 10kg",
+                "quantity": 1
+              },
+              {
+                "key": "64de166633d61c8326232568b42beef1",
+                "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+                "quantity": 1
+              },
+              {
+                "key": "cfa45151ccad6bf11ea146ed563f2119",
+                "name": "ATLAS WODER E 15kg - Szybkoschnąca folia w płynie",
+                "quantity": 2
+              }
+            ],
+            "shipping_rates": [
+              {
+                "rate_id": "wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel_large_parcel",
+                "name": "Paczki/Worki: Średnia Paczka + 3× Duża Paczka",
+                "description": "",
+                "delivery_time": "",
+                "price": "9396",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": true,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              },
+              {
+                "rate_id": "wsds_simple_dimensional:3:half_pallet",
+                "name": "Półpaleta",
+                "description": "",
+                "delivery_time": "",
+                "price": "17500",
+                "taxes": "0",
+                "instance_id": 3,
+                "method_id": "wsds_simple_dimensional",
+                "meta_data": [],
+                "selected": false,
+                "currency_code": "PLN",
+                "currency_symbol": "zł",
+                "currency_minor_unit": 2,
+                "currency_decimal_separator": ".",
+                "currency_thousand_separator": ",",
+                "currency_prefix": "",
+                "currency_suffix": "zł"
+              }
+            ]
+          }
+        ],
+        "payment_methods": [
+          "p24-online-payments-303",
+          "p24-online-payments-154",
+          "p24-online-payments-298",
+          "woocommerce_payments",
+          "cod",
+          "p24-blik",
+          "p24-online-payments"
+        ],
+        "has_calculated_shipping": true,
+        "needs_shipping": true,
+        "fees": [],
+        "coupons": [],
+        "errors": []
+      }
+    }
+  }
+}

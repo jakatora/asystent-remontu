@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import express from 'express';
 import evidence from './fixtures/budshop-mapegum-wave103.json' with { type: 'json' };
+import shapes from './fixtures/budshop-shapes-wave103b.json' with { type: 'json' };
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
 import { inspectBudshopProduct } from '../src/lib/budshop-woo';
 import { readRetailSource } from '../src/lib/retail-pages';
@@ -12,9 +13,9 @@ import type { DeliveredStoreBasket } from '../../../lib/pricing-service/src/deli
 
 const sources = [4808, 7381, 6484, 6240].map(id => RETAIL_SOURCES.find(s => s.productId === id && s.store === 'Budshop24')!);
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
-type CaseName = keyof typeof evidence.cases;
+type CaseName = keyof typeof evidence.cases | keyof typeof shapes.cases;
 function replay(name: CaseName, mutate?: (value: any, path: string) => void) {
-  const fixture = evidence.cases[name];
+  const fixture: any = (evidence.cases as any)[name] ?? (shapes.cases as any)[name];
   let adds = 0;
   const calls: string[] = [];
   const fetcher: typeof fetch = async (input, init) => {
@@ -67,6 +68,39 @@ test('Mapegum card confirms the exact 10 kg Mapei SKU, EAN, gross price, stock a
     { is_in_stock: false }, { images: [{ src: 'https://budshop24.pl/other.jpg' }] }])
     assert.throws(() => inspectBudshopProduct({ ...product, ...patch }, source));
   assert.throws(() => inspectBudshopProduct(product, { ...source, brand: 'Atlas' }));
+});
+
+test('Budshop native delivery covers newly observed parcel shapes and pack quantities', async () => {
+  const scenarios: [CaseName, DeliveredStoreBasket, number, number][] = [
+    ['medium_medium_large_a', basket([line(4808, 13900), line(7381, 24900), line(6240, 24899)]), 6297, 69996],
+    ['medium_medium_large_b', basket([line(4808, 13900), line(6484, 32500), line(6240, 24899)]), 6297, 77596],
+    ['medium_three', basket([line(6240, 24899, 3)]), 5697, 80394],
+    ['large_three', basket([line(7381, 24900, 3)]), 7497, 82197],
+    ['medium_large_three', basket([line(6240, 24899), line(7381, 24900), line(6484, 32500, 2)]), 9396, 124195],
+  ];
+  for (const [name, order, delivery, total] of scenarios) {
+    const { fetcher, calls } = replay(name);
+    const result = await createRetailerQuoter(fetcher)(order, '00-001');
+    assert.ok('quote' in result, `${name}: ${JSON.stringify(result)}`);
+    assert.equal(result.quote.costGrosze, delivery, name);
+    assert.equal(order.materialsGrosze + result.quote.costGrosze, total, name);
+    assert.equal(calls.filter(path => path.endsWith('/cart/select-shipping-rate')).length, 1, name);
+  }
+});
+
+test('Budshop parcel-shape expansion refuses changed method, label, total and non-courier route', async () => {
+  const order = basket([line(4808, 13900), line(7381, 24900), line(6240, 24899)]);
+  for (const mutate of [
+    (v: any, path: string) => { if (path.endsWith('/cart/update-customer')) v.shipping_rates[0].shipping_rates[0].name = 'Półpaleta'; },
+    (v: any, path: string) => { if (path.endsWith('/cart/update-customer')) v.shipping_rates[0].shipping_rates[0].method_id = 'local_pickup'; },
+  ]) assert.deepEqual(await createRetailerQuoter(replay('medium_medium_large_a', mutate).fetcher)(order, '00-001'), { reason: 'no_home_delivery' });
+  assert.deepEqual(await createRetailerQuoter(replay('medium_medium_large_a', (v, path) => {
+    if (path.endsWith('/cart/select-shipping-rate')) v.totals.total_price = '69995';
+  }).fetcher)(order, '00-001'), { reason: 'basket_not_confirmed' });
+  const client = new AnonymousShop('https://budshop24.pl', async () => { throw Error('unexpected request'); }, AbortSignal.timeout(1000));
+  for (const rate_id of ['wsds_simple_dimensional:3:half_pallet', 'wsds_simple_dimensional:3:multi_medium_parcel_local_pickup',
+    'wsds_simple_dimensional:3:multi_medium_parcel', 'wsds_simple_dimensional:3:multi_' + Array(33).fill('large_parcel').join('_')])
+    await assert.rejects(client.cartJson('/wp-json/wc/store/v1/cart/select-shipping-rate', { package_id: 0, rate_id }), /invalid_cart_route/);
 });
 
 test('Mapegum native home delivery covers solo, mixed and four-product renovation baskets', async () => {

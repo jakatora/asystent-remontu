@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import type { DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
 import type { RetailSource } from './retail-pages';
 import { RETAIL_SOURCES } from './retail-catalog';
-import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
+import { AnonymousShop, MAX_BUDSHOP_COURIER_PARCELS, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './retailer-http';
 
 const ORIGIN = 'https://budshop24.pl';
 const PRODUCTS = [{
@@ -42,15 +42,22 @@ const PRODUCTS = [{
   url: ORIGIN + '/produkt/hydroizolacja-plynna-folia-mapei-mapegum-wps-10kg/',
   image: ORIGIN + '/wp-content/uploads/2025/08/2046500.jpg',
 }] as const;
-const COURIERS = {
-  'wsds_simple_dimensional:3:medium_parcel_dhl': { name: 'DHL – Średnia Paczka', label: 'DHL – Średnia Paczka' },
-  'wsds_simple_dimensional:3:large_parcel_dhl': { name: 'DHL – Duża Paczka', label: 'DHL – Duża Paczka' },
-  'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel': { name: 'Paczki/Worki: Średnia Paczka + Duża Paczka', label: 'Paczki/Worki: Średnia Paczka + Duża Paczka' },
-  'wsds_simple_dimensional:3:multi_large_parcel_large_parcel': { name: 'Paczki/Worki: 2× Duża Paczka', label: 'Paczki/Worki: 2× Duża Paczka' },
-  'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel': { name: 'Paczki/Worki: Średnia Paczka + 2× Duża Paczka', label: 'Paczki/Worki: Średnia Paczka + 2× Duża Paczka' },
-  'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel': { name: 'Paczki/Worki: 2× Średnia Paczka', label: 'Paczki/Worki: 2× Średnia Paczka' },
-  'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel_large_parcel': { name: 'Paczki/Worki: 2× Średnia Paczka + 2× Duża Paczka', label: 'Paczki/Worki: 2× Średnia Paczka + 2× Duża Paczka' },
-} as const;
+function reviewedCourier(mediumCount: number, largeCount: number) {
+  const total = mediumCount + largeCount;
+  if (!Number.isSafeInteger(total) || total < 1 || total > MAX_BUDSHOP_COURIER_PARCELS) throw Error('no_home_delivery');
+  if (total === 1) {
+    const medium = mediumCount === 1;
+    return { id: `wsds_simple_dimensional:3:${medium ? 'medium' : 'large'}_parcel_dhl`,
+      name: `DHL – ${medium ? 'Średnia' : 'Duża'} Paczka` };
+  }
+  const parts = [
+    mediumCount ? `${mediumCount > 1 ? `${mediumCount}× ` : ''}Średnia Paczka` : '',
+    largeCount ? `${largeCount > 1 ? `${largeCount}× ` : ''}Duża Paczka` : '',
+  ].filter(Boolean);
+  return { id: `wsds_simple_dimensional:3:multi_${[
+    ...Array(mediumCount).fill('medium_parcel'), ...Array(largeCount).fill('large_parcel'),
+  ].join('_')}`, name: `Paczki/Worki: ${parts.join(' + ')}` };
+}
 const cents = (value: unknown): number => {
   if (typeof value !== 'string' || !/^\d+$/.test(value) || !Number.isSafeInteger(Number(value))) throw Error('invalid_money');
   return Number(value);
@@ -191,19 +198,8 @@ export async function quoteBudshop(order: DeliveredStoreBasket, postalCode: stri
     throw Error('no_home_delivery');
   const mediumCount = result.packs.reduce((count, pack) => count + ([4808, 6240].includes(pack.product.id) ? pack.count : 0), 0);
   const largeCount = result.packs.reduce((count, pack) => count + ([4808, 6240].includes(pack.product.id) ? 0 : pack.count), 0);
-  const shape = `${mediumCount}:${largeCount}`;
-  const reviewedRates: Record<string, keyof typeof COURIERS> = {
-    '1:0': 'wsds_simple_dimensional:3:medium_parcel_dhl',
-    '0:1': 'wsds_simple_dimensional:3:large_parcel_dhl',
-    '1:1': 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel',
-    '0:2': 'wsds_simple_dimensional:3:multi_large_parcel_large_parcel',
-    '1:2': 'wsds_simple_dimensional:3:multi_medium_parcel_large_parcel_large_parcel',
-    '2:0': 'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel',
-    '2:2': 'wsds_simple_dimensional:3:multi_medium_parcel_medium_parcel_large_parcel_large_parcel',
-  };
-  const courierId = reviewedRates[shape];
-  if (!courierId) throw Error('no_home_delivery');
-  const courier = COURIERS[courierId];
+  const courier = reviewedCourier(mediumCount, largeCount);
+  const courierId = courier.id;
   const couriers = groups[0].shipping_rates?.filter((rate: any) =>
     rate.rate_id === courierId && rate.method_id === 'wsds_simple_dimensional' && rate.name === courier.name);
   if (couriers?.length !== 1) throw Error('no_home_delivery');
@@ -218,7 +214,7 @@ export async function quoteBudshop(order: DeliveredStoreBasket, postalCode: stri
     selected?.length !== 1 || selected[0].rate_id !== courierId ||
     cents(selected[0].price) + cents(selected[0].taxes) !== cost) throw Error('basket_not_confirmed');
   const now = new Date();
-  return { quote: { costGrosze: cost, carrier: courier.label, payment: 'Przelewy24',
+  return { quote: { costGrosze: cost, carrier: courier.name, payment: 'Przelewy24',
     checkedAt: now.toISOString(), expiresAt: new Date(now.getTime() + 600_000).toISOString(),
     sourceUrl: ORIGIN + '/koszyk/', basis: 'retailer_basket_postcode', destinationScope: 'postal_code',
     postalCode, evidenceSha256: createHash('sha256').update(JSON.stringify([...result.evidence, located, final])).digest('hex') } };
