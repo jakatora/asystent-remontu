@@ -9,9 +9,11 @@ import { cleanHtml, htmlAttributes, htmlElements, htmlText } from './retail-micr
 const ORIGIN = 'https://sklep-kowalczyk.pl';
 const reviews = [
   // source: https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html
-  { id: 35759, ean: '5906675303024', size: 1000, name: 'KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)', path: '/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html', photo: '/5/9/5906675303024.png' },
+  { id: 35759, ean: '5906675303024', size: 1000, unit: 'szt', brand: 'Koelner', category: 'drywall-accessory', name: 'KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)', path: '/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html', photo: '/5/9/5906675303024.png' },
   // source: https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html
-  { id: 35762, ean: '5906675107622', size: 200, name: 'KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)', path: '/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html', photo: '/5/9/5906675107622.jpg' },
+  { id: 35762, ean: '5906675107622', size: 200, unit: 'szt', brand: 'Koelner', category: 'drywall-accessory', name: 'KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)', path: '/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html', photo: '/5/9/5906675107622.jpg' },
+  // source: https://sklep-kowalczyk.pl/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html
+  { id: 33738, ean: '5905400530032', size: 15, unit: 'kg', brand: 'Atlas', category: 'primer', name: 'ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)', path: '/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html', photo: '/5/9/5905400530032.png' },
 ] as const;
 const attrs = (node: string) => htmlAttributes(node.match(/^<[^>]+>/)?.[0] ?? '');
 const one = <T,>(values: T[], reason: string): T => { if (values.length !== 1) throw Error(reason); return values[0]; };
@@ -20,7 +22,7 @@ const sameName = (a: string, b: string) => a.replace(/\s+/g, ' ').trim() === b.r
 
 export function reviewedKowalczykSource(source: RetailSource) {
   const review = reviews.find(row => row.id === source.productId);
-  if (!review || source.store !== 'E-Kowalczyk' || source.format !== 'kowalczyk-magento' || source.ean !== review.ean || source.retailerSku !== review.ean || source.packageSize !== review.size || source.unit !== 'szt' || source.brand !== 'Koelner' || source.name !== review.name || source.url !== ORIGIN + review.path) throw Error('product_identity_not_confirmed');
+  if (!review || source.store !== 'E-Kowalczyk' || source.format !== 'kowalczyk-magento' || source.ean !== review.ean || source.retailerSku !== review.ean || source.packageSize !== review.size || source.unit !== review.unit || source.brand !== review.brand || source.category !== review.category || source.name !== review.name || source.url !== ORIGIN + review.path) throw Error('product_identity_not_confirmed');
   return review;
 }
 
@@ -71,7 +73,7 @@ export function confirmKowalczykTotals(t: any, expected: Wanted[], shippingGrosz
 }
 
 async function prepare(wanted: Wanted[], fetchImpl: typeof fetch) {
-  if (!wanted.length || wanted.length > 2 || new Set(wanted.map(row => row.source.ean)).size !== wanted.length) throw Error('invalid_basket');
+  if (!wanted.length || wanted.length > 3 || new Set(wanted.map(row => row.source.ean)).size !== wanted.length) throw Error('invalid_basket');
   const client = new AnonymousShop(ORIGIN, fetchImpl, AbortSignal.timeout(20000), retailerRequestBudget(wanted.length));
   const evidence: unknown[] = [], images = new Map<string, string>();
   for (const row of wanted) {

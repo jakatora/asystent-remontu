@@ -173,10 +173,11 @@ export class AnonymousShop {
     if (!this.magentoCartId) throw Error('invalid_cart_session');
     path += '/' + this.magentoCartId;
     if (action === 'add') {
-      // Both reviewed SKUs are physical cartons, not individual fixings.
+      // Reviewed SKUs are whole cartons or one sealed 15 kg primer bucket.
       // source: https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html
       // source: https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html
-      if (!['5906675303024','5906675107622'].includes(args.sku ?? '') || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined || Object.keys(args).length !== 2) throw Error('invalid_cart_action');
+      // source: https://sklep-kowalczyk.pl/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html
+      if (!['5906675303024','5906675107622','5905400530032'].includes(args.sku ?? '') || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined || Object.keys(args).length !== 2) throw Error('invalid_cart_action');
       path += '/items'; body = { cartItem: { sku: args.sku, qty: args.count, quote_id: this.magentoCartId } };
     } else if (action === 'estimate' || action === 'calculate') {
       if (!/^\d{2}-\d{3}$/.test(args.postalCode ?? '') || Object.keys(args).length !== 1) throw Error('invalid_cart_action');

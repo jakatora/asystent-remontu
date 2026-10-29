@@ -1,0 +1,900 @@
+{
+  "capturedAt": "2026-10-29T12:33:56.254Z",
+  "priceGrosze": 14097,
+  "deliveryGrosze": 1699,
+  "records": [
+    {
+      "context": "read:cerplast",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html\" />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwvYXRsYXMtY2VycGxhc3QtcG9ka2xhZC1ncnVudC1wb2QtdHluay1vcC0xNWtnLWNwLTAwLTE1LTUyNDEzLmh0bWw~/product/33738/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5905400530032\"\n                            ></form>\n<span id=\"product-price-33738\"></span>\n<script>var pricing={initialFinalPrice: 140.97,}</script>\n<script>var gallery=[{\"img\":\"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5905400530032.png\"}]</script>"
+    },
+    {
+      "context": "read:cerplast",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts",
+      "method": "POST",
+      "body": {},
+      "status": 200,
+      "response": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "context": "read:cerplast",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": []
+    },
+    {
+      "context": "read:cerplast",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5905400530032",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 109109,
+        "sku": "5905400530032",
+        "qty": 1,
+        "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)",
+        "price": 114.61,
+        "product_type": "simple",
+        "quote_id": "176025"
+      }
+    },
+    {
+      "context": "read:cerplast",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "item_id": 109109,
+          "sku": "5905400530032",
+          "qty": 1,
+          "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)",
+          "price": 114.61,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    },
+    {
+      "context": "read:cerplast",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "grand_total": 140.97,
+        "base_grand_total": 140.97,
+        "subtotal": 114.61,
+        "base_subtotal": 114.61,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 114.61,
+        "base_subtotal_with_discount": 114.61,
+        "shipping_amount": 0,
+        "base_shipping_amount": 0,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 26.36,
+        "base_tax_amount": 26.36,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 0,
+        "base_shipping_tax_amount": 0,
+        "subtotal_incl_tax": 140.97,
+        "shipping_incl_tax": 0,
+        "base_shipping_incl_tax": 0,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "items_qty": 1,
+        "items": [
+          {
+            "item_id": 109109,
+            "price": 114.61,
+            "base_price": 114.61,
+            "qty": 1,
+            "row_total": 114.61,
+            "base_row_total": 114.61,
+            "row_total_with_discount": 0,
+            "tax_amount": 26.36,
+            "base_tax_amount": 26.36,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 140.97,
+            "base_price_incl_tax": 140.97,
+            "row_total_incl_tax": 140.97,
+            "base_row_total_incl_tax": 140.97,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 140.97
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa",
+            "value": 0
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 26.36,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 26.36,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 140.97,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/atlas-cerplast-podklad-grunt-pod-tynk-op-15kg-cp-00-15-52413.html\" />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwvYXRsYXMtY2VycGxhc3QtcG9ka2xhZC1ncnVudC1wb2QtdHluay1vcC0xNWtnLWNwLTAwLTE1LTUyNDEzLmh0bWw~/product/33738/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5905400530032\"\n                            ></form>\n<span id=\"product-price-33738\"></span>\n<script>var pricing={initialFinalPrice: 140.97,}</script>\n<script>var gallery=[{\"img\":\"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5905400530032.png\"}]</script>"
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html\" />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwva29lbG5lci13a3JldC1zYW1vd2llcmNhY3ktZm9zZmF0b3d5LXRleC0zLTV4OS01bW0tMTAwMC1zenQtd3MtMzU5NS5odG1s/product/35759/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675303024\"\n                            ></form>\n<span id=\"product-price-35759\"></span>\n<script>var pricing={initialFinalPrice: 43.33,}</script>\n<script>var gallery=[{\"img\":\"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675303024.png\"}]</script>"
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": "<link rel=\"canonical\" href=\"https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html\" />\n<h1            class=\"page-title text-3xl&#x20;font-semibold&#x20;mb-8&#x20;text-center&#x20;md&#x3A;sr-only\"\n            itemprop=name            data-ui-id=\"page-title-wrapper\"\n        >\n            KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)        </h1>\n<form method=\"post\"\n          action=\"https://sklep-kowalczyk.pl/checkout/cart/add/uenc/aHR0cHM6Ly9za2xlcC1rb3dhbGN6eWsucGwvcmF3bHBsdWcta29lbG5lci1rb2xlay1zenlia2llZ28tbW9udGF6dS02eDQwLXota29sbmllcnplbS0yMDBzenQtb3AtZngtMDZrMDQwLmh0bWw~/product/35762/\"\n          class=\"mb-6\"\n          id=\"product_addtocart_form\"\n          x-data=\"addToCartForm\"\n          @submit.prevent=\"submitForm\"\n                                                                      data-sku=\"5906675107622\"\n                            ></form>\n<span id=\"product-price-35762\"></span>\n<script>var pricing={initialFinalPrice: 21.87,}</script>\n<script>var gallery=[{\"img\":\"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5906675107622.jpg\"}]</script>"
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts",
+      "method": "POST",
+      "body": {},
+      "status": 200,
+      "response": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": []
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5905400530032",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 109110,
+        "sku": "5905400530032",
+        "qty": 1,
+        "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)",
+        "price": 114.61,
+        "product_type": "simple",
+        "quote_id": "176026"
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675303024",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 109111,
+        "sku": "5906675303024",
+        "qty": 1,
+        "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+        "price": 35.23,
+        "product_type": "simple",
+        "quote_id": "176026"
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "POST",
+      "body": {
+        "cartItem": {
+          "sku": "5906675107622",
+          "qty": 1,
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "status": 200,
+      "response": {
+        "item_id": 109112,
+        "sku": "5906675107622",
+        "qty": 1,
+        "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+        "price": 17.78,
+        "product_type": "simple",
+        "quote_id": "176026"
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/items",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "item_id": 109110,
+          "sku": "5905400530032",
+          "qty": 1,
+          "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)",
+          "price": 114.61,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "item_id": 109111,
+          "sku": "5906675303024",
+          "qty": 1,
+          "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)",
+          "price": 35.23,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "item_id": 109112,
+          "sku": "5906675107622",
+          "qty": 1,
+          "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)",
+          "price": 17.78,
+          "product_type": "simple",
+          "quote_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "grand_total": 206.17,
+        "base_grand_total": 206.17,
+        "subtotal": 167.62,
+        "base_subtotal": 167.62,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 167.62,
+        "base_subtotal_with_discount": 167.62,
+        "shipping_amount": 0,
+        "base_shipping_amount": 0,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 38.55,
+        "base_tax_amount": 38.55,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 0,
+        "base_shipping_tax_amount": 0,
+        "subtotal_incl_tax": 206.17,
+        "shipping_incl_tax": 0,
+        "base_shipping_incl_tax": 0,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "items_qty": 3,
+        "items": [
+          {
+            "item_id": 109110,
+            "price": 114.61,
+            "base_price": 114.61,
+            "qty": 1,
+            "row_total": 114.61,
+            "base_row_total": 114.61,
+            "row_total_with_discount": 0,
+            "tax_amount": 26.36,
+            "base_tax_amount": 26.36,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 140.97,
+            "base_price_incl_tax": 140.97,
+            "row_total_incl_tax": 140.97,
+            "base_row_total_incl_tax": 140.97,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)"
+          },
+          {
+            "item_id": 109111,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 109112,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 206.17
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa",
+            "value": 0
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 38.55,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 38.55,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 206.17,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/payment-methods",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": [
+        {
+          "code": "checkmo",
+          "title": "Przedpłata (przelew tradycyjny)"
+        },
+        {
+          "code": "purchaseorder",
+          "title": "Płatność przy odbiorze"
+        },
+        {
+          "code": "cashondelivery",
+          "title": "Zapłać po wycenie transportu"
+        },
+        {
+          "code": "axepta_paywall",
+          "title": "Axepta"
+        },
+        {
+          "code": "payu_gateway",
+          "title": "PayU"
+        },
+        {
+          "code": "payu_gateway_card",
+          "title": "PayU"
+        }
+      ]
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/estimate-shipping-methods",
+      "method": "POST",
+      "body": {
+        "address": {
+          "country_id": "PL",
+          "postcode": "00-001"
+        }
+      },
+      "status": 200,
+      "response": [
+        {
+          "carrier_code": "freeshipping",
+          "method_code": "freeshipping",
+          "carrier_title": "Odbiór osobisty",
+          "method_title": "Odbiór osobisty",
+          "amount": 0,
+          "base_amount": 0,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 0,
+          "price_incl_tax": 0
+        },
+        {
+          "carrier_code": "kurier",
+          "method_code": "kurier",
+          "carrier_title": "Wycena",
+          "method_title": "Usługa transportowa",
+          "amount": 0,
+          "base_amount": 0,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 0,
+          "price_incl_tax": 0
+        },
+        {
+          "carrier_code": "inpostlocker",
+          "method_code": "standard",
+          "carrier_title": "InPost Paczkomaty",
+          "method_title": "InPost Paczkomat® 24/7",
+          "amount": 14.99,
+          "base_amount": 14.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 12.19,
+          "price_incl_tax": 14.99
+        },
+        {
+          "carrier_code": "inpostcourier",
+          "method_code": "standard",
+          "carrier_title": "InPost Kurier",
+          "method_title": "Kurier",
+          "amount": 16.99,
+          "base_amount": 16.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 13.81,
+          "price_incl_tax": 16.99
+        },
+        {
+          "carrier_code": "inpostcourier",
+          "method_code": "standardcod",
+          "carrier_title": "InPost Kurier",
+          "method_title": "Kurier - płatność przy odbiorze",
+          "amount": 24.99,
+          "base_amount": 24.99,
+          "available": true,
+          "error_message": "",
+          "price_excl_tax": 20.32,
+          "price_incl_tax": 24.99
+        }
+      ]
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals-information",
+      "method": "POST",
+      "body": {
+        "addressInformation": {
+          "address": {
+            "country_id": "PL",
+            "postcode": "00-001"
+          },
+          "shipping_carrier_code": "inpostcourier",
+          "shipping_method_code": "standard"
+        }
+      },
+      "status": 200,
+      "response": {
+        "grand_total": 223.16,
+        "base_grand_total": 223.16,
+        "subtotal": 167.62,
+        "base_subtotal": 167.62,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 167.62,
+        "base_subtotal_with_discount": 167.62,
+        "shipping_amount": 13.81,
+        "base_shipping_amount": 13.81,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 41.73,
+        "base_tax_amount": 41.73,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 3.18,
+        "base_shipping_tax_amount": 3.18,
+        "subtotal_incl_tax": 206.17,
+        "base_subtotal_incl_tax": 206.17,
+        "shipping_incl_tax": 16.99,
+        "base_shipping_incl_tax": 16.99,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "coupon_code": "",
+        "items_qty": 3,
+        "items": [
+          {
+            "item_id": 109110,
+            "price": 114.61,
+            "base_price": 114.61,
+            "qty": 1,
+            "row_total": 114.61,
+            "base_row_total": 114.61,
+            "row_total_with_discount": 0,
+            "tax_amount": 26.36,
+            "base_tax_amount": 26.36,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 140.97,
+            "base_price_incl_tax": 140.97,
+            "row_total_incl_tax": 140.97,
+            "base_row_total_incl_tax": 140.97,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)"
+          },
+          {
+            "item_id": 109111,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 109112,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 206.17
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa (InPost Kurier - Kurier)",
+            "value": 13.81
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 41.73,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 41.73,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 223.16,
+            "area": "footer"
+          }
+        ]
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/selected-payment-method",
+      "method": "PUT",
+      "body": {
+        "method": {
+          "method": "checkmo"
+        }
+      },
+      "status": 200,
+      "response": "21902"
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/selected-payment-method",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "response": {
+        "method": "checkmo"
+      }
+    },
+    {
+      "context": "quote:cerplast-three",
+      "origin": "https://sklep-kowalczyk.pl",
+      "path": "/rest/V1/guest-carts/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/totals-information",
+      "method": "POST",
+      "body": {
+        "addressInformation": {
+          "address": {
+            "country_id": "PL",
+            "postcode": "00-001"
+          },
+          "shipping_carrier_code": "inpostcourier",
+          "shipping_method_code": "standard"
+        }
+      },
+      "status": 200,
+      "response": {
+        "grand_total": 223.16,
+        "base_grand_total": 223.16,
+        "subtotal": 167.62,
+        "base_subtotal": 167.62,
+        "discount_amount": 0,
+        "base_discount_amount": 0,
+        "subtotal_with_discount": 167.62,
+        "base_subtotal_with_discount": 167.62,
+        "shipping_amount": 13.81,
+        "base_shipping_amount": 13.81,
+        "shipping_discount_amount": 0,
+        "base_shipping_discount_amount": 0,
+        "tax_amount": 41.73,
+        "base_tax_amount": 41.73,
+        "weee_tax_applied_amount": null,
+        "shipping_tax_amount": 3.18,
+        "base_shipping_tax_amount": 3.18,
+        "subtotal_incl_tax": 206.17,
+        "base_subtotal_incl_tax": 206.17,
+        "shipping_incl_tax": 16.99,
+        "base_shipping_incl_tax": 16.99,
+        "base_currency_code": "PLN",
+        "quote_currency_code": "PLN",
+        "coupon_code": "",
+        "items_qty": 3,
+        "items": [
+          {
+            "item_id": 109110,
+            "price": 114.61,
+            "base_price": 114.61,
+            "qty": 1,
+            "row_total": 114.61,
+            "base_row_total": 114.61,
+            "row_total_with_discount": 0,
+            "tax_amount": 26.36,
+            "base_tax_amount": 26.36,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 140.97,
+            "base_price_incl_tax": 140.97,
+            "row_total_incl_tax": 140.97,
+            "base_row_total_incl_tax": 140.97,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "ATLAS CERPLAST Podkład GRUNT pod tynk 15kg/op. (CP-00-15)"
+          },
+          {
+            "item_id": 109111,
+            "price": 35.23,
+            "base_price": 35.23,
+            "qty": 1,
+            "row_total": 35.23,
+            "base_row_total": 35.23,
+            "row_total_with_discount": 0,
+            "tax_amount": 8.1,
+            "base_tax_amount": 8.1,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 43.33,
+            "base_price_incl_tax": 43.33,
+            "row_total_incl_tax": 43.33,
+            "base_row_total_incl_tax": 43.33,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)"
+          },
+          {
+            "item_id": 109112,
+            "price": 17.78,
+            "base_price": 17.78,
+            "qty": 1,
+            "row_total": 17.78,
+            "base_row_total": 17.78,
+            "row_total_with_discount": 0,
+            "tax_amount": 4.09,
+            "base_tax_amount": 4.09,
+            "tax_percent": 23,
+            "discount_amount": 0,
+            "base_discount_amount": 0,
+            "discount_percent": 0,
+            "price_incl_tax": 21.87,
+            "base_price_incl_tax": 21.87,
+            "row_total_incl_tax": 21.87,
+            "base_row_total_incl_tax": 21.87,
+            "options": "[]",
+            "weee_tax_applied_amount": null,
+            "weee_tax_applied": null,
+            "name": "KOELNER Kołek szybkiego montażu 6x40 z kołnierzem 200szt/op. (FX-06K040)"
+          }
+        ],
+        "total_segments": [
+          {
+            "code": "subtotal",
+            "title": "Suma częściowa",
+            "value": 206.17
+          },
+          {
+            "code": "shipping",
+            "title": "Wysyłka i obsługa (InPost Kurier - Kurier)",
+            "value": 13.81
+          },
+          {
+            "code": "tax",
+            "title": "Podatek",
+            "value": 41.73,
+            "extension_attributes": {
+              "tax_grandtotal_details": [
+                {
+                  "amount": 41.73,
+                  "rates": [
+                    {
+                      "percent": "23",
+                      "title": "VAT_23"
+                    }
+                  ],
+                  "group_id": 1
+                }
+              ]
+            }
+          },
+          {
+            "code": "grand_total",
+            "title": "Łącznie",
+            "value": 223.16,
+            "area": "footer"
+          }
+        ]
+      }
+    }
+  ]
+}
