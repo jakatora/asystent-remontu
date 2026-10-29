@@ -111,9 +111,9 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://sklep.anser.pl/pl/p/Benzyna-ekstrakcyjna-0%2C5l/502
   {"ids":["mat-extraction-solvent-anser-500ml"],"ean":"5903231606117","sourceUrl":"https://sklep.sewera.pl/benzyna-ekstrakcyjna-0-5l-anser-p13691","imageUrl":"https://sklep.sewera.pl/photo/233476/benzyna-ekstrakcyjna-0-5l-anser.webp"},
 
-  // source: https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html (odczyt 2026-10-27T03:49:09.597Z)
+  // source: https://lobo.pl/dulux-rapidry-farba-do-drewna-metalu-pcv-mat-bialy-1l (odczyt 2026-10-29T15:34:42.675Z)
   // source: https://packshoty.duluxpolska.pl/wp-content/uploads/karta_techniczna_Dulux-Rapidry.pdf
-  {"ids":["mat-frame-dulux-rapidry-white-matt-1l"],"ean":"5904078222379","sourceUrl":"https://www.abud.pl/product-pol-63790-Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa.html","imageUrl":"https://www.abud.pl/hpeciai/bd8e25d4eb247560173865d66d538564/pol_pl_Dulux-do-drewna-i-metalu-RAPIDRY-Bialy-1L-matowa-63790_1.webp"},
+  {"ids":["mat-frame-dulux-rapidry-white-matt-1l"],"ean":"5904078222379","sourceUrl":"https://lobo.pl/dulux-rapidry-farba-do-drewna-metalu-pcv-mat-bialy-1l","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_130210_500_500/DULUX-RAPIDRY-Farba-do-drewna-metalu-PCV-Mat-Bialy-1-L.webp"},
 
   // source: https://sklep.sewera.pl/urekor-s-podklad-antykorozyjny-bialy-0-8-l-sniezka-p11955 (odczyt 2026-10-27T03:49:09.079Z)
   // source: https://www.sniezka.pl/produkt/urekor-s-podklad-antykorozyjny

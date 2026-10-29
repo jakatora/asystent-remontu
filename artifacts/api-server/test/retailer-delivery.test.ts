@@ -29,6 +29,12 @@ test('real storefront shape: prepaid home courier, not pickup, COD or free-shipp
   assert.equal(selectHomeDelivery(integrated).costGrosze,1800);
   integrated.shippings[3].engine='unreviewedModule';
   assert.throws(()=>selectHomeDelivery(integrated),/no_home_delivery/);
+  const lobo = fixture(2490); lobo.shippings[3].title='Przesyłka kurierska (DHL)';
+  lobo.shippings.push({ title:'Przesyłka kurierska (InPost)', description:'Opłata zależy od wagi. Przesyłki paletowe nie zawierają usługi wniesienia.', engine:'inpost', ...money(2290), countries:[{id:179,...money(2290)}], payments:[{payment_id:3}] });
+  lobo.shippings.push({ title:'InPost Paczkomat 24/7', engine:'inpost', ...money(1899), countries:[{id:179,...money(1899)}], payments:[{payment_id:3}] });
+  assert.equal(selectHomeDelivery(lobo,'Lobo').costGrosze,2290);
+  lobo.shippings[4].engine='unknown';
+  assert.equal(selectHomeDelivery(lobo,'Lobo').costGrosze,2490);
   const b = fixture(); b.shippings[3].payments[0] = { payment_id:3, additional_cost:'1,50 zł', additional_cost_float:1.5 };
   assert.equal(selectHomeDelivery(b).costGrosze, 1200);
   b.shippings[3].description = 'Wycena indywidualna, prosimy o kontakt';

@@ -40,6 +40,8 @@ const ORIGINS: Readonly<Record<string, string>> = {
   // source: https://www.mensura.pl/zestaw-do-ukladania-paneli-wolfcraft-6931000
   // source: https://ebardo.pl/pl/p/Folia-paroizolacyjna-Conpar-0%2C2mm-2mx50m/86
   eBardo: 'https://ebardo.pl', Mensura: 'https://www.mensura.pl', KELOT: 'https://listwy.sklep.pl', LiderzyCen: 'https://liderzycen.pl', TGS: 'https://tgs.pl',
+  // source: https://lobo.pl/dulux-rapidry-farba-do-drewna-metalu-pcv-mat-bialy-1l
+  Lobo: 'https://lobo.pl',
 };
 const TTL = 10 * 60_000;
 
@@ -88,7 +90,7 @@ export function confirmedMoney(text: unknown, numeric: unknown): number {
   return cents;
 }
 
-export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: string; payment: string } {
+export function selectHomeDelivery(basket: any, store?: string): { costGrosze: number; carrier: string; payment: string } {
   if (!Array.isArray(basket.countries) || !basket.countries.some((c: any) => c.id === 179 && c.name === 'Polska' && c.selected === true)) throw Error('country_not_confirmed');
   if (!Array.isArray(basket.shippings) || !Array.isArray(basket.payments)) throw Error('invalid_response');
   const options: { costGrosze: number; carrier: string; payment: string }[] = [];
@@ -98,8 +100,14 @@ export function selectHomeDelivery(basket: any): { costGrosze: number; carrier: 
     // Reviewed ShoperShipment response contains both lockers and couriers.
     // Keep the home-courier title and pickup/COD exclusions for this engine.
     // source: https://salonbudowlanydambud.pl/pl/p/MAPEI-NAROZNIK-USZCZELNIAJACY-WEWNETRZNY-MAPEBAND-W/768
-    if (!['','ShoperShipment'].includes(shipping.engine) || typeof shipping.title !== 'string' || !/kurier|kurierska|^Transport DPD$/i.test(shipping.title) ||
-      /pobran|odbiór|odbior|punkt|automat|pickup|palet|zapytani|indywidualn|kontakt/i.test(`${shipping.title} ${shipping.description ?? ''}`)) continue;
+    // Lobo's InPost Shoper engine serves both home couriers and lockers. Its
+    // courier description mentions pallets only to exclude carrying service.
+    // Keep these exceptions scoped to the reviewed Lobo cart.
+    // source: https://lobo.pl/dulux-rapidry-farba-do-drewna-metalu-pcv-mat-bialy-1l
+    if (!(['','ShoperShipment'].includes(shipping.engine) || (store === 'Lobo' && shipping.engine === 'inpost')) || typeof shipping.title !== 'string' || !/kurier|kurierska|^Transport DPD$/i.test(shipping.title) ||
+      (store === 'Lobo'
+        ? /pobran|odbiór|odbior|punkt|automat|pickup|palet|zapytani|indywidualn|kontakt/i.test(shipping.title) || /pobran|odbiór|odbior|punkt|automat|pickup|zapytani|indywidualn|kontakt/i.test(String(shipping.description ?? ''))
+        : /pobran|odbiór|odbior|punkt|automat|pickup|palet|zapytani|indywidualn|kontakt/i.test(`${shipping.title} ${shipping.description ?? ''}`))) continue;
     const country = shipping.countries?.find((c: any) => c.id === 179);
     if (!country) continue;
     let cost: number;
@@ -148,7 +156,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
     expected.delete(p.stock_id); total += wanted.count * wanted.price;
   }
   if (expected.size || total !== order.materialsGrosze || confirmedMoney(basket.basket?.sum_products, basket.basket?.sum_products_float) !== total) throw Error('basket_not_confirmed');
-  const shipping = selectHomeDelivery(basket), checkedAt = new Date();
+  const shipping = selectHomeDelivery(basket,order.store), checkedAt = new Date();
   // Quote returned for Poland, not claimed to be postcode-specific. No fictitious
   // name/contact/address is ever submitted to a retailer to unlock checkout.
   const evidence = { products: basket.products.map((p: any) => ({ stock: p.stock_id, count: p.quantity, price: p.price_float })), shippings: basket.shippings, payments: basket.payments, countries: basket.countries };
