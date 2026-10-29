@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-29T06:00:35.657Z",
-  "scope": "184 exact references/photos, 177 active products, 226 offers and232 source observations. Mixed Asfora frames require compatibility and layout confirmation; 16 actual SDK cases include10 delivered baskets and a complete paint/handles/frames variant. Same65 historical maps retain81/254 priced requirements and173 unresolved positions, not173 unique SKUs. Overall goal remains active.",
+  "checkedAt": "2026-10-29T06:49:58.790Z",
+  "scope": "Same184 references/photos and177 active products, with two more verified retailers for one exact basin trap. Full delivered totals require product, fitting and complete joint confirmation. Old65 maps do not acquire new choices automatically; unresolved requirements are not unique missing SKUs. Overall goal remains active.",
   "total": 184,
   "verifiedProducts": 177,
   "remaining": 7,
-  "offers": 226,
-  "stores": 53,
+  "offers": 228,
+  "stores": 55,
   "productsWithPhotos": 184,
-  "registeredOffers": 232,
+  "registeredOffers": 234,
   "disabledOffers": 2,
   "rows": [
     {
@@ -2148,14 +2148,19 @@
     {
       "id": "mat-basin-trap-mcalpine-whb1-32",
       "name": "Syfon umywalkowy butelkowy niski McAlpine WHB1-32 (z membraną)",
-      "referenceUrl": "https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html",
+      "referenceUrl": "https://sklep.instato.pl/pl/p/SYFON-UMYWALKOWY-BARDZO-NISKI-MALY-MEMBRANOWY-oszczedzajacy-miejsce-WHB1-32/23062689",
       "status": "verified_offer",
       "ean": "5036484088390",
       "sourceIds": [
+        "instato-mcalpine-whb132",
+        "arena-mcalpine-whb132",
         "blu-mcalpine-whb132"
       ],
-      "photoUrl": "https://mrowka.com.pl/files/InfoverProduct/7v/fkpse0mm7t7f/Photos/odqus2n0mm7t7f/ShowWebp_syfon-umywalkowy-1-14x32-mm-z-membrana-silikonowa-i-rewizja-mcalpine_1.webp",
-      "deliveryChecks": []
+      "photoUrl": "https://sklep.instato.pl/environment/cache/images/productGfx_5082_500_500/5036484088390_syfon_umywalkowy_niski_bialy_WHB1-322.jpg",
+      "deliveryChecks": [],
+      "photoSourceUrl": "https://sklep.instato.pl/pl/p/SYFON-UMYWALKOWY-BARDZO-NISKI-MALY-MEMBRANOWY-oszczedzajacy-miejsce-WHB1-32/23062689",
+      "checkedAt": "2026-10-29T06:49:02.495Z",
+      "availabilityScope": "Exact WHB1-32, one whole basin half-trap without waste. Two new live whole-order PL home couriers; fittings and complete joints require confirmation. Pickup unconfirmed."
     },
     {
       "id": "mat-pex-pipe-tycner-16x2",
@@ -4638,6 +4643,8 @@
     }
   ],
   "automaticDeliveryStores": [
+    "Instato",
+    "Arena Łazienek",
     "Plejada Tapet",
     "Świat Się Klei",
     "KIM24",
@@ -4675,16 +4682,16 @@
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-29T06:00:35.657Z",
+    "checkedAt": "2026-10-29T06:49:58.790Z",
     "pricedLines": 81,
     "totalLines": 254,
     "unpricedLines": 173,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json",
-    "scope": "Same65 historical measurement maps; explicit new choices verified separately."
+    "scope": "Same65 historical maps; explicit new choices verified separately."
   },
   "expiredOffers": 3,
-  "activeStores": 50,
+  "activeStores": 52,
   "history": [
     {
       "checkedAt": "2026-10-27T12:46:06.593Z",
@@ -4804,6 +4811,14 @@
       "verifiedProducts": 174,
       "remaining": 7,
       "offers": 223,
+      "stores": 53
+    },
+    {
+      "checkedAt": "2026-10-29T06:00:35.657Z",
+      "total": 184,
+      "verifiedProducts": 177,
+      "remaining": 7,
+      "offers": 226,
       "stores": 53
     }
   ],
@@ -4983,5 +4998,26 @@
     "oneMixedKitGrosze": 7390,
     "twoRoomsGrosze": 12080,
     "wholeRenovationGrosze": 35535
+  },
+  "trapReplacementVerification": {
+    "checkedAt": "2026-10-29T06:49:07.639Z",
+    "report": "research/syfon-whb132-kompletny-koszyk-2026-10-29.md",
+    "productionSdkCases": 16,
+    "completeDeliveredCases": 9,
+    "nativeCarts": 8,
+    "quantityModel": "basin-trap-whb-v1",
+    "reference": "mat-basin-trap-mcalpine-whb1-32",
+    "retailers": [
+      "Instato",
+      "Arena Łazienek"
+    ],
+    "wholePieces": true,
+    "compatibilityRequired": true,
+    "completeJointsRequired": true,
+    "nationalBasketShipping": true,
+    "singleShippingAcrossRoomsSavingGrosze": 1590,
+    "oneKitGrosze": 10380,
+    "twoRoomsGrosze": 27960,
+    "wholeRenovationGrosze": 41441
   }
 }

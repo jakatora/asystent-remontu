@@ -24,6 +24,9 @@ import {quoteKronodom} from './kronodom-delivery';
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
 const ORIGINS: Readonly<Record<string, string>> = {
+  // source: https://sklep.instato.pl/pl/static/czas-i-koszty-dostawy.html
+  // source: https://arenalazienek.pl/pl/p/Polsyfon-umywalkowy-MCALPINE-niski%2C-bialy-WHB1-32/57988
+  Instato:'https://sklep.instato.pl','Arena Łazienek':'https://arenalazienek.pl',
   // source: https://plejadatapet.pl/pl/p/Klej-do-tapet-Direct-200g-Metylan/825
   // source: https://swiatsieklei.pl/pl/p/METYLAN-Normal-125g-klej-do-tapet-24122/101
   'Plejada Tapet': 'https://plejadatapet.pl', 'Świat Się Klei': 'https://swiatsieklei.pl',

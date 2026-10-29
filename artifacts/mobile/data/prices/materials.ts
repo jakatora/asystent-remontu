@@ -902,6 +902,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/ (model WHB1-32, EAN 5036484088390)
   // source: https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html (EAN 5036484088390)
   // source: https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html (cena brutto, odczyt 2026-10-25T15:14:57.075Z)
+  // source: https://sklep.instato.pl/pl/p/SYFON-UMYWALKOWY-BARDZO-NISKI-MALY-MEMBRANOWY-oszczedzajacy-miejsce-WHB1-32/23062689 (aktualna cena brutto 87,90 zł; odczyt API 2026-10-29)
   {
     id: 'mat-basin-trap-mcalpine-whb1-32',
     materialType: 'trap',
@@ -909,12 +910,11 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'McAlpine',
     packageSize: 1,
     packageUnit: 'szt',
-    pricePerPackage: 108.86,
+    pricePerPackage: 87.90,
     category: 'better',
-    storeName: 'BLU',
-    sourceUrl:
-      'https://www.blu.com.pl/syfony-i-polsyfony-do-umywalek/29748-mcalpine-whb1-32-5036484088390.html',
-    lastUpdated: '2026-10-25',
+    storeName: 'Instato',
+    sourceUrl: "https://sklep.instato.pl/pl/p/SYFON-UMYWALKOWY-BARDZO-NISKI-MALY-MEMBRANOWY-oszczedzajacy-miejsce-WHB1-32/23062689",
+    lastUpdated: '2026-10-29',
     currency: 'PLN',
   },
 

@@ -91,10 +91,12 @@ export function estimateHonoursStore(data: SerializedProject, store: string): bo
 const MAP_BRANCH_NETWORKS = new Set(['Castorama', 'OBI', 'Bricoman', 'Mrówka', 'Sewera', 'ABUD', 'Leroy Merlin']);
 
 export function supportsStoreMapSearch(store: string): boolean {
-  return store === 'Bricomarché Poznań (Al. Solidarności)' || store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
+  return store === 'Instato' || store === 'Bricomarché Poznań (Al. Solidarności)' || store === 'Folnet' || store === 'Centrum Matbud' || store === 'TOK-MET' || MAP_BRANCH_NETWORKS.has(store);
 }
 
 export function storeLocatorUrl(store: string): string | null {
+  // source: https://sklep.instato.pl/pl/i/Dane-kontaktowe/15
+  if(store==='Instato')return 'https://sklep.instato.pl/pl/i/Dane-kontaktowe/15';
   return new Map([['Castorama', 'https://www.castorama.pl/informacje/sklepy'], ['OBI', 'https://www.obi.pl/stores'], ['Leroy Merlin', 'https://www.leroymerlin.pl/sklepy.html'],
     ['Mrówka', 'https://mrowka.com.pl/sklepy-psb-mrowka'], ['Sewera', 'https://sklep.sewera.pl/miejsca-odbioru'], ['ABUD', 'https://www.abud.pl/stocks.php']]).get(store) ?? null;
 }
@@ -103,6 +105,9 @@ export function storeLocatorUrl(store: string): string | null {
  * source: https://developers.google.com/maps/documentation/urls/get-started
  */
 export function storeMapSearchUrl(store: string, location: string): string | null {
+  // Pickup requires prior telephone arrangement; this is the known Tychy point.
+  // source: https://sklep.instato.pl/pl/static/czas-i-koszty-dostawy.html
+  if(store==='Instato')return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent('Instato ul. Przemysłowa 60 43-100 Tychy Polska');
   const place = location.trim().replace(/\s+/g, ' ');
   // Folnet's office does not issue goods; online orders are collected here.
   // source: https://folnet.pl/Odbior-osobisty-ccms-pol-30.html

@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-29T06:00:35.657Z",
-  "scope": "Same 65 historical measurement maps without unrecorded product choices. Frame layout and existing series confirmation are mandatory. Sixteen current production SDK scenarios verify ten complete delivered baskets, mixed frame counts, room consolidation, owned materials and a shared paint/handles/frames renovation.",
+  "checkedAt": "2026-10-29T06:49:58.790Z",
+  "scope": "Same65 historical measurement maps without automatic new choices. Sixteen actual production SDK scenarios include nine complete delivered baskets, free courier for the larger Instato order and blocked unconfirmed pickup at all three trap retailers.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
-    "beforeLines": 252,
+    "beforeLines": 254,
     "beforePriced": 81,
     "afterLines": 254,
     "afterPriced": 81,
@@ -496,6 +496,24 @@
         "fullyPricedScenarios": 11,
         "reasons": {
           "no-query": 101,
+          "no-product": 69,
+          "no-offer": 1
+        }
+      }
+    },
+    {
+      "checkedAt": "2026-10-29T06:00:35.657Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 252,
+        "beforePriced": 81,
+        "afterLines": 254,
+        "afterPriced": 81,
+        "afterUnpriced": 173,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 103,
           "no-product": 69,
           "no-offer": 1
         }
@@ -4065,12 +4083,12 @@
       "materials": [
         {
           "materialId": "sink-trap-mat",
-          "name": "Nowy syfon (butelkowy lub rurowy)",
-          "unit": "szt.",
+          "name": "Syfon — wybierz model i sprawdź przyłącza — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "nowy syfon butelkowy lub rurowy",
+            "normalizedName": "syfon wybierz model i sprawdz przylacza ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -4080,12 +4098,12 @@
         },
         {
           "materialId": "teflon-trap",
-          "name": "Taśma teflonowa (do gwintów)",
-          "unit": "rolka",
+          "name": "Uszczelki i przyłącza — potwierdź komplet lub dobierz brakujące — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "tasma teflonowa do gwintow",
+            "normalizedName": "uszczelki i przylacza potwierdz komplet lub dobierz brakujace ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -6370,5 +6388,26 @@
     "oneMixedKitGrosze": 7390,
     "twoRoomsGrosze": 12080,
     "wholeRenovationGrosze": 35535
+  },
+  "trapReplacementVerification": {
+    "checkedAt": "2026-10-29T06:49:07.639Z",
+    "report": "research/syfon-whb132-kompletny-koszyk-2026-10-29.md",
+    "productionSdkCases": 16,
+    "completeDeliveredCases": 9,
+    "nativeCarts": 8,
+    "quantityModel": "basin-trap-whb-v1",
+    "reference": "mat-basin-trap-mcalpine-whb1-32",
+    "retailers": [
+      "Instato",
+      "Arena Łazienek"
+    ],
+    "wholePieces": true,
+    "compatibilityRequired": true,
+    "completeJointsRequired": true,
+    "nationalBasketShipping": true,
+    "singleShippingAcrossRoomsSavingGrosze": 1590,
+    "oneKitGrosze": 10380,
+    "twoRoomsGrosze": 27960,
+    "wholeRenovationGrosze": 41441
   }
 }

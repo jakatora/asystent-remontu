@@ -1,3 +1,4 @@
+import {TRAP_JOB,trapMaterials,trapReference} from '@/features/calculator/trapReplacement';
 import {SOCKET_FRAME_JOB,socketFrameMaterials,socketFrameReference} from '@/features/calculator/socketFrames';
 import {HARDWARE_JOB,hardwareMaterials,hardwareReference} from '@/features/calculator/cabinetHardware';
 import {CABINET_JOB,cabinetMaterials,cabinetReference} from '@/features/calculator/cabinetPainting';
@@ -74,6 +75,7 @@ export function getLaborForJob(jobId: string, regionCode?: string): LaborPriceRe
 }
 
 export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measurements?: Readonly<Record<string, number>>): MaterialPriceReference[] {
+  if(jobId===TRAP_JOB)return trapMaterials(measurements??{}).flatMap(m=>{const key=trapReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===SOCKET_FRAME_JOB)return measurements?.frameSeriesConfirmed===1?socketFrameMaterials(measurements).flatMap(m=>{const ref=MATERIAL_BY_ID.get(socketFrameReference(m.id));return ref?[ref]:[];}):[];
   if(jobId===HARDWARE_JOB)return hardwareMaterials(measurements??{}).flatMap(m=>{const key=hardwareReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===CABINET_JOB)return cabinetMaterials(measurements??{}).flatMap(m=>{const key=cabinetReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});

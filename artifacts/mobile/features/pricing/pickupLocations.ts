@@ -1,6 +1,7 @@
 export interface PickupLocation {
   id: string; store: string; city: string; street: string; postalCode: string; phone: string;
   hours?: string; contactHours?: string; sourceUrl: string; checkedAt: string; collectionOnly?: boolean;
+  collectionNote?: {pl: string; en: string};
   /** Centre of the map published by the retailer; approximate, not a surveyed entrance. */
   mapCentre?: { latitude: number; longitude: number };
   /** Exact place identifier from the retailer's own embedded map. */
@@ -20,6 +21,10 @@ const sewera = [
   {id:'tarnowskie-gory',city:'Tarnowskie Góry',street:'ul. Nakielska 24',postalCode:'42-600',phone:'+48323811777',latitude:50.442669,longitude:18.868043,mapCid:'8252299477358544826',hours:'Pn–pt 6:30–17:00, sob. 6:30–14:30'},
 ];
 export const PICKUP_LOCATIONS: readonly PickupLocation[] = [
+  // One published Tychy point. Pickup requires an earlier telephone arrangement.
+  // source: https://sklep.instato.pl/pl/i/Dane-kontaktowe/15
+  // source: https://sklep.instato.pl/pl/static/czas-i-koszty-dostawy.html
+  {id:'instato-tychy-przemyslowa',store:'Instato',city:'Tychy',street:'ul. Przemysłowa 60',postalCode:'43-100',phone:'+48515156299',hours:'8:00–14:00',checkedAt:'2026-10-29',sourceUrl:'https://sklep.instato.pl/pl/i/Dane-kontaktowe/15',collectionNote:{pl:'Odbiór po wcześniejszym uzgodnieniu telefonicznym. Przed wyjazdem potwierdź termin, gotowość zamówienia i cenę. To punkt w Tychach; nie potwierdzamy placówki przy Twoim kodzie.',en:'Collection requires a prior telephone arrangement. Confirm the date, order readiness and price before travelling. This is the Tychy point; no branch near your postcode is confirmed.'}},
   // Published collection point; online stock and prices do not confirm a local purchase.
   // source: https://izosystems.pl/pl/content/1-owd-ogolne-warunki-dostaw
   {id:'izosystems-czestochowa-morsztyna',store:'Izosystems',city:'Częstochowa',street:'ul. Morsztyna 10',postalCode:'42-209',phone:'+48343070777',hours:'Pn–śr 8:00–16:00; czw. do 15:00; pt. do 14:00',collectionOnly:true,checkedAt:'2026-10-28',sourceUrl:'https://izosystems.pl/pl/content/1-owd-ogolne-warunki-dostaw'},

@@ -4,6 +4,11 @@ import {collectStoreStockShortfalls} from './storeChoice';
 import { rankStoreChoices, parsePreferredStore, storeMapSearchUrl, supportsStoreMapSearch, storeLocatorUrl, estimateHonoursStore, deliverySettingsForStore, type StoreChoices } from './storeChoice';
 import type { SerializedProject } from './pricingApi';
 
+test('Instato collection map points to its verified Tychy address, regardless of supplied postcode',()=>{
+ assert.equal(supportsStoreMapSearch('Instato'),true);assert.equal(storeLocatorUrl('Instato'),'https://sklep.instato.pl/pl/i/Dane-kontaktowe/15');
+ for(const code of ['00-001','42-209']){const u=new URL(storeMapSearchUrl('Instato',code)!);assert.equal(u.searchParams.get('query'),'Instato ul. Przemysłowa 60 43-100 Tychy Polska');assert.ok(!u.searchParams.get('query')!.includes(code));}
+});
+
 test('store search accepts plain Polish spelling without changing the actual merchant identity',()=>{
  const choices:StoreChoices={stores:['Bricomarché Poznań (Al. Solidarności)','Modna Łazienka'],unresolvedCount:0,comparison:{productCount:1,optimalBasketGrosze:0,optimalByStore:[],cheapestFullStore:null,singleStoreExtraGrosze:null,stores:[]}};
  assert.deepEqual(rankStoreChoices(choices,' bricomarche ').map(row=>row.store),['Bricomarché Poznań (Al. Solidarności)']);assert.deepEqual(rankStoreChoices(choices,'lazienka').map(row=>row.store),['Modna Łazienka']);assert.deepEqual(rankStoreChoices(choices,'poznan').map(row=>row.store),['Bricomarché Poznań (Al. Solidarności)']);

@@ -1,3 +1,4 @@
+import {TRAP_MODEL,isTrapMaterial,trapQuantity} from './trapReplacement';
 import {SOCKET_FRAME_MODEL,isSocketFrame,socketFrameQuantity} from './socketFrames';
 import {HARDWARE_MODEL,isHardwareMaterial,hardwareQuantity} from './cabinetHardware';
 import {CABINET_MODEL,isCabinetMaterial,cabinetQuantity} from './cabinetPainting';
@@ -26,6 +27,7 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===TRAP_MODEL&&isTrapMaterial(calc.jobId,line.material.id))return trapQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SOCKET_FRAME_MODEL&&isSocketFrame(calc.jobId,line.material.id))return socketFrameQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===HARDWARE_MODEL&&isHardwareMaterial(calc.jobId,line.material.id))return hardwareQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===CABINET_MODEL&&isCabinetMaterial(calc.jobId,line.material.id))return cabinetQuantity(line.material.id,calc.measurements)??0;

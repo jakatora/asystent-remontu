@@ -1,3 +1,4 @@
+import {trapInputs,trapMaterials} from '@/features/calculator/trapReplacement';
 import {socketFrameInputs,socketFrameMaterials} from '@/features/calculator/socketFrames';
 import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
@@ -348,8 +349,8 @@ export const toiletSeatReplaceJob: RenovationJob = {
 export const sinkTrapReplaceJob: RenovationJob = {
   id: 'sink-trap-replace',
   categoryId: 'plumbing',
-  name: 'Wymiana syfonu (sif. zlewozmywaka / umywalki)',
-  description: 'Wymień zatkany lub nieszczelny syfon pod zlewem lub umywalką.',
+  name: 'Wymiana syfonu umywalki lub zlewozmywaka',
+  description: 'Dobierz syfon do istniejących przyłączy i porównaj sklepy z dostawą. Gotowy wariant dotyczy niskiego McAlpine WHB1-32 do umywalki; inne syfony wymagają doboru.',
   difficulty: 'easy',
   riskLevel: 'low',
   estimatedDays: 1,
@@ -361,33 +362,8 @@ export const sinkTrapReplaceJob: RenovationJob = {
       level: 'warning',
     },
   ],
-  measurementInputs: [
-    {
-      id: 'trapCount',
-      label: 'Liczba syfonów do wymiany',
-      unit: 'szt.',
-      placeholder: '1',
-      min: 1,
-      max: 10,
-    },
-  ],
-  materials: [
-    {
-      id: 'sink-trap-mat',
-      name: 'Nowy syfon (butelkowy lub rurowy)',
-      unit: 'szt.',
-      formulaKey: 'faucets',
-      pricePerUnit: 30,
-      notes: 'Zrób zdjęcie starego syfonu. Standard: odpływ umywalki Ø32mm, zlewozmywak Ø40mm.',
-    },
-    {
-      id: 'teflon-trap',
-      name: 'Taśma teflonowa (do gwintów)',
-      unit: 'rolka',
-      formulaKey: 'constant',
-      pricePerUnit: 4,
-    },
-  ],
+  measurementInputs: trapInputs,
+  materials: trapMaterials(),
   tools: [
     { id: 'bucket-trap', name: 'Wiadro', icon: 'circle', required: true },
     { id: 'cloth-trap', name: 'Szmaty / ręczniki', icon: 'square', required: true },
@@ -396,7 +372,7 @@ export const sinkTrapReplaceJob: RenovationJob = {
   instructions: [
     { step: 1, title: 'Postaw wiadro i odkręć stary syfon', description: 'Pod syfonem postaw wiadro. Odkręć ręcznie lub szczypcami nakrętki łączące części syfonu. Wyjmij syfon — wyleje się woda.', durationMin: 10 },
     { step: 2, title: 'Oczyść końcówki rur', description: 'Oczyść gwinty przy odpływie zlewu i przy rurze ściennej. Usuń resztki starej uszczelki.', durationMin: 5 },
-    { step: 3, title: 'Zamontuj nowy syfon', description: 'Złóż nowy syfon wg instrukcji (gumowe uszczelki są w zestawie). Przykręć do odpływu i rury ściennej. Nie dokręcaj za mocno — plastik się tłucze.', durationMin: 15 },
+    { step: 3, title: 'Zamontuj nowy syfon', description: 'Złóż pasujący syfon zgodnie z instrukcją producenta i sprawdź komplet oraz ułożenie wymaganych uszczelek. Nie zakładaj, że wszystkie części przyłącza są w ofercie. Nie zastępuj brakującej uszczelki taśmą. Nie dokręcaj plastikowych nakrętek na siłę.', durationMin: 15 },
     { step: 4, title: 'Sprawdź szczelność', description: 'Odkręć wodę i puść przez chwilę. Sprawdź każde połączenie czy nie kapie. Poczekaj minutę i sprawdź ponownie.', durationMin: 5 },
   ],
   commonMistakes: [
@@ -412,8 +388,11 @@ export const sinkTrapReplaceJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['syfon', 'zlew', 'umywalka', 'hydraulika', 'wymiana'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-10-29',
+  // source: https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/
   verifiedSources: [
+    {title:'McAlpine WHB1-32 — dane i karta producenta',url:'https://mcalpine.pl/product/syfon-umywalkowy-niski-bialy-whb1-32/',domain:'mcalpine.pl',consultedAt:'2026-10-29'},
+    {title:'Instato — syfon WHB1-32 bez spustu',url:'https://sklep.instato.pl/pl/p/SYFON-UMYWALKOWY-BARDZO-NISKI-MALY-MEMBRANOWY-oszczedzajacy-miejsce-WHB1-32/23062689',domain:'sklep.instato.pl',consultedAt:'2026-10-29'},
     {
       title:       'Wymiana syfonu w umywalce. Jak to prawidłowo zrobić?',
       url:         'https://muratordom.pl/wnetrza/lazienka/wymiana-syfonu-pod-umywalka-aa-MKZE-CFCH-6VkG.html',
