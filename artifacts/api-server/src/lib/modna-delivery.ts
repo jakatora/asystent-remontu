@@ -5,7 +5,7 @@ import { AnonymousShop, MAX_RETAIL_PACKAGES, retailerRequestBudget } from './ret
 import { cleanHtml, htmlElements as elements, htmlText as text } from './retail-microdata';
 import { MODNA_ORIGIN, modnaAttrs as attrs, modnaById as byId, modnaMoney as money, modnaOne as one, readModnaProduct } from './modna-product';
 
-interface ExpectedTile { id:number; name:string; url:string; size:number; count:number; price:number; }
+interface ExpectedTile { id:number; name:string; url:string; size:number; count:number; price:number; squareMeterPriceGrosze?:number; }
 
 /** Validate every physical pack and the cart's actual freight amount. Read the
  * available bank-transfer method without submitting any customer/order form.
@@ -31,7 +31,17 @@ export function confirmModnaCart(html: string, orderHtml: string, expected: read
     if (Number(packs.value) !== wanted.count || packs.step !== '1' || Number(packs.minimum) !== 1 || Math.round(Number(meters.value)*100) !== quantity || Number(meters.unit) !== wanted.size || Number(meters.step) !== wanted.size || Math.round(Number(input(id+'_quantity').value)*100) !== quantity || Number(input(id+'_unit').value) !== wanted.size || Number(input(id+'_minimum').value) !== 1) throw Error('basket_not_confirmed');
     if (money(text(byId(row,'product_price_'+id,'span'))) !== wanted.price) throw Error('price_changed');
     const lineTotal = money(text(one(elements(row,(_a,t)=>t==='h5'),'basket_not_confirmed')));
-    if (lineTotal !== wanted.price*wanted.count) throw Error('basket_not_confirmed');
+    // Use the merchant's exact line total: its hidden precision differs from
+    // both rounded pack and m² prices (9 packs965.63;17 packs1823.98).
+    // Both independently read displayed prices must still explain that total
+    // within their half-grosz precision plus final whole-grosz rounding.
+    // A changed primary pack price is rejected before adding to the cart.
+    const packTotal=wanted.price*wanted.count;
+    if(wanted.squareMeterPriceGrosze===undefined||wanted.count===1){
+      if(lineTotal!==packTotal)throw Error('basket_not_confirmed');
+    }else if(!Number.isSafeInteger(wanted.squareMeterPriceGrosze)||wanted.squareMeterPriceGrosze<=0
+      ||Math.abs(lineTotal-packTotal)*2>wanted.count+1
+      ||Math.abs(lineTotal*100-wanted.squareMeterPriceGrosze*quantity)*2>quantity+100)throw Error('basket_not_confirmed');
     const stocks = [...text(row).matchAll(/Stan magazynowy: (\d+) paczek/g)];
     if (!stocks.length || stocks.some(match=>Number(match[1]) < wanted.count)) throw Error('insufficient_stock');
     if (wanted.count > 1) {
@@ -40,10 +50,10 @@ export function confirmModnaCart(html: string, orderHtml: string, expected: read
     }
     remaining.delete(id); sum += lineTotal;
   }
-  if (remaining.size || sum !== materials) throw Error('basket_not_confirmed');
+  if (remaining.size || expected.reduce((n,p)=>n+p.price*p.count,0) !== materials) throw Error('basket_not_confirmed');
   const summary = text(byId(safe,'order_summary','span'));
   const match = summary.match(/^Do zapłaty ([\d ,]+ zł) \+ dostawa: Kurier ([\d ,]+ zł) (\d+) x paleta Dostawa i płatność$/);
-  if (!match || money(match[1]) !== materials || Number(match[3]) < 1) throw Error('basket_not_confirmed');
+  if (!match || money(match[1]) !== sum || Number(match[3]) < 1) throw Error('basket_not_confirmed');
   const costGrosze = money(match[2]);
   const form = byId(cleanHtml(orderHtml),'order_summary','form');
   const country = byId(form,'country','select'), countries = elements(country,(_a,t)=>t==='option');
@@ -57,7 +67,8 @@ export function confirmModnaCart(html: string, orderHtml: string, expected: read
   const payment = one(elements(form,(_a,t)=>t==='label').filter(node=>elements(node,a=>a.id==='payment_method_2').length===1),'no_prepayment');
   const paymentInput = byId(payment,'payment_method_2','input');
   if (text(payment) !== 'Przelew bankowy' || attrs(paymentInput).name !== 'payment_method' || attrs(paymentInput).value !== '2' || /\bdisabled\b/.test(paymentInput)) throw Error('no_prepayment');
-  return {costGrosze,carrier:`Kurier (${match[3]} × paleta)`,payment:'Przelew bankowy'};
+  return {costGrosze,carrier:`Kurier (${match[3]} × paleta)`,payment:'Przelew bankowy',
+    ...(expected.every(p=>p.squareMeterPriceGrosze!==undefined)?{materialsRoundingGrosze:sum-materials}:{})};
 }
 
 export async function quoteModna(order: DeliveredStoreBasket, fetchImpl: typeof fetch) {
@@ -72,7 +83,7 @@ export async function quoteModna(order: DeliveredStoreBasket, fetchImpl: typeof 
     if (pack.count > product.maxPackages) throw Error('insufficient_stock');
     const quantity = pack.count*Math.round(source.packageSize*100);
     await client.modnaCart(source.productId!, (quantity/100).toFixed(2),product.token);
-    expected.push({id:source.productId!,name:product.name,url:source.url,size:source.packageSize,count:pack.count,price:product.priceGrosze});
+    expected.push({id:source.productId!,name:product.name,url:source.url,size:source.packageSize,count:pack.count,price:product.priceGrosze,squareMeterPriceGrosze:product.squareMeterPriceGrosze});
   }
   if (!expected.length) throw Error('invalid_basket');
   const confirmed = confirmModnaCart(await client.text('/cart/'),await client.text('/order/'),expected,order.materialsGrosze);

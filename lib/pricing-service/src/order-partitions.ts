@@ -9,6 +9,9 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
   return async (order, postcode): Promise<DeliveryQuoteResult> => {
     const base = await atomic(order, postcode), count = order.lines.length;
     if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !base.quote.costGrosze || !count) return base;
+    // Per-m² line rounding is not additive across separate carts. Retain the
+    // verified whole-cart total until partitions support those merchandise sums.
+    if(base.quote.materialsRoundingGrosze!==undefined){if(count>1||order.lines.some(l=>l.packages.some(p=>p.count>1)))limited();return base;}
     const full:QuotedOrder={order,quote:base.quote};
     if(count===1){if(order.lines[0].packages.length>1&&order.lines[0].packages.some(p=>p.count>1))limited();const parts=await quantityOrderPartitions(full,atomic,postcode,limited);return{quote:await combineOrderQuotes(full,parts,postcode)};}
     // We compare whole-line groups and quantity splits within isolated lines.

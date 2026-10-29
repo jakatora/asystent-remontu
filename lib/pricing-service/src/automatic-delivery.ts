@@ -325,11 +325,14 @@ async function quoteAndRank(
       const key = keys[cursor++], order = unique.get(key)!;
       try {
         const outcome = await quoteBasket(order, settings.postalCode!);
-        if ('quote' in outcome && Number.isSafeInteger(outcome.quote.costGrosze) && outcome.quote.costGrosze >= 0 &&
+        const rounding = 'quote' in outcome ? outcome.quote.materialsRoundingGrosze ?? 0 : 0;
+        const packCount = order.lines.reduce((n,l)=>n+l.packages.reduce((s,p)=>s+p.count,0),0);
+        if ('quote' in outcome && Number.isSafeInteger(rounding) && Math.abs(rounding) <= packCount && order.materialsGrosze+rounding>0 && Number.isSafeInteger(outcome.quote.costGrosze) && outcome.quote.costGrosze >= 0 &&
           (outcome.quote.destinationScope==='PL' || outcome.quote.postalCode===settings.postalCode) &&
           Date.parse(outcome.quote.expiresAt) > now.getTime() && Date.parse(outcome.quote.checkedAt) <= Date.now()) {
           order.deliveryGrosze = outcome.quote.costGrosze; order.quote = outcome.quote;
           order.deliveryMinimumGrosze = outcome.quote.costGrosze;
+          order.materialsGrosze += rounding;
           order.totalGrosze = order.materialsGrosze + outcome.quote.costGrosze; order.source = 'retailer';
         } else {
           failures.set(order.store, 'reason' in outcome ? outcome.reason : 'invalid_quote');
@@ -342,6 +345,7 @@ async function quoteAndRank(
   // A quote valid at request start may expire while another shop is still
   // responding. Keep the material plan, but do not expose that fee as current.
   for (const order of unique.values()) if (order.quote && Date.parse(order.quote.expiresAt) <= Date.now()) {
+    order.materialsGrosze -= order.quote.materialsRoundingGrosze ?? 0;
     delete order.quote;
     order.deliveryGrosze = null; order.deliveryMinimumGrosze = 0; order.totalGrosze = null; order.source = 'unknown';
     failures.set(order.store, 'quote_expired');

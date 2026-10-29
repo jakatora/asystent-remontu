@@ -12,6 +12,11 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155
+  {"ids":["mat-gres-rekt-paradyz-u117-light-grey-60x60"],"ean":"5904584158285","sourceUrl":"https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155","imageUrl":"https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-grey-gres-szkl-rekt-mat-598x598.jpg"},
+  // source: https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162
+  {"ids":["mat-gres-rekt-paradyz-u117-light-beige-60x60"],"ean":"5904584158247","sourceUrl":"https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162","imageUrl":"https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-beige-gres-szkl-rekt-mat-598x598.jpg"},
+
   // source: https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna
   {"ids":["mat-vapor-foil-arbiton-aquaprotec-10m2"],"ean":"5905167875223","sourceUrl":"https://topboden.pl/podklad-pod-panele/aquaprotec-vapour-barrier-energy-saving-flooring-system-folia-paroizolacyjna","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167875223_P_01.webp"},
   // source: https://sklep.sewera.pl/atlas-szop-srodek-do-usuwania-zabrudzen-cementowych-i-wapiennych-1kg-p9798

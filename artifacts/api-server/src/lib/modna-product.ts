@@ -25,6 +25,7 @@ export function readModnaProduct(html: string, source: RetailSource) {
   const canonical = modnaOne(elements(safe,(a,t)=>t==='link' && a.rel==='canonical'));
   if (modnaAttrs(canonical).href !== source.url) throw Error('product_identity_not_confirmed');
   const name = text(modnaById(primary,'product_name_'+id,'h1')), ean = modnaById(primary,'product_ean_'+id);
+  if(name!==source.name)throw Error('product_identity_not_confirmed');
   if (modnaAttrs(ean).value !== source.ean || text(ean) !== 'EAN: '+source.ean) throw Error('product_ean_not_confirmed');
   const records = [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].map(m=>JSON.parse(m[1])).filter(p=>p['@type']==='Product');
   if (records.length !== 1 || records[0].mpn !== id || records[0].name.trim() !== name || records[0].brand?.name !== source.brand) throw Error('product_identity_not_confirmed');
@@ -51,6 +52,6 @@ export function readModnaProduct(html: string, source: RetailSource) {
   if (image.origin !== MODNA_ORIGIN || structuredImage.origin !== image.origin || stem(image) !== stem(structuredImage)) throw Error('product_image_not_confirmed');
   const token = modnaAttrs(modnaById(safe,'csrf_token','input')).value;
   if (!/^[A-Za-z0-9._-]{32,256}$/.test(token ?? '')) throw Error('cart_session_not_confirmed');
-  return { priceGrosze, maxPackages, token, name, imageUrl:image.href,
+  return { priceGrosze, squareMeterPriceGrosze:modnaMoney(unitPrice[1]), maxPackages, token, name, imageUrl:image.href,
     product:{'@type':'Product',name,gtin13:source.ean,brand:source.brand,image:image.href,offers:{'@type':'Offer',price:(priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}} };
 }

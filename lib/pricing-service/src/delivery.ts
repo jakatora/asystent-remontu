@@ -42,6 +42,9 @@ export interface DeliveredBasket {
   stores: DeliveredStoreBasket[];
 }
 export interface DeliveryQuote {
+  /** Exact difference between rounded pack prices and the merchant's verified
+   * m² line totals. Included in materials, never hidden in the freight fee. */
+  materialsRoundingGrosze?: number;
   /** A cheaper plan requires these separately checked merchant orders.
    * A product may appear in more than one order. Per-offer pack counts sum to
    * the original basket, with unchanged prices, pack sizes and purchase rules. */

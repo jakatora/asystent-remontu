@@ -15,6 +15,18 @@ async function stage(quantity = 2) {
 const known: BasketQuoter = async order => ({ quote:{ costGrosze:order.store === 'A' && order.materialsGrosze >= 1200 ? 0 : 600,
   carrier:'Kurier', payment:'Przelew', checkedAt:new Date().toISOString(), expiresAt:new Date(Date.now()+60_000).toISOString(),
   sourceUrl:'https://example.org/basket', destinationScope:'PL', basis:'retailer_basket_national', evidenceSha256:'a'.repeat(64) } });
+
+test('merchant m² rounding affects materials and payable ranking, never freight or physical pack price',async()=>{
+ const input=await stage();for(const line of input.lines)if(line.resolved)line.offers=line.offers.filter(o=>o.store==='A');const before=JSON.stringify(input);
+ const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:true},async(order,p)=>{const r=await known(order,p);assert.ok('quote'in r);r.quote.costGrosze=100;r.quote.materialsRoundingGrosze=1;return r;});
+ const b=result.best!,s=b.stores[0];assert.equal(b.materialsGrosze,1201);assert.equal(b.deliveryGrosze,100);assert.equal(b.totalGrosze,1301);assert.equal(s.materialsGrosze,1201);assert.equal(s.lines[0].packages[0].unitPriceGrosze,600);assert.equal(s.lines[0].packages[0].lineCostGrosze,1200);assert.equal(s.quote!.orders,undefined);assert.equal(result.searchLimited,true);assert.equal(JSON.stringify(input),before);
+ for(const rounding of [NaN,1.5,3,-1200]){const bad=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,p)=>{const r=await known(order,p);assert.ok('quote'in r);r.quote.materialsRoundingGrosze=rounding;return r;});assert.equal(bad.best,null);assert.equal(bad.purchasePlan!.materialsGrosze,1200);}
+});
+
+test('expired merchant rounding cannot remain in an unconfirmed purchase plan',async t=>{
+ t.mock.timers.enable({apis:['Date'],now:Date.now()});const input=await stage();for(const line of input.lines)if(line.resolved)line.offers=line.offers.filter(o=>o.store==='A');
+ const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,p)=>{const r=await known(order,p);assert.ok('quote'in r);r.quote.materialsRoundingGrosze=1;r.quote.expiresAt=new Date(Date.now()+10).toISOString();t.mock.timers.tick(20);return r;});assert.equal(result.best,null);assert.equal(result.purchasePlan!.materialsGrosze,1200);assert.equal(result.purchasePlan!.stores[0].quote,undefined);
+});
 test('actual basket threshold can outweigh cheaper materials; each store charged once', async () => {
   const result = await compareAutomaticDelivery([await stage()], {mode:'shipping',postalCode:'00-001'}, known);
   assert.equal(result.status,'compared'); assert.equal(result.best!.totalGrosze,1200);

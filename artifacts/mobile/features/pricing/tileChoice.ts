@@ -11,9 +11,13 @@ import type { PricingMaterialLineInput, PricingStageInput } from './pricingApi';
 
 export type TileUse = 'wall' | 'floor';
 export type TileChoice = { from: string; to: string; use: TileUse };
-type Specification = { id: string; widthCm: number; heightCm: number; depthMm: number; uses: readonly TileUse[] };
+type Specification = { id: string; widthCm: number; heightCm: number; depthMm: number; uses: readonly TileUse[]; minJointMm?: number };
 export const TILE_CHOICE_PREFIX = 'remont.tile-choice.v1:';
 const specifications: readonly Specification[] = [
+  // source: https://www.paradyz.com/pl/produkty/p39069-u117-light-grey-gres-szkl-rekt-mat-598x598-g1
+  {id:'mat-gres-rekt-paradyz-u117-light-grey-60x60',widthCm:59.8,heightCm:59.8,depthMm:8,uses:['wall','floor'],minJointMm:1.5},
+  // source: https://www.paradyz.com/pl/produkty/p39162-u117-light-beige-gres-szkl-rekt-mat-598x598-g1
+  {id:'mat-gres-rekt-paradyz-u117-light-beige-60x60',widthCm:59.8,heightCm:59.8,depthMm:8,uses:['wall','floor'],minJointMm:1.5},
   // source: https://www.castorama.pl/gres-guigliano-goodhome-18-5-x-59-8-cm-beige-1-m2/3663602870821_CAPL.prd
   { id: 'mat-gres-guigliano-1m2', widthCm: 18.5, heightCm: 59.8, depthMm: 8, uses: ['wall', 'floor'] },
   // source: https://taniaplytka.pl/produkty/paradyz-petro-grey-struktura-mat-600x600-2
@@ -97,6 +101,10 @@ export function applyTileChoices(stages: readonly PricingStageInput[], choices: 
     // source: https://www.atlas.com.pl/produkt/atlas-plus/ (25x40 wall 2.3; 60x60 wall 3.5/floor4.3 kg/m²)
     const adhesiveRate = kitchen ? kitchenWhiteAdhesiveRate(product.widthCm,product.heightCm) : use === 'floor' ? 4.3 : Math.max(product.widthCm, product.heightCm) <= 40 ? 2.3 : 3.5;
     return { ...stage, measurements: m, materials: materials.map(line => {
+      if(product.minJointMm!==undefined&&(!Number.isFinite(joint)||joint<product.minJointMm)&&['grout','wall-grout','grout-kitchen','tile-crosses','wall-crosses','tile-crosses-kitchen'].includes(line.material.id)){
+        const {packs:_packs,...demand}=line,{ean:_ean,gtin:_gtin,...identity}=line.material;
+        return{...demand,quantity:1,material:{...identity,name:`${line.material.id.includes('cross')?'Krzyżyki':'Fuga'} — sprawdź spoinę: producent zaleca minimum ${String(product.minJointMm).replace('.',',')} mm; edytuj szerokość w obmiarach`,unit:'pozycja',category:'tile-joint-review'}};
+      }
       if (['tile-adhesive', 'wall-tile-adhesive'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_WHITE_REFERENCE : 'mat-tile-adhesive-buildfix-25kg', Number((area! * adhesiveRate * reserve(line.material.id)).toFixed(8)));
       if (['grout', 'wall-grout', 'grout-kitchen'].includes(line.material.id)) return catalogueLine(line, kitchen ? KITCHEN_EPOXY_REFERENCE : 'mat-grout-atlas-001-white-2kg', groutMassKg(area!, product.widthCm, product.heightCm, product.depthMm, joint, density, reserve(line.material.id)));
       if (['tile-crosses', 'wall-crosses', 'tile-crosses-kitchen'].includes(line.material.id)) {

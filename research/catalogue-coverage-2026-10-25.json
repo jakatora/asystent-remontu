@@ -1,15 +1,49 @@
 {
-  "checkedAt": "2026-10-29T00:02:43.608Z",
-  "scope": "172 exact references through productionHTTP;165 with active offers,7historic exact identities unresolved. New standalone underlay scenarios separately verified. No overall completion percentage implied.",
-  "total": 172,
-  "verifiedProducts": 165,
+  "checkedAt": "2026-10-29T01:23:07.823Z",
+  "scope": "174 exact catalogue references checked through productionHTTP;167 with active offers,7 historical identities unresolved.13 separate Ennis production scenarios prove native tile orders and honest incomplete full-kit delivery. Same65 historical maps are not automatically changed by optional product choices. No overall completion percentage implied.",
+  "total": 174,
+  "verifiedProducts": 167,
   "remaining": 7,
-  "offers": 213,
+  "offers": 215,
   "stores": 52,
-  "productsWithPhotos": 172,
-  "registeredOffers": 219,
+  "productsWithPhotos": 174,
+  "registeredOffers": 221,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-gres-rekt-paradyz-u117-light-grey-60x60",
+      "productLabel": "Gres rektyfikowany Paradyż U117 Light Grey mat 59,8×59,8 cm, gatunek 1",
+      "ean": "5904584158285",
+      "materialType": "tile",
+      "packageSize": 1.43,
+      "packageUnit": "m2",
+      "status": "verified_offer",
+      "sourceIds": [
+        "modna-paradyz-u117-light-grey-143m2"
+      ],
+      "referenceUrl": "https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155",
+      "photoUrl": "https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-grey-gres-szkl-rekt-mat-598x598.jpg",
+      "photoSourceUrl": "https://modnalazienka.pl/u117-light-grey-gres-szkl-rekt-mat-598x598-34155",
+      "checkedAt": "2026-10-29T01:23:07.823Z",
+      "availabilityScope": "Exact colour, grade1, matte59.8×59.8cm, four-tile1.43m² pack. Explicit indoor floor/wall choice, minimum recommended joint1.5mm. Current Modna cart quotes native PL pallet229PLN and exact merchandise totals including m² rounding; no confirmed local pickup stock. Full floor kit still awaits Castorama adhesive delivery confirmation."
+    },
+    {
+      "id": "mat-gres-rekt-paradyz-u117-light-beige-60x60",
+      "productLabel": "Gres rektyfikowany Paradyż U117 Light Beige mat 59,8×59,8 cm, gatunek 1",
+      "ean": "5904584158247",
+      "materialType": "tile",
+      "packageSize": 1.43,
+      "packageUnit": "m2",
+      "status": "verified_offer",
+      "sourceIds": [
+        "modna-paradyz-u117-light-beige-143m2"
+      ],
+      "referenceUrl": "https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162",
+      "photoUrl": "https://modnalazienka.pl/images/thumbnails/paradyz//u117-light-beige-gres-szkl-rekt-mat-598x598.jpg",
+      "photoSourceUrl": "https://modnalazienka.pl/u117-light-beige-gres-szkl-rekt-mat-598x598-34162",
+      "checkedAt": "2026-10-29T01:23:07.823Z",
+      "availabilityScope": "Exact colour, grade1, matte59.8×59.8cm, four-tile1.43m² pack. Explicit indoor floor/wall choice, minimum recommended joint1.5mm. Current Modna cart quotes native PL pallet229PLN and exact merchandise totals including m² rounding; no confirmed local pickup stock. Full floor kit still awaits Castorama adhesive delivery confirmation."
+    },
     {
       "id": "mat-vapor-foil-arbiton-aquaprotec-10m2",
       "productLabel": "Arbiton Aquaprotec Vapour Barrier 0,18 mm — folia 10 m²",
@@ -4603,5 +4637,14 @@
     "report": "research/podzial-ilosci-na-zamowienia-2026-10-29.md",
     "scope": "Supported native baskets; quantity splits conserve all pack counts, prices, per-order minima and lots after a valid whole-stock quote. Up to12 cart shapes and8 orders per isolated one-format product; overlapping mixed splits are not exhaustive and are marked limited.",
     "productionCases": 11
+  },
+  "tileDeliveryVerification": {
+    "checkedAt": "2026-10-29T01:23:15.820Z",
+    "report": "research/ennis-kolory-koszyk-2026-10-29.md",
+    "productionCases": 13,
+    "completeTileOnlyCases": 4,
+    "fullFloorKitDelivery": "unconfirmed: Castorama adhesive",
+    "sources": 221,
+    "activeOffers": 215
   }
 }

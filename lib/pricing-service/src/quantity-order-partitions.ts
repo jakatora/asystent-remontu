@@ -23,7 +23,7 @@ export function preservesOrderPackages(whole:DeliveredStoreBasket,parts:readonly
    const key=packageIdentity(line,pack);target.set(key,(target.get(key)??0)+pack.count);cost+=pack.lineCostGrosze;
   }}return Number.isSafeInteger(cost)&&cost===order.materialsGrosze;
  };
- return add(whole,expected)&&parts.every(p=>!p.quote.orders&&add(p.order,actual))&&expected.size===actual.size&&[...expected].every(([key,count])=>actual.get(key)===count)&&parts.reduce((n,p)=>n+p.order.materialsGrosze,0)===whole.materialsGrosze;
+ return add(whole,expected)&&parts.every(p=>!p.quote.orders&&p.quote.materialsRoundingGrosze===undefined&&add(p.order,actual))&&expected.size===actual.size&&[...expected].every(([key,count])=>actual.get(key)===count)&&parts.reduce((n,p)=>n+p.order.materialsGrosze,0)===whole.materialsGrosze;
 }
 
 /** Bounded actual-cart search for one product sold in one native pack size.

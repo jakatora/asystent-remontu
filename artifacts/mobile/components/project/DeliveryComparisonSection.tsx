@@ -152,6 +152,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       return <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
       <Txt w="bold" style={{ fontSize: 16 }}>{store.store} · {store.totalGrosze === null ? tr(`materiały ${formatGrosze(store.materialsGrosze)}`, `materials ${formatGrosze(store.materialsGrosze)}`) : formatGrosze(store.totalGrosze)}</Txt>
       <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)} · {tr('Dostawa', 'Delivery')}: {store.deliveryGrosze === null ? tr('do potwierdzenia', 'pending') : formatGrosze(store.deliveryGrosze)}</Txt>
+      {!!store.quote?.materialsRoundingGrosze && <Txt style={{color:Colors.textSecondary,fontSize:13}}>{tr('Rozliczenie ceny za m² w koszyku sklepu', 'Per-m² rounding in the store cart')}: {store.quote.materialsRoundingGrosze>0?'+':''}{formatGrosze(store.quote.materialsRoundingGrosze)}. {tr('Uwzględnione w materiałach.', 'Included in materials.')}</Txt>}
       {pendingPlan && store.deliveryGrosze === null && <Txt style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{reason(comparison.unavailableStores?.find(item => item.store === store.store)?.reason ?? 'quote_unavailable')}</Txt>}
       {store.quote && <View style={{ gap: 4 }}>
         <Txt style={{ color: Colors.primary, fontSize: 13 }}>{store.quote.carrier} · {store.quote.payment}</Txt>
