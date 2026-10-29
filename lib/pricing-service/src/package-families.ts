@@ -34,7 +34,7 @@ export function mergePackageFamilyGroups(groups:ProductGroup[]):ProductGroup[]{
   const locked=groups.filter(g=>V33_CABINET_PACKS.some(p=>p.ean===g.product.ean)&&g.unit==='ml');
   if(!locked.length)return groups;
   const requiredBySize:Record<string,number>={};
-  for(const g of locked){const size=String(g.product.packageSize);requiredBySize[size]=(requiredBySize[size]??0)+g.totalQuantity;}
+  for(const g of locked){const size=String(Number(g.product.packageSize));requiredBySize[size]=(requiredBySize[size]??0)+g.totalQuantity;}
   const offers=new Map(automatic.offers.map(o=>[o.id,o]));
   for(const g of locked)for(const offer of g.offers)offers.set(offer.id,{...offer,product:g.product});
   const result={...automatic,totalQuantity:automatic.totalQuantity+locked.reduce((n,g)=>n+g.totalQuantity,0),perStageCostGrosze:automatic.perStageCostGrosze+locked.reduce((n,g)=>n+g.perStageCostGrosze,0),offers:[...offers.values()],requiredBySize};

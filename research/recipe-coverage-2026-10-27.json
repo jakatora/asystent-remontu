@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-29T04:08:04.873Z",
-  "scope": "178 exact references,171 with active offers,220offers and226sources. Same65 historical maps retain81/252 priced requirements and171 unresolved requirements, not171 unique SKUs. Automatic V33 pack family separately verified in20SDK scenarios,15 complete delivered baskets; mixed cans and locked sizes share contents across rooms. Other complete renovation kits remain in development.",
+  "checkedAt": "2026-10-29T04:35:37.892Z",
+  "scope": "179 exact references and photos, 172 with active offers, 221 offers and 227 registered source observations. Same 65 historical measurement maps retain 81/252 priced requirements and 171 unresolved requirements; these are not 171 unique SKUs. The separately selected Chem-Rozlew preparation option is verified in 20 actual SDK scenarios, 14 complete delivered baskets, with real whole-store shipping. V33 automatic cans remain verified; other complete renovation kits are still being developed.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
@@ -6226,5 +6226,26 @@
     "fullRenovationWithTwoCOGrosze": 44179,
     "selection": "Explicit automatic family or locked750/2000ml. Native SKU identities preserved. Raw demand summed across rooms; pinned size requirements retained and shared contents reused.",
     "limits": "Only the reviewed V33 Easy white satin family is enabled. CPU/candidate/merchant quote budgets retain limited-search labels for larger baskets; unneeded extra packs for discount thresholds are excluded. Pickup still needs confirmation."
+  },
+  "cabinetPreparationVerification": {
+    "checkedAt": "2026-10-29T04:36:25.826Z",
+    "report": "research/przygotowanie-frontow-wspolna-dostawa-2026-10-29.md",
+    "productionSdkCases": 20,
+    "completeDeliveredCases": 14,
+    "merchantCartChecks": 8,
+    "explicitChoice": "cabinetPreparation=3: Chem-Rozlew liquid 500 ml; existing2: Anser500 ml unchanged;1: all appropriate supplies owned;0: unknown, incomplete",
+    "barcode": "5906681230253",
+    "nativeProductId": 316,
+    "retailerSku": "0175",
+    "tenSquareMetresChemDeliveredGrosze": 22054,
+    "tenSquareMetresAnserDeliveredGrosze": 32863,
+    "savingGrosze": 10809,
+    "twoBottlesGrosze": 22944,
+    "twentySquareMetresTwoBottlesGrosze": 41221,
+    "twoRoomsSharePaintGrosze": 23540,
+    "commonWithTwoCOGrosze": 39114,
+    "quantityBasis": "Measured painted area, two coats,12m²/l and10% reserve; four declared P240 sheets and one declared500ml bottle. Appropriate detergent explicitly owned. Counted supplies are not inferred from area.",
+    "shipping": "Rab-Dom national whole-cart tariff; Sewera quote for postcode. Greater Rab-Dom cart changes courier cost. No fabricated free pickup/local stock.",
+    "decimalDatabaseSizesRegression": true
   }
 }

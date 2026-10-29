@@ -1,0 +1,40 @@
+{
+  "provenance": "Actual public product API response, exact barcode and native whole-bottle gross price. No merchant sessions or customer fields.",
+  "capturedAt": "2026-10-29T04:26:30.203Z",
+  "item": {
+    "id": 316,
+    "code": "0175",
+    "ean": "5906681230253",
+    "name": "Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L",
+    "producer": {
+      "name": "Chem-Rozlew",
+      "id": 148,
+      "img": "https://www.rabdom.pl/userdata/public/producers/148.jpg"
+    },
+    "unit": {
+      "name": "szt.",
+      "floating_point": false
+    },
+    "can_buy": true,
+    "price": {
+      "gross": {
+        "base": "8,90 zł",
+        "base_float": 8.9,
+        "final": "8,90 zł",
+        "final_float": 8.9,
+        "historical_lowest_price": "7,99 zł",
+        "historical_lowest_price_float": 7.99
+      },
+      "net": {
+        "base": "7,24 zł",
+        "base_float": 7.24,
+        "final": "7,24 zł",
+        "final_float": 7.24,
+        "historical_lowest_price": "6,50 zł",
+        "historical_lowest_price_float": 6.5
+      }
+    },
+    "url": "https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316",
+    "description": ""
+  }
+}

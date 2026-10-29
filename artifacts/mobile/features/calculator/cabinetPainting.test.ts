@@ -15,6 +15,35 @@ import type { ShoppingItem } from '@/types/domain';
 const job = getJobById(CABINET_JOB)!;
 const m = { doorCount: 12, cabinetSurface: 1, cabinetPaintPack: 2, cabinetArea: 10, cabinetCoats: 2, cabinetCoverage: 12, cabinetReservePercent: 10, cabinetP240Sheets: 4, cabinetPreparation: 2, cabinetSolventBottles: 1 };
 const calc = (patch: Record<string, number> = {}) => calculatorEngine.calculate(job, { ...m, ...patch });
+
+test('separately selected Chem-Rozlew bottle keeps exact identity, measured count and gross reference cost at every price tier', () => {
+  for (const bottles of [1, 2, 100]) {
+    const c = calc({ cabinetPreparation: 3, cabinetSolventBottles: bottles }), solvent = c.materials[3];
+    assert.ok('ean' in solvent.material); assert.equal(solvent.material.ean, '5906681230253'); assert.equal(solvent.rawQuantity, bottles * 500);
+    assert.equal(solvent.packs, bottles); assert.equal(solvent.cost, bottles * 8.9);
+    assert.equal(cabinetInputVisible(CABINET_JOB, 'cabinetSolventBottles', c.measurements), true);
+    for (const tier of ['economy', 'standard', 'better'] as const) {
+      const line = toPricingStageInput(c, tier).materials.find(l => l.material.id === 'degreaser-cabinet')!;
+      assert.equal(line.material.ean, '5906681230253'); assert.equal(line.quantity, bottles * 500); assert.equal(line.material.unit, 'ml');
+    }
+    assert.equal(calculatorEngine.calculateDetailed(job, c.measurements).totalCost, c.totalCost);
+  }
+  for (const n of [0, 0.5, 101, NaN]) assert.ok(toPricingStageInput(calc({ cabinetPreparation: 3, cabinetSolventBottles: n })).materials.some(l => l.material.unit === 'pozycja'));
+  assert.ok(parseMeasurements(job, Object.fromEntries(Object.entries({ ...m, cabinetPreparation: 3 }).map(([k, v]) => [k, String(v)]))).errors.length === 0);
+});
+test('changing preparation brand resets owned/purchased only for that material and cannot retain the previous barcode', () => {
+  for (const [from, to] of [[2, 3], [3, 2]]) {
+    const old = calc({ cabinetPreparation: from }), items = generateShoppingItems('c85', old).map((i, n) => ({ ...i, id: String(n), owned: true, purchased: true })) as ShoppingItem[];
+    const changed = calc({ cabinetPreparation: to }), reviewed = projectShopping(items, changed);
+    assert.equal(reviewed.find(i => i.materialId === 'degreaser-cabinet')?.owned, false);
+    assert.equal(reviewed.find(i => i.materialId === 'degreaser-cabinet')?.purchased, false);
+    assert.equal(reviewed.find(i => i.materialId === 'cabinet-paint')?.owned, true);
+    const stage = applyProjectShopping(toPricingStageInput(changed), changed, 'c85', items).stage;
+    assert.equal(stage.materials.length, 1); assert.equal(stage.materials[0].material.ean, to === 3 ? '5906681230253' : '5903231606117');
+    const tampered = { ...changed, materials: changed.materials.map(l => l.material.id === 'degreaser-cabinet' ? old.materials[3] : l) };
+    assert.ok(toPricingStageInput(tampered).materials.some(l => l.material.id === 'degreaser-cabinet' && l.material.unit === 'pozycja'));
+  }
+});
 test('cabinet paint uses measured sides, coats and one reserve; solvents and P240 are independent counts', () => {
   const c = calc(); assert.equal(c.quantityModel, CABINET_MODEL);
   assert.deepEqual(c.materials.map(l => l.rawQuantity), [0, 1833.33333333, 4, 500]);

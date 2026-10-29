@@ -17,6 +17,7 @@ export function cabinetReference(id: string, m: MeasurementMap = {}): string | n
   if (id === 'cabinet-paint') return m.cabinetPaintPack === 1 ? 'mat-cabinet-v33-easy-white-750ml' : m.cabinetPaintPack === 2 ? 'mat-cabinet-v33-easy-white-2000ml' : null;
   if (id === 'sandpaper-cabinet') return 'mat-hand-paper-klingspor-pl28c-p240';
   if (id === 'degreaser-cabinet' && m.cabinetPreparation === 2) return 'mat-extraction-solvent-anser-500ml';
+  if (id === 'degreaser-cabinet' && m.cabinetPreparation === 3) return 'mat-extraction-solvent-chem-rozlew-500ml';
   return null;
 }
 
@@ -34,7 +35,7 @@ export function cabinetQuantity(id: string, m: MeasurementMap): number | null {
   }
   if (id === 'sandpaper-cabinet') return m.cabinetSurface === 2 ? 0 : Number.isInteger(m.cabinetP240Sheets) && valid(m.cabinetP240Sheets, 1, 500) ? m.cabinetP240Sheets : null;
   if (m.cabinetPreparation === 1) return 0;
-  return m.cabinetPreparation === 2 && Number.isInteger(m.cabinetSolventBottles) && valid(m.cabinetSolventBottles, 1, 100) ? m.cabinetSolventBottles * 500 : null;
+  return [2, 3].includes(m.cabinetPreparation!) && Number.isInteger(m.cabinetSolventBottles) && valid(m.cabinetSolventBottles, 1, 100) ? m.cabinetSolventBottles * 500 : null;
 }
 
 const labels: Record<string, string> = {
@@ -78,15 +79,17 @@ export const cabinetInputs: MeasurementInputDefinition[] = [
   { id: 'cabinetCoverage', label: 'Wydajność na jedną warstwę', unit: 'm²/l', inputType: 'area', placeholder: '12', defaultValue: 12, min: 1, max: 12, required: true, hint: 'Karta podaje około 12 m²/l na jedną warstwę. Zmniejsz wydajność, jeśli próba na Twoich frontach wymaga więcej farby.' },
   { id: 'cabinetReservePercent', label: 'Zapas farby', unit: '%', inputType: 'count', placeholder: '10', defaultValue: 10, min: 0, max: 30, required: false, hint: 'Założenie zakupowe. Dodajemy ten zapas tylko do farby, przed zaokrągleniem do pełnych puszek.' },
   { id: 'cabinetP240Sheets', label: 'Papier P240 do zmatowienia powłoki', unit: 'arkusz', inputType: 'count', placeholder: 'Podaj potrzebną liczbę', min: 1, max: 500, required: true, hint: 'Klingspor PL28C P240. Liczba zależy od stanu frontów; nie zgadujemy jej z metrów kwadratowych. Posiadany papier oznacz później na liście zakupów.' },
-  { id: 'cabinetPreparation', label: 'Środki do mycia i odtłuszczania', unit: '', inputType: 'select', placeholder: 'Sprawdź posiadane środki', min: 0, max: 2, defaultValue: 0, required: false,
-    options: [{ value: 0, label: 'Jeszcze dobieram środki — zestaw niepełny' }, { value: 1, label: 'Mam odpowiedni detergent i środek do odtłuszczania' }, { value: 2, label: 'Mam odpowiedni detergent; dokupuję benzynę Anser 500 ml' }],
+  // source: https://www.v33.pl/faq/
+  // source: https://www.chem-rozlew.com/benzyna-ekstrakcyjna/
+  { id: 'cabinetPreparation', label: 'Środki do mycia i odtłuszczania', unit: '', inputType: 'select', placeholder: 'Sprawdź posiadane środki', min: 0, max: 3, defaultValue: 0, required: false,
+    options: [{ value: 0, label: 'Jeszcze dobieram środki — zestaw niepełny' }, { value: 1, label: 'Mam odpowiedni detergent i środek do odtłuszczania' }, { value: 2, label: 'Mam odpowiedni detergent; dokupuję benzynę Anser 500 ml' }, { value: 3, label: 'Mam odpowiedni detergent; dokupuję benzynę Chem-Rozlew 500 ml' }],
     hint: 'V33 zaleca detergent bez nabłyszczaczy i tłustej warstwy, odtłuszczenie np. benzyną ekstrakcyjną i dokładne płukanie czystą wodą. Przestrzegaj etykiet i wentylacji. Benzyna służy do przygotowania powierzchni, nie do rozcieńczania tej farby.' },
-  { id: 'cabinetSolventBottles', label: 'Benzyna Anser 500 ml do kupienia', unit: 'butelka', inputType: 'count', placeholder: 'Podaj potrzebną liczbę', min: 1, max: 100, required: true, hint: 'Podaj liczbę butelek według potrzeb przygotowania frontów. Nie wyliczamy zużycia rozpuszczalnika z powierzchni.' },
+  { id: 'cabinetSolventBottles', label: 'Wybrana benzyna ekstrakcyjna 500 ml do kupienia', unit: 'butelka', inputType: 'count', placeholder: 'Podaj potrzebną liczbę', min: 1, max: 100, required: true, hint: 'Podaj liczbę butelek wybranego środka według potrzeb przygotowania frontów. Nie wyliczamy zużycia rozpuszczalnika z powierzchni. Porównanie cen zachowa wybraną markę i uwzględni dostawę całych zamówień.' },
 ];
 export function cabinetInputVisible(job: string, id: string, m: Readonly<Record<string, string | number | undefined>>): boolean {
   if (job !== CABINET_JOB) return true;
   if (id === 'cabinetP240Sheets') return Number(m.cabinetSurface) === 1;
-  if (id === 'cabinetSolventBottles') return Number(m.cabinetPreparation) === 2;
+  if (id === 'cabinetSolventBottles') return [2, 3].includes(Number(m.cabinetPreparation));
   return true;
 }
 

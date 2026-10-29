@@ -1214,6 +1214,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613
   {"id":"rabdom-v33-easy-kitchen-white-2000ml","ean":"3153895149228","name":"V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L","brand":"V33","category":"cabinet-paint","packageSize":2000,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":7613,"retailerSku":"23708","apiPurchaseUnit":"szt.","variant":["biały","satyna","2L"],"pickupRequiresConfirmation":true,"url":"https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp"},
 
+  // source: https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316
+  {"id":"rabdom-chem-rozlew-extraction-solvent-500ml","ean":"5906681230253","name":"Chem-Rozlew Benzyna ekstrakcyjna rozcieńczalnik 0,5L","brand":"Chem-Rozlew","category":"extraction-solvent","packageSize":500,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":316,"retailerSku":"0175","apiPurchaseUnit":"szt.","variant":["ekstrakcyjna","0,5L"],"pickupRequiresConfirmation":true,"url":"https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_38785_500_500/Benzyna-Ekstrakcyjna-Niskoaromatyczna-0%2C5L-2.webp"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
@@ -1422,4 +1424,5 @@ export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
   "Arbiton INDO biały połysk 01 — łączniki (2 szt.)": "5905167725870",
   "Arbiton INDO biały połysk 01 — zakończenia lewe + prawe (1 para)": "5905167726358",
   "Arbiton Strongman — klej montażowy 300 ml": "5905167788264",
+  "Chem-Rozlew benzyna ekstrakcyjna 0,5 l": "5906681230253",
 };

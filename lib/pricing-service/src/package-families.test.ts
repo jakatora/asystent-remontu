@@ -43,6 +43,17 @@ test('reviewed family rejects a caller barcode, incompatible unit/name and a fal
   }
   for(const change of [{ean:'3153895149000'},{packageSize:'1000'},{packageUnit:'l'},{category:'paint'}]){const wrong={...deps,findProductByCode:async()=>({...products[0],...change})};assert.equal((await estimateStageCost({} as Database,[{query,quantity:1000,unit:'ml'}],{},wrong)).lines[0].resolved,false);}
 });
+
+test('database decimal sizes preserve locked cans and share remaining paint with automatic rooms', async () => {
+  const decimalDeps: Partial<EstimateDeps> = {
+    findProductByCode: async (_db, q) => { const p = products.find(p => p.ean === q.ean); return p ? { ...p, packageSize: Number(p.packageSize).toFixed(4) } : null; },
+    listOffers: async (_db, id) => offers.filter(o => o.productId === id).map(o => ({ ...o, packageSize: Number(o.packageSize).toFixed(4) })),
+  };
+  const pinned = await stage(350, '3153895149044', decimalDeps), automatic = await stage(350, undefined, decimalDeps);
+  assert.deepEqual(groupProjectByProduct([pinned, automatic])[0].requiredBySize, { '750': 350 });
+  const result = await compareAutomaticDelivery([pinned, automatic], { mode: 'shipping', postalCode: '00-001' }, quote);
+  assert.equal(result.best!.totalGrosze, 9591); assert.deepEqual(packs(result.best!).map(p => [p.packageSize, p.count]), [[750, 1]]);
+});
 test('selected store, missing postcode and unconfirmed pickup cannot quietly reuse other-shop or freight-free totals',async()=>{
   const selected=await estimateStageCost({} as Database,[{query,quantity:1000,unit:'ml'}],{store:'Other'},deps);assert.equal(selected.lines[0].resolved,false);
   assert.equal((await compareAutomaticDelivery([await stage(1000)],{mode:'shipping'},quote)).best,null);

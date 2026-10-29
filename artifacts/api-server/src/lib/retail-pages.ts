@@ -290,6 +290,12 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // One native piece is this liquid 500 ml bottle, not the separate spray or 5 l can.
+  // source: https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316
+  if (source.id === 'rabdom-chem-rozlew-extraction-solvent-500ml' && (source.ean !== '5906681230253'
+    || source.packageSize !== 500 || source.unit !== 'ml' || source.productId !== 316
+    || source.retailerSku !== '0175' || source.apiPurchaseUnit !== 'szt.' || item.ean !== '5906681230253'
+    || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name))) throw Error('product_package_not_confirmed');
   // One native piece is a whole reviewed can; no per-ml or tinted-base price.
   // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607
   // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613
