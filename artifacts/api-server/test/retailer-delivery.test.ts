@@ -77,10 +77,11 @@ test('anonymous carts: basket quantity, gross prices, destination cache isolatio
   const unsupported = await quote({ ...order(), store:'Castorama' }, '00-001'); assert.deepEqual(unsupported,{ reason:'retailer_access_required' });
 });
 
-test('Lobo combines Dulux paint, Blue Dolphin tape and Atlas primer in one prepaid home courier basket', async () => {
+test('Lobo combines Dulux paint, Blue Dolphin tape, Atlas primer and protective film in one prepaid home courier basket', async () => {
   const items = new Map([[55967,{ean:'5904078222379',code:'S7.005777249',stockId:56100,name:'DULUX RAPIDRY Farba do drewna metalu PCV Mat Biały 1 L',price:49.99}],
     [5220,{ean:'5907758515952',code:'s3.566758515952',stockId:5225,name:'BLUE DOLPHIN taśma papierowa niebieska 30mm x 50m',price:15.99}],
-    [20533,{ean:'5905400520026',code:'CHEMIK-GRU-02',stockId:20668,name:'ATLAS Emulsja gruntująca UNI-GRUNT 5KG',price:37.9}]]);
+    [20533,{ean:'5905400520026',code:'CHEMIK-GRU-02',stockId:20668,name:'ATLAS Emulsja gruntująca UNI-GRUNT 5KG',price:37.9}],
+    [11389,{ean:'5907758504932',code:'s3.566CF380',stockId:11394,name:'BLUE DOLPHIN Folia malarska Gruba 4x5m',price:4.49}]]);
   const added=new Map<number,number>(); let calls=0;
   const fakeFetch:typeof fetch=async(input,options)=>{
     calls++; const url=new URL(String(input));
@@ -98,16 +99,17 @@ test('Lobo combines Dulux paint, Blue Dolphin tape and Atlas primer in one prepa
       ],_flash_messenger:{error:[]}};}
     return Response.json(body,{headers:{'set-cookie':'sid=lobo-test; Path=/; HttpOnly'}});
   };
-  const order:DeliveredStoreBasket={store:'Lobo',materialsGrosze:15387,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:[
+  const order:DeliveredStoreBasket={store:'Lobo',materialsGrosze:15836,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:[
     {product:{id:'dulux',name:'Dulux Rapidry',imageUrl:null},unit:'ml',packages:[{packageSize:1000,count:2,unitPriceGrosze:4999,lineCostGrosze:9998,offerId:'lobo-dulux-rapidry-white-matt-1l',store:'Lobo',url:null}]},
     {product:{id:'tape',name:'Taśma Blue Dolphin',imageUrl:null},unit:'mb',packages:[{packageSize:50,count:1,unitPriceGrosze:1599,lineCostGrosze:1599,offerId:'lobo-tape-30mm',store:'Lobo',url:null}]},
-    {product:{id:'primer',name:'Atlas Uni-Grunt',imageUrl:null},unit:'kg',packages:[{packageSize:5,count:1,unitPriceGrosze:3790,lineCostGrosze:3790,offerId:'lobo-atlas-unigrunt-5kg',store:'Lobo',url:null}]}
+    {product:{id:'primer',name:'Atlas Uni-Grunt',imageUrl:null},unit:'kg',packages:[{packageSize:5,count:1,unitPriceGrosze:3790,lineCostGrosze:3790,offerId:'lobo-atlas-unigrunt-5kg',store:'Lobo',url:null}]},
+    {product:{id:'film',name:'Folia Blue Dolphin',imageUrl:null},unit:'m2',packages:[{packageSize:20,count:1,unitPriceGrosze:449,lineCostGrosze:449,offerId:'lobo-film-20m2',store:'Lobo',url:null}]}
   ]};
   const result=await createRetailerQuoter(fakeFetch)(order,'00-001');
   assert.ok('quote' in result);assert.equal(result.quote.costGrosze,2290);
   assert.equal(result.quote.basis,'retailer_basket_national');
-  assert.deepEqual([...added],[[56100,2],[5225,1],[20668,1]]);
-  assert.equal(calls,7);
+  assert.deepEqual([...added],[[56100,2],[5225,1],[20668,1],[11394,1]]);
+  assert.equal(calls,9);
 });
 
 test('cross-origin redirect never receives storefront cookies or a request', async () => {
