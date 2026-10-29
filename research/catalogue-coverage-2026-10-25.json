@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-29T10:00:44.609Z",
-  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów; trzy oryginalne deski Cersanit Carina z krajową dostawą TGS. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności, mocowań i dostępności narzędzia; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
+  "checkedAt": "2026-10-29T10:54:18.281Z",
+  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów; trzy oryginalne deski Cersanit Carina mają teraz dwóch zweryfikowanych sprzedawców (TGS i Arena Łazienek) oraz krajową wycenę natywnych koszyków z dostawą. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności, mocowań i dostępności narzędzia; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
   "total": 187,
   "verifiedProducts": 180,
   "remaining": 7,
-  "offers": 231,
+  "offers": 234,
   "stores": 55,
   "productsWithPhotos": 187,
-  "registeredOffers": 237,
+  "registeredOffers": 240,
   "disabledOffers": 2,
   "rows": [
     {
@@ -4650,13 +4650,14 @@
       "packageUnit": "szt",
       "status": "verified_offer",
       "sourceIds": [
-        "tgs-cersanit-carina-k98-0068"
+        "tgs-cersanit-carina-k98-0068",
+        "arena-cersanit-carina-k98-0068"
       ],
       "referenceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-duroplastowa/12739",
       "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_112917_500_500/Cersanit-Carina-deska-wc-duroplastowa.jpg",
       "photoSourceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-duroplastowa/12739",
       "checkedAt": "2026-10-29T09:30:44.501Z",
-      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; cena i krajowa dostawa z koszyka TGS. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
+      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; ceny i krajowa dostawa z natywnych koszyków TGS i Arena Łazienek. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
     },
     {
       "id": "mat-seat-cersanit-carina-softclose",
@@ -4667,13 +4668,14 @@
       "packageUnit": "szt",
       "status": "verified_offer",
       "sourceIds": [
-        "tgs-cersanit-carina-k98-0069"
+        "tgs-cersanit-carina-k98-0069",
+        "arena-cersanit-carina-k98-0069"
       ],
       "referenceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896",
       "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_112712_500_500/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem..jpg",
       "photoSourceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896",
       "checkedAt": "2026-10-29T09:30:44.702Z",
-      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; cena i krajowa dostawa z koszyka TGS. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
+      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; ceny i krajowa dostawa z natywnych koszyków TGS i Arena Łazienek. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
     },
     {
       "id": "mat-seat-cersanit-carina-slim",
@@ -4684,13 +4686,14 @@
       "packageUnit": "szt",
       "status": "verified_offer",
       "sourceIds": [
-        "tgs-cersanit-carina-k98-0135"
+        "tgs-cersanit-carina-k98-0135",
+        "arena-cersanit-carina-k98-0135"
       ],
       "referenceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740",
       "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_112916_500_500/a%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa.jpg",
       "photoSourceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740",
       "checkedAt": "2026-10-29T09:30:44.888Z",
-      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; cena i krajowa dostawa z koszyka TGS. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
+      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; ceny i krajowa dostawa z natywnych koszyków TGS i Arena Łazienek. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
     }
   ],
   "automaticDeliveryStores": [
