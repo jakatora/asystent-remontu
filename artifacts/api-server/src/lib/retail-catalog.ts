@@ -697,6 +697,10 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   },
   // source: https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576
   {"id":"realbud-acrylic-soudal-gk-white-280ml","ean":"5411183157248","name":"Akryl SOUDAL biały 280 ml do płyt GK","category":"acrylic","brand":"Soudal","packageSize":280,"unit":"ml","store":"Realbud","format":"shoper-api","productId":419576,"apiProductCode":"8022","apiPurchaseUnit":"szt.","variant":["biały","280 ml","GK"],"url":"https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576","imageUrl":"https://realbud.com/environment/cache/images/productGfx_12733_500_500/ec4c20934e6690a4201ae5ae86b7b915.jpg"},
+  // source: https://lobo.pl/soudal-akryl-do-plyt-g-k-280ml-bialy
+  {"id":"lobo-acrylic-soudal-gk-white-280ml","ean":"5411183157248","name":"SOUDAL Akryl do płyt G-K 280ml biały","category":"acrylic","brand":"Soudal","packageSize":280,"unit":"ml","store":"Lobo","format":"shoper-api","productId":43829,"apiProductCode":"ij.u137686","apiPurchaseUnit":"szt.","variant":["G-K","280ml","biały"],"url":"https://lobo.pl/soudal-akryl-do-plyt-g-k-280ml-bialy","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_71158_500_500/SOUDAL-Akryl-do-plyt-G-K-280ml-bialy.webp"},
+  // source: https://sklep.sewera.pl/soudal-akryl-do-plyt-gk-bialy-280ml-p13819
+  {"id":"sewera-acrylic-soudal-gk-white-280ml","ean":"5411183157248","name":"Soudal akryl do płyt GK biały 280ml","category":"acrylic","brand":"Soudal","packageSize":280,"unit":"ml","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["do płyt GK","biały","280ml"],"url":"https://sklep.sewera.pl/soudal-akryl-do-plyt-gk-bialy-280ml-p13819","imageUrl":"https://sklep.sewera.pl/photo/65122/soudal-akryl-do-plyt-gk-bialy-280ml.webp"},
   // source: https://www.rabdom.pl/pl/p/SOUDAL-Akryl-uniwersalny-280ml-Bialy/460
   // source: https://www.castorama.pl/akryl-soudal-280-ml-bialy/5411183157538_CAPL.prd
   {

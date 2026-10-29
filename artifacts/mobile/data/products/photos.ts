@@ -411,10 +411,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
     sourceUrl: 'https://conkret.com.pl/conkret-products/folia-budowlana-conpar/',
     identitySourceUrl: 'https://folnet.pl/pl/products/paroizolacje-i-hydroizolacje/folie-paroizolacyjne/folie-paroizolacyjne-z-polietylenu-pe/folia-paroizolacyjna-zolta-conpar-0-20-mm-10288.html',
     imageUrl: 'https://conkret.com.pl/wp-content/uploads/2022/05/Conpar-148mm-nowy.png' },
-  // source: https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576
+  // source: https://lobo.pl/soudal-akryl-do-plyt-g-k-280ml-bialy
   { ids: ['mat-acrylic-soudal-gk-white-280ml'], ean: '5411183157248',
-    sourceUrl: 'https://realbud.com/pl/p/Akryl-SOUDAL-bialy-280-ml-do-plyt-GK/419576',
-    imageUrl: 'https://realbud.com/environment/cache/images/productGfx_12733_500_500/ec4c20934e6690a4201ae5ae86b7b915.jpg' },
+    sourceUrl: 'https://lobo.pl/soudal-akryl-do-plyt-g-k-280ml-bialy',
+    imageUrl: 'https://lobo.pl/environment/cache/images/productGfx_71158_500_500/SOUDAL-Akryl-do-plyt-G-K-280ml-bialy.webp' },
   { ids: ['mat-door-leaf-opp-archi-full-80-left'], ean: '5063022524263',
     sourceUrl: 'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-opp-archi-80-lewe-biale~5063022524263_02c?$MOB_PREV$&$width=600&$height=600' },
