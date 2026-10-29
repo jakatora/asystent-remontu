@@ -5,17 +5,18 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatGrosze, type SerializedProject } from '@/features/pricing';
-import type { PriceChange } from '@/features/pricing/priceChanges';
+import { basketMaterialPriceDelta, type BasketPricePack, type PriceChange } from '@/features/pricing/priceChanges';
 
 const PriceChangesContext=createContext<Record<string,PriceChange>>({});
 export function PriceChangesProvider({changes,children}:{changes:PriceChange[];children:React.ReactNode}) {
   return <PriceChangesContext.Provider value={Object.fromEntries(changes.map(c=>[c.offerId,c]))}>{children}</PriceChangesContext.Provider>;
 }
-export function PriceChangeBadge({ change:explicit, offerId, productName }: { change?: PriceChange; offerId?:string; productName?:string }) {
+export function PriceChangeBadge({ change:explicit, offerId, productName, basketPack }: { change?: PriceChange; offerId?:string; productName?:string; basketPack?:BasketPricePack }) {
   const { language }=useLanguage();
   const changes=useContext(PriceChangesContext);const change=explicit ?? (offerId?changes[offerId]:undefined);
   if (!change) return null;
   const up=change.deltaGrosze>0;
+  const basketDelta=basketPack ? basketMaterialPriceDelta(change,basketPack) : null;
   // Direction is conveyed by text and an icon as well as colour.
   const color=up ? Colors.text : Colors.primaryDark;
   return <View accessibilityLiveRegion="polite" style={{gap:4,backgroundColor:up?Colors.warningBg:Colors.successBg,padding:10,borderRadius:10}}>
@@ -25,6 +26,7 @@ export function PriceChangeBadge({ change:explicit, offerId, productName }: { ch
       <Txt w="semibold" style={{fontSize:13,color,flex:1}}>{language==='pl' ? `${up?'Podrożał':'Taniej'} o ${formatGrosze(Math.abs(change.deltaGrosze))} / opak.` : `${up?'Up':'Down'} ${formatGrosze(Math.abs(change.deltaGrosze))} / pack`}</Txt>
     </View>
     <Txt style={{fontSize:12,color:Colors.textSecondary}}>{formatGrosze(change.previousGrosze)} → {formatGrosze(change.priceGrosze)} · {change.store}</Txt>
+    {basketPack && basketPack.count > 1 && basketDelta !== null && <Txt style={{fontSize:12,color}}>{language==='pl' ? `Przy ${basketPack.count} op. koszt tego produktu ${up?'wzrósł':'spadł'} o ${formatGrosze(Math.abs(basketDelta))}. Dostawa jest liczona osobno.` : `For ${basketPack.count} packs, this product costs ${formatGrosze(Math.abs(basketDelta))} ${up?'more':'less'}. Delivery is calculated separately.`}</Txt>}
   </View>;
 }
 

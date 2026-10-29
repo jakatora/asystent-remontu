@@ -6,6 +6,23 @@ export interface SeenPrice {
 }
 export interface PriceSnapshot { version: 1; offers: Record<string, SeenPrice> }
 export interface PriceChange extends SeenPrice { previousGrosze: number; deltaGrosze: number; previousCheckedAt: string }
+export interface BasketPricePack {
+  offerId: string; packageSize: number; count: number;
+  unitPriceGrosze: number; lineCostGrosze: number;
+}
+
+/** Material-only difference for the same priced pack in the displayed basket.
+ * A different offer, pack size or quoted unit price must not inherit a change. */
+export function basketMaterialPriceDelta(change: PriceChange, pack: BasketPricePack): number | null {
+  if (pack.offerId !== change.offerId || pack.packageSize !== change.packageSize ||
+    pack.unitPriceGrosze !== change.priceGrosze ||
+    !Number.isSafeInteger(change.deltaGrosze) || change.deltaGrosze !== change.priceGrosze - change.previousGrosze ||
+    !Number.isSafeInteger(pack.count) || pack.count < 1 ||
+    pack.lineCostGrosze !== pack.count * pack.unitPriceGrosze ||
+    !Number.isSafeInteger(pack.lineCostGrosze) || !Number.isSafeInteger(change.previousGrosze * pack.count)) return null;
+  const delta = change.deltaGrosze * pack.count;
+  return Number.isSafeInteger(delta) ? delta : null;
+}
 export const emptyPriceSnapshot = (): PriceSnapshot => ({ version:1, offers:{} });
 const valid = (p: any): p is SeenPrice => p && typeof p.key==='string' && p.key.length<500 && typeof p.offerId==='string' && typeof p.productName==='string' && typeof p.store==='string' &&
   Number.isSafeInteger(p.priceGrosze) && p.priceGrosze>0 && Number.isFinite(Date.parse(p.checkedAt)) &&
