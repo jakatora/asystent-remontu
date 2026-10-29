@@ -1,3 +1,4 @@
+import {CABINET_JOB} from '@/features/calculator/cabinetPainting';
 import { ProductImage } from './ProductImage';
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
@@ -239,6 +240,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       }} />}
       {state.status === 'idle' && shoppingReady && input.length > 0 && input.every(stage => stage.materials.length === 0) && <Txt w="semibold">{language === 'pl' ? 'Wybrane materiały są już posiadane lub kupione. Możesz zmienić produkt poniżej, aby porównać inny model.' : 'Selected materials are already owned or purchased. You can choose a different product below to compare another model.'}</Txt>}
 
+      {projectId && calc?.jobId === CABINET_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień powierzchnię, farbę lub środki' : 'Change area, paint or supplies'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {projectId && calc?.jobId === CO_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień model lub liczbę czujników' : 'Change detector model or count'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}
       {projectId && calc?.jobId === 'laminate-flooring' && <View style={{gap:8}}>

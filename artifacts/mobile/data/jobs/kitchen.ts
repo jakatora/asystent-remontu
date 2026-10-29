@@ -1,3 +1,4 @@
+import {cabinetInputs,cabinetMaterials} from '@/features/calculator/cabinetPainting';
 import type { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 
@@ -295,7 +296,7 @@ export const kitchenCabinetPaintJob: RenovationJob = {
   warningRules: [
     {
       condition: 'always',
-      message: 'Na MDF i okleinach syntetycznych używaj specjalnego gruntu do trudnych powierzchni — bez niego farba odpadnie.',
+      message: 'Kalkulator dotyczy V33 Easy Renowacja Kuchnia na stabilnych powłokach na drewnie lub melaminie i na laminacie. Na tych powierzchniach nie doliczamy gruntu. Surowe drewno z taninami, olej, wosk, uszkodzona okleina i poziome blaty wymagają osobnego doboru systemu.',
       level: 'warning',
     },
     {
@@ -304,69 +305,29 @@ export const kitchenCabinetPaintJob: RenovationJob = {
       level: 'info',
     },
   ],
-  measurementInputs: [
-    {
-      id: 'doorCount',
-      label: 'Liczba frontów szafek',
-      unit: 'szt.',
-      placeholder: 'np. 12',
-      min: 1,
-      max: 100,
-    },
-  ],
-  materials: [
-    {
-      id: 'cabinet-primer',
-      name: 'Grunt do trudnych powierzchni (np. Zinsser BIN)',
-      unit: 'litr',
-      formulaKey: 'constant',
-      pricePerUnit: 150,
-      notes: '1 litr wystarczy na ok. 8–10 frontów. Kluczowy dla przyczepności farby na MDF.',
-    },
-    {
-      id: 'cabinet-paint',
-      name: 'Farba do szafek kuchennych (emalia satynowa)',
-      brand: 'Magnat Emalia Ceramiczna (satynowa) lub V33 Renowacja Kuchnia i meble kuchenne (referencja)',
-      unit: 'litr',
-      formulaKey: 'faucets',
-      wasteFactor: 0.15,
-      pricePerUnit: 120,
-      notes: 'Ok. 0,12–0,15 L/front na warstwę (2 warstwy). Emalia satynowa lub półmat jest standardem. Emalie do mebli sprzedawane są zwykle w opakowaniach 0,5–0,75 L.',
-    },
-    {
-      id: 'sandpaper-cabinet',
-      name: 'Papier ścierny 180 i 320',
-      unit: 'arkusz',
-      formulaKey: 'sandpaper',
-      pricePerUnit: 2,
-    },
-    {
-      id: 'degreaser-cabinet',
-      name: 'Odtłuszczacz (np. Acetone lub Prep&Clean)',
-      unit: 'szt.',
-      formulaKey: 'constant',
-      pricePerUnit: 15,
-      notes: 'Kuchenne fronty są tłuste od gotowania — odtłuszczanie jest kluczowe.',
-    },
-  ],
+  measurementInputs: cabinetInputs,
+  materials: cabinetMaterials(),
   tools: [
-    { id: 'foam-roller', name: 'Wałek piankowy 4mm', icon: 'tool', required: true, notes: 'Daje gładką powierzchnię bez śladów włosia' },
+    { id: 'foam-roller', name: 'Wałek flokowy lub welurowy do wybranej farby', icon: 'tool', required: true, notes: 'Daje gładką powierzchnię bez śladów włosia' },
     { id: 'brush-cabinet', name: 'Pędzel syntetyczny 2,5 cm (do krawędzi)', icon: 'edit-2', required: true },
     { id: 'sawhorses', name: 'Kozły malarskie lub stół (do malowania poziomo)', icon: 'tool', required: false, notes: 'Malowanie poziomo eliminuje zacieki' },
     { id: 'screwdriver-cabinet', name: 'Wkrętak (do zdjęcia uchwytów i zawiasów)', icon: 'tool', required: true },
   ],
+  // source: https://www.v33.pl/v33-product/easy-renowacja-kuchnia/
+  // source: https://v33-renowacja.pl/
   instructions: [
-    { step: 1, title: 'Zdejmij fronty i uchwyty', description: 'Odkręć uchwyty. Zdejmij fronty odkręcając zawiasy. Opisz naklejką gdzie który front wisi — przy montażu będzie łatwiej.', durationMin: 30 },
-    { step: 2, title: 'Odtłuść i szlifuj', description: 'Przetrzyj każdy front odtłuszczaczem. Papierem 180 lekko zmatuj powierzchnię. Zetrzyj pył wilgotną szmatką.', durationMin: 60 },
-    { step: 3, title: 'Nanieś grunt', description: 'Wałkiem nanieś cienką warstwę gruntu do trudnych powierzchni. Wysuszyć 1–2h. Lekko przeszlifuj papierem 320. Zetrzyj pył.', durationMin: 120 },
-    { step: 4, title: 'Maluj 2–3 warstwy', description: 'Wałkiem piankowym nanieś cienką warstwę farby. Poczekaj 2–4h. Przeszlifuj 320. Nałóż drugą warstwę. Przy trzeciej warstwie nie szlifujesz.', tip: 'Cienkie warstwy + suszenie dają gładszy efekt niż gruba warstwa.', durationMin: 240 },
-    { step: 5, title: 'Zamontuj z powrotem', description: 'Po całkowitym wyschnięciu (24h) zamontuj fronty z powrotem wg opisów. Przykręć uchwyty.', durationMin: 45 },
+    { step: 1, title: 'Zdejmij i oznacz fronty', description: 'Odkręć uchwyty i zdejmij fronty. Oznacz ich położenie. Sprawdź podłoże oraz przyczepność dotychczasowej powłoki; wykonaj próbę zgodnie z kartą farby.', durationMin: 30 },
+    { step: 2, title: 'Dokładnie umyj i przygotuj powierzchnię', description: 'Użyj odpowiedniego detergentu bez nabłyszczaczy i tłustej warstwy. Odtłuść według zaleceń V33, np. benzyną ekstrakcyjną, i dokładnie spłucz czystą wodą. Stabilne powłoki na drewnie lub melaminie zmatuj papierem P240 i odpyl. Dla laminatu karta wskazuje mycie i płukanie. Pozostaw do wyschnięcia. Przestrzegaj etykiet, wentylacji i zakazu źródeł zapłonu przy rozpuszczalniku.', durationMin: 60 },
+    { step: 3, title: 'Przygotuj V33 Easy Renowacja Kuchnia', description: 'Na wskazanych stabilnych powierzchniach osobny grunt nie jest wymagany. Dodaj całą zawartość Additiv System spod pokrywki i mieszaj przez 5 minut. Dodatek jest w cenie puszki. Po zmieszaniu wykorzystaj farbę w ciągu 10 dni. Nie rozcieńczaj benzyną.', durationMin: 10 },
+    { step: 4, title: 'Nałóż co najmniej dwie warstwy', description: 'Maluj cienko wałkiem flokowym lub welurowym i odpowiednim pędzlem. Odczekaj około 6 godzin między warstwami, zgodnie z aktualną kartą Easy. Ilość farby obliczamy z całej malowanej powierzchni i liczby warstw.', durationMin: 360 },
+    { step: 5, title: 'Pozostaw do wyschnięcia i ostrożnie użytkuj', description: 'Montuj fronty po wyschnięciu zgodnie z instrukcją farby. Pełna odporność powłoki pojawia się po 20 dniach; do tego czasu unikaj uderzeń i intensywnego mycia.', durationMin: 45 },
   ],
   commonMistakes: [
-    'Brak odtłuszczenia — farba odpadnie w ciągu roku',
-    'Zły grunt — na MDF i okleinach bez właściwego gruntu farba się łupi',
-    'Za gruba warstwa jednorazowo — zacieki i łamanie farby',
-    'Malowanie na miejscu (bez zdejmowania) — trudny dostęp i zacieki na innych szafkach',
+    'Wpisanie powierzchni podłogi zamiast wszystkich malowanych stron i krawędzi frontów',
+    'Pozostawienie tłustej warstwy, detergentów albo pyłu na powierzchni',
+    'Stosowanie wariantu bez gruntu na nieobjętym nim podłożu, np. surowym drewnie z taninami',
+    'Pominięcie dodatku spod pokrywki lub zbyt krótka przerwa między warstwami',
+    'Intensywne mycie przed uzyskaniem pełnej odporności po 20 dniach',
   ],
   qualityChecklist: [
     { id: 'q1', description: 'Farba jest równomiernie nałożona bez zacieków' },
@@ -376,14 +337,10 @@ export const kitchenCabinetPaintJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['kuchnia', 'szafki', 'malowanie', 'fronty', 'odświeżenie'],
 
-  verifiedAt: '2026-06-09',
+  verifiedAt: '2026-10-29',
   verifiedSources: [
-    {
-      title:       'Jak przemalować meble kuchenne? Praktyczny przewodnik krok po kroku',
-      url:         'https://www.castorama.pl/jak-przemalowac-meble-kuchenne-praktyczny-przewodnik-krok-po-kroku-ins-99244.html',
-      domain:      'castorama.pl',
-      consultedAt: '2026-07-10',
-    },
+    { title: 'V33 Easy Renowacja Kuchnia — aktualna karta produktu', url: 'https://www.v33.pl/v33-product/easy-renowacja-kuchnia/', domain: 'v33.pl', consultedAt: '2026-10-29' },
+    { title: 'V33 Renowacja — przygotowanie powierzchni i pytania', url: 'https://v33-renowacja.pl/', domain: 'v33-renowacja.pl', consultedAt: '2026-10-29' },
   ],
 };
 

@@ -12,6 +12,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607
+  {"ids":["mat-cabinet-v33-easy-white-750ml"],"ean":"3153895149044","sourceUrl":"https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp"},
+  // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613
+  {"ids":["mat-cabinet-v33-easy-white-2000ml"],"ean":"3153895149228","sourceUrl":"https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp"},
   // source: https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444
   {"ids":["mat-co-detector-virone-dc11"],"ean":"5908254851223","sourceUrl":"https://www.prescot.com.pl/pl/p/BATERYJNY-CZUJNIK-TLENKU-WEGLA-CZADU-10-LAT-3V-ORNO/18444","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_62267_500_500/1.jpg"},
   // source: https://sklep.sewera.pl/atlas-plus-podwojna-moc-klej-do-plytek-25kg-p8893

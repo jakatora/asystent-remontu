@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-10-29T03:06:06.971Z",
-  "scope": "Same65 historical measurement maps:81/251 priced requirements,170 unresolved,11 fully priced scenarios. Explicit CO detector model/count now enables a full1-product materials basket with native shipping;5 delivered productionSDK scenarios verified separately. Historical unselected generic devices are not automatically replaced.170 unresolved requirements are not170 distinct products. Earlier explicitly selected floor kits remain available.",
+  "checkedAt": "2026-10-29T03:38:28.290Z",
+  "scope": "178 exact catalogue references checked through production HTTP:171 active,7 unresolved historical identities. Same65 historical measurement maps now yield81/252 priced requirements;171 unresolved requirements are not171 different SKUs. New explicitly selected cabinet kit separately verified in11SDK scenarios,6 complete delivered baskets. Wider renovation coverage remains in progress.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 251,
     "beforePriced": 81,
-    "afterLines": 251,
+    "afterLines": 252,
     "afterPriced": 81,
-    "afterUnpriced": 170,
+    "afterUnpriced": 171,
     "fullyPricedScenarios": 11,
     "reasons": {
-      "no-query": 100,
+      "no-query": 101,
       "no-product": 69,
       "no-offer": 1
     }
@@ -2643,12 +2643,12 @@
       "materials": [
         {
           "materialId": "cabinet-primer",
-          "name": "Grunt do trudnych powierzchni (np. Zinsser BIN)",
-          "unit": "litr",
+          "name": "Grunt — dobierz system i podłoże — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "grunt do trudnych powierzchni np zinsser bin",
+            "normalizedName": "grunt dobierz system i podloze ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -2658,12 +2658,27 @@
         },
         {
           "materialId": "cabinet-paint",
-          "name": "Farba do szafek kuchennych (emalia satynowa)",
-          "unit": "litr",
+          "name": "Farba do frontów — wybierz opakowanie i zmierz powierzchnię — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "farba do szafek kuchennych emalia satynowa",
+            "normalizedName": "farba do frontow wybierz opakowanie i zmierz powierzchnie ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "sandpaper-cabinet",
+          "name": "Klingspor PL 28 C P240, arkusz 230 × 280 mm — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "klingspor pl 28 c p240 arkusz 230 280 mm ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -2673,12 +2688,12 @@
         },
         {
           "materialId": "degreaser-cabinet",
-          "name": "Odtłuszczacz (np. Acetone lub Prep&Clean)",
-          "unit": "szt.",
+          "name": "Mycie i odtłuszczanie — potwierdź potrzebne środki — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "odtluszczacz np acetone lub prep clean",
+            "normalizedName": "mycie i odtluszczanie potwierdz potrzebne srodki ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -6174,5 +6189,19 @@
     "selectedZprademTwoDevicesGrosze": 21580,
     "twoProjectsThreeDevicesGrosze": 24360,
     "pickup": "unconfirmed;online offers not reused as local branch prices"
+  },
+  "cabinetPaintingVerification": {
+    "checkedAt": "2026-10-29T03:38:00.770Z",
+    "report": "research/fronty-kuchenne-v33-ceny-i-dostawa-2026-10-29.md",
+    "productionSdkCases": 11,
+    "completeDeliveredCases": 6,
+    "merchantCartChecks": 5,
+    "tenSquareMetresLargePackDeliveredGrosze": 32863,
+    "tenSquareMetresSmallPacksDeliveredGrosze": 40958,
+    "sixSquareMetresOwnedPreparationSmallGrosze": 18132,
+    "sixSquareMetresOwnedPreparationLargeGrosze": 18578,
+    "twoRoomsRawDemandOneCanGrosze": 18578,
+    "pickup": "unconfirmed; no online price reused as local stock/price",
+    "packComparison": "explicit user selection; tested both packs, no claim of automatic cross-EAN pack optimization"
   }
 }

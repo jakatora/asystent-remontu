@@ -1,15 +1,49 @@
 {
-  "checkedAt": "2026-10-29T03:06:06.971Z",
-  "scope": "176 exact catalogue references queried through productionHTTP:169 with active offers,7 historical identities unresolved. Explicit CO detector model/count has5 complete delivered scenarios from8 actual productionSDK cases. Same65 historical maps retain81/251 priced requirements;170 unresolved requirements are not170 distinct SKUs. Optional floor kits remain verified separately.",
-  "total": 176,
-  "verifiedProducts": 169,
+  "checkedAt": "2026-10-29T03:38:28.290Z",
+  "scope": "178 exact catalogue references checked through production HTTP:171 active,7 unresolved historical identities. Same65 historical measurement maps now yield81/252 priced requirements;171 unresolved requirements are not171 different SKUs. New explicitly selected cabinet kit separately verified in11SDK scenarios,6 complete delivered baskets. Wider renovation coverage remains in progress.",
+  "total": 178,
+  "verifiedProducts": 171,
   "remaining": 7,
-  "offers": 218,
+  "offers": 220,
   "stores": 52,
-  "productsWithPhotos": 176,
-  "registeredOffers": 224,
+  "productsWithPhotos": 178,
+  "registeredOffers": 226,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-cabinet-v33-easy-white-2000ml",
+      "productLabel": "V33 Easy Renowacja Kuchnia — biały satyna 2 l",
+      "ean": "3153895149228",
+      "materialType": "cabinet-paint",
+      "packageSize": 2000,
+      "packageUnit": "ml",
+      "status": "verified_offer",
+      "sourceIds": [
+        "rabdom-v33-easy-kitchen-white-2000ml"
+      ],
+      "referenceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+      "photoSourceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+      "checkedAt": "2026-10-29T03:22:38.925Z",
+      "availabilityScope": "Exact white satin V33 Easy can, distinct barcode and native whole-piece SKU. Explicit cabinet surface, measured painted area, coats, pack and preparation decisions. National PL whole-cart paint courier; Sewera auxiliary shipping quoted for postcode. No automatic substitution for unsupported/old generic surfaces; local branch stock and price unconfirmed."
+    },
+    {
+      "id": "mat-cabinet-v33-easy-white-750ml",
+      "productLabel": "V33 Easy Renowacja Kuchnia — biały satyna 0,75 l",
+      "ean": "3153895149044",
+      "materialType": "cabinet-paint",
+      "packageSize": 750,
+      "packageUnit": "ml",
+      "status": "verified_offer",
+      "sourceIds": [
+        "rabdom-v33-easy-kitchen-white-750ml"
+      ],
+      "referenceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+      "photoUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp",
+      "photoSourceUrl": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+      "checkedAt": "2026-10-29T03:22:38.094Z",
+      "availabilityScope": "Exact white satin V33 Easy can, distinct barcode and native whole-piece SKU. Explicit cabinet surface, measured painted area, coats, pack and preparation decisions. National PL whole-cart paint courier; Sewera auxiliary shipping quoted for postcode. No automatic substitution for unsupported/old generic surfaces; local branch stock and price unconfirmed."
+    },
     {
       "id": "mat-co-detector-virone-dc11",
       "productLabel": "Czujnik tlenku węgla Virone DC-11, wyświetlacz LCD, 2 × AA",
@@ -4714,5 +4748,19 @@
     "selectedZprademTwoDevicesGrosze": 21580,
     "twoProjectsThreeDevicesGrosze": 24360,
     "pickup": "unconfirmed;online offers not reused as local branch prices"
+  },
+  "cabinetPaintingVerification": {
+    "checkedAt": "2026-10-29T03:38:00.770Z",
+    "report": "research/fronty-kuchenne-v33-ceny-i-dostawa-2026-10-29.md",
+    "productionSdkCases": 11,
+    "completeDeliveredCases": 6,
+    "merchantCartChecks": 5,
+    "tenSquareMetresLargePackDeliveredGrosze": 32863,
+    "tenSquareMetresSmallPacksDeliveredGrosze": 40958,
+    "sixSquareMetresOwnedPreparationSmallGrosze": 18132,
+    "sixSquareMetresOwnedPreparationLargeGrosze": 18578,
+    "twoRoomsRawDemandOneCanGrosze": 18578,
+    "pickup": "unconfirmed; no online price reused as local stock/price",
+    "packComparison": "explicit user selection; tested both packs, no claim of automatic cross-EAN pack optimization"
   }
 }

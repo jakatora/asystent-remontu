@@ -1209,10 +1209,17 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://zpradem.pl/bateryjny-czujnik-tlenku-wegla-czadu-2xaa-zywotnosc-sensora-10-latdc-11/1089222
   {"id":"zpradem-virone-dc11","ean":"5908254851223","name":"Bateryjny czujnik tlenku węgla (czadu), 2xAA, żywotność sensora 10 lat,DC-11","brand":"ORNO","category":"co-detector","packageSize":1,"unit":"szt","store":"Z prądem","format":"shoper-api","productId":1089222,"retailerSku":"0001-00021-04285","apiPurchaseUnit":"szt.","variant":["DC-11"],"pickupRequiresConfirmation":true,"url":"https://zpradem.pl/bateryjny-czujnik-tlenku-wegla-czadu-2xaa-zywotnosc-sensora-10-latdc-11/1089222","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_62267_500_500/1.jpg"},
 
+  // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607
+  {"id":"rabdom-v33-easy-kitchen-white-750ml","ean":"3153895149044","name":"V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 0,75L","brand":"V33","category":"cabinet-paint","packageSize":750,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":7607,"retailerSku":"30668","apiPurchaseUnit":"szt.","variant":["biały","satyna","0,75L"],"pickupRequiresConfirmation":true,"url":"https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_56652_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp"},
+  // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613
+  {"id":"rabdom-v33-easy-kitchen-white-2000ml","ean":"3153895149228","name":"V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L","brand":"V33","category":"cabinet-paint","packageSize":2000,"unit":"ml","store":"Rab-Dom","format":"shoper-api","productId":7613,"retailerSku":"23708","apiPurchaseUnit":"szt.","variant":["biały","satyna","2L"],"pickupRequiresConfirmation":true,"url":"https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_13354_500_500/Opakowanie-farby-do-renowacji-mebli-kuchennych%2C-blatow-i-plytek-marki-V33-Renowacja-Kuchnia..webp"},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "V33 Easy Renowacja Kuchnia — biały satyna 0,75 l": "3153895149044",
+  "V33 Easy Renowacja Kuchnia — biały satyna 2 l": "3153895149228",
   "Czujnik tlenku węgla Virone DC-11, wyświetlacz LCD, 2 × AA": "5908254851223",
   "ATLAS PLUS Podwójna Moc — klej do płytek 25 kg (opakowanie standardowe)": "5905400488579",
   'Gres rektyfikowany Paradyż U117 Light Grey mat 59,8×59,8 cm, gatunek 1':'5904584158285',

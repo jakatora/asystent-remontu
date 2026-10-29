@@ -1,3 +1,4 @@
+import {CABINET_JOB,CABINET_MODEL,cabinetMaterials,cabinetReference} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,UNDERLAY_MODEL,underlayMaterials,underlayReference} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,GROUT_ONLY_MODEL,groutOnlyMaterials,groutOnlyReference} from '@/features/calculator/groutOnly';
 import {PLASTER_JOB,PLASTER_MODEL,plasterMaterials,plasterReference} from '@/features/calculator/plastering';
@@ -76,6 +77,11 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(calc.jobId===CABINET_JOB){
+    const definition=cabinetMaterials(calc.measurements).find(row=>cabinetReference(row.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(row=>row.material.id===definition.id);
+    if(calc.quantityModel!==CABINET_MODEL||!source||source.quantityKnown===false||!definition?.ean||!('ean' in source.material)||source.material.ean!==definition.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit)||definition.packaging?.size!==ref.packageSize)return null;
+    const quantity=getRequiredQuantity(source,calc);return Number.isFinite(quantity)&&quantity>=0?{quantity,source}:null;
+  }
   if(calc.jobId===WINDOW_JOB){
     if(calc.quantityModel!==WINDOW_MODEL)return null;
     const definition=windowMaterials(calc.measurements).find(m=>windowReference(m.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(l=>l.material.id===definition.id);

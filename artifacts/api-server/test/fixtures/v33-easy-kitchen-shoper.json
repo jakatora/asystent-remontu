@@ -1,0 +1,85 @@
+{
+  "provenance": "Actual public productAPI responses. Primary exact barcode, purchase unit and gross price; no cart sessions or customer fields.",
+  "snapshots": [
+    {
+      "sourceId": "rabdom-v33-easy-kitchen-white-750ml",
+      "capturedAt": "2026-10-29T03:22:38.094Z",
+      "item": {
+        "id": 7607,
+        "code": "30668",
+        "ean": "3153895149044",
+        "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 0,75L",
+        "producer": {
+          "name": "V33",
+          "id": 45,
+          "img": "https://www.rabdom.pl/userdata/public/producers/45.jpg"
+        },
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "can_buy": true,
+        "price": {
+          "gross": {
+            "base": "85,41 zł",
+            "base_float": 85.41,
+            "final": "85,41 zł",
+            "final_float": 85.41,
+            "historical_lowest_price": "80,10 zł",
+            "historical_lowest_price_float": 80.1
+          },
+          "net": {
+            "base": "69,44 zł",
+            "base_float": 69.44,
+            "final": "69,44 zł",
+            "final_float": 69.44,
+            "historical_lowest_price": "65,12 zł",
+            "historical_lowest_price_float": 65.12
+          }
+        },
+        "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607",
+        "description": ""
+      }
+    },
+    {
+      "sourceId": "rabdom-v33-easy-kitchen-white-2000ml",
+      "capturedAt": "2026-10-29T03:22:38.925Z",
+      "item": {
+        "id": 7613,
+        "code": "23708",
+        "ean": "3153895149228",
+        "name": "V33 Easy Renowacja Kuchnia Farba do mebli kuchennych i płytek ściennych biały satyna 2L",
+        "producer": {
+          "name": "V33",
+          "id": 45,
+          "img": "https://www.rabdom.pl/userdata/public/producers/45.jpg"
+        },
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "can_buy": true,
+        "price": {
+          "gross": {
+            "base": "175,28 zł",
+            "base_float": 175.28,
+            "final": "175,28 zł",
+            "final_float": 175.28,
+            "historical_lowest_price": "170,10 zł",
+            "historical_lowest_price_float": 170.1
+          },
+          "net": {
+            "base": "142,50 zł",
+            "base_float": 142.5,
+            "final": "142,50 zł",
+            "final_float": 142.5,
+            "historical_lowest_price": "138,29 zł",
+            "historical_lowest_price_float": 138.29
+          }
+        },
+        "url": "https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613",
+        "description": ""
+      }
+    }
+  ]
+}

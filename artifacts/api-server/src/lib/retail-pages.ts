@@ -290,6 +290,17 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // One native piece is a whole reviewed can; no per-ml or tinted-base price.
+  // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-0%2C75L/7607
+  // source: https://www.rabdom.pl/pl/p/V33-Easy-Renowacja-Kuchnia-Farba-do-mebli-kuchennych-i-plytek-sciennych-bialy-satyna-2L/7613
+  const cabinetPacks: Record<string, readonly [string, number, number, string]> = {
+    'rabdom-v33-easy-kitchen-white-750ml': ['3153895149044', 750, 7607, '30668'],
+    'rabdom-v33-easy-kitchen-white-2000ml': ['3153895149228', 2000, 7613, '23708'],
+  };
+  const cabinet = cabinetPacks[source.id];
+  if (cabinet && (source.ean !== cabinet[0] || source.packageSize !== cabinet[1] || source.unit !== 'ml' || source.productId !== cabinet[2]
+    || source.retailerSku !== cabinet[3] || source.apiPurchaseUnit !== 'szt.' || item.ean !== cabinet[0]
+    || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name))) throw Error('product_package_not_confirmed');
   // Exact native pieces contain the reviewed kilograms, litres or whole roll.
   // The 300 mm floor collar is one piece; the existing 120 mm wall pack is two.
   // source: https://winbud24.pl/pl/p/Mapei-Mapeband-W-mankiet-uszczelniajacy-300-x-300mm%2C-podlogowy/3091

@@ -1,3 +1,4 @@
+import {reviewCabinetCalculation,reviewCabinetProject,reviewCabinetShopping} from './cabinetPainting';
 import { reviewCoDetectorCalculation, reviewCoDetectorProject, reviewCoDetectorShopping } from './coDetector';
 import {reviewUnderlayCalculation,reviewUnderlayProject,reviewUnderlayShopping} from './underlayInstall';
 import {reviewGroutOnlyCalculation,reviewGroutOnlyProject,reviewGroutOnlyShopping} from './groutOnly';
@@ -26,10 +27,12 @@ const upgradePreviousCalculation = (calc: CalculationResult | undefined) => revi
 const upgradePreviousProject = (project: Project) => reviewRemovalProject(reviewGypsumProject(reviewFrameProject(reviewFinishingProject(reviewSanitaryProject(reviewLevelingTapeProject(reviewSubstrateProject(upgradeCeilingProject(upgradeRepaintProject(upgradeSinkProject(upgradeEpsProject(project)))))))))));
 const upgradeWithWallpaperCalculation = (calc: CalculationResult | undefined) => reviewWallpaperRollCalculation(reviewWallpaperTapeCalculation(reviewWallpaperAdhesiveCalculation(reviewLaminateCalculation(upgradePreviousCalculation(calc)))));
 const upgradeWithWallpaperProject = (project: Project) => reviewWallpaperRollProject(reviewWallpaperTapeProject(reviewWallpaperAdhesiveProject(reviewLaminateProject(upgradePreviousProject(project)))));
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewCoDetectorCalculation(reviewUnderlayCalculation(reviewGroutOnlyCalculation(reviewWindowCalculation(reviewSkirtingCalculation(reviewWaterproofingCalculation(reviewPlasterCalculation(upgradeWithWallpaperCalculation(calc))))))));
-export const upgradeProject = (project: Project) => reviewCoDetectorProject(reviewUnderlayProject(reviewGroutOnlyProject(reviewWindowProject(reviewSkirtingProject(reviewWaterproofingProject(reviewPlasterProject(upgradeWithWallpaperProject(project))))))));
+export const upgradeBeforeCabinetCalculation = (calc: CalculationResult | undefined) => reviewCoDetectorCalculation(reviewUnderlayCalculation(reviewGroutOnlyCalculation(reviewWindowCalculation(reviewSkirtingCalculation(reviewWaterproofingCalculation(reviewPlasterCalculation(upgradeWithWallpaperCalculation(calc))))))));
+export const upgradeBeforeCabinetProject = (project: Project) => reviewCoDetectorProject(reviewUnderlayProject(reviewGroutOnlyProject(reviewWindowProject(reviewSkirtingProject(reviewWaterproofingProject(reviewPlasterProject(upgradeWithWallpaperProject(project))))))));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewCabinetCalculation(upgradeBeforeCabinetCalculation(calc));
+export const upgradeProject = (project: Project) => reviewCabinetProject(upgradeBeforeCabinetProject(project));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
   const reviewed = reviewSkirtingShopping(reviewWaterproofingShopping(reviewWallpaperRollShopping(reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc),calc),calc),calc);
-  return reviewCoDetectorShopping(reviewUnderlayShopping(reviewGroutOnlyShopping(reviewWindowShopping(reviewPlasterShopping(reviewed,calc),calc),calc),calc),calc);
+  return reviewCabinetShopping(reviewCoDetectorShopping(reviewUnderlayShopping(reviewGroutOnlyShopping(reviewWindowShopping(reviewPlasterShopping(reviewed,calc),calc),calc),calc),calc),calc);
 };

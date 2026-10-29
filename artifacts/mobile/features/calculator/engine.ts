@@ -1,3 +1,4 @@
+import {CABINET_JOB,CABINET_MODEL,isCabinetMaterial,cabinetMaterials,cabinetQuantity} from './cabinetPainting';
 import { CO_JOB, CO_MODEL, coDetectorMaterial, coDetectorQuantity } from './coDetector';
 import {UNDERLAY_JOB,UNDERLAY_MODEL,isUnderlayMaterial,underlayMaterials,underlayQuantity} from './underlayInstall';
 import {GROUT_ONLY_JOB,GROUT_ONLY_MODEL,isGroutOnlyMaterial,groutOnlyMaterials,groutOnlyQuantity,groutOnlyExplanation} from './groutOnly';
@@ -84,6 +85,7 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isCabinetMaterial(jobId,material.id)){const needed=cabinetQuantity(material.id,measurements),rawQuantity=needed??0;return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:needed!==null};}
   if (jobId === CO_JOB && material.id === 'co-detector') { const required = coDetectorQuantity(measurements), rawQuantity = required ?? 0; return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null }; }
   if(jobId&&isUnderlayMaterial(jobId,material.id)){const required=underlayQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if(jobId&&isGroutOnlyMaterial(jobId,material.id)){const required=groutOnlyQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
@@ -203,6 +205,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id === CABINET_JOB ? { quantityModel: CABINET_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CO_JOB ? { quantityModel: CO_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id===UNDERLAY_JOB?{quantityModel:UNDERLAY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===GROUT_ONLY_JOB?{quantityModel:GROUT_ONLY_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -257,6 +260,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id === CABINET_JOB ? { quantityModel: CABINET_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CO_JOB ? { quantityModel: CO_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id===UNDERLAY_JOB?{quantityModel:UNDERLAY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id===GROUT_ONLY_JOB?{quantityModel:GROUT_ONLY_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -293,6 +297,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(job.id===CABINET_JOB)material=cabinetMaterials(measurements).find(row=>row.id===material.id)??material;
       if (job.id === CO_JOB && material.id === 'co-detector') material = coDetectorMaterial(measurements);
       if(job.id===UNDERLAY_JOB)material=underlayMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===GROUT_ONLY_JOB)material=groutOnlyMaterials(measurements).find(r=>r.id===material.id)??material;
@@ -324,6 +329,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(job.id===CABINET_JOB)material=cabinetMaterials(measurements).find(row=>row.id===material.id)??material;
       if (job.id === CO_JOB && material.id === 'co-detector') material = coDetectorMaterial(measurements);
       if(job.id===UNDERLAY_JOB)material=underlayMaterials(measurements).find(r=>r.id===material.id)??material;
       if(job.id===GROUT_ONLY_JOB)material=groutOnlyMaterials(measurements).find(r=>r.id===material.id)??material;
@@ -352,13 +358,16 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       const billableQty = material.priceBasis === 'unit' ? quantity : packs ?? quantity;
       const cost = roundMoney(billableQty * material.pricePerUnit);
 
-      const appliedWasteFactor = job.id === WINDOW_JOB && quantityKnown !== false && ['silicone-window','window-tape'].includes(material.id)
+      const appliedWasteFactor = isCabinetMaterial(job.id,material.id) ? (material.id === 'cabinet-paint' ? 1 + (measurements.cabinetReservePercent ?? 10) / 100 : 1) : job.id === WINDOW_JOB && quantityKnown !== false && ['silicone-window','window-tape'].includes(material.id)
         ? 1 + (measurements.windowReservePercent ?? 10) / 100 : material.wasteFactor ?? DEFAULT_WASTE_FACTOR;
       const wasteQty = Math.max(0, rawQuantity - (rawQuantity / appliedWasteFactor));
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = isUnderlayMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij dobór, zgodność lub rzeczywisty pomiar w obmiarach.':rawQuantity===0?'Zakup świadomie pominięty lub bariera jest zintegrowana z podkładem.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,assumptions:[material.notes??'','Zapas na docinki dotyczy tylko podkładu. Powierzchnia folii zawiera podane zakłady i wywinięcia, długość taśmy pochodzi z pomiaru.','Surowe ilości identycznych produktów łączymy przed zakupem pełnych opakowań.']} : isGroutOnlyMaterial(job.id,material.id) ? groutOnlyExplanation(material.id,measurements,rawQuantity,packs,material.unit) : isWindowMaterial(job.id,material.id) ? {
+      const explanation = isCabinetMaterial(job.id,material.id) ? {
+        text:quantityKnown===false?'Uzupełnij podłoże, powierzchnię, opakowanie lub potrzebne środki w obmiarach.':rawQuantity===0?'Dla tego wariantu zakup nie jest potrzebny lub potwierdzono posiadane środki.':`${Number(rawQuantity.toFixed(2))} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,
+        assumptions:[material.notes??'','Farba: powierzchnia wszystkich malowanych stron × liczba warstw ÷ wydajność, z jednym podanym zapasem. Liczba frontów nie wyznacza powierzchni.','Arkusze i butelki według podanej liczby. Surowe ilości tego samego EAN sumujemy między pracami przed doborem opakowań.'],
+      } : isUnderlayMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij dobór, zgodność lub rzeczywisty pomiar w obmiarach.':rawQuantity===0?'Zakup świadomie pominięty lub bariera jest zintegrowana z podkładem.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,assumptions:[material.notes??'','Zapas na docinki dotyczy tylko podkładu. Powierzchnia folii zawiera podane zakłady i wywinięcia, długość taśmy pochodzi z pomiaru.','Surowe ilości identycznych produktów łączymy przed zakupem pełnych opakowań.']} : isGroutOnlyMaterial(job.id,material.id) ? groutOnlyExplanation(material.id,measurements,rawQuantity,packs,material.unit) : isWindowMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Wybierz zakres naprawy i uzupełnij dobór lub ilość w obmiarach.':rawQuantity===0?'Zakup pominięty w wybranym zakresie lub potwierdzono posiadanie.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions:[material.notes??'',`Zapas akrylu lub długości taśmy: ${measurements.windowReservePercent??10}%. Puszki pianki i rolki taśmy maskującej liczone oddzielnie.`,'Wspólny koszyk sumuje surowe zapotrzebowanie tego samego produktu przed doborem opakowań.'],
       } : isWallpaperAdhesive(job.id,material.id) ? {text:quantityKnown===false?'Wybierz rodzaj tapety zgodny z kartą producenta.':`${rawQuantity} g suchego kleju → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Zapas z obmiarów. Gramy tego samego kleju sumujemy między pracami przed doborem opakowań.']} : isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
