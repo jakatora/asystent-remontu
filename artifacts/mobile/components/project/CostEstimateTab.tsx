@@ -36,6 +36,7 @@ import { groupUnpricedLines } from '@/features/pricing/unpricedGroups';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
 import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
+import { projectOfferCoverage } from '@/features/pricing/projectOfferCoverage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 // Zakładka „Wycena": read-only prezentacja wyceny etapu i całego remontu z
@@ -383,12 +384,10 @@ function EstimateResult({
   const consolidatedLines = consolidated?.lines ?? [];
   const savingsGrosze = consolidated?.savingsGrosze ?? 0;
   const storeComparison = data.storeComparison;
-  const checkedDates = (data.coverage?.sources ?? [])
-    .filter(source => source.active !== false && source.checkedAt)
-    .map(source => source.checkedAt!).sort();
-  const firstChecked = formatHistoryDate(checkedDates[0] ?? '');
-  const lastChecked = formatHistoryDate(checkedDates[checkedDates.length - 1] ?? '');
-  const checkedRange = firstChecked === lastChecked ? firstChecked : firstChecked + ' – ' + lastChecked;
+  const offerCoverage = projectOfferCoverage(data.stages, selectedStore);
+  const firstChecked = offerCoverage.firstCheckedAt ? formatHistoryDate(offerCoverage.firstCheckedAt) : null;
+  const lastChecked = offerCoverage.lastCheckedAt ? formatHistoryDate(offerCoverage.lastCheckedAt) : null;
+  const checkedRange = firstChecked && lastChecked ? firstChecked === lastChecked ? firstChecked : firstChecked + ' – ' + lastChecked : null;
 
   if (lines.length === 0) {
     return <InfoState icon="package" text={t('cmp.CostEstimate.empty')} />;
@@ -399,13 +398,15 @@ function EstimateResult({
       {data.coverage && data.coverage.offers > 0 && (
         <View style={{ padding: 14, borderRadius: 12, backgroundColor: Colors.surface, gap: 6 }}>
           {selectedStore ? <Txt w="semibold" style={{ fontSize: 13, color: Colors.text }}>{pickupOnly?tr(`Oferty punktu: ${selectedStore}. Cena odbioru w tym sklepie.`,`Location offers: ${selectedStore}. Collection price at this store.`):tr(`Oferty wybranego sklepu: ${selectedStore}. Ceny internetowe.`, `Selected store offers: ${selectedStore}. Online prices.`)}</Txt> : <>
+            <Txt w="semibold" style={{fontSize:14,color:Colors.text}}>{tr(`Oferty co najmniej jednego produktu: ${offerCoverage.storeCount} ${offerCoverage.storeCount === 1 ? 'sklep' : offerCoverage.storeCount < 5 ? 'sklepy' : 'sklepów'}.`, `Stores offering at least one product: ${offerCoverage.storeCount}.`)}</Txt>
+            {checkedRange && <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>}
             <Pressable accessibilityRole="button" aria-expanded={showCoverage} accessibilityState={{expanded:showCoverage}} onPress={()=>setShowCoverage(value=>!value)} style={{minHeight:48,flexDirection:'row',alignItems:'center',gap:8}}>
               <Feather name={showCoverage?'chevron-up':'chevron-down'} size={16} color={Colors.primary}/>
-              <Txt w="semibold" style={{flex:1,color:Colors.primary}}>{tr(`Porównywane sklepy i punkty (${compatibleStores.length})`,`Compared stores and locations (${compatibleStores.length})`)}</Txt>
+              <Txt w="semibold" style={{flex:1,color:Colors.primary,fontSize:13}}>{tr(`Sklepy i punkty w katalogu (${compatibleStores.length})`,`Stores and locations in catalogue (${compatibleStores.length})`)}</Txt>
             </Pressable>
             {showCoverage && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{delivery.mode==='pickup'?tr(`Sklepy i punkty odbioru: ${compatibleStores.join(', ')}. Cenę i dostępność potwierdź w wybranej placówce.`,`Stores and collection locations: ${compatibleStores.join(', ')}. Confirm prices and availability at your chosen location.`):t('upgrade.compare.coverage',{stores:compatibleStores.join(', ')})}</Txt>}
           </>}
-          <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>
+          {selectedStore && checkedRange && <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{t('upgrade.compare.checked', { date: checkedRange })}</Txt>}
         </View>
       )}
       {unresolved.length > 0 && (
