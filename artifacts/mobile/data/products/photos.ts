@@ -143,6 +143,12 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c
   {"ids":["mat-hand-paper-klingspor-pl28c-p150"],"ean":"5907560023553","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-150-arkusz-230x280mm-p6900","imageUrl":"https://sklep.sewera.pl/photo/56973/papier-scierny-gr-150-arkusz-230x280mm.webp"},
 
+  // source: https://sklep.sewera.pl/papier-scierny-gr-180-arkusz-230x280mm-p6901
+  {"ids":["mat-hand-paper-klingspor-pl28c-p180"],"ean":"5907560023560","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-180-arkusz-230x280mm-p6901","imageUrl":"https://sklep.sewera.pl/photo/56975/papier-scierny-gr-180-arkusz-230x280mm.webp"},
+
+  // source: https://sklep.sewera.pl/papier-scierny-gr-220-arkusz-230x280mm-p6902
+  {"ids":["mat-hand-paper-klingspor-pl28c-p220"],"ean":"5907560027483","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-220-arkusz-230x280mm-p6902","imageUrl":"https://sklep.sewera.pl/photo/56977/papier-scierny-gr-220-arkusz-230x280mm.webp"},
+
   // source: https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899 (odczyt 2026-10-27T03:05:55.534Z)
   // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c
   {"ids":["mat-hand-paper-klingspor-pl28c-p120"],"ean":"5907560017644","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-120-arkusz-230x280mm-p6899","imageUrl":"https://sklep.sewera.pl/photo/56971/papier-scierny-gr-120-arkusz-230x280mm.webp"},

@@ -1,5 +1,6 @@
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 import { PRODUCT_PHOTOS } from '@/data/products/photos';
+import type { MaterialPriceReference } from '@/types/pricing';
 import type { PricingMaterialLineInput, PricingStageInput } from './pricingApi';
 import { normalizeProductName } from '../../../../lib/db/src/repositories/helpers';
 import { normalizeUnit } from './quantity';
@@ -10,6 +11,23 @@ export const EXTRA_UNITS = ['szt', 'kg', 'l', 'ml', 'mb', 'm2', 'm3'] as const;
 export type BasketExtra = { id: string; quantity: number } & (
   { kind: 'catalogue'; referenceId: string } | { kind: 'custom'; name: string; unit: typeof EXTRA_UNITS[number] }
 );
+
+const EXTRA_SEARCH_ROWS = MATERIAL_PRICES.map(ref => ({
+  ref,
+  name: normalizeProductName(`${ref.productLabel} ${ref.brand ?? ''}`),
+  ean: PRODUCT_PHOTOS.find(photo => photo.ids.includes(ref.id))?.ean ?? '',
+}));
+
+/** Every word may appear anywhere in the product name; exact EAN also works. */
+export function searchBasketExtraReferences(query: string): MaterialPriceReference[] {
+  const normalized = normalizeProductName(query);
+  if (!normalized) return [];
+  const tokens = normalized.split(' ');
+  return EXTRA_SEARCH_ROWS.filter(row => tokens.every(token => row.name.includes(token) || row.ean.includes(token)))
+    .sort((a, b) => Number(b.ean === normalized) - Number(a.ean === normalized) ||
+      Number(b.name.startsWith(normalized)) - Number(a.name.startsWith(normalized)))
+    .map(row => row.ref);
+}
 
 /** Demand only: no typed price can become a retailer offer or free delivery. */
 export function parseExtraQuantity(value: string): number | null {

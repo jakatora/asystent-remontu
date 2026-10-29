@@ -2,7 +2,17 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 import { PRODUCT_PHOTOS } from '@/data/products/photos';
-import { additionalMaterial, extraMaterial, parseBasketExtras, parseExtraQuantity, withBasketExtras, type BasketExtra } from './basketExtras';
+import { additionalMaterial, extraMaterial, parseBasketExtras, parseExtraQuantity, searchBasketExtraReferences, withBasketExtras, type BasketExtra } from './basketExtras';
+
+test('extras search finds exact abrasives by unordered words or EAN without offering arbitrary products before typing', () => {
+  assert.deepEqual(searchBasketExtraReferences(''), []);
+  assert.deepEqual(searchBasketExtraReferences('   '), []);
+  assert.ok(searchBasketExtraReferences('220 klingspor').some(ref => ref.id === 'mat-hand-paper-klingspor-pl28c-p220'));
+  assert.ok(searchBasketExtraReferences('Klingspor 180').some(ref => ref.id === 'mat-hand-paper-klingspor-pl28c-p180'));
+  const ean = searchBasketExtraReferences('5907560027483');
+  assert.equal(ean[0]?.id, 'mat-hand-paper-klingspor-pl28c-p220');
+  assert.ok(!searchBasketExtraReferences('klingspor 220').some(ref => ref.id === 'mat-hand-paper-klingspor-pl28c-p180'));
+});
 
 test('additional demand accepts Polish decimal notation without interpreting money, zero or invalid quantities', () => {
   assert.equal(parseExtraQuantity(' 2,5 '), 2.5); assert.equal(parseExtraQuantity('0.000001'), 0.000001); assert.equal(parseExtraQuantity('100000'), 100000);
