@@ -18,6 +18,16 @@ export function purchaseSnapshot(data: SerializedProject, selectedStore: string 
 }
 const money = (value: unknown): value is number => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
 
+function validRetailerDelivery(store: NonNullable<NonNullable<SerializedProject['deliveryComparison']>['best']>['stores'][number], postalCode: string | null, now: number): boolean {
+  const quote = store.quote;
+  if (store.source !== 'retailer' || !quote || !money(store.deliveryGrosze) || !money(quote.costGrosze)
+    || store.deliveryGrosze !== quote.costGrosze || !/^\d{2}-\d{3}$/.test(postalCode ?? '')) return false;
+  const checked = Date.parse(quote.checkedAt), expires = Date.parse(quote.expiresAt);
+  return Number.isFinite(checked) && checked <= now + 5000 && Number.isFinite(expires)
+    && expires > now && expires > checked && expires - checked <= 10 * 60_000
+    && (quote.destinationScope === 'PL' || quote.destinationScope === 'postal_code' && quote.postalCode === postalCode);
+}
+
 /** Display only the server's amount, never fill an absent fee or incomplete
  * basket with zero. This is an in-session comparison, not a persisted price. */
 export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.now()) {
@@ -39,7 +49,7 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
   const complete = (comparison?.status === 'compared' || comparison?.status === 'needs_delivery_costs') && missing === 0 && data.stages.every(stage => stage.unresolvedCount === 0)
     && best && money(best.materialsGrosze) && money(best.deliveryGrosze) && money(best.totalGrosze)
     && best.materialsGrosze + best.deliveryGrosze === best.totalGrosze && validStoreAmounts
-    && best.stores.length > 0 && best.stores.every(store => comparison.mode === 'pickup' || store.source === 'retailer' && store.quote && Date.parse(store.quote.expiresAt) > now);
+    && best.stores.length > 0 && best.stores.every(store => comparison.mode === 'pickup' || validRetailerDelivery(store, comparison.postalCode, now));
   const pending = comparison ? pendingDeliveryPlan(comparison, true, now) : null;
   const available=comparison?availableStoreBasket(comparison,true,snapshot.selectedStore,now):null;
   const materials = complete ? best.materialsGrosze : available ? available.materialsGrosze : pending ? pending.materialsGrosze : data.consolidated.lines.length > 0 && money(data.consolidated.consolidatedTotalGrosze) ? data.consolidated.consolidatedTotalGrosze : null;

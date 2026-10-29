@@ -11,7 +11,10 @@ function response(mode: 'shipping' | 'pickup' = 'shipping'): SerializedProject {
     deliveryComparison: { mode, postalCode: mode === 'shipping' ? '00-001' : null, status: 'compared', missingProductCount: 0,
       best: { materialsGrosze: 10000, deliveryGrosze: mode === 'shipping' ? 2000 : 0, totalGrosze: mode === 'shipping' ? 12000 : 10000,
         stores: [{ store: 'Wybrany sklep', materialsGrosze: 10000, deliveryGrosze: mode === 'shipping' ? 2000 : 0, totalGrosze: mode === 'shipping' ? 12000 : 10000,
-          lines: [{product:{name:'Wybrany model'}}], source: mode === 'shipping' ? 'retailer' : 'pickup', quote: mode === 'shipping' ? { expiresAt: new Date(now + 60_000).toISOString() } : undefined }] } },
+          lines: [{product:{name:'Wybrany model'}}], source: mode === 'shipping' ? 'retailer' : 'pickup', quote: mode === 'shipping' ? {
+            costGrosze: 2000, checkedAt: new Date(now).toISOString(), expiresAt: new Date(now + 60_000).toISOString(),
+            destinationScope: 'postal_code', postalCode: '00-001',
+          } : undefined }] } },
   } as unknown as SerializedProject;
 }
 
@@ -72,9 +75,9 @@ test('overview lists verified store totals and products for a split purchase', (
   comparison.unavailableStores = [{store:'Inny sklep',reason:'retailer_access_required'}];
   comparison.best!.stores = [
     {store:'Lobo', materialsGrosze:6000, deliveryGrosze:1000, totalGrosze:7000, source:'retailer',
-      quote:{expiresAt:new Date(now+60_000).toISOString()}, lines:[{product:{name:'Farba'}}]},
+      quote:{costGrosze:1000,checkedAt:new Date(now).toISOString(),expiresAt:new Date(now+60_000).toISOString(),destinationScope:'PL'}, lines:[{product:{name:'Farba'}}]},
     {store:'Sewera', materialsGrosze:4000, deliveryGrosze:1000, totalGrosze:5000, source:'retailer',
-      quote:{expiresAt:new Date(now+60_000).toISOString(),orders:[{},{}]}, lines:[{product:{name:'Gładź'}}]},
+      quote:{costGrosze:1000,checkedAt:new Date(now).toISOString(),expiresAt:new Date(now+60_000).toISOString(),destinationScope:'postal_code',postalCode:'00-001',orders:[{},{}]}, lines:[{product:{name:'Gładź'}}]},
   ] as unknown as NonNullable<typeof comparison.best>['stores'];
   const summary = purchaseSummary(purchaseSnapshot(data, null, now), now);
   assert.equal(summary.status, 'complete');
@@ -109,4 +112,22 @@ test('an inconsistent amount, unknown delivery source or invalid expiry does not
   assert.equal(purchaseSummary(purchaseSnapshot(expiry, null, now), now).status, 'expired');
   assert.equal(purchaseSummary(null, now).status, 'unavailable');
   assert.equal(purchaseSummary({ kind: 'empty', observedAt: now }, now).status, 'empty');
+});
+
+test('overview rejects delivery quotes for another postcode, a different fee or invalid time window', () => {
+  const mutations: Array<(data: SerializedProject) => void> = [
+    data => { data.deliveryComparison!.best!.stores[0].quote!.postalCode = '42-200'; },
+    data => { data.deliveryComparison!.best!.stores[0].quote!.destinationScope = 'postal_code'; data.deliveryComparison!.postalCode = '42-200'; },
+    data => { data.deliveryComparison!.best!.stores[0].quote!.costGrosze = 1999; },
+    data => { data.deliveryComparison!.best!.stores[0].quote!.checkedAt = new Date(now + 5001).toISOString(); },
+    data => { data.deliveryComparison!.best!.stores[0].quote!.checkedAt = 'invalid'; },
+    data => { data.deliveryComparison!.best!.stores[0].quote!.expiresAt = new Date(now + 600001).toISOString(); },
+  ];
+  for (const mutate of mutations) {
+    const data = response(); mutate(data);
+    const summary = purchaseSummary(purchaseSnapshot(data, null, now), now);
+    assert.equal(summary.status, 'shipping_unknown');
+    assert.equal('totalGrosze' in summary && summary.totalGrosze, null);
+    assert.deepEqual('storeSteps' in summary && summary.storeSteps, []);
+  }
 });

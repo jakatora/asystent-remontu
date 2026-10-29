@@ -17,7 +17,7 @@ export function ProjectPurchaseSummary({ snapshot, onCompare }: { snapshot: Purc
     <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}><Feather name="shopping-bag" size={20} color={Colors.primary}/><Txt w="bold" style={{flex:1,fontSize:18}}>{pl ? 'Koszt zakupów w sklepach' : 'Store purchase cost'}</Txt></View>
     {summary.status === 'unavailable' || summary.status === 'expired' ? <Txt style={{lineHeight:21}}>{summary.status === 'expired'
       ? (pl ? 'Poprzednie porównanie wymaga odświeżenia. Sprawdź aktualny zestaw przed zakupem.' : 'The previous comparison needs refreshing. Check the current basket before buying.')
-      : (pl ? 'Sprawdź wybrane modele i pełne opakowania w sklepach. Uwzględnimy materiały oznaczone jako „Mam” lub „Kupione”.' : 'Compare your selected models and full packs in stores. Items marked as owned or purchased are taken into account.')}</Txt>
+      : (pl ? 'Sprawdź wybrane modele i pełne opakowania w sklepach. Materiały oznaczone jako „Mam” lub „Kupione” pominiemy w zakupach.' : 'Compare your selected models and full packs in stores. Materials marked as owned or purchased are excluded from the shopping basket.')}</Txt>
     : summary.status === 'empty' ? <Txt style={{lineHeight:21}}>{pl ? 'Nie ma materiałów do dokupienia z tej listy. Narzędzia, robociznę i inne potrzebne elementy sprawdź osobno.' : 'There are no materials left to buy from this list. Check tools, labour and other required items separately.'}</Txt>
     : <>
       <Txt w="semibold">{summary.selectedStore ? `${pl?'Koszyk':'Basket'}: ${summary.selectedStore}` : pl ? 'Wybrane oferty sklepów' : 'Selected store offers'}</Txt>
