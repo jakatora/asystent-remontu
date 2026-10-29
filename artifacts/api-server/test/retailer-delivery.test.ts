@@ -151,10 +151,11 @@ test('Lobo quotes ST10 20 kg with a home courier, not the cheaper parcel locker'
   assert.equal(result.quote.destinationScope, 'PL');
 });
 
-test('Lobo combines Dulux EasyCare 9 l and Atlas GTA 18 kg into one courier basket', async () => {
+test('Lobo combines Dulux EasyCare 9 l, Atlas GTA 18 kg and Śnieżka primer 5 l into one courier basket', async () => {
   const items = new Map([
     [6379, { ean: '5904078198759', stockId: 6384, price: 171.90 }],
     [42682, { ean: '5905400542509', stockId: 42812, price: 59.90 }],
+    [58470, { ean: '5903973228905', stockId: 58603, price: 42.90 }],
   ]);
   const added = new Map<number, number>();
   const quote = createRetailerQuoter(async (input, options) => {
@@ -172,12 +173,12 @@ test('Lobo combines Dulux EasyCare 9 l and Atlas GTA 18 kg into one courier bask
       added.set(body.stock_id, body.quantity);
       return Response.json({});
     }
-    assert.deepEqual([...added].sort((a, b) => a[0] - b[0]), [[6384, 1], [42812, 1]]);
+    assert.deepEqual([...added].sort((a, b) => a[0] - b[0]), [[6384, 1], [42812, 1], [58603, 1]]);
     return Response.json({
       products: [...items.values()].map(item => ({ stock_id: item.stockId, quantity: 1, unit: { name: 'szt.', floating_point: false },
         price: item.price.toFixed(2).replace('.', ',') + ' zł', price_float: item.price,
         sum: item.price.toFixed(2).replace('.', ',') + ' zł', sum_float: item.price })),
-      basket: { sum_products: '231,80 zł', sum_products_float: 231.80 },
+      basket: { sum_products: '274,70 zł', sum_products_float: 274.70 },
       countries: [{ id: 179, name: 'Polska', selected: true }],
       payments: [{ payment_id: 16, name: 'transfer', title: 'Przelew' }],
       shippings: [
@@ -186,12 +187,15 @@ test('Lobo combines Dulux EasyCare 9 l and Atlas GTA 18 kg into one courier bask
       ],
     });
   });
-  const basket: DeliveredStoreBasket = { store: 'Lobo', materialsGrosze: 23180, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [
+  const basket: DeliveredStoreBasket = { store: 'Lobo', materialsGrosze: 27470, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [
     { product: { id: 'paint', name: 'Dulux EasyCare', imageUrl: null }, unit: 'l', packages: [
       { packageSize: 9, count: 1, unitPriceGrosze: 17190, lineCostGrosze: 17190, offerId: 'lobo-dulux-easycare-white-9l', store: 'Lobo', url: null },
     ] },
     { product: { id: 'skim', name: 'Atlas GTA', imageUrl: null }, unit: 'kg', packages: [
       { packageSize: 18, count: 1, unitPriceGrosze: 5990, lineCostGrosze: 5990, offerId: 'lobo-atlas-gta-18kg', store: 'Lobo', url: null },
+    ] },
+    { product: { id: 'primer', name: 'Śnieżka Grunt Ekspresowy', imageUrl: null }, unit: 'l', packages: [
+      { packageSize: 5, count: 1, unitPriceGrosze: 4290, lineCostGrosze: 4290, offerId: 'lobo-sniezka-grunt-express-5l', store: 'Lobo', url: null },
     ] },
   ] };
   const result = await quote(basket, '00-001');

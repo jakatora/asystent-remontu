@@ -405,6 +405,24 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
   },
 
+  // Śnieżka Grunt Ekspresowy 5 l — EAN potwierdzony w dwóch niezależnych sklepach.
+  // source: https://lobo.pl/sniezka-grunt-ekspresowy-gleboko-penetrujacy-5l (EAN, dostępność i cena 42,90 zł)
+  // source: https://sklep.sewera.pl/sniezka-grunt-ekspresowy-5l-gleboko-penetrujacy-p14581 (ten sam EAN)
+  {
+    id: 'mat-primer-deep-sniezka-express-5l',
+    materialType: 'primer',
+    productLabel: 'Grunt głęboko penetrujący Śnieżka Grunt Ekspresowy 5 l',
+    brand: 'Śnieżka',
+    packageSize: 5,
+    packageUnit: 'l',
+    pricePerPackage: 42.9,
+    category: 'standard',
+    storeName: 'Lobo',
+    sourceUrl: 'https://lobo.pl/sniezka-grunt-ekspresowy-gleboko-penetrujacy-5l',
+    lastUpdated: '2026-10-29',
+    currency: 'PLN',
+  },
+
   // Grunt głęboko penetrujący Ceresit CT 17 10 l — EAN 5900089617081.
   // source: https://bat.pl/Grunt-gleboko-penetrujacy-CT-17-10l-Ceresit/ct17-10-x (EAN 5900089617081)
   // source: https://chemko.com.pl/ceresit-ct-17-grunt-gleboko-penetrujacy-10l,3,104317,1304 (EAN 5900089617081)

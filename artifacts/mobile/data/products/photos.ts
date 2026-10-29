@@ -373,6 +373,8 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-skim-coat-acrylputz-fs20-27kg"],"ean":"5903973104544","sourceUrl":"https://sklep.sewera.pl/acryl-putz-fs20-finisz-27kg-p6114","imageUrl":"https://sklep.sewera.pl/photo/259046/acryl-putz-fs20-finisz-27kg.webp"},
   // source: https://sklep.sewera.pl/atlas-uni-grunt-5kg-emulsja-gruntujaca-p9772
   {"ids":["mat-primer-deep-atlas-unigrunt-5kg"],"ean":"5905400520026","sourceUrl":"https://sklep.sewera.pl/atlas-uni-grunt-5kg-emulsja-gruntujaca-p9772","imageUrl":"https://sklep.sewera.pl/photo/313998/atlas-uni-grunt-5kg-emulsja-gruntujaca.webp"},
+  // source: https://lobo.pl/sniezka-grunt-ekspresowy-gleboko-penetrujacy-5l
+  {"ids":["mat-primer-deep-sniezka-express-5l"],"ean":"5903973228905","sourceUrl":"https://lobo.pl/sniezka-grunt-ekspresowy-gleboko-penetrujacy-5l","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_138567_500_500/SNIEZKA-Grunt-Ekspresowy-gleboko-penetrujacy-5L.webp"},
   {
     ids: [], ean: '5903973153214',
     // source: https://www.leroymerlin.pl/produkty/farba-magnat-ceramic-bialy-5-l-45615171.html
