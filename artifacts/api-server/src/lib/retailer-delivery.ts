@@ -167,18 +167,34 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
     evidenceSha256: createHash('sha256').update(JSON.stringify(evidence)).digest('hex') } };
 }
 
+export type CachedBasketQuoter = BasketQuoter & { cached?: (order: DeliveredStoreBasket, postalCode: string) => DeliveryQuoteResult | null };
+
+/** After the request's native I/O deadline, only an already confirmed and
+ * unexpired complete-basket quote may contribute to the comparison. */
+export function quoteBeforeDeadline(quoter: CachedBasketQuoter, order: DeliveredStoreBasket, postalCode: string, deadline: number, now = Date.now()): Promise<DeliveryQuoteResult> {
+  if (now < deadline) return quoter(order, postalCode);
+  return Promise.resolve(quoter.cached?.(order, postalCode) ?? { reason: 'quote_timeout' });
+}
+
 /** Per-service cache: destination + complete basket + price, never browser
  * cookies or personal details. Cap memory, coalesce duplicate work and reject
  * excess load with a bounded FIFO queue shared by all requests. */
-export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuoter {
+export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBasketQuoter {
   const pages=createCheckoutPageReader();
-  const cache = new Map<string, { until: number; result: Promise<DeliveryQuoteResult> }>();
+  const cache = new Map<string, { until: number; result: Promise<DeliveryQuoteResult>; confirmed?: DeliveryQuoteResult }>();
   const queue = new QuoteQueue();
-  return async (order, postalCode) => {
+  const keyFor = (order: DeliveredStoreBasket, postalCode: string) => JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze])).sort()]);
+  const cached = (order: DeliveredStoreBasket, postalCode: string): DeliveryQuoteResult | null => {
+    if (!/^\d{2}-\d{3}$/.test(postalCode)) return null;
+    const row = cache.get(keyFor(order, postalCode)), now = Date.now();
+    return row && row.until > now && row.confirmed && 'quote' in row.confirmed && Date.parse(row.confirmed.quote.expiresAt) > now
+      ? row.confirmed : null;
+  };
+  const quote: BasketQuoter = async (order, postalCode) => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return { reason: 'invalid_postal_code' };
     const unsupported = unavailableReason(order.store);
     if (unsupported) return { reason: unsupported };
-    const key = JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze])).sort()]);
+    const key = keyFor(order, postalCode);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     const pending = (async (): Promise<DeliveryQuoteResult> => {
@@ -206,10 +222,11 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): BasketQuo
       if ('quote' in result) {
         // Leave enough time for the other merchant calls before returning a
         // cached quotation. The original native expiry is never extended.
-        cache.set(key, { until: Math.min(Date.now() + TTL, Date.parse(result.quote.expiresAt)) - 60_000, result: Promise.resolve(result) });
+        cache.set(key, { until: Math.min(Date.now() + TTL, Date.parse(result.quote.expiresAt)) - 60_000, result: Promise.resolve(result), confirmed: result });
       } else if (result.reason === 'quote_busy') cache.delete(key);
       else cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
     }
     return result;
   };
+  return Object.assign(quote, { cached });
 }

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { createRetailerQuoter, selectHomeDelivery, confirmedMoney, knownUnavailableRetailers } from '../src/lib/retailer-delivery';
+import { createRetailerQuoter, quoteBeforeDeadline, selectHomeDelivery, confirmedMoney, knownUnavailableRetailers } from '../src/lib/retailer-delivery';
 import type { DeliveredStoreBasket } from '../../../lib/pricing-service/src/delivery';
 
 const money = (cents: number) => ({ cost: (cents / 100).toFixed(2).replace('.', ',') + ' zł', cost_float: cents / 100 });
@@ -69,12 +69,31 @@ test('anonymous carts: basket quantity, gross prices, destination cache isolatio
   const quote = createRetailerQuoter(fetchImpl);
   const first = await quote(order(), '00-001'); assert.ok('quote' in first); assert.equal(first.quote.costGrosze,1050);
   assert.equal(first.quote.basis,'retailer_basket_national');
-  const previous = calls; await quote(order(), '00-001'); assert.equal(calls, previous);
+  const previous = calls;
+  assert.deepEqual(await quoteBeforeDeadline(quote,order(),'00-001',Date.now()-1),first);
+  assert.equal(calls,previous,'a verified cache hit after the deadline must not start another retailer session');
+  assert.deepEqual(await quoteBeforeDeadline(quote,order(2),'00-001',Date.now()-1),{reason:'quote_timeout'});
+  assert.deepEqual(await quoteBeforeDeadline(quote,order(),'30-001',Date.now()-1),{reason:'quote_timeout'});
+  assert.deepEqual(await quoteBeforeDeadline(quote,{...order(),materialsGrosze:1200},'00-001',Date.now()-1),{reason:'quote_timeout'});
+  assert.equal(calls,previous,'a different quantity, postcode or material price cannot borrow a cached delivery fee');
+  await quote(order(), '00-001'); assert.equal(calls, previous);
   const double = await quote(order(2), '00-001'); assert.ok('quote' in double); assert.equal(double.quote.costGrosze,2100);
   await quote(order(), '30-001'); assert.ok(calls > previous + 3);
   assert.equal(sessions,3);
   downsize = true; const rejected = await quote(order(3), '30-001'); assert.deepEqual(rejected,{ reason:'basket_not_confirmed' });
+  assert.deepEqual(await quoteBeforeDeadline(quote,order(3),'30-001',Date.now()-1),{reason:'quote_timeout'},'a failed quote must not be reused as confirmed delivery');
+  first.quote.expiresAt = new Date(Date.now()-1).toISOString();
+  assert.deepEqual(await quoteBeforeDeadline(quote,order(),'00-001',Date.now()-1),{reason:'quote_timeout'},'an expired native quote cannot be reused');
   const unsupported = await quote({ ...order(), store:'Castorama' }, '00-001'); assert.deepEqual(unsupported,{ reason:'retailer_access_required' });
+});
+
+test('deadline never starts an uncached quoter after expiry', async () => {
+  let calls=0;
+  const quoter=async () => { calls++; return {reason:'quote_unavailable'}; };
+  assert.deepEqual(await quoteBeforeDeadline(quoter,order(),'00-001',Date.now()-1),{reason:'quote_timeout'});
+  assert.equal(calls,0);
+  assert.deepEqual(await quoteBeforeDeadline(quoter,order(),'00-001',Date.now()+1000),{reason:'quote_unavailable'});
+  assert.equal(calls,1);
 });
 
 test('Lobo combines Dulux paint, Blue Dolphin tape, Atlas primer and protective film in one prepaid home courier basket', async () => {
