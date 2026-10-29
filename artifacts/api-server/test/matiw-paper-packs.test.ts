@@ -7,6 +7,7 @@ import { createRemontService } from '../src/shared-backend';
 
 test('Matiw sells one 50-sheet pack per native piece, never one sheet', () => {
   for (const [id, code, ean, grit, productId] of [
+    ['matiw-klingspor-pl28c-p40-50', '000564', '5907560018009', 'P40', 25766],
     ['matiw-klingspor-pl28c-p80-50', '000615', '5907560017637', 'P80', 25767],
     ['matiw-klingspor-pl28c-p100-50', '000618', '5907560023546', 'P100', 25768],
     ['matiw-klingspor-pl28c-p120-50', '000620', '5907560017644', 'P120', 25769],
@@ -22,6 +23,11 @@ test('Matiw sells one 50-sheet pack per native piece, never one sheet', () => {
     assert.throws(() => confirmShoperPurchaseUnit(item, { ...source, packageSize: 1 }), /product_package_not_confirmed/);
     assert.throws(() => confirmShoperPurchaseUnit({ ...item, description: `Arkusz PL28C ${grit} 1szt` }, source), /product_package_not_confirmed/);
   }
+});
+
+test('P60 with conflicting retailer barcodes is held for identity review', () => {
+  const p60 = RETAIL_SOURCES.filter(source => source.category === 'hand-abrasive-60');
+  assert.deepEqual(p60, []);
 });
 
 test('whole basket chooses Sewera sheets for one each and Matiw cartons for 50 each, with one delivery per store', async () => {
@@ -56,8 +62,9 @@ test('whole basket chooses Sewera sheets for one each and Matiw cartons for 50 e
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });
 
-test('all seven paper grades share one delivery and switch stores at carton quantities', async () => {
+test('all eight matched paper grades share one delivery and switch stores at carton quantities', async () => {
   const grades = [
+    ['40', 203, 5250],
     ['80', 194, 4200], ['100', 167, 3600],
     ['120', 167, 3600], ['150', 167, 3600], ['180', 154, 3600],
     ['220', 167, 3600], ['240', 149, 3824],
@@ -95,7 +102,7 @@ test('all seven paper grades share one delivery and switch stores at carton quan
   await new Promise<void>(resolve => server.once('listening', resolve));
   try {
     const port = (server.address() as { port: number }).port;
-    for (const [quantity, store, materials, delivery] of [[1, 'Sewera', 1165, 1990], [50, 'Matiw', 26024, 1900]] as const) {
+    for (const [quantity, store, materials, delivery] of [[1, 'Sewera', 1368, 1990], [50, 'Matiw', 31274, 1900]] as const) {
       const rows = sources.filter(source => source.store === 'Sewera').map(source => ({
         material: { id: `paper-${source.ean}`, name: source.name, ean: source.ean,
           category: source.category, unit: 'szt' }, quantity,
@@ -114,7 +121,7 @@ test('all seven paper grades share one delivery and switch stores at carton quan
       assert.equal(comparison.best.totalGrosze, materials + delivery);
       assert.equal(comparison.best.stores.length, 1);
       assert.equal(comparison.best.stores[0].store, store);
-      assert.equal(comparison.best.stores[0].lines.length, 7);
+      assert.equal(comparison.best.stores[0].lines.length, 8);
     }
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });
