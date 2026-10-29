@@ -1,0 +1,548 @@
+{
+  "products": [
+    {
+      "id": 4808,
+      "sku": "BS00215",
+      "name": "ATLAS Cerplast podkładowa masa tynkarska 15kg (baza biała)",
+      "permalink": "https://budshop24.pl/produkt/cerplast-podkladowa-masa-tynkarska-15kg-baza-biala-atlas/",
+      "type": "simple",
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "stock_availability": {
+        "text": "1 w magazynie",
+        "class": "in-stock"
+      },
+      "low_stock_remaining": 1,
+      "prices": {
+        "price": "13900",
+        "regular_price": "13900",
+        "sale_price": "13900",
+        "price_range": null,
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "",
+        "currency_suffix": "zł"
+      },
+      "images": [
+        {
+          "src": "https://budshop24.pl/wp-content/uploads/2025/08/da2d66e8959c2ed6b638d0231c3e78cb.jpg"
+        },
+        {
+          "src": "https://budshop24.pl/wp-content/uploads/2025/08/da2d66e8959c2ed6b638d0231c3e78cb.jpg"
+        }
+      ]
+    },
+    {
+      "id": 7381,
+      "sku": "BS00293",
+      "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+      "permalink": "https://budshop24.pl/produkt/atlas-woder-duo-16kg-hydroizolacja-dwuskladnikowa/",
+      "type": "simple",
+      "has_options": false,
+      "is_purchasable": true,
+      "is_in_stock": true,
+      "is_on_backorder": false,
+      "stock_availability": {
+        "text": "3 w magazynie",
+        "class": "in-stock"
+      },
+      "low_stock_remaining": null,
+      "prices": {
+        "price": "24900",
+        "regular_price": "24900",
+        "sale_price": "24900",
+        "price_range": null,
+        "currency_code": "PLN",
+        "currency_symbol": "zł",
+        "currency_minor_unit": 2,
+        "currency_decimal_separator": ".",
+        "currency_thousand_separator": ",",
+        "currency_prefix": "",
+        "currency_suffix": "zł"
+      },
+      "images": [
+        {
+          "src": "https://budshop24.pl/wp-content/uploads/2025/08/2044418.jpg"
+        }
+      ]
+    }
+  ],
+  "one": null,
+  "two": {
+    "items": [
+      {
+        "id": 7381,
+        "sku": "BS00293",
+        "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 3,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "show_backorder_badge": false,
+        "prices": {
+          "price": "24900",
+          "regular_price": "24900",
+          "sale_price": "24900",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "249000000",
+            "regular_price": "249000000",
+            "sale_price": "249000000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "24900",
+          "line_subtotal_tax": "0",
+          "line_total": "24900",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        }
+      }
+    ],
+    "items_count": 1,
+    "totals": {
+      "total_items": "24900",
+      "total_items_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_shipping": "2499",
+      "total_shipping_tax": "0",
+      "total_price": "27399",
+      "total_tax": "0",
+      "tax_lines": [],
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "currency_minor_unit": 2,
+      "currency_decimal_separator": ".",
+      "currency_thousand_separator": ",",
+      "currency_prefix": "",
+      "currency_suffix": "zł"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "PL",
+      "phone": ""
+    },
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "name": "Przesyłka",
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "",
+          "country": "PL"
+        },
+        "items": [
+          {
+            "key": "64de166633d61c8326232568b42beef1",
+            "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1
+          }
+        ],
+        "shipping_rates": [
+          {
+            "rate_id": "wsds_simple_dimensional:3:large_parcel_dhl",
+            "name": "DHL – Duża Paczka",
+            "description": "",
+            "delivery_time": "",
+            "price": "2499",
+            "taxes": "0",
+            "instance_id": 3,
+            "method_id": "wsds_simple_dimensional",
+            "meta_data": [],
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": ",",
+            "currency_prefix": "",
+            "currency_suffix": "zł"
+          },
+          {
+            "rate_id": "wsds_simple_dimensional:3:large_parcel_dpd",
+            "name": "DPD – Duża Paczka",
+            "description": "",
+            "delivery_time": "",
+            "price": "2499",
+            "taxes": "0",
+            "instance_id": 3,
+            "method_id": "wsds_simple_dimensional",
+            "meta_data": [],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": ",",
+            "currency_prefix": "",
+            "currency_suffix": "zł"
+          }
+        ]
+      }
+    ],
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "has_calculated_shipping": true,
+    "needs_shipping": true,
+    "fees": [],
+    "coupons": [],
+    "errors": []
+  },
+  "located": {
+    "items": [
+      {
+        "id": 7381,
+        "sku": "BS00293",
+        "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 3,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "show_backorder_badge": false,
+        "prices": {
+          "price": "24900",
+          "regular_price": "24900",
+          "sale_price": "24900",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "249000000",
+            "regular_price": "249000000",
+            "sale_price": "249000000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "24900",
+          "line_subtotal_tax": "0",
+          "line_total": "24900",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        }
+      }
+    ],
+    "items_count": 1,
+    "totals": {
+      "total_items": "24900",
+      "total_items_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_shipping": "2499",
+      "total_shipping_tax": "0",
+      "total_price": "27399",
+      "total_tax": "0",
+      "tax_lines": [],
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "currency_minor_unit": 2,
+      "currency_decimal_separator": ".",
+      "currency_thousand_separator": ",",
+      "currency_prefix": "",
+      "currency_suffix": "zł"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "00-001",
+      "country": "PL",
+      "phone": ""
+    },
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "name": "Przesyłka",
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL"
+        },
+        "items": [
+          {
+            "key": "64de166633d61c8326232568b42beef1",
+            "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1
+          }
+        ],
+        "shipping_rates": [
+          {
+            "rate_id": "wsds_simple_dimensional:3:large_parcel_dhl",
+            "name": "DHL – Duża Paczka",
+            "description": "",
+            "delivery_time": "",
+            "price": "2499",
+            "taxes": "0",
+            "instance_id": 3,
+            "method_id": "wsds_simple_dimensional",
+            "meta_data": [],
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": ",",
+            "currency_prefix": "",
+            "currency_suffix": "zł"
+          },
+          {
+            "rate_id": "wsds_simple_dimensional:3:large_parcel_dpd",
+            "name": "DPD – Duża Paczka",
+            "description": "",
+            "delivery_time": "",
+            "price": "2499",
+            "taxes": "0",
+            "instance_id": 3,
+            "method_id": "wsds_simple_dimensional",
+            "meta_data": [],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": ",",
+            "currency_prefix": "",
+            "currency_suffix": "zł"
+          }
+        ]
+      }
+    ],
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "has_calculated_shipping": true,
+    "needs_shipping": true,
+    "fees": [],
+    "coupons": [],
+    "errors": []
+  },
+  "selected": {
+    "items": [
+      {
+        "id": 7381,
+        "sku": "BS00293",
+        "name": "ATLAS WODER DUO 16kg &#8211; hydroizolacja dwuskładnikowa elastyczna",
+        "quantity": 1,
+        "quantity_limits": {
+          "minimum": 1,
+          "maximum": 3,
+          "multiple_of": 1,
+          "editable": true
+        },
+        "show_backorder_badge": false,
+        "prices": {
+          "price": "24900",
+          "regular_price": "24900",
+          "sale_price": "24900",
+          "price_range": null,
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł",
+          "raw_prices": {
+            "precision": 6,
+            "price": "249000000",
+            "regular_price": "249000000",
+            "sale_price": "249000000"
+          }
+        },
+        "totals": {
+          "line_subtotal": "24900",
+          "line_subtotal_tax": "0",
+          "line_total": "24900",
+          "line_total_tax": "0",
+          "currency_code": "PLN",
+          "currency_symbol": "zł",
+          "currency_minor_unit": 2,
+          "currency_decimal_separator": ".",
+          "currency_thousand_separator": ",",
+          "currency_prefix": "",
+          "currency_suffix": "zł"
+        }
+      }
+    ],
+    "items_count": 1,
+    "totals": {
+      "total_items": "24900",
+      "total_items_tax": "0",
+      "total_fees": "0",
+      "total_fees_tax": "0",
+      "total_discount": "0",
+      "total_discount_tax": "0",
+      "total_shipping": "2499",
+      "total_shipping_tax": "0",
+      "total_price": "27399",
+      "total_tax": "0",
+      "tax_lines": [],
+      "currency_code": "PLN",
+      "currency_symbol": "zł",
+      "currency_minor_unit": 2,
+      "currency_decimal_separator": ".",
+      "currency_thousand_separator": ",",
+      "currency_prefix": "",
+      "currency_suffix": "zł"
+    },
+    "shipping_address": {
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "00-001",
+      "country": "PL",
+      "phone": ""
+    },
+    "shipping_rates": [
+      {
+        "package_id": 0,
+        "name": "Przesyłka",
+        "destination": {
+          "address_1": "",
+          "address_2": "",
+          "city": "",
+          "state": "",
+          "postcode": "00-001",
+          "country": "PL"
+        },
+        "items": [
+          {
+            "key": "64de166633d61c8326232568b42beef1",
+            "name": "ATLAS WODER DUO 16kg - hydroizolacja dwuskładnikowa elastyczna",
+            "quantity": 1
+          }
+        ],
+        "shipping_rates": [
+          {
+            "rate_id": "wsds_simple_dimensional:3:large_parcel_dhl",
+            "name": "DHL – Duża Paczka",
+            "description": "",
+            "delivery_time": "",
+            "price": "2499",
+            "taxes": "0",
+            "instance_id": 3,
+            "method_id": "wsds_simple_dimensional",
+            "meta_data": [],
+            "selected": true,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": ",",
+            "currency_prefix": "",
+            "currency_suffix": "zł"
+          },
+          {
+            "rate_id": "wsds_simple_dimensional:3:large_parcel_dpd",
+            "name": "DPD – Duża Paczka",
+            "description": "",
+            "delivery_time": "",
+            "price": "2499",
+            "taxes": "0",
+            "instance_id": 3,
+            "method_id": "wsds_simple_dimensional",
+            "meta_data": [],
+            "selected": false,
+            "currency_code": "PLN",
+            "currency_symbol": "zł",
+            "currency_minor_unit": 2,
+            "currency_decimal_separator": ".",
+            "currency_thousand_separator": ",",
+            "currency_prefix": "",
+            "currency_suffix": "zł"
+          }
+        ]
+      }
+    ],
+    "payment_methods": [
+      "p24-online-payments-303",
+      "p24-online-payments-154",
+      "p24-online-payments-298",
+      "woocommerce_payments",
+      "cod",
+      "p24-blik",
+      "p24-online-payments"
+    ],
+    "has_calculated_shipping": true,
+    "needs_shipping": true,
+    "fees": [],
+    "coupons": [],
+    "errors": []
+  },
+  "checkedAt": "2026-10-29T13:39:19.761Z"
+}

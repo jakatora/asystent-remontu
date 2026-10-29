@@ -108,11 +108,12 @@ export class AnonymousShop {
    * Reviewed cart reads/additions, IRBUD/Pati/Budshop country+postcode and courier selection
    * only. Contact/address lines, checkout and order routes remain forbidden. */
   async cartJson(path: string, body?: object): Promise<any> {
-    const courierId=this.origin==='https://irbudsklep.pl'?'flexible_shipping_single:3':this.origin==='https://patiartstudio.pl'?'flexible_shipping_single:7':this.origin==='https://budshop24.pl'?'wsds_simple_dimensional:3:medium_parcel_dhl':null;
-    if (this.origin==='https://budshop24.pl'&&path==='/wp-json/wc/store/v1/cart/add-item'&&(!body||Object.keys(body).sort().join(',')!=='id,quantity'||(body as any).id!==4808||!Number.isSafeInteger((body as any).quantity)||(body as any).quantity<1||(body as any).quantity>MAX_RETAIL_PACKAGES))throw Error('invalid_cart_route');
-    const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&courierId&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&(body as any).rate_id===courierId;
+    const courierId=this.origin==='https://irbudsklep.pl'?'flexible_shipping_single:3':this.origin==='https://patiartstudio.pl'?'flexible_shipping_single:7':null;
+    const budshopCouriers=['wsds_simple_dimensional:3:medium_parcel_dhl','wsds_simple_dimensional:3:large_parcel_dhl','wsds_simple_dimensional:3:multi_medium_parcel_large_parcel'];
+    if (this.origin==='https://budshop24.pl'&&path==='/wp-json/wc/store/v1/cart/add-item'&&(!body||Object.keys(body).sort().join(',')!=='id,quantity'||![4808,7381].includes((body as any).id)||!Number.isSafeInteger((body as any).quantity)||(body as any).quantity<1||(body as any).quantity>MAX_RETAIL_PACKAGES))throw Error('invalid_cart_route');
+    const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&((courierId&&((body as any).rate_id===courierId))||(this.origin==='https://budshop24.pl'&&budshopCouriers.includes((body as any).rate_id)));
     const address=(body as any)?.shipping_address;
-    const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&courierId&&body&&Object.keys(body).join(',')==='shipping_address'
+    const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&(courierId||this.origin==='https://budshop24.pl')&&body&&Object.keys(body).join(',')==='shipping_address'
       &&address&&typeof address==='object'&&Object.keys(address).sort().join(',')==='country,postcode'&&address.country==='PL'&&typeof address.postcode==='string'&&/^\d{2}-\d{3}$/.test(address.postcode);
     if (!['/wp-json/wc/store/v1/cart','/wp-json/wc/store/v1/cart/add-item'].includes(path)&&!shipping&&!destination) throw Error('invalid_cart_route');
     if (body && !this.storeCartToken) throw Error('cart_session_not_confirmed');
