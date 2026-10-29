@@ -120,7 +120,10 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
   const configured=packs.filter(({source})=>source.dispatchDepartment);
   if(configured.some(({source})=>!isReviewedSeweraDispatchSource(source)))throw Error('dispatch_department_not_confirmed');
   const department=configured[0]?.source.dispatchDepartment??{id:'1',name:'Katowice'};
-  if(configured.some(({source})=>source.dispatchDepartment!.id!==department.id||source.dispatchDepartment!.name!==department.name))throw Error('dispatch_department_not_confirmed');
+  if(configured.some(({source})=>source.dispatchDepartment!.id!==department.id||source.dispatchDepartment!.name!==department.name)){
+    if(configured.length===packs.length&&order.lines.length===2&&order.lines.every(line=>line.packages.length===1))return {reason:'requires_separate_dispatch'};
+    throw Error('dispatch_department_not_confirmed');
+  }
   const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
   if ((await client.text('/ajax/ax_execute.php?operation=setDepartment',{model:'department',department:department.id})).trim()!==department.id) throw Error('basket_not_confirmed');
   const expected: {url:string;pid:string;count:number;price:number;retailUnit?:'SZT'|'OPA'}[]=[];

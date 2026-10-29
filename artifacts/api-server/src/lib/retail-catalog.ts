@@ -81,6 +81,7 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     category: 'skim-coat', brand: 'Atlas', packageSize: 18, unit: 'kg', store: 'Sewera', format: 'sewera',
     // source: https://sklep.sewera.pl/atlas-gta-gotowa-gladz-polimerowa-18kg-p6321
     url: 'https://sklep.sewera.pl/atlas-gta-gotowa-gladz-polimerowa-18kg-p6321',
+    dispatchDepartment: { id: '1', name: 'Katowice' },
   },
   // source: https://lobo.pl/atlas-gta-super-biala-gladz-polimerowa-18kg
   {id:'lobo-atlas-gta-18kg',ean:'5905400542509',name:'ATLAS GTA Super Biała Gładź Polimerowa 18kg',category:'skim-coat',brand:'Atlas',packageSize:18,unit:'kg',store:'Lobo',format:'shoper-api',productId:42682,apiProductCode:'n.GG-R2U-18',apiPurchaseUnit:'szt.',variant:['gta','18kg'],url:'https://lobo.pl/atlas-gta-super-biala-gladz-polimerowa-18kg',imageUrl:'https://lobo.pl/environment/cache/images/productGfx_68392_500_500/ATLAS-GTA-Super-Biala-Gladz-Polimerowa-18kg.webp'},

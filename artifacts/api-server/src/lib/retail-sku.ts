@@ -30,6 +30,12 @@ export function isReviewedSkuSource(source: RetailSource): boolean {
  * merchant card or branch must be reviewed before checkout uses it. */
 export function isReviewedSeweraDispatchSource(source: RetailSource): boolean {
   if (isReviewedSkuSource(source)) return true;
+  if (source.id === 'sewera-atlas-gta-18kg') return source.ean === '5905400542509'
+    && source.skuIdentity === undefined && source.store === 'Sewera' && source.format === 'sewera'
+    && source.url === 'https://sklep.sewera.pl/atlas-gta-gotowa-gladz-polimerowa-18kg-p6321'
+    && source.name === 'Atlas GTA gotowa gładź polimerowa 18kg'
+    && source.brand === 'Atlas' && source.packageSize === 18 && source.unit === 'kg'
+    && source.dispatchDepartment?.id === '1' && source.dispatchDepartment.name === 'Katowice';
   return source.id === 'sewera-dulux-9l' && source.ean === '5904078198759'
     && source.skuIdentity === undefined && source.store === 'Sewera' && source.format === 'sewera'
     && source.url === 'https://sklep.sewera.pl/farba-wewnetrzna-biala-easycare-nieskazitelna-biel-9l-mat-dulux-p21385'

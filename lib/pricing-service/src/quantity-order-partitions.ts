@@ -26,6 +26,27 @@ export function preservesOrderPackages(whole:DeliveredStoreBasket,parts:readonly
  return add(whole,expected)&&parts.every(p=>!p.quote.orders&&p.quote.materialsRoundingGrosze===undefined&&add(p.order,actual))&&expected.size===actual.size&&[...expected].every(([key,count])=>actual.get(key)===count)&&parts.reduce((n,p)=>n+p.order.materialsGrosze,0)===whole.materialsGrosze;
 }
 
+/** A merchant may dispatch verified lines from different branches. Each cart
+ * must independently confirm all of its packs and its own courier fee. There
+ * is no combined-cart price to compare against in this case. */
+export async function combineRequiredSeparateOrders(whole:DeliveredStoreBasket,parts:QuotedOrder[],postcode:string):Promise<DeliveryQuote|null>{
+ if(parts.length!==2||!parts.every(p=>currentDeliveryQuote(p.quote,postcode))||!preservesOrderPackages(whole,parts))return null;
+ const [first,second]=parts.map(p=>p.quote);
+ if(!first.dispatchFrom||!second.dispatchFrom||first.dispatchFrom===second.dispatchFrom||first.sourceUrl!==second.sourceUrl)return null;
+ const costGrosze=first.costGrosze+second.costGrosze;
+ if(!Number.isSafeInteger(costGrosze))return null;
+ const orders=parts.map(p=>({materialsGrosze:p.order.materialsGrosze,lines:p.order.lines,quote:p.quote}));
+ const digest=await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({orders,postcode})));
+ const postal=parts.some(p=>p.quote.destinationScope==='postal_code');
+ return{...first,costGrosze,orders,ordersReason:'separate_dispatch',singleOrderCostGrosze:undefined,
+  carrier:[...new Set(parts.map(p=>p.quote.carrier))].join(' + '),payment:[...new Set(parts.map(p=>p.quote.payment))].join(' + '),
+  checkedAt:new Date(Math.min(...parts.map(p=>Date.parse(p.quote.checkedAt)))).toISOString(),
+  expiresAt:new Date(Math.min(...parts.map(p=>Date.parse(p.quote.expiresAt)))).toISOString(),
+  evidenceSha256:Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join(''),
+  destinationScope:postal?'postal_code':'PL',basis:postal?'retailer_basket_postcode':parts.every(p=>p.quote.basis==='retailer_tariff_national')?'retailer_tariff_national':'retailer_basket_national',
+  dispatchFrom:undefined,postalCode:postal?postcode:undefined};
+}
+
 /** Bounded actual-cart search for one product sold in one native pack size.
  * Fees are never divided or inferred from a sample. Identical basket shapes
  * may reuse the existing fresh quote cache, while the complete stock demand

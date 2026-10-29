@@ -50,6 +50,7 @@ export interface DeliveryQuote {
    * A product may appear in more than one order. Per-offer pack counts sum to
    * the original basket, with unchanged prices, pack sizes and purchase rules. */
   orders?: { materialsGrosze: number; lines: DeliveredStoreBasket['lines']; quote: Omit<DeliveryQuote, 'orders' | 'singleOrderCostGrosze'> }[];
+  ordersReason?: 'separate_dispatch';
   singleOrderCostGrosze?: number;
   costGrosze: number;
   carrier: string;

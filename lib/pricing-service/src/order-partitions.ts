@@ -1,5 +1,5 @@
 import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from './delivery';
-import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes,type QuotedOrder} from './quantity-order-partitions';
+import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes,combineRequiredSeparateOrders,type QuotedOrder} from './quantity-order-partitions';
 
 /** Compare real separate orders, never divide a fee or invent a tariff.
  * The complete order must pass native stock/price checks first. Single-product
@@ -8,6 +8,16 @@ import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes
 export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): BasketQuoter {
   return async (order, postcode): Promise<DeliveryQuoteResult> => {
     const base = await atomic(order, postcode), count = order.lines.length;
+    if ('reason' in base && base.reason==='requires_separate_dispatch' && order.store==='Sewera' && count===2 && order.lines.every(line=>line.packages.length===1)) {
+      const parts:QuotedOrder[]=[];
+      for(const line of order.lines){
+        const part:DeliveredStoreBasket={...order,lines:[line],materialsGrosze:line.packages[0].lineCostGrosze,quote:undefined,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown'};
+        try{const outcome=await atomic(part,postcode);if(!('quote'in outcome)||!valid(outcome.quote,postcode))return {reason:'requires_separate_dispatch'};parts.push({order:part,quote:outcome.quote});}
+        catch{return {reason:'requires_separate_dispatch'};}
+      }
+      const combined=await combineRequiredSeparateOrders(order,parts,postcode);
+      return combined?{quote:combined}:{reason:'requires_separate_dispatch'};
+    }
     if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !base.quote.costGrosze || !count) return base;
     // Per-m² line rounding is not additive across separate carts. Retain the
     // verified whole-cart total until partitions support those merchandise sums.

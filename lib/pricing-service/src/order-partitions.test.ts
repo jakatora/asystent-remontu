@@ -24,6 +24,26 @@ test('a single shipment remains preferable to more expensive separate orders; in
 test('a stock or unavailable full-cart response is preserved and cannot be bypassed by splitting quantities', async () => {
   for(const reason of ['insufficient_stock','product_unavailable','price_changed','quote_unavailable']){let calls=0;const result=await withOrderPartitions(async()=>{calls++;return {reason};},()=>{})(basket(),'00-001');assert.deepEqual(result,{reason});assert.equal(calls,1);}
 });
+
+test('Sewera can price two complete orders from different verified dispatch branches',async()=>{
+  const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:34579,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:[
+    {product:{id:'paint',name:'Farba',imageUrl:null},unit:'l',packages:[{offerId:'sewera-dulux-9l',store:'Sewera',url:'https://sklep.sewera.pl/paint',packageSize:9,count:1,unitPriceGrosze:27989,lineCostGrosze:27989}]},
+    {product:{id:'skim',name:'Gładź',imageUrl:null},unit:'kg',packages:[{offerId:'sewera-atlas-gta-18kg',store:'Sewera',url:'https://sklep.sewera.pl/skim',packageSize:18,count:1,unitPriceGrosze:6590,lineCostGrosze:6590}]},
+  ]};
+  const calls:string[]=[];
+  const atomic:BasketQuoter=async basket=>{const id=basket.lines.map(line=>line.product.id).join(',');calls.push(id);
+    if(id==='paint,skim')return{reason:'requires_separate_dispatch'};
+    if(id==='paint')return{quote:{...quote(3090),sourceUrl:'https://sklep.sewera.pl/zamowienie',dispatchFrom:'Tarnowskie Góry',destinationScope:'postal_code',postalCode:'00-001',basis:'retailer_basket_postcode'}};
+    return{quote:{...quote(2390),sourceUrl:'https://sklep.sewera.pl/zamowienie',dispatchFrom:'Katowice',destinationScope:'postal_code',postalCode:'00-001',basis:'retailer_basket_postcode'}};
+  };
+  const result=await withOrderPartitions(atomic,()=>{}) (order,'00-001');assert.ok('quote'in result);
+  assert.equal(result.quote.costGrosze,5480);assert.equal(result.quote.ordersReason,'separate_dispatch');assert.equal(result.quote.orders?.length,2);
+  assert.equal(result.quote.orders?.reduce((sum,part)=>sum+part.materialsGrosze+part.quote.costGrosze,0),40059);
+  assert.deepEqual(result.quote.orders?.map(part=>part.quote.dispatchFrom),['Tarnowskie Góry','Katowice']);
+  assert.deepEqual(calls,['paint,skim','paint','skim']);
+  const invalid=await withOrderPartitions(async basket=>basket.lines.length===2?{reason:'requires_separate_dispatch'}:basket.lines[0].product.id==='paint'?atomic(basket,'00-001'):{reason:'product_unavailable'},()=>{})(order,'00-001');
+  assert.deepEqual(invalid,{reason:'requires_separate_dispatch'});
+});
 test('expired, future-dated, invalid-price or unproven partial quotes never reduce a valid complete delivery fee', async () => {
   const mutations: ((q: DeliveryQuote) => DeliveryQuote)[] = [q=>({...q,expiresAt:new Date(Date.now()-1).toISOString()}),q=>({...q,checkedAt:new Date(Date.now()+60000).toISOString()}),q=>({...q,costGrosze:NaN}),q=>({...q,evidenceSha256:'unconfirmed'})];
   for(const mutate of mutations){const api=fixture();let limited=false;const result=await withOrderPartitions(async(order,postcode)=>{const outcome=await api.atomic(order,postcode);return 'quote'in outcome&&order.lines.length===2?{quote:mutate(outcome.quote)}:outcome;},()=>{limited=true;})(basket(),'00-001');assert.ok('quote'in result);assert.equal(result.quote.costGrosze,60000);assert.equal(result.quote.orders,undefined);assert.equal(limited,true);}

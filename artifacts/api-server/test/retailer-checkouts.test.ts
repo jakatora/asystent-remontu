@@ -21,6 +21,16 @@ test('branch-dependent stock cards never share the cache across dispatch departm
   assert.equal(calls,2);
 });
 
+test('Sewera identifies two verified dispatch branches before touching a cart',async()=>{
+  const sources=RETAIL_SOURCES.filter(source=>['sewera-dulux-9l','sewera-atlas-gta-18kg'].includes(source.id));
+  const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:34579,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',
+    lines:sources.map((source,i)=>({product:{id:source.id,name:source.name,imageUrl:null},unit:source.unit,
+      packages:[{offerId:source.id,store:'Sewera',url:source.url,packageSize:source.packageSize,count:1,unitPriceGrosze:i===0?27989:6590,lineCostGrosze:i===0?27989:6590}]}))};
+  let calls=0;
+  const result=await quoteSewera(order,'00-001',async()=>{calls++;throw Error('unexpected network call');});
+  assert.deepEqual(result,{reason:'requires_separate_dispatch'});assert.equal(calls,0);
+});
+
 test('failed Sewera prefetch waits for active reads and stops starting new ones before releasing its quote',async()=>{
   const sources=RETAIL_SOURCES.filter(source=>source.store==='Sewera'&&!source.dispatchDepartment).slice(0,4);
   assert.equal(sources.length,4);

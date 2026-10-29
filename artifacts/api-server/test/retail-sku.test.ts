@@ -25,12 +25,15 @@ const now=new Date('2026-10-27T01:34:02Z');
 
 test('Sewera dispatch can use only the verified paint branch and product identity',()=>{
   const paint=RETAIL_SOURCES.find(row=>row.id==='sewera-dulux-9l')!;
+  const skim=RETAIL_SOURCES.find(row=>row.id==='sewera-atlas-gta-18kg')!;
   assert.equal(isReviewedSeweraDispatchSource(paint),true);
+  assert.equal(isReviewedSeweraDispatchSource(skim),true);
   for(const changed of [
     {...paint,ean:'5904078198758'},
     {...paint,dispatchDepartment:{id:'1',name:'Katowice'}},
     {...paint,url:'https://sklep.sewera.pl/other'},
   ])assert.equal(isReviewedSeweraDispatchSource(changed),false);
+  assert.equal(isReviewedSeweraDispatchSource({...skim,dispatchDepartment:{id:'4',name:'Tarnowskie Góry'}}),false);
 });
 
 test('a reviewed merchant SKU has a distinct identity, real gross price and no invented EAN',()=>{
