@@ -21,6 +21,7 @@ Dla kodu `00-001` i jednej sztuki każdej gradacji anonimowy koszyk Sewery zwró
 - Nowy test HTTP rozróżnia oba EAN i sprawdza wspólną dostawę oraz sumę 2311 gr. Mobile 369/369, pricing 149/149, backend wspólny 1054/1054, mobile i API typecheck, eksport Expo Web, audyt zdjęć 192/192 i kontrola starych ID przechodzą.
 - Szerszy historyczny zestaw testów API w izolowanej kopii ma błędy ładowania importów TypeScript pod Node 24 oraz jeden niezwiązany test współbieżnego odczytu Sewery. Nowy test HTTP, używany kod i paczka wdrożeniowa przechodzą swoje kontrole; ten starszy zestaw wymaga osobnej naprawy środowiska/testu.
 - Paczka backendu zachowuje 146 z 148 plików migawki bez zmian; różnią się tylko seed obserwacji i wygenerowany moduł cenowy. SHA nowego modułu: `e7e17e70b84ec131c67ade9e6b66e27fff6ed2e719f03f2875e039554dc3b3fa`.
+- Backend [PR 113](https://github.com/jakatora/przetargai/pull/113) scalono jako `4e11ccb525ef62505a9a57d13874f059a304a04c`. Railway deployment `abb2c29a-6bcd-4310-a47c-4028a2e830b6` zakończył się `SUCCESS`. Produkcyjne API potwierdziło 262 źródła, oba nowe aktywne oraz wycenę `compared/missing=0/2311 gr` dla wybranej Sewery i globalnego rankingu. Migawka po wdrożeniu jest zgodna w 148/148 plikach z paczką przygotowaną do publikacji.
 
 ## Dalsza praca
 
