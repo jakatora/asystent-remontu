@@ -3,11 +3,13 @@ import { test } from 'node:test';
 import express from 'express';
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
 import { confirmShoperPurchaseUnit } from '../src/lib/retail-pages';
+import { retailComparableEan, retailProductId } from '../src/lib/retail-sku';
 import { createRemontService } from '../src/shared-backend';
 
 test('Matiw sells one 50-sheet pack per native piece, never one sheet', () => {
   for (const [id, code, ean, grit, productId] of [
     ['matiw-klingspor-pl28c-p40-50', '000564', '5907560018009', 'P40', 25766],
+    ['matiw-klingspor-pl28c-p60-50', '000611', '5907560018016', 'P60', 25777],
     ['matiw-klingspor-pl28c-p80-50', '000615', '5907560017637', 'P80', 25767],
     ['matiw-klingspor-pl28c-p100-50', '000618', '5907560023546', 'P100', 25768],
     ['matiw-klingspor-pl28c-p120-50', '000620', '5907560017644', 'P120', 25769],
@@ -25,9 +27,16 @@ test('Matiw sells one 50-sheet pack per native piece, never one sheet', () => {
   }
 });
 
-test('P60 with conflicting retailer barcodes is held for identity review', () => {
+test('P60 sheet and pack retain their own GTINs but share verified manufacturer article', () => {
   const p60 = RETAIL_SOURCES.filter(source => source.category === 'hand-abrasive-60');
-  assert.deepEqual(p60, []);
+  assert.deepEqual(p60.map(source => [source.store, source.ean, source.packageSize]), [
+    ['Sewera', '4014855194896', 1],
+    ['Matiw', '5907560018016', 50],
+  ]);
+  assert.equal(retailProductId(p60[0]), retailProductId(p60[1]));
+  assert.equal(retailComparableEan(p60[1]), p60[0].ean);
+  assert.throws(() => retailProductId({ ...p60[1], packageSize: 1 }), /product_equivalence_not_reviewed/);
+  assert.throws(() => retailProductId({ ...p60[1], ean: p60[0].ean }), /product_equivalence_not_reviewed/);
 });
 
 test('whole basket chooses Sewera sheets for one each and Matiw cartons for 50 each, with one delivery per store', async () => {
@@ -62,9 +71,10 @@ test('whole basket chooses Sewera sheets for one each and Matiw cartons for 50 e
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });
 
-test('all eight matched paper grades share one delivery and switch stores at carton quantities', async () => {
+test('all nine matched paper grades share one delivery and switch stores at carton quantities', async () => {
   const grades = [
     ['40', 203, 5250],
+    ['60', 209, 4424],
     ['80', 194, 4200], ['100', 167, 3600],
     ['120', 167, 3600], ['150', 167, 3600], ['180', 154, 3600],
     ['220', 167, 3600], ['240', 149, 3824],
@@ -102,7 +112,7 @@ test('all eight matched paper grades share one delivery and switch stores at car
   await new Promise<void>(resolve => server.once('listening', resolve));
   try {
     const port = (server.address() as { port: number }).port;
-    for (const [quantity, store, materials, delivery] of [[1, 'Sewera', 1368, 1990], [50, 'Matiw', 31274, 1900]] as const) {
+    for (const [quantity, store, materials, delivery] of [[1, 'Sewera', 1577, 1990], [50, 'Matiw', 35698, 1900]] as const) {
       const rows = sources.filter(source => source.store === 'Sewera').map(source => ({
         material: { id: `paper-${source.ean}`, name: source.name, ean: source.ean,
           category: source.category, unit: 'szt' }, quantity,
@@ -121,7 +131,7 @@ test('all eight matched paper grades share one delivery and switch stores at car
       assert.equal(comparison.best.totalGrosze, materials + delivery);
       assert.equal(comparison.best.stores.length, 1);
       assert.equal(comparison.best.stores[0].store, store);
-      assert.equal(comparison.best.stores[0].lines.length, 8);
+      assert.equal(comparison.best.stores[0].lines.length, 9);
     }
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });

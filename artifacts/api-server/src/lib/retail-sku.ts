@@ -52,13 +52,35 @@ export function isReviewedIrbudSource(source:RetailSource):boolean {
   &&source.url==='https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/'&&sku?.kind==='merchant-only'&&sku.catalogKey==='irbud-10911'&&sku.merchantProductId==='10911'&&sku.manufacturerSku===undefined&&sku.pageBarcode===undefined;
 }
 export function retailSkuCode(source:RetailSource):string|undefined{return isReviewedIrbudSource(source)?source.skuIdentity!.merchantProductId:source.skuIdentity?.manufacturerSku;}
+/** The sheet and sealed 50-pack of manufacturer article 269221 have distinct
+ * GTINs. This one mapping is supported by the manufacturer's article table
+ * and by a retailer table listing both GTINs for the same sheet.
+ * source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c/pdf
+ * source: https://mkplastimex.pl/arkusze-scierne-papierowe-/1971-papier-scierny-arkusz-230x280-mm-klingspor-pl-28-c-5907560027483.html */
+export function retailComparableEan(source: RetailSource): string {
+  if (source.id === 'sewera-klingspor-pl28c-p60-sheet') {
+    if (source.ean !== '4014855194896' || source.brand !== 'Klingspor' || source.category !== 'hand-abrasive-60'
+      || source.packageSize !== 1 || source.unit !== 'szt' || source.store !== 'Sewera'
+      || source.url !== 'https://sklep.sewera.pl/papier-scierny-gr-60-arkusz-230x280mm-p6905') throw Error('product_equivalence_not_reviewed');
+  }
+  if (source.id === 'matiw-klingspor-pl28c-p60-50') {
+    if (source.ean !== '5907560018016' || source.brand !== 'Klingspor' || source.category !== 'hand-abrasive-60'
+      || source.packageSize !== 50 || source.unit !== 'szt' || source.store !== 'Matiw'
+      || source.productId !== 25777 || source.apiProductCode !== '000611' || source.retailerSku !== '000611'
+      || source.packageDescription !== 'P60 50szt' || source.name !== 'Arkusz papier ścierny Klingspor 230x280mm PL28C  P60 50szt'
+      || source.url !== 'https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P60-50szt/25777') throw Error('product_equivalence_not_reviewed');
+    return '4014855194896';
+  }
+  return source.ean;
+}
 export function retailProductId(source: RetailSource): string {
   if (source.skuIdentity) {
     if (!isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
     return `remont-sku-${source.skuIdentity.catalogKey}`;
   }
-  if (!source.ean) throw Error('product_code_not_confirmed');
-  return `remont-${source.ean}`;
+  const comparableEan = retailComparableEan(source);
+  if (!comparableEan) throw Error('product_code_not_confirmed');
+  return `remont-${comparableEan}`;
 }
 
 export function retailProductName(source: RetailSource): string {

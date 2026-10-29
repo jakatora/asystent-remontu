@@ -138,6 +138,9 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://sklep.sewera.pl/papier-scierny-gr-40-arkusz-230x280mm-p6904 (odczyt 2026-10-29)
   {"ids":["mat-hand-paper-klingspor-pl28c-p40"],"ean":"5907560018009","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-40-arkusz-230x280mm-p6904","imageUrl":"https://sklep.sewera.pl/photo/56983/papier-scierny-gr-40-arkusz-230x280mm.webp"},
 
+  // source: https://sklep.sewera.pl/papier-scierny-gr-60-arkusz-230x280mm-p6905 (odczyt 2026-10-29)
+  {"ids":["mat-hand-paper-klingspor-pl28c-p60"],"ean":"4014855194896","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-60-arkusz-230x280mm-p6905","imageUrl":"https://sklep.sewera.pl/photo/56985/papier-scierny-gr-60-arkusz-230x280mm.webp"},
+
   // source: https://sklep.sewera.pl/papier-scierny-gr-80-arkusz-230x280mm-p6906 (odczyt 2026-10-29)
   {"ids":["mat-hand-paper-klingspor-pl28c-p80"],"ean":"5907560017637","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-80-arkusz-230x280mm-p6906","imageUrl":"https://sklep.sewera.pl/photo/56987/papier-scierny-gr-80-arkusz-230x280mm.webp"},
 

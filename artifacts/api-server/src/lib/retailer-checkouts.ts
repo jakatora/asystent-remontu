@@ -124,7 +124,11 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
     if(configured.length===packs.length&&order.lines.length===2&&order.lines.every(line=>line.packages.length===1))return {reason:'requires_separate_dispatch'};
     throw Error('dispatch_department_not_confirmed');
   }
-  const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(20_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
+  // Each item needs an anonymous cart mutation, and the home-delivery methods
+  // are checked in sequence in the same session. Large baskets need a longer
+  // bounded window to finish those native checks before claiming a price.
+  const timeoutMs=Math.min(45_000,20_000+Math.max(0,packs.length-8)*10_000);
+  const client=new AnonymousShop('https://sklep.sewera.pl',fetchImpl,AbortSignal.timeout(timeoutMs),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
   if ((await client.text('/ajax/ax_execute.php?operation=setDepartment',{model:'department',department:department.id})).trim()!==department.id) throw Error('basket_not_confirmed');
   const expected: {url:string;pid:string;count:number;price:number;retailUnit?:'SZT'|'OPA'}[]=[];
   const prepared: {source:typeof packs[number]['source'];pack:typeof packs[number]['pack'];pid:string}[]=[];

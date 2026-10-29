@@ -9,7 +9,7 @@ import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
 import { projectRequestSchema } from './lib/pricing-schema';
 import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
-import { retailProductId, retailProductName } from './lib/retail-sku';
+import { retailComparableEan, retailProductId, retailProductName } from './lib/retail-sku';
 import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
 import {compareDeliveryWithAvailablePart} from '../../../lib/pricing-service/src/selected-store-delivery';
 import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
@@ -88,7 +88,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const productId = retailProductId(source), productName = retailProductName(source);
       if (!products.some(product => product.id === productId)) products.push({
         id: productId, name: productName, normalizedName: normalizeProductName(productName),
-        ean: source.ean || null, gtin: null, manufacturer: source.brand || null, brand: source.brand || null,
+        ean: retailComparableEan(source) || null, gtin: null, manufacturer: source.brand || null, brand: source.brand || null,
         category: source.category, subcategory: null, variant: null,
         packageSize: String(source.packageSize), packageUnit: source.unit, technicalParameters: null,
         imageUrl: observation.imageUrl, productUrl: source.url,
@@ -109,7 +109,11 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     }
     const aliases = Object.entries(RETAIL_NAME_ALIASES).map(([name, ean]) => [normalizeProductName(name), ean]);
     const deps: EstimateDeps = {
-      findProductByCode: async (_db, code) => products.find(product => product.ean === (code.ean ?? code.gtin)) ?? null,
+      findProductByCode: async (_db, code) => {
+        const requested = code.ean ?? code.gtin;
+        const source = RETAIL_SOURCES.find(item => item.ean === requested);
+        return products.find(product => product.ean === requested || source && product.id === retailProductId(source)) ?? null;
+      },
       findProductByNameAndCategory: async (_db, query) => {
         const alias = aliases.find(([name]) => name === query.normalizedName)?.[1];
         return products.find(product => product.category === query.category &&
@@ -256,7 +260,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       if (parsed.data.options?.refreshPrices) {
         const materials = parsed.data.jobs.flatMap(job => job.materials.map(line => line.material));
         const requestedEans = new Set(materials.map(material => material.ean ?? RETAIL_NAME_ALIASES[material.name]).filter((ean): ean is string => Boolean(ean)));
-        const sources = RETAIL_SOURCES.filter(source => requestedEans.has(source.ean) || materials.some(material =>
+        const requestedProductIds = new Set(RETAIL_SOURCES.filter(source => requestedEans.has(source.ean)).map(retailProductId));
+        const sources = RETAIL_SOURCES.filter(source => requestedProductIds.has(retailProductId(source)) || materials.some(material =>
           !material.ean && !RETAIL_NAME_ALIASES[material.name] && source.skuIdentity &&
           source.category === material.category && normalizeProductName(retailProductName(source)) === normalizeProductName(material.name)));
         priceRefresh = await refreshProjectSources(sources);
@@ -264,7 +269,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog(parsed.data.options?.delivery?.mode === 'pickup').deps);
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
-      const deadline = Date.now() + 20_000;
+      // Reserve enough time to start complete native quotes for a medium
+      // renovation basket. Per-retailer deadlines still bound each request.
+      const itemCount = parsed.data.jobs.reduce((count, job) => count + job.materials.length, 0);
+      const deadline = Date.now() + (itemCount >= 9 && itemCount <= 20 ? 35_000 : 20_000);
       const deliveryComparison = stageOnly ? undefined : await compareDeliveryWithAvailablePart(estimate.stages, parsed.data.options?.delivery ?? { mode: 'shipping' },
         (order, postalCode) => Date.now() < deadline || ['Castorama','OBI'].includes(order.store) ? quoteBasket(order, postalCode) : Promise.resolve({ reason: 'quote_timeout' }), STORE_DELIVERY_POLICIES, new Date(),
         knownUnavailableRetailers(),parsed.data.options?.store??undefined);

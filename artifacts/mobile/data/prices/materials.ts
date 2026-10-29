@@ -169,6 +169,11 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P40-50szt/25766 (odczyt 2026-10-29)
   {"id":"mat-hand-paper-klingspor-pl28c-p40","materialType":"hand-abrasive-40","productLabel":"Klingspor PL 28 C P40, arkusz 230 × 280 mm","brand":"Klingspor","packageSize":1,"packageUnit":"szt","pricePerPackage":2.03,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-40-arkusz-230x280mm-p6904","lastUpdated":"2026-10-29","currency":"PLN","notes":"Pojedynczy suchy arkusz PL 28 C P40, EAN 5907560018009. Matiw oferuje paczkę po 50 arkuszy tego samego EAN; koszyk porównuje liczbę pełnych opakowań i dostawę."},
 
+  // source: https://sklep.sewera.pl/papier-scierny-gr-60-arkusz-230x280mm-p6905 (odczyt 2026-10-29)
+  // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c/pdf
+  // source: https://mkplastimex.pl/arkusze-scierne-papierowe-/1971-papier-scierny-arkusz-230x280-mm-klingspor-pl-28-c-5907560027483.html
+  {"id":"mat-hand-paper-klingspor-pl28c-p60","materialType":"hand-abrasive-60","productLabel":"Klingspor PL 28 C P60, arkusz 230 × 280 mm","brand":"Klingspor","packageSize":1,"packageUnit":"szt","pricePerPackage":2.09,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-60-arkusz-230x280mm-p6905","lastUpdated":"2026-10-29","currency":"PLN","notes":"Pojedynczy suchy arkusz PL 28 C P60, EAN sztuki 4014855194896. Producent potwierdza artykuł 269221 także w paczce 50 sztuk; Matiw podaje dla paczki EAN 5907560018016. Koszyk porównuje pełne opakowania i dostawę."},
+
   // source: https://sklep.sewera.pl/papier-scierny-gr-80-arkusz-230x280mm-p6906 (odczyt 2026-10-29)
   {"id":"mat-hand-paper-klingspor-pl28c-p80","materialType":"hand-abrasive-80","productLabel":"Klingspor PL 28 C P80, arkusz 230 × 280 mm","brand":"Klingspor","packageSize":1,"packageUnit":"szt","pricePerPackage":1.94,"category":"standard","storeName":"Sewera","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-80-arkusz-230x280mm-p6906","lastUpdated":"2026-10-29","currency":"PLN","notes":"Pojedynczy suchy arkusz PL 28 C P80, EAN 5907560017637. Matiw oferuje paczkę po 50 arkuszy tego samego EAN; nie mylić ceny jednostkowej z ceną paczki ani z wodnym PS8A."},
 

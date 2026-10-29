@@ -340,6 +340,7 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P240-50szt/25773
   const paperPacks: Record<string, readonly [string, number, string, string]> = {
     'matiw-klingspor-pl28c-p40-50': ['5907560018009', 25766, '000564', 'P40'],
+    'matiw-klingspor-pl28c-p60-50': ['5907560018016', 25777, '000611', 'P60'],
     'matiw-klingspor-pl28c-p80-50': ['5907560017637', 25767, '000615', 'P80'],
     'matiw-klingspor-pl28c-p100-50': ['5907560023546', 25768, '000618', 'P100'],
     'matiw-klingspor-pl28c-p120-50': ['5907560017644', 25769, '000620', 'P120'],
