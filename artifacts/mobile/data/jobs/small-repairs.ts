@@ -1,4 +1,5 @@
 import {trapInputs,trapMaterials} from '@/features/calculator/trapReplacement';
+import {seatInputs,seatMaterials} from '@/features/calculator/toiletSeatReplacement';
 import {socketFrameInputs,socketFrameMaterials} from '@/features/calculator/socketFrames';
 import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
@@ -279,7 +280,7 @@ export const toiletSeatReplaceJob: RenovationJob = {
   id: 'toilet-seat-replace',
   categoryId: 'plumbing',
   name: 'Wymiana deski sedesowej',
-  description: 'Szybka wymiana deski sedesowej — bez hydraulika, kilka minut roboty.',
+  description: 'Dobierz deskę do swojej miski WC i porównaj cenę całego zakupu z dostawą.',
   difficulty: 'easy',
   riskLevel: 'low',
   estimatedDays: 1,
@@ -287,38 +288,20 @@ export const toiletSeatReplaceJob: RenovationJob = {
   warningRules: [
     {
       condition: 'always',
-      message: 'Przed zakupem zmierz rozstaw śrub mocujących na misie (standardowo 15–18 cm) i kształt misy (okrągła / podłużna).',
+      message: 'Sprawdź kod miski WC, kształt, wymiary i sposób mocowania według rysunku producenta. Zamiennik „do Carina” może być innym produktem niż oryginalna deska Cersanit.',
       level: 'info',
     },
   ],
-  measurementInputs: [
-    {
-      id: 'seatCount',
-      label: 'Liczba desek do wymiany',
-      unit: 'szt.',
-      placeholder: '1',
-      min: 1,
-      max: 10,
-    },
-  ],
-  materials: [
-    {
-      id: 'toilet-seat-mat',
-      name: 'Nowa deska sedesowa',
-      unit: 'szt.',
-      formulaKey: 'faucets',
-      pricePerUnit: 80,
-      notes: 'Zmierz rozstaw śrub (ok. 15–18 cm) i kształt misy. Standardowe deski pasują do większości mis.',
-    },
-  ],
+  measurementInputs: seatInputs,
+  materials: seatMaterials(),
   tools: [
     { id: 'screwdriver-seat', name: 'Wkrętaki lub klucz do nakrętek', icon: 'tool', required: true },
     { id: 'adjustable-wrench-seat', name: 'Klucz nastawny (do plastikowych nakrętek)', icon: 'tool', required: false },
   ],
   instructions: [
-    { step: 1, title: 'Zdejmij starą deskę', description: 'Unieś plastikowe osłony nad misą przy zawiasach — odsłonią się nakrętki. Odkręć wkrętakiem lub kluczem. Zdejmij deskę i śruby.', durationMin: 10 },
-    { step: 2, title: 'Zamontuj nową deskę', description: 'Wstaw śruby w otwory w misie od góry. Nałóż gumowe uszczelki, podkładki i dokręć nakrętki od spodu — ręcznie, nie za mocno.', durationMin: 10 },
-    { step: 3, title: 'Wyreguluj pozycję i sprawdź', description: 'Ustaw deskę centralnie, dokręć nakrętki. Otwórz i zamknij kilkakrotnie — powinna płynnie opadać (deski wolnoopadające) lub nie skrzypieć.', durationMin: 5 },
+    { step: 1, title: 'Sprawdź mocowania i zdejmij starą deskę', description: 'Zidentyfikuj mocowanie od góry lub od spodu, zgodnie z modelem miski i deski. Odkręć je odpowiednim narzędziem, zdejmij deskę i oczyść ceramikę.', durationMin: 10 },
+    { step: 2, title: 'Zamontuj nową deskę według instrukcji', description: 'Użyj kompletu elementów przewidzianych dla wybranej deski i miski WC. Zachowaj kolejność podkładek i sposób montażu z instrukcji produktu; nie dokręcaj na siłę.', durationMin: 10 },
+    { step: 3, title: 'Wyreguluj pozycję i sprawdź', description: 'Wyśrodkuj deskę i sprawdź stabilność oraz otwieranie. Powolny opad sprawdzaj tylko w wariantach wolnoopadających.', durationMin: 5 },
   ],
   commonMistakes: [
     'Zły rozmiar — deska jest za wąska lub za krótka',

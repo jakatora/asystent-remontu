@@ -68,6 +68,8 @@ export interface RetailSource {
   variant?: readonly string[];
   /** Reviewed Shoper product identifier, also for stores with custom URLs. */
   productId?: number;
+  /** Exact manufacturer code exposed by the native Shoper product API. */
+  apiProductCode?: string;
   retailerSku?: string;
   /** Reviewed native retailer unit ID; distinct from the physical pack size. */
   retailerUnitId?: number;
@@ -273,6 +275,8 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   if (api) {
     const item = JSON.parse(raw);
     if (String(item.id) !== shoperProductId(source)) throw new Error('product_id_not_confirmed');
+    if (source.apiProductCode && item.code !== source.apiProductCode) throw new Error('product_code_not_confirmed');
+    if (source.apiProductCode && normalizeProductName(item.producer?.name ?? '') !== normalizeProductName(source.brand)) throw new Error('product_brand_not_confirmed');
     confirmShoperPurchaseUnit(item,source);
     if (!item.can_buy) throw new Error('retailer_out_of_stock');
     const gross = item.price?.gross;

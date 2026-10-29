@@ -458,6 +458,12 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
   // source: https://arbiton.com/pl/klej-montazowy-strongman-300ml
   {"ids":["mat-strongman-300ml"],"ean":"5905167788264","sourceUrl":"https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167788264_I_01.webp"},
+  // source: https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-duroplastowa/12739
+  {"ids":["mat-seat-cersanit-carina-standard"],"ean":"5907720651077","sourceUrl":"https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-duroplastowa/12739","imageUrl":"https://tgs.pl/environment/cache/images/productGfx_112917_500_500/Cersanit-Carina-deska-wc-duroplastowa.jpg"},
+  // source: https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896
+  {"ids":["mat-seat-cersanit-carina-softclose"],"ean":"5907720651084","sourceUrl":"https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896","imageUrl":"https://tgs.pl/environment/cache/images/productGfx_112712_500_500/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem..jpg"},
+  // source: https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740
+  {"ids":["mat-seat-cersanit-carina-slim"],"ean":"5902115712524","sourceUrl":"https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740","imageUrl":"https://tgs.pl/environment/cache/images/productGfx_112916_500_500/a%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa.jpg"},
 ];
 
 export function getProductPhoto(product: {

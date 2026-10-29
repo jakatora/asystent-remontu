@@ -68,3 +68,15 @@ test('Shoper custom URLs use a reviewed ID and reject a different response ident
   await assert.rejects(readRetailSource(custom, fetchItem({ ...item, id: 124 })), /product_id_not_confirmed/);
   await assert.rejects(readRetailSource(custom, fetchItem({ ...item, price: { gross: { final: '118,00 zł', final_float: 95.93 } } })), /gross_price_mismatch/);
 });
+
+test('Carina seat source binds native manufacturer code as well as EAN and product ID', async () => {
+  const seat = RETAIL_SOURCES.find(s => s.id === 'tgs-cersanit-carina-k98-0069')!;
+  const item = {id: 4896, code: 'K98-0069', name: seat.name, ean: seat.ean, can_buy: true, url: seat.url,
+    unit: {name: 'szt.', floating_point: false}, producer: {name: 'Cersanit'},
+    price: {gross: {final: '283,72 zł', final_float: 283.72}}};
+  const response = (value: unknown) => (async () => new Response(JSON.stringify(value), {headers: {'content-type': 'application/json'}})) as typeof fetch;
+  assert.equal((await readRetailSource(seat,response(item))).priceGrosze,28372);
+  await assert.rejects(readRetailSource(seat,response({...item,code:'K98-0068'})),/product_code_not_confirmed/);
+  await assert.rejects(readRetailSource(seat,response({...item,ean:'8586005352624'})),/product_ean_not_confirmed/);
+  await assert.rejects(readRetailSource(seat,response({...item,producer:{name:'MKW'}})),/product_brand_not_confirmed/);
+});

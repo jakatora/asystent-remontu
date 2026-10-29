@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-29T06:49:58.790Z",
-  "scope": "Same184 references/photos and177 active products, with two more verified retailers for one exact basin trap. Full delivered totals require product, fitting and complete joint confirmation. Old65 maps do not acquire new choices automatically; unresolved requirements are not unique missing SKUs. Overall goal remains active.",
-  "total": 184,
-  "verifiedProducts": 177,
+  "checkedAt": "2026-10-29T09:46:27.436Z",
+  "scope": "187 referencji ze zdjęciami i 180 aktywnych produktów; trzy oryginalne deski Cersanit Carina z krajową dostawą TGS. Stare 65 map pomiarów nie wybierają nowego modelu automatycznie. Pełna wycena wymaga potwierdzenia zgodności i mocowań; brakujące wymagania nie są liczbą unikalnych SKU. Cel rozwoju trwa.",
+  "total": 187,
+  "verifiedProducts": 180,
   "remaining": 7,
-  "offers": 228,
+  "offers": 231,
   "stores": 55,
-  "productsWithPhotos": 184,
-  "registeredOffers": 234,
+  "productsWithPhotos": 187,
+  "registeredOffers": 237,
   "disabledOffers": 2,
   "rows": [
     {
@@ -4640,6 +4640,57 @@
           }
         }
       ]
+    },
+    {
+      "id": "mat-seat-cersanit-carina-standard",
+      "productLabel": "Cersanit Carina K98-0068 — deska standardowa 36,1 × 43,4 cm",
+      "ean": "5907720651077",
+      "materialType": "toilet-seat",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "tgs-cersanit-carina-k98-0068"
+      ],
+      "referenceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-duroplastowa/12739",
+      "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_112917_500_500/Cersanit-Carina-deska-wc-duroplastowa.jpg",
+      "photoSourceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-duroplastowa/12739",
+      "checkedAt": "2026-10-29T09:30:44.501Z",
+      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; cena i krajowa dostawa z koszyka TGS. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
+    },
+    {
+      "id": "mat-seat-cersanit-carina-softclose",
+      "productLabel": "Cersanit Carina K98-0069 — deska wolnoopadająca 36,1 × 43,8 cm",
+      "ean": "5907720651084",
+      "materialType": "toilet-seat",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "tgs-cersanit-carina-k98-0069"
+      ],
+      "referenceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896",
+      "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_112712_500_500/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem..jpg",
+      "photoSourceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896",
+      "checkedAt": "2026-10-29T09:30:44.702Z",
+      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; cena i krajowa dostawa z koszyka TGS. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
+    },
+    {
+      "id": "mat-seat-cersanit-carina-slim",
+      "productLabel": "Cersanit Carina SLIM K98-0135 — deska wolnoopadająca 35,7 × 44,8 cm",
+      "ean": "5902115712524",
+      "materialType": "toilet-seat",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "tgs-cersanit-carina-k98-0135"
+      ],
+      "referenceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740",
+      "photoUrl": "https://tgs.pl/environment/cache/images/productGfx_112916_500_500/a%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa.jpg",
+      "photoSourceUrl": "https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740",
+      "checkedAt": "2026-10-29T09:30:44.888Z",
+      "availabilityScope": "Oryginalna deska Cersanit o dokładnym kodzie i EAN; cena i krajowa dostawa z koszyka TGS. Zgodność z miską i komplet mocowań wymagają potwierdzenia. Zamienniki nie są równoważone automatycznie."
     }
   ],
   "automaticDeliveryStores": [
@@ -4682,13 +4733,13 @@
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-29T06:49:58.790Z",
+    "checkedAt": "2026-10-29T09:46:27.436Z",
     "pricedLines": 81,
-    "totalLines": 254,
-    "unpricedLines": 173,
+    "totalLines": 255,
+    "unpricedLines": 174,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json",
-    "scope": "Same65 historical maps; explicit new choices verified separately."
+    "scope": "65 historycznych map; wybór dokładnego modelu deski jest testowany osobno."
   },
   "expiredOffers": 3,
   "activeStores": 52,
@@ -4820,6 +4871,14 @@
       "remaining": 7,
       "offers": 226,
       "stores": 53
+    },
+    {
+      "checkedAt": "2026-10-29T06:49:58.790Z",
+      "total": 184,
+      "verifiedProducts": 177,
+      "remaining": 7,
+      "offers": 228,
+      "stores": 55
     }
   ],
   "historicalPickupCoverage": {
@@ -5019,5 +5078,26 @@
     "oneKitGrosze": 10380,
     "twoRoomsGrosze": 27960,
     "wholeRenovationGrosze": 41441
+  },
+  "toiletSeatVerification": {
+    "checkedAt": "2026-10-29T09:46:27.436Z",
+    "report": "research/deski-carina-pelny-koszyk-2026-10-29.md",
+    "productionSdkCases": 16,
+    "completeDeliveredCases": 9,
+    "nativeCarts": 10,
+    "quantityModel": "carina-seats-v1",
+    "references": [
+      "mat-seat-cersanit-carina-standard",
+      "mat-seat-cersanit-carina-softclose",
+      "mat-seat-cersanit-carina-slim"
+    ],
+    "oneStandardDeliveredGrosze": 24580,
+    "twoStandardDeliveredGrosze": 47760,
+    "twoSlimDeliveredGrosze": 59438,
+    "threeVariantsOneCartGrosze": 80771,
+    "nationalBasketShipping": true,
+    "compatibilityRequired": true,
+    "completeMountsRequired": true,
+    "modelOrQuantityChangeResetsConfirmation": true
   }
 }

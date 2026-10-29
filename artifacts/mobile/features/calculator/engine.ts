@@ -1,4 +1,5 @@
 import {TRAP_JOB,TRAP_MODEL,isTrapMaterial,trapMaterials,trapQuantity} from './trapReplacement';
+import {SEAT_JOB,SEAT_MODEL,isSeatMaterial,seatMaterials,seatQuantity} from './toiletSeatReplacement';
 import {SOCKET_FRAME_JOB,SOCKET_FRAME_MODEL,isSocketFrame,socketFrameMaterials,socketFrameQuantity} from './socketFrames';
 import {HARDWARE_JOB,HARDWARE_MODEL,isHardwareMaterial,hardwareMaterials,hardwareQuantity} from './cabinetHardware';
 import {CABINET_JOB,CABINET_MODEL,isCabinetMaterial,cabinetMaterials,cabinetQuantity,cabinetReferencePlan} from './cabinetPainting';
@@ -89,6 +90,7 @@ function resolveMaterialQuantity(
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
   if(jobId&&isTrapMaterial(jobId,material.id)){const n=trapQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
+  if(jobId&&isSeatMaterial(jobId,material.id)){const n=seatQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
   if(jobId&&isSocketFrame(jobId,material.id)){const n=socketFrameQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
   if(jobId&&isHardwareMaterial(jobId,material.id)){const required=hardwareQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if(jobId&&isCabinetMaterial(jobId,material.id)){const needed=cabinetQuantity(material.id,measurements),rawQuantity=needed??0;return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:needed!==null};}
@@ -212,6 +214,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     return {
       jobId: job.id,
       ...(job.id === TRAP_JOB ? {quantityModel:TRAP_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
+      ...(job.id === SEAT_JOB ? {quantityModel:SEAT_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === SOCKET_FRAME_JOB ? {quantityModel:SOCKET_FRAME_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === HARDWARE_JOB ? { quantityModel: HARDWARE_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CABINET_JOB ? { quantityModel: CABINET_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -270,6 +273,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     return {
       jobId: job.id,
       ...(job.id === TRAP_JOB ? {quantityModel:TRAP_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
+      ...(job.id === SEAT_JOB ? {quantityModel:SEAT_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === SOCKET_FRAME_JOB ? {quantityModel:SOCKET_FRAME_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === HARDWARE_JOB ? { quantityModel: HARDWARE_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CABINET_JOB ? { quantityModel: CABINET_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -310,6 +314,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
       if(job.id===TRAP_JOB)material=trapMaterials(measurements).find(row=>row.id===material.id)??material;
+      if(job.id===SEAT_JOB)material=seatMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===SOCKET_FRAME_JOB)material=socketFrameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===HARDWARE_JOB)material=hardwareMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===CABINET_JOB)material=cabinetMaterials(measurements).find(row=>row.id===material.id)??material;
@@ -345,6 +350,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
       if(job.id===TRAP_JOB)material=trapMaterials(measurements).find(row=>row.id===material.id)??material;
+      if(job.id===SEAT_JOB)material=seatMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===SOCKET_FRAME_JOB)material=socketFrameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===HARDWARE_JOB)material=hardwareMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===CABINET_JOB)material=cabinetMaterials(measurements).find(row=>row.id===material.id)??material;

@@ -1,4 +1,5 @@
 import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
+import {SEAT_JOB,withSeatMeasurement} from '@/features/calculator/toiletSeatReplacement';
 import {CABINET_JOB,cabinetInputVisible} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,underlayInputVisible,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,groutOnlyInputVisible} from '@/features/calculator/groutOnly';
@@ -1076,16 +1077,16 @@ export default function WizardScreen() {
               <>
                 <View style={{ gap: 4 }}>
                   <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    {t('wizard.measure.title')}
+                    {selectedJob.id === SEAT_JOB ? (language === 'pl' ? 'Dobierz deskę do miski WC' : 'Choose a seat for your toilet bowl') : t('wizard.measure.title')}
                   </Txt>
                   <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {t('wizard.measure.subtitle')}
+                    {selectedJob.id === SEAT_JOB ? (language === 'pl' ? 'Podaj liczbę desek, wybierz dokładny model i potwierdź zgodność oraz mocowania.' : 'Enter the seat count, choose the exact model and confirm fit and fixings.') : t('wizard.measure.subtitle')}
                   </Txt>
                 </View>
 
                 <HintBox
                   icon="ruler"
-                  text={t('wizard.measure.tapeHint')}
+                  text={selectedJob.id === SEAT_JOB ? (language === 'pl' ? 'Sprawdź kod swojej miski i rysunek producenta przed zakupem. Jeśli nie masz pewności, pozostaw „Jeszcze nie sprawdzono”; koszt całego zestawu pozostanie niepełny.' : 'Check your bowl code and the maker’s drawing before buying. If unsure, leave it unconfirmed; the full basket price will stay incomplete.') : t('wizard.measure.tapeHint')}
                 />
 
                 <View style={{ gap: 16 }}>
@@ -1124,7 +1125,7 @@ export default function WizardScreen() {
 
                         {'inputType' in inp && inp.inputType === 'select' ? <MeasurementSelect label={inp.label} options={inp.options ?? []}
                           value={val ? parseDecimal(val) : inp.defaultValue} onChange={value => {
-                            patchDraft({ measurements: selectedJob.id===UNDERLAY_JOB ? withUnderlayMeasurement(draft.measurements,inp.id,value) : selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
+                            patchDraft({ measurements: selectedJob.id===SEAT_JOB ? withSeatMeasurement(draft.measurements,inp.id,value) : selectedJob.id===UNDERLAY_JOB ? withUnderlayMeasurement(draft.measurements,inp.id,value) : selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
                           }}/> : <View style={{ flexDirection: 'row', gap: 8 }}>
                           <TextInput
                             style={{
@@ -1150,7 +1151,7 @@ export default function WizardScreen() {
                             keyboardType={'inputType' in inp && inp.inputType === 'count' ? 'number-pad' : 'decimal-pad'}
                             value={val}
                             onChangeText={(v) => {
-                              patchDraft({ measurements: { ...draft.measurements, [inp.id]: v } });
+                              patchDraft({ measurements: selectedJob.id===SEAT_JOB ? withSeatMeasurement(draft.measurements,inp.id,v) : { ...draft.measurements, [inp.id]: v } });
                               setValidationError(null);
                             }}
                             returnKeyType="done"
@@ -1212,14 +1213,14 @@ export default function WizardScreen() {
                   iconRight={<Feather name="arrow-right" size={18} color="#fff" />}
                 />
 
-                <TouchableOpacity
+                {selectedJob.id !== SEAT_JOB && <TouchableOpacity
                   onPress={handleNext}
                   style={{ alignItems: 'center', paddingVertical: 8 }}
                 >
                   <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>
                     {t('wizard.measure.skip')}
                   </Txt>
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </>
             )}
 
