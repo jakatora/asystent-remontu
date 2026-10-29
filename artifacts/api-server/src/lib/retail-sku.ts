@@ -30,6 +30,14 @@ export function isReviewedSkuSource(source: RetailSource): boolean {
  * merchant card or branch must be reviewed before checkout uses it. */
 export function isReviewedSeweraDispatchSource(source: RetailSource): boolean {
   if (isReviewedSkuSource(source)) return true;
+  // Exact Rigips paper tape: Sosnowiec had 12 rolls, while Katowice had none
+  // during the branch-specific public card check on 2026-10-29.
+  if (source.id === 'sewera-rigips-paper-50x75') return source.ean === '5905637118010'
+    && source.skuIdentity === undefined && source.store === 'Sewera' && source.format === 'sewera' && source.retailUnit === 'SZT'
+    && source.url === 'https://sklep.sewera.pl/tasma-spoinowa-papierowa-50mm-x-75m-rigips-p7448'
+    && source.name === 'Taśma spoinowa papierowa 50mm x 75m Rigips'
+    && source.brand === 'Rigips' && source.category === 'drywall-accessory' && source.packageSize === 75 && source.unit === 'm'
+    && source.dispatchDepartment?.id === '2' && source.dispatchDepartment.name === 'Sosnowiec';
   if (source.id === 'sewera-atlas-gta-18kg') return source.ean === '5905400542509'
     && source.skuIdentity === undefined && source.store === 'Sewera' && source.format === 'sewera'
     && source.url === 'https://sklep.sewera.pl/atlas-gta-gotowa-gladz-polimerowa-18kg-p6321'

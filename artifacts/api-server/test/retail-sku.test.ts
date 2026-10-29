@@ -7,6 +7,12 @@ import { retailProductId, retailProductName, isReviewedSeweraDispatchSource } fr
 import { createRemontService } from '../src/shared-backend';
 
 const source=RETAIL_SOURCES.find(row=>row.id==='sewera-packcenter-edge-tape-50m')!;
+test('Rigips paper tape dispatch is tied to its reviewed Sosnowiec identity',()=>{
+  const tape=RETAIL_SOURCES.find(row=>row.id==='sewera-rigips-paper-50x75')!;
+  assert.equal(isReviewedSeweraDispatchSource(tape),true);
+  assert.equal(isReviewedSeweraDispatchSource({...tape,dispatchDepartment:{id:'1',name:'Katowice'}}),false);
+  assert.equal(isReviewedSeweraDispatchSource({...tape,ean:'5907651699933'}),false);
+});
 // Minimal fields from the actual main retail card, read 2026-10-27. The
 // full original HTML and hash are retained in the release research evidence.
 const html=`<link rel="canonical" href="${source.url}">

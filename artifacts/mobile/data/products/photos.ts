@@ -79,6 +79,8 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
 
   // source: https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html
   {"ids":["mat-gypsum-paper-norgips-50x75"],"ean":"5907651699933","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-papierowa-50mm-75-mb-norgips-43912694.html","imageUrl":"https://media.adeo.com/media/2629682/media.jpg"},
+  // source: https://sklep.sewera.pl/tasma-spoinowa-papierowa-50mm-x-75m-rigips-p7448
+  {"ids":["mat-gypsum-paper-rigips-50x75"],"ean":"5905637118010","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-papierowa-50mm-x-75m-rigips-p7448","imageUrl":"https://sklep.sewera.pl/photo/25025/tasma-spoinowa-papierowa-50mm-x-75m-rigips.webp"},
   // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html
   {"ids":["mat-gypsum-acoustic-norgips-50x30"],"ean":"5907651698004","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html","imageUrl":"https://media.adeo.com/media/2631597/media.jpg"},
   // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html

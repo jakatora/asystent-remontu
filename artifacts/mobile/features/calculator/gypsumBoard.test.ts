@@ -5,11 +5,11 @@ import { GYPSUM_MODEL, gypsumQuantity,gypsumInputVisible,withGypsumMeasurement }
 import { getJobById } from '@/features/content/registry';
 import { toPricingStageInput } from '@/features/pricing/pricingApi';
 import { getMaterialsForJob } from '@/features/pricing/registry';
+import { getProductPhoto } from '@/data/products/photos';
 import { resolveMaterialQuantity } from '@/features/pricing/quantity';
 import { upgradeCalculation, projectShopping } from './upgrades';
 import { applyProjectShopping } from '@/features/pricing/projectShoppingInput';
 import { parseMeasurements } from '@/shared/lib/measurements';
-import { getProductPhoto } from '@/data/products/photos';
 import type { ShoppingItem } from '@/types/domain';
 
 const wall=getJobById('gypsum-wall')!,ceiling=getJobById('gypsum-ceiling')!;
@@ -109,6 +109,22 @@ test('paper and fleece use the same manufacturer allowance but their own EAN and
   const refs=getMaterialsForJob(id,tier,b.measurements),ref=refs.find(r=>r.id==='mat-gypsum-fleece-norgips-50x25')!;assert.ok(ref);assert.equal(resolveMaterialQuantity(ref,b)?.quantity,fleece.rawQuantity);assert.ok(!refs.some(r=>r.id==='mat-gypsum-paper-norgips-50x75'));
  }
  const invalid=calculate('gypsum-wall',{gypsumJointTape:5});assert.equal(invalid.materials.find(l=>l.material.id==='gk-tape')!.quantityKnown,false);
+});
+test('Rigips paper tape is an explicit 75 m choice with its own EAN and photograph',()=>{
+ for(const id of ['gypsum-wall','gypsum-ceiling']){
+  const norgips=calculate(id),rigips=calculate(id,{gypsumJointTape:2});
+  const key=id==='gypsum-wall'?'gk-tape':'ceiling-tape';
+  const original=norgips.materials.find(line=>line.material.id===key)!;
+  const selected=rigips.materials.find(line=>line.material.id===key)!;
+  assert.equal(selected.rawQuantity,original.rawQuantity);
+  assert.ok('ean' in selected.material);
+  assert.equal(selected.material.ean,'5905637118010');
+  assert.equal(selected.material.packaging?.size,75);
+  assert.match(getProductPhoto({ean:selected.material.ean})??'',/sklep\.sewera\.pl\/photo\/25025\//);
+  const references=getMaterialsForJob(id,'standard',rigips.measurements);
+  assert.ok(references.some(ref=>ref.id==='mat-gypsum-paper-rigips-50x75'));
+  assert.ok(!references.some(ref=>ref.id==='mat-gypsum-paper-norgips-50x75'));
+ }
 });
 test('an owned paper roll cannot cover fleece; old explicit CW EAN is not silently replaced with current retail profile',()=>{
  const a=calculate(),b=calculate('gypsum-wall',{gypsumJointTape:1}),line=a.materials.find(l=>l.material.id==='gk-tape')!,item:ShoppingItem={id:'t',projectId:'p',materialId:'gk-tape',name:line.material.name,quantity:75,unit:'m',estimatedPrice:0,owned:true,purchased:false,itemType:'material',tier:'standard',createdAt:''};
