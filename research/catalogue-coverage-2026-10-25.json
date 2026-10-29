@@ -1,15 +1,66 @@
 {
-  "checkedAt": "2026-10-29T05:36:13.169Z",
-  "scope": "181 exact references and photos; 174 active products, 223 offers, 229 source observations. Native NYXA handle variants require explicit measured pitch and screw fit. Fifteen actual SDK cases include nine complete delivered baskets and shared cabinet renovation. Historical 65 measurement maps retain 81/252 priced requirements and 171 unresolved requirements; these are not unique SKUs. Overall goal remains active.",
-  "total": 181,
-  "verifiedProducts": 174,
+  "checkedAt": "2026-10-29T06:00:35.657Z",
+  "scope": "184 exact references/photos, 177 active products, 226 offers and232 source observations. Mixed Asfora frames require compatibility and layout confirmation; 16 actual SDK cases include10 delivered baskets and a complete paint/handles/frames variant. Same65 historical maps retain81/254 priced requirements and173 unresolved positions, not173 unique SKUs. Overall goal remains active.",
+  "total": 184,
+  "verifiedProducts": 177,
   "remaining": 7,
-  "offers": 223,
+  "offers": 226,
   "stores": 53,
-  "productsWithPhotos": 181,
-  "registeredOffers": 229,
+  "productsWithPhotos": 184,
+  "registeredOffers": 232,
   "disabledOffers": 2,
   "rows": [
+    {
+      "id": "mat-frame-asfora-white-1",
+      "productLabel": "Schneider Electric Asfora — ramka 1-krotna biała EPH5800121",
+      "ean": "3606480527166",
+      "materialType": "socket-frame",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "zpradem-asfora-white-frame-1"
+      ],
+      "referenceUrl": "https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683",
+      "photoUrl": "https://zpradem.pl/environment/cache/images/productGfx_440022_500_500/ASFORA-Ramka-pojedyncza-biala-EPH5800121.jpg",
+      "photoSourceUrl": "https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683",
+      "checkedAt": "2026-10-29T05:53:55.041Z",
+      "availabilityScope": "Exact white Asfora frame, whole piece; compatibility and layout require confirmation. National native-basket courier for the whole order, pickup unconfirmed."
+    },
+    {
+      "id": "mat-frame-asfora-white-2",
+      "productLabel": "Schneider Electric Asfora — ramka 2-krotna biała EPH5800221",
+      "ean": "3606480527180",
+      "materialType": "socket-frame",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "zpradem-asfora-white-frame-2"
+      ],
+      "referenceUrl": "https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939",
+      "photoUrl": "https://zpradem.pl/environment/cache/images/productGfx_440276_500_500/ASFORA-Ramka-podwojna-pozioma-biala-EPH5800221.jpg",
+      "photoSourceUrl": "https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939",
+      "checkedAt": "2026-10-29T05:53:55.197Z",
+      "availabilityScope": "Exact white Asfora frame, whole piece; compatibility and layout require confirmation. National native-basket courier for the whole order, pickup unconfirmed."
+    },
+    {
+      "id": "mat-frame-asfora-white-3",
+      "productLabel": "Schneider Electric Asfora — ramka 3-krotna biała EPH5800321",
+      "ean": "3606480527203",
+      "materialType": "socket-frame",
+      "packageSize": 1,
+      "packageUnit": "szt",
+      "status": "verified_offer",
+      "sourceIds": [
+        "zpradem-asfora-white-frame-3"
+      ],
+      "referenceUrl": "https://zpradem.pl/asfora-ramka-potrojna-pozioma-biala-eph5800321/815336",
+      "photoUrl": "https://zpradem.pl/environment/cache/images/productGfx_440028_500_500/ASFORA-Ramka-potrojna-pozioma-biala-EPH5800321.jpg",
+      "photoSourceUrl": "https://zpradem.pl/asfora-ramka-potrojna-pozioma-biala-eph5800321/815336",
+      "checkedAt": "2026-10-29T05:53:55.366Z",
+      "availabilityScope": "Exact white Asfora frame, whole piece; compatibility and layout require confirmation. National native-basket courier for the whole order, pickup unconfirmed."
+    },
     {
       "id": "mat-handle-gtv-nyxa-128-black",
       "productLabel": "GTV NYXA 128 mm — czarny mat, 2 × M4×22 w zestawie",
@@ -4624,13 +4675,13 @@
   ],
   "browserVerifiedOffers": 28,
   "recipeCoverage": {
-    "checkedAt": "2026-10-29T05:36:13.169Z",
+    "checkedAt": "2026-10-29T06:00:35.657Z",
     "pricedLines": 81,
-    "totalLines": 252,
-    "unpricedLines": 171,
+    "totalLines": 254,
+    "unpricedLines": 173,
     "fullyPricedScenarios": 11,
     "report": "recipe-coverage-2026-10-27.json",
-    "scope": "Same65 historical measurement maps; new explicit choices verified separately."
+    "scope": "Same65 historical measurement maps; explicit new choices verified separately."
   },
   "expiredOffers": 3,
   "activeStores": 50,
@@ -4746,6 +4797,14 @@
       "remaining": 7,
       "offers": 221,
       "stores": 52
+    },
+    {
+      "checkedAt": "2026-10-29T05:36:13.169Z",
+      "total": 181,
+      "verifiedProducts": 174,
+      "remaining": 7,
+      "offers": 223,
+      "stores": 53
     }
   ],
   "historicalPickupCoverage": {
@@ -4903,5 +4962,26 @@
     "fourHandlesDeliveredGrosze": 6091,
     "fifteenHandlesDeliveredGrosze": 19485,
     "sharedCabinetRenovationGrosze": 28145
+  },
+  "socketFrameVerification": {
+    "checkedAt": "2026-10-29T06:00:52.174Z",
+    "report": "research/ramki-asfora-kompletny-koszyk-2026-10-29.md",
+    "productionSdkCases": 16,
+    "completeDeliveredCases": 10,
+    "nativeCarts": 6,
+    "quantityModel": "asfora-white-frames-v1",
+    "references": [
+      "mat-frame-asfora-white-1",
+      "mat-frame-asfora-white-2",
+      "mat-frame-asfora-white-3"
+    ],
+    "mixedTypes": true,
+    "totalFramesPreserved": true,
+    "seriesConfirmationRequired": true,
+    "wholePieces": true,
+    "singleShippingAcrossRoomsSavingGrosze": 2700,
+    "oneMixedKitGrosze": 7390,
+    "twoRoomsGrosze": 12080,
+    "wholeRenovationGrosze": 35535
   }
 }

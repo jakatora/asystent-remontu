@@ -1,3 +1,4 @@
+import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
 import {CABINET_JOB,cabinetInputVisible} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,underlayInputVisible,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
 import {GROUT_ONLY_JOB,groutOnlyInputVisible} from '@/features/calculator/groutOnly';
@@ -1088,7 +1089,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements) && cabinetInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements) && cabinetInputVisible(selectedJob.id,inp.id,draft.measurements) && socketFrameInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);

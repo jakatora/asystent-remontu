@@ -1,3 +1,4 @@
+import {SOCKET_FRAME_JOB} from '@/features/calculator/socketFrames';
 import {HARDWARE_JOB} from '@/features/calculator/cabinetHardware';
 import {CABINET_JOB} from '@/features/calculator/cabinetPainting';
 import { ProductImage } from './ProductImage';
@@ -248,6 +249,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
       }} />}
       {projectId && calc?.jobId === CABINET_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień powierzchnię, farbę lub środki' : 'Change area, paint or supplies'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
+      {projectId && calc?.jobId === SOCKET_FRAME_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień ramki, liczbę lub układ' : 'Change frames, count or layout'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {projectId && calc?.jobId === HARDWARE_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień uchwyty, liczbę lub śruby' : 'Change handles, count or screws'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {projectId && calc?.jobId === CO_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień model lub liczbę czujników' : 'Change detector model or count'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {doorChoice.enabled && calc && <DoorSelectionSection calc={calc} {...doorChoice} />}

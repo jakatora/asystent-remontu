@@ -12,6 +12,12 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683
+  {"ids":["mat-frame-asfora-white-1"],"ean":"3606480527166","sourceUrl":"https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440022_500_500/ASFORA-Ramka-pojedyncza-biala-EPH5800121.jpg"},
+  // source: https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939
+  {"ids":["mat-frame-asfora-white-2"],"ean":"3606480527180","sourceUrl":"https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440276_500_500/ASFORA-Ramka-podwojna-pozioma-biala-EPH5800221.jpg"},
+  // source: https://zpradem.pl/asfora-ramka-potrojna-pozioma-biala-eph5800321/815336
+  {"ids":["mat-frame-asfora-white-3"],"ean":"3606480527203","sourceUrl":"https://zpradem.pl/asfora-ramka-potrojna-pozioma-biala-eph5800321/815336","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440028_500_500/ASFORA-Ramka-potrojna-pozioma-biala-EPH5800321.jpg"},
   // source: https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html
   {"ids":["mat-handle-gtv-nyxa-128-black"],"ean":"5902801422652","sourceUrl":"https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html","imageUrl":"https://integra-bielinscy.pl/2693-home_default/uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat.jpg"},
   // source: https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html

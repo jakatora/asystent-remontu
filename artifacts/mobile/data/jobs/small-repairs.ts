@@ -1,3 +1,4 @@
+import {socketFrameInputs,socketFrameMaterials} from '@/features/calculator/socketFrames';
 import { sanitaryInputs, sanitaryMaterials } from '@/features/calculator/sanitarySealant';
 import type { RenovationJob } from '@/types/domain';
 import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
@@ -601,37 +602,19 @@ export const socketFrameReplaceJob: RenovationJob = {
   warningRules: [
     {
       condition: 'always',
-      message: 'Wymiana samej ramki (obudowy) NIE wymaga wyłączania prądu — nie dotykasz przewodów. Ale ostrożność zawsze wskazana.',
+      message: 'Przed demontażem odłącz zasilanie obwodu i sprawdź brak napięcia odpowiednim wskaźnikiem. Postępuj według instrukcji producenta. Jeśli trzeba demontować mechanizm, odsłaniasz przewody lub nie masz pewności, zleć pracę elektrykowi.',
       level: 'info',
     },
   ],
-  measurementInputs: [
-    {
-      id: 'frameCount',
-      label: 'Liczba ramek do wymiany',
-      unit: 'szt.',
-      placeholder: '5',
-      min: 1,
-      max: 50,
-    },
-  ],
-  materials: [
-    {
-      id: 'socket-frames',
-      name: 'Ramki do gniazdek / włączników (komplet)',
-      unit: 'szt.',
-      formulaKey: 'faucets',
-      pricePerUnit: 8,
-      notes: 'Sprawdź serię i producenta — ramki są często seryjne (np. Ospel Sonata, Schneider). Kup z jednej serii dla estetyki.',
-    },
-  ],
+  measurementInputs: socketFrameInputs,
+  materials: socketFrameMaterials(),
   tools: [
     { id: 'screwdriver-frame', name: 'Wkrętak płaski (do dźwigni zwalniającej)', icon: 'minus', required: true },
     { id: 'screwdriver-cross-frame', name: 'Wkrętak krzyżakowy', icon: 'plus', required: false },
   ],
   instructions: [
-    { step: 1, title: 'Zdejmij starą ramkę', description: 'Wiele ramek ma zatrzaski — wkrętakiem płaskim lub palcem unieś krawędź i odczep. Inne mają śrubki — odkręć. Wkład gniazdka zostaje na miejscu.', durationMin: 5 },
-    { step: 2, title: 'Nałóż nową ramkę', description: 'Nałóż nową ramkę na wkład gniazdka. Zatrzaśnij lub przykręć śrubki. Upewnij się że leży równo przy ścianie.', durationMin: 5 },
+    { step: 1, title: 'Zdejmij starą ramkę', description: 'Po odłączeniu obwodu i sprawdzeniu braku napięcia zdejmij elementy zgodnie z instrukcją posiadanej serii. Nie podważaj osprzętu na siłę ani nie wkładaj narzędzi przy dostępnych częściach pod napięciem. W razie potrzeby demontażu mechanizmu skorzystaj z elektryka.', durationMin: 5 },
+    { step: 2, title: 'Nałóż nową ramkę', description: 'Załóż pasującą ramkę zgodnie z instrukcją serii i sprawdź zatrzaski oraz przyleganie do ściany. Ramki poziome podwójne i potrójne wymagają pasującego układu mechanizmów.', durationMin: 5 },
     { step: 3, title: 'Powtórz dla kolejnych', description: 'Przejdź przez wszystkie gniazdka i włączniki w pomieszczeniu. Jeden pokój to zazwyczaj 15–30 minut roboty.', durationMin: 30 },
   ],
   commonMistakes: [
@@ -646,8 +629,10 @@ export const socketFrameReplaceJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['ramka', 'gniazdko', 'włącznik', 'elektryka', 'wymiana'],
 
-  verifiedAt: '2026-06-10',
+  verifiedAt: '2026-10-29',
+  // source: https://www.se.com/pl/pl/product/EPH5800121/asfora-ramka-1krotna-pozioma-bia%C5%82y/
   verifiedSources: [
+    {title:'Schneider Asfora — dokładna ramka pojedyncza',url:'https://www.se.com/pl/pl/product/EPH5800121/asfora-ramka-1krotna-pozioma-bia%C5%82y/',domain:'se.com',consultedAt:'2026-10-29'},
     {
       title:       'Ospel — Ramka pojedyncza, seria Aria (katalog produktowy)',
       url:         'https://www.ospel.pl/ramka-pojedyncza-8',

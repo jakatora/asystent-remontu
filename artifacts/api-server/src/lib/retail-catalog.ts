@@ -1220,10 +1220,19 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"integra-gtv-nyxa-128-black","ean":"5902801422652","name":"Uchwyt meblowy NYXA C-128 / L-138 czarny mat","category":"cabinet-handle","brand":"GTV","packageSize":1,"unit":"szt","store":"Integra Bielińscy","format":"integra","variant":["NYXA"],"productId":1614,"pickupRequiresConfirmation":true,"url":"https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html","imageUrl":"https://integra-bielinscy.pl/2693-home_default/uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat.jpg"},
   // source: https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html
   {"id":"integra-gtv-nyxa-128-gold","ean":"5902801422737","name":"Uchwyt meblowy NYXA C-128 / L-138 złoto szczotkowane","category":"cabinet-handle","brand":"GTV","packageSize":1,"unit":"szt","store":"Integra Bielińscy","format":"integra","variant":["NYXA"],"productId":1613,"pickupRequiresConfirmation":true,"url":"https://integra-bielinscy.pl/uchwyty/1613-uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane-5902801422737.html","imageUrl":"https://integra-bielinscy.pl/2695-home_default/uchwyt-meblowy-nyxa-c-128-l-138-zloto-szczotkowane.jpg"},
+  // source: https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683
+  {"id":"zpradem-asfora-white-frame-1","ean":"3606480527166","name":"ASFORA Ramka pojedyncza biała EPH5800121","brand":"Schneider Electric","category":"socket-frame","packageSize":1,"unit":"szt","store":"Z prądem","format":"shoper-api","productId":788683,"apiPurchaseUnit":"szt.","variant":["EPH5800121"],"pickupRequiresConfirmation":true,"url":"https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440022_500_500/ASFORA-Ramka-pojedyncza-biala-EPH5800121.jpg"},
+  // source: https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939
+  {"id":"zpradem-asfora-white-frame-2","ean":"3606480527180","name":"ASFORA Ramka podwójna pozioma biała EPH5800221","brand":"Schneider Electric","category":"socket-frame","packageSize":1,"unit":"szt","store":"Z prądem","format":"shoper-api","productId":799939,"apiPurchaseUnit":"szt.","variant":["EPH5800221"],"pickupRequiresConfirmation":true,"url":"https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440276_500_500/ASFORA-Ramka-podwojna-pozioma-biala-EPH5800221.jpg"},
+  // source: https://zpradem.pl/asfora-ramka-potrojna-pozioma-biala-eph5800321/815336
+  {"id":"zpradem-asfora-white-frame-3","ean":"3606480527203","name":"ASFORA Ramka potrójna pozioma biała EPH5800321","brand":"Schneider Electric","category":"socket-frame","packageSize":1,"unit":"szt","store":"Z prądem","format":"shoper-api","productId":815336,"apiPurchaseUnit":"szt.","variant":["EPH5800321"],"pickupRequiresConfirmation":true,"url":"https://zpradem.pl/asfora-ramka-potrojna-pozioma-biala-eph5800321/815336","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440028_500_500/ASFORA-Ramka-potrojna-pozioma-biala-EPH5800321.jpg"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Schneider Electric Asfora — ramka 1-krotna biała EPH5800121":"3606480527166",
+  "Schneider Electric Asfora — ramka 2-krotna biała EPH5800221":"3606480527180",
+  "Schneider Electric Asfora — ramka 3-krotna biała EPH5800321":"3606480527203",
   'GTV NYXA 128 mm — czarny mat, 2 × M4×22 w zestawie':'5902801422652',
   'GTV NYXA 128 mm — złoto szczotkowane, 2 × M4×22 w zestawie':'5902801422737',
   "V33 Easy Renowacja Kuchnia — biały satyna 0,75 l": "3153895149044",

@@ -1,3 +1,4 @@
+import {SOCKET_FRAME_JOB,SOCKET_FRAME_MODEL,isSocketFrame,socketFrameMaterials,socketFrameQuantity} from './socketFrames';
 import {HARDWARE_JOB,HARDWARE_MODEL,isHardwareMaterial,hardwareMaterials,hardwareQuantity} from './cabinetHardware';
 import {CABINET_JOB,CABINET_MODEL,isCabinetMaterial,cabinetMaterials,cabinetQuantity,cabinetReferencePlan} from './cabinetPainting';
 import { CO_JOB, CO_MODEL, coDetectorMaterial, coDetectorQuantity } from './coDetector';
@@ -86,6 +87,7 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isSocketFrame(jobId,material.id)){const n=socketFrameQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
   if(jobId&&isHardwareMaterial(jobId,material.id)){const required=hardwareQuantity(material.id,measurements),rawQuantity=required??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:required!==null};}
   if(jobId&&isCabinetMaterial(jobId,material.id)){const needed=cabinetQuantity(material.id,measurements),rawQuantity=needed??0;return {rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:needed!==null};}
   if (jobId === CO_JOB && material.id === 'co-detector') { const required = coDetectorQuantity(measurements), rawQuantity = required ?? 0; return { rawQuantity, ...applyRounding(rawQuantity, material), quantityKnown: required !== null }; }
@@ -207,6 +209,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id === SOCKET_FRAME_JOB ? {quantityModel:SOCKET_FRAME_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === HARDWARE_JOB ? { quantityModel: HARDWARE_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CABINET_JOB ? { quantityModel: CABINET_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CO_JOB ? { quantityModel: CO_MODEL, quantityIssues: materials.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -263,6 +266,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id === SOCKET_FRAME_JOB ? {quantityModel:SOCKET_FRAME_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === HARDWARE_JOB ? { quantityModel: HARDWARE_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CABINET_JOB ? { quantityModel: CABINET_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
       ...(job.id === CO_JOB ? { quantityModel: CO_MODEL, quantityIssues: detailedItems.filter(line => line.quantityKnown === false).map(line => line.material.name) } : {}),
@@ -301,6 +305,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(job.id===SOCKET_FRAME_JOB)material=socketFrameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===HARDWARE_JOB)material=hardwareMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===CABINET_JOB)material=cabinetMaterials(measurements).find(row=>row.id===material.id)??material;
       if (job.id === CO_JOB && material.id === 'co-detector') material = coDetectorMaterial(measurements);
@@ -334,6 +339,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(job.id===SOCKET_FRAME_JOB)material=socketFrameMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===HARDWARE_JOB)material=hardwareMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===CABINET_JOB)material=cabinetMaterials(measurements).find(row=>row.id===material.id)??material;
       if (job.id === CO_JOB && material.id === 'co-detector') material = coDetectorMaterial(measurements);
@@ -370,7 +376,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
       // Check for per-material explanation override in job config
       const overrideFn = config?.materialExplanationOverrides?.[material.id];
-      const explanation = isHardwareMaterial(job.id,material.id) ? {text:quantityKnown===false?'Wybierz uchwyt, zmierz rozstaw i potwierdź pasowanie śrub.':rawQuantity===0?'Śruby są w zestawie lub potwierdzono odpowiednie posiadane śruby.':`${rawQuantity} uchwytów = ${purchaseQuantity} szt.; po dwie śruby M4×22 w każdym zestawie.`,assumptions:[material.notes??'','Bez automatycznego zapasu. Rozstaw 128 mm wymaga pomiaru; długość całkowita uchwytu to 138 mm.']} : isCabinetMaterial(job.id,material.id) ? {
+      const explanation = isSocketFrame(job.id,material.id) ? {text:quantityKnown===false?'Potwierdź zgodność serii i policz całe ramki w poszczególnych układach.':rawQuantity===0?'Tego rodzaju ramki nie potrzebujesz.':`${rawQuantity} całych ramek = ${purchaseQuantity} szt.`,assumptions:[material.notes??'','Bez zapasu i bez mnożenia przez liczbę otworów. Pojedyncze = łączna liczba ramek minus podwójne i potrójne.']} : isHardwareMaterial(job.id,material.id) ? {text:quantityKnown===false?'Wybierz uchwyt, zmierz rozstaw i potwierdź pasowanie śrub.':rawQuantity===0?'Śruby są w zestawie lub potwierdzono odpowiednie posiadane śruby.':`${rawQuantity} uchwytów = ${purchaseQuantity} szt.; po dwie śruby M4×22 w każdym zestawie.`,assumptions:[material.notes??'','Bez automatycznego zapasu. Rozstaw 128 mm wymaga pomiaru; długość całkowita uchwytu to 138 mm.']} : isCabinetMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Uzupełnij podłoże, powierzchnię, opakowanie lub potrzebne środki w obmiarach.':rawQuantity===0?'Dla tego wariantu zakup nie jest potrzebny lub potwierdzono posiadane środki.':measurements.cabinetPaintPack===3&&material.id==='cabinet-paint'?`${Number(rawQuantity.toFixed(2))} ml: pełne puszki dobierzemy w porównaniu całego koszyka z dostawą.`:`${Number(rawQuantity.toFixed(2))} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,
         assumptions:[material.notes??'','Farba: powierzchnia wszystkich malowanych stron × liczba warstw ÷ wydajność, z jednym podanym zapasem. Liczba frontów nie wyznacza powierzchni.','Arkusze i butelki według podanej liczby. Surowe ilości tego samego EAN sumujemy między pracami przed doborem opakowań.'],
       } : isUnderlayMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij dobór, zgodność lub rzeczywisty pomiar w obmiarach.':rawQuantity===0?'Zakup świadomie pominięty lub bariera jest zintegrowana z podkładem.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,assumptions:[material.notes??'','Zapas na docinki dotyczy tylko podkładu. Powierzchnia folii zawiera podane zakłady i wywinięcia, długość taśmy pochodzi z pomiaru.','Surowe ilości identycznych produktów łączymy przed zakupem pełnych opakowań.']} : isGroutOnlyMaterial(job.id,material.id) ? groutOnlyExplanation(material.id,measurements,rawQuantity,packs,material.unit) : isWindowMaterial(job.id,material.id) ? {

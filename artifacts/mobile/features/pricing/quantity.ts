@@ -1,3 +1,4 @@
+import {SOCKET_FRAME_JOB,SOCKET_FRAME_MODEL,socketFrameMaterials,socketFrameReference,socketFrameQuantity} from '@/features/calculator/socketFrames';
 import {HARDWARE_JOB,HARDWARE_MODEL,hardwareMaterials,hardwareReference,hardwareQuantity} from '@/features/calculator/cabinetHardware';
 import {CABINET_JOB,CABINET_MODEL,cabinetMaterials,cabinetReference} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,UNDERLAY_MODEL,underlayMaterials,underlayReference} from '@/features/calculator/underlayInstall';
@@ -78,6 +79,11 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(calc.jobId===SOCKET_FRAME_JOB){
+    const def=socketFrameMaterials(calc.measurements).find(row=>socketFrameReference(row.id)===ref.id),source=def&&calc.materials.find(l=>l.material.id===def.id),n=def&&socketFrameQuantity(def.id,calc.measurements);
+    if(calc.quantityModel!==SOCKET_FRAME_MODEL||!source||source.quantityKnown===false||!def?.ean||!('ean'in source.material)||source.material.ean!==def.ean||source.material.unit!=='szt'||ref.packageSize!==1||source.material.packaging?.size!==1||n==null||source.rawQuantity!==n)return null;
+    return{quantity:n,source};
+  }
   if(calc.jobId===HARDWARE_JOB){
     const definition=hardwareMaterials(calc.measurements).find(row=>hardwareReference(row.id,calc.measurements)===ref.id),source=definition&&calc.materials.find(row=>row.material.id===definition.id);
     const quantity=definition&&hardwareQuantity(definition.id,calc.measurements);

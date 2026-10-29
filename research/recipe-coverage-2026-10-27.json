@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-10-29T05:36:13.169Z",
-  "scope": "Same 65 historical measurement maps without adding unrecorded product choices. New hardware variants require measured 128mm pitch and confirmed screw fit. Fifteen current actual SDK scenarios additionally verify nine complete delivered baskets including shared cabinet renovation and handles; missing gold weight and screw fit remain incomplete.",
+  "checkedAt": "2026-10-29T06:00:35.657Z",
+  "scope": "Same 65 historical measurement maps without unrecorded product choices. Frame layout and existing series confirmation are mandatory. Sixteen current production SDK scenarios verify ten complete delivered baskets, mixed frame counts, room consolidation, owned materials and a shared paint/handles/frames renovation.",
   "summary": {
     "registeredJobs": 66,
     "auditedJobs": 65,
     "beforeLines": 252,
     "beforePriced": 81,
-    "afterLines": 252,
+    "afterLines": 254,
     "afterPriced": 81,
-    "afterUnpriced": 171,
+    "afterUnpriced": 173,
     "fullyPricedScenarios": 11,
     "reasons": {
-      "no-query": 101,
+      "no-query": 103,
       "no-product": 69,
       "no-offer": 1
     }
@@ -467,6 +467,24 @@
     },
     {
       "checkedAt": "2026-10-29T04:35:37.892Z",
+      "summary": {
+        "registeredJobs": 66,
+        "auditedJobs": 65,
+        "beforeLines": 252,
+        "beforePriced": 81,
+        "afterLines": 252,
+        "afterPriced": 81,
+        "afterUnpriced": 171,
+        "fullyPricedScenarios": 11,
+        "reasons": {
+          "no-query": 101,
+          "no-product": 69,
+          "no-offer": 1
+        }
+      }
+    },
+    {
+      "checkedAt": "2026-10-29T05:36:13.169Z",
       "summary": {
         "registeredJobs": 66,
         "auditedJobs": 65,
@@ -4159,12 +4177,42 @@
       "materials": [
         {
           "materialId": "socket-frames",
-          "name": "Ramki do gniazdek / włączników (komplet)",
-          "unit": "szt.",
+          "name": "Ramki — potwierdź serię, kolor i układ — ilość do ustalenia",
+          "unit": "pozycja",
           "query": {
             "ean": null,
             "gtin": null,
-            "normalizedName": "ramki do gniazdek wlacznikow komplet",
+            "normalizedName": "ramki potwierdz serie kolor i uklad ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "socket-frames-double",
+          "name": "Ramki podwójne — policz całe ramki — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "ramki podwojne policz cale ramki ilosc do ustalenia",
+            "category": null
+          },
+          "quantity": 1,
+          "resolved": false,
+          "reason": "no-query",
+          "matchedProduct": null
+        },
+        {
+          "materialId": "socket-frames-triple",
+          "name": "Ramki potrójne — policz całe ramki — ilość do ustalenia",
+          "unit": "pozycja",
+          "query": {
+            "ean": null,
+            "gtin": null,
+            "normalizedName": "ramki potrojne policz cale ramki ilosc do ustalenia",
             "category": null
           },
           "quantity": 1,
@@ -6301,5 +6349,26 @@
     "fourHandlesDeliveredGrosze": 6091,
     "fifteenHandlesDeliveredGrosze": 19485,
     "sharedCabinetRenovationGrosze": 28145
+  },
+  "socketFrameVerification": {
+    "checkedAt": "2026-10-29T06:00:52.174Z",
+    "report": "research/ramki-asfora-kompletny-koszyk-2026-10-29.md",
+    "productionSdkCases": 16,
+    "completeDeliveredCases": 10,
+    "nativeCarts": 6,
+    "quantityModel": "asfora-white-frames-v1",
+    "references": [
+      "mat-frame-asfora-white-1",
+      "mat-frame-asfora-white-2",
+      "mat-frame-asfora-white-3"
+    ],
+    "mixedTypes": true,
+    "totalFramesPreserved": true,
+    "seriesConfirmationRequired": true,
+    "wholePieces": true,
+    "singleShippingAcrossRoomsSavingGrosze": 2700,
+    "oneMixedKitGrosze": 7390,
+    "twoRoomsGrosze": 12080,
+    "wholeRenovationGrosze": 35535
   }
 }

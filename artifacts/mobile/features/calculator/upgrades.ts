@@ -1,3 +1,4 @@
+import {reviewSocketFrameCalculation,reviewSocketFrameProject,reviewSocketFrameShopping} from './socketFrames';
 import {reviewHardwareCalculation,reviewHardwareProject,reviewHardwareShopping} from './cabinetHardware';
 import {reviewCabinetCalculation,reviewCabinetProject,reviewCabinetShopping} from './cabinetPainting';
 import { reviewCoDetectorCalculation, reviewCoDetectorProject, reviewCoDetectorShopping } from './coDetector';
@@ -30,10 +31,10 @@ const upgradeWithWallpaperCalculation = (calc: CalculationResult | undefined) =>
 const upgradeWithWallpaperProject = (project: Project) => reviewWallpaperRollProject(reviewWallpaperTapeProject(reviewWallpaperAdhesiveProject(reviewLaminateProject(upgradePreviousProject(project)))));
 export const upgradeBeforeCabinetCalculation = (calc: CalculationResult | undefined) => reviewCoDetectorCalculation(reviewUnderlayCalculation(reviewGroutOnlyCalculation(reviewWindowCalculation(reviewSkirtingCalculation(reviewWaterproofingCalculation(reviewPlasterCalculation(upgradeWithWallpaperCalculation(calc))))))));
 export const upgradeBeforeCabinetProject = (project: Project) => reviewCoDetectorProject(reviewUnderlayProject(reviewGroutOnlyProject(reviewWindowProject(reviewSkirtingProject(reviewWaterproofingProject(reviewPlasterProject(upgradeWithWallpaperProject(project))))))));
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewHardwareCalculation(reviewCabinetCalculation(upgradeBeforeCabinetCalculation(calc)));
-export const upgradeProject = (project: Project) => reviewHardwareProject(reviewCabinetProject(upgradeBeforeCabinetProject(project)));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewSocketFrameCalculation(reviewHardwareCalculation(reviewCabinetCalculation(upgradeBeforeCabinetCalculation(calc))));
+export const upgradeProject = (project: Project) => reviewSocketFrameProject(reviewHardwareProject(reviewCabinetProject(upgradeBeforeCabinetProject(project))));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
   const reviewed = reviewSkirtingShopping(reviewWaterproofingShopping(reviewWallpaperRollShopping(reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc),calc),calc),calc);
-  return reviewHardwareShopping(reviewCabinetShopping(reviewCoDetectorShopping(reviewUnderlayShopping(reviewGroutOnlyShopping(reviewWindowShopping(reviewPlasterShopping(reviewed,calc),calc),calc),calc),calc),calc),calc);
+  return reviewSocketFrameShopping(reviewHardwareShopping(reviewCabinetShopping(reviewCoDetectorShopping(reviewUnderlayShopping(reviewGroutOnlyShopping(reviewWindowShopping(reviewPlasterShopping(reviewed,calc),calc),calc),calc),calc),calc),calc),calc);
 };
