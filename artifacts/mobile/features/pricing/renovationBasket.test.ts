@@ -27,6 +27,17 @@ test('explicit project selection is deduplicated; unrelated and deleted projects
   assert.deepEqual(parseBasketSelection('{'), []);
   assert.deepEqual(parseBasketSelection(JSON.stringify({ version: 2, projectIds: ['a'] })), []);
 });
+test('a renovation with more than twenty measured works keeps every selected room', () => {
+  const rooms = Array.from({ length: 35 }, (_, index) => project(`room-${index}`));
+  const ids = measuredBasketProjectIds(rooms);
+  const restored = parseBasketSelection(JSON.stringify({ version: 1, projectIds: ids }));
+  const basket = buildRenovationBasket(rooms, restored, 'standard');
+  assert.equal(ids.length, rooms.length);
+  assert.equal(restored.length, rooms.length);
+  assert.equal(basket.includedProjects.length, rooms.length);
+  assert.equal(basket.stages.length, rooms.length);
+  assert.ok(basket.stages.every(stage => stage.materials.some(line => line.material.id === 'paint')));
+});
 test('two rooms keep their raw demand for one server-side package rounding', () => {
   const projects = [project('a'), project('b')];
   const basket = buildRenovationBasket(projects, ['a', 'b'], 'standard');

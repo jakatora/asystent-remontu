@@ -234,7 +234,13 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         && (line.material.packageFamily==='v33-easy-kitchen-white-satin-v1'||['3153895149044','3153895149228'].includes(line.material.ean??''));
       return line.quantity <= (cabinet ? 2_000_000 : 100_000);
     };
-    if (!parsed.success || parsed.data.jobs.length > 20 || parsed.data.jobs.some(job => job.materials.length > DELIVERY_LIMITS.products || job.materials.some(line => !withinQuantityLimit(job,line)))) {
+    if (!parsed.success) {
+      res.status(400).json({ error: 'invalid_request' }); return;
+    }
+    if (parsed.data.jobs.length > DELIVERY_LIMITS.jobs || parsed.data.jobs.reduce((count, job) => count + job.materials.length, 0) > DELIVERY_LIMITS.materialLines) {
+      res.status(400).json({ error: 'basket_limit_exceeded', maxJobs: DELIVERY_LIMITS.jobs, maxMaterialLines: DELIVERY_LIMITS.materialLines }); return;
+    }
+    if (parsed.data.jobs.some(job => job.materials.length > DELIVERY_LIMITS.products || job.materials.some(line => !withinQuantityLimit(job,line)))) {
       res.status(400).json({ error: 'invalid_request' }); return;
     }
     for (const job of parsed.data.jobs) for (const line of job.materials) {

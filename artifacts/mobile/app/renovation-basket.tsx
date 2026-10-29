@@ -128,7 +128,7 @@ export default function RenovationBasketScreen() {
             </View>
           </Pressable>;
         })}
-        {selectedProjects.length >= MAX_BASKET_PROJECTS && <Txt>{pl ? 'Jeden koszyk obejmuje do 20 prac.' : 'One basket supports up to 20 works.'}</Txt>}
+        {selectedProjects.length >= MAX_BASKET_PROJECTS && <Txt>{pl ? `Jeden koszyk obejmuje do ${MAX_BASKET_PROJECTS} prac.` : `One basket supports up to ${MAX_BASKET_PROJECTS} works.`}</Txt>}
       </View>}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie zapisano wyboru prac. Wybierz je ponownie przy następnym otwarciu.' : 'Your selection could not be saved. Select the works again next time.'}</Txt>}
       <BasketExtrasSection items={extras} onChange={updateExtras} ready={extrasReady} error={extrasReadFailed} onRetry={() => setExtrasRetry(value => value + 1)} />

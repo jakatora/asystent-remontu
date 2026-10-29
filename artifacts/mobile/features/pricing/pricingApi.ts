@@ -407,9 +407,11 @@ export class PricingApiNotConfiguredError extends Error {
 export class ApiError extends Error {
   readonly name = 'ApiError';
   readonly status: number;
-  constructor(status: number, message: string) {
+  readonly code: string | null;
+  constructor(status: number, message: string, code: string | null = null) {
     super(message);
     this.status = status;
+    this.code = code;
   }
 }
 
@@ -479,16 +481,18 @@ async function postJson<T>(path: string, body: unknown): Promise<T> {
 
   if (!response.ok) {
     // Serwer wyceny zwraca { error, message } — wyciągamy komunikat, jeśli jest.
-    let detail = '';
+    let detail = '', code: string | null = null;
     try {
       const data = (await response.json()) as { error?: string; message?: string };
       detail = data?.message ?? data?.error ?? '';
+      code = data?.error ?? null;
     } catch {
       /* body nie-JSON — zostaje sam status */
     }
     throw new ApiError(
       response.status,
       detail ? `HTTP ${response.status}: ${detail}` : `HTTP ${response.status}`,
+      code,
     );
   }
 

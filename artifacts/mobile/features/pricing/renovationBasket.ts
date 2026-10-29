@@ -10,8 +10,9 @@ import { applyWashbasinChoices, type WashbasinChoice } from './washbasinChoice';
 import { applyTileChoices, type TileChoice } from './tileChoice';
 import { applyTileAdhesiveChoices, type TileAdhesiveChoice } from './tileAdhesiveChoice';
 import type { ShoppingStageContext } from './selectedShopping';
+import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
 
-export const MAX_BASKET_PROJECTS = 20;
+export const MAX_BASKET_PROJECTS = DELIVERY_LIMITS.jobs - 1;
 export const RENOVATION_BASKET_KEY = 'remont.renovation-basket.v1';
 
 /** Bulk selection only includes works that can already contribute to a quote. */

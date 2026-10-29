@@ -39,6 +39,7 @@ import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePri
 import { projectOfferCoverage } from '@/features/pricing/projectOfferCoverage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
+import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
 // Zakładka „Wycena": read-only prezentacja wyceny etapu i całego remontu z
 // backendu cen (features/pricing/pricingApi). Bierze REALNY wynik lokalnego
 // kalkulatora (engine.calculate) dla etapu, wysyła do POST /pricing/project i
@@ -206,6 +207,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       const message =
         err instanceof Error && err.message === 'store_selection_not_confirmed'
           ? (language === 'pl' ? 'Nie potwierdzono koszyka w wybranym sklepie. Odśwież wycenę lub wybierz inny sklep.' : 'The selected store basket could not be confirmed. Refresh the quote or choose another store.')
+          : err instanceof ApiError && err.code === 'basket_limit_exceeded'
+          ? (language === 'pl' ? `Koszyk przekracza zakres wyceny: maksymalnie ${DELIVERY_LIMITS.jobs - 1} prac i ${DELIVERY_LIMITS.materialLines} pozycji materiałowych. Zmniejsz wybór prac lub materiałów.` : `The basket exceeds the quote limit of ${DELIVERY_LIMITS.jobs - 1} works and ${DELIVERY_LIMITS.materialLines} material lines. Select fewer works or materials.`)
           : err instanceof ApiError
           ? t('cmp.CostEstimate.errorHttp', { status: err.status })
           : t('cmp.CostEstimate.errorNetwork');
