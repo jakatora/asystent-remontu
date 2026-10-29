@@ -7,6 +7,8 @@ import { createRemontService } from '../src/shared-backend';
 
 test('Matiw sells one 50-sheet pack per native piece, never one sheet', () => {
   for (const [id, code, ean, grit, productId] of [
+    ['matiw-klingspor-pl28c-p80-50', '000615', '5907560017637', 'P80', 25767],
+    ['matiw-klingspor-pl28c-p100-50', '000618', '5907560023546', 'P100', 25768],
     ['matiw-klingspor-pl28c-p120-50', '000620', '5907560017644', 'P120', 25769],
     ['matiw-klingspor-pl28c-p150-50', '000621', '5907560023553', 'P150', 25770],
     ['matiw-klingspor-pl28c-p180-50', '000622', '5907560023560', 'P180', 25771],
@@ -54,8 +56,9 @@ test('whole basket chooses Sewera sheets for one each and Matiw cartons for 50 e
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });
 
-test('all five paper grades share one delivery and switch stores at carton quantities', async () => {
+test('all seven paper grades share one delivery and switch stores at carton quantities', async () => {
   const grades = [
+    ['80', 194, 4200], ['100', 167, 3600],
     ['120', 167, 3600], ['150', 167, 3600], ['180', 154, 3600],
     ['220', 167, 3600], ['240', 149, 3824],
   ] as const;
@@ -92,7 +95,7 @@ test('all five paper grades share one delivery and switch stores at carton quant
   await new Promise<void>(resolve => server.once('listening', resolve));
   try {
     const port = (server.address() as { port: number }).port;
-    for (const [quantity, store, materials, delivery] of [[1, 'Sewera', 804, 1990], [50, 'Matiw', 18224, 1900]] as const) {
+    for (const [quantity, store, materials, delivery] of [[1, 'Sewera', 1165, 1990], [50, 'Matiw', 26024, 1900]] as const) {
       const rows = sources.filter(source => source.store === 'Sewera').map(source => ({
         material: { id: `paper-${source.ean}`, name: source.name, ean: source.ean,
           category: source.category, unit: 'szt' }, quantity,
@@ -111,7 +114,7 @@ test('all five paper grades share one delivery and switch stores at carton quant
       assert.equal(comparison.best.totalGrosze, materials + delivery);
       assert.equal(comparison.best.stores.length, 1);
       assert.equal(comparison.best.stores[0].store, store);
-      assert.equal(comparison.best.stores[0].lines.length, 5);
+      assert.equal(comparison.best.stores[0].lines.length, 7);
     }
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); service.close(); }
 });

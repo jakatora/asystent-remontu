@@ -135,6 +135,12 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://www.grupapsb.com.pl/produkt/tasma-antyrysowa-48-mm-x-20-m-blue-dolphin-5907758504369.html
   {"ids":["mat-joint-tape-bluedolphin-fsh-48mm-20m"],"ean":"5907758504369","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin-p22044","imageUrl":"https://sklep.sewera.pl/photo/355803/tasma-spoinowa-z-wlokna-szklanego-48mm-x-20m-blue-dolphin.webp"},
 
+  // source: https://sklep.sewera.pl/papier-scierny-gr-80-arkusz-230x280mm-p6906 (odczyt 2026-10-29)
+  {"ids":["mat-hand-paper-klingspor-pl28c-p80"],"ean":"5907560017637","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-80-arkusz-230x280mm-p6906","imageUrl":"https://sklep.sewera.pl/photo/56987/papier-scierny-gr-80-arkusz-230x280mm.webp"},
+
+  // source: https://sklep.sewera.pl/papier-scierny-gr-100-arkusz-230x280mm-p6898 (odczyt 2026-10-29)
+  {"ids":["mat-hand-paper-klingspor-pl28c-p100"],"ean":"5907560023546","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-100-arkusz-230x280mm-p6898","imageUrl":"https://sklep.sewera.pl/photo/56969/papier-scierny-gr-100-arkusz-230x280mm.webp"},
+
   // source: https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903 (odczyt 2026-10-27T03:05:58.657Z)
   // source: https://www.klingspor.pl/produkty/arkusze-scierne/pl-28-c
   {"ids":["mat-hand-paper-klingspor-pl28c-p240"],"ean":"5907560039820","sourceUrl":"https://sklep.sewera.pl/papier-scierny-gr-240-arkusz-230x280mm-p6903","imageUrl":"https://sklep.sewera.pl/photo/56979/papier-scierny-gr-240-arkusz-230x280mm.webp"},

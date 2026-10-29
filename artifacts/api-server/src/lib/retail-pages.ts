@@ -331,12 +331,16 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
     || normalizeProductName(item.name ?? '') !== normalizeProductName(source.name))) throw Error('product_package_not_confirmed');
   // Matiw's native "szt." is one sealed 50-sheet pack. Sewera sells the same
   // grades as individual sheets while showing the manufacturer's pack EAN.
+  // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P80-50szt/25767
+  // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P100-50szt/25768
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P120-50szt/25769
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P150-50szt/25770
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P180-50szt/25771
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P220-50szt/25772
   // source: https://matiw.pl/pl/p/Arkusz-papier-scierny-Klingspor-230x280mm-PL28C-P240-50szt/25773
   const paperPacks: Record<string, readonly [string, number, string, string]> = {
+    'matiw-klingspor-pl28c-p80-50': ['5907560017637', 25767, '000615', 'P80'],
+    'matiw-klingspor-pl28c-p100-50': ['5907560023546', 25768, '000618', 'P100'],
     'matiw-klingspor-pl28c-p120-50': ['5907560017644', 25769, '000620', 'P120'],
     'matiw-klingspor-pl28c-p150-50': ['5907560023553', 25770, '000621', 'P150'],
     'matiw-klingspor-pl28c-p180-50': ['5907560023560', 25771, '000622', 'P180'],
