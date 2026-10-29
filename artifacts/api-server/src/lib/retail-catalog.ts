@@ -84,6 +84,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     // source: https://sklep.sewera.pl/acryl-putz-st10-start-20kg-p6107
     url: 'https://sklep.sewera.pl/acryl-putz-st10-start-20kg-p6107',
   },
+  // source: https://lobo.pl/sniezka-acryl-putz-st10-start-gipsowa-gladz-szpachlowa-20-kg
+  {id:'lobo-acrylputz-st10-20kg',ean:'5903973104421',name:'ŚNIEŻKA Acryl-Putz ST10 Start Gipsowa gładź szpachlowa 20 kg',category:'skim-coat',brand:'Śnieżka',packageSize:20,unit:'kg',store:'Lobo',format:'shoper-api',productId:57305,apiProductCode:'q159220000000BK00N',apiPurchaseUnit:'szt.',variant:['st10','20 kg'],url:'https://lobo.pl/sniezka-acryl-putz-st10-start-gipsowa-gladz-szpachlowa-20-kg',imageUrl:'https://lobo.pl/environment/cache/images/productGfx_134935_500_500/SNIEZKA-Acryl-Putz-ST10-Start-Gipsowa-gladz-szpachlowa-20-kg.webp'},
   {
     id: 'zino-sniezka-5l', ean: '5903973139188', name: 'Barwy Natury 173 Biały 5l',
     category: 'paint', brand: 'Śnieżka', packageSize: 5, unit: 'l', store: 'Zino', format: 'shoper-api',

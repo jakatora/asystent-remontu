@@ -112,6 +112,45 @@ test('Lobo combines Dulux paint, Blue Dolphin tape, Atlas primer and protective 
   assert.equal(calls,9);
 });
 
+test('Lobo quotes ST10 20 kg with a home courier, not the cheaper parcel locker', async () => {
+  let added = false;
+  const quote = createRetailerQuoter(async (input, options) => {
+    const url = new URL(String(input));
+    assert.equal(url.origin, 'https://lobo.pl');
+    if (url.pathname.endsWith('/products/PLN/57305')) return Response.json({
+      id: 57305, ean: '5903973104421', stockId: 57438, can_buy: true,
+      unit: { name: 'szt.', floating_point: false },
+      price: { gross: { final: '36,99 zł', final_float: 36.99 } },
+    });
+    if (options?.method === 'POST') {
+      assert.deepEqual(JSON.parse(String(options.body)), { stock_id: 57438, quantity: 1 });
+      added = true;
+      return Response.json({});
+    }
+    assert.equal(added, true);
+    return Response.json({
+      products: [{ stock_id: 57438, quantity: 1, unit: { name: 'szt.', floating_point: false }, price: '36,99 zł', price_float: 36.99, sum: '36,99 zł', sum_float: 36.99 }],
+      basket: { sum_products: '36,99 zł', sum_products_float: 36.99 },
+      countries: [{ id: 179, name: 'Polska', selected: true }],
+      payments: [{ payment_id: 16, name: 'transfer', title: 'Przelew' }],
+      shippings: [
+        { title: 'InPost Paczkomat 24/7', engine: 'inpost', ...money(3790), countries: [{ id: 179, ...money(3790) }], payments: [{ payment_id: 16 }] },
+        { title: 'Przesyłka kurierska (InPost)', engine: 'inpost', ...money(4590), countries: [{ id: 179, ...money(4590) }], payments: [{ payment_id: 16 }] },
+      ],
+    });
+  });
+  const basket: DeliveredStoreBasket = { store: 'Lobo', materialsGrosze: 3699, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: [
+    { product: { id: 'st10', name: 'Acryl-Putz ST10 20 kg', imageUrl: null }, unit: 'kg', packages: [
+      { packageSize: 20, count: 1, unitPriceGrosze: 3699, lineCostGrosze: 3699, offerId: 'lobo-acrylputz-st10-20kg', store: 'Lobo', url: null },
+    ] },
+  ] };
+  const result = await quote(basket, '00-001');
+  assert.ok('quote' in result);
+  assert.equal(result.quote.costGrosze, 4590);
+  assert.equal(result.quote.basis, 'retailer_basket_national');
+  assert.equal(result.quote.destinationScope, 'PL');
+});
+
 test('cross-origin redirect never receives storefront cookies or a request', async () => {
   let calls = 0;
   const quote = createRetailerQuoter(async () => { calls++; return new Response('',{status:302,headers:{ location:'https://example.org/', 'set-cookie':'sid=secret' }}); });
