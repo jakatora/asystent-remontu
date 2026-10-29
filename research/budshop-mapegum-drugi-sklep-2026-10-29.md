@@ -21,10 +21,36 @@ Anonimowe koszyki WooCommerce po wybraniu dostawy pod adres:
 | 2 × Mapegum WPS 10 kg | 497,98 zł | 2 × Średnia Paczka 37,98 zł | 535,96 zł |
 | Cerplast + Woder Duo + Woder E + Mapegum WPS | 961,99 zł | 2 × Średnia + 2 × Duża Paczka 87,96 zł | 1 049,95 zł |
 
-Przy dwóch opakowaniach sklep oferował również paczkomat za 19,99 zł. Adapter porównuje wyłącznie wybraną dostawę pod adres; nie zastępuje nią kuriera. Czteroproduktowy koszyk miał także droższą półpaletę 175,00 zł. Zakres akceptowanych stawek obejmuje tylko sprawdzone układy paczek; inne pozostają bez potwierdzonej wyceny. Kwoty pochodzą z `cart/update-customer` dla kodu oraz `cart/select-shipping-rate`, z kontrolą cen brutto każdej linii, ilości, rabatów, podatków, stawki i końcowego totalu. Nie podano danych osobowych i nie wykonano checkoutu.
+Przy dwóch opakowaniach sklep oferował również paczkomat za 19,99 zł. Adapter porównuje wyłącznie wybraną dostawę pod adres; nie zastępuje nią kuriera. Czteroproduktowy koszyk miał także droższą półpaletę 175,00 zł. Kwoty pochodzą z `cart/update-customer` dla kodu oraz `cart/select-shipping-rate`, z kontrolą cen brutto każdej linii, ilości, rabatów, podatków, stawki i końcowego totalu. Nie podano danych osobowych i nie wykonano checkoutu.
+
+## Rozszerzenie wyceny wielu paczek, 2026-10-29 14:33 UTC
+
+Pierwsze wdrożenie rozpoznawało tylko siedem wpisanych na stałe układów paczek. W rzeczywistym koszyku z dwoma średnimi i jedną dużą paczką sklep pokazał kuriera, a aplikacja błędnie zwracała `no_home_delivery`. Reguła wyznacza teraz identyfikator i etykietę kuriera z liczby opakowań i akceptuje stawkę tylko wtedy, gdy dokładnie pasuje do natywnej odpowiedzi sklepu. Limit to 32 paczki; przy innej metodzie lub etykiecie wycena pozostaje niepotwierdzona.
+
+| Natywny koszyk dla `00-001` | Materiały | Kurier | Razem |
+| --- | ---: | ---: | ---: |
+| Cerplast + Woder Duo + Mapegum, 2 średnie + 1 duża | 636,99 zł | 62,97 zł | 699,96 zł |
+| Cerplast + Woder E + Mapegum, 2 średnie + 1 duża | 712,99 zł | 62,97 zł | 775,96 zł |
+| 3 × Mapegum, 3 średnie | 746,97 zł | 56,97 zł | 803,94 zł |
+| 3 × Woder Duo, 3 duże | 747,00 zł | 74,97 zł | 821,97 zł |
+| Mapegum + Woder Duo + 2 × Woder E, 1 średnia + 3 duże | 1 147,99 zł | 93,96 zł | 1 241,95 zł |
+
+Testy odmowy obejmują etykietę innej usługi, zmienioną metodę, zmieniony total, półpaletę, paczkomat i próbę checkoutu.
 
 ## Weryfikacja
 
 Żywa próba adaptera 2026-10-29 14:21 UTC potwierdziła cztery produkty i jedną wycenę: `96199 + 8796 = 104995` gr, `retailer_basket_postcode`, `destinationScope=postal_code`. Test HTTP projektu scala cztery prace w ten koszyk. Testy sprawdzają sześć odpowiedzi natywnych koszyków oraz odmowę przy zmianie ceny, sumy, wyborze paczkomatu i próbie checkoutu. Testy aplikacji: **919/919 PASS**, bez pominięć; API i mobile typecheck PASS.
 
-Stan produkcji i wynik porównania obu sklepów: do uzupełnienia po wdrożeniu.
+W produkcji po pierwszym wdrożeniu: 248 obserwacji, 242 aktywne oferty, 180 produktów. Dla samego Mapegum i testowego `00-001` Budshop24 kosztuje 267,98 zł z dostawą, WinBud 221,47 zł; WinBud jest tańszy o **46,51 zł**. Dla zestawu czterech produktów Budshop24 wycenia 1 049,95 zł. Porównanie wszystkich sklepów wskazało najtańszy **potwierdzony** podział Sewera + WinBud za 899,17 zł, ale zgłosiło `needs_delivery_costs`, bo inna wycena Sewery przekroczyła czas odpowiedzi, a siedmiowariantowy adapter Budshop odrzucał istniejący układ. Wyniku nie należy przedstawiać jako bezwarunkowo najtańszego zestawu. Ponowny pomiar po poprawce opisano poniżej.
+
+## Produkcja po poprawce
+
+App commit `393b643` na gałęzi `codex/remont-zakupy-20261024`, backend [PR 99](https://github.com/jakatora/przetargai/pull/99), merge `bb5004c89fe2a37ee154885400c4a04daba3695a`, Railway deployment `c7e493fa-0165-4f49-80f5-7b47f16c63c5` zakończony `SUCCESS` 2026-10-29. Po wdrożeniu porównano 148/148 plików produkcji z przygotowaną paczką. Zachowano wszystkie 248 wcześniejszych obserwacji i 147 plików poza modułem wyceny.
+
+Rzeczywisty HTTP produkcyjny, kod testowy `00-001`:
+
+- Cerplast + Woder Duo + Mapegum, tylko Budshop24: 636,99 zł materiałów + 62,97 zł dostawy = **699,96 zł**. `status=compared`, `missing=0`, `basis=retailer_basket_postcode`, bez niedostępnych sklepów.
+- Ten sam pełny zestaw, wszystkie sklepy: **602,27 zł** z dostawą, Sewera 380,80 zł i WinBud 221,47 zł. `status=compared`, `missing=0`, bez niedostępnych sklepów. WinBud podał stawkę krajową (`destinationScope=PL`), Sewera stawkę dla kodu.
+- 3 × Mapegum w Budshop24: 746,97 zł + 56,97 zł = **803,94 zł**; 3 × Woder Duo: 747,00 zł + 74,97 zł = **821,97 zł**. Obie wyceny mają `status=compared`.
+
+Testy aplikacji po zmianie: **921/921 PASS**, bez pominięć. Testy wspólnego serwera: **1054/1054 PASS**, bez pominięć; mobile i API typecheck PASS. W UI alternatywne zestawy można rozwinąć do listy produktów ze zdjęciami, ilościami i kosztami linii, łączami do sklepów oraz kosztami kuriera dla każdego sklepu. Jeśli zestaw wymaga kilku osobnych zamówień, widok pokazuje ich podział. Przejście przez kreator i ekran „Gdzie najtaniej” sprawdzono w przeglądarce dla przykładowej łazienki; ta konfiguracja miała trzy niewycenione pozycje, więc pełnego porównania na tym ekranie nie potwierdzono. Backend potwierdzono rzeczywistym HTTP.
