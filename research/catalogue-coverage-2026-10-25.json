@@ -4598,10 +4598,10 @@
       "positiveAcceptancePassed": false
     }
   },
-  "deliveryCheckedAt": "2026-10-29T00:27:30.648Z",
+  "deliveryCheckedAt": "2026-10-29T00:46:07.772Z",
   "deliveryVerification": {
-    "report": "research/kronodom-automatyczna-dostawa-2026-10-29.md",
-    "scope": "Supported products and native baskets only; Kronodom national Poland quote, not postcode-specific. Quantities of one product are not yet split across multiple orders.",
-    "productionCases": 10
+    "report": "research/podzial-ilosci-na-zamowienia-2026-10-29.md",
+    "scope": "Supported native baskets; quantity splits conserve all pack counts, prices, per-order minima and lots after a valid whole-stock quote. Up to12 cart shapes and8 orders per isolated one-format product; overlapping mixed splits are not exhaustive and are marked limited.",
+    "productionCases": 11
   }
 }

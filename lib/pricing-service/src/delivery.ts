@@ -43,7 +43,8 @@ export interface DeliveredBasket {
 }
 export interface DeliveryQuote {
   /** A cheaper plan requires these separately checked merchant orders.
-   * Each product line appears in exactly one order; quantities are unchanged. */
+   * A product may appear in more than one order. Per-offer pack counts sum to
+   * the original basket, with unchanged prices, pack sizes and purchase rules. */
   orders?: { materialsGrosze: number; lines: DeliveredStoreBasket['lines']; quote: Omit<DeliveryQuote, 'orders' | 'singleOrderCostGrosze'> }[];
   singleOrderCostGrosze?: number;
   costGrosze: number;

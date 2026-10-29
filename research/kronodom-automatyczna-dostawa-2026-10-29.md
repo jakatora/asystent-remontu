@@ -39,7 +39,7 @@ Próg większego transportu został potwierdzony zarówno przez rzeczywisty adap
 - Mieszany zestaw Volden / Aquaprotec / taśma oraz Arbiton 3 w 1: 376,41 zł materiałów + 130,99 zł dostaw = **507,40 zł**.
 - Dotychczasowy komplet Volden / folia 12 m² / taśma 7 m zachował potwierdzoną cenę **314,44 zł** z dostawą.
 
-Ograniczenie optymalizacji: to wydanie wycenia jeden pełny koszyk Kronodom. Obecne dzielenie zamówień rozdziela produkty, a nie ilość jednego produktu. Dwa zamówienia po 2 opakowania kosztują według sprawdzonych wycen łącznie 385,92 zł, czyli o 111 zł mniej niż jedno zamówienie 4 opakowań. Następny etap powinien porównać takie podziały z zachowaniem łącznej ilości, wspólnego stanu, ceny i rzeczywistych wycen każdego zamówienia. Nie przedstawiamy pojedynczego większego koszyka jako globalnego minimum wszystkich możliwych podziałów.
+Ograniczenie w chwili tego wydania: wyceniano jeden pełny koszyk Kronodom, a dzielenie zamówień rozdzielało produkty, nie ilość jednego produktu. Dwa zamówienia po 2 opakowania kosztowały według sprawdzonych wycen łącznie 385,92 zł, o 111 zł mniej niż jedno zamówienie 4 opakowań. Aktualizacja 2026-10-29: podział ilości wdrożono i zweryfikowano w [kolejnym wydaniu](podzial-ilosci-na-zamowienia-2026-10-29.md), zachowując wspólny stan, opakowania i aktualne ceny. Wynik pojedynczego zamówienia nadal jest dostępny po wybraniu takiego trybu zakupów. Poniższe dane opisują wcześniejszy etap walidacji.
 
 ## Walidacja i wydanie
 

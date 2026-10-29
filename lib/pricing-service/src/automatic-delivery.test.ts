@@ -27,6 +27,15 @@ test('all pack splits are considered; fixed store-subset greedy pricing would mi
   });
   assert.equal(result.best!.totalGrosze,1100); assert.equal(result.best!.stores.length,2);
 });
+
+test('separate-order opt-in splits oneSKU quantities while one-order mode retains the actual full-cart freight',async()=>{
+ const input=await stage(4);for(const line of input.lines)if(line.resolved)line.offers=line.offers.filter(o=>o.store==='A');
+ const native:BasketQuoter=async order=>({quote:{costGrosze:order.lines[0].packages[0].count===4?24900:6900,carrier:'Courier',payment:'Prepaid',checkedAt:new Date().toISOString(),expiresAt:new Date(Date.now()+600000).toISOString(),sourceUrl:'https://example.org/cart',destinationScope:'PL',basis:'retailer_basket_national',evidenceSha256:'a'.repeat(64)}});
+ const single=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:false},native),split=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:true},native);
+ assert.equal(single.best!.deliveryGrosze,24900);assert.equal(single.best!.stores[0].quote!.orders,undefined);assert.equal(single.allowSeparateOrders,false);
+ assert.equal(split.best!.deliveryGrosze,13800);assert.equal(split.best!.materialsGrosze,single.best!.materialsGrosze);assert.equal(single.best!.totalGrosze!-split.best!.totalGrosze!,11100);assert.equal(split.allowSeparateOrders,true);
+ assert.deepEqual(split.best!.stores[0].quote!.orders!.map(o=>o.lines[0].packages[0].count),[2,2]);assert.equal(split.best!.stores[0].lines[0].packages[0].count,4);
+});
 test('automatic mode ignores old manual fees, blocks missing postcode, exposes unknown quotes', async () => {
   let calls = 0;
   const quote: BasketQuoter = async order => { calls++; return order.store === 'A' ? known(order,'00-001') : { reason:'quote_unavailable' }; };
