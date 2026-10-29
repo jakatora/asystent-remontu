@@ -254,6 +254,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
               <View style={{flexDirection:'row',alignItems:'center',gap:10}}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={48}/><Txt w="medium" style={{flex:1,fontSize:14,lineHeight:20}}>{displayProductName(line.product)}</Txt></View>
               {line.packages.map(pack => <View key={pack.offerId} style={{paddingLeft:58,gap:2}}>
                 <Txt style={{fontSize:13}}>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
+                <PriceChangeBadge offerId={pack.offerId} basketPack={pack} />
                 {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{minHeight:44,justifyContent:'center'}}><Txt w="semibold" style={{color:Colors.primary,fontSize:13}}>{tr('Sprawdź w sklepie ↗','View in store ↗')}</Txt></Pressable>}
               </View>)}
             </View>)}
