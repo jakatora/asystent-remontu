@@ -50,6 +50,9 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   }, [destination, mode, settings.postalCode, settings.method, allowSeparateOrders, onApply]);
   const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
   const best = current ? comparison.best : null;
+  const incompleteCompetition = Boolean(current && destination && mode === 'shipping' && !selectedStore && best && comparison.status === 'needs_delivery_costs');
+  const unquotedStoreNames = [...new Set(comparison.unavailableStores?.map(store => store.store) ?? [])];
+  const unquotedStoreLabel = unquotedStoreNames.length <= 2 ? unquotedStoreNames.join(', ') : tr(`${unquotedStoreNames.length} ${unquotedStoreNames.length < 5 ? 'sklepy' : 'sklepów'}`, `${unquotedStoreNames.length} stores`);
   const postcodeQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'postal_code').length ?? 0;
   const nationallyQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'PL').length ?? 0;
   const available = availableStoreBasket(comparison,current,selectedStore);
@@ -132,7 +135,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     {current && comparison.status === 'limit_exceeded' && <Txt>{tr('Ten zestaw przekracza zakres porównania. Podziel zakupy na mniejsze zestawy.', 'This basket exceeds the comparison limit. Split it into smaller purchases.')}</Txt>}
     {current && comparison.searchLimited && !pendingPlan && <View style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg }}><Txt accessibilityRole="alert" style={{ lineHeight: 20 }}>{tr(`Sprawdzono wybrane pełne zestawy. Wyceny z dostawą: ${comparison.comparedBasketCount ?? 0}. Inne podziały zakupów mogą być tańsze.`, `Selected complete baskets were checked. Baskets quoted with delivery: ${comparison.comparedBasketCount ?? 0}. Other purchase allocations may cost less.`)}</Txt></View>}
     {best && <View style={{ backgroundColor: Colors.primaryBg, padding: 18, borderRadius: 16, gap: 10 }}>
-      <Txt w="bold" style={{ fontSize: 16 }}>{selectedStore ? (mode === 'pickup' ? tr(`Materiały: ${selectedStore} — bez dostawy`, `Materials: ${selectedStore} — excluding delivery`) : tr(`Zestaw z dostawą: ${selectedStore}`, `Basket with delivery: ${selectedStore}`)) : mode === 'pickup' ? tr('Najtańszy zestaw do odbioru', 'Lowest basket for self collection') : tr('Najtańszy zestaw z wycenioną dostawą', 'Lowest basket with quoted delivery')}</Txt>
+      <Txt w="bold" style={{ fontSize: 16 }}>{selectedStore ? (mode === 'pickup' ? tr(`Materiały: ${selectedStore} — bez dostawy`, `Materials: ${selectedStore} — excluding delivery`) : tr(`Zestaw z dostawą: ${selectedStore}`, `Basket with delivery: ${selectedStore}`)) : mode === 'pickup' ? tr('Najtańszy zestaw do odbioru', 'Lowest basket for self collection') : incompleteCompetition ? tr('Najtańszy potwierdzony zestaw z dostawą', 'Lowest confirmed basket with delivery') : tr('Najtańszy zestaw z wycenioną dostawą', 'Lowest basket with quoted delivery')}</Txt>
       {comparison.postalCode && <Txt style={{ color: Colors.textSecondary }}>{tr('Podany kod pocztowy', 'Entered postcode')}: {comparison.postalCode}</Txt>}
       {mode === 'shipping' && <View style={{ padding: 10, borderRadius: 10, backgroundColor: Colors.surface, gap: 4 }}>
         {postcodeQuotedStores > 0 && <Txt style={{fontSize:13,lineHeight:19}}>{tr(`Dostawa dla Twojego kodu: ${postcodeQuotedStores} ${postcodeQuotedStores === 1 ? 'sklep' : 'sklepy'}.`, `Delivery quoted for your postcode: ${postcodeQuotedStores} ${postcodeQuotedStores === 1 ? 'store' : 'stores'}.`)}</Txt>}
@@ -141,10 +144,18 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt>{tr('Materiały', 'Materials')}</Txt><Txt w="semibold">{formatGrosze(best.materialsGrosze)}</Txt></View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt>{tr('Dostawa', 'Delivery')}</Txt><Txt w="semibold">{formatGrosze(best.deliveryGrosze!)}</Txt></View>
       <View style={{ borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 10, gap: 4 }}><Txt>{tr('Łączny koszt', 'Total cost')}</Txt><Txt w="bold" style={{ fontSize: 30, color: Colors.primaryDark }}>{formatGrosze(best.totalGrosze!)}</Txt></View>
+      {incompleteCompetition && <View accessibilityRole="alert" style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 8 }}>
+        <Txt w="bold" style={{ fontSize: 15 }}>{tr('Porównanie niepełne', 'Comparison incomplete')}</Txt>
+        <Txt style={{ fontSize: 14, lineHeight: 21 }}>{tr(
+          `To najtańszy z potwierdzonych koszyków. ${unquotedStoreNames.length ? `Nie udało się wycenić innych koszyków: ${unquotedStoreLabel}.` : 'Nie udało się wycenić wszystkich pozostałych koszyków.'} Inny zestaw może być tańszy.`,
+          `This is the lowest confirmed basket. ${unquotedStoreNames.length ? `Other baskets could not be quoted: ${unquotedStoreLabel}.` : 'Not every other basket could be quoted.'} Another basket may cost less.`,
+        )}</Txt>
+        <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Retry delivery quotes')} onPress={() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) })} />
+      </View>}
       <Txt style={{ fontSize: 12, lineHeight: 18, color: Colors.textSecondary }}>{mode === 'pickup'
         ? tr('Do sumy nie doliczamy dojazdu. Potwierdź dostępność w wybranych placówkach.', 'Travel is excluded. Confirm availability at the chosen branches.')
         : tr('Ceny brutto produktów i dostaw przy płatności z góry. Przy każdej dostawie pokazujemy podstawę: koszyk dla Twojego kodu lub aktualną taryfę krajową sklepu. Dostępność pełnego adresu potwierdzisz przy zakupie.', 'Gross product and delivery prices with prepayment. Each delivery shows its basis: a basket for your postcode or the current national store tariff. Confirm full address availability when purchasing.')}</Txt>
-      {mode === 'shipping' && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Wynik obejmuje potwierdzone koszyki. Pozostałe sklepy (${comparison.missingDeliveryStores.length}) mają niepotwierdzoną dostawę lub nie pokrywają potrzebnej ilości. Szczegóły sprawdzisz poniżej.`, `The result covers confirmed baskets. Other stores (${comparison.missingDeliveryStores.length}) have unconfirmed delivery or cannot cover the required quantity. See the details below.`)}</Txt>}
+      {mode === 'shipping' && !incompleteCompetition && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Wynik obejmuje potwierdzone koszyki. Pozostałe sklepy (${comparison.missingDeliveryStores.length}) mają niepotwierdzoną dostawę lub nie pokrywają potrzebnej ilości. Szczegóły sprawdzisz poniżej.`, `The result covers confirmed baskets. Other stores (${comparison.missingDeliveryStores.length}) have unconfirmed delivery or cannot cover the required quantity. See the details below.`)}</Txt>}
       {mode === 'shipping' && Boolean(comparison.partiallyQuotedStores?.length) && <Txt style={{fontSize:12,lineHeight:18}}>{tr('Nie wszystkie inne kombinacje koszyków udało się potwierdzić. Mogą wpłynąć na najniższą cenę.', 'Some other basket combinations could not be confirmed and may affect the lowest total.')}</Txt>}
     </View>}
     {current && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
@@ -225,7 +236,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         <Txt numberOfLines={3} style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{basket.stores.flatMap(store=>store.lines.map(line=>`${displayProductName(line.product)}: ${line.packages.map(pack=>`${pack.count} × ${pack.packageSize} ${line.unit??''}`).join(' + ')}`)).join('\n')}</Txt>
       </View>)}
     </View>}
-    {current && destination && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
+    {current && destination && !incompleteCompetition && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
     {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}
   </View>;
 }
