@@ -27,4 +27,8 @@ Zewnętrzny koszyk wycenia także paczkomat za 19,99 zł dla pojedynczego Woder 
 
 Żywa próba adaptera 2026-10-29 14:03 UTC potwierdziła trzy produkty i jedną dostawę: `71300 + 6897 = 78197` gr, `retailer_basket_postcode`, `destinationScope=postal_code`. Testy odpowiedzi sklepu obejmują 7 układów koszyka, ilości 2 sztuk, zmiany ceny, niespójne sumy, nieznaną stawkę i zablokowany checkout. Test HTTP projektu łączy trzy prace w jeden koszyk. Pełny zestaw testów aplikacji: **915/915 PASS**, zero pominięć; API i mobile typecheck PASS.
 
-Stan wdrożenia i produkcyjny wynik porównania: do uzupełnienia po publikacji.
+## Produkcja i najtańszy pełny zestaw
+
+[PR współdzielonego backendu #97](https://github.com/jakatora/przetargai/pull/97) scalono do `main` (`b97c33320a5d902dcf49012aa7b4d023c99e0c50`). Railway deployment `36f9e9dd-0bd1-43cd-a887-22dc37e8ccbf` osiągnął `SUCCESS` 2026-10-29 14:13:09 UTC. Migawka działającej produkcji jest identyczna z przygotowaną wersją w **148/148 plikach**: 247 obserwacji, 241 aktywnych ofert, 180 produktów. Nowa oferta jest aktywna, bez błędu, ze stanem pięciu opakowań. Testy wspólnego backendu: **1054/1054 PASS**, bez pominięć; uruchomiono je kolejno po wykryciu blokady współdzielonej testowej bazy SQLite podczas równoległego przebiegu.
+
+Produkcyjne `POST /api/remont/pricing/project` z trzema pracami i kodem `00-001` potwierdziło Budshop24: **713,00 zł materiałów + 68,97 zł dostawy = 781,97 zł**, `status=compared`, brak brakujących produktów, `retailer_basket_postcode`. Przy porównaniu wszystkich dostępnych sklepów najtańszy potwierdzony kompletny zestaw tych trzech produktów dała **Sewera: 592,00 zł + 85,70 zł dostawy = 677,70 zł**. Dla tego kodu była tańsza o **104,27 zł** od Budshop24. Kolejność może zmienić się dla innego kodu, ilości lub cen; aplikacja przelicza koszyk dla danych użytkownika.
