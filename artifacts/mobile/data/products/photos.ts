@@ -12,6 +12,15 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504
+  {"ids":["mat-epn-pk60-pro-0285-01"],"ean":"5901752632141","sourceUrl":"https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|2C8CF048-F501-47AA-A5F5-A63446185DB7|1/Puszka podtynkowa łączeniowa 60 mm Pro z wkrętami Elektro-Plast.webp"},
+  // source: https://hipper.pl/pierscien-dystansowy-do-puszki-60-x-12-mm-z-wkretami-elektro-plast-956230239
+  {"ids":["mat-epn-spacer-60x12-screws"],"ean":"5901752638945","sourceUrl":"https://hipper.pl/pierscien-dystansowy-do-puszki-60-x-12-mm-z-wkretami-elektro-plast-956230239","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|EAF8A7CF-F565-4356-BBF1-1E13C05FB229|1/Pierścień dystansowy do puszki 60 x 12 mm z wkrętami Elektro-Plast.webp"},
+  // source: https://hipper.pl/pierscien-dystansowy-do-puszki-60-x-24-mm-z-wkretami-elektro-plast-956230245
+  {"ids":["mat-epn-spacer-60x24-screws"],"ean":"5901752638952","sourceUrl":"https://hipper.pl/pierscien-dystansowy-do-puszki-60-x-24-mm-z-wkretami-elektro-plast-956230245","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|8788C2AD-3486-4319-85C0-2E6E188E3F8C|1/Pierścień dystansowy do puszki 60 x 24 mm z wkrętami Elektro-Plast.webp"},
+  // source: https://hipper.pl/puszka-podtynkowa-60-mm-lux-z-wkretami-elektro-plast-956340465
+  {"ids":["mat-epn-pk60-lux-0206-51"],"ean":"5907569154098","sourceUrl":"https://hipper.pl/puszka-podtynkowa-60-mm-lux-z-wkretami-elektro-plast-956340465","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|69F8C3F5-15B6-4EA4-BABC-93A01D42043E|1/Puszka podtynkowa 60 mm LUX z wkrętami Elektro-Plast.webp"},
+
   // source: https://www.abud.pl/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html
   {"ids":["mat-wire-aks-777094-3x15-25m"],"ean":"5904617578769","sourceUrl":"https://www.abud.pl/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html","imageUrl":"https://www.abud.pl/hpeciai/bcfc678d2850d9367066872793a3a3c5/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m-6883_1.webp"},
   // source: https://www.abud.pl/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html
