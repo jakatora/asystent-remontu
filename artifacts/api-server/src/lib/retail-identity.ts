@@ -1,6 +1,7 @@
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import { cleanHtml, htmlAttributes, htmlElements, htmlText } from './retail-microdata';
 import type { RetailSource } from './retail-pages';
+import {isReviewedAksCableSource} from './aks-cables';
 
 function only(values: string[], reason: string): string {
   if (values.length !== 1) throw Error(reason);
@@ -13,6 +14,7 @@ function attribute(element: string, name: string): string | undefined {
 /** These reviewed templates expose the barcode in the main specification,
  * separately from Product JSON-LD. Never borrow a code from recommendations. */
 export function confirmRetailIdentity(html: string, product: Record<string, any>, source: RetailSource): Record<string, any> {
+  if(source.id.startsWith('abud-aks-')&&!isReviewedAksCableSource(source))throw Error('product_package_not_confirmed');
   const safe = cleanHtml(html);
   if (source.format !== 'rodimax' && (!Number.isSafeInteger(source.productId) || source.productId! < 1)) throw Error('product_id_not_confirmed');
   let code: string, price: string, brand = product.brand, image = product.image;

@@ -1,6 +1,7 @@
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { RetailSource } from './retail-pages';
 import { cleanHtml, htmlAttributes, htmlElements, htmlText } from './retail-microdata';
+import {isReviewedAksCableSource} from './aks-cables';
 
 const only = (values: string[], reason: string) => {
   if (values.length !== 1) throw Error(reason);
@@ -49,8 +50,12 @@ export function readCertusoftProduct(html: string, source: RetailSource) {
     && source.url === 'https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325'
     && source.unit === 'szt' && source.packageSize === 100
     && source.variant?.join('|') === 'krzyżowy|60|145|100';
-  const singlePiece = source.unit === 'szt' && source.packageSize === 1 && source.id !== 'hipper-norgips-cross-100';
-  if ((!singlePiece && !reviewedRoll && !reviewedBottle && !reviewedCarton) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
+  const singlePiece = source.unit === 'szt' && source.packageSize === 1 && source.id !== 'hipper-norgips-cross-100' && !source.id.startsWith('hipper-aks-');
+  // One native piece is this exact 25m roll declared under GTIN5904617578721.
+  // source: https://hipper.pl/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429
+  // source: https://media.adeo.com/media/4774947/media.pdf
+  const reviewedCable = source.id==='hipper-aks-ydyp-3x25-25m'&&isReviewedAksCableSource(source);
+  if ((!singlePiece && !reviewedRoll && !reviewedBottle && !reviewedCarton && !reviewedCable) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
   const state = readCertusoftState(html), card = state.csAppWindowsUtils?.csAppWindows?.csB2BItemCard;
   const rows = card?.dataSets?.itemCard?.rows;
   if (!Array.isArray(rows) || rows.length !== 1) throw Error('product_identity_ambiguous');

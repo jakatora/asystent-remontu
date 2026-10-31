@@ -124,7 +124,12 @@ export class AnonymousShop {
       // source: https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html
       // source: https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html
       // source: https://www.abud.pl/product-pol-27095-Soudal-klej-do-wykladzin-podlogowych-26A-5kg.html
-      if (![27095,6204,64835,17848,63790,1456,63463,1452,5708,7965,1121].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
+      // Exact native AKS rolls, not a number of metres or another cross-section.
+      // source: https://www.abud.pl/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html
+      // source: https://www.abud.pl/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html
+      // source: https://www.abud.pl/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html
+      // source: https://www.abud.pl/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html
+      if (![65373,50450,6900,50414,27095,6204,64835,17848,63790,1456,63463,1452,5708,7965,1121].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
       return JSON.parse(await this.read('/basketchange.php',new URLSearchParams({getAjax:'true',mode:'1',product:String(args.productId),size:'onesize',number:String(args.count)}).toString(),false));
     }
     if (action !== 'shipping' || Object.keys(args).length) throw Error('invalid_cart_action');

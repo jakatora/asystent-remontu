@@ -12,6 +12,15 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.abud.pl/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html
+  {"ids":["mat-wire-aks-777214-3x15-5m"],"ean":"5901602190944","sourceUrl":"https://www.abud.pl/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html","imageUrl":"https://www.abud.pl/hpeciai/63d002db68a8e4b49f22986e04d3d3c5/pol_pl_Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka-65373_1.webp"},
+  // source: https://www.abud.pl/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html
+  {"ids":["mat-wire-aks-777096-3x15-100m"],"ean":"5904617579735","sourceUrl":"https://www.abud.pl/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html","imageUrl":"https://www.abud.pl/hpeciai/b5a27da15d1eb3073ec3741e9d64a4dc/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m-50450_1.webp"},
+  // source: https://www.abud.pl/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html
+  {"ids":["mat-wire-aks-777097-3x25-25m"],"ean":"5904617578721","sourceUrl":"https://www.abud.pl/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html","imageUrl":"https://www.abud.pl/hpeciai/b3e45b96a86d1ae7a0ce0efd7442665c/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m-6900_1.webp"},
+  // source: https://www.abud.pl/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html
+  {"ids":["mat-wire-aks-777099-3x25-100m"],"ean":"5904617579759","sourceUrl":"https://www.abud.pl/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html","imageUrl":"https://www.abud.pl/hpeciai/b5a27da15d1eb3073ec3741e9d64a4dc/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m-50414_1.webp"},
+
   // source: https://dekork.pl/products/profesjonalny-podklad-lvt-1-5mm-wysoka-gestosc-6m2-do-60m2?variant=57433631359307
   {"ids":["mat-vinyl-underlay-dekork-professional-6m2"],"ean":"3067088472737","sourceUrl":"https://dekork.pl/products/profesjonalny-podklad-lvt-1-5mm-wysoka-gestosc-6m2-do-60m2?variant=57433631359307","imageUrl":"https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267"},
   // source: https://dekork.pl/products/srebrnylux-podklad-lvt-1-5-mm-ze-srebrna-membrana-wysoka-gestosc-najwyzsza-jakosc?variant=57433623167307

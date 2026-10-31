@@ -79,6 +79,7 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
       </>}
       {(custom || ref) && <>
         {ref && <Txt w="semibold">{pl ? 'Wybrano' : 'Selected'}: {ref.productLabel}</Txt>}
+        {ref?.materialType==='wire' && <Txt style={{color:Colors.textSecondary,fontSize:13,lineHeight:19}}>{pl?'Przekrój, rodzaj i długość przewodu dobierz zgodnie z projektem instalacji. Porównujemy ceny wybranego wariantu.':'Choose the cable type, cross-section and length according to the installation design. We compare prices for the selected variant.'}</Txt>}
         <Txt>{pl ? 'Potrzebna ilość' : 'Required quantity'} ({custom ? unit : ref?.packageUnit})</Txt>
         <TextInput accessibilityLabel={pl ? 'Potrzebna ilość dodatkowego materiału' : 'Additional material quantity'} keyboardType="decimal-pad" value={quantity} onChangeText={setQuantity} maxLength={13} style={field} />
         {quantity && demand === null ? <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Wpisz ilość większą od zera, do 100 000 (maksymalnie 6 cyfr po przecinku).' : 'Enter a quantity above zero, up to 100,000 (at most 6 decimal places).'}</Txt> : null}

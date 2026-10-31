@@ -1,0 +1,2908 @@
+{
+  "capturedAt": "2026-10-31T12:29:59.656Z",
+  "description": "Minimal fields from actual anonymous merchant reads/carts; session identifiers replaced. No delivery prices are inferred.",
+  "pages": [
+    {
+      "sourceId": "abud-aks-ydyp-3x15-5m",
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"Product\",\"description\":\"Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka\",\"name\":\"Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka\",\"productID\":\"mpn:777214\",\"brand\":{\"@type\":\"Brand\",\"name\":\"AKS Zielonka\"},\"image\":\"https://www.abud.pl/hpeciai/63d002db68a8e4b49f22986e04d3d3c5/pol_pl_Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka-65373_1.webp\",\"offers\":[{\"@type\":\"Offer\",\"availability\":\"http://schema.org/InStock\",\"price\":\"28.90\",\"priceCurrency\":\"PLN\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"refundType\":\"https://schema.org/FullRefund\",\"merchantReturnDays\":14,\"returnFees\":\"https://schema.org/ReturnShippingFees\",\"returnMethod\":\"https://schema.org/ReturnByMail\",\"applicableCountry\":\"PL\"},\"shippingDetails\":{\"@type\":\"OfferShippingDetails\",\"shippingRate\":{\"@type\":\"MonetaryAmount\",\"value\":\"0.00\",\"currency\":\"PLN\"},\"shippingDestination\":{\"@type\":\"DefinedRegion\",\"addressCountry\":\"PL\"},\"freeShippingThreshold\":{\"@type\":\"MonetaryAmount\",\"value\":\"50.00\",\"currency\":\"PLN\"}},\"eligibleQuantity\":{\"value\":\"1\",\"unitCode\":\"szt.\",\"@type\":[\"QuantitativeValue\"]},\"url\":\"https://www.abud.pl/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html\"}]}</script><form id=\"projector_form\" class=\"projector_details is-validated\" action=\"https://www.abud.pl/basketchange.php\" method=\"post\" data-product_id=\"65373\" data-type=\"product_item\"><button style=\"display:none;\" type=\"submit\"></button><input id=\"projector_product_hidden\" type=\"hidden\" name=\"product\" value=\"65373\"><input id=\"projector_size_hidden\" type=\"hidden\" name=\"size\" autocomplete=\"off\" value=\"onesize\"><input id=\"projector_mode_hidden\" type=\"hidden\" name=\"mode\" value=\"1\"><div class=\"projector_details__wrapper --inpost-pay --oneclick\"><div id=\"projector_sizes_cont\" class=\"projector_details__sizes projector_sizes\" data-onesize=\"true\"><span class=\"projector_sizes__label\">Rozmiar</span><div class=\"projector_sizes__sub\"><a class=\"projector_sizes__item\" href=\"/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html\" data-type=\"onesize\"><span class=\"projector_sizes__name\">uniwersalny</span></a></div></div><div id=\"projector_prices_wrapper\" class=\"projector_details__prices projector_prices\"><div class=\"projector_prices__price_wrapper\"><strong class=\"projector_prices__price\" id=\"projector_price_value\" data-price=\"28.90\"><span data-subscription-max=\"28.90\" data-subscription-max-net=\"23.50\" data-subscription-save=\"\" data-subscription-before=\"28.90\">28,90 zł</span></strong><div class=\"projector_prices__info\"><span class=\"projector_prices__vat\"><span class=\"price_vat\"> brutto</span></span><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" id=\"projector_price_unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\" id=\"projector_price_unit\">szt.</span></div></div><div class=\"projector_prices__lowest_price omnibus_price\"><span class=\"omnibus_price__text\">Najniższa cena z 30 dni przed obniżką: </span><del id=\"projector_omnibus_price_value\" class=\"omnibus_price__value\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">szt.</span><span class=\"projector_prices__percent\" id=\"projector_omnibus_percent\"></span></div><div class=\"projector_prices__maxprice_wrapper\" id=\"projector_price_maxprice_wrapper\"><span class=\"projector_prices__maxprice_label\">Cena regularna: </span><del id=\"projector_price_maxprice\" class=\"projector_prices__maxprice\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">szt.</span><span class=\"projector_prices__percent\" id=\"projector_maxprice_percent\"></span></div><div class=\"projector_prices__srp_wrapper\" id=\"projector_price_srp_wrapper\" style=\"display:none;\"><span class=\"projector_prices__srp_label\">Cena katalogowa:</span><span class=\"projector_prices__srp\" id=\"projector_price_srp\" data-price=\"\"></span></div><div class=\"projector_prices__points\" id=\"projector_points_wrapper\" style=\"display:none;\"><div class=\"projector_prices__points_wrapper\" id=\"projector_price_points_wrapper\"><span id=\"projector_button_points_basket\" class=\"projector_prices__points_buy --span\" title=\"Zaloguj się, aby kupić ten produkt za punkty\"><span class=\"projector_prices__points_price_text\">Możesz kupić za </span><span class=\"projector_prices__points_price\" id=\"projector_price_points\" data-price=\"\"><span class=\"projector_currency\"> pkt.</span></span></span></div></div></div><div class=\"projector_details__buy projector_buy\" id=\"projector_buy_section\"><div class=\"projector_buy__number_wrapper\"><div class=\"projector_buy__number_inputs\"><select class=\"projector_buy__number f-select\" aria-label=\"Ilość produktów\"><option value=\"1\" selected>1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option data-more=\"true\">\n\t\t\t\t\t\t\t\t\t\t\twięcej\n\t\t\t\t\t\t\t\t\t\t</option></select><div class=\"projector_buy__more\"><input class=\"projector_buy__more_input\" type=\"number\" name=\"number\" id=\"projector_number\" aria-label=\"Ilość produktów\" data-prev=\"1\" value=\"1\" data-sellby=\"1\" step=\"1\"></div></div><div class=\"projector_buy__number_amounts d-none\"><span class=\"number_description\">z </span><span class=\"number_amount\"></span><span class=\"number_unit\"></span></div></div><button class=\"projector_buy__button btn --solid --large\" id=\"projector_button_basket\" type=\"submit\">\n\t\t\t\t\t\t\t\t\tDodaj do koszyka\n\t\t\t\t\t\t\t\t</button><div class=\"projector_oneclick__wrapper\"><div class=\"projector_oneclick__label\">\n\t\t\t\t\t\t\t\t\tMożesz kupić także poprzez:\n\t\t\t\t\t\t\t\t</div><div class=\"projector_details__inpost_pay projector_inpost_pay\" id=\"inpostPay\" data-id=\"inpostPay\" data-basket-by-front=\"1\"></div><div class=\"projector_details__oneclick projector_oneclick\" data-columns=\"2\" data-lang=\"pol\"><div class=\"projector_oneclick__items\"><div class=\"projector_oneclick__item --applePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Apple Pay\" id=\"oneclick_applePay\" data-id=\"applePay\"></div><div class=\"projector_oneclick__item --googlePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Google Pay\" id=\"oneclick_googlePay\" data-id=\"googlePay\"></div></div></div></div></div><div class=\"projector_details__tell_availability projector_tell_availability\" id=\"projector_tell_availability\" style=\"display:none\"><div class=\"projector_tell_availability__block --link\"><a class=\"projector_tell_availability__link btn --solid --outline --solid --medium\" href=\"#tellAvailability\">Powiadom mnie o dostępności produktu</a></div></div><div class=\"projector_details__info projector_info\"><div id=\"projector_status\" class=\"projector_info__item --status projector_status\"><span id=\"projector_status_gfx_wrapper\" class=\"projector_status__gfx_wrapper projector_info__icon\"><img id=\"projector_status_gfx\" class=\"projector_status__gfx\" src=\"/data/lang/pol/available_graph/graph_1_4.png\" alt=\"Produkt w magazynie w bardzo dużej ilości\"></span><div id=\"projector_shipping_unknown\" class=\"projector_status__unknown\" style=\"display:none\"><span class=\"projector_status__unknown_text\"><a target=\"_blank\" href=\"/contact-pol.html\">Skontaktuj się z obsługą sklepu</a>, aby oszacować czas przygotowania tego produktu do wysyłki.\n\t\t\t\t\t\t\t\t</span></div><div id=\"projector_status_wrapper\" class=\"projector_status__wrapper\"><div class=\"projector_status__description\" id=\"projector_status_description\">Produkt w magazynie w bardzo dużej ilości</div><div id=\"projector_shipping_info\" class=\"projector_status__info\" style=\"display:none\"><strong class=\"projector_status__info_label\" id=\"projector_delivery_label\">Wysyłka </strong><strong class=\"projector_status__info_days\" id=\"projector_delivery_days\"></strong><span class=\"projector_status__info_amount\" id=\"projector_amount\" style=\"display:none\"> (%d w magazynie)</span></div></div></div><div class=\"projector_info__item --shipping projector_shipping\" id=\"projector_shipping_dialog\"><span class=\"projector_shipping__icon projector_info__icon\"></span><a class=\"projector_shipping__info projector_info__link\" href=\"#shipping_info\">\n\t\t\t\t\t\t\t\tSprawdź czas i koszty dostawy\n\t\t\t\t\t\t\t</a></div><div class=\"projector_info__item --phone projector_phone\"><span class=\"projector_phone__icon projector_info__icon\"></span><a class=\"projector_phone__info projector_info__link\" href=\"tel:+48226100180\">\n\t\t\t\t\t\t\t\tZadzwoń i zamów: +48226100180</a></div><div class=\"projector_info__item --returns projector_returns\"><span class=\"projector_returns__icon projector_info__icon\"></span><span class=\"projector_returns__info projector_info__link\"><span class=\"projector_returns__days\">14</span> dni na łatwy zwrot</span></div><div class=\"projector_info__item --stocks projector_stocks\"><span class=\"projector_stocks__icon projector_info__icon\"></span><a class=\"projector_stocks__info projector_info__link --link\" href=\"/product-stocks.php?product=65373\">\n\t\t\t\t\t\t\t\t\t\t\tSprawdź, w którym sklepie obejrzysz i kupisz od ręki\n\t\t\t\t\t\t\t\t\t\t</a><div id=\"product_stocks\" class=\"product_stocks\"><div class=\"product_stocks__block --product pb-3\"><div class=\"product_stocks__product d-flex align-items-center\"><img loading=\"lazy\" class=\"product_stocks__icon mr-4\" src=\"hpeciai/a74fad6b0f48f58df6a852bb9b38c62a/pol_il_Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka-65373.webp\" alt=\"Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka\"><div class=\"product_stocks__details\"><strong class=\"product_stocks__name d-block pr-2\">Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka</strong><div class=\"product_stocks__sizes row mx-n1\"><a class=\"product_stocks__size select_button col mx-1 mt-2 flex-grow-0 flex-shrink-0\" href=\"#onesize\" data-type=\"onesize\">uniwersalny</a></div></div></div></div><div class=\"product_stocks__block --stocks --skeleton\"></div></div></div><div class=\"projector_info__item --safe projector_safe\"><span class=\"projector_safe__icon projector_info__icon\"></span><span class=\"projector_safe__info projector_info__link\">Bezpieczne zakupy</span></div><div class=\"projector_info__item --points projector_points_recive\" id=\"projector_price_points_recive_wrapper\" style=\"display:none;\"><span class=\"projector_points_recive__icon projector_info__icon\"></span><span class=\"projector_points_recive__info projector_info__link\"><span class=\"projector_points_recive__text\">Po zakupie otrzymasz </span><span class=\"projector_points_recive__value\" id=\"projector_points_recive_points\"> pkt.</span></span></div><a class=\"projector_info__item --leaselink\" data-instalments=\"LeaseLink\" onclick=\"event.stopPropagation(); calculate_instalments('300','100000','','',$(this).attr('data-window'),'','LeaseLink','',''); return false;\" href=\"javascript:window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=&amp;productname=Przew%C3%B3d%20elektryczny%203x1,5mm2%20YDYP%205m%20Bia%C5%82y%20AKS%20Zielonka&amp;externalId=679ec1&amp;value=XXX',%20'',%20'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\" data-window=\"window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=&amp;productname=Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka&amp;externalId=679ec1&amp;value=XXX', '', 'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\"><span class=\"projector_instalments__item_text\">Oblicz raty LeaseLink</span><img class=\"projector_info__item_icon\" loading=\"lazy\" src=\"/panel/gfx/payforms/icon_InstallmentLeaselink.png\" alt=\"LeaseLink\"></a><div class=\"projector_info__item --P24_installments_widget\" id=\"P24_installments_widget\"></div></div></div><div class=\"projector_smile\"><div class=\"projector_smile__block --main\"><img class=\"projector_smile__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><span class=\"projector_smile__inpost\"><span class=\"projector_smile__inpost_text\">Darmowa dostawa do paczkomatu</span><img class=\"projector_smile__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></span><a class=\"projector_smile__link\" href=\"#more\">Więcej informacji</a></div><div class=\"projector_smile__block --desc\"><span class=\"projector_smile__desc_before\">Smile - dostawy ze sklepów internetowych przy zamówieniu od </span><span class=\"projector_smile__price\">50,00 zł</span><span class=\"projector_smile__desc_after\"> są za darmo.</span></div></div><div class=\"smile_info\"><h6 class=\"headline\"><span class=\"headline__name\">Kupujesz i dostawę masz gratis!</span></h6><div class=\"smile_info__item --smile\"><img class=\"smile_info__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><div class=\"smile_info__sub\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\t\tdostawy ze sklepów internetowych przy\n\t\t\t\t\t\t\t\t</span><strong class=\"smile_info__strong\">\n\t\t\t\t\t\t\t\t\tzamówieniu za\n\t\t\t\t\t\t\t\t\t<span class=\"smile_info__price\">50,00 zł</span>\n\t\t\t\t\t\t\t\t\t\tsą za darmo.\n\t\t\t\t\t\t\t\t</strong></div></div><div class=\"smile_info__item --inpost\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\tDarmowa dostawa obejmuje dostarczenie przesyłki do paczkomatu\n\t\t\t\t\t\t\t</span><img class=\"smile_info__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></div><div class=\"smile_info__item --footer\"><span class=\"smile_info__iai\">Smile to usługa IdoSell</span><img class=\"b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_info_iai.svg?r=1652092768\"></div></div></form><div class=\"dictionary__param row mb-3\" data-producer_code=\"true\"><div class=\"dictionary__name col-6 d-flex flex-column align-items-end\"><span class=\"dictionary__name_txt\">Kod producenta</span></div><div class=\"dictionary__values col-6\"><div class=\"dictionary__value\"><span class=\"dictionary__value_txt\"><span class=\"dictionary__producer_code --value\">5901602190944</span></span></div></div></div>"
+    },
+    {
+      "sourceId": "abud-aks-ydyp-3x15-100m",
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"Product\",\"description\":\"Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)\",\"name\":\"Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)\",\"productID\":\"mpn:777096\",\"brand\":{\"@type\":\"Brand\",\"name\":\"AKS Zielonka\"},\"image\":\"https://www.abud.pl/hpeciai/b5a27da15d1eb3073ec3741e9d64a4dc/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m-50450_1.webp\",\"offers\":[{\"@type\":\"Offer\",\"availability\":\"http://schema.org/InStock\",\"price\":\"413.60\",\"priceCurrency\":\"PLN\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"refundType\":\"https://schema.org/FullRefund\",\"merchantReturnDays\":14,\"returnFees\":\"https://schema.org/ReturnShippingFees\",\"returnMethod\":\"https://schema.org/ReturnByMail\",\"applicableCountry\":\"PL\"},\"shippingDetails\":{\"@type\":\"OfferShippingDetails\",\"shippingRate\":{\"@type\":\"MonetaryAmount\",\"value\":\"0.00\",\"currency\":\"PLN\"},\"shippingDestination\":{\"@type\":\"DefinedRegion\",\"addressCountry\":\"PL\"}},\"eligibleQuantity\":{\"value\":\"1\",\"unitCode\":\"op.\",\"@type\":[\"QuantitativeValue\"]},\"url\":\"https://www.abud.pl/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html\"}]}</script><form id=\"projector_form\" class=\"projector_details is-validated\" action=\"https://www.abud.pl/basketchange.php\" method=\"post\" data-product_id=\"50450\" data-type=\"product_item\"><button style=\"display:none;\" type=\"submit\"></button><input id=\"projector_product_hidden\" type=\"hidden\" name=\"product\" value=\"50450\"><input id=\"projector_size_hidden\" type=\"hidden\" name=\"size\" autocomplete=\"off\" value=\"onesize\"><input id=\"projector_mode_hidden\" type=\"hidden\" name=\"mode\" value=\"1\"><div class=\"projector_details__wrapper --inpost-pay --oneclick\"><div id=\"projector_sizes_cont\" class=\"projector_details__sizes projector_sizes\" data-onesize=\"true\"><span class=\"projector_sizes__label\">Rozmiar</span><div class=\"projector_sizes__sub\"><a class=\"projector_sizes__item\" href=\"/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html\" data-type=\"onesize\"><span class=\"projector_sizes__name\">uniwersalny</span></a></div></div><div id=\"projector_prices_wrapper\" class=\"projector_details__prices projector_prices\"><div class=\"projector_prices__price_wrapper\"><strong class=\"projector_prices__price\" id=\"projector_price_value\" data-price=\"413.60\"><span data-subscription-max=\"413.60\" data-subscription-max-net=\"336.26\" data-subscription-save=\"\" data-subscription-before=\"413.60\">413,60 zł</span></strong><div class=\"projector_prices__info\"><span class=\"projector_prices__vat\"><span class=\"price_vat\"> brutto</span></span><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" id=\"projector_price_unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\" id=\"projector_price_unit\">op.</span></div></div><div class=\"projector_prices__lowest_price omnibus_price\"><span class=\"omnibus_price__text\">Najniższa cena z 30 dni przed obniżką: </span><del id=\"projector_omnibus_price_value\" class=\"omnibus_price__value\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">op.</span><span class=\"projector_prices__percent\" id=\"projector_omnibus_percent\"></span></div><div class=\"projector_prices__maxprice_wrapper\" id=\"projector_price_maxprice_wrapper\"><span class=\"projector_prices__maxprice_label\">Cena regularna: </span><del id=\"projector_price_maxprice\" class=\"projector_prices__maxprice\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">op.</span><span class=\"projector_prices__percent\" id=\"projector_maxprice_percent\"></span></div><div class=\"projector_prices__srp_wrapper\" id=\"projector_price_srp_wrapper\" style=\"display:none;\"><span class=\"projector_prices__srp_label\">Cena katalogowa:</span><span class=\"projector_prices__srp\" id=\"projector_price_srp\" data-price=\"\"></span></div><div class=\"projector_prices__points\" id=\"projector_points_wrapper\"><div class=\"projector_prices__points_wrapper\" id=\"projector_price_points_wrapper\"><span id=\"projector_button_points_basket\" class=\"projector_prices__points_buy --span\" title=\"Zaloguj się, aby kupić ten produkt za punkty\"><span class=\"projector_prices__points_price_text\">Możesz kupić za </span><span class=\"projector_prices__points_price\" id=\"projector_price_points\" data-price=\"2068\">2068<span class=\"projector_currency\"> pkt.</span></span></span></div></div></div><div class=\"projector_details__buy projector_buy\" id=\"projector_buy_section\"><div class=\"projector_buy__number_wrapper\"><div class=\"projector_buy__number_inputs\"><select class=\"projector_buy__number f-select\" aria-label=\"Ilość produktów\"><option value=\"1\" selected>1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option data-more=\"true\">\n\t\t\t\t\t\t\t\t\t\t\twięcej\n\t\t\t\t\t\t\t\t\t\t</option></select><div class=\"projector_buy__more\"><input class=\"projector_buy__more_input\" type=\"number\" name=\"number\" id=\"projector_number\" aria-label=\"Ilość produktów\" data-prev=\"1\" value=\"1\" data-sellby=\"1\" step=\"1\"></div></div><div class=\"projector_buy__number_amounts d-none\"><span class=\"number_description\">z </span><span class=\"number_amount\"></span><span class=\"number_unit\"></span></div></div><button class=\"projector_buy__button btn --solid --large\" id=\"projector_button_basket\" type=\"submit\">\n\t\t\t\t\t\t\t\t\tDodaj do koszyka\n\t\t\t\t\t\t\t\t</button><div class=\"projector_oneclick__wrapper\"><div class=\"projector_oneclick__label\">\n\t\t\t\t\t\t\t\t\tMożesz kupić także poprzez:\n\t\t\t\t\t\t\t\t</div><div class=\"projector_details__inpost_pay projector_inpost_pay\" id=\"inpostPay\" data-id=\"inpostPay\" data-basket-by-front=\"1\"></div><div class=\"projector_details__oneclick projector_oneclick\" data-columns=\"2\" data-lang=\"pol\"><div class=\"projector_oneclick__items\"><div class=\"projector_oneclick__item --applePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Apple Pay\" id=\"oneclick_applePay\" data-id=\"applePay\"></div><div class=\"projector_oneclick__item --googlePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Google Pay\" id=\"oneclick_googlePay\" data-id=\"googlePay\"></div></div></div></div></div><div class=\"projector_details__tell_availability projector_tell_availability\" id=\"projector_tell_availability\" style=\"display:none\"><div class=\"projector_tell_availability__block --link\"><a class=\"projector_tell_availability__link btn --solid --outline --solid --medium\" href=\"#tellAvailability\">Powiadom mnie o dostępności produktu</a></div></div><div class=\"projector_details__info projector_info\"><div id=\"projector_status\" class=\"projector_info__item --status projector_status\"><span id=\"projector_status_gfx_wrapper\" class=\"projector_status__gfx_wrapper projector_info__icon\"><img id=\"projector_status_gfx\" class=\"projector_status__gfx\" src=\"/data/lang/pol/available_graph/graph_1_1.png\" alt=\"Produkt w magazynie w bardzo małej ilości\"></span><div id=\"projector_shipping_unknown\" class=\"projector_status__unknown\" style=\"display:none\"><span class=\"projector_status__unknown_text\"><a target=\"_blank\" href=\"/contact-pol.html\">Skontaktuj się z obsługą sklepu</a>, aby oszacować czas przygotowania tego produktu do wysyłki.\n\t\t\t\t\t\t\t\t</span></div><div id=\"projector_status_wrapper\" class=\"projector_status__wrapper\"><div class=\"projector_status__description\" id=\"projector_status_description\">Produkt w magazynie w bardzo małej ilości</div><div id=\"projector_shipping_info\" class=\"projector_status__info\" style=\"display:none\"><strong class=\"projector_status__info_label\" id=\"projector_delivery_label\">Wysyłka </strong><strong class=\"projector_status__info_days\" id=\"projector_delivery_days\"></strong><span class=\"projector_status__info_amount\" id=\"projector_amount\" style=\"display:none\"> (%d w magazynie)</span></div></div></div><div class=\"projector_info__item --shipping projector_shipping\" id=\"projector_shipping_dialog\"><span class=\"projector_shipping__icon projector_info__icon\"></span><a class=\"projector_shipping__info projector_info__link\" href=\"#shipping_info\">\n\t\t\t\t\t\t\t\tSprawdź czas i koszty dostawy\n\t\t\t\t\t\t\t</a></div><div class=\"projector_info__item --phone projector_phone\"><span class=\"projector_phone__icon projector_info__icon\"></span><a class=\"projector_phone__info projector_info__link\" href=\"tel:+48226100180\">\n\t\t\t\t\t\t\t\tZadzwoń i zamów: +48226100180</a></div><div class=\"projector_info__item --returns projector_returns\"><span class=\"projector_returns__icon projector_info__icon\"></span><span class=\"projector_returns__info projector_info__link\"><span class=\"projector_returns__days\">14</span> dni na łatwy zwrot</span></div><div class=\"projector_info__item --stocks projector_stocks\"><span class=\"projector_stocks__icon projector_info__icon\"></span><a class=\"projector_stocks__info projector_info__link --link\" href=\"/product-stocks.php?product=50450\">\n\t\t\t\t\t\t\t\t\t\t\tSprawdź, w którym sklepie obejrzysz i kupisz od ręki\n\t\t\t\t\t\t\t\t\t\t</a><div id=\"product_stocks\" class=\"product_stocks\"><div class=\"product_stocks__block --product pb-3\"><div class=\"product_stocks__product d-flex align-items-center\"><img loading=\"lazy\" class=\"product_stocks__icon mr-4\" src=\"hpeciai/c0c9df08da37cc2eeefc16b8cd2b99a3/pol_il_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m-50450.webp\" alt=\"Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)\"><div class=\"product_stocks__details\"><strong class=\"product_stocks__name d-block pr-2\">Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)</strong><div class=\"product_stocks__sizes row mx-n1\"><a class=\"product_stocks__size select_button col mx-1 mt-2 flex-grow-0 flex-shrink-0\" href=\"#onesize\" data-type=\"onesize\">uniwersalny</a></div></div></div></div><div class=\"product_stocks__block --stocks --skeleton\"></div></div></div><div class=\"projector_info__item --safe projector_safe\"><span class=\"projector_safe__icon projector_info__icon\"></span><span class=\"projector_safe__info projector_info__link\">Bezpieczne zakupy</span></div><div class=\"projector_info__item --points projector_points_recive\" id=\"projector_price_points_recive_wrapper\"><span class=\"projector_points_recive__icon projector_info__icon\"></span><span class=\"projector_points_recive__info projector_info__link\"><span class=\"projector_points_recive__text\">Po zakupie otrzymasz </span><span class=\"projector_points_recive__value\" id=\"projector_points_recive_points\">41.36 pkt.</span></span></div><a class=\"projector_info__item --leaselink\" data-instalments=\"LeaseLink\" onclick=\"event.stopPropagation(); calculate_instalments('300','100000','','',$(this).attr('data-window'),'','LeaseLink','',''); return false;\" href=\"javascript:window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=Elektryka%20Przewody%20Peszle%20Puszki&amp;productname=Przew%C3%B3d%20elektryczny%20AKS%20ZIELONKA%20YDYP%203x1,5%20(100m)&amp;externalId=679ec1&amp;value=XXX',%20'',%20'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\" data-window=\"window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=Elektryka Przewody Peszle Puszki&amp;productname=Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)&amp;externalId=679ec1&amp;value=XXX', '', 'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\"><span class=\"projector_instalments__item_text\">Oblicz raty LeaseLink</span><img class=\"projector_info__item_icon\" loading=\"lazy\" src=\"/panel/gfx/payforms/icon_InstallmentLeaselink.png\" alt=\"LeaseLink\"></a><div class=\"projector_info__item --P24_installments_widget\" id=\"P24_installments_widget\"></div></div></div><div class=\"projector_smile\"><div class=\"projector_smile__block --main\"><img class=\"projector_smile__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><span class=\"projector_smile__inpost\"><span class=\"projector_smile__inpost_text\">Darmowa dostawa do paczkomatu</span><img class=\"projector_smile__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></span><a class=\"projector_smile__link\" href=\"#more\">Więcej informacji</a></div><div class=\"projector_smile__block --desc\"><span class=\"projector_smile__desc_before\">Smile - dostawy ze sklepów internetowych przy zamówieniu od </span><span class=\"projector_smile__price\">50,00 zł</span><span class=\"projector_smile__desc_after\"> są za darmo.</span></div></div><div class=\"smile_info\"><h6 class=\"headline\"><span class=\"headline__name\">Kupujesz i dostawę masz gratis!</span></h6><div class=\"smile_info__item --smile\"><img class=\"smile_info__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><div class=\"smile_info__sub\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\t\tdostawy ze sklepów internetowych przy\n\t\t\t\t\t\t\t\t</span><strong class=\"smile_info__strong\">\n\t\t\t\t\t\t\t\t\tzamówieniu za\n\t\t\t\t\t\t\t\t\t<span class=\"smile_info__price\">50,00 zł</span>\n\t\t\t\t\t\t\t\t\t\tsą za darmo.\n\t\t\t\t\t\t\t\t</strong></div></div><div class=\"smile_info__item --inpost\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\tDarmowa dostawa obejmuje dostarczenie przesyłki do paczkomatu\n\t\t\t\t\t\t\t</span><img class=\"smile_info__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></div><div class=\"smile_info__item --footer\"><span class=\"smile_info__iai\">Smile to usługa IdoSell</span><img class=\"b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_info_iai.svg?r=1652092768\"></div></div></form><div class=\"dictionary__param row mb-3\" data-producer_code=\"true\"><div class=\"dictionary__name col-6 d-flex flex-column align-items-end\"><span class=\"dictionary__name_txt\">Kod producenta</span></div><div class=\"dictionary__values col-6\"><div class=\"dictionary__value\"><span class=\"dictionary__value_txt\"><span class=\"dictionary__producer_code --value\">5904617579735</span></span></div></div></div>"
+    },
+    {
+      "sourceId": "abud-aks-ydyp-3x25-25m",
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"Product\",\"description\":\"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)\",\"name\":\"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)\",\"productID\":\"mpn:5904617578721\",\"brand\":{\"@type\":\"Brand\",\"name\":\"AKS Zielonka\"},\"image\":\"https://www.abud.pl/hpeciai/b3e45b96a86d1ae7a0ce0efd7442665c/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m-6900_1.webp\",\"offers\":[{\"@type\":\"Offer\",\"availability\":\"http://schema.org/InStock\",\"price\":\"192.70\",\"priceCurrency\":\"PLN\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"refundType\":\"https://schema.org/FullRefund\",\"merchantReturnDays\":14,\"returnFees\":\"https://schema.org/ReturnShippingFees\",\"returnMethod\":\"https://schema.org/ReturnByMail\",\"applicableCountry\":\"PL\"},\"shippingDetails\":{\"@type\":\"OfferShippingDetails\",\"shippingRate\":{\"@type\":\"MonetaryAmount\",\"value\":\"0.00\",\"currency\":\"PLN\"},\"shippingDestination\":{\"@type\":\"DefinedRegion\",\"addressCountry\":\"PL\"}},\"eligibleQuantity\":{\"value\":\"1\",\"unitCode\":\"op.\",\"@type\":[\"QuantitativeValue\"]},\"url\":\"https://www.abud.pl/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html\"}]}</script><form id=\"projector_form\" class=\"projector_details is-validated\" action=\"https://www.abud.pl/basketchange.php\" method=\"post\" data-product_id=\"6900\" data-type=\"product_item\"><button style=\"display:none;\" type=\"submit\"></button><input id=\"projector_product_hidden\" type=\"hidden\" name=\"product\" value=\"6900\"><input id=\"projector_size_hidden\" type=\"hidden\" name=\"size\" autocomplete=\"off\" value=\"onesize\"><input id=\"projector_mode_hidden\" type=\"hidden\" name=\"mode\" value=\"1\"><div class=\"projector_details__wrapper --inpost-pay --oneclick\"><div id=\"projector_sizes_cont\" class=\"projector_details__sizes projector_sizes\" data-onesize=\"true\"><span class=\"projector_sizes__label\">Rozmiar</span><div class=\"projector_sizes__sub\"><a class=\"projector_sizes__item\" href=\"/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html\" data-type=\"onesize\"><span class=\"projector_sizes__name\">uniwersalny</span></a></div></div><div id=\"projector_prices_wrapper\" class=\"projector_details__prices projector_prices\"><div class=\"projector_prices__price_wrapper\"><strong class=\"projector_prices__price\" id=\"projector_price_value\" data-price=\"192.70\"><span data-subscription-max=\"192.70\" data-subscription-max-net=\"156.67\" data-subscription-save=\"\" data-subscription-before=\"192.70\">192,70 zł</span></strong><div class=\"projector_prices__info\"><span class=\"projector_prices__vat\"><span class=\"price_vat\"> brutto</span></span><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" id=\"projector_price_unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\" id=\"projector_price_unit\">op.</span></div></div><div class=\"projector_prices__lowest_price omnibus_price\"><span class=\"omnibus_price__text\">Najniższa cena z 30 dni przed obniżką: </span><del id=\"projector_omnibus_price_value\" class=\"omnibus_price__value\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">op.</span><span class=\"projector_prices__percent\" id=\"projector_omnibus_percent\"></span></div><div class=\"projector_prices__maxprice_wrapper\" id=\"projector_price_maxprice_wrapper\"><span class=\"projector_prices__maxprice_label\">Cena regularna: </span><del id=\"projector_price_maxprice\" class=\"projector_prices__maxprice\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">op.</span><span class=\"projector_prices__percent\" id=\"projector_maxprice_percent\"></span></div><div class=\"projector_prices__srp_wrapper\" id=\"projector_price_srp_wrapper\" style=\"display:none;\"><span class=\"projector_prices__srp_label\">Cena katalogowa:</span><span class=\"projector_prices__srp\" id=\"projector_price_srp\" data-price=\"\"></span></div><div class=\"projector_prices__points\" id=\"projector_points_wrapper\"><div class=\"projector_prices__points_wrapper\" id=\"projector_price_points_wrapper\"><span id=\"projector_button_points_basket\" class=\"projector_prices__points_buy --span\" title=\"Zaloguj się, aby kupić ten produkt za punkty\"><span class=\"projector_prices__points_price_text\">Możesz kupić za </span><span class=\"projector_prices__points_price\" id=\"projector_price_points\" data-price=\"963.50\">963.50<span class=\"projector_currency\"> pkt.</span></span></span></div></div></div><div class=\"projector_details__buy projector_buy\" id=\"projector_buy_section\"><div class=\"projector_buy__number_wrapper\"><div class=\"projector_buy__number_inputs\"><select class=\"projector_buy__number f-select\" aria-label=\"Ilość produktów\"><option value=\"1\" selected>1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option data-more=\"true\">\n\t\t\t\t\t\t\t\t\t\t\twięcej\n\t\t\t\t\t\t\t\t\t\t</option></select><div class=\"projector_buy__more\"><input class=\"projector_buy__more_input\" type=\"number\" name=\"number\" id=\"projector_number\" aria-label=\"Ilość produktów\" data-prev=\"1\" value=\"1\" data-sellby=\"1\" step=\"1\"></div></div><div class=\"projector_buy__number_amounts d-none\"><span class=\"number_description\">z </span><span class=\"number_amount\"></span><span class=\"number_unit\"></span></div></div><button class=\"projector_buy__button btn --solid --large\" id=\"projector_button_basket\" type=\"submit\">\n\t\t\t\t\t\t\t\t\tDodaj do koszyka\n\t\t\t\t\t\t\t\t</button><div class=\"projector_oneclick__wrapper\"><div class=\"projector_oneclick__label\">\n\t\t\t\t\t\t\t\t\tMożesz kupić także poprzez:\n\t\t\t\t\t\t\t\t</div><div class=\"projector_details__inpost_pay projector_inpost_pay\" id=\"inpostPay\" data-id=\"inpostPay\" data-basket-by-front=\"1\"></div><div class=\"projector_details__oneclick projector_oneclick\" data-columns=\"2\" data-lang=\"pol\"><div class=\"projector_oneclick__items\"><div class=\"projector_oneclick__item --applePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Apple Pay\" id=\"oneclick_applePay\" data-id=\"applePay\"></div><div class=\"projector_oneclick__item --googlePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Google Pay\" id=\"oneclick_googlePay\" data-id=\"googlePay\"></div></div></div></div></div><div class=\"projector_details__tell_availability projector_tell_availability\" id=\"projector_tell_availability\" style=\"display:none\"><div class=\"projector_tell_availability__block --link\"><a class=\"projector_tell_availability__link btn --solid --outline --solid --medium\" href=\"#tellAvailability\">Powiadom mnie o dostępności produktu</a></div></div><div class=\"projector_details__info projector_info\"><div id=\"projector_status\" class=\"projector_info__item --status projector_status\"><span id=\"projector_status_gfx_wrapper\" class=\"projector_status__gfx_wrapper projector_info__icon\"><img id=\"projector_status_gfx\" class=\"projector_status__gfx\" src=\"/data/lang/pol/available_graph/graph_1_4.png\" alt=\"Produkt w magazynie w bardzo dużej ilości\"></span><div id=\"projector_shipping_unknown\" class=\"projector_status__unknown\" style=\"display:none\"><span class=\"projector_status__unknown_text\"><a target=\"_blank\" href=\"/contact-pol.html\">Skontaktuj się z obsługą sklepu</a>, aby oszacować czas przygotowania tego produktu do wysyłki.\n\t\t\t\t\t\t\t\t</span></div><div id=\"projector_status_wrapper\" class=\"projector_status__wrapper\"><div class=\"projector_status__description\" id=\"projector_status_description\">Produkt w magazynie w bardzo dużej ilości</div><div id=\"projector_shipping_info\" class=\"projector_status__info\" style=\"display:none\"><strong class=\"projector_status__info_label\" id=\"projector_delivery_label\">Wysyłka </strong><strong class=\"projector_status__info_days\" id=\"projector_delivery_days\"></strong><span class=\"projector_status__info_amount\" id=\"projector_amount\" style=\"display:none\"> (%d w magazynie)</span></div></div></div><div class=\"projector_info__item --shipping projector_shipping\" id=\"projector_shipping_dialog\"><span class=\"projector_shipping__icon projector_info__icon\"></span><a class=\"projector_shipping__info projector_info__link\" href=\"#shipping_info\">\n\t\t\t\t\t\t\t\tSprawdź czas i koszty dostawy\n\t\t\t\t\t\t\t</a></div><div class=\"projector_info__item --phone projector_phone\"><span class=\"projector_phone__icon projector_info__icon\"></span><a class=\"projector_phone__info projector_info__link\" href=\"tel:+48226100180\">\n\t\t\t\t\t\t\t\tZadzwoń i zamów: +48226100180</a></div><div class=\"projector_info__item --returns projector_returns\"><span class=\"projector_returns__icon projector_info__icon\"></span><span class=\"projector_returns__info projector_info__link\"><span class=\"projector_returns__days\">14</span> dni na łatwy zwrot</span></div><div class=\"projector_info__item --stocks projector_stocks\"><span class=\"projector_stocks__icon projector_info__icon\"></span><a class=\"projector_stocks__info projector_info__link --link\" href=\"/product-stocks.php?product=6900\">\n\t\t\t\t\t\t\t\t\t\t\tSprawdź, w którym sklepie obejrzysz i kupisz od ręki\n\t\t\t\t\t\t\t\t\t\t</a><div id=\"product_stocks\" class=\"product_stocks\"><div class=\"product_stocks__block --product pb-3\"><div class=\"product_stocks__product d-flex align-items-center\"><img loading=\"lazy\" class=\"product_stocks__icon mr-4\" src=\"hpeciai/c873f097860ae2195faf96ddd8171ff4/pol_il_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m-6900.webp\" alt=\"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)\"><div class=\"product_stocks__details\"><strong class=\"product_stocks__name d-block pr-2\">Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)</strong><div class=\"product_stocks__sizes row mx-n1\"><a class=\"product_stocks__size select_button col mx-1 mt-2 flex-grow-0 flex-shrink-0\" href=\"#onesize\" data-type=\"onesize\">uniwersalny</a></div></div></div></div><div class=\"product_stocks__block --stocks --skeleton\"></div></div></div><div class=\"projector_info__item --safe projector_safe\"><span class=\"projector_safe__icon projector_info__icon\"></span><span class=\"projector_safe__info projector_info__link\">Bezpieczne zakupy</span></div><div class=\"projector_info__item --points projector_points_recive\" id=\"projector_price_points_recive_wrapper\"><span class=\"projector_points_recive__icon projector_info__icon\"></span><span class=\"projector_points_recive__info projector_info__link\"><span class=\"projector_points_recive__text\">Po zakupie otrzymasz </span><span class=\"projector_points_recive__value\" id=\"projector_points_recive_points\">19.27 pkt.</span></span></div><a class=\"projector_info__item --leaselink\" data-instalments=\"LeaseLink\" onclick=\"event.stopPropagation(); calculate_instalments('300','100000','','',$(this).attr('data-window'),'','LeaseLink','',''); return false;\" href=\"javascript:window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=Elektryka%20Przewody%20Peszle%20Puszki&amp;productname=Przew%C3%B3d%20elektryczny%20AKS%20ZIELONKA%20YDYP%203x2,5%20(25m)&amp;externalId=679ec1&amp;value=XXX',%20'',%20'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\" data-window=\"window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=Elektryka Przewody Peszle Puszki&amp;productname=Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)&amp;externalId=679ec1&amp;value=XXX', '', 'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\"><span class=\"projector_instalments__item_text\">Oblicz raty LeaseLink</span><img class=\"projector_info__item_icon\" loading=\"lazy\" src=\"/panel/gfx/payforms/icon_InstallmentLeaselink.png\" alt=\"LeaseLink\"></a><div class=\"projector_info__item --P24_installments_widget\" id=\"P24_installments_widget\"></div></div></div><div class=\"projector_smile\"><div class=\"projector_smile__block --main\"><img class=\"projector_smile__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><span class=\"projector_smile__inpost\"><span class=\"projector_smile__inpost_text\">Darmowa dostawa do paczkomatu</span><img class=\"projector_smile__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></span><a class=\"projector_smile__link\" href=\"#more\">Więcej informacji</a></div><div class=\"projector_smile__block --desc\"><span class=\"projector_smile__desc_before\">Smile - dostawy ze sklepów internetowych przy zamówieniu od </span><span class=\"projector_smile__price\">50,00 zł</span><span class=\"projector_smile__desc_after\"> są za darmo.</span></div></div><div class=\"smile_info\"><h6 class=\"headline\"><span class=\"headline__name\">Kupujesz i dostawę masz gratis!</span></h6><div class=\"smile_info__item --smile\"><img class=\"smile_info__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><div class=\"smile_info__sub\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\t\tdostawy ze sklepów internetowych przy\n\t\t\t\t\t\t\t\t</span><strong class=\"smile_info__strong\">\n\t\t\t\t\t\t\t\t\tzamówieniu za\n\t\t\t\t\t\t\t\t\t<span class=\"smile_info__price\">50,00 zł</span>\n\t\t\t\t\t\t\t\t\t\tsą za darmo.\n\t\t\t\t\t\t\t\t</strong></div></div><div class=\"smile_info__item --inpost\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\tDarmowa dostawa obejmuje dostarczenie przesyłki do paczkomatu\n\t\t\t\t\t\t\t</span><img class=\"smile_info__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></div><div class=\"smile_info__item --footer\"><span class=\"smile_info__iai\">Smile to usługa IdoSell</span><img class=\"b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_info_iai.svg?r=1652092768\"></div></div></form><div class=\"dictionary__param row mb-3\" data-producer_code=\"true\"><div class=\"dictionary__name col-6 d-flex flex-column align-items-end\"><span class=\"dictionary__name_txt\">Kod producenta</span></div><div class=\"dictionary__values col-6\"><div class=\"dictionary__value\"><span class=\"dictionary__value_txt\"><span class=\"dictionary__producer_code --value\">5904617578721</span></span></div></div></div>"
+    },
+    {
+      "sourceId": "abud-aks-ydyp-3x25-100m",
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"http://schema.org\",\"@type\":\"Product\",\"description\":\"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)\",\"name\":\"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)\",\"productID\":\"mpn:777099\",\"brand\":{\"@type\":\"Brand\",\"name\":\"AKS Zielonka\"},\"image\":\"https://www.abud.pl/hpeciai/b5a27da15d1eb3073ec3741e9d64a4dc/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m-50414_1.webp\",\"offers\":[{\"@type\":\"Offer\",\"availability\":\"http://schema.org/InStock\",\"price\":\"630.90\",\"priceCurrency\":\"PLN\",\"hasMerchantReturnPolicy\":{\"@type\":\"MerchantReturnPolicy\",\"returnPolicyCategory\":\"https://schema.org/MerchantReturnFiniteReturnWindow\",\"refundType\":\"https://schema.org/FullRefund\",\"merchantReturnDays\":14,\"returnFees\":\"https://schema.org/ReturnShippingFees\",\"returnMethod\":\"https://schema.org/ReturnByMail\",\"applicableCountry\":\"PL\"},\"shippingDetails\":{\"@type\":\"OfferShippingDetails\",\"shippingRate\":{\"@type\":\"MonetaryAmount\",\"value\":\"0.00\",\"currency\":\"PLN\"},\"shippingDestination\":{\"@type\":\"DefinedRegion\",\"addressCountry\":\"PL\"}},\"eligibleQuantity\":{\"value\":\"1\",\"unitCode\":\"op.\",\"@type\":[\"QuantitativeValue\"]},\"url\":\"https://www.abud.pl/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html\"}]}</script><form id=\"projector_form\" class=\"projector_details is-validated\" action=\"https://www.abud.pl/basketchange.php\" method=\"post\" data-product_id=\"50414\" data-type=\"product_item\"><button style=\"display:none;\" type=\"submit\"></button><input id=\"projector_product_hidden\" type=\"hidden\" name=\"product\" value=\"50414\"><input id=\"projector_size_hidden\" type=\"hidden\" name=\"size\" autocomplete=\"off\" value=\"onesize\"><input id=\"projector_mode_hidden\" type=\"hidden\" name=\"mode\" value=\"1\"><div class=\"projector_details__wrapper --inpost-pay --oneclick\"><div id=\"projector_sizes_cont\" class=\"projector_details__sizes projector_sizes\" data-onesize=\"true\"><span class=\"projector_sizes__label\">Rozmiar</span><div class=\"projector_sizes__sub\"><a class=\"projector_sizes__item\" href=\"/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html\" data-type=\"onesize\"><span class=\"projector_sizes__name\">uniwersalny</span></a></div></div><div id=\"projector_prices_wrapper\" class=\"projector_details__prices projector_prices\"><div class=\"projector_prices__price_wrapper\"><strong class=\"projector_prices__price\" id=\"projector_price_value\" data-price=\"630.90\"><span data-subscription-max=\"630.90\" data-subscription-max-net=\"512.93\" data-subscription-save=\"\" data-subscription-before=\"630.90\">630,90 zł</span></strong><div class=\"projector_prices__info\"><span class=\"projector_prices__vat\"><span class=\"price_vat\"> brutto</span></span><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" id=\"projector_price_unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\" id=\"projector_price_unit\">op.</span></div></div><div class=\"projector_prices__lowest_price omnibus_price\"><span class=\"omnibus_price__text\">Najniższa cena z 30 dni przed obniżką: </span><del id=\"projector_omnibus_price_value\" class=\"omnibus_price__value\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">op.</span><span class=\"projector_prices__percent\" id=\"projector_omnibus_percent\"></span></div><div class=\"projector_prices__maxprice_wrapper\" id=\"projector_price_maxprice_wrapper\"><span class=\"projector_prices__maxprice_label\">Cena regularna: </span><del id=\"projector_price_maxprice\" class=\"projector_prices__maxprice\" data-price=\"\"></del><span class=\"projector_prices__unit_sep\">\n\t\t\t\t\t\t\t\t\t/\n\t\t\t\t\t\t\t</span><span class=\"projector_prices__unit_sellby\" style=\"display:none\">1</span><span class=\"projector_prices__unit\">op.</span><span class=\"projector_prices__percent\" id=\"projector_maxprice_percent\"></span></div><div class=\"projector_prices__srp_wrapper\" id=\"projector_price_srp_wrapper\" style=\"display:none;\"><span class=\"projector_prices__srp_label\">Cena katalogowa:</span><span class=\"projector_prices__srp\" id=\"projector_price_srp\" data-price=\"\"></span></div><div class=\"projector_prices__points\" id=\"projector_points_wrapper\"><div class=\"projector_prices__points_wrapper\" id=\"projector_price_points_wrapper\"><span id=\"projector_button_points_basket\" class=\"projector_prices__points_buy --span\" title=\"Zaloguj się, aby kupić ten produkt za punkty\"><span class=\"projector_prices__points_price_text\">Możesz kupić za </span><span class=\"projector_prices__points_price\" id=\"projector_price_points\" data-price=\"3154.50\">3154.50<span class=\"projector_currency\"> pkt.</span></span></span></div></div></div><div class=\"projector_details__buy projector_buy\" id=\"projector_buy_section\"><div class=\"projector_buy__number_wrapper\"><div class=\"projector_buy__number_inputs\"><select class=\"projector_buy__number f-select\" aria-label=\"Ilość produktów\"><option value=\"1\" selected>1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option data-more=\"true\">\n\t\t\t\t\t\t\t\t\t\t\twięcej\n\t\t\t\t\t\t\t\t\t\t</option></select><div class=\"projector_buy__more\"><input class=\"projector_buy__more_input\" type=\"number\" name=\"number\" id=\"projector_number\" aria-label=\"Ilość produktów\" data-prev=\"1\" value=\"1\" data-sellby=\"1\" step=\"1\"></div></div><div class=\"projector_buy__number_amounts d-none\"><span class=\"number_description\">z </span><span class=\"number_amount\"></span><span class=\"number_unit\"></span></div></div><button class=\"projector_buy__button btn --solid --large\" id=\"projector_button_basket\" type=\"submit\">\n\t\t\t\t\t\t\t\t\tDodaj do koszyka\n\t\t\t\t\t\t\t\t</button><div class=\"projector_oneclick__wrapper\"><div class=\"projector_oneclick__label\">\n\t\t\t\t\t\t\t\t\tMożesz kupić także poprzez:\n\t\t\t\t\t\t\t\t</div><div class=\"projector_details__inpost_pay projector_inpost_pay\" id=\"inpostPay\" data-id=\"inpostPay\" data-basket-by-front=\"1\"></div><div class=\"projector_details__oneclick projector_oneclick\" data-columns=\"2\" data-lang=\"pol\"><div class=\"projector_oneclick__items\"><div class=\"projector_oneclick__item --applePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Apple Pay\" id=\"oneclick_applePay\" data-id=\"applePay\"></div><div class=\"projector_oneclick__item --googlePay\" title=\"Kliknij i kup bez potrzeby rejestracji z Google Pay\" id=\"oneclick_googlePay\" data-id=\"googlePay\"></div></div></div></div></div><div class=\"projector_details__tell_availability projector_tell_availability\" id=\"projector_tell_availability\" style=\"display:none\"><div class=\"projector_tell_availability__block --link\"><a class=\"projector_tell_availability__link btn --solid --outline --solid --medium\" href=\"#tellAvailability\">Powiadom mnie o dostępności produktu</a></div></div><div class=\"projector_details__info projector_info\"><div id=\"projector_status\" class=\"projector_info__item --status projector_status\"><span id=\"projector_status_gfx_wrapper\" class=\"projector_status__gfx_wrapper projector_info__icon\"><img id=\"projector_status_gfx\" class=\"projector_status__gfx\" src=\"/data/lang/pol/available_graph/graph_1_1.png\" alt=\"Produkt w magazynie w bardzo małej ilości\"></span><div id=\"projector_shipping_unknown\" class=\"projector_status__unknown\" style=\"display:none\"><span class=\"projector_status__unknown_text\"><a target=\"_blank\" href=\"/contact-pol.html\">Skontaktuj się z obsługą sklepu</a>, aby oszacować czas przygotowania tego produktu do wysyłki.\n\t\t\t\t\t\t\t\t</span></div><div id=\"projector_status_wrapper\" class=\"projector_status__wrapper\"><div class=\"projector_status__description\" id=\"projector_status_description\">Produkt w magazynie w bardzo małej ilości</div><div id=\"projector_shipping_info\" class=\"projector_status__info\" style=\"display:none\"><strong class=\"projector_status__info_label\" id=\"projector_delivery_label\">Wysyłka </strong><strong class=\"projector_status__info_days\" id=\"projector_delivery_days\"></strong><span class=\"projector_status__info_amount\" id=\"projector_amount\" style=\"display:none\"> (%d w magazynie)</span></div></div></div><div class=\"projector_info__item --shipping projector_shipping\" id=\"projector_shipping_dialog\"><span class=\"projector_shipping__icon projector_info__icon\"></span><a class=\"projector_shipping__info projector_info__link\" href=\"#shipping_info\">\n\t\t\t\t\t\t\t\tSprawdź czas i koszty dostawy\n\t\t\t\t\t\t\t</a></div><div class=\"projector_info__item --phone projector_phone\"><span class=\"projector_phone__icon projector_info__icon\"></span><a class=\"projector_phone__info projector_info__link\" href=\"tel:+48226100180\">\n\t\t\t\t\t\t\t\tZadzwoń i zamów: +48226100180</a></div><div class=\"projector_info__item --returns projector_returns\"><span class=\"projector_returns__icon projector_info__icon\"></span><span class=\"projector_returns__info projector_info__link\"><span class=\"projector_returns__days\">14</span> dni na łatwy zwrot</span></div><div class=\"projector_info__item --stocks projector_stocks\"><span class=\"projector_stocks__icon projector_info__icon\"></span><a class=\"projector_stocks__info projector_info__link --link\" href=\"/product-stocks.php?product=50414\">\n\t\t\t\t\t\t\t\t\t\t\tSprawdź, w którym sklepie obejrzysz i kupisz od ręki\n\t\t\t\t\t\t\t\t\t\t</a><div id=\"product_stocks\" class=\"product_stocks\"><div class=\"product_stocks__block --product pb-3\"><div class=\"product_stocks__product d-flex align-items-center\"><img loading=\"lazy\" class=\"product_stocks__icon mr-4\" src=\"hpeciai/c0c9df08da37cc2eeefc16b8cd2b99a3/pol_il_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m-50414.webp\" alt=\"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)\"><div class=\"product_stocks__details\"><strong class=\"product_stocks__name d-block pr-2\">Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)</strong><div class=\"product_stocks__sizes row mx-n1\"><a class=\"product_stocks__size select_button col mx-1 mt-2 flex-grow-0 flex-shrink-0\" href=\"#onesize\" data-type=\"onesize\">uniwersalny</a></div></div></div></div><div class=\"product_stocks__block --stocks --skeleton\"></div></div></div><div class=\"projector_info__item --safe projector_safe\"><span class=\"projector_safe__icon projector_info__icon\"></span><span class=\"projector_safe__info projector_info__link\">Bezpieczne zakupy</span></div><div class=\"projector_info__item --points projector_points_recive\" id=\"projector_price_points_recive_wrapper\"><span class=\"projector_points_recive__icon projector_info__icon\"></span><span class=\"projector_points_recive__info projector_info__link\"><span class=\"projector_points_recive__text\">Po zakupie otrzymasz </span><span class=\"projector_points_recive__value\" id=\"projector_points_recive_points\">63.09 pkt.</span></span></div><a class=\"projector_info__item --leaselink\" data-instalments=\"LeaseLink\" onclick=\"event.stopPropagation(); calculate_instalments('300','100000','','',$(this).attr('data-window'),'','LeaseLink','',''); return false;\" href=\"javascript:window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=Elektryka%20Przewody%20Peszle%20Puszki&amp;productname=Przew%C3%B3d%20elektryczny%20AKS%20ZIELONKA%20YDYP%203x2,5%20(100m)&amp;externalId=679ec1&amp;value=XXX',%20'',%20'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\" data-window=\"window.open('https://online.leaselink.pl/RateCalculator/calculate?tax=23&amp;isNet=false&amp;categoryLevel=Elektryka Przewody Peszle Puszki&amp;productname=Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)&amp;externalId=679ec1&amp;value=XXX', '', 'height=750,width=850,location=no,resizable=yes,scrollbars=yes,status=0;')\"><span class=\"projector_instalments__item_text\">Oblicz raty LeaseLink</span><img class=\"projector_info__item_icon\" loading=\"lazy\" src=\"/panel/gfx/payforms/icon_InstallmentLeaselink.png\" alt=\"LeaseLink\"></a><div class=\"projector_info__item --P24_installments_widget\" id=\"P24_installments_widget\"></div></div></div><div class=\"projector_smile\"><div class=\"projector_smile__block --main\"><img class=\"projector_smile__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><span class=\"projector_smile__inpost\"><span class=\"projector_smile__inpost_text\">Darmowa dostawa do paczkomatu</span><img class=\"projector_smile__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></span><a class=\"projector_smile__link\" href=\"#more\">Więcej informacji</a></div><div class=\"projector_smile__block --desc\"><span class=\"projector_smile__desc_before\">Smile - dostawy ze sklepów internetowych przy zamówieniu od </span><span class=\"projector_smile__price\">50,00 zł</span><span class=\"projector_smile__desc_after\"> są za darmo.</span></div></div><div class=\"smile_info\"><h6 class=\"headline\"><span class=\"headline__name\">Kupujesz i dostawę masz gratis!</span></h6><div class=\"smile_info__item --smile\"><img class=\"smile_info__logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_logo.svg?r=1652092768\" alt=\"Kupujesz i dostawę masz gratis!\"><div class=\"smile_info__sub\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\t\tdostawy ze sklepów internetowych przy\n\t\t\t\t\t\t\t\t</span><strong class=\"smile_info__strong\">\n\t\t\t\t\t\t\t\t\tzamówieniu za\n\t\t\t\t\t\t\t\t\t<span class=\"smile_info__price\">50,00 zł</span>\n\t\t\t\t\t\t\t\t\t\tsą za darmo.\n\t\t\t\t\t\t\t\t</strong></div></div><div class=\"smile_info__item --inpost\"><span class=\"smile_info__text\">\n\t\t\t\t\t\t\t\tDarmowa dostawa obejmuje dostarczenie przesyłki do paczkomatu\n\t\t\t\t\t\t\t</span><img class=\"smile_info__inpost_logo b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/logo_inpost.svg?r=1652092768\" alt=\"Paczkomaty InPost Smile\"></div><div class=\"smile_info__item --footer\"><span class=\"smile_info__iai\">Smile to usługa IdoSell</span><img class=\"b-lazy\" src=\"/gfx/standards/loader.gif?r=1793349964\" data-src=\"/gfx/standards/smile_info_iai.svg?r=1652092768\"></div></div></form><div class=\"dictionary__param row mb-3\" data-producer_code=\"true\"><div class=\"dictionary__name col-6 d-flex flex-column align-items-end\"><span class=\"dictionary__name_txt\">Kod producenta</span></div><div class=\"dictionary__values col-6\"><div class=\"dictionary__value\"><span class=\"dictionary__value_txt\"><span class=\"dictionary__producer_code --value\">5904617579759</span></span></div></div></div>"
+    },
+    {
+      "sourceId": "hipper-aks-ydyp-3x25-25m",
+      "html": "<script>window.__INITIAL_STATE__={\"csAppWindowsUtils\":{\"sessionId\":\"00000000-0000-4000-8000-000000000148\",\"csAppWindows\":{\"csB2BItemCard\":{\"csAppNameSpacesG\":\"800DB636-13CF-4B3B-A705-06E7B2A426E9\",\"dataSets\":{\"itemCard\":{\"rows\":[{\"EAN\":\"5904617578721\",\"structuredData\":\"{\\\"@context\\\":\\\"https:\\\\/\\\\/schema.org\\\\/\\\",\\\"@type\\\":\\\"Product\\\",\\\"name\\\":\\\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450\\\\/750 V 25 m AKS Zielonka\\\",\\\"image\\\":[\\\"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|A947C3A9-2E1B-467E-BCCC-414926A16F87|1/Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka.webp\\\"],\\\"description\\\":\\\"<h2>Przewód elektroenergetyczny YDYP 3 x 2,5 mm² 450\\\\/750 V AKS Zielonka<\\\\/h2><p style=\\\\\\\"text-align: justify;\\\\\\\">Przewód elektroenergetyczny <strong>YDYP 3 x 2,5 mm²<\\\\/strong> to wytrzymały przewód instalacyjny o szerokim zastosowaniu w instalacjach elektrycznych niskiego napięcia. Jego płaska budowa i solidna izolacja sprawiają, że jest doskonałym wyborem do montażu podtynkowego oraz natynkowego w budynkach mieszkalnych, przemysłowych i biurowych.<\\\\/p><p style=\\\\\\\"text-align: justify;\\\\\\\">Został wykonany z wysokiej jakości miedzi i <strong>pokryty izolacją PVC,<\\\\/strong> co zapewnia trwałość i bezpieczeństwo użytkowania. Jego konstrukcja spełnia <strong>normę PN-E-90068:2016-10,<\\\\/strong> a napięcie znamionowe wynosi <strong>450\\\\/750 V<\\\\/strong>, co umożliwia stosowanie go w standardowych instalacjach elektrycznych.<\\\\/p><h3>Przewód zawiera trzy<strong> żyły o przekroju<\\\\/strong> 2,5 mm², które mają następujące oznaczenia kolorystyczne:<\\\\/h3><ul><li><strong>Brązowy <\\\\/strong>– przewód fazowy <strong>(L)<\\\\/strong><\\\\/li><li><strong>Niebieski<\\\\/strong> <strong>(szary)<\\\\/strong> – przewód neutralny <strong>(N)<\\\\/strong><\\\\/li><li><strong>Żółto-zielony <\\\\/strong>– przewód ochronny <strong>(PE)<\\\\/strong><\\\\/li><\\\\/ul><p style=\\\\\\\"text-align: justify;\\\\\\\"><strong>Dzięki swojej budowie przewód jest łatwy w montażu i dobrze sprawdza się w warunkach wymagających trwałych i stabilnych połączeń elektrycznych, YDYP występuje w różnych konfiguracjach, co pozwala na dopasowanie go do specyficznych wymagań instalacyjnych:<\\\\/strong><\\\\/p><p>Przewody dwużyłowe <strong>(bez przewodu ochronnego PE):<\\\\/strong><\\\\/p><ul><li><strong>2 x 1,0 mm² <\\\\/strong>– średnica zewnętrzna: 5,1 x 7,8 mm<\\\\/li><li><strong>2 x 1,5 mm² –<\\\\/strong> średnica zewnętrzna: 5,4 x 8,3 mm<\\\\/li><li><strong>2 x 2,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,7 x 9,1 mm<\\\\/li><\\\\/ul><p>Przewody trzyżyłowe <strong>(z przewodem ochronnym PE):<\\\\/strong><\\\\/p><ul><li><strong>3 x 1,0 mm² <\\\\/strong>– średnica zewnętrzna: 5,1 x 7,8 mm<\\\\/li><li><strong>3 x 1,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,4 x 8,3 mm<\\\\/li><li><strong>3 x 2,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,7 x 9,1 mm <strong>(opisywany wariant)<\\\\/strong><\\\\/li><li><strong>3 x 4,0 mm² <\\\\/strong>– średnica zewnętrzna: 5,7 x 9,1 mm<\\\\/li><\\\\/ul><p>Przewody czterożyłowe <strong>(z przewodem ochronnym PE):<\\\\/strong><\\\\/p><ul><li><strong>4 x 1,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,4 x 14,2 mm<\\\\/li><li><strong>4 x 2,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,7 x 15,7 mm<\\\\/li><\\\\/ul><h3>Najważniejsze cechy produktu:<\\\\/h3><ul><li><strong>Trwałość i bezpieczeństwo<\\\\/strong> – solidna izolacja PVC chroni przewód przed uszkodzeniami mechanicznymi i czynnikami zewnętrznymi.<\\\\/li><li><strong>Trzyżyłowa konstrukcja <\\\\/strong>– przewód zawiera żyły o przekroju 2,5 mm², co zapewnia stabilne połączenie elektryczne.<\\\\/li><li><strong>Kolorowe oznaczenie żył<\\\\/strong> – brązowy (L), niebieski (N), żółto-zielony (PE), co ułatwia prawidłowe podłączenie.<\\\\/li><li><strong>Płaska budowa <\\\\/strong>– idealny do montażu podtynkowego i natynkowego, łatwy w prowadzeniu i układaniu.<\\\\/li><li><strong>Zgodność z normami<\\\\/strong> – spełnia wymagania normy PN-E-90068:2016-10, co gwarantuje wysoką jakość i bezpieczeństwo użytkowania.<\\\\/li><\\\\/ul><p style=\\\\\\\"text-align: justify;\\\\\\\">Dzięki swojej <strong>wszechstronności <\\\\/strong>przewód <strong>YDYP 3 x 2,5 mm² 450\\\\/750 V<\\\\/strong> to <strong>idealny <\\\\/strong>wybór do stałych instalacji <strong>elektrycznych w budynkach mieszkalnych i przemysłowych<\\\\/strong>, gdzie niezawodność i trwałość mają kluczowe znaczenie.<\\\\/p><h3>Dane kontaktowe podmiotu wprowadzającego produkt na rynek Unii Europejskiej:<\\\\/h3><p>AKS Zielonka Skwierczyńscy sp. z o. o.<br>Ossów, ul. Gen. Jordan-Rozwadowskiego 134, 05-230 Kobyłka, Polska<br>Numer telefonu: +48 22 786 96 50<br>Adres e-mail: aks@aks-zielonka.pl<\\\\/p>\\\",\\\"sku\\\":\\\"5904617578721\\\",\\\"mpn\\\":\\\"956340429\\\",\\\"brand\\\":{\\\"@type\\\":\\\"Brand\\\",\\\"name\\\":\\\"AKS Zielonka\\\"},\\\"aggregateRating\\\":{\\\"@type\\\":\\\"AggregateRating\\\",\\\"reviewCount\\\":1840},\\\"offers\\\":{\\\"@type\\\":\\\"Offer\\\",\\\"price\\\":189.000000,\\\"availability\\\":\\\"InStock\\\",\\\"priceCurrency\\\":\\\"PLN\\\"}}\",\"csItemsId\":956340429,\"csItemsUnitsId\":956397306,\"itemName\":\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka\",\"appWindowIdentRoute\":\"przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429\",\"stockUnit\":\"szt\",\"quantityUnits\":1,\"isNegative\":0,\"qStockAv\":46,\"discount\":0,\"cUnitPrice\":189,\"cUnitPriceADis\":189,\"itemDesc\":\"<h2>Przewód elektroenergetyczny YDYP 3 x 2,5 mm² 450/750 V AKS Zielonka</h2><p style=\\\"text-align: justify;\\\">Przewód elektroenergetyczny <strong>YDYP 3 x 2,5 mm²</strong> to wytrzymały przewód instalacyjny o szerokim zastosowaniu w instalacjach elektrycznych niskiego napięcia. Jego płaska budowa i solidna izolacja sprawiają, że jest doskonałym wyborem do montażu podtynkowego oraz natynkowego w budynkach mieszkalnych, przemysłowych i biurowych.</p><p style=\\\"text-align: justify;\\\">Został wykonany z wysokiej jakości miedzi i <strong>pokryty izolacją PVC,</strong> co zapewnia trwałość i bezpieczeństwo użytkowania. Jego konstrukcja spełnia <strong>normę PN-E-90068:2016-10,</strong> a napięcie znamionowe wynosi <strong>450/750 V</strong>, co umożliwia stosowanie go w standardowych instalacjach elektrycznych.</p><h3>Przewód zawiera trzy<strong> żyły o przekroju</strong> 2,5 mm², które mają następujące oznaczenia kolorystyczne:</h3><ul><li><strong>Brązowy </strong>– przewód fazowy <strong>(L)</strong></li><li><strong>Niebieski</strong> <strong>(szary)</strong> – przewód neutralny <strong>(N)</strong></li><li><strong>Żółto-zielony </strong>– przewód ochronny <strong>(PE)</strong></li></ul><p style=\\\"text-align: justify;\\\"><strong>Dzięki swojej budowie przewód jest łatwy w montażu i dobrze sprawdza się w warunkach wymagających trwałych i stabilnych połączeń elektrycznych, YDYP występuje w różnych konfiguracjach, co pozwala na dopasowanie go do specyficznych wymagań instalacyjnych:</strong></p><p>Przewody dwużyłowe <strong>(bez przewodu ochronnego PE):</strong></p><ul><li><strong>2 x 1,0 mm² </strong>– średnica zewnętrzna: 5,1 x 7,8 mm</li><li><strong>2 x 1,5 mm² –</strong> średnica zewnętrzna: 5,4 x 8,3 mm</li><li><strong>2 x 2,5 mm²</strong> – średnica zewnętrzna: 5,7 x 9,1 mm</li></ul><p>Przewody trzyżyłowe <strong>(z przewodem ochronnym PE):</strong></p><ul><li><strong>3 x 1,0 mm² </strong>– średnica zewnętrzna: 5,1 x 7,8 mm</li><li><strong>3 x 1,5 mm²</strong> – średnica zewnętrzna: 5,4 x 8,3 mm</li><li><strong>3 x 2,5 mm²</strong> – średnica zewnętrzna: 5,7 x 9,1 mm <strong>(opisywany wariant)</strong></li><li><strong>3 x 4,0 mm² </strong>– średnica zewnętrzna: 5,7 x 9,1 mm</li></ul><p>Przewody czterożyłowe <strong>(z przewodem ochronnym PE):</strong></p><ul><li><strong>4 x 1,5 mm²</strong> – średnica zewnętrzna: 5,4 x 14,2 mm</li><li><strong>4 x 2,5 mm²</strong> – średnica zewnętrzna: 5,7 x 15,7 mm</li></ul><h3>Najważniejsze cechy produktu:</h3><ul><li><strong>Trwałość i bezpieczeństwo</strong> – solidna izolacja PVC chroni przewód przed uszkodzeniami mechanicznymi i czynnikami zewnętrznymi.</li><li><strong>Trzyżyłowa konstrukcja </strong>– przewód zawiera żyły o przekroju 2,5 mm², co zapewnia stabilne połączenie elektryczne.</li><li><strong>Kolorowe oznaczenie żył</strong> – brązowy (L), niebieski (N), żółto-zielony (PE), co ułatwia prawidłowe podłączenie.</li><li><strong>Płaska budowa </strong>– idealny do montażu podtynkowego i natynkowego, łatwy w prowadzeniu i układaniu.</li><li><strong>Zgodność z normami</strong> – spełnia wymagania normy PN-E-90068:2016-10, co gwarantuje wysoką jakość i bezpieczeństwo użytkowania.</li></ul><p style=\\\"text-align: justify;\\\">Dzięki swojej <strong>wszechstronności </strong>przewód <strong>YDYP 3 x 2,5 mm² 450/750 V</strong> to <strong>idealny </strong>wybór do stałych instalacji <strong>elektrycznych w budynkach mieszkalnych i przemysłowych</strong>, gdzie niezawodność i trwałość mają kluczowe znaczenie.</p><h3>Dane kontaktowe podmiotu wprowadzającego produkt na rynek Unii Europejskiej:</h3><p>AKS Zielonka Skwierczyńscy sp. z o. o.<br>Ossów, ul. Gen. Jordan-Rozwadowskiego 134, 05-230 Kobyłka, Polska<br>Numer telefonu: +48 22 786 96 50<br>Adres e-mail: aks@aks-zielonka.pl</p>\"}]}}}}}};(function(){var s;}());</script><section id=\"item\"><h1>Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka</h1><div class=\"c-ean\">\n              (Kod produktu: 5904617578721)\n            </div><div class=\"c-prc\"><span class=\"c-upad\">189,00 zł</span>  <div class=\"c-upc\"> </div></div><input type=\"quantity\" inputmode=\"numeric\" tabindex=\"0\" autocomplete=\"off\" value=\"1\" class=\"c-input input c-ft-integer\"><button type=\"button\" class=\"c-btn-cart-add c-btna cartAdd\">\n    Do koszyka\n       </button><div class=\"c-itm-s\"><div>\n              W magazynie\n            </div> <div>\n              46 szt\n            </div> <div class=\"c-skeleton\" style=\"height:50px;width:90px;display:none;\"></div></div></section>"
+    }
+  ],
+  "abud": [
+    {
+      "entries": [
+        [
+          65373,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 28.9,
+          "productsNumber": 1,
+          "products": [
+            {
+              "id": "65373",
+              "name": "Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "23.50",
+                "worth_gros": "28.90",
+                "net": "23.50",
+                "gros": "28.90",
+                "base_price": 28.9,
+                "base_price_net": 23.5,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "23,50 zł",
+                "worth_gros_formatted": "28,90 zł",
+                "net_formatted": "23,50 zł",
+                "gros_formatted": "28,90 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "Paczkomaty 24/7",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 12.49,
+                  "formatted": "12,49 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100280,
+                  "name": "Orlen Paczka ",
+                  "icon": "/data/include/deliveries/icons/100280_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 9.99,
+                  "formatted": "9,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "Paczkomaty 24/7",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 9.99,
+                  "formatted": "9,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1556
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4935
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          6900,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 192.7,
+          "productsNumber": 1,
+          "products": [
+            {
+              "id": "6900",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "156.67",
+                "worth_gros": "192.70",
+                "net": "156.67",
+                "gros": "192.70",
+                "base_price": 192.7,
+                "base_price_net": 156.67,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "156,67 zł",
+                "worth_gros_formatted": "192,70 zł",
+                "net_formatted": "156,67 zł",
+                "gros_formatted": "192,70 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1530
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4930
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          65373,
+          1
+        ],
+        [
+          50450,
+          1
+        ],
+        [
+          6900,
+          1
+        ],
+        [
+          50414,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 1266.1,
+          "productsNumber": 4,
+          "products": [
+            {
+              "id": "65373",
+              "name": "Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "23.50",
+                "worth_gros": "28.90",
+                "net": "23.50",
+                "gros": "28.90",
+                "base_price": 28.9,
+                "base_price_net": 23.5,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "23,50 zł",
+                "worth_gros_formatted": "28,90 zł",
+                "net_formatted": "23,50 zł",
+                "gros_formatted": "28,90 zł"
+              }
+            },
+            {
+              "id": "50450",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "336.26",
+                "worth_gros": "413.60",
+                "net": "336.26",
+                "gros": "413.60",
+                "base_price": 413.6,
+                "base_price_net": 336.26,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "336,26 zł",
+                "worth_gros_formatted": "413,60 zł",
+                "net_formatted": "336,26 zł",
+                "gros_formatted": "413,60 zł"
+              }
+            },
+            {
+              "id": "50414",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "512.93",
+                "worth_gros": "630.90",
+                "net": "512.93",
+                "gros": "630.90",
+                "base_price": 630.9,
+                "base_price_net": 512.93,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "512,93 zł",
+                "worth_gros_formatted": "630,90 zł",
+                "net_formatted": "512,93 zł",
+                "gros_formatted": "630,90 zł"
+              }
+            },
+            {
+              "id": "6900",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "156.67",
+                "worth_gros": "192.70",
+                "net": "156.67",
+                "gros": "192.70",
+                "base_price": 192.7,
+                "base_price_net": 156.67,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "156,67 zł",
+                "worth_gros_formatted": "192,70 zł",
+                "net_formatted": "156,67 zł",
+                "gros_formatted": "192,70 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 36,
+                  "formatted": "36,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 26,
+                  "formatted": "26,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1556
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 2792
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 4021
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 5261
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4930
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          50450,
+          1
+        ],
+        [
+          50414,
+          1
+        ]
+      ],
+      "postalCode": "00-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1630481634",
+              "parent": "1143020003",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 1044.5,
+          "productsNumber": 2,
+          "products": [
+            {
+              "id": "50450",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "336.26",
+                "worth_gros": "413.60",
+                "net": "336.26",
+                "gros": "413.60",
+                "base_price": 413.6,
+                "base_price_net": 336.26,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "336,26 zł",
+                "worth_gros_formatted": "413,60 zł",
+                "net_formatted": "336,26 zł",
+                "gros_formatted": "413,60 zł"
+              }
+            },
+            {
+              "id": "50414",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "512.93",
+                "worth_gros": "630.90",
+                "net": "512.93",
+                "gros": "630.90",
+                "base_price": 630.9,
+                "base_price_net": 512.93,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "512,93 zł",
+                "worth_gros_formatted": "630,90 zł",
+                "net_formatted": "512,93 zł",
+                "gros_formatted": "630,90 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 20,
+                  "formatted": "20,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 10,
+                  "name": "ABUD  (nie dot. wniesienia)",
+                  "icon": "/data/include/deliveries/icons/10_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 150,
+                  "formatted": "150,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 37,
+                  "name": "ABUD HDS - Dostawa + rozładunek HDS (nie dot. wniesienia)",
+                  "icon": "/data/include/deliveries/icons/37_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 500,
+                  "formatted": "500,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 15,
+                  "formatted": "15,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 10,
+                  "name": "ABUD  (nie dot. wniesienia)",
+                  "icon": "/data/include/deliveries/icons/10_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 150,
+                  "formatted": "150,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 37,
+                  "name": "ABUD HDS - Dostawa + rozładunek HDS (nie dot. wniesienia)",
+                  "icon": "/data/include/deliveries/icons/37_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 500,
+                  "formatted": "500,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 130
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1540
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 2779
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4120
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          65373,
+          1
+        ],
+        [
+          50450,
+          1
+        ],
+        [
+          50414,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 1073.4,
+          "productsNumber": 3,
+          "products": [
+            {
+              "id": "50450",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "336.26",
+                "worth_gros": "413.60",
+                "net": "336.26",
+                "gros": "413.60",
+                "base_price": 413.6,
+                "base_price_net": 336.26,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "336,26 zł",
+                "worth_gros_formatted": "413,60 zł",
+                "net_formatted": "336,26 zł",
+                "gros_formatted": "413,60 zł"
+              }
+            },
+            {
+              "id": "65373",
+              "name": "Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "23.50",
+                "worth_gros": "28.90",
+                "net": "23.50",
+                "gros": "28.90",
+                "base_price": 28.9,
+                "base_price_net": 23.5,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "23,50 zł",
+                "worth_gros_formatted": "28,90 zł",
+                "net_formatted": "23,50 zł",
+                "gros_formatted": "28,90 zł"
+              }
+            },
+            {
+              "id": "50414",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "512.93",
+                "worth_gros": "630.90",
+                "net": "512.93",
+                "gros": "630.90",
+                "base_price": 630.9,
+                "base_price_net": 512.93,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "512,93 zł",
+                "worth_gros_formatted": "630,90 zł",
+                "net_formatted": "512,93 zł",
+                "gros_formatted": "630,90 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 36,
+                  "formatted": "36,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 26,
+                  "formatted": "26,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1556
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 2792
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 4031
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4930
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          6900,
+          2
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 385.4,
+          "productsNumber": 2,
+          "products": [
+            {
+              "id": "6900",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "313.33",
+                "worth_gros": "385.40",
+                "net": "156.67",
+                "gros": "192.70",
+                "base_price": 192.7,
+                "base_price_net": 156.67,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "313,33 zł",
+                "worth_gros_formatted": "385,40 zł",
+                "net_formatted": "156,67 zł",
+                "gros_formatted": "192,70 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1530
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4930
+        }
+      ]
+    }
+  ],
+  "hipper": {
+    "order": {
+      "store": "HIPPER",
+      "materialsGrosze": 18900,
+      "deliveryGrosze": null,
+      "deliveryMinimumGrosze": 0,
+      "totalGrosze": null,
+      "source": "unknown",
+      "lines": [
+        {
+          "product": {
+            "id": "remont-5904617578721",
+            "name": "Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka",
+            "imageUrl": "https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|A947C3A9-2E1B-467E-BCCC-414926A16F87|1/Przew%C3%B3d%20elektroenergetyczny%20YDYP%203%20x%202,5%20mm2%20450/750%20V%2025%20m%20AKS%20Zielonka.webp"
+          },
+          "unit": "mb",
+          "packages": [
+            {
+              "offerId": "hipper-aks-ydyp-3x25-25m",
+              "store": "HIPPER",
+              "url": "https://hipper.pl/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429",
+              "packageSize": 25,
+              "count": 1,
+              "unitPriceGrosze": 18900,
+              "lineCostGrosze": 18900
+            }
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "quote": {
+        "costGrosze": 1890,
+        "carrier": "Kurier InPost",
+        "payment": "Płatność błyskawiczna PayU",
+        "checkedAt": "2026-10-31T12:25:23.796Z",
+        "expiresAt": "2026-10-31T12:35:23.796Z",
+        "sourceUrl": "https://hipper.pl/koszyk",
+        "basis": "retailer_basket_national",
+        "destinationScope": "PL",
+        "evidenceSha256": "6ba13f1b636b692bf142189ae194843ea3643e2e27b1deca709b4d4845d12415"
+      }
+    },
+    "events": [
+      {
+        "url": "https://hipper.pl/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429",
+        "method": "GET",
+        "requestBody": null,
+        "status": 200,
+        "body": "<script>window.__INITIAL_STATE__={\"csAppWindowsUtils\":{\"sessionId\":\"00000000-0000-4000-8000-000000000148\",\"csAppWindows\":{\"csB2BItemCard\":{\"csAppNameSpacesG\":\"800DB636-13CF-4B3B-A705-06E7B2A426E9\",\"dataSets\":{\"itemCard\":{\"rows\":[{\"EAN\":\"5904617578721\",\"structuredData\":\"{\\\"@context\\\":\\\"https:\\\\/\\\\/schema.org\\\\/\\\",\\\"@type\\\":\\\"Product\\\",\\\"name\\\":\\\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450\\\\/750 V 25 m AKS Zielonka\\\",\\\"image\\\":[\\\"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|A947C3A9-2E1B-467E-BCCC-414926A16F87|1/Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka.webp\\\"],\\\"description\\\":\\\"<h2>Przewód elektroenergetyczny YDYP 3 x 2,5 mm² 450\\\\/750 V AKS Zielonka<\\\\/h2><p style=\\\\\\\"text-align: justify;\\\\\\\">Przewód elektroenergetyczny <strong>YDYP 3 x 2,5 mm²<\\\\/strong> to wytrzymały przewód instalacyjny o szerokim zastosowaniu w instalacjach elektrycznych niskiego napięcia. Jego płaska budowa i solidna izolacja sprawiają, że jest doskonałym wyborem do montażu podtynkowego oraz natynkowego w budynkach mieszkalnych, przemysłowych i biurowych.<\\\\/p><p style=\\\\\\\"text-align: justify;\\\\\\\">Został wykonany z wysokiej jakości miedzi i <strong>pokryty izolacją PVC,<\\\\/strong> co zapewnia trwałość i bezpieczeństwo użytkowania. Jego konstrukcja spełnia <strong>normę PN-E-90068:2016-10,<\\\\/strong> a napięcie znamionowe wynosi <strong>450\\\\/750 V<\\\\/strong>, co umożliwia stosowanie go w standardowych instalacjach elektrycznych.<\\\\/p><h3>Przewód zawiera trzy<strong> żyły o przekroju<\\\\/strong> 2,5 mm², które mają następujące oznaczenia kolorystyczne:<\\\\/h3><ul><li><strong>Brązowy <\\\\/strong>– przewód fazowy <strong>(L)<\\\\/strong><\\\\/li><li><strong>Niebieski<\\\\/strong> <strong>(szary)<\\\\/strong> – przewód neutralny <strong>(N)<\\\\/strong><\\\\/li><li><strong>Żółto-zielony <\\\\/strong>– przewód ochronny <strong>(PE)<\\\\/strong><\\\\/li><\\\\/ul><p style=\\\\\\\"text-align: justify;\\\\\\\"><strong>Dzięki swojej budowie przewód jest łatwy w montażu i dobrze sprawdza się w warunkach wymagających trwałych i stabilnych połączeń elektrycznych, YDYP występuje w różnych konfiguracjach, co pozwala na dopasowanie go do specyficznych wymagań instalacyjnych:<\\\\/strong><\\\\/p><p>Przewody dwużyłowe <strong>(bez przewodu ochronnego PE):<\\\\/strong><\\\\/p><ul><li><strong>2 x 1,0 mm² <\\\\/strong>– średnica zewnętrzna: 5,1 x 7,8 mm<\\\\/li><li><strong>2 x 1,5 mm² –<\\\\/strong> średnica zewnętrzna: 5,4 x 8,3 mm<\\\\/li><li><strong>2 x 2,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,7 x 9,1 mm<\\\\/li><\\\\/ul><p>Przewody trzyżyłowe <strong>(z przewodem ochronnym PE):<\\\\/strong><\\\\/p><ul><li><strong>3 x 1,0 mm² <\\\\/strong>– średnica zewnętrzna: 5,1 x 7,8 mm<\\\\/li><li><strong>3 x 1,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,4 x 8,3 mm<\\\\/li><li><strong>3 x 2,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,7 x 9,1 mm <strong>(opisywany wariant)<\\\\/strong><\\\\/li><li><strong>3 x 4,0 mm² <\\\\/strong>– średnica zewnętrzna: 5,7 x 9,1 mm<\\\\/li><\\\\/ul><p>Przewody czterożyłowe <strong>(z przewodem ochronnym PE):<\\\\/strong><\\\\/p><ul><li><strong>4 x 1,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,4 x 14,2 mm<\\\\/li><li><strong>4 x 2,5 mm²<\\\\/strong> – średnica zewnętrzna: 5,7 x 15,7 mm<\\\\/li><\\\\/ul><h3>Najważniejsze cechy produktu:<\\\\/h3><ul><li><strong>Trwałość i bezpieczeństwo<\\\\/strong> – solidna izolacja PVC chroni przewód przed uszkodzeniami mechanicznymi i czynnikami zewnętrznymi.<\\\\/li><li><strong>Trzyżyłowa konstrukcja <\\\\/strong>– przewód zawiera żyły o przekroju 2,5 mm², co zapewnia stabilne połączenie elektryczne.<\\\\/li><li><strong>Kolorowe oznaczenie żył<\\\\/strong> – brązowy (L), niebieski (N), żółto-zielony (PE), co ułatwia prawidłowe podłączenie.<\\\\/li><li><strong>Płaska budowa <\\\\/strong>– idealny do montażu podtynkowego i natynkowego, łatwy w prowadzeniu i układaniu.<\\\\/li><li><strong>Zgodność z normami<\\\\/strong> – spełnia wymagania normy PN-E-90068:2016-10, co gwarantuje wysoką jakość i bezpieczeństwo użytkowania.<\\\\/li><\\\\/ul><p style=\\\\\\\"text-align: justify;\\\\\\\">Dzięki swojej <strong>wszechstronności <\\\\/strong>przewód <strong>YDYP 3 x 2,5 mm² 450\\\\/750 V<\\\\/strong> to <strong>idealny <\\\\/strong>wybór do stałych instalacji <strong>elektrycznych w budynkach mieszkalnych i przemysłowych<\\\\/strong>, gdzie niezawodność i trwałość mają kluczowe znaczenie.<\\\\/p><h3>Dane kontaktowe podmiotu wprowadzającego produkt na rynek Unii Europejskiej:<\\\\/h3><p>AKS Zielonka Skwierczyńscy sp. z o. o.<br>Ossów, ul. Gen. Jordan-Rozwadowskiego 134, 05-230 Kobyłka, Polska<br>Numer telefonu: +48 22 786 96 50<br>Adres e-mail: aks@aks-zielonka.pl<\\\\/p>\\\",\\\"sku\\\":\\\"5904617578721\\\",\\\"mpn\\\":\\\"956340429\\\",\\\"brand\\\":{\\\"@type\\\":\\\"Brand\\\",\\\"name\\\":\\\"AKS Zielonka\\\"},\\\"aggregateRating\\\":{\\\"@type\\\":\\\"AggregateRating\\\",\\\"reviewCount\\\":1842},\\\"offers\\\":{\\\"@type\\\":\\\"Offer\\\",\\\"price\\\":189.000000,\\\"availability\\\":\\\"InStock\\\",\\\"priceCurrency\\\":\\\"PLN\\\"}}\",\"csItemsId\":956340429,\"csItemsUnitsId\":956397306,\"itemName\":\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka\",\"appWindowIdentRoute\":\"przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429\",\"stockUnit\":\"szt\",\"quantityUnits\":1,\"isNegative\":0,\"qStockAv\":46,\"discount\":0,\"cUnitPrice\":189,\"cUnitPriceADis\":189,\"itemDesc\":\"<h2>Przewód elektroenergetyczny YDYP 3 x 2,5 mm² 450/750 V AKS Zielonka</h2><p style=\\\"text-align: justify;\\\">Przewód elektroenergetyczny <strong>YDYP 3 x 2,5 mm²</strong> to wytrzymały przewód instalacyjny o szerokim zastosowaniu w instalacjach elektrycznych niskiego napięcia. Jego płaska budowa i solidna izolacja sprawiają, że jest doskonałym wyborem do montażu podtynkowego oraz natynkowego w budynkach mieszkalnych, przemysłowych i biurowych.</p><p style=\\\"text-align: justify;\\\">Został wykonany z wysokiej jakości miedzi i <strong>pokryty izolacją PVC,</strong> co zapewnia trwałość i bezpieczeństwo użytkowania. Jego konstrukcja spełnia <strong>normę PN-E-90068:2016-10,</strong> a napięcie znamionowe wynosi <strong>450/750 V</strong>, co umożliwia stosowanie go w standardowych instalacjach elektrycznych.</p><h3>Przewód zawiera trzy<strong> żyły o przekroju</strong> 2,5 mm², które mają następujące oznaczenia kolorystyczne:</h3><ul><li><strong>Brązowy </strong>– przewód fazowy <strong>(L)</strong></li><li><strong>Niebieski</strong> <strong>(szary)</strong> – przewód neutralny <strong>(N)</strong></li><li><strong>Żółto-zielony </strong>– przewód ochronny <strong>(PE)</strong></li></ul><p style=\\\"text-align: justify;\\\"><strong>Dzięki swojej budowie przewód jest łatwy w montażu i dobrze sprawdza się w warunkach wymagających trwałych i stabilnych połączeń elektrycznych, YDYP występuje w różnych konfiguracjach, co pozwala na dopasowanie go do specyficznych wymagań instalacyjnych:</strong></p><p>Przewody dwużyłowe <strong>(bez przewodu ochronnego PE):</strong></p><ul><li><strong>2 x 1,0 mm² </strong>– średnica zewnętrzna: 5,1 x 7,8 mm</li><li><strong>2 x 1,5 mm² –</strong> średnica zewnętrzna: 5,4 x 8,3 mm</li><li><strong>2 x 2,5 mm²</strong> – średnica zewnętrzna: 5,7 x 9,1 mm</li></ul><p>Przewody trzyżyłowe <strong>(z przewodem ochronnym PE):</strong></p><ul><li><strong>3 x 1,0 mm² </strong>– średnica zewnętrzna: 5,1 x 7,8 mm</li><li><strong>3 x 1,5 mm²</strong> – średnica zewnętrzna: 5,4 x 8,3 mm</li><li><strong>3 x 2,5 mm²</strong> – średnica zewnętrzna: 5,7 x 9,1 mm <strong>(opisywany wariant)</strong></li><li><strong>3 x 4,0 mm² </strong>– średnica zewnętrzna: 5,7 x 9,1 mm</li></ul><p>Przewody czterożyłowe <strong>(z przewodem ochronnym PE):</strong></p><ul><li><strong>4 x 1,5 mm²</strong> – średnica zewnętrzna: 5,4 x 14,2 mm</li><li><strong>4 x 2,5 mm²</strong> – średnica zewnętrzna: 5,7 x 15,7 mm</li></ul><h3>Najważniejsze cechy produktu:</h3><ul><li><strong>Trwałość i bezpieczeństwo</strong> – solidna izolacja PVC chroni przewód przed uszkodzeniami mechanicznymi i czynnikami zewnętrznymi.</li><li><strong>Trzyżyłowa konstrukcja </strong>– przewód zawiera żyły o przekroju 2,5 mm², co zapewnia stabilne połączenie elektryczne.</li><li><strong>Kolorowe oznaczenie żył</strong> – brązowy (L), niebieski (N), żółto-zielony (PE), co ułatwia prawidłowe podłączenie.</li><li><strong>Płaska budowa </strong>– idealny do montażu podtynkowego i natynkowego, łatwy w prowadzeniu i układaniu.</li><li><strong>Zgodność z normami</strong> – spełnia wymagania normy PN-E-90068:2016-10, co gwarantuje wysoką jakość i bezpieczeństwo użytkowania.</li></ul><p style=\\\"text-align: justify;\\\">Dzięki swojej <strong>wszechstronności </strong>przewód <strong>YDYP 3 x 2,5 mm² 450/750 V</strong> to <strong>idealny </strong>wybór do stałych instalacji <strong>elektrycznych w budynkach mieszkalnych i przemysłowych</strong>, gdzie niezawodność i trwałość mają kluczowe znaczenie.</p><h3>Dane kontaktowe podmiotu wprowadzającego produkt na rynek Unii Europejskiej:</h3><p>AKS Zielonka Skwierczyńscy sp. z o. o.<br>Ossów, ul. Gen. Jordan-Rozwadowskiego 134, 05-230 Kobyłka, Polska<br>Numer telefonu: +48 22 786 96 50<br>Adres e-mail: aks@aks-zielonka.pl</p>\"}]}}}}}};(function(){var s;}());</script><section id=\"item\"><h1>Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka</h1><div class=\"c-ean\">\n              (Kod produktu: 5904617578721)\n            </div><div class=\"c-prc\"><span class=\"c-upad\">189,00 zł</span>  <div class=\"c-upc\"> </div></div><input type=\"quantity\" inputmode=\"numeric\" tabindex=\"0\" autocomplete=\"off\" value=\"1\" class=\"c-input input c-ft-integer\"><button type=\"button\" class=\"c-btn-cart-add c-btna cartAdd\">\n    Do koszyka\n       </button><div class=\"c-itm-s\"><div>\n              W magazynie\n            </div> <div>\n              46 szt\n            </div> <div class=\"c-skeleton\" style=\"height:50px;width:90px;display:none;\"></div></div></section>"
+      },
+      {
+        "url": "https://hipper.pl/csAPIServer_Hipper/invokeAction",
+        "method": "POST",
+        "requestBody": {
+          "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+          "appWindowIdent": "csB2BItemCard",
+          "dataSetIdent": "itemCard",
+          "actionIdent": "cartAdd",
+          "sessionId": "00000000-0000-4000-8000-000000000148",
+          "row": {
+            "csItemsId": 956340429,
+            "csItemsUnitsId": 956397306,
+            "cUnitPrice": 189,
+            "discount": 0,
+            "quantityUnits": 1
+          },
+          "path": "/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429",
+          "addRequestData": {
+            "appWindowUniqIdent": "csB2BItemCard"
+          }
+        },
+        "status": 200,
+        "body": "{\"commands\":[{\"command\":\"fillDataSetsFromData\",\"payload\":{\"appWindowIdent\":\"csB2BItems\",\"dataSetIdent\":\"csB2BPortalsItems\",\"sourceKindTo\":\"rows\",\"onCFLock\":1,\"data\":[{\"dataFieldIdent\":\"QuantityUnits\",\"dataFieldValue\":1}],\"filter\":[{\"dataFieldIdent\":\"csItemsId\",\"dataFieldValue\":956340429}]}},{\"command\":\"fillDataSetsFromData\",\"payload\":{\"appWindowIdent\":\"csB2BItemCard\",\"dataSetIdent\":\"itemCard\",\"sourceKindTo\":\"rows\",\"onCFLock\":1,\"data\":[{\"dataFieldIdent\":\"quantity\",\"dataFieldValue\":1}]}},{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BCartsList\",\"dataSetIdent\":\"csB2BCartsList\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BMainCart\",\"dataSetIdent\":\"csB2BCartHeader\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BMainCart\",\"dataSetIdent\":\"csB2BCartPos\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BCart\",\"dataSetIdent\":\"csB2BCartHeader\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BCart\",\"dataSetIdent\":\"csB2BCartPositions\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"appendGTAGEventScriptToHead\",\"payload\":{\"appWindowIdent\":\"csB2BItemCard\",\"dataSetIdent\":\"itemCard\",\"onCFLock\":1,\"data\":{\"eventName\":\"add_to_cart\",\"eventData\":\"{\\\"currency\\\":\\\"PLN\\\",\\\"value\\\":189.000000,\\\"items\\\":[{\\\"item_id\\\":956340429,\\\"itemName\\\":\\\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450\\\\/750 V 25 m AKS Zielonka\\\",\\\"currency\\\":\\\"PLN\\\",\\\"discount\\\":0.000000000000,\\\"index\\\":1,\\\"item_brand\\\":\\\"AKS ZIELONKA\\\",\\\"item_category\\\":\\\"Dom\\\",\\\"item_category2\\\":\\\"Wykończenie\\\",\\\"item_category3\\\":\\\"Instalacje elektryczne\\\",\\\"item_category4\\\":\\\"Kable i przewody elektryczne\\\",\\\"item_category5\\\":\\\"Przewody instalacyjne\\\",\\\"location_id\\\":\\\"MGHip\\\",\\\"price\\\":189.000000,\\\"quantity\\\":1.000000}]}\"}}},{\"command\":\"addMetaInfo\",\"payload\":{\"appWindowIdent\":\"csB2BItemCard\",\"dataSetIdent\":\"itemCard\",\"onCFLock\":1,\"data\":{\"metaInfo\":{\"script\":[{\"innerHTML\":\"fbq(\\\"track\\\", \\\"AddToCart\\\",{\\\"currency\\\":\\\"PLN\\\",\\\"value\\\":189.000000,\\\"content_type\\\":\\\"product\\\",\\\"contents\\\":[{\\\"id\\\":956340429,\\\"quantity\\\":1.000000}]})\",\"actionTime\":\"2026-10-31T13:25:19.720\"}]}}}}]}"
+      },
+      {
+        "url": "https://hipper.pl/koszyk",
+        "method": "GET",
+        "requestBody": null,
+        "status": 200,
+        "body": "<script>window.__INITIAL_STATE__={\"csAppWindowsUtils\":{\"sessionId\":\"00000000-0000-4000-8000-000000000148\",\"csAppWindows\":{\"csB2BCart\":{\"csAppNameSpacesG\":\"800DB636-13CF-4B3B-A705-06E7B2A426E9\",\"dataSets\":{\"csB2BCartPositions\":{\"rows\":[{\"csItemsId\":956340429,\"csItemsUnitsId\":956397306,\"quantityUnits\":1,\"unit\":\"szt\",\"itemDesc\":\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka\",\"menuPath\":\"/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429\",\"isStock\":1,\"discount\":0,\"cUnitPrice\":189,\"cUnitPriceADis\":189,\"cGAmount\":189}]},\"csB2BCartHeader\":{\"rows\":[{\"csDocsHeadersId\":3271388664,\"cGAmount\":189,\"sumDiscountValue\":0,\"isRegulationsAccepted\":0,\"isProcessingPersonalDataAccepted\":0,\"doRegisterAccount\":0,\"csB2BPortalsDeliveryMethodsId\":null,\"csPaymentsTypesId\":2674564140,\"deliveryMethodsCUnitPrice\":0,\"paymentsTypesCUnitPrice\":0,\"isReceptionPoint\":null}]},\"deliveryMethods\":{\"rows\":[{\"isAvailable\":1,\"isCollectionInPerson\":null,\"csB2BPortalsDeliveryMethodsId\":null,\"deliveryMethod\":\"Wybierz formę dostawy\",\"currencyIdent\":null,\"cUnitPrice\":null,\"freeDeliveryFrom\":null},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2667018159,\"deliveryMethod\":\"InPost Paczkomat 24/7 (24-48h) - najczęściej wybierana\",\"currencyIdent\":\"zł\",\"cUnitPrice\":17.9,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2667017562,\"deliveryMethod\":\"Kurier InPost\",\"currencyIdent\":\"zł\",\"cUnitPrice\":18.9,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2667023043,\"deliveryMethod\":\"Kurier DHL\",\"currencyIdent\":\"zł\",\"cUnitPrice\":29.99,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2844329220,\"deliveryMethod\":\"Kurier GLS\",\"currencyIdent\":\"zł\",\"cUnitPrice\":20.9,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2864054502,\"deliveryMethod\":\"Kurier DPD\",\"currencyIdent\":\"zł\",\"cUnitPrice\":20.99,\"freeDeliveryFrom\":6000}]},\"paymentMethods\":{\"rows\":[{\"csPaymentsTypesId\":null,\"isAvailable\":1,\"priceListType\":null,\"paymentTypeTranslatedDesc\":\"Wybierz formę płatności\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":955021221,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"Przelew gotówkowy\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":955021230,\"isAvailable\":1,\"priceListType\":2,\"paymentTypeTranslatedDesc\":\"Pobranie\",\"cUnitPrice\":2.9},{\"csPaymentsTypesId\":955021233,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"Karta płatnicza PayU\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":2666172468,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"BLIK PayU\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":2674564140,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"Płatność błyskawiczna PayU\",\"cUnitPrice\":null}]}}}}}};(function(){var s;}());</script><div class=\"c-sum-in\"><div><div>Wartość produktów:</div> <div>\n            189,00\n            zł\n          </div></div> <div><div>Sposób płatności:</div> <div>\n            0,00\n            zł\n          </div></div>  <div class=\"c-sum-amnt\"><div>Razem do zapłaty:</div> <div class=\"c-amnt\">\n            189,00\n            zł\n          </div></div>  <div class=\"c-sum-amnt\"><div>Do zapłaty po rabacie:</div> <div class=\"c-amnt\">\n            189,00\n            zł\n          </div></div></div>"
+      },
+      {
+        "url": "https://hipper.pl/csAPIServer_Hipper/invokeAction",
+        "method": "POST",
+        "requestBody": {
+          "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+          "appWindowIdent": "csB2BCart",
+          "dataSetIdent": "csB2BCartHeader",
+          "actionIdent": "csNGOnCFB2BCartHeader",
+          "onCFDataFieldIdent": "csB2BPortalsDeliveryMethodsId",
+          "sessionId": "00000000-0000-4000-8000-000000000148",
+          "row": {
+            "csDocsHeadersId": 3271388664,
+            "csB2BPortalsDeliveryMethodsId": 2667017562,
+            "csPaymentsTypesId": 2674564140
+          },
+          "path": "/koszyk",
+          "addRequestData": {
+            "appWindowUniqIdent": "csB2BCart"
+          }
+        },
+        "status": 200,
+        "body": "{\"commands\":[{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BCart\",\"dataSetIdent\":\"paymentMethods\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"refreshDataSet\",\"payload\":{\"appWindowIdent\":\"csB2BMainCart\",\"dataSetIdent\":\"csB2BCartHeader\",\"onCFLock\":1,\"refreshAggregates\":1}},{\"command\":\"fillDataSetsFromData\",\"payload\":{\"appWindowIdent\":\"csB2BCart\",\"dataSetIdent\":\"csB2BCartHeader\",\"sourceKindTo\":\"rows\",\"onCFLock\":1,\"data\":[{\"dataFieldIdent\":\"deliveryMethodsCUnitPrice\",\"dataFieldValue\":0}]}}]}"
+      },
+      {
+        "url": "https://hipper.pl/koszyk",
+        "method": "GET",
+        "requestBody": null,
+        "status": 200,
+        "body": "<script>window.__INITIAL_STATE__={\"csAppWindowsUtils\":{\"sessionId\":\"00000000-0000-4000-8000-000000000148\",\"csAppWindows\":{\"csB2BCart\":{\"csAppNameSpacesG\":\"800DB636-13CF-4B3B-A705-06E7B2A426E9\",\"dataSets\":{\"csB2BCartPositions\":{\"rows\":[{\"csItemsId\":956340429,\"csItemsUnitsId\":956397306,\"quantityUnits\":1,\"unit\":\"szt\",\"itemDesc\":\"Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka\",\"menuPath\":\"/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429\",\"isStock\":1,\"discount\":0,\"cUnitPrice\":189,\"cUnitPriceADis\":189,\"cGAmount\":189}]},\"csB2BCartHeader\":{\"rows\":[{\"csDocsHeadersId\":3271388664,\"cGAmount\":189,\"sumDiscountValue\":0,\"isRegulationsAccepted\":0,\"isProcessingPersonalDataAccepted\":0,\"doRegisterAccount\":0,\"csB2BPortalsDeliveryMethodsId\":2667017562,\"csPaymentsTypesId\":2674564140,\"deliveryMethodsCUnitPrice\":18.9,\"paymentsTypesCUnitPrice\":0,\"isReceptionPoint\":0}]},\"deliveryMethods\":{\"rows\":[{\"isAvailable\":1,\"isCollectionInPerson\":null,\"csB2BPortalsDeliveryMethodsId\":null,\"deliveryMethod\":\"Wybierz formę dostawy\",\"currencyIdent\":null,\"cUnitPrice\":null,\"freeDeliveryFrom\":null},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2667018159,\"deliveryMethod\":\"InPost Paczkomat 24/7 (24-48h) - najczęściej wybierana\",\"currencyIdent\":\"zł\",\"cUnitPrice\":17.9,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2667017562,\"deliveryMethod\":\"Kurier InPost\",\"currencyIdent\":\"zł\",\"cUnitPrice\":18.9,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2667023043,\"deliveryMethod\":\"Kurier DHL\",\"currencyIdent\":\"zł\",\"cUnitPrice\":29.99,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2844329220,\"deliveryMethod\":\"Kurier GLS\",\"currencyIdent\":\"zł\",\"cUnitPrice\":20.9,\"freeDeliveryFrom\":6000},{\"isAvailable\":1,\"isCollectionInPerson\":0,\"csB2BPortalsDeliveryMethodsId\":2864054502,\"deliveryMethod\":\"Kurier DPD\",\"currencyIdent\":\"zł\",\"cUnitPrice\":20.99,\"freeDeliveryFrom\":6000}]},\"paymentMethods\":{\"rows\":[{\"csPaymentsTypesId\":null,\"isAvailable\":1,\"priceListType\":null,\"paymentTypeTranslatedDesc\":\"Wybierz formę płatności\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":955021221,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"Przelew gotówkowy\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":955021230,\"isAvailable\":1,\"priceListType\":2,\"paymentTypeTranslatedDesc\":\"Pobranie\",\"cUnitPrice\":2.9},{\"csPaymentsTypesId\":955021233,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"Karta płatnicza PayU\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":2666172468,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"BLIK PayU\",\"cUnitPrice\":null},{\"csPaymentsTypesId\":2674564140,\"isAvailable\":1,\"priceListType\":0,\"paymentTypeTranslatedDesc\":\"Płatność błyskawiczna PayU\",\"cUnitPrice\":null}]}}}}}};(function(){var s;}());</script><div class=\"c-sum-in\"><div><div>Wartość produktów:</div> <div>\n            189,00\n            zł\n          </div></div> <div><div>Sposób płatności:</div> <div>\n            0,00\n            zł\n          </div></div> <div><div>Sposób dostawy:</div> <div>\n            18,90\n            zł\n          </div></div> <div class=\"c-sum-amnt\"><div>Razem do zapłaty:</div> <div class=\"c-amnt\">\n            207,90\n            zł\n          </div></div>  <div class=\"c-sum-amnt\"><div>Do zapłaty po rabacie:</div> <div class=\"c-amnt\">\n            207,90\n            zł\n          </div></div></div>"
+      }
+    ]
+  }
+}

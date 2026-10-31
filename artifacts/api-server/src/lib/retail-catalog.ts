@@ -1,4 +1,5 @@
 import type { RetailSource } from './retail-pages';
+import {AKS_CABLE_SOURCES} from './aks-cables';
 import {DEKORK_SOURCES} from './dekork';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
@@ -1359,6 +1360,7 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {id:'ewinyl-orion514-2m',ean:'',name:'Wykładzina PCV Lentex Orion 514-05 — szerokość 2 m',brand:'Lentex',category:'vinyl-roll',packageSize:1,unit:'m2',store:'eWinyl',format:'ewinyl',productId:5329,skuIdentity:{kind:'merchant-only',catalogKey:'ewinyl-5329-2m',merchantProductId:'5329'},pickupRequiresConfirmation:true,variant:['514-05'],url:'https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/',imageUrl:'https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg'},
   {id:'ewinyl-orion514-4m',ean:'',name:'Wykładzina PCV Lentex Orion 514-05 — szerokość 4 m',brand:'Lentex',category:'vinyl-roll',packageSize:1,unit:'m2',store:'eWinyl',format:'ewinyl',productId:5329,skuIdentity:{kind:'merchant-only',catalogKey:'ewinyl-5329-4m',merchantProductId:'5329'},pickupRequiresConfirmation:true,variant:['514-05'],url:'https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/',imageUrl:'https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg'},
 
+  ...AKS_CABLE_SOURCES,
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
