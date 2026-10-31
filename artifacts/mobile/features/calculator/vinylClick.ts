@@ -105,8 +105,8 @@ export function reviewVinylClickShopping(items:readonly ShoppingItem[],calc?:Cal
   if(!calc||calc.jobId!==VINYL_CLICK_JOB)return [...items];
   return items.flatMap(item=>{
     if(item.itemType!=='material'||!isVinylClickMaterial(calc.jobId,item.materialId))return item;
-    const line=calc.materials.find(l=>l.material.id===item.materialId),n=vinylClickQuantity(item.materialId,calc.measurements);
-    if(calc.quantityModel!==VINYL_CLICK_MODEL||!line||line.quantityKnown===false||n===null)return{...item,quantityKnown:false,needsQuantityConfirmation:true,owned:false,purchased:false};
+    const line=calc.materials.find(l=>l.material.id===item.materialId),def=vinylClickMaterials(calc.measurements).find(m=>m.id===item.materialId)!,n=vinylClickQuantity(item.materialId,calc.measurements);
+    if(calc.quantityModel!==VINYL_CLICK_MODEL||!line||line.quantityKnown===false||n===null||n>0&&def.ean!==('ean'in line.material?line.material.ean:undefined))return{...item,quantityKnown:false,needsQuantityConfirmation:true,owned:false,purchased:false};
     if(n===0)return [];
     const same=item.name===line.material.name&&item.unit===line.material.unit&&Number.isFinite(item.customQuantity??item.quantity)&&(item.customQuantity??item.quantity)+1e-8>=n;
     return{...item,name:line.material.name,unit:line.material.unit,quantity:line.quantity,requiredQuantity:n,quantityKnown:true,needsQuantityConfirmation:!same,owned:same&&item.owned,purchased:same&&item.purchased,estimatedPrice:line.cost,notes:line.material.notes};

@@ -45,7 +45,7 @@ test('historical generic quantities cannot silently adopt a new model or hide a 
  const reviewed=upgradeCalculation(old)!;assert.equal(reviewed.materials.length,6);assert.ok(reviewed.materials.every(l=>l.quantityKnown===false));assert.equal(JSON.stringify(old),before);assert.equal(getRequiredQuantity(old.materials[0],old),11);assert.ok(toPricingStageInput(old).materials.every(l=>l.material.unit==='pozycja'));
  const item={id:'p',projectId:'a',materialId:'vinyl-panels',itemType:'material',name:current.materials[0].material.name,unit:'m2',quantity:11.175,owned:true,purchased:true}as ShoppingItem;
  assert.equal(projectShopping([item],current)[0].owned,true);assert.equal(projectShopping([item],calc({vinylPanelChoice:1}))[0].owned,false);assert.equal(projectShopping([item],reviewed)[0].owned,false);
- const tampered=JSON.parse(JSON.stringify(current));tampered.measurements.vinylPanelChoice=1;assert.equal(upgradeCalculation(tampered)!.materials[0].quantityKnown,false);
+ const tampered=JSON.parse(JSON.stringify(current));tampered.measurements.vinylPanelChoice=1;assert.equal(upgradeCalculation(tampered)!.materials[0].quantityKnown,false);assert.equal(projectShopping([item],tampered)[0].owned,false);
 });
 
 test('changing model or underlay reopens compatibility decisions; secondary profile inputs appear only for a positive count',()=>{
