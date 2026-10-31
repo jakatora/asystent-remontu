@@ -1016,6 +1016,9 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // Same EAN as manufacturer Ovida K36-031; never alias the old Facile SKU.
   // source: https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd
   // source: https://www.cersanit.com.pl/lazienka/umywalka-wiszaca-ovida-50,3252.html
+  // source: https://www.mlazienka.pl/umywalka-505x40-cm-polokragla-scienna-bialy-polysk-k36031-cersanit-ovida-785642.html
+  // source: https://www.cersanit.com.pl/lazienka/umywalka-wiszaca-ovida-50,3252.html (ten sam EAN co Atlantic New 50)
+  {id:'mlazienka-cersanit-ovida-50',ean:'5901771226987',name:'Umywalka 50.5x40 cm półokrągła ścienna biały połysk K36031 Cersanit Ovida',category:'washbasin',brand:'Cersanit',packageSize:1,unit:'szt',store:'mŁazienka',format:'mlazienka',productId:785642,retailerSku:'K36031',pickupRequiresConfirmation:true,variant:['Ovida','50.5x40','K36031'],url:'https://www.mlazienka.pl/umywalka-505x40-cm-polokragla-scienna-bialy-polysk-k36031-cersanit-ovida-785642.html'},
   {id:'castorama-cersanit-atlantic-new-50',ean:'5901771226987',name:'Umywalka Cersanit Atlantic New 50 cm',category:'washbasin',brand:'Cersanit',packageSize:1,unit:'szt',store:'Castorama',pickupRequiresConfirmation:true,browserReviewAllowed:true,variant:['Atlantic','New','50'],url:'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd'},
   // source: https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd
   {id:'castorama-tamara-white-15m2',ean:'5907518303911',name:'Glazura Tamara 25 x 40 cm white 1,5 m2',category:'tile',brand:'Ceramika Color',packageSize:1.5,unit:'m2',store:'Castorama',pickupRequiresConfirmation:true,browserReviewAllowed:true,variant:['Tamara','25 x 40','white','1,5 m2'],url:'https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd'},

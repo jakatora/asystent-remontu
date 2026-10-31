@@ -25,6 +25,14 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** Reviewed anonymous cart additions/selections; never checkout, contact
+   * fields, optional services or order submission.
+   * source: https://www.mlazienka.pl/cache/3732e758432979f5637b628610eabf8e.js */
+  async mlazienka(action:'add'|'select',count:number):Promise<string>{
+    if(this.origin!=='https://www.mlazienka.pl'||!Number.isSafeInteger(count)||count<1||count>Math.min(99,MAX_RETAIL_PACKAGES)||!['add','select'].includes(action))throw Error('invalid_cart_action');
+    const form:Record<string,string>=action==='add'?{product_id:'785642',subcategory_id:'81',form:'1',quantity:String(count)}:{'items[785642]':String(count),shipment:'1',payment:'15','selected-payment':'15',section:'summary'};
+    return this.read(action==='add'?'/koszyk,dodaj.html':'/koszyk,zapiszV2.html',new URLSearchParams(form).toString(),false);
+  }
   /** One reviewed anonymous product addition. The store calls this an order
    * update, but the frontend uses it to add to the unsubmitted shopping cart.
    * No generic strategy, customer data, agreement or order submission exposed.

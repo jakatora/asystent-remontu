@@ -1,3 +1,4 @@
+import {quoteMlazienka} from './mlazienka';
 import {quoteIntegra} from './integra';
 import { createHash } from 'node:crypto';
 import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
@@ -62,12 +63,12 @@ function unavailableReason(store: string): string | undefined {
   // source: https://marbet24.pl/zamowienie
   if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
     postcodeStores:['Sewera','Cezar','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
@@ -201,6 +202,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
+        if(order.store==='mŁazienka')return await quoteMlazienka(order,fetchImpl);
         if(order.store==='Integra Bielińscy')return await quoteIntegra(order,fetchImpl);
         if(order.store==='Kronodom')return await quoteKronodom(order,fetchImpl);
         if(order.store==='BMB Technologie')return await quoteBmb(order,fetchImpl);

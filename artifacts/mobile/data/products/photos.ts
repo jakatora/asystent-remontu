@@ -442,10 +442,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   { ids: ['mat-door-leaf-opp-archi-full-80-left'], ean: '5063022524263',
     sourceUrl: 'https://www.castorama.pl/drzwi-pelne-opp-archi-80-lewe-biale/5063022524263_CAPL.prd',
     imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/drzwi-pelne-opp-archi-80-lewe-biale~5063022524263_02c?$MOB_PREV$&$width=600&$height=600' },
-  // source: https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd
+  // source: https://www.mlazienka.pl/umywalka-505x40-cm-polokragla-scienna-bialy-polysk-k36031-cersanit-ovida-785642.html
   { ids: ['mat-washbasin-cersanit-atlantic-new-50'], ean: '5901771226987',
-    sourceUrl: 'https://www.castorama.pl/umywalka-cersanit-atlantic-new-50-cm/5901771226987_CAPL.prd',
-    imageUrl: 'https://media2.castorama.pl/is/image/CastoramaPL/umywalka-cersanit-atlantic-new-50-cm~5901771226987_01c_PL_CP?$MOB_PREV$&$width=600&$height=600' },
+    sourceUrl: 'https://www.mlazienka.pl/umywalka-505x40-cm-polokragla-scienna-bialy-polysk-k36031-cersanit-ovida-785642.html',
+    imageUrl: 'https://static.mlazienka.pl/files/produkty/cache/400x400/producers/crs/zle/k36031_6f13aa54.jpg' },
   // source: https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd
   { ids: ['mat-tile-wall-tamara-white-25x40'], ean: '5907518303911',
     sourceUrl: 'https://www.castorama.pl/glazura-tamara-25-x-40-cm-white-1-5-m2/5907518303911_CAPL.prd',

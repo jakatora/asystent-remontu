@@ -1,4 +1,5 @@
 import {readIntegraProduct} from './integra';
+import {readMlazienkaProduct} from './mlazienka';
 import { createHash } from 'node:crypto';
 import { normalizeProductName } from '@workspace/db/repositories';
 import { parsePriceToGrosze } from '@workspace/price-collector';
@@ -64,7 +65,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'budshop-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra';
+  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'budshop-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra' | 'mlazienka';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -113,7 +114,7 @@ function objects(value: unknown): Record<string, any>[] {
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if (source.disabledReason) throw Error(source.disabledReason);
-  if(source.format==='bmb'||source.format==='integra')throw Error('retailer_basket_required');
+  if(source.format==='bmb'||source.format==='integra'||source.format==='mlazienka')throw Error('retailer_basket_required');
   if ((!source.ean || source.skuIdentity) && !isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
@@ -196,6 +197,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if(source.format==='mlazienka')return readMlazienkaProduct(source,fetchImpl);
   if(source.format==='integra'){
     const p=await readIntegraProduct(source,fetchImpl);
     const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:source.name,gtin13:source.ean,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;

@@ -4,6 +4,9 @@ import type { StoreDeliveryPolicy } from '../../../../lib/pricing-service/src/de
  * prepaid home delivery in Poland, not guessed fees for an arbitrary basket.
  * Weight, dimensions, payment and postcode can change the checkout quote. */
 export const STORE_DELIVERY_POLICIES: readonly StoreDeliveryPolicy[] = [
+  // A zero charge requires a current selected whole-basket quotation.
+  // source: https://www.mlazienka.pl/koszty-dostawy
+  {store:'mŁazienka',minimumGrosze:null,checkedAt:null,sourceUrl:'https://www.mlazienka.pl/koszty-dostawy'},
   // source: https://integra-bielinscy.pl/content/1-koszty-dostawy
   {store:'Integra Bielińscy',minimumGrosze:null,checkedAt:null,sourceUrl:'https://integra-bielinscy.pl/content/1-koszty-dostawy'},
   // Separate seller and checkout shipping; do not inherit Castorama's tariff.

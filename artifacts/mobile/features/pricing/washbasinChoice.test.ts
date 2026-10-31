@@ -20,7 +20,9 @@ test('Atlantic New has its exact barcode and photograph and never aliases the hi
   assert.equal(PRODUCT_PHOTOS.find(row => row.ids.includes(current))?.ean, '5901771226987');
   assert.equal(PRODUCT_PHOTOS.find(row => row.ids.includes(old))?.ean, '5907720650025');
   assert.match(ref.notes!, /Ovida K36-031/); assert.match(ref.notes!, /bez baterii, syfonu i mocowań/);
-  assert.equal(new URL(ref.sourceUrl!).pathname.split('/').at(-1), '5901771226987_CAPL.prd');
+  assert.equal(ref.storeName, 'mŁazienka');
+  assert.equal(new URL(ref.sourceUrl!).pathname, '/umywalka-505x40-cm-polokragla-scienna-bialy-polysk-k36031-cersanit-ovida-785642.html');
+  assert.equal(ref.pricePerPackage, 257);
 });
 
 test('an explicit basin choice preserves count, unrelated plumbing, source IDs and the saved calculation', () => {
