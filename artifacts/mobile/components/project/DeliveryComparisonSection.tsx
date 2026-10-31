@@ -274,6 +274,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
           <Txt w="semibold" style={{fontSize:15}}>{basket.stores.map(store => store.store).join(' + ')}</Txt>
           <Txt w="bold" style={{fontSize:18}}>{formatGrosze(basket.totalGrosze!)} <Txt style={{fontSize:13,color:Colors.textSecondary}}>· +{formatGrosze(basket.totalGrosze! - best.totalGrosze!)}</Txt></Txt>
           <Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{tr('Materiały','Materials')}: {formatGrosze(basket.materialsGrosze)}{mode === 'shipping' ? ` · ${tr('Dostawa','Delivery')}: ${formatGrosze(basket.deliveryGrosze!)}` : ''}</Txt>
+          {basket.stores.some(store=>store.quote?.cartPricing)&&<Txt style={{fontSize:13,color:Colors.primary}}>{tr('Rabat koszyka, już wliczony','Basket discount, already included')}: −{formatGrosze(basket.stores.reduce((sum,store)=>sum+(store.quote?.cartPricing?.discountGrosze??0),0))}</Txt>}
           <Pressable accessibilityRole="button" aria-expanded={expanded} accessibilityState={{expanded}} onPress={() => setOpenAlternatives(previous => ({...previous,[key]:!expanded}))} style={{minHeight:48,flexDirection:'row',alignItems:'center',gap:8}}>
             <Feather name={expanded?'chevron-up':'chevron-down'} size={18} color={Colors.primary}/>
             <Txt w="semibold" style={{flex:1,color:Colors.primary}}>{mode === 'pickup' ? expanded ? tr('Ukryj produkty', 'Hide products') : tr(`Zobacz ${productCount} ${productCount===1?'produkt':productCount<5?'produkty':'produktów'}`, `View ${productCount} products`) : expanded?tr('Ukryj produkty i dostawę','Hide products and delivery'):tr(`Zobacz ${productCount} ${productCount===1?'produkt':productCount<5?'produkty':'produktów'} i dostawę`,`View ${productCount} products and delivery`)}</Txt>
@@ -287,7 +288,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
             </View>}
             {store.lines.map(line => <View key={line.product.id} style={{gap:4}}>
               <View style={{flexDirection:'row',alignItems:'center',gap:10}}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={48}/><Txt w="medium" style={{flex:1,fontSize:14,lineHeight:20}}>{displayProductName(line.product)}</Txt></View>
-              {line.packages.map(pack => <View key={pack.offerId} style={{paddingLeft:58,gap:2}}>
+              {line.packages.map((pack,packIndex) => <View key={`${pack.offerId}:${packIndex}`} style={{paddingLeft:58,gap:2}}>
                 <Txt style={{fontSize:13}}>{formatPurchase(pack,line.unit,language)} · {formatGrosze(pack.lineCostGrosze)}</Txt>
                 <PriceChangeBadge offerId={pack.offerId} basketPack={pack} />
                 {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{minHeight:44,justifyContent:'center'}}><Txt w="semibold" style={{color:Colors.primary,fontSize:13}}>{tr('Sprawdź w sklepie ↗','View in store ↗')}</Txt></Pressable>}
