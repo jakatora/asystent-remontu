@@ -34,6 +34,7 @@ const pl = {
 
   'settings.support.title': 'Pomoc i wsparcie',
   'settings.support.subtitle': 'FAQ, poradniki, kontakt',
+  'settings.support.webSubtitle': 'Koszyk, dostawa i zapisy projektów',
   'settings.privacy.title': 'Polityka prywatności',
   'settings.privacy.subtitle': 'Jak chronimy Twoje dane',
   'settings.terms.title': 'Regulamin',
@@ -104,6 +105,7 @@ const en: Record<K, string> = {
 
   'settings.support.title': 'Help & support',
   'settings.support.subtitle': 'FAQ, guides, contact',
+  'settings.support.webSubtitle': 'Basket, delivery and saved projects',
   'settings.privacy.title': 'Privacy policy',
   'settings.privacy.subtitle': 'How we protect your data',
   'settings.terms.title': 'Terms of service',

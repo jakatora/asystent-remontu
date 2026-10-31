@@ -1,3 +1,4 @@
+import {Colors} from '@/constants/colors';
 import React from 'react';
 import {
   TouchableOpacity,
@@ -83,7 +84,7 @@ export function Button({
       className={`items-center justify-center ${variantStyle[variant]} ${sizeStyle[size]} ${fullWidth ? 'w-full' : ''} ${disabled || loading ? 'opacity-45' : ''}`}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? '#fff' : '#F97316'} size="small" />
+        <ActivityIndicator color={variant === 'primary' ? '#fff' : Colors.primary} size="small" />
       ) : (
         <View className="flex-row items-center justify-center" style={{ maxWidth: '100%' }}>
           {icon && <View className="mr-2">{icon}</View>}

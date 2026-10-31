@@ -14,6 +14,7 @@ import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
 import { PriceChangeBadge } from './PriceChangeNotice';
 import { displayProductName } from '@/features/pricing/productDisplay';
+import {formatPackageSize,formatPackageUnit} from '@/features/pricing/packageDisplay';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
 export function DeliveryComparisonSection({ comparison, missingItemCount, settings, selectedStore, onApply }: {
@@ -220,7 +221,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
             <Txt w="semibold">{tr('Zamówienie', 'Order')} {index+1} · {tr('materiały', 'materials')} {formatGrosze(part.materialsGrosze)} · {tr('dostawa', 'delivery')} {formatGrosze(part.quote.costGrosze)}</Txt>
             <Txt style={{fontSize:12,color:Colors.textSecondary}}>{part.quote.carrier} · {part.quote.payment}</Txt>
             {part.quote.dispatchFrom && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Wysyłka z', 'Dispatched from')}: {part.quote.dispatchFrom}</Txt>}
-            {part.lines.map(line=><Txt key={line.product.id} style={{fontSize:13,lineHeight:19}}>{line.product.name}: {line.packages.map(p=>`${p.count} × ${p.packageSize} ${line.unit??''}`).join(' + ')}</Txt>)}
+            {part.lines.map(line=><Txt key={line.product.id} style={{fontSize:13,lineHeight:19}}>{line.product.name}: {line.packages.map(p=>`${p.count} × ${formatPackageSize(p.packageSize,language)} ${formatPackageUnit(line.unit)}`).join(' + ')}</Txt>)}
           </View>)}
           <Txt style={{fontSize:12,lineHeight:18}}>{store.quote.ordersReason==='separate_dispatch'
             ? tr('Produkty są w różnych oddziałach. Złóż wskazane powyżej zamówienia; każda dostawa została sprawdzona oddzielnie.', 'Products are stocked at different branches. Place the orders listed above; each delivery was checked independently.')
@@ -231,8 +232,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {(!pendingPlan || expanded) && verifiedPacks.map(({line,pack}) => <PriceVerificationNotice key={`verification:${line.product.id}:${pack.offerId}`} verification={pack.verification} store={`${store.store} · ${displayProductName(line.product)}`} />)}
       {packs.filter(({pack}) => (pack.minimumPackages ?? 1) > 1 || (pack.purchaseMultiple ?? 1) > 1).map(({line,pack}) => <View key={`rules:${line.product.id}:${pack.offerId}`} accessibilityRole="alert" style={{ gap: 4, padding: 10, borderRadius: 10, backgroundColor: Colors.warningBg }}>
         <Txt w="semibold" style={{fontSize:13}}>{displayProductName(line.product)}</Txt>
-        {(pack.minimumPackages ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Minimalny zakup: ${pack.minimumPackages} opakowań (${pack.minimumPackages! * pack.packageSize} ${line.unit}). Kwota uwzględnia to minimum.`, `Minimum purchase: ${pack.minimumPackages} packs (${pack.minimumPackages! * pack.packageSize} ${line.unit}). The cost includes this minimum.`)}</Txt>}
-        {(pack.purchaseMultiple ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Zakup w partiach po ${pack.purchaseMultiple} opakowań (${pack.purchaseMultiple! * pack.packageSize} ${line.unit}). Wycenę policzono z tym ograniczeniem.`, `Purchase in lots of ${pack.purchaseMultiple} packs (${pack.purchaseMultiple! * pack.packageSize} ${line.unit}). The quote follows this rule.`)}</Txt>}
+        {(pack.minimumPackages ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Minimalny zakup: ${pack.minimumPackages} opakowań (${formatPackageSize(pack.minimumPackages! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). Kwota uwzględnia to minimum.`, `Minimum purchase: ${pack.minimumPackages} packs (${formatPackageSize(pack.minimumPackages! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). The cost includes this minimum.`)}</Txt>}
+        {(pack.purchaseMultiple ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Zakup w partiach po ${pack.purchaseMultiple} opakowań (${formatPackageSize(pack.purchaseMultiple! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). Wycenę policzono z tym ograniczeniem.`, `Purchase in lots of ${pack.purchaseMultiple} packs (${formatPackageSize(pack.purchaseMultiple! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). The quote follows this rule.`)}</Txt>}
       </View>)}
       {packs.map(({line,pack}) => <PriceChangeBadge key={`change:${line.product.id}:${pack.offerId}`} offerId={pack.offerId} productName={displayProductName(line.product)} basketPack={pack} />)}
       <Pressable accessibilityRole="button" aria-expanded={expanded} accessibilityState={{expanded}} onPress={() => setOpenProducts(previous => ({...previous,[store.store]:!expanded}))} style={{ minHeight:48, flexDirection:'row', alignItems:'center', gap:8 }}>
@@ -242,7 +243,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {expanded && store.lines.map(line => <View key={line.product.id} style={{ gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={56} /><Txt w="medium" style={{ flex: 1, fontSize: 14 }}>{displayProductName(line.product)}</Txt></View>
         {line.packages.map(pack => <View key={pack.offerId} style={{ gap: 2 }}>
-          <Txt>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
+          <Txt>{pack.count} × {formatPackageSize(pack.packageSize,language)} {formatPackageUnit(line.unit)} · {formatGrosze(pack.lineCostGrosze)}</Txt>
           {pack.maxPackages!==undefined&&<Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Zapas przy sprawdzeniu: ${pack.maxPackages} op. Nie jest to rezerwacja.`,`Stock when checked: ${pack.maxPackages} packs. This is not a reservation.`)}</Txt>}
           {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt w="semibold" style={{ color: Colors.primary }}>{tr('Sprawdź produkt w sklepie ↗', 'View product in store ↗')}</Txt></Pressable>}
         </View>)}
@@ -274,12 +275,12 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
             {mode === 'shipping' && <Txt style={{fontSize:13,color:Colors.textSecondary}}>{tr('Dostawa','Delivery')}: {formatGrosze(store.deliveryGrosze!)}{store.quote ? ` · ${store.quote.carrier}` : ''}</Txt>}
             {(store.quote?.orders?.length ?? 0) > 1 && <View accessibilityRole="alert" style={{gap:6,padding:10,borderRadius:10,backgroundColor:Colors.warningBg}}>
               <Txt w="semibold" style={{fontSize:13}}>{tr(`Złóż ${store.quote!.orders!.length} osobne zamówienia w tym sklepie:`, `Place ${store.quote!.orders!.length} separate orders at this store:`)}</Txt>
-              {store.quote!.orders!.map((part,partIndex) => <Txt key={partIndex} style={{fontSize:13,lineHeight:19}}>{tr('Zamówienie','Order')} {partIndex+1}: {part.lines.map(line=>`${displayProductName(line.product)} (${line.packages.map(pack=>`${pack.count} × ${pack.packageSize} ${line.unit}`).join(' + ')})`).join(', ')}. {tr('Dostawa','Delivery')}: {formatGrosze(part.quote.costGrosze)}.</Txt>)}
+              {store.quote!.orders!.map((part,partIndex) => <Txt key={partIndex} style={{fontSize:13,lineHeight:19}}>{tr('Zamówienie','Order')} {partIndex+1}: {part.lines.map(line=>`${displayProductName(line.product)} (${line.packages.map(pack=>`${pack.count} × ${formatPackageSize(pack.packageSize,language)} ${formatPackageUnit(line.unit)}`).join(' + ')})`).join(', ')}. {tr('Dostawa','Delivery')}: {formatGrosze(part.quote.costGrosze)}.</Txt>)}
             </View>}
             {store.lines.map(line => <View key={line.product.id} style={{gap:4}}>
               <View style={{flexDirection:'row',alignItems:'center',gap:10}}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={48}/><Txt w="medium" style={{flex:1,fontSize:14,lineHeight:20}}>{displayProductName(line.product)}</Txt></View>
               {line.packages.map(pack => <View key={pack.offerId} style={{paddingLeft:58,gap:2}}>
-                <Txt style={{fontSize:13}}>{pack.count} × {pack.packageSize} {line.unit} · {formatGrosze(pack.lineCostGrosze)}</Txt>
+                <Txt style={{fontSize:13}}>{pack.count} × {formatPackageSize(pack.packageSize,language)} {formatPackageUnit(line.unit)} · {formatGrosze(pack.lineCostGrosze)}</Txt>
                 <PriceChangeBadge offerId={pack.offerId} basketPack={pack} />
                 {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{minHeight:44,justifyContent:'center'}}><Txt w="semibold" style={{color:Colors.primary,fontSize:13}}>{tr('Sprawdź w sklepie ↗','View in store ↗')}</Txt></Pressable>}
               </View>)}

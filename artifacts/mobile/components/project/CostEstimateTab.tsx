@@ -4,6 +4,7 @@ import {SOCKET_FRAME_JOB} from '@/features/calculator/socketFrames';
 import {HARDWARE_JOB} from '@/features/calculator/cabinetHardware';
 import {CABINET_JOB} from '@/features/calculator/cabinetPainting';
 import { ProductImage } from './ProductImage';
+import {formatPackageSize,formatPackageUnit} from '@/features/pricing/packageDisplay';
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
@@ -649,7 +650,7 @@ function PackageBreakdown({
 }) {
   const { t, language } = useLanguage();
   const combo = packages
-    .map((p) => `${p.count}× ${formatQuantity(p.packageSize)} ${unit ?? ''}`.trim())
+    .map((p) => `${p.count}× ${formatPackageSize(p.packageSize,language)} ${formatPackageUnit(unit)}`.trim())
     .join(' + ');
 
   return (

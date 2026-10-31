@@ -4,7 +4,7 @@ const pl = {
   'onboarding.next': 'Dalej',
   'onboarding.start': 'Zacznij korzystać',
 
-  'onboarding.slide1.title': 'Witaj w Remont Asystent',
+  'onboarding.slide1.title': 'Witaj w Asystencie Remontu',
   'onboarding.slide1.description':
     'Twój przewodnik po remontach.\nProwadzimy Cię krok po kroku — nawet jeśli nigdy nie robiłeś remontu.',
   'onboarding.slide2.title': 'Precyzyjne obliczenia',
@@ -25,7 +25,7 @@ const en: Record<K, string> = {
   'onboarding.next': 'Next',
   'onboarding.start': 'Get started',
 
-  'onboarding.slide1.title': 'Welcome to Remont Asystent',
+  'onboarding.slide1.title': 'Welcome to Asystent Remontu',
   'onboarding.slide1.description':
     'Your renovation guide.\nWe walk you through step by step — even if you have never renovated anything before.',
   'onboarding.slide2.title': 'Precise calculations',

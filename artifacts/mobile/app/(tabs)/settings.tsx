@@ -321,7 +321,7 @@ export default function SettingsScreen() {
           <SettingRow
             icon="help-circle"
             title={t('settings.support.title')}
-            subtitle={t('settings.support.subtitle')}
+            subtitle={Platform.OS==='web'?t('settings.support.webSubtitle'):t('settings.support.subtitle')}
             onPress={() => openUrl(APP_CONFIG.supportUrl)}
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
@@ -344,6 +344,7 @@ export default function SettingsScreen() {
             iconColor="#0EA5E9"
             iconBg="#F0F9FF"
           />
+          {APP_CONFIG.supportEmail ? <>
           <SettingDivider />
           <SettingRow
             icon="mail"
@@ -353,6 +354,7 @@ export default function SettingsScreen() {
             iconColor={Colors.primary}
             iconBg={Colors.primaryBg}
           />
+          </> : null}
         </View>
       </View>
 

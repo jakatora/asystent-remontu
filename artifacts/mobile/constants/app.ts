@@ -1,7 +1,7 @@
 // ─── App identity ─────────────────────────────────────────────────────────────
-export const APP_NAME    = 'Remont Asystent' as const;
+export const APP_NAME    = 'Asystent Remontu' as const;
 export const APP_TAGLINE = 'Twój przewodnik po remontach' as const;
-export const APP_VERSION = '1.0.0' as const;
+export const APP_VERSION = '1.0.3' as const;
 
 // ─── Database ─────────────────────────────────────────────────────────────────
 export const DB_NAME     = 'remont_v2.db' as const;
