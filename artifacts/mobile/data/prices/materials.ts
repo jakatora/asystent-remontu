@@ -2008,7 +2008,8 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     currency: 'PLN',
     // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390
     // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
-    notes: 'Ręczny tynk gipsowy, cena brutto za cały worek 25 kg. Zużycie około 8,5 kg/m² przy 10 mm; grubość i przygotowanie podłoża dobierz według karty producenta. Dostawa liczona osobno dla całego koszyka.',
+    // source: https://knauf.com/api/download-center/v1/assets/2c71e1e0-2050-4334-a0ef-712579cd9dc9?country=pl&download=true
+    notes: 'Ręczny tynk gipsowy, cena brutto za cały worek 25 kg. Karta producenta z 24.07.2026: średnio 13 kg/m² przy 15 mm; grubość i przygotowanie podłoża dobierz według karty. Dostawa liczona osobno dla całego koszyka.',
   },
 
   // Tynk cementowo-wapienny maszynowy Baumit MPI 25 30 kg — EAN 5907534261158. Cena 27,99 zł/worek (0,93 zł/kg, Mrówka).

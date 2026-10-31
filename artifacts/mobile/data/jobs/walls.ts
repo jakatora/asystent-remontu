@@ -561,6 +561,7 @@ export const wallpaperRemoveJob: RenovationJob = {
 
 // source: https://knauf.com/pl-PL/p/produkt/knauf-mp-75-10256_0120
 // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
+// source: https://knauf.com/pl-PL/p/produkt/knauf-mp-75-l-10257_0120
 export const wallPlasteringJob: RenovationJob = {
   id: 'wall-plastering',
   slug: 'tynkowanie-scian',
@@ -569,7 +570,7 @@ export const wallPlasteringJob: RenovationJob = {
   name: 'Tynkowanie ścian',
   shortDescription: 'Wykonaj tynk bazowy na surowym murze — gipsowy lub cementowo-wapienny.',
   description:
-    'Tynk bazowy wyrównuje surowe ściany (cegła, pustak, beton komórkowy, beton) i tworzy nośne podłoże pod gładź, malowanie, tapetę lub płytki. Do wyboru: tynk gipsowy (maszynowy MP 75 lub ręczny Goldband), także do zwykle użytkowanych kuchni i łazienek przy wilgotności do 70%; albo cementowo-wapienny Baumit MPI 25 do odpowiednich warunków pomieszczenia. Strefy narażone na wodę wymagają dobranej hydroizolacji. Kluczowe: grunt/kontakt dobrany do podłoża, narożniki na krawędziach zewnętrznych i ściąganie łatą h.',
+    'Tynk bazowy wyrównuje surowe ściany (cegła, pustak, beton komórkowy, beton) i tworzy nośne podłoże pod gładź, malowanie, tapetę lub płytki. Do wyboru: tynk gipsowy (maszynowy MP 75 lub lekki MP 75 L, ręczny Goldband), także do zwykle użytkowanych kuchni i łazienek przy wilgotności do 70%; albo cementowo-wapienny Baumit MPI 25 do odpowiednich warunków pomieszczenia. Strefy narażone na wodę wymagają dobranej hydroizolacji. Kluczowe: grunt/kontakt dobrany do podłoża, narożniki na krawędziach zewnętrznych i ściąganie łatą h.',
   beginnerFriendlyDescription:
     'To pierwsza gruba warstwa na gołej ścianie — wyrównuje krzywizny i daje równe podłoże. Wybierz konkretny tynk według podłoża, wilgotności i wykończenia. Gipsowy Knauf jest dopuszczony również w zwykle użytkowanych kuchniach i łazienkach przy wilgotności do 70%. Tynkowanie dużych powierzchni agregatem powierz ekipie; do pracy ręcznej dobierz tynk ręczny, np. Goldband. Gładź jest osobnym, cieńszym etapem wykończenia.',
   difficulty: 'hard',
@@ -615,7 +616,7 @@ export const wallPlasteringJob: RenovationJob = {
   instructions: [
     { step: 1, title: 'Przygotuj podłoże i zagruntuj', description: 'Oceń nośność, chłonność i wilgotność podłoża. Usuń kurz, luźne fragmenty i pozostałości środków antyadhezyjnych. Pod gipsowe Knauf: Betokontakt na gładki niechłonny beton, Grundiermittel 60 na chłonny mur. Ten kalkulator dla koncentratu przyjmuje 1:2; dobierz rozcieńczenie według karty i próby na ścianie. Grunt musi całkowicie wyschnąć przed tynkowaniem, minimum 12 h w warunkach karty. Dla MPI 25 dobierz przygotowanie osobno.', tip: 'Inny grunt na beton i chłonny mur — wybierz według rzeczywistego podłoża.', durationMin: 90, surfaceMustBeDry: true },
     { step: 2, title: 'Zamontuj narożniki i pasy kierunkowe', description: 'Na zewnętrznych krawędziach (ościeża, słupki) osadź narożniki aluminiowe z siatką w zaprawie, ustaw w pionie poziomicą. Na dużych ścianach ustaw pasy/listwy kierunkowe wyznaczające płaszczyznę i grubość tynku.', durationMin: 90 },
-    { step: 3, title: 'Wymieszaj tynk', description: 'Wsyp suchą mieszankę do odmierzonej wody (nie odwrotnie) i mieszaj mieszadłem/agregatem na jednolitą masę bez grudek. Zachowaj proporcje wody z opakowania — za rzadki tynk spływa, za gęsty źle się rozprowadza.', tip: 'Gips wiąże szybko — mieszaj tyle, ile zużyjesz w czasie roboczym (ok. 30–45 min).', durationMin: 20 },
+    { step: 3, title: 'Wymieszaj tynk', description: 'Wsyp suchą mieszankę do odmierzonej wody (nie odwrotnie) i mieszaj mieszadłem/agregatem na jednolitą masę bez grudek. Zachowaj proporcje wody z opakowania — za rzadki tynk spływa, za gęsty źle się rozprowadza.', tip: 'Przygotowuj porcje w czasie roboczym wybranego produktu. Czas zależy także od warunków na budowie; sprawdź aktualną kartę tynku.', durationMin: 20 },
     { step: 4, title: 'Narzuć i ściągnij tynk łatą', description: 'Narzuć tynk kielnią lub agregatem między narożnikami/pasami, z lekkim naddatkiem. Ściągnij łatą h do płaszczyzny listew, ruchem zygzakowym od dołu do góry. Uzupełnij zagłębienia i ściągnij ponownie.', warning: 'Nie nakładaj grubszej warstwy niż dopuszcza producent na raz — gruby gips pęka i odpada.', durationMin: 180 },
     { step: 5, title: 'Zwilż i zatrzyj na gładko', description: 'Obróbkę i moment zacierania dobierz do konkretnego produktu. Gips pod płytki pozostaw szorstki: nie wygładzaj ani nie zacieraj, minimum 10 mm według karty Knauf. Pod malowanie, tapetę lub gładź wykończ zgodnie z kartą tynku i wymaganiami kolejnej warstwy.', tip: 'Moment zacierania jest krótki — pracuj partiami, testuj palcem.', durationMin: 120 },
   ],
@@ -640,6 +641,8 @@ export const wallPlasteringJob: RenovationJob = {
   verifiedSources: [
     {title:'Knauf MP 75 — zastosowanie i karta systemu',url:'https://knauf.com/pl-PL/p/produkt/knauf-mp-75-10256_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
     {title:'Knauf Goldband — zastosowanie i karta systemu',url:'https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
+    {title:'Knauf MP 75 L — lekki tynk maszynowy, zużycie i zastosowanie',url:'https://knauf.com/pl-PL/p/produkt/knauf-mp-75-l-10257_0120',domain:'knauf.com',consultedAt:'2026-10-31'},
+    {title:'Knauf Goldband — karta techniczna z 24.07.2026, zużycie 13 kg/m² przy 15 mm',url:'https://knauf.com/api/download-center/v1/assets/2c71e1e0-2050-4334-a0ef-712579cd9dc9?country=pl&download=true',domain:'knauf.com',consultedAt:'2026-10-31'},
     {title:'Knauf Betokontakt — grunt do betonu',url:'https://knauf.com/pl-PL/p/produkt/knauf-betokontakt-10251_0120',domain:'knauf.com',consultedAt:'2026-10-28'},
     {title:'Knauf Grundiermittel 60 — karta 08/2026, wydajność przy 1:2',url:'https://knauf.com/api/download-center/v1/assets/7639fea2-44c7-4c59-b464-b436316de77a?country=pl&download=true',domain:'knauf.com',consultedAt:'2026-10-28'},
     {title:'Knauf Profix — siatka do tynków gipsowych',url:'https://knauf.com/pl-PL/p/produkt/knauf-profix-10681_0120',domain:'knauf.com',consultedAt:'2026-10-28'},

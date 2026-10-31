@@ -8,7 +8,7 @@ import {resolveMaterialQuantity} from '@/features/pricing/quantity';
 import {applyProjectShopping} from '@/features/pricing/projectShoppingInput';
 import {upgradeCalculation,projectShopping} from './upgrades';
 import {generateShoppingItems} from './shopping';
-import {PLASTER_JOB,PLASTER_MODEL,plasterQuantity,plasterInputVisible,withPlasterMeasurement} from './plastering';
+import {PLASTER_JOB,PLASTER_MODEL,plasterQuantity,plasterReference,plasterInputVisible,withPlasterMeasurement} from './plastering';
 import type {ShoppingItem} from '@/types/domain';
 import {parseMeasurements} from '@/shared/lib/measurements';
 
@@ -18,7 +18,7 @@ const calculate=(patch:Record<string,number>={})=>calculatorEngine.calculate(job
 const line=(id:string,patch:Record<string,number>={})=>calculate(patch).materials.find(l=>l.material.id===id)!;
 
 test('selected plaster product controls kg demand and whole bags independently of the price tier',()=>{
- for(const[system,kg,packs]of [[1,110,5],[2,93.5,4],[3,154,6]]){
+ for(const[system,kg,packs]of [[1,110,5],[2,95.33333333,4],[3,154,6],[4,88,3],[5,95.33333333,4]]){
   const calc=calculate({plasterSystem:system,plasterThickness:10,plasterMeshArea:0,plasterPrimerChoice:2});
   assert.equal(calc.quantityModel,PLASTER_MODEL);const base=calc.materials.find(l=>l.material.id==='plaster-base')!;
   assert.equal(base.rawQuantity,kg);assert.equal(base.packs,packs);
@@ -67,7 +67,7 @@ test('reinforcement uses the measured area with one overlap allowance and the re
  const invalid:Record<string,number>[]=[{plasterMeshArea:11},{plasterMeshChoice:0},{plasterSystem:3},{plasterThickness:10}];
  for(const patch of invalid)assert.equal(line('plaster-mesh',patch).quantityKnown,false);
  assert.equal(line('plaster-base',{plasterThickness:10}).quantityKnown,false);
- assert.equal(line('plaster-base').rawQuantity,140.25);
+ assert.equal(line('plaster-base').rawQuantity,143);
 });
 
 test('corner shopping requires measured whole stock lengths and a compatible profile, never the wall perimeter',()=>{
@@ -113,4 +113,51 @@ test('changing plaster system resets previous compatibility choices; same select
  assert.equal(withPlasterMeasurement('paint-walls',current,'plasterSystem',3).plasterPrimerChoice,'1');
  assert.equal(plasterInputVisible(PLASTER_JOB,'plasterMeshChoice',{plasterMeshArea:'0'}),false);assert.equal(plasterInputVisible(PLASTER_JOB,'plasterCornerFit',{plasterCornerCount:'0'}),false);
  assert.equal(plasterInputVisible(PLASTER_JOB,'plasterMeshChoice',{}),true);
+});
+
+test('Goldband uses the current13kg per15mm card, including a sixth30kg bag at the old underbuy boundary',()=>{
+ const calc=calculate({wallArea:10.5,plasterSystem:5,plasterThickness:15,plasterMeshArea:0,plasterCornerCount:0,plasterPrimerChoice:2});
+ const base=calc.materials.find(l=>l.material.id==='plaster-base')!;
+ assert.equal(base.rawQuantity,150.15);assert.equal(base.packs,6);assert.equal(base.quantity,180);
+ const input=toPricingStageInput(calc);assert.equal(input.materials.length,1);assert.equal(input.materials[0].quantity,150.15);assert.equal(input.materials[0].material.ean,'5902367206475');
+ // Rounded packs are selected only after raw requirements have been combined.
+ const a=calculate({wallArea:4,plasterSystem:4,plasterThickness:10,plasterMeshArea:0,plasterCornerCount:0,plasterPrimerChoice:2});
+ assert.equal(a.materials[0].rawQuantity,35.2);assert.equal(a.materials[0].packs,2);assert.equal(toPricingStageInput(a).materials[0].quantity,35.2);
+});
+
+test('new packs retain the Knauf substrate, mesh and finish rules rather than becoming universal substitutes',()=>{
+ for(const system of [4,5]){
+  assert.equal(line('plaster-primer',{plasterSystem:system,plasterPrimerChoice:3}).rawQuantity,0.4125);
+  assert.equal(plasterInputVisible(PLASTER_JOB,'plasterPrimerCoverageM2',{plasterSystem:system,plasterPrimerChoice:3}),true);
+  assert.equal(line('plaster-mesh',{plasterSystem:system}).rawQuantity,2.2);
+  assert.equal(line('plaster-base',{plasterSystem:system,plasterThickness:10}).quantityKnown,false);
+  assert.equal(line('plaster-base',{plasterSystem:system,plasterThickness:8,plasterFinish:1,plasterMeshArea:0}).quantityKnown,false);
+  assert.equal(line('plaster-base',{plasterSystem:system,plasterThickness:8,plasterFinish:0,plasterMeshArea:0}).quantityKnown,true);
+ }
+ for(const system of [-1,1.5,4.5,6,NaN,Infinity])assert.equal(line('plaster-base',{plasterSystem:system}).quantityKnown,false);
+});
+
+test('appended selections preserve existing measurement values and exact25kg identities; owning that pack cannot exclude a30kg product',()=>{
+ assert.deepEqual([1,2,3].map(plasterSystem=>plasterReference('plaster-base',{plasterSystem})),['mat-plaster-gypsum-machine-knauf-mp75-25kg','mat-plaster-gypsum-manual-knauf-goldband-25kg','mat-plaster-cementlime-baumit-mpi25-30kg']);
+ for(const system of [4,5]){
+  const raw=Object.fromEntries(Object.entries({...measures,plasterSystem:system}).map(([k,v])=>[k,String(v)]));
+  assert.equal(parseMeasurements(job,raw).errors.length,0);
+  const prior=calculate({plasterSystem:system===4?1:2}),calc=calculate({plasterSystem:system});
+  const old=generateShoppingItems('a',prior).map(item=>({...item,id:'old-'+item.materialId,owned:true,purchased:true}));
+  const reviewed=projectShopping(old,calc).find(item=>item.materialId==='plaster-base')!;
+  assert.equal(reviewed.owned,false);assert.equal(reviewed.purchased,false);assert.equal(reviewed.needsQuantityConfirmation,true);
+  const pending=applyProjectShopping(toPricingStageInput(calc),calc,'a',old).stage;
+  assert.ok(pending.materials.some(l=>l.material.id==='plaster-base'&&l.material.ean===(system===4?'5902367206451':'5902367206475')));
+ }
+});
+
+test('v1 saved quantities are explicitly unconfirmed after the consumption correction without rewriting their product or measurements',()=>{
+ const current=calculate(),old={...structuredClone(current),quantityModel:'wall-plastering-v1',materials:current.materials.map((line,index)=>index===0?{...line,rawQuantity:140.25}:line)};
+ const before=JSON.stringify(old),reviewed=upgradeCalculation(old)!;
+ assert.ok(reviewed.materials.every(l=>l.quantityKnown===false));assert.equal(JSON.stringify(old),before);
+ assert.equal(reviewed.materials[0].material.name,old.materials[0].material.name);assert.deepEqual(reviewed.measurements,old.measurements);
+ assert.ok(toPricingStageInput(reviewed).materials.every(l=>l.material.unit==='pozycja'));
+ const previous=generateShoppingItems('a',old).map(item=>({...item,id:'owned-'+item.materialId,owned:true,purchased:true}));
+ assert.ok(projectShopping(previous,old).every(item=>!item.owned&&!item.purchased&&item.needsQuantityConfirmation));
+ assert.equal(calculate().quantityModel,'wall-plastering-v2');
 });
