@@ -34,6 +34,21 @@ test('unknown or expired information never hides catalogue items or mutates a se
   assert.equal(JSON.stringify(found),before);
 });
 
+test('reviewed merchant identities preserve exact variant, page, category and unit without inventing a barcode',()=>{
+  const narrow=MATERIAL_PRICES.find(r=>r.id==='mat-roll-orion514-ewinyl-2m')!,wide=MATERIAL_PRICES.find(r=>r.id==='mat-roll-orion514-ewinyl-4m')!;
+  const read={expiresAt:30000,snapshot:{...snapshot(),products:[{ean:null,merchantIdentity:{productId:'remont-sku-ewinyl-5329-2m',name:narrow.productLabel,url:narrow.sourceUrl!},category:narrow.materialType,packageSize:1,unit:'m2',stores:['eWinyl'],lastCheckedAt:snapshot().generatedAt}]}};
+  assert.equal(catalogueProductAvailability(narrow,read,0)?.confirmed,true);
+  assert.equal(catalogueProductAvailability(wide,read,0)?.confirmed,false);
+  for(const change of [{sourceUrl:narrow.sourceUrl+'?other=1'},{packageSize:2},{packageUnit:'mb'},{materialType:'underlay'}])assert.equal(catalogueProductAvailability({...narrow,...change},read,0)?.confirmed,false);
+  const codeRef={...ref,sourceUrl:narrow.sourceUrl,productLabel:narrow.productLabel,packageSize:1,packageUnit:'m2',materialType:narrow.materialType};
+  assert.equal(catalogueProductAvailability(codeRef,read,0)?.confirmed,false);
+});
+
+test('merchant snapshots require an exact reviewed identity and a credential-free HTTPS page',()=>{
+  const base={...snapshot().products[0],ean:null};
+  for(const merchantIdentity of [undefined,{productId:'fake',name:'Exact',url:'https://example.com/item'},{productId:'remont-sku-test',name:'Exact',url:'http://example.com/item'},{productId:'remont-sku-test',name:'Exact',url:'https://user:password@example.com/item'}])assert.throws(()=>parseCatalogAvailabilitySnapshot({...snapshot(),products:[{...base,merchantIdentity}]}));
+});
+
 test('cache deduplicates concurrent readers and counts response latency against the hint lifetime',async()=>{
   let now=0,calls=0,resolve!:(value:unknown)=>void;
   const cache=new CatalogAvailabilityCache(()=>{calls++;return new Promise(r=>{resolve=r;});},()=>now);

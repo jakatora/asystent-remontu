@@ -32,8 +32,9 @@ export function isCatalogAvailabilityFresh(read: CatalogAvailabilityRead | null,
 export function catalogueProductAvailability(ref: MaterialPriceReference, read: CatalogAvailabilityRead | null, now = Date.now()) {
   if (!isCatalogAvailabilityFresh(read,now)) return null;
   const codes = [...new Set(PRODUCT_PHOTOS.filter(p => p.ids.includes(ref.id)).map(p => p.ean).filter(Boolean))];
-  if (codes.length !== 1) return {confirmed:false,stores:[] as string[]};
-  const matches = read.snapshot.products.filter(p => p.ean === codes[0] && p.category === ref.materialType
+  if (codes.length > 1) return null;
+  const matches = read.snapshot.products.filter(p => (codes.length === 1 ? p.ean === codes[0]
+    : p.ean === null && p.merchantIdentity?.name === ref.productLabel && p.merchantIdentity?.url === ref.sourceUrl) && p.category === ref.materialType
     && p.packageSize === ref.packageSize && normalizeUnit(p.unit) === normalizeUnit(ref.packageUnit));
   const stores = [...new Set(matches.flatMap(p => p.stores))];
   return {confirmed:stores.length > 0,stores};

@@ -34,6 +34,17 @@ test('separate lengths stay separate, and an empty eligible set is a complete em
   const empty=catalogAvailability([source],[],rows,now);assert.equal(empty.complete,true);assert.deepEqual(empty.products,[]);
 });
 
+test('reviewed merchant-only SKUs remain distinct even when roll widths share a page and pricing unit',()=>{
+  const now=Date.now(),sources=['ewinyl-orion514-2m','ewinyl-orion514-4m','irbud-norgips-cd60-06-3m','sewera-packcenter-edge-tape-50m'].map(id=>RETAIL_SOURCES.find(s=>s.id===id)!);
+  const rows=new Map(sources.map(s=>[s.id,observation(s,now)]));
+  const result=parseCatalogAvailabilitySnapshot(catalogAvailability(sources,sources.map(s=>offer(s,now)),rows,now));
+  assert.equal(result.products.length,4);assert.ok(result.products.every(p=>p.ean===null));
+  assert.deepEqual(result.products.slice(0,2).map(p=>p.merchantIdentity?.productId),['remont-sku-ewinyl-5329-2m','remont-sku-ewinyl-5329-4m']);
+  assert.notEqual(result.products[0].merchantIdentity!.name,result.products[1].merchantIdentity!.name);
+  assert.equal(result.products[0].merchantIdentity!.url,result.products[1].merchantIdentity!.url);
+  assert.equal(catalogAvailability(sources,sources.slice(0,1).map(s=>offer(s,now)),rows,now).products.length,1);
+});
+
 test('real HTTP catalogue read uses admitted current offers, no merchant requests, no prices or delivery promises',async()=>{
   let requests=0;const current=observation(),expiredSource=RETAIL_SOURCES.find(s=>s.id==='hipper-norgips-mesh-45x153')!,expired={...observation(expiredSource),validUntil:new Date(Date.now()-1000).toISOString()};
   const service=createRemontService({initialObservations:[current,expired],background:false,fetchImpl:async()=>{requests++;throw Error('Catalogue hints must not fetch merchants');}}),app=express();app.use(service.router);const server=app.listen(0,'127.0.0.1');await new Promise<void>(r=>server.once('listening',r));
