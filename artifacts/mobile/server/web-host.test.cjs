@@ -8,16 +8,17 @@ async function setup(t){
  fs.writeFileSync(path.join(root,'_expo','entry-'+ 'a'.repeat(32)+'.js'),'/* app */'.repeat(500));
  fs.writeFileSync(path.join(root,'_expo','worker.js'),'self.onmessage=()=>{};');
  fs.writeFileSync(path.join(root,'_expo','db.wasm'),Buffer.from([0,97,115,109]));
- fs.writeFileSync(path.join(root,'release.json'),JSON.stringify({version:'1.0.3',sourceCommit:'test-source',apiBaseUrl:'https://example.test/api/remont'}));
+ fs.writeFileSync(path.join(root,'release.json'),JSON.stringify({version:'1.0.3',sourceCommit:'test-source',apiBaseUrl:'https://example.test/api/remont',files:[{path:'_expo/worker.js'},{path:'_expo/db.wasm'}]}));
  const server=createWebServer({root});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  t.after(async()=>{await new Promise(resolve=>server.close(resolve));const absolute=path.resolve(root);assert.equal(path.dirname(absolute),path.resolve(os.tmpdir()));assert.ok(path.basename(absolute).startsWith('remont-web-test-'));fs.rmSync(absolute,{recursive:true,force:true});});
  return{root,server,base:'http://127.0.0.1:'+server.address().port};
 }
 test('web host exposes the exact release, serves SPA deep links, and keeps missing assets distinct from HTML',async t=>{
- const {base}=await setup(t);const h=await fetch(base+'/healthz');assert.equal(h.status,200);assert.equal((await h.json()).sourceCommit,'test-source');
+ const {base,root}=await setup(t);const h=await fetch(base+'/healthz');assert.equal(h.status,200);assert.equal((await h.json()).sourceCommit,'test-source');
  const page=await fetch(base+'/project/qa?tab=estimate',{headers:{accept:'text/html'}});assert.equal(page.status,200);assert.match(await page.text(),/APP/);assert.equal(page.headers.get('cache-control'),'no-cache');
  assert.equal((await fetch(base+'/_expo/missing.js',{headers:{accept:'text/html'}})).status,404);assert.equal((await fetch(base+'/assets/missing.wasm',{headers:{accept:'text/html'}})).status,404);assert.equal((await fetch(base+'/unknown-json')).status,404);
  assert.equal((await fetch(base+'/healthz',{method:'POST'})).status,405);
+ fs.unlinkSync(path.join(root,'_expo/db.wasm'));const missing=await fetch(base+'/healthz');assert.equal(missing.status,503);assert.equal((await missing.json()).missingAssetCount,1);
 });
 test('SQLite worker and WASM retain required isolation and MIME headers; head, gzip and revalidation work',async t=>{
  const {base}=await setup(t);

@@ -42,8 +42,9 @@ function createWebServer({root=path.resolve(__dirname,'..','web-build')}={}){
     try{pathname=decodeURIComponent(new URL(req.url??'/','http://localhost').pathname).replace(/\\/g,'/');}catch{text(req,res,400,'Nieprawidłowy adres.');return;}
     if(pathname.includes('\0')){text(req,res,400,'Nieprawidłowy adres.');return;}
     if(pathname==='/healthz'){
-      const ready=fs.existsSync(path.join(root,'index.html'));
-      text(req,res,ready?200:503,JSON.stringify({ok:ready,app:'Asystent Remontu',version:release?.version??null,sourceCommit:release?.sourceCommit??null,builtAt:release?.builtAt??null,apiBaseUrl:release?.apiBaseUrl??null}),'application/json; charset=utf-8');return;
+      const missingAssetCount=Array.isArray(release?.files)?release.files.filter(asset=>!fs.existsSync(path.join(root,asset.path))).length:0;
+      const ready=fs.existsSync(path.join(root,'index.html'))&&missingAssetCount===0;
+      text(req,res,ready?200:503,JSON.stringify({ok:ready,missingAssetCount,app:'Asystent Remontu',version:release?.version??null,sourceCommit:release?.sourceCommit??null,builtAt:release?.builtAt??null,apiBaseUrl:release?.apiBaseUrl??null}),'application/json; charset=utf-8');return;
     }
     if(pages[pathname]){text(req,res,200,renderPage(pages[pathname]),'text/html; charset=utf-8');return;}
     const file=path.resolve(root,'.'+pathname),relative=path.relative(root,file);

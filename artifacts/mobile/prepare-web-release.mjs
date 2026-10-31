@@ -33,5 +33,7 @@ for(const file of ['web.js','web-host.cjs','web-pages.cjs'])fs.copyFileSync(path
 fs.writeFileSync(path.join(target,'web-build/release.json'),JSON.stringify(metadata,null,2)+'\n');
 fs.writeFileSync(path.join(target,'package.json'),JSON.stringify({name:'asystent-remontu-web',version:app.version,private:true,engines:{node:'24.x'},scripts:{start:'node server/web.js'}},null,2)+'\n');
 fs.writeFileSync(path.join(target,'railway.json'),JSON.stringify({$schema:'https://railway.com/railway.schema.json',build:{builder:'RAILPACK'},deploy:{startCommand:'npm start',healthcheckPath:'/healthz',healthcheckTimeout:120,restartPolicyType:'ON_FAILURE',restartPolicyMaxRetries:3}},null,2)+'\n');
-fs.writeFileSync(path.join(target,'.gitignore'),'node_modules\n.env*\n');
+// Expo exports bundled fonts/WASM under assets/node_modules. Ignore only real
+// root dependencies; a recursive node_modules rule drops essential web assets.
+for(const file of ['.gitignore','.railwayignore'])fs.writeFileSync(path.join(target,file),'/node_modules/\n.env*\n');
 console.log(JSON.stringify({target,sourceCommit,version:app.version,assetCount:files.length,apiBaseUrl:metadata.apiBaseUrl}));
