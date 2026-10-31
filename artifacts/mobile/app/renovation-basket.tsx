@@ -96,7 +96,7 @@ export default function RenovationBasketScreen() {
   };
   return <>
     <Stack.Screen options={{ headerShown: true, title: pl ? 'Koszyk całego remontu' : 'Whole renovation basket', headerBackTitle: pl ? 'Projekty' : 'Projects', headerStyle: { backgroundColor: Colors.background }, headerShadowVisible: false }} />
-    <ScrollView style={{ flex: 1, backgroundColor: Colors.background }} contentContainerStyle={{ padding: 20, paddingBottom: 60, gap: 18 }}>
+    <ScrollView keyboardShouldPersistTaps="handled" style={{ flex: 1, backgroundColor: Colors.background }} contentContainerStyle={{ padding: 20, paddingBottom: 60, gap: 18 }}>
       <View style={{ gap: 8 }}>
         <Txt w="bold" style={{ fontSize: 24 }}>{pl ? 'Kup razem do całego remontu' : 'Buy together for your renovation'}</Txt>
         <Txt style={{ color: Colors.textSecondary, lineHeight: 22 }}>{pl ? 'Wybierz prace i pomieszczenia. Zsumujemy potrzebne materiały, dobierzemy opakowania raz i porównamy cały zestaw z dostawami.' : 'Choose works and rooms. We combine material requirements, round to packs once and compare the complete basket including deliveries.'}</Txt>
@@ -111,7 +111,7 @@ export default function RenovationBasketScreen() {
         </View>
         {!showProjects && selectedProjects.slice(0,3).map(project=><Txt key={project.id} numberOfLines={1} style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{[project.roomName,project.name].filter(Boolean).join(' · ')}</Txt>)}
         {!showProjects && selectedProjects.length > 3 && <Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?`Pozostałe wybrane prace: ${selectedProjects.length-3}.`:`Other selected works: ${selectedProjects.length-3}.`}</Txt>}
-        {!projects.length && <Txt>{pl ? 'Najpierw utwórz projekt z obmiarami.' : 'Create a project with measurements first.'}</Txt>}
+        {!projects.length && <Txt>{pl ? 'Dodaj produkty z katalogu poniżej lub utwórz projekt z obmiarami.' : 'Add catalogue products below or create a project with measurements.'}</Txt>}
         {showProjects && measuredProjectCount > 0 && <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           <Button variant="outline" size="sm" label={pl ? `Wybierz prace z obmiarami (${Math.min(measuredProjectCount, MAX_BASKET_PROJECTS)})` : `Select measured works (${Math.min(measuredProjectCount, MAX_BASKET_PROJECTS)})`} onPress={() => saveSelection(measuredProjectIds)} />
           {selectedProjects.length > 0 && <Button variant="ghost" size="sm" label={pl ? 'Wyczyść wybór' : 'Clear selection'} onPress={() => saveSelection([])} />}
