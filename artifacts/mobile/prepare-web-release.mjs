@@ -31,9 +31,15 @@ fs.mkdirSync(path.join(target,'server'),{recursive:true});
 fs.cpSync(exported,path.join(target,'web-build'),{recursive:true});
 for(const file of ['web.js','web-host.cjs','web-pages.cjs'])fs.copyFileSync(path.join(mobile,'server',file),path.join(target,'server',file));
 fs.writeFileSync(path.join(target,'web-build/release.json'),JSON.stringify(metadata,null,2)+'\n');
+// Railway CLI 4.61.1 excludes every path component named node_modules, even
+// with --no-gitignore. Transfer the validated Expo assets inside an archive.
+// source: https://github.com/railwayapp/cli/blob/v4.61.1/src/controllers/upload.rs
+execFileSync('tar',['-czf',path.join(target,'web-build.tar.gz'),'-C',path.join(target,'web-build'),'.'],{stdio:'inherit',timeout:60000});
 fs.writeFileSync(path.join(target,'package.json'),JSON.stringify({name:'asystent-remontu-web',version:app.version,private:true,engines:{node:'24.x'},scripts:{start:'node server/web.js'}},null,2)+'\n');
-fs.writeFileSync(path.join(target,'railway.json'),JSON.stringify({$schema:'https://railway.com/railway.schema.json',build:{builder:'RAILPACK'},deploy:{startCommand:'npm start',healthcheckPath:'/healthz',healthcheckTimeout:120,restartPolicyType:'ON_FAILURE',restartPolicyMaxRetries:3}},null,2)+'\n');
+fs.writeFileSync(path.join(target,'Dockerfile'),'FROM node:24-alpine\nWORKDIR /app\nCOPY package.json ./\nCOPY server ./server\nCOPY web-build.tar.gz ./\nRUN mkdir -p web-build && tar -xzf web-build.tar.gz -C web-build\nENV NODE_ENV=production\nEXPOSE 8080\nCMD ["node","server/web.js"]\n');
+fs.writeFileSync(path.join(target,'railway.json'),JSON.stringify({$schema:'https://railway.com/railway.schema.json',build:{builder:'DOCKERFILE',dockerfilePath:'Dockerfile'},deploy:{startCommand:'npm start',healthcheckPath:'/healthz',healthcheckTimeout:120,restartPolicyType:'ON_FAILURE',restartPolicyMaxRetries:3}},null,2)+'\n');
 // Expo exports bundled fonts/WASM under assets/node_modules. Ignore only real
 // root dependencies; a recursive node_modules rule drops essential web assets.
-for(const file of ['.gitignore','.railwayignore'])fs.writeFileSync(path.join(target,file),'/node_modules/\n.env*\n');
+fs.writeFileSync(path.join(target,'.gitignore'),'/node_modules/\n.env*\n');
+fs.writeFileSync(path.join(target,'.railwayignore'),'/node_modules/\n/web-build/\n.env*\n');
 console.log(JSON.stringify({target,sourceCommit,version:app.version,assetCount:files.length,apiBaseUrl:metadata.apiBaseUrl}));
