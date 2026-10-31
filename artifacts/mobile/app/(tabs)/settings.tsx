@@ -12,6 +12,7 @@ import { pluralize } from '@/utils/format';
 import { APP_CONFIG } from '@/config/contact';
 import { LANGUAGES } from '@/constants/translations';
 import {useRouter,type Href} from 'expo-router';
+import {LocalDataResetDialog} from '@/components/settings/LocalDataResetDialog';
 
 interface SettingRowProps {
   icon: string;
@@ -139,9 +140,9 @@ function LanguageRow({
 export default function SettingsScreen() {
   const router=useRouter();
   const insets = useSafeAreaInsets();
-  const { projects, refreshProjects } = useApp();
+  const { projects } = useApp();
   const { t, language, setLanguage } = useLanguage();
-  const [isDeletingData, setIsDeletingData] = useState(false);
+  const [showReset,setShowReset]=useState(false);
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
@@ -380,59 +381,15 @@ export default function SettingsScreen() {
         <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
           <SettingRow
             icon="trash-2"
-            title={t('settings.delete.title')}
-            subtitle={t('settings.delete.subtitle')}
-            onPress={() => {
-              if (isDeletingData) return;
-              Alert.alert(
-                t('settings.delete.confirmTitle'),
-                t('settings.delete.confirmBody'),
-                [
-                  { text: t('common.cancel'), style: 'cancel' },
-                  {
-                    text: t('settings.delete.confirmCta'),
-                    style: 'destructive',
-                    onPress: async () => {
-                      setIsDeletingData(true);
-                      try {
-                        const { getDb } = await import('@/db/client');
-                        const db = await getDb();
-                        await db.execAsync(`
-                          DELETE FROM project_activities;
-                          DELETE FROM price_overrides;
-                          DELETE FROM checklist_items;
-                          DELETE FROM project_photos;
-                          DELETE FROM shopping_items;
-                          DELETE FROM projects;
-                          DELETE FROM contractor_requests;
-                          DELETE FROM saved_contractors;
-                          DELETE FROM contractor_blocks;
-                          DELETE FROM contractor_reports;
-                          DELETE FROM contractor_reviews;
-                          DELETE FROM hb_stage_contractor_shortlist;
-                          DELETE FROM hb_stage_contractor_needs;
-                          DELETE FROM hb_checklist_items;
-                          DELETE FROM hb_documents;
-                          DELETE FROM hb_utilities;
-                          DELETE FROM house_build_projects;
-                        `);
-                        await refreshProjects();
-                        Alert.alert(t('common.done'), t('settings.delete.successBody'));
-                      } catch (err) {
-                        console.error('[Settings] delete all data error:', err);
-                        Alert.alert(t('common.error'), t('settings.delete.errorBody'));
-                      } finally {
-                        setIsDeletingData(false);
-                      }
-                    },
-                  },
-                ]
-              );
-            }}
+            title={language==='pl'?'Usuń dane z tego urządzenia':'Delete data from this device'}
+            subtitle={language==='pl'?'Wyczyść lokalne projekty, zdjęcia i ustawienia':'Clear local projects, photos and settings'}
+            onPress={()=>setShowReset(true)}
             danger
           />
         </View>
       </View>
+
+      <LocalDataResetDialog visible={showReset} onClose={()=>setShowReset(false)}/>
 
       <Txt style={{ textAlign: 'center', fontSize: 12, color: Colors.textMuted, marginBottom: 20 }}>
         {t('settings.footer', { appName: APP_CONFIG.appName, version: APP_CONFIG.version })}
