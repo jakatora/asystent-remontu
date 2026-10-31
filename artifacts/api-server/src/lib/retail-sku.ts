@@ -30,6 +30,17 @@ export function isReviewedSkuSource(source: RetailSource): boolean {
  * merchant card or branch must be reviewed before checkout uses it. */
 export function isReviewedSeweraDispatchSource(source: RetailSource): boolean {
   if (isReviewedSkuSource(source)) return true;
+  // Exact simple ES hangers, reviewed 2026-10-31: 75 mm in Katowice,
+  // 125 mm in Sosnowiec. Each native retail SZT is one hanger, not 100.
+  // source: https://sklep.sewera.pl/wieszak-es-6075-prosty-rigips-p13734
+  // source: https://sklep.sewera.pl/wieszak-es-60125-prosty-rigips-p7413
+  const hanger={
+    'sewera-rigips-hanger-es6075':{ean:'5905637101074',size:'75',url:'https://sklep.sewera.pl/wieszak-es-6075-prosty-rigips-p13734',branch:'1',name:'Katowice'},
+    'sewera-rigips-hanger-es60125':{ean:'5905637101081',size:'125',url:'https://sklep.sewera.pl/wieszak-es-60125-prosty-rigips-p7413',branch:'2',name:'Sosnowiec'},
+  }[source.id];
+  if(hanger)return source.ean===hanger.ean&&source.skuIdentity===undefined&&source.store==='Sewera'&&source.format==='sewera'&&source.retailUnit==='SZT'
+    &&source.url===hanger.url&&source.name===`Wieszak ES 60/${hanger.size} prosty Rigips`&&source.brand==='Rigips'&&source.category==='drywall-accessory'
+    &&source.packageSize===1&&source.unit==='szt'&&source.dispatchDepartment?.id===hanger.branch&&source.dispatchDepartment.name===hanger.name;
   // Exact Rigips paper tape: Sosnowiec had 12 rolls, while Katowice had none
   // during the branch-specific public card check on 2026-10-29.
   if (source.id === 'sewera-rigips-paper-50x75') return source.ean === '5905637118010'

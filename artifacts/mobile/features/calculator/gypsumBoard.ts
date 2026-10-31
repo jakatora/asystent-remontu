@@ -34,6 +34,8 @@ const EANS: Record<string,string> = {
   'mat-gypsum-acoustic-rigips-50x30':'5905637113503',
   'mat-gypsum-acoustic-rigips-30x30':'5905637148819',
   'mat-gypsum-hanger-norgips-es6075':'5907651699650',
+  'mat-gypsum-hanger-rigips-es6075':'5905637101074',
+  'mat-gypsum-hanger-rigips-es60125':'5905637101081',
   'mat-gypsum-longitudinal-norgips-cd60':'5907651699674',
   'mat-gk-screws-koelner-fs3525-1000':'5906675305127',
   'mat-gk-profile-screws-koelner-ws3595-1000':'5906675303024',
@@ -44,6 +46,7 @@ export function gypsumReference(id: string, m: MeasurementMap = {}): string | nu
   if (id === 'gk-filler' || id === 'ceiling-filler') return FILLER;
   if (id === 'mineral-wool') return WOOL;
   if (id === 'profile-cd') return (m.gypsumCdProfile??0)===0 ? 'mat-profile-cd60-norgips-3m' : m.gypsumCdProfile===1 ? 'mat-profile-cd60-irbud-3m' : null;
+  if(id==='hanger')return(m.gypsumHanger??0)===0?'mat-gypsum-hanger-norgips-es6075':m.gypsumHanger===1?'mat-gypsum-hanger-rigips-es6075':m.gypsumHanger===2?'mat-gypsum-hanger-rigips-es60125':null;
   if (id === 'profile-ud') return (m.gypsumUdProfile??0)===0 ? 'mat-profile-ud30-norgips-06-3m' : m.gypsumUdProfile===1 ? 'mat-profile-ud30-norgips-super-c3-3m' : null;
   if (id === 'ceiling-steel-anchors') return m.gypsumCeilingSubstrate===1&&m.gypsumCeilingAnchors===1 ? 'mat-ceiling-anchor-rawlplug-gs-100' : null;
   if (id === 'ceiling-cross') return (m.gypsumCrossConnector??0)===0 ? 'mat-gypsum-cross-norgips-100' : m.gypsumCrossConnector===1 ? 'mat-gypsum-cross-budmat-100' : null;
@@ -53,7 +56,7 @@ export function gypsumReference(id: string, m: MeasurementMap = {}): string | nu
   if (id === 'gk-tape' || id === 'ceiling-tape') return (m.gypsumJointTape??0)===0 ? 'mat-gypsum-paper-norgips-50x75' : m.gypsumJointTape===1 ? 'mat-gypsum-fleece-norgips-50x25' : m.gypsumJointTape===2 ? 'mat-gypsum-paper-rigips-50x75' : null;
   if (id === 'wall-acoustic-tape') return (m.gypsumWallAcousticBrand??0)===0 ? 'mat-gypsum-acoustic-norgips-50x30' : m.gypsumWallAcousticBrand===1 ? 'mat-gypsum-acoustic-rigips-50x30' : null;
   if (id === 'ceiling-acoustic-tape') return (m.gypsumCeilingAcousticBrand??0)===0 ? 'mat-gypsum-acoustic-norgips-30x30' : m.gypsumCeilingAcousticBrand===1 ? 'mat-gypsum-acoustic-rigips-30x30' : null;
-  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m',hanger:'mat-gypsum-hanger-norgips-es6075','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
+  const accessories:Record<string,string>={'profile-cw':'mat-profile-cw50-norgips-06-3m-retail','profile-uw':'mat-profile-uw50-norgips-super-06-3m','ceiling-longitudinal':'mat-gypsum-longitudinal-norgips-cd60'};
   if (accessories[id]) return accessories[id];
   return null;
 }
@@ -66,9 +69,11 @@ const whole = (n: number) => Math.ceil(fixed(n));
 export function withGypsumMeasurement(job:string,current:Readonly<Record<string,string>>,id:string,value:string|number):Record<string,string>{
   const next={...current,[id]:String(value)};
   if(job==='gypsum-ceiling'&&['gypsumUdProfile','gypsumCdProfile'].includes(id)&&Number(current[id]??0)!==Number(value))next.gypsumUdFit='0';
+  if(job==='gypsum-ceiling'&&['gypsumHanger','gypsumCdProfile'].includes(id)&&Number(current[id]??0)!==Number(value))delete next.gypsumHangerCount;
   return next;
 }
 export function gypsumInputVisible(job:string,id:string,m:Readonly<Record<string,number|string|undefined>>):boolean{
+  if(job==='gypsum-ceiling'&&id==='gypsumHangerCount')return [1,2].includes(Number(m.gypsumHanger));
   return job!=='gypsum-ceiling'||id!=='gypsumUdFit'||Number(m.gypsumUdProfile)===1;
 }
 
@@ -111,6 +116,13 @@ export function gypsumQuantity(jobId: string, id: string, m: MeasurementMap): nu
     return fixed(m.perimeter*factor);
   }
   if (id === 'ceiling-cross' && !integerChoice(m.gypsumCrossConnector??0,1)) return null;
+  if(id==='hanger'){
+    if(!integerChoice(m.gypsumHanger??0,2))return null;
+    // The Rigips parts have their own system requirements. Use a project count,
+    // never the Norgips allowance as an automatic cross-system equivalence.
+    // source: https://www.rigips.pl/akcesoria/akcesoria-montazowe/uchwyt-prosty-es-60-do-profili-cd-60-g-10-mm
+    if((m.gypsumHanger??0)>0)return Number.isInteger(m.gypsumHangerCount)&&finiteRange(m.gypsumHangerCount,1,10000)?whole(m.gypsumHangerCount*factor):null;
+  }
   if(id==='profile-cd'&&!integerChoice(m.gypsumCdProfile??0,1))return null;
   if(id==='ceiling-steel-anchors'){
     if(m.gypsumCeilingSubstrate!==1||!integerChoice(m.gypsumCeilingAnchors??0,1))return null;
@@ -142,6 +154,11 @@ export const gypsumWallInputs: MeasurementInputDefinition[] = [
   {id:'gypsumOpenings',label:'Otwory drzwiowe i inne wymagające wzmocnień',unit:'szt.',inputType:'count',placeholder:'0',defaultValue:0,min:0,max:100,required:false,hint:'Podaj powierzchnię brutto, bez odejmowania otworów. Przy otworach pozostawiamy dodatkowe profile, nadproża i mocowania jako brak do doboru; nie ogłaszamy niepełnego zestawu kompletnym.'},
 ];
 export const gypsumCeilingInputs: MeasurementInputDefinition[] = [
+  // source: https://www.rigips.pl/akcesoria/akcesoria-montazowe/uchwyt-prosty-es-60-do-profili-cd-60-g-10-mm
+  // source: https://sklep.sewera.pl/wieszak-es-6075-prosty-rigips-p13734
+  // source: https://sklep.sewera.pl/wieszak-es-60125-prosty-rigips-p7413
+  {id:'gypsumHanger',label:'Wieszaki do profili CD 60',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:2,options:[{value:0,label:'Norgips ES 60/75 — dotychczasowy wariant'},{value:1,label:'Rigips ES 60/75 prosty — 1 szt.'},{value:2,label:'Rigips ES 60/125 prosty — 1 szt.'}],hint:'Rigips jest osobnym produktem do profili Rigips CD 60 ULTRASTIL. Wybierz długość i element zgodny z projektem, a następnie podaj liczbę z projektu. Dobór nośności, profili i stalowych kotew stropowych pozostaje oddzielny.'},
+  {id:'gypsumHangerCount',label:'Liczba wieszaków Rigips z projektu (wymagana do wyceny)',unit:'szt.',inputType:'count',placeholder:'np. 26',required:false,min:1,max:10000,hint:'Liczba przed zapasem dla tego pomieszczenia. Doliczymy wybrany procent zapasu i zsumujemy te same wieszaki w koszyku remontu. Bez liczby pozostawimy pozycję do ustalenia.'},
   {id:'gypsumCeilingAcousticBrand',label:'Taśma akustyczna 30 mm pod UD',unit:'',inputType:'select',placeholder:'Wybierz',defaultValue:0,min:0,max:1,options:[{value:0,label:'Norgips 30 mm × 30 m — ofertę trzeba potwierdzić'},{value:1,label:'Rigips 30 mm × 30 m — Sewera'}],hint:'Wariant Rigips wymaga świadomego wyboru i sprawdzenia zgodności z projektem systemu. Rolki zsumujemy w koszyku; koszt dostawy zależy od kodu pocztowego i całego zamówienia.'},
   // source: https://norgips.pl/produkty/profil-ud-30-super-o-gr-blachy-06-mm-c3-26.html
   // source: https://www.leroymerlin.pl/produkty/profil-sufitowy-ud30-3-m-b-super-norgips-44604343.html
@@ -187,6 +204,7 @@ export function gypsumMaterials(jobId: string, m: MeasurementMap = {}): Material
   };
   return (wall?WALL:CEILING).map(id=>{
     const reference=gypsumReference(id,m), ref=MATERIAL_PRICES.find(row=>row.id===reference);
+    if(id==='hanger'&&(m.gypsumHanger??0)>0&&ref)return{id,name:ref.productLabel,brand:ref.brand,ean:EANS[ref.id],unit:ref.packageUnit,category:ref.materialType,sourceUrl:ref.sourceUrl,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:ref.pricePerPackage,priceBasis:'package',packaging:{size:1,label:'1 szt.',purchaseUnit:'szt.'},notes:ref.notes+' Liczba z projektu + wybrany zapas. Bez automatycznego przeliczania normy Norgips na inny system.'};
     if (ref) return {id,name:ref.productLabel,brand:ref.brand,ean:EANS[ref.id],unit:ref.packageUnit,category:ref.materialType,sourceUrl:ref.sourceUrl,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:ref.pricePerPackage,priceBasis:'package',packaging:{size:ref.packageSize,label:`${ref.packageSize} ${ref.packageUnit}`,purchaseUnit:id==='gk-board'||id==='gk-ceiling'?'płyta':id.startsWith('profile-')?'profil':id==='gk-tape'||id==='ceiling-tape'||id.endsWith('acoustic-tape')?'rolka':id==='hanger'||id==='ceiling-longitudinal'?'szt.':'opakowanie'},notes:ref.materialType==='drywall-accessory'?ref.notes+' '+(descriptions[id]?.[2]??''):id==='mineral-wool'?'Aku-Płyta 037, 50 mm, 14,4 m²/paczka. Nie zastępuj wełną 100 mm w profilu CW 50.':id==='gk-filler'||id==='ceiling-filler'?`Gotowa masa Start & Finish, bez dodawania wody jak do proszku. Norma Q${(m.gypsumFinish??1)+1}, bez pełnej gładzi. Opakowanie 20 kg.`:id==='profile-cd'?(ref.notes??'')+' Norgips CD 60, 0,6 mm, 3 m. Norma rusztu DWUPOZIOMOWEGO 3,3 m/m² + zapas; nie stosujemy wzoru od gładzi.':'GKB typ A, 12,5 mm, suche wnętrza. Ścianka: jedna warstwa na KAŻDEJ z dwóch stron. Sufit: jedna warstwa. Pełne płyty po zsumowaniu remontu.'};
     const [name,unit,notes]=descriptions[id]??['Płyta / masa / izolacja — wymaga doboru','pozycja','Brak konkretnego produktu nie oznacza darmowego zakupu.'];
     return {id,name,unit,notes,sourceUrl:source,formulaKey:`gypsumBoard:${jobId}:${id}`,wasteFactor:1,pricePerUnit:0,category:'drywall-accessory',...(id==='profile-cw'?{ean:'5907651698165',packaging:{size:3,label:'3 m',purchaseUnit:'profil'},priceBasis:'package' as const}: {})};
