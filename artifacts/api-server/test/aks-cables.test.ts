@@ -43,7 +43,7 @@ test('captured ABUD whole carts confirm both paid and explicit free home shippin
 
 test('wrong quantities, stock, unit, bundle or gross subtotal cannot create a confirmed cheap cable basket',async()=>{
  const row=fixture.abud[0],order=abudOrder(row);
- for(const mutate of[(b:any)=>b.basket.products[0].price_unit='m',(b:any)=>b.basket.products[0].count=2,(b:any)=>b.basket.products[0].reservation_stocksown=0,(b:any)=>b.basket.products[0].bundle=1,(b:any)=>b.basket.worth=0,(b:any)=>b.basket.products[0].prices.gros='0.01'])await assert.rejects(quoteAbud(order,row.postalCode,abudNetwork(row,(kind,data)=>{if(kind==='cart')mutate(data);}))); 
+ for(const mutate of[(b:any)=>b.basket.products[0].price_unit='m',(b:any)=>b.basket.products[0].count=2,(b:any)=>b.basket.products[0].reservation_stocksown=0,(b:any)=>b.basket.products[0].bundle=1,(b:any)=>b.basket.worth=0,(b:any)=>b.basket.products[0].prices.gros='0.01'])await assert.rejects(quoteAbud(order,row.postalCode,abudNetwork(row,(kind,data)=>{if(kind==='cart')mutate(data);})));
  await assert.rejects(quoteAbud(order,row.postalCode,abudNetwork(row,(kind,data)=>{if(kind==='shipping')data.data.shipping.shipping=data.data.shipping.shipping.filter((r:any)=>r.courier.id===0||/Paczkomat|Paczka Smile/.test(r.courier.name));})),/no_home_delivery/);
 });
 
