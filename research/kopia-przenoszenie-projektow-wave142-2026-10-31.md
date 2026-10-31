@@ -16,7 +16,21 @@ Stare ceny mogą pozostać bazą lokalnej historii zmian. Ręczne taryfy i dawne
 
 ## Weryfikacja
 
-Osiem testów nowej funkcji używa prawdziwego SQLite, istniejących migracji 001–004 i rzeczywistego wyniku kalkulatora. Obejmuje wszystkie siedem tabel, oznaczenia zakupowe, własne ilości, wybory produktów, zdjęcia, daty starych snapshotów, duplikaty, uszkodzone pliki, błędy preferencji, przerwanie SQL po części zapisów oraz utraconą odpowiedź po COMMIT. Pełny mobile: **398/398 PASS**, zero skipów. Końcowy odbiór eksportu przeglądarki, przeniesienia między profilami i wdrożenia zostanie dopisany po wykonaniu.
+Osiem testów nowej funkcji używa prawdziwego SQLite, istniejących migracji 001–004 i rzeczywistego wyniku kalkulatora. Obejmuje wszystkie siedem tabel, oznaczenia zakupowe, własne ilości, wybory produktów, zdjęcia, daty starych snapshotów, duplikaty, uszkodzone pliki, błędy preferencji, przerwanie SQL po części zapisów oraz utraconą odpowiedź po COMMIT. Pełny mobile: **398/398 PASS**, zero skipów, także w czystym checkout końcowego commita. Typecheck mobile PASS, 4 testy serwera webowego PASS, 66 wpisów rejestru i stare identyfikatory zachowane. Odczyt kontrolny importu używa map po ID, aby nie porównywać każdej pary wierszy przy dużej kopii.
+
+## Wdrożenie i rzeczywiste przeniesienie
+
+Commity aplikacji `f7988c8e10488ecc499741ca0827348da891cbc3` oraz `1240780399e86c2e2fa109fdc5caabddd0fd24bf` wypchnięte na `codex/remont-zakupy-20261024`. Publiczne źródło wydania: `1240780399e86c2e2fa109fdc5caabddd0fd24bf`. Railway web `cf559853-b43e-4575-a994-9548dac7ec20` **SUCCESS**, 2026-10-31T09:46:30Z; ten sam serwis i adres https://asystent-remontu-web-production.up.railway.app . Wspólnego backendu nie wdrażano w tej fali.
+
+Playwright + Edge odebrał najpierw dwa różne lokalne originy, potem rzeczywiste przeniesienie z `http://127.0.0.1:4193` na publiczny adres. Źródłem był wyłącznie osobny profil QA, zawierający dwa projekty utworzone wcześniej przez wizard. W interfejsie dodano syntetyczne zdjęcie PNG 80×60 px, a po przeładowaniu nadal było dostępne. Eksport pobrano przyciskiem, przeniesiono przez wybór pliku i jawne potwierdzenie zawartości. Wszystkie siedem tabel i preferencje źródła oraz ponownego eksportu są identyczne. Zachowano prywatną notatkę testową, własne ilości/ceny i flagi mam/kupione. Zdjęcie działa po zamknięciu źródłowej przeglądarki, przeładowaniu docelowej strony i ponownym uruchomieniu docelowej przeglądarki.
+
+Uszkodzony plik i anulowanie podglądu nie wykonały zapisów. Ponowny import jest zablokowany i zachowuje wszystkie wiersze. Przycisk „Otwórz moje projekty” prowadzi do zapisanych prac. Widok 390 px nie ma poziomego przepełnienia; zero błędów JavaScript. Podczas obu przebiegów nie wysłano kopii, zdjęcia ani znacznika prywatnej notatki do API. Jedyny POST wyceny dotyczył materiałów i kodu.
+
+Po imporcie publiczny koszyk dwóch prac odtworzył **993,00 zł z dostawą dla 30-001**, bez przechowywania starej potwierdzonej taryfy. To rzeczywisty produkcyjny HTTP, bez podmiany odpowiedzi. Zakres ceny pozostaje ograniczony do opisanych produktów i potwierdzonych dostaw z wave141; brakujące dostawy nadal są jawne. Nie zmieniono cen, nie realizowano płatności ani zamówień. Kopiowane własne ceny i stare obserwacje pozostają danymi historycznymi użytkownika.
+
+Wydanie z czystego checkout: `work/remont-web-wave142-r2-release-20261031`, archiwum `web-build.tar.gz`, osobny prywatny moduł dostaw zachowany poza browser bundle. **63/63** publicznych plików zgodne z SHA, **17 097 627 bajtów**. Skan 76 długich wartości vaulta: zero wycieków. Health `missingAssetCount:0`, `quoteRelayReady:true`. Dziewięć tras HTTP200, brakujące pliki i prywatne pliki serwera HTTP404, prywatny POST bez podpisu HTTP401. Publiczna pomoc i prywatność zawierają opis kopii. Backend health: 252 aktywne oferty / 171 produktów; katalog bez nowych referencji w tej fali.
+
+Dowody sesji: `work/project-backup-local-qa-wave142.json`, `work/project-backup-production-qa-wave142.json`, `work/project-backup-{source,restored}-{local,production}-wave142.json`, `work/project-backup-production-{desktop,mobile}-wave142.png`, `work/web-production-http-wave142.json`, `work/web-release-integrity-wave142.json`, `work/mobile-clean-tests-wave142-r2.log`. Pliki kopii i profile zawierają wyłącznie dane QA, nie dane przeglądarki użytkownika.
 
 ## Dostęp do sieci handlowych
 
