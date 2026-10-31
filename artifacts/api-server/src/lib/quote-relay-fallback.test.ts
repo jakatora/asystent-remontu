@@ -42,3 +42,9 @@ test('a real HTTP429 from the native anonymous client retains its rate-limit mea
  let calls=0;const client=new AnonymousShop('https://etak.eu',async()=>{calls++;return new Response('Wait',{status:429,headers:{'Retry-After':'60'}});},AbortSignal.timeout(1000));
  await assert.rejects(client.etak('basket'),/retailer_rate_limited/);assert.equal(calls,1);
 });
+
+test('a busy price-refresh relay ends the read without adding native merchant traffic',async t=>{
+ clientMode(t);const mock=transport('quote_busy');
+ await assert.rejects(readRetailSource(source,mock.fetcher),/^Error: quote_busy$/);
+ assert.deepEqual(mock.counts(),{relayed:1,direct:0});
+});

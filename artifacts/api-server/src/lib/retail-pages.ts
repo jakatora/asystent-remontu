@@ -210,8 +210,9 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     fetchImpl=(input,init)=>originalFetch(input,{...init,signal:AbortSignal.any([deadline,...(init?.signal?[init.signal]:[])])});
     try{return await readThroughRelay(source,fetchImpl);}catch(error){
       // A network route may be unavailable while the same reviewed native
-      // storefront is reachable directly. Never retry stock/rule/rate limits.
-      if(deadline.aborted||error instanceof Error&&['retailer_out_of_stock','purchase_rules_changed','price_changed','retailer_rate_limited','retailer_http_429'].includes(error.message))throw error;
+      // storefront is reachable directly. Never retry stock/rule/rate limits
+      // or add merchant work when the shared relay queue is already full.
+      if(deadline.aborted||error instanceof Error&&['retailer_out_of_stock','purchase_rules_changed','price_changed','retailer_rate_limited','retailer_http_429','quote_busy'].includes(error.message))throw error;
     }
   }
   if(source.format==='mlazienka')return readMlazienkaProduct(source,fetchImpl);
