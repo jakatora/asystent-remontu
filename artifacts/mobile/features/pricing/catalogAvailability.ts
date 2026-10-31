@@ -33,8 +33,14 @@ export function catalogueProductAvailability(ref: MaterialPriceReference, read: 
   if (!isCatalogAvailabilityFresh(read,now)) return null;
   const codes = [...new Set(PRODUCT_PHOTOS.filter(p => p.ids.includes(ref.id)).map(p => p.ean).filter(Boolean))];
   if (codes.length > 1) return null;
+  // This legacy reference uses "tile"; its exact current retail card uses
+  // "wall-tile". Preserve the reference/job category and the same actual GTIN.
+  // source: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/
+  // source: https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/
+  const category = ref.id === 'mat-tile-wall-paradyz-nati-bianco-25x40' && ref.materialType === 'tile' && codes[0] === '5902610507960'
+    ? 'wall-tile' : ref.materialType;
   const matches = read.snapshot.products.filter(p => (codes.length === 1 ? p.ean === codes[0]
-    : p.ean === null && p.merchantIdentity?.name === ref.productLabel && p.merchantIdentity?.url === ref.sourceUrl) && p.category === ref.materialType
+    : p.ean === null && p.merchantIdentity?.name === ref.productLabel && p.merchantIdentity?.url === ref.sourceUrl) && p.category === category
     && p.packageSize === ref.packageSize && normalizeUnit(p.unit) === normalizeUnit(ref.packageUnit));
   const stores = [...new Set(matches.flatMap(p => p.stores))];
   return {confirmed:stores.length > 0,stores};

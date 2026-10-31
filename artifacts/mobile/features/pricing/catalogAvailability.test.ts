@@ -49,6 +49,16 @@ test('merchant snapshots require an exact reviewed identity and a credential-fre
   for(const merchantIdentity of [undefined,{productId:'fake',name:'Exact',url:'https://example.com/item'},{productId:'remont-sku-test',name:'Exact',url:'http://example.com/item'},{productId:'remont-sku-test',name:'Exact',url:'https://user:password@example.com/item'}])assert.throws(()=>parseCatalogAvailabilitySnapshot({...snapshot(),products:[{...base,merchantIdentity}]}));
 });
 
+test('the legacy Nati category still finds its exact 1.2m2 wall-tile offer without changing saved materials',()=>{
+  const nati=MATERIAL_PRICES.find(r=>r.id==='mat-tile-wall-paradyz-nati-bianco-25x40')!,before=JSON.stringify(nati);
+  assert.equal(nati.materialType,'tile');
+  const product={...snapshot().products[0],ean:'5902610507960',category:'wall-tile',packageSize:1.2,unit:'m2',stores:['Pati Art Studio']};
+  const read={expiresAt:30000,snapshot:{...snapshot(),products:[product]}};
+  assert.equal(catalogueProductAvailability(nati,read,0)?.confirmed,true);
+  for(const change of [{category:'tile-adhesive'},{ean:'5907518303911'},{packageSize:1.5}])assert.equal(catalogueProductAvailability(nati,{...read,snapshot:{...snapshot(),products:[{...product,...change}]}},0)?.confirmed,false);
+  assert.equal(JSON.stringify(nati),before);
+});
+
 test('cache deduplicates concurrent readers and counts response latency against the hint lifetime',async()=>{
   let now=0,calls=0,resolve!:(value:unknown)=>void;
   const cache=new CatalogAvailabilityCache(()=>{calls++;return new Promise(r=>{resolve=r;});},()=>now);
