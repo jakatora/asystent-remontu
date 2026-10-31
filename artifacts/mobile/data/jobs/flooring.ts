@@ -1,3 +1,4 @@
+import {vinylClickInputs,vinylClickMaterials} from '@/features/calculator/vinylClick';
 import {underlayInputs,underlayMaterials} from '@/features/calculator/underlayInstall';
 import {skirtingInputs,skirtingMaterials,skirtingInstructions} from '@/features/calculator/skirting';
 import { substratePrimerMaterial, substratePrimerInputs } from '@/features/calculator/substratePrimer';
@@ -206,52 +207,17 @@ export const vinylJob: RenovationJob = {
   warningRules: [
     // source: https://arbiton.com/pl/sposoby-ukladania-paneli
     { condition: 'always', message: 'Przed montażem sprawdź aklimatyzację w instrukcji wybranego modelu. Samo oznaczenie SPC nie oznacza, że można pominąć aklimatyzację; wymagania zależą też od temperatury transportu.', level: 'info' },
-    { condition: 'always', message: 'Zostaw szczelinę dylatacyjną 5–8 mm od ścian i innych stałych elementów. Panele SPC mają mniejszą rozszerzalność niż laminat, ale szczelina jest nadal wymagana.', level: 'warning' },
+    { condition: 'always', message: 'Sprawdź wymagane dylatacje przy ścianach, progach i stałej zabudowie w instrukcji konkretnego modelu. Nie przenoś wymiarów szczelin z innej podłogi.', level: 'warning' },
   ],
   measurementInputs: [
     { id: 'floorArea', label: 'Powierzchnia podłogi', unit: 'm²', inputType: 'area',
       placeholder: 'np. 8', min: 1, max: 200,
-      hint: 'Długość × szerokość pomieszczenia.' },
+      hint: 'Długość × szerokość pomieszczenia. Dodajemy 10% zapasu zakupowego na docinki.' },
+    ...vinylClickInputs,
     { id: 'panelPackCoverageM2', label: 'Pokrycie paczki (m²/paczka)', unit: 'm²/paczka',
-      inputType: 'coverage', placeholder: '2.0', defaultValue: 2.0, min: 1, max: 4, required: false },
+      inputType: 'coverage', placeholder: '2.0', defaultValue: 2.0, min: 1, max: 4, required: false, hint: 'Pole zachowane dla starszych zapisów. Dla wybranego konkretnego modelu używamy jego rzeczywistej paczki.' },
   ],
-  materials: [
-    {
-      id: 'vinyl-panels',
-      name: 'Panele winylowe LVT/SPC',
-      brand: 'Kronostep SPC 5 mm AC4 (referencja)',
-      unit: 'm²',
-      // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474
-      formulaKey: 'vinylArea',
-      wasteFactor: 1.1,
-      roundingRule: 'ceil',
-      packaging: { size: 2.0, label: 'paczka (ok. 2 m²)', purchaseUnit: 'paczka' },
-      pricePerUnit: 65,
-      category: 'panele',
-      notes: 'Kalkulator przyjmuje 10% zapasu zakupowego na docinki. Dobierz zapas, grubość, warstwę użytkową i podkład zgodnie z wybranym modelem i układem pomieszczenia.',
-      shopPrices: SHARED_SHOP_PRICES.vinylFloorSPCAc4,
-    },
-    {
-      id: 'underlay-vinyl',
-      name: 'Podkład wyciszający (jeśli nie wbudowany)',
-      unit: 'm²',
-      formulaKey: 'underlay',
-      wasteFactor: 1.1,
-      packaging: { size: 10, label: 'rolka 10 m²', purchaseUnit: 'rolka' },
-      pricePerUnit: 6,
-      category: 'podkład',
-      optional: true,
-      notes: 'Wiele paneli SPC ma podkład wbudowany — sprawdź specyfikację.',
-    },
-    {
-      id: 'threshold-vinyl',
-      name: 'Profil wykończeniowy (próg)',
-      unit: 'szt.',
-      formulaKey: 'threshold',
-      pricePerUnit: 30,
-      category: 'wykończenie',
-    },
-  ],
+  materials: vinylClickMaterials(),
   tools: [
     { id: 'knife', name: 'Nóż tapicerski / cutter', icon: 'scissors', required: true, notes: 'Wiele paneli winylowych można wyciąć nożem!' },
     { id: 'tapping-block', name: 'Klocek dobijak', icon: 'square', required: true },
@@ -260,14 +226,14 @@ export const vinylJob: RenovationJob = {
     { id: 'ruler', name: 'Linijka stalowa / kątownik', icon: 'minus', required: true },
   ],
   instructions: [
-    { step: 1, title: 'Przygotuj podłoże', description: 'Podłoga musi być czysta i równa. Vinyl jest tolerancyjny, ale nierówności >3 mm mogą być słyszalne.', durationMin: 20 },
+    { step: 1, title: 'Przygotuj podłoże', description: 'Przygotuj czyste, suche i równe podłoże zgodnie z instrukcją wybranego panela. Sprawdź dopuszczalne nierówności i wilgotność; podkład nie zastępuje naprawy podłoża.', durationMin: 20 },
     { step: 2, title: 'Rozplanuj układ', description: 'Zmierz i zaplanuj kierunek układania. Zwykle wzdłuż dłuższej ściany lub w kierunku światła.', durationMin: 15 },
     { step: 3, title: 'Układaj od lewego narożnika', description: 'Zacznij od lewego dolnego narożnika. Włóż kliny przy ścianie. Łącz panele klikając pod kątem.', durationMin: 120 },
-    { step: 4, title: 'Cięcia i ostatni rząd', description: 'Vinyl tnie się nożem — zaznacz linię, przełam po linii. Ostatni rząd przycinaj do potrzebnej szerokości.', tip: 'Cięcie nożem jest dużo łatwiejsze niż w przypadku laminatu!', durationMin: 60 },
+    { step: 4, title: 'Cięcia i ostatni rząd', description: 'Dobierz sposób cięcia i narzędzie według instrukcji konkretnego modelu. Ostatni rząd przytnij z zachowaniem wymaganych dylatacji.', durationMin: 60 },
     { step: 5, title: 'Wykończenie', description: 'Zdejmij kliny. Zamontuj listwy przypodłogowe lub profile zaciskowe przy progach.', durationMin: 45 },
   ],
   manufacturerPriorityNote: 'Panele SPC i LVT różnią się właściwościami — SPC (rdzeń kamienny) są sztywniejsze i bardziej odporne na temperaturę, LVT (rdzeń winylowy) są elastyczniejsze. Sprawdź wymagania producenta.',
-  commonMistakes: ['Układanie na nierównej podłodze', 'Za mała szczelina dylatacyjna', 'Za cienki vinyl (poniżej 5 mm) — słyszy się kroki', 'Mylenie instrukcji dla click i klejonej wykładziny — to zupełnie różne produkty'],
+  commonMistakes: ['Układanie na nierównej podłodze', 'Za mała szczelina dylatacyjna', 'Dobór podkładu bez sprawdzenia wymagań konkretnego panela', 'Mylenie instrukcji dla click i klejonej wykładziny — to zupełnie różne produkty'],
   qualityChecklist: [
     { id: 'q1', description: 'Podłoga leży stabilnie — brak kiwania paneli', critical: true },
     { id: 'q2', description: 'Połączenia są szczelne' },

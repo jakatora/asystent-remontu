@@ -1,3 +1,4 @@
+import {VINYL_CLICK_JOB,VINYL_CLICK_MODEL,isVinylClickMaterial,vinylClickMaterials,vinylClickQuantity,vinylClickWarnings} from './vinylClick';
 import {TRAP_JOB,TRAP_MODEL,isTrapMaterial,trapMaterials,trapQuantity} from './trapReplacement';
 import {SEAT_JOB,SEAT_MODEL,isSeatMaterial,seatMaterials,seatQuantity} from './toiletSeatReplacement';
 import {SOCKET_FRAME_JOB,SOCKET_FRAME_MODEL,isSocketFrame,socketFrameMaterials,socketFrameQuantity} from './socketFrames';
@@ -89,6 +90,7 @@ function resolveMaterialQuantity(
   measurements: MeasurementMap,
   jobId?: string,
 ): { rawQuantity: number; quantity: number; packs: number | undefined; quantityKnown?: boolean } {
+  if(jobId&&isVinylClickMaterial(jobId,material.id)){const n=vinylClickQuantity(material.id,measurements),rawQuantity=n??0,packs=material.packaging?Math.ceil(rawQuantity/material.packaging.size-1e-10):undefined;return{rawQuantity,quantity:packs===undefined?rawQuantity:Number((packs*material.packaging!.size).toFixed(8)),packs,quantityKnown:n!==null};}
   if(jobId&&isTrapMaterial(jobId,material.id)){const n=trapQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
   if(jobId&&isSeatMaterial(jobId,material.id)){const n=seatQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
   if(jobId&&isSocketFrame(jobId,material.id)){const n=socketFrameQuantity(material.id,measurements),rawQuantity=n??0;return{rawQuantity,...applyRounding(rawQuantity,material),quantityKnown:n!==null};}
@@ -209,10 +211,11 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     if(job.id==='self-leveling'&&measurements.edgeTapeChoice===undefined)measurements={...measurements,edgeTapeChoice:0};
     const materials = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : this.calculateMaterialItems(job, measurements);
     const totalCost = roundMoney(materials.reduce((sum, m) => sum + m.cost, 0));
-    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...((isGypsumJob(job.id)||job.id===PLASTER_JOB)?gypsumPriceWarnings(materials):[]), ...(job.id===REMOVAL_JOB?removalWarnings(materials):[]), ...(job.id===LAMINATE_JOB?laminateSupplyWarnings(materials):[]), ...(isWallpaperAdhesiveJob(job.id)?wallpaperAdhesiveWarnings(materials):[]), ...wallpaperTapeWarnings(materials), ...(isWallpaperAdhesiveJob(job.id) ? wallpaperRollWarnings(materials) : [])];
+    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...((isGypsumJob(job.id)||job.id===PLASTER_JOB)?gypsumPriceWarnings(materials):[]), ...(job.id===REMOVAL_JOB?removalWarnings(materials):[]), ...(job.id===LAMINATE_JOB?laminateSupplyWarnings(materials):[]), ...(job.id===VINYL_CLICK_JOB?vinylClickWarnings(materials):[]), ...(isWallpaperAdhesiveJob(job.id)?wallpaperAdhesiveWarnings(materials):[]), ...wallpaperTapeWarnings(materials), ...(isWallpaperAdhesiveJob(job.id) ? wallpaperRollWarnings(materials) : [])];
 
     return {
       jobId: job.id,
+      ...(job.id===VINYL_CLICK_JOB?{quantityModel:VINYL_CLICK_MODEL,quantityIssues:materials.filter(l=>l.quantityKnown===false).map(l=>l.material.name)}:{}),
       ...(job.id === TRAP_JOB ? {quantityModel:TRAP_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === SEAT_JOB ? {quantityModel:SEAT_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === SOCKET_FRAME_JOB ? {quantityModel:SOCKET_FRAME_MODEL,quantityIssues:materials.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -258,7 +261,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     const detailedItems = this.calculateDetailedItems(job, measurements, config);
     const totalCost = roundMoney(detailedItems.reduce((sum, m) => sum + m.cost, 0));
-    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...((isGypsumJob(job.id)||job.id===PLASTER_JOB)?gypsumPriceWarnings(detailedItems):[]), ...(job.id===REMOVAL_JOB?removalWarnings(detailedItems):[]), ...(job.id===LAMINATE_JOB?laminateSupplyWarnings(detailedItems):[]), ...(isWallpaperAdhesiveJob(job.id)?wallpaperAdhesiveWarnings(detailedItems):[]), ...wallpaperTapeWarnings(detailedItems), ...(isWallpaperAdhesiveJob(job.id) ? wallpaperRollWarnings(detailedItems) : [])];
+    const warnings = [...resolveWarnings(job.warningRules, { measurements }), ...((isGypsumJob(job.id)||job.id===PLASTER_JOB)?gypsumPriceWarnings(detailedItems):[]), ...(job.id===REMOVAL_JOB?removalWarnings(detailedItems):[]), ...(job.id===LAMINATE_JOB?laminateSupplyWarnings(detailedItems):[]), ...(job.id===VINYL_CLICK_JOB?vinylClickWarnings(detailedItems):[]), ...(isWallpaperAdhesiveJob(job.id)?wallpaperAdhesiveWarnings(detailedItems):[]), ...wallpaperTapeWarnings(detailedItems), ...(isWallpaperAdhesiveJob(job.id) ? wallpaperRollWarnings(detailedItems) : [])];
 
     // Append validation errors as warnings
     const allWarnings = [
@@ -272,6 +275,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
 
     return {
       jobId: job.id,
+      ...(job.id===VINYL_CLICK_JOB?{quantityModel:VINYL_CLICK_MODEL,quantityIssues:detailedItems.filter(l=>l.quantityKnown===false).map(l=>l.material.name)}:{}),
       ...(job.id === TRAP_JOB ? {quantityModel:TRAP_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === SEAT_JOB ? {quantityModel:SEAT_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
       ...(job.id === SOCKET_FRAME_JOB ? {quantityModel:SOCKET_FRAME_MODEL,quantityIssues:detailedItems.filter(line=>line.quantityKnown===false).map(line=>line.material.name)}:{}),
@@ -313,6 +317,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
     measurements: MeasurementMap
   ): MaterialLineItem[] {
     return job.materials.map((material) => {
+      if(job.id===VINYL_CLICK_JOB)material=vinylClickMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===TRAP_JOB)material=trapMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===SEAT_JOB)material=seatMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===SOCKET_FRAME_JOB)material=socketFrameMaterials(measurements).find(row=>row.id===material.id)??material;
@@ -349,6 +354,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
   ): MaterialLineItemDetail[] {
     const epsItems = job.id === EPS_JOB_ID ? calculateEpsItems(job.materials as readonly MaterialItem[], measurements) : undefined;
     return job.materials.map((material, index) => {
+      if(job.id===VINYL_CLICK_JOB)material=vinylClickMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===TRAP_JOB)material=trapMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===SEAT_JOB)material=seatMaterials(measurements).find(row=>row.id===material.id)??material;
       if(job.id===SOCKET_FRAME_JOB)material=socketFrameMaterials(measurements).find(row=>row.id===material.id)??material;
@@ -394,7 +400,7 @@ class RenovationCalculatorEngine implements CalculatorEngine {
       } : isUnderlayMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij dobór, zgodność lub rzeczywisty pomiar w obmiarach.':rawQuantity===0?'Zakup świadomie pominięty lub bariera jest zintegrowana z podkładem.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,assumptions:[material.notes??'','Zapas na docinki dotyczy tylko podkładu. Powierzchnia folii zawiera podane zakłady i wywinięcia, długość taśmy pochodzi z pomiaru.','Surowe ilości identycznych produktów łączymy przed zakupem pełnych opakowań.']} : isGroutOnlyMaterial(job.id,material.id) ? groutOnlyExplanation(material.id,measurements,rawQuantity,packs,material.unit) : isWindowMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Wybierz zakres naprawy i uzupełnij dobór lub ilość w obmiarach.':rawQuantity===0?'Zakup pominięty w wybranym zakresie lub potwierdzono posiadanie.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions:[material.notes??'',`Zapas akrylu lub długości taśmy: ${measurements.windowReservePercent??10}%. Puszki pianki i rolki taśmy maskującej liczone oddzielnie.`,'Wspólny koszyk sumuje surowe zapotrzebowanie tego samego produktu przed doborem opakowań.'],
-      } : isWallpaperAdhesive(job.id,material.id) ? {text:quantityKnown===false?'Wybierz rodzaj tapety zgodny z kartą producenta.':`${rawQuantity} g suchego kleju → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Zapas z obmiarów. Gramy tego samego kleju sumujemy między pracami przed doborem opakowań.']} : isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
+      } : isWallpaperAdhesive(job.id,material.id) ? {text:quantityKnown===false?'Wybierz rodzaj tapety zgodny z kartą producenta.':`${rawQuantity} g suchego kleju → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Zapas z obmiarów. Gramy tego samego kleju sumujemy między pracami przed doborem opakowań.']} : isRemovalMaterial(job.id,material.id) ? {text:quantityKnown===false?'Uzupełnij ilość napraw lub powierzchnię do zabezpieczenia w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,assumptions:[material.notes??'','Wspólny koszyk sumuje zapotrzebowanie przed doborem pełnych opakowań.']} : job.id===VINYL_CLICK_JOB ? {text:quantityKnown===false?'Wybierz produkt lub uzupełnij ilość w obmiarach.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`,assumptions:[material.notes??'','Panele, podkład i osobna folia: istniejący zapas zakupowy 10%. Profile i taśma według podanych ilości.','Wspólny koszyk sumuje surowe zapotrzebowanie przed doborem pełnych paczek.']} : isGypsumJob(job.id) ? { text: quantityKnown===false?'Potwierdź wymiary, wariant konstrukcji lub dobór mocowań.':`${rawQuantity} ${material.unit} → ${purchaseQuantity} ${purchaseUnit}.`, assumptions:[material.notes??'','Normy producenta + jawny zapas. Zestawienie zakupów wymaga sprawdzenia z projektem konstrukcji.'] } : isFinishingMaterial(job.id,material.id) ? {
         text:quantityKnown===false?'Uzupełnij powierzchnię napraw, głębokość, długość rys lub liczbę arkuszy w obmiarach.':`${rawQuantity} ${material.unit} z obmiarów → ${purchaseQuantity} ${purchaseUnit} (${material.packaging?.label}).`,
         assumptions:[material.notes??'','Opakowania zaokrąglamy dopiero po zsumowaniu prac w koszyku.'],
       } : isSanitaryMaterial(job.id,material.id) ? {

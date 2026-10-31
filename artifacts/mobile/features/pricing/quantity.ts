@@ -1,3 +1,4 @@
+import {VINYL_CLICK_JOB,VINYL_CLICK_MODEL,vinylClickMaterials,vinylClickQuantity,vinylClickReference} from '@/features/calculator/vinylClick';
 import {TRAP_JOB,TRAP_MODEL,trapMaterials,trapReference,trapQuantity} from '@/features/calculator/trapReplacement';
 import {SEAT_JOB,SEAT_MODEL,seatMaterials,seatReference,seatQuantity} from '@/features/calculator/toiletSeatReplacement';
 import {SOCKET_FRAME_JOB,SOCKET_FRAME_MODEL,socketFrameMaterials,socketFrameReference,socketFrameQuantity} from '@/features/calculator/socketFrames';
@@ -81,6 +82,11 @@ export function resolveMaterialQuantity(
   ref: MaterialPriceReference,
   calc: CalculationResult,
 ): { quantity: number; source: MaterialLineItem } | null {
+  if(calc.jobId===VINYL_CLICK_JOB){
+    const def=vinylClickMaterials(calc.measurements).find(m=>vinylClickReference(m.id,calc.measurements)===ref.id),source=def&&calc.materials.find(l=>l.material.id===def.id),n=def&&vinylClickQuantity(def.id,calc.measurements);
+    if(calc.quantityModel!==VINYL_CLICK_MODEL||!source||source.quantityKnown===false||!def?.ean||!('ean'in source.material)||source.material.ean!==def.ean||normalizeUnit(source.material.unit)!==normalizeUnit(ref.packageUnit)||def.packaging?.size!==ref.packageSize||n==null)return null;
+    return{quantity:n,source};
+  }
   if(calc.jobId===SEAT_JOB){
     const def=seatMaterials(calc.measurements).find(row=>seatReference(row.id,calc.measurements)===ref.id),source=def&&calc.materials.find(l=>l.material.id===def.id),n=def&&seatQuantity(def.id,calc.measurements);
     if(calc.quantityModel!==SEAT_MODEL||!source||source.quantityKnown===false||!def?.ean||!('ean'in source.material)||source.material.ean!==def.ean||source.material.unit!=='szt'||ref.packageSize!==1||source.material.packaging?.size!==1||n==null||source.rawQuantity!==n)return null;

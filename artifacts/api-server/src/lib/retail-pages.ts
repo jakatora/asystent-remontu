@@ -316,6 +316,10 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // A native retail piece is the reviewed 6.25 m² pack, not a rounded 6 m²
+  // catalogue attribute or a per-m² selling unit.
+  // source: https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891
+  if(source.id==='liderzy-volden-xps-lvt-625m2'&&(source.ean!=='5063022038326'||source.productId!==32891||source.packageSize!==6.25||source.unit!=='m2'||source.brand!=='Volden'||source.store!=='LiderzyCen'||source.format!=='shoper-api'||source.retailerSku!=='ctma_5063022038326'||source.apiPurchaseUnit!=='szt.'||item.ean!==source.ean||item.producer?.name!=='Volden'||item.name!==source.name))throw Error('product_package_not_confirmed');
   // One native piece is this liquid 500 ml bottle, not the separate spray or 5 l can.
   // source: https://www.rabdom.pl/pl/p/Chem-Rozlew-Benzyna-ekstrakcyjna-rozcienczalnik-0%2C5L/316
   if (source.id === 'rabdom-chem-rozlew-extraction-solvent-500ml' && (source.ean !== '5906681230253'

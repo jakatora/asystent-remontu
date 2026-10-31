@@ -1,3 +1,4 @@
+import {vinylClickInputVisible} from '@/features/calculator/vinylClick';
 import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
 import {cabinetInputVisible} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,underlayInputVisible} from '@/features/calculator/underlayInstall';
@@ -12,7 +13,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   const values: Record<string, number> = {};
   const errors: { label: string; id: string; min?: number; max?: number }[] = [];
   for (const input of job.measurementInputs) {
-    if (!socketFrameInputVisible(job.id,input.id,raw) || !cabinetInputVisible(job.id,input.id,raw) || !underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
+    if (!vinylClickInputVisible(job.id,input.id,raw) || !socketFrameInputVisible(job.id,input.id,raw) || !cabinetInputVisible(job.id,input.id,raw) || !underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
     if (!text && input.defaultValue === undefined && input.required === false) continue;
     const value = text ? parseDecimal(text) : input.defaultValue;

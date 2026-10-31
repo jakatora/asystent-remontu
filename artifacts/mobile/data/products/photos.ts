@@ -12,6 +12,8 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891
+  {"ids":["mat-vinyl-underlay-volden-lvt-625m2"],"ean":"5063022038326","sourceUrl":"https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_53817_500_500/9772c302db12f1d82525f11644d6fe42.jpg"},
   // source: https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683
   {"ids":["mat-frame-asfora-white-1"],"ean":"3606480527166","sourceUrl":"https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683","imageUrl":"https://zpradem.pl/environment/cache/images/productGfx_440022_500_500/ASFORA-Ramka-pojedyncza-biala-EPH5800121.jpg"},
   // source: https://zpradem.pl/asfora-ramka-podwojna-pozioma-biala-eph5800221/799939

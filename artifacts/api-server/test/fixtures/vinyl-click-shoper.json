@@ -1,0 +1,799 @@
+{
+  "product": {
+    "id": 32891,
+    "ean": "5063022038326",
+    "name": "Podkład podłogowy pod panele winylowe Volden XPS LVT pod panele winylowe 1 mm 6,25 m2",
+    "producer": {
+      "name": "Volden",
+      "id": 1573
+    },
+    "code": "ctma_5063022038326",
+    "unit": {
+      "name": "szt.",
+      "floating_point": false
+    },
+    "can_buy": true,
+    "stockId": 32979,
+    "price": {
+      "gross": {
+        "base": "113,88 zł",
+        "base_float": 113.88,
+        "final": "113,88 zł",
+        "final_float": 113.88,
+        "historical_lowest_price": "118,63 zł",
+        "historical_lowest_price_float": 118.63
+      },
+      "net": {
+        "base": "92,59 zł",
+        "base_float": 92.59,
+        "final": "92,59 zł",
+        "final_float": 92.59,
+        "historical_lowest_price": "96,45 zł",
+        "historical_lowest_price_float": 96.45
+      }
+    },
+    "url": "https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891",
+    "description": "Podkład podłogowy Volden XPS LVT to niezawodny wybór dla podłóg winylowych z systemem klik. Zapewnia doskonałą izolację akustyczną, minimalizuje hałas i wyrównuje nierówności podłoża. Podkład jest kompatybilny z ogrzewaniem podłogowym, wytrzymały i odporny na wilgoć."
+  },
+  "marvo": {
+    "id": 185474,
+    "ean": "5063022676757",
+    "name": "Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m2",
+    "producer": {
+      "name": "GoodHome",
+      "id": 1008,
+      "img": "https://liderzycen.pl/userdata/public/producers/1008.jpg"
+    },
+    "code": "ctma_5063022676757",
+    "unit": {
+      "name": "szt.",
+      "floating_point": false
+    },
+    "can_buy": true,
+    "stockId": 185558,
+    "price": {
+      "gross": {
+        "base": "150,82 zł",
+        "base_float": 150.82,
+        "final": "150,82 zł",
+        "final_float": 150.82,
+        "historical_lowest_price": "150,82 zł",
+        "historical_lowest_price_float": 150.82
+      },
+      "net": {
+        "base": "122,62 zł",
+        "base_float": 122.62,
+        "final": "122,62 zł",
+        "final_float": 122.62,
+        "historical_lowest_price": "122,62 zł",
+        "historical_lowest_price_float": 122.62
+      }
+    },
+    "url": "https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474",
+    "description": "Panele podłogowe winylowe GoodHome SPC Marvo to świetny wybór dla miłośników trwałości i stylu. Dzięki imitacji drewna wnętrza zyskują ciepły, przytulny klimat. Charakteryzują się wysoką odpornością na ścieranie oraz wodę, co czyni je idealnymi do pomieszczeń o dużym natężeniu ruchu. System Click pozwala na prosty montaż bez potrzeby używania kleju, co sprawia, że są doskonałym rozwiązaniem zarówno w domach, jak i w miejscach komercyjnych."
+  },
+  "cases": [
+    {
+      "counts": [
+        1,
+        0
+      ],
+      "cart": {
+        "shippings": [
+          {
+            "shipping_id": 43,
+            "selected": true,
+            "title": "Kurier R3",
+            "description": "kurier Rolety duże",
+            "cost": "46,00 zł",
+            "cost_float": 46,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "46,00 zł",
+                "cost_float": 46
+              }
+            ]
+          },
+          {
+            "shipping_id": 40,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": ">5",
+            "cost": "16,99 zł",
+            "cost_float": 16.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "16,99 zł",
+                "cost_float": 16.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 39,
+            "selected": false,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier XL",
+            "description": "",
+            "cost": "100,00 zł",
+            "cost_float": 100,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              }
+            ]
+          },
+          {
+            "shipping_id": 35,
+            "selected": false,
+            "title": "Kurier L",
+            "description": "L bo wieksze",
+            "cost": "25,00 zł",
+            "cost_float": 25,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "25,00 zł",
+                "cost_float": 25
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Kurier poczta L",
+            "description": "",
+            "cost": "30,00 zł",
+            "cost_float": 30,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "30,00 zł",
+                "cost_float": 30
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": false,
+            "title": "Kurier Standard",
+            "description": "Kurier Standard",
+            "cost": "16,50 zł",
+            "cost_float": 16.5,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "16,50 zł",
+                "cost_float": 16.5
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "159,88 zł",
+          "sum_float": 159.88,
+          "sum_products": "113,88 zł",
+          "sum_products_float": 113.88,
+          "sum_no_shipping": "113,88 zł",
+          "sum_no_shipping_float": 113.88,
+          "loyalty_points": 0
+        },
+        "products": [
+          {
+            "id": 309,
+            "parent_id": null,
+            "stock_id": 32979,
+            "product_id": 32891,
+            "type": null,
+            "name": "Podkład podłogowy pod panele winylowe Volden XPS LVT pod panele winylowe 1 mm 6,25 m2",
+            "variant": "",
+            "quantity": 1,
+            "image": "53817",
+            "image_filename": "53817.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 113.88,
+            "price": "113,88 zł",
+            "sum_float": 113.88,
+            "sum": "113,88 zł",
+            "delivery": "48 godzin",
+            "loyalty": null,
+            "category": {
+              "category_id": "7053",
+              "translation": {
+                "name": "Podkłady pod panele i podłogi drewniane"
+              }
+            },
+            "producer": {
+              "producer_id": "1573",
+              "name": "Volden"
+            },
+            "url": "https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891",
+            "remove_url": "https://liderzycen.pl/pl/basket/remove/309"
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "counts": [
+        2,
+        0
+      ],
+      "cart": {
+        "shippings": [
+          {
+            "shipping_id": 43,
+            "selected": true,
+            "title": "Kurier R3",
+            "description": "kurier Rolety duże",
+            "cost": "46,00 zł",
+            "cost_float": 46,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "46,00 zł",
+                "cost_float": 46
+              }
+            ]
+          },
+          {
+            "shipping_id": 40,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": ">5",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 39,
+            "selected": false,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier XL",
+            "description": "",
+            "cost": "100,00 zł",
+            "cost_float": 100,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              }
+            ]
+          },
+          {
+            "shipping_id": 35,
+            "selected": false,
+            "title": "Kurier L",
+            "description": "L bo wieksze",
+            "cost": "50,00 zł",
+            "cost_float": 50,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "50,00 zł",
+                "cost_float": 50
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Kurier poczta L",
+            "description": "",
+            "cost": "60,00 zł",
+            "cost_float": 60,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "60,00 zł",
+                "cost_float": 60
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": false,
+            "title": "Kurier Standard",
+            "description": "Kurier Standard",
+            "cost": "20,00 zł",
+            "cost_float": 20,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "20,00 zł",
+                "cost_float": 20
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "basket": {
+          "count": 2,
+          "sum": "273,76 zł",
+          "sum_float": 273.76,
+          "sum_products": "227,76 zł",
+          "sum_products_float": 227.76,
+          "sum_no_shipping": "227,76 zł",
+          "sum_no_shipping_float": 227.76,
+          "loyalty_points": 0
+        },
+        "products": [
+          {
+            "id": 310,
+            "parent_id": null,
+            "stock_id": 32979,
+            "product_id": 32891,
+            "type": null,
+            "name": "Podkład podłogowy pod panele winylowe Volden XPS LVT pod panele winylowe 1 mm 6,25 m2",
+            "variant": "",
+            "quantity": 2,
+            "image": "53817",
+            "image_filename": "53817.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 113.88,
+            "price": "113,88 zł",
+            "sum_float": 227.76,
+            "sum": "227,76 zł",
+            "delivery": "48 godzin",
+            "loyalty": null,
+            "category": {
+              "category_id": "7053",
+              "translation": {
+                "name": "Podkłady pod panele i podłogi drewniane"
+              }
+            },
+            "producer": {
+              "producer_id": "1573",
+              "name": "Volden"
+            },
+            "url": "https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891",
+            "remove_url": "https://liderzycen.pl/pl/basket/remove/310"
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "counts": [
+        0,
+        5
+      ],
+      "cart": {
+        "shippings": [
+          {
+            "shipping_id": 39,
+            "selected": true,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier Panele podłogowe 1",
+            "description": "Kurier Panele podłogowe 1",
+            "cost": "199,00 zł",
+            "cost_float": 199,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "199,00 zł",
+                "cost_float": 199
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Kurier P2",
+            "description": "Kurier P2",
+            "cost": "110,00 zł",
+            "cost_float": 110,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "110,00 zł",
+                "cost_float": 110
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "basket": {
+          "count": 5,
+          "sum": "1 354,10 zł",
+          "sum_float": 1354.1,
+          "sum_products": "754,10 zł",
+          "sum_products_float": 754.1,
+          "sum_no_shipping": "754,10 zł",
+          "sum_no_shipping_float": 754.1,
+          "loyalty_points": 0
+        },
+        "products": [
+          {
+            "id": 311,
+            "parent_id": null,
+            "stock_id": 185558,
+            "product_id": 185474,
+            "type": null,
+            "name": "Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m2",
+            "variant": "",
+            "quantity": 5,
+            "image": "385938",
+            "image_filename": "385938.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 150.82,
+            "price": "150,82 zł",
+            "sum_float": 754.1,
+            "sum": "754,10 zł",
+            "loyalty": null,
+            "category": {
+              "category_id": "7033",
+              "translation": {
+                "name": "Panele winylowe"
+              }
+            },
+            "producer": {
+              "producer_id": "1008",
+              "name": "GoodHome"
+            },
+            "url": "https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474",
+            "remove_url": "https://liderzycen.pl/pl/basket/remove/311"
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "counts": [
+        2,
+        5
+      ],
+      "cart": {
+        "shippings": [
+          {
+            "shipping_id": 39,
+            "selected": true,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "basket": {
+          "count": 7,
+          "sum": "1 581,86 zł",
+          "sum_float": 1581.8600000000001,
+          "sum_products": "981,86 zł",
+          "sum_products_float": 981.86,
+          "sum_no_shipping": "981,86 zł",
+          "sum_no_shipping_float": 981.86,
+          "loyalty_points": 0
+        },
+        "products": [
+          {
+            "id": 312,
+            "parent_id": null,
+            "stock_id": 32979,
+            "product_id": 32891,
+            "type": null,
+            "name": "Podkład podłogowy pod panele winylowe Volden XPS LVT pod panele winylowe 1 mm 6,25 m2",
+            "variant": "",
+            "quantity": 2,
+            "image": "53817",
+            "image_filename": "53817.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 113.88,
+            "price": "113,88 zł",
+            "sum_float": 227.76,
+            "sum": "227,76 zł",
+            "delivery": "48 godzin",
+            "loyalty": null,
+            "category": {
+              "category_id": "7053",
+              "translation": {
+                "name": "Podkłady pod panele i podłogi drewniane"
+              }
+            },
+            "producer": {
+              "producer_id": "1573",
+              "name": "Volden"
+            },
+            "url": "https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891",
+            "remove_url": "https://liderzycen.pl/pl/basket/remove/312"
+          },
+          {
+            "id": 313,
+            "parent_id": null,
+            "stock_id": 185558,
+            "product_id": 185474,
+            "type": null,
+            "name": "Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m2",
+            "variant": "",
+            "quantity": 5,
+            "image": "385938",
+            "image_filename": "385938.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 150.82,
+            "price": "150,82 zł",
+            "sum_float": 754.1,
+            "sum": "754,10 zł",
+            "loyalty": null,
+            "category": {
+              "category_id": "7033",
+              "translation": {
+                "name": "Panele winylowe"
+              }
+            },
+            "producer": {
+              "producer_id": "1008",
+              "name": "GoodHome"
+            },
+            "url": "https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474",
+            "remove_url": "https://liderzycen.pl/pl/basket/remove/313"
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    }
+  ]
+}

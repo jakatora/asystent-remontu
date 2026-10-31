@@ -1,3 +1,4 @@
+import {VINYL_CLICK_JOB,vinylClickInputVisible,withVinylClickMeasurement} from '@/features/calculator/vinylClick';
 import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
 import {SEAT_JOB,withSeatMeasurement} from '@/features/calculator/toiletSeatReplacement';
 import {CABINET_JOB,cabinetInputVisible} from '@/features/calculator/cabinetPainting';
@@ -1090,7 +1091,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements) && cabinetInputVisible(selectedJob.id,inp.id,draft.measurements) && socketFrameInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && vinylClickInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements) && cabinetInputVisible(selectedJob.id,inp.id,draft.measurements) && socketFrameInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);
@@ -1125,7 +1126,7 @@ export default function WizardScreen() {
 
                         {'inputType' in inp && inp.inputType === 'select' ? <MeasurementSelect label={inp.label} options={inp.options ?? []}
                           value={val ? parseDecimal(val) : inp.defaultValue} onChange={value => {
-                            patchDraft({ measurements: selectedJob.id===SEAT_JOB ? withSeatMeasurement(draft.measurements,inp.id,value) : selectedJob.id===UNDERLAY_JOB ? withUnderlayMeasurement(draft.measurements,inp.id,value) : selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
+                            patchDraft({ measurements: selectedJob.id===VINYL_CLICK_JOB ? withVinylClickMeasurement(draft.measurements,inp.id,value) : selectedJob.id===SEAT_JOB ? withSeatMeasurement(draft.measurements,inp.id,value) : selectedJob.id===UNDERLAY_JOB ? withUnderlayMeasurement(draft.measurements,inp.id,value) : selectedJob.id===PLASTER_JOB ? withPlasterMeasurement(selectedJob.id,draft.measurements,inp.id,value) : isGypsumJob(selectedJob.id) ? withGypsumMeasurement(selectedJob.id,draft.measurements,inp.id,value) : withWindowMeasurement(selectedJob.id,draft.measurements,inp.id,value) }); setValidationError(null);
                           }}/> : <View style={{ flexDirection: 'row', gap: 8 }}>
                           <TextInput
                             style={{
@@ -1151,7 +1152,7 @@ export default function WizardScreen() {
                             keyboardType={'inputType' in inp && inp.inputType === 'count' ? 'number-pad' : 'decimal-pad'}
                             value={val}
                             onChangeText={(v) => {
-                              patchDraft({ measurements: selectedJob.id===SEAT_JOB ? withSeatMeasurement(draft.measurements,inp.id,v) : { ...draft.measurements, [inp.id]: v } });
+                              patchDraft({ measurements: selectedJob.id===VINYL_CLICK_JOB ? withVinylClickMeasurement(draft.measurements,inp.id,v) : selectedJob.id===SEAT_JOB ? withSeatMeasurement(draft.measurements,inp.id,v) : { ...draft.measurements, [inp.id]: v } });
                               setValidationError(null);
                             }}
                             returnKeyType="done"
@@ -1303,7 +1304,7 @@ export default function WizardScreen() {
                   {/* Measurements */}
                   {selectedJob && selectedJob.measurementInputs.length > 0 && (
                     <View>
-                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
+                      {selectedJob.measurementInputs.filter(inp=>frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && vinylClickInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements)).map((inp) => {
                         const val = draft.measurements[inp.id];
                         const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
                         const displayVal = selectedOption?.label ?? (val

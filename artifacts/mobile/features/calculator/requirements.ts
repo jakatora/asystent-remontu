@@ -1,3 +1,4 @@
+import {VINYL_CLICK_MODEL,isVinylClickMaterial,vinylClickQuantity} from './vinylClick';
 import {TRAP_MODEL,isTrapMaterial,trapQuantity} from './trapReplacement';
 import {SEAT_MODEL,isSeatMaterial,seatQuantity} from './toiletSeatReplacement';
 import {SOCKET_FRAME_MODEL,isSocketFrame,socketFrameQuantity} from './socketFrames';
@@ -28,6 +29,7 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===VINYL_CLICK_MODEL&&isVinylClickMaterial(calc.jobId,line.material.id))return vinylClickQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===TRAP_MODEL&&isTrapMaterial(calc.jobId,line.material.id))return trapQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SEAT_MODEL&&isSeatMaterial(calc.jobId,line.material.id))return seatQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SOCKET_FRAME_MODEL&&isSocketFrame(calc.jobId,line.material.id))return socketFrameQuantity(line.material.id,calc.measurements)??0;
@@ -47,8 +49,8 @@ export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationRes
   // Recover the original floor area plus its existing cutting allowance.
   // source: https://krono-shop.com/ro/en/faq
   // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474
-  if (calc.jobId === 'laminate-flooring' && line.material.id === 'laminate-panels'
-      || calc.jobId === 'vinyl-flooring' && line.material.id === 'vinyl-panels') {
+  if(calc.jobId==='vinyl-flooring'&&line.material.id==='vinyl-panels')return vinylClickQuantity('vinyl-panels',{...calc.measurements,vinylPanelChoice:0})??0;
+  if (calc.jobId === 'laminate-flooring' && line.material.id === 'laminate-panels') {
     const definition = getJobById(calc.jobId)?.materials.find(material => material.id === line.material.id);
     if (definition) return Math.max(0, computeRawQuantity(definition, calc.measurements));
   }
