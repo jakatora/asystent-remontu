@@ -1344,6 +1344,14 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/ (12 szt. / 1,2 m²; exact manufacturer SKU SS--250X400-1-NATI.BI)
   // EAN: https://elazienki.pl/p/plytka-scienna-paradyz-nati-bianco-struktura-25x40cm/
   {"id":"pati-paradyz-nati-bianco-struktura-25x40","ean":"5902610507960","name":"PARADYŻ NATI BIANCO ŚCIANA STRUKTURA 25×40","brand":"Paradyż","category":"wall-tile","packageSize":1.2,"unit":"m2","store":"Pati Art Studio","format":"pati-woo","productId":103591,"apiProductCode":"SS&#8211;250X400-1-NATI.BI","variant":["Nati","Bianco","struktura","25×40"],"pickupRequiresConfirmation":true,"url":"https://patiartstudio.pl/produkt/paradyz-nati-bianco-sciana-struktura-25x40-ss-250x400-1-nati-bi/","imageUrl":"https://patiartstudio.pl/wp-content/uploads/2022/09/NATI_-Bianco_sciana_struktura_250x400.jpg"},
+  // source: https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233
+  {"id":"sewera-osakryl-4kg","dispatchDepartment":{"id":"4","name":"Tarnowskie Góry"},"ean":"5903518039515","name":"Klej do wykładzin Osakryl uniwersalny 4kg Tytan","brand":"Tytan","category":"adhesive","packageSize":4,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","variant":["osakryl","4kg"],"url":"https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233","imageUrl":"https://sklep.sewera.pl/photo/150507/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan.webp"},
+  // Explicit merchant product + selected width, with no claimed EAN. Price per m²;
+  // actual purchases require validated cut lengths and a current native cart.
+  // source: https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/
+  {id:'ewinyl-orion514-2m',ean:'',name:'Wykładzina PCV Lentex Orion 514-05 — szerokość 2 m',brand:'Lentex',category:'vinyl-roll',packageSize:1,unit:'m2',store:'eWinyl',format:'ewinyl',productId:5329,skuIdentity:{kind:'merchant-only',catalogKey:'ewinyl-5329-2m',merchantProductId:'5329'},pickupRequiresConfirmation:true,variant:['514-05'],url:'https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/',imageUrl:'https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg'},
+  {id:'ewinyl-orion514-4m',ean:'',name:'Wykładzina PCV Lentex Orion 514-05 — szerokość 4 m',brand:'Lentex',category:'vinyl-roll',packageSize:1,unit:'m2',store:'eWinyl',format:'ewinyl',productId:5329,skuIdentity:{kind:'merchant-only',catalogKey:'ewinyl-5329-4m',merchantProductId:'5329'},pickupRequiresConfirmation:true,variant:['514-05'],url:'https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/',imageUrl:'https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg'},
+
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

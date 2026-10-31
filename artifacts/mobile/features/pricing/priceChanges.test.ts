@@ -2,9 +2,20 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import { basketMaterialPriceDelta, collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot } from './priceChanges';
 import type {SerializedProject} from './pricingApi';
+import type {PriceChange} from './priceChanges';
 function response(price:number,date='2026-10-25T12:01:00Z',offerId='a',store='Sklep',size='5',quantity=1):SerializedProject {
   return {stages:[{lines:[{resolved:true,quantity,unit:'l',product:{id:'p',name:'Farba',ean:'5903973139188',packageSize:size,packageUnit:'l'},offers:[{offerId,store,packageSize:size,unit:'l',priceGrosze:price,fetchedAt:date}]}]}]} as SerializedProject;
 }
+
+test('cut-roll changes retain a price per m² and round the whole quoted cut once',()=>{
+  const change={offerId:'ewinyl-orion514-2m',packageSize:1,unit:'m2',previousGrosze:5500,priceGrosze:5599,deltaGrosze:99}as PriceChange;
+  const pack={offerId:change.offerId,packageSize:6.2,count:1,unitPriceGrosze:34714,lineCostGrosze:34714,cutRoll:{widthMm:2000,lengthMm:3100,pricePerM2Grosze:5599}};
+  assert.equal(basketMaterialPriceDelta(change,pack),614);
+  assert.equal(basketMaterialPriceDelta({...change,previousGrosze:5600,deltaGrosze:-1},pack),-6);
+  assert.equal(basketMaterialPriceDelta(change,{...pack,packageSize:7}),null);
+  assert.equal(basketMaterialPriceDelta(change,{...pack,cutRoll:{...pack.cutRoll,pricePerM2Grosze:5500}}),null);
+  assert.equal(basketMaterialPriceDelta({...change,offerId:'different'},pack),null);
+});
 test('price increases and decreases are exact grosze per identical offer/pack; persist across reopen',()=>{
   const before=collectSeenPrices(response(10000,'2026-10-25T12:00:00Z'));
   const saved=parsePriceSnapshot(JSON.stringify(before));

@@ -16,6 +16,7 @@ const materialSchema = z.object({
 
 const materialLineSchema = z.object({
   indoEndcaps:z.object({version:z.literal(1),left:z.number().int().min(0).max(200),right:z.number().int().min(0).max(200)}).optional(),
+  cutRoll: z.object({version:z.literal(1),widthMm:z.union([z.literal(2000),z.literal(4000)]),cuts:z.array(z.object({id:z.string().min(1).max(200),lengthMm:z.number().int().min(100).max(25000).multipleOf(10)})).min(1).max(100)}).optional(),
   plainWallpaper: z.object({ version: z.literal(1), panels: z.array(z.object({ id: z.string().min(1).max(200), widthMm: z.number().int().min(1).max(100000), heightMm: z.number().int().min(100).max(30000), allowanceMm: z.number().int().min(0).max(1000) })).min(1).max(100) }).optional(),
   material: materialSchema,
   // Ilość natywna materiału policzona przez silnik — nieujemna i skończona.

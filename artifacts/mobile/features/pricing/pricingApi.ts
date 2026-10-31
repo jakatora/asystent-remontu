@@ -1,3 +1,4 @@
+import {ROLLED_JOB,ROLLED_MODEL,rolledDemand} from '@/features/calculator/rolledVinyl';
 import {SKIRTING_JOB,SKIRTING_MODEL,skirtingEndcapDemand} from '@/features/calculator/skirting';
 import type {IndoEndcapDemand,IndoEndcapPlan} from '../../../../lib/pricing-service/src/indo-endcaps';
 // Klient HTTP do backendu wyceny (artifacts/api-server, router /pricing/*).
@@ -59,6 +60,7 @@ export interface PricingMaterialInput {
 }
 
 export interface PricingMaterialLineInput {
+  readonly cutRoll?: import('../../../../lib/pricing-service/src/cut-rolls').CutRollDemand;
   readonly indoEndcaps?: IndoEndcapDemand;
   readonly plainWallpaper?: PlainWallpaperRequirement;
   readonly material: PricingMaterialInput;
@@ -149,6 +151,7 @@ export interface SerializedProductOffer {
  * Kwoty w GROSZACH. Zgodny z api-server/lib/pricing-serialize.ts#SerializedPackage.
  */
 export interface SerializedPackage {
+  cutRoll?: import('../../../../lib/pricing-service/src/cut-rolls').CutRollPurchase;
   product?: SerializedProduct;
   purchaseMultiple?: number;
   minimumPackages?: number;
@@ -449,6 +452,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
           gtin: readOptionalCode(line.material, 'gtin'),
         },
         quantity: reference ? resolveMaterialQuantity(reference, calc)!.quantity : getRequiredQuantity(line, calc),
+        ...(calc.jobId===ROLLED_JOB&&calc.quantityModel===ROLLED_MODEL&&line.material.id==='vinyl-roll'&&rolledDemand(calc.measurements)?{cutRoll:rolledDemand(calc.measurements)!}:{}),
         ...(isWallpaperRoll(calc.jobId, line.material.id) && wallpaperRollPanels(calc.measurements) ? { plainWallpaper: { version: 1 as const, panels: wallpaperRollPanels(calc.measurements)! } } : {}),
         ...(calc.jobId===SKIRTING_JOB&&calc.quantityModel===SKIRTING_MODEL&&line.material.id==='skirting-endcaps'&&skirtingEndcapDemand(calc.measurements)?{indoEndcaps:skirtingEndcapDemand(calc.measurements)!}:{}),
         ...(line.packs !== undefined ? { packs: line.packs } : {}),

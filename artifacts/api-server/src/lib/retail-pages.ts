@@ -1,3 +1,4 @@
+import {readEwinylProduct} from './ewinyl-product';
 import {readDekoratorProduct} from './dekorator';
 import {readIntegraProduct} from './integra';
 import {readMlazienkaProduct} from './mlazienka';
@@ -66,7 +67,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'budshop-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra' | 'mlazienka' | 'dekorator';
+  format?: 'ewinyl' | 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'budshop-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra' | 'mlazienka' | 'dekorator';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -120,7 +121,8 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
   if(source.format==='krasny')stockPackages=readKrasnyStock(html,source);
-  if (source.skuIdentity && source.format!=='irbud-woo') products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
+  if(source.format==='ewinyl')products.push(readEwinylProduct(html,source));
+  else if (source.skuIdentity && source.format!=='irbud-woo') products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
   else if(source.format==='dekorator')products.push(readDekoratorProduct(html,source));
   else if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);
   else if (source.format === 'folnet') {

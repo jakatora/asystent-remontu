@@ -86,6 +86,7 @@ export interface SerializedProductOffer {
  * Wszystkie kwoty w GROSZACH. Serializer przepisuje pola 1:1 z PackagePlanEntry.
  */
 export interface SerializedPackage {
+  cutRoll?: import('../../../../lib/pricing-service/src/cut-rolls').CutRollPurchase;
   product?: SerializedProduct;
   purchaseMultiple?: number;
   minimumPackages?: number;
@@ -385,6 +386,7 @@ function serializeLine(line: EstimateLine): SerializedLine {
       ...(p.minimumPackages ? { minimumPackages: p.minimumPackages } : {}),
       ...(p.maxPackages !== undefined ? {maxPackages:p.maxPackages} : {}),
       ...(p.verification ? {verification:p.verification} : {}),
+      ...(p.cutRoll?{cutRoll:p.cutRoll}:{}),
       packageSize: p.packageSize,
       count: p.count,
       unitPriceGrosze: p.unitPriceGrosze,
@@ -470,6 +472,7 @@ function serializeConsolidatedLine(
       ...(entry.minimumPackages ? { minimumPackages: entry.minimumPackages } : {}),
       ...(entry.maxPackages !== undefined ? {maxPackages:entry.maxPackages} : {}),
       ...(entry.verification ? {verification:entry.verification} : {}),
+      ...(entry.cutRoll?{cutRoll:entry.cutRoll}:{}),
       packageSize: entry.packageSize, count: entry.count, unitPriceGrosze: entry.unitPriceGrosze,
       lineCostGrosze: entry.lineCostGrosze, store: entry.store, url: entry.url,
     })) } : {}),

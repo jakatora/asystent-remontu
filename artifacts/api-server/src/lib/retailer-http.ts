@@ -25,6 +25,16 @@ export class AnonymousShop {
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
   }
+  /** Exact public cut-to-length calculator, no checkout/customer submission.
+   * source: https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/ */
+  async ewinylAdd(widthMm:number,lengthMm:number,count:number):Promise<string>{
+    if(this.origin!=='https://ewinyl.pl'||![2000,4000].includes(widthMm)||!Number.isSafeInteger(lengthMm)||lengthMm<100||lengthMm>25000||lengthMm%10!==0||!Number.isSafeInteger(count)||count<1||count>100)throw Error('invalid_cart_action');
+    return this.text('/produkt/orion-514-05-wykladzina-winylowy-3m-4m/',{'add-to-cart':'5329',quantity:String(count),length_needed:(lengthMm/1000).toFixed(2),width_needed:String(widthMm/1000),_measurement_needed:(widthMm*lengthMm/1_000_000).toFixed(2),_measurement_needed_unit:'sq m'});
+  }
+  async ewinylShipping(postalCode:string,nonce:string):Promise<string>{
+    if(this.origin!=='https://ewinyl.pl'||!/^\d{2}-\d{3}$/.test(postalCode)||!/^[a-f0-9]{10}$/.test(nonce))throw Error('invalid_cart_action');
+    return this.text('/koszyk/',{calc_shipping_country:'PL',calc_shipping_state:'',calc_shipping_postcode:postalCode,calc_shipping_city:'',calc_shipping:'1','woocommerce-shipping-calculator-nonce':nonce,_wp_http_referer:'/koszyk/'});
+  }
   /** Only reviewed ShopGold anonymous basket actions for product 1367.
    * Tokens come from this same session's public storefront scripts. No generic
    * endpoint, customer fields, checkout, consent or final order operation.

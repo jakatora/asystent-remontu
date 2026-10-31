@@ -84,7 +84,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
         )}
       </View>
 
-      <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{t('upgrade.product.packages', { count: item.packagesNeeded, size: ref.packageSize, unit: ref.packageUnit })}</Txt>
+      <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{ref.materialType==='vinyl-roll'?'Wykładzina cięta na wymiar — rozliczenie za m²':t('upgrade.product.packages', { count: item.packagesNeeded, size: ref.packageSize, unit: ref.packageUnit })}</Txt>
       <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{t('upgrade.product.need', { quantity: Number(item.quantity.toFixed(2)), unit: ref.packageUnit })}</Txt>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -92,7 +92,7 @@ export function MaterialPriceCard({ item, onOverride, onReset }: MaterialPriceCa
           {ref.pricePerPackage.toFixed(2)} PLN / {ref.packageSize} {ref.packageUnit}
         </Txt>
         <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-          {t('cmp.MaterialPriceCard.packagesShort', { count: item.packagesNeeded })}
+          {ref.materialType==='vinyl-roll'?'Pełna szerokość rolki':t('cmp.MaterialPriceCard.packagesShort', { count: item.packagesNeeded })}
         </Txt>
       </View>
 

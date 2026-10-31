@@ -10,7 +10,7 @@ import { withOrderPartitions } from './order-partitions';
 import { materialPurchasePlans } from './material-purchase-plan';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
-const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}`)).sort().join('|');
+const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}:${pack.packageSize}:${JSON.stringify(pack.cutRoll??null)}`)).sort().join('|');
 const removable = (pack:PackagePlanEntry) => pack.count-(pack.purchaseMultiple??1)>=(pack.minimumPackages??1) ? (pack.purchaseMultiple??1) : pack.count;
 
 /** Enumerate all distributions of the required packs, including splitting the
@@ -114,6 +114,7 @@ async function compareAutomaticDeliveryOnce(
   const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
   if (groups.length > DELIVERY_LIMITS.products || activeStores.length > DELIVERY_LIMITS.stores) return tooLarge();
   if (groups.length > 20 || activeStores.length > 10) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
+  if(groups.some(group=>group.cutRoll))return compareSelectedBaskets(groups,activeStores,result,settings,quoteBasket,now);
   const choices: PackagePlanEntry[][][] = [];
   let candidateCount = 1;
   for (const group of groups) {
@@ -191,6 +192,10 @@ async function compareSelectedBaskets(
 ): Promise<DeliveryComparison> {
   const options = groups.map(group => {
     const offers = group.offers.filter(offer => isComparableOffer(offer, now.getTime()));
+    // A metre-square catalogue price is not an alternative one-m² pack. Keep
+    // the actual whole cut in bounded allocations. Multi-piece plans are added
+    // intact below; their individual pieces must never become alternatives.
+    if(group.cutRoll)return offers.flatMap(offer=>{const plan=optimizeGroupPackages(group,[offer]);return plan?.packages.length===1?plan.packages:[];});
     const sizes = offers.map(offer => Number(offer.packageSize ?? group.product.packageSize));
     if (!sizes.length || sizes.some(size => !Number.isFinite(size) || size <= 0)) return null;
     return offers.flatMap(offer => {

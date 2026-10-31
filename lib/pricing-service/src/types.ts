@@ -47,6 +47,7 @@ export interface ItemQuery {
 
 /** Pozycja z kalkulatora: co i ile trzeba kupić. */
 export interface EstimateItem {
+  cutRoll?: import('./cut-rolls').CutRollDemand;
   query: ItemQuery;
   /** Potrzebna ilość w jednostkach `unit` (np. 25 litrów farby). */
   quantity: number;
@@ -100,6 +101,7 @@ export interface PackageVariant {
 
 /** Jedna wybrana wielkość opakowania w optymalnej kombinacji zakupu. */
 export interface PackagePlanEntry {
+  cutRoll?: import('./cut-rolls').CutRollPurchase;
   product?: Product;
   purchaseMultiple?: number;
   minimumPackages?: number;
@@ -141,6 +143,7 @@ export interface PackagePlan {
 
 /** Powód, dla którego pozycji nie dało się wycenić. */
 export type UnresolvedReason =
+  | "cut-dimensions-required"
   | "no-query" // brak jakiegokolwiek kryterium dopasowania
   | "no-product" // brak produktu w katalogu
   | "no-offer" // produkt jest, ale brak aktualnej oferty z ceną
@@ -148,6 +151,7 @@ export type UnresolvedReason =
 
 /** Wyceniona pozycja (produkt dopasowany, oferta z ceną). */
 export interface ResolvedLine {
+  cutRoll?: import('./cut-rolls').CutRollDemand;
   indoEndcaps?: import('./indo-endcaps').IndoEndcapDemand;
   /** Validated full-height cuts for the exact reviewed plain wallpaper roll. */
   plainWallpaper?: import('./wallpaper-rolls').PlainWallpaperRequirement;

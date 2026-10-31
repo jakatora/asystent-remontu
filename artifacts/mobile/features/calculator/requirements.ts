@@ -1,3 +1,4 @@
+import {ROLLED_MODEL,isRolledMaterial,rolledQuantity} from './rolledVinyl';
 import {VINYL_CLICK_MODEL,isVinylClickMaterial,vinylClickQuantity} from './vinylClick';
 import {TRAP_MODEL,isTrapMaterial,trapQuantity} from './trapReplacement';
 import {SEAT_MODEL,isSeatMaterial,seatQuantity} from './toiletSeatReplacement';
@@ -29,6 +30,7 @@ import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } fro
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.quantityModel===ROLLED_MODEL&&isRolledMaterial(calc.jobId,line.material.id))return rolledQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===VINYL_CLICK_MODEL&&isVinylClickMaterial(calc.jobId,line.material.id))return vinylClickQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===TRAP_MODEL&&isTrapMaterial(calc.jobId,line.material.id))return trapQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===SEAT_MODEL&&isSeatMaterial(calc.jobId,line.material.id))return seatQuantity(line.material.id,calc.measurements)??0;

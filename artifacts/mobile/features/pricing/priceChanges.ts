@@ -1,4 +1,5 @@
 import type { SerializedProject } from './pricingApi';
+import {cutRollCost,type CutRollPurchase} from '../../../../lib/pricing-service/src/cut-rolls';
 
 export interface SeenPrice {
   key: string; offerId: string; productName: string; store: string;
@@ -7,6 +8,7 @@ export interface SeenPrice {
 export interface PriceSnapshot { version: 1; offers: Record<string, SeenPrice> }
 export interface PriceChange extends SeenPrice { previousGrosze: number; deltaGrosze: number; previousCheckedAt: string }
 export interface BasketPricePack {
+  cutRoll?: CutRollPurchase;
   offerId: string; packageSize: number; count: number;
   unitPriceGrosze: number; lineCostGrosze: number;
 }
@@ -14,6 +16,11 @@ export interface BasketPricePack {
 /** Material-only difference for the same priced pack in the displayed basket.
  * A different offer, pack size or quoted unit price must not inherit a change. */
 export function basketMaterialPriceDelta(change: PriceChange, pack: BasketPricePack): number | null {
+  if(pack.cutRoll){
+    const cut=pack.cutRoll,current=cutRollCost(cut.widthMm,cut.lengthMm,change.priceGrosze),previous=cutRollCost(cut.widthMm,cut.lengthMm,change.previousGrosze);
+    if(!isCutRollPrice(change)||pack.offerId!==change.offerId||cut.pricePerM2Grosze!==change.priceGrosze||pack.packageSize!==cut.widthMm*cut.lengthMm/1_000_000||current===null||previous===null||pack.unitPriceGrosze!==current||!Number.isSafeInteger(pack.count)||pack.count<1||pack.lineCostGrosze!==current*pack.count||change.deltaGrosze!==change.priceGrosze-change.previousGrosze)return null;
+    const delta=(current-previous)*pack.count;return Number.isSafeInteger(delta)?delta:null;
+  }
   if (pack.offerId !== change.offerId || pack.packageSize !== change.packageSize ||
     pack.unitPriceGrosze !== change.priceGrosze ||
     !Number.isSafeInteger(change.deltaGrosze) || change.deltaGrosze !== change.priceGrosze - change.previousGrosze ||
@@ -22,6 +29,10 @@ export function basketMaterialPriceDelta(change: PriceChange, pack: BasketPriceP
     !Number.isSafeInteger(pack.lineCostGrosze) || !Number.isSafeInteger(change.previousGrosze * pack.count)) return null;
   const delta = change.deltaGrosze * pack.count;
   return Number.isSafeInteger(delta) ? delta : null;
+}
+
+export function isCutRollPrice(change:PriceChange):boolean {
+  return ['ewinyl-orion514-2m','ewinyl-orion514-4m'].includes(change.offerId)&&change.packageSize===1&&change.unit==='m2';
 }
 export const emptyPriceSnapshot = (): PriceSnapshot => ({ version:1, offers:{} });
 const valid = (p: any): p is SeenPrice => p && typeof p.key==='string' && p.key.length<500 && typeof p.offerId==='string' && typeof p.productName==='string' && typeof p.store==='string' &&

@@ -12,6 +12,11 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233
+  {"ids":["mat-vinyl-adhesive-tytan-osakryl-4kg"],"ean":"5903518039515","sourceUrl":"https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233","imageUrl":"https://sklep.sewera.pl/photo/150507/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan.webp"},
+  // source: https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/
+  // The same photographed decor is available in two explicitly selected widths.
+  {"ids":["mat-roll-orion514-ewinyl-2m","mat-roll-orion514-ewinyl-4m","remont-sku-ewinyl-5329-2m","remont-sku-ewinyl-5329-4m"],"sourceUrl":"https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/","imageUrl":"https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg"},
   // source: https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891
   {"ids":["mat-vinyl-underlay-volden-lvt-625m2"],"ean":"5063022038326","sourceUrl":"https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_53817_500_500/9772c302db12f1d82525f11644d6fe42.jpg"},
   // source: https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683

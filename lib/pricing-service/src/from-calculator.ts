@@ -57,6 +57,7 @@ export interface CalculatorMaterial {
 /** Minimalny kształt pozycji z `CalculationResult.materials` (MaterialLineItem). */
 export interface CalculatorMaterialLine {
   readonly indoEndcaps?: IndoEndcapDemand;
+  readonly cutRoll?: import('./cut-rolls').CutRollDemand;
   readonly plainWallpaper?: PlainWallpaperRequirement;
   readonly material: CalculatorMaterial;
   /** Ilość w jednostkach natywnych materiału (zaokrąglona przez silnik). */
@@ -123,6 +124,7 @@ function toItemQuery(material: CalculatorMaterial): ItemQuery {
 /** Mapuje pojedynczą pozycję kalkulatora na `EstimateItem` wyceny. */
 export function toEstimateItem(line: CalculatorMaterialLine): EstimateItem {
   return {
+    ...(line.cutRoll ? {cutRoll:line.cutRoll} : {}),
     query: toItemQuery(line.material),
     quantity: line.quantity,
     unit: line.material.unit?.trim() || null,

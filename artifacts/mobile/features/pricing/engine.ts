@@ -77,7 +77,7 @@ export function computePricedBudget(input: PricingInput): PricedBudgetEstimate {
     const effectivePrice = hasOverride ? overrideMap.get(overrideKey)! : ref.pricePerPackage;
 
     const quantity = requirement.quantity;
-    const packagesNeeded = computePackagesNeeded(quantity,ref.packageSize,ref.purchaseMultiple);
+    const packagesNeeded = ref.materialType==='vinyl-roll'?quantity:computePackagesNeeded(quantity,ref.packageSize,ref.purchaseMultiple);
     const totalCost = roundMoney(packagesNeeded * effectivePrice);
 
     return [{

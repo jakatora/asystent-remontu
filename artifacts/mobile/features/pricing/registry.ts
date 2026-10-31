@@ -1,3 +1,4 @@
+import {ROLLED_JOB,rolledMaterials,rolledReference} from '@/features/calculator/rolledVinyl';
 import {VINYL_CLICK_JOB,vinylClickMaterials,vinylClickReference} from '@/features/calculator/vinylClick';
 import {TRAP_JOB,trapMaterials,trapReference} from '@/features/calculator/trapReplacement';
 import {SEAT_JOB,seatMaterials,seatReference} from '@/features/calculator/toiletSeatReplacement';
@@ -80,7 +81,7 @@ export function getMaterialsForJob(jobId: string, tier: MaterialCategory, measur
   if(jobId===VINYL_CLICK_JOB)return vinylClickMaterials(measurements??{}).flatMap(m=>{const id=vinylClickReference(m.id,measurements??{}),ref=id?MATERIAL_BY_ID.get(id):undefined;return ref?[ref]:[];});
   // Rolled glued flooring is a different product and installation method.
   // Do not inherit a self-adhesive Ragga tile or click-floor supplies.
-  if(jobId==='vinyl-glued')return [];
+  if(jobId===ROLLED_JOB)return rolledMaterials(measurements??{}).flatMap(m=>{const id=rolledReference(m.id,measurements??{}),ref=id?MATERIAL_BY_ID.get(id):undefined;return ref?[ref]:[];});
   if(jobId===TRAP_JOB)return trapMaterials(measurements??{}).flatMap(m=>{const key=trapReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===SEAT_JOB)return seatMaterials(measurements??{}).flatMap(m=>{const key=seatReference(m.id,measurements??{}),ref=key?MATERIAL_BY_ID.get(key):undefined;return ref?[ref]:[];});
   if(jobId===SOCKET_FRAME_JOB)return measurements?.frameSeriesConfirmed===1?socketFrameMaterials(measurements).flatMap(m=>{const ref=MATERIAL_BY_ID.get(socketFrameReference(m.id));return ref?[ref]:[];}):[];

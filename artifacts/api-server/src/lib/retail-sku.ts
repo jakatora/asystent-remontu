@@ -1,3 +1,4 @@
+import {isReviewedEwinylSource} from './ewinyl-product';
 import type { RetailSource } from './retail-pages';
 import { cleanHtml, htmlElements, htmlAttributes, htmlText, htmlLabel } from './retail-microdata';
 
@@ -15,7 +16,7 @@ const URL = 'https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282';
 // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282
 // source: https://tape.pl/marki/31-goldflex (manufacturer lists TB-FB00202)
 export function isReviewedSkuSource(source: RetailSource): boolean {
-  if (isReviewedIrbudSource(source)) return true;
+  if (isReviewedIrbudSource(source)||isReviewedEwinylSource(source)) return true;
   const sku = source.skuIdentity;
   return source.id === 'sewera-packcenter-edge-tape-50m' && source.ean === ''
     && source.store === 'Sewera' && source.format === 'sewera' && source.url === URL
@@ -30,6 +31,13 @@ export function isReviewedSkuSource(source: RetailSource): boolean {
  * merchant card or branch must be reviewed before checkout uses it. */
 export function isReviewedSeweraDispatchSource(source: RetailSource): boolean {
   if (isReviewedSkuSource(source)) return true;
+  // Native branch cards on 2026-10-31: 6 buckets in Tarnowskie Góry;
+  // Katowice/Sosnowiec/Gliwice had none. Retail SZT is one sealed 4 kg bucket.
+  // source: https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233
+  if(source.id==='sewera-osakryl-4kg')return source.ean==='5903518039515'&&source.skuIdentity===undefined&&source.store==='Sewera'&&source.format==='sewera'&&source.retailUnit==='SZT'
+    &&source.url==='https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233'&&source.name==='Klej do wykładzin Osakryl uniwersalny 4kg Tytan'&&source.brand==='Tytan'&&source.category==='adhesive'&&source.packageSize===4&&source.unit==='kg'
+    &&source.dispatchDepartment?.id==='4'&&source.dispatchDepartment.name==='Tarnowskie Góry';
+
   // Exact simple ES hangers, reviewed 2026-10-31: 75 mm in Katowice,
   // 125 mm in Sosnowiec. Each native retail SZT is one hanger, not 100.
   // source: https://sklep.sewera.pl/wieszak-es-6075-prosty-rigips-p13734
@@ -82,7 +90,7 @@ export function isReviewedIrbudSource(source:RetailSource):boolean {
   &&source.name==='Profil główny sufitowy CD60 3 MB / 0,6'&&source.brand==='Norgips'&&source.category==='profile'&&source.packageSize===3&&source.unit==='mb'&&source.productId===10911
   &&source.url==='https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/'&&sku?.kind==='merchant-only'&&sku.catalogKey==='irbud-10911'&&sku.merchantProductId==='10911'&&sku.manufacturerSku===undefined&&sku.pageBarcode===undefined;
 }
-export function retailSkuCode(source:RetailSource):string|undefined{return isReviewedIrbudSource(source)?source.skuIdentity!.merchantProductId:source.skuIdentity?.manufacturerSku;}
+export function retailSkuCode(source:RetailSource):string|undefined{if(isReviewedEwinylSource(source))return source.skuIdentity!.catalogKey;return isReviewedIrbudSource(source)?source.skuIdentity!.merchantProductId:source.skuIdentity?.manufacturerSku;}
 /** The sheet and sealed 50-pack of manufacturer article 269221 have distinct
  * GTINs. This one mapping is supported by the manufacturer's article table
  * and by a retailer table listing both GTINs for the same sheet.
@@ -115,7 +123,7 @@ export function retailProductId(source: RetailSource): string {
 }
 
 export function retailProductName(source: RetailSource): string {
-  if (!source.skuIdentity) return source.name;
+  if (!source.skuIdentity||isReviewedEwinylSource(source)) return source.name;
   if (!isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
   return isReviewedIrbudSource(source) ? `${source.name} (${source.brand}, oferta ${source.store})` : `${source.name} (${source.brand} ${source.skuIdentity.manufacturerSku})`;
 }

@@ -1,3 +1,4 @@
+import {reviewedCutRoll,cutRollPackagePlan,validCutRollDemand,type CutRollDemand} from './cut-rolls';
 import {resolvePackageFamily,mergePackageFamilyGroups} from './package-families';
 import {mixedPackagePlans} from './mixed-package-plans';
 import {confirmedIndoEndcapDemand,type IndoEndcapPlan} from './indo-endcaps';
@@ -236,6 +237,11 @@ async function estimateLine(
   if (!offers.length) {
     return { resolved: false, ...base, reason: "no-offer", lineCost: 0 };
   }
+  if(reviewedCutRoll(product)){
+    const plan=cutRollPackagePlan(product,item.cutRoll,item.quantity,offers);
+    if(!plan)return{resolved:false,...base,reason:'cut-dimensions-required',lineCost:0};
+    return{resolved:true,...base,product,offers,cheapestOffer:selectCheapestOffer(offers,options.store)!,packageSize:1,packagesNeeded:plan.packages.length,lineCost:plan.totalGrosze,packagePlan:plan,cutRoll:structuredClone(item.cutRoll!)};
+  }
   const variants = buildPackageVariants(offers, product, options.store);
   const packagePlan = family ? mixedPackagePlans(item.quantity,variants).plans[0]??null : optimizePackages(item.quantity, variants);
   if (!packagePlan) return {resolved:false,...base,reason:offers.some(o=>o.maxPackages!==undefined)?'insufficient-stock':'no-offer',lineCost:0};
@@ -306,6 +312,7 @@ export async function estimateStageCost(
  * (compareStores) — grupowanie po `product.id` liczymy raz i tak samo.
  */
 export interface ProductGroup {
+  cutRoll?: CutRollDemand;
   requiredBySize?: Readonly<Record<string,number>>;
   indoEndcapPlan?: IndoEndcapPlan;
   wallpaperCutPlan?: WallpaperCutPlan;
@@ -346,12 +353,16 @@ export function groupProjectByProduct(
         cuts.set(key, entry);
       }
       const existing = groups.get(key);
+      const roll=validCutRollDemand(line.cutRoll)?{...line.cutRoll,cuts:line.cutRoll.cuts.map(c=>({...c,id:`${stageIndex}:${c.id}`}))}:undefined;
       if (existing) {
+        if(roll&&existing.cutRoll&&roll.widthMm===existing.cutRoll.widthMm)existing.cutRoll.cuts.push(...roll.cuts);
+        else if(reviewedCutRoll(line.product))existing.cutRoll=undefined;
         existing.totalQuantity += line.quantity;
         existing.perStageCostGrosze += line.lineCost;
         if (existing.unit === null && line.unit !== null) existing.unit = line.unit;
       } else {
         groups.set(key, {
+          ...(roll?{cutRoll:roll}:{}),
           product: line.product,
           cheapestOffer: line.cheapestOffer,
           offers: line.offers,
@@ -379,6 +390,7 @@ export function groupProjectByProduct(
 
 /** Same native size requirements apply to material totals, stock and delivery. */
 export function optimizeGroupPackages(group:ProductGroup,offers:readonly ProductOffer[]=group.offers){
+  if(reviewedCutRoll(group.product))return cutRollPackagePlan(group.product,group.cutRoll,group.totalQuantity,offers);
   const variants=buildPackageVariants(offers,group.product);
   return group.requiredBySize||group.product.id.startsWith('remont-family-')?mixedPackagePlans(group.totalQuantity,variants,group.requiredBySize).plans[0]??null:optimizePackages(group.totalQuantity,variants);
 }

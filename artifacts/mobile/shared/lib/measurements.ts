@@ -1,3 +1,4 @@
+import {ROLLED_JOB,rolledFloorArea,rolledInputVisible} from '@/features/calculator/rolledVinyl';
 import {vinylClickInputVisible} from '@/features/calculator/vinylClick';
 import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
 import {cabinetInputVisible} from '@/features/calculator/cabinetPainting';
@@ -13,7 +14,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   const values: Record<string, number> = {};
   const errors: { label: string; id: string; min?: number; max?: number }[] = [];
   for (const input of job.measurementInputs) {
-    if (!vinylClickInputVisible(job.id,input.id,raw) || !socketFrameInputVisible(job.id,input.id,raw) || !cabinetInputVisible(job.id,input.id,raw) || !underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
+    if (!rolledInputVisible(job.id,input.id,raw) || !vinylClickInputVisible(job.id,input.id,raw) || !socketFrameInputVisible(job.id,input.id,raw) || !cabinetInputVisible(job.id,input.id,raw) || !underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
     if (!text && input.defaultValue === undefined && input.required === false) continue;
     const value = text ? parseDecimal(text) : input.defaultValue;
@@ -37,5 +38,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   if (job.id==='gypsum-ceiling'&&values.ceilingArea>0&&values.perimeter+0.1<4*Math.sqrt(values.ceilingArea))errors.push({id:'perimeter',label:'Obwód jest za mały dla podanej powierzchni; sprawdź pomiary'});
   if(job.id===UNDERLAY_JOB&&values.underlayFoilAreaM2<values.floorArea)errors.push({id:'underlayFoilAreaM2',label:'Powierzchnia folii nie może być mniejsza od podłogi',min:values.floorArea});
   if(job.id===SOCKET_FRAME_JOB&&values.frameLayout===2&&Number.isFinite(values.frameCount)&&values.frameDoubleCount+values.frameTripleCount>values.frameCount)errors.push({id:'frameDoubleCount',label:'Suma ramek podwójnych i potrójnych przekracza łączną liczbę ramek',max:values.frameCount});
+  if(job.id===ROLLED_JOB&&values.rollAdhesiveChoice===1&&Number.isFinite(values.rollAdhesiveGm2)&&(values.rollAdhesiveGm2<400||values.rollAdhesiveGm2>600))errors.push({id:'rollAdhesiveGm2',label:'Soudal 26A: zużycie od 400 do 600 g/m²',min:400,max:600});
+  if(job.id===ROLLED_JOB){const area=rolledFloorArea(values);if(area===null)errors.push({id:'rollRoomWidthM',label:'Sprawdź wymiary: powierzchnia podłogi musi mieścić się w 200 m²'});else values.floorArea=area;}
   return { values, errors };
 }

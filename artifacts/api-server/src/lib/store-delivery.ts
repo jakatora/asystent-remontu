@@ -4,6 +4,8 @@ import type { StoreDeliveryPolicy } from '../../../../lib/pricing-service/src/de
  * prepaid home delivery in Poland, not guessed fees for an arbitrary basket.
  * Weight, dimensions, payment and postcode can change the checkout quote. */
 export const STORE_DELIVERY_POLICIES: readonly StoreDeliveryPolicy[] = [
+  // source: https://ewinyl.pl/koszyk/
+  {store:'eWinyl',minimumGrosze:null,checkedAt:null,sourceUrl:'https://ewinyl.pl/koszyk/'},
   // Cost depends on the exact cart; quotation confirms any free threshold.
   // source: https://dekoratormarket.pl/zasady-wysylki-pm-16.html
   {store:'DekoratorMarket',minimumGrosze:null,checkedAt:null,sourceUrl:'https://dekoratormarket.pl/zasady-wysylki-pm-16.html'},

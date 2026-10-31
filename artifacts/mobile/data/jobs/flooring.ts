@@ -1,3 +1,4 @@
+import {rolledInputs,rolledMaterials} from '@/features/calculator/rolledVinyl';
 import {vinylClickInputs,vinylClickMaterials} from '@/features/calculator/vinylClick';
 import {underlayInputs,underlayMaterials} from '@/features/calculator/underlayInstall';
 import {skirtingInputs,skirtingMaterials,skirtingInstructions} from '@/features/calculator/skirting';
@@ -260,8 +261,8 @@ export const vinylGluedJob: RenovationJob = {
   slug: 'wykladzia-winylowa-klejona',
   categoryId: 'vinyl',
   name: 'Wykładzina winylowa klejona',
-  shortDescription: 'Wyklej wykładzinę winylową rolową — idealna do kuchni i łazienki.',
-  description: 'Wykładzina rolowa klejona bezpośrednio do podłoża nie wymaga szczeliny dylatacyjnej i leży stabilnie. Wymaga równego, suchego podłoża i właściwego kleju.',
+  shortDescription: 'Dobierz pełną szerokość i długość wykładziny PCV oraz klej.',
+  description: 'Wykładzina PCV z rolki, cięta na wymiar i klejona na całej powierzchni. Dobór uwzględnia szerokość, kierunek wzoru i docinki. Podłoże, łączenia i warunki montażu wymagają sprawdzenia według instrukcji wykładziny i kleju.',
   difficulty: 'medium',
   riskLevel: 'low',
   estimatedDays: 1,
@@ -269,80 +270,31 @@ export const vinylGluedJob: RenovationJob = {
   visibilityMode: 'safe_diy',
   coverIcon: 'layers',
   warningRules: [
-    { condition: 'always', message: 'Podłoże musi być absolutnie suche — klej nie działa na wilgotnym betonie.', level: 'warning' },
-    { condition: 'always', message: 'Temperatura pokoju podczas klejenia min. 15°C — klej traci przyczepność na zimnie.', level: 'info' },
+    // source: https://www.lentexflooring.com/wp-content/uploads/2016/04/Instrukcja-montazu-i-uzytkowania-wykladziny-2026-PL.pdf
+    { condition: 'always', message: 'Sprawdź równość i zmierzoną wilgotność podłoża według instrukcji wykładziny oraz wybranego kleju.', level: 'warning' },
+    { condition: 'always', message: 'Orion: temperatura powietrza 17–25°C i podłoża 15–22°C. Aklimatyzuj wykładzinę przez 24 godziny i uwzględnij wymagania kleju.', level: 'info' },
   ],
   measurementInputs: [
-    { id: 'floorArea', label: 'Powierzchnia podłogi', unit: 'm²', inputType: 'area',
-      placeholder: 'np. 10', min: 1, max: 200,
-      hint: 'Długość × szerokość. Dodaj 5–10 cm na każdą ścianę na cięcia.' },
-    { id: 'perimeter', label: 'Obwód pomieszczenia', unit: 'm', inputType: 'length',
-      placeholder: 'np. 14', min: 2, max: 100, required: false,
-      hint: 'Do obliczenia listew przypodłogowych.' },
+    {id:'floorArea',label:'Powierzchnia podłogi',unit:'m²',inputType:'area',placeholder:'',required:false},
+    {id:'perimeter',label:'Obwód pomieszczenia',unit:'m',inputType:'length',placeholder:'',required:false},
+    ...rolledInputs,
   ],
-  materials: [
-    {
-      id: 'vinyl-roll',
-      name: 'Wykładzina winylowa rolowa',
-      unit: 'm²',
-      formulaKey: 'floorPanels',
-      wasteFactor: 1.1,
-      pricePerUnit: 55,
-      category: 'wykładzina',
-      notes: 'Grubość min. 2 mm z warstwą użytkową 0,3+ mm. Rolki zazwyczaj szer. 2–4 m.',
-    },
-    {
-      id: 'vinyl-adhesive',
-      name: 'Klej do wykładzin winylowych',
-      unit: 'kg',
-      formula: formulaBuilder.kgPerSqm(0.4),
-      wasteFactor: 1.05,
-      roundingRule: 'ceil',
-      packaging: { size: 4, label: 'wiadro 4 kg', purchaseUnit: 'wiadro' },
-      pricePerUnit: 20,
-      category: 'klej',
-      notes: 'Klej dyspersyjny. Nakładaj pacą zębatą i odczekaj czas otwarty (zazwyczaj 15 min).',
-    },
-    {
-      id: 'primer-vinyl',
-      name: 'Grunt pod klej do wykładzin',
-      unit: 'litr',
-      formulaKey: 'primer',
-      wasteFactor: 1.0,
-      packaging: { size: 5, label: 'kanister 5 L', purchaseUnit: 'kanister' },
-      pricePerUnit: 18,
-      category: 'grunt',
-      optional: true,
-      notes: 'Na chłonnych podłożach (beton, anhydryt) — zapobiega zbyt szybkiemu wsiąkaniu kleju.',
-    },
-    {
-      id: 'skirting-glued',
-      name: 'Listwy przypodłogowe PVC',
-      unit: 'm.b.',
-      formulaKey: 'byPerimeter',
-      wasteFactor: 1.1,
-      packaging: { size: 2.4, label: 'listwa 2,4 m', purchaseUnit: 'listwa' },
-      pricePerUnit: 6,
-      category: 'wykończenie',
-    },
-  ],
+  materials: rolledMaterials(),
   tools: [
     { id: 'notched-trowel-small', name: 'Paca zębata (do kleju)', icon: 'minus', required: true, estimatedBuyCostPLN: 20 },
-    { id: 'roller-vinyl', name: 'Wałek dociskowy do wykładzin', icon: 'edit-2', required: true, notes: 'Dociska wykładzinę do kleju równomiernie', estimatedBuyCostPLN: 30 },
+    { id: 'roller-vinyl', name: 'Walec dociskowy zgodny z instrukcją wykładziny', icon: 'edit-2', required: true, notes: 'Instrukcja Orion wskazuje walec 50 kg. Sprawdź dostępność wypożyczenia; mały ręczny wałek nie jest automatycznie równoważny.' },
     { id: 'sharp-knife-vinyl', name: 'Nóż z ostrzem łamanym', icon: 'scissors', required: true },
     { id: 'ruler-metal', name: 'Liniał stalowy (do cięcia)', icon: 'minus', required: true },
   ],
   instructions: [
-    { step: 1, title: 'Przygotuj i zagruntuj podłoże', description: 'Podłoże musi być suche, równe i czyste. Nanieś grunt i poczekaj na wyschnięcie.', durationMin: 60 },
-    { step: 2, title: 'Rozplanuj i przytnij wykładzinę', description: 'Rozłóż wykładzinę luzem i zostaw 5–10 cm nadmiaru przy ścianach. Przytnij wstępnie. Jeśli potrzebujesz łączenia — zaplanuj szew w mało widocznym miejscu.', durationMin: 30 },
-    { step: 3, title: 'Nałóż klej', description: 'Zawiń wykładzinę do połowy. Pacą zębatą nanieś klej na podłoże. Odczekaj czas otwarty wskazany przez producenta (zazwyczaj 10–20 min) — klej powinien lekko kleić się do dotyku.', tip: 'Nie nakładaj kleju na zbyt dużą powierzchnię naraz — straci czas otwarty.', durationMin: 30 },
-    { step: 4, title: 'Przyklejaj i dociskaj', description: 'Ostrożnie połóż wykładzinę na kleju. Walcem dociskaj od środka na zewnątrz — usuwa pęcherzyki powietrza. Powtórz dla drugiej połowy.', durationMin: 60 },
+    { step: 1, title: 'Przygotuj i zagruntuj podłoże', description: 'Sprawdź równość, nośność i wilgotność. Dobierz naprawę, wyrównanie i grunt do systemu podłogi i kleju; poczekaj na wymagane wyschnięcie.', durationMin: 60 },
+    { step: 2, title: 'Rozplanuj i przytnij wykładzinę', description: 'Uwzględnij pełną szerokość rolki i 10 cm zapasu do każdego wymiaru. Zachowaj partię, kierunek wzoru oraz dopasowanie pasów. Łączenia wykładziny obiektowej Orion wymagają spawania na gorąco zgodnie z instrukcją.', durationMin: 30 },
+    { step: 3, title: 'Nałóż klej', description: 'Odwiń część wykładziny i rozprowadź klej na całej przewidzianej powierzchni. Typ pacy, ilość, odparowanie i czas pracy dobierz według karty konkretnego kleju; normy różnych klejów nie są zamienne.', tip: 'Nie nakładaj kleju na zbyt dużą powierzchnię naraz — straci czas otwarty.', durationMin: 30 },
+    { step: 4, title: 'Przyklejaj i dociskaj', description: 'Ułóż wykładzinę i dociśnij walcem przewidzianym przez producenta. Powtórz dla pozostałej powierzchni. Przed użytkowaniem i spawaniem odczekaj czas wymagany przez wybrany klej i instrukcję wykładziny.', durationMin: 60 },
     { step: 5, title: 'Dotnij i montuj listwy', description: 'Nożem dotnij wykładzinę przy ścianach. Zamontuj listwy przypodłogowe — zakrywają styk.', durationMin: 45 },
   ],
-  dryingTimes: [
-    { afterStep: 1, description: 'Grunt przed klejeniem', minHours: 2, maxHours: 4 },
-    { afterStep: 4, description: 'Klej do wykładzin — pełna wytrzymałość', minHours: 24, maxHours: 48 },
-  ],
+  // Drying depends on the explicitly selected adhesive; no universal timer.
+  dryingTimes: [],
   commonMistakes: ['Klejenie na wilgotnym betonie — klej odpada', 'Brak czasu otwarcia kleju — wykładzina się przesuwa', 'Brak walca dociskowego — pęcherzyki powietrza pod wykładziną'],
   qualityChecklist: [
     { id: 'q1', description: 'Wykładzina leży płasko — brak pęcherzy i fal', critical: true },
@@ -352,8 +304,11 @@ export const vinylGluedJob: RenovationJob = {
   hireProfessionalRecommended: false,
   tags: ['vinyl', 'wykładzina', 'klejona', 'podłoga'],
 
-  verifiedAt: '2026-07-10',
+  verifiedAt: '2026-10-31',
   verifiedSources: [
+    {title:'Lentex — instrukcja montażu i użytkowania 2026',url:'https://www.lentexflooring.com/wp-content/uploads/2016/04/Instrukcja-montazu-i-uzytkowania-wykladziny-2026-PL.pdf',domain:'lentexflooring.com',consultedAt:'2026-10-31'},
+    {title:'Soudal 26A — aktualny opis techniczny',url:'https://www.soudal.pl/sites/default/files/soudal_api/document/F0039177_0001.pdf',domain:'soudal.pl',consultedAt:'2026-10-31'},
+    {title:'Tytan Osakryl — karta techniczna i pojemności',url:'https://tytan-cdn.tytan.com/uploads/sites/53/2025/11/NO20NAME20OSAKRYL20Uniwersalny20Klej20do20WykC582adzin_04-03-2025_TDS_pl.pdf',domain:'tytan.com',consultedAt:'2026-10-31'},
     {
       title:       'Montaż wykładziny PCV krok po kroku. Co musisz wiedzieć, zanim zaczniesz?',
       url:         'https://komfort.pl/porady/jak-polozyc-wykladzine-pcv',

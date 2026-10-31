@@ -1,3 +1,4 @@
+import {reviewRolledCalculation,reviewRolledProject,reviewRolledShopping} from './rolledVinyl';
 import {reviewVinylClickCalculation,reviewVinylClickProject,reviewVinylClickShopping} from './vinylClick';
 import {reviewTrapCalculation,reviewTrapProject,reviewTrapShopping} from './trapReplacement';
 import {reviewSeatCalculation,reviewSeatProject,reviewSeatShopping} from './toiletSeatReplacement';
@@ -34,10 +35,10 @@ const upgradeWithWallpaperCalculation = (calc: CalculationResult | undefined) =>
 const upgradeWithWallpaperProject = (project: Project) => reviewWallpaperRollProject(reviewWallpaperTapeProject(reviewWallpaperAdhesiveProject(reviewLaminateProject(upgradePreviousProject(project)))));
 export const upgradeBeforeCabinetCalculation = (calc: CalculationResult | undefined) => reviewCoDetectorCalculation(reviewUnderlayCalculation(reviewGroutOnlyCalculation(reviewWindowCalculation(reviewSkirtingCalculation(reviewWaterproofingCalculation(reviewPlasterCalculation(upgradeWithWallpaperCalculation(calc))))))));
 export const upgradeBeforeCabinetProject = (project: Project) => reviewCoDetectorProject(reviewUnderlayProject(reviewGroutOnlyProject(reviewWindowProject(reviewSkirtingProject(reviewWaterproofingProject(reviewPlasterProject(upgradeWithWallpaperProject(project))))))));
-export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewVinylClickCalculation(reviewSeatCalculation(reviewTrapCalculation(reviewSocketFrameCalculation(reviewHardwareCalculation(reviewCabinetCalculation(upgradeBeforeCabinetCalculation(calc)))))));
-export const upgradeProject = (project: Project) => reviewVinylClickProject(reviewSeatProject(reviewTrapProject(reviewSocketFrameProject(reviewHardwareProject(reviewCabinetProject(upgradeBeforeCabinetProject(project)))))));
+export const upgradeCalculation = (calc: CalculationResult | undefined) => reviewRolledCalculation(reviewVinylClickCalculation(reviewSeatCalculation(reviewTrapCalculation(reviewSocketFrameCalculation(reviewHardwareCalculation(reviewCabinetCalculation(upgradeBeforeCabinetCalculation(calc))))))));
+export const upgradeProject = (project: Project) => reviewRolledProject(reviewVinylClickProject(reviewSeatProject(reviewTrapProject(reviewSocketFrameProject(reviewHardwareProject(reviewCabinetProject(upgradeBeforeCabinetProject(project))))))));
 export const projectShopping = (items: readonly ShoppingItem[], calc?: CalculationResult) => {
   const previous = reviewFinishingShopping(reviewSanitaryShopping(reviewSubstrateShopping(projectCeilingShopping(projectSinkShopping(projectEpsShopping(items, calc), calc),calc),calc),calc),calc);
   const reviewed = reviewSkirtingShopping(reviewWaterproofingShopping(reviewWallpaperRollShopping(reviewWallpaperTapeShopping(reviewWallpaperAdhesiveShopping(reviewLaminateShopping(reviewRemovalShopping(reviewGypsumShopping(reviewFrameShopping(previous,calc),calc),calc),calc),calc),calc),calc),calc),calc);
-  return reviewVinylClickShopping(reviewSeatShopping(reviewTrapShopping(reviewSocketFrameShopping(reviewHardwareShopping(reviewCabinetShopping(reviewCoDetectorShopping(reviewUnderlayShopping(reviewGroutOnlyShopping(reviewWindowShopping(reviewPlasterShopping(reviewed,calc),calc),calc),calc),calc),calc),calc),calc),calc),calc),calc);
+  return reviewRolledShopping(reviewVinylClickShopping(reviewSeatShopping(reviewTrapShopping(reviewSocketFrameShopping(reviewHardwareShopping(reviewCabinetShopping(reviewCoDetectorShopping(reviewUnderlayShopping(reviewGroutOnlyShopping(reviewWindowShopping(reviewPlasterShopping(reviewed,calc),calc),calc),calc),calc),calc),calc),calc),calc),calc),calc),calc);
 };
