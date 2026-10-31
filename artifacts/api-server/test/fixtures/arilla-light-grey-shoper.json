@@ -1,0 +1,592 @@
+{
+  "checkedAt": "2026-10-31T10:11:55.139Z",
+  "product": {
+    "id": 33716,
+    "ean": "5059340969732",
+    "name": "Panele podłogowe winylowe GoodHome SPC Arilla Light Grey 2,5 m2",
+    "producer": {
+      "name": "GoodHome",
+      "id": 1008,
+      "img": "https://liderzycen.pl/userdata/public/producers/1008.jpg"
+    },
+    "code": "ctma_5059340969732",
+    "unit": {
+      "name": "szt.",
+      "floating_point": false
+    },
+    "can_buy": true,
+    "stockId": 33804,
+    "price": {
+      "gross": {
+        "base": "164,45 zł",
+        "base_float": 164.45,
+        "final": "164,45 zł",
+        "final_float": 164.45,
+        "historical_lowest_price": "174,95 zł",
+        "historical_lowest_price_float": 174.95
+      },
+      "net": {
+        "base": "133,70 zł",
+        "base_float": 133.7,
+        "final": "133,70 zł",
+        "final_float": 133.7,
+        "historical_lowest_price": "142,24 zł",
+        "historical_lowest_price_float": 142.24
+      }
+    },
+    "url": "https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716",
+    "description": "Odkryj nowoczesne rozwiązanie dla Twojej podłogi: panele winylowe GoodHome SPC Arilla Light Grey. Są wytrzymałe, wodoodporne i łatwe w montażu (dzięki kliknij i gotowe!) Zestaw zawiera 9 sztuk o łącznym pokryciu 2,5 m², idealne dla każdego wnętrza. 15 lat gwarancji oznacza, że to inwestycja, która się opłaca!"
+  },
+  "underlay": {
+    "id": 32891,
+    "ean": "5063022038326",
+    "name": "Podkład podłogowy pod panele winylowe Volden XPS LVT pod panele winylowe 1 mm 6,25 m2",
+    "producer": {
+      "name": "Volden",
+      "id": 1573
+    },
+    "code": "ctma_5063022038326",
+    "unit": {
+      "name": "szt.",
+      "floating_point": false
+    },
+    "can_buy": true,
+    "stockId": 32979,
+    "price": {
+      "gross": {
+        "base": "113,88 zł",
+        "base_float": 113.88,
+        "final": "113,88 zł",
+        "final_float": 113.88,
+        "historical_lowest_price": "118,63 zł",
+        "historical_lowest_price_float": 118.63
+      },
+      "net": {
+        "base": "92,59 zł",
+        "base_float": 92.59,
+        "final": "92,59 zł",
+        "final_float": 92.59,
+        "historical_lowest_price": "96,45 zł",
+        "historical_lowest_price_float": 96.45
+      }
+    },
+    "url": "https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891",
+    "description": "Podkład podłogowy Volden XPS LVT to niezawodny wybór dla podłóg winylowych z systemem klik. Zapewnia doskonałą izolację akustyczną, minimalizuje hałas i wyrównuje nierówności podłoża. Podkład jest kompatybilny z ogrzewaniem podłogowym, wytrzymały i odporny na wilgoć."
+  },
+  "cases": [
+    {
+      "counts": [
+        1,
+        0
+      ],
+      "materialsGrosze": 16445,
+      "deliveryGrosze": 2200,
+      "cart": {
+        "basket": {
+          "sum_products": "164,45 zł",
+          "sum_products_float": 164.45
+        },
+        "products": [
+          {
+            "stock_id": 33804,
+            "quantity": 1,
+            "price": "164,45 zł",
+            "price_float": 164.45,
+            "sum": "164,45 zł",
+            "sum_float": 164.45,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            }
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 39,
+            "selected": true,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier Panele podłogowe 1",
+            "description": "Kurier Panele podłogowe 1",
+            "cost": "48,00 zł",
+            "cost_float": 48,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "48,00 zł",
+                "cost_float": 48
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Kurier P2",
+            "description": "Kurier P2",
+            "cost": "22,00 zł",
+            "cost_float": 22,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,00 zł",
+                "cost_float": 22
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "counts": [
+        5,
+        0
+      ],
+      "materialsGrosze": 82225,
+      "deliveryGrosze": 11000,
+      "cart": {
+        "basket": {
+          "sum_products": "822,25 zł",
+          "sum_products_float": 822.25
+        },
+        "products": [
+          {
+            "stock_id": 33804,
+            "quantity": 5,
+            "price": "164,45 zł",
+            "price_float": 164.45,
+            "sum": "822,25 zł",
+            "sum_float": 822.25,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            }
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 39,
+            "selected": true,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          },
+          {
+            "shipping_id": 25,
+            "selected": false,
+            "title": "Kurier Panele podłogowe 1",
+            "description": "Kurier Panele podłogowe 1",
+            "cost": "199,00 zł",
+            "cost_float": 199,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "199,00 zł",
+                "cost_float": 199
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Kurier P2",
+            "description": "Kurier P2",
+            "cost": "110,00 zł",
+            "cost_float": 110,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "110,00 zł",
+                "cost_float": 110
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "counts": [
+        0,
+        2
+      ],
+      "materialsGrosze": 22776,
+      "deliveryGrosze": 2000,
+      "cart": {
+        "basket": {
+          "sum_products": "227,76 zł",
+          "sum_products_float": 227.76
+        },
+        "products": [
+          {
+            "stock_id": 32979,
+            "quantity": 2,
+            "price": "113,88 zł",
+            "price_float": 113.88,
+            "sum": "227,76 zł",
+            "sum_float": 227.76,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            }
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 43,
+            "selected": true,
+            "title": "Kurier R3",
+            "description": "kurier Rolety duże",
+            "cost": "46,00 zł",
+            "cost_float": 46,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "46,00 zł",
+                "cost_float": 46
+              }
+            ]
+          },
+          {
+            "shipping_id": 40,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": ">5",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 39,
+            "selected": false,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Kurier XL",
+            "description": "",
+            "cost": "100,00 zł",
+            "cost_float": 100,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "100,00 zł",
+                "cost_float": 100
+              }
+            ]
+          },
+          {
+            "shipping_id": 35,
+            "selected": false,
+            "title": "Kurier L",
+            "description": "L bo wieksze",
+            "cost": "50,00 zł",
+            "cost_float": 50,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "50,00 zł",
+                "cost_float": 50
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Kurier poczta L",
+            "description": "",
+            "cost": "60,00 zł",
+            "cost_float": 60,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "60,00 zł",
+                "cost_float": 60
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": false,
+            "title": "Kurier Standard",
+            "description": "Kurier Standard",
+            "cost": "20,00 zł",
+            "cost_float": 20,
+            "engine": "ShoperShipment",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "20,00 zł",
+                "cost_float": 20
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "counts": [
+        5,
+        2
+      ],
+      "materialsGrosze": 105001,
+      "deliveryGrosze": 60000,
+      "cart": {
+        "basket": {
+          "sum_products": "1 050,01 zł",
+          "sum_products_float": 1050.01
+        },
+        "products": [
+          {
+            "stock_id": 33804,
+            "quantity": 5,
+            "price": "164,45 zł",
+            "price_float": 164.45,
+            "sum": "822,25 zł",
+            "sum_float": 822.25,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            }
+          },
+          {
+            "stock_id": 32979,
+            "quantity": 2,
+            "price": "113,88 zł",
+            "price_float": 113.88,
+            "sum": "227,76 zł",
+            "sum_float": 227.76,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            }
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 39,
+            "selected": true,
+            "title": "Kurier Drzwi",
+            "description": "",
+            "cost": "600,00 zł",
+            "cost_float": 600,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "600,00 zł",
+                "cost_float": 600
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 18,
+            "selected": true,
+            "name": "shoperP24",
+            "title": "Przelewy24",
+            "description": ""
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    }
+  ]
+}

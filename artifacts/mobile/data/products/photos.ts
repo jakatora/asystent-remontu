@@ -230,6 +230,8 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-door-leaf-opp-klasyk-70-white"],"ean":"5063022524034","sourceUrl":"https://www.castorama.pl/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale/5063022524034_CAPL.prd","imageUrl":"https://media2.castorama.pl/is/image/CastoramaPL/drzwi-z-podcieciem-opp-klasyk-70-prawe-biale~5063022524034_02c?$MOB_PREV$&$width=284&$height=284"},
   // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd
   {"ids":["mat-vinyl-spc-click-goodhome-marvo-224m2"],"ean":"5063022676757","sourceUrl":"https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Marvo-2%2C235-m2/185474","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_385938_500_500/fc6886e524d877060a0d12ba4742f75e.jpg"},
+  // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716
+  {ids:['mat-vinyl-spc-click-goodhome-arilla-light-grey-25m2'],ean:'5059340969732',sourceUrl:'https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716',imageUrl:'https://liderzycen.pl/environment/cache/images/productGfx_54664_500_500/fa1b6a4d34e9c8cf4c71603939ea436e.jpg'},
   // source: https://www.castorama.pl/panele-laminowane-oakland-wodoodporne-ac4-2-51-m2/5063022887917_CAPL.prd
   {"ids":["mat-laminate-oakland-ac4"],"ean":"5063022887917","sourceUrl":"https://liderzycen.pl/pl/p/Panele-laminowane-Oakland-wodoodporne-AC4-2%2C51-m2/185472","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_385924_500_500/0fc09fb9f3eda5be184e7dac0f2f6e76.jpg"},
   // source: https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd

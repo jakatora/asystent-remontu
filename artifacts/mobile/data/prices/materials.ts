@@ -2379,6 +2379,10 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     notes: 'SPC click (drop-click), montaż pływający bez kleju, grubość 4 mm. Paczka 9 sztuk pokrywa 2,5 m²; bez zintegrowanego podkładu.',
   },
 
+  // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716
+  // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-arilla-light-grey-2-5-m2/5059340969732_CAPL.prd
+  {id:'mat-vinyl-spc-click-goodhome-arilla-light-grey-25m2',materialType:'vinyl-panel',productLabel:'Panele winylowe GoodHome SPC Arilla Light Grey click 2,5 m²',brand:'GoodHome',packageSize:2.5,packageUnit:'m2',pricePerPackage:164.45,pricePerM2:164.45/2.5,category:'economy',storeName:'LiderzyCen',sourceUrl:'https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716',lastUpdated:'2026-10-31',currency:'PLN',notes:'EAN 5059340969732. Osobny jasnoszary wariant, bez automatycznej zamiany Dark Grey, Natural ani Brown. Pełna paczka 9 paneli pokrywa 2,5 m². SPC 4 mm, montaż pływający Drop Click, bez zintegrowanego podkładu. Karta produktu wyklucza pomieszczenia wilgotne mimo właściwości wodoodpornych. Podkład i barierę dobierz do instrukcji, podłoża i ogrzewania; nie dodajemy ich automatycznie. Cena brutto za paczkę, dostawa według całego koszyka.'},
+
   // Panele podłogowe winylowe GoodHome SPC Marvo 2,235 m² — EAN 5063022676757. Cena 74,98 zł/m² (167,58 zł/opak. 2,235 m², Castorama).
   // SPC click (Angle/drop-lock 5G), grubość 4 mm, warstwa ścieralna 0,55 mm, klasa 23/33, wodoodporne. Marka własna Castoramy (1 sieć) → poza overlay.
   // source: https://www.castorama.pl/panele-podlogowe-winylowe-goodhome-spc-marvo-2-235-m2/5063022676757_CAPL.prd (EAN 5063022676757, cena 74,98 zł/m², 167,58 zł/opak., SPC click 4 mm klasa 33)

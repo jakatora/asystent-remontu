@@ -320,6 +320,10 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // One native piece is the exact light-grey nine-panel box, covering2.5m².
+  // Do not reuse this EAN/price for the dark, brown or natural variant.
+  // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716
+  if(source.id==='liderzy-goodhome-arilla-light-grey-25m2'&&(source.ean!=='5059340969732'||source.productId!==33716||source.packageSize!==2.5||source.unit!=='m2'||source.brand!=='GoodHome'||source.store!=='LiderzyCen'||source.format!=='shoper-api'||source.retailerSku!=='ctma_5059340969732'||source.apiPurchaseUnit!=='szt.'||item.ean!==source.ean||item.producer?.name!=='GoodHome'||item.name!==source.name))throw Error('product_package_not_confirmed');
   // A native retail piece is the reviewed 6.25 m² pack, not a rounded 6 m²
   // catalogue attribute or a per-m² selling unit.
   // source: https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891

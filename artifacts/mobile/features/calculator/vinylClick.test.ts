@@ -17,7 +17,7 @@ const complete={floorArea:10,vinylPanelChoice:0,vinylUnderlayChoice:1,vinylVapor
 const calc=(m:Record<string,number>={})=>calculatorEngine.calculate(getJobById('vinyl-flooring')!,{...complete,...m});
 
 test('selected click model retains exact EAN, actual packs and one area demand at every price tier',()=>{
- for(const [choice,ean,pack]of [[0,'5063022676757',2.235],[1,'5059340969756',2.5]]as const){
+ for(const [choice,ean,pack]of [[0,'5063022676757',2.235],[1,'5059340969756',2.5],[3,'5059340969732',2.5]]as const){
   const c=calc({vinylPanelChoice:choice}),p=c.materials.find(l=>l.material.id==='vinyl-panels')!;assert.equal(c.quantityModel,VINYL_CLICK_MODEL);assert.equal(p.rawQuantity,11);assert.equal(p.packs,5);assert.equal(p.material.packaging?.size,pack);
   for(const tier of ['economy','standard','better']as const){const stage=toPricingStageInput(JSON.parse(JSON.stringify(c)),tier);assert.equal(stage.materials.length,2);assert.equal(stage.materials[0].quantity,11);assert.equal(stage.materials[0].material.ean,ean);assert.equal(stage.materials[0].material.unit,'m2');assert.equal(stage.materials[1].material.ean,'5063022038326');assert.equal(stage.materials[1].quantity,11);assert.equal(getMaterialsForJob('vinyl-flooring',tier,c.measurements).filter(r=>r.materialType==='vinyl-panel').length,1);}
  }
@@ -32,6 +32,17 @@ test('unknown accessories stay visible; ownership and zero counts are explicit, 
  const profile=calc({vinylThresholdCount:2,vinylThresholdFit:1,vinylThresholdFixings:0});assert.equal(profile.materials.find(l=>l.material.id==='threshold-vinyl')?.rawQuantity,2);assert.equal(profile.materials.find(l=>l.material.id==='vinyl-threshold-fixings')?.quantityKnown,false);
  assert.equal(toPricingStageInput(calc({vinylThresholdCount:2,vinylThresholdFit:1,vinylThresholdFixings:1})).materials.length,3);
  for(const m of [{vinylPanelChoice:2},{vinylPanelChoice:99},{vinylUnderlayChoice:4},{vinylJointTapeM:-1},{vinylThresholdCount:1.5}] as Record<string,number>[])assert.ok(calc(m).materials.some(l=>l.quantityKnown===false));
+});
+
+test('the light-grey Arilla is an explicit new choice; original dark-grey and unknown selections keep their meaning and ownership',()=>{
+ const current=calc({vinylPanelChoice:3}),panel=current.materials.find(row=>row.material.id==='vinyl-panels')!,photo=PRODUCT_PHOTOS.find(row=>row.ids.includes('mat-vinyl-spc-click-goodhome-arilla-light-grey-25m2'))!;
+ assert.equal('ean'in panel.material?panel.material.ean:undefined,'5059340969732');assert.equal(panel.material.packaging?.size,2.5);assert.equal(panel.material.pricePerUnit,164.45);assert.equal(photo.ean,'5059340969732');assert.match(photo.imageUrl,/54664/);assert.match(panel.material.notes??'',/pomieszczenia wilgotne/);
+ assert.equal(toPricingStageInput(calc({vinylPanelChoice:1})).materials[0].material.ean,'5059340969756');assert.equal(calc({vinylPanelChoice:2}).materials[0].quantityKnown,false);
+ const old=calc({vinylPanelChoice:1}),item={id:'owned',projectId:'room',materialId:'vinyl-panels',itemType:'material',name:old.materials[0].material.name,unit:'m2',quantity:12.5,owned:true,purchased:true}as ShoppingItem;
+ assert.equal(projectShopping([item],old)[0].owned,true);assert.equal(projectShopping([item],current)[0].owned,false);
+ const before={...complete,vinylPanelChoice:'1',vinylUnderlayChoice:'1',vinylVaporBarrier:'2',vinylThresholdFit:'1'} as unknown as Record<string,string>,next=withVinylClickMeasurement(before,'vinylPanelChoice',3);assert.equal(next.vinylUnderlayChoice,'0');assert.equal(next.vinylVaporBarrier,'0');assert.equal(next.vinylThresholdFit,'0');
+ const parsed=parseMeasurements(getJobById('vinyl-flooring')!,{...Object.fromEntries(Object.entries(complete).map(([key,value])=>[key,String(value)])),vinylPanelChoice:'3'});assert.deepEqual(parsed.errors,[]);assert.equal(parsed.values.vinylPanelChoice,3);
+ const projects=['a','b'].map(id=>({id,name:id,jobId:'vinyl-flooring',calculationResult:calc({floorArea:5,vinylPanelChoice:3})}))as Project[],basket=buildRenovationBasket(projects,['a','b'],'economy');assert.equal(basket.measurementReviews.length,0);assert.equal(basket.stages.flatMap(stage=>stage.materials).filter(row=>row.material.ean==='5059340969732').reduce((n,row)=>n+row.quantity,0),11);
 });
 
 test('two rooms send raw combined square metres; local room pack rounding is never charged twice',()=>{

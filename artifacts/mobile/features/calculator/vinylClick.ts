@@ -12,7 +12,7 @@ const range = (n:number|undefined,min:number,max:number):n is number => Number.i
 const choice = (n:number|undefined,max:number):n is number => Number.isInteger(n) && range(n,0,max);
 
 export function vinylClickReference(id:string,m:MeasurementMap={}):string|null {
-  if(id==='vinyl-panels')return (m.vinylPanelChoice??0)===0?'mat-vinyl-spc-click-goodhome-marvo-224m2':m.vinylPanelChoice===1?'mat-vinyl-spc-click-goodhome-arilla-25m2':null;
+  if(id==='vinyl-panels')return (m.vinylPanelChoice??0)===0?'mat-vinyl-spc-click-goodhome-marvo-224m2':m.vinylPanelChoice===1?'mat-vinyl-spc-click-goodhome-arilla-25m2':m.vinylPanelChoice===3?'mat-vinyl-spc-click-goodhome-arilla-light-grey-25m2':null;
   if(id==='underlay-vinyl')return m.vinylUnderlayChoice===1?'mat-vinyl-underlay-volden-lvt-625m2':m.vinylUnderlayChoice===2?'mat-vinyl-underlay-corksystem-lvt-6m2':null;
   if(id==='vinyl-vapor-barrier')return m.vinylVaporBarrier===1?'mat-vapor-foil-conkret-conpar-100m2':null;
   if(id==='vinyl-joint-tape')return 'mat-underlay-joint-tape-arbiton-izo-25m';
@@ -26,7 +26,7 @@ export function vinylClickReference(id:string,m:MeasurementMap={}):string|null {
 export function vinylClickQuantity(id:string,m:MeasurementMap):number|null {
   if(!range(m.floorArea,1,200))return null;
   const area=Number((m.floorArea*1.1).toFixed(8));
-  if(id==='vinyl-panels')return choice(m.vinylPanelChoice??0,1)?area:null;
+  if(id==='vinyl-panels')return [0,1,3].includes(m.vinylPanelChoice??0)?area:null;
   if(id==='underlay-vinyl')return !choice(m.vinylUnderlayChoice,3)||m.vinylUnderlayChoice===0?null:m.vinylUnderlayChoice===3?0:area;
   if(id==='vinyl-vapor-barrier')return !choice(m.vinylVaporBarrier,2)||m.vinylVaporBarrier===0?null:m.vinylVaporBarrier===2?0:area;
   if(id==='vinyl-joint-tape')return range(m.vinylJointTapeM,0,1000)?m.vinylJointTapeM:null;
@@ -40,9 +40,9 @@ export function vinylClickQuantity(id:string,m:MeasurementMap):number|null {
 }
 
 export const vinylClickInputs:MeasurementInputDefinition[]=[
-  {id:'vinylPanelChoice',label:'Model paneli winylowych click',unit:'',inputType:'select',placeholder:'Wybierz model',defaultValue:0,min:0,max:2,
-    options:[{value:0,label:'GoodHome SPC Marvo — paczka 2,235 m²'},{value:1,label:'GoodHome SPC Arilla Dark Grey — paczka 2,5 m²'},{value:2,label:'Inny model — produkt do ustalenia'}],
-    hint:'Model pozostaje taki sam przy zmianie poziomu cenowego. Dodajemy 10% zapasu na docinki; pełne paczki liczymy po zsumowaniu pomieszczeń. Podkład dobierz według instrukcji tego modelu.'},
+  {id:'vinylPanelChoice',label:'Model paneli winylowych click',unit:'',inputType:'select',placeholder:'Wybierz model',defaultValue:0,min:0,max:3,
+    options:[{value:0,label:'GoodHome SPC Marvo — paczka 2,235 m²'},{value:1,label:'GoodHome SPC Arilla Dark Grey — paczka 2,5 m²'},{value:3,label:'GoodHome SPC Arilla Light Grey — 2,5 m², pomieszczenia suche'},{value:2,label:'Inny model — produkt do ustalenia'}],
+    hint:'Model pozostaje taki sam przy zmianie poziomu cenowego. Dodajemy 10% zapasu na docinki; pełne paczki liczymy po zsumowaniu pomieszczeń. Arilla Light Grey nie ma zintegrowanego podkładu; karta produktu wyklucza pomieszczenia wilgotne. Podkład dobierz według instrukcji tego modelu.'},
   {id:'vinylUnderlayChoice',label:'Podkład dobrany do paneli',unit:'',inputType:'select',placeholder:'Sprawdź instrukcję paneli',defaultValue:0,min:0,max:3,
     options:[{value:0,label:'Jeszcze dobieram — pozostaw brak w wycenie'},{value:1,label:'Volden XPS LVT 1 mm — 6,25 m²'},{value:2,label:'Corksystem LVT 1,5 mm — 6 m², bez ogrzewania'},{value:3,label:'Mam całą ilość właściwego podkładu'}],
     hint:'Wybierz po sprawdzeniu wymagań panela, zamków i ogrzewania. Nie dokładamy drugiego podkładu pod panel z podkładem zintegrowanym. Nie zastępuj podkładu winylowego grubszym XPS do laminatu.'},
