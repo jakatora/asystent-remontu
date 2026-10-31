@@ -135,11 +135,11 @@ export const DEKORK_SOURCES:readonly RetailSource[]=PRODUCTS.flatMap(product=>pr
  id:`dekork-${product.key}-${variant.packs}pack`,ean:product.ean,name:product.title+(variant.packs>1?` — ${variant.title}`:''),brand:'Dekork',category:'underlay',packageSize:product.coverage*variant.packs,unit:'m2',
  store:'Dekork',format:'shopify-api' as const,productId:product.id,variantId:variant.id,apiProductCode:variant.sku??undefined,variant:['LVT','1,5 mm'],
  // Keep the variant in the purchase link; a bundle must not open a single pack.
- url:`${ORIGIN}/products/${product.handle}?variant=${variant.id}`,imageUrl:product.image,pickupUnavailable:true,
+ url:`${ORIGIN}/products/${product.handle}?variant=${variant.id}`,imageUrl:product.image,pickupRequiresConfirmation:true,
 })));
 
 export function isReviewedDekorkSource(source:RetailSource):boolean{
- const row=DEKORK_SOURCES.find(s=>s.id===source.id);return Boolean(row&&['ean','name','brand','category','packageSize','unit','store','format','productId','variantId','apiProductCode','url','pickupUnavailable'].every(key=>(source as any)[key]===(row as any)[key])&&!source.skuIdentity&&!source.marketplaceSeller);
+ const row=DEKORK_SOURCES.find(s=>s.id===source.id);return Boolean(row&&['ean','name','brand','category','packageSize','unit','store','format','productId','variantId','apiProductCode','url','pickupRequiresConfirmation'].every(key=>(source as any)[key]===(row as any)[key])&&!source.pickupUnavailable&&!source.skuIdentity&&!source.marketplaceSeller);
 }
 export function confirmDekorkProduct(product:any,source:RetailSource):{variantId:number;priceGrosze:number;name:string;imageUrl:string}{
  if(!isReviewedDekorkSource(source))throw Error('product_source_not_reviewed');

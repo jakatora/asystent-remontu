@@ -25,7 +25,7 @@ function basket(entries:number[][]):DeliveredStoreBasket{
 }
 
 test('Dekork has three distinct reviewed products and ten exact physical bundle sizes; neither product minimum nor Corksystem old GTIN is substituted',async()=>{
- assert.equal(sources.length,12);assert.equal(new Set(sources.map(s=>s.ean)).size,3);assert.ok(sources.every(s=>s.ean!=='5061092900925'&&new URL(s.url).searchParams.get('variant')===String(s.variantId)));
+ assert.equal(sources.length,12);assert.equal(new Set(sources.map(s=>s.ean)).size,3);assert.ok(sources.every(s=>s.ean!=='5061092900925'&&new URL(s.url).searchParams.get('variant')===String(s.variantId)&&s.pickupRequiresConfirmation===true&&!s.pickupUnavailable));
  for(const source of sources){const p=fixture.products.find(p=>p.id===source.productId)!,v=p.variants.find(v=>v.id===source.variantId)!,row=await readDekorkProduct(source,network());assert.equal(row.priceGrosze,v.price);assert.equal(row.ean,source.ean);assert.equal(row.availability,'in_stock');assert.equal(row.imageUrl,source.imageUrl);assert.ok(source.packageSize===10||source.packageSize%6===0);}
  const bundle=sources.find(s=>s.id==='dekork-professional-2pack')!,p=fixture.products[0];assert.equal(confirmDekorkProduct(p,bundle).priceGrosze,13099);assert.equal(bundle.packageSize,12);assert.equal(p.variants[1].barcode,null);
  for(const change of[{ean:'5061092900925'},{packageSize:6},{variantId:57433631359307},{brand:'Corksystem'},{url:bundle.url.split('?')[0]}])assert.throws(()=>confirmDekorkProduct(p,{...bundle,...change}));
