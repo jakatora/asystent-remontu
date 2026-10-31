@@ -20,4 +20,12 @@ Natywne odczyty z 2026-10-31, dla testowego kodu `00-001`:
 
 Materiały razem: **316,55 zł**. Trzy osobne natywne koszyki dały dostawy 19,90 + 30,90 + 19,90 = 70,70 zł. Po dołączeniu taśmy malarskiej do Sosnowca dostawy kosztowały **50,80 zł**, a cały zestaw **367,35 zł**. To o 19,90 zł mniej niż trzy przesyłki. Dołączenie jej do Tarnowskich Gór również potwierdziło 50,80 zł. Nie złożono zamówienia ani płatności. Wynik dotyczy wskazanych opakowań, kodu i czasu, bez gwarancji minimum całego rynku.
 
-Testy: silnik cen 156/156, czytnik koszyka 11/11, typecheck API/mobile. Odbiór pełnego endpointu i wdrożenia zostanie dopisany po zakończeniu.
+Testy: silnik cen 156/156, czytnik koszyka 11/11, mobile 372/372, shared backend 1054/1054, typecheck API/mobile. Legacy IDs oraz wszystkie 7 adresów czytnika koszyka przeszły kontrolę.
+
+## Odbiór produkcyjny
+
+Backend [PR 124](https://github.com/jakatora/przetargai/pull/124) scalono jako `e2c12c0`. Railway deployment `435586d1-8cd2-409b-bcd4-9ab3f7c153f9` ma status **SUCCESS**. Lokalny pełny endpoint i produkcyjny HTTPS zwróciły dla wybranej Sewery `compared`, braków 0, **31655 gr materiałów + 5080 gr dostaw = 36735 gr**. Dwa produkty były w przesyłce z Sosnowca, a farba w przesyłce z Tarnowskich Gór.
+
+Globalny ranking tego samego zestawu zwrócił na produkcji `compared`, braków 0 i **251,36 zł z dostawami**. Lobo: farba za 171,90 zł + 22,90 zł dostawy według krajowej taryfy PL. Sewera: obie taśmy za 36,66 zł + 19,90 zł dostawy z Sosnowca dla kodu `00-001`. Łącznie materiały 208,56 zł, dostawy 42,80 zł. Wynik ma `searchLimited=true` i dotyczy potwierdzonych wariantów, bez gwarancji minimum całego rynku.
+
+Pakiet zbudowano z czystego kodu `6c6527c` i świeżej kopii produkcji: 148 plików, 278 obserwacji. Zmienił się wyłącznie moduł wyceny; pozostałe 147 plików i obserwacje zachowano. Po wdrożeniu 148/148 plików jest identycznych z przygotowaną paczką. SHA256 modułu: `3c1faab4e9a4a2ae011c78bf69b1be0564ab84961c98e1830b1b31bff7113af5`.
