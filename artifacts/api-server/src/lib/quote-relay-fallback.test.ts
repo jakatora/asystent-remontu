@@ -4,6 +4,7 @@ import {createRetailerQuoter} from './retailer-delivery';
 import {readRetailSource} from './retail-pages';
 import {ETAK_SOURCES} from './etak-sources';
 import {QUOTE_RELAY_URL,relayDigest,relaySignature} from './quote-relay-auth';
+import {AnonymousShop} from './retailer-http';
 import cards from './fixtures/etak-cards-wave158.json';
 import native from './fixtures/etak-baskets-wave158.json';
 import type {DeliveredStoreBasket} from '../../../../lib/pricing-service/src/delivery';
@@ -35,4 +36,9 @@ test('price refresh can use a directly verified card after a network failure, wh
   clientMode(t);
   for(const reason of ['network','quote_unavailable']){const mock=transport(reason),result=await readRetailSource(source,mock.fetcher);assert.equal(result.ean,source.ean);assert.equal(result.priceGrosze,260);assert.equal(mock.counts().relayed,1);assert.equal(mock.counts().direct,1);}
   for(const reason of ['retailer_out_of_stock','purchase_rules_changed','retailer_rate_limited']){const mock=transport(reason);await assert.rejects(readRetailSource(source,mock.fetcher),new RegExp(reason));assert.equal(mock.counts().direct,0);}
+});
+
+test('a real HTTP429 from the native anonymous client retains its rate-limit meaning',async()=>{
+ let calls=0;const client=new AnonymousShop('https://etak.eu',async()=>{calls++;return new Response('Wait',{status:429,headers:{'Retry-After':'60'}});},AbortSignal.timeout(1000));
+ await assert.rejects(client.etak('basket'),/retailer_rate_limited/);assert.equal(calls,1);
 });

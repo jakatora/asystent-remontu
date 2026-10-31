@@ -323,6 +323,7 @@ export class AnonymousShop {
         if (!target) throw Error('invalid_redirect'); url = new URL(target, url);
         if ([301,302,303].includes(r.status)) { method = 'GET'; payload = undefined; } continue;
       }
+      if (r.status === 429) { await r.body?.cancel(); throw Error('retailer_rate_limited'); }
       if (!r.ok && !(magentoErrors && this.origin === 'https://sklep-kowalczyk.pl' && r.status === 400)) { await r.body?.cancel(); throw Error('retailer_unavailable'); }
       if (json && !r.headers.get('content-type')?.includes('json')) { await r.body?.cancel(); throw Error('invalid_response'); }
       if (storeCart) {
