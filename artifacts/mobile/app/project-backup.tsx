@@ -1,6 +1,6 @@
 import React,{useRef,useState} from 'react';
 import {Platform,ScrollView,View} from 'react-native';
-import {Stack} from 'expo-router';
+import {Stack,useRouter} from 'expo-router';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Feather} from '@expo/vector-icons';
@@ -14,6 +14,7 @@ import {canonical,importProjectBackup,parseProjectBackup,readProjectBackup,type 
 import {chooseProjectBackup,downloadProjectBackup,embedBackupPhotos} from '@/features/storage/projectBackupFiles';
 
 export default function ProjectBackupScreen(){
+  const router=useRouter();
   const {projects,refreshProjects}=useApp(),{language}=useLanguage(),insets=useSafeAreaInsets();
   const say=(pl:string,en:string)=>language==='pl'?pl:en;
   const [busy,setBusy]=useState<'export'|'choose'|'import'|null>(null),working=useRef(false);
@@ -79,6 +80,7 @@ export default function ProjectBackupScreen(){
         </>:<Txt>{say('Kopie projektów są obecnie dostępne w wersji przeglądarkowej aplikacji.','Project backups are currently available in the browser version of the app.')}</Txt>}
         {error&&<View accessibilityRole="alert" style={{...card,backgroundColor:Colors.dangerBg}}><Txt style={{color:Colors.danger,lineHeight:22}}>{error}</Txt></View>}
         {message&&<View accessibilityLiveRegion="polite" style={{...card,backgroundColor:Colors.successBg}}><Txt style={{color:Colors.text,lineHeight:22}}>{message}</Txt></View>}
+        <Button label={say('Otwórz moje projekty','Open my projects')} variant="ghost" onPress={()=>router.replace('/projects')} disabled={busy!==null}/>
       </View>
     </ScrollView></>;
 }

@@ -43,6 +43,12 @@ export interface ProjectBackup {format:'asystent-remontu-projects';version:1;cre
 export interface BackupStorage {getItem(key:string):Promise<string|null>;setItem(key:string,value:string):Promise<void>;removeItem(key:string):Promise<void>}
 export const canonical=(value:unknown):string=>JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(key=>[key,item[key]])):item);
 const fail=():never=>{throw Error('invalid_project_backup');};
+function containsRows(actual:ProjectBackup['tables'],expected:ProjectBackup['tables']):boolean{
+  return tables.every(table=>{
+    const saved=new Map(actual[table].map(row=>[row.id,canonical(row)]));
+    return expected[table].every(row=>saved.get(row.id)===canonical(row));
+  });
+}
 export function portablePhoto(uri:string):boolean{return /^data:image\/(?:jpeg|png|webp|gif);base64,[A-Za-z0-9+/]+={0,2}$/.test(uri);}
 
 export function parseProjectBackup(raw:string,portable=true):ProjectBackup{
@@ -119,13 +125,13 @@ export async function importProjectBackup(backup:ProjectBackup,db:DatabaseConnec
     // A lost cross-tab reply may follow COMMIT. Read back; never repeat writes.
     let after:ProjectBackup['tables'];
     try{after=await readBackupTables(db);}catch{throw Error('backup_import_unconfirmed');}
-    const complete=tables.every(table=>backup.tables[table].every(row=>after[table].some(saved=>canonical(saved)===canonical(row))));
+    const complete=containsRows(after,backup.tables);
     if(complete)return{projects:backup.tables.projects.length,keptBasketSettings:existing.size>0};
     if(after.projects.some(row=>backup.tables.projects.some(imported=>row.id===imported.id)))throw Error('backup_import_unconfirmed');
     try{await restore();}catch{throw Error('backup_import_unconfirmed');}throw error;
   }
   let after:ProjectBackup['tables'];
   try{after=await readBackupTables(db);}catch{throw Error('backup_import_unconfirmed');}
-  if(!tables.every(table=>backup.tables[table].every(row=>after[table].some(saved=>canonical(saved)===canonical(row)))))throw Error('backup_import_unconfirmed');
+  if(!containsRows(after,backup.tables))throw Error('backup_import_unconfirmed');
   return{projects:backup.tables.projects.length,keptBasketSettings:existing.size>0};
 }
