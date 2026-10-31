@@ -225,7 +225,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
         if(order.store==='ABUD')return await quoteAbud(order,postalCode,fetchImpl);
         return await (order.store === 'Kronosfera' ? quoteKronosfera(order,fetchImpl) : order.store === 'Folnet' ? quoteFolnet(order,fetchImpl) : order.store === 'Modna Łazienka' ? quoteModna(order,fetchImpl) : order.store === 'HIPPER' ? quoteCertusoft(order,fetchImpl) : order.store === 'Eelektryka' ? quotePrestashop(order,fetchImpl) : order.store === 'TopBoden' ? quoteTopboden(order,fetchImpl) : order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
       } catch (error: unknown) {
-        return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed'].includes(error.message) ? error.message : 'quote_unavailable' };
+        return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed','retailer_rate_limited'].includes(error.message) ? error.message : 'quote_unavailable' };
       } finally { release(); }
     })();
     cache.set(key, { until: Date.now() + TTL, result: pending });

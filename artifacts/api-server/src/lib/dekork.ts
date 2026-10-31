@@ -20,7 +20,7 @@ function limitedFetch(fetchImpl:typeof fetch):typeof fetch{
    const wait=nextAt-Date.now();if(wait>0)await new Promise<void>((resolve,reject)=>{const signal=init?.signal,abort=()=>{clearTimeout(timer);reject(signal?.reason??Error('request_aborted'));},timer=setTimeout(()=>{signal?.removeEventListener('abort',abort);resolve();},wait);signal?.addEventListener('abort',abort,{once:true});});
    if(init?.signal?.aborted)throw init.signal.reason;nextAt=Date.now()+500;
    const response=await fetchImpl(input,init);
-   if(response.status===429){const value=response.headers.get('retry-after'),seconds=value&&/^\d+$/.test(value)?Number(value):null,date=value?Date.parse(value):NaN;cooldownUntil=seconds!==null&&Number.isSafeInteger(seconds)?Date.now()+Math.max(1000,seconds*1000):Number.isFinite(date)?Math.max(Date.now()+1000,date):Date.now()+30000;}
+   if(response.status===429){const value=response.headers.get('retry-after'),seconds=value&&/^\d+$/.test(value)?Number(value):null,date=value?Date.parse(value):NaN;cooldownUntil=seconds!==null&&Number.isSafeInteger(seconds)?Date.now()+Math.max(1000,seconds*1000):Number.isFinite(date)?Math.max(Date.now()+1000,date):Date.now()+30000;await response.body?.cancel().catch(()=>{});throw Error('retailer_rate_limited');}
    return response;
   }finally{unlock();}
  };transports.set(fetchImpl,result);return result;

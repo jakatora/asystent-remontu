@@ -55,5 +55,5 @@ test('simultaneous variant observations share one public card; private cart oper
 });
 
 test('a native 429 removes the failed public card and respects Retry-After without sending another immediate request',async()=>{
- let calls=0;const transport:typeof fetch=async()=>{calls++;return new Response('rate limited',{status:429,headers:{'retry-after':'30'}});};await assert.rejects(readDekorkProduct(sources[0],transport),/retailer_unavailable/);await assert.rejects(readDekorkProduct(sources[1],transport),/retailer_rate_limited/);assert.equal(calls,1);
+ let calls=0;const transport:typeof fetch=async()=>{calls++;return new Response('rate limited',{status:429,headers:{'retry-after':'30'}});};await assert.rejects(readDekorkProduct(sources[0],transport),/retailer_rate_limited/);await assert.rejects(readDekorkProduct(sources[1],transport),/retailer_rate_limited/);assert.deepEqual(await createRetailerQuoter(transport)(basket([[57433631392075,1]]),'30-001'),{reason:'retailer_rate_limited'});assert.equal(calls,1);
 });

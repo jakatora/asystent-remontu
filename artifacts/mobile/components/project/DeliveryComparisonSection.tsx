@@ -15,6 +15,7 @@ import { getProductPhoto } from '@/data/products/photos';
 import { PriceChangeBadge } from './PriceChangeNotice';
 import { displayProductName } from '@/features/pricing/productDisplay';
 import {formatPackageSize,formatPackageUnit,formatPurchase} from '@/features/pricing/packageDisplay';
+import {unconfirmedDeliveryCoverage,deliveryRateLimitMessage} from '@/features/pricing/deliveryCoverage';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
 export function DeliveryComparisonSection({ comparison, missingItemCount, settings, selectedStore, onApply }: {
@@ -53,8 +54,9 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   }, [destination, mode, settings.postalCode, settings.method, allowSeparateOrders, onApply]);
   const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
   const best = current ? comparison.best : null;
-  const incompleteCompetition = Boolean(current && destination && mode === 'shipping' && !selectedStore && best && comparison.status === 'needs_delivery_costs');
-  const unquotedStoreNames = [...new Set(comparison.unavailableStores?.map(store => store.store) ?? [])];
+  const coverageWarning=unconfirmedDeliveryCoverage(comparison,current,selectedStore);
+  const incompleteCompetition = Boolean(coverageWarning);
+  const unquotedStoreNames = coverageWarning?.stores??[];
   const unquotedStoreLabel = unquotedStoreNames.length <= 2 ? unquotedStoreNames.join(', ') : tr(`${unquotedStoreNames.length} ${unquotedStoreNames.length < 5 ? 'sklepy' : 'sklepów'}`, `${unquotedStoreNames.length} stores`);
   const postcodeQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'postal_code').length ?? 0;
   const nationallyQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'PL').length ?? 0;
@@ -78,6 +80,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     address_required: tr('Sklep wymaga pełnego adresu dla tego transportu.', 'This transport requires a full address.'),
     customer_details_required: tr('Sklep wymaga danych klienta przed wyborem dostawy. Sam kod pocztowy nie wystarcza do potwierdzenia kosztu.', 'The store requires customer details before delivery selection. A postcode alone cannot confirm the cost.'),
     price_changed: tr('Cena produktu zmieniła się w koszyku sklepu.', 'The product price has changed in the store basket.'),
+    retailer_rate_limited: deliveryRateLimitMessage(language),
     product_unavailable: tr('Nie potwierdzono dostępności produktu.', 'Product availability could not be confirmed.'),
     requires_separate_dispatch: tr('Produkty są dostępne w różnych oddziałach sklepu. Włącz osobne zamówienia, aby sprawdzić koszt każdej dostawy.', 'Products are available from different store branches. Enable separate orders to check every delivery charge.'),
     insufficient_stock: tr('Sklep nie ma wystarczającej liczby sztuk do tego zamówienia.', 'The store does not have enough units for this order.'),
@@ -158,9 +161,10 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {incompleteCompetition && <View accessibilityRole="alert" style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 8 }}>
         <Txt w="bold" style={{ fontSize: 15 }}>{tr('Porównanie niepełne', 'Comparison incomplete')}</Txt>
         <Txt style={{ fontSize: 14, lineHeight: 21 }}>{tr(
-          `To najtańszy z potwierdzonych koszyków. ${unquotedStoreNames.length ? `Nie udało się wycenić innych koszyków: ${unquotedStoreLabel}.` : 'Nie udało się wycenić wszystkich pozostałych koszyków.'} Inny zestaw może być tańszy.`,
-          `This is the lowest confirmed basket. ${unquotedStoreNames.length ? `Other baskets could not be quoted: ${unquotedStoreLabel}.` : 'Not every other basket could be quoted.'} Another basket may cost less.`,
+          `${selectedStore?'To najtańszy z potwierdzonych koszyków w wybranym sklepie.':'To najtańszy z potwierdzonych koszyków.'} ${unquotedStoreNames.length ? `Nie udało się wycenić innych koszyków: ${unquotedStoreLabel}.` : 'Nie udało się wycenić wszystkich pozostałych koszyków.'} Inny zestaw może być tańszy.`,
+          `${selectedStore?'This is the lowest confirmed basket at the selected store.':'This is the lowest confirmed basket.'} ${unquotedStoreNames.length ? `Other baskets could not be quoted: ${unquotedStoreLabel}.` : 'Not every other basket could be quoted.'} Another basket may cost less.`,
         )}</Txt>
+        {!!coverageWarning?.rateLimitedStores.length&&<Txt style={{fontSize:14,lineHeight:21}}>{coverageWarning.rateLimitedStores.join(', ')}: {deliveryRateLimitMessage(language)}</Txt>}
         <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Retry delivery quotes')} onPress={() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) })} />
       </View>}
       {mode === 'shipping' && best.stores.length > 1 && <View style={{ padding: 14, gap: 10, borderRadius: 12, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border }}>
