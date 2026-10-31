@@ -387,6 +387,15 @@ export interface PriceHistoryResponse {
   product: SerializedProduct;
   stats: SerializedPriceStats;
   history: SerializedHistoryPoint[];
+  /** Each series keeps one merchant, variant and physical purchase unit. */
+  series?: RecordedPriceSeries[];
+  scope?: {kind:'recorded_observations';retentionDays:number;maxPointsPerOffer:number;completeStoreHistory:false;deliveryIncluded:false};
+}
+
+export interface RecordedPriceSeries {
+  offerId:string;store:string;url:string;packageSize:number;unit:string;
+  stats:SerializedPriceStats & {previousGrosze:number|null;deltaGrosze:number|null};
+  history:Array<SerializedHistoryPoint & {offerId:string}>;
 }
 
 /** Identyfikacja produktu do zapytania o historię — jeden z kluczy wystarczy. */

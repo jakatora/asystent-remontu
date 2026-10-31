@@ -621,6 +621,7 @@ function ResolvedLineCard({ line }: { line: SerializedLine }) {
           productId={product.id}
           ean={product.ean}
           gtin={product.gtin}
+          refreshKey={line.offers?.map(o=>`${o.offerId}:${o.fetchedAt}:${o.priceGrosze}`).join('|')}
         />
       )}
       {line.offers && line.offers.length > 1 && (
@@ -1152,7 +1153,7 @@ function ConsolidatedLineCard({ line, offers, stockUnconfirmed }: { line: Serial
         </Txt>
       )}
       {offers && offers.length > 1 && <OfferComparisonList offers={offers} preferredOfferId={line.packages && line.packages.length > 1 ? null : line.cheapestOffer?.offerId} />}
-      <PriceHistoryPanel productId={line.product.id} ean={line.product.ean} gtin={line.product.gtin} />
+      <PriceHistoryPanel productId={line.product.id} ean={line.product.ean} gtin={line.product.gtin} refreshKey={offers?.map(o=>`${o.offerId}:${o.fetchedAt}:${o.priceGrosze}`).join('|')} />
     </View>
   );
 }
@@ -1172,17 +1173,21 @@ function PriceHistoryPanel({
   productId,
   ean,
   gtin,
+  refreshKey,
 }: {
   productId: string;
   ean: string | null;
   gtin: string | null;
+  refreshKey?: string;
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [data, setData] = useState<PriceHistoryResponse | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [historyOfferId,setHistoryOfferId] = useState<string|null>(null);
 
   useEffect(() => {
     let cancelled = false;
+    setData(null);
     void (async () => {
       try {
         const res = await fetchPriceHistory({ productId, ean, gtin });
@@ -1196,17 +1201,22 @@ function PriceHistoryPanel({
     return () => {
       cancelled = true;
     };
-  }, [productId, ean, gtin]);
+  }, [productId, ean, gtin,refreshKey]);
 
   if (!data || data.stats.count === 0) return null;
 
-  const stats = data.stats;
+  const recorded = data.scope?.kind==='recorded_observations';
+  const series = recorded ? data.series ?? [] : [];
+  const selected = series.find(s=>s.offerId===historyOfferId) ?? series[0];
+  if(recorded&&!selected)return null;
+  const stats = selected?.stats ?? data.stats;
   const hasChange = stats.changePct !== null && stats.changePct !== 0;
   const wentUp = (stats.changePct ?? 0) > 0;
 
   // Tylko punkty z ceną efektywną. API zwraca je chronologicznie (najstarsze
   // pierwsze) — tak też rysujemy sparkline (lewa→prawa = starsze→nowsze).
-  const chronological = data.history.filter(
+  const historyPoints:SerializedHistoryPoint[] = selected?.history ?? data.history;
+  const chronological = historyPoints.filter(
     (p): p is SerializedHistoryPoint & { effectiveGrosze: number } =>
       p.effectiveGrosze !== null,
   );
@@ -1220,8 +1230,10 @@ function PriceHistoryPanel({
       {/* Nagłówek: toggle + szybkie badge'y (widoczne również po zwinięciu). */}
       <Pressable
         onPress={() => setExpanded((v) => !v)}
-        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingVertical: 2 }}
+        style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap', paddingVertical: 2,minHeight:44 }}
         accessibilityRole="button"
+        accessibilityState={{expanded}}
+        accessibilityLabel={language==='pl'?`${expanded?'Ukryj':'Pokaż'} historię cen produktu`:`${expanded?'Hide':'Show'} product price history`}
       >
         <Feather
           name={expanded ? 'chevron-up' : 'chevron-down'}
@@ -1233,7 +1245,7 @@ function PriceHistoryPanel({
             ? t('cmp.CostEstimate.priceHistoryHide')
             : t('cmp.CostEstimate.priceHistory', { count: stats.count })}
         </Txt>
-        {stats.isRealPromo && (
+        {!recorded && stats.isRealPromo && (
           <Badge
             icon="tag"
             text={t('cmp.CostEstimate.realPromo')}
@@ -1241,10 +1253,10 @@ function PriceHistoryPanel({
             bg={Colors.successBg}
           />
         )}
-        {stats.lowest !== null && (
+        {stats.lowest !== null && stats.count>1 && (
           <Badge
             icon="trending-down"
-            text={t('cmp.CostEstimate.lowest', { price: formatGrosze(stats.lowest) })}
+            text={recorded ? `${language==='pl'?'Najniższa zapisana':'Lowest recorded'}: ${formatGrosze(stats.lowest)}` : t('cmp.CostEstimate.lowest', { price: formatGrosze(stats.lowest) })}
             color={Colors.textSecondary}
             bg={Colors.surfaceAlt}
           />
@@ -1258,6 +1270,7 @@ function PriceHistoryPanel({
           />
         )}
       </Pressable>
+      {selected && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{selected.store} · {language==='pl'?'cena za':'price per'} {formatPackageSize(selected.packageSize,language)} {formatPackageUnit(selected.unit)}</Txt>}
 
       {expanded && (
         <View
@@ -1268,13 +1281,19 @@ function PriceHistoryPanel({
             borderTopColor: Colors.border,
           }}
         >
+          {recorded && <>
+            <Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?'Zapisane odczyty tego samego sklepu i opakowania. To nie jest pełna historia sklepu. Ceny materiału bez dostawy.':'Recorded reads for the same store and purchase unit. This is not the store’s complete history. Material prices exclude delivery.'}</Txt>
+            {series.length>1 && <View style={{flexDirection:'row',flexWrap:'wrap',gap:8}}>{series.map(s=><Pressable key={s.offerId} accessibilityRole="radio" accessibilityState={{checked:s.offerId===selected?.offerId}} accessibilityLabel={`${s.store}, ${formatPackageSize(s.packageSize,language)} ${formatPackageUnit(s.unit)}`} onPress={()=>setHistoryOfferId(s.offerId)} style={{padding:10,minHeight:44,borderRadius:8,borderWidth:1,borderColor:s.offerId===selected?.offerId?Colors.primary:Colors.border,backgroundColor:s.offerId===selected?.offerId?Colors.surfaceAlt:Colors.surface,maxWidth:'100%'}}><Txt style={{fontSize:12}}>{s.store} · {formatPackageSize(s.packageSize,language)} {formatPackageUnit(s.unit)}</Txt></Pressable>)}</View>}
+            {selected?.stats.deltaGrosze!==null && selected?.stats.deltaGrosze!==undefined && selected.stats.deltaGrosze!==0 && <Txt w="semibold" style={{fontSize:13,color:selected.stats.deltaGrosze>0?Colors.text:Colors.primaryDark}}>{language==='pl'?`${selected.stats.deltaGrosze>0?'Podrożał':'Taniej'} o ${formatGrosze(Math.abs(selected.stats.deltaGrosze))} względem poprzedniego zapisanego odczytu.`:`${selected.stats.deltaGrosze>0?'Up':'Down'} ${formatGrosze(Math.abs(selected.stats.deltaGrosze))} since the previous recorded read.`}</Txt>}
+            {stats.count===1 && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?'Pierwszy zapis. Kolejne potwierdzone odczyty pozwolą pokazać zmianę ceny.':'First record. Further confirmed reads will allow price changes to be shown.'}</Txt>}
+          </>}
           {/* Sparkline z punktów cenowych (>=2 punkty, żeby był sens rysować). */}
           {chronological.length > 1 && <PriceSparkline points={chronological} />}
 
           {/* Podsumowanie: najniższa / średnia / aktualna / zmiana% */}
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-            <StatCell label={t('cmp.CostEstimate.statLowest')} value={formatGrosze(stats.lowest)} />
-            <StatCell label={t('cmp.CostEstimate.statAverage')} value={formatGrosze(stats.average)} />
+            <StatCell label={recorded?(language==='pl'?'Najniższa zapisana':'Lowest recorded'):t('cmp.CostEstimate.statLowest')} value={formatGrosze(stats.lowest)} />
+            {!recorded && <StatCell label={t('cmp.CostEstimate.statAverage')} value={formatGrosze(stats.average)} />}
             <StatCell label={t('cmp.CostEstimate.statCurrent')} value={formatGrosze(stats.current)} />
             <StatCell
               label={t('cmp.CostEstimate.statChange')}

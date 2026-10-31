@@ -19,6 +19,7 @@ import { isCastoramaBrowserSource } from './lib/castorama-browser-observation';
 import { isBricomarcheBrowserSource } from './lib/bricomarche-browser-observation';
 import { isLeroyBrowserSource } from './lib/leroy-browser-observation';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
+import {RetailPriceHistory} from './lib/retail-history';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const normalUnit = (value: string) => ({ litr: 'l', litry: 'l', 'm²': 'm2', 'szt.': 'szt' }[value] ?? value);
@@ -44,7 +45,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   const lastReadAt = new Map<string, number>();
   const lastReadSucceeded = new Map<string, boolean>();
   let lastAttemptAt: string | null = null;
-  const accept = (observation: RetailObservation) => {
+  const acceptedSource = (observation: RetailObservation) => {
     if (!observation || typeof observation !== 'object') return;
     const source = RETAIL_SOURCES.find(source => source.id === observation.sourceId);
     if (!source || source.disabledReason || observation.ean !== source.ean || observation.sourceUrl !== source.url ||
@@ -52,7 +53,6 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       !Number.isSafeInteger(observation.priceGrosze) || observation.priceGrosze <= 0 ||
       observation.stockPackages !== undefined && (!Number.isSafeInteger(observation.stockPackages) || observation.stockPackages < 0 || observation.stockPackages > 1_000_000_000) ||
       !/^[a-f0-9]{64}$/.test(observation.evidenceSha256) || !Number.isFinite(Date.parse(observation.observedAt))) return;
-    const previous = observations.get(source.id);
     // Complex Castorama purchase units have no automatic full-pack proof yet.
     // Removing provenance from a saved row must not bypass its 24h expiry.
     if((source.store==='Leroy Merlin'||isBricomarcheBrowserSource(source)||isCastoramaBrowserSource(source)&&['m2','m'].includes(source.unit))&&!observation.verification)return;
@@ -60,7 +60,17 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const v=observation.verification;
       if(!v||v.method!=='browser'||!(isCastoramaBrowserSource(source)||isBricomarcheBrowserSource(source)||isLeroyBrowserSource(source))||observation.stockPackages!==undefined||v.checkedAt!==observation.observedAt||Date.parse(v.expiresAt)!==Date.parse(v.checkedAt)+86400000)return;
     }
-    if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) observations.set(source.id, observation);
+    return source;
+  };
+  const history = new RetailPriceHistory(RETAIL_SOURCES,acceptedSource);
+  const accept = (observation: RetailObservation) => {
+    const source = acceptedSource(observation);
+    if (!source) return;
+    const previous = observations.get(source.id);
+    if (!previous || Date.parse(previous.observedAt) < Date.parse(observation.observedAt)) {
+      observations.set(source.id, observation);
+      history.remember(observation);
+    }
     if (Date.parse(observation.observedAt) >= Date.parse(withdrawnAt.get(source.id) ?? '')) withdrawnAt.delete(source.id);
   };
   options.initialObservations?.forEach(accept);
@@ -68,7 +78,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     try {
       const cache = JSON.parse(readFileSync(options.cachePath, 'utf8'));
       if (Array.isArray(cache)) cache.forEach(accept);
-      else if (cache?.version === 2 && Array.isArray(cache.observations)) {
+      else if ([2,3].includes(cache?.version) && Array.isArray(cache.observations)) {
+        if (cache.version===3) history.restore(cache.history);
         cache.observations.forEach(accept);
         for (const [id, date] of Object.entries(cache.withdrawnAt ?? {})) {
           if (typeof date === 'string' && Number.isFinite(Date.parse(date)) && RETAIL_SOURCES.some(source => source.id === id)) withdrawnAt.set(id, date);
@@ -131,7 +142,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       if (options.cachePath) {
         try {
           mkdirSync(dirname(options.cachePath), { recursive: true });
-          writeFileSync(`${options.cachePath}.tmp`, JSON.stringify({ version: 2, observations: [...observations.values()], withdrawnAt: Object.fromEntries(withdrawnAt) }));
+          writeFileSync(`${options.cachePath}.tmp`, JSON.stringify({ version: 3, observations: [...observations.values()], withdrawnAt: Object.fromEntries(withdrawnAt), history:history.snapshot() }));
           renameSync(`${options.cachePath}.tmp`, options.cachePath);
           errors.delete('cache');
         } catch { errors.set('cache', 'cache_write_failed'); }
@@ -285,7 +296,16 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   }
   router.post('/pricing/project', handleEstimate);
   router.post('/pricing/stage', handleEstimate);
-  router.get('/pricing/history', (_req, res) => { res.status(404).json({ error: 'verified_history_unavailable' }); });
+  router.get('/pricing/history', (req, res) => {
+    const entries = Object.entries(req.query);
+    if (!entries.length || entries.some(([key,value])=>!['productId','ean','gtin'].includes(key)||typeof value!=='string'||!value||value.length>200)) {res.status(400).json({error:'invalid_history_query'});return;}
+    const sources = RETAIL_SOURCES.filter(source=>!source.disabledReason && entries.every(([key,value])=>key==='productId'?retailProductId(source)===value:retailComparableEan(source)===value));
+    const current = new Map(catalog().offers.filter(offer=>isComparableOffer(offer)).map(offer=>[offer.id,{priceGrosze:observations.get(offer.id)!.priceGrosze,observedAt:observations.get(offer.id)!.observedAt}]));
+    const result = history.response(sources,current);
+    res.setHeader('Cache-Control','no-store');
+    if (!result) {res.status(404).json({error:'verified_history_unavailable'});return;}
+    res.json(result);
+  });
   const timer = options.background === false ? undefined : setInterval(() => { void refresh(); }, REFRESH_INTERVAL_MS);
   timer?.unref();
   if (options.background !== false) void refresh();
