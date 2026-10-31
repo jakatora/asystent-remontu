@@ -1,6 +1,6 @@
-# Rabat na cały koszyk ABUD — dowód i dalszy zakres, 2026-10-31
+# Rabat na cały koszyk ABUD — dowód i wdrożenie, 2026-10-31
 
-Status: **niezaimplementowane**, priorytet kolejnej fali po wave149. Cel nadal aktywny. Nie zastępować tej pracy kolejnym powiększaniem katalogu lub kosmetyką UI.
+Status: **wdrożone w wave150, 2026-10-31**. [Raport i dowody publicznej aplikacji](rabat-koszyka-abud-wdrozenie-wave150-2026-10-31.md). Cel rozwoju całej aplikacji nadal aktywny. Poniżej zachowano przypadek wejściowy i wymagania, z których wynikała implementacja.
 
 ## Potwierdzony przypadek
 
@@ -11,11 +11,13 @@ Anonimowy natywny koszyk ABUD z ośmioma rolkami AKS (po jednej: 3×1,5 mm² 5/2
 - Różnica: **20,44 zł**. Nie ustalać stałego progu ani procentu z jednego odczytu.
 - `prices.base_price` każdej pozycji odpowiada cenie karty; `prices.gros` i `prices.worth_gros` zawierają niższe kwoty po rabacie. Sumę należy brać z rzeczywistych wartości groszowych, bez odtwarzania procentu.
 
-Rzeczywisty HTTP przygotowanego modułu wave149 zwrócił `best=null`, `unavailableStores=[{store:'ABUD',reason:'price_changed'}]`. Obecne sprawdzanie `confirmIdosellBasket` wymaga identycznej ceny karty i koszyka. Dzięki temu nie pokazuje fałszywie potwierdzonych 2043,10 zł, ale nie obsługuje jeszcze prawdziwego rabatu całego zamówienia. Nie zapisywać rabatu jako nowej zwykłej ceny oferty ani punktu historii produktu.
+Rzeczywisty HTTP modułu wave149 zwrócił `best=null`, `unavailableStores=[{store:'ABUD',reason:'price_changed'}]`. Sprawdzanie przed wave150 wymagało identycznej ceny karty i koszyka. Nie pokazywało fałszywie potwierdzonych 2043,10 zł, ale nie obsługiwało rabatu całego zamówienia. Wave150 dodaje osobny kontrakt `cartPricing` dla dokładnego koszyka i zachowuje historię zwykłych cen produktu.
 
-Dowody lokalne w katalogu roboczym: `abud-native-carts-wave149.json` przypadek 5, `basket-discount-gap-wave149.json`, test `aks-cable-range.test.ts` wymagający jawnego odrzucenia niezgodnej sumy. Nie są to dane testowego operatora wpisane jako ceny ani kontrolowany upstream.
+Dowody wejściowego problemu: `abud-native-carts-wave149.json` przypadek 5 i `basket-discount-gap-wave149.json`. Test `aks-cable-range.test.ts` obecnie wymaga poprawnej korekty materiałów i niezmienionych cen katalogowych. Nie są to ceny wpisane przez operatora ani kontrolowany upstream.
 
 ## Wymagana implementacja
+
+Zakres poniżej został zrealizowany. Ważne ustalenie z nowych rzeczywistych koszyków: przy dwóch rolkach każdej pozycji natywne `base_price` różni się od ceny pojedynczej rolki. Nie wolno traktować go jako niezmiennej ceny katalogowej. Właściwa cena odniesienia pochodzi z ponownie odczytanej karty; cena płatna każdej pozycji musi być dodatnia, nie wyższa od tej ceny i zgodna z całym anonimowym koszykiem. Nie odtwarzamy procentu rabatu.
 
 1. Rozszerzyć kontrakt rzeczywistej wyceny o osobne, zweryfikowane ceny materiałów w danym koszyku. Sam `costGrosze` dostawy nie wystarcza. Powiązać pozycje z dokładnym offerId, liczbą opakowań i bazową ceną odczytaną z karty; rabat ma dotyczyć tylko tej zawartości koszyka.
 2. W adapterze ABUD potwierdzić ID/GTIN/jednostkę/liczbę i zapas wszystkich pozycji, ich ceny bazowe, kwoty brutto po rabacie, sumę pozycji i sumę całego koszyka. Nie przyjmować podwyżki, dodatkowych produktów, kaucji, niezgodnych jednostek lub innej liczby sztuk jako rabatu. Używać bieżącej anonimowej sesji, bez kuponu lub cudzego konta. Pozostałe sklepy zachowują dotychczasowy ścisły kontrakt.
