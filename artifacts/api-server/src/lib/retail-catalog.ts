@@ -3,6 +3,7 @@ import {AKS_CABLE_SOURCES} from './aks-cables';
 import {DEKORK_SOURCES} from './dekork';
 import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
 import {ETAK_SOURCES} from './etak-sources';
+import {KNAUF_PLASTER_SOURCES} from './knauf-plasters';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
@@ -1384,10 +1385,17 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
   {"id":"ehw-wago-221415-25","ean":"4055143234658","name":"WAGO 221-415 Złączka instalacyjna COMPACT do wszystkich rodzajów przewodów, transparentna opakowanie 25 szt.","brand":"WAGO","category":"wire-connector","packageSize":25,"unit":"szt","store":"Elektro-Hurt","format":"shoper-api","productId":462,"retailerSku":"WAGO-125138*25","apiPurchaseUnit":"szt.","variant":["221-415","25 szt."],"packageDescription":"Złączka 221-415 opakowanie 25 sztuk.","pickupRequiresConfirmation":true,"url":"https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm","imageUrl":"https://sklep.ehw.com.pl/environment/cache/images/productGfx_857_500_500/Szybkozlaczka-zlaczka-WAGO-221-415-5x4-mm-EAN-4055143234658.jpg"},
   ...ETAK_SOURCES,
+  ...KNAUF_PLASTER_SOURCES,
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716
+  "Knauf MP 75 L — lekki tynk maszynowy 30 kg": "5902367206451",
+  // source: https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022
+  "Knauf Goldband — ręczny tynk gipsowy 30 kg": "5902367206475",
+  // source: https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg
+  "Knauf Rotband — ręczny tynk gipsowy 30 kg": "5903240904075",
   "Płytka ścienna Paradyż Nati Bianco struktura 25×40 cm": "5902610507960",
   "Cersanit Carina K98-0068 — deska standardowa 36,1 × 43,4 cm": "5907720651077",
   "Cersanit Carina K98-0069 — deska wolnoopadająca 36,1 × 43,8 cm": "5907720651084",

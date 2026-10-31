@@ -1,5 +1,6 @@
 import {quoteRelayEnabled,quoteThroughRelay} from './quote-relay-client';
 import {quoteEtak} from './etak-delivery';
+import {selectRealbudMp75lDelivery} from './knauf-plasters';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEwinyl} from './ewinyl';
 import {quoteDekorator} from './dekorator';
@@ -148,6 +149,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
     const id = shoperProductId(source);
     const product = await client.json(`/webapi/front/pl_PL/products/PLN/${id}`);
     confirmShoperPurchaseUnit(product,source);
+    if(pack.packageSize!==source.packageSize||pack.count%(source.purchaseMultiple??1)!==0||pack.count<(source.minimumPackages??1))throw Error('purchase_rules_changed');
     if (String(product.ean) !== source.ean || String(product.id) !== id || !product.can_buy || !Number.isSafeInteger(product.stockId)) throw Error('product_unavailable');
     const price = confirmedMoney(product.price?.gross?.final, product.price?.gross?.final_float);
     if (price !== pack.unitPriceGrosze) throw Error('price_changed');
@@ -165,7 +167,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
     expected.delete(p.stock_id); total += wanted.count * wanted.price;
   }
   if (expected.size || total !== order.materialsGrosze || confirmedMoney(basket.basket?.sum_products, basket.basket?.sum_products_float) !== total) throw Error('basket_not_confirmed');
-  const shipping = selectHomeDelivery(basket,order.store), checkedAt = new Date();
+  const shipping = selectRealbudMp75lDelivery(basket,order)??selectHomeDelivery(basket,order.store), checkedAt = new Date();
   // Quote returned for Poland, not claimed to be postcode-specific. No fictitious
   // name/contact/address is ever submitted to a retailer to unlock checkout.
   const evidence = { products: basket.products.map((p: any) => ({ stock: p.stock_id, count: p.quantity, price: p.price_float })), shippings: basket.shippings, payments: basket.payments, countries: basket.countries };

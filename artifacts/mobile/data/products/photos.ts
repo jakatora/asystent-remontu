@@ -12,6 +12,16 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-mp-75-l-10257_0120
+  {"ids":["mat-plaster-knauf-mp75l-30kg"],"ean":"5902367206451","sourceUrl":"https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716","imageUrl":"https://www.plus-market.pl/environment/cache/images/productGfx_39104_500_500/Tynk-maszynowy-MP75-30-kg-KNAUF.webp"},
+  // source: https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
+  {"ids":["mat-plaster-knauf-goldband-30kg"],"ean":"5902367206475","sourceUrl":"https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_5c8eda237bf003434d3020de193f3662_500_500.webp"},
+  // source: https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-rotband-10001_0120
+  {"ids":["mat-plaster-knauf-rotband-30kg"],"ean":"5903240904075","sourceUrl":"https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg","imageUrl":"https://realbud.com/environment/cache/images/productGfx_25649_500_500/8493.png"},
+
   // source: https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html
   // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
   {"ids":["mat-wire-connector-wago-221-412"],"ean":"4050821808435","sourceUrl":"https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html","imageUrl":"https://etak.eu/hpeciai/f094d901015eabafd8204dbb3b32d408/pol_il_WAGO-Zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-412-735.jpg"},

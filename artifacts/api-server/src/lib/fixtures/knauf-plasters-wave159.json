@@ -1,0 +1,4100 @@
+{
+  "cards": [
+    {
+      "sourceId": "realbud-knauf-mp75l-30kg",
+      "item": {
+        "id": 6599,
+        "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+        "can_buy": true,
+        "ean": "5902367206451",
+        "code": "49221",
+        "package": "40",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 4.85,
+        "votes": 27,
+        "stockId": 6642,
+        "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+        "category": {
+          "name": "Tynki maszynowe i ręczne",
+          "id": 2595
+        },
+        "availability": {
+          "name": "24 godziny"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "7 dni",
+          "hours": "168"
+        },
+        "price": {
+          "gross": {
+            "base": "37,48 zł",
+            "base_float": 37.48,
+            "final": "37,48 zł",
+            "final_float": 37.48,
+            "historical_lowest_price": "36,29 zł",
+            "historical_lowest_price_float": 36.29
+          },
+          "net": {
+            "base": "30,47 zł",
+            "base_float": 30.47,
+            "final": "30,47 zł",
+            "final_float": 30.47,
+            "historical_lowest_price": "29,50 zł",
+            "historical_lowest_price_float": 29.5
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 30,
+          "weight": "30 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 13
+        },
+        "newProduct": false,
+        "shortDescription": "Tynk maszynowy gipsowy KNAUF MP 75 L lekki, op. 30 kg, 40 szt./pal.",
+        "main_image": "25647",
+        "main_image_filename": "25647.png",
+        "description": "<html><head></head><body><div class=\"description-wrapper\">   <div class=\"desc-left-col\">     <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\"></div>     <div class=\"desc-left-col-list\">       <h3>Informacje o produkcie</h3>       <ul class=\"custom-list\">                <li>         <h4>Zastosowanie i Przeznaczenie</h4>         <p>Tynk maszynowy gipsowy Knauf MP 75 L lekki, opakowanie 30 kg, to zaawansowany produkt budowlany zaprojektowany z myślą o szerokim zastosowaniu wewnętrznych tynków ścian i sufitów. Dzięki swoim unikalnym właściwościom, ten lekki tynk idealnie sprawdza się w pomieszczeniach zamkniętych, takich jak kuchnie i łazienki, gdzie wilgotność powietrza utrzymuje się na standardowym poziomie. Znakomity do stosowania na powierzchniach wykonanych z betonu komórkowego, elementów wapienno-piaskowych, czy mieszanych murów, MP 75 L zapewnia solidne, jednorodne i trwałe pokrycie, dostosowując się do różnorodnych podłoży budowlanych dzięki swojej doskonałej nasiąkliwości.</p>       </li>       <li>         <h4>Charakterystyka Techniczna</h4>         <p>MP 75 L charakteryzuje się wyjątkową lekkością oraz imponującą wydajnością, co czyni go ekonomicznym wyborem dla inwestorów oczekujących wysokiej jakości i oszczędności. Średnia grubość tynku wynosi 10 mm, z możliwością nakładania nawet do 50 mm, co pozwala na dostosowanie warstwy do potrzeb konkretnego projektu. Zużycie produktu kształtuje się na poziomie 0,8 kg na 1 mm grubości na 1 m², a jeden worek o wadze 30 kg daje objętość 0,03 m³ zaprawy. Wytrzymałość na ściskanie wynosi ≥ 2,0 N/mm², podczas gdy wytrzymałość na rozciąganie przy zginaniu sięga ≥ 1,0 N/mm², co gwarantuje solidność i wytrzymałość powierzchni po nałożeniu tynku.</p>       </li>       <li>         <h4>Właściwości Funkcjonalne</h4>         <p>Tynk maszynowo-gipsowy Knauf MP 75 L to produkt, który zaspokaja potrzeby zarówno profesjonalnych wykonawców, jak i wymagających klientów indywidualnych. Dzięki doskonałej paroprzepuszczalności, MP 75 L nie tylko wspomaga naturalną regulację wilgotności we wnętrzach, ale również tworzy zdrowy mikroklimat, co jest szczególnie istotne dla komfortu użytkowników. Warto podkreślić, że tynk ten spełnia wszystkie rygorystyczne wymogi ochrony przeciwpożarowej, co znacząco podnosi bezpieczeństwo budynku. Dodatkowo, odporność na ścieranie oraz praktyczność w użytkowaniu, takie jak możliwość wbijania gwoździ, czynią go produktem pożądanym w każdym projekcie budowlanym.</p>       </li>       <li>         <h4>Efektywność i Zalety Ekologiczne</h4>         <p>Knauf MP 75 L lekki dzięki swoim właściwościom termicznym (współczynnik przewodzenia ciepła wynosi zaledwie 0,30 W/mK) stanowi efektywną barierę izolacyjną, co przyczynia się do zwiększenia energooszczędności budynków. Produkt ten został zaprojektowany z myślą o ochronie środowiska, a jego mineralny charakter pomaga tworzyć przyjazne dla zdrowia otoczenie mieszkaniowe. Konstrukcja tynku sprzyja również skróceniu czasu schnięcia, co zależy od grubości warstwy oraz warunków środowiskowych, ale zazwyczaj nie przekracza 14 dni. Dzięki tym właściwościom, wybór produktu MP 75 L to inwestycja w ekologiczne, trwałe i komfortowe użytkowanie przestrzeni mieszkalnej.</p>       </li>       </ul>     </div>     <div class=\"desc-left-col-attr\">       <div class=\"desc-left-col-attr-h4\">         <h4>Dane techniczne</h4>       </div>       <div class=\"desc-left-col-attr-table\">         <div class=\"desc-left-col-attr-table-grey\">           <div>Kod EAN:</div>           <div>5902367206451</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Indeks producenta:</div>           <div>402877</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Kolor:</div>           <div>Biały</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Opakowanie:</div>           <div>Worek</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Objętość:</div>           <div>0,03m3</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Zużycie:</div>           <div>0,8 kg / 1 mm / 1 m2</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Współczynnik przewodzenia ciepła:</div>           <div>0,30 W/mK</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Grupa asortymentowa</div>           <div>001 BUDOWLANKA -24 TYNKI i GŁADZIE</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Waga:</div>           <div>30kg</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Nr. katalogowy producenta:</div>           <div>402877</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Producent:</div>           <div>KNAUF</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Wydajność</div>           <div>100 kg = 125 l zaprawy</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Maksymalna grubość warstwy</div>           <div>50 mm</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Ciężar nasypowy</div>           <div>860 kg/m³</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Uziarnienie</div>           <div>do 1,2 mm</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Wytrzymałość na ściskanie</div>           <div>≥ 2,0 N/mm²</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Wytrzymałość na zginanie</div>           <div>≥ 1,0 N/mm²</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Czas schnięcia</div>           <div>średnio ok. 14 dni</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Współczynnik oporu dyfuzyjnego μ</div>           <div>10</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>pH</div>           <div>10-12</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Reakcja na ogień</div>           <div>A1 – materiał niepalny</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Zużycie</div>           <div>0,8 kg / 1 mm / 1 m²</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Grubość nakładanej warstwy</div>           <div>od 8 mm do 50 mm</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Zastosowanie</div>           <div>Do tynkowania powierzchni z betonu komórkowego, elementów wapienno-piaskowych, betonu pumeksowego oraz murów mieszanych</div>         </div>       </div>     </div>   </div>   <div class=\"desc-right-col\">     <div class=\"desc-right-col-list\">       <div class=\"desc-right-col-list-title\">         <h3>Cechy produktu</h3>       </div>       <div class=\"desc-right-col-list-data\">                <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\"></div>         <div>Wyjątkowa lekkość</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\"></div>         <div>Doskonała nasiąkliwość</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\"></div>         <div>Przyjazny mikroklimat</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\"></div>         <div>Odporność na ścieranie</div>       </div>       </div>     </div>     <div class=\"desc-right-col-img\"><img src=\"/userdata/public/gfx/8662.jpg\" alt=\"\"></div>     <div class=\"desc-right-col-box\">       <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\"></div>       <div>         <p>Wyjątkowa lekkość i doskonała nasiąkliwość sprawiają, że tynk MP75L tworzy idealne wykończenie każdej ściany i sufitu, zapewniając trwałość i komfort użytkowania.</p>       </div>     </div>     <div class=\"desc-right-col-producer\">            <h3>O producencie</h3>     <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\">     <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p>        </div>   </div> </div></body></html>",
+        "images": [
+          "25647",
+          "8663",
+          "8664",
+          "18345",
+          "21751"
+        ],
+        "images_filename": [
+          "25647.png",
+          "8663.jpg",
+          "8664.jpg",
+          "18345.jpg",
+          "21751.jpg"
+        ],
+        "files": [
+          {
+            "name": "Deklaracja Właściwości Użytkowych Tynk Knauf MP75L",
+            "size": 595248,
+            "url": "https://realbud.com/pl/p/file/d3d4ee2e8bd965d31caef574544f5050/DWU_tynk_Knauf_MP75L_pl.pdf"
+          }
+        ],
+        "attributes": [
+          {
+            "name": "inni kupili również",
+            "type": 0,
+            "value": "6622,67903394,6327"
+          },
+          {
+            "name": "Producent:",
+            "type": 0,
+            "value": "KNAUF"
+          },
+          {
+            "name": "Nr. katalogowy producenta:",
+            "type": 0,
+            "value": "402877"
+          },
+          {
+            "name": "Waga:",
+            "type": 0,
+            "value": "30kg"
+          },
+          {
+            "name": "Współczynnik przewodzenia ciepła:",
+            "type": 0,
+            "value": "0,30 W/mK"
+          },
+          {
+            "name": "Zużycie:",
+            "type": 0,
+            "value": "0,8 kg / 1 mm / 1 m2"
+          },
+          {
+            "name": "Kolor:",
+            "type": 0,
+            "value": "Biały"
+          },
+          {
+            "name": "Opakowanie:",
+            "type": 0,
+            "value": "Worek"
+          },
+          {
+            "name": "Indeks producenta:",
+            "type": 0,
+            "value": "402877"
+          },
+          {
+            "name": "Objętość:",
+            "type": 0,
+            "value": "0,03m3"
+          },
+          {
+            "name": "Kod EAN:",
+            "type": 0,
+            "value": "5902367206451"
+          },
+          {
+            "name": "Wysyłka spedycją",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Odbiór własny",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Na zapytanie",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Darmowa dostawa",
+            "type": 1,
+            "value": 1
+          },
+          {
+            "name": "Paczka do 30 kg",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 120",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 80",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 60",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka dłużycowa - 200",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka dłużycowa - 300",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka paletowa - 80x240",
+            "type": 1,
+            "value": 0
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "36,29 zł",
+        "net_historical_lowest_price": "29,50 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "50",
+          "name": "Darmowa dostawa - nowa!"
+        }
+      },
+      "priceGrosze": 3748
+    },
+    {
+      "sourceId": "realbud-knauf-goldband-30kg",
+      "item": {
+        "id": 6645,
+        "name": "Tynk gipsowy ręczny Knauf GOLDBAND, op. 30 kg",
+        "can_buy": true,
+        "ean": "5902367206475",
+        "code": "10956",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 5,
+        "votes": 25,
+        "stockId": 6688,
+        "url": "https://realbud.com/Tynk-gipsowy-reczny-Knauf-GOLDBAND-30-kg",
+        "category": {
+          "name": "Tynki maszynowe i ręczne",
+          "id": 2595
+        },
+        "availability": {
+          "name": "24 godziny"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "50,54 zł",
+            "base_float": 50.54,
+            "final": "50,54 zł",
+            "final_float": 50.54,
+            "historical_lowest_price": "38,89 zł",
+            "historical_lowest_price_float": 38.89
+          },
+          "net": {
+            "base": "41,09 zł",
+            "base_float": 41.09,
+            "final": "41,09 zł",
+            "final_float": 41.09,
+            "historical_lowest_price": "31,62 zł",
+            "historical_lowest_price_float": 31.62
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 30,
+          "weight": "30 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 13
+        },
+        "newProduct": false,
+        "shortDescription": "Tynk gipsowy ręczny KNAUF GOLDBAND, op. 30 kg, 40 szt./pal.",
+        "main_image": "25652",
+        "main_image_filename": "25652.png",
+        "description": "<html><head></head><body><div class=\"description-wrapper\">   <div class=\"desc-left-col\">     <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\"></div>     <div class=\"desc-left-col-list\">       <h3>Informacje o produkcie</h3>       <ul class=\"custom-list\">                <li>         <h4>Zastosowanie i Właściwości Tynku Knauf GOLDBAND</h4>         <p>Tynk gipsowy ręczny Knauf GOLDBAND to zaawansowany produkt budowlany przeznaczony do różnorodnych zastosowań wewnętrznych. Dzięki jego unikalnym właściwościom, takim jak wysoka wydajność i łatwość aplikacji, znajduje zastosowanie w szerokim spektrum projektów budowlanych. Jest odpowiedni do jedno- i wielowarstwowego nakładania na różnorodne podłoża chropowate oraz na solidnie utwardzone obrzutki. Przeznaczony do stosowania w budynkach o różnym przeznaczeniu, z wyjątkiem tych, gdzie przeprowadzane są mokre procesy produkcyjne. Zawiera takie cechy jak przepuszczalność pary wodnej, co umożliwia 'oddychanie' ścian i zwiększa komfort użytkowania pomieszczeń.</p>       </li>       <li>         <h4>Specyfikacja Techniczna i Wydajność</h4>         <p>Knauf GOLDBAND charakteryzuje się ciężarem nasypowym wynoszącym 780 kg/m³ oraz uziarnieniem do 1,2 mm. Wydajność produktu to 100 kg na 120 litrów zaprawy, co sprawia, że jest ekonomiczny w użyciu. Produkt jest łatwy do przygotowania — wystarczy wymieszać go z wodą, uzyskując równomierne i gładkie wykończenie. Tynk oferuje również imponujące parametry mechaniczne, takie jak wytrzymałość na ściskanie na poziomie 3,0 N/mm² i wytrzymałość na rozciąganie przy zginaniu wynoszącą 1,6 N/mm², co gwarantuje jego trwałość i niezawodność.</p>       </li>       <li>         <h4>Unikalne Cechy i Zalety Produktu</h4>         <p>Jedną z głównych zalet tynku Knauf GOLDBAND jest jego zdolność do tynkowania ręcznego w jednej warstwie, co znacznie przyspiesza proces budowlany i upraszcza aplikację. Produkt jest odporny na uderzenia i nacisk dzięki swojej twardości kulkowej, wynoszącej 6,0 N/mm². Cechuje się także niskim współczynnikiem oporu dyfuzyjnego około 5, co oznacza, że ściany 'oddychają', wspomagając utrzymanie odpowiedniego mikroklimatu wewnętrznego. Długi czas przerobu daje możliwość komfortowej i dokładnej aplikacji.</p>       </li>       <li>         <h4>Informacje o Produkcie i Zalecenia Stosowania</h4>         <p>Zaleca się stosowanie tynku Knauf GOLDBAND wewnątrz budynków po uprzednim przygotowaniu powierzchni przy użyciu materiału Knauf-Betokontakt 90. Czas schnięcia wynosi średnio około 7 dni, co zależy od grubości nakładanej warstwy oraz warunków otoczenia, takich jak wilgotność i temperatura powietrza. Optymalna grubość aplikowana to 10 mm, co zapewnia doskonałą równowagę pomiędzy trwałością a ekonomicznością. Produkt jest pakowany w praktyczne worki o wadze 30 kg, co ułatwia transport i przechowywanie.</p>       </li>       </ul>     </div>     <div class=\"desc-left-col-attr\">       <div class=\"desc-left-col-attr-h4\">         <h4>Dane techniczne</h4>       </div>       <div class=\"desc-left-col-attr-table\">         <div class=\"desc-left-col-attr-table-grey\">           <div>Kod EAN:</div>           <div>5902367206475</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Kolor:</div>           <div>Biały</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Opakowanie:</div>           <div>Worek</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Objętość:</div>           <div>0,03m3</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Współczynnik przewodzenia ciepła:</div>           <div>0,25 W/mK</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Grupa asortymentowa</div>           <div>001 BUDOWLANKA -24 TYNKI i GŁADZIE</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Waga:</div>           <div>30kg</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Nr. katalogowy producenta:</div>           <div>2864</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Producent:</div>           <div>KNAUF</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Grubość warstwy:</div>           <div>8-50 mm</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Ciężar nasypowy:</div>           <div>780 kg/m³</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Uziarnienie:</div>           <div>do 1,2 mm</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Wydajność:</div>           <div>100 kg = ok. 115 l zaprawy</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Czas schnięcia:</div>           <div>średnio ok. 7 dni</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Twardość kulkowa:</div>           <div>6,0 N/mm²</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Wytrzymałość na ściskanie:</div>           <div>3,0 N/mm²</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Wytrzymałość na rozciąganie przy zginaniu:</div>           <div>1,6 N/mm²</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Ciężar objętościowy:</div>           <div>ok. 980 kg/m³</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Współczynnik oporu dyfuzyjnego:</div>           <div>ok. 5</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Współczynnik pH:</div>           <div>10-12</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Reakcja na ogień:</div>           <div>A1</div>         </div>       </div>     </div>   </div>   <div class=\"desc-right-col\">     <div class=\"desc-right-col-list\">       <div class=\"desc-right-col-list-title\">         <h3>Cechy produktu</h3>       </div>       <div class=\"desc-right-col-list-data\">                <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\"></div>         <div>Wysoka wydajność</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\"></div>         <div>Łatwość aplikacji</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\"></div>         <div>Trwałość</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\"></div>         <div>Przepuszczalność pary</div>       </div>       </div>     </div>     <div class=\"desc-right-col-img\"><img src=\"/userdata/public/gfx/8729.jpg\" alt=\"\"></div>     <div class=\"desc-right-col-box\">       <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\"></div>       <div>         <p>Prosty w użyciu, Knauf GOLDBAND znacząco przyspiesza proces tynkowania, łącząc trwałość z estetycznym wykończeniem.</p>       </div>     </div>     <div class=\"desc-right-col-producer\">            <h3>O producencie</h3>     <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\">     <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p>        </div>   </div> </div></body></html>",
+        "images": [
+          "25652",
+          "8729",
+          "8730",
+          "18298"
+        ],
+        "images_filename": [
+          "25652.png",
+          "8729.jpg",
+          "8730.jpg",
+          "18298.jpg"
+        ],
+        "files": [
+          {
+            "name": "Karta Charakterystyki Tynk Knauf GOLDBAND",
+            "size": 648475,
+            "url": "https://realbud.com/pl/p/file/eb64ace41e03bbc04d29e507dd9bd5f8/KCH_Tynk_Knauf_Goldbank_pl.pdf"
+          },
+          {
+            "name": "Deklaracja Właściwości Użytkowych Tynk Knauf GOLDBAND",
+            "size": 591498,
+            "url": "https://realbud.com/pl/p/file/5a87744cc7d7bf617b157714e74dabdd/DWU_tynk_Knauf_Goldband_pl.pdf"
+          },
+          {
+            "name": "Atest Higieniczny Tynk Knauf GOLDBAND",
+            "size": 406175,
+            "url": "https://realbud.com/pl/p/file/3645ea58fcd204f579ee471e88fe3edf/AH_tynk_Knauf_Goldband_pl.pdf"
+          }
+        ],
+        "attributes": [
+          {
+            "name": "inni kupili również",
+            "type": 0,
+            "value": "6622,67790135,6327"
+          },
+          {
+            "name": "Producent:",
+            "type": 0,
+            "value": "KNAUF"
+          },
+          {
+            "name": "Nr. katalogowy producenta:",
+            "type": 0,
+            "value": "2864"
+          },
+          {
+            "name": "Waga:",
+            "type": 0,
+            "value": "30kg"
+          },
+          {
+            "name": "Współczynnik przewodzenia ciepła:",
+            "type": 0,
+            "value": "0,25 W/mK"
+          },
+          {
+            "name": "Kolor:",
+            "type": 0,
+            "value": "Biały"
+          },
+          {
+            "name": "Opakowanie:",
+            "type": 0,
+            "value": "Worek"
+          },
+          {
+            "name": "Objętość:",
+            "type": 0,
+            "value": "0,03m3"
+          },
+          {
+            "name": "Kod EAN:",
+            "type": 0,
+            "value": "5902367206475"
+          },
+          {
+            "name": "Wysyłka spedycją",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Odbiór własny",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Na zapytanie",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Darmowa dostawa",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Paczka do 30 kg",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 120",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 80",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 60",
+            "type": 1,
+            "value": 1
+          },
+          {
+            "name": "Wysyłka dłużycowa - 200",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka dłużycowa - 300",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka paletowa - 80x240",
+            "type": 1,
+            "value": 0
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "38,89 zł",
+        "net_historical_lowest_price": "31,62 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "167",
+          "name": "grupa1/5-15/16-40"
+        }
+      },
+      "priceGrosze": 5054
+    },
+    {
+      "sourceId": "realbud-knauf-rotband-30kg",
+      "item": {
+        "id": 6773,
+        "name": "Tynk gipsowy wys. przyczepności Knauf Rotband 30kg",
+        "can_buy": true,
+        "ean": "5903240904075",
+        "code": "8493",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 5,
+        "votes": 25,
+        "stockId": 6816,
+        "url": "https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg",
+        "category": {
+          "name": "Tynki maszynowe i ręczne",
+          "id": 2595
+        },
+        "availability": {
+          "name": "24 godziny"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "1 - 7 dni",
+          "hours": "168"
+        },
+        "price": {
+          "gross": {
+            "base": "75,00 zł",
+            "base_float": 75,
+            "final": "75,00 zł",
+            "final_float": 75,
+            "historical_lowest_price": "49,74 zł",
+            "historical_lowest_price_float": 49.74
+          },
+          "net": {
+            "base": "60,98 zł",
+            "base_float": 60.98,
+            "final": "60,98 zł",
+            "final_float": 60.98,
+            "historical_lowest_price": "40,44 zł",
+            "historical_lowest_price_float": 40.44
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 30,
+          "weight": "30 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 13
+        },
+        "newProduct": false,
+        "shortDescription": "Tynk gipsowy ręczny KNAUF ROTBAND, op. 30 kg, 40 szt./pal.",
+        "main_image": "25649",
+        "main_image_filename": "25649.png",
+        "description": "<html><head></head><body><div class=\"description-wrapper\">   <div class=\"desc-left-col\">     <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\"></div>     <div class=\"desc-left-col-list\">       <h3>Informacje o produkcie</h3>       <ul class=\"custom-list\">                <li>         <h4>Wysokiej jakości tynk, który spełnia wszystkie oczekiwania</h4>         <p>Tynk gipsowy ręczny Knauf ROTBAND, opakowanie 30 kg, to rozwiązanie stworzone z myślą o bezkompromisowej jakości i funkcjonalności, które sprostają wymaganiom zarówno profesjonalnych wykonawców, jak i domowych majsterkowiczów. Wyjątkowe właściwości tego tynku, takie jak łatwość aplikacji i wszechstronność użytkowania, czynią go idealnym wyborem do szerokiej gamy projektów wewnętrznych. Jego prostota zarabiania i jednolite mieszanie pozwalają na szybką i precyzyjną pracę, zapewniając skuteczność i trwałość wykończeń na każdej powierzchni, idealnie spełniając potrzeby nowoczesnego budownictwa.</p>       </li>       <li>         <h4>Niezawodność i trwałość</h4>         <p>Jednym z kluczowych atutów tynku ROTBAND jest jego długotrwała trwałość oraz odporność na uderzenia, co przekłada się na doskonałą żywotność i niezawodność w codziennym użytkowaniu. Tynk jest również elastyczny, co ułatwia formowanie powierzchni i umożliwia adaptację do różnych warunków środowiskowych. Dzięki tym cechom, tynk ROTBAND doskonale się sprawdza w różnych pomieszczeniach, gwarantując wykończenia najwyższej jakości.</p>       </li>       <li>         <h4>Idealna rozwiązanie dla wnętrz o podwyższonej wilgotności</h4>         <p>Knauf ROTBAND to tynk przeznaczony do użytku wewnętrznego, który charakteryzuje się wysoką wydajnością, nawet w pomieszczeniach o podwyższonej wilgotności, jak kuchnie i łazienki, utrzymując doskonały stan powierzchni na długo. Jego zdolność do regulacji mikroklimatu wewnętrznego zapewnia optymalny przepływ powietrza, co jest kluczowe dla zdrowego środowiska mieszkalnego. Z tego powodu stanowi on doskonały wybór dla projektów wymagających szczególnej uwagi pod kątem klimatu pomieszczeń.</p>       </li>       <li>         <h4>Łatwość przechowywania i transportu</h4>         <p>Tynk gipsowy ROTBAND od Knauf, dostępny w praktycznych 30-kilogramowych workach, został zaprojektowany tak, aby maksymalnie ułatwić jego transport i składowanie. Przechowywanie na paletach w suchym środowisku zabezpiecza produkt przed wpływem wilgoci, pozwalając na jego dłuższą użyteczność. Dzięki fabrycznemu zabezpieczeniu, tynk można przechowywać przez okres do 6 miesięcy od daty produkcji, co czyni go niezwykle praktycznym rozwiązaniem dla długoterminowych projektów.</p>       </li>       </ul>     </div>     <div class=\"desc-left-col-attr\">       <div class=\"desc-left-col-attr-h4\">         <h4>Dane techniczne</h4>       </div>       <div class=\"desc-left-col-attr-table\">         <div class=\"desc-left-col-attr-table-grey\">           <div>Kod EAN:</div>           <div>5903240904075</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Kolor:</div>           <div>Biały</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Opakowanie:</div>           <div>Worek</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Objętość:</div>           <div>0,03m3</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Grupa asortymentowa</div>           <div>001 BUDOWLANKA -24 TYNKI i GŁADZIE</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Waga:</div>           <div>30kg</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Nr. katalogowy producenta:</div>           <div>2862</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Producent:</div>           <div>KNAUF</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Ciężar nasypowy:</div>           <div>816 kg/m³</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Ciężar objętościowy:</div>           <div>950 kg/m³</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Czas schnięcia:</div>           <div>336 h</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Grubość warstwy:</div>           <div>5 - 10 mm</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Uziarnienie:</div>           <div>1,2 mm</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Współczynnik oporu dyfuzyjnego μ:</div>           <div>5</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Współczynnik przewodzenia ciepła λ:</div>           <div>0,25 W/mK</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Zużycie:</div>           <div>0,8 kg/m²</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Wydajność:</div>           <div>100 kg = 125 l zaprawy</div>         </div>       </div>     </div>   </div>   <div class=\"desc-right-col\">     <div class=\"desc-right-col-list\">       <div class=\"desc-right-col-list-title\">         <h3>Cechy produktu</h3>       </div>       <div class=\"desc-right-col-list-data\">                <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\"></div>         <div>Łatwość aplikacji</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\"></div>         <div>Odporność na uderzenia</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\"></div>         <div>Regulacja klimatu</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\"></div>         <div>Trwałość wykończenia</div>       </div>       </div>     </div>     <div class=\"desc-right-col-img\"><img src=\"/userdata/public/gfx/8870.jpg\" alt=\"\"></div>     <div class=\"desc-right-col-box\">       <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\"></div>       <div>         <p>Knauf ROTBAND to symbol łatwości aplikacji i najwyższej jakości wykończenia. Jego elastyczność i zdolność adaptacji sprawiają, że to doskonały wybór dla każdego wnętrza.</p>       </div>     </div>     <div class=\"desc-right-col-producer\">            <h3>O producencie</h3>     <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\">     <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p>        </div>   </div> </div></body></html>",
+        "images": [
+          "25649",
+          "8871",
+          "21747"
+        ],
+        "images_filename": [
+          "25649.png",
+          "8871.jpg",
+          "21747.jpg"
+        ],
+        "files": [
+          {
+            "name": "Karta Charakterystyki Tynk Knauf Rotband",
+            "size": 676668,
+            "url": "https://realbud.com/pl/p/file/328267b5b8c021c04ef442165dd2f053/KCH_tynk_Knauf_Rotband_pl.pdf"
+          },
+          {
+            "name": "Deklaracja Właściwości Użytkowych Tynk Knauf Rotband",
+            "size": 607796,
+            "url": "https://realbud.com/pl/p/file/82da9e9d45b83385c8f5b7ba6aa375ac/DWU_tynk_Knauf_Rotband_pl.pdf"
+          },
+          {
+            "name": "Atest Higieniczny Tynk Knauf Rotband",
+            "size": 402088,
+            "url": "https://realbud.com/pl/p/file/597b4f4a5de2f907d685e54f64e5fd74/AH_tynk_Knauf_Rotband_pl.pdf"
+          }
+        ],
+        "attributes": [
+          {
+            "name": "Producent:",
+            "type": 0,
+            "value": "KNAUF"
+          },
+          {
+            "name": "Nr. katalogowy producenta:",
+            "type": 0,
+            "value": "2862"
+          },
+          {
+            "name": "Waga:",
+            "type": 0,
+            "value": "30kg"
+          },
+          {
+            "name": "Kolor:",
+            "type": 0,
+            "value": "Biały"
+          },
+          {
+            "name": "Opakowanie:",
+            "type": 0,
+            "value": "Worek"
+          },
+          {
+            "name": "Objętość:",
+            "type": 0,
+            "value": "0,03m3"
+          },
+          {
+            "name": "Kod EAN:",
+            "type": 0,
+            "value": "5903240904075"
+          },
+          {
+            "name": "Wysyłka spedycją",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Odbiór własny",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Na zapytanie",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Darmowa dostawa",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Paczka do 30 kg",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 120",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 80",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Przesyłka paletowa - 60",
+            "type": 1,
+            "value": 1
+          },
+          {
+            "name": "Wysyłka dłużycowa - 200",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka dłużycowa - 300",
+            "type": 1,
+            "value": 0
+          },
+          {
+            "name": "Wysyłka paletowa - 80x240",
+            "type": 1,
+            "value": 0
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "49,74 zł",
+        "net_historical_lowest_price": "40,44 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "187",
+          "name": "Darmowa-powyżej-500"
+        }
+      },
+      "priceGrosze": 7500
+    },
+    {
+      "sourceId": "plus-knauf-mp75l-30kg",
+      "item": {
+        "id": 15716,
+        "name": "Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki",
+        "can_buy": true,
+        "ean": "5902367206451",
+        "code": "5902367206451",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 16435,
+        "url": "https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716",
+        "category": {
+          "name": "Zaprawy, tynki, betony i wylewki",
+          "id": 296690
+        },
+        "availability": {
+          "name": "średnia ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "38,99 zł",
+            "base_float": 38.99,
+            "final": "38,99 zł",
+            "final_float": 38.99,
+            "historical_lowest_price": "36,99 zł",
+            "historical_lowest_price_float": 36.99
+          },
+          "net": {
+            "base": "31,70 zł",
+            "base_float": 31.7,
+            "final": "31,70 zł",
+            "final_float": 31.7,
+            "historical_lowest_price": "30,07 zł",
+            "historical_lowest_price_float": 30.07
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 30,
+          "weight": "30 kg"
+        },
+        "newProduct": false,
+        "shortDescription": "<ul>\r\n<li>Worek 30 kg</li>\r\n<li>Lekki tynk gipsowy maszynowy</li>\r\n<li>Do ścian i sufitów</li>\r\n<li>Zużycie ok. 8 kg/m² przy 10 mm</li>\r\n</ul>",
+        "main_image": "39104",
+        "main_image_filename": "39104.jpg",
+        "description": "<h2 style=\"color: #000000;\">Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki</h2>\r\n<p style=\"font-size: 11px; color: #777777;\"><span style=\"font-size: 8pt;\">tynk maszynowy gipsowy | Knauf MP 75 L 30 kg | lekki tynk gipsowy | tynk do ścian i sufitów | EAN 5902367206451</span></p>\r\n<p>Dobry tynk wewnętrzny to nie tylko „warstwa na ścianie”. To baza pod całe wykończenie: malowanie, tapety, płytki, gładzie i codzienny wygląd pomieszczenia przez kolejne lata. Jeśli powierzchnia jest równa, stabilna i dobrze przygotowana, dalsze prace idą sprawniej, a efekt końcowy wygląda po prostu lepiej.</p>\r\n<p><strong>Knauf MP 75 L 30 kg</strong> to lekki maszynowy tynk gipsowy do wykonywania jednowarstwowych tynków wewnątrz budynków. Sprawdza się na ścianach i sufitach, tworzy gładkie powierzchnie i może być stosowany na różnego rodzaju podłożach mineralnych.</p>\r\n<h2 style=\"color: #008000;\">Najważniejsze rzeczy w skrócie</h2>\r\n<p>✔️ <strong>Worek 30 kg</strong> – praktyczne opakowanie do prac tynkarskich w domu, mieszkaniu i na budowie.</p>\r\n<p>✔️ <strong>Lekki tynk gipsowy maszynowy</strong> – przeznaczony do sprawnego wykonywania tynków wewnętrznych.</p>\r\n<p>✔️ <strong>Do ścian i sufitów</strong> – tworzy gładkie powierzchnie od piwnicy po dach.</p>\r\n<p>✔️ <strong>Zużycie ok. 8 kg/m² przy 10 mm</strong> – łatwiejsze planowanie ilości materiału.</p>\r\n<p>✔️ <strong>Możliwość nakładania do 50 mm</strong> – przydatna przy wyrównywaniu bardziej wymagających ścian.</p>\r\n<p>✔️ <strong>Pod farby, tapety, gładzie i płytki</strong> – jedna baza pod wiele sposobów wykończenia wnętrza.</p>\r\n<p>✔️ <strong>Paroprzepuszczalny i regulujący wilgotność</strong> – wspiera komfort użytkowania pomieszczeń.</p>\r\n<p>✔️ <strong>Reakcja na ogień A1</strong> – materiał niepalny.</p>\r\n<h2 style=\"color: #008000; text-align: center;\"><img src=\"/userdata/public/assets/Ola/Obrazy do kart produktów/1_karty p7/2026-06-08_13h09_04.jpg\" alt=\"Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki\" width=\"450\" height=\"298\" /></h2>\r\n<h2 style=\"color: #008000;\">Gładkie ściany bez przypadkowego efektu na finiszu</h2>\r\n<p>Knauf MP 75 L pozwala uzyskać <strong>gładkie powierzchnie ścian i sufitów</strong>, dlatego dobrze sprawdza się jako baza pod dalsze wykończenie wnętrza. To ważne szczególnie wtedy, gdy pomieszczenie ma być malowane, tapetowane albo wykańczane w wysokim standardzie.</p>\r\n<p>Dla klienta oznacza to mniej kompromisów na dalszych etapach remontu. Dobrze wykonany tynk pomaga uniknąć sytuacji, w której każda nierówność wychodzi dopiero po pomalowaniu ściany albo przy mocnym świetle dziennym.</p>\r\n<h2 style=\"color: #008000;\">Maszynowa obróbka, która przyspiesza prace na większych powierzchniach</h2>\r\n<p>MP 75 L jest przeznaczony do <strong>obróbki maszynowej</strong>, dlatego dobrze pasuje do prac wykonywanych agregatem tynkarskim. Przy większych powierzchniach ma to duże znaczenie, bo pozwala prowadzić prace sprawniej i bardziej równomiernie.</p>\r\n<p>To rozwiązanie szczególnie praktyczne przy nowych budynkach, większych remontach, inwestycjach mieszkaniowych i wszędzie tam, gdzie liczy się powtarzalny efekt na wielu ścianach oraz sufitach. Materiał jest fabrycznie przygotowaną, suchą zaprawą gipsową z dodatkiem kruszyw lekkich, więc wykonawca pracuje na produkcie o jasno określonych parametrach.</p>\r\n<h2 style=\"color: #008000;\">Jedna warstwa pod wiele sposobów wykończenia</h2>\r\n<p>Ten tynk może być stosowany jako <strong>podłoże pod farby, tapety, tynki wykończeniowe i masy szpachlowe</strong>. To wygodne, bo na etapie tynkowania nie zawsze trzeba od razu zamykać sobie drogę do konkretnego rodzaju wykończenia.</p>\r\n<p>MP 75 L może być również wykorzystany jako podłoże pod płytki ceramiczne o ciężarze do <strong>25 kg/m²</strong>. W takim przypadku trzeba jednak zachować odpowiednią technologię: tynk powinien mieć minimalnie <strong>10 mm grubości</strong>, a powierzchni nie należy wygładzać ani zacierać na gładko.</p>\r\n<h2 style=\"color: #008000;\">Do wnętrz od piwnicy po dach</h2>\r\n<p>Knauf MP 75 L jest przeznaczony do wnętrz, w pomieszczeniach o maksymalnej wilgotności powietrza do <strong>70%</strong>. Może być stosowany także w kuchniach i łazienkach o zwykłym wykorzystaniu, czyli tam, gdzie nie występuje stałe, intensywne zawilgocenie.</p>\r\n<p>To ważne rozróżnienie dla klienta. Produkt dobrze sprawdza się jako tynk wewnętrzny, ale nie jest tynkiem elewacyjnym ani materiałem do miejsc stale mokrych. W strefach narażonych na wodę rozpryskową należy dobrać odpowiednie rozwiązania uszczelniające przed dalszym wykończeniem.</p>\r\n<h2 style=\"color: #008000;\">Grubość 8–50 mm, czyli więcej możliwości przy nierównych ścianach</h2>\r\n<p>Minimalna grubość tynku wynosi <strong>8 mm</strong>, a maksymalna <strong>50 mm</strong>. Średnią grubość warstwy przyjmuje się na poziomie <strong>15 mm</strong>. Dzięki temu produkt można wykorzystać zarówno przy standardowym tynkowaniu, jak i przy podłożach wymagających większego wyrównania.</p>\r\n<p>Przy bardzo grubych warstwach trzeba jednak pracować zgodnie z zasadami technicznymi. Dla tynku powyżej <strong>35 mm</strong> w szczególnych przypadkach zalecane jest wykonanie dwóch warstw, ponieważ jedna gruba warstwa znacząco wydłuża czas schnięcia.</p>\r\n<h2 style=\"color: #008000;\">Zużycie, które pomaga policzyć materiał przed startem prac</h2>\r\n<p>Średnie zużycie wynosi około <strong>8 kg/m² przy grubości 10 mm</strong>. W praktyce worek 30 kg wystarcza orientacyjnie na około <strong>3,75 m²</strong> przy warstwie 10 mm.</p>\r\n<p>To bardzo pomocne przy planowaniu zakupu, ale rzeczywiste zużycie zawsze zależy od podłoża, nierówności ścian, grubości tynku i warunków na budowie. Przy większych pracach warto uwzględnić zapas, szczególnie jeśli ściany wymagają mocniejszego wyrównania.</p>\r\n<h2 style=\"color: #008000;\">Paroprzepuszczalność i regulacja wilgotności dla komfortu we wnętrzu</h2>\r\n<p>MP 75 L jest produktem mineralnym, paroprzepuszczalnym i regulującym wilgotność. To cechy, które dobrze pasują do pomieszczeń mieszkalnych, biurowych i użytkowych, gdzie liczy się przyjemny klimat wewnętrzny oraz stabilna baza pod wykończenie.</p>\r\n<p>Tynk gipsowy jest często wybierany do wnętrz właśnie dlatego, że pozwala uzyskać estetyczną, równą powierzchnię i dobrze współpracuje z dalszymi warstwami wykończeniowymi. W codziennym odbiorze przekłada się to na ściany, które wyglądają spokojnie, czysto i równo po zakończeniu remontu.</p>\r\n<hr />\r\n<p><span style=\"font-size: 14pt;\"> <span style=\"color: #008000;\"><strong>Dowiedz się więcej...</strong></span></span></p>\r\n<ul>\r\n<li><span style=\"text-decoration: underline;\"><span style=\"color: #000080; line-height: 1.5; font-size: 12pt; text-decoration: underline;\"><a style=\"color: #000080; text-decoration: underline;\" href=\"https://www.plus-market.pl/jaka-gladz-cekol-wybrac-gs-200-a-45-c-45-f-16-c-35\" target=\"_blank\">Jaką gładź CEKOL wybrać? GS-200, A-45, C-45, F-16 i C-35 bez zgadywania</a></span></span></li>\r\n<li><span style=\"text-decoration: underline;\"><span style=\"color: #000080; line-height: 1.5; font-size: 12pt; text-decoration: underline;\"><a style=\"color: #000080; text-decoration: underline;\" href=\"https://www.plus-market.pl/jaki-grunt-pod-malowanie-zwykly-czy-wzmacniajacy\" target=\"_blank\">Jaki grunt wybrać pod malowanie – kiedy zwykły, a kiedy wzmacniający</a></span></span></li>\r\n<li><span style=\"text-decoration: underline;\"><span style=\"color: #000080; line-height: 1.5; font-size: 12pt; text-decoration: underline;\"><a style=\"color: #000080; text-decoration: underline;\" href=\"https://www.plus-market.pl/blog/ranking-klejow-greinplast-ktory-do-czego-wybrac\" target=\"_blank\">Jaki klej do płytek Greinplast wybrać? Praktyczny poradnik bez zgadywania</a></span></span></li>\r\n<li><span style=\"text-decoration: underline;\"><span style=\"color: #000080; line-height: 1.5; font-size: 12pt; text-decoration: underline;\"><a style=\"color: #000080; text-decoration: underline;\" href=\"https://www.plus-market.pl/jak-wybrac-plytki-do-lazienki-i-kuchni-poradnik\" target=\"_blank\">Jak wybrać płytki do łazienki i kuchni – na co zwrócić uwagę</a></span></span></li>\r\n<li><span style=\"text-decoration: underline;\"><span style=\"color: #000080; line-height: 1.5; font-size: 12pt; text-decoration: underline;\"><a style=\"color: #000080; text-decoration: underline;\" href=\"https://www.plus-market.pl/dlaczego-silikon-nie-trzyma-najczestsze-bledy\" target=\"_blank\">Dlaczego silikon nie trzyma – najczęstsze błędy przy uszczelnianiu</a></span></span></li>\r\n</ul>\r\n<hr />\r\n<h2 style=\"color: #008000;\">Czas obróbki ok. 240 minut – więcej spokoju przy prowadzeniu prac</h2>\r\n<p>Czas obróbki wynosi około <strong>240 minut</strong>. Zależy on od chłonności podłoża, temperatury podłoża i otoczenia, grubości oraz gęstości nakładanego tynku.</p>\r\n<p>Dla wykonawcy oznacza to komfort pracy przy rozprowadzaniu, wyrównywaniu i wyprowadzaniu powierzchni. Przy tynkowaniu większych pomieszczeń liczy się nie tylko sam produkt, ale też czas na poprawne przejście przez kolejne etapy obróbki.</p>\r\n<h2 style=\"color: #008000;\">Niepalny materiał A1 i praktyczna powierzchnia użytkowa</h2>\r\n<p>Knauf MP 75 L ma reakcję na ogień <strong>A1</strong>, czyli jest materiałem niepalnym. To jeden z ważnych parametrów użytkowych przy materiałach stosowanych wewnątrz budynków.</p>\r\n<p>Produkt jest także odporny na ścieranie i daje możliwość wbijania gwoździ. To praktyczne przy codziennym użytkowaniu pomieszczeń, ponieważ ściany po wykończeniu nie są tylko dekoracją — mają normalnie funkcjonować w mieszkaniu, domu, biurze czy obiekcie użytkowym.</p>\r\n<h2 style=\"color: #008000;\">Dane techniczne</h2>\r\n<p>✔️ <strong>Produkt:</strong> lekki maszynowy tynk gipsowy</p>\r\n<p>✔️ <strong>Model:</strong> MP 75 L</p>\r\n<p>✔️ <strong>Opakowanie:</strong> 30 kg</p>\r\n<p>✔️ <strong>Numer materiału:</strong> 00061195</p>\r\n<p>✔️ <strong>Zastosowanie:</strong> jednowarstwowe tynki gipsowe wewnątrz pomieszczeń</p>\r\n<p>✔️ <strong>Podłoże:</strong> różnego rodzaju podłoża mineralne</p>\r\n<p>✔️ <strong>Zakres stosowania:</strong> ściany i sufity wewnątrz budynków</p>\r\n<p>✔️ <strong>Maksymalna wilgotność powietrza w pomieszczeniu:</strong> 70%</p>\r\n<p>✔️ <strong>Grubość tynku:</strong> od 8 mm do 50 mm</p>\r\n<p>✔️ <strong>Średnia grubość tynku:</strong> 15 mm</p>\r\n<p>✔️ <strong>Maksymalna grubość na stropie:</strong> 15 mm</p>\r\n<p>✔️ <strong>Minimalna grubość pod płytki ceramiczne:</strong> 10 mm</p>\r\n<p>✔️ <strong>Maksymalny ciężar płytek ceramicznych:</strong> 25 kg/m²</p>\r\n<p>✔️ <strong>Zużycie:</strong> ok. 8 kg/m² przy grubości 10 mm</p>\r\n<p>✔️ <strong>Wydajność:</strong> 100 kg = ok. 125 l zaprawy</p>\r\n<p>✔️ <strong>Czas obróbki:</strong> ok. 240 minut</p>\r\n<p>✔️ <strong>Czas schnięcia:</strong> średnio 14 dni przy grubości 10 mm, zależnie od warunków</p>\r\n<p>✔️ <strong>Temperatura obróbki:</strong> nie stosować poniżej +5°C</p>\r\n<p>✔️ <strong>Reakcja na ogień:</strong> A1, materiał niepalny</p>\r\n<p>✔️ <strong>Klasyfikacja:</strong> tynk lekki gipsowy B4/50/2 wg EN 13279-1</p>\r\n<p>✔️ <strong>Przechowywanie:</strong> do 3 miesięcy, w suchym miejscu na drewnianych paletach</p>\r\n<p>✔️ <strong>EAN:</strong> 5902367206451</p>\r\n<p>✔️ <strong>Producent:</strong> Knauf Sp. z o.o., ul. Światowa 25, 02-229 Warszawa, Polska, SDS-info@knauf.pl</p>\r\n<p style=\"color: #008000; text-align: left;\"><span style=\"color: #000000; font-size: 8pt;\"><img src=\"/userdata/public/assets/Ola/Obrazy do kart produktów/1_karty p6/2026-02-12_12h27_44.jpg\" alt=\"\" width=\"133\" height=\"121\" /></span></p>\r\n<p><span style=\"font-size: 8pt;\"><strong>Hasło ostrzegawcze:</strong> Niebezpieczeństwo</span></p>\r\n<p><span style=\"font-size: 8pt;\"><strong>Zawiera:</strong> wodorotlenek wapnia</span></p>\r\n<ul>\r\n<li><span style=\"font-size: 8pt;\">Skin Irrit. 2 – działanie drażniące na skórę, kategoria 2</span></li>\r\n<li><span style=\"font-size: 8pt;\">Eye Dam. 1 – poważne uszkodzenie oczu, kategoria 1</span></li>\r\n</ul>\r\n<ul>\r\n<li><span style=\"font-size: 8pt;\">H315 – Działa drażniąco na skórę.</span></li>\r\n<li><span style=\"font-size: 8pt;\">H318 – Powoduje poważne uszkodzenie oczu.</span></li>\r\n</ul>\r\n<ul>\r\n<li><span style=\"font-size: 8pt;\">P102 – Chronić przed dziećmi.</span></li>\r\n<li><span style=\"font-size: 8pt;\">P280 – Stosować rękawice ochronne, ochronę oczu i odzież ochronną.</span></li>\r\n<li><span style=\"font-size: 8pt;\">P302 + P352 – W PRZYPADKU KONTAKTU ZE SKÓRĄ: umyć dużą ilością wody z mydłem.</span></li>\r\n<li><span style=\"font-size: 8pt;\">P305 + P351 + P338 – W PRZYPADKU DOSTANIA SIĘ DO OCZU: ostrożnie płukać wodą przez kilka minut. Wyjąć soczewki kontaktowe, jeżeli są i można je łatwo usunąć. Nadal płukać.</span></li>\r\n<li><span style=\"font-size: 8pt;\">P313 – Zasięgnąć porady lub zgłosić się pod opiekę lekarza.</span></li>\r\n<li><span style=\"font-size: 8pt;\">P362 – Zdjąć zanieczyszczoną odzież.</span></li>\r\n</ul>\r\n<h2 style=\"color: #008000; text-align: center;\"><img src=\"/userdata/public/assets/Ola/Obrazy do kart produktów/1_karty p7/2026-06-08_13h06_37.jpg\" alt=\"Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki\" width=\"450\" height=\"299\" /></h2>\r\n<h2 style=\"color: #008000;\">Najczęstsze pytania przed zakupem</h2>\r\n<ul>\r\n<li><strong>Czy MP 75 L nadaje się do łazienki, czy lepiej go tam nie stosować?</strong></li>\r\n</ul>\r\n<p>Można go stosować w łazienkach o zwykłym wykorzystaniu, pod warunkiem że maksymalna wilgotność powietrza w pomieszczeniu nie przekracza <strong>70%</strong>. Nie jest to jednak produkt do miejsc stale mokrych ani do powierzchni zewnętrznych. W strefach narażonych na wodę rozpryskową trzeba zastosować odpowiednie uszczelnienie przed dalszym wykończeniem.</p>\r\n<ul>\r\n<li><strong>Czy ten tynk można zostawić bez gładzi pod malowanie?</strong></li>\r\n</ul>\r\n<p>MP 75 L pozwala uzyskać gładkie powierzchnie ścian i sufitów. Jeżeli jednak inwestor oczekuje bardzo równego, bardziej wymagającego efektu pod malowanie, można zastosować dodatkową warstwę wykończeniową, na przykład gładź gipsową. W praktyce decyzja zależy od standardu wykończenia i tego, jak dokładny efekt ma być widoczny po pomalowaniu.</p>\r\n<ul>\r\n<li><strong>Czy pod płytki trzeba wygładzać tynk tak samo jak pod farbę?</strong></li>\r\n</ul>\r\n<p>Nie. Pod płytki ceramiczne powierzchnia tynku powinna pozostać szorstka, nie należy jej wygładzać ani zacierać na gładko. Minimalna grubość tynku pod płytki wynosi <strong>10 mm</strong>, a ciężar płytek nie powinien przekraczać <strong>25 kg/m²</strong>. Przed klejeniem płytek wilgotność resztkowa podłoża nie może przekraczać 1%.</p>\r\n<ul>\r\n<li><strong>Ile metrów można zrobić z jednego worka 30 kg?</strong></li>\r\n</ul>\r\n<p>Przy zużyciu około <strong>8 kg/m² dla warstwy 10 mm</strong> jeden worek 30 kg wystarcza orientacyjnie na około <strong>3,75 m²</strong>. To wyliczenie pomocnicze. Jeśli ściana jest nierówna, warstwa będzie grubsza albo podłoże wymaga większego wyrównania, zużycie wzrośnie.</p>\r\n<ul>\r\n<li><strong>Czy MP 75 L nadaje się na bardzo krzywe ściany?</strong></li>\r\n</ul>\r\n<p>Produkt można nakładać w zakresie od <strong>8 mm do 50 mm</strong>. Przy grubości powyżej <strong>35 mm</strong> w szczególnych przypadkach zalecane jest wykonanie tynku w dwóch warstwach. Jedna bardzo gruba warstwa znacząco wydłuża czas schnięcia, dlatego przy mocno nierównych ścianach warto zaplanować pracę zgodnie z technologią.</p>\r\n<ul>\r\n<li><strong>Czy można tynkować nim stropy tak samo grubo jak ściany?</strong></li>\r\n</ul>\r\n<p>Nie. Przy stropach obowiązują ostrzejsze ograniczenia. Maksymalna grubość tynku na stropie wynosi <strong>15 mm</strong>. Stropy należy tynkować jednowarstwowo, a przy konkretnych sytuacjach technicznych trzeba stosować rozwiązania przewidziane w technologii systemowej.</p>\r\n<ul>\r\n<li><strong>Czy tynk można nakładać ręcznie?</strong></li>\r\n</ul>\r\n<p>MP 75 L jest przeznaczony do <strong>obróbki maszynowej</strong>. Najlepiej sprawdza się przy użyciu agregatu tynkarskiego, szczególnie na większych powierzchniach. Jeśli klient szuka produktu typowo do ręcznej aplikacji, powinien dobrać materiał przeznaczony do takiego sposobu pracy.</p>\r\n<ul>\r\n<li><strong>Jak przygotować podłoże, żeby tynk dobrze pracował?</strong></li>\r\n</ul>\r\n<p>Podłoże należy oczyścić z kurzu, pyłu i luźnych cząstek oraz usunąć większe nierówności. Wystające elementy zbrojenia trzeba zabezpieczyć antykorozyjnie. W zależności od rodzaju podłoża i jego chłonności może być potrzebne gruntowanie odpowiednim preparatem, na przykład przy betonie lub murach o dużej albo zróżnicowanej chłonności.</p>\r\n<ul>\r\n<li><strong>Po jakim czasie można robić dalsze prace?</strong></li>\r\n</ul>\r\n<p>Tynk musi wyschnąć. Przy warstwie 10 mm średni czas schnięcia wynosi około <strong>14 dni</strong>, ale zależy od temperatury, wilgotności i wentylacji pomieszczenia. Przy mniej korzystnych warunkach czas schnięcia może się wydłużyć. Dalsze warstwy warto wykonywać dopiero wtedy, gdy podłoże jest suche, stabilne i wolne od pyłu.</p>\r\n<ul>\r\n<li><strong>Czy to dobry wybór, jeśli inwestor chce jedną bazę pod różne wykończenia?</strong></li>\r\n</ul>\r\n<p>Tak, to jedna z mocnych stron tego produktu. MP 75 L może być bazą pod farby, tapety, tynki wykończeniowe, masy szpachlowe oraz płytki ceramiczne przy zachowaniu odpowiednich warunków. Dzięki temu sprawdza się w inwestycjach, gdzie różne pomieszczenia będą wykańczane na różne sposoby.</p>\r\n<h2 style=\"color: #008000;\">Ważne informacje</h2>\r\n<p>Produkt jest przeznaczony do stosowania wewnątrz budynków. Nie należy stosować go w temperaturze pomieszczenia lub elementów budowlanych poniżej <strong>+5°C</strong>. Świeżą zaprawę i naniesiony tynk należy chronić przed mrozem.</p>\r\n<p>Suchą mieszankę należy przechowywać w suchym miejscu, na drewnianych paletach, chroniąc worki przed zawilgoceniem. Dla worków 30 kg czas przechowywania wynosi do <strong>3 miesięcy</strong>.</p>\r\n<p>Dla wszystkich powłok i okładzin tynk musi być suchy, stabilny i wolny od pyłu. Środek gruntujący należy dopasować do planowanych warstw wykończeniowych.</p>\r\n<p style=\"font-size: 10pt; color: #666666; line-height: 0.75;\"><span style=\"font-size: 8pt;\"><strong>UWAGA:</strong> Dokładamy wszelkich starań, aby opisy, zdjęcia, nazwy, oznaczenia oraz dane techniczne prezentowanych produktów były rzetelne, aktualne i zgodne ze stanem faktycznym. Ze względu na indywidualne ustawienia urządzeń wyświetlających, warunki oświetleniowe podczas wykonywania zdjęć, specyfikę materiałów, tolerancje produkcyjne, sposób pomiaru oraz ewentualne zmiany wprowadzane przez producenta, rzeczywisty wygląd produktu, jego odcień, faktura, wykończenie, detale, wyposażenie lub wymiary mogą nieznacznie różnić się od prezentacji zamieszczonej w ofercie. Informacje zawarte w opisie mają charakter pomocniczy i służą ułatwieniu wyboru produktu. Przed zakupem należy zapoznać się z pełną specyfikacją i parametrami technicznymi podanymi w ofercie.</span></p>\r\n<div class=\"pm-acc\"><details class=\"pm-acc__item\"> <summary>Informacje techniczne i bezpieczeństwo</summary>\r\n<div class=\"pm-acc__content\">\r\n<h3>Dane producenta / podmiot odpowiedzialny (GPSR)</h3>\r\n<p>Knauf Sp. z o.o.</p>\r\n<p>ul. Światowa 25, 02-229 Warszawa, Polska</p>\r\n<p>tel. +48 22 36 95 200</p>\r\n<p>e-mail: SDS-info@knauf.pl</p>\r\n<p>www.knauf.pl</p>\r\n<h3>Identyfikacja produktu</h3>\r\n<p>✔️ <strong>Nazwa produktu:</strong> Knauf MP 75 L</p>\r\n<p>✔️ <strong>Nazwa handlowa:</strong> tynk maszynowy lekki</p>\r\n<p>✔️ <strong>EAN:</strong> 5902367206451</p>\r\n<p>✔️ <strong>Rodzaj produktu:</strong> maszynowy tynk gipsowy lekki</p>\r\n<p>✔️ <strong>Opakowanie:</strong> 30 kg</p>\r\n<p>✔️ <strong>Forma:</strong> ciało stałe, sucha zaprawa</p>\r\n<p>✔️ <strong>Kolor:</strong> beżowo-szary</p>\r\n<p>✔️ <strong>Zapach:</strong> bez zapachu</p>\r\n<p>✔️ <strong>Zastosowanie:</strong> powłoka do ścian i sufitów wewnętrznych</p>\r\n<p>✔️ <strong>Norma:</strong> EN 13279-1</p>\r\n<p>✔️ <strong>Typ wyrobu:</strong> B4/50/2</p>\r\n<p>✔️ <strong>Numer partii:</strong> na etykiecie produktu</p>\r\n<h3>Klasyfikacja CLP</h3>\r\n<p>Produkt jest sklasyfikowany jako mieszanina stwarzająca zagrożenie zgodnie z Rozporządzeniem (WE) nr 1272/2008.</p>\r\n<p><strong>Hasło ostrzegawcze:</strong> Niebezpieczeństwo</p>\r\n<p><strong>Zawiera:</strong> wodorotlenek wapnia</p>\r\n<p><strong>Klasyfikacja zagrożeń:</strong></p>\r\n<ul>\r\n<li>Skin Irrit. 2 – działanie drażniące na skórę, kategoria 2</li>\r\n<li>Eye Dam. 1 – poważne uszkodzenie oczu, kategoria 1</li>\r\n</ul>\r\n<p><strong>Zwroty H:</strong></p>\r\n<ul>\r\n<li>H315 – Działa drażniąco na skórę.</li>\r\n<li>H318 – Powoduje poważne uszkodzenie oczu.</li>\r\n</ul>\r\n<p><strong>Zwroty P:</strong></p>\r\n<ul>\r\n<li>P102 – Chronić przed dziećmi.</li>\r\n<li>P280 – Stosować rękawice ochronne, ochronę oczu i odzież ochronną.</li>\r\n<li>P302 + P352 – W PRZYPADKU KONTAKTU ZE SKÓRĄ: umyć dużą ilością wody z mydłem.</li>\r\n<li>P305 + P351 + P338 – W PRZYPADKU DOSTANIA SIĘ DO OCZU: ostrożnie płukać wodą przez kilka minut. Wyjąć soczewki kontaktowe, jeżeli są i można je łatwo usunąć. Nadal płukać.</li>\r\n<li>P313 – Zasięgnąć porady lub zgłosić się pod opiekę lekarza.</li>\r\n<li>P362 – Zdjąć zanieczyszczoną odzież.</li>\r\n</ul>\r\n<h3>Składniki istotne dla bezpieczeństwa</h3>\r\n<ul>\r\n<li><strong>Wodorotlenek wapnia:</strong> &lt;3%</li>\r\n<li><strong>Siarczan wapnia:</strong> składnik mieszaniny nieorganicznej</li>\r\n<li><strong>Węglan wapnia:</strong> składnik mieszaniny nieorganicznej</li>\r\n<li><strong>Dolomit:</strong> składnik mieszaniny nieorganicznej</li>\r\n<li><strong>Piasek kwarcowy:</strong> składnik mieszaniny nieorganicznej</li>\r\n<li><strong>Dodatki organiczne:</strong> dodatki modyfikujące czas wiązania, retencję wody i obrabialność</li>\r\n</ul>\r\n<h3>Bezpieczeństwo użytkowania</h3>\r\n<ul>\r\n<li>Produkt stosować wyłącznie zgodnie z przeznaczeniem, jako powłokę do ścian i sufitów wewnętrznych.</li>\r\n<li>Nie stosować produktu do innych zastosowań niż wskazane przez producenta.</li>\r\n<li>Unikać zanieczyszczenia oczu, skóry i odzieży.</li>\r\n<li>Podczas pracy z produktem nie jeść, nie pić i nie palić tytoniu.</li>\r\n<li>Nie przechowywać środków spożywczych na stanowisku pracy.</li>\r\n<li>Myć ręce przed każdą przerwą w pracy i po jej zakończeniu.</li>\r\n<li>Niezwłocznie zdjąć zanieczyszczoną odzież i uprać ją przed ponownym użyciem.</li>\r\n<li>Stosować odpowiednie środki ochrony indywidualnej.</li>\r\n<li>Przechowywać poza zasięgiem dzieci.</li>\r\n</ul>\r\n<h3>Środki ochrony indywidualnej</h3>\r\n<ul>\r\n<li><strong>Ochrona dróg oddechowych:</strong> maska filtrująca z pochłaniaczem pyłów zgodna z EN 149:2001 + A1:2009; wymienić w przypadku utrudnionego oddychania.</li>\r\n<li><strong>Ochrona rąk:</strong> rękawice jednorazowe zgodne z EN 374-1, EN 374-3 oraz EN 420; wymienić w przypadku jakiegokolwiek uszkodzenia.</li>\r\n<li><strong>Ochrona oczu i twarzy:</strong> okulary panoramiczne chroniące przed pyłami zgodne z EN 166, EN 172 i EN 165.</li>\r\n<li><strong>Ochrona ciała:</strong> odzież robocza.</li>\r\n<li><strong>Obuwie:</strong> buty antypoślizgowe.</li>\r\n</ul>\r\n<h3>Pierwsza pomoc</h3>\r\n<ul>\r\n<li><strong>Wdychanie:</strong> w przypadku narażenia na nadmierne stężenie pyłów osobę poszkodowaną niezwłocznie wyprowadzić na świeże powietrze. Zapewnić ciepło, spokój i warunki do odpoczynku. Zasięgnąć porady lekarza w przypadku zaburzeń oddechowych lub utrzymywania się objawów podrażnienia.</li>\r\n<li><strong>Kontakt ze skórą:</strong> skórę zanieczyszczoną produktem niezwłocznie umyć wodą, zdejmując zanieczyszczoną odzież i buty. Zanieczyszczoną odzież starannie uprać przed ponownym użyciem. W przypadku utrzymywania się dolegliwości zasięgnąć porady lekarza.</li>\r\n<li><strong>Kontakt z oczami:</strong> przy podwiniętych powiekach natychmiast przemywać oczy dużą ilością czystej bieżącej wody przez co najmniej 15 minut. Wyjąć soczewki kontaktowe, jeżeli są i można je łatwo usunąć. W przypadku utrzymywania się dolegliwości zasięgnąć porady lekarza i okazać kartę charakterystyki produktu.</li>\r\n<li><strong>Połknięcie:</strong> przepłukać usta i gardło wodą. Nie wywoływać wymiotów bez zaleceń lekarza. W przypadku spontanicznych wymiotów pochylić nisko głowę, aby nie dopuścić do zachłyśnięcia i aspiracji zawartości żołądka do płuc. W przypadku utrzymywania się dolegliwości zasięgnąć pomocy lekarskiej.</li>\r\n</ul>\r\n<h3>Postępowanie w przypadku pożaru</h3>\r\n<ul>\r\n<li>Produkt nie jest palny.</li>\r\n<li>Pożar gasić środkami odpowiednimi do otoczenia i palących się materiałów.</li>\r\n<li>Podczas pożaru lub rozkładu termicznego pod wpływem temperatury powyżej 1200°C mogą wytwarzać się tlenki wapnia.</li>\r\n<li>Nie wdychać dymów i gazów powstających podczas pożaru.</li>\r\n<li>W zależności od nasilenia pożaru stosować aparaty oddechowe z niezależnym źródłem powietrza oraz odpowiedni sprzęt ochronny.</li>\r\n</ul>\r\n<h3>Postępowanie w przypadku rozsypania</h3>\r\n<ul>\r\n<li>Zabronić dostępu osobom postronnym do miejsca skażenia.</li>\r\n<li>Oznakować zagrożony obszar.</li>\r\n<li>Nosić zalecane środki ochrony indywidualnej.</li>\r\n<li>Unikać zanieczyszczenia oczu i skóry.</li>\r\n<li>Nie dopuszczać do przedostania się produktu do kanalizacji, ścieków, rowów i cieków wodnych.</li>\r\n<li>Unikając wytwarzania pyłów, zebrać produkt mechanicznie do oznakowanego pojemnika na odpady.</li>\r\n<li>Zanieczyszczone miejsca zmyć wodą.</li>\r\n</ul>\r\n<h3>Przechowywanie i magazynowanie</h3>\r\n<ul>\r\n<li>Przechowywać w pomieszczeniach suchych na rusztach drewnianych.</li>\r\n<li>Unikać kontaktu produktu z wodą.</li>\r\n<li>Chronić przed zawilgoceniem.</li>\r\n<li>Nie składować w pobliżu źródeł ciepła.</li>\r\n<li>Nie składować z żywnością, napojami ani paszą.</li>\r\n<li>Okres składowania: zgodnie z oznaczeniem na opakowaniu.</li>\r\n</ul>\r\n<h3>Transport</h3>\r\n<ul>\r\n<li>Produkt nie jest klasyfikowany jako towar niebezpieczny w transporcie.</li>\r\n<li>Numer UN: nie dotyczy.</li>\r\n<li>Prawidłowa nazwa przewozowa UN: nie dotyczy.</li>\r\n<li>Klasa zagrożenia w transporcie: nie dotyczy.</li>\r\n<li>Grupa pakowania: nie dotyczy.</li>\r\n<li>Zagrożenie dla środowiska w transporcie: nie dotyczy.</li>\r\n</ul>\r\n<h3>Utylizacja</h3>\r\n<ul>\r\n<li>Nie usuwać produktu do kanalizacji, ścieków, rowów ani dróg wodnych.</li>\r\n<li>Odpady produktu i jego opakowanie przekazać uprawnionym firmom.</li>\r\n<li>Utylizować zgodnie z obowiązującymi przepisami.</li>\r\n</ul>\r\n<h3>Dodatkowe informacje</h3>\r\n<ul>\r\n<li>Produkt posiada atest higieniczny.</li>\r\n<li>Produkt posiada klasyfikację EMICODE EC 1 PLUS – bardzo niski poziom emisji.</li>\r\n<li>Reakcja na ogień: A1 – materiał niepalny.</li>\r\n<li>Produkt przeznaczony jest do stosowania wewnątrz budynków.</li>\r\n<li>Tynki gipsowe powinny funkcjonować w temperaturze ≥ +5°C oraz wilgotności powietrza ≤ 70%.</li>\r\n</ul>\r\n<p><span style=\"color: #800000;\"><strong>UWAGA</strong></span></p>\r\n<p><em>Dokładamy wszelkich starań, aby opisy, parametry i zdjęcia były rzetelne, jednak nie gwarantujemy pełnej zgodności kolorów i detali. Różnice mogą wynikać z ustawień monitorów, warunków oświetlenia, kalibracji urządzeń, partii produkcyjnych oraz aktualizacji producenta. Zastrzegamy możliwość niezamierzonych błędów redakcyjnych (tj. opis, parametry, etykieta). Przy produktach wrażliwych kolorystycznie (m.in. panele, farby, płytki) zalecamy weryfikację odcienia na próbce lub we wzorniku. Niniejsza informacja nie ogranicza praw konsumenta.</em></p>\r\n</div>\r\n</details></div>",
+        "images": [
+          "39104",
+          "39105",
+          "39106",
+          "39107",
+          "39108"
+        ],
+        "images_filename": [
+          "39104.jpg",
+          "39105.jpg",
+          "39106.jpg",
+          "39107.jpg",
+          "39108.jpg"
+        ],
+        "files": [
+          {
+            "name": "Emicode-MP75-L.pdf",
+            "size": 293316,
+            "url": "https://www.plus-market.pl/pl/p/file/d7cab3a71ee310e79c53d8b24eff1509/Emicode-MP75-L.pdf"
+          },
+          {
+            "name": "Atest higieniczny Knauf-Tynki gipsowe.pdf",
+            "size": 1051293,
+            "url": "https://www.plus-market.pl/pl/p/file/9099cc844893582b483fe54c36195516/Atest-higieniczny-Knauf-Tynki-gipsowe.pdf"
+          },
+          {
+            "name": "Karta-charakterystyki-Knauf-Tynki_gipsowe_maszynowe.pdf",
+            "size": 370617,
+            "url": "https://www.plus-market.pl/pl/p/file/9fd8605c49cadd7e608edc30b58a20df/Karta-charakterystyki-Knauf-Tynki_gipsowe_maszynowe.pdf"
+          },
+          {
+            "name": "1350-MP-75-L-2016-05-23.pdf",
+            "size": 595248,
+            "url": "https://www.plus-market.pl/pl/p/file/c0c6e89ae944fe27d445283044e2ca44/1350-MP-75-L-2016-05-23.pdf"
+          },
+          {
+            "name": "P113-pl_-__karta_produktu_Knauf_MP_75_L.pdf",
+            "size": 641455,
+            "url": "https://www.plus-market.pl/pl/p/file/adcd335f7fe22c5c09f21f8eea57eae2/P113-pl_-__karta_produktu_Knauf_MP_75_L.pdf"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "36,99 zł",
+        "net_historical_lowest_price": "30,07 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "201",
+          "name": "Przesyłka kurierska (InPost/Pocztex)"
+        }
+      },
+      "priceGrosze": 3899
+    },
+    {
+      "sourceId": "rabdom-knauf-goldband-30kg",
+      "item": {
+        "id": 2022,
+        "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+        "can_buy": true,
+        "ean": "5902367206475",
+        "code": "0172",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 2022,
+        "url": "https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022",
+        "loyalty": {
+          "points_float": 47,
+          "points": "47 pkt",
+          "price_float": 4700,
+          "price": "4 700 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Tynki",
+          "id": 1005
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "47,00 zł",
+            "base_float": 47,
+            "final": "47,00 zł",
+            "final_float": 47,
+            "historical_lowest_price": "47,00 zł",
+            "historical_lowest_price_float": 47
+          },
+          "net": {
+            "base": "38,21 zł",
+            "base_float": 38.21,
+            "final": "38,21 zł",
+            "final_float": 38.21,
+            "historical_lowest_price": "38,21 zł",
+            "historical_lowest_price_float": 38.21
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 30,
+          "weight": "30 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 83,
+          "img": "https://www.rabdom.pl/userdata/public/producers/83.jpg"
+        },
+        "newProduct": false,
+        "shortDescription": "<p><strong>Knauf GOLDBAND Ręczny tynk gipsowy 30kg</strong></p>",
+        "main_image": "5c8eda237bf003434d3020de193f3662",
+        "main_image_filename": "5c8eda237bf003434d3020de193f3662.jpg",
+        "description": "<p><img alt=\"\" src=\"/public/assets/KNAUF/1.PNG\" style=\"display:block;margin-left:auto;margin-right:auto;\" /></p>",
+        "images": [
+          "5c8eda237bf003434d3020de193f3662"
+        ],
+        "images_filename": [
+          "5c8eda237bf003434d3020de193f3662.jpg"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "47,00 zł",
+        "net_historical_lowest_price": "38,21 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      },
+      "priceGrosze": 4700
+    }
+  ],
+  "carts": [
+    {
+      "order": {
+        "store": "Plus-Market",
+        "materialsGrosze": 3899,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206451",
+              "name": "Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki",
+              "imageUrl": "https://www.plus-market.pl/environment/cache/images/productGfx_39104_500_500/Tynk-maszynowy-MP75-30-kg-KNAUF.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "plus-knauf-mp75l-30kg",
+                "store": "Plus-Market",
+                "url": "https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716",
+                "packageSize": 30,
+                "count": 1,
+                "unitPriceGrosze": 3899,
+                "lineCostGrosze": 3899
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 5500,
+          "carrier": "Przesyłka kurierska (standard)",
+          "payment": "Przelewy24.pl / BLIK / Przelew tradycyjny",
+          "checkedAt": "2026-10-31T19:15:55.259Z",
+          "expiresAt": "2026-10-31T19:25:55.259Z",
+          "sourceUrl": "https://www.plus-market.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "dea0709dd51940a225fda4b30eec92c7d6c99cdf840dc2fc5baf38b76dcf5980"
+        }
+      },
+      "added": {
+        "added": [
+          {
+            "id": 127333,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki",
+            "variant": "",
+            "quantity": 1,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "38,99 zł",
+            "stock_id": 16435,
+            "price_float": 38.99,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 1
+        },
+        "session": "qf2ib83or53r42k3u8l5cftrh3"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 127333,
+            "parent_id": null,
+            "stock_id": 16435,
+            "product_id": 15716,
+            "type": null,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L 30 kg lekki",
+            "variant": "",
+            "quantity": 1,
+            "image": "39104",
+            "image_filename": "39104.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 38.99,
+            "price": "38,99 zł",
+            "sum_float": 38.99,
+            "sum": "38,99 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 296690,
+              "translation": {
+                "name": "Zaprawy, tynki, betony i wylewki"
+              }
+            },
+            "url": "https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716",
+            "remove_url": "https://www.plus-market.pl/pl/basket/remove/127333"
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "98,99 zł",
+          "sum_float": 98.99000000000001,
+          "sum_products": "38,99 zł",
+          "sum_products_float": 38.99,
+          "sum_no_shipping": "38,99 zł",
+          "sum_no_shipping_float": 38.99,
+          "loyalty_points": 0
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 66,
+            "selected": true,
+            "title": "Przesyłka kurierska (standard)",
+            "description": "",
+            "cost": "55,00 zł",
+            "cost_float": 55,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "5,00 zł",
+                "additional_cost_float": 5
+              },
+              {
+                "payment_id": 7
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "55,00 zł",
+                "cost_float": 55
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty po płatności z góry ",
+            "description": "Zakręcie 2K, Krasnystaw",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 7
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 2,
+            "selected": true,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl / BLIK / Przelew tradycyjny",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "47",
+          "title": "Kurier (duże farby Greinplast)",
+          "free_shipping_float": 800,
+          "free_shipping": "800,00 zł",
+          "missing_float": 761.01,
+          "missing": "761,01 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Realbud",
+        "materialsGrosze": 149920,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206451",
+              "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+              "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25647_500_500/49221.png"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "realbud-knauf-mp75l-30kg",
+                "store": "Realbud",
+                "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+                "packageSize": 30,
+                "count": 40,
+                "unitPriceGrosze": 3748,
+                "lineCostGrosze": 149920,
+                "purchaseMultiple": 40
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 0,
+          "carrier": "Darmowa dostawa",
+          "payment": "Autopay",
+          "checkedAt": "2026-10-31T19:15:55.558Z",
+          "expiresAt": "2026-10-31T19:25:55.558Z",
+          "sourceUrl": "https://realbud.com/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "baf638f6594eefcecf53b6b52d9f7de3e11363956bd904db4b5ac04d32d7c900"
+        }
+      },
+      "added": {
+        "added": [
+          {
+            "id": 135120,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+            "variant": "",
+            "quantity": 40,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "37,48 zł",
+            "stock_id": 6642,
+            "price_float": 37.48,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 40
+        },
+        "session": "et3ogs6p5p3nr3tm57lsqlo27j"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 135120,
+            "parent_id": null,
+            "stock_id": 6642,
+            "product_id": 6599,
+            "type": null,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+            "variant": "",
+            "quantity": 40,
+            "image": "25647",
+            "image_filename": "25647.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 37.48,
+            "price": "37,48 zł",
+            "sum_float": 1499.2,
+            "sum": "1 499,20 zł",
+            "delivery": "7 dni",
+            "loyalty": null,
+            "category": {
+              "category_id": "2595",
+              "translation": {
+                "name": "Tynki maszynowe i ręczne"
+              }
+            },
+            "producer": {
+              "producer_id": "13",
+              "name": "Knauf"
+            },
+            "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+            "remove_url": "https://realbud.com/pl/basket/remove/135120"
+          }
+        ],
+        "basket": {
+          "count": 40,
+          "sum": "1 499,20 zł",
+          "sum_float": 1499.2,
+          "sum_products": "1 499,20 zł",
+          "sum_products_float": 1499.2,
+          "sum_no_shipping": "1 499,20 zł",
+          "sum_no_shipping_float": 1499.2,
+          "loyalty_points": 0
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 89,
+            "selected": true,
+            "title": "Darmowa dostawa",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1,
+                "additional_cost": "24,60 zł",
+                "additional_cost_float": 24.6
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Transport na zapytanie",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór własny Szczecin",
+            "description": "ul. 1 Maja 32",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "Odbiór własny Bydgoszcz",
+            "description": "ul. Fabryczna 6a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 19,
+            "selected": false,
+            "name": "custom",
+            "title": "Szybki przelew on-line",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Płatność przy odbiorze",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "89",
+          "title": "Darmowa dostawa",
+          "free_shipping_float": 0.01,
+          "free_shipping": "0,01 zł",
+          "missing_float": -1499.19,
+          "missing": "-1 499,19 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Realbud",
+        "materialsGrosze": 299840,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206451",
+              "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+              "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25647_500_500/49221.png"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "realbud-knauf-mp75l-30kg",
+                "store": "Realbud",
+                "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+                "packageSize": 30,
+                "count": 80,
+                "unitPriceGrosze": 3748,
+                "lineCostGrosze": 299840,
+                "purchaseMultiple": 40
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 0,
+          "carrier": "Darmowa dostawa",
+          "payment": "Autopay",
+          "checkedAt": "2026-10-31T19:15:55.860Z",
+          "expiresAt": "2026-10-31T19:25:55.860Z",
+          "sourceUrl": "https://realbud.com/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "726ebcd922d64ed5dfa1672c1dbf7472081bad6a8ccad7a564c300f2620dc0c6"
+        }
+      },
+      "added": {
+        "added": [
+          {
+            "id": 135121,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+            "variant": "",
+            "quantity": 80,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "37,48 zł",
+            "stock_id": 6642,
+            "price_float": 37.48,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 80
+        },
+        "session": "moepp82435fjphpucoq3bdflui"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 135121,
+            "parent_id": null,
+            "stock_id": 6642,
+            "product_id": 6599,
+            "type": null,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+            "variant": "",
+            "quantity": 80,
+            "image": "25647",
+            "image_filename": "25647.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 37.48,
+            "price": "37,48 zł",
+            "sum_float": 2998.4,
+            "sum": "2 998,40 zł",
+            "delivery": "7 dni",
+            "loyalty": null,
+            "category": {
+              "category_id": "2595",
+              "translation": {
+                "name": "Tynki maszynowe i ręczne"
+              }
+            },
+            "producer": {
+              "producer_id": "13",
+              "name": "Knauf"
+            },
+            "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+            "remove_url": "https://realbud.com/pl/basket/remove/135121"
+          }
+        ],
+        "basket": {
+          "count": 80,
+          "sum": "2 998,40 zł",
+          "sum_float": 2998.4,
+          "sum_products": "2 998,40 zł",
+          "sum_products_float": 2998.4,
+          "sum_no_shipping": "2 998,40 zł",
+          "sum_no_shipping_float": 2998.4,
+          "loyalty_points": 0
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 89,
+            "selected": true,
+            "title": "Darmowa dostawa",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1,
+                "additional_cost": "24,60 zł",
+                "additional_cost_float": 24.6
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Transport na zapytanie",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór własny Szczecin",
+            "description": "ul. 1 Maja 32",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "Odbiór własny Bydgoszcz",
+            "description": "ul. Fabryczna 6a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 19,
+            "selected": false,
+            "name": "custom",
+            "title": "Szybki przelew on-line",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Płatność przy odbiorze",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "89",
+          "title": "Darmowa dostawa",
+          "free_shipping_float": 0.01,
+          "free_shipping": "0,01 zł",
+          "missing_float": -2998.39,
+          "missing": "-2 998,39 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 4700,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206475",
+              "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_5c8eda237bf003434d3020de193f3662_500_500.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-knauf-goldband-30kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022",
+                "packageSize": 30,
+                "count": 1,
+                "unitPriceGrosze": 4700,
+                "lineCostGrosze": 4700
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 2100,
+          "carrier": "Pocztex KURIER",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-10-31T19:15:56.234Z",
+          "expiresAt": "2026-10-31T19:25:56.234Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "6bd218b80cba37bdb84afde91ab641ad11aa833850754ea168a9b42b103a40dd"
+        }
+      },
+      "added": {
+        "added": [
+          {
+            "id": 163942,
+            "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+            "variant": "",
+            "quantity": 1,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "47,00 zł",
+            "stock_id": 2022,
+            "price_float": 47,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 1
+        },
+        "session": "m64hv20m6tc5s2okihkvtfvkpd"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 163942,
+            "parent_id": null,
+            "stock_id": 2022,
+            "product_id": 2022,
+            "type": null,
+            "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "5c8eda237bf003434d3020de193f3662",
+            "image_filename": "5c8eda237bf003434d3020de193f3662.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 47,
+            "price": "47,00 zł",
+            "sum_float": 47,
+            "sum": "47,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1005,
+              "translation": {
+                "name": "Tynki"
+              }
+            },
+            "producer": {
+              "producer_id": 83,
+              "name": "Knauf"
+            },
+            "url": "https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/163942"
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "82,99 zł",
+          "sum_float": 82.99000000000001,
+          "sum_products": "47,00 zł",
+          "sum_products_float": 47,
+          "sum_no_shipping": "47,00 zł",
+          "sum_no_shipping_float": 47,
+          "loyalty_points": 47
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Kurier",
+            "description": "",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": true,
+            "title": "InPost Paczkomat 24/7",
+            "description": "1-2 dni robocze",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "InPost Kurier Pobranie",
+            "description": "",
+            "cost": "45,99 zł",
+            "cost_float": 45.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "45,99 zł",
+                "cost_float": 45.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "36,50 zł",
+            "cost_float": 36.5,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "36,50 zł",
+                "cost_float": 36.5
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Pobranie",
+            "description": "",
+            "cost": "42,49 zł",
+            "cost_float": 42.49,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "0,47 zł",
+                "additional_cost_float": 0.47000000000000003
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "42,49 zł",
+                "cost_float": 42.49
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Pocztex KURIER",
+            "description": "Dostawa w ciągu 48h",
+            "cost": "21,00 zł",
+            "cost_float": 21,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,00 zł",
+                "cost_float": 21
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "Pocztex PUNKT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego punktu w uwagach",
+            "cost": "17,40 zł",
+            "cost_float": 17.4,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,40 zł",
+                "cost_float": 17.4
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Pocztex AUTOMAT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego automatu w uwagach",
+            "cost": "17,40 zł",
+            "cost_float": 17.4,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,40 zł",
+                "cost_float": 17.4
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 453,
+          "missing": "453,00 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Realbud",
+        "materialsGrosze": 7500,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5903240904075",
+              "name": "Tynk gipsowy wys. przyczepności Knauf Rotband 30kg",
+              "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25649_500_500/8493.png"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "realbud-knauf-rotband-30kg",
+                "store": "Realbud",
+                "url": "https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg",
+                "packageSize": 30,
+                "count": 1,
+                "unitPriceGrosze": 7500,
+                "lineCostGrosze": 7500
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 2500,
+          "carrier": "Kurier",
+          "payment": "Autopay",
+          "checkedAt": "2026-10-31T19:15:56.544Z",
+          "expiresAt": "2026-10-31T19:25:56.544Z",
+          "sourceUrl": "https://realbud.com/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "7c8c882d6935457cca4134485c5dfc33a37f39bee64201f0fb29498c62c7fc9a"
+        }
+      },
+      "added": {
+        "added": [
+          {
+            "id": 135122,
+            "name": "Tynk gipsowy wys. przyczepności Knauf Rotband 30kg",
+            "variant": "",
+            "quantity": 1,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "75,00 zł",
+            "stock_id": 6816,
+            "price_float": 75,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 1
+        },
+        "session": "nabn8hkmcbh73m676qloircr1g"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 135122,
+            "parent_id": null,
+            "stock_id": 6816,
+            "product_id": 6773,
+            "type": null,
+            "name": "Tynk gipsowy wys. przyczepności Knauf Rotband 30kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "25649",
+            "image_filename": "25649.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 75,
+            "price": "75,00 zł",
+            "sum_float": 75,
+            "sum": "75,00 zł",
+            "delivery": "1 - 7 dni",
+            "loyalty": null,
+            "category": {
+              "category_id": "2595",
+              "translation": {
+                "name": "Tynki maszynowe i ręczne"
+              }
+            },
+            "producer": {
+              "producer_id": "13",
+              "name": "Knauf"
+            },
+            "url": "https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg",
+            "remove_url": "https://realbud.com/pl/basket/remove/135122"
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "100,00 zł",
+          "sum_float": 100,
+          "sum_products": "75,00 zł",
+          "sum_products_float": 75,
+          "sum_no_shipping": "75,00 zł",
+          "sum_no_shipping_float": 75,
+          "loyalty_points": 0
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 205,
+            "selected": true,
+            "title": "Kurier",
+            "description": "Darmowa powyżej 500 zł",
+            "cost": "25,00 zł",
+            "cost_float": 25,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "25,00 zł",
+                "cost_float": 25
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Transport na zapytanie",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór własny Szczecin",
+            "description": "ul. 1 Maja 32",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "Odbiór własny Bydgoszcz",
+            "description": "ul. Fabryczna 6a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 19,
+            "selected": false,
+            "name": "custom",
+            "title": "Szybki przelew on-line",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Płatność przy odbiorze",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "89",
+          "title": "Darmowa dostawa",
+          "free_shipping_float": 0.01,
+          "free_shipping": "0,01 zł",
+          "missing_float": -74.99,
+          "missing": "-74,99 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Realbud",
+        "materialsGrosze": 5054,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206475",
+              "name": "Tynk gipsowy ręczny Knauf GOLDBAND, op. 30 kg",
+              "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25652_500_500/10956.png"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "realbud-knauf-goldband-30kg",
+                "store": "Realbud",
+                "url": "https://realbud.com/Tynk-gipsowy-reczny-Knauf-GOLDBAND-30-kg",
+                "packageSize": 30,
+                "count": 1,
+                "unitPriceGrosze": 5054,
+                "lineCostGrosze": 5054
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "reason": "no_home_delivery"
+      },
+      "added": {
+        "added": [
+          {
+            "id": 135123,
+            "name": "Tynk gipsowy ręczny Knauf GOLDBAND, op. 30 kg",
+            "variant": "",
+            "quantity": 1,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "50,54 zł",
+            "stock_id": 6688,
+            "price_float": 50.54,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 1
+        },
+        "session": "gh7213l9j2b2mca1348sed0vu5"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 135123,
+            "parent_id": null,
+            "stock_id": 6688,
+            "product_id": 6645,
+            "type": null,
+            "name": "Tynk gipsowy ręczny Knauf GOLDBAND, op. 30 kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "25652",
+            "image_filename": "25652.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 50.54,
+            "price": "50,54 zł",
+            "sum_float": 50.54,
+            "sum": "50,54 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": "2595",
+              "translation": {
+                "name": "Tynki maszynowe i ręczne"
+              }
+            },
+            "producer": {
+              "producer_id": "13",
+              "name": "Knauf"
+            },
+            "url": "https://realbud.com/Tynk-gipsowy-reczny-Knauf-GOLDBAND-30-kg",
+            "remove_url": "https://realbud.com/pl/basket/remove/135123"
+          }
+        ],
+        "basket": {
+          "count": 1,
+          "sum": "85,54 zł",
+          "sum_float": 85.53999999999999,
+          "sum_products": "50,54 zł",
+          "sum_products_float": 50.54,
+          "sum_no_shipping": "50,54 zł",
+          "sum_no_shipping_float": 50.54,
+          "loyalty_points": 0
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 175,
+            "selected": true,
+            "title": "grupa1/5-15/16-40",
+            "description": "",
+            "cost": "35,00 zł",
+            "cost_float": 35,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1,
+                "additional_cost": "24,60 zł",
+                "additional_cost_float": 24.6
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,00 zł",
+                "cost_float": 35
+              }
+            ]
+          },
+          {
+            "shipping_id": 23,
+            "selected": false,
+            "title": "Transport na zapytanie",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór własny Szczecin",
+            "description": "ul. 1 Maja 32",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "Odbiór własny Bydgoszcz",
+            "description": "ul. Fabryczna 6a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 19,
+            "selected": false,
+            "name": "custom",
+            "title": "Szybki przelew on-line",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Płatność przy odbiorze",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "89",
+          "title": "Darmowa dostawa",
+          "free_shipping_float": 0.01,
+          "free_shipping": "0,01 zł",
+          "missing_float": -50.53,
+          "missing": "-50,53 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Realbud",
+        "materialsGrosze": 156599,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206451",
+              "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+              "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25647_500_500/49221.png"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "realbud-knauf-mp75l-30kg",
+                "store": "Realbud",
+                "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+                "packageSize": 30,
+                "count": 40,
+                "unitPriceGrosze": 3748,
+                "lineCostGrosze": 149920,
+                "purchaseMultiple": 40
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-4006379051014",
+              "name": "Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+              "imageUrl": "https://realbud.com/environment/cache/images/productGfx_25859_500_500/9341.png?overlay=1"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "realbud-knauf-betokontakt-5kg",
+                "store": "Realbud",
+                "url": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+                "packageSize": 5,
+                "count": 1,
+                "unitPriceGrosze": 6679,
+                "lineCostGrosze": 6679
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "reason": "no_home_delivery"
+      },
+      "added": {
+        "added": [
+          {
+            "id": 135124,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+            "variant": "",
+            "quantity": 40,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "37,48 zł",
+            "stock_id": 6642,
+            "price_float": 37.48,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 40
+        },
+        "session": "2i16hee89ks01e6ik2hse4cv5r"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 135124,
+            "parent_id": null,
+            "stock_id": 6642,
+            "product_id": 6599,
+            "type": null,
+            "name": "Tynk maszynowy gipsowy Knauf MP 75 L lekki, op. 30 kg",
+            "variant": "",
+            "quantity": 40,
+            "image": "25647",
+            "image_filename": "25647.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 37.48,
+            "price": "37,48 zł",
+            "sum_float": 1499.2,
+            "sum": "1 499,20 zł",
+            "delivery": "7 dni",
+            "loyalty": null,
+            "category": {
+              "category_id": "2595",
+              "translation": {
+                "name": "Tynki maszynowe i ręczne"
+              }
+            },
+            "producer": {
+              "producer_id": "13",
+              "name": "Knauf"
+            },
+            "url": "https://realbud.com/Tynk-maszynowy-gipsowy-Knauf-MP75L-30-kg",
+            "remove_url": "https://realbud.com/pl/basket/remove/135124"
+          },
+          {
+            "id": 135125,
+            "parent_id": null,
+            "stock_id": 74052653,
+            "product_id": 74052350,
+            "type": null,
+            "name": "Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+            "variant": "",
+            "quantity": 1,
+            "image": "25859",
+            "image_filename": "25859.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 66.79,
+            "price": "66,79 zł",
+            "sum_float": 66.79,
+            "sum": "66,79 zł",
+            "delivery": "1 - 7 dni",
+            "loyalty": null,
+            "category": {
+              "category_id": "2595",
+              "translation": {
+                "name": "Tynki maszynowe i ręczne"
+              }
+            },
+            "producer": {
+              "producer_id": "13",
+              "name": "Knauf"
+            },
+            "url": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+            "remove_url": "https://realbud.com/pl/basket/remove/135125"
+          }
+        ],
+        "basket": {
+          "count": 41,
+          "sum": "1 565,99 zł",
+          "sum_float": 1565.99,
+          "sum_products": "1 565,99 zł",
+          "sum_products_float": 1565.99,
+          "sum_no_shipping": "1 565,99 zł",
+          "sum_no_shipping_float": 1565.99,
+          "loyalty_points": 0
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 23,
+            "selected": true,
+            "title": "Transport na zapytanie",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór własny Szczecin",
+            "description": "ul. 1 Maja 32",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "Odbiór własny Bydgoszcz",
+            "description": "ul. Fabryczna 6a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 19
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Autopay",
+            "description": ""
+          },
+          {
+            "payment_id": 19,
+            "selected": false,
+            "name": "custom",
+            "title": "Szybki przelew on-line",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Płatność przy odbiorze",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "89",
+          "title": "Darmowa dostawa",
+          "free_shipping_float": 0.01,
+          "free_shipping": "0,01 zł",
+          "missing_float": -1565.98,
+          "missing": "-1 565,98 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 8490,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5902367206475",
+              "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_5c8eda237bf003434d3020de193f3662_500_500.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-knauf-goldband-30kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022",
+                "packageSize": 30,
+                "count": 1,
+                "unitPriceGrosze": 4700,
+                "lineCostGrosze": 4700
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-8022452241123",
+              "name": "MAPEI PRIMER G PRO 1l KONCENTRAT GRUNTUJĄCY GRUNT",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_19574_500_500/4_primer-g-pro_1l_pl_2c7d4435f6894c59b7f19830a10992cc.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-1l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970",
+                "packageSize": 1,
+                "count": 1,
+                "unitPriceGrosze": 3790,
+                "lineCostGrosze": 3790
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 3150,
+          "carrier": "Pocztex KURIER",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-10-31T19:15:58.194Z",
+          "expiresAt": "2026-10-31T19:25:58.194Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "409a12d9459785b2ad52d56ac53f34d06ce7d4bb9b8324d77c9afb84b949ddd8"
+        }
+      },
+      "added": {
+        "added": [
+          {
+            "id": 163943,
+            "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+            "variant": "",
+            "quantity": 1,
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price": "47,00 zł",
+            "stock_id": 2022,
+            "price_float": 47,
+            "children": []
+          }
+        ],
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": [
+            "Produkt dodany do koszyka."
+          ]
+        },
+        "basket": {
+          "count": 1
+        },
+        "session": "c3t0jt65plu5j1uteubi7q3od8"
+      },
+      "basket": {
+        "products": [
+          {
+            "id": 163943,
+            "parent_id": null,
+            "stock_id": 2022,
+            "product_id": 2022,
+            "type": null,
+            "name": "Knauf GOLDBAND Ręczny tynk gipsowy 30kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "5c8eda237bf003434d3020de193f3662",
+            "image_filename": "5c8eda237bf003434d3020de193f3662.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 47,
+            "price": "47,00 zł",
+            "sum_float": 47,
+            "sum": "47,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1005,
+              "translation": {
+                "name": "Tynki"
+              }
+            },
+            "producer": {
+              "producer_id": 83,
+              "name": "Knauf"
+            },
+            "url": "https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/163943"
+          },
+          {
+            "id": 163944,
+            "parent_id": null,
+            "stock_id": 10974,
+            "product_id": 10970,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO 1l KONCENTRAT GRUNTUJĄCY GRUNT",
+            "variant": "",
+            "quantity": 1,
+            "image": "19574",
+            "image_filename": "19574.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 37.9,
+            "price": "37,90 zł",
+            "sum_float": 37.9,
+            "sum": "37,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/163944"
+          }
+        ],
+        "basket": {
+          "count": 2,
+          "sum": "120,89 zł",
+          "sum_float": 120.89000000000001,
+          "sum_products": "84,90 zł",
+          "sum_products_float": 84.9,
+          "sum_no_shipping": "84,90 zł",
+          "sum_no_shipping_float": 84.9,
+          "loyalty_points": 84
+        },
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Kurier",
+            "description": "",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": true,
+            "title": "InPost Paczkomat 24/7",
+            "description": "1-2 dni robocze",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "InPost Kurier Pobranie",
+            "description": "",
+            "cost": "45,99 zł",
+            "cost_float": 45.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "45,99 zł",
+                "cost_float": 45.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "48,20 zł",
+            "cost_float": 48.2,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "48,20 zł",
+                "cost_float": 48.2
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Pobranie",
+            "description": "",
+            "cost": "54,19 zł",
+            "cost_float": 54.19,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "0,85 zł",
+                "additional_cost_float": 0.8490000000000001
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "54,19 zł",
+                "cost_float": 54.19
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Pocztex KURIER",
+            "description": "Dostawa w ciągu 48h",
+            "cost": "31,50 zł",
+            "cost_float": 31.5,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "31,50 zł",
+                "cost_float": 31.5
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "Pocztex PUNKT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego punktu w uwagach",
+            "cost": "26,10 zł",
+            "cost_float": 26.1,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,10 zł",
+                "cost_float": 26.1
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Pocztex AUTOMAT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego automatu w uwagach",
+            "cost": "26,10 zł",
+            "cost_float": 26.1,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,10 zł",
+                "cost_float": 26.1
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 415.1,
+          "missing": "415,10 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    }
+  ],
+  "supportCards": [
+    {
+      "sourceId": "realbud-knauf-betokontakt-5kg",
+      "item": {
+        "id": 74052350,
+        "name": "Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych",
+        "can_buy": true,
+        "ean": "4006379051014",
+        "code": "9341",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 74052653,
+        "url": "https://realbud.com/pl/p/Srodek-gruntujacy-KNAUF-Betokontakt-5-kg%2C-grunt-do-powierzchni-betonowych/74052350",
+        "category": {
+          "name": "Tynki maszynowe i ręczne",
+          "id": 2595
+        },
+        "availability": {
+          "name": "24 godziny"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "1 - 7 dni",
+          "hours": "168"
+        },
+        "price": {
+          "gross": {
+            "base": "66,79 zł",
+            "base_float": 66.79,
+            "final": "66,79 zł",
+            "final_float": 66.79,
+            "historical_lowest_price": "63,91 zł",
+            "historical_lowest_price_float": 63.91
+          },
+          "net": {
+            "base": "54,30 zł",
+            "base_float": 54.3,
+            "final": "54,30 zł",
+            "final_float": 54.3,
+            "historical_lowest_price": "51,96 zł",
+            "historical_lowest_price_float": 51.96
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 5,
+          "weight": "5 kg"
+        },
+        "producer": {
+          "name": "Knauf",
+          "id": 13
+        },
+        "newProduct": false,
+        "shortDescription": "<p>Środek gruntujący KNAUF Betokontakt 5 kg, grunt do powierzchni betonowych</p>",
+        "main_image": "25859",
+        "main_image_filename": "25859.png",
+        "description": "<div class=\"description-wrapper\">  <div class=\"desc-left-col\">  <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\" /></div>  <div class=\"desc-left-col-list\">  <h3>Informacje o produkcie</h3>  <ul class=\"custom-list\">  <li>  <h4>Wprowadzenie do Knauf Betokontakt</h4>  <p>Knauf Betokontakt to zaawansowany środek gruntujący zaprojektowany z myślą o zapewnieniu optymalnej przyczepności na trudnych powierzchniach. Produkt ten idealnie nadaje się do zastosowania na ścisłych, gładkich i niechłonnych podłożach, takich jak elementy betonowe i żelbetowe. Dzięki temu, że łączy w sobie mieszaninę piasku kwarcowego oraz dyspersji tworzyw sztucznych, zapewnia doskonałą bazę pod późniejsze prace wykończeniowe. Nie tylko wzmacnia podłoże, ale również zwiększa jego trwałość i odporność na uszkodzenia mechaniczne.</p>  </li>  <li>  <h4>Właściwości techniczne i zastosowanie</h4>  <p>Produkt Knauf Betokontakt oferuje szereg właściwości, które czynią go niezastąpionym narzędziem w budownictwie. Jego gęstość 1,4 kg/l oraz lepka konsystencja gwarantują łatwość aplikacji, podczas gdy pH na poziomie około 9 sprawia, że jest bezpieczny dla użytkowania. Idealne parametry paroprzepuszczalności oraz brak rozpuszczalników pozwalają na naturalne odprowadzenie wilgoci, co zapobiega rozwoju pleśni i grzybów. Betokontakt jest gotowy do użycia po wymieszaniu, a jego charakterystyczny różowy kolor pomaga w równomiernym rozprowadzaniu na powierzchni.</p>  </li>  <li>  <h4>Zalety stosowania Knauf Betokontakt</h4>  <p>Jedną z kluczowych zalet Knauf Betokontakt jest jego wysoka wydajność, wynosząca 0,225 kg/m², co czyni go ekonomicznym rozwiązaniem dla dużych powierzchni. Czas schnięcia minimum 12 godzin pozwala na wygodne planowanie kolejnych etapów prac wykończeniowych. Produkt jest przeznaczony do stosowania w szerokim zakresie temperatur, od +5°C do +30°C, co czyni go uniwersalnym wyborem w różnych warunkach klimatycznych. Jego skład i właściwości czynią go bezpiecznym i efektywnym wyborem zarówno dla profesjonalistów, jak i majsterkowiczów.</p>  </li>  <li>  <h4>Idealne rozwiązanie do różnych projektów</h4>  <p>Niezależnie od tego, czy pracujesz nad projektem komercyjnym, czy wykończeniem wnętrza w swoim domu, Knauf Betokontakt stanowi niezawodny element każdego przedsięwzięcia budowlanego. Jego unikalne właściwości sprawiają, że jest szczególnie polecany do gruntowania powierzchni, które są narażone na trudne warunki użytkowania. Dzięki doskonałej przyczepności, Knauf Betokontakt zwiększa trwałość wykończenia, co przekłada się na długotrwały efekt wizualny i funkcjonalny.</p>  </li>  </ul>  </div>  <div class=\"desc-left-col-attr\">  <div class=\"desc-left-col-attr-h4\">  <h4>Dane techniczne</h4>  </div>  <div class=\"desc-left-col-attr-table\">  <div class=\"desc-left-col-attr-table-grey\">  <div>Kod EAN:</div>  <div>4006379051014</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Waga:</div>  <div>5kg</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Producent:</div>  <div>KNAUF</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Zastosowanie:</div>  <div>Do gruntowania ścisłych, gładkich i niechłonnych podłoży, np. z elementów betonowych i żelbetowych, wewnątrz pomieszczeń</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Skład:</div>  <div>Mieszanina piasku kwarcowego oraz dyspersji tworzyw sztucznych</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Gotowość do użycia:</div>  <div>Po wymieszaniu</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Brak rozpuszczalników:</div>  <div>Tak</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Paroprzepuszczalność:</div>  <div>Tak</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Kolor:</div>  <div>Różowy</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Wydajność:</div>  <div>0,225 kg/m²</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Gęstość:</div>  <div>1,4 kg/l</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Konsystencja:</div>  <div>Lepki</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>pH:</div>  <div>Ok. 9</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Temperatura stosowania:</div>  <div>Od +5°C do +30°C</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Czas schnięcia:</div>  <div>Min. 12 godzin</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Opakowanie:</div>  <div>5 kg</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Wydajność na opakowanie:</div>  <div>Ok. 14 do 20 m²</div>  </div>  <div class=\"desc-left-col-attr-table-white\">  <div>Metoda aplikacji:</div>  <div>Ręczna i maszynowa</div>  </div>  <div class=\"desc-left-col-attr-table-grey\">  <div>Certyfikaty:</div>  <div>GEV EMICODE EC1 PLUS</div>  </div>  </div>  </div>  </div>  <div class=\"desc-right-col\">  <div class=\"desc-right-col-list\">  <div class=\"desc-right-col-list-title\">  <h3>Cechy produktu</h3>  </div>  <div class=\"desc-right-col-list-data\">  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\" /></div>  <div>Wysoka wydajność</div>  </div>  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\" /></div>  <div>Uniwersalne zastosowanie</div>  </div>  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\" /></div>  <div>Bezrozpuszczalnikowy skład</div>  </div>  <div class=\"desc-right-col-list-data-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\" /></div>  <div>Paroprzepuszczalność</div>  </div>  </div>  </div>  <div class=\"desc-right-col-img\"><img src=\"https://pliki.realbud.com/storage/uploads/1783680275_9341.png\" alt=\"\" /></div>  <div class=\"desc-right-col-box\">  <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\" /></div>  <div>  <p>Łatwa aplikacja i wysoka wydajność czynią Knauf Betokontakt niezastąpionym rozwiązaniem dla fachowców i amatorów.</p>  </div>  </div>  <div class=\"desc-right-col-producer\">  <h3>O producencie</h3>  <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\" />  <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p>  </div>  </div>  </div>",
+        "images": [
+          "25859",
+          "25663"
+        ],
+        "images_filename": [
+          "25859.png",
+          "25663.png"
+        ],
+        "attributes": [
+          {
+            "name": "Producent:",
+            "type": 0,
+            "value": "KNAUF"
+          },
+          {
+            "name": "Waga:",
+            "type": 0,
+            "value": "5kg"
+          },
+          {
+            "name": "Kod EAN:",
+            "type": 0,
+            "value": "4006379051014"
+          }
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "63,91 zł",
+        "net_historical_lowest_price": "51,96 zł",
+        "is_notification_enabled": false,
+        "gauge": {
+          "id": "187",
+          "name": "Darmowa-powyżej-500"
+        }
+      },
+      "checkedAt": "2026-10-31T19:18:53.497Z"
+    },
+    {
+      "sourceId": "rabdom-primer-g-pro-1l",
+      "item": {
+        "id": 10970,
+        "name": "MAPEI PRIMER G PRO 1l KONCENTRAT GRUNTUJĄCY GRUNT",
+        "can_buy": true,
+        "ean": "8022452241123",
+        "code": "37969",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "rate": 0,
+        "votes": 0,
+        "stockId": 10974,
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970",
+        "loyalty": {
+          "points_float": 37,
+          "points": "37 pkt",
+          "price_float": 3800,
+          "price": "3 800 pkt",
+          "price_currency_float": 0.01,
+          "price_currency": "0,01 zł"
+        },
+        "category": {
+          "name": "Wodne",
+          "id": 1046
+        },
+        "availability": {
+          "name": "duża ilość"
+        },
+        "visibility": {
+          "status": 1,
+          "cart_status": 1,
+          "search_status": 1
+        },
+        "delivery": {
+          "name": "24 godziny",
+          "hours": "24"
+        },
+        "price": {
+          "gross": {
+            "base": "37,90 zł",
+            "base_float": 37.9,
+            "final": "37,90 zł",
+            "final_float": 37.9,
+            "historical_lowest_price": "17,50 zł",
+            "historical_lowest_price_float": 17.5
+          },
+          "net": {
+            "base": "30,81 zł",
+            "base_float": 30.81,
+            "final": "30,81 zł",
+            "final_float": 30.81,
+            "historical_lowest_price": "14,23 zł",
+            "historical_lowest_price_float": 14.23
+          }
+        },
+        "productExists30DaysBeforePromotion": false,
+        "weight": {
+          "weight_float": 2,
+          "weight": "2 kg"
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "newProduct": false,
+        "shortDescription": "<h4 class=\"mp4t_0 mryx_0 mj7a_4 _77895_1qhyc mp0t_ji m9qz_yo munh_0 m3h2_0 mqu1_1j mgmw_wo mgn2_21 mgn2_25_s\"><span style=\"font-size:18pt;\">MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 1L</span></h4>\n<h4 class=\"mp4t_0 mryx_0 mj7a_4 _77895_1qhyc mp0t_ji m9qz_yo munh_0 m3h2_0 mqu1_1j mgmw_wo mgn2_21 mgn2_25_s\"><strong> </strong></h4>\n<p><span style=\"font-size:14pt;\"><strong>Ultrawydajny, szybkoschnący koncentrat gruntujący do podłoży o zróżnicowanej chłonności.</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>DANE TECHNICZNE:</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>Postać: płynna.</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>Proporcje rozcieńczania: od 1:1 do 1:3 wodą, w zależności od chłonności podłoża.</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>Czas schnięcia: ok. 15-60 min.</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>Nakładanie: pędzlem, wałkiem lub natryskiem.</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>EMICODE: EC1 − bardzo niska emisja VOC.</strong></span></p>\n<p><span style=\"font-size:14pt;\"><strong>Kolor: niebieskawy.</strong></span></p>\n<p> </p>\n<p> </p>",
+        "main_image": "19574",
+        "main_image_filename": "19574.png",
+        "description": "<h4 class=\"mp4t_0 mryx_0 mj7a_4 _77895_1qhyc mp0t_ji m9qz_yo munh_0 m3h2_0 mqu1_1j mgmw_wo mgn2_21 mgn2_25_s\"><span style=\"font-size:18pt;\">MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 1L</span></h4> <h1>PRIMER G PRO</h1> <p><span style=\"font-size:14pt;\"><strong>Ultrawydajny, szybkoschnący koncentrat gruntujący do podłoży o zróżnicowanej chłonności.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>DANE TECHNICZNE:</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Postać: płynna.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Proporcje rozcieńczania: od 1:1 do 1:3 wodą, w zależności od chłonności podłoża.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Czas schnięcia: ok. 15-60 min.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Nakładanie: pędzlem, wałkiem lub natryskiem.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>EMICODE: EC1 − bardzo niska emisja VOC.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Kolor: niebieskawy.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Przechowywanie: 12 mies. Chronić przed mrozem, przegrzaniem oraz bezpośrednim oddziaływaniem promieni słonecznych.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Zużycie: 0,1-0,2 l na 1 m², w zależności od porowatości i chłonności podłoża.</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>Opakowania: kanistry 20, 10 i 5 l oraz butelki 1 l, pakowane w zgrzewki po 12 sztuk.</strong></span></p> <p> </p> <p><span style=\"font-size:14pt;\"><strong>ZAKRES STOSOWANIA</strong></span></p> <p><span style=\"font-size:14pt;\">Primer G Pro jest stosowany do podłoży o zróżnicowanej chłonności, takich jak: beton, podkłady cementowe i anhydrytowe (również ogrzewane), tradycyjne tynki cementowe i cementowo-wapienne, tynki gipsowe, płyty gipsowo-kartonowe, gipsowo-włóknowe, włókno-cementowe, wiórowe, beton komórkowy, cegły, pustaki ceramiczne, bloczki silikatowe itp. przed: wykonywaniem uszczelnień, układaniem płytek, wylewaniem mas samopoziomujących, wyrównywaniem, szpachlowaniem i wygładzaniem, malowaniem farbami wewnętrznymi, tapetowaniem oraz innymi pracami wykończeniowymi. Primer G Pro, zastosowany w wersji nierozcieńczonej, stanowi po wyschnięciu warstwę rozdzielającą pomiędzy materiałami, które nie tolerują się pod względem chemicznym tj. podkładu anhydrytowego i cementowej masy samopoziomującej.</span></p> <p><span style=\"font-size:14pt;\"><strong>Przykłady zastosowania</strong></span></p> <p><span style=\"font-size:14pt;\">• gruntowanie podłoży cementowych, anhydrytowych i gipsowych przed klejeniem płytek ceramicznych;</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie pokładów cementowych i anhydrytowych przed klejeniem wykładzin elastycznych i tekstylnych;</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie podłoży cementowych przed aplikacją produktów gipsowych;</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie podłoży gipsowych przed aplikacją produktów cementowych;</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie międzywarstwowe przy nanoszeniu zapraw wyrównujących i samopoziomujących (po całkowitym wyschnięciu pierwszej warstwy);</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie ścian gipsowych, płyt wiórowych, płyt włókno-cementowych, betonu komórkowego, tynków itp. przed malowaniem i tapetowaniem;</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie podłoży przed aplikacją jednoskładnikowych preparatów uszczelniających (folii w płynie);</span></p> <p><span style=\"font-size:14pt;\">• gruntowanie podłoża przed mocowaniem płyt izolacji termicznej;</span></p> <p><span style=\"font-size:14pt;\">• jako preparat czasowo ograniczający pylenie podłoża;</span></p> <p><span style=\"font-size:14pt;\">• jako warstwa sczepna przed aplikacją gipsowych tynków maszynowych.</span></p> <p><span style=\"font-size:14pt;\"><strong>ZALETY</strong></span></p> <p><span style=\"font-size:14pt;\">• jasnoniebieski kolor ułatwiający kontrolę aplikacji (bezbarwny po wyschnięciu);</span></p> <p><span style=\"font-size:14pt;\">• reguluje chłonność, konsoliduje powierzchniowo, zwiększa przyczepność;</span></p> <p><span style=\"font-size:14pt;\">• wysoka wydajność gruntowania: do 40 m² z 1 l;</span></p> <p><span style=\"font-size:14pt;\">• wysoka zawartość żywic syntetycznych;</span></p> <p><span style=\"font-size:14pt;\">• możliwość regulacji stężenia;</span></p> <p><span style=\"font-size:14pt;\">• do wszystkich podłoży chłonnych;</span></p> <p><span style=\"font-size:14pt;\">• do wewnątrz i na zewnątrz.</span></p> <p><span style=\"font-size:14pt;\"><strong>WŁAŚCIWOŚCI TECHNICZNE</strong></span></p> <p><span style=\"font-size:14pt;\">Primer G Pro jest jasnoniebieskim, szybkoschnącym, bezrozpuszczalnikowym, preparatem gruntującym na bazie wodnej dyspersji wysokiej jakości żywic</span></p> <p><span style=\"font-size:14pt;\">syntetycznych, który tworzy po wyschnięciu przezroczystą, elastyczną, zwartą powłokę, konsolidującą podłoże oraz zwiększającą przyczepność dla mas</span></p> <p><span style=\"font-size:14pt;\">samopoziomujących, szpachlówek, farb, klejów, zapraw klejowych do płytek i zapraw tynkarskich. Primer G Pro jest preparatem gruntującym o wysokiej</span></p> <p><span style=\"font-size:14pt;\">zdolnością penetracji i bardzo niskiej emisji lotnych związków organicznych potwierdzonych certyfikatem GEV (EMICODE EC1PLUS).</span></p> <p><span style=\"font-size:14pt;\">Jest produktem niepalnym, więc może być aplikowany w pomieszczeniach zamkniętych, niewentylowanych, bez zachowania specjalnych środków ostrożności.</span></p> <p><span style=\"font-size:14pt;\">Primer G Pro w postaci skoncentrowanej na powierzchniach gipsowych lub cementowych tworzy tak zwany film, zapobiegając w ten sposób wystąpieniu reakcji chemicznej pomiędzy produktami gipsowymi i cementowymi, w wyniku której w środowisku wilgotnym powstaje związek zwany „etryngit”. Związek ten zwiększając swoją objętość, powoduje pęcznienie produktu na bazie gipsu i doprowadza ostatecznie do uszkodzenia warstw podłoża. Primer G Pro pozwala na zmniejszenie zużycia kleju do tapet oraz ułatwia późniejsze ich usuwanie.</span></p> <p><span style=\"font-size:14pt;\">Primer G Pro po nałożeniu i wyschnięciu ogranicza, a także reguluje chłonność podłoża (zapobiegając zbyt szybkiemu wysychaniu oraz powstawaniu mikropęknięć w aplikowanych warstwach), poprawia przyczepność i ułatwia nanoszenie kolejnych warstw. Primer G Pro zapobiega powstawaniu pęcherzy powietrza i zbyt szybkiemu wchłanianiu wody przy wyrównywaniu podłoża za pomocą mas samopoziomujących.</span></p> <p><span style=\"font-size:14pt;\"><strong>WYTYCZNE STOSOWANIA</strong></span></p> <p><span style=\"font-size:14pt;\">Podłoże przeznaczone do gruntowania preparatem Primer G Pro powinno być suche, nośne oraz pozbawione pęknięć i substancji zmniejszających przyczepność, tj.: pyłu, tłuszczów, starych klejów syntetycznych, bitumów, środków antyadhezyjnych itp. Wszelkie zabrudzenia i warstwy o słabej wytrzymałości lub przyczepności do podłoża należy usunąć. Podłoża gipsowe, anhydrytowe oraz mocne powłoki malarskie należy przeszlifować papierem ściernym, a następnie dokładnie odpylić. Przed użyciem należy dokładnie wymieszać zawartość opakowania poprzez kilkukrotne jego wstrząśnięcie oraz dostosować stężenie preparatu do wymagań podłoża oraz materiału, który będzie następnie aplikowany. Następnie nanieść preparat gruntujący w cienkiej warstwie przy użyciu wałka, pędzla lub natrysku, nie dopuszczając do powstania kałuż i filmu na gruntowanej powierzchni, chyba że jest to konieczne ze względu na występowanie konfliktu chemicznego między podłożem a nanoszonym materiałem. Do kolejnych prac można przystąpić po około 30 min w przypadku chłonnych podłoży cementowych i 30-60 min w przypadku podłoży gipsowych oraz anhydrytowych. W przypadku klejenia płytek ceramicznych na chłonnych podłożach cementowych do klejenia można przystąpić już po 15 minutach od aplikacji Primer G Pro. Czas schnięcia w obu przypadkach podany jest dla temp +23°C i 50% wilgotności powietrza.</span></p> <p><span style=\"font-size:14pt;\"><strong>PRIMER G PRO : woda Rodzaj aplikacji</strong></span></p> <p><span style=\"font-size:14pt;\"><strong>nierozcieńczony:</strong></span></p> <p><span style=\"font-size:14pt;\">przed stosowaniem produktów cementowych (kleje, zaprawy, masy, szpachlówki itp.) na podłożach gipsowych i anhydrytowych lub produktów gipsowych na podłożach cementowych oraz do gruntowania płyt wiórowych i włókno-cementowych</span></p> <p><span style=\"font-size:14pt;\"><strong>1:1</strong></span></p> <p><span style=\"font-size:14pt;\">przed stosowaniem cementowych mas samopoziomujących na podłożach cementowych, klejeniem płytek na powierzchniach o dużej chłonności i porowatości</span></p> <p><span style=\"font-size:14pt;\"><strong>1:2</strong></span></p> <p><span style=\"font-size:14pt;\">przed klejeniem płytek na powierzchniach o normalnej chłonności i porowatości, jako warstwa sczepna przed nanoszeniem tynków gipsowych lub pomiędzy świeżą a wyschniętą warstwę masy samopoziomującej</span></p> <p><span style=\"font-size:14pt;\"><strong>1:3</strong></span></p> <p><span style=\"font-size:14pt;\">przed klejeniem tapet i malowaniem farbami wewnętrznymi na każdym rodzaju podłoża, do gruntowania powierzchni na zewnątrz budynku</span></p> <p><span style=\"font-size:14pt;\"><strong>ZUŻYCIE</strong></span></p> <p><span style=\"font-size:14pt;\">100-200 ml/m², w zależności od porowatości i chłonności podłoża.</span></p> <p><span style=\"font-size:14pt;\"><strong>CZYSZCZENIE</strong></span></p> <p><span style=\"font-size:14pt;\">Narzędzia i pojemniki należy umyć wodą natychmiast po użyciu. Zaschnięte zabrudzenia można usunąć mechanicznie lub przy użyciu preparatu Pulicol 2000.</span></p> <p> </p> <p><strong><span style=\"font-size:18pt;\">Możliwość odbioru towaru w naszych sklepach stacjonarnych w :</span></strong></p> <ul> <li><strong><span style=\"font-size:18pt;\">Raba Wyżna</span></strong></li> <li><strong><span style=\"font-size:18pt;\">Nowy Targ</span></strong></li> <li><strong><span style=\"font-size:18pt;\">Szczawnica</span></strong></li> <li><strong><span style=\"font-size:18pt;\">Nowa Biała</span></strong></li> </ul> <p> </p> <p> </p>",
+        "images": [
+          "19574"
+        ],
+        "images_filename": [
+          "19574.png"
+        ],
+        "lowest_shipping_cost": {
+          "price": "0,00 zł",
+          "price_float": 0
+        },
+        "historical_lowest_price": "17,50 zł",
+        "net_historical_lowest_price": "14,23 zł",
+        "is_notification_enabled": false,
+        "gauge": []
+      },
+      "checkedAt": "2026-10-31T19:18:53.643Z"
+    }
+  ]
+}

@@ -1,6 +1,16 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-mp-75-l-10257_0120
+  {"id":"mat-plaster-knauf-mp75l-30kg","materialType":"plaster","productLabel":"Knauf MP 75 L — lekki tynk maszynowy 30 kg","brand":"Knauf","packageSize":30,"packageUnit":"kg","pricePerPackage":38.99,"category":"standard","storeName":"Plus-Market","sourceUrl":"https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 5902367206451. Odrębny produkt względem MP 75 bez L i worków 25 kg. Do nakładania agregatem. Plus-Market sprzedaje po jednym worku; Realbud wymaga wielokrotności 40 worków, czyli 1200 kg. Aplikacja uwzględnia tę ilość w porównaniu."},
+  // source: https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-goldband-10265_0120
+  {"id":"mat-plaster-knauf-goldband-30kg","materialType":"plaster","productLabel":"Knauf Goldband — ręczny tynk gipsowy 30 kg","brand":"Knauf","packageSize":30,"packageUnit":"kg","pricePerPackage":47,"category":"standard","storeName":"Rab-Dom","sourceUrl":"https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 5902367206475. Do nakładania ręcznego. Odrębny worek 30 kg; nie zmieniamy istniejącej pozycji 25 kg ani nie zastępujemy nią tynku maszynowego. Koszt dostawy pochodzi z pełnego koszyka."},
+  // source: https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg
+  // source: https://knauf.com/pl-PL/p/produkt/knauf-rotband-10001_0120
+  {"id":"mat-plaster-knauf-rotband-30kg","materialType":"plaster","productLabel":"Knauf Rotband — ręczny tynk gipsowy 30 kg","brand":"Knauf","packageSize":30,"packageUnit":"kg","pricePerPackage":75,"category":"standard","storeName":"Realbud","sourceUrl":"https://realbud.com/Tynk-gipsowy-reczny-KNAUF-ROTBAND-30-kg","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 5903240904075. Tynk ręczny o zwiększonej przyczepności. Odrębny produkt względem Goldband i MP 75 L; brak automatycznej zamiany. Cena za worek 30 kg, a nie kilogram czy paletę."},
+
   // source: https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html
   // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
   {"id":"mat-wire-connector-wago-221-412","materialType":"wire-connector","productLabel":"Szybkozłączka WAGO 221-412 — 2-przewodowa, maks. 4 mm² (1 szt.)","brand":"WAGO","packageSize":1,"packageUnit":"szt","pricePerPackage":1.23,"category":"standard","storeName":"eTak","sourceUrl":"https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 4050821808435. Cena za pojedynczą złączkę dwuprzewodową. Osobny model względem 221-413 i 221-415, bez automatycznej zamiany. Aplikacja sprawdza dostępność potrzebnej ilości i dostawę całego koszyka."},
