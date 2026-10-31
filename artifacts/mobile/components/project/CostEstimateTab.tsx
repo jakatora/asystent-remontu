@@ -128,6 +128,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput]);
   const input = pending.stages;
   const [state, setState] = useState<LoadState>({ status: 'idle' });
+  const lastEstimateHeight = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
   const deliveryRef = useRef(delivery);
@@ -236,7 +237,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }
 
   return (
-    <View style={{ gap: 16 }}>
+    <View style={{ gap: 16, minHeight: state.status === 'loading' ? lastEstimateHeight.current : undefined }} onLayout={event => {
+      // A postcode blur can start a request between pointer down and pointer up
+      // on another control. Keep the page height while the quote is replaced,
+      // so scroll clamping cannot move that control away from the pointer.
+      if (state.status === 'success') lastEstimateHeight.current = event.nativeEvent.layout.height;
+    }}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Feather name="tag" size={18} color={Colors.primary} />
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>
