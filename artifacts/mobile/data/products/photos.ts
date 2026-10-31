@@ -12,6 +12,15 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.abud.pl/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html
+  {"ids":["mat-wire-aks-777094-3x15-25m"],"ean":"5904617578769","sourceUrl":"https://www.abud.pl/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html","imageUrl":"https://www.abud.pl/hpeciai/bcfc678d2850d9367066872793a3a3c5/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m-6883_1.webp"},
+  // source: https://www.abud.pl/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html
+  {"ids":["mat-wire-aks-777095-3x15-50m"],"ean":"5904617578752","sourceUrl":"https://www.abud.pl/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html","imageUrl":"https://www.abud.pl/hpeciai/9fd121fd92bb72bcfba1d4ceec771ec1/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m-6892_1.webp"},
+  // source: https://www.abud.pl/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html
+  {"ids":["mat-wire-aks-777098-3x25-50m"],"ean":"5904617578714","sourceUrl":"https://www.abud.pl/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html","imageUrl":"https://www.abud.pl/hpeciai/d3d307ba59aa44efa2b3239811226cfb/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m-6901_1.webp"},
+  // source: https://www.abud.pl/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html
+  {"ids":["mat-wire-aks-777215-3x25-5m"],"ean":"5901602190951","sourceUrl":"https://www.abud.pl/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html","imageUrl":"https://www.abud.pl/hpeciai/21360f35f8acdf8abb8099bb8922d9ad/pol_pl_Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka-65390_1.webp"},
+
   // source: https://www.abud.pl/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html
   {"ids":["mat-wire-aks-777214-3x15-5m"],"ean":"5901602190944","sourceUrl":"https://www.abud.pl/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html","imageUrl":"https://www.abud.pl/hpeciai/63d002db68a8e4b49f22986e04d3d3c5/pol_pl_Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka-65373_1.webp"},
   // source: https://www.abud.pl/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html

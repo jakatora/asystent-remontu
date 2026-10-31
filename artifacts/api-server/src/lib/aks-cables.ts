@@ -1,6 +1,6 @@
 import type {RetailSource} from './retail-pages';
 
-// Four separately identified purchase units in the manufacturer's declaration.
+// Separately identified purchase units in the manufacturer's declaration.
 // Never alias them to legacy retail GTINs 5904617573771/5904617573764, change
 // cross-section by price tier or read an op./szt. price as the price of a metre.
 // source: https://media.adeo.com/media/4774947/media.pdf (AKS declaration015/2025, p1)
@@ -15,6 +15,14 @@ export const AKS_CABLE_SOURCES: readonly RetailSource[] = [
   {id:'abud-aks-ydyp-3x25-100m',ean:'5904617579759',name:'Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)',brand:'AKS Zielonka',category:'wire',packageSize:100,unit:'mb',store:'ABUD',format:'idosell',productId:50414,apiPurchaseUnit:'op.',variant:['3x2,5','100m'],pickupRequiresConfirmation:true,url:'https://www.abud.pl/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html',imageUrl:'https://www.abud.pl/hpeciai/b5a27da15d1eb3073ec3741e9d64a4dc/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m-50414_1.webp'},
   // source: https://hipper.pl/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429
   {id:'hipper-aks-ydyp-3x25-25m',ean:'5904617578721',name:'Przewód elektroenergetyczny YDYP 3 x 2,5 mm2 450/750 V 25 m AKS Zielonka',brand:'AKS Zielonka',category:'wire',packageSize:25,unit:'mb',store:'HIPPER',format:'certusoft',productId:956340429,retailerUnitId:956397306,apiPurchaseUnit:'szt',variant:['3 x 2,5','25 m'],pickupRequiresConfirmation:true,url:'https://hipper.pl/przewod-elektroenergetyczny-ydyp-3-x-2-5-mm2-450-750-v-25-m-aks-zielonka-956340429'},
+  // source: https://www.abud.pl/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html
+  {"id":"abud-aks-ydyp-3x15-25m","ean":"5904617578769","name":"Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (25m)","brand":"AKS Zielonka","category":"wire","packageSize":25,"unit":"mb","store":"ABUD","format":"idosell","productId":6883,"apiPurchaseUnit":"op.","variant":["3x1,5","25m"],"pickupRequiresConfirmation":true,"url":"https://www.abud.pl/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html","imageUrl":"https://www.abud.pl/hpeciai/bcfc678d2850d9367066872793a3a3c5/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m-6883_1.webp"},
+  // source: https://www.abud.pl/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html
+  {"id":"abud-aks-ydyp-3x15-50m","ean":"5904617578752","name":"Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (50m)","brand":"AKS Zielonka","category":"wire","packageSize":50,"unit":"mb","store":"ABUD","format":"idosell","productId":6892,"apiPurchaseUnit":"op.","variant":["3x1,5","50m"],"pickupRequiresConfirmation":true,"url":"https://www.abud.pl/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html","imageUrl":"https://www.abud.pl/hpeciai/9fd121fd92bb72bcfba1d4ceec771ec1/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m-6892_1.webp"},
+  // source: https://www.abud.pl/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html
+  {"id":"abud-aks-ydyp-3x25-50m","ean":"5904617578714","name":"Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (50m)","brand":"AKS Zielonka","category":"wire","packageSize":50,"unit":"mb","store":"ABUD","format":"idosell","productId":6901,"apiPurchaseUnit":"op.","variant":["3x2,5","50m"],"pickupRequiresConfirmation":true,"url":"https://www.abud.pl/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html","imageUrl":"https://www.abud.pl/hpeciai/d3d307ba59aa44efa2b3239811226cfb/pol_pl_Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m-6901_1.webp"},
+  // source: https://www.abud.pl/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html
+  {"id":"abud-aks-ydyp-3x25-5m","ean":"5901602190951","name":"Przewód elektryczny 3x2,5 YDYP 5m AKS Zielonka","brand":"AKS Zielonka","category":"wire","packageSize":5,"unit":"mb","store":"ABUD","format":"idosell","productId":65390,"apiPurchaseUnit":"szt.","variant":["3x2,5","5m"],"pickupRequiresConfirmation":true,"url":"https://www.abud.pl/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html","imageUrl":"https://www.abud.pl/hpeciai/21360f35f8acdf8abb8099bb8922d9ad/pol_pl_Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka-65390_1.webp"},
 ];
 
 export function isReviewedAksCableSource(source: RetailSource): boolean {

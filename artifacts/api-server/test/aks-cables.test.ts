@@ -8,7 +8,7 @@ import {quoteAbud} from '../src/lib/abud-delivery';
 import {quoteCertusoft} from '../src/lib/certusoft-delivery';
 import {createRemontService} from '../src/shared-backend';
 import type {DeliveredStoreBasket} from '../../../lib/pricing-service/src/delivery';
-const clone=<T,>(value:T):T=>structuredClone(value),sources=AKS_CABLE_SOURCES;
+const clone=<T,>(value:T):T=>structuredClone(value),sources=AKS_CABLE_SOURCES.filter(s=>fixture.pages.some(p=>p.sourceId===s.id));
 const page=(id:string)=>fixture.pages.find(p=>p.sourceId===id)!.html;
 function abudOrder(row:(typeof fixture.abud)[number]):DeliveredStoreBasket{
  return{store:'ABUD',materialsGrosze:Math.round(row.cart.basket.worth*100),deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:row.cart.basket.products.map(p=>{const s=sources.find(s=>s.store==='ABUD'&&String(s.productId)===p.id)!;return{product:{id:'remont-'+s.ean,name:s.name,imageUrl:s.imageUrl},unit:s.unit,packages:[{offerId:s.id,store:s.store,url:s.url,packageSize:s.packageSize,count:p.count,unitPriceGrosze:Math.round(Number(p.prices.gros)*100),lineCostGrosze:Math.round(Number(p.prices.worth_gros)*100)}]};})};
