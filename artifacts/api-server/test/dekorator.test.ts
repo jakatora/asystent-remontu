@@ -63,7 +63,7 @@ test('DekoratorMarket rejects partial cart, pickup, foreign destination, surchar
 test('DekoratorMarket stops on stock adjustment, stale catalog price, partial native summaries and unsupported basket',async()=>{
  const stock=http(2,{check:[{komunikat:'Brak wymaganej ilości',ilosc:'1',nazwa:source.name,id_inputa:'1367'}]});await assert.rejects(()=>quoteDekorator(order(),stock.fetchImpl),/insufficient_stock/);assert.equal(stock.calls.length,3);
  const stale=order();stale.materialsGrosze=8200;stale.lines[0].packages[0].unitPriceGrosze=4100;const f=http();await assert.rejects(()=>quoteDekorator(stale,f.fetchImpl),/price_changed/);assert.equal(f.calls.length,1);
- for(const override of [{payment:{...fixture.payment,kupon:'tak'}},{payment:{...fixture.payment,podsumowanie:fixture.payment.podsumowanie.replace('108,00 zł','109,00 zł')}},{ship:{...fixture.ship,podsumowanie:''}},{cart:fixture.cart.replace('value="2"','value="1"')}])await assert.rejects(()=>quoteDekorator(order(),http(2,override).fetchImpl));
+ for(const override of [{payment:{...fixture.payment,kupon:'tak'}},{payment:{...fixture.payment,podsumowanie:fixture.payment.podsumowanie.replace('108,00 zł','109,00 zł')}},{ship:{...fixture.ship,przycisk_zamow:false}},{ship:{...fixture.ship,podsumowanie:''}},{cart:fixture.cart.replace('value="2"','value="1"')}])await assert.rejects(()=>quoteDekorator(order(),http(2,override).fetchImpl));
  const unsupported=order();unsupported.lines.push(structuredClone(unsupported.lines[0]));await assert.rejects(()=>quoteDekorator(unsupported,f.fetchImpl),/invalid_basket/);
 });
 test('DekoratorMarket transport accepts only reviewed actions, bounded quantities and storefront tokens',async()=>{

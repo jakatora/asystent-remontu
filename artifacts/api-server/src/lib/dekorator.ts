@@ -111,7 +111,7 @@ export async function quoteDekorator(order:DeliveredStoreBasket,fetchImpl:typeof
  await client.dekorator('country',token(cartJs,'zmiana_kraju'));
  const shipment=JSON.parse(await client.dekorator('shipping',token(cartJs,'zmiana_wysylki')));
  const payment=JSON.parse(await client.dekorator('payment',token(cartJs,'zmiana_platnosci')));
- if(typeof shipment?.podsumowanie!=='string'||typeof payment?.podsumowanie!=='string'||payment.kupon!=='nie')throw Error('basket_not_confirmed');
+ if(shipment?.przycisk_zamow!==true||shipment.kupon!=='nie'||typeof shipment.podsumowanie!=='string'||typeof payment?.podsumowanie!=='string'||payment.kupon!=='nie')throw Error('basket_not_confirmed');
  const cart=await client.text('/koszyk.html'),costGrosze=confirmDekoratorCart(cart,pack.count,pack.unitPriceGrosze);
  if(confirmDekoratorSummary(shipment.podsumowanie,order.materialsGrosze)!==costGrosze||confirmDekoratorSummary(payment.podsumowanie,order.materialsGrosze)!==costGrosze)throw Error('basket_not_confirmed');
  const now=new Date();return{quote:{costGrosze,carrier:'Kurier PODKŁADY I LISTWY',payment:'Przelew bankowy',checkedAt:now.toISOString(),expiresAt:new Date(now.getTime()+600000).toISOString(),sourceUrl:origin+'/koszyk.html',basis:'retailer_basket_national',destinationScope:'PL',evidenceSha256:createHash('sha256').update(raw+cart+JSON.stringify([check,shipment,payment])).digest('hex')}};
