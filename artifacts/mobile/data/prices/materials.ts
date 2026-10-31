@@ -2443,7 +2443,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     notes: 'Cienki podkład 1,5 mm dedykowany pod panele winylowe LVT/SPC click (cienki, by nie przeciążać zamków). Redukcja hałasu 21 dB, odporny na wilgoć/pleśń. Bez ogrzewania podłogowego.',
   },
 
-  // Klej do wykładzin Soudal 26A 5 kg — EAN 5411183028395. Cena 118,00 zł/opak. (23,60 zł/kg, Castorama; ta sama cena Bricoman).
+  // Klej do wykładzin Soudal 26A 5 kg — EAN 5411183028395. Potwierdzono 93,50 zł/wiadro w ChemiaDoParkietu25 oraz 105,20 zł w ABUD, 2026-10-31.
   // Gotowy do użycia, bezrozpuszczalnikowy klej dyspersyjny do wykładzin winylowych/LVT (dryback), PCV, linoleum i dywanowych na chłonne posadzki. Do winyla klejonego (vinyl-glued) zamiast podkładu. EAN pewny w ≥2 akceptowanych sieciach → do MATERIAL_EAN_OVERLAY.
   // source: https://www.castorama.pl/klej-do-wykladzin-soudal-26a-5-kg/5411183028395_CAPL.prd (EAN 5411183028395, cena 118,00 zł, winyl/PCV/linoleum/dywan)
   // source: https://www.bricoman.pl/klej-do-wykladzin-soudal-26a-5kg-20484681.html (EAN 5411183028395, cena 118,00 zł brutto, Soudal 26A 5 kg)
@@ -2451,6 +2451,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
   // source: https://www.bricoman.pl/produkty/klej-do-wykladzin-soudal-26a-5kg-20484681.html (cena brutto, odczyt 2026-10-25T17:43:11.536Z)
   // source: https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html (cena brutto, odczyt 2026-10-25T17:30:57.007Z)
   {
+    // source: https://www.soudal.pl/sites/default/files/soudal_api/document/F0039177_0001.pdf
     id: 'mat-vinyl-adhesive-soudal-26a-5kg',
     materialType: 'adhesive',
     productLabel: 'Klej do wykładzin (winyl/LVT/PCV) Soudal 26A 5 kg',
@@ -2462,9 +2463,9 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     storeName: 'ChemiaDoParkietu25',
     sourceUrl:
       'https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html',
-    lastUpdated: '2026-10-25',
+    lastUpdated: '2026-10-31',
     currency: 'PLN',
-    notes: 'Klej dyspersyjny gotowy do użycia, do wykładzin/paneli winylowych (LVT dryback), PCV, linoleum i dywanowych. Zużycie zależne od podłoża; czas otwarty ok. 20 min. Do winyla klejonego zamiast podkładu.',
+    notes: 'Pełne wiadro 5 kg, EAN 5411183028395. Klej do właściwie dobranych wykładzin na chłonne podłoże; co najmniej jedna powierzchnia musi być porowata. Karta Soudal 26A podaje 400–600 g/m²; dobierz pacę i zużycie do montażu. Dostawę liczymy dla całego koszyka, bez podstawiania ceny paczkomatu jako kuriera.',
   },
 
   // Profil progowy Cezar 40 mm srebrny 1 m aluminiowy 1 szt. — EAN 5904584845215. Cena 19,75 zł/szt. (Castorama).

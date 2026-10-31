@@ -97,6 +97,20 @@ export class AnonymousShop {
    * registration/customer submission, payment or order action is exposed.
    * source: https://www.abud.pl/gfx/pol/shop.js.gzip?r=1792053849
    */
+  /** Reviewed public basket form + read-only shipping query. No customer or
+   * checkout action is accepted; 25914 is exactly one Soudal 26A 5 kg bucket.
+   * source: https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html
+   * source: https://chemiadoparkietu25.pl/graphql/v1/ */
+  async chemia(action:'add'|'shipping',args:{count?:number;postalCode?:string}={}):Promise<any>{
+    if(this.origin!=='https://chemiadoparkietu25.pl'||Object.keys(args).some(k=>!['count','postalCode'].includes(k)))throw Error('invalid_cart_action');
+    if(action==='add'){
+      if(!Number.isSafeInteger(args.count)||args.count!<1||args.count!>MAX_RETAIL_PACKAGES||args.postalCode!==undefined)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read('/basketchange.php',new URLSearchParams({getAjax:'true',mode:'1',product:'25914',size:'uniw',number:String(args.count)}).toString(),false));
+    }
+    if(action!=='shipping'||!/^\d{2}-\d{3}$/.test(args.postalCode??'')||args.count!==undefined)throw Error('invalid_cart_action');
+    const query=`query { shippingCountries { id name selected } shipping(ShippingInput: { mode: basket, forcedRegion: 1143020003, zipCode: "${args.postalCode}" }) { shipping { courier { id name icon } prepaid cost { value formatted } deliveryTime { weekDay } } } }`;
+    return JSON.parse(await this.read('/graphql/v1/',JSON.stringify({query}),true,false,true));
+  }
   async abud(action: 'destination' | 'add' | 'shipping', args: {postalCode?: string; productId?: number; count?: number} = {}): Promise<any> {
     if (this.origin !== 'https://www.abud.pl' || Object.keys(args).some(key => !['postalCode','productId','count'].includes(key))) throw Error('invalid_cart_action');
     if (action === 'destination') {
@@ -109,7 +123,8 @@ export class AnonymousShop {
       // source: https://www.abud.pl/product-pol-1456-Wkrety-do-blachy-KOELNER-FS-3525-1000szt.html
       // source: https://www.abud.pl/product-pol-63463-Wkret-samowiercacy-3-5x9-5mm-1000-szt.html
       // source: https://www.abud.pl/product-pol-1452-Kolek-szybki-montaz-kolnierz-6x40-KOELNER-200-szt.html
-      if (![6204,64835,17848,63790,1456,63463,1452,5708,7965,1121].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
+      // source: https://www.abud.pl/product-pol-27095-Soudal-klej-do-wykladzin-podlogowych-26A-5kg.html
+      if (![27095,6204,64835,17848,63790,1456,63463,1452,5708,7965,1121].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
       return JSON.parse(await this.read('/basketchange.php',new URLSearchParams({getAjax:'true',mode:'1',product:String(args.productId),size:'onesize',number:String(args.count)}).toString(),false));
     }
     if (action !== 'shipping' || Object.keys(args).length) throw Error('invalid_cart_action');

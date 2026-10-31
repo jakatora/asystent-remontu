@@ -1,3 +1,4 @@
+import {confirmIdosellBasket as confirmAbudBasket,type IdosellBasketLine as Wanted} from './idosell-basket';
 import { createHash } from 'node:crypto';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
@@ -7,7 +8,7 @@ import { parseRetailPage, type RetailSource } from './retail-pages';
 import { cleanHtml, htmlAttributes, htmlElements } from './retail-microdata';
 
 const ORIGIN = 'https://www.abud.pl';
-const IDS = ['abud-teflon-12x10','abud-pex-elbow-16x16','abud-fischer-wst140k-2','abud-dulux-rapidry-white-matt-1l','abud-koelner-fs3525-1000','abud-koelner-ws3595-1000','abud-koelner-fx06k040-200','abud-metylan-remover-500ml','abud-acrylputz-st10-20kg','abud-atlas-unigrunt-5kg'];
+const IDS = ['abud-soudal-26a-5kg','abud-teflon-12x10','abud-pex-elbow-16x16','abud-fischer-wst140k-2','abud-dulux-rapidry-white-matt-1l','abud-koelner-fs3525-1000','abud-koelner-ws3595-1000','abud-koelner-fx06k040-200','abud-metylan-remover-500ml','abud-acrylputz-st10-20kg','abud-atlas-unigrunt-5kg'];
 function money(value: unknown, formatted?: unknown): number {
   if (!['string','number'].includes(typeof value)) throw Error('invalid_money');
   const amount = parsePriceToGrosze(value as string | number);
@@ -59,29 +60,7 @@ function confirmVariant(html: string, source: RetailSource) {
     if (inputs.length !== 1 || htmlAttributes(inputs[0].match(/^<[^>]+>/)?.[0] ?? '').value !== value) throw Error('product_unavailable');
   }
 }
-type Wanted = {source:RetailSource;count:number;price:number};
-export function confirmAbudBasket(response: any, expected: readonly Wanted[], materialsGrosze: number) {
-  const basket = response?.basket;
-  if (response?.error || response?.errors?.length || !basket || basket.error || basket.errors?.length || basket.shipping_exists !== true || basket.currency !== 'PLN' || basket.total_deposit !== 0 || basket.total_deposit_net !== 0
-      || !Array.isArray(basket.products) || basket.products.length !== expected.length || !expected.length) throw Error('basket_not_confirmed');
-  const remaining = new Map(expected.map(wanted=>[String(wanted.source.productId),wanted]));
-  if (remaining.size !== expected.length) throw Error('invalid_basket');
-  let total = 0, count = 0;
-  for (const row of basket.products) {
-    const wanted = remaining.get(row?.id);
-    if (!wanted || row.size !== 'uniw' || row.price_unit !== wanted.source.apiPurchaseUnit || row.worth_unit !== wanted.source.apiPurchaseUnit
-        || row.name !== wanted.source.name || new URL(row.link,ORIGIN).href !== wanted.source.url || row.bonus !== 'n' || row.product_type !== 'product_item'
-        || row.bundle !== 0 || !Array.isArray(row.bundled) || row.bundled.length || row.subscription_period !== '0') throw Error('basket_not_confirmed');
-    if (!Number.isSafeInteger(row.reservation_stocksown) || row.reservation_stocksown < 0) throw Error('product_unavailable');
-    if (wanted.count > row.reservation_stocksown) throw Error('insufficient_stock');
-    if (row.count !== wanted.count) throw Error('basket_not_confirmed');
-    if (typeof row.prices?.gros_formatted !== 'string' || typeof row.prices?.worth_gros_formatted !== 'string') throw Error('basket_not_confirmed');
-    if (money(row.prices?.gros,row.prices?.gros_formatted) !== wanted.price || money(row.prices?.worth_gros,row.prices?.worth_gros_formatted) !== wanted.count*wanted.price) throw Error('price_changed');
-    total += wanted.count*wanted.price; count += wanted.count; remaining.delete(row.id);
-  }
-  if (remaining.size || !Number.isSafeInteger(total) || total !== materialsGrosze || money(basket.worth) !== total || basket.productsNumber !== count) throw Error('basket_not_confirmed');
-  return basket;
-}
+export {confirmIdosellBasket as confirmAbudBasket} from './idosell-basket';
 
 /** Fresh private cookie jar, exact reviewed products, native cart quantities,
  * postcode check and the same rate query as the shop's basket popup.

@@ -31,7 +31,14 @@ export function confirmRetailIdentity(html: string, product: Record<string, any>
   } else if (source.format === 'idosell') {
     // source: https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html
     const form = only(htmlElements(safe, (a,tag) => tag === 'form' && a['data-product_id'] === String(source.productId)), 'product_id_not_confirmed');
-    const hidden = only(htmlElements(form, a => a.id === 'projector_product_hidden'), 'product_id_not_confirmed');
+    // Current ChemiaDoParkietu25 uses native form-associated inputs outside
+    // the form element. Only the unique named form may own those inputs.
+    // source: https://chemiadoparkietu25.pl/product-pol-25914-Soudal-26A-klej-do-wykladzin-PCV-winylu-linoleum-dywanowych-5-kg.html
+    const formId=attribute(form,'id');
+    if(!formId||htmlElements(safe,a=>a.id===formId).length!==1)throw Error('product_id_not_confirmed');
+    const hidden=only(htmlElements(safe,a=>a.id==='projector_product_hidden'),'product_id_not_confirmed');
+    const owner=attribute(hidden,'form');
+    if(owner!==undefined?owner!==formId:!form.includes(hidden))throw Error('product_id_not_confirmed');
     if (attribute(hidden,'value') !== String(source.productId)) throw Error('product_id_not_confirmed');
     const dictionary = only(htmlElements(safe,a=>a['data-producer_code']==='true'), 'product_code_not_confirmed');
     code = htmlText(only(htmlElements(dictionary,a=>a.class?.split(/\s+/).includes('dictionary__producer_code')??false),'product_code_not_confirmed'));
