@@ -43,6 +43,9 @@ export interface DeliveredBasket {
   stores: DeliveredStoreBasket[];
 }
 export interface DeliveryQuote {
+  /** Actual anonymous-cart material prices for this exact pack allocation.
+   * The catalogue observations and their history keep their original prices. */
+  cartPricing?: CartMaterialPricing;
   /** Exact difference between rounded pack prices and the merchant's verified
    * m² line totals. Included in materials, never hidden in the freight fee. */
   materialsRoundingGrosze?: number;
@@ -52,6 +55,7 @@ export interface DeliveryQuote {
   orders?: { materialsGrosze: number; lines: DeliveredStoreBasket['lines']; quote: Omit<DeliveryQuote, 'orders' | 'singleOrderCostGrosze'> }[];
   ordersReason?: 'separate_dispatch';
   singleOrderCostGrosze?: number;
+  singleOrderTotalGrosze?: number;
   costGrosze: number;
   carrier: string;
   payment: string;
@@ -64,6 +68,13 @@ export interface DeliveryQuote {
   /** Distinguish national tariffs from quotes requested for this postcode. */
   basis: 'retailer_basket_national' | 'retailer_basket_postcode' | 'retailer_tariff_national';
   evidenceSha256: string;
+}
+export interface CartMaterialPricing {
+  currency: 'PLN';
+  baseMaterialsGrosze: number;
+  materialsGrosze: number;
+  discountGrosze: number;
+  lines: {offerId:string;count:number;baseUnitPriceGrosze:number;unitPriceGrosze:number;lineCostGrosze:number}[];
 }
 /** Native checkout stock evidence, valid only for this dispatch/postcode and
  * current quote. It must never overwrite national or pickup availability. */

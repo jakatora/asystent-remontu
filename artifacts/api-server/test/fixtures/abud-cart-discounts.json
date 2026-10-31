@@ -1,0 +1,2384 @@
+{
+  "checkedAt": "2026-10-31T13:36:15.250Z",
+  "source": "fresh independent anonymous native carts, no account, coupon, order, customer data or payment",
+  "cases": [
+    {
+      "entries": [
+        [
+          65373,
+          1
+        ],
+        [
+          50450,
+          1
+        ],
+        [
+          6900,
+          1
+        ],
+        [
+          50414,
+          1
+        ],
+        [
+          6883,
+          1
+        ],
+        [
+          6892,
+          1
+        ],
+        [
+          6901,
+          1
+        ],
+        [
+          65390,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 2022.66,
+          "productsNumber": 8,
+          "products": [
+            {
+              "id": "65373",
+              "name": "Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "23.26",
+                "worth_gros": "28.61",
+                "net": "23.26",
+                "gros": "28.61",
+                "base_price": 28.9,
+                "base_price_net": 23.5,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "23,26 zł",
+                "worth_gros_formatted": "28,61 zł",
+                "net_formatted": "23,26 zł",
+                "gros_formatted": "28,61 zł"
+              }
+            },
+            {
+              "id": "50450",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "332.89",
+                "worth_gros": "409.46",
+                "net": "332.89",
+                "gros": "409.46",
+                "base_price": 413.6,
+                "base_price_net": 336.26,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "332,89 zł",
+                "worth_gros_formatted": "409,46 zł",
+                "net_formatted": "332,89 zł",
+                "gros_formatted": "409,46 zł"
+              }
+            },
+            {
+              "id": "50414",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "507.80",
+                "worth_gros": "624.59",
+                "net": "507.80",
+                "gros": "624.59",
+                "base_price": 630.9,
+                "base_price_net": 512.93,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "507,80 zł",
+                "worth_gros_formatted": "624,59 zł",
+                "net_formatted": "507,80 zł",
+                "gros_formatted": "624,59 zł"
+              }
+            },
+            {
+              "id": "6900",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "155.10",
+                "worth_gros": "190.77",
+                "net": "155.10",
+                "gros": "190.77",
+                "base_price": 192.7,
+                "base_price_net": 156.67,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "155,10 zł",
+                "worth_gros_formatted": "190,77 zł",
+                "net_formatted": "155,10 zł",
+                "gros_formatted": "190,77 zł"
+              }
+            },
+            {
+              "id": "6883",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (25m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "97.95",
+                "worth_gros": "120.48",
+                "net": "97.95",
+                "gros": "120.48",
+                "base_price": 121.7,
+                "base_price_net": 98.94,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "97,95 zł",
+                "worth_gros_formatted": "120,48 zł",
+                "net_formatted": "97,95 zł",
+                "gros_formatted": "120,48 zł"
+              }
+            },
+            {
+              "id": "6892",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (50m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "195.19",
+                "worth_gros": "240.08",
+                "net": "195.19",
+                "gros": "240.08",
+                "base_price": 242.5,
+                "base_price_net": 197.15,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "195,19 zł",
+                "worth_gros_formatted": "240,08 zł",
+                "net_formatted": "195,19 zł",
+                "gros_formatted": "240,08 zł"
+              }
+            },
+            {
+              "id": "6901",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (50m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 11,
+              "prices": {
+                "worth_net": "297.89",
+                "worth_gros": "366.40",
+                "net": "297.89",
+                "gros": "366.40",
+                "base_price": 370.1,
+                "base_price_net": 300.89,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "297,89 zł",
+                "worth_gros_formatted": "366,40 zł",
+                "net_formatted": "297,89 zł",
+                "gros_formatted": "366,40 zł"
+              }
+            },
+            {
+              "id": "65390",
+              "name": "Przewód elektryczny 3x2,5 YDYP 5m AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "34.37",
+                "worth_gros": "42.27",
+                "net": "34.37",
+                "gros": "42.27",
+                "base_price": 42.7,
+                "base_price_net": 34.72,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "34,37 zł",
+                "worth_gros_formatted": "42,27 zł",
+                "net_formatted": "34,37 zł",
+                "gros_formatted": "42,27 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 49.98,
+                  "formatted": "49,98 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 58,
+                  "formatted": "58,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 108,
+                  "formatted": "108,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 39,
+                  "formatted": "39,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 39.98,
+                  "formatted": "39,98 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 48,
+                  "formatted": "48,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 88,
+                  "formatted": "88,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1556
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 2792
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 4021
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 5261
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 6484
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 7715
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 8944
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 10155
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4932
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          65373,
+          2
+        ],
+        [
+          50450,
+          2
+        ],
+        [
+          6900,
+          2
+        ],
+        [
+          50414,
+          2
+        ],
+        [
+          6883,
+          2
+        ],
+        [
+          6892,
+          2
+        ],
+        [
+          6901,
+          2
+        ],
+        [
+          65390,
+          2
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 4024.92,
+          "productsNumber": 16,
+          "products": [
+            {
+              "id": "50450",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (100m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-50450-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "662.44",
+                "worth_gros": "814.80",
+                "net": "331.22",
+                "gros": "407.40",
+                "base_price": 419.8,
+                "base_price_net": 341.3,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "662,44 zł",
+                "worth_gros_formatted": "814,80 zł",
+                "net_formatted": "331,22 zł",
+                "gros_formatted": "407,40 zł"
+              }
+            },
+            {
+              "id": "65373",
+              "name": "Przewód elektryczny 3x1,5mm2 YDYP 5m Biały AKS Zielonka",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-65373-Przewod-elektryczny-3x1-5mm2-YDYP-5m-Bialy-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "46.29",
+                "worth_gros": "56.94",
+                "net": "23.15",
+                "gros": "28.47",
+                "base_price": 29.33,
+                "base_price_net": 23.85,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "46,29 zł",
+                "worth_gros_formatted": "56,94 zł",
+                "net_formatted": "23,15 zł",
+                "gros_formatted": "28,47 zł"
+              }
+            },
+            {
+              "id": "6900",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (25m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-6900-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "308.63",
+                "worth_gros": "379.62",
+                "net": "154.32",
+                "gros": "189.81",
+                "base_price": 195.59,
+                "base_price_net": 159.02,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "308,63 zł",
+                "worth_gros_formatted": "379,62 zł",
+                "net_formatted": "154,32 zł",
+                "gros_formatted": "189,81 zł"
+              }
+            },
+            {
+              "id": "6883",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (25m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "194.91",
+                "worth_gros": "239.74",
+                "net": "97.46",
+                "gros": "119.87",
+                "base_price": 123.53,
+                "base_price_net": 100.42,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "194,91 zł",
+                "worth_gros_formatted": "239,74 zł",
+                "net_formatted": "97,46 zł",
+                "gros_formatted": "119,87 zł"
+              }
+            },
+            {
+              "id": "50414",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (100m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-50414-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-100m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "1010.47",
+                "worth_gros": "1242.88",
+                "net": "505.24",
+                "gros": "621.44",
+                "base_price": 640.36,
+                "base_price_net": 520.62,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "1 010,47 zł",
+                "worth_gros_formatted": "1 242,88 zł",
+                "net_formatted": "505,24 zł",
+                "gros_formatted": "621,44 zł"
+              }
+            },
+            {
+              "id": "6892",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (50m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "388.39",
+                "worth_gros": "477.72",
+                "net": "194.20",
+                "gros": "238.86",
+                "base_price": 246.14,
+                "base_price_net": 200.1,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "388,39 zł",
+                "worth_gros_formatted": "477,72 zł",
+                "net_formatted": "194,20 zł",
+                "gros_formatted": "238,86 zł"
+              }
+            },
+            {
+              "id": "6901",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (50m)",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 11,
+              "prices": {
+                "worth_net": "592.76",
+                "worth_gros": "729.10",
+                "net": "296.38",
+                "gros": "364.55",
+                "base_price": 375.65,
+                "base_price_net": 305.4,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "592,76 zł",
+                "worth_gros_formatted": "729,10 zł",
+                "net_formatted": "296,38 zł",
+                "gros_formatted": "364,55 zł"
+              }
+            },
+            {
+              "id": "65390",
+              "name": "Przewód elektryczny 3x2,5 YDYP 5m AKS Zielonka",
+              "count": 2,
+              "size": "uniw",
+              "link": "/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "68.39",
+                "worth_gros": "84.12",
+                "net": "34.20",
+                "gros": "42.06",
+                "base_price": 43.34,
+                "base_price_net": 35.24,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "68,39 zł",
+                "worth_gros_formatted": "84,12 zł",
+                "net_formatted": "34,20 zł",
+                "gros_formatted": "42,06 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 74.97,
+                  "formatted": "74,97 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 87,
+                  "formatted": "87,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 162,
+                  "formatted": "162,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 65,
+                  "formatted": "65,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 59.97,
+                  "formatted": "59,97 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 72,
+                  "formatted": "72,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 132,
+                  "formatted": "132,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1553
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 2791
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 4024
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 5272
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 6501
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 7730
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 8960
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 10174
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4934
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          65390,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 42.7,
+          "productsNumber": 1,
+          "products": [
+            {
+              "id": "65390",
+              "name": "Przewód elektryczny 3x2,5 YDYP 5m AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "34.72",
+                "worth_gros": "42.70",
+                "net": "34.72",
+                "gros": "42.70",
+                "base_price": 42.7,
+                "base_price_net": 34.72,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "34,72 zł",
+                "worth_gros_formatted": "42,70 zł",
+                "net_formatted": "34,72 zł",
+                "gros_formatted": "42,70 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "Paczkomaty 24/7",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 12.49,
+                  "formatted": "12,49 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100280,
+                  "name": "Orlen Paczka ",
+                  "icon": "/data/include/deliveries/icons/100280_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 9.99,
+                  "formatted": "9,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "Paczkomaty 24/7",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 9.99,
+                  "formatted": "9,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1515
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4935
+        }
+      ]
+    },
+    {
+      "entries": [
+        [
+          6883,
+          1
+        ],
+        [
+          6892,
+          1
+        ],
+        [
+          6901,
+          1
+        ],
+        [
+          65390,
+          1
+        ]
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "valid": true,
+        "valid_region": {
+          "1": [
+            {
+              "shop_id": "1",
+              "id_region": "1143020003",
+              "parent": "0",
+              "url": "https://www.abud.pl"
+            }
+          ]
+        }
+      },
+      "cart": {
+        "basket": {
+          "shipping_exists": true,
+          "currency": "PLN",
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "worth": 777,
+          "productsNumber": 4,
+          "products": [
+            {
+              "id": "6883",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (25m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6883-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-25m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 15,
+              "prices": {
+                "worth_net": "98.94",
+                "worth_gros": "121.70",
+                "net": "98.94",
+                "gros": "121.70",
+                "base_price": 121.7,
+                "base_price_net": 98.94,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "98,94 zł",
+                "worth_gros_formatted": "121,70 zł",
+                "net_formatted": "98,94 zł",
+                "gros_formatted": "121,70 zł"
+              }
+            },
+            {
+              "id": "65390",
+              "name": "Przewód elektryczny 3x2,5 YDYP 5m AKS Zielonka",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 5,
+              "prices": {
+                "worth_net": "34.72",
+                "worth_gros": "42.70",
+                "net": "34.72",
+                "gros": "42.70",
+                "base_price": 42.7,
+                "base_price_net": 34.72,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "34,72 zł",
+                "worth_gros_formatted": "42,70 zł",
+                "net_formatted": "34,72 zł",
+                "gros_formatted": "42,70 zł"
+              }
+            },
+            {
+              "id": "6892",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x1,5 (50m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 12,
+              "prices": {
+                "worth_net": "197.15",
+                "worth_gros": "242.50",
+                "net": "197.15",
+                "gros": "242.50",
+                "base_price": 242.5,
+                "base_price_net": 197.15,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "197,15 zł",
+                "worth_gros_formatted": "242,50 zł",
+                "net_formatted": "197,15 zł",
+                "gros_formatted": "242,50 zł"
+              }
+            },
+            {
+              "id": "6901",
+              "name": "Przewód elektryczny AKS ZIELONKA YDYP 3x2,5 (50m)",
+              "count": 1,
+              "size": "uniw",
+              "link": "/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html",
+              "price_unit": "op.",
+              "worth_unit": "op.",
+              "bonus": "n",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "subscription_period": "0",
+              "reservation_stocksown": 11,
+              "prices": {
+                "worth_net": "300.89",
+                "worth_gros": "370.10",
+                "net": "300.89",
+                "gros": "370.10",
+                "base_price": 370.1,
+                "base_price_net": 300.89,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "300,89 zł",
+                "worth_gros_formatted": "370,10 zł",
+                "net_formatted": "300,89 zł",
+                "gros_formatted": "370,10 zł"
+              }
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 2.15,
+                  "formatted": "2,15 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 18,
+                  "formatted": "18,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 24.99,
+                  "formatted": "24,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 29,
+                  "formatted": "29,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 54,
+                  "formatted": "54,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 110,
+                  "formatted": "110,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 155,
+                  "formatted": "155,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 205,
+                  "formatted": "205,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 220,
+                  "formatted": "220,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              },
+              {
+                "courier": {
+                  "id": 100412,
+                  "name": "ORLEN Paczka Smile",
+                  "icon": "/data/include/deliveries/icons/100412_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100209,
+                  "name": "Paczkomaty InPost",
+                  "icon": "/data/include/deliveries/icons/100209_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100037,
+                  "name": "Pocztex Kurier 24",
+                  "icon": "/data/include/deliveries/icons/100037_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100335,
+                  "name": "Pocztex Kurier - doręczenie do punktu odbioru",
+                  "icon": "/data/include/deliveries/icons/100335_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13,
+                  "formatted": "13,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 85,
+                  "name": "Paczka GLS",
+                  "icon": "/data/include/deliveries/icons/85_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 19.99,
+                  "formatted": "19,99 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100336,
+                  "name": "Pocztex Kurier XXL doręczenie pod wskazany adres",
+                  "icon": "/data/include/deliveries/icons/100336_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 24,
+                  "formatted": "24,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 30,
+                  "name": "DPD Paczka - niestandard",
+                  "icon": "/data/include/deliveries/icons/30_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 44,
+                  "formatted": "44,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 2
+                }
+              },
+              {
+                "courier": {
+                  "id": 100072,
+                  "name": "Pekaes - Paleta 60x40",
+                  "icon": "/data/include/deliveries/icons/100072_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 90,
+                  "formatted": "90,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100074,
+                  "name": "Geis / Pekaes - Paleta 60x80",
+                  "icon": "/data/include/deliveries/icons/100074_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 135,
+                  "formatted": "135,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 100073,
+                  "name": "Geis / Pekaes  - Paleta 120x80",
+                  "icon": "/data/include/deliveries/icons/100073_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 185,
+                  "formatted": "185,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 82,
+                  "name": "Geis - Paleta 120x120",
+                  "icon": "/data/include/deliveries/icons/82_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 200,
+                  "formatted": "200,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 3
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                },
+                "deliveryTime": {
+                  "weekDay": 1
+                }
+              }
+            ]
+          }
+        }
+      },
+      "requests": [
+        {
+          "path": "/ajax/client-new.php",
+          "status": 200,
+          "bytes": 121
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 1524
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 2754
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 3984
+        },
+        {
+          "path": "/basketchange.php",
+          "status": 200,
+          "bytes": 5192
+        },
+        {
+          "path": "/graphql/v1/",
+          "status": 200,
+          "bytes": 4930
+        }
+      ]
+    }
+  ]
+}

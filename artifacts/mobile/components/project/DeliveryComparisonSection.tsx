@@ -210,6 +210,10 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       return <View key={store.store} style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
       <Txt w="bold" style={{ fontSize: 16 }}>{best && best.stores.length > 1 ? `${storeIndex + 1}. ` : ''}{store.store} · {store.totalGrosze === null ? tr(`materiały ${formatGrosze(store.materialsGrosze)}`, `materials ${formatGrosze(store.materialsGrosze)}`) : formatGrosze(store.totalGrosze)}</Txt>
       <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{tr('Materiały', 'Materials')}: {formatGrosze(store.materialsGrosze)}{mode === 'shipping' ? ` · ${tr('Dostawa', 'Delivery')}: ${store.deliveryGrosze === null ? tr('do potwierdzenia', 'pending') : formatGrosze(store.deliveryGrosze)}` : ''}</Txt>
+      {store.quote?.cartPricing && <View style={{gap:4}}>
+        <Txt style={{color:Colors.primary,fontSize:14}}>{tr('Rabat sklepu na ten koszyk','Store discount for this basket')}: −{formatGrosze(store.quote.cartPricing.discountGrosze)}</Txt>
+        <Txt style={{color:Colors.textSecondary,fontSize:12,lineHeight:18}}>{tr('Cena materiałów przed rabatem','Material price before discount')}: {formatGrosze(store.quote.cartPricing.baseMaterialsGrosze)}. {tr('Rabat jest już uwzględniony w sumie i cenach pozycji. Dotyczy tej zawartości koszyka.','The discount is included in the total and item prices. It applies to this basket contents.')}</Txt>
+      </View>}
       {!!store.quote?.materialsRoundingGrosze && <Txt style={{color:Colors.textSecondary,fontSize:13}}>{tr('Rozliczenie ceny za m² w koszyku sklepu', 'Per-m² rounding in the store cart')}: {store.quote.materialsRoundingGrosze>0?'+':''}{formatGrosze(store.quote.materialsRoundingGrosze)}. {tr('Uwzględnione w materiałach.', 'Included in materials.')}</Txt>}
       {pendingPlan && store.deliveryGrosze === null && <Txt style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{reason(comparison.unavailableStores?.find(item => item.store === store.store)?.reason ?? 'quote_unavailable')}</Txt>}
       {store.quote && <View style={{ gap: 4 }}>
@@ -219,7 +223,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         {store.quote.dispatchFrom && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr('Wysyłka z', 'Dispatched from')}: {store.quote.dispatchFrom}</Txt>}
         {store.quote.orders && <View accessibilityRole="alert" style={{gap:10,padding:12,borderRadius:10,backgroundColor:Colors.warningBg}}>
           <Txt w="bold">{tr(`Ta cena wymaga ${store.quote.orders.length} osobnych zamówień w ${store.store}`, `This price requires ${store.quote.orders.length} separate orders at ${store.store}`)}</Txt>
-          {store.quote.singleOrderCostGrosze !== undefined && <Txt style={{fontSize:13}}>{tr('Dostawa jednego wspólnego zamówienia', 'Delivery for one combined order')}: {formatGrosze(store.quote.singleOrderCostGrosze)}. {tr('Oszczędność na dostawie', 'Delivery saving')}: {formatGrosze(store.quote.singleOrderCostGrosze-store.quote.costGrosze)}.</Txt>}
+          {store.quote.singleOrderTotalGrosze !== undefined ? <Txt style={{fontSize:13}}>{tr('Razem przy jednym zamówieniu','Total for one combined order')}: {formatGrosze(store.quote.singleOrderTotalGrosze)}. {tr('Łączna oszczędność','Total saving')}: {formatGrosze(store.quote.singleOrderTotalGrosze-store.totalGrosze!)}.</Txt> : store.quote.singleOrderCostGrosze !== undefined && <Txt style={{fontSize:13}}>{tr('Dostawa jednego wspólnego zamówienia', 'Delivery for one combined order')}: {formatGrosze(store.quote.singleOrderCostGrosze)}. {tr('Oszczędność na dostawie', 'Delivery saving')}: {formatGrosze(store.quote.singleOrderCostGrosze-store.quote.costGrosze)}.</Txt>}
           {store.quote.orders.map((part,index)=><View key={index} style={{gap:4}}>
             <Txt w="semibold">{tr('Zamówienie', 'Order')} {index+1} · {tr('materiały', 'materials')} {formatGrosze(part.materialsGrosze)} · {tr('dostawa', 'delivery')} {formatGrosze(part.quote.costGrosze)}</Txt>
             <Txt style={{fontSize:12,color:Colors.textSecondary}}>{part.quote.carrier} · {part.quote.payment}</Txt>
@@ -245,7 +249,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       </Pressable>
       {expanded && store.lines.map(line => <View key={line.product.id} style={{ gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={56} /><Txt w="medium" style={{ flex: 1, fontSize: 14 }}>{displayProductName(line.product)}</Txt></View>
-        {line.packages.map(pack => <View key={pack.offerId} style={{ gap: 2 }}>
+        {line.packages.map((pack,packIndex) => <View key={`${pack.offerId}:${packIndex}`} style={{ gap: 2 }}>
           <Txt>{formatPurchase(pack,line.unit,language)} · {formatGrosze(pack.lineCostGrosze)}</Txt>
           {pack.cutRoll?.cutLengthsMm&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{tr('Po dostawie podziel ten odcinek według planów pomieszczeń: ','After delivery, cut this piece to the room plans: ')}{pack.cutRoll.cutLengthsMm.map(n=>formatPackageSize(n/1000,language)+' m').join(' + ')}. {tr('Docinka przy ścianach jest już uwzględniona.','Wall trimming is already included.')}</Txt>}
           {pack.maxPackages!==undefined&&<Txt style={{fontSize:12,color:Colors.textSecondary}}>{tr(`Zapas przy sprawdzeniu: ${pack.maxPackages} op. Nie jest to rezerwacja.`,`Stock when checked: ${pack.maxPackages} packs. This is not a reservation.`)}</Txt>}

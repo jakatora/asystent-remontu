@@ -1,6 +1,7 @@
 import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from './delivery';
 import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes,type QuotedOrder} from './quantity-order-partitions';
 import {quoteRequiredDispatch} from './dispatch-order-partitions';
+import {quotedMaterialsGrosze,quotedOrderTotal,supportsCartPricing} from './cart-pricing';
 
 /** Compare real separate orders, never divide a fee or invent a tariff.
  * The complete order must pass native stock/price checks first. Single-product
@@ -12,7 +13,7 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
     if ('reason' in base && base.reason==='requires_separate_dispatch' && order.store==='Sewera' && count>=2 && order.lines.every(line=>line.packages.length===1)) {
       return quoteRequiredDispatch(order,base,atomic,postcode,limited);
     }
-    if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !base.quote.costGrosze || !count) return base;
+    if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !base.quote.costGrosze&&!supportsCartPricing(order.store) || !count || quotedMaterialsGrosze(order,base.quote)===null) return base;
     // Per-m² line rounding is not additive across separate carts. Retain the
     // verified whole-cart total until partitions support those merchandise sums.
     if(base.quote.materialsRoundingGrosze!==undefined){if(count>1||order.lines.some(l=>l.packages.some(p=>p.count>1)))limited();return base;}
@@ -31,13 +32,13 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
       const basket = make(indices);
       try {
         const result = await atomic(basket, postcode);
-        if ('quote' in result && !result.quote.orders && valid(result.quote, postcode)) return quantityOrderPartitions({order:basket,quote:result.quote},atomic,postcode,limited);
+        if ('quote' in result && !result.quote.orders && valid(result.quote, postcode)&&quotedMaterialsGrosze(basket,result.quote)!==null) return quantityOrderPartitions({order:basket,quote:result.quote},atomic,postcode,limited);
         if (!('reason' in result) || !['no_home_delivery', 'product_unavailable', 'purchase_rules_changed'].includes(result.reason)) limited();
       } catch { limited(); /* An unchecked partial order never lowers the total. */ }
       return null;
     };
     let best: Part[] = [{ order, quote: base.quote }];
-    const fee = (parts: Part[]) => parts.reduce((n, p) => n + p.quote.costGrosze, 0);
+    const total = (parts: Part[]) => parts.reduce((n, p) => n + (quotedOrderTotal(p.order,p.quote)??Infinity), 0);
     if (count <= 5) {
       const all = (1 << count) - 1, parts = new Map<number, Part[]>([[all, best]]);
       // Singles and their complements first: useful complete plans survive a
@@ -57,7 +58,7 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
           if (!(sub & first) || !parts.has(sub)) continue;
           const rest = solve(mask ^ sub); if (!rest) continue;
           const candidate = [...parts.get(sub)!, ...rest];
-          if (!chosen || fee(candidate) < fee(chosen) || fee(candidate) === fee(chosen) && candidate.length < chosen.length) chosen = candidate;
+          if (!chosen || total(candidate) < total(chosen) || total(candidate) === total(chosen) && candidate.length < chosen.length) chosen = candidate;
         }
         memo.set(mask, chosen); return chosen;
       };
@@ -68,11 +69,11 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
       // two-order plans. Do not claim an exhaustive partition search.
       for (let i = 0; i < Math.min(count, 8); i++) {
         const one = await read([i]), rest = await read(Array.from({ length: count }, (_, j) => j).filter(j => j !== i));
-        if (one && rest && fee([...one, ...rest]) < fee(best)) best = [...one, ...rest];
+        if (one && rest && total([...one, ...rest]) < total(best)) best = [...one, ...rest];
       }
     }
-    const costGrosze = fee(best);
-    if (best.length < 2 || costGrosze >= base.quote.costGrosze || !Number.isSafeInteger(costGrosze)
+    const costGrosze = total(best);
+    if (best.length < 2 || costGrosze >= quotedOrderTotal(order,base.quote)! || !Number.isSafeInteger(costGrosze)
         || best.some(part => !valid(part.quote, postcode)) || best.reduce((n, p) => n + p.order.materialsGrosze, 0) !== order.materialsGrosze) return base;
     return {quote:await combineOrderQuotes(full,best,postcode)};
   };

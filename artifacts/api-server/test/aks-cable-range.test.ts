@@ -58,12 +58,11 @@ test('changed quantities, units, deposit and subtotals cannot borrow the capture
  }
 });
 
-test('a real larger basket with conditional line discounts cannot be sold at unrelated catalogue prices',async()=>{
+test('a real larger basket keeps its native conditional prices separate from catalogue observations',async()=>{
  const row=fixture.abud[4],basket=order(row);assert.equal(basket.materialsGrosze,204310);assert.equal(Math.round(row.cart.basket.worth*100),202266);
- // The native basket has a conditional discount. Until it has its own quoted
- // material adjustment, keep the mismatch explicit instead of inventing a
- // catalogue price change or returning a falsely confirmed total.
- await assert.rejects(quoteAbud(basket,row.postalCode,network(row)),/price_changed/);
+ const result=await quoteAbud(basket,row.postalCode,network(row));assert.ok('quote'in result);
+ assert.deepEqual([result.quote.cartPricing!.baseMaterialsGrosze,result.quote.cartPricing!.materialsGrosze,result.quote.cartPricing!.discountGrosze],[204310,202266,2044]);
+ assert.equal(result.quote.costGrosze,0);assert.equal(basket.materialsGrosze,204310);
 });
 
 test('HTTP keeps raw metre demand, rounds to a complete roll and combines one actual delivery',async()=>{

@@ -1,5 +1,6 @@
 import type {BasketQuoter,DeliveredStoreBasket,DeliveryQuote} from './delivery';
 import {DELIVERY_LIMITS} from './delivery-limits';
+import {combineCartPricing,quotedMaterialsGrosze,quotedOrderTotal,supportsCartPricing} from './cart-pricing';
 
 export type QuotedOrder={order:DeliveredStoreBasket;quote:DeliveryQuote};
 const MAX_QUANTITY_QUOTES=12,MAX_SEPARATE_ORDERS=8;
@@ -23,7 +24,7 @@ export function preservesOrderPackages(whole:DeliveredStoreBasket,parts:readonly
    const key=packageIdentity(line,pack);target.set(key,(target.get(key)??0)+pack.count);cost+=pack.lineCostGrosze;
   }}return Number.isSafeInteger(cost)&&cost===order.materialsGrosze;
  };
- return add(whole,expected)&&parts.every(p=>!p.quote.orders&&p.quote.materialsRoundingGrosze===undefined&&add(p.order,actual))&&expected.size===actual.size&&[...expected].every(([key,count])=>actual.get(key)===count)&&parts.reduce((n,p)=>n+p.order.materialsGrosze,0)===whole.materialsGrosze;
+ return add(whole,expected)&&parts.every(p=>!p.quote.orders&&p.quote.materialsRoundingGrosze===undefined&&quotedMaterialsGrosze(p.order,p.quote)!==null&&add(p.order,actual))&&expected.size===actual.size&&[...expected].every(([key,count])=>actual.get(key)===count)&&parts.reduce((n,p)=>n+p.order.materialsGrosze,0)===whole.materialsGrosze;
 }
 
 /** A merchant may dispatch verified lines from different branches. Each cart
@@ -55,7 +56,7 @@ export async function combineRequiredSeparateOrders(whole:DeliveredStoreBasket,p
 export async function quantityOrderPartitions(base:QuotedOrder,atomic:BasketQuoter,postcode:string,limited:()=>void):Promise<QuotedOrder[]>{
  const whole=base.order;if(whole.lines.length!==1||whole.lines[0].packages.length!==1)return[base];
  const pack=whole.lines[0].packages[0],total=pack.count,multiple=pack.purchaseMultiple??1,min=pack.minimumPackages??1;
- if(!currentDeliveryQuote(base.quote,postcode)||base.quote.orders||base.quote.costGrosze===0||total<2||!preservesOrderPackages(whole,[base]))return[base];
+ if(!currentDeliveryQuote(base.quote,postcode)||base.quote.orders||base.quote.costGrosze===0&&!supportsCartPricing(whole.store)||total<2||!preservesOrderPackages(whole,[base]))return[base];
  if(total>DELIVERY_LIMITS.packagesPerProduct){limited();return[base];}
  const legal=Array.from({length:Math.floor(total/multiple)},(_,i)=>(i+1)*multiple).filter(n=>n>=min&&n<total);
  if(!legal.length)return[base];
@@ -71,15 +72,15 @@ export async function quantityOrderPartitions(base:QuotedOrder,atomic:BasketQuot
  for(const n of candidates.slice(0,MAX_QUANTITY_QUOTES)){
   const line={...whole.lines[0],product:{...whole.lines[0].product},packages:[{...pack,count:n,lineCostGrosze:n*pack.unitPriceGrosze}]};
   const order:DeliveredStoreBasket={...whole,lines:[line],materialsGrosze:n*pack.unitPriceGrosze,quote:undefined,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown'};
-  try{const outcome=await atomic(order,postcode);if('quote'in outcome&&!outcome.quote.orders&&currentDeliveryQuote(outcome.quote,postcode))verified.set(n,{order,quote:outcome.quote});else limited();}catch{limited();}
+  try{const outcome=await atomic(order,postcode);if('quote'in outcome&&!outcome.quote.orders&&currentDeliveryQuote(outcome.quote,postcode)&&quotedMaterialsGrosze(order,outcome.quote)!==null)verified.set(n,{order,quote:outcome.quote});else limited();}catch{limited();}
  }
  type Plan={cost:number;parts:QuotedOrder[]};const layers:Map<number,Plan>[]=[new Map([[0,{cost:0,parts:[]}]])];
- let best:Plan={cost:base.quote.costGrosze,parts:[base]};
+ let best:Plan={cost:quotedOrderTotal(whole,base.quote)!,parts:[base]};
  const largest=(p:Plan)=>Math.max(...p.parts.map(part=>part.order.lines[0].packages[0].count));
  const better=(a:Plan,b:Plan)=>a.cost<b.cost||a.cost===b.cost&&(a.parts.length<b.parts.length||a.parts.length===b.parts.length&&largest(a)<largest(b));
  for(let i=1;i<=MAX_SEPARATE_ORDERS;i++){
   const layer=new Map<number,Plan>();for(const[sum,previous]of layers[i-1])for(const[n,part]of verified){
-   if(sum+n>total)continue;const cost=previous.cost+part.quote.costGrosze;if(!Number.isSafeInteger(cost))continue;
+   if(sum+n>total)continue;const partTotal=quotedOrderTotal(part.order,part.quote);if(partTotal===null)continue;const cost=previous.cost+partTotal;if(!Number.isSafeInteger(cost))continue;
    const plan={cost,parts:[...previous.parts,part]},old=layer.get(sum+n);if(!old||better(plan,old))layer.set(sum+n,plan);
   }layers.push(layer);const full=layer.get(total);if(full&&better(full,best))best=full;if(!layer.size)break;
  }
@@ -90,10 +91,11 @@ export async function quantityOrderPartitions(base:QuotedOrder,atomic:BasketQuot
  * The full-stock check is part of the proof and cannot outlive its timestamp. */
 export async function combineOrderQuotes(base:QuotedOrder,parts:QuotedOrder[],postcode:string):Promise<DeliveryQuote>{
  const cost=fee(parts),quotes=[base.quote,...parts.map(p=>p.quote)];
- if(parts.length<2||!Number.isSafeInteger(cost)||cost>=base.quote.costGrosze||quotes.some(q=>!currentDeliveryQuote(q,postcode))||!preservesOrderPackages(base.order,parts))return base.quote;
- const orders=parts.map(p=>({materialsGrosze:p.order.materialsGrosze,lines:p.order.lines,quote:p.quote})),digest=await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({wholeOrderEvidence:base.quote.evidenceSha256,orders})));
+ const baseTotal=quotedOrderTotal(base.order,base.quote),totals=parts.map(p=>quotedOrderTotal(p.order,p.quote));
+ if(parts.length<2||baseTotal===null||totals.some(n=>n===null)||!Number.isSafeInteger(cost)||totals.reduce<number>((n,p)=>n+(p??Infinity),0)>=baseTotal||quotes.some(q=>!currentDeliveryQuote(q,postcode))||!preservesOrderPackages(base.order,parts))return base.quote;
+ const orders=parts.map(p=>({materialsGrosze:quotedMaterialsGrosze(p.order,p.quote)!,lines:p.order.lines,quote:p.quote})),cartPricing=combineCartPricing(base.order,parts),digest=await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({wholeOrderEvidence:base.quote.evidenceSha256,orders,cartPricing})));
  const postal=quotes.some(q=>q.destinationScope==='postal_code');
- return{...base.quote,costGrosze:cost,orders,singleOrderCostGrosze:base.quote.costGrosze,
+ return{...base.quote,costGrosze:cost,orders,cartPricing,singleOrderCostGrosze:cost<base.quote.costGrosze?base.quote.costGrosze:undefined,singleOrderTotalGrosze:baseTotal,
   carrier:[...new Set(parts.map(p=>p.quote.carrier))].join(' + '),payment:[...new Set(parts.map(p=>p.quote.payment))].join(' + '),
   checkedAt:new Date(Math.min(...quotes.map(q=>Date.parse(q.checkedAt)))).toISOString(),expiresAt:new Date(Math.min(...quotes.map(q=>Date.parse(q.expiresAt)))).toISOString(),
   evidenceSha256:Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join(''),

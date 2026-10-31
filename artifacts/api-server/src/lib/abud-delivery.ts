@@ -1,4 +1,4 @@
-import {confirmIdosellBasket as confirmAbudBasket,type IdosellBasketLine as Wanted} from './idosell-basket';
+import {confirmAbudCartPrices,type IdosellBasketLine as Wanted} from './idosell-basket';
 import { createHash } from 'node:crypto';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
@@ -84,9 +84,9 @@ export async function quoteAbud(order: DeliveredStoreBasket, postalCode: string,
   const destination = await client.abud('destination',{postalCode}); confirmAbudDestination(destination);
   let added: any;
   for (const row of expected) added = await client.abud('add',{productId:row.source.productId,count:row.count});
-  const basket = confirmAbudBasket(added,expected,order.materialsGrosze);
+  const {basket,cartPricing} = confirmAbudCartPrices(added,expected,order.materialsGrosze);
   const shipping = await client.abud('shipping'), best = selectAbudHomeRate(shipping), now = new Date();
-  return {quote:{...best,checkedAt:now.toISOString(),expiresAt:new Date(now.getTime()+600_000).toISOString(),sourceUrl:ORIGIN+'/basketedit.php',
+  return {quote:{...best,...(cartPricing?{cartPricing}:{}),checkedAt:now.toISOString(),expiresAt:new Date(now.getTime()+600_000).toISOString(),sourceUrl:ORIGIN+'/basketedit.php',
     basis:'retailer_basket_postcode',destinationScope:'postal_code',postalCode,
     evidenceSha256:createHash('sha256').update(JSON.stringify({observations,destination,postalCode,basket,shipping})).digest('hex')}};
 }

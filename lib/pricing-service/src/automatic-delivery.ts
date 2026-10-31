@@ -8,6 +8,7 @@ import { compareDeliveredBaskets, type BasketQuoter, type DeliveredStoreBasket, 
 import { DELIVERY_LIMITS } from './delivery-limits';
 import { withOrderPartitions } from './order-partitions';
 import { materialPurchasePlans } from './material-purchase-plan';
+import {applyCartPrices,quotedMaterialsGrosze,supportsCartPricing} from './cart-pricing';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}:${pack.packageSize}:${JSON.stringify(pack.cutRoll??null)}`)).sort().join('|');
@@ -351,14 +352,13 @@ async function quoteAndRank(
       const key = keys[cursor++], order = unique.get(key)!;
       try {
         const outcome = await quoteBasket(order, settings.postalCode!);
-        const rounding = 'quote' in outcome ? outcome.quote.materialsRoundingGrosze ?? 0 : 0;
-        const packCount = order.lines.reduce((n,l)=>n+l.packages.reduce((s,p)=>s+p.count,0),0);
-        if ('quote' in outcome && Number.isSafeInteger(rounding) && Math.abs(rounding) <= packCount && order.materialsGrosze+rounding>0 && Number.isSafeInteger(outcome.quote.costGrosze) && outcome.quote.costGrosze >= 0 &&
+        const materials = 'quote' in outcome ? quotedMaterialsGrosze(order,outcome.quote) : null;
+        if ('quote' in outcome && materials!==null && Number.isSafeInteger(materials+outcome.quote.costGrosze) && Number.isSafeInteger(outcome.quote.costGrosze) && outcome.quote.costGrosze >= 0 &&
           (outcome.quote.destinationScope==='PL' || outcome.quote.postalCode===settings.postalCode) &&
           Date.parse(outcome.quote.expiresAt) > now.getTime() && Date.parse(outcome.quote.checkedAt) <= Date.now()) {
           order.deliveryGrosze = outcome.quote.costGrosze; order.quote = outcome.quote;
           order.deliveryMinimumGrosze = outcome.quote.costGrosze;
-          order.materialsGrosze += rounding;
+          order.materialsGrosze = materials;
           order.totalGrosze = order.materialsGrosze + outcome.quote.costGrosze; order.source = 'retailer';
         } else {
           failures.set(order.store, 'reason' in outcome ? outcome.reason : 'invalid_quote');
@@ -375,21 +375,23 @@ async function quoteAndRank(
     ? [orders.reduce((sum, order) => sum + order.totalGrosze!, 0)] : []));
   const canStillWin = new Set(candidates.filter(orders => {
     if (!Number.isFinite(confirmedUpperBound)) return true;
-    const optimisticMaterials = orders.reduce((sum, order) => sum + order.materialsGrosze
-      - order.lines.reduce((packs, line) => packs + line.packages.reduce((count, pack) => count + pack.count, 0), 0), 0);
+    // A fresh native ABUD cart can discount materials. Its unquoted catalogue
+    // sum is not a lower bound and must not prune a potentially cheaper cart.
+    const optimisticMaterials = orders.reduce((sum, order) => sum + (supportsCartPricing(order.store)&&!order.quote?0:order.materialsGrosze
+      - order.lines.reduce((packs, line) => packs + line.packages.reduce((count, pack) => count + pack.count, 0), 0)), 0);
     return optimisticMaterials <= confirmedUpperBound;
   }).flatMap(orders => orders.map(signature)));
   await quoteKeys(ordered.map(([key])=>key).filter(key=>!priority.has(key) && canStillWin.has(key)));
   // A quote valid at request start may expire while another shop is still
   // responding. Keep the material plan, but do not expose that fee as current.
   for (const order of unique.values()) if (order.quote && Date.parse(order.quote.expiresAt) <= Date.now()) {
-    order.materialsGrosze -= order.quote.materialsRoundingGrosze ?? 0;
+    order.materialsGrosze = order.quote.cartPricing?.baseMaterialsGrosze ?? order.materialsGrosze-(order.quote.materialsRoundingGrosze ?? 0);
     delete order.quote;
     order.deliveryGrosze = null; order.deliveryMinimumGrosze = 0; order.totalGrosze = null; order.source = 'unknown';
     failures.set(order.store, 'quote_expired');
   }
   const baskets: DeliveredBasket[] = candidates.map(orders => {
-    const actual = orders.map(o => unique.get(signature(o))!);
+    const actual = orders.map(o => applyCartPrices(unique.get(signature(o))!));
     const materialsGrosze = actual.reduce((sum, o) => sum + o.materialsGrosze, 0);
     const deliveryGrosze = actual.every(o => o.deliveryGrosze !== null) ? actual.reduce((sum, o) => sum + o.deliveryGrosze!, 0) : null;
     return { stores: actual, materialsGrosze, deliveryGrosze, totalGrosze: deliveryGrosze === null ? null : materialsGrosze + deliveryGrosze,
