@@ -8,6 +8,7 @@ import {formatPackageSize,formatPackageUnit,formatPurchase} from '@/features/pri
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
+import { DeliverySettingsForm } from './DeliverySettingsForm';
 import { StoreChoiceSection } from './StoreChoiceSection';
 import { DoorSelectionSection } from './DoorSelectionSection';
 import { LaminateChoiceSection } from './LaminateChoiceSection';
@@ -97,7 +98,7 @@ interface CostEstimateTabProps {
 type LoadState =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'error'; message: string }
+  | { status: 'error'; message: string; retryAt?: number | null }
   | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
 export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, shoppingContexts, onPurchaseSnapshot }: CostEstimateTabProps) {
@@ -131,6 +132,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const lastEstimateHeight = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
+  const [pendingDestination, setPendingDestination] = useState(false);
+  const [clockNow, setClockNow] = useState(Date.now);
   const deliveryRef = useRef(delivery);
   const [selectedStore, setSelectedStore] = useState<string | null>(null);
   const [storeChoices, setStoreChoices] = useState<(StoreChoices & { scope: string;mode:DeliverySettings['mode'] }) | null>(null);
@@ -149,6 +152,26 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
   const priceStorageKey = `remont.price-seen.v1:${projectId ?? 'preview'}`;
+  const retryAt = state.status === 'error' ? state.retryAt : null;
+  useEffect(() => {
+    if (!retryAt) return;
+    setClockNow(Date.now());
+    const timer = setInterval(() => setClockNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [retryAt]);
+  const retrySeconds = retryAt ? Math.max(0, Math.ceil((retryAt - clockNow) / 1000)) : 0;
+  const onDestinationPending = useCallback((pending: boolean) => {
+    if (pending) { requestVersion.current++; onPurchaseSnapshot?.(null); }
+    setPendingDestination(pending);
+  }, [onPurchaseSnapshot]);
+  const applyDelivery = useCallback((settings: DeliverySettings) => {
+    requestVersion.current++;
+    onPurchaseSnapshot?.(null);
+    setPendingDestination(false);
+    deliveryRef.current = settings;
+    setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
+    preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
+  }, [scope, selectedStore, storageKey, onPurchaseSnapshot]);
   useEffect(() => { onPurchaseSnapshot?.(null); }, [scope, delivery, selectedStore, onPurchaseSnapshot]);
   useEffect(() => {
     let active = true;
@@ -164,12 +187,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
         };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
-      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); deliveryRef.current=settings; setDelivery(settings); setSelectedStore(preferredStore); setLoadedScope(scope); }
+      if (active) { priceSnapshot.current=parsePriceSnapshot(prices); deliveryRef.current=settings; setDelivery(settings); setPendingDestination(false); setSelectedStore(preferredStore); setLoadedScope(scope); }
     }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); deliveryRef.current={ mode:'shipping' }; setDelivery(deliveryRef.current); setSelectedStore(null); setLoadedScope(scope); } });
     return () => { active = false; };
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
+    if (pendingDestination) return;
     if (!hasInput || !shoppingReady || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed || !adhesives.ready || adhesives.readFailed) return;
     const version = ++requestVersion.current;
     if (!input.some(stage => stage.materials.length > 0)) {
@@ -217,9 +241,9 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : err instanceof ApiError
           ? t('cmp.CostEstimate.errorHttp', { status: err.status })
           : t('cmp.CostEstimate.errorNetwork');
-      if (version === requestVersion.current) { setRefreshing(false); setState({ status: 'error', message }); }
+      if (version === requestVersion.current) { setRefreshing(false); setState({ status: 'error', message, retryAt: err instanceof ApiError ? err.retryAt : null }); }
     }
-  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, onPurchaseSnapshot]);
+  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, onPurchaseSnapshot, pendingDestination]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -319,7 +343,9 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, saved)).catch(() => setSaveFailed(true));
       }} />}
 
-      {!panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && !adhesives.readFailed && (state.status === 'loading' || loadedScope !== scope || !doorChoice.ready || !panels.ready || !foils.ready || !washbasins.ready || !tiles.ready || !adhesives.ready) && (
+      {loadedScope === scope && <DeliverySettingsForm settings={delivery} onApply={applyDelivery} onPendingChange={onDestinationPending} />}
+      {pendingDestination && <Txt accessibilityLiveRegion="polite" style={{color:Colors.textSecondary,lineHeight:21}}>{language === 'pl' ? 'Zmieniasz miejsce dostawy. Wpisz pełny kod pocztowy, aby sprawdzić aktualny koszt zestawu.' : 'Delivery destination is changing. Enter a full postcode to check the current basket cost.'}</Txt>}
+      {!pendingDestination && !panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && !adhesives.readFailed && (state.status === 'loading' || loadedScope !== scope || !doorChoice.ready || !panels.ready || !foils.ready || !washbasins.ready || !tiles.ready || !adhesives.ready) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>
           <ActivityIndicator size="large" color={Colors.primary} />
           <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
@@ -328,30 +354,26 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
-      {!panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && !adhesives.readFailed && state.status === 'error' && (
+      {!pendingDestination && !panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && !adhesives.readFailed && state.status === 'error' && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 32 }}>
           <Feather name="alert-triangle" size={36} color={Colors.danger} />
           <Txt w="semibold" style={{ fontSize: 16, color: Colors.text, textAlign: 'center' }}>
             {t('cmp.CostEstimate.errorTitle')}
           </Txt>
           <Txt style={{ fontSize: 13, color: Colors.textMuted, textAlign: 'center', maxWidth: 280 }}>
-            {state.message}
+            {state.retryAt ? (language === 'pl' ? 'Serwer chwilowo ograniczył liczbę zapytań. Koszyk i ustawienia dostawy są zachowane.' : 'The server temporarily limited requests. Your basket and delivery settings are preserved.') : state.message}
           </Txt>
-          <Button label={t('cmp.CostEstimate.retry')} onPress={() => void fetchEstimate(true)} variant="outline" />
+          {retrySeconds > 0 && <Txt accessibilityLiveRegion="polite" style={{fontSize:13,color:Colors.textSecondary}}>{language === 'pl' ? `Ponowna wycena będzie dostępna za ${retrySeconds} s.` : `You can request another quote in ${retrySeconds} s.`}</Txt>}
+          <Button label={t('cmp.CostEstimate.retry')} disabled={retrySeconds > 0} onPress={() => void fetchEstimate(true)} variant="outline" />
         </View>
       )}
 
-      {refreshing && state.status === 'success' && loadedScope === scope && <View accessibilityRole="alert" style={{flexDirection:'row',alignItems:'center',gap:10,padding:14,borderRadius:12,backgroundColor:Colors.warningBg}}>
+      {!pendingDestination && refreshing && state.status === 'success' && loadedScope === scope && <View accessibilityRole="alert" style={{flexDirection:'row',alignItems:'center',gap:10,padding:14,borderRadius:12,backgroundColor:Colors.warningBg}}>
         <ActivityIndicator size="small" color={Colors.primary} />
         <Txt style={{flex:1,fontSize:14,lineHeight:20,color:Colors.text}}>{language==='pl'?'Sprawdzamy aktualne ceny i dostawę. Poniżej jest poprzednia wycena; aktualny koszt zakupów potwierdzimy po sprawdzeniu.':'Checking current prices and delivery. The previous quote is shown below; we will confirm the current purchase cost after the check.'}</Txt>
       </View>}
-      {state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
-        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={settings => {
-          requestVersion.current++;
-          deliveryRef.current=settings;
-          setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
-          preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
-        }} /></PriceChangesProvider>
+      {!pendingDestination && state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
+        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={applyDelivery} /></PriceChangesProvider>
       )}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano wyboru sklepu lub dostawy. Sprawdź ustawienia po ponownym otwarciu projektu.' : 'The store or delivery preference could not be saved. Check the settings when reopening the project.'}</Txt>}
       {priceSaveFailed && <Txt accessibilityRole="alert" style={{color:Colors.textSecondary}}>{language==='pl'?'Nie zapisano cen do porównania przy następnym otwarciu projektu.':'Prices could not be saved for comparison when reopening the project.'}</Txt>}

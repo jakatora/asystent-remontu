@@ -1,4 +1,6 @@
 import {ROLLED_JOB,ROLLED_MODEL,rolledDemand} from '@/features/calculator/rolledVinyl';
+import { ApiError, createBackoffFetch } from './requestBackoff';
+export { ApiError } from './requestBackoff';
 import {SKIRTING_JOB,SKIRTING_MODEL,skirtingEndcapDemand} from '@/features/calculator/skirting';
 import type {IndoEndcapDemand,IndoEndcapPlan} from '../../../../lib/pricing-service/src/indo-endcaps';
 // Klient HTTP do backendu wyceny (artifacts/api-server, router /pricing/*).
@@ -415,17 +417,7 @@ export class PricingApiNotConfiguredError extends Error {
   }
 }
 
-/** Rzucane, gdy serwer wyceny odpowie statusem HTTP != 2xx. */
-export class ApiError extends Error {
-  readonly name = 'ApiError';
-  readonly status: number;
-  readonly code: string | null;
-  constructor(status: number, message: string, code: string | null = null) {
-    super(message);
-    this.status = status;
-    this.code = code;
-  }
-}
+const pricingFetch = createBackoffFetch((input, init) => fetch(input, init));
 
 // ─── Mapowanie wyniku kalkulatora → wejście API ───────────────────────────────
 
@@ -483,7 +475,7 @@ function endpoint(path: string): string {
 
 /** POST JSON → parsuje odpowiedź; rzuca ApiError na status != 2xx. */
 async function postJson<T>(path: string, body: unknown): Promise<T> {
-  const response = await fetch(endpoint(path), {
+  const response = await pricingFetch(endpoint(path), {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -554,7 +546,7 @@ export async function fetchPriceHistory(
   else if (query.gtin) params.set('gtin', query.gtin);
   if ([...params.keys()].length === 0) return null; // brak identyfikatora — nic nie pytamy
 
-  const response = await fetch(endpoint(`/api/pricing/history?${params.toString()}`), {
+  const response = await pricingFetch(endpoint(`/api/pricing/history?${params.toString()}`), {
     method: 'GET',
     headers: { accept: 'application/json' },
   });
