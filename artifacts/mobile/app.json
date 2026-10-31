@@ -54,6 +54,8 @@
       ]
     },
     "web": {
+      "lang": "pl",
+      "description": "Zaplanuj materiały na remont i porównaj cenę całego koszyka z dostawą.",
       "favicon": "./assets/images/icon.png"
     },
     "plugins": [
