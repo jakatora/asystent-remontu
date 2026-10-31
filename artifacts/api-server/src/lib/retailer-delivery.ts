@@ -208,10 +208,20 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
-        if(quoteRelayEnabled(order.store))return await quoteThroughRelay(order,postalCode,fetchImpl);
-        if(order.store==='eTak')return await quoteEtak(order,postalCode,fetchImpl);
+        let nativeFetch=fetchImpl;
+        if(quoteRelayEnabled(order.store)){
+          const deadline=AbortSignal.timeout(20000);
+          nativeFetch=(input,init)=>fetchImpl(input,{...init,signal:AbortSignal.any([deadline,...(init?.signal?[init.signal]:[])])});
+          let relayed:DeliveryQuoteResult;
+          try{relayed=await quoteThroughRelay(order,postalCode,nativeFetch);}catch{relayed={reason:'quote_unavailable'};}
+          if('quote'in relayed||relayed.reason!=='quote_unavailable')return relayed;
+          // One fallback, same pinned basket and total I/O deadline. A known
+          // price/stock/rule change, rate limit or busy queue never retries.
+          if(deadline.aborted)return relayed;
+        }
+        if(order.store==='eTak')return await quoteEtak(order,postalCode,nativeFetch);
         if(order.store==='Dekork')return await quoteDekork(order,postalCode,fetchImpl);
-        if(order.store==='ChemiaDoParkietu25')return await quoteChemia(order,postalCode,fetchImpl);
+        if(order.store==='ChemiaDoParkietu25')return await quoteChemia(order,postalCode,nativeFetch);
         if(order.store==='eWinyl')return await quoteEwinyl(order,postalCode,fetchImpl);
         if(order.store==='DekoratorMarket')return await quoteDekorator(order,fetchImpl);
         if(order.store==='mŁazienka')return await quoteMlazienka(order,fetchImpl);
@@ -224,7 +234,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
         if(order.store==='Pati Art Studio')return await quotePati(order,postalCode,fetchImpl);
         if(order.store==='Budshop24')return await quoteBudshop(order,postalCode,fetchImpl);
         if(order.store==='Centrum Matbud')return await quoteSkyshop(order,fetchImpl);
-        if(order.store==='ABUD')return await quoteAbud(order,postalCode,fetchImpl);
+        if(order.store==='ABUD')return await quoteAbud(order,postalCode,nativeFetch);
         return await (order.store === 'Kronosfera' ? quoteKronosfera(order,fetchImpl) : order.store === 'Folnet' ? quoteFolnet(order,fetchImpl) : order.store === 'Modna Łazienka' ? quoteModna(order,fetchImpl) : order.store === 'HIPPER' ? quoteCertusoft(order,fetchImpl) : order.store === 'Eelektryka' ? quotePrestashop(order,fetchImpl) : order.store === 'TopBoden' ? quoteTopboden(order,fetchImpl) : order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
       } catch (error: unknown) {
         return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed','retailer_rate_limited'].includes(error.message) ? error.message : 'quote_unavailable' };

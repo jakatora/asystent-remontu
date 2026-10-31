@@ -205,7 +205,15 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
-  if(source.format==='idosell'&&quoteRelayEnabled(source.store))return readThroughRelay(source,fetchImpl);
+  if(source.format==='idosell'&&quoteRelayEnabled(source.store)){
+    const originalFetch=fetchImpl,deadline=AbortSignal.timeout(20000);
+    fetchImpl=(input,init)=>originalFetch(input,{...init,signal:AbortSignal.any([deadline,...(init?.signal?[init.signal]:[])])});
+    try{return await readThroughRelay(source,fetchImpl);}catch(error){
+      // A network route may be unavailable while the same reviewed native
+      // storefront is reachable directly. Never retry stock/rule/rate limits.
+      if(deadline.aborted||error instanceof Error&&['retailer_out_of_stock','purchase_rules_changed','price_changed','retailer_rate_limited','retailer_http_429'].includes(error.message))throw error;
+    }
+  }
   if(source.format==='mlazienka')return readMlazienkaProduct(source,fetchImpl);
   if(source.format==='integra'){
     const p=await readIntegraProduct(source,fetchImpl);

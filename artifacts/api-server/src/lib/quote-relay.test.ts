@@ -28,6 +28,13 @@ test('signed eTak refresh selects only a reviewed exact card and keeps its actua
  const app=await service(t,async()=>result(),{readSource:async(s:any)=>({sourceId:s.id,ean:s.ean,name:s.name,sourceUrl:changed?'https://other.example':s.url,imageUrl:s.imageUrl,currency:'PLN',availability:'in_stock',priceGrosze:123,stockPackages:22141,observedAt:new Date().toISOString(),evidenceSha256:'b'.repeat(64)})});
  const observed=await readThroughRelay(source,app.fetchImpl,secret);assert.equal(observed.stockPackages,22141);assert.equal(observed.priceGrosze,123);changed=true;await assert.rejects(readThroughRelay(source,app.fetchImpl,secret),/retailer_observation_not_confirmed/);
 });
+
+test('retailer429 remains a rate limit through signed reads and quotes instead of becoming a transient route error',async t=>{
+ const source=RETAIL_SOURCES.find(s=>s.id==='chemiadoparkietu-soudal-26a-5kg')!;
+ const app=await service(t,async()=>{throw Error('retailer_rate_limited');},{readSource:async()=>{throw Error('retailer_http_429');}});
+ assert.deepEqual(await quoteThroughRelay(order,'30-001',app.fetchImpl,secret),{reason:'retailer_rate_limited'});
+ await assert.rejects(readThroughRelay(source,app.fetchImpl,secret),/retailer_rate_limited/);
+});
 function signed(body=JSON.stringify({version:1,action:'quote',basket:order,postalCode:'30-001'}),timestamp=String(Date.now()),nonce=randomBytes(24).toString('hex')){return{body,method:'POST',headers:{'content-type':'application/json','x-remont-time':timestamp,'x-remont-nonce':nonce,'x-remont-signature':relaySignature(secret,'request',timestamp,nonce,body)}};}
 test('signed HTTP binds the exact Polish basket and postcode to a signed merchant quote without changing the price or expiry',async t=>{let calls=0;const app=await service(t,async(basket,postcode)=>{calls++;assert.deepEqual(basket,order);assert.equal(postcode,'30-001');return result();});const quoted=await quoteThroughRelay(order,'30-001',app.fetchImpl,secret);assert.ok('quote'in quoted);assert.equal(quoted.quote.costGrosze,1300);assert.equal(quoted.quote.postalCode,'30-001');assert.equal(calls,1);});
 test('missing, incorrect, expired or body-tampered authentication and replay never contact a merchant',async t=>{let calls=0;const app=await service(t,async()=>{calls++;return result();});assert.equal((await fetch(app.url,{method:'POST'})).status,401);
