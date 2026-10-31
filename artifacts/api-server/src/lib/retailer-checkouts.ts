@@ -121,15 +121,19 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
   if(configured.some(({source})=>!isReviewedSeweraDispatchSource(source)))throw Error('dispatch_department_not_confirmed');
   const department=configured[0]?.source.dispatchDepartment??{id:'1',name:'Katowice'};
   if(configured.some(({source})=>source.dispatchDepartment!.id!==department.id||source.dispatchDepartment!.name!==department.name)){
-    if(configured.length===packs.length&&order.lines.length>=2&&order.lines.every(line=>line.packages.length===1)){
+    if(order.lines.length>=2&&order.lines.every(line=>line.packages.length===1)){
       const groups=new Map<string,{dispatchFrom:string;offerIds:string[]}>();
-      for(const {source} of packs){
+      for(const {source} of configured){
         const branch=source.dispatchDepartment!;
         const group=groups.get(branch.id)??{dispatchFrom:branch.name,offerIds:[]};
         if(group.dispatchFrom!==branch.name)throw Error('dispatch_department_not_confirmed');
         group.offerIds.push(source.id);groups.set(branch.id,group);
       }
-      return {reason:'requires_separate_dispatch',dispatchGroups:[...groups.values()]};
+      const flexible=packs.filter(({source})=>!source.dispatchDepartment).map(({source})=>source.id);
+      // Unassigned offers use Katowice when quoted alone. They may also join
+      // a configured branch, whose native card and cart must confirm stock.
+      if(flexible.length&&!groups.has('1'))groups.set('1',{dispatchFrom:'Katowice',offerIds:[]});
+      return {reason:'requires_separate_dispatch',dispatchGroups:[...groups.values()],...(flexible.length?{flexibleDispatchOfferIds:flexible}:{})};
     }
     throw Error('dispatch_department_not_confirmed');
   }

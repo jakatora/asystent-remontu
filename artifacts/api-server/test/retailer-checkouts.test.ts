@@ -43,6 +43,15 @@ test('five exact Sewera lines form three verified branch carts before any checko
     {dispatchFrom:'Katowice',offerIds:['sewera-atlas-gta-18kg']},
   ]});assert.equal(calls,0);
 });
+test('ordinary Sewera offers stay flexible between verified branch carts and the native Katowice default',async()=>{
+ const ids=['sewera-rigips-paper-50x75','sewera-dulux-9l','sewera-tape-30mm'];
+ const sources=ids.map(id=>RETAIL_SOURCES.find(source=>source.id===id)!);
+ const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:3000,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:sources.map(source=>({product:{id:source.id,name:source.name,imageUrl:null},unit:source.unit,packages:[{offerId:source.id,store:'Sewera',url:source.url,packageSize:source.packageSize,count:1,unitPriceGrosze:1000,lineCostGrosze:1000}]}))};
+ let calls=0;const result=await quoteSewera(order,'00-001',async()=>{calls++;throw Error('unexpected network call');});
+ assert.deepEqual(result,{reason:'requires_separate_dispatch',dispatchGroups:[
+  {dispatchFrom:'Sosnowiec',offerIds:[ids[0]]},{dispatchFrom:'Tarnowskie Góry',offerIds:[ids[1]]},{dispatchFrom:'Katowice',offerIds:[]},
+ ],flexibleDispatchOfferIds:[ids[2]]});assert.equal(calls,0);
+});
 
 test('failed Sewera prefetch waits for active reads and stops starting new ones before releasing its quote',async()=>{
   const sources=RETAIL_SOURCES.filter(source=>source.store==='Sewera'&&!source.dispatchDepartment).slice(0,4);

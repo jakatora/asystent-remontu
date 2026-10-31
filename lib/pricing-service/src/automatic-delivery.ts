@@ -29,8 +29,9 @@ export async function compareAutomaticDelivery(
   if (settings.mode==='pickup'||settings.method==='manual') return compareDeliveredBaskets(stages,settings,policies,now);
   const limits=new Map<string,DeliveryStockLimit>(),cache=new Map<string,Promise<DeliveryQuoteResult>>();
   let allowNewQuotes=true, partitionSearchLimited=false;
-  const quoteWithStock: BasketQuoter=async(order,postalCode)=>{
-    const key=JSON.stringify([order.store,signature(order)]);
+  const quoteWithStock: BasketQuoter=async(order,postalCode,context)=>{
+    const ignoredStock=new Set(context?.ignoreStockOfferIds??[]);
+    const key=JSON.stringify([order.store,signature(order),[...ignoredStock].sort()]);
     if(cache.has(key))return cache.get(key)!;
     if(!allowNewQuotes||cache.size>=MAX_STORE_BASKETS){partitionSearchLimited=true;return {reason:'quote_limit'};}
     const pending=(async()=>{
@@ -40,7 +41,7 @@ export async function compareAutomaticDelivery(
         const line=order.lines.find(line=>line.packages.some(pack=>pack.offerId===limit.offerId));
         const pack=line?.packages.find(pack=>pack.offerId===limit.offerId);
         const checked=Date.parse(limit.checkedAt),expires=Date.parse(limit.expiresAt);
-        return pack&&limit.productId===line!.product.id&&limit.store===order.store&&limit.postalCode===postalCode&&Boolean(limit.dispatchFrom)&&
+        return pack&&!ignoredStock.has(limit.offerId)&&limit.productId===line!.product.id&&limit.store===order.store&&limit.postalCode===postalCode&&Boolean(limit.dispatchFrom)&&
           limit.unitPriceGrosze===pack.unitPriceGrosze&&limit.requestedPackages===pack.count&&
           Number.isSafeInteger(limit.maxPackages)&&limit.maxPackages>=0&&limit.maxPackages<pack.count&&
           Number.isFinite(checked)&&checked<=Date.now()&&Date.now()-checked<=600_000&&expires>Date.now()&&expires<=checked+600_000&&

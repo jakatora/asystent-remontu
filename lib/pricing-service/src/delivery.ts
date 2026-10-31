@@ -77,8 +77,14 @@ export type DeliveryQuoteResult = { quote: DeliveryQuote } | {
   reason: string; stockLimits?: DeliveryStockLimit[];
   /** Retailer-verified groups of exact offers that require separate branch carts. */
   dispatchGroups?: { dispatchFrom: string; offerIds: string[] }[];
+  /** These offers can join a branch cart only after its native stock check. */
+  flexibleDispatchOfferIds?: string[];
 };
-export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string) => Promise<DeliveryQuoteResult>;
+export interface BasketQuoteContext {
+  /** An alternate branch's stock does not cap an offer available elsewhere. */
+  ignoreStockOfferIds?: readonly string[];
+}
+export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string, context?: BasketQuoteContext) => Promise<DeliveryQuoteResult>;
 export interface DeliveryComparison {
   allowSeparateOrders?: boolean;
   mode: DeliverySettings['mode'];

@@ -71,6 +71,20 @@ async function manyProducts(productCount: number, storeCount: number) {
     offers:Array.from({length:storeCount},(_,store)=>({...line.offers[0],id:`offer-${index}-${store}`,productId:`product-${index}`,store:`S${String(store).padStart(2,'0')}`,price:((100+store)/100).toFixed(2)})),
   }))};
 }
+test('an ordinary offer short in one branch can join another complete dispatch without a false global stock cap',async()=>{
+ const input=await manyProducts(3,1),ids=['paper','paint','tape'];
+ for(let i=0;i<input.lines.length;i++){const line=input.lines[i];assert.ok(line.resolved);line.offers=line.offers.map(o=>({...o,id:ids[i],store:'Sewera'}));}
+ const native:BasketQuoter=async order=>{
+  const offers=order.lines.flatMap(line=>line.packages.map(pack=>pack.offerId));
+  if(offers.length===3)return{reason:'requires_separate_dispatch',dispatchGroups:[{dispatchFrom:'Sosnowiec',offerIds:['paper']},{dispatchFrom:'Tarnowskie Góry',offerIds:['paint']},{dispatchFrom:'Katowice',offerIds:[]}],flexibleDispatchOfferIds:['tape']};
+  if(offers.length===1&&offers[0]==='tape')return{reason:'insufficient_stock',stockLimits:[{offerId:'tape',store:'Sewera',productId:order.lines[0].product.id,productName:order.lines[0].product.name,maxPackages:0,requestedPackages:1,unitPriceGrosze:100,postalCode:'00-001',dispatchFrom:'Katowice',checkedAt:new Date().toISOString(),expiresAt:new Date(Date.now()+600000).toISOString(),sourceUrl:'https://sklep.sewera.pl/index.php?page=koszyk',evidenceSha256:'a'.repeat(64)}]};
+  return{quote:{costGrosze:offers.includes('paper')?1990:3090,carrier:'Courier',payment:'Prepaid',checkedAt:new Date().toISOString(),expiresAt:new Date(Date.now()+600000).toISOString(),sourceUrl:'https://sklep.sewera.pl/zamowienie',destinationScope:'postal_code',postalCode:'00-001',dispatchFrom:offers.includes('paper')?'Sosnowiec':'Tarnowskie Góry',basis:'retailer_basket_postcode',evidenceSha256:'a'.repeat(64)}};
+ };
+ const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:true},native);
+ assert.equal(result.status,'compared');assert.equal(result.missingProductCount,0);assert.equal(result.best!.materialsGrosze,300);assert.equal(result.best!.deliveryGrosze,5080);assert.equal(result.best!.stores[0].quote!.orders!.length,2);
+ assert.ok(!result.stockLimits?.some(limit=>limit.offerId==='tape'));
+ assert.equal(result.best!.stores[0].lines.flatMap(line=>line.packages).find(pack=>pack.offerId==='tape')!.count,1);
+});
 
 test('proved material lower bounds avoid unnecessary mixed-cart retailer quotes', async () => {
   const input = await manyProducts(5, 2);
