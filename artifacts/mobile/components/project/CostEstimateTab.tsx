@@ -1210,8 +1210,10 @@ function PriceHistoryPanel({
   const selected = series.find(s=>s.offerId===historyOfferId) ?? series[0];
   if(recorded&&!selected)return null;
   const stats = selected?.stats ?? data.stats;
-  const hasChange = stats.changePct !== null && stats.changePct !== 0;
-  const wentUp = (stats.changePct ?? 0) > 0;
+  const delta = selected?.stats.deltaGrosze;
+  const hasChange = recorded ? delta!==null&&delta!==undefined&&delta!==0 : stats.changePct !== null && stats.changePct !== 0;
+  const wentUp = recorded ? (delta??0)>0 : (stats.changePct ?? 0) > 0;
+  const changePercent = `${wentUp?'+':''}${formatPackageSize(stats.changePct??0,language)}%`;
 
   // Tylko punkty z ceną efektywną. API zwraca je chronologicznie (najstarsze
   // pierwsze) — tak też rysujemy sparkline (lewa→prawa = starsze→nowsze).
@@ -1264,7 +1266,7 @@ function PriceHistoryPanel({
         {hasChange && (
           <Badge
             icon={wentUp ? 'arrow-up-right' : 'arrow-down-right'}
-            text={`${wentUp ? '+' : ''}${stats.changePct}%`}
+            text={recorded&&delta!==null&&delta!==undefined?`${language==='pl'?(wentUp?'Drożej o':'Taniej o'):(wentUp?'Up':'Down')} ${formatGrosze(Math.abs(delta))}`:changePercent}
             color={wentUp ? Colors.danger : Colors.success}
             bg={wentUp ? Colors.dangerBg : Colors.successBg}
           />
@@ -1297,7 +1299,7 @@ function PriceHistoryPanel({
             <StatCell label={t('cmp.CostEstimate.statCurrent')} value={formatGrosze(stats.current)} />
             <StatCell
               label={t('cmp.CostEstimate.statChange')}
-              value={hasChange ? `${wentUp ? '+' : ''}${stats.changePct}%` : '—'}
+              value={hasChange ? changePercent : '—'}
               color={hasChange ? (wentUp ? Colors.danger : Colors.success) : Colors.text}
             />
           </View>
@@ -1317,6 +1319,7 @@ function PriceHistoryPanel({
                 point={point}
                 isFirst={idx === 0}
                 isLowest={stats.lowest !== null && point.effectiveGrosze === stats.lowest}
+                showTime={recorded}
               />
             ))}
           </View>
@@ -1403,12 +1406,14 @@ function PriceHistoryRow({
   point,
   isFirst,
   isLowest,
+  showTime=false,
 }: {
   point: SerializedHistoryPoint & { effectiveGrosze: number };
   isFirst: boolean;
   isLowest: boolean;
+  showTime?: boolean;
 }) {
-  const { t } = useLanguage();
+  const { t,language } = useLanguage();
   return (
     <View
       style={{
@@ -1425,7 +1430,7 @@ function PriceHistoryRow({
     >
       <View style={{ flex: 1, gap: 2 }}>
         <Txt w="medium" style={{ fontSize: 12, color: Colors.text }}>
-          {formatHistoryDate(point.fetchedAt)}
+          {showTime?new Date(point.fetchedAt).toLocaleString(language==='pl'?'pl-PL':'en-GB',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'}):formatHistoryDate(point.fetchedAt)}
         </Txt>
         <Txt style={{ fontSize: 11, color: Colors.textMuted }}>{point.store}</Txt>
       </View>

@@ -39,6 +39,12 @@ test('bounded history retains the last 60 actual reads and averages safe integer
  const result=h.response([source],new Map())!;assert.equal(result.stats.count,60);assert.ok(Number.isSafeInteger(result.stats.average));assert.equal(result.history[0].priceGrosze,Number.MAX_SAFE_INTEGER-5);assert.equal(result.history.at(-1)!.priceGrosze,Number.MAX_SAFE_INTEGER-64);
 });
 
+test('one grosz remains an explicit change even when its percentage rounds to zero',()=>{
+ const h=new RetailPriceHistory([source],validator([source])),now=Date.now(),latest=observation(source,1000001,now);
+ h.remember(observation(source,1000000,now-1000));h.remember(latest);
+ const result=h.response([source],new Map([[source.id,latest]]))!;assert.equal(result.stats.changePct,0);assert.equal(result.series[0].stats.deltaGrosze,1);
+});
+
 test('real HTTP: a validated refresh persists one-offer rise across restart; failures cannot fabricate new points',async()=>{
  const dir=mkdtempSync(join(tmpdir(),'remont-history-')),cachePath=join(dir,'prices.json'),initial=observation();let blocked=false,calls=0;
  writeFileSync(cachePath,JSON.stringify({version:2,observations:[initial],withdrawnAt:{}}));
