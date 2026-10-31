@@ -1,3 +1,4 @@
+import {quoteRelayEnabled,quoteThroughRelay} from './quote-relay-client';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEwinyl} from './ewinyl';
 import {quoteDekorator} from './dekorator';
@@ -205,6 +206,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
+        if(quoteRelayEnabled(order.store))return await quoteThroughRelay(order,postalCode,fetchImpl);
         if(order.store==='ChemiaDoParkietu25')return await quoteChemia(order,postalCode,fetchImpl);
         if(order.store==='eWinyl')return await quoteEwinyl(order,postalCode,fetchImpl);
         if(order.store==='DekoratorMarket')return await quoteDekorator(order,fetchImpl);

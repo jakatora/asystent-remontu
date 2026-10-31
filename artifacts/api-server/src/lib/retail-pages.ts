@@ -1,3 +1,4 @@
+import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEwinylProduct} from './ewinyl-product';
 import {readDekoratorProduct} from './dekorator';
 import {readIntegraProduct} from './integra';
@@ -201,6 +202,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   if (source.disabledReason) throw Error(source.disabledReason);
+  if(source.format==='idosell'&&quoteRelayEnabled(source.store))return readThroughRelay(source,fetchImpl);
   if(source.format==='mlazienka')return readMlazienkaProduct(source,fetchImpl);
   if(source.format==='integra'){
     const p=await readIntegraProduct(source,fetchImpl);

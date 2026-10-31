@@ -17,6 +17,7 @@ test('web host exposes the exact release, serves SPA deep links, and keeps missi
  const {base,root}=await setup(t);const h=await fetch(base+'/healthz');assert.equal(h.status,200);assert.equal((await h.json()).sourceCommit,'test-source');
  const page=await fetch(base+'/project/qa?tab=estimate',{headers:{accept:'text/html'}});assert.equal(page.status,200);assert.match(await page.text(),/APP/);assert.equal(page.headers.get('cache-control'),'no-cache');
  assert.equal(page.headers.get('referrer-policy'),'no-referrer');
+ const privateQuote=await fetch(base+'/internal/retailer-delivery',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(privateQuote.status,503);assert.equal((await privateQuote.json()).error,'quote_unavailable');
  assert.equal((await fetch(base+'/_expo/missing.js',{headers:{accept:'text/html'}})).status,404);assert.equal((await fetch(base+'/assets/missing.wasm',{headers:{accept:'text/html'}})).status,404);assert.equal((await fetch(base+'/unknown-json')).status,404);
  assert.equal((await fetch(base+'/healthz',{method:'POST'})).status,405);
  fs.unlinkSync(path.join(root,'_expo/db.wasm'));const missing=await fetch(base+'/healthz');assert.equal(missing.status,503);assert.equal((await missing.json()).missingAssetCount,1);

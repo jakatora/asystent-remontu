@@ -1,4 +1,4 @@
-/** Static hosting for the Expo web export. User projects stay in the browser. */
+/** Expo web hosting and a private merchant quote route. Projects stay local. */
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const {pipeline}=require('node:stream/promises');
 const {createGzip}=require('node:zlib');
@@ -11,6 +11,7 @@ const HEADERS={'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder
 
 function createWebServer({root=path.resolve(__dirname,'..','web-build')}={}){
   root=path.resolve(root);
+  let relayHandler;
   let release=null;
   try{release=JSON.parse(fs.readFileSync(path.join(root,'release.json'),'utf8'));}catch{}
   const server=http.createServer((req,res)=>{
@@ -39,14 +40,20 @@ function createWebServer({root=path.resolve(__dirname,'..','web-build')}={}){
     if(gzip)await pipeline(fs.createReadStream(file),createGzip(),res);else await pipeline(fs.createReadStream(file),res);
   }
   async function handle(req,res){
-    if(req.method!=='GET'&&req.method!=='HEAD'){res.setHeader('Allow','GET, HEAD');text(req,res,405,'Metoda niedostępna.');return;}
     let pathname;
     try{pathname=decodeURIComponent(new URL(req.url??'/','http://localhost').pathname).replace(/\\/g,'/');}catch{text(req,res,400,'Nieprawidłowy adres.');return;}
     if(pathname.includes('\0')){text(req,res,400,'Nieprawidłowy adres.');return;}
+    if(pathname==='/internal/retailer-delivery'){
+      if(process.env.REMONT_QUOTE_RELAY_MODE!=='server'||!/^[a-f0-9]{64}$/.test(process.env.REMONT_QUOTE_RELAY_SECRET??'')){text(req,res,503,JSON.stringify({error:'quote_unavailable'}),'application/json; charset=utf-8');return;}
+      if(!relayHandler)relayHandler=require('./delivery-relay.cjs').createQuoteRelayHandler();
+      await relayHandler(req,res);return;
+    }
+    if(req.method!=='GET'&&req.method!=='HEAD'){res.setHeader('Allow','GET, HEAD');text(req,res,405,'Metoda niedostępna.');return;}
     if(pathname==='/healthz'){
       const missingAssetCount=Array.isArray(release?.files)?release.files.filter(asset=>!fs.existsSync(path.join(root,asset.path))).length:0;
-      const ready=fs.existsSync(path.join(root,'index.html'))&&missingAssetCount===0;
-      text(req,res,ready?200:503,JSON.stringify({ok:ready,missingAssetCount,app:'Asystent Remontu',version:release?.version??null,sourceCommit:release?.sourceCommit??null,builtAt:release?.builtAt??null,apiBaseUrl:release?.apiBaseUrl??null}),'application/json; charset=utf-8');return;
+      const quoteRelayReady=process.env.REMONT_QUOTE_RELAY_MODE!=='server'||/^[a-f0-9]{64}$/.test(process.env.REMONT_QUOTE_RELAY_SECRET??'')&&fs.existsSync(path.join(__dirname,'delivery-relay.cjs'));
+      const ready=fs.existsSync(path.join(root,'index.html'))&&missingAssetCount===0&&quoteRelayReady;
+      text(req,res,ready?200:503,JSON.stringify({ok:ready,missingAssetCount,quoteRelayReady,app:'Asystent Remontu',version:release?.version??null,sourceCommit:release?.sourceCommit??null,builtAt:release?.builtAt??null,apiBaseUrl:release?.apiBaseUrl??null}),'application/json; charset=utf-8');return;
     }
     if(pages[pathname]){text(req,res,200,renderPage(pages[pathname]),'text/html; charset=utf-8');return;}
     const file=path.resolve(root,'.'+pathname),relative=path.relative(root,file);

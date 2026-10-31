@@ -30,6 +30,8 @@ const metadata={app:'Asystent Remontu',version:app.version,sourceCommit,builtAt:
 fs.mkdirSync(path.join(target,'server'),{recursive:true});
 fs.cpSync(exported,path.join(target,'web-build'),{recursive:true});
 for(const file of ['web.js','web-host.cjs','web-pages.cjs'])fs.copyFileSync(path.join(mobile,'server',file),path.join(target,'server',file));
+// Server-only merchant adapters are never part of the browser asset archive.
+execFileSync(process.execPath,[path.resolve(mobile,'../api-server/build-quote-relay.mjs'),path.join(target,'server/delivery-relay.cjs')],{cwd:mobile,stdio:'inherit',timeout:120000});
 fs.writeFileSync(path.join(target,'web-build/release.json'),JSON.stringify(metadata,null,2)+'\n');
 // Railway CLI 4.61.1 excludes every path component named node_modules, even
 // with --no-gitignore. Transfer the validated Expo assets inside an archive.

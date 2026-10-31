@@ -39,3 +39,15 @@ Brak dostawy Bricomana pozostaje jawny (`needs_delivery_costs`, `missingDelivery
 - https://www.soudal.pl/sites/default/files/soudal_api/document/F0039177_0001.pdf
 
 Dowody sesji: `work/abud-soudal-native-{1,2}-wave141.json`, `work/chemia-soudal-native-{1,2}-wave141.json`, `work/chemia-shipping-schema-wave141.json`, `work/soudal-http-local-wave141.json`. Nie powielamy cookies ani nagłówków sesji w fixture projektu.
+
+## Odbiór produkcyjny i połączenia między usługami
+
+Pierwszy moduł backendu (`00e9ef6`, PR130) wdrożono, ale rzeczywisty test produkcji wykazał `UND_ERR_CONNECT_TIMEOUT` do obu sklepów. Diagnoza wewnątrz wspólnego backendu potwierdziła poprawny DNS i timeout także dla natywnego HTTPS po IPv4. Ten sam odczyt z istniejącego serwera webowego działał HTTP200 dla obu domen, również zwykłym `fetch`. Sam lokalny test ani `SUCCESS` wdrożenia nie były wystarczającym dowodem działania dostawy.
+
+Przygotowano prywatny kanał wycen i odświeżania cen na tym drugim istniejącym serwerze. Nie powstaje kolejna usługa. Backend wysyła wyłącznie listę produktów/kod albo identyfikator przejrzanej karty. Wykorzystywane są te same ścisłe natywne adaptery; klient nie może podać adresu URL, innego sklepu, żądania GraphQL ani operacji zamówienia. Osobne role `client`/`server` zapobiegają przekazywaniu zapytań z powrotem do siebie.
+
+Obie strony sprawdzają HMAC-SHA256, dokładną treść, czas i losowy nonce. Podmieniona odpowiedź lub ciało, stary podpis i powtórzenie żądania są odrzucane. Transport ma limity 64 KiB oraz kolejkę 3 równoległych operacji z ograniczoną liczbą i czasem oczekiwania. Klucz jest wyłącznie zmienną usług i wpisem w zewnętrznym vaulcie, nigdy częścią eksportu przeglądarki ani adresu URL. Publiczny endpoint bez autoryzacji nie pobiera niczego ze sklepów. Healthcheck webu wymaga prywatnego modułu, gdy włączono jego rolę.
+
+Kanał obsługuje również aktualne obserwacje cen, nie tylko dostawę. Odczyt zachowuje EAN, adres pierwotnej karty, czas i SHA dowodu sklepu. Dzięki temu zmieniona cena nie blokuje użytkownika przy starym ziarnie i może zostać porównana z jego poprzednim odświeżeniem. Nie zmienia się zakres potwierdzenia ani oryginalna ważność wyceny.
+
+Sześć testów rzeczywistego podpisanego HTTP obejmuje odrzucenia, replay, podmianę odpowiedzi, dozwolone źródła i zmiany cen. Aktualny odbiór produkcyjny po tej poprawce zostanie zapisany po ponownym wdrożeniu obu części.
