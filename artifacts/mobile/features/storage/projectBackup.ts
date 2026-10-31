@@ -1,7 +1,8 @@
 import {z} from 'zod';
 import type {DatabaseConnection, DatabaseCommand} from '../../db/connection';
-import {validateBackupPreferences} from './projectBackupPreferences';
+import {BACKUP_PRODUCT_CHOICE_PARSERS,BACKUP_PRODUCT_CHOICE_PREFIXES,validateBackupPreferences} from './projectBackupPreferences';
 import {parseBasketSelection} from '../pricing/renovationBasket';
+import {parseBasketExtras} from '../pricing/basketExtras';
 
 export const BACKUP_MAX_BYTES=20*1024*1024;
 const id=z.string().min(1).max(200);
@@ -31,18 +32,28 @@ export const BACKUP_TABLES={
 export type BackupTable=keyof typeof BACKUP_TABLES;
 export type BackupRow=Record<string,string|number|null>;
 export const BACKUP_PREFERENCE_PREFIXES=[
-  'remont.door-selection.v1:','remont.laminate-choice.v1:','remont.foil-choice.v1:',
-  'remont.washbasin-choice.v1:','remont.tile-choice.v1:','remont.tile-adhesive-choice.v1:',
-  'remont.flush-box-choice.v1:',
+  'remont.door-selection.v1:',...BACKUP_PRODUCT_CHOICE_PREFIXES,
   'remont.delivery.v2:','remont.price-seen.v1:',
 ] as const;
-export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket','remont.flush-box-choice.v1:renovation-basket'] as const;
+export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket',...BACKUP_PRODUCT_CHOICE_PREFIXES.map(prefix=>prefix+'renovation-basket')] as const;
 const tables=Object.keys(BACKUP_TABLES) as BackupTable[];
 const tableShape=Object.fromEntries(tables.map(table=>[table,z.array(BACKUP_TABLES[table]).max(10_000)]));
 const envelope=z.object({format:z.literal('asystent-remontu-projects'),version:z.literal(1),createdAt:time,tables:z.object(tableShape).strict(),preferences:z.record(z.string(),z.string().max(1_000_000))}).strict();
 export interface ProjectBackup {format:'asystent-remontu-projects';version:1;createdAt:string;tables:Record<BackupTable,BackupRow[]>;preferences:Record<string,string>}
 export interface BackupStorage {getItem(key:string):Promise<string|null>;setItem(key:string,value:string):Promise<void>;removeItem(key:string):Promise<void>}
 export const canonical=(value:unknown):string=>JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(key=>[key,item[key]])):item);
+export const backupExtraCount=(backup:ProjectBackup):number=>parseBasketExtras(backup.preferences['remont.basket-extras.v1']??null).length;
+export function hasBackupContent(backup:ProjectBackup):boolean{
+  if(backup.tables.projects.length>0||backupExtraCount(backup)>0)return true;
+  if(BACKUP_PRODUCT_CHOICE_PREFIXES.some(prefix=>{
+    const raw=backup.preferences[prefix+'renovation-basket'];
+    return raw!==undefined&&BACKUP_PRODUCT_CHOICE_PARSERS[prefix](raw).length>0;
+  }))return true;
+  const raw=backup.preferences['remont.delivery.v2:renovation-basket'];
+  if(!raw)return false;
+  const delivery=JSON.parse(raw);
+  return Boolean(delivery.settings?.postalCode||delivery.store||delivery.settings?.mode==='pickup'||delivery.settings?.allowSeparateOrders===false);
+}
 const fail=():never=>{throw Error('invalid_project_backup');};
 function containsRows(actual:ProjectBackup['tables'],expected:ProjectBackup['tables']):boolean{
   return tables.every(table=>{
@@ -107,10 +118,14 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
 export async function importProjectBackup(backup:ProjectBackup,db:DatabaseConnection,storage:BackupStorage):Promise<{projects:number;keptBasketSettings:boolean}>{
   backup=parseProjectBackup(JSON.stringify(backup));
   const before=await readProjectBackup(db,storage),existing=new Set(before.tables.projects.map(row=>row.id));
-  if(!backup.tables.projects.length)throw Error('backup_empty');
+  if(!hasBackupContent(backup))throw Error('backup_empty');
   if(backup.tables.projects.some(row=>existing.has(row.id)))throw Error('backup_project_conflict');
+  const keepBasket=hasBackupContent(before);
+  // A basket-only file has no independent project rows to add. Do not report
+  // success while skipping its only content, or replace an existing renovation.
+  if(!backup.tables.projects.length&&keepBasket)throw Error('backup_basket_conflict');
   const globalKeys=new Set<string>(BACKUP_GLOBAL_KEYS);
-  const entries=Object.entries(backup.preferences).filter(([key])=>!globalKeys.has(key)||existing.size===0);
+  const entries=Object.entries(backup.preferences).filter(([key])=>!globalKeys.has(key)||!keepBasket);
   const previous=new Map(await Promise.all(entries.map(async([key])=>[key,await storage.getItem(key)] as const)));
   const commands:DatabaseCommand[]=tables.flatMap(table=>{
     const columns=Object.keys(BACKUP_TABLES[table].shape);
@@ -122,17 +137,17 @@ export async function importProjectBackup(backup:ProjectBackup,db:DatabaseConnec
     // On failure, SQLite remains untouched. Only these reviewed local keys move.
     for(const[key,value]of entries){await storage.setItem(key,value);if(await storage.getItem(key)!==value)throw Error('backup_preferences_unconfirmed');}
   }catch(error){try{await restore();}catch{throw Error('backup_import_unconfirmed');}throw error;}
-  try{await db.runBatchAsync(commands);}catch(error){
+  try{if(commands.length)await db.runBatchAsync(commands);}catch(error){
     // A lost cross-tab reply may follow COMMIT. Read back; never repeat writes.
     let after:ProjectBackup['tables'];
     try{after=await readBackupTables(db);}catch{throw Error('backup_import_unconfirmed');}
     const complete=containsRows(after,backup.tables);
-    if(complete)return{projects:backup.tables.projects.length,keptBasketSettings:existing.size>0};
+    if(complete)return{projects:backup.tables.projects.length,keptBasketSettings:keepBasket};
     if(after.projects.some(row=>backup.tables.projects.some(imported=>row.id===imported.id)))throw Error('backup_import_unconfirmed');
     try{await restore();}catch{throw Error('backup_import_unconfirmed');}throw error;
   }
   let after:ProjectBackup['tables'];
   try{after=await readBackupTables(db);}catch{throw Error('backup_import_unconfirmed');}
   if(!containsRows(after,backup.tables))throw Error('backup_import_unconfirmed');
-  return{projects:backup.tables.projects.length,keptBasketSettings:existing.size>0};
+  return{projects:backup.tables.projects.length,keptBasketSettings:keepBasket};
 }

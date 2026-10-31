@@ -6,10 +6,28 @@ import {migration_001} from '../../db/migrations/001_initial';
 import {migration_002} from '../../db/migrations/002_shopping_extended';
 import {migration_003} from '../../db/migrations/003_project_management';
 import {migration_004} from '../../db/migrations/004_pricing';
-import {canonical,importProjectBackup,parseProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
+import {backupExtraCount,canonical,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
 import {calculateMaterials} from '../calculator/engine';
 import {getJobById} from '../content/registry';
 import {LAMINATE_PRODUCTS} from '../pricing/laminateChoice';
+import {FOIL_PRODUCTS} from '../pricing/foilChoice';
+import {WASHBASIN_PRODUCTS} from '../pricing/washbasinChoice';
+import {TILE_PRODUCTS} from '../pricing/tileChoice';
+import {TILE_ADHESIVE_PRODUCTS} from '../pricing/tileAdhesiveChoice';
+
+function sharedChoices():Record<string,string>{
+  const save=(choices:unknown[])=>JSON.stringify({version:1,choices});
+  const floor=TILE_PRODUCTS.filter(p=>p.uses.includes('floor'));
+  return{
+    'remont.laminate-choice.v1:renovation-basket':save([{from:LAMINATE_PRODUCTS[0].id,to:LAMINATE_PRODUCTS[1].id}]),
+    'remont.foil-choice.v1:renovation-basket':save([{from:FOIL_PRODUCTS[0].id,to:FOIL_PRODUCTS[1].id}]),
+    'remont.washbasin-choice.v1:renovation-basket':save([{from:WASHBASIN_PRODUCTS[0].id,to:WASHBASIN_PRODUCTS[1].id}]),
+    'remont.tile-choice.v1:renovation-basket':save([{from:floor[0].id,to:floor[1].id,use:'floor',floorAdhesive:'mat-tile-adhesive-atlas-plus-standard-25kg'}]),
+    'remont.tile-adhesive-choice.v1:renovation-basket':save([{from:TILE_ADHESIVE_PRODUCTS[0].id,to:TILE_ADHESIVE_PRODUCTS[1].id}]),
+    'remont.flush-box-choice.v1:renovation-basket':save([{from:'mat-flush-box-elektroplast-pk60-10',to:'mat-epn-pk60-pro-0285-01'}]),
+  };
+}
+async function setSharedChoices(storage:BackupStorage){for(const[key,value]of Object.entries(sharedChoices()))await storage.setItem(key,value);}
 
 async function fixture(t:TestContext){
   const sqlite=new DatabaseSync(':memory:');t.after(()=>sqlite.close());sqlite.exec('PRAGMA foreign_keys=ON;');
@@ -93,4 +111,62 @@ test('adding projects to a different existing renovation keeps its shared basket
 test('deleted work left in a saved shared basket does not prevent backing up the remaining projects',async t=>{
   const a=await source(t);await a.storage.setItem('remont.renovation-basket.v1',JSON.stringify({version:1,projectIds:['deleted','room']}));
   const backup=await readProjectBackup(a.db,a.storage);assert.deepEqual(JSON.parse(backup.preferences['remont.renovation-basket.v1']).projectIds,['room']);
+});
+
+test('all six shared product choices survive real SQLite export, file parsing and import',async t=>{
+  const a=await source(t),b=await fixture(t);await setSharedChoices(a.storage);
+  const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));
+  for(const[key,value]of Object.entries(sharedChoices()))assert.equal(backup.preferences[key],value,'The shared choice must be exported even though renovation-basket is not a project row');
+  await importProjectBackup(backup,b.db,b.storage);
+  const restored=await readProjectBackup(b.db,b.storage);
+  for(const[key,value]of Object.entries(sharedChoices()))assert.equal(restored.preferences[key],value);
+  assert.equal(canonical(restored.tables),canonical(backup.tables));
+});
+test('adding projects preserves all existing shared choices, including explicit empty selections',async t=>{
+  const a=await source(t),b=await fixture(t);await setSharedChoices(a.storage);
+  b.sqlite.exec("INSERT INTO projects(id,name,job_id,job_name,category_id,created_at,updated_at) VALUES('existing','Mój remont','paint','Ściany','paint','2026-10-31','2026-10-31')");
+  const empty=JSON.stringify({version:1,choices:[]});for(const key of Object.keys(sharedChoices()))await b.storage.setItem(key,empty);
+  const result=await importProjectBackup(await readProjectBackup(a.db,a.storage),b.db,b.storage);
+  assert.equal(result.keptBasketSettings,true);
+  for(const key of Object.keys(sharedChoices()))assert.equal(b.values.get(key),empty);
+});
+test('a basket-only renovation round-trips without manufacturing a project or losing product choices',async t=>{
+  const a=await fixture(t),b=await fixture(t);await setSharedChoices(a.storage);
+  await a.storage.setItem('remont.basket-extras.v1',JSON.stringify({version:1,items:[{id:'basket-boxes',kind:'catalogue',referenceId:'mat-flush-box-elektroplast-pk60-10',quantity:11}]}));
+  await a.storage.setItem('remont.delivery.v2:renovation-basket',JSON.stringify({store:null,settings:{mode:'shipping',method:'automatic',postalCode:'30-001'}}));
+  const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));
+  assert.equal(backup.tables.projects.length,0);assert.equal(backupExtraCount(backup),1);assert.equal(hasBackupContent(backup),true);
+  assert.deepEqual(await importProjectBackup(backup,b.db,b.storage),{projects:0,keptBasketSettings:false});
+  const restored=await readProjectBackup(b.db,b.storage);assert.equal(canonical(restored.preferences),canonical(backup.preferences));
+  assert.equal(b.sqlite.prepare('SELECT COUNT(*) AS n FROM projects').get()!.n,0);
+});
+test('an existing basket without projects is preserved when projects are added',async t=>{
+  const a=await source(t),b=await fixture(t);await setSharedChoices(a.storage);
+  const current=JSON.stringify({version:1,items:[{id:'mine',kind:'custom',name:'Moja listwa',unit:'mb',quantity:7}]});
+  await b.storage.setItem('remont.basket-extras.v1',current);
+  const delivery=JSON.stringify({store:null,settings:{mode:'shipping',method:'automatic',postalCode:'00-001'}});await b.storage.setItem('remont.delivery.v2:renovation-basket',delivery);
+  const result=await importProjectBackup(await readProjectBackup(a.db,a.storage),b.db,b.storage);
+  assert.equal(result.keptBasketSettings,true);assert.equal(b.values.get('remont.basket-extras.v1'),current);assert.equal(b.values.get('remont.delivery.v2:renovation-basket'),delivery);
+  assert.ok(Object.keys(sharedChoices()).every(key=>!b.values.has(key)));
+});
+test('a basket-only conflict stops before any writes rather than claiming an import while discarding its only contents',async t=>{
+  const a=await fixture(t),b=await source(t);await setSharedChoices(a.storage);
+  const backup=await readProjectBackup(a.db,a.storage),before=new Map(b.values);let writes=0;
+  const storage={...b.storage,setItem:async(k:string,v:string)=>{writes++;await b.storage.setItem(k,v);}};
+  await assert.rejects(importProjectBackup(backup,b.db,storage),/backup_basket_conflict/);
+  assert.equal(writes,0);assert.deepEqual(b.values,before);assert.equal(b.sqlite.prepare('SELECT COUNT(*) AS n FROM projects').get()!.n,1);
+});
+test('default empty settings remain empty; a deliberate postcode or product choice is transferable content',async t=>{
+  const a=await fixture(t),b=await fixture(t);
+  await a.storage.setItem('remont.delivery.v2:renovation-basket',JSON.stringify({store:null,settings:{mode:'shipping',method:'automatic'}}));
+  let backup=await readProjectBackup(a.db,a.storage);assert.equal(hasBackupContent(backup),false);
+  await assert.rejects(importProjectBackup(backup,b.db,b.storage),/backup_empty/);
+  await a.storage.setItem('remont.delivery.v2:renovation-basket',JSON.stringify({store:null,settings:{mode:'shipping',method:'automatic',postalCode:'30-001'}}));
+  backup=await readProjectBackup(a.db,a.storage);assert.equal(hasBackupContent(backup),true);
+  assert.deepEqual(await importProjectBackup(backup,b.db,b.storage),{projects:0,keptBasketSettings:false});
+  assert.equal(JSON.parse(b.values.get('remont.delivery.v2:renovation-basket')!).settings.postalCode,'30-001');
+});
+test('invalid identities in every shared product selector reject the entire archive',async t=>{
+  const a=await source(t);await setSharedChoices(a.storage);const backup=await readProjectBackup(a.db,a.storage);
+  for(const key of Object.keys(sharedChoices())){const bad=structuredClone(backup);bad.preferences[key]=JSON.stringify({version:1,choices:[{from:'missing',to:'missing',use:'floor'}]});assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
 });

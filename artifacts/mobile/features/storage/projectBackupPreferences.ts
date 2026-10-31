@@ -11,20 +11,23 @@ import {parseBasketExtras} from '../pricing/basketExtras';
 import {parseBasketSelection} from '../pricing/renovationBasket';
 import type {CalculationResult} from '../../types/domain';
 
+// One reviewed list drives validation and project/common-basket export keys.
+// Adding a product selector must not silently omit it from a shared basket backup.
+export const BACKUP_PRODUCT_CHOICE_PARSERS: Readonly<Record<string,(raw:string)=>readonly unknown[]>>={
+  'remont.laminate-choice.v1:':parseLaminateChoices,'remont.foil-choice.v1:':parseFoilChoices,
+  'remont.washbasin-choice.v1:':parseWashbasinChoices,'remont.tile-choice.v1:':parseTileChoices,
+  'remont.tile-adhesive-choice.v1:':parseTileAdhesiveChoices,'remont.flush-box-choice.v1:':parseFlushBoxChoices,
+};
+export const BACKUP_PRODUCT_CHOICE_PREFIXES=Object.keys(BACKUP_PRODUCT_CHOICE_PARSERS);
+
 /** Use the same current product validators as the purchasing UI. A removed or
  * damaged choice must stop a transfer, never quietly revert to another product. */
 export function validateBackupPreferences(backup:ProjectBackup):void{
   const projects=new Map(backup.tables.projects.map(row=>[String(row.id),row]));
   for(const[key,raw]of Object.entries(backup.preferences)){
     const value=JSON.parse(raw);
-    const choiceParsers:Record<string,(raw:string)=>readonly unknown[]>={
-      'remont.laminate-choice.v1:':parseLaminateChoices,'remont.foil-choice.v1:':parseFoilChoices,
-      'remont.washbasin-choice.v1:':parseWashbasinChoices,'remont.tile-choice.v1:':parseTileChoices,
-      'remont.tile-adhesive-choice.v1:':parseTileAdhesiveChoices,
-      'remont.flush-box-choice.v1:':parseFlushBoxChoices,
-    };
-    const prefix=Object.keys(choiceParsers).find(prefix=>key.startsWith(prefix));
-    if(prefix){const parsed=choiceParsers[prefix](raw);if(value.version!==1||!Array.isArray(value.choices)||parsed.length!==value.choices.length)throw Error('backup_invalid_product_choice');continue;}
+    const prefix=BACKUP_PRODUCT_CHOICE_PREFIXES.find(prefix=>key.startsWith(prefix));
+    if(prefix){const parsed=BACKUP_PRODUCT_CHOICE_PARSERS[prefix](raw);if(value.version!==1||!Array.isArray(value.choices)||parsed.length!==value.choices.length)throw Error('backup_invalid_product_choice');continue;}
     if(key.startsWith('remont.door-selection.v1:')){
       const row=projects.get(key.slice('remont.door-selection.v1:'.length));
       if(!row?.calculation_result||!parseDoorSelection(raw,JSON.parse(String(row.calculation_result)) as CalculationResult))throw Error('backup_invalid_product_choice');
