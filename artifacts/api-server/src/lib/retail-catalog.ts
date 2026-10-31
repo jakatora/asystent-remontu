@@ -1,9 +1,11 @@
 import type { RetailSource } from './retail-pages';
 import {AKS_CABLE_SOURCES} from './aks-cables';
 import {DEKORK_SOURCES} from './dekork';
+import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...NORGIPS_JOINT_TAPE_SOURCES,
   // source: https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504
   // source: https://www.elektro-plast.com.pl/download/EPN_CENNIK_2024_05.02.2024.pdf
   {"id":"hipper-epn-pk60-pro-0285-01","ean":"5901752632141","name":"Puszka podtynkowa łączeniowa 60 mm Pro z wkrętami Elektro-Plast","brand":"Elektro-Plast","category":"flush-box","packageSize":1,"unit":"szt","store":"HIPPER","format":"certusoft","productId":956340504,"retailerUnitId":956412483,"apiPurchaseUnit":"szt","variant":["60","wkrętami"],"pickupRequiresConfirmation":true,"url":"https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|2C8CF048-F501-47AA-A5F5-A63446185DB7|1/Puszka podtynkowa łączeniowa 60 mm Pro z wkrętami Elektro-Plast.webp"},

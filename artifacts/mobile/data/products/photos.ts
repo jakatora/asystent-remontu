@@ -12,6 +12,13 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://hipper.pl/tasma-papierowa-z-wkladka-metalowa-50-mm-norgips-2682508803
+  // source: https://norgips.pl/media/repository/0/306/47772594ab104a20ab31ac3f7ea22975/NORGIPS_PL_KT_akcesoria_tasma_papierow_784Tcv5.pdf
+  {"ids":["mat-gypsum-norgips-metal-paper-50x30"],"ean":"5907651699940","sourceUrl":"https://hipper.pl/tasma-papierowa-z-wkladka-metalowa-50-mm-norgips-2682508803","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|F2DBF33D-6B74-4EA1-96C8-6B552C5E2730|1/Taśma papierowa z wkładką metalową 50 mm Norgips.webp"},
+  // source: https://hipper.pl/tasma-samoprzylepna-z-wlokna-szklanego-45-mm-norgips-2682509844
+  // source: https://norgips.pl/media/repository/0/302/821d0d1d23d644d2b9e7ec418df53b90/NORGIPS_PL_KT_akcesoria_tasma_samoprzy_iKwHTWR.pdf
+  {"ids":["mat-gypsum-norgips-mesh-45x153"],"ean":"5907651699995","sourceUrl":"https://hipper.pl/tasma-samoprzylepna-z-wlokna-szklanego-45-mm-norgips-2682509844","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|9837026A-D482-48CC-9F75-C4F4177FF3E5|1/Taśma samoprzylepna z włókna szklanego 45 mm Norgips.webp"},
+
   // source: https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504
   {"ids":["mat-epn-pk60-pro-0285-01"],"ean":"5901752632141","sourceUrl":"https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|2C8CF048-F501-47AA-A5F5-A63446185DB7|1/Puszka podtynkowa łączeniowa 60 mm Pro z wkrętami Elektro-Plast.webp"},
   // source: https://hipper.pl/pierscien-dystansowy-do-puszki-60-x-12-mm-z-wkretami-elektro-plast-956230239

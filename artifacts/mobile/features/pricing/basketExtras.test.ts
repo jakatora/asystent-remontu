@@ -4,6 +4,21 @@ import { MATERIAL_PRICES } from '@/data/prices/materials';
 import { PRODUCT_PHOTOS } from '@/data/products/photos';
 import { additionalMaterial, extraMaterial, parseBasketExtras, parseExtraQuantity, searchBasketExtraReferences, withBasketExtras, type BasketExtra } from './basketExtras';
 
+test('Norgips metal corner and mesh tapes keep distinct GTINs, physical metre demand and complete roll lengths', () => {
+  for (const [ean,id,size,quantity] of [['5907651699940','mat-gypsum-norgips-metal-paper-50x30',30,31],['5907651699995','mat-gypsum-norgips-mesh-45x153',153,154]] as const) {
+    const matches = searchBasketExtraReferences(ean);
+    assert.equal(matches.length, 1);
+    assert.equal(matches[0].id, id);
+    assert.equal(matches[0].packageSize, size);
+    const line = extraMaterial({id,kind:'catalogue',referenceId:id,quantity});
+    assert.equal(line.material.ean, ean);
+    assert.equal(line.material.unit, 'm');
+    assert.equal(line.quantity, quantity);
+    assert.equal(Math.ceil(quantity / matches[0].packageSize), 2);
+    assert.ok(!('packs' in line) && !('price' in line.material));
+  }
+});
+
 test('extras search finds exact abrasives by unordered words or EAN without offering arbitrary products before typing', () => {
   assert.deepEqual(searchBasketExtraReferences(''), []);
   assert.deepEqual(searchBasketExtraReferences('   '), []);
