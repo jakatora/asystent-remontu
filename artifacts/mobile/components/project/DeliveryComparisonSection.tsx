@@ -13,6 +13,7 @@ import { ProductImage } from './ProductImage';
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
 import { PriceChangeBadge } from './PriceChangeNotice';
+import { PurchaseListActions } from './PurchaseListActions';
 import { displayProductName } from '@/features/pricing/productDisplay';
 import {formatPackageSize,formatPackageUnit,formatPurchase} from '@/features/pricing/packageDisplay';
 import {unconfirmedDeliveryCoverage,deliveryRateLimitMessage} from '@/features/pricing/deliveryCoverage';
@@ -76,6 +77,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     quote_timeout: tr('Nie zdążyliśmy potwierdzić dostawy tego wariantu. Sprawdź dostawy ponownie.', 'Delivery for this option could not be confirmed in time. Retry delivery quotes.'),
     invalid_quote: tr('Sklep zwrócił niezgodną wycenę. Ten wariant pominięto do ponownego sprawdzenia.', 'The store returned an inconsistent quote. This option was excluded until it can be checked again.'),
     quote_expired: tr('Wycena dostawy wygasła podczas sprawdzania sklepów. Sprawdź dostawy ponownie.', 'This delivery quote expired while checking the stores. Check deliveries again.'),
+    quote_unavailable: tr('Nie udało się teraz pobrać wyceny sklepu. Koszt dostawy pozostaje nieznany. Możesz skopiować plan i sprawdzić ten koszyk bezpośrednio w sklepie.', 'The store quote could not be retrieved right now. Delivery cost remains unknown. You can copy the plan and check this cart directly at the store.'),
   }[code] ?? tr('Nie udało się pobrać wyceny koszyka.', 'The basket quote could not be retrieved.'));
   return <View style={{ gap: 14 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -142,6 +144,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {comparison.purchasePlanBasis === 'fewest_unquoted_stores' && <Txt style={{ lineHeight: 21, color: Colors.textSecondary }}>{tr('Spośród sprawdzonych wariantów wybraliśmy plan z najmniejszą liczbą sklepów bez wyceny dostawy, a następnie najniższym znanym kosztem. Inny podział może okazać się tańszy po potwierdzeniu brakujących opłat.', 'Among the checked allocations, this plan has the fewest stores without a delivery quote, then the lowest known cost. Another allocation may be cheaper once missing fees are confirmed.')}</Txt>}
       <Txt style={{ lineHeight: 21, color: Colors.textSecondary }}>{tr('Poniżej znajdziesz wszystkie potrzebne opakowania i ceny materiałów w każdym sklepie. Pełny koszt i najtańszy zestaw z dostawą poznamy po potwierdzeniu brakujących opłat.', 'All required packs and each store’s material prices are listed below. The full total and lowest delivered basket depend on the missing delivery quotes.')}</Txt>
     </View>}
+    {displayedBasket && <PurchaseListActions input={{ basket: displayedBasket, mode, postalCode: destination, partial: Boolean(available), limited: incompleteCompetition || comparison.searchLimited }} />}
     {current && comparison.stockLimits?.map(limit => <View key={`${limit.store}:${limit.offerId}`} accessibilityRole="alert" style={{padding:12,gap:4,borderRadius:10,backgroundColor:Colors.warningBg}}>
       <Txt w="semibold">{limit.productName}</Txt>
       <Txt style={{fontSize:13,lineHeight:19}}>{tr(`${limit.store}: dostępne ${limit.maxPackages} z ${limit.requestedPackages} sprawdzanych opakowań. Uwzględniono limit przy doborze zestawu.`, `${limit.store}: ${limit.maxPackages} of ${limit.requestedPackages} requested packs available. The limit is included in basket selection.`)}</Txt>
