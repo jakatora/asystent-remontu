@@ -73,6 +73,11 @@ export function withVinylClickMeasurement(current:Readonly<Record<string,string>
     next.vinylVaporBarrier='0';next.vinylThresholdFit='0';
     if(id==='vinylPanelChoice')next.vinylUnderlayChoice='0';
   }
+  if(id==='floorArea'&&Number(current.floorArea)!==Number(value)){
+    if(current.vinylUnderlayChoice==='3')next.vinylUnderlayChoice='0';
+    if(current.vinylVaporBarrier==='2')next.vinylVaporBarrier='0';
+    next.vinylThresholdFit='0';
+  }
   return next;
 }
 
