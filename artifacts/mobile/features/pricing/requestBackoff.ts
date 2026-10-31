@@ -34,7 +34,7 @@ export class ApiError extends Error {
   }
 }
 
-/** One gate for project estimates and product history. Never retries by itself. */
+/** One gate for estimates, product history and catalogue hints. No auto retry. */
 export function createBackoffFetch(fetcher: typeof fetch, now: () => number = Date.now): typeof fetch {
   const backoff = new RequestBackoff();
   return async (input, init) => {

@@ -419,6 +419,17 @@ export class PricingApiNotConfiguredError extends Error {
 
 const pricingFetch = createBackoffFetch((input, init) => fetch(input, init));
 
+/** One compact read for catalogue search; keystrokes never trigger estimates. */
+export async function fetchCatalogAvailability(): Promise<unknown> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const response = await pricingFetch(endpoint('/api/pricing/catalog-availability'), {headers:{accept:'application/json'},signal:controller.signal});
+    if (!response.ok) throw new ApiError(response.status, `HTTP ${response.status}`);
+    return await response.json();
+  } finally { clearTimeout(timeout); }
+}
+
 // ─── Mapowanie wyniku kalkulatora → wejście API ───────────────────────────────
 
 /** Bezpiecznie czyta opcjonalny kod (ean/gtin) z materiału, jeśli w ogóle istnieje. */

@@ -20,6 +20,7 @@ import { isBricomarcheBrowserSource } from './lib/bricomarche-browser-observatio
 import { isLeroyBrowserSource } from './lib/leroy-browser-observation';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 import {RetailPriceHistory} from './lib/retail-history';
+import {catalogAvailability} from './lib/catalog-availability';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const normalUnit = (value: string) => ({ litr: 'l', litry: 'l', 'm²': 'm2', 'szt.': 'szt' }[value] ?? value);
@@ -241,6 +242,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   const router = Router();
   router.get('/health', (_req, res) => { res.json(status()); });
   router.get('/pricing/health', (_req, res) => { res.json(status()); });
+  router.get('/pricing/catalog-availability', (_req,res) => {
+    res.set('Cache-Control','no-store');
+    res.json(catalogAvailability(RETAIL_SOURCES,catalog().offers,observations));
+  });
   async function handleEstimate(req: Request, res: Response) {
     const stageOnly = req.path.endsWith('/stage');
     const parsed = projectRequestSchema.safeParse(stageOnly ? { jobs: [req.body?.job], options: req.body?.options } : req.body);

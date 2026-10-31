@@ -10,6 +10,8 @@ import { getProductPhoto } from '@/data/products/photos';
 import { generateId } from '@/shared/lib/id';
 import { extraMaterial, EXTRA_UNITS, MAX_BASKET_EXTRAS, parseExtraQuantity, searchBasketExtraReferences, type BasketExtra } from '@/features/pricing/basketExtras';
 import { ProductImage } from './ProductImage';
+import {useCatalogAvailability} from '@/features/pricing/useCatalogAvailability';
+import {catalogueProductAvailability,filterCatalogueByAvailability,isCatalogAvailabilityFresh} from '@/features/pricing/catalogAvailability';
 
 export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: {
   items: readonly BasketExtra[]; onChange: (items: BasketExtra[]) => void; ready: boolean; error: boolean; onRetry: () => void;
@@ -20,10 +22,15 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
   const [custom, setCustom] = useState(false), [name, setName] = useState(''), [unit, setUnit] = useState<typeof EXTRA_UNITS[number]>('szt');
   const [referenceId, setReferenceId] = useState<string | null>(null), [quantity, setQuantity] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [onlyConfirmed,setOnlyConfirmed] = useState(false);
+  const availability = useCatalogAvailability(expanded && !custom && ready && !error);
+  const hasAvailability = isCatalogAvailabilityFresh(availability.data);
+  const confirmedFilter = onlyConfirmed && hasAvailability;
   const ref = MATERIAL_PRICES.find(ref => ref.id === referenceId);
   const demand = parseExtraQuantity(quantity);
   const validName = name.trim().length > 0 && name.trim().length <= 200 && !/[\u0000-\u001f]/.test(name);
-  const found = searchBasketExtraReferences(search);
+  const searchMatches = searchBasketExtraReferences(search);
+  const found = filterCatalogueByAvailability(searchMatches,availability.data,onlyConfirmed);
   const reset = () => { setExpanded(false); setEditingId(null); setReferenceId(null); setQuantity(''); setName(''); setSearch(''); setVisibleCount(8); };
   const edit = (item: BasketExtra) => {
     setEditingId(item.id); setExpanded(true); setQuantity(String(item.quantity)); setCustom(item.kind === 'custom');
@@ -70,11 +77,19 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
       </> : <>
         <Txt w="semibold">{pl ? 'Znajdź produkt w katalogu' : 'Find a catalogue product'}</Txt>
         <TextInput accessibilityLabel={pl ? 'Szukaj dodatkowego materiału w katalogu' : 'Search additional catalogue materials'} placeholder={pl ? 'Nazwa, marka lub EAN, np. Soudal' : 'Name, brand or EAN, e.g. Soudal'} autoCapitalize="none" autoCorrect={false} value={search} onChangeText={value => { setSearch(value); setReferenceId(null); setQuantity(''); setVisibleCount(8); }} style={field} />
-        <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Katalog zawiera również produkty bez potwierdzonej oferty. Cenę i dostawę sprawdzimy po dodaniu.' : 'The catalogue includes items without confirmed offers. We check price and delivery after adding.'}</Txt>
+        <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Oznaczenia dotyczą potwierdzonych cen wybranego opakowania. Dostawę, zapas dla potrzebnej ilości i cenę całego zestawu sprawdzimy po dodaniu.' : 'Labels refer to confirmed prices for the exact pack. Delivery, stock for your required quantity and the whole basket price are checked after adding.'}</Txt>
+        <View style={{flexDirection:'row',flexWrap:'wrap',gap:8}}>{[false,true].map(value => <Pressable key={String(value)} accessibilityRole="radio" accessibilityState={{checked:confirmedFilter===value,disabled:value&&!hasAvailability}} aria-checked={confirmedFilter===value} disabled={value&&!hasAvailability} onPress={()=>{setOnlyConfirmed(value);setVisibleCount(8);}} style={{minHeight:48,padding:12,borderRadius:10,justifyContent:'center',backgroundColor:confirmedFilter===value?Colors.primaryBg:Colors.surfaceAlt,opacity:value&&!hasAvailability?0.55:1}}><Txt w="semibold">{value?(pl?'Z potwierdzoną ceną':'With confirmed price'):(pl?'Wszystkie produkty':'All products')}</Txt></Pressable>)}</View>
+        {availability.loading && <Txt accessibilityLiveRegion="polite" style={{color:Colors.textSecondary}}>{pl?'Sprawdzamy informacje o ofertach…':'Checking offer information…'}</Txt>}
+        {availability.error && <Txt accessibilityLiveRegion="polite" style={{color:Colors.textSecondary}}>{pl?'Nie udało się sprawdzić ofert. Pokazujemy cały katalog; brak oznaczenia nie oznacza niedostępności produktu.':'Offer information could not be checked. Showing the full catalogue; an unknown status does not mean the product is unavailable.'}</Txt>}
+        {availability.expired && <Txt accessibilityLiveRegion="polite" style={{color:Colors.textSecondary}}>{pl?'Informacja o ofertach wygasła. Pokazujemy cały katalog. Odśwież informacje, aby ponownie użyć filtra.':'Offer information expired. Showing the full catalogue. Refresh to use the filter again.'}</Txt>}
+        {(availability.error||availability.expired) && <Button variant="outline" label={availability.retrySeconds>0?(pl?`Sprawdź oferty za ${availability.retrySeconds} s`:`Check offers in ${availability.retrySeconds} s`):(pl?'Sprawdź oferty ponownie':'Check offers again')} disabled={availability.loading||availability.retrySeconds>0} onPress={availability.retry}/>}
         {!search.trim() && <Txt style={{ color: Colors.textSecondary }}>{pl ? 'Wpisz nazwę, markę lub kod EAN. Słowa możesz podać w dowolnej kolejności.' : 'Enter a name, brand or EAN. Words can be in any order.'}</Txt>}
-        {search.trim() && found.length > 0 && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? `Wyniki: ${found.length}` : `Results: ${found.length}`}</Txt>}
-        {found.slice(0, visibleCount).map(product => <Pressable key={product.id} accessibilityRole="radio" accessibilityLabel={product.productLabel} aria-checked={referenceId === product.id} accessibilityState={{ checked: referenceId === product.id }} onPress={() => { setReferenceId(product.id); setQuantity(String(product.packageSize)); }} style={{ minHeight: 72, padding: 10, flexDirection: 'row', gap: 10, alignItems: 'center', borderWidth: 1, borderRadius: 10, borderColor: referenceId === product.id ? Colors.primary : Colors.border, backgroundColor: referenceId === product.id ? Colors.primaryBg : Colors.surface }}><ProductImage uri={getProductPhoto(product)} name={product.productLabel} size={44} /><View style={{ flex: 1 }}><Txt w="medium">{product.productLabel}</Txt><Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{product.packageSize} {product.packageUnit} / {pl ? 'opakowanie' : 'pack'}</Txt></View></Pressable>)}
-        {search.trim() && !found.length && <Txt>{pl ? 'Nie znaleziono. Sprawdź nazwę lub wybierz „Własna pozycja”, aby wpisać materiał.' : 'No match. Check the name or choose Custom item to enter a material.'}</Txt>}
+        {search.trim() && found.length > 0 && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{confirmedFilter?(pl?`Z potwierdzoną ceną: ${found.length} z ${searchMatches.length}`:`With confirmed price: ${found.length} of ${searchMatches.length}`):(pl ? `Wyniki: ${found.length}` : `Results: ${found.length}`)}</Txt>}
+        {found.slice(0, visibleCount).map(product => {
+          const status=catalogueProductAvailability(product,availability.data);
+          return <Pressable key={product.id} accessibilityRole="radio" accessibilityLabel={product.productLabel} aria-checked={referenceId === product.id} accessibilityState={{ checked: referenceId === product.id }} onPress={() => { setReferenceId(product.id); setQuantity(String(product.packageSize)); }} style={{ minHeight: 72, padding: 10, flexDirection: 'row', gap: 10, alignItems: 'center', borderWidth: 1, borderRadius: 10, borderColor: referenceId === product.id ? Colors.primary : Colors.border, backgroundColor: referenceId === product.id ? Colors.primaryBg : Colors.surface }}><ProductImage uri={getProductPhoto(product)} name={product.productLabel} size={44} /><View style={{ flex: 1,gap:4 }}><Txt w="medium">{product.productLabel}</Txt><Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{product.packageSize} {product.packageUnit} / {pl ? 'opakowanie' : 'pack'}</Txt><Txt style={{fontSize:13,color:Colors.textSecondary}}>{status===null?(pl?'Oferta niesprawdzona':'Offer not checked'):status.confirmed?(pl?`Potwierdzona cena · sklepy: ${status.stores.length}`:`Confirmed price · shops: ${status.stores.length}`):(pl?'Brak potwierdzonej oferty':'No confirmed offer')}</Txt></View></Pressable>;
+        })}
+        {search.trim() && !found.length && <Txt>{confirmedFilter&&searchMatches.length?(pl?'Brak potwierdzonej ceny dla tych wyników. Wybierz „Wszystkie produkty”, aby je zobaczyć.':'No confirmed price for these matches. Choose All products to see them.'):(pl ? 'Nie znaleziono. Sprawdź nazwę lub wybierz „Własna pozycja”, aby wpisać materiał.' : 'No match. Check the name or choose Custom item to enter a material.')}</Txt>}
         {found.length > visibleCount && <Button variant="outline" label={pl ? `Pokaż kolejne (${Math.min(8, found.length - visibleCount)})` : `Show more (${Math.min(8, found.length - visibleCount)})`} onPress={() => setVisibleCount(count => count + 8)} />}
       </>}
       {(custom || ref) && <>
