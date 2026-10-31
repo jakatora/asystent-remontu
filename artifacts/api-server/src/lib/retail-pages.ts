@@ -1,4 +1,5 @@
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
+import {isReviewedDekorkSource,readDekorkProduct} from './dekork';
 import {readEwinylProduct} from './ewinyl-product';
 import {readDekoratorProduct} from './dekorator';
 import {readIntegraProduct} from './integra';
@@ -261,6 +262,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:product.evidenceSha256};
   }
   if (source.format === 'shopify-api') {
+    if(source.store==='Dekork'){if(!isReviewedDekorkSource(source))throw Error('product_source_not_reviewed');return readDekorkProduct(source,fetchImpl);}
     const client = new AnonymousShop(new URL(source.url).origin, fetchImpl, AbortSignal.timeout(8000));
     const raw = await client.text(new URL(source.url).pathname + '.js');
     const item = confirmShopifyProduct(JSON.parse(raw), source);

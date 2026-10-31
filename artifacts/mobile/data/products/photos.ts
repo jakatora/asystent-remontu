@@ -12,6 +12,12 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://dekork.pl/products/profesjonalny-podklad-lvt-1-5mm-wysoka-gestosc-6m2-do-60m2?variant=57433631359307
+  {"ids":["mat-vinyl-underlay-dekork-professional-6m2"],"ean":"3067088472737","sourceUrl":"https://dekork.pl/products/profesjonalny-podklad-lvt-1-5mm-wysoka-gestosc-6m2-do-60m2?variant=57433631359307","imageUrl":"https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267"},
+  // source: https://dekork.pl/products/srebrnylux-podklad-lvt-1-5-mm-ze-srebrna-membrana-wysoka-gestosc-najwyzsza-jakosc?variant=57433623167307
+  {"ids":["mat-vinyl-underlay-dekork-silverlux-10m2"],"ean":"4000543672678","sourceUrl":"https://dekork.pl/products/srebrnylux-podklad-lvt-1-5-mm-ze-srebrna-membrana-wysoka-gestosc-najwyzsza-jakosc?variant=57433623167307","imageUrl":"https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver.png?v=1779712214"},
+  // source: https://dekork.pl/products/goldlux-podklad-lvt-1-5-mm-z-zlota-membrana-wysoka-gestosc-najwyzsza-jakosc?variant=57433623036235
+  {"ids":["mat-vinyl-underlay-dekork-goldlux-10m2"],"ean":"4006149126867","sourceUrl":"https://dekork.pl/products/goldlux-podklad-lvt-1-5-mm-z-zlota-membrana-wysoka-gestosc-najwyzsza-jakosc?variant=57433623036235","imageUrl":"https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213"},
   // source: https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233
   {"ids":["mat-vinyl-adhesive-tytan-osakryl-4kg"],"ean":"5903518039515","sourceUrl":"https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233","imageUrl":"https://sklep.sewera.pl/photo/150507/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan.webp"},
   // source: https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/

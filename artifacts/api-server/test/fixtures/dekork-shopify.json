@@ -1,0 +1,1901 @@
+{
+  "products": [
+    {
+      "id": 15754508697931,
+      "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2",
+      "handle": "profesjonalny-podklad-lvt-1-5mm-wysoka-gestosc-6m2-do-60m2",
+      "description": "<p><strong>Specyfikacja techniczna:</strong></p>\n<p><strong>Długość płytki:</strong> 800 mm</p>\n<p><strong>Szerokość płytki:</strong> 500 mm</p>\n<p><strong>Płytki w opakowaniu:</strong> 15 szt.</p>\n<p><strong>Pokrycie:</strong> 6–60 m² (w zależności od liczby paczek)</p>\n<p><strong>Grubość:</strong> 1,5 mm</p>\n<p><strong>Przewodność cieplna (λ):</strong> 0,033 W/mK</p>\n<p><strong>Opór cieplny (R):</strong> 0,045 m²K/W</p>\n<p><strong>Gęstość:</strong> 200 kg/m³</p>\n<p><strong>Redukcja hałasu uderzeniowego (ΔLw):</strong> 14 dB</p>",
+      "published_at": "2026-05-25T14:31:04+02:00",
+      "created_at": "2026-05-25T14:31:04+02:00",
+      "vendor": "Dekork",
+      "type": "Underlay",
+      "tags": [],
+      "price": 6899,
+      "price_min": 6899,
+      "price_max": 57599,
+      "available": true,
+      "price_varies": true,
+      "compare_at_price": null,
+      "compare_at_price_min": 0,
+      "compare_at_price_max": 0,
+      "compare_at_price_varies": false,
+      "variants": [
+        {
+          "id": 57433631359307,
+          "title": "1 Paczka",
+          "option1": "1 Paczka",
+          "option2": null,
+          "option3": null,
+          "sku": "3067088472737",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764609355,
+            "product_id": 15754508697931,
+            "position": 1,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267",
+            "variant_ids": [
+              57433631359307
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 1 Paczka",
+          "public_title": "1 Paczka",
+          "options": [
+            "1 Paczka"
+          ],
+          "price": 6899,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": "3067088472737",
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072927936843,
+            "position": 1,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57433631392075,
+          "title": "2 Paczki",
+          "option1": "2 Paczki",
+          "option2": null,
+          "option3": null,
+          "sku": "4007681839604",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764740427,
+            "product_id": 15754508697931,
+            "position": 4,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_1.5mm_Underlay_for_Luxury_Vinyl_Tiles.png?v=1779712267",
+            "variant_ids": [
+              57433631392075
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 2 Paczki",
+          "public_title": "2 Paczki",
+          "options": [
+            "2 Paczki"
+          ],
+          "price": 13099,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072928067915,
+            "position": 4,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_1.5mm_Underlay_for_Luxury_Vinyl_Tiles.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57433631424843,
+          "title": "3 Paczki",
+          "option1": "3 Paczki",
+          "option2": null,
+          "option3": null,
+          "sku": "4000037769136",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764773195,
+            "product_id": 15754508697931,
+            "position": 5,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_Acoustic_Moisture_Barrier_LVT_Underlay.png?v=1779712267",
+            "variant_ids": [
+              57433631424843
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 3 Paczki",
+          "public_title": "3 Paczki",
+          "options": [
+            "3 Paczki"
+          ],
+          "price": 18999,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072928100683,
+            "position": 5,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_Acoustic_Moisture_Barrier_LVT_Underlay.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57433631457611,
+          "title": "4 Paczki",
+          "option1": "4 Paczki",
+          "option2": null,
+          "option3": null,
+          "sku": "4000527717258",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764805963,
+            "product_id": 15754508697931,
+            "position": 6,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Acoustic_Underlay_for_Luxury_Vinyl_Flooring_1.5mm.png?v=1779712267",
+            "variant_ids": [
+              57433631457611
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 4 Paczki",
+          "public_title": "4 Paczki",
+          "options": [
+            "4 Paczki"
+          ],
+          "price": 24599,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072928133451,
+            "position": 6,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Acoustic_Underlay_for_Luxury_Vinyl_Flooring_1.5mm.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57433631490379,
+          "title": "5 Paczek",
+          "option1": "5 Paczek",
+          "option2": null,
+          "option3": null,
+          "sku": "4006668295969",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764838731,
+            "product_id": 15754508697931,
+            "position": 7,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_LVT_Underlay_High-Density_6_42_m.png?v=1779712267",
+            "variant_ids": [
+              57433631490379
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 5 Paczek",
+          "public_title": "5 Paczek",
+          "options": [
+            "5 Paczek"
+          ],
+          "price": 30299,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072928166219,
+            "position": 7,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_LVT_Underlay_High-Density_6_42_m.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57433631523147,
+          "title": "6 Paczek",
+          "option1": "6 Paczek",
+          "option2": null,
+          "option3": null,
+          "sku": "4007147029143",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764904267,
+            "product_id": 15754508697931,
+            "position": 9,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_LVT_Underlay_Vinyl_-_1.5mm_-_6-42m2_64.58-452.08_sqft_High_Density_-_High_Quality.png?v=1779712267",
+            "variant_ids": [
+              57433631523147
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 6 Paczek",
+          "public_title": "6 Paczek",
+          "options": [
+            "6 Paczek"
+          ],
+          "price": 35999,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072928231755,
+            "position": 9,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_LVT_Underlay_Vinyl_-_1.5mm_-_6-42m2_64.58-452.08_sqft_High_Density_-_High_Quality.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57433631555915,
+          "title": "7 Paczek",
+          "option1": "7 Paczek",
+          "option2": null,
+          "option3": null,
+          "sku": "4008633216146",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 89875764871499,
+            "product_id": 15754508697931,
+            "position": 8,
+            "created_at": "2026-05-25T14:31:04+02:00",
+            "updated_at": "2026-05-25T14:31:07+02:00",
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "width": 800,
+            "height": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Heavy-Duty_1.5mm_LVT_Underlayment_6m_to_42m_Coverage.png?v=1779712267",
+            "variant_ids": [
+              57433631555915
+            ]
+          },
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 7 Paczek",
+          "public_title": "7 Paczek",
+          "options": [
+            "7 Paczek"
+          ],
+          "price": 41399,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "featured_media": {
+            "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+            "id": 72072928198987,
+            "position": 8,
+            "preview_image": {
+              "aspect_ratio": 1,
+              "height": 800,
+              "width": 800,
+              "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Heavy-Duty_1.5mm_LVT_Underlayment_6m_to_42m_Coverage.png?v=1779712267"
+            }
+          },
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57841959502155,
+          "title": "8 Paczek",
+          "option1": "8 Paczek",
+          "option2": null,
+          "option3": null,
+          "sku": null,
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 8 Paczek",
+          "public_title": "8 Paczek",
+          "options": [
+            "8 Paczek"
+          ],
+          "price": 46799,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57841959534923,
+          "title": "9 Paczek",
+          "option1": "9 Paczek",
+          "option2": null,
+          "option3": null,
+          "sku": null,
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 9 Paczek",
+          "public_title": "9 Paczek",
+          "options": [
+            "9 Paczek"
+          ],
+          "price": 52199,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        },
+        {
+          "id": 57841959567691,
+          "title": "10 Paczek",
+          "option1": "10 Paczek",
+          "option2": null,
+          "option3": null,
+          "sku": null,
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "name": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 10 Paczek",
+          "public_title": "10 Paczek",
+          "options": [
+            "10 Paczek"
+          ],
+          "price": 57599,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": null,
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        }
+      ],
+      "images": [
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Quality_Luxury_Vinyl_Flooring_Underlay_6_6m_to_42m.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_LVT_Underlayment_Roll_1.5mm_Thick.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_1.5mm_Underlay_for_Luxury_Vinyl_Tiles.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_Acoustic_Moisture_Barrier_LVT_Underlay.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Acoustic_Underlay_for_Luxury_Vinyl_Flooring_1.5mm.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_LVT_Underlay_High-Density_6_42_m.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Heavy-Duty_1.5mm_LVT_Underlayment_6m_to_42m_Coverage.png?v=1779712267",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_LVT_Underlay_Vinyl_-_1.5mm_-_6-42m2_64.58-452.08_sqft_High_Density_-_High_Quality.png?v=1779712267"
+      ],
+      "featured_image": "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267",
+      "options": [
+        {
+          "name": "Liczba paczek",
+          "position": 1,
+          "values": [
+            "1 Paczka",
+            "2 Paczki",
+            "3 Paczki",
+            "4 Paczki",
+            "5 Paczek",
+            "6 Paczek",
+            "7 Paczek",
+            "8 Paczek",
+            "9 Paczek",
+            "10 Paczek"
+          ]
+        }
+      ],
+      "url": "/products/profesjonalny-podklad-lvt-1-5mm-wysoka-gestosc-6m2-do-60m2",
+      "media": [
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072927936843,
+          "position": 1,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_High-Density_LVT_Underlay.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072927969611,
+          "position": 2,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Quality_Luxury_Vinyl_Flooring_Underlay_6_6m_to_42m.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Quality_Luxury_Vinyl_Flooring_Underlay_6_6m_to_42m.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928002379,
+          "position": 3,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_LVT_Underlayment_Roll_1.5mm_Thick.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_LVT_Underlayment_Roll_1.5mm_Thick.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928067915,
+          "position": 4,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_1.5mm_Underlay_for_Luxury_Vinyl_Tiles.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_1.5mm_Underlay_for_Luxury_Vinyl_Tiles.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928100683,
+          "position": 5,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_Acoustic_Moisture_Barrier_LVT_Underlay.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/High-Density_Acoustic_Moisture_Barrier_LVT_Underlay.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928133451,
+          "position": 6,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Acoustic_Underlay_for_Luxury_Vinyl_Flooring_1.5mm.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Premium_Acoustic_Underlay_for_Luxury_Vinyl_Flooring_1.5mm.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928166219,
+          "position": 7,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_LVT_Underlay_High-Density_6_42_m.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_1.5mm_LVT_Underlay_High-Density_6_42_m.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928198987,
+          "position": 8,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Heavy-Duty_1.5mm_LVT_Underlayment_6m_to_42m_Coverage.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Heavy-Duty_1.5mm_LVT_Underlayment_6m_to_42m_Coverage.png?v=1779712267",
+          "width": 800
+        },
+        {
+          "alt": "1.5mm professional high-density LVT underlay for vinyl flooring, covers 6-42m², superior sound reduction and subfloor preparation",
+          "id": 72072928231755,
+          "position": 9,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 800,
+            "width": 800,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_LVT_Underlay_Vinyl_-_1.5mm_-_6-42m2_64.58-452.08_sqft_High_Density_-_High_Quality.png?v=1779712267"
+          },
+          "aspect_ratio": 1,
+          "height": 800,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Professional_LVT_Underlay_Vinyl_-_1.5mm_-_6-42m2_64.58-452.08_sqft_High_Density_-_High_Quality.png?v=1779712267",
+          "width": 800
+        }
+      ],
+      "requires_selling_plan": false,
+      "selling_plan_groups": []
+    },
+    {
+      "id": 15754506043723,
+      "title": "SilverLux Podkład LVT 1,5 mm ze Srebrną Membraną Wysoka Gęstość Najwyższa Jakość",
+      "handle": "srebrnylux-podklad-lvt-1-5-mm-ze-srebrna-membrana-wysoka-gestosc-najwyzsza-jakosc",
+      "description": "<p>Podkład pod podłogi LVT (winyl) <strong>SilverLux</strong> o grubości <strong>1,5 mm</strong> z wbudowaną srebrną membraną wilgotną. Wykonany z polistyrenu ekstrudowanego (XPS) wysokiej gęstości. Doskonały stosunek ceny do jakości.</p>\n<h2>Specyfikacja techniczna</h2>\n<ul>\n<li>\n<strong>Materiał:</strong> XPS (polistyren ekstrudowany)</li>\n<li>\n<strong>kPa:</strong> 400</li>\n<li>\n<strong>dB: </strong>21</li>\n<li>\n<strong>Grubość:</strong> 1,5 mm ± 10%</li>\n<li>\n<strong>Długość rolki:</strong> 10 000 mm ± 1%</li>\n<li>\n<strong>Szerokość rolki:</strong> 1 000 mm ± 1%</li>\n<li>\n<strong>Membrana:</strong> Srebrna folia wilgocioochronna</li>\n</ul>\n<h2>Zastosowanie</h2>\n<p>Przeznaczony do układania pod płytki LVT, SPC i podłogi winylowe. Srebrna membrana chroni przed podciąganiem wilgoci z podłoża betonowego. Bardzo cienki profil. Kompatybilny z ogrzewaniem podłogowym.</p>\n<p><strong>Grubość:</strong> 1,5 mm | <strong>Paczka:</strong> 10 m²</p>",
+      "published_at": "2026-05-25T14:30:11+02:00",
+      "created_at": "2026-05-25T14:30:11+02:00",
+      "vendor": "Dekork",
+      "type": "",
+      "tags": [
+        "Avasam"
+      ],
+      "price": 15299,
+      "price_min": 15299,
+      "price_max": 15299,
+      "available": true,
+      "price_varies": false,
+      "compare_at_price": null,
+      "compare_at_price_min": 0,
+      "compare_at_price_max": 0,
+      "compare_at_price_varies": false,
+      "variants": [
+        {
+          "id": 57433623167307,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "4000543672678",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "name": "SilverLux Podkład LVT 1,5 mm ze Srebrną Membraną Wysoka Gęstość Najwyższa Jakość",
+          "public_title": null,
+          "options": [
+            "Default Title"
+          ],
+          "price": 15299,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": "4000543672678",
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        }
+      ],
+      "images": [
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver.png?v=1779712214",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver_3.png?v=1779712214",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/SilverLux_1.5mm_LVT_Underlay_with_Silver_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712214"
+      ],
+      "featured_image": "//cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver.png?v=1779712214",
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "url": "/products/srebrnylux-podklad-lvt-1-5-mm-ze-srebrna-membrana-wysoka-gestosc-najwyzsza-jakosc",
+      "media": [
+        {
+          "alt": null,
+          "id": 72072915386699,
+          "position": 1,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 1000,
+            "width": 1000,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver.png?v=1779712214"
+          },
+          "aspect_ratio": 1,
+          "height": 1000,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver.png?v=1779712214",
+          "width": 1000
+        },
+        {
+          "alt": null,
+          "id": 72072915419467,
+          "position": 2,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 1000,
+            "width": 1000,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver_3.png?v=1779712214"
+          },
+          "aspect_ratio": 1,
+          "height": 1000,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/Silver_3.png?v=1779712214",
+          "width": 1000
+        },
+        {
+          "alt": "Premium 1.5mm LVT underlay with silver membrane, high-density construction for superior sound reduction and moisture protection",
+          "id": 72072915452235,
+          "position": 3,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 1000,
+            "width": 1000,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/SilverLux_1.5mm_LVT_Underlay_with_Silver_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712214"
+          },
+          "aspect_ratio": 1,
+          "height": 1000,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/SilverLux_1.5mm_LVT_Underlay_with_Silver_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712214",
+          "width": 1000
+        }
+      ],
+      "requires_selling_plan": false,
+      "selling_plan_groups": []
+    },
+    {
+      "id": 15754505978187,
+      "title": "GoldLux Podkład LVT 1,5 mm z Złotą Membraną Wysoka Gęstość Najwyższa Jakość",
+      "handle": "goldlux-podklad-lvt-1-5-mm-z-zlota-membrana-wysoka-gestosc-najwyzsza-jakosc",
+      "description": "<p>Podkład pod podłogi LVT (winyl) <strong>GoldLux</strong> o grubości <strong>1,5 mm</strong> z wbudowaną złotą membraną wilgotną. Wykonany z polistyrenu ekstrudowanego (XPS) wysokiej gęstości. Najwyższa jakość w tej klasie.</p>\n<h2>Specyfikacja techniczna</h2>\n<ul>\n<li>\n<strong>Materiał:</strong> XPS (polistyren ekstrudowany)</li>\n<li>\n<strong>kPa</strong>: 400</li>\n<li>\n<strong>dB</strong>: 21</li>\n<li>\n<strong>Grubość:</strong> 1,5 mm ± 10%</li>\n<li>\n<strong>Długość rolki:</strong> 10 000 mm ± 1%</li>\n<li>\n<strong>Szerokość rolki:</strong> 1 000 mm ± 1%</li>\n<li>\n<strong>Membrana:</strong> Złota folia wilgocioochronna</li>\n</ul>\n<h2>Zastosowanie</h2>\n<p>Idealny do układania pod płytki LVT, SPC i winylowe. Złota membrana chroni przed wilgocią od podłoża. Bardzo cienki profil nie podwyższa istotnie poziomu podłogi. Odpowiedni do podłoża z ogrzewaniem podłogowym.</p>\n<p><strong>Grubość:</strong> 1,5 mm | <strong>Paczka:</strong> 10 m²</p>",
+      "published_at": "2026-05-25T14:30:10+02:00",
+      "created_at": "2026-05-25T14:30:10+02:00",
+      "vendor": "Dekork",
+      "type": "",
+      "tags": [
+        "Avasam"
+      ],
+      "price": 16999,
+      "price_min": 16999,
+      "price_max": 16999,
+      "available": true,
+      "price_varies": false,
+      "compare_at_price": null,
+      "compare_at_price_min": 0,
+      "compare_at_price_max": 0,
+      "compare_at_price_varies": false,
+      "variants": [
+        {
+          "id": 57433623036235,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "4006149126867",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "name": "GoldLux Podkład LVT 1,5 mm z Złotą Membraną Wysoka Gęstość Najwyższa Jakość",
+          "public_title": null,
+          "options": [
+            "Default Title"
+          ],
+          "price": 16999,
+          "weight": 0,
+          "compare_at_price": null,
+          "inventory_management": "shopify",
+          "barcode": "4006149126867",
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "quantity_price_breaks": [],
+          "requires_selling_plan": false,
+          "selling_plan_allocations": []
+        }
+      ],
+      "images": [
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213",
+        "//cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVTUnderlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213"
+      ],
+      "featured_image": "//cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213",
+      "options": [
+        {
+          "name": "Title",
+          "position": 1,
+          "values": [
+            "Default Title"
+          ]
+        }
+      ],
+      "url": "/products/goldlux-podklad-lvt-1-5-mm-z-zlota-membrana-wysoka-gestosc-najwyzsza-jakosc",
+      "media": [
+        {
+          "alt": "Premium 1.5mm LVT underlay with gold membrane, high-density construction for superior sound reduction and moisture protection",
+          "id": 72072915124555,
+          "position": 1,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 1000,
+            "width": 1000,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213"
+          },
+          "aspect_ratio": 1,
+          "height": 1000,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213",
+          "width": 1000
+        },
+        {
+          "alt": "Premium 1.5mm LVT underlay with gold membrane, high-density construction for superior sound reduction and moisture protection",
+          "id": 72072915157323,
+          "position": 2,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 1000,
+            "width": 1000,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213"
+          },
+          "aspect_ratio": 1,
+          "height": 1000,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux1.5mm_LVT_Underlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213",
+          "width": 1000
+        },
+        {
+          "alt": "Premium 1.5mm LVT underlay with gold membrane, high-density construction for superior sound reduction and moisture protection",
+          "id": 72072915190091,
+          "position": 3,
+          "preview_image": {
+            "aspect_ratio": 1,
+            "height": 1000,
+            "width": 1000,
+            "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVTUnderlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213"
+          },
+          "aspect_ratio": 1,
+          "height": 1000,
+          "media_type": "image",
+          "src": "https://cdn.shopify.com/s/files/1/1045/7802/3755/files/GoldLux_1.5mm_LVTUnderlay_with_Gold_Membrane_-_Super_High_Denisty_Best_Quality.png?v=1779712213",
+          "width": 1000
+        }
+      ],
+      "requires_selling_plan": false,
+      "selling_plan_groups": []
+    }
+  ],
+  "cartCases": [
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631359307,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 6899,
+      "items_subtotal_price": 6899,
+      "items": [
+        {
+          "id": 57433631359307,
+          "product_id": 15754508697931,
+          "variant_id": 57433631359307,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 1 Paczka",
+          "sku": "3067088472737",
+          "quantity": 1,
+          "price": 6899,
+          "final_price": 6899,
+          "final_line_price": 6899,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631359307,
+          2
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 2,
+      "total_price": 13798,
+      "items_subtotal_price": 13798,
+      "items": [
+        {
+          "id": 57433631359307,
+          "product_id": 15754508697931,
+          "variant_id": 57433631359307,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 1 Paczka",
+          "sku": "3067088472737",
+          "quantity": 2,
+          "price": 6899,
+          "final_price": 6899,
+          "final_line_price": 13798,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "00-001",
+      "entries": [
+        [
+          57433631359307,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 6899,
+      "items_subtotal_price": 6899,
+      "items": [
+        {
+          "id": 57433631359307,
+          "product_id": 15754508697931,
+          "variant_id": 57433631359307,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 1 Paczka",
+          "sku": "3067088472737",
+          "quantity": 1,
+          "price": 6899,
+          "final_price": 6899,
+          "final_line_price": 6899,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433623167307,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 15299,
+      "items_subtotal_price": 15299,
+      "items": [
+        {
+          "id": 57433623167307,
+          "product_id": 15754506043723,
+          "variant_id": 57433623167307,
+          "title": "SilverLux Podkład LVT 1,5 mm ze Srebrną Membraną Wysoka Gęstość Najwyższa Jakość",
+          "sku": "4000543672678",
+          "quantity": 1,
+          "price": 15299,
+          "final_price": 15299,
+          "final_line_price": 15299,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433623036235,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 16999,
+      "items_subtotal_price": 16999,
+      "items": [
+        {
+          "id": 57433623036235,
+          "product_id": 15754505978187,
+          "variant_id": 57433623036235,
+          "title": "GoldLux Podkład LVT 1,5 mm z Złotą Membraną Wysoka Gęstość Najwyższa Jakość",
+          "sku": "4006149126867",
+          "quantity": 1,
+          "price": 16999,
+          "final_price": 16999,
+          "final_line_price": 16999,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433623167307,
+          1
+        ],
+        [
+          57433623036235,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 2,
+      "total_price": 32298,
+      "items_subtotal_price": 32298,
+      "items": [
+        {
+          "id": 57433623036235,
+          "product_id": 15754505978187,
+          "variant_id": 57433623036235,
+          "title": "GoldLux Podkład LVT 1,5 mm z Złotą Membraną Wysoka Gęstość Najwyższa Jakość",
+          "sku": "4006149126867",
+          "quantity": 1,
+          "price": 16999,
+          "final_price": 16999,
+          "final_line_price": 16999,
+          "requires_shipping": true,
+          "taxable": true
+        },
+        {
+          "id": 57433623167307,
+          "product_id": 15754506043723,
+          "variant_id": 57433623167307,
+          "title": "SilverLux Podkład LVT 1,5 mm ze Srebrną Membraną Wysoka Gęstość Najwyższa Jakość",
+          "sku": "4000543672678",
+          "quantity": 1,
+          "price": 15299,
+          "final_price": 15299,
+          "final_line_price": 15299,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631392075,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 13099,
+      "items_subtotal_price": 13099,
+      "items": [
+        {
+          "id": 57433631392075,
+          "product_id": 15754508697931,
+          "variant_id": 57433631392075,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 2 Paczki",
+          "sku": "4007681839604",
+          "quantity": 1,
+          "price": 13099,
+          "final_price": 13099,
+          "final_line_price": 13099,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631424843,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 18999,
+      "items_subtotal_price": 18999,
+      "items": [
+        {
+          "id": 57433631424843,
+          "product_id": 15754508697931,
+          "variant_id": 57433631424843,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 3 Paczki",
+          "sku": "4000037769136",
+          "quantity": 1,
+          "price": 18999,
+          "final_price": 18999,
+          "final_line_price": 18999,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631457611,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 24599,
+      "items_subtotal_price": 24599,
+      "items": [
+        {
+          "id": 57433631457611,
+          "product_id": 15754508697931,
+          "variant_id": 57433631457611,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 4 Paczki",
+          "sku": "4000527717258",
+          "quantity": 1,
+          "price": 24599,
+          "final_price": 24599,
+          "final_line_price": 24599,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631490379,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 30299,
+      "items_subtotal_price": 30299,
+      "items": [
+        {
+          "id": 57433631490379,
+          "product_id": 15754508697931,
+          "variant_id": 57433631490379,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 5 Paczek",
+          "sku": "4006668295969",
+          "quantity": 1,
+          "price": 30299,
+          "final_price": 30299,
+          "final_line_price": 30299,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631523147,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 35999,
+      "items_subtotal_price": 35999,
+      "items": [
+        {
+          "id": 57433631523147,
+          "product_id": 15754508697931,
+          "variant_id": 57433631523147,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 6 Paczek",
+          "sku": "4007147029143",
+          "quantity": 1,
+          "price": 35999,
+          "final_price": 35999,
+          "final_line_price": 35999,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57433631555915,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 41399,
+      "items_subtotal_price": 41399,
+      "items": [
+        {
+          "id": 57433631555915,
+          "product_id": 15754508697931,
+          "variant_id": 57433631555915,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 7 Paczek",
+          "sku": "4008633216146",
+          "quantity": 1,
+          "price": 41399,
+          "final_price": 41399,
+          "final_line_price": 41399,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57841959502155,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 46799,
+      "items_subtotal_price": 46799,
+      "items": [
+        {
+          "id": 57841959502155,
+          "product_id": 15754508697931,
+          "variant_id": 57841959502155,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 8 Paczek",
+          "sku": null,
+          "quantity": 1,
+          "price": 46799,
+          "final_price": 46799,
+          "final_line_price": 46799,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57841959534923,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 52199,
+      "items_subtotal_price": 52199,
+      "items": [
+        {
+          "id": 57841959534923,
+          "product_id": 15754508697931,
+          "variant_id": 57841959534923,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 9 Paczek",
+          "sku": null,
+          "quantity": 1,
+          "price": 52199,
+          "final_price": 52199,
+          "final_line_price": 52199,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    },
+    {
+      "code": "30-001",
+      "entries": [
+        [
+          57841959567691,
+          1
+        ]
+      ],
+      "currency": "PLN",
+      "item_count": 1,
+      "total_price": 57599,
+      "items_subtotal_price": 57599,
+      "items": [
+        {
+          "id": 57841959567691,
+          "product_id": 15754508697931,
+          "variant_id": 57841959567691,
+          "title": "Profesjonalny Podkład LVT 1,5 mm Wysoka Gęstość 6 m2 do 60 m2 - 10 Paczek",
+          "sku": null,
+          "quantity": 1,
+          "price": 57599,
+          "final_price": 57599,
+          "final_line_price": 57599,
+          "requires_shipping": true,
+          "taxable": true
+        }
+      ],
+      "rates": {
+        "shipping_rates": [
+          {
+            "name": "Standardowa",
+            "presentment_name": "Standardowa",
+            "code": "Standardowa",
+            "price": "17.99",
+            "markup": "0.00",
+            "source": "shopify",
+            "delivery_date": null,
+            "delivery_range": null,
+            "delivery_days": [
+              1,
+              2
+            ],
+            "compare_price": null,
+            "phone_required": false,
+            "currency": "PLN",
+            "carrier_identifier": null,
+            "delivery_category": null,
+            "using_merchant_account": null,
+            "carrier_service_id": null,
+            "description": "",
+            "additional_data": null,
+            "incoterm": null,
+            "api_client_id": null,
+            "requested_fulfillment_service_id": null,
+            "shipment_options": null,
+            "charge_items": null,
+            "has_restrictions": null,
+            "rating_classification": null,
+            "accepts_instructions": false,
+            "metafields": null
+          }
+        ]
+      }
+    }
+  ],
+  "grossNotices": [
+    "<div class=\"product__tax caption rte\">Podatki są wliczone.\n<a href=\"/policies/shipping-policy\">Koszt wysyłki</a> zostanie obliczony przy realizacji zakupu.\n</div>",
+    "<div class=\"product__tax caption rte\">Podatki są wliczone.\n<a href=\"/policies/shipping-policy\">Koszt wysyłki</a> zostanie obliczony przy realizacji zakupu.\n</div>",
+    "<div class=\"product__tax caption rte\">Podatki są wliczone.\n<a href=\"/policies/shipping-policy\">Koszt wysyłki</a> zostanie obliczony przy realizacji zakupu.\n</div>"
+  ]
+}

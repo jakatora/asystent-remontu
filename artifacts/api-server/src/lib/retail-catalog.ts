@@ -1,7 +1,9 @@
 import type { RetailSource } from './retail-pages';
+import {DEKORK_SOURCES} from './dekork';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...DEKORK_SOURCES,
   {
     id: 'castorama-sniezka-5l', ean: '5903973139188', name: 'Farba Śnieżka Barwy Natury biała 5 l',
     category: 'paint', brand: 'Śnieżka', packageSize: 5, unit: 'l', store: 'Castorama', pickupRequiresConfirmation: true,
