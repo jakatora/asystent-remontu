@@ -111,6 +111,26 @@ export class AnonymousShop {
     const query=`query { shippingCountries { id name selected } shipping(ShippingInput: { mode: basket, forcedRegion: 1143020003, zipCode: "${args.postalCode}" }) { shipping { courier { id name icon } prepaid cost { value formatted } deliveryTime { weekDay } } } }`;
     return JSON.parse(await this.read('/graphql/v1/',JSON.stringify({query}),true,false,true));
   }
+  /** Only reviewed eTak anonymous cart operations. No client/contact fields,
+   * checkout, consent, payment or order submission can be supplied.
+   * source: https://etak.eu/pl/basketchange.html
+   * source: https://etak.eu/graphql/v1/ */
+  async etak(action:'destination'|'add'|'basket'|'shipping',args:{postalCode?:string;productId?:number;count?:number}={}):Promise<any> {
+    if(this.origin!=='https://etak.eu'||Object.keys(args).some(k=>!['postalCode','productId','count'].includes(k)))throw Error('invalid_cart_action');
+    if(action==='add'){
+      if(![732,733,735].includes(args.productId??0)||!Number.isSafeInteger(args.count)||args.count!<1||args.count!>MAX_RETAIL_PACKAGES||Object.keys(args).length!==2)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read('/pl/basketchange.html',new URLSearchParams({getAjax:'true',mode:'1',product:String(args.productId),size:'onesize',number:String(args.count)}).toString(),false));
+    }
+    if(action==='basket'){
+      if(Object.keys(args).length)throw Error('invalid_cart_action');
+      return JSON.parse(await this.read('/pl/basketchange.html',new URLSearchParams({getAjax:'true'}).toString(),false));
+    }
+    if(!/^\d{2}-\d{3}$/.test(args.postalCode??'')||Object.keys(args).length!==1)throw Error('invalid_cart_action');
+    if(action==='destination')return JSON.parse(await this.read('/ajax/client-new.php?checkDeliveryZipcode=true&region_id=1143020003&zipcode='+args.postalCode,undefined,false));
+    if(action!=='shipping')throw Error('invalid_cart_action');
+    const query=`query { shippingCountries { id name selected } shipping(ShippingInput: { mode: basket, forcedRegion: 1143020003, zipCode: "${args.postalCode}" }) { shipping { courier { id name icon } prepaid cost { value formatted } } } }`;
+    return JSON.parse(await this.read('/graphql/v1/',JSON.stringify({query}),true,false,true));
+  }
   async abud(action: 'destination' | 'add' | 'shipping', args: {postalCode?: string; productId?: number; count?: number} = {}): Promise<any> {
     if (this.origin !== 'https://www.abud.pl' || Object.keys(args).some(key => !['postalCode','productId','count'].includes(key))) throw Error('invalid_cart_action');
     if (action === 'destination') {

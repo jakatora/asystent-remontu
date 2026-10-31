@@ -46,8 +46,8 @@ export interface DeliveryQuote {
   /** Actual anonymous-cart material prices for this exact pack allocation.
    * The catalogue observations and their history keep their original prices. */
   cartPricing?: CartMaterialPricing;
-  /** Exact difference between rounded pack prices and the merchant's verified
-   * m² line totals. Included in materials, never hidden in the freight fee. */
+  /** Exact difference between rounded pack prices and verified native line
+   * totals (m² or whole-line VAT). Included in materials, never in freight. */
   materialsRoundingGrosze?: number;
   /** A cheaper plan requires these separately checked merchant orders.
    * A product may appear in more than one order. Per-offer pack counts sum to

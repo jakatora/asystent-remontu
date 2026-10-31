@@ -1,6 +1,10 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html
+  // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
+  {"id":"mat-wire-connector-wago-221-412","materialType":"wire-connector","productLabel":"Szybkozłączka WAGO 221-412 — 2-przewodowa, maks. 4 mm² (1 szt.)","brand":"WAGO","packageSize":1,"packageUnit":"szt","pricePerPackage":1.23,"category":"standard","storeName":"eTak","sourceUrl":"https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 4050821808435. Cena za pojedynczą złączkę dwuprzewodową. Osobny model względem 221-413 i 221-415, bez automatycznej zamiany. Aplikacja sprawdza dostępność potrzebnej ilości i dostawę całego koszyka."},
+
   // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816
   // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
   {"id":"mat-wire-connector-wago-221-415","materialType":"wire-connector","productLabel":"Szybkozłączka WAGO 221-415 — 5-przewodowa, maks. 4 mm² (1 szt.)","brand":"WAGO","packageSize":1,"packageUnit":"szt","pricePerPackage":4.23,"category":"standard","storeName":"Prescot","sourceUrl":"https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 4055143234658. Osobny model 5-przewodowy; nie zastępuje automatycznie modeli 221-412 ani 221-413. Prescot sprzedaje na sztuki, Elektro-Hurt w pełnych opakowaniach po 25 sztuk. Aplikacja zaokrągla liczbę opakowań i sprawdza dostawę całego koszyka."},

@@ -23,6 +23,12 @@ test('merchant m² rounding affects materials and payable ranking, never freight
  for(const rounding of [NaN,1.5,3,-1200]){const bad=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,p)=>{const r=await known(order,p);assert.ok('quote'in r);r.quote.materialsRoundingGrosze=rounding;return r;});assert.equal(bad.best,null);assert.equal(bad.purchasePlan!.materialsGrosze,1200);}
 });
 
+test('free delivery with native line rounding remains a limited comparison until separate-cart totals are verified',async()=>{
+ const input=await stage();for(const line of input.lines)if(line.resolved)line.offers=line.offers.filter(o=>o.store==='A');let calls=0;
+ const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:true},async(order,p)=>{calls++;const r=await known(order,p);assert.ok('quote'in r);r.quote.costGrosze=0;r.quote.materialsRoundingGrosze=0;return r;});
+ assert.equal(result.best!.totalGrosze,1200);assert.equal(result.best!.stores[0].quote!.orders,undefined);assert.equal(result.searchLimited,true);assert.equal(calls,1);
+});
+
 test('expired merchant rounding cannot remain in an unconfirmed purchase plan',async t=>{
  t.mock.timers.enable({apis:['Date'],now:Date.now()});const input=await stage();for(const line of input.lines)if(line.resolved)line.offers=line.offers.filter(o=>o.store==='A');
  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,p)=>{const r=await known(order,p);assert.ok('quote'in r);r.quote.materialsRoundingGrosze=1;r.quote.expiresAt=new Date(Date.now()+10).toISOString();t.mock.timers.tick(20);return r;});assert.equal(result.best,null);assert.equal(result.purchasePlan!.materialsGrosze,1200);assert.equal(result.purchasePlan!.stores[0].quote,undefined);

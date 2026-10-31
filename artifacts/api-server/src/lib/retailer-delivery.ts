@@ -1,4 +1,5 @@
 import {quoteRelayEnabled,quoteThroughRelay} from './quote-relay-client';
+import {quoteEtak} from './etak-delivery';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEwinyl} from './ewinyl';
 import {quoteDekorator} from './dekorator';
@@ -68,12 +69,12 @@ function unavailableReason(store: string): string | undefined {
   // source: https://marbet24.pl/zamowienie
   if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','eWinyl','ChemiaDoParkietu25'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','eWinyl','ChemiaDoParkietu25','eTak'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','eWinyl','ChemiaDoParkietu25'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','eWinyl','ChemiaDoParkietu25','eTak'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
     postcodeStores:['Dekork','ChemiaDoParkietu25','eWinyl','Sewera','Cezar','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
@@ -208,6 +209,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
       if (!release) return { reason:'quote_busy' };
       try {
         if(quoteRelayEnabled(order.store))return await quoteThroughRelay(order,postalCode,fetchImpl);
+        if(order.store==='eTak')return await quoteEtak(order,postalCode,fetchImpl);
         if(order.store==='Dekork')return await quoteDekork(order,postalCode,fetchImpl);
         if(order.store==='ChemiaDoParkietu25')return await quoteChemia(order,postalCode,fetchImpl);
         if(order.store==='eWinyl')return await quoteEwinyl(order,postalCode,fetchImpl);

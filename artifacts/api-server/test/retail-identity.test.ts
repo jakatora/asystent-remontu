@@ -7,7 +7,7 @@ import type { RetailSource } from '../src/lib/retail-pages';
 // source: https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html
 const source: RetailSource={id:'abud-test',ean:'5900950618100',name:'Taśma teflonowa 12mm x 10m x 0.075mm Tycner',brand:'Tycner',category:'sealing-tape',packageSize:1,unit:'szt',store:'ABUD',url:'https://www.abud.pl/product-pol-6204-Tasma-teflonowa-12mm-x-10m-x-0-075mm-Tycner.html',productId:6204,apiPurchaseUnit:'szt.',format:'idosell',variant:['12mm','10m','0.075mm']};
 function idosell() {
-  return `<form data-product_id="6204"><input id="projector_product_hidden" value="6204"><strong id="projector_price_value">2,00 zł</strong><span class="price_vat">brutto</span><span id="projector_price_unit">szt.</span><input id="projector_number" data-sellby="1" step="1"></form>
+  return `<form id="projector_form" data-product_id="6204"><input id="projector_product_hidden" value="6204"><strong id="projector_price_value">2,00 zł</strong><span class="price_vat">brutto</span><span id="projector_price_unit">szt.</span><input id="projector_number" data-sellby="1" step="1"></form>
   <div data-producer_code="true"><span class="dictionary__producer_code --value">5900950618100</span></div>
   <script type="application/ld+json">${JSON.stringify({'@type':'Product',name:source.name,brand:{name:'Tycner'},image:'https://www.abud.pl/product.webp',offers:[{'@type':'Offer',price:'2.00',priceCurrency:'PLN',availability:'https://schema.org/InStock',eligibleQuantity:{value:'1',unitCode:'szt.'},shippingDetails:{shippingRate:{value:'0.00',currency:'PLN'},shippingDestination:{addressCountry:'DE'}}}]})}</script>`;
 }
@@ -15,6 +15,8 @@ test('IdoSell confirms the main product, manufacturer code, gross price and purc
   const html=idosell();const read=(value:string)=>parseRetailPage(value,source,new Date());
   assert.equal(read(html).priceGrosze,200);
   assert.equal((read(html) as any).deliveryGrosze,undefined);
+  assert.throws(()=>read(html.replace('id="projector_form"','')),/id_not_confirmed/);
+  assert.throws(()=>read(html.replace('id="projector_product_hidden"','form="another_form" id="projector_product_hidden"')),/id_not_confirmed/);
   assert.throws(()=>read(html.replace('value="6204"','value="6205"')),/id_not_confirmed/);
   assert.throws(()=>read(html.replace('class="dictionary__producer_code --value">5900950618100','class="dictionary__producer_code --value">5900950618101')+'<aside>5900950618100</aside>'),/ean_not_confirmed/);
   assert.throws(()=>read(html.replace('>brutto<','>netto<')),/unit_or_gross_not_confirmed/);

@@ -1,4 +1,5 @@
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
+import {readEtakCard} from './etak-product';
 import {isReviewedDekorkSource,readDekorkProduct} from './dekork';
 import {readEwinylProduct} from './ewinyl-product';
 import {readDekoratorProduct} from './dekorator';
@@ -123,7 +124,8 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const products: Record<string, any>[] = [];
   let stockPackages: number | undefined;
   if(source.format==='krasny')stockPackages=readKrasnyStock(html,source);
-  if(source.format==='ewinyl')products.push(readEwinylProduct(html,source));
+  if(source.store==='eTak')stockPackages=readEtakCard(html,source).maxPackages;
+  else if(source.format==='ewinyl')products.push(readEwinylProduct(html,source));
   else if (source.skuIdentity && source.format!=='irbud-woo') products.push(confirmRetailSkuProduct(html, readRetailMicrodata(html, 'sewera', source.url, source.retailUnit), source));
   else if(source.format==='dekorator')products.push(readDekoratorProduct(html,source));
   else if (source.format === 'kronosfera') products.push(inspectKronosferaProduct(html, source).product);

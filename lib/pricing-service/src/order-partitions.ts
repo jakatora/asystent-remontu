@@ -13,10 +13,11 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
     if ('reason' in base && base.reason==='requires_separate_dispatch' && order.store==='Sewera' && count>=2 && order.lines.every(line=>line.packages.length===1)) {
       return quoteRequiredDispatch(order,base,atomic,postcode,limited);
     }
-    if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !base.quote.costGrosze&&!supportsCartPricing(order.store) || !count || quotedMaterialsGrosze(order,base.quote)===null) return base;
-    // Per-m² line rounding is not additive across separate carts. Retain the
+    if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !count || quotedMaterialsGrosze(order,base.quote)===null) return base;
+    // Native line rounding is not additive across separate carts. Retain the
     // verified whole-cart total until partitions support those merchandise sums.
     if(base.quote.materialsRoundingGrosze!==undefined){if(count>1||order.lines.some(l=>l.packages.some(p=>p.count>1)))limited();return base;}
+    if(!base.quote.costGrosze&&!supportsCartPricing(order.store))return base;
     const full:QuotedOrder={order,quote:base.quote};
     if(count===1){if(order.lines[0].packages.length>1&&order.lines[0].packages.some(p=>p.count>1))limited();const parts=await quantityOrderPartitions(full,atomic,postcode,limited);return{quote:await combineOrderQuotes(full,parts,postcode)};}
     // We compare whole-line groups and quantity splits within isolated lines.

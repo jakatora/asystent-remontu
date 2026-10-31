@@ -1,0 +1,1061 @@
+{
+  "checkedAt": "2026-10-31T17:27:35.241Z",
+  "results": [
+    {
+      "quantities": [
+        2,
+        3,
+        4
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "status": 200,
+        "body": {
+          "valid": true,
+          "valid_region": {
+            "1": [
+              {
+                "shop_id": "1",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://etak.eu"
+              }
+            ],
+            "2": [
+              {
+                "shop_id": "2",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://elektrykowo.pl"
+              }
+            ]
+          }
+        }
+      },
+      "basket": {
+        "basket": {
+          "productsNumber": 9,
+          "worth": 17.42,
+          "worth_net": 14.16,
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "shippingCost": "13.51",
+          "weight": 0,
+          "profit_points": 0,
+          "deliverytime": 3,
+          "currency": "PLN",
+          "currency_sign": "zł",
+          "shipping_exists": true,
+          "shippingLimitFree": "300.00",
+          "toShippingFree": "282.58",
+          "products": [
+            {
+              "id": "732",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "8.44",
+                "worth_gros": "10.38",
+                "net": "2.11",
+                "gros": "2.60",
+                "base_price": 2.6,
+                "base_price_net": 2.11,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "8,44 zł",
+                "worth_gros_formatted": "10,38 zł",
+                "net_formatted": "2,11 zł",
+                "gros_formatted": "2,60 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467647</available>",
+              "md5_additional": "6801e7606c3f1f46b30fe89838ba2e5a",
+              "reservation_stocksown": 4937,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "5-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 5-przewodowa do linek i drutów 0,14-4 mm² 32A 221-415",
+              "icon": "hpeciai/5712e97e902641cbc4f21d3a8c0fadf5/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.webp",
+              "icon_second": "hpeciai/8592f9437e4b17cf98776411a9866935/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-415-732.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 4,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            },
+            {
+              "id": "733",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "3.72",
+                "worth_gros": "4.58",
+                "net": "1.24",
+                "gros": "1.53",
+                "base_price": 1.53,
+                "base_price_net": 1.24,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "3,72 zł",
+                "worth_gros_formatted": "4,58 zł",
+                "net_formatted": "1,24 zł",
+                "gros_formatted": "1,53 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467646</available>",
+              "md5_additional": "3c6895365f14a6dbee76e32834ff5c86",
+              "reservation_stocksown": 27572,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "3-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 3-przewodowa do linek i drutów 0,14-4 mm² 32A 221-413",
+              "icon": "hpeciai/6fccff6b7e0daee79ade7c35146c07eb/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-3-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-413-733.webp",
+              "icon_second": "hpeciai/af97d07efcdea0d4800e7cce1d0da5fe/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-3-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-413-733.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-3-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-413-733.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 3,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            },
+            {
+              "id": "735",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "2.00",
+                "worth_gros": "2.46",
+                "net": "1.00",
+                "gros": "1.23",
+                "base_price": 1.23,
+                "base_price_net": 1,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "2,00 zł",
+                "worth_gros_formatted": "2,46 zł",
+                "net_formatted": "1,00 zł",
+                "gros_formatted": "1,23 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467646</available>",
+              "md5_additional": "3c6895365f14a6dbee76e32834ff5c86",
+              "reservation_stocksown": 22141,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "2-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 2-przewodowa do linek i drutów 0,14-4 mm² 32A 221-412",
+              "icon": "hpeciai/a3a7b8efd23f3ded796f567b8b5ca9ea/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-412-735.webp",
+              "icon_second": "hpeciai/5366dc3a716e86edfb2b9644c9630cef/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-412-735.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 2,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shippingCountries": [
+            {
+              "id": "1143020003",
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 16,
+                  "formatted": "16,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 20,
+                  "formatted": "20,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 15.5,
+                  "formatted": "15,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 14,
+                  "formatted": "14,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 17.5,
+                  "formatted": "17,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13.51,
+                  "formatted": "13,51 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 83,
+                  "name": "DHL Parcel Max (Dłużyca)",
+                  "icon": "/data/include/deliveries/icons/83_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 168.79,
+                  "formatted": "168,79 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 37,
+                  "name": "Kurier Paleta",
+                  "icon": "/data/include/deliveries/icons/37_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 250,
+                  "formatted": "250,00 zł"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "quantities": [
+        1,
+        1,
+        1
+      ],
+      "postalCode": "00-001",
+      "destination": {
+        "status": 200,
+        "body": {
+          "valid": true,
+          "valid_region": {
+            "1": [
+              {
+                "shop_id": "1",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://etak.eu"
+              }
+            ],
+            "2": [
+              {
+                "shop_id": "2",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://elektrykowo.pl"
+              }
+            ]
+          }
+        }
+      },
+      "basket": {
+        "basket": {
+          "productsNumber": 3,
+          "worth": 5.36,
+          "worth_net": 4.35,
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "shippingCost": "13.51",
+          "weight": 0,
+          "profit_points": 0,
+          "deliverytime": 3,
+          "currency": "PLN",
+          "currency_sign": "zł",
+          "shipping_exists": true,
+          "shippingLimitFree": "300.00",
+          "toShippingFree": "294.64",
+          "products": [
+            {
+              "id": "732",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "2.11",
+                "worth_gros": "2.60",
+                "net": "2.11",
+                "gros": "2.60",
+                "base_price": 2.6,
+                "base_price_net": 2.11,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "2,11 zł",
+                "worth_gros_formatted": "2,60 zł",
+                "net_formatted": "2,11 zł",
+                "gros_formatted": "2,60 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467650</available>",
+              "md5_additional": "0ef904019c6ef58cb29f85b7c591acc7",
+              "reservation_stocksown": 4937,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "5-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 5-przewodowa do linek i drutów 0,14-4 mm² 32A 221-415",
+              "icon": "hpeciai/5712e97e902641cbc4f21d3a8c0fadf5/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.webp",
+              "icon_second": "hpeciai/8592f9437e4b17cf98776411a9866935/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-415-732.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 1,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            },
+            {
+              "id": "733",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "1.24",
+                "worth_gros": "1.53",
+                "net": "1.24",
+                "gros": "1.53",
+                "base_price": 1.53,
+                "base_price_net": 1.24,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "1,24 zł",
+                "worth_gros_formatted": "1,53 zł",
+                "net_formatted": "1,24 zł",
+                "gros_formatted": "1,53 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467650</available>",
+              "md5_additional": "0ef904019c6ef58cb29f85b7c591acc7",
+              "reservation_stocksown": 27572,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "3-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 3-przewodowa do linek i drutów 0,14-4 mm² 32A 221-413",
+              "icon": "hpeciai/6fccff6b7e0daee79ade7c35146c07eb/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-3-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-413-733.webp",
+              "icon_second": "hpeciai/af97d07efcdea0d4800e7cce1d0da5fe/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-3-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-413-733.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-3-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-413-733.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 1,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            },
+            {
+              "id": "735",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "1.00",
+                "worth_gros": "1.23",
+                "net": "1.00",
+                "gros": "1.23",
+                "base_price": 1.23,
+                "base_price_net": 1,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "1,00 zł",
+                "worth_gros_formatted": "1,23 zł",
+                "net_formatted": "1,00 zł",
+                "gros_formatted": "1,23 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467649</available>",
+              "md5_additional": "64341cf5f5380bc3ecae9e6b203f0386",
+              "reservation_stocksown": 22141,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "2-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 2-przewodowa do linek i drutów 0,14-4 mm² 32A 221-412",
+              "icon": "hpeciai/a3a7b8efd23f3ded796f567b8b5ca9ea/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-412-735.webp",
+              "icon_second": "hpeciai/5366dc3a716e86edfb2b9644c9630cef/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-412-735.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 1,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shippingCountries": [
+            {
+              "id": "1143020003",
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 16,
+                  "formatted": "16,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 20,
+                  "formatted": "20,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 15.5,
+                  "formatted": "15,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 14,
+                  "formatted": "14,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 17.5,
+                  "formatted": "17,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13.51,
+                  "formatted": "13,51 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 83,
+                  "name": "DHL Parcel Max (Dłużyca)",
+                  "icon": "/data/include/deliveries/icons/83_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 168.79,
+                  "formatted": "168,79 zł"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "quantities": [
+        0,
+        0,
+        115
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "status": 200,
+        "body": {
+          "valid": true,
+          "valid_region": {
+            "1": [
+              {
+                "shop_id": "1",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://etak.eu"
+              }
+            ],
+            "2": [
+              {
+                "shop_id": "2",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://elektrykowo.pl"
+              }
+            ]
+          }
+        }
+      },
+      "basket": {
+        "basket": {
+          "productsNumber": 115,
+          "worth": 298.46,
+          "worth_net": 242.65,
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "shippingCost": "13.51",
+          "weight": 0,
+          "profit_points": 0,
+          "deliverytime": 3,
+          "currency": "PLN",
+          "currency_sign": "zł",
+          "shipping_exists": true,
+          "shippingLimitFree": "300.00",
+          "toShippingFree": "1.54",
+          "products": [
+            {
+              "id": "732",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "242.65",
+                "worth_gros": "298.46",
+                "net": "2.11",
+                "gros": "2.60",
+                "base_price": 2.6,
+                "base_price_net": 2.11,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "242,65 zł",
+                "worth_gros_formatted": "298,46 zł",
+                "net_formatted": "2,11 zł",
+                "gros_formatted": "2,60 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467652</available>",
+              "md5_additional": "f49f316cf4e7f8e8816f427183464bad",
+              "reservation_stocksown": 4937,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "5-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 5-przewodowa do linek i drutów 0,14-4 mm² 32A 221-415",
+              "icon": "hpeciai/5712e97e902641cbc4f21d3a8c0fadf5/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.webp",
+              "icon_second": "hpeciai/8592f9437e4b17cf98776411a9866935/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-415-732.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 115,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shippingCountries": [
+            {
+              "id": "1143020003",
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 16,
+                  "formatted": "16,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 20,
+                  "formatted": "20,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 15.5,
+                  "formatted": "15,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 14,
+                  "formatted": "14,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 17.5,
+                  "formatted": "17,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 13.51,
+                  "formatted": "13,51 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 83,
+                  "name": "DHL Parcel Max (Dłużyca)",
+                  "icon": "/data/include/deliveries/icons/83_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 168.79,
+                  "formatted": "168,79 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 37,
+                  "name": "Kurier Paleta",
+                  "icon": "/data/include/deliveries/icons/37_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 250,
+                  "formatted": "250,00 zł"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "quantities": [
+        0,
+        0,
+        116
+      ],
+      "postalCode": "30-001",
+      "destination": {
+        "status": 200,
+        "body": {
+          "valid": true,
+          "valid_region": {
+            "1": [
+              {
+                "shop_id": "1",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://etak.eu"
+              }
+            ],
+            "2": [
+              {
+                "shop_id": "2",
+                "id_region": "1143020003",
+                "parent": "0",
+                "url": "https://elektrykowo.pl"
+              }
+            ]
+          }
+        }
+      },
+      "basket": {
+        "basket": {
+          "productsNumber": 116,
+          "worth": 301.05,
+          "worth_net": 244.76,
+          "total_deposit": 0,
+          "total_deposit_net": 0,
+          "shippingCost": "0.00",
+          "weight": 0,
+          "profit_points": 0,
+          "deliverytime": 3,
+          "currency": "PLN",
+          "currency_sign": "zł",
+          "shipping_exists": true,
+          "shippingLimitFree": "300.00",
+          "toShippingFree": "",
+          "products": [
+            {
+              "id": "732",
+              "size": "uniw",
+              "bonus": "n",
+              "comment": "",
+              "product_type": "product_item",
+              "bundle": 0,
+              "bundled": [],
+              "prices": {
+                "worth_net": "244.76",
+                "worth_gros": "301.05",
+                "net": "2.11",
+                "gros": "2.60",
+                "base_price": 2.6,
+                "base_price_net": 2.11,
+                "omnibus_price": null,
+                "omnibus_price_net": null,
+                "worth_net_formatted": "244,76 zł",
+                "worth_gros_formatted": "301,05 zł",
+                "net_formatted": "2,11 zł",
+                "gros_formatted": "2,60 zł"
+              },
+              "vat": "23.0",
+              "additional": "<available>1793467655</available>",
+              "md5_additional": "4c499935c465eff8129e6085927e0cde",
+              "reservation_stocksown": 4937,
+              "taxcode": "",
+              "available_now": "y",
+              "subscription_period": "0",
+              "versions_name": "Rodzaj",
+              "product_version_name": "5-przewodowa",
+              "name": "WAGO Złączka instalacyjna otwierana 5-przewodowa do linek i drutów 0,14-4 mm² 32A 221-415",
+              "icon": "hpeciai/5712e97e902641cbc4f21d3a8c0fadf5/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.webp",
+              "icon_second": "hpeciai/8592f9437e4b17cf98776411a9866935/pol_is_WAGO-Zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-415-732.png",
+              "size_name": "uniw",
+              "link": "/pl/products/wago-zlaczka-instalacyjna-otwierana-5-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-415-732.html",
+              "price_unit": "szt.",
+              "worth_unit": "szt.",
+              "count": 116,
+              "item_weight": 0,
+              "position_weight": 0,
+              "deliverer_id": "0",
+              "item_oversized_weight": 0,
+              "position_oversized_weight": 0,
+              "label": ""
+            }
+          ]
+        }
+      },
+      "shipping": {
+        "data": {
+          "shippingCountries": [
+            {
+              "id": "1143020003",
+              "name": "Polska",
+              "selected": true
+            }
+          ],
+          "shipping": {
+            "shipping": [
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 16,
+                  "formatted": "16,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 20,
+                  "formatted": "20,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 15.5,
+                  "formatted": "15,50 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 0,
+                  "name": "Odbiór osobisty",
+                  "icon": "/data/include/deliveries/icons/0_1.gif"
+                },
+                "prepaid": "dvp",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100149,
+                  "name": "InPost Paczkomat 24/7 - wszystkie rozmiary",
+                  "icon": "/data/include/deliveries/icons/100149_1.svg"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100206,
+                  "name": "DHL Paczka",
+                  "icon": "/data/include/deliveries/icons/100206_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 100044,
+                  "name": "Automaty DHL BOX 24/7 i punkty POP",
+                  "icon": "/data/include/deliveries/icons/100044_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 0,
+                  "formatted": "0,00 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 83,
+                  "name": "DHL Parcel Max (Dłużyca)",
+                  "icon": "/data/include/deliveries/icons/83_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 168.79,
+                  "formatted": "168,79 zł"
+                }
+              },
+              {
+                "courier": {
+                  "id": 37,
+                  "name": "Kurier Paleta",
+                  "icon": "/data/include/deliveries/icons/37_1.gif"
+                },
+                "prepaid": "prepaid",
+                "cost": {
+                  "value": 250,
+                  "formatted": "250,00 zł"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

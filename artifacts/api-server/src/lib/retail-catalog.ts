@@ -2,6 +2,7 @@ import type { RetailSource } from './retail-pages';
 import {AKS_CABLE_SOURCES} from './aks-cables';
 import {DEKORK_SOURCES} from './dekork';
 import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
+import {ETAK_SOURCES} from './etak-sources';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
@@ -1382,6 +1383,7 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   // source: https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm
   // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
   {"id":"ehw-wago-221415-25","ean":"4055143234658","name":"WAGO 221-415 Złączka instalacyjna COMPACT do wszystkich rodzajów przewodów, transparentna opakowanie 25 szt.","brand":"WAGO","category":"wire-connector","packageSize":25,"unit":"szt","store":"Elektro-Hurt","format":"shoper-api","productId":462,"retailerSku":"WAGO-125138*25","apiPurchaseUnit":"szt.","variant":["221-415","25 szt."],"packageDescription":"Złączka 221-415 opakowanie 25 sztuk.","pickupRequiresConfirmation":true,"url":"https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm","imageUrl":"https://sklep.ehw.com.pl/environment/cache/images/productGfx_857_500_500/Szybkozlaczka-zlaczka-WAGO-221-415-5x4-mm-EAN-4055143234658.jpg"},
+  ...ETAK_SOURCES,
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

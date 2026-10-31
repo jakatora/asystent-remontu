@@ -12,6 +12,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html
+  // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
+  {"ids":["mat-wire-connector-wago-221-412"],"ean":"4050821808435","sourceUrl":"https://etak.eu/pl/products/wago-zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32a-221-412-735.html","imageUrl":"https://etak.eu/hpeciai/f094d901015eabafd8204dbb3b32d408/pol_il_WAGO-Zlaczka-instalacyjna-otwierana-2-przewodowa-do-linek-i-drutow-0-14-4-mm2-32A-221-412-735.jpg"},
+
   // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816
   // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
   {"ids":["mat-wire-connector-wago-221-415"],"ean":"4055143234658","sourceUrl":"https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_28797_500_500/1.jpg"},
