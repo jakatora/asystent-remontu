@@ -121,7 +121,16 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
   if(configured.some(({source})=>!isReviewedSeweraDispatchSource(source)))throw Error('dispatch_department_not_confirmed');
   const department=configured[0]?.source.dispatchDepartment??{id:'1',name:'Katowice'};
   if(configured.some(({source})=>source.dispatchDepartment!.id!==department.id||source.dispatchDepartment!.name!==department.name)){
-    if(configured.length===packs.length&&order.lines.length===2&&order.lines.every(line=>line.packages.length===1))return {reason:'requires_separate_dispatch'};
+    if(configured.length===packs.length&&order.lines.length>=2&&order.lines.every(line=>line.packages.length===1)){
+      const groups=new Map<string,{dispatchFrom:string;offerIds:string[]}>();
+      for(const {source} of packs){
+        const branch=source.dispatchDepartment!;
+        const group=groups.get(branch.id)??{dispatchFrom:branch.name,offerIds:[]};
+        if(group.dispatchFrom!==branch.name)throw Error('dispatch_department_not_confirmed');
+        group.offerIds.push(source.id);groups.set(branch.id,group);
+      }
+      return {reason:'requires_separate_dispatch',dispatchGroups:[...groups.values()]};
+    }
     throw Error('dispatch_department_not_confirmed');
   }
   // Each item needs an anonymous cart mutation, and the home-delivery methods

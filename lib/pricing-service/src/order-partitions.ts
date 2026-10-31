@@ -8,11 +8,27 @@ import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes
 export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): BasketQuoter {
   return async (order, postcode): Promise<DeliveryQuoteResult> => {
     const base = await atomic(order, postcode), count = order.lines.length;
-    if ('reason' in base && base.reason==='requires_separate_dispatch' && order.store==='Sewera' && count===2 && order.lines.every(line=>line.packages.length===1)) {
+    if ('reason' in base && base.reason==='requires_separate_dispatch' && order.store==='Sewera' && count>=2 && order.lines.every(line=>line.packages.length===1)) {
+      const groups=base.dispatchGroups??(count===2?order.lines.map(line=>({dispatchFrom:'',offerIds:[line.packages[0].offerId]})):[]);
+      const lines=new Map(order.lines.map(line=>[line.packages[0].offerId,line]));
+      const used=new Set<string>();
+      if(lines.size!==count||groups.length<2||groups.length>8)return {reason:'requires_separate_dispatch'};
+      for(const group of groups){
+        if(!group.offerIds.length)return {reason:'requires_separate_dispatch'};
+        for(const id of group.offerIds){
+          if(!lines.has(id)||used.has(id))return {reason:'requires_separate_dispatch'};
+          used.add(id);
+        }
+      }
+      if(used.size!==count)return {reason:'requires_separate_dispatch'};
+      // These are complete branch carts. Further splits within one branch
+      // have not been compared and may have different native courier fees.
+      if(groups.some(group=>group.offerIds.length>1)||order.lines.some(line=>line.packages[0].count>1))limited();
       const parts:QuotedOrder[]=[];
-      for(const line of order.lines){
-        const part:DeliveredStoreBasket={...order,lines:[line],materialsGrosze:line.packages[0].lineCostGrosze,quote:undefined,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown'};
-        try{const outcome=await atomic(part,postcode);if(!('quote'in outcome)||!valid(outcome.quote,postcode))return {reason:'requires_separate_dispatch'};parts.push({order:part,quote:outcome.quote});}
+      for(const group of groups){
+        const selected=group.offerIds.map(id=>lines.get(id)!);
+        const part:DeliveredStoreBasket={...order,lines:selected,materialsGrosze:selected.reduce((sum,line)=>sum+line.packages[0].lineCostGrosze,0),quote:undefined,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown'};
+        try{const outcome=await atomic(part,postcode);if(!('quote'in outcome)||!valid(outcome.quote,postcode)||group.dispatchFrom&&outcome.quote.dispatchFrom!==group.dispatchFrom)return {reason:'requires_separate_dispatch'};parts.push({order:part,quote:outcome.quote});}
         catch{return {reason:'requires_separate_dispatch'};}
       }
       const combined=await combineRequiredSeparateOrders(order,parts,postcode);

@@ -44,6 +44,41 @@ test('Sewera can price two complete orders from different verified dispatch bran
   const invalid=await withOrderPartitions(async basket=>basket.lines.length===2?{reason:'requires_separate_dispatch'}:basket.lines[0].product.id==='paint'?atomic(basket,'00-001'):{reason:'product_unavailable'},()=>{})(order,'00-001');
   assert.deepEqual(invalid,{reason:'requires_separate_dispatch'});
 });
+test('five Sewera products combine into three real branch carts with every pack and fee counted once',async()=>{
+ const rows:[string,string,number][]=[['paper','Sosnowiec',2194],['acoustic50','Sosnowiec',2925],['paint','Tarnowskie Góry',27989],['acoustic30','Sosnowiec',1834],['skim','Katowice',6590]];
+ const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:rows.reduce((sum,row)=>sum+row[2],0),deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:rows.map(([id,,price])=>({product:{id,name:id,imageUrl:null},unit:'szt',packages:[{offerId:id,store:'Sewera',url:'https://sklep.sewera.pl/'+id,packageSize:1,count:1,unitPriceGrosze:price,lineCostGrosze:price}]}))};
+ const groups=[{dispatchFrom:'Sosnowiec',offerIds:['paper','acoustic50','acoustic30']},{dispatchFrom:'Tarnowskie Góry',offerIds:['paint']},{dispatchFrom:'Katowice',offerIds:['skim']}];
+ const calls:string[]=[];
+ const atomic:BasketQuoter=async basket=>{
+  const ids=basket.lines.map(line=>line.product.id);calls.push(ids.join(','));
+  if(ids.length===5)return{reason:'requires_separate_dispatch',dispatchGroups:groups};
+  const group=groups.find(row=>row.offerIds.length===ids.length&&ids.every(id=>row.offerIds.includes(id)));
+  if(!group)return{reason:'product_unavailable'};
+  const cost=group.dispatchFrom==='Sosnowiec'?1990:group.dispatchFrom==='Katowice'?2390:3090;
+  return{quote:{...quote(cost),sourceUrl:'https://sklep.sewera.pl/zamowienie',dispatchFrom:group.dispatchFrom,destinationScope:'postal_code',postalCode:'00-001',basis:'retailer_basket_postcode'}};
+ };
+ let limited=false;
+ const result=await withOrderPartitions(atomic,()=>{limited=true;})(order,'00-001');assert.ok('quote'in result);assert.equal(limited,true);
+ assert.equal(result.quote.costGrosze,7470);assert.equal(result.quote.orders?.length,3);assert.equal(result.quote.ordersReason,'separate_dispatch');
+ assert.equal(result.quote.orders?.reduce((sum,part)=>sum+part.materialsGrosze+part.quote.costGrosze,0),49002);
+ assert.deepEqual(result.quote.orders?.map(part=>part.quote.dispatchFrom),['Sosnowiec','Tarnowskie Góry','Katowice']);
+ assert.deepEqual(calls,['paper,acoustic50,paint,acoustic30,skim','paper,acoustic50,acoustic30','paint','skim']);
+ for(const invalid of [
+  [groups[0],groups[1],{dispatchFrom:'Katowice',offerIds:['paint']}],
+  [groups[0],groups[1]],
+  [groups[0],groups[1],{dispatchFrom:'Katowice',offerIds:['another-product']}],
+  [{...groups[0],dispatchFrom:'Gliwice'},groups[1],groups[2]],
+ ]){
+  const bad=await withOrderPartitions(async basket=>basket.lines.length===5?{reason:'requires_separate_dispatch',dispatchGroups:invalid}:atomic(basket,'00-001'),()=>{})(order,'00-001');
+  assert.deepEqual(bad,{reason:'requires_separate_dispatch'});
+ }
+ for(const mutate of [(q:DeliveryQuote)=>({...q,postalCode:'99-999'}),(q:DeliveryQuote)=>({...q,expiresAt:new Date(Date.now()-1).toISOString()}),(q:DeliveryQuote)=>({...q,dispatchFrom:'Sosnowiec'})]){
+  const bad=await withOrderPartitions(async basket=>{
+   const outcome=await atomic(basket,'00-001');return 'quote'in outcome&&basket.lines[0].product.id==='paint'?{quote:mutate(outcome.quote)}:outcome;
+  },()=>{})(order,'00-001');
+  assert.deepEqual(bad,{reason:'requires_separate_dispatch'});
+ }
+});
 test('expired, future-dated, invalid-price or unproven partial quotes never reduce a valid complete delivery fee', async () => {
   const mutations: ((q: DeliveryQuote) => DeliveryQuote)[] = [q=>({...q,expiresAt:new Date(Date.now()-1).toISOString()}),q=>({...q,checkedAt:new Date(Date.now()+60000).toISOString()}),q=>({...q,costGrosze:NaN}),q=>({...q,evidenceSha256:'unconfirmed'})];
   for(const mutate of mutations){const api=fixture();let limited=false;const result=await withOrderPartitions(async(order,postcode)=>{const outcome=await api.atomic(order,postcode);return 'quote'in outcome&&order.lines.length===2?{quote:mutate(outcome.quote)}:outcome;},()=>{limited=true;})(basket(),'00-001');assert.ok('quote'in result);assert.equal(result.quote.costGrosze,60000);assert.equal(result.quote.orders,undefined);assert.equal(limited,true);}

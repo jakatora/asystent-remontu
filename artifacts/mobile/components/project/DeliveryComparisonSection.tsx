@@ -78,7 +78,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     customer_details_required: tr('Sklep wymaga danych klienta przed wyborem dostawy. Sam kod pocztowy nie wystarcza do potwierdzenia kosztu.', 'The store requires customer details before delivery selection. A postcode alone cannot confirm the cost.'),
     price_changed: tr('Cena produktu zmieniła się w koszyku sklepu.', 'The product price has changed in the store basket.'),
     product_unavailable: tr('Nie potwierdzono dostępności produktu.', 'Product availability could not be confirmed.'),
-    requires_separate_dispatch: tr('Produkty są dostępne w różnych oddziałach sklepu. Włącz osobne zamówienia, aby sprawdzić obie dostawy.', 'Products are available from different store branches. Enable separate orders to check both delivery charges.'),
+    requires_separate_dispatch: tr('Produkty są dostępne w różnych oddziałach sklepu. Włącz osobne zamówienia, aby sprawdzić koszt każdej dostawy.', 'Products are available from different store branches. Enable separate orders to check every delivery charge.'),
     insufficient_stock: tr('Sklep nie ma wystarczającej liczby sztuk do tego zamówienia.', 'The store does not have enough units for this order.'),
     purchase_rules_changed: tr('Sklep zmienił minimalną ilość zakupu. Oferta wymaga ponownego sprawdzenia.', 'The minimum order quantity changed. This offer needs to be checked again.'),
     no_home_delivery: tr('Brak potwierdzonej dostawy kurierskiej.', 'No confirmed home courier delivery.'),
@@ -223,7 +223,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
             {part.lines.map(line=><Txt key={line.product.id} style={{fontSize:13,lineHeight:19}}>{line.product.name}: {line.packages.map(p=>`${p.count} × ${p.packageSize} ${line.unit??''}`).join(' + ')}</Txt>)}
           </View>)}
           <Txt style={{fontSize:12,lineHeight:18}}>{store.quote.ordersReason==='separate_dispatch'
-            ? tr('Produkty są w różnych oddziałach. Złóż dwa osobne zamówienia; każda dostawa została sprawdzona oddzielnie.', 'Products are stocked at different branches. Place two separate orders; each delivery was checked independently.')
+            ? tr('Produkty są w różnych oddziałach. Złóż wskazane powyżej zamówienia; każda dostawa została sprawdzona oddzielnie.', 'Products are stocked at different branches. Place the orders listed above; each delivery was checked independently.')
             : tr('Nie łącz tych pozycji w jeden koszyk sklepu — sklep może naliczyć wtedy droższy transport. Każde zamówienie ma osobno sprawdzoną dostawę.', 'Keep these as separate merchant orders; combining them may trigger a higher shipping fee. Delivery was checked separately for every order.')}</Txt>
         </View>}
       </View>}

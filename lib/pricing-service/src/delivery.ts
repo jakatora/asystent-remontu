@@ -73,7 +73,11 @@ export interface DeliveryStockLimit {
   postalCode: string; dispatchFrom: string;
   checkedAt: string; expiresAt: string; sourceUrl: string; evidenceSha256: string;
 }
-export type DeliveryQuoteResult = { quote: DeliveryQuote } | { reason: string; stockLimits?: DeliveryStockLimit[] };
+export type DeliveryQuoteResult = { quote: DeliveryQuote } | {
+  reason: string; stockLimits?: DeliveryStockLimit[];
+  /** Retailer-verified groups of exact offers that require separate branch carts. */
+  dispatchGroups?: { dispatchFrom: string; offerIds: string[] }[];
+};
 export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string) => Promise<DeliveryQuoteResult>;
 export interface DeliveryComparison {
   allowSeparateOrders?: boolean;

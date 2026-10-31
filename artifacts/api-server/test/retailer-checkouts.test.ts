@@ -28,7 +28,20 @@ test('Sewera identifies two verified dispatch branches before touching a cart',a
       packages:[{offerId:source.id,store:'Sewera',url:source.url,packageSize:source.packageSize,count:1,unitPriceGrosze:i===0?27989:6590,lineCostGrosze:i===0?27989:6590}]}))};
   let calls=0;
   const result=await quoteSewera(order,'00-001',async()=>{calls++;throw Error('unexpected network call');});
-  assert.deepEqual(result,{reason:'requires_separate_dispatch'});assert.equal(calls,0);
+  assert.deepEqual(result,{reason:'requires_separate_dispatch',dispatchGroups:[{dispatchFrom:'Tarnowskie Góry',offerIds:['sewera-dulux-9l']},{dispatchFrom:'Katowice',offerIds:['sewera-atlas-gta-18kg']}]});assert.equal(calls,0);
+});
+test('five exact Sewera lines form three verified branch carts before any checkout call',async()=>{
+  const ids=['sewera-rigips-paper-50x75','sewera-rigips-acoustic-50x30','sewera-dulux-9l','sewera-rigips-acoustic-30x30','sewera-atlas-gta-18kg'];
+  const prices=[2194,2925,27989,1834,6590];
+  const sources=ids.map(id=>RETAIL_SOURCES.find(source=>source.id===id)!);
+  const order:DeliveredStoreBasket={store:'Sewera',materialsGrosze:prices.reduce((sum,n)=>sum+n,0),deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:sources.map((source,i)=>({product:{id:source.id,name:source.name,imageUrl:null},unit:source.unit,packages:[{offerId:source.id,store:'Sewera',url:source.url,packageSize:source.packageSize,count:1,unitPriceGrosze:prices[i],lineCostGrosze:prices[i]}]}))};
+  let calls=0;
+  const result=await quoteSewera(order,'00-001',async()=>{calls++;throw Error('unexpected network call');});
+  assert.deepEqual(result,{reason:'requires_separate_dispatch',dispatchGroups:[
+    {dispatchFrom:'Sosnowiec',offerIds:['sewera-rigips-paper-50x75','sewera-rigips-acoustic-50x30','sewera-rigips-acoustic-30x30']},
+    {dispatchFrom:'Tarnowskie Góry',offerIds:['sewera-dulux-9l']},
+    {dispatchFrom:'Katowice',offerIds:['sewera-atlas-gta-18kg']},
+  ]});assert.equal(calls,0);
 });
 
 test('failed Sewera prefetch waits for active reads and stops starting new ones before releasing its quote',async()=>{

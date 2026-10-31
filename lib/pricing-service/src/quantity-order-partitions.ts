@@ -30,10 +30,11 @@ export function preservesOrderPackages(whole:DeliveredStoreBasket,parts:readonly
  * must independently confirm all of its packs and its own courier fee. There
  * is no combined-cart price to compare against in this case. */
 export async function combineRequiredSeparateOrders(whole:DeliveredStoreBasket,parts:QuotedOrder[],postcode:string):Promise<DeliveryQuote|null>{
- if(parts.length!==2||!parts.every(p=>currentDeliveryQuote(p.quote,postcode))||!preservesOrderPackages(whole,parts))return null;
- const [first,second]=parts.map(p=>p.quote);
- if(!first.dispatchFrom||!second.dispatchFrom||first.dispatchFrom===second.dispatchFrom||first.sourceUrl!==second.sourceUrl)return null;
- const costGrosze=first.costGrosze+second.costGrosze;
+ if(parts.length<2||parts.length>8||!parts.every(p=>currentDeliveryQuote(p.quote,postcode))||!preservesOrderPackages(whole,parts))return null;
+ const first=parts[0].quote;
+ if(whole.store!=='Sewera'||parts.some(p=>p.quote.sourceUrl!=='https://sklep.sewera.pl/zamowienie'||p.quote.basis!=='retailer_basket_postcode'||p.quote.destinationScope!=='postal_code'||p.quote.postalCode!==postcode||!p.quote.dispatchFrom)
+   ||new Set(parts.map(p=>p.quote.dispatchFrom)).size!==parts.length)return null;
+ const costGrosze=parts.reduce((sum,part)=>sum+part.quote.costGrosze,0);
  if(!Number.isSafeInteger(costGrosze))return null;
  const orders=parts.map(p=>({materialsGrosze:p.order.materialsGrosze,lines:p.order.lines,quote:p.quote}));
  const digest=await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({orders,postcode})));
