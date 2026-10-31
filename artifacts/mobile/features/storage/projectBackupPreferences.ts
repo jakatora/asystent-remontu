@@ -3,6 +3,7 @@ import {parseDoorSelection} from '../pricing/doorSelection';
 import {parseLaminateChoices} from '../pricing/laminateChoice';
 import {parseFoilChoices} from '../pricing/foilChoice';
 import {parseWashbasinChoices} from '../pricing/washbasinChoice';
+import {parseFlushBoxChoices} from '../pricing/flushBoxChoice';
 import {parseTileChoices} from '../pricing/tileChoice';
 import {parseTileAdhesiveChoices} from '../pricing/tileAdhesiveChoice';
 import {parsePriceSnapshot} from '../pricing/priceChanges';
@@ -20,6 +21,7 @@ export function validateBackupPreferences(backup:ProjectBackup):void{
       'remont.laminate-choice.v1:':parseLaminateChoices,'remont.foil-choice.v1:':parseFoilChoices,
       'remont.washbasin-choice.v1:':parseWashbasinChoices,'remont.tile-choice.v1:':parseTileChoices,
       'remont.tile-adhesive-choice.v1:':parseTileAdhesiveChoices,
+      'remont.flush-box-choice.v1:':parseFlushBoxChoices,
     };
     const prefix=Object.keys(choiceParsers).find(prefix=>key.startsWith(prefix));
     if(prefix){const parsed=choiceParsers[prefix](raw);if(value.version!==1||!Array.isArray(value.choices)||parsed.length!==value.choices.length)throw Error('backup_invalid_product_choice');continue;}

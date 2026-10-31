@@ -33,9 +33,10 @@ export type BackupRow=Record<string,string|number|null>;
 export const BACKUP_PREFERENCE_PREFIXES=[
   'remont.door-selection.v1:','remont.laminate-choice.v1:','remont.foil-choice.v1:',
   'remont.washbasin-choice.v1:','remont.tile-choice.v1:','remont.tile-adhesive-choice.v1:',
+  'remont.flush-box-choice.v1:',
   'remont.delivery.v2:','remont.price-seen.v1:',
 ] as const;
-export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket'] as const;
+export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket','remont.flush-box-choice.v1:renovation-basket'] as const;
 const tables=Object.keys(BACKUP_TABLES) as BackupTable[];
 const tableShape=Object.fromEntries(tables.map(table=>[table,z.array(BACKUP_TABLES[table]).max(10_000)]));
 const envelope=z.object({format:z.literal('asystent-remontu-projects'),version:z.literal(1),createdAt:time,tables:z.object(tableShape).strict(),preferences:z.record(z.string(),z.string().max(1_000_000))}).strict();

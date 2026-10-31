@@ -36,6 +36,7 @@ async function source(t:TestContext){
   await storage.setItem('remont.basket-extras.v1',JSON.stringify({version:1,items:[{id:'extra',kind:'custom',name:'Listwa',unit:'mb',quantity:3}]}));
   await storage.setItem('remont.price-seen.v1:room',JSON.stringify({version:1,offers:{}}));
   await storage.setItem('remont.laminate-choice.v1:room',JSON.stringify({version:1,choices:[{from:LAMINATE_PRODUCTS[0].id,to:LAMINATE_PRODUCTS[1].id}]}));
+  await storage.setItem('remont.flush-box-choice.v1:renovation-basket',JSON.stringify({version:1,choices:[{from:'mat-flush-box-elektroplast-pk60-10',to:'mat-epn-pk60-pro-0285-01'}]}));
   return result;
 }
 
@@ -45,6 +46,7 @@ test('real SQLite round trip retains all renovation records, owned/purchased fla
   const delivery=JSON.parse(backup.preferences['remont.delivery.v2:room']);assert.equal(delivery.settings.method,'automatic');assert.equal(delivery.settings.legacyFees,undefined);assert.equal(delivery.scope,undefined);
   const result=await importProjectBackup(backup,b.db,b.storage);assert.deepEqual(result,{projects:1,keptBasketSettings:false});
   const restored=await readProjectBackup(b.db,b.storage);assert.equal(canonical(restored.tables),canonical(backup.tables));assert.equal(canonical(restored.preferences),canonical(backup.preferences));
+  assert.deepEqual(JSON.parse(restored.preferences['remont.flush-box-choice.v1:renovation-basket']).choices,[{from:'mat-flush-box-elektroplast-pk60-10',to:'mat-epn-pk60-pro-0285-01'}]);
   assert.equal(restored.tables.shopping_items[0].owned,1);assert.equal(restored.tables.shopping_items[0].purchased,1);assert.equal(restored.tables.shopping_items[0].custom_quantity,3);
 });
 
