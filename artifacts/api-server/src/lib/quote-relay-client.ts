@@ -19,7 +19,15 @@ async function requestRelay(payload:unknown,fetchImpl:typeof fetch,secret:unknow
 export async function quoteThroughRelay(order:DeliveredStoreBasket,postalCode:string,fetchImpl:typeof fetch=fetch,secret=process.env.REMONT_QUOTE_RELAY_SECRET):Promise<DeliveryQuoteResult>{
  if(!['ABUD','ChemiaDoParkietu25'].includes(order.store)||!/^\d{2}-\d{3}$/.test(postalCode))throw Error('invalid_basket');
  const result=await requestRelay({version:1,action:'quote',basket:order,postalCode},fetchImpl,secret) as DeliveryQuoteResult;
- if('quote'in result){if(result.quote?.postalCode!==postalCode||result.quote?.destinationScope!=='postal_code'||!Number.isSafeInteger(result.quote.costGrosze)||result.quote.costGrosze<0||!Number.isFinite(Date.parse(result.quote.expiresAt))||Date.parse(result.quote.expiresAt)<=Date.now())throw Error('quote_unavailable');}
+ if('quote'in result){
+  const receipt=Date.now(),checked=Date.parse(result.quote?.checkedAt),expires=Date.parse(result.quote?.expiresAt),duration=expires-checked;
+  if(result.quote?.postalCode!==postalCode||result.quote?.destinationScope!=='postal_code'||!Number.isSafeInteger(result.quote.costGrosze)||result.quote.costGrosze<0||!Number.isFinite(checked)||!Number.isFinite(expires)||expires<=receipt||checked>receipt+5000||duration<=0||duration>600000)throw Error('quote_unavailable');
+  // Independent service clocks can differ by a few milliseconds. Anchor a
+  // slightly future check to the coordinator's receipt and shorten its expiry
+  // by the same amount. Never extend the merchant quote or loosen all stores'
+  // existing timestamp validation. The signed original is verified above.
+  if(checked>receipt){result.quote={...result.quote,checkedAt:new Date(receipt).toISOString(),expiresAt:new Date(expires-(checked-receipt)).toISOString()};}
+ }
  else if(typeof result.reason!=='string'||result.reason.length>80)throw Error('quote_unavailable');
  return result;
 }
