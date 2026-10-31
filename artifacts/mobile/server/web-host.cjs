@@ -5,7 +5,9 @@ const {createGzip}=require('node:zlib');
 const {pages,renderPage}=require('./web-pages.cjs');
 const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.wasm':'application/wasm','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.ico':'image/x-icon','.ttf':'font/ttf','.otf':'font/otf','.woff':'font/woff','.woff2':'font/woff2'};
 // source: https://docs.expo.dev/versions/v54.0.0/sdk/sqlite/#web-setup
-const HEADERS={'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'credentialless','X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin'};
+// Do not disclose project locations to external shops. Some reviewed product
+// photos (eWinyl) also reject an unrelated browser referrer with an HTML 403.
+const HEADERS={'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'credentialless','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
 
 function createWebServer({root=path.resolve(__dirname,'..','web-build')}={}){
   root=path.resolve(root);
