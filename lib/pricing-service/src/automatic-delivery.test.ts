@@ -64,6 +64,23 @@ test('automatic mode ignores old manual fees, blocks missing postcode, exposes u
   assert.equal((await compareAutomaticDelivery([await stage(10001)], {mode:'shipping',postalCode:'00-001'}, quote)).status,'limit_exceeded');
 });
 
+test('rejected stock, price or purchase rules stay visible without requesting delivery for an impossible order',async()=>{
+ for(const reason of ['product_unavailable','insufficient_stock','price_changed','purchase_rules_changed']){
+  const result=await compareAutomaticDelivery([await stage()],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>order.store==='B'?{reason}:known(order,postcode));
+  assert.equal(result.status,'compared',reason);assert.equal(result.best!.totalGrosze,1200);assert.deepEqual(result.best!.stores.map(s=>s.store),['A']);
+  assert.deepEqual(result.missingDeliveryStores,[]);assert.deepEqual(result.partiallyQuotedStores,[]);assert.deepEqual(result.unavailableStores,[{store:'B',reason}]);
+ }
+ const empty=await compareAutomaticDelivery([await stage()],{mode:'shipping',postalCode:'00-001'},async()=>({reason:'product_unavailable'}));assert.equal(empty.best,null);assert.equal(empty.status,'needs_delivery_costs');
+});
+
+test('rejecting one quantity never clears an unknown quote for a different surviving order from the same store',async()=>{
+ const result=await compareAutomaticDelivery([await stage()],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
+  if(order.store==='A')return known(order,postcode);
+  return{reason:order.lines[0].packages[0].count===2?'product_unavailable':'quote_unavailable'};
+ });
+ assert.equal(result.best!.totalGrosze,1200);assert.equal(result.status,'needs_delivery_costs');assert.deepEqual(result.missingDeliveryStores,['B']);
+});
+
 async function manyProducts(productCount: number, storeCount: number) {
   const template=await stage(1),line=template.lines[0];assert.ok(line.resolved);
   return {...template,lines:Array.from({length:productCount},(_,index)=>({...line,

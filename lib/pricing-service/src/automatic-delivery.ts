@@ -318,6 +318,7 @@ async function quoteAndRank(
   settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,
 ): Promise<DeliveryComparison> {
   const failures = new Map<string, string>((result.unavailableStores ?? []).map(item => [item.store,item.reason]));
+  const unavailableIntegrations=new Set(failures.keys());
   const invalidMaterialOrders = new Set<string>();
   // Quote a representative order from every store first. Full store baskets
   // get priority because their eligible couriers/thresholds can differ from
@@ -399,9 +400,15 @@ async function quoteAndRank(
     if (result.purchasePlan) result.purchasePlanBasis = 'fewest_unquoted_stores';
   }
   const quotedStores=new Set([...unique.values()].filter(o=>o.quote).map(o=>o.store));
-  result.missingDeliveryStores = [...failures.keys()].filter(store=>!quotedStores.has(store)).sort();
-  result.partiallyQuotedStores = [...failures.keys()].filter(store=>quotedStores.has(store)).sort();
+  // A native rejection of stock, price or purchase rules removes that exact
+  // material order above. It is not a delivery quote still needed for a viable
+  // basket. Keep the rejection visible, but let other complete confirmed
+  // baskets finish comparison. Network/unknown quotes on surviving plans still
+  // require delivery confirmation; failures are never cleared store-wide.
+  const unresolvedFailures=[...failures.keys()].filter(store=>unavailableIntegrations.has(store)||baskets.some(basket=>basket.stores.some(order=>order.store===store&&order.deliveryGrosze===null)));
+  result.missingDeliveryStores = unresolvedFailures.filter(store=>!quotedStores.has(store)).sort();
+  result.partiallyQuotedStores = unresolvedFailures.filter(store=>quotedStores.has(store)).sort();
   result.unavailableStores = [...failures].map(([store, reason]) => ({ store, reason, ...(quotedStores.has(store)?{partial:true}:{}) }));
-  result.status = result.best && !failures.size ? 'compared' : 'needs_delivery_costs';
+  result.status = result.best && !unresolvedFailures.length ? 'compared' : 'needs_delivery_costs';
   return result;
 }
