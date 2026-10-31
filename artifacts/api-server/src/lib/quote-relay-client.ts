@@ -3,7 +3,7 @@ import type {DeliveredStoreBasket,DeliveryQuoteResult} from '../../../../lib/pri
 import {QUOTE_RELAY_URL,relaySignature,relayDigest,relaySecretValid,equalSignature} from './quote-relay-auth';
 import type {RetailSource,RetailObservation} from './retail-pages';
 import {quotedMaterialsGrosze} from '../../../../lib/pricing-service/src/cart-pricing';
-export function quoteRelayEnabled(store:string){return process.env.REMONT_QUOTE_RELAY_MODE==='client'&&['ABUD','ChemiaDoParkietu25'].includes(store)&&relaySecretValid(process.env.REMONT_QUOTE_RELAY_SECRET);}
+export function quoteRelayEnabled(store:string){return process.env.REMONT_QUOTE_RELAY_MODE==='client'&&['ABUD','ChemiaDoParkietu25','eTak'].includes(store)&&relaySecretValid(process.env.REMONT_QUOTE_RELAY_SECRET);}
 /** Private signed transport between the existing API and web services. Only
  * merchant quote results are returned; the real merchant remains the source. */
 async function requestRelay(payload:unknown,fetchImpl:typeof fetch,secret:unknown):Promise<any>{
@@ -18,12 +18,13 @@ async function requestRelay(payload:unknown,fetchImpl:typeof fetch,secret:unknow
  return data.result;
 }
 export async function quoteThroughRelay(order:DeliveredStoreBasket,postalCode:string,fetchImpl:typeof fetch=fetch,secret=process.env.REMONT_QUOTE_RELAY_SECRET):Promise<DeliveryQuoteResult>{
- if(!['ABUD','ChemiaDoParkietu25'].includes(order.store)||!/^\d{2}-\d{3}$/.test(postalCode))throw Error('invalid_basket');
+ if(!['ABUD','ChemiaDoParkietu25','eTak'].includes(order.store)||!/^\d{2}-\d{3}$/.test(postalCode))throw Error('invalid_basket');
  const result=await requestRelay({version:1,action:'quote',basket:order,postalCode},fetchImpl,secret) as DeliveryQuoteResult;
  if('quote'in result){
   const receipt=Date.now(),checked=Date.parse(result.quote?.checkedAt),expires=Date.parse(result.quote?.expiresAt),duration=expires-checked;
   if(result.quote?.postalCode!==postalCode||result.quote?.destinationScope!=='postal_code'||!Number.isSafeInteger(result.quote.costGrosze)||result.quote.costGrosze<0||!Number.isFinite(checked)||!Number.isFinite(expires)||expires<=receipt||checked>receipt+5000||duration<=0||duration>600000)throw Error('quote_unavailable');
-  if(result.quote.cartPricing!==undefined&&quotedMaterialsGrosze(order,result.quote)===null)throw Error('quote_unavailable');
+  if((result.quote.cartPricing!==undefined||result.quote.materialsRoundingGrosze!==undefined)&&quotedMaterialsGrosze(order,result.quote)===null)throw Error('quote_unavailable');
+  if(order.store==='eTak'&&(result.quote.sourceUrl!=='https://etak.eu/pl/basketedit.html'||result.quote.basis!=='retailer_basket_postcode'||!Number.isSafeInteger(result.quote.materialsRoundingGrosze)||result.quote.cartPricing!==undefined))throw Error('quote_unavailable');
   // Independent service clocks can differ by a few milliseconds. Anchor a
   // slightly future check to the coordinator's receipt and shorten its expiry
   // by the same amount. Never extend the merchant quote or loosen all stores'
