@@ -1,0 +1,170 @@
+[
+  {
+    "sourceId": "prescot-wago-221415",
+    "item": {
+      "id": 9816,
+      "name": "ZŁĄCZKA WAGO 221-415 5X4mm LINKA/DRUT NO WA",
+      "can_buy": true,
+      "ean": "4055143234658",
+      "code": "221-415",
+      "package": "0",
+      "unit": {
+        "name": "szt.",
+        "floating_point": false
+      },
+      "rate": 0,
+      "votes": 0,
+      "stockId": 9824,
+      "url": "https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816",
+      "category": {
+        "name": "Złączki",
+        "id": 488
+      },
+      "availability": {
+        "name": "duża ilość"
+      },
+      "visibility": {
+        "status": 1,
+        "cart_status": 1,
+        "search_status": 1
+      },
+      "delivery": {
+        "name": "24 godziny",
+        "hours": "24"
+      },
+      "price": {
+        "gross": {
+          "base": "4,23 zł",
+          "base_float": 4.23,
+          "final": "4,23 zł",
+          "final_float": 4.23,
+          "historical_lowest_price": "3,95 zł",
+          "historical_lowest_price_float": 3.95
+        },
+        "net": {
+          "base": "3,44 zł",
+          "base_float": 3.44,
+          "final": "3,44 zł",
+          "final_float": 3.44,
+          "historical_lowest_price": "3,21 zł",
+          "historical_lowest_price_float": 3.21
+        }
+      },
+      "productExists30DaysBeforePromotion": false,
+      "weight": {
+        "weight_float": 0,
+        "weight": "0 kg"
+      },
+      "producer": {
+        "name": "WAGO ELWAG",
+        "id": 5108
+      },
+      "newProduct": false,
+      "shortDescription": "WA",
+      "main_image": "28797",
+      "main_image_filename": "28797.jpg",
+      "description": "<p>Złączka instalacyjna serii 221 renomowanej i cenionej przez instalatorów firmy WAGO. Złączki WAGO pozwalają na szybkie, bezproblemowe a co najważniejsze pewne podłączenie przewodów. Szybkozłączki WAGO serii 221 służą do podłączania sztywnych przewodów jednodrutowych o przekroju od 0,2mm2 do 4mm2. Zestaw zawiera: 25x Złączka Instalacyjna Szybkozłączka marki WAGO.</p>",
+      "images": [
+        "28797"
+      ],
+      "images_filename": [
+        "28797.jpg"
+      ],
+      "lowest_shipping_cost": {
+        "price": "0,00 zł",
+        "price_float": 0
+      },
+      "historical_lowest_price": "3,95 zł",
+      "net_historical_lowest_price": "3,21 zł",
+      "is_notification_enabled": false,
+      "gauge": {
+        "id": "4",
+        "name": "Drobnica"
+      }
+    }
+  },
+  {
+    "sourceId": "ehw-wago-221415-25",
+    "item": {
+      "id": 462,
+      "name": "WAGO 221-415 Złączka instalacyjna COMPACT do wszystkich rodzajów przewodów, transparentna opakowanie 25 szt.",
+      "can_buy": true,
+      "ean": "4055143234658",
+      "code": "WAGO-125138*25",
+      "package": "0",
+      "unit": {
+        "name": "szt.",
+        "floating_point": false
+      },
+      "rate": 0,
+      "votes": 0,
+      "stockId": 471,
+      "url": "https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm",
+      "category": {
+        "name": "Szybkozłączki i elementy łączeniowe",
+        "id": 97
+      },
+      "availability": {
+        "name": "dostępny"
+      },
+      "visibility": {
+        "status": 1,
+        "cart_status": 1,
+        "search_status": 1
+      },
+      "delivery": {
+        "name": "24 godziny",
+        "hours": "24"
+      },
+      "price": {
+        "gross": {
+          "base": "69,84 zł",
+          "base_float": 69.84,
+          "final": "69,84 zł",
+          "final_float": 69.84,
+          "historical_lowest_price": "61,92 zł",
+          "historical_lowest_price_float": 61.92
+        },
+        "net": {
+          "base": "56,78 zł",
+          "base_float": 56.78,
+          "final": "56,78 zł",
+          "final_float": 56.78,
+          "historical_lowest_price": "50,34 zł",
+          "historical_lowest_price_float": 50.34
+        }
+      },
+      "productExists30DaysBeforePromotion": false,
+      "weight": {
+        "weight_float": 0.05,
+        "weight": "0.05 kg"
+      },
+      "producer": {
+        "name": "WAGO",
+        "id": 30,
+        "img": "https://sklep.ehw.com.pl/userdata/public/producers/30.jpg"
+      },
+      "newProduct": false,
+      "shortDescription": "<p><strong class=\"product-name name-container pointer\">WAGO 221-415 Złączka instalacyjna COMPACT do wszystkich rodzajów przewodów, transparentna opakowanie 25 szt.</strong></p>",
+      "main_image": "857",
+      "main_image_filename": "857.jpg",
+      "description": "<ul>\n<li><strong>Producent: WAGO</strong></li>\n<li><strong>Kod producenta: 221-415</strong></li>\n<li><strong>Kod EAN: 4055143234658</strong></li>\n<li><strong>Napięcie znamionowe (II / 2): 450 V</strong></li>\n<li><strong>Napięcie znamionowe udarowe (II / 2): 4 kV</strong></li>\n<li><strong>Prąd znamionowy: 32 A</strong></li>\n<li><strong>Podłączenie przewodu: CAGE CLAMP®</strong></li>\n<li><strong>Rodzaj montażu: dźwignia</strong></li>\n<li><strong>Materiał podłączanego przewodu: miedź</strong></li>\n<li><strong>Przekrój nominalny: 4 mm²</strong></li>\n<li><strong>Przewód jednodrutowy: 0,2 - 4 mm² / 24</strong></li>\n<li><strong>Przewód wielodrutowy: 0,2 - 4 mm² / 24</strong></li>\n<li><strong>Przewód linkowy: 0,14 - 4 mm² / 24</strong></li>\n<li><strong>Dł. odizolowania przewodu: 11 mm</strong></li>\n<li><strong>Łączna liczba zacisków: 5</strong></li>\n<li><strong>Łączna liczba potencjałów: 1</strong></li>\n<li><strong>Szerokość: 1,177 mm</strong></li>\n<li><strong>Wysokość: 8,3 mm</strong></li>\n<li><strong>Głębokość: 18,6 mm</strong></li>\n<li><strong>Szerokość wtyku: 1,177 mm</strong></li>\n<li><strong>Kolor: transparentny</strong></li>\n<li><strong>Klasa palności zgodnie z UL 94: V2</strong></li>\n<li><strong>Obciążenie ogniowe: 0.074 MJ</strong></li>\n<li><strong>Ciężar: 4.048 g</strong></li>\n<li><strong>Temperatura dopuszczalna długotrwale do: - 105°C</strong></li>\n</ul>\n<div>\n<div><strong>Złączka instalacyjna z dźwignią do wszystkich rodzajów przewodów, maks. 4 mm², 5-przew., kolor obudowy przezroczysty, temperatura otoczenia maks. 85°C, (T85), 4,00 mm², transparentny.</strong></div>\n<div> </div>\n<div>\n<div><strong>Złączki są wysyłane w pełnych opakowaniach. </strong></div>\n<div><strong>Złączka 221-415 opakowanie 25 sztuk.</strong></div>\n</div>\n</div>",
+      "images": [
+        "857",
+        "858"
+      ],
+      "images_filename": [
+        "857.jpg",
+        "858.jpg"
+      ],
+      "lowest_shipping_cost": {
+        "price": "0,00 zł",
+        "price_float": 0
+      },
+      "historical_lowest_price": "61,92 zł",
+      "net_historical_lowest_price": "50,34 zł",
+      "is_notification_enabled": false,
+      "gauge": []
+    }
+  }
+]

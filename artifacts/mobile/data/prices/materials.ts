@@ -1,6 +1,10 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816
+  // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
+  {"id":"mat-wire-connector-wago-221-415","materialType":"wire-connector","productLabel":"Szybkozłączka WAGO 221-415 — 5-przewodowa, maks. 4 mm² (1 szt.)","brand":"WAGO","packageSize":1,"packageUnit":"szt","pricePerPackage":4.23,"category":"standard","storeName":"Prescot","sourceUrl":"https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 4055143234658. Osobny model 5-przewodowy; nie zastępuje automatycznie modeli 221-412 ani 221-413. Prescot sprzedaje na sztuki, Elektro-Hurt w pełnych opakowaniach po 25 sztuk. Aplikacja zaokrągla liczbę opakowań i sprawdza dostawę całego koszyka."},
+
   // source: https://hipper.pl/tasma-papierowa-z-wkladka-metalowa-50-mm-norgips-2682508803
   // source: https://norgips.pl/media/repository/0/306/47772594ab104a20ab31ac3f7ea22975/NORGIPS_PL_KT_akcesoria_tasma_papierow_784Tcv5.pdf
   {"id":"mat-gypsum-norgips-metal-paper-50x30","materialType":"drywall-accessory","productLabel":"Taśma papierowa Norgips z wkładką metalową 50 mm × 30 m","brand":"Norgips","packageSize":30,"packageUnit":"m","pricePerPackage":96.99,"category":"standard","storeName":"HIPPER","sourceUrl":"https://hipper.pl/tasma-papierowa-z-wkladka-metalowa-50-mm-norgips-2682508803","lastUpdated":"2026-10-31","currency":"PLN","notes":"EAN 5907651699940. Cena za jedną pełną rolkę 30 m; karton producenta nie jest obowiązkową jednostką zakupu. Do zbrojenia narożników wewnętrznych i zewnętrznych, zatapiana w systemowej masie. Nie zastępuje zwykłej taśmy papierowej do spoin ani uszczelnienia pod profil. Dostawę aplikacja sprawdza dla całego koszyka."},

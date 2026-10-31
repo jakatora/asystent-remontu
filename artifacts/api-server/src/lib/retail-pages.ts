@@ -322,6 +322,14 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  // This native Shoper "szt." is a sealed25-piece box, not one connector.
+  // The same manufacturer GTIN is also used by Prescot for individual pieces.
+  // source: https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm
+  if (source.id === 'ehw-wago-221415-25' && (source.store !== 'Elektro-Hurt'
+    || source.ean !== '4055143234658' || source.productId !== 462 || source.packageSize !== 25
+    || source.unit !== 'szt' || source.apiPurchaseUnit !== 'szt.' || source.retailerSku !== 'WAGO-125138*25'
+    || source.packageDescription !== 'Złączka 221-415 opakowanie 25 sztuk.'
+    || item.ean !== source.ean || item.name !== source.name || item.producer?.name !== 'WAGO')) throw Error('product_package_not_confirmed');
   // One native piece is the exact light-grey nine-panel box, covering2.5m².
   // Do not reuse this EAN/price for the dark, brown or natural variant.
   // source: https://liderzycen.pl/pl/p/Panele-podlogowe-winylowe-GoodHome-SPC-Arilla-Light-Grey-2%2C5-m2/33716

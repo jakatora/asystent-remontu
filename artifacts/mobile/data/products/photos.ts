@@ -12,6 +12,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816
+  // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
+  {"ids":["mat-wire-connector-wago-221-415"],"ean":"4055143234658","sourceUrl":"https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_28797_500_500/1.jpg"},
+
   // source: https://hipper.pl/tasma-papierowa-z-wkladka-metalowa-50-mm-norgips-2682508803
   // source: https://norgips.pl/media/repository/0/306/47772594ab104a20ab31ac3f7ea22975/NORGIPS_PL_KT_akcesoria_tasma_papierow_784Tcv5.pdf
   {"ids":["mat-gypsum-norgips-metal-paper-50x30"],"ean":"5907651699940","sourceUrl":"https://hipper.pl/tasma-papierowa-z-wkladka-metalowa-50-mm-norgips-2682508803","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|F2DBF33D-6B74-4EA1-96C8-6B552C5E2730|1/Taśma papierowa z wkładką metalową 50 mm Norgips.webp"},

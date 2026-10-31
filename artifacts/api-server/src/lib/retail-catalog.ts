@@ -1376,6 +1376,12 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {id:'ewinyl-orion514-4m',ean:'',name:'Wykładzina PCV Lentex Orion 514-05 — szerokość 4 m',brand:'Lentex',category:'vinyl-roll',packageSize:1,unit:'m2',store:'eWinyl',format:'ewinyl',productId:5329,skuIdentity:{kind:'merchant-only',catalogKey:'ewinyl-5329-4m',merchantProductId:'5329'},pickupRequiresConfirmation:true,variant:['514-05'],url:'https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/',imageUrl:'https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg'},
 
   ...AKS_CABLE_SOURCES,
+  // source: https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816
+  // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
+  {"id":"prescot-wago-221415","ean":"4055143234658","name":"ZŁĄCZKA WAGO 221-415 5X4mm LINKA/DRUT NO WA","brand":"WAGO ELWAG","category":"wire-connector","packageSize":1,"unit":"szt","store":"Prescot","format":"shoper-api","productId":9816,"apiProductCode":"221-415","retailerSku":"221-415","apiPurchaseUnit":"szt.","variant":["221-415"],"pickupRequiresConfirmation":true,"url":"https://www.prescot.com.pl/pl/p/ZLACZKA-WAGO-221-415-5X4mm-LINKADRUT-NO-WA/9816","imageUrl":"https://www.prescot.com.pl/environment/cache/images/productGfx_28797_500_500/1.jpg"},
+  // source: https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm
+  // source: https://www.wago.com/ca-fr/interconnexions-%C3%A9lectriques/221
+  {"id":"ehw-wago-221415-25","ean":"4055143234658","name":"WAGO 221-415 Złączka instalacyjna COMPACT do wszystkich rodzajów przewodów, transparentna opakowanie 25 szt.","brand":"WAGO","category":"wire-connector","packageSize":25,"unit":"szt","store":"Elektro-Hurt","format":"shoper-api","productId":462,"retailerSku":"WAGO-125138*25","apiPurchaseUnit":"szt.","variant":["221-415","25 szt."],"packageDescription":"Złączka 221-415 opakowanie 25 sztuk.","pickupRequiresConfirmation":true,"url":"https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm","imageUrl":"https://sklep.ehw.com.pl/environment/cache/images/productGfx_857_500_500/Szybkozlaczka-zlaczka-WAGO-221-415-5x4-mm-EAN-4055143234658.jpg"},
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
