@@ -47,3 +47,13 @@ test('changed cart quantities, units, currency, subtotal or absent/unexpected ra
  for(const mutation of[(data:any)=>data.shipping_rates=[],(data:any)=>data.shipping_rates[0].price=null,(data:any)=>data.shipping_rates[0].currency='EUR',(data:any)=>data.shipping_rates[0].name='Paczkomat',(data:any)=>data.shipping_rates.push(data.shipping_rates[0])])assert.deepEqual(await createRetailerQuoter(network((kind,data)=>{if(kind==='rates')mutation(data);}))(order,'30-001'),{reason:'no_home_delivery'});
  assert.deepEqual(await createRetailerQuoter(network((kind,data)=>{if(kind==='product')data.variants[1].price++;}))(order,'30-001'),{reason:'price_changed'});
 });
+
+test('simultaneous variant observations share one public card; private cart operations keep a separate session',async()=>{
+ const native=network(),calls:{path:string;method:string;cookie:string}[]=[],transport:typeof fetch=async(input,init)=>{calls.push({path:new URL(String(input)).pathname,method:init?.method??'GET',cookie:new Headers(init?.headers).get('cookie')??''});return native(input,init);};
+ const rows=await Promise.all(sources.filter(s=>s.ean==='3067088472737').map(s=>readDekorkProduct(s,transport)));assert.equal(rows.length,10);assert.equal(new Set(rows.map(row=>row.observedAt)).size,1);assert.equal(calls.length,3);assert.equal(calls.filter(c=>c.path.endsWith('.js')&&c.path.includes('/products/')).length,1);
+ const result=await createRetailerQuoter(transport)(basket([[57433631392075,1]]),'30-001');assert.ok('quote'in result);assert.equal(result.quote.costGrosze,1799);assert.equal(calls.filter(c=>c.path.startsWith('/products/')).length,2);assert.equal(calls.find(c=>c.path==='/cart/add.js')?.cookie,'');
+});
+
+test('a native 429 removes the failed public card and respects Retry-After without sending another immediate request',async()=>{
+ let calls=0;const transport:typeof fetch=async()=>{calls++;return new Response('rate limited',{status:429,headers:{'retry-after':'30'}});};await assert.rejects(readDekorkProduct(sources[0],transport),/retailer_unavailable/);await assert.rejects(readDekorkProduct(sources[1],transport),/retailer_rate_limited/);assert.equal(calls,1);
+});

@@ -5,6 +5,27 @@ import {AnonymousShop,MAX_RETAIL_PACKAGES,retailerRequestBudget} from './retaile
 import {htmlElements,htmlText} from './retail-microdata';
 
 const ORIGIN='https://dekork.pl';
+// One modest request stream per actual transport, shared by catalog refreshes
+// and quotes. Public product reads can be reused; personal/cart responses cannot.
+const transports=new WeakMap<typeof fetch,typeof fetch>();
+function limitedFetch(fetchImpl:typeof fetch):typeof fetch{
+ const existing=transports.get(fetchImpl);if(existing)return existing;
+ let tail=Promise.resolve(),nextAt=0,cooldownUntil=0;
+ const result:typeof fetch=async(input,init)=>{
+  if(new URL(String(input)).origin!==ORIGIN)throw Error('invalid_cart_route');
+  let unlock!:()=>void;const previous=tail;tail=new Promise<void>(resolve=>{unlock=resolve;});await previous;
+  try{
+   if(init?.signal?.aborted)throw init.signal.reason;
+   if(Date.now()<cooldownUntil)throw Error('retailer_rate_limited');
+   const wait=nextAt-Date.now();if(wait>0)await new Promise<void>((resolve,reject)=>{const signal=init?.signal,abort=()=>{clearTimeout(timer);reject(signal?.reason??Error('request_aborted'));},timer=setTimeout(()=>{signal?.removeEventListener('abort',abort);resolve();},wait);signal?.addEventListener('abort',abort,{once:true});});
+   if(init?.signal?.aborted)throw init.signal.reason;nextAt=Date.now()+500;
+   const response=await fetchImpl(input,init);
+   if(response.status===429){const value=response.headers.get('retry-after'),seconds=value&&/^\d+$/.test(value)?Number(value):null,date=value?Date.parse(value):NaN;cooldownUntil=seconds!==null&&Number.isSafeInteger(seconds)?Date.now()+Math.max(1000,seconds*1000):Number.isFinite(date)?Math.max(Date.now()+1000,date):Date.now()+30000;}
+   return response;
+  }finally{unlock();}
+ };transports.set(fetchImpl,result);return result;
+}
+const publicProducts=new WeakMap<typeof fetch,Map<string,{until:number;value:Promise<{raw:string;html:string;currency:string;observedAt:string}>}>>();
 // Reviewed Shopify variants. A multipack contains N sealed 6 m² packs of the
 // primary variant; its missing bundle GTIN is never presented as a new GTIN.
 // source: https://dekork.pl/collections/pod-lvt-spc
@@ -158,15 +179,19 @@ function confirmGross(html:string){
  const taxes=htmlElements(html,a=>a.class?.split(/\s+/).includes('product__tax')??false).map(htmlText);
  if(!taxes.some(text=>/Podatki są wliczone\./.test(text)))throw Error('retailer_gross_price_not_confirmed');
 }
-async function nativeProduct(client:AnonymousShop,source:RetailSource){
- const u=new URL(source.url),raw=await client.text(u.pathname+'.js'),html=await client.text(u.pathname+u.search);confirmGross(html);
- return{raw,html,item:confirmDekorkProduct(JSON.parse(raw),source)};
+async function nativeProduct(fetchImpl:typeof fetch,source:RetailSource){
+ if(!isReviewedDekorkSource(source))throw Error('product_source_not_reviewed');
+ let cache=publicProducts.get(fetchImpl);if(!cache){cache=new Map();publicProducts.set(fetchImpl,cache);}const key=new URL(source.url).pathname,now=Date.now();let row=cache.get(key);
+ if(!row||row.until<=now){
+  const value=(async()=>{const client=new AnonymousShop(ORIGIN,limitedFetch(fetchImpl),AbortSignal.timeout(12000)),raw=await client.text(key+'.js'),html=await client.text(key);confirmGross(html);const cart=JSON.parse(await client.text('/cart.js'));if(cart.currency!=='PLN'||!Array.isArray(cart.items)||cart.items.length!==0)throw Error('retailer_currency_not_confirmed');return{raw,html,currency:cart.currency,observedAt:new Date().toISOString()};})();
+  row={until:now+30000,value};cache.set(key,row);const entry=row;void value.catch(()=>{if(cache!.get(key)===entry)cache!.delete(key);});
+ }
+ const data=await row.value;return{...data,item:confirmDekorkProduct(JSON.parse(data.raw),source)};
 }
 export async function readDekorkProduct(source:RetailSource,fetchImpl:typeof fetch):Promise<RetailObservation>{
  if(!isReviewedDekorkSource(source))throw Error('product_source_not_reviewed');
- const client=new AnonymousShop(ORIGIN,fetchImpl,AbortSignal.timeout(12000)),{raw,html,item}=await nativeProduct(client,source),cart=JSON.parse(await client.text('/cart.js'));
- if(cart.currency!=='PLN')throw Error('retailer_currency_not_confirmed');
- return{sourceId:source.id,ean:source.ean,name:item.name,imageUrl:item.imageUrl,priceGrosze:item.priceGrosze,currency:'PLN',availability:'in_stock',observedAt:new Date().toISOString(),sourceUrl:source.url,evidenceSha256:createHash('sha256').update(JSON.stringify([raw,html,cart.currency])).digest('hex')};
+ const{raw,html,item,currency,observedAt}=await nativeProduct(fetchImpl,source);
+ return{sourceId:source.id,ean:source.ean,name:item.name,imageUrl:item.imageUrl,priceGrosze:item.priceGrosze,currency:'PLN',availability:'in_stock',observedAt,sourceUrl:source.url,evidenceSha256:createHash('sha256').update(JSON.stringify([raw,html,currency])).digest('hex')};
 }
 
 // Native Shopify postcode calculator; no contact data, agreement or order.
@@ -174,11 +199,11 @@ export async function readDekorkProduct(source:RetailSource,fetchImpl:typeof fet
 // source: https://dekork.pl/policies/shipping-policy (address delivery, prepaid)
 export async function quoteDekork(order:DeliveredStoreBasket,postalCode:string,fetchImpl:typeof fetch):Promise<DeliveryQuoteResult>{
  if(order.store!=='Dekork'||!/^\d{2}-\d{3}$/.test(postalCode))throw Error('invalid_basket');
- const client=new AnonymousShop(ORIGIN,fetchImpl,AbortSignal.timeout(12000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0))),expected=new Map<number,{count:number;price:number;productId:number;sku:string|null}>();
+ const client=new AnonymousShop(ORIGIN,limitedFetch(fetchImpl),AbortSignal.timeout(12000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0))),expected=new Map<number,{count:number;price:number;productId:number;sku:string|null}>();
  for(const line of order.lines)for(const pack of line.packages){
   const source=DEKORK_SOURCES.find(s=>s.id===pack.offerId);
   if(!source||line.unit!=='m2'||line.product.id!=='remont-'+source.ean||pack.store!=='Dekork'||pack.url!==source.url||pack.packageSize!==source.packageSize||!Number.isSafeInteger(pack.count)||pack.count<1||pack.count>MAX_RETAIL_PACKAGES||!Number.isSafeInteger(pack.count*pack.unitPriceGrosze))throw Error('invalid_basket');
-  const{item}=await nativeProduct(client,source);if(item.priceGrosze!==pack.unitPriceGrosze)throw Error('price_changed');if(expected.has(item.variantId))throw Error('invalid_basket');
+  const{item}=await nativeProduct(fetchImpl,source);if(item.priceGrosze!==pack.unitPriceGrosze)throw Error('price_changed');if(expected.has(item.variantId))throw Error('invalid_basket');
   expected.set(item.variantId,{count:pack.count,price:item.priceGrosze,productId:source.productId!,sku:source.apiProductCode??null});await client.text('/cart/add.js',{id:String(item.variantId),quantity:String(pack.count)});
  }
  if(!expected.size)throw Error('invalid_basket');const cart=JSON.parse(await client.text('/cart.js'));
