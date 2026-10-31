@@ -11,6 +11,7 @@ import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
 import { APP_CONFIG } from '@/config/contact';
 import { LANGUAGES } from '@/constants/translations';
+import {useRouter,type Href} from 'expo-router';
 
 interface SettingRowProps {
   icon: string;
@@ -136,6 +137,7 @@ function LanguageRow({
 }
 
 export default function SettingsScreen() {
+  const router=useRouter();
   const insets = useSafeAreaInsets();
   const { projects, refreshProjects } = useApp();
   const { t, language, setLanguage } = useLanguage();
@@ -251,6 +253,7 @@ export default function SettingsScreen() {
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
           />
+          {Platform.OS==='web'&&<><SettingDivider/><SettingRow icon="download" title={language==='pl'?'Kopia i przenoszenie projektów':'Back up and transfer projects'} subtitle={language==='pl'?'Pobierz plik lub wczytaj remont z innej przeglądarki':'Download a file or import a renovation from another browser'} onPress={()=>router.push('/project-backup' as Href)}/></>}
           <SettingDivider />
           <SettingRow
             icon="shield"

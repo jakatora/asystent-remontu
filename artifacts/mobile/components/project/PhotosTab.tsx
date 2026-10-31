@@ -42,7 +42,10 @@ export function PhotosTab({ photos, onAddPhotoMenu, onDeletePhoto }: PhotosTabPr
               </View>
               <TouchableOpacity
                 onPress={() => onAddPhotoMenu(type)}
+                accessibilityRole="button"
+                accessibilityLabel={`${t('cmp.PhotosTab.add')}: ${PHOTO_TYPE_LABELS[type]}`}
                 style={{
+                  minHeight:44,
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: 4,

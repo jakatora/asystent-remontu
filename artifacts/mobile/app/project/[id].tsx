@@ -11,6 +11,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { getJobById } from '@/data/jobs';
 import { computePricedBudget } from '@/features/pricing';
 import { ProjectPurchaseSummary } from '@/components/project/ProjectPurchaseSummary';
+import {makePortableProjectPhoto} from '@/features/storage/projectBackupFiles';
 import type { PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
 import { requiresCurrentShoppingQuantity, shoppingQuantityAction } from '@/features/pricing/projectShoppingInput';
 import { Txt } from '@/components/ui/Txt';
@@ -86,6 +87,7 @@ export default function ProjectDetailScreen() {
   const [editPrice, setEditPrice] = useState('');
   const [editQty, setEditQty] = useState('');
   const [photos, setPhotos] = useState<import('@/types/domain').ProjectPhoto[]>([]);
+  const [photoSaveFailed,setPhotoSaveFailed]=useState(false);
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const [checklistProgress, setChecklistProgress] = useState({ completed: 0, total: 0 });
   const [activities, setActivities] = useState<import('@/types/domain').ProjectActivity[]>([]);
@@ -272,6 +274,7 @@ export default function ProjectDetailScreen() {
 
   const handlePickPhoto = async (photoType: PhotoType) => {
     if (!project) return;
+    setPhotoSaveFailed(false);
     try {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -284,9 +287,10 @@ export default function ProjectDetailScreen() {
         allowsMultipleSelection: false,
       });
       if (result.canceled || !result.assets?.[0]) return;
-      await addPhoto({ projectId: project.id, uri: result.assets[0].uri, photoType });
+      await addPhoto({ projectId: project.id, uri: await makePortableProjectPhoto(result.assets[0].uri), photoType });
       await loadAll();
     } catch (err) {
+      setPhotoSaveFailed(true);
       console.error('[Photos] pick error:', err);
     }
   };
@@ -320,6 +324,9 @@ export default function ProjectDetailScreen() {
   };
 
   const handleAddPhotoMenu = (photoType: PhotoType) => {
+    // Native Alert menus are not rendered by React Native Web. Open the file
+    // picker directly from the user's click; persist its bytes, not a blob URL.
+    if(Platform.OS==='web'){void handlePickPhoto(photoType);return;}
     Alert.alert(t('project.detail.addPhotoTitle'), t('project.detail.addPhotoBody', { type: PHOTO_TYPE_LABELS[photoType] }), [
       { text: t('project.detail.addPhotoCamera'), onPress: () => handleTakePhoto(photoType) },
       { text: t('project.detail.addPhotoGallery'), onPress: () => handlePickPhoto(photoType) },
@@ -560,11 +567,14 @@ export default function ProjectDetailScreen() {
         )}
 
         {tab === 'photos' && (
+          <View style={{gap:12}}>
+          {photoSaveFailed&&<Txt accessibilityRole="alert" style={{color:Colors.danger}}>{language==='pl'?'Nie udało się zapisać zdjęcia. Wybierz plik JPG, PNG lub WebP do 20 MB i spróbuj ponownie.':'The photo could not be saved. Choose a JPG, PNG or WebP file up to 20 MB and try again.'}</Txt>}
           <PhotosTab
             photos={photos}
             onAddPhotoMenu={handleAddPhotoMenu}
             onDeletePhoto={handleDeletePhoto}
           />
+          </View>
         )}
       </ScrollView>
     </>
