@@ -7,15 +7,18 @@ import {readRetailSource} from './retail-pages';
 import {createRetailerQuoter} from './retailer-delivery';
 import type {DeliveredStoreBasket} from '../../../../lib/pricing-service/src/delivery';
 
+const sources163=fixtures.cards.flatMap(card=>MAPEI_SUPPLY_SOURCES.filter(source=>source.id===card.sourceId));
+assert.equal(sources163.length,4);
+
 test('native cards identify whole Primer G Pro 10/20 litre cans and Mapegum 3/20 kg buckets',async()=>{
-  for(const source of MAPEI_SUPPLY_SOURCES){const fixture=fixtures.cards.find(c=>c.sourceId===source.id)!;
+  for(const source of sources163){const fixture=fixtures.cards.find(c=>c.sourceId===source.id)!;
     const result=await readRetailSource(source,async()=>Response.json(fixture.item));
     assert.equal(result.ean,source.ean);assert.equal(result.priceGrosze,fixture.priceGrosze);
   }
 });
 
 test('different GTINs, purchase units, brands, product cards and multi-packs cannot be verified',async()=>{
-  for(const source of MAPEI_SUPPLY_SOURCES){const fixture=fixtures.cards.find(c=>c.sourceId===source.id)!;
+  for(const source of sources163){const fixture=fixtures.cards.find(c=>c.sourceId===source.id)!;
     for(const change of [{ean:'8022452002571'},{ean:''},{code:'other'},{id:1},{name:'Primer G 10 kg'},{url:'https://www.rabdom.pl/pl/p/other/1'},
       {package:'12'},{package:0},{unit:{name:'l',floating_point:true}},{unit:{name:'szt.',floating_point:true}},
       {producer:{name:'Mapei',id:8}},{producer:{name:'other',id:57}}])

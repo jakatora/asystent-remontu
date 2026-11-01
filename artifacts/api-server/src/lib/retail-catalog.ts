@@ -8,6 +8,10 @@ import {MAPEI_SUPPLY_SOURCES} from './mapei-supplies';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751
+  {"id":"sewera-mapegum-wps-5kg","ean":"8022452242489","name":"Folia w płynie Mapegum WPS 5kg Mapei","brand":"Mapei","category":"waterproofing","packageSize":5,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17476_500_500/Zrzut-ekranu-2022-02-12-091101.webp","pickupRequiresConfirmation":true},
+  // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-10kg-mapei-p7754
+  {"id":"sewera-mapegum-wps-10kg","ean":"8022452242496","name":"Folia w płynie Mapegum WPS 10kg Mapei","brand":"Mapei","category":"waterproofing","packageSize":10,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-10kg-mapei-p7754","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17480_500_500/mapei-mapegum-wps-10kg-folia-w-plynie.webp","pickupRequiresConfirmation":true},
   ...MAPEI_SUPPLY_SOURCES,
   ...NORGIPS_JOINT_TAPE_SOURCES,
   // source: https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504
@@ -1392,6 +1396,10 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906
+  "Mapei Mapegum WPS — folia w płynie 5 kg (124805PL)": "8022452242489",
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873
+  "Mapei Mapegum WPS — folia w płynie 10 kg (124810PL)": "8022452242496",
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704
   "Mapei Primer G Pro — koncentrat gruntujący 10 l": "8022452241147",
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828

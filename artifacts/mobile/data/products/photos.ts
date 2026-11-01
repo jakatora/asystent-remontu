@@ -12,6 +12,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906
+  {"ids":["mat-mapegum-wps-5kg-124805pl"],"ean":"8022452242489","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17476_500_500/Zrzut-ekranu-2022-02-12-091101.webp"},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873
+  {"ids":["mat-mapegum-wps-10kg-124810pl"],"ean":"8022452242496","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17480_500_500/mapei-mapegum-wps-10kg-folia-w-plynie.webp"},
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704
   {"ids":["mat-primer-g-pro-10l"],"ean":"8022452241147","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_38733_500_500/primer-g-10l.webp"},
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828

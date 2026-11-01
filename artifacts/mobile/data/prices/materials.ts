@@ -1,6 +1,12 @@
 import type { MaterialPriceReference } from '@/types/pricing';
 
 export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906
+  // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751
+  {"id":"mat-mapegum-wps-5kg-124805pl","materialType":"waterproofing","productLabel":"Mapei Mapegum WPS — folia w płynie 5 kg (124805PL)","brand":"Mapei","packageSize":5,"packageUnit":"kg","pricePerPackage":112.9,"category":"standard","storeName":"Rab-Dom","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906","lastUpdated":"2026-11-01","currency":"PLN","notes":"Cena za całe wiadro 5 kg. Kod EAN 8022452242489; odrębny wariant wobec wcześniejszej referencji z innym EAN. Nie zastępujemy produktu w zapisanych projektach. Dostawę sprawdzamy dla pełnego koszyka."},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873
+  // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-10kg-mapei-p7754
+  {"id":"mat-mapegum-wps-10kg-124810pl","materialType":"waterproofing","productLabel":"Mapei Mapegum WPS — folia w płynie 10 kg (124810PL)","brand":"Mapei","packageSize":10,"packageUnit":"kg","pricePerPackage":199.9,"category":"standard","storeName":"Rab-Dom","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873","lastUpdated":"2026-11-01","currency":"PLN","notes":"Cena za całe wiadro 10 kg. Kod EAN 8022452242496; odrębny wariant wobec wcześniejszej referencji z innym EAN. Nie zastępujemy produktu w zapisanych projektach. Dostawę sprawdzamy dla pełnego koszyka."},
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704
   {"id":"mat-primer-g-pro-10l","materialType":"primer","productLabel":"Mapei Primer G Pro — koncentrat gruntujący 10 l","brand":"Mapei","packageSize":10,"packageUnit":"l","pricePerPackage":139.9,"category":"standard","storeName":"Rab-Dom","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704","lastUpdated":"2026-11-01","currency":"PLN","notes":"Koncentrat w litrach; woda do rozcieńczenia nie jest kupowanym gruntem. Opakowanie 10 lub 20 l wybierasz osobno. Waga transportowa sklepu nie zmienia pojemności kanistra. Dobierz stężenie do podłoża zgodnie z kartą producenta."},
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828
