@@ -41,8 +41,8 @@ test('exact unresolved name/category identity also prevents silently quoting onl
 test('new native stock limit keeps the subset unquoted rather than silently clamping its purchase quantity',async()=>{
  const input=await stage([['p1',20],['missing',1]]);let calls=0;
  const r=await compareDeliveryWithAvailablePart([input],settings,async(order,postalCode)=>{
-  calls++;const pack=order.lines[0].packages[0];assert.equal(pack.count,2);
-  return{reason:'insufficient_stock',stockLimits:[{offerId:pack.offerId,store:'A',productId:'p1',productName:'p1',maxPackages:1,requestedPackages:2,unitPriceGrosze:1000,postalCode,dispatchFrom:'Warehouse',checkedAt:new Date().toISOString(),expiresAt:new Date(Date.now()+600000).toISOString(),sourceUrl:'https://example.org/basket',evidenceSha256:'a'.repeat(64)}]};
+  calls++;const pack=order.lines[0].packages[0],checked=Date.now();assert.equal(pack.count,2);
+  return{reason:'insufficient_stock',stockLimits:[{offerId:pack.offerId,store:'A',productId:'p1',productName:'p1',maxPackages:1,requestedPackages:2,unitPriceGrosze:1000,postalCode,dispatchFrom:'Warehouse',checkedAt:new Date(checked).toISOString(),expiresAt:new Date(checked+600000).toISOString(),sourceUrl:'https://example.org/basket',evidenceSha256:'a'.repeat(64)}]};
  },[],new Date(),{},'A');
  assert.equal(calls,1);assert.equal(r.availablePart?.basket,null);assert.equal(r.availablePart?.unavailableReason,'insufficient_stock');assert.equal(r.stockLimits?.[0].maxPackages,1);assert.equal(r.best,null);
 });
