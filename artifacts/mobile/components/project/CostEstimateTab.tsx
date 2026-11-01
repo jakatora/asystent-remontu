@@ -8,6 +8,8 @@ import {formatPackageSize,formatPackageUnit,formatPurchase} from '@/features/pri
 import { PriceVerificationNotice } from './PriceVerificationNotice';
 import { getProductPhoto } from '@/data/products/photos';
 import { DeliveryComparisonSection } from './DeliveryComparisonSection';
+import { MaterialStockSection } from './MaterialStockSection';
+import { useMaterialStock } from '@/features/pricing/useMaterialStock';
 import { DeliverySettingsForm } from './DeliverySettingsForm';
 import { StoreChoiceSection } from './StoreChoiceSection';
 import { DoorSelectionSection } from './DoorSelectionSection';
@@ -128,11 +130,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const selectedProducts = useMemo(() => applyTileChoices(baseProducts, tiles.choices), [baseProducts, tiles.choices]);
   const adhesiveReferences = useMemo(() => tileAdhesiveRequirements(selectedProducts), [selectedProducts]);
   const adhesives = useTileAdhesiveChoices(projectId, adhesiveReferences.length > 0);
+  const stockEnabled = !stages && Boolean(calc && projectId);
+  const stock = useMaterialStock(projectId, stockEnabled);
   const pending = useMemo(() => {
     const chosen = applyTileAdhesiveChoices(selectedProducts, adhesives.choices, tiles.choices);
-    return applyShoppingContexts(chosen, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : []));
-  }, [selectedProducts, adhesives.choices, tiles.choices, rawInput, shoppingContexts, stages, calc, projectId, shoppingItems]);
-  const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput]);
+    return applyShoppingContexts(chosen, shoppingContexts ?? (!stages && calc && projectId ? [{ projectId, calc, original: rawInput[0], items: shoppingItems ?? [], materialStock: stock.entries }] : []));
+  }, [selectedProducts, adhesives.choices, tiles.choices, rawInput, shoppingContexts, stages, calc, projectId, shoppingItems, stock.entries]);
+  const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems, materialStock: stock.entries }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput, stock.entries]);
   const input = pending.stages;
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const lastEstimateHeight = useRef(0);
@@ -153,7 +157,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const requestVersion = useRef(0);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
-  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, boxSelectionReady]);
+  const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, boxSelectionReady, stock.ready, stock.readFailed]);
   const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
@@ -199,7 +203,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
-    if (pendingDestination || !boxSelectionReady) return;
+    if (pendingDestination || !boxSelectionReady || !stock.ready || stock.readFailed) return;
     if (!hasInput || !shoppingReady || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed || !adhesives.ready || adhesives.readFailed) return;
     const version = ++requestVersion.current;
     if (!input.some(stage => stage.materials.length > 0)) {
@@ -249,7 +253,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           : t('cmp.CostEstimate.errorNetwork');
       if (version === requestVersion.current) { setRefreshing(false); setState({ status: 'error', message, retryAt: err instanceof ApiError ? err.retryAt : null }); }
     }
-  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, onPurchaseSnapshot, pendingDestination, boxSelectionReady]);
+  }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, onPurchaseSnapshot, pendingDestination, boxSelectionReady, stock.ready, stock.readFailed]);
 
   useEffect(() => {
     if (hasInput && isPricingApiConfigured) void fetchEstimate();
@@ -260,7 +264,10 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     return <InfoState icon="dollar-sign" text={t('cmp.CostEstimate.noCalc')} />;
   }
   if (!shoppingReady) return <InfoState icon="shopping-cart" text={language === 'pl' ? 'Odczytujemy listę zakupów przed wyceną pozostałych materiałów.' : 'Reading the shopping list before quoting remaining materials.'} />;
-  if (!input.some(stage => stage.materials.length > 0)) return <InfoState icon="check-circle" text={language === 'pl' ? 'Nie ma materiałów do dokupienia z tej listy. Narzędzia i robociznę sprawdź osobno.' : 'No materials remain to buy from this list. Check tools and labour separately.'} />;
+  if (!input.some(stage => stage.materials.length > 0)) return <View style={{gap:16}}>
+    {stockEnabled && <MaterialStockSection key={projectId} requirements={pending.stockRequirements} entries={stock.entries} ready={stock.ready} readFailed={stock.readFailed} saveFailed={stock.saveFailed} saving={stock.saving} onChange={stock.onChange} onRetry={stock.onRetry} />}
+    <InfoState icon="check-circle" text={language === 'pl' ? 'Nie ma materiałów do dokupienia z tej listy. Narzędzia i robociznę sprawdź osobno.' : 'No materials remain to buy from this list. Check tools and labour separately.'} />
+  </View>;
 
   if (!isPricingApiConfigured) {
     return <InfoState icon="wifi-off" text={t('upgrade.compare.noApi')} />;
@@ -282,8 +289,10 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
 
       {shoppingItems && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Porównanie obejmuje materiały pozostałe do kupienia, z uwzględnieniem oznaczeń „Mam” i „Kupione” oraz dodatkowych pozycji z Zakupów.' : 'This comparison covers remaining materials, accounting for owned and purchased items and additional shopping rows.'}</Txt>}
       {pending.excluded > 0 && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? `Posiadane lub kupione pozycje pokrywające wybrane produkty: ${pending.excluded}.` : `Owned or purchased items covering the selected products: ${pending.excluded}.`}</Txt>}
+      {stockEnabled && <MaterialStockSection key={projectId} requirements={pending.stockRequirements} entries={stock.entries} ready={stock.ready} readFailed={stock.readFailed} saveFailed={stock.saveFailed} saving={stock.saving} onChange={stock.onChange} onRetry={stock.onRetry} />}
+      {pending.stockAdjustments.map((row,index) => <View key={`${index}:${row.materialId}`} style={{ padding: 10, gap: 4, borderRadius: 10, backgroundColor: Colors.successBg }}><Txt w="semibold" style={{fontSize:13}}>{row.name}</Txt><Txt style={{fontSize:13,lineHeight:20}}>{language === 'pl' ? `Zapas uwzględniony: ${formatPackageSize(row.coveredQuantity,language)} ${row.unit}. Pozostało do kupienia: ${formatPackageSize(row.remainingQuantity,language)} ${row.unit}.` : `Stock included: ${formatPackageSize(row.coveredQuantity,language)} ${row.unit}. Remaining to buy: ${formatPackageSize(row.remainingQuantity,language)} ${row.unit}.`}</Txt></View>)}
       {(panels.choices.length > 0 || foils.choices.length > 0 || washbasins.choices.length > 0 || tiles.choices.length > 0 || adhesives.choices.length > 0) && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Po zmianie produktu sprawdzamy ponownie posiadane materiały i potrzebne ilości. Oznaczenie poprzedniego modelu nie usuwa nowego produktu z koszyka.' : 'After a product change we recheck ownership and required quantities. Marks for an earlier model do not exclude the new product.'}</Txt>}
-      {!stages && calc?.jobId === 'floor-tiles' && selectedStore === null && <FloorKitSection candidates={kitCandidates} scope={JSON.stringify([scope, delivery])} ready={loadedScope === scope && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} settings={delivery} onSettings={settings => {
+      {!stages && calc?.jobId === 'floor-tiles' && selectedStore === null && <FloorKitSection candidates={kitCandidates} scope={JSON.stringify([scope, delivery])} ready={loadedScope === scope && stock.ready && !stock.readFailed && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} settings={delivery} onSettings={settings => {
         requestVersion.current++;
         deliveryRef.current = settings; setDelivery(settings); setState({ status: 'loading' }); setSaveFailed(false);
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
@@ -292,7 +301,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       }} />}
       {state.status === 'idle' && shoppingReady && input.length > 0 && input.every(stage => stage.materials.length === 0) && <Txt w="semibold">{language === 'pl' ? 'Wybrane materiały są już posiadane lub kupione. Możesz zmienić produkt poniżej, aby porównać inny model.' : 'Selected materials are already owned or purchased. You can choose a different product below to compare another model.'}</Txt>}
 
-      {!stages && projectId && calc?.jobId === CABINET_JOB && <CabinetPreparationSection projectId={projectId} calc={calc} items={shoppingItems ?? []} tier={qualityTier === 'custom' ? 'standard' : qualityTier} region={region} store={selectedStore} settings={delivery} ready={loadedScope === scope && shoppingReady && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} onSettings={settings => {
+      {!stages && projectId && calc?.jobId === CABINET_JOB && <CabinetPreparationSection projectId={projectId} calc={calc} items={shoppingItems ?? []} materialStock={stock.entries} tier={qualityTier === 'custom' ? 'standard' : qualityTier} region={region} store={selectedStore} settings={delivery} ready={loadedScope === scope && stock.ready && !stock.readFailed && shoppingReady && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} onSettings={settings => {
         requestVersion.current++;
         deliveryRef.current = settings; setDelivery(settings); setState({ status: 'loading' }); setSaveFailed(false);
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
@@ -380,11 +389,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </View>
       )}
 
-      {!pendingDestination && boxSelectionReady && refreshing && state.status === 'success' && loadedScope === scope && <View accessibilityRole="alert" style={{flexDirection:'row',alignItems:'center',gap:10,padding:14,borderRadius:12,backgroundColor:Colors.warningBg}}>
+      {!pendingDestination && boxSelectionReady && stock.ready && !stock.readFailed && refreshing && state.status === 'success' && loadedScope === scope && <View accessibilityRole="alert" style={{flexDirection:'row',alignItems:'center',gap:10,padding:14,borderRadius:12,backgroundColor:Colors.warningBg}}>
         <ActivityIndicator size="small" color={Colors.primary} />
         <Txt style={{flex:1,fontSize:14,lineHeight:20,color:Colors.text}}>{language==='pl'?'Sprawdzamy aktualne ceny i dostawę. Poniżej jest poprzednia wycena; aktualny koszt zakupów potwierdzimy po sprawdzeniu.':'Checking current prices and delivery. The previous quote is shown below; we will confirm the current purchase cost after the check.'}</Txt>
       </View>}
-      {!pendingDestination && boxSelectionReady && state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
+      {!pendingDestination && boxSelectionReady && stock.ready && !stock.readFailed && state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
         <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={applyDelivery} /></PriceChangesProvider>
       )}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano wyboru sklepu lub dostawy. Sprawdź ustawienia po ponownym otwarciu projektu.' : 'The store or delivery preference could not be saved. Check the settings when reopening the project.'}</Txt>}

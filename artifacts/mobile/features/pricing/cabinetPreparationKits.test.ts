@@ -9,6 +9,7 @@ import { cabinetPreparationKits, cabinetCalculationKey, deliveredCabinetPreparat
 import { buildRenovationBasket } from './renovationBasket';
 import { deliveredKitRecheckAt } from './deliveredKit';
 import type { SerializedProject } from './pricingApi';
+import {materialStockRequirements} from './materialStock';
 import fixture from './fixtures/cabinet-preparation-delivered.json';
 
 const measurements = { cabinetSurface: 1, cabinetPaintPack: 3, cabinetArea: 10, cabinetCoats: 2, cabinetCoverage: 12, cabinetReservePercent: 10, cabinetPreparation: 2, cabinetP240Sheets: 4, cabinetSolventBottles: 1 };
@@ -16,6 +17,18 @@ const calc = (patch: Record<string, number> = {}) => calculateMaterials(getJobBy
 const settings = { mode: 'shipping' as const, postalCode: '00-001', allowSeparateOrders: true };
 const actual = (name: string) => structuredClone(fixture.cases.find(c => c.name === name)!.data) as unknown as SerializedProject;
 const project = (): Project => ({ id: 'c86', name: 'Fronty', roomName: 'Kuchnia', jobId: CABINET_JOB, jobName: 'Fronty', categoryId: 'kitchen-tiles', measurements, calculationResult: calc(), status: 'planning', createdAt: '', updatedAt: '' });
+
+test('preparation alternatives deduct the allocated paint once while a different preparation product retains its own demand',()=>{
+ const c=calc({cabinetPaintPack:1}),before=cabinetPreparationKits(c,'c86'),requirements=materialStockRequirements(before[0].stages);
+ const paint=requirements.find(row=>row.materialId==='cabinet-paint')!;assert.ok(paint);
+ const {requiredQuantity,...identity}=paint,stock=[{...identity,quantity:500}];
+ const after=cabinetPreparationKits(c,'c86',[],'standard',stock);
+ for(let i=0;i<after.length;i++){
+  const oldPaint=before[i].stages[0].materials.find(row=>row.material.id==='cabinet-paint')!,newPaint=after[i].stages[0].materials.find(row=>row.material.id==='cabinet-paint')!;
+  assert.ok(Math.abs(newPaint.quantity-(oldPaint.quantity-500))<1e-8);
+  assert.deepEqual(after[i].stages[0].materials.filter(row=>row.material.id!=='cabinet-paint'),before[i].stages[0].materials.filter(row=>row.material.id!=='cabinet-paint'));
+ }
+});
 
 test('two preparation previews preserve the real paint demand, sheet and bottle counts without changing the saved calculation', () => {
   const c = calc(), before = JSON.stringify(c);

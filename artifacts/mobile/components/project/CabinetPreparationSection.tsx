@@ -13,11 +13,13 @@ import { cabinetPreparationKits, deliveredCabinetPreparation, projectWithCabinet
 import { deliveredKitRecheckAt } from '@/features/pricing/deliveredKit';
 import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 import { ProductImage } from './ProductImage';
+import type { MaterialStockEntry } from '@/features/pricing/materialStock';
 
 interface Props {
   projectId: string;
   calc: CalculationResult;
   items: readonly ShoppingItem[];
+  materialStock?: readonly MaterialStockEntry[];
   tier: MaterialCategory;
   region?: string;
   store: string | null;
@@ -27,11 +29,11 @@ interface Props {
 }
 type Row = { preparation: number; data: SerializedProject | null };
 
-export function CabinetPreparationSection({ projectId, calc, items, tier, region, store, settings, ready, onSettings }: Props) {
+export function CabinetPreparationSection({ projectId, calc, items, materialStock, tier, region, store, settings, ready, onSettings }: Props) {
   const { projects, updateProject, logActivity } = useApp(), { language } = useLanguage(), pl = language === 'pl';
   const { width } = useWindowDimensions();
-  const kits = useMemo(() => cabinetPreparationKits(calc, projectId, items, tier), [calc, projectId, items, tier]);
-  const scope = JSON.stringify([projectId, calc, items, tier, region, store, settings, ready]);
+  const kits = useMemo(() => cabinetPreparationKits(calc, projectId, items, tier, materialStock), [calc, projectId, items, tier, materialStock]);
+  const scope = JSON.stringify([projectId, calc, items, materialStock, tier, region, store, settings, ready]);
   const [open, setOpen] = useState(false), [checking, setChecking] = useState(false), [saving, setSaving] = useState(false);
   const [postcode, setPostcode] = useState(settings.postalCode ?? '');
   const [result, setResult] = useState<{ scope: string; rows: Row[] } | null>(null);

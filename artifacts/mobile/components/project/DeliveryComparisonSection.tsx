@@ -77,7 +77,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     quote_timeout: tr('Nie zdążyliśmy potwierdzić dostawy tego wariantu. Sprawdź dostawy ponownie.', 'Delivery for this option could not be confirmed in time. Retry delivery quotes.'),
     invalid_quote: tr('Sklep zwrócił niezgodną wycenę. Ten wariant pominięto do ponownego sprawdzenia.', 'The store returned an inconsistent quote. This option was excluded until it can be checked again.'),
     quote_expired: tr('Wycena dostawy wygasła podczas sprawdzania sklepów. Sprawdź dostawy ponownie.', 'This delivery quote expired while checking the stores. Check deliveries again.'),
-    quote_unavailable: tr('Nie udało się teraz pobrać wyceny sklepu. Koszt dostawy pozostaje nieznany. Możesz skopiować plan i sprawdzić ten koszyk bezpośrednio w sklepie.', 'The store quote could not be retrieved right now. Delivery cost remains unknown. You can copy the plan and check this cart directly at the store.'),
+    quote_unavailable: tr('Nie udało się teraz pobrać wyceny sklepu. Koszt dostawy pozostaje nieznany. Spróbuj później lub sprawdź dostawę bezpośrednio w sklepie.', 'The store quote could not be retrieved right now. Delivery cost remains unknown. Try later or check delivery directly at the store.'),
   }[code] ?? tr('Nie udało się pobrać wyceny koszyka.', 'The basket quote could not be retrieved.'));
   return <View style={{ gap: 14 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>

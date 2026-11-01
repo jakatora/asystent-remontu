@@ -6,6 +6,7 @@ import type { CalculationResult, Project, ShoppingItem } from '@/types/domain';
 import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type SerializedProject } from './pricingApi';
 import { withManualShopping, applyProjectShopping } from './projectShoppingInput';
+import type { MaterialStockEntry } from './materialStock';
 import { deliveredKit } from './deliveredKit';
 import { estimateHonoursStore } from './storeChoice';
 import { normalizeUnit } from './quantity';
@@ -25,7 +26,7 @@ export const cabinetCalculationKey = (calc?: CalculationResult) => calc && JSON.
  * source: https://www.v33.pl/faq/
  * source: https://www.chem-rozlew.com/benzyna-ekstrakcyjna/
  */
-export function cabinetPreparationKits(calc: CalculationResult | undefined, projectId: string, items: readonly ShoppingItem[] = [], tier: MaterialCategory = 'standard') {
+export function cabinetPreparationKits(calc: CalculationResult | undefined, projectId: string, items: readonly ShoppingItem[] = [], tier: MaterialCategory = 'standard', materialStock: readonly MaterialStockEntry[] = []) {
   if (calc?.jobId !== CABINET_JOB || !choices.includes(calc.measurements.cabinetPreparation as CabinetPreparation)) return [];
   const reviewed = reviewCabinetCalculation(calc)!;
   if (reviewed.materials.some(l => l.quantityKnown === false)) return [];
@@ -35,7 +36,7 @@ export function cabinetPreparationKits(calc: CalculationResult | undefined, proj
     const product = MATERIAL_PRICES.find(p => p.id === cabinetReference('degreaser-cabinet', calculation.measurements))!;
     const selected = withManualShopping(toPricingStageInput(calculation, tier), calculation, projectId, items);
     return { preparation, product, calculation, projectId, basedOn: cabinetCalculationKey(calc)!,
-      stages: [applyProjectShopping(selected, calculation, projectId, items, original).stage] };
+      stages: [applyProjectShopping(selected, calculation, projectId, items, original, materialStock).stage] };
   });
 }
 export type CabinetPreparationKit = ReturnType<typeof cabinetPreparationKits>[number];

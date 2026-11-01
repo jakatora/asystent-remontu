@@ -2,12 +2,14 @@ import { MATERIAL_PRICES } from '@/data/prices/materials';
 import type { CalculationResult, ShoppingItem } from '@/types/domain';
 import type { PricingStageInput } from './pricingApi';
 import { normalizeUnit } from './quantity';
+import type { MaterialStockEntry } from './materialStock';
 
 export interface ShoppingStageContext {
   projectId: string;
   calc: CalculationResult;
   original: PricingStageInput;
   items: readonly ShoppingItem[];
+  materialStock?: readonly MaterialStockEntry[];
 }
 
 const nameKey = (name: string) => typeof name === 'string' ? name.trim().normalize('NFC').toLocaleLowerCase('pl') : '';

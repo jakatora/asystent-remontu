@@ -9,6 +9,7 @@ import {parseTileAdhesiveChoices} from '../pricing/tileAdhesiveChoice';
 import {parsePriceSnapshot} from '../pricing/priceChanges';
 import {parseBasketExtras} from '../pricing/basketExtras';
 import {parseBasketSelection} from '../pricing/renovationBasket';
+import {MATERIAL_STOCK_PREFIX,parseMaterialStock} from '../pricing/materialStock';
 import type {CalculationResult} from '../../types/domain';
 
 // One reviewed list drives validation and project/common-basket export keys.
@@ -41,7 +42,9 @@ export function validateBackupPreferences(backup:ProjectBackup):void{
     }else if(key==='remont.renovation-basket.v1'){
       const ids=parseBasketSelection(raw);
       if(value?.version!==1||!Array.isArray(value.projectIds)||ids.length!==value.projectIds.length||ids.some(id=>!projects.has(id)))throw Error('backup_invalid_basket');
-    }else if(key==='remont.basket-extras.v1')parseBasketExtras(raw);
+    }else if(key===MATERIAL_STOCK_PREFIX+'renovation-basket')throw Error('backup_invalid_material_stock');
+    else if(key.startsWith(MATERIAL_STOCK_PREFIX))parseMaterialStock(raw);
+    else if(key==='remont.basket-extras.v1')parseBasketExtras(raw);
     else throw Error('backup_invalid_preference');
   }
 }

@@ -10,6 +10,7 @@ import { applyWashbasinChoices, type WashbasinChoice } from './washbasinChoice';
 import { applyTileChoices, type TileChoice } from './tileChoice';
 import { applyTileAdhesiveChoices, type TileAdhesiveChoice } from './tileAdhesiveChoice';
 import type { ShoppingStageContext } from './selectedShopping';
+import type { MaterialStockEntry } from './materialStock';
 import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
 
 export const MAX_BASKET_PROJECTS = DELIVERY_LIMITS.jobs - 1;
@@ -39,6 +40,7 @@ export function buildRenovationBasket(
   washbasinsByProject: Readonly<Record<string, readonly WashbasinChoice[]>> = {},
   tilesByProject: Readonly<Record<string, readonly TileChoice[]>> = {},
   tileAdhesivesByProject: Readonly<Record<string, readonly TileAdhesiveChoice[]>> = {},
+  stockByProject: Readonly<Record<string, readonly MaterialStockEntry[]>> = {},
 ): { stages: PricingStageInput[]; selectionStages: PricingStageInput[]; shoppingContexts: ShoppingStageContext[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
@@ -52,9 +54,10 @@ export function buildRenovationBasket(
     const items = shoppingByProject[project.id] ?? [];
     const stage = withManualShopping(toPricingStageInput(calc, tier, doorsByProject[project.id]), calc, project.id, items);
     const chosen = applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [], tilesByProject[project.id] ?? [])[0];
-    const pending = applyProjectShopping(chosen, calc, project.id, items, stage);
+    const materialStock = stockByProject[project.id] ?? [];
+    const pending = applyProjectShopping(chosen, calc, project.id, items, stage, materialStock);
     selectionStages.push(chosen);
-    shoppingContexts.push({ projectId: project.id, calc, original: stage, items });
+    shoppingContexts.push({ projectId: project.id, calc, original: stage, items, materialStock });
     const unknown = calc.materials.filter(line => line.quantityKnown === false && pending.stage.materials.some(row => row.material.id === line.material.id));
     if (unknown.length) measurementReviews.push({ projectId: project.id, projectName: project.name, materials: [...new Set(unknown.map(line => line.material.name))] });
     excludedMaterials += pending.excludedMaterials;

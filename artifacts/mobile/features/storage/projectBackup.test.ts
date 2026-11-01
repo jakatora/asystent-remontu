@@ -14,6 +14,8 @@ import {FOIL_PRODUCTS} from '../pricing/foilChoice';
 import {WASHBASIN_PRODUCTS} from '../pricing/washbasinChoice';
 import {TILE_PRODUCTS} from '../pricing/tileChoice';
 import {TILE_ADHESIVE_PRODUCTS} from '../pricing/tileAdhesiveChoice';
+import {MATERIAL_STOCK_PREFIX,parseMaterialStock,type MaterialStockEntry} from '../pricing/materialStock';
+import {writeMaterialStock} from '../pricing/materialStockStorage';
 
 function sharedChoices():Record<string,string>{
   const save=(choices:unknown[])=>JSON.stringify({version:1,choices});
@@ -27,6 +29,31 @@ function sharedChoices():Record<string,string>{
     'remont.flush-box-choice.v1:renovation-basket':save([{from:'mat-flush-box-elektroplast-pk60-10',to:'mat-epn-pk60-pro-0285-01'}]),
   };
 }
+
+const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
+test('allocated usable material stock survives a real SQLite and preference backup round trip',async t=>{
+ const a=await source(t),b=await fixture(t);await writeMaterialStock(a.storage,'room',[stockEntry]);
+ const snapshot=await readProjectBackup(a.db,a.storage),backup=parseProjectBackup(JSON.stringify(snapshot));
+ assert.deepEqual(parseMaterialStock(backup.preferences[MATERIAL_STOCK_PREFIX+'room']),[stockEntry]);
+ await importProjectBackup(backup,b.db,b.storage);
+ assert.deepEqual(parseMaterialStock((await readProjectBackup(b.db,b.storage)).preferences[MATERIAL_STOCK_PREFIX+'room']),[stockEntry]);
+});
+test('a backup waits for an in-flight inventory save and never captures its previous empty value',async t=>{
+ const a=await source(t),set=a.storage.setItem.bind(a.storage);let finish!:()=>void;
+ const gate=new Promise<void>(resolve=>{finish=resolve;});
+ a.storage.setItem=async(key,value)=>{if(key.startsWith(MATERIAL_STOCK_PREFIX))await gate;await set(key,value);};
+ const write=writeMaterialStock(a.storage,'room',[stockEntry]);let done=false;
+ const reading=readProjectBackup(a.db,a.storage).then(value=>{done=true;return value;});
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(done,false);finish();await write;
+ assert.deepEqual(parseMaterialStock((await reading).preferences[MATERIAL_STOCK_PREFIX+'room']),[stockEntry]);
+});
+test('corrupt, foreign-project and shared-pool inventory records cannot enter an imported archive',async t=>{
+ const a=await source(t),snapshot=await readProjectBackup(a.db,a.storage);
+ for(const[key,entries]of [[MATERIAL_STOCK_PREFIX+'room',[{...stockEntry,quantity:-1}]],[MATERIAL_STOCK_PREFIX+'missing',[stockEntry]],[MATERIAL_STOCK_PREFIX+'renovation-basket',[stockEntry]],[MATERIAL_STOCK_PREFIX+'room',[stockEntry,stockEntry]]]as const){
+  const broken=structuredClone(snapshot);broken.preferences[key]=JSON.stringify({version:1,entries});
+  assert.throws(()=>parseProjectBackup(JSON.stringify(broken)));
+ }
+});
 async function setSharedChoices(storage:BackupStorage){for(const[key,value]of Object.entries(sharedChoices()))await storage.setItem(key,value);}
 
 async function fixture(t:TestContext){

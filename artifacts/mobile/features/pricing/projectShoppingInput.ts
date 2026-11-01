@@ -24,6 +24,7 @@ import { isSanitaryJob, reviewSanitaryShopping } from '@/features/calculator/san
 import { LAMINATE_JOB, reviewLaminateShopping } from '@/features/calculator/laminateSupplies';
 import { restoreSelectionBasis, reviewSelectedShopping } from './selectedShopping';
 import type { ShoppingStageContext } from './selectedShopping';
+import { applyMaterialStock, materialStockRequirements, type MaterialStockEntry } from './materialStock';
 
 export function requiresCurrentShoppingQuantity(jobId: string): boolean {
   return [SEAT_JOB, TRAP_JOB, SOCKET_FRAME_JOB, HARDWARE_JOB, CABINET_JOB, CO_JOB, EPS_JOB_ID, SINK_JOB_ID, LAMINATE_JOB, PLASTER_JOB, GROUT_ONLY_JOB, UNDERLAY_JOB, 'vinyl-flooring'].includes(jobId) || Boolean(substratePrimerSpecification(jobId)) || isSanitaryJob(jobId) || isWallFinishingJob(jobId) || isFrameJob(jobId) || isGypsumJob(jobId);
@@ -60,15 +61,15 @@ export function withManualShopping(stage: PricingStageInput, calc: CalculationRe
 export function applyShoppingContexts(stages: readonly PricingStageInput[], contexts: readonly (ShoppingStageContext | undefined)[]) {
   const results = stages.map((stage, index) => {
     const context = contexts[index];
-    return context ? applyProjectShopping(stage, context.calc, context.projectId, context.items, context.original) : { stage, excludedMaterials: 0 };
+    return context ? applyProjectShopping(stage, context.calc, context.projectId, context.items, context.original, context.materialStock) : { stage, excludedMaterials: 0, stockAdjustments: [], stockRequirements: [] };
   });
-  return { stages: results.map(result => result.stage), excluded: results.reduce((sum, result) => sum + result.excludedMaterials, 0) };
+  return { stages: results.map(result => result.stage), excluded: results.reduce((sum, result) => sum + result.excludedMaterials, 0), stockAdjustments: results.flatMap(result => result.stockAdjustments), stockRequirements: results.flatMap(result => result.stockRequirements) };
 }
 
 /** One pending-material scope for project quotes and the whole renovation.
  * Ownership is a whole-line declaration; duplicate/conflicting rows cannot
  * silently remove a requirement. Source shopping rows are never modified. */
-export function applyProjectShopping(stage: PricingStageInput, calc: CalculationResult, projectId: string, items: readonly ShoppingItem[], original: PricingStageInput = stage) {
+export function applyProjectShopping(stage: PricingStageInput, calc: CalculationResult, projectId: string, items: readonly ShoppingItem[], original: PricingStageInput = stage, materialStock: readonly MaterialStockEntry[] = []) {
   calc = upgradeCalculation(calc)!;
   items = restoreSelectionBasis(items);
   items = reviewSeatShopping(reviewTrapShopping(reviewSocketFrameShopping(reviewHardwareShopping(reviewCoDetectorShopping(reviewCabinetShopping(items,calc),calc),calc),calc),calc),calc);
@@ -96,5 +97,7 @@ export function applyProjectShopping(stage: PricingStageInput, calc: Calculation
     if (matching.length > 0 && matching.every(covers)) { excludedMaterials++; return false; }
     return true;
   });
-  return { stage: withManualShopping({ ...stage, materials }, calc, projectId, items), excludedMaterials, manualItems: manual.length };
+  const beforeStock = withManualShopping({ ...stage, materials }, calc, projectId, items);
+  const stock = applyMaterialStock(beforeStock, materialStock);
+  return { stage: stock.stage, excludedMaterials, manualItems: manual.length, stockRequirements: materialStockRequirements([beforeStock]), stockAdjustments: stock.adjustments };
 }

@@ -3,6 +3,8 @@ import type {DatabaseConnection, DatabaseCommand} from '../../db/connection';
 import {BACKUP_PRODUCT_CHOICE_PARSERS,BACKUP_PRODUCT_CHOICE_PREFIXES,validateBackupPreferences} from './projectBackupPreferences';
 import {parseBasketSelection} from '../pricing/renovationBasket';
 import {parseBasketExtras} from '../pricing/basketExtras';
+import {MATERIAL_STOCK_PREFIX} from '../pricing/materialStock';
+import {waitForMaterialStockWrites} from '../pricing/materialStockStorage';
 
 export const BACKUP_MAX_BYTES=20*1024*1024;
 const id=z.string().min(1).max(200);
@@ -33,7 +35,7 @@ export type BackupTable=keyof typeof BACKUP_TABLES;
 export type BackupRow=Record<string,string|number|null>;
 export const BACKUP_PREFERENCE_PREFIXES=[
   'remont.door-selection.v1:',...BACKUP_PRODUCT_CHOICE_PREFIXES,
-  'remont.delivery.v2:','remont.price-seen.v1:',
+  'remont.delivery.v2:','remont.price-seen.v1:',MATERIAL_STOCK_PREFIX,
 ] as const;
 export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket',...BACKUP_PRODUCT_CHOICE_PREFIXES.map(prefix=>prefix+'renovation-basket')] as const;
 const tables=Object.keys(BACKUP_TABLES) as BackupTable[];
@@ -100,7 +102,10 @@ async function readBackupTables(db:DatabaseConnection):Promise<ProjectBackup['ta
 export async function readProjectBackup(db:DatabaseConnection,storage:BackupStorage):Promise<ProjectBackup>{
   const data=await readBackupTables(db);
   const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS];
-  const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>[key,await storage.getItem(key)] as const))).filter((entry):entry is readonly[string,string]=>entry[1]!==null));
+  const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{
+    if(key.startsWith(MATERIAL_STOCK_PREFIX))await waitForMaterialStockWrites(storage,key.slice(MATERIAL_STOCK_PREFIX.length));
+    return [key,await storage.getItem(key)] as const;
+  }))).filter((entry):entry is readonly[string,string]=>entry[1]!==null));
   // Removing a project can leave its old ID in the basket's selection. Deleted
   // work is not part of this snapshot and must not make its backup unreadable.
   const basketKey='remont.renovation-basket.v1';
