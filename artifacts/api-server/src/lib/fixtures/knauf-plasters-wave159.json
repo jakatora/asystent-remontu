@@ -2895,7 +2895,7 @@
         ]
       },
       "result": {
-        "reason": "no_home_delivery"
+        "reason": "retailer_transport_quote_required"
       },
       "added": {
         "added": [
