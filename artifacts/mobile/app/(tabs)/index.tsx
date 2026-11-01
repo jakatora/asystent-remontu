@@ -8,18 +8,24 @@ import { CATEGORIES } from '@/data/categories';
 import { ProjectCard } from '@/components/ProjectCard';
 import { CategoryCard } from '@/components/CategoryCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { EmptyState } from '@/components/ui/EmptyState';
 import { Txt } from '@/components/ui/Txt';
 import type { ProjectActivity } from '@/types/domain';
 import { Colors } from '@/constants/colors';
 import { ACTIVITY_ICONS, timeAgoShort } from '@/utils/format';
 import { useLanguage } from '@/context/LanguageContext';
 
+const STARTER_JOBS = [
+  { id: 'paint-walls', icon: 'droplet', title: 'home.start.paint', body: 'home.start.paintBody' },
+  { id: 'laminate-flooring', icon: 'layers', title: 'home.start.floor', body: 'home.start.floorBody' },
+  { id: 'bathroom-waterproofing', icon: 'shield', title: 'home.start.bathroom', body: 'home.start.bathroomBody' },
+] as const;
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { projects, getRecentActivities } = useApp();
   const { t } = useLanguage();
   const [recentActivities, setRecentActivities] = useState<ProjectActivity[]>([]);
+  const [categoriesExpanded, setCategoriesExpanded] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -31,7 +37,6 @@ export default function HomeScreen() {
   const activeCount = projects.filter((p) => p.status === 'in-progress').length;
   const completedCount = projects.filter((p) => p.status === 'completed').length;
   const activeProject = projects.find((p) => p.status === 'in-progress');
-  const shoppingProject = activeProject ?? recentProjects[0];
 
   const topPad = Platform.OS === 'web' ? 67 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
@@ -39,7 +44,7 @@ export default function HomeScreen() {
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: Colors.background }}
-      contentContainerStyle={{ paddingTop: topPad + 12, paddingBottom: bottomPad }}
+      contentContainerStyle={{ paddingTop: topPad + 12, paddingBottom: bottomPad, width: '100%', maxWidth: 1100, alignSelf: 'center' }}
       showsVerticalScrollIndicator={false}
     >
       {/* ── Header ─────────────────────────────────────────────────────────── */}
@@ -94,19 +99,19 @@ export default function HomeScreen() {
         </TouchableOpacity>
       )}
 
-      <View style={{ marginHorizontal: 20, marginBottom: 24, padding: 22, borderRadius: 24, backgroundColor: '#134E4A', gap: 12 }}>
-        <Feather name="shopping-bag" size={26} color="#99F6E4" />
+      <View style={{ marginHorizontal: 20, marginBottom: 24, padding: 20, borderRadius: 24, backgroundColor: '#134E4A', gap: 12 }}>
         <Txt w="bold" style={{ fontSize: 25, lineHeight: 32, color: '#FFFFFF' }}>{t('upgrade.compare.homeTitle')}</Txt>
         <Txt style={{ fontSize: 15, lineHeight: 22, color: '#CCFBF1' }}>{t('upgrade.compare.homeBody')}</Txt>
         <TouchableOpacity accessibilityRole="button" testID="compare-prices-home"
-          onPress={() => shoppingProject ? router.push({ pathname: '/project/[id]', params: { id: shoppingProject.id, tab: 'estimate' } }) : router.push('/wizard')}
+          accessibilityLabel={t('upgrade.compare.homeAction')}
+          onPress={() => router.push('/renovation-basket')}
           style={{ minHeight: 50, padding: 14, borderRadius: 14, backgroundColor: '#FFFFFF', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-          <Txt w="bold" style={{ flex: 1, fontSize: 15, color: '#134E4A' }}>{t(shoppingProject ? 'upgrade.compare.homeAction' : 'upgrade.compare.homeStart')}</Txt>
+          <Txt w="bold" style={{ flex: 1, fontSize: 15, color: '#134E4A' }}>{t('upgrade.compare.homeAction')}</Txt>
           <Feather name="arrow-right" size={20} color="#134E4A" />
         </TouchableOpacity>
       </View>
 
-      {/* ── HERO: Browse renovations (PRIMARY CONTENT) ─────────────────────── */}
+      {/* ── Start with a concrete job, using the existing measured wizard ─── */}
       <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
         <Txt w="bold" style={{ fontSize: 18, color: Colors.text }}>{t('home.hero.title')}</Txt>
         <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginTop: 4, lineHeight: 19 }}>
@@ -115,7 +120,31 @@ export default function HomeScreen() {
       </View>
 
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+        <View style={{ gap: 10, marginBottom: 12 }}>
+          {STARTER_JOBS.map(job => (
+            <TouchableOpacity key={job.id} accessibilityRole="button"
+              accessibilityLabel={t(job.title)} accessibilityHint={t(job.body)}
+              onPress={() => router.push({ pathname: '/wizard', params: { jobId: job.id } })}
+              activeOpacity={0.8}
+              style={{ minHeight: 76, padding: 14, borderRadius: 16, backgroundColor: Colors.surface, borderWidth: 1, borderColor: Colors.border, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+              <View style={{ width: 40, height: 40, borderRadius: 12, backgroundColor: Colors.primaryBg, alignItems: 'center', justifyContent: 'center' }}>
+                <Feather name={job.icon} size={21} color={Colors.primary} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Txt w="semibold" style={{ fontSize: 16, color: Colors.text }}>{t(job.title)}</Txt>
+                <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary, marginTop: 3 }}>{t(job.body)}</Txt>
+              </View>
+              <Feather name="chevron-right" size={20} color={Colors.textSecondary} />
+            </TouchableOpacity>
+          ))}
+        </View>
+        <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: categoriesExpanded }}
+          onPress={() => setCategoriesExpanded(expanded => !expanded)} activeOpacity={0.8}
+          style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: Colors.border, marginBottom: categoriesExpanded ? 12 : 0 }}>
+          <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>{t(categoriesExpanded ? 'home.start.hideAll' : 'home.start.showAll')}</Txt>
+          <Feather name={categoriesExpanded ? 'chevron-up' : 'chevron-down'} size={20} color={Colors.textSecondary} />
+        </TouchableOpacity>
+        {categoriesExpanded && <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
           {CATEGORIES.map((cat) => (
             <CategoryCard
               key={cat.id}
@@ -123,42 +152,15 @@ export default function HomeScreen() {
               onPress={() => router.push({ pathname: '/category/[id]', params: { id: cat.id } })}
             />
           ))}
-        </View>
+        </View>}
       </View>
 
       {/* ── Stats badges (compact) ─────────────────────────────────────────── */}
-      <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 20, marginBottom: 18 }}>
+      {projects.length > 0 && <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 20, marginBottom: 18 }}>
         <StatBadge value={projects.length} label={t('home.stat.projects')} color={Colors.text} borderColor={Colors.border} />
         <StatBadge value={activeCount} label={t('home.stat.inProgress')} color={Colors.primary} borderColor={Colors.primaryLight} />
         <StatBadge value={completedCount} label={t('home.stat.completed')} color={Colors.success} borderColor="#BBF7D0" />
-      </View>
-
-      {/* ── Quick-start wizard (secondary CTA) ─────────────────────────────── */}
-      <TouchableOpacity
-        style={{
-          marginHorizontal: 20,
-          marginBottom: 18,
-          backgroundColor: Colors.primaryBg,
-          borderRadius: 16,
-          padding: 16,
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderWidth: 1,
-          borderColor: Colors.primaryLight,
-        }}
-        onPress={() => router.push('/wizard')}
-        activeOpacity={0.85}
-        testID="quick-start-banner"
-        accessibilityLabel={t('home.quickStart.a11y')}
-      >
-        <View style={{ flex: 1 }}>
-          <Txt w="bold" style={{ fontSize: 15, color: Colors.primaryDark }}>{t('home.quickStart.title')}</Txt>
-          <Txt style={{ fontSize: 12, color: Colors.primary, marginTop: 2 }}>{t('home.quickStart.subtitle')}</Txt>
-        </View>
-        <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
-          <Feather name="arrow-right" size={20} color={Colors.primary} />
-        </View>
-      </TouchableOpacity>
+      </View>}
 
       {/* ── House build banner ─────────────────────────────────────────────── */}
       <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
@@ -277,16 +279,6 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      {/* ── Empty projects empty state ─────────────────────────────────────── */}
-      {recentProjects.length === 0 && (
-        <View style={{ paddingHorizontal: 20, marginBottom: 24, marginTop: 12 }}>
-          <EmptyState
-            icon="folder"
-            title={t('home.empty.title')}
-            description={t('home.empty.description')}
-          />
-        </View>
-      )}
     </ScrollView>
   );
 }

@@ -37,8 +37,16 @@ const pl = {
   'home.workTypes.all': 'Wszystkie',
 
   // Nowe (Phase 1.2b — home redesign)
-  'home.hero.title': 'Wybierz rodzaj remontu',
-  'home.hero.subtitle': 'Poznaj krok po kroku jak zrobić to samemu — albo znajdź sprawdzonego fachowca.',
+  'home.hero.title': 'Co chcesz zrobić?',
+  'home.hero.subtitle': 'Wybierz pracę i podaj wymiary, aby obliczyć materiały.',
+  'home.start.paint': 'Maluję ściany',
+  'home.start.paintBody': 'Powierzchnia, liczba warstw i potrzebne materiały.',
+  'home.start.floor': 'Układam panele laminowane',
+  'home.start.floorBody': 'Powierzchnia podłogi, zapas i pełne opakowania.',
+  'home.start.bathroom': 'Uszczelniam łazienkę',
+  'home.start.bathroomBody': 'Hydroizolacja ścian i podłogi oraz akcesoria.',
+  'home.start.showAll': 'Pokaż wszystkie rodzaje prac',
+  'home.start.hideAll': 'Zwiń wszystkie rodzaje prac',
   'home.section.browse': 'Przeglądaj remonty',
   'home.section.fastTools': 'Szybkie narzędzia',
 } as const;
@@ -82,8 +90,16 @@ const en: Record<K, string> = {
   'home.section.workTypes': 'Types of work',
   'home.workTypes.all': 'All',
 
-  'home.hero.title': 'Choose your renovation',
-  'home.hero.subtitle': 'See step by step how to do it yourself — or find a trusted professional.',
+  'home.hero.title': 'What would you like to do?',
+  'home.hero.subtitle': 'Choose a job and enter measurements to calculate materials.',
+  'home.start.paint': 'Paint the walls',
+  'home.start.paintBody': 'Surface area, number of coats and materials needed.',
+  'home.start.floor': 'Lay laminate flooring',
+  'home.start.floorBody': 'Floor area, allowance and whole packs.',
+  'home.start.bathroom': 'Waterproof the bathroom',
+  'home.start.bathroomBody': 'Wall and floor waterproofing and accessories.',
+  'home.start.showAll': 'Show all types of work',
+  'home.start.hideAll': 'Collapse all types of work',
   'home.section.browse': 'Browse renovations',
   'home.section.fastTools': 'Quick tools',
 };
