@@ -16,6 +16,19 @@ const known: BasketQuoter = async order => ({ quote:{ costGrosze:order.store ===
   carrier:'Kurier', payment:'Przelew', checkedAt:new Date().toISOString(), expiresAt:new Date(Date.now()+60_000).toISOString(),
   sourceUrl:'https://example.org/basket', destinationScope:'PL', basis:'retailer_basket_national', evidenceSha256:'a'.repeat(64) } });
 
+test('concurrent store and quantity partitions share three native slots, deduplicate carts and retain the true cheapest plan',async()=>{
+ const input=await stage(1),original=input.lines[0];assert.ok(original.resolved);
+ input.lines=Array.from({length:3},(_,i)=>({...original,product:{...original.product,id:'p'+i,name:'Farba '+i},offers:['A','B','C'].map((store,n)=>({...original.offers[0],id:store+i,productId:'p'+i,store,price:String(n===1?5:n===0?6:7)}))}));
+ const before=JSON.stringify(input),calls=new Set<string>();let active=0,peak=0;
+ const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:true},async(order,postcode)=>{
+  const key=JSON.stringify([order.store,order.lines.flatMap(l=>l.packages.map(p=>[p.offerId,p.count])).sort()]);assert.ok(!calls.has(key),'Native cart is quoted once');calls.add(key);
+  active++;peak=Math.max(peak,active);await new Promise<void>(resolve=>setImmediate(resolve));active--;
+  const outcome=await known(order,postcode);assert.ok('quote'in outcome);outcome.quote.costGrosze=order.lines.length===3?500:order.lines.length===2?400:100;return outcome;
+ });
+ assert.equal(peak,3);assert.ok(calls.size<=80);assert.equal(result.best!.totalGrosze,1800);assert.equal(result.best!.stores.length,1);assert.equal(result.best!.stores[0].store,'B');
+ assert.equal(result.best!.stores[0].quote!.orders?.length,3);assert.equal(JSON.stringify(input),before);
+});
+
 test('a confirmed single-store basket is retained even when the first three alternatives all split purchases',async()=>{
  const input=await stage(),line=input.lines[0];assert.ok(line.resolved);line.offers=['A','B','C','D'].map((store,i)=>({...line.offers[0],id:store,store,price:String(5+i)}));
  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:false},async(order,p)=>{const q=await known(order,p);assert.ok('quote'in q);q.quote.costGrosze=order.lines.flatMap(l=>l.packages).reduce((n,pack)=>n+pack.count,0)>1?5000:0;return q;});
