@@ -138,7 +138,8 @@ export default function HomeScreen() {
             </TouchableOpacity>
           ))}
         </View>
-        <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: categoriesExpanded }}
+        <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: categoriesExpanded }} aria-expanded={categoriesExpanded}
+          accessibilityLabel={t(categoriesExpanded ? 'home.start.hideAll' : 'home.start.showAll')}
           onPress={() => setCategoriesExpanded(expanded => !expanded)} activeOpacity={0.8}
           style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: Colors.border, marginBottom: categoriesExpanded ? 12 : 0 }}>
           <Txt w="semibold" style={{ flex: 1, fontSize: 14, color: Colors.text }}>{t(categoriesExpanded ? 'home.start.hideAll' : 'home.start.showAll')}</Txt>
