@@ -335,6 +335,10 @@ async function quoteAndRank(
   // Finish several complete purchase plans early. Quoting unrelated broad
   // orders first can exhaust the deadline without confirming even one set.
   const priority=new Set(candidates.slice(0,3).flatMap(orders=>orders.map(signature)));
+  const singleStoreCandidates=candidates.filter(orders=>orders.length===1);
+  const cheapestSingleByStore=new Map<string,DeliveredStoreBasket>();
+  for(const [order] of singleStoreCandidates){const previous=cheapestSingleByStore.get(order.store);if(!previous||order.materialsGrosze<previous.materialsGrosze)cheapestSingleByStore.set(order.store,order);}
+  for(const order of cheapestSingleByStore.values())priority.add(signature(order));
   for (const key of first.values()) priority.add(key);
   const smallest = new Map<string,string>();
   for (const [key,order] of [...ordered].reverse()) if (!smallest.has(order.store)) smallest.set(order.store,key);
@@ -374,6 +378,9 @@ async function quoteAndRank(
     && Date.parse(order.quote.expiresAt) > Date.now())
     ? [orders.reduce((sum, order) => sum + order.totalGrosze!, 0)] : []));
   const canStillWin = new Set(candidates.filter(orders => {
+    // A full one-store option is useful even when it cannot beat the cheapest
+    // multi-store basket. It shares the same bounded quote budget and deadline.
+    if(orders.length===1)return true;
     if (!Number.isFinite(confirmedUpperBound)) return true;
     // A fresh native ABUD cart can discount materials. Its unquoted catalogue
     // sum is not a lower bound and must not prune a potentially cheaper cart.
@@ -400,6 +407,7 @@ async function quoteAndRank(
   const known = baskets.filter(b => b.totalGrosze !== null).sort((a,b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
   result.comparedBasketCount = known.length;
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);
+  result.cheapestSingleStore = known.find(basket=>basket.stores.length===1) ?? null;
   result.lowerBound = baskets.sort((a,b) => a.lowerBoundGrosze - b.lowerBoundGrosze)[0] ?? null;
   if (!result.best) {
     const unquoted = (basket: DeliveredBasket) => basket.stores.filter(store => store.deliveryGrosze === null).length;

@@ -73,6 +73,7 @@ import type { CalculationResult, ShoppingItem } from '@/types/domain';
 import { applyShoppingContexts, withManualShopping } from '@/features/pricing/projectShoppingInput';
 import type { ShoppingStageContext } from '@/features/pricing/selectedShopping';
 import { purchaseSnapshot, type PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
+import {confirmedBasketOptions,type BasketChoice} from '@/features/pricing/basketOptions';
 import type { QualityTier } from '@/types/pricing';
 import {
   estimateProject,
@@ -152,6 +153,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems, materialStock: stock.entries }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput, stock.entries]);
   const input = useMemo(()=>applyMapegumPackageChoices(applyPrimerPackageChoices(pending.stages,primers.choices),mapegum.choices),[pending.stages,primers.choices,mapegum.choices]);
   const [state, setState] = useState<LoadState>({ status: 'idle' });
+  const [basketChoice,setBasketChoice]=useState<{data:SerializedProject;choice:BasketChoice}|null>(null);
   const lastEstimateHeight = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
   const [delivery, setDelivery] = useState<DeliverySettings>({ mode: 'shipping' });
@@ -273,6 +275,14 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     return () => { requestVersion.current++; };
   }, [hasInput, fetchEstimate]);
 
+  const chooseBasket=(choice:BasketChoice)=>{
+    if(state.status!=='success'||refreshing||loadedScope!==scope)return;
+    const options=confirmedBasketOptions(state.data.deliveryComparison,delivery,selectedStore);
+    if(!options||choice==='single_store'&&!options.singleStore)return;
+    const next=options.alreadySingleStore?'lowest':choice;
+    setBasketChoice({data:state.data,choice:next});
+    onPurchaseSnapshot?.(purchaseSnapshot(state.data,selectedStore,Date.now(),next));
+  };
   const primerSection=<PrimerPackageSection references={primerReferences} {...primers} commonBasket={projectId==='renovation-basket'}/>;
   const mapegumSection=<MapegumPackageSection references={mapegumReferences} {...mapegum} commonBasket={projectId==='renovation-basket'}/>;
   if (!hasInput) {
@@ -413,7 +423,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         <Txt style={{flex:1,fontSize:14,lineHeight:20,color:Colors.text}}>{language==='pl'?'Sprawdzamy aktualne ceny i dostawę. Poniżej jest poprzednia wycena; aktualny koszt zakupów potwierdzimy po sprawdzeniu.':'Checking current prices and delivery. The previous quote is shown below; we will confirm the current purchase cost after the check.'}</Txt>
       </View>}
       {!pendingDestination && productSelectionReady && stock.ready && !stock.readFailed && state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
-        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={applyDelivery} /></PriceChangesProvider>
+        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={applyDelivery} basketChoice={basketChoice?.data===state.data?basketChoice.choice:'lowest'} onBasketChoice={chooseBasket}/></PriceChangesProvider>
       )}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano wyboru sklepu lub dostawy. Sprawdź ustawienia po ponownym otwarciu projektu.' : 'The store or delivery preference could not be saved. Check the settings when reopening the project.'}</Txt>}
       {priceSaveFailed && <Txt accessibilityRole="alert" style={{color:Colors.textSecondary}}>{language==='pl'?'Nie zapisano cen do porównania przy następnym otwarciu projektu.':'Prices could not be saved for comparison when reopening the project.'}</Txt>}
@@ -430,6 +440,7 @@ function EstimateResult({
   onRefresh,
   delivery,
   onDeliveryChange,
+  basketChoice,onBasketChoice,
 }: {
   data: SerializedProject;
   selectedStore: string | null;
@@ -439,6 +450,7 @@ function EstimateResult({
   onRefresh: () => void;
   delivery: DeliverySettings;
   onDeliveryChange: (settings: DeliverySettings) => void;
+  basketChoice:BasketChoice;onBasketChoice:(choice:BasketChoice)=>void;
 }) {
   const { t, language } = useLanguage();
   const tr = (pl: string, en: string) => language === 'pl' ? pl : en;
@@ -457,7 +469,7 @@ function EstimateResult({
   const consolidated = data.consolidated;
 
   const consolidatedLines = consolidated?.lines ?? [];
-  const savingsGrosze = consolidated?.savingsGrosze ?? 0;
+  const savingsGrosze = basketChoice==='lowest'?(consolidated?.savingsGrosze ?? 0):0;
   const storeComparison = data.storeComparison;
   const offerCoverage = projectOfferCoverage(data.stages, selectedStore);
   const firstChecked = offerCoverage.firstCheckedAt ? formatHistoryDate(offerCoverage.firstCheckedAt) : null;
@@ -513,7 +525,7 @@ function EstimateResult({
         <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Przed zakupem sprawdź rozmiar, stronę otwierania, przylgę, zawiasy i zakres regulacji ościeżnicy. Pozycje referencyjne w wycenie wymagają dopasowania do siebie.', 'Before buying, check the size, opening direction, rebate, hinges and frame adjustment range. Reference items in the quote need to be matched to each other.')}</Txt>
         {hasLeftCredis && <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Credis w tej wycenie to lewe białe skrzydło w rozmiarze 80, bez ościeżnicy i klamki. Nie łącz go z prawą ościeżnicą.', 'The Credis in this quote is a white, left-hand size-80 leaf without a frame or handle. Do not combine it with a right-hand frame.')}</Txt>}
       </View>}
-      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} missingItemCount={unresolved.length || undefined} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} />}
+      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} missingItemCount={unresolved.length || undefined} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} choice={basketChoice} onChoice={onBasketChoice} choosingDisabled={refreshing}/>}
       {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia

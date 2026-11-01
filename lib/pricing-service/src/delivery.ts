@@ -120,6 +120,10 @@ export interface DeliveryComparison {
     unavailableReason?: string;
   };
   best: DeliveredBasket | null;
+  /** Cheapest fully quoted one-store basket among the checked allocations.
+   * Retained independently of the three overall alternatives. One store can
+   * still require several explicitly quoted orders or dispatches. */
+  cheapestSingleStore?: DeliveredBasket | null;
   lowerBound: DeliveredBasket | null;
   /** A bounded, unfinished purchase plan: fewest stores without delivery
    * confirmation, then lowest material + confirmed-delivery cost. No winner. */
@@ -227,6 +231,7 @@ export function compareDeliveredBaskets(
   const baskets = [...candidates.values()];
   const known = baskets.filter(basket => basket.totalGrosze !== null).sort((a, b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
   result.best = known[0] ?? null;
+  result.cheapestSingleStore = known.find(basket => basket.stores.length === 1) ?? null;
   result.alternatives = known.slice(1, 4);
   result.lowerBound = baskets.sort((a, b) => a.lowerBoundGrosze - b.lowerBoundGrosze || a.stores.length - b.stores.length)[0] ?? null;
   result.status = result.best && (!result.lowerBound || result.best.totalGrosze! <= result.lowerBound.lowerBoundGrosze) ? 'compared' : 'needs_delivery_costs';

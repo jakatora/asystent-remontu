@@ -2,19 +2,21 @@ import type { SerializedProject } from './pricingApi';
 import { pendingDeliveryPlan } from './pendingDeliveryPlan';
 import { groupUnpricedLines } from './unpricedGroups';
 import {availableStoreBasket} from './availableStoreBasket';
+import {basketForChoice,type BasketChoice} from './basketOptions';
 
 export type PurchaseSnapshot = { kind: 'empty'; observedAt: number } | {
-  kind: 'quote'; observedAt: number; validUntil: number; selectedStore: string | null; data: SerializedProject;
+  kind: 'quote'; observedAt: number; validUntil: number; selectedStore: string | null; data: SerializedProject;basketChoice?:BasketChoice;
 };
-export function purchaseSnapshot(data: SerializedProject, selectedStore: string | null, now = Date.now()): PurchaseSnapshot {
+export function purchaseSnapshot(data: SerializedProject, selectedStore: string | null, now = Date.now(),basketChoice:BasketChoice='lowest'): PurchaseSnapshot {
   const expiries = [now + 10 * 60_000];
+  if(basketChoice==='single_store')for(const store of basketForChoice(data.deliveryComparison,basketChoice,now)?.stores??[])if(store.quote)expiries.push(Date.parse(store.quote.expiresAt));
   for (const store of (data.deliveryComparison?.best ?? data.deliveryComparison?.purchasePlan ?? data.deliveryComparison?.lowerBound ?? data.deliveryComparison?.availablePart?.basket)?.stores ?? []) {
     if (store.quote) expiries.push(Date.parse(store.quote.expiresAt));
   }
   for (const line of data.consolidated.lines) for (const pack of line.packages ?? []) {
     if (pack.verification) expiries.push(Date.parse(pack.verification.expiresAt));
   }
-  return { kind: 'quote', observedAt: now, validUntil: expiries.every(Number.isFinite) ? Math.min(...expiries) : 0, selectedStore, data };
+  return { kind: 'quote', observedAt: now, validUntil: expiries.every(Number.isFinite) ? Math.min(...expiries) : 0, selectedStore, data,...(basketChoice==='single_store'?{basketChoice}:{}) };
 }
 const money = (value: unknown): value is number => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
 
@@ -36,7 +38,7 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
   if (!Number.isFinite(snapshot.observedAt) || !Number.isFinite(snapshot.validUntil) || snapshot.observedAt > now || now >= snapshot.validUntil) return { status: 'expired' as const };
   const data = snapshot.data, comparison = data.deliveryComparison;
   const missing = groupUnpricedLines(data.stages).length || comparison?.missingProductCount || 0;
-  const best = comparison?.best;
+  const best = basketForChoice(comparison,snapshot.basketChoice??'lowest',now);
   const validStoreAmounts = Boolean(best && best.stores.length > 0
     && best.stores.every(store => money(store.materialsGrosze) && money(store.deliveryGrosze) && money(store.totalGrosze)
       && store.materialsGrosze + store.deliveryGrosze === store.totalGrosze)
@@ -65,10 +67,11 @@ export function purchaseSummary(snapshot: PurchaseSnapshot | null, now = Date.no
     materialsGrosze: materials, deliveryGrosze: complete ? best.deliveryGrosze : null, totalGrosze: complete ? best.totalGrosze : null,
     mode: comparison?.mode ?? 'shipping', postalCode: comparison?.postalCode ?? null, missing,
     selectedStore: snapshot.selectedStore, observedAt: snapshot.observedAt,
+    basketChoice:snapshot.basketChoice??'lowest',
     availablePart:available?{materialsGrosze:available.materialsGrosze,deliveryGrosze:available.deliveryGrosze!,totalGrosze:available.totalGrosze!,productCount:comparison!.availablePart!.productCount}:null,
     separateOrders: complete ? best.stores.filter(store => (store.quote?.orders?.length ?? 0) > 1).map(store => ({ store: store.store, count: store.quote!.orders!.length })) : [],
     storeSteps,
     limited: Boolean(comparison?.status === 'needs_delivery_costs' || comparison?.searchLimited || comparison?.unavailableStores?.length || comparison?.partiallyQuotedStores?.length),
-    products: available?available.stores.flatMap(store=>store.lines.map(line=>line.product.name)):data.consolidated.lines.map(line => line.product.name),
+    products: snapshot.basketChoice==='single_store'&&best?best.stores.flatMap(store=>store.lines.map(line=>line.product.name)):available?available.stores.flatMap(store=>store.lines.map(line=>line.product.name)):data.consolidated.lines.map(line => line.product.name),
   };
 }
