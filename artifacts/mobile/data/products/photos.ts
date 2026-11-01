@@ -12,6 +12,13 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://buduj24.pl/produkt/16299,ceresit-grunt-ct17-transparent-gleboko-penetrujacy-5l
+  {"ids":["mat-primer-ceresit-ct17-transparent-5l"],"ean":"5900089218653","sourceUrl":"https://buduj24.pl/produkt/16299,ceresit-grunt-ct17-transparent-gleboko-penetrujacy-5l","identitySourceUrl":"https://dm.henkel-dam.com/is/content/henkel/Cennik-Henkel-ACB-17-03-2025","imageUrl":"https://buduj24.pl/files/_product/16299/5900089218653_1.webp"},
+  // source: https://buduj24.pl/produkt/10217,ceresit-grunt-gleboko-penetrujacy-ct17-profi-primer-5l
+  {"ids":["mat-primer-ceresit-ct17-profi-5l"],"ean":"5900089617050","sourceUrl":"https://buduj24.pl/produkt/10217,ceresit-grunt-gleboko-penetrujacy-ct17-profi-primer-5l","identitySourceUrl":"https://dm.henkel-dam.com/is/content/henkel/Cennik-Henkel-ACB-17-03-2025","imageUrl":"https://buduj24.pl/files/_product/10217/5900089617050_1.webp"},
+  // source: https://buduj24.pl/produkt/15394,ceresit-grunt-gleboko-penetrujacy-ct17-transparent-10l
+  {"ids":["mat-primer-ceresit-ct17-transparent-10l"],"ean":"5900089218677","sourceUrl":"https://buduj24.pl/produkt/15394,ceresit-grunt-gleboko-penetrujacy-ct17-transparent-10l","identitySourceUrl":"https://dm.henkel-dam.com/is/content/henkel/Cennik-Henkel-ACB-17-03-2025","imageUrl":"https://buduj24.pl/files/_product/15394/5900089218677_1.webp"},
+
   // source: https://sklep.sewera.pl/tasma-malarska-niebieska-25mmx50m-p6965
   // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-do-wnetrz-i-na-zwenatrz-25mm-x-50m-niebieska/648
   {"ids":["mat-tape-bluedolphin-blue25-50m"],"ean":"5907758507308","sourceUrl":"https://sklep.sewera.pl/tasma-malarska-niebieska-25mmx50m-p6965","imageUrl":"https://sklep.sewera.pl/photo/23322/tasma-malarska-niebieska-25mmx50m.webp"},

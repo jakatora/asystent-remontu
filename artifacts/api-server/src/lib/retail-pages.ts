@@ -1,4 +1,5 @@
 import {confirmMapeiSupplyPurchase} from './mapei-supplies';
+import {confirmCeresitPrimerSource} from './ceresit-primers';
 import {confirmPaintingTapePurchase,reviewedPaintingTape} from './painting-tapes';
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEtakCard} from './etak-product';
@@ -121,6 +122,7 @@ function objects(value: unknown): Record<string, any>[] {
 
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
+  if(source.id.startsWith('buduj24-ceresit-ct17-'))confirmCeresitPrimerSource(source);
   reviewedPaintingTape(source);
   if (source.disabledReason) throw Error(source.disabledReason);
   if(source.format==='bmb'||source.format==='integra'||source.format==='mlazienka')throw Error('retailer_basket_required');
