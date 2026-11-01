@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Linking, Pressable, View } from 'react-native';
+import React, { useId, useState } from 'react';
+import { Linking, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
@@ -8,6 +8,9 @@ import { useLanguage } from '@/context/LanguageContext';
 import { PRODUCT_PHOTOS, getProductPhoto } from '@/data/products/photos';
 import { LAMINATE_PRODUCTS, type LaminateChoice } from '@/features/pricing/laminateChoice';
 import { ProductImage } from './ProductImage';
+import { RadioCard } from '@/components/ui/RadioCard';
+import { useCatalogAvailability } from '@/features/pricing/useCatalogAvailability';
+import { catalogueProductAvailability } from '@/features/pricing/catalogAvailability';
 
 interface Props {
   references: typeof LAMINATE_PRODUCTS;
@@ -25,6 +28,15 @@ export function LaminateChoiceSection({ references, choices, ready, readFailed, 
   const pl = language === 'pl';
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState<string | null>(null);
+  const group = useId();
+  const availability = useCatalogAvailability(references.length > 0 && ready && !readFailed);
+  const offerStatus = (product: typeof LAMINATE_PRODUCTS[number]) => catalogueProductAvailability(product, availability.data);
+  const offerLabel = (product: typeof LAMINATE_PRODUCTS[number]) => {
+    const status = offerStatus(product);
+    return status === null ? (pl ? 'Oferta niesprawdzona' : 'Offer not checked')
+      : status.confirmed ? (pl ? `Potwierdzona oferta · ${status.stores.join(', ')}` : `Confirmed offer · ${status.stores.join(', ')}`)
+      : (pl ? 'Brak potwierdzonej oferty w katalogu' : 'No confirmed catalogue offer');
+  };
   const pack = (product: typeof LAMINATE_PRODUCTS[number]) => `${product.packageSize.toLocaleString(pl ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 6 })} ${product.packageUnit === 'm2' ? 'm²' : product.packageUnit}`;
   if (!references.length) return null;
   return <View style={{ padding: 16, gap: 12, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface }}>
@@ -42,6 +54,19 @@ export function LaminateChoiceSection({ references, choices, ready, readFailed, 
       <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie odczytano wybranego modelu paneli. Wycena jest wstrzymana, aby nie policzyć innego produktu.' : 'The selected flooring could not be read. Pricing is paused to avoid quoting the wrong product.'}</Txt>
       <Button variant="outline" label={pl ? 'Odczytaj wybór paneli ponownie' : 'Read the flooring choice again'} onPress={onRetry} />
     </>}
+    {ready && !readFailed && <>
+      <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{pl
+        ? 'Oznaczenia dotyczą ofert materiałów. Koszt dostawy i pełną sumę sprawdzimy po zastosowaniu modelu dla Twojego kodu pocztowego.'
+        : 'Labels describe material offers. Delivery and the full total are checked after applying the model for your postcode.'}</Txt>
+      {availability.loading && <Txt accessibilityLiveRegion="polite" style={{ color: Colors.textSecondary }}>{pl ? 'Sprawdzamy oferty modeli paneli…' : 'Checking flooring model offers…'}</Txt>}
+      {availability.error && <Txt accessibilityLiveRegion="polite" style={{ color: Colors.textSecondary }}>{pl
+        ? 'Nie udało się sprawdzić ofert modeli. Zachowano wybór i pełną listę; niesprawdzona oferta nie oznacza niedostępności produktu.'
+        : 'Model offers could not be checked. Your selection and all models are retained; an unchecked offer does not mean an unavailable product.'}</Txt>}
+      {availability.expired && <Txt accessibilityLiveRegion="polite" style={{ color: Colors.textSecondary }}>{pl ? 'Informacja o ofertach modeli wygasła. Sprawdź ją ponownie.' : 'Model offer information expired. Check it again.'}</Txt>}
+      {(availability.error || availability.expired) && <Button variant="outline"
+        label={availability.retrySeconds > 0 ? (pl ? `Sprawdź oferty paneli za ${availability.retrySeconds} s` : `Check flooring offers in ${availability.retrySeconds} s`) : (pl ? 'Sprawdź oferty paneli ponownie' : 'Check flooring offers again')}
+        disabled={availability.loading || availability.retrySeconds > 0} onPress={availability.retry} />}
+    </>}
     {ready && references.map(reference => {
       const chosenId = choices.find(choice => choice.from === reference.id)?.to ?? reference.id;
       const chosen = LAMINATE_PRODUCTS.find(ref => ref.id === chosenId)!;
@@ -53,25 +78,30 @@ export function LaminateChoiceSection({ references, choices, ready, readFailed, 
           <View style={{ flex: 1, gap: 4 }}>
             <Txt w="semibold">{chosen.productLabel}</Txt>
             <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{pack(chosen)} / {pl ? 'paczka' : 'pack'}</Txt>
+            <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{offerLabel(chosen)}</Txt>
           </View>
         </View>
+        {offerStatus(chosen)?.confirmed === false && <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl
+          ? `Inne modele z potwierdzoną ofertą: ${LAMINATE_PRODUCTS.filter(product => product.id !== chosenId && offerStatus(product)?.confirmed).length}. Zmień model, aby sprawdzić inny produkt i cały zestaw.`
+          : `Other models with a confirmed offer: ${LAMINATE_PRODUCTS.filter(product => product.id !== chosenId && offerStatus(product)?.confirmed).length}. Change the model to check another product and the whole basket.`}</Txt>}
         {changed && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? `Twój wybór zamiast: ${reference.productLabel}` : `Your choice instead of: ${reference.productLabel}`}</Txt>}
         {!expanded ? <Button variant="outline" label={pl ? 'Zmień model paneli' : 'Change the flooring model'} onPress={() => { setEditing(reference.id); setDraft(chosenId); }} /> : <>
           <Txt style={{ lineHeight: 20 }}>{pl
             ? 'To różne produkty. Sprawdź dekor, zamek, grubość i warunki montażu. Nie łącz różnych modeli w jednej podłodze. Cenę i dostępność sprawdzimy po zastosowaniu wyboru.'
             : 'These are different products. Check the decor, lock, thickness and installation requirements. Do not mix models in one floor. We check price and availability after applying your choice.'}</Txt>
           {LAMINATE_PRODUCTS.map(product => <View key={product.id} style={{ gap: 4 }}>
-            <Pressable accessibilityRole="radio" accessibilityLabel={pl ? `Porównaj panele ${product.productLabel}` : `Compare flooring ${product.productLabel}`}
-              accessibilityState={{ checked: draft === product.id }} onPress={() => setDraft(product.id)}
+            <RadioCard label={pl ? `Porównaj panele ${product.productLabel}` : `Compare flooring ${product.productLabel}`}
+              group={`${group}-${reference.id}`} value={product.id} checked={draft === product.id} disabled={false} onSelect={() => setDraft(product.id)}
               style={{ minHeight: 80, padding: 12, gap: 10, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: draft === product.id ? Colors.primary : Colors.border, borderRadius: 12, backgroundColor: draft === product.id ? Colors.primaryBg : Colors.surface }}>
               <ProductImage uri={getProductPhoto(product)} name={product.productLabel} size={48} />
               <View style={{ flex: 1, gap: 4 }}>
                 <Txt w="medium">{product.productLabel}</Txt>
                 <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{pack(product)} / {pl ? 'paczka' : 'pack'} · EAN {PRODUCT_PHOTOS.find(photo => photo.ids.includes(product.id))?.ean}</Txt>
+                <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{offerLabel(product)}</Txt>
                 {product.id === reference.id && <Txt style={{ fontSize: 13 }}>{pl ? 'Produkt przed zmianą' : 'Product before this change'}</Txt>}
               </View>
               <Feather name={draft === product.id ? 'check-circle' : 'circle'} size={22} color={draft === product.id ? Colors.primary : Colors.textSecondary} />
-            </Pressable>
+            </RadioCard>
             {product.sourceUrl && <Button variant="ghost" label={pl ? `Sprawdź parametry — ${product.brand ?? product.storeName}` : `Check specifications — ${product.brand ?? product.storeName}`} onPress={() => { void Linking.openURL(product.sourceUrl!); }} />}
           </View>)}
           <Button label={pl ? 'Zastosuj model i przelicz zestaw' : 'Apply model and recalculate basket'} disabled={!draft} onPress={() => {
