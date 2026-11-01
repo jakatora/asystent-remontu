@@ -186,6 +186,39 @@ test('all 103 product needs survive a large renovation with 12 stores and bounde
   assert.ok(purchased.every(line=>line.packages.reduce((n,p)=>n+p.count*p.packageSize,0)===5));
 });
 
+test('a mandatory third shop does not hide cheaper mixed sizes at the chosen primer seller in a large basket',async()=>{
+  const input=await manyProducts(21,3);
+  for(const [index,line] of input.lines.entries()){
+    assert.ok(line.resolved);
+    const original=line.offers[0];
+    line.offers=[{...original,id:`fixed-${index}`,store:index===20?'C':'A',price:'1.00'}];
+    if(index===0){
+      line.quantity=15;
+      line.offers=[{...original,id:'a5',store:'A',packageSize:'5',price:'43.15'},
+        {...original,id:'a10',store:'A',packageSize:'10',price:'84.48'},
+        {...original,id:'b5',store:'B',packageSize:'5',price:'40.00'}];
+    }
+  }
+  const before=JSON.stringify(input);
+  for(const rejectMixed of [false,true]){
+    let calls=0;
+    const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
+      calls++;
+      const primer=order.lines.find(line=>line.product.id==='product-0');
+      if(rejectMixed&&primer?.packages.some(pack=>pack.offerId==='a10'))return {reason:'price_changed'};
+      const outcome=await known(order,postcode);assert.ok('quote'in outcome);
+      outcome.quote.costGrosze=order.store==='A'?1500:order.store==='B'?5000:1000;return outcome;
+    });
+    assert.equal(result.searchLimited,true);assert.ok(calls<=80);
+    assert.equal(result.best!.totalGrosze,rejectMixed?17445:17263);
+    assert.deepEqual(result.best!.stores.map(order=>order.store),['A','C']);
+    const purchased=result.best!.stores.flatMap(order=>order.lines);
+    assert.equal(purchased.length,21);
+    assert.deepEqual(purchased.find(line=>line.product.id==='product-0')!.packages.map(pack=>[pack.offerId,pack.count]).sort(),rejectMixed?[['a5',3]]:[['a10',1],['a5',1]]);
+    assert.equal(JSON.stringify(input),before);
+  }
+});
+
 test('a store beyond the 32-bit mask boundary retains its complete basket and can win on shipping',async()=>{
   const result=await compareAutomaticDelivery([await manyProducts(21,33)],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
     const quoted=await known(order,postcode);assert.ok('quote'in quoted);quoted.quote.costGrosze=order.store==='S32'?0:10000;return quoted;
