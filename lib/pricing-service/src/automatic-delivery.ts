@@ -209,11 +209,26 @@ async function compareSelectedBaskets(
     });
   });
   if (options.some(option => !option)) { result.status = 'limit_exceeded'; return result; }
+  // Keep each original single-size order as a transport alternative, and also
+  // optimise mixed sizes inside every chosen seller, including plans produced
+  // by alternate-seller expansion. A global material plan may use other shops.
+  const mixedByStore=groups.map(group=>{
+    if(group.cutRoll)return null;
+    const offers=group.offers.filter(offer=>isComparableOffer(offer,now.getTime()));
+    if(new Set(offers.map(offer=>Number(offer.packageSize??group.product.packageSize))).size<2)return null;
+    const plans=new Map<string,PackagePlanEntry[]>();
+    for(const store of new Set(offers.map(offer=>offer.store))){
+      const plan=optimizeGroupPackages(group,offers.filter(offer=>offer.store===store));
+      if(plan)plans.set(store,plan.packages);
+    }
+    return plans;
+  });
   const proposed = new Map<string, DeliveredStoreBasket[]>();
   const wholePlans = new Set<string>();
   const basePlans = new Map<string, PackagePlanEntry[]>();
   function addPlan(selected: PackagePlanEntry[], split?: { index: number; packs: PackagePlanEntry[] }) {
     addGroupedPlan(selected.map((pack,index)=>split?.index===index?split.packs:[pack]),!split);
+    if(!split&&mixedByStore.some(Boolean))addGroupedPlan(selected.map((pack,index)=>mixedByStore[index]?.get(pack.store)??[pack]),true);
   }
   function addGroupedPlan(selected:PackagePlanEntry[][],whole:boolean){
     if (proposed.size >= MAX_PROPOSED) return;
@@ -240,27 +255,11 @@ async function compareSelectedBaskets(
   for(const store of stores){const perStore=groups.map(g=>optimizeGroupPackages(g,g.offers.filter(o=>o.store===store)));if(perStore.every(Boolean))addGroupedPlan(perStore.map(plan=>plan!.packages),true);}
   if(materialPlans.every(Boolean))addGroupedPlan(materialPlans.map(plan=>plan!.packages),materialPlans.every(plan=>plan!.packages.length===1));
   const orderedOptions = options.map(option=>option!.sort((a,b)=>a.lineCostGrosze-b.lineCostGrosze || a.offerId.localeCompare(b.offerId)));
-  // Keep the original single-size order as a transport alternative, and also
-  // optimise mixed sizes inside each chosen seller. The globally cheapest
-  // material plan can use another shop; it cannot stand in for this allocation
-  // when a mandatory extra item moves the renovation into bounded search.
-  const mixedByStore=groups.map(group=>{
-    if(group.cutRoll)return null;
-    const offers=group.offers.filter(offer=>isComparableOffer(offer,now.getTime()));
-    if(new Set(offers.map(offer=>Number(offer.packageSize??group.product.packageSize))).size<2)return null;
-    const plans=new Map<string,PackagePlanEntry[]>();
-    for(const store of new Set(offers.map(offer=>offer.store))){
-      const plan=optimizeGroupPackages(group,offers.filter(offer=>offer.store===store));
-      if(plan)plans.set(store,plan.packages);
-    }
-    return plans;
-  });
   function addBase(selected: (PackagePlanEntry | undefined)[]) {
     if (selected.some(pack=>!pack)) return;
     const complete = selected as PackagePlanEntry[];
     basePlans.set(complete.map(pack=>pack.offerId).join('|'),complete);
     addPlan(complete);
-    if(mixedByStore.some(Boolean))addGroupedPlan(complete.map((pack,index)=>mixedByStore[index]?.get(pack.store)??[pack]),true);
   }
   // Keep complete single-store baskets and one complete material-price plan
   // before exploring subsets. For many shops, try each preferred supplier

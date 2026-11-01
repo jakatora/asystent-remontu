@@ -186,7 +186,7 @@ test('all 103 product needs survive a large renovation with 12 stores and bounde
   assert.ok(purchased.every(line=>line.packages.reduce((n,p)=>n+p.count*p.packageSize,0)===5));
 });
 
-test('a mandatory third shop does not hide cheaper mixed sizes at the chosen primer seller in a large basket',async()=>{
+test('alternate-seller expansion retains cheaper mixed sizes for the other products in a large basket',async()=>{
   const input=await manyProducts(21,3);
   for(const [index,line] of input.lines.entries()){
     assert.ok(line.resolved);
@@ -198,20 +198,23 @@ test('a mandatory third shop does not hide cheaper mixed sizes at the chosen pri
         {...original,id:'a10',store:'A',packageSize:'10',price:'84.48'},
         {...original,id:'b5',store:'B',packageSize:'5',price:'40.00'}];
     }
+    if(index===1)line.offers=[{...original,id:'paint-a',store:'A',price:'1.00'},
+      {...original,id:'paint-d',store:'D',price:'2.00'}];
   }
   const before=JSON.stringify(input);
   for(const rejectMixed of [false,true]){
     let calls=0;
     const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001'},async(order,postcode)=>{
       calls++;
+      if(order.lines.some(line=>line.packages.some(pack=>pack.offerId==='paint-a')))return {reason:'product_unavailable'};
       const primer=order.lines.find(line=>line.product.id==='product-0');
       if(rejectMixed&&primer?.packages.some(pack=>pack.offerId==='a10'))return {reason:'price_changed'};
       const outcome=await known(order,postcode);assert.ok('quote'in outcome);
-      outcome.quote.costGrosze=order.store==='A'?1500:order.store==='B'?5000:1000;return outcome;
+      outcome.quote.costGrosze=order.store==='A'?1500:order.store==='B'?5000:order.store==='C'?1000:0;return outcome;
     });
     assert.equal(result.searchLimited,true);assert.ok(calls<=80);
-    assert.equal(result.best!.totalGrosze,rejectMixed?17445:17263);
-    assert.deepEqual(result.best!.stores.map(order=>order.store),['A','C']);
+    assert.equal(result.best!.totalGrosze,rejectMixed?17545:17363);
+    assert.deepEqual(result.best!.stores.map(order=>order.store),['A','C','D']);
     const purchased=result.best!.stores.flatMap(order=>order.lines);
     assert.equal(purchased.length,21);
     assert.deepEqual(purchased.find(line=>line.product.id==='product-0')!.packages.map(pack=>[pack.offerId,pack.count]).sort(),rejectMixed?[['a5',3]]:[['a10',1],['a5',1]]);
