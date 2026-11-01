@@ -22,6 +22,7 @@ import { isLeroyBrowserSource } from './lib/leroy-browser-observation';
 import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObservation } from './lib/retail-pages';
 import {RetailPriceHistory} from './lib/retail-history';
 import {catalogAvailability} from './lib/catalog-availability';
+import {parseCatalogRefreshIdentity,catalogRefreshUnit} from '../../../lib/pricing-service/src/catalog-refresh';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const normalUnit = (value: string) => ({ litr: 'l', litry: 'l', 'm²': 'm2', 'szt.': 'szt' }[value] ?? value);
@@ -246,6 +247,17 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   router.get('/pricing/catalog-availability', (_req,res) => {
     res.set('Cache-Control','no-store');
     res.json(catalogAvailability(RETAIL_SOURCES,catalog().offers,observations));
+  });
+  router.post('/pricing/catalog-availability/refresh',async(req,res)=>{
+    let identity;
+    try{identity=parseCatalogRefreshIdentity(req.body);}catch{res.status(400).json({error:'invalid_catalog_refresh_identity'});return;}
+    const sources=RETAIL_SOURCES.filter(source=>!source.disabledReason&&!source.pickupOnly&&source.category===identity.category&&source.packageSize===identity.packageSize&&catalogRefreshUnit(source.unit)===catalogRefreshUnit(identity.unit)&&('ean'in identity?retailComparableEan(source)===identity.ean:retailProductId(source)===identity.productId));
+    if(!sources.length){res.status(404).json({error:'catalog_product_not_reviewed'});return;}
+    try{
+      const refresh=await refreshProjectSources(sources);
+      res.setHeader('Cache-Control','no-store');
+      res.json({version:1,identity,refresh,availability:catalogAvailability(RETAIL_SOURCES,catalog().offers,observations)});
+    }catch{res.status(503).json({error:'catalog_product_refresh_unavailable'});}
   });
   async function handleEstimate(req: Request, res: Response) {
     const stageOnly = req.path.endsWith('/stage');

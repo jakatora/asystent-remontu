@@ -1,6 +1,7 @@
 import {confirmMapeiSupplyPurchase} from './mapei-supplies';
 import {confirmCeresitPrimerSource} from './ceresit-primers';
 import {readElmasProduct} from './elmas-product';
+import {shoperFloatingPointUnit,confirmShoperMetreCard} from './shoper-metres';
 import {confirmPaintingTapePurchase,reviewedPaintingTape} from './painting-tapes';
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEtakCard} from './etak-product';
@@ -457,7 +458,8 @@ export function confirmShoperPurchaseUnit(item: Record<string, any>, source: Ret
   if (source.id === 'kim-koelner-fx06k040-200' && (source.ean !== '5906675107622' || source.packageSize !== 200 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'op.' || source.productId !== 13330 || source.retailerSku !== 'MTZKKW06K040')) throw Error('product_package_not_confirmed');
   if (source.id === 'zpradem-koelner-ws3595-1000' && (source.ean !== '5906675303024' || source.packageSize !== 1000 || source.unit !== 'szt' || source.apiPurchaseUnit !== 'szt.' || source.productId !== 798230 || source.retailerSku !== '0004-00010-06761')) throw Error('product_package_not_confirmed');
   if (String(item.id) !== shoperProductId(source)) throw Error('product_id_not_confirmed');
-  if (source.apiPurchaseUnit && (item.unit?.name !== source.apiPurchaseUnit || item.unit?.floating_point !== false)) throw Error('retailer_unit_not_confirmed');
+  confirmShoperMetreCard(item,source);
+  if (source.apiPurchaseUnit && (item.unit?.name !== source.apiPurchaseUnit || item.unit?.floating_point !== shoperFloatingPointUnit(source))) throw Error('retailer_unit_not_confirmed');
   if (source.retailerSku && item.code !== source.retailerSku) throw Error('product_identity_not_confirmed');
   if (source.packageDescription && !normalizeProductName(htmlText(String(item.description ?? ''))).includes(normalizeProductName(source.packageDescription))) throw Error('product_package_not_confirmed');
   if (source.brandReference) {

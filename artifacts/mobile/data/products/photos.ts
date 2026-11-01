@@ -5,6 +5,8 @@ interface ProductPhoto {
   readonly ids: readonly string[];
   /** Reviewed merchant SKUs may have no manufacturer EAN. */
   readonly ean?: string;
+  /** Exact reviewed server identity, keyed by catalogue variant; never an EAN. */
+  readonly merchantProductIds?: Readonly<Record<string,string>>;
   readonly sourceUrl: string;
   /** Exact retail identity when the image itself comes from the manufacturer. */
   readonly identitySourceUrl?: string;
@@ -104,7 +106,7 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-vinyl-adhesive-tytan-osakryl-4kg"],"ean":"5903518039515","sourceUrl":"https://sklep.sewera.pl/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan-p21233","imageUrl":"https://sklep.sewera.pl/photo/150507/klej-do-wykladzin-osakryl-uniwersalny-4kg-tytan.webp"},
   // source: https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/
   // The same photographed decor is available in two explicitly selected widths.
-  {"ids":["mat-roll-orion514-ewinyl-2m","mat-roll-orion514-ewinyl-4m","remont-sku-ewinyl-5329-2m","remont-sku-ewinyl-5329-4m"],"sourceUrl":"https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/","imageUrl":"https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg"},
+  {"ids":["mat-roll-orion514-ewinyl-2m","mat-roll-orion514-ewinyl-4m","remont-sku-ewinyl-5329-2m","remont-sku-ewinyl-5329-4m"],"merchantProductIds":{"mat-roll-orion514-ewinyl-2m":"remont-sku-ewinyl-5329-2m","mat-roll-orion514-ewinyl-4m":"remont-sku-ewinyl-5329-4m"},"sourceUrl":"https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/","imageUrl":"https://ewinyl.pl/wp-content/uploads/2019/01/514-05-copy-950x950-600x600.jpg"},
   // source: https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891
   {"ids":["mat-vinyl-underlay-volden-lvt-625m2"],"ean":"5063022038326","sourceUrl":"https://liderzycen.pl/pl/p/Podklad-podlogowy-pod-panele-winylowe-Volden-XPS-LVT-pod-panele-winylowe-1-mm-6%2C25-m2/32891","imageUrl":"https://liderzycen.pl/environment/cache/images/productGfx_53817_500_500/9772c302db12f1d82525f11644d6fe42.jpg"},
   // source: https://zpradem.pl/asfora-ramka-pojedyncza-biala-eph5800121/788683
@@ -147,7 +149,7 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm
   {"ids":["mat-ceiling-anchor-rawlplug-gs-100"],"ean":"5906675169347","sourceUrl":"https://sklep.ehw.com.pl/osprzet-laczeniowy/rawlplug-r-gs-06040-kotwa-do-sufitow-podwieszanych-6x40-mm","imageUrl":"https://sklep.ehw.com.pl/environment/cache/images/productGfx_21763_500_500/858bd3358fa32304143b7a47e27c63b67c2f8593_0904f920e7ad3435db4d6ef5dd9e21e4a1468024_2a57cf4d4f4f771f6aaa3b51711fe54a3e05a012_GS_product__p.webp"},
   // source: https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/
-  {"ids":["mat-profile-cd60-irbud-3m"],"sourceUrl":"https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/","imageUrl":"https://irbudsklep.pl/wp-content/uploads/2023/11/Zrzut-ekranu-2025-09-05-114945.png"},
+  {"ids":["mat-profile-cd60-irbud-3m"],"merchantProductIds":{"mat-profile-cd60-irbud-3m":"remont-sku-irbud-10911"},"sourceUrl":"https://irbudsklep.pl/produkt/profil-glowny-sufitowy-cd60-3-mb-06/","imageUrl":"https://irbudsklep.pl/wp-content/uploads/2023/11/Zrzut-ekranu-2025-09-05-114945.png"},
 
   // source: https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325
   {"ids":["mat-gypsum-cross-norgips-100"],"ean":"5907651696468","sourceUrl":"https://hipper.pl/lacznik-krzyzowy-60-x-145-mm-100-szt-norgips-3071669325","imageUrl":"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos%7CPhotoMed%7C9794D2D8-F401-4DEA-BF8D-D0FF361306EE%7C1/%C5%81%C4%85cznik%20krzy%C5%BCowy%2060%20x%20145%20mm%20100%20szt.%20Norgips.webp"},
@@ -286,7 +288,7 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
 
   // source: https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282 (odczyt 2026-10-27T01:34:02.370Z)
   // source: https://tape.pl/marki/31-goldflex
-  {"ids":["mat-edge-tape-packcenter-tb-fb00202-50m"],"sourceUrl":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","imageUrl":"https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp"},
+  {"ids":["mat-edge-tape-packcenter-tb-fb00202-50m"],"merchantProductIds":{"mat-edge-tape-packcenter-tb-fb00202-50m":"remont-sku-sewera-465325"},"sourceUrl":"https://sklep.sewera.pl/tasma-dylatacyjna-5mm-x-10cm-x-50m-p23282","imageUrl":"https://sklep.sewera.pl/photo/364366/tasma-dylatacyjna-5mm-x-10cm-x-50m.webp"},
 
   // source: https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527
   {ids:['mat-epoxy-grout-mapei-kerapoxy-easy-100-3kg'],ean:'8022452132940',sourceUrl:'https://www.rabdom.pl/pl/p/Mapei-Kerapoxy-Easy-Design-Uniwersalna-fuga-epoksydowa-3kg-Bialy-100/14527',imageUrl:'https://www.rabdom.pl/environment/cache/images/productGfx_35202_500_500/Opakowanie-fugi-Mapei-o-gramaturze-3-kg..webp'},

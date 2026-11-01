@@ -11,7 +11,7 @@ import { generateId } from '@/shared/lib/id';
 import { extraMaterial, EXTRA_UNITS, MAX_BASKET_EXTRAS, parseExtraQuantity, searchBasketExtraReferences, type BasketExtra } from '@/features/pricing/basketExtras';
 import { ProductImage } from './ProductImage';
 import {useCatalogAvailability} from '@/features/pricing/useCatalogAvailability';
-import {catalogueProductAvailability,filterCatalogueByAvailability,isCatalogAvailabilityFresh} from '@/features/pricing/catalogAvailability';
+import {catalogueProductAvailability,catalogueRefreshIdentity,filterCatalogueByAvailability,isCatalogAvailabilityFresh} from '@/features/pricing/catalogAvailability';
 
 export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: {
   items: readonly BasketExtra[]; onChange: (items: BasketExtra[]) => void; ready: boolean; error: boolean; onRetry: () => void;
@@ -27,6 +27,9 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
   const hasAvailability = isCatalogAvailabilityFresh(availability.data);
   const confirmedFilter = onlyConfirmed && hasAvailability;
   const ref = MATERIAL_PRICES.find(ref => ref.id === referenceId);
+  const refreshIdentity=ref?catalogueRefreshIdentity(ref):null;
+  const productRefresh=refreshIdentity&&availability.productResult?.key===JSON.stringify(refreshIdentity)?availability.productResult:null;
+  const productRetrySeconds=productRefresh?availability.productRetrySeconds:0;
   const demand = parseExtraQuantity(quantity);
   const validName = name.trim().length > 0 && name.trim().length <= 200 && !/[\u0000-\u001f]/.test(name);
   const searchMatches = searchBasketExtraReferences(search);
@@ -94,7 +97,12 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
       </>}
       {(custom || ref) && <>
         {ref && <Txt w="semibold">{pl ? 'Wybrano' : 'Selected'}: {ref.productLabel}</Txt>}
+        {ref&&refreshIdentity&&<>
+          <Button variant="outline" label={availability.refreshing?(pl?'Sprawdzamy aktualną cenę…':'Checking the current price…'):productRetrySeconds>0?(pl?`Sprawdź cenę za ${productRetrySeconds} s`:`Check price in ${productRetrySeconds} s`):(pl?'Sprawdź aktualną cenę produktu':'Check current product price')} disabled={availability.refreshing||productRetrySeconds>0} onPress={()=>{void availability.refreshProduct(refreshIdentity);}}/>
+          {productRefresh&&<Txt accessibilityLiveRegion="polite" style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{productRefresh.result?.refresh.confirmedOfferIds.length?(pl?`Potwierdzone oferty: ${productRefresh.result.refresh.confirmedOfferIds.length}. ${productRefresh.result.refresh.status==='recent'?'Ceny sprawdzono przed chwilą. ':''}Dostawę i zapas dla potrzebnej ilości sprawdzimy po dodaniu do koszyka.`:`Confirmed offers: ${productRefresh.result.refresh.confirmedOfferIds.length}. Delivery and stock for your required quantity are checked after adding.`):(pl?'Nie udało się potwierdzić nowej ceny. Możesz dodać produkt i sprawdzić go ponownie w koszyku.':'A new price could not be confirmed. You can add the product and check again in the basket.')}</Txt>}
+        </>}
         {ref?.materialType==='wire' && <Txt style={{color:Colors.textSecondary,fontSize:13,lineHeight:19}}>{pl?'Przekrój, rodzaj i długość przewodu dobierz zgodnie z projektem instalacji. Porównujemy ceny wybranego wariantu.':'Choose the cable type, cross-section and length according to the installation design. We compare prices for the selected variant.'}</Txt>}
+        {ref?.id==='mat-pex-pipe-tycner-16x2'&&<Txt style={{color:Colors.textSecondary,fontSize:13,lineHeight:19}}>{pl?'Porównujemy zakup rury w pełnych metrach. Podane zapotrzebowanie pozostaje bez zmian; pokażemy ilość do kupienia i nadwyżkę.':'We compare whole-metre purchases. Your required length stays unchanged; the purchase quantity and surplus are shown.'}</Txt>}
         <Txt>{pl ? 'Potrzebna ilość' : 'Required quantity'} ({custom ? unit : ref?.packageUnit})</Txt>
         <TextInput accessibilityLabel={pl ? 'Potrzebna ilość dodatkowego materiału' : 'Additional material quantity'} keyboardType="decimal-pad" value={quantity} onChangeText={setQuantity} maxLength={13} style={field} />
         {quantity && demand === null ? <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Wpisz ilość większą od zera, do 100 000 (maksymalnie 6 cyfr po przecinku).' : 'Enter a quantity above zero, up to 100,000 (at most 6 decimal places).'}</Txt> : null}

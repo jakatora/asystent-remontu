@@ -1,4 +1,5 @@
 import {isReviewedPackageFamilyKey,type ReviewedPackageFamily} from '../../../../lib/pricing-service/src/reviewed-package-families';
+import {parseCatalogRefreshIdentity,parseCatalogProductRefresh,type CatalogRefreshIdentity,type CatalogProductRefresh} from '../../../../lib/pricing-service/src/catalog-refresh';
 import {ROLLED_JOB,ROLLED_MODEL,rolledDemand} from '@/features/calculator/rolledVinyl';
 import { ApiError, createBackoffFetch } from './requestBackoff';
 export { ApiError } from './requestBackoff';
@@ -429,6 +430,19 @@ export async function fetchCatalogAvailability(): Promise<unknown> {
     if (!response.ok) throw new ApiError(response.status, `HTTP ${response.status}`);
     return await response.json();
   } finally { clearTimeout(timeout); }
+}
+
+/** Explicitly recheck only the reviewed product selected in the catalogue.
+ * No delivery calculation, customer data, project changes or typed prices. */
+export async function refreshCatalogProduct(identity:CatalogRefreshIdentity):Promise<CatalogProductRefresh>{
+  const checked=parseCatalogRefreshIdentity(identity),controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),45_000);
+  try{
+    const response=await pricingFetch(endpoint('/api/pricing/catalog-availability/refresh'),{method:'POST',headers:{accept:'application/json','content-type':'application/json'},body:JSON.stringify(checked),signal:controller.signal});
+    if(!response.ok)throw new ApiError(response.status,`HTTP ${response.status}`);
+    const result=parseCatalogProductRefresh(await response.json());
+    if(!(['ean','productId','category','packageSize','unit']as const).every(key=>result.identity[key]===checked[key]))throw Error('catalog_refresh_identity_mismatch');
+    return result;
+  }finally{clearTimeout(timeout);}
 }
 
 // ─── Mapowanie wyniku kalkulatora → wejście API ───────────────────────────────

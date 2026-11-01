@@ -1,6 +1,7 @@
 import {quoteRelayEnabled,quoteThroughRelay} from './quote-relay-client';
 import {quoteEtak} from './etak-delivery';
 import {quoteElmas,elmasNationalBasketKey} from './elmas-delivery';
+import {shoperFloatingPointUnit} from './shoper-metres';
 import {selectRealbudMp75lDelivery} from './knauf-plasters';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEwinyl} from './ewinyl';
@@ -143,7 +144,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
   const origin = ORIGINS[order.store];
   if (!origin) return { reason: order.store === 'Sewera' ? 'branch_and_address_required' : 'integration_unavailable' };
   const client = new AnonymousShop(origin, fetchImpl, AbortSignal.timeout(12_000),retailerRequestBudget(order.lines.reduce((n,line)=>n+line.packages.length,0)));
-  const expected = new Map<number, { count: number; price: number; unitName?: string }>();
+  const expected = new Map<number, { count: number; price: number; unitName?: string;floatingPoint:boolean }>();
   for (const line of order.lines) for (const pack of line.packages) {
     const source = RETAIL_SOURCES.find(s => s.id === pack.offerId && s.store === order.store);
     if (!source || new URL(source.url).origin !== origin || !Number.isSafeInteger(pack.count) || pack.count < 1 || pack.count > MAX_RETAIL_PACKAGES || !Number.isSafeInteger(pack.unitPriceGrosze*pack.count)) throw Error('invalid_basket');
@@ -155,7 +156,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
     const price = confirmedMoney(product.price?.gross?.final, product.price?.gross?.final_float);
     if (price !== pack.unitPriceGrosze) throw Error('price_changed');
     if (expected.has(product.stockId)) throw Error('invalid_basket');
-    expected.set(product.stockId, { count: pack.count, price, unitName:source.apiPurchaseUnit });
+    expected.set(product.stockId, { count: pack.count, price, unitName:source.apiPurchaseUnit,floatingPoint:shoperFloatingPointUnit(source) });
     await client.json('/webapi/front/pl_PL/basket/PLN/', { stock_id: product.stockId, quantity: pack.count });
   }
   const basket = await client.json('/webapi/front/pl_PL/basket/PLN/');
@@ -163,7 +164,7 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
   let total = 0;
   for (const p of basket.products) {
     const wanted = expected.get(p.stock_id);
-    if (!wanted || p.quantity !== wanted.count || wanted.unitName && (p.unit?.name !== wanted.unitName || p.unit?.floating_point !== false) || confirmedMoney(p.price, p.price_float) !== wanted.price ||
+    if (!wanted || p.quantity !== wanted.count || wanted.unitName && (p.unit?.name !== wanted.unitName || p.unit?.floating_point !== wanted.floatingPoint) || confirmedMoney(p.price, p.price_float) !== wanted.price ||
       confirmedMoney(p.sum, p.sum_float) !== wanted.count * wanted.price) throw Error('basket_not_confirmed');
     expected.delete(p.stock_id); total += wanted.count * wanted.price;
   }
