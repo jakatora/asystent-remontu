@@ -14,6 +14,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.abud.pl/product-pol-27268-Gotowa-masa-szpachlowa-Super-Finish-5-4-kg-Knauf.html
+  {"ids":["mat-skim-coat-knauf-superfinish-54kg"],"ean":"5901793357959","sourceUrl":"https://www.abud.pl/product-pol-27268-Gotowa-masa-szpachlowa-Super-Finish-5-4-kg-Knauf.html","imageUrl":"https://www.abud.pl/hpeciai/ee6f4a05d00ce5080a2896b3ba2e256c/pol_pl_Gotowa-masa-szpachlowa-Super-Finish-5-4-kg-Knauf-27268_1.webp"},
+  // source: https://www.abud.pl/product-pol-42372--Gotowa-Masa-szpachlowa-Knauf-Super-finish-28kg.html
+  {"ids":["mat-skim-coat-knauf-superfinish-28kg"],"ean":"5901793357935","sourceUrl":"https://www.abud.pl/product-pol-42372--Gotowa-Masa-szpachlowa-Knauf-Super-finish-28kg.html","imageUrl":"https://www.abud.pl/hpeciai/8da3f584f3e0b08cab351f35a22ee7b6/pol_pl_-Gotowa-Masa-szpachlowa-Knauf-Super-finish-28kg-42372_1.webp"},
   // source: https://buduj24.pl/produkt/16299,ceresit-grunt-ct17-transparent-gleboko-penetrujacy-5l
   {"ids":["mat-primer-ceresit-ct17-transparent-5l"],"ean":"5900089218653","sourceUrl":"https://buduj24.pl/produkt/16299,ceresit-grunt-ct17-transparent-gleboko-penetrujacy-5l","identitySourceUrl":"https://dm.henkel-dam.com/is/content/henkel/Cennik-Henkel-ACB-17-03-2025","imageUrl":"https://buduj24.pl/files/_product/16299/5900089218653_1.webp"},
   // source: https://buduj24.pl/produkt/10217,ceresit-grunt-gleboko-penetrujacy-ct17-profi-primer-5l

@@ -8,11 +8,15 @@ import { parseRetailPage, type RetailSource } from './retail-pages';
 import { cleanHtml, htmlAttributes, htmlElements } from './retail-microdata';
 
 const ORIGIN = 'https://www.abud.pl';
-const IDS = ["abud-aks-ydyp-3x15-25m","abud-aks-ydyp-3x15-50m","abud-aks-ydyp-3x25-50m","abud-aks-ydyp-3x25-5m",'abud-aks-ydyp-3x15-5m','abud-aks-ydyp-3x15-100m','abud-aks-ydyp-3x25-25m','abud-aks-ydyp-3x25-100m','abud-soudal-26a-5kg','abud-teflon-12x10','abud-pex-elbow-16x16','abud-fischer-wst140k-2','abud-dulux-rapidry-white-matt-1l','abud-koelner-fs3525-1000','abud-koelner-ws3595-1000','abud-koelner-fx06k040-200','abud-metylan-remover-500ml','abud-acrylputz-st10-20kg','abud-atlas-unigrunt-5kg'];
+const IDS = ["abud-aks-ydyp-3x15-25m","abud-aks-ydyp-3x15-50m","abud-aks-ydyp-3x25-50m","abud-aks-ydyp-3x25-5m",'abud-aks-ydyp-3x15-5m','abud-aks-ydyp-3x15-100m','abud-aks-ydyp-3x25-25m','abud-aks-ydyp-3x25-100m','abud-soudal-26a-5kg','abud-teflon-12x10','abud-pex-elbow-16x16','abud-fischer-wst140k-2','abud-dulux-rapidry-white-matt-1l','abud-koelner-fs3525-1000','abud-koelner-ws3595-1000','abud-koelner-fx06k040-200','abud-metylan-remover-500ml','abud-acrylputz-st10-20kg','abud-atlas-unigrunt-5kg','abud-knauf-superfinish-54kg','abud-knauf-superfinish-28kg'];
 function money(value: unknown, formatted?: unknown): number {
   if (!['string','number'].includes(typeof value)) throw Error('invalid_money');
   const amount = parsePriceToGrosze(value as string | number);
   if (amount === null || !Number.isSafeInteger(amount) || amount < 0) throw Error('invalid_money');
+  if (formatted !== undefined) {
+    const precise = typeof value === 'number' ? value : Number(String(value).replace(/\s/g,'').replace(',','.'));
+    if (!Number.isFinite(precise) || Math.abs(precise*100-amount)>0.00001) throw Error('invalid_money');
+  }
   if (formatted !== undefined && (typeof formatted !== 'string' || !/^[\d\s,.]+\s*zł$/.test(formatted)
       || parsePriceToGrosze(formatted.replace(/\s*zł$/, '')) !== amount)) throw Error('invalid_money');
   return amount;
@@ -26,7 +30,11 @@ function money(value: unknown, formatted?: unknown): number {
 export function selectAbudHomeRate(response: any) {
   const rates = response?.data?.shipping?.shipping;
   if (response?.errors?.length || !Array.isArray(rates) || !rates.length || rates.length > 100) throw Error('invalid_response');
-  const names: Record<number,string> = {100037:'Pocztex Kurier 24',85:'Paczka GLS',100336:'Pocztex Kurier XXL doręczenie pod wskazany adres',30:'DPD Paczka - niestandard'};
+  // Actual postcode-bound 28 kg basket also requires a pallet. These named
+  // prepaid services deliver to an address; pickup and COD remain excluded.
+  // source: https://www.abud.pl/Dostawa-Towaru-cinfo-pol-24.html
+  // source: https://www.abud.pl/product-pol-42372--Gotowa-Masa-szpachlowa-Knauf-Super-finish-28kg.html
+  const names: Record<number,string> = {100037:'Pocztex Kurier 24',85:'Paczka GLS',100336:'Pocztex Kurier XXL doręczenie pod wskazany adres',30:'DPD Paczka - niestandard',100072:'Pekaes - Paleta 60x40',100073:'Geis / Pekaes  - Paleta 120x80'};
   const candidates: {costGrosze:number;carrier:string;payment:string}[] = [], seen = new Set<number>();
   for (const rate of rates) {
     const id = rate?.courier?.id;

@@ -8,9 +8,11 @@ import {ETAK_SOURCES} from './etak-sources';
 import {KNAUF_PLASTER_SOURCES} from './knauf-plasters';
 import {MAPEI_SUPPLY_SOURCES} from './mapei-supplies';
 import {PAINTING_TAPE_SOURCES} from './painting-tapes';
+import {KNAUF_FINISH_SOURCES} from './knauf-finishes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...KNAUF_FINISH_SOURCES,
   ...PAINTING_TAPE_SOURCES,
   // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751
   {"id":"sewera-mapegum-wps-5kg","ean":"8022452242489","name":"Folia w płynie Mapegum WPS 5kg Mapei","brand":"Mapei","category":"waterproofing","packageSize":5,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17476_500_500/Zrzut-ekranu-2022-02-12-091101.webp","pickupRequiresConfirmation":true},
@@ -1402,6 +1404,8 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Knauf Super Finish — gotowa masa szpachlowa 5,4 kg": "5901793357959",
+  "Knauf Super Finish — gotowa masa szpachlowa 28 kg": "5901793357935",
   // source: https://sklep-elmas.pl/p/tasma-akustyczna-norgips-3-mm-x-0075-m
   'Taśma uszczelniająca Norgips 75 mm × 30 m':'5907651698011',
   // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906

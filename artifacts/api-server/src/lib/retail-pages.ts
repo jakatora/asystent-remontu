@@ -3,6 +3,7 @@ import {confirmCeresitPrimerSource} from './ceresit-primers';
 import {readElmasProduct} from './elmas-product';
 import {shoperFloatingPointUnit,confirmShoperMetreCard} from './shoper-metres';
 import {confirmPaintingTapePurchase,reviewedPaintingTape} from './painting-tapes';
+import {confirmKnaufFinishPurchase} from './knauf-finishes';
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEtakCard} from './etak-product';
 import {confirmKnaufPlasterPurchase} from './knauf-plasters';
@@ -122,6 +123,25 @@ function objects(value: unknown): Record<string, any>[] {
   return [item, ...objects(item['@graph'])];
 }
 
+/** The reviewed IdoSell promotion has no top-level price: its two explicit
+ * UnitPriceSpecifications distinguish the list amount from a dated sale.
+ * The existing primary-form check must still match the selected amount.
+ * source: https://www.abud.pl/product-pol-42372--Gotowa-Masa-szpachlowa-Knauf-Super-finish-28kg.html */
+function idosellPromotion(product: Record<string, any>, now: Date): Record<string, any> {
+  const offers = [product.offers].flat();
+  if (offers.length !== 1 || !offers[0] || offers[0].price !== undefined) return product;
+  const offer = offers[0], specs = offer.priceSpecification;
+  if (!Array.isArray(specs) || specs.length !== 2 || specs.some(s => !s || s['@type'] !== 'UnitPriceSpecification' || s.priceCurrency !== 'PLN')) throw Error('retailer_promotion_not_confirmed');
+  const list = specs.filter(s => s.priceType === 'https://schema.org/ListPrice');
+  const sale = specs.filter(s => s.priceType === 'https://schema.org/SalePrice');
+  if (list.length !== 1 || sale.length !== 1 || typeof sale[0].validThrough !== 'string'
+    || offer.priceValidUntil !== sale[0].validThrough || !retailPriceIsValid(sale[0].validThrough, now)
+    || offer.priceCurrency !== undefined && offer.priceCurrency !== 'PLN') throw Error('retailer_promotion_not_confirmed');
+  const base = parsePriceToGrosze(list[0].price), current = parsePriceToGrosze(sale[0].price);
+  if (base === null || current === null || current <= 0 || current > base || !Number.isSafeInteger(current) || !Number.isSafeInteger(base)) throw Error('retailer_promotion_not_confirmed');
+  return {...product, offers:[{...offer, price:sale[0].price, priceCurrency:'PLN'}]};
+}
+
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
   if(source.id.startsWith('buduj24-ceresit-ct17-'))confirmCeresitPrimerSource(source);
@@ -157,6 +177,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   }
   if (source.format === 'idosell' || source.format === 'fixero' || source.format === 'rodimax') {
     if (products.length !== 1) throw Error('product_identity_ambiguous');
+    if (source.format === 'idosell') products[0] = idosellPromotion(products[0], observedAt);
     products[0] = confirmRetailIdentity(html, products[0], source);
   }
   const product = source.skuIdentity ? products.find(item => item.sku === retailSkuCode(source) && !item.gtin13 && !item.gtin)
@@ -342,6 +363,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  confirmKnaufFinishPurchase(item,source);
   confirmPaintingTapePurchase(item,source);
   confirmMapeiSupplyPurchase(item,source);
   confirmKnaufPlasterPurchase(item,source);

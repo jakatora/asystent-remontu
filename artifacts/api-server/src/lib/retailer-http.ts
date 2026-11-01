@@ -171,7 +171,7 @@ export class AnonymousShop {
       // source: https://www.abud.pl/product-pol-6892-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x1-5-50m.html
       // source: https://www.abud.pl/product-pol-6901-Przewod-elektryczny-AKS-ZIELONKA-YDYP-3x2-5-50m.html
       // source: https://www.abud.pl/product-pol-65390-Przewod-elektryczny-3x2-5-YDYP-5m-AKS-Zielonka.html
-      if (![6883,6892,6901,65390,65373,50450,6900,50414,27095,6204,64835,17848,63790,1456,63463,1452,5708,7965,1121].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
+      if (![6883,6892,6901,65390,65373,50450,6900,50414,27095,6204,64835,17848,63790,1456,63463,1452,5708,7965,1121,27268,42372].includes(args.productId ?? 0) || !Number.isSafeInteger(args.count) || args.count! < 1 || args.count! > MAX_RETAIL_PACKAGES || args.postalCode !== undefined) throw Error('invalid_cart_action');
       return JSON.parse(await this.read('/basketchange.php',new URLSearchParams({getAjax:'true',mode:'1',product:String(args.productId),size:'onesize',number:String(args.count)}).toString(),false));
     }
     if (action !== 'shipping' || Object.keys(args).length) throw Error('invalid_cart_action');

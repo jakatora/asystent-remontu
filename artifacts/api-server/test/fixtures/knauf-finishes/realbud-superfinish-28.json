@@ -1,0 +1,80 @@
+{
+  "id": 75056672,
+  "name": "Gładź KNAUF SUPER FINISH 28 kg, gotowa masa szpachlowa",
+  "can_buy": true,
+  "ean": "5901793357935",
+  "code": "18587",
+  "package": "0",
+  "unit": {
+    "name": "szt.",
+    "floating_point": false
+  },
+  "rate": 5,
+  "votes": 55,
+  "stockId": 75056974,
+  "url": "https://realbud.com/pl/p/Gladz-KNAUF-SUPER-FINISH-28-kg%2C-gotowa-masa-szpachlowa/75056672",
+  "category": {
+    "name": "Gładzie i gipsy",
+    "id": 2594
+  },
+  "availability": {
+    "name": "24 godziny"
+  },
+  "visibility": {
+    "status": 1,
+    "cart_status": 1,
+    "search_status": 1
+  },
+  "price": {
+    "gross": {
+      "base": "103,05 zł",
+      "base_float": 103.05,
+      "final": "103,05 zł",
+      "final_float": 103.05,
+      "historical_lowest_price": "103,05 zł",
+      "historical_lowest_price_float": 103.05
+    },
+    "net": {
+      "base": "83,78 zł",
+      "base_float": 83.78,
+      "final": "83,78 zł",
+      "final_float": 83.78,
+      "historical_lowest_price": "83,78 zł",
+      "historical_lowest_price_float": 83.78
+    }
+  },
+  "productExists30DaysBeforePromotion": false,
+  "weight": {
+    "weight_float": 0,
+    "weight": "0 kg"
+  },
+  "producer": {
+    "name": "Knauf",
+    "id": 13
+  },
+  "newProduct": false,
+  "delivery": {
+    "name": null,
+    "hours": null
+  },
+  "shortDescription": "",
+  "main_image": "25860",
+  "main_image_filename": "25860.png",
+  "description": "<html><head></head><body><div class=\"description-wrapper\">   <div class=\"desc-left-col\">     <div class=\"desc-left-col-img\"><img src=\"/userdata/public/assets/images/realbud_Grafika%20na%20stronie%20produktu.png\" alt=\"\"></div>     <div class=\"desc-left-col-list\">       <h3>Informacje o produkcie</h3>       <ul class=\"custom-list\">                <li>         <h4>Zaawansowana Kompozycja i Właściwości Techniczne</h4>         <p>Gładź KNAUF SUPER FINISH to zaawansowany produkt budowlany, wyróżniający się swoją wydajnością i wszechstronnością zastosowań. Zaprojektowany z myślą o optymalnym wykończeniu powierzchni, oferuje wyjątkową łatwość aplikacji zarówno ręcznie, jak i maszynowo. Dzięki maksymalnej grubości warstwy wynoszącej 3 mm, pozwala na skuteczne wyrównanie powierzchni, oferując jednocześnie czas schnięcia jedynie 2,5 godziny na 1 mm, co znacząco przyspiesza prace wykończeniowe. Gładź ta jest odporna na zamarzanie, co czyni ją niezawodnym wyborem w zmiennych warunkach transportu i magazynowania.</p>       </li>       <li>         <h4>Wszechstronność Zastosowania</h4>         <p>Produkt ten jest przeznaczony do szerokiej gamy zastosowań wewnętrznych, od płyt gipsowo-kartonowych po tynki gipsowe, cementowo-wapienne i inne podłoża mineralne. To, co wyróżnia Gładź KNAUF SUPER FINISH, to możliwość uzyskania różnych poziomów wykończenia powierzchni (Q2–Q4), co pozwala na dostosowanie jej właściwości do konkretnych wymagań projektu. Taka elastyczność sprawia, że produkt ten jest idealnym rozwiązaniem zarówno dla profesjonalnych firm budowlanych, jak i domowych majsterkowiczów.</p>       </li>       <li>         <h4>Efektywność i Ekonomia</h4>         <p>Dzięki doskonałej wydajności, produkt ten jest nie tylko efektywny, ale również ekonomiczny. Wydajność na poziomie 1,5 kg/m² dla 1 mm grubości warstwy gwarantuje, że nawet przy większych projektach zużycie gładzi pozostaje na akceptowalnym poziomie. Idealne rozwiązanie dla każdego, kto poszukuje przewodnią jakość w rozsądnej cenie, bez kompromisów w zakresie wydajności czy estetyki wykończenia.</p>       </li>       <li>         <h4>Bezpieczeństwo i Jakość</h4>         <p>Zastosowanie Gładzi KNAUF SUPER FINISH gwarantuje nie tylko estetykę, ale przede wszystkim bezpieczeństwo. Klasyfikacja reakcji na ogień A2-s1, d0 to potwierdzenie najwyższych standardów jakościowych produktu. Dodatkowo, gładź ta charakteryzuje się pełną zgodnością z wymaganiami nowoczesnego budownictwa, co czyni ją niezastąpionym elementem zestawu dla każdego fachowca.</p>       </li>       </ul>     </div>     <div class=\"desc-left-col-attr\">       <div class=\"desc-left-col-attr-h4\">         <h4>Dane techniczne</h4>       </div>       <div class=\"desc-left-col-attr-table\">         <div class=\"desc-left-col-attr-table-grey\">           <div>Wydajnosc</div>           <div>1,5 kg/m² przy 1 mm grubości warstwy</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Maksymalna_grubosc_warstwy</div>           <div>3 mm</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Czas_schnięcia</div>           <div>2,5 h na 1 mm grubości warstwy</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Metoda_aplikacji</div>           <div>Ręczna (wałkiem), maszynowa (agregatem)</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Reakcja_na_ogień</div>           <div>A2-s1, d0</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Gęstość</div>           <div>1,65 kg/l</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Poziom_przygotowania_powierzchni</div>           <div>Q2–Q4</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Odporność_na_zamarzanie</div>           <div>Tak, odporna na przemrożenia w transporcie</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Opakowanie</div>           <div>28 kg</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Wymiary_opakowania</div>           <div>35 cm x 30 cm x 30 cm</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>EAN</div>           <div>5901793357935</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Zastosowanie</div>           <div>Wewnętrzne prace wykończeniowe na płytach gipsowo-kartonowych, tynkach gipsowych, cementowo-wapiennych oraz innych podłożach mineralnych</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Czas_wysychania</div>           <div>Do 24 godzin dla 2 mm warstwy</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Wydajność_na_m2</div>           <div>0,12 kg/m² dla Q2, 0,5 kg/m² dla Q3, 1,6 kg/m² dla Q4 przy 1 mm warstwie</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Kolor</div>           <div>Biała</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Tekstura</div>           <div>Gładka</div>         </div>                <div class=\"desc-left-col-attr-table-grey\">           <div>Rekomendowana_grubość_warstwy</div>           <div>3 mm</div>         </div>                <div class=\"desc-left-col-attr-table-white\">           <div>Trwałość</div>           <div>12 miesięcy</div>         </div>       </div>     </div>   </div>   <div class=\"desc-right-col\">     <div class=\"desc-right-col-list\">       <div class=\"desc-right-col-list-title\">         <h3>Cechy produktu</h3>       </div>       <div class=\"desc-right-col-list-data\">                <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Zgodne%20ze%20standardami.svg\" alt=\"\"></div>         <div>Wysoka wydajność</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Innowacyjne.svg\" alt=\"\"></div>         <div>Odporność na warunki</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Ocynkowana%20konstrukcja.svg\" alt=\"\"></div>         <div>Szybkie schnięcie</div>       </div>       <div class=\"desc-right-col-list-data-box\">         <div><img src=\"/userdata/public/assets/new-desc-files/icon_Łatwość%20instalacji.svg\" alt=\"\"></div>         <div>Wszechstronność zastosowań</div>       </div>       </div>     </div>     <div class=\"desc-right-col-img\"><img src=\"/userdata/public/gfx/22862.jpg\" alt=\"\"></div>     <div class=\"desc-right-col-box\">       <div><img src=\"/userdata/public/assets/new-desc-files/icon_info.svg\" alt=\"\"></div>       <div>         <p>Szybkie schnięcie i odporność na zamarzanie czynią Gładź KNAUF SUPER FINISH idealnym wyborem dla dynamicznych projektów budowlanych.</p>       </div>     </div>     <div class=\"desc-right-col-producer\">            <h3>O producencie</h3>     <img src=\"/userdata/public/assets/new-desc-files/generic_manufacturer_logo.svg\" alt=\"\">     <p>Knauf to niemiecka firma rodzinna założona w 1932 roku, jeden z największych na świecie producentów materiałów budowlanych na bazie gipsu. Oferta obejmuje płyty gipsowo-kartonowe, profile i systemy suchej zabudowy, gładzie i tynki gipsowe, masy szpachlowe oraz izolacje z wełny mineralnej i szklanej (Knauf Insulation). W Polsce Knauf posiada własne zakłady produkcyjne i sieć dystrybucji obejmującą hurtownie i składy budowlane.</p>        </div>   </div> </div></body></html>",
+  "images": [
+    "25860",
+    "22862"
+  ],
+  "images_filename": [
+    "25860.png",
+    "22862.jpg"
+  ],
+  "lowest_shipping_cost": {
+    "price": "0,00 zł",
+    "price_float": 0
+  },
+  "historical_lowest_price": "103,05 zł",
+  "net_historical_lowest_price": "83,78 zł",
+  "is_notification_enabled": false,
+  "gauge": []
+}

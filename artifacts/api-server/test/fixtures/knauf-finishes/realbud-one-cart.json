@@ -1,0 +1,168 @@
+{
+  "shippings": [
+    {
+      "shipping_id": 23,
+      "selected": true,
+      "title": "Transport na zapytanie",
+      "description": "",
+      "cost": "0,00 zł",
+      "cost_float": 0,
+      "engine": "personal",
+      "payments": [
+        {
+          "payment_id": 1
+        },
+        {
+          "payment_id": 3
+        },
+        {
+          "payment_id": 19
+        }
+      ],
+      "countries": [
+        {
+          "id": 179,
+          "cost": "0,00 zł",
+          "cost_float": 0
+        }
+      ]
+    },
+    {
+      "shipping_id": 1,
+      "selected": false,
+      "title": "Odbiór własny Szczecin",
+      "description": "ul. 1 Maja 32",
+      "cost": "0,00 zł",
+      "cost_float": 0,
+      "engine": "personal",
+      "payments": [
+        {
+          "payment_id": 1
+        },
+        {
+          "payment_id": 3
+        },
+        {
+          "payment_id": 19
+        }
+      ],
+      "countries": [
+        {
+          "id": 179,
+          "cost": "0,00 zł",
+          "cost_float": 0
+        }
+      ]
+    },
+    {
+      "shipping_id": 15,
+      "selected": false,
+      "title": "Odbiór własny Bydgoszcz",
+      "description": "ul. Fabryczna 6a",
+      "cost": "0,00 zł",
+      "cost_float": 0,
+      "engine": "personal",
+      "payments": [
+        {
+          "payment_id": 1
+        },
+        {
+          "payment_id": 3
+        },
+        {
+          "payment_id": 19
+        }
+      ],
+      "countries": [
+        {
+          "id": 179,
+          "cost": "0,00 zł",
+          "cost_float": 0
+        }
+      ]
+    }
+  ],
+  "payments": [
+    {
+      "payment_id": 3,
+      "selected": true,
+      "name": "onlinePayment",
+      "title": "Autopay",
+      "description": ""
+    },
+    {
+      "payment_id": 19,
+      "selected": false,
+      "name": "custom",
+      "title": "Szybki przelew on-line",
+      "description": ""
+    },
+    {
+      "payment_id": 1,
+      "selected": false,
+      "name": "cash",
+      "title": "Płatność przy odbiorze",
+      "description": ""
+    }
+  ],
+  "countries": [
+    {
+      "id": 179,
+      "name": "Polska",
+      "selected": true
+    }
+  ],
+  "free_shipping": {
+    "shipping_id": "89",
+    "title": "Darmowa dostawa",
+    "free_shipping_float": 0.01,
+    "free_shipping": "0,01 zł",
+    "missing_float": -103.03999999999999,
+    "missing": "-103,04 zł"
+  },
+  "basket": {
+    "count": 1,
+    "sum": "103,05 zł",
+    "sum_float": 103.05,
+    "sum_products": "103,05 zł",
+    "sum_products_float": 103.05,
+    "sum_no_shipping": "103,05 zł",
+    "sum_no_shipping_float": 103.05,
+    "loyalty_points": 0
+  },
+  "products": [
+    {
+      "id": 135396,
+      "parent_id": null,
+      "stock_id": 75056974,
+      "product_id": 75056672,
+      "type": null,
+      "name": "Gładź KNAUF SUPER FINISH 28 kg, gotowa masa szpachlowa",
+      "variant": "",
+      "quantity": 1,
+      "image": "25860",
+      "image_filename": "25860.png",
+      "unit": {
+        "name": "szt.",
+        "floating_point": false
+      },
+      "price_float": 103.05,
+      "price": "103,05 zł",
+      "sum_float": 103.05,
+      "sum": "103,05 zł",
+      "loyalty": null,
+      "category": {
+        "category_id": "2594",
+        "translation": {
+          "name": "Gładzie i gipsy"
+        }
+      },
+      "producer": {
+        "producer_id": "13",
+        "name": "Knauf"
+      },
+      "url": "https://realbud.com/pl/p/Gladz-KNAUF-SUPER-FINISH-28-kg%2C-gotowa-masa-szpachlowa/75056672",
+      "remove_url": "https://realbud.com/pl/basket/remove/135396"
+    }
+  ]
+}

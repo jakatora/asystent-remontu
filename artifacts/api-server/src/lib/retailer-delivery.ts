@@ -169,6 +169,9 @@ async function quoteShoper(order: DeliveredStoreBasket, fetchImpl: typeof fetch)
     expected.delete(p.stock_id); total += wanted.count * wanted.price;
   }
   if (expected.size || total !== order.materialsGrosze || confirmedMoney(basket.basket?.sum_products, basket.basket?.sum_products_float) !== total) throw Error('basket_not_confirmed');
+  // This selected personal service has a zero placeholder, not a freight quote.
+  // source: https://realbud.com/pl/p/Gladz-KNAUF-SUPER-FINISH-28-kg%2C-gotowa-masa-szpachlowa/75056672
+  if(order.store==='Realbud'&&basket.shippings?.some((rate:any)=>rate.selected===true&&rate.shipping_id===23&&rate.title==='Transport na zapytanie'&&rate.engine==='personal'))return{reason:'retailer_transport_quote_required'};
   const shipping = selectRealbudMp75lDelivery(basket,order)??selectHomeDelivery(basket,order.store), checkedAt = new Date();
   // Quote returned for Poland, not claimed to be postcode-specific. No fictitious
   // name/contact/address is ever submitted to a retailer to unlock checkout.
