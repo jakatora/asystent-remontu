@@ -13,6 +13,8 @@ import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PR
 import {writePrimerPackageChoices} from '../pricing/primerPackageStorage';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices,MAPEGUM_PACKAGE_PRODUCTS} from '../pricing/mapegumPackageChoice';
 import {writeMapegumPackageChoices,mapegumPackageStorage} from '../pricing/mapegumPackageStorage';
+import {MAPEGUM_PRODUCT_CHOICE_PREFIX,MAPEGUM_PRODUCT_PAIRS} from '../pricing/mapegumProductChoice';
+import {mapegumProductStorage} from '../pricing/mapegumProductStorage';
 import {primerPackageStorage} from '../pricing/primerPackageStorage';
 import {recoverMaterialStock} from '../pricing/materialStockStorage';
 import {recoveryArchiveKey,parsePreferenceRecovery} from './preferenceRecovery';
@@ -30,6 +32,7 @@ function sharedChoices():Record<string,string>{
   return{
     [PRIMER_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:PRIMER_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
     [MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:MAPEGUM_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
+    [MAPEGUM_PRODUCT_CHOICE_PREFIX+'renovation-basket']:save([MAPEGUM_PRODUCT_PAIRS[0]]),
     'remont.laminate-choice.v1:renovation-basket':save([{from:LAMINATE_PRODUCTS[0].id,to:LAMINATE_PRODUCTS[1].id}]),
     'remont.foil-choice.v1:renovation-basket':save([{from:FOIL_PRODUCTS[0].id,to:FOIL_PRODUCTS[1].id}]),
     'remont.washbasin-choice.v1:renovation-basket':save([{from:WASHBASIN_PRODUCTS[0].id,to:WASHBASIN_PRODUCTS[1].id}]),
@@ -42,6 +45,27 @@ function sharedChoices():Record<string,string>{
 const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
 const primerChoice={from:PRIMER_PACKAGE_PRODUCTS.find(p=>p.packageSize===1)!.id,to:'automatic' as const};
 const mapegumChoice={from:MAPEGUM_PACKAGE_PRODUCTS.find(p=>p.packageSize===3)!.id,to:'automatic' as const};
+
+test('current Mapegum SKU choices and recovery copies survive SQLite export and import for project and common scopes',async t=>{
+  const a=await source(t),b=await fixture(t),key=MAPEGUM_PRODUCT_CHOICE_PREFIX+'room';
+  await a.storage.setItem(key,'{damaged-product');await mapegumProductStorage.recover(a.storage,'room');
+  await mapegumProductStorage.write(a.storage,'room',[MAPEGUM_PRODUCT_PAIRS[0]]);
+  await mapegumProductStorage.write(a.storage,'renovation-basket',[MAPEGUM_PRODUCT_PAIRS[1]]);
+  const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);
+  assert.deepEqual(await mapegumProductStorage.read(b.storage,'room'),[MAPEGUM_PRODUCT_PAIRS[0]]);
+  assert.deepEqual(await mapegumProductStorage.read(b.storage,'renovation-basket'),[MAPEGUM_PRODUCT_PAIRS[1]]);
+  assert.equal(parsePreferenceRecovery(await b.storage.getItem(recoveryArchiveKey(key))).records[0].raw,'{damaged-product');
+  assert.equal(canonical((await readProjectBackup(b.db,b.storage)).tables),canonical(backup.tables));
+});
+
+test('backup waits for an in-flight current-product selection before reading its namespace',async t=>{
+  const a=await source(t),set=a.storage.setItem.bind(a.storage);let release!:()=>void,began!:()=>void;
+  const gate=new Promise<void>(r=>{release=r;}),started=new Promise<void>(r=>{began=r;});
+  a.storage.setItem=async(k,v)=>{if(k===MAPEGUM_PRODUCT_CHOICE_PREFIX+'room'){began();await gate;}await set(k,v);};
+  const write=mapegumProductStorage.write(a.storage,'room',[MAPEGUM_PRODUCT_PAIRS[0]]);await started;
+  let done=false;const snapshot=readProjectBackup(a.db,a.storage).then(value=>{done=true;return value;});await new Promise(r=>setTimeout(r,15));assert.equal(done,false);release();await write;
+  assert.deepEqual(JSON.parse((await snapshot).preferences[MAPEGUM_PRODUCT_CHOICE_PREFIX+'room']).choices,[MAPEGUM_PRODUCT_PAIRS[0]]);
+});
 
 test('recovered stock and both family archives round-trip through real SQLite without applying damaged contents',async t=>{
  const a=await source(t),b=await fixture(t),sources=[MATERIAL_STOCK_PREFIX+'room',PRIMER_PACKAGE_CHOICE_PREFIX+'room',MAPEGUM_PACKAGE_CHOICE_PREFIX+'room',MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket'];

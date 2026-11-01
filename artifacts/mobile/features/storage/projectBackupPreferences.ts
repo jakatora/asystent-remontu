@@ -1,5 +1,6 @@
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices} from '../pricing/primerPackageChoice';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices} from '../pricing/mapegumPackageChoice';
+import {MAPEGUM_PRODUCT_CHOICE_PREFIX,parseMapegumProductChoices} from '../pricing/mapegumProductChoice';
 import type {ProjectBackup} from './projectBackup';
 import {parseDoorSelection} from '../pricing/doorSelection';
 import {parseLaminateChoices} from '../pricing/laminateChoice';
@@ -20,6 +21,7 @@ import {PREFERENCE_RECOVERY_PREFIX,parsePreferenceRecovery,recoveryArchiveKey} f
 export const BACKUP_PRODUCT_CHOICE_PARSERS: Readonly<Record<string,(raw:string)=>readonly unknown[]>>={
   [PRIMER_PACKAGE_CHOICE_PREFIX]:parsePrimerPackageChoices,
   [MAPEGUM_PACKAGE_CHOICE_PREFIX]:parseMapegumPackageChoices,
+  [MAPEGUM_PRODUCT_CHOICE_PREFIX]:parseMapegumProductChoices,
   'remont.laminate-choice.v1:':parseLaminateChoices,'remont.foil-choice.v1:':parseFoilChoices,
   'remont.washbasin-choice.v1:':parseWashbasinChoices,'remont.tile-choice.v1:':parseTileChoices,
   'remont.tile-adhesive-choice.v1:':parseTileAdhesiveChoices,'remont.flush-box-choice.v1:':parseFlushBoxChoices,
