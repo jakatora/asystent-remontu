@@ -38,3 +38,7 @@ test('an unavailable one-litre member is reported and the remaining verified can
 test('when every member is unavailable, the family stays unresolved without a freight-free payable total',async()=>{
   await fixtureServer(async(url)=>{const r=await post(url,request());assert.equal(r.status,200);const data:any=await r.json();assert.equal(data.stages[0].lines[0].resolved,false);assert.equal(data.deliveryComparison.best,null);assert.equal(data.priceRefresh.failedOfferIds.length,4);},p=>{p.can_buy=false;});
 });
+
+test('a positive sub-microlitre family remainder still has a real one-litre purchase cost',async()=>{
+  await fixtureServer(async(url)=>{const r=await post(url,request(1e-8));assert.equal(r.status,200);const data:any=await r.json();assert.equal(data.materialsTotalGrosze,3790);assert.equal(data.stages[0].lines[0].resolved,true);});
+});

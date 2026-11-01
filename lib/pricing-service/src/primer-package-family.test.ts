@@ -51,3 +51,14 @@ test('material-only four-size plans agree with an independent whole-can search',
     assert.equal((await stage(required)).lines[0].lineCost,expected,String(required));
   }
 });
+
+test('a tiny positive family demand cannot be covered by an empty zero-cost plan',async()=>{
+  for(const quantity of [1e-10,1e-8,1e-7]){const result=await stage(quantity);assert.equal(result.lines[0].resolved,true);assert.equal(result.lines[0].lineCost,3790);assert.deepEqual(counts(result.lines[0]),[[1,1,'8022452241123']]);}
+});
+
+test('a tiny positive fixed-size requirement still reserves a real can of that size',async()=>{
+  const locked=await stage(1e-8,'8022452241130'),automatic=await stage(1),plan=estimateProjectCost([locked,automatic]).consolidated.lines[0].packagePlan;
+  assert.ok(plan);assert.equal(plan.totalGrosze,7990);assert.deepEqual(plan.packages.map(p=>[p.packageSize,p.count]),[[5,1]]);
+  // Normal floating-point tolerance still permits the exact whole litre can.
+  const rounded=await stage(1.00000000001);assert.deepEqual(counts(rounded.lines[0]),[[1,1,'8022452241123']]);
+});

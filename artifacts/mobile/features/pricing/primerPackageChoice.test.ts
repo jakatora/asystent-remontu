@@ -10,6 +10,7 @@ import {getJobById} from '../content/registry';
 import {generateShoppingItems} from '../calculator/shopping';
 import {buildRenovationBasket} from './renovationBasket';
 import {applyShoppingContexts} from './projectShoppingInput';
+import {applyMaterialStock} from './materialStock';
 import type {Project,ShoppingItem} from '@/types/domain';
 
 const ref=PRIMER_PACKAGE_PRODUCTS.find(r=>r.packageSize===1)!,ean=PRODUCT_PHOTOS.find(p=>p.ids.includes(ref.id))!.ean!;
@@ -48,4 +49,9 @@ test('owned materials and allocated exact-product stock are deducted before fami
   const result=buildRenovationBasket(projects,['a','b'],'standard',items,{},{},{},{},{},{},stock,choices);
   assert.deepEqual(result.stages.map(s=>s.materials.map(l=>({family:l.material.packageFamily,quantity:l.quantity}))),[[{family:PRIMER_G_PRO_FAMILY,quantity:2}],[{family:PRIMER_G_PRO_FAMILY,quantity:3}]]);
   assert.deepEqual(applyShoppingContexts(result.selectionStages,result.shoppingContexts).stages,result.stages);assert.equal(result.excludedMaterials,2);assert.equal(JSON.stringify({projects,items,stock,choices}),before);
+});
+
+test('a positive stock remainder is preserved when switching the pending litres to a package family',()=>{
+  const before=source(1),pending=applyMaterialStock(before,[{materialId:'primer',ean,name:ref.productLabel,unit:'l',quantity:0.99999999}]);
+  const line=applyPrimerPackageChoices([pending.stage],[choice])[0].materials[0];assert.equal(line.quantity,1e-8);assert.equal(line.material.packageFamily,PRIMER_G_PRO_FAMILY);
 });
