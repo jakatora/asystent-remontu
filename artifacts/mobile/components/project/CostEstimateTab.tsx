@@ -121,10 +121,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     const stage = toPricingStageInput(calc, qualityTier === 'custom' ? 'standard' : qualityTier, doorChoice.selection);
     return [shoppingItems && projectId ? withManualShopping(stage, calc, projectId, shoppingItems) : stage];
   }, [stages, calc, qualityTier, doorChoice.selection, shoppingItems, projectId]);
+  // The common basket reads both family namespaces. Keep their recovery UI
+  // reachable in a project even after its current products have changed.
+  const packageChoicesEnabled=Boolean(projectId)&&rawInput.length>0;
   const primerReferences=useMemo(()=>primerPackageRequirements(rawInput),[rawInput]);
-  const primers=usePrimerPackages(projectId,primerReferences.length>0);
+  const primers=usePrimerPackages(projectId,packageChoicesEnabled||primerReferences.length>0);
   const mapegumReferences=useMemo(()=>mapegumPackageRequirements(rawInput),[rawInput]);
-  const mapegum=useMapegumPackages(projectId,mapegumReferences.length>0);
+  const mapegum=useMapegumPackages(projectId,packageChoicesEnabled||mapegumReferences.length>0);
   const laminateReferences = useMemo(() => laminateRequirements(rawInput), [rawInput]);
   const panels = useLaminateChoices(projectId, laminateReferences.length > 0);
   const foilReferences = useMemo(() => foilRequirements(rawInput), [rawInput]);
