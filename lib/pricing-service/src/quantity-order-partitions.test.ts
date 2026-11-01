@@ -1,14 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {withOrderPartitions} from './order-partitions';
-import {limitBasketQuotes} from './quote-work';
-
-test('quantity tariff checks overlap but keep all six physical packs and the best real two-order fee',async()=>{
- const input=basket(6);let active=0,peak=0;const seen:number[]=[];
- const atomic=limitBasketQuotes(async order=>{const n=order.lines[0].packages[0].count;seen.push(n);active++;peak=Math.max(peak,active);await new Promise<void>(resolve=>setImmediate(resolve));active--;return{quote:quote(n===6?2000:n===3?100:800)};});
- const result=await withOrderPartitions(atomic,()=>{})(input,'00-001');assert.ok('quote'in result);assert.equal(peak,3);assert.deepEqual([...seen].sort((a,b)=>a-b),[1,2,3,4,5,6]);assert.equal(result.quote.costGrosze,200);assert.deepEqual(result.quote.orders!.map(p=>p.lines[0].packages[0].count),[3,3]);
- assert.equal(result.quote.orders!.reduce((n,p)=>n+p.materialsGrosze,0),input.materialsGrosze);
-});
 import {combineOrderQuotes,preservesOrderPackages,type QuotedOrder} from './quantity-order-partitions';
 import type {BasketQuoter,DeliveredStoreBasket,DeliveryQuote} from './delivery';
 

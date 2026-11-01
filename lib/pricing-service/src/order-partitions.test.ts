@@ -2,15 +2,6 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { withOrderPartitions } from './order-partitions';
 import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuote } from './delivery';
-import {limitBasketQuotes} from './quote-work';
-
-test('independent four-product subcarts overlap without omitting any subset or changing the winning physical packs',async()=>{
- const order:DeliveredStoreBasket={store:'Example',materialsGrosze:400,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown',lines:['a','b','c','d'].map(id=>({product:{id,name:id,imageUrl:null},unit:'szt',packages:[{offerId:id,store:'Example',url:'https://example.test/'+id,packageSize:1,count:1,unitPriceGrosze:100,lineCostGrosze:100}]}))};
- const seen=new Set<string>();let active=0,peak=0;
- const atomic=limitBasketQuotes(async part=>{const key=part.lines.map(l=>l.product.id).join('');assert.ok(!seen.has(key));seen.add(key);active++;peak=Math.max(peak,active);await new Promise<void>(resolve=>setImmediate(resolve));active--;return{quote:quote(key==='ab'?200:key==='cd'?300:key==='abcd'?9000:8000)};});
- const result=await withOrderPartitions(atomic,()=>{})(order,'00-001');assert.ok('quote'in result);assert.equal(peak,3);assert.equal(seen.size,15);assert.equal(result.quote.costGrosze,500);
- assert.deepEqual(result.quote.orders!.map(p=>p.lines.map(l=>l.product.id).join('')),['ab','cd']);assert.equal(result.quote.orders!.reduce((sum,p)=>sum+p.materialsGrosze,0),400);
-});
 
 const basket = (): DeliveredStoreBasket => ({ store: 'Example', materialsGrosze: 600, deliveryGrosze: null, deliveryMinimumGrosze: 0, totalGrosze: null, source: 'unknown', lines: ['panels','underlay','tape'].map((id,i) => ({product:{id,name:id,imageUrl:null},unit:'szt',packages:[{offerId:id,store:'Example',url:'https://example.test/'+id,packageSize:1,count:i+1,unitPriceGrosze:100,lineCostGrosze:(i+1)*100}]})) });
 const quote = (costGrosze: number, expires = 600_000): DeliveryQuote => { const now=Date.now();return {costGrosze,carrier:'Courier',payment:'Prepaid',checkedAt:new Date(now).toISOString(),expiresAt:new Date(now+expires).toISOString(),sourceUrl:'https://example.test/basket',basis:'retailer_basket_national',destinationScope:'PL',evidenceSha256:'a'.repeat(64)}; };

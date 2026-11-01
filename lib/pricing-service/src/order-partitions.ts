@@ -2,7 +2,6 @@ import type { BasketQuoter, DeliveredStoreBasket, DeliveryQuoteResult } from './
 import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes,type QuotedOrder} from './quantity-order-partitions';
 import {quoteRequiredDispatch} from './dispatch-order-partitions';
 import {quotedMaterialsGrosze,quotedOrderTotal,supportsCartPricing} from './cart-pricing';
-import {mapQuoteWork} from './quote-work';
 
 /** Compare real separate orders, never divide a fee or invent a tariff.
  * The complete order must pass native stock/price checks first. Single-product
@@ -46,9 +45,9 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
       // Singles and their complements first: useful complete plans survive a
       // bounded request budget even when later combinations cannot be checked.
       const masks = [...new Set([...Array.from({ length: count }, (_, i) => 1 << i), ...Array.from({ length: count }, (_, i) => all ^ (1 << i)), ...Array.from({ length: all - 1 }, (_, i) => i + 1)])];
-      const checked=await mapQuoteWork(masks.filter(mask=>mask!==all),async mask=>
-        [mask,await read(Array.from({length:count},(_,i)=>i).filter(i=>mask&(1<<i)))] as const);
-      for (const [mask,part] of checked) {
+      for (const mask of masks) {
+        if (mask === all) continue;
+        const part = await read(Array.from({ length: count }, (_, i) => i).filter(i => mask & (1 << i)));
         if (part) parts.set(mask, part);
       }
       const memo = new Map<number, Part[] | null>([[0, []]]);
@@ -69,9 +68,8 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): 
       limited();
       // Large orders retain a bounded selection of independently verified
       // two-order plans. Do not claim an exhaustive partition search.
-      const checked=await mapQuoteWork(Array.from({length:Math.min(count,8)},(_,i)=>i),async i=>
-        [await read([i]),await read(Array.from({length:count},(_,j)=>j).filter(j=>j!==i))] as const);
-      for (const [one,rest] of checked) {
+      for (let i = 0; i < Math.min(count, 8); i++) {
+        const one = await read([i]), rest = await read(Array.from({ length: count }, (_, j) => j).filter(j => j !== i));
         if (one && rest && total([...one, ...rest]) < total(best)) best = [...one, ...rest];
       }
     }

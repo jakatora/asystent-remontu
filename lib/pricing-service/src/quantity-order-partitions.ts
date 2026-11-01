@@ -1,7 +1,6 @@
 import type {BasketQuoter,DeliveredStoreBasket,DeliveryQuote} from './delivery';
 import {DELIVERY_LIMITS} from './delivery-limits';
 import {combineCartPricing,quotedMaterialsGrosze,quotedOrderTotal,supportsCartPricing} from './cart-pricing';
-import {mapQuoteWork} from './quote-work';
 
 export type QuotedOrder={order:DeliveredStoreBasket;quote:DeliveryQuote};
 const MAX_QUANTITY_QUOTES=12,MAX_SEPARATE_ORDERS=8;
@@ -70,13 +69,11 @@ export async function quantityOrderPartitions(base:QuotedOrder,atomic:BasketQuot
  for(const n of legal){add(n);add(total-n);if(candidates.length===MAX_QUANTITY_QUOTES)break;}
  if(legal.length>MAX_QUANTITY_QUOTES||Math.floor(total/Math.max(min,multiple))>MAX_SEPARATE_ORDERS)limited();
  const verified=new Map<number,QuotedOrder>();
- const checked=await mapQuoteWork(candidates.slice(0,MAX_QUANTITY_QUOTES),async n=>{
+ for(const n of candidates.slice(0,MAX_QUANTITY_QUOTES)){
   const line={...whole.lines[0],product:{...whole.lines[0].product},packages:[{...pack,count:n,lineCostGrosze:n*pack.unitPriceGrosze}]};
   const order:DeliveredStoreBasket={...whole,lines:[line],materialsGrosze:n*pack.unitPriceGrosze,quote:undefined,deliveryGrosze:null,deliveryMinimumGrosze:0,totalGrosze:null,source:'unknown'};
-  try{const outcome=await atomic(order,postcode);if('quote'in outcome&&!outcome.quote.orders&&currentDeliveryQuote(outcome.quote,postcode)&&quotedMaterialsGrosze(order,outcome.quote)!==null)return [n,{order,quote:outcome.quote}] as const;limited();}catch{limited();}
-  return [n,null] as const;
- });
- for(const [n,part]of checked)if(part)verified.set(n,part);
+  try{const outcome=await atomic(order,postcode);if('quote'in outcome&&!outcome.quote.orders&&currentDeliveryQuote(outcome.quote,postcode)&&quotedMaterialsGrosze(order,outcome.quote)!==null)verified.set(n,{order,quote:outcome.quote});else limited();}catch{limited();}
+ }
  type Plan={cost:number;parts:QuotedOrder[]};const layers:Map<number,Plan>[]=[new Map([[0,{cost:0,parts:[]}]])];
  let best:Plan={cost:quotedOrderTotal(whole,base.quote)!,parts:[base]};
  const largest=(p:Plan)=>Math.max(...p.parts.map(part=>part.order.lines[0].packages[0].count));

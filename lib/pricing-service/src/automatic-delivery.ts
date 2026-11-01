@@ -9,7 +9,6 @@ import { DELIVERY_LIMITS } from './delivery-limits';
 import { withOrderPartitions } from './order-partitions';
 import { materialPurchasePlans } from './material-purchase-plan';
 import {applyCartPrices,quotedMaterialsGrosze,supportsCartPricing} from './cart-pricing';
-import {limitBasketQuotes} from './quote-work';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}:${pack.packageSize}:${JSON.stringify(pack.cutRoll??null)}`)).sort().join('|');
@@ -29,7 +28,6 @@ export async function compareAutomaticDelivery(
   knownUnavailableStores: Readonly<Record<string,string>> = {},
 ): Promise<DeliveryComparison> {
   if (settings.mode==='pickup'||settings.method==='manual') return compareDeliveredBaskets(stages,settings,policies,now);
-  const quoteNative=limitBasketQuotes(quoteBasket);
   const limits=new Map<string,DeliveryStockLimit>(),cache=new Map<string,Promise<DeliveryQuoteResult>>();
   let allowNewQuotes=true, partitionSearchLimited=false;
   const quoteWithStock: BasketQuoter=async(order,postalCode,context)=>{
@@ -38,7 +36,7 @@ export async function compareAutomaticDelivery(
     if(cache.has(key))return cache.get(key)!;
     if(!allowNewQuotes||cache.size>=MAX_STORE_BASKETS){partitionSearchLimited=true;return {reason:'quote_limit'};}
     const pending=(async()=>{
-      const outcome=await quoteNative(order,postalCode);
+      const outcome=await quoteBasket(order,postalCode);
       if (!('reason' in outcome)||outcome.reason!=='insufficient_stock'||!outcome.stockLimits) return outcome;
       const accepted=outcome.stockLimits.filter(limit=>{
         const line=order.lines.find(line=>line.packages.some(pack=>pack.offerId===limit.offerId));
