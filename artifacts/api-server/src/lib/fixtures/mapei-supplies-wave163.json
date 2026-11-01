@@ -1,0 +1,5309 @@
+{
+  "checkedAt": "2026-11-01T11:08:52.113Z",
+  "cards": [
+    {
+      "sourceId": "rabdom-primer-g-pro-10l",
+      "item": {
+        "id": 15704,
+        "stockId": 15707,
+        "ean": "8022452241147",
+        "code": "37971",
+        "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+        "price": {
+          "gross": {
+            "base": "139,90 zł",
+            "base_float": 139.9,
+            "final": "139,90 zł",
+            "final_float": 139.9,
+            "historical_lowest_price": "79,90 zł",
+            "historical_lowest_price_float": 79.9
+          },
+          "net": {
+            "base": "113,74 zł",
+            "base_float": 113.74,
+            "final": "113,74 zł",
+            "final_float": 113.74,
+            "historical_lowest_price": "64,96 zł",
+            "historical_lowest_price_float": 64.96
+          }
+        },
+        "weight": {
+          "weight_float": 20,
+          "weight": "20 kg"
+        }
+      },
+      "priceGrosze": 13990
+    },
+    {
+      "sourceId": "rabdom-primer-g-pro-20l",
+      "item": {
+        "id": 10828,
+        "stockId": 10832,
+        "ean": "8022452241154",
+        "code": "37718",
+        "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+        "price": {
+          "gross": {
+            "base": "249,00 zł",
+            "base_float": 249,
+            "final": "249,00 zł",
+            "final_float": 249,
+            "historical_lowest_price": "249,00 zł",
+            "historical_lowest_price_float": 249
+          },
+          "net": {
+            "base": "202,44 zł",
+            "base_float": 202.44,
+            "final": "202,44 zł",
+            "final_float": 202.44,
+            "historical_lowest_price": "202,44 zł",
+            "historical_lowest_price_float": 202.44
+          }
+        },
+        "weight": {
+          "weight_float": 25,
+          "weight": "25 kg"
+        }
+      },
+      "priceGrosze": 24900
+    },
+    {
+      "sourceId": "rabdom-mapegum-wps-3kg",
+      "item": {
+        "id": 16590,
+        "stockId": 16595,
+        "ean": "8022452249266",
+        "code": "59458",
+        "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+        "price": {
+          "gross": {
+            "base": "79,90 zł",
+            "base_float": 79.9,
+            "final": "79,90 zł",
+            "final_float": 79.9,
+            "historical_lowest_price": "86,90 zł",
+            "historical_lowest_price_float": 86.9
+          },
+          "net": {
+            "base": "64,96 zł",
+            "base_float": 64.96,
+            "final": "64,96 zł",
+            "final_float": 64.96,
+            "historical_lowest_price": "70,65 zł",
+            "historical_lowest_price_float": 70.65
+          }
+        },
+        "weight": {
+          "weight_float": 3,
+          "weight": "3 kg"
+        }
+      },
+      "priceGrosze": 7990
+    },
+    {
+      "sourceId": "rabdom-mapegum-wps-20kg",
+      "item": {
+        "id": 9875,
+        "stockId": 9879,
+        "ean": "8022452242502",
+        "code": "36196",
+        "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+        "price": {
+          "gross": {
+            "base": "385,00 zł",
+            "base_float": 385,
+            "final": "385,00 zł",
+            "final_float": 385,
+            "historical_lowest_price": "433,00 zł",
+            "historical_lowest_price_float": 433
+          },
+          "net": {
+            "base": "313,01 zł",
+            "base_float": 313.01,
+            "final": "313,01 zł",
+            "final_float": 313.01,
+            "historical_lowest_price": "352,03 zł",
+            "historical_lowest_price_float": 352.03
+          }
+        },
+        "weight": {
+          "weight_float": 20,
+          "weight": "20 kg"
+        }
+      },
+      "priceGrosze": 38500
+    },
+    {
+      "sourceId": "winbud-mapegum-wps-20kg",
+      "item": {
+        "id": 3543,
+        "stockId": 3879,
+        "ean": "8022452242502",
+        "code": "8022452242502",
+        "name": "Mapei Mapegum WPS 20kg folia w płynie",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 8,
+          "img": "https://winbud24.pl/userdata/public/producers/8.png"
+        },
+        "url": "https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543",
+        "price": {
+          "gross": {
+            "base": "377,87 zł",
+            "base_float": 377.87,
+            "promo": "367,70 zł",
+            "promo_float": 367.7,
+            "final": "367,70 zł",
+            "final_float": 367.7,
+            "historical_lowest_price": "377,87 zł",
+            "historical_lowest_price_float": 377.87
+          },
+          "net": {
+            "base": "307,21 zł",
+            "base_float": 307.21,
+            "promo": "298,94 zł",
+            "promo_float": 298.94,
+            "final": "298,94 zł",
+            "final_float": 298.94,
+            "historical_lowest_price": "307,21 zł",
+            "historical_lowest_price_float": 307.21
+          }
+        },
+        "weight": {
+          "weight_float": 21.5,
+          "weight": "21.5 kg"
+        }
+      },
+      "priceGrosze": 36770
+    }
+  ],
+  "carts": [
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 13990,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452241147",
+              "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38733_500_500/primer-g-10l.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-10l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+                "packageSize": 10,
+                "count": 1,
+                "unitPriceGrosze": 13990,
+                "lineCostGrosze": 13990
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 1799,
+          "carrier": "InPost Kurier",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:48.611Z",
+          "expiresAt": "2026-11-01T11:18:48.611Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "6c63afedaf1214bf860dbbea0b87074211b18a6ce02a59df99be1bf40000ce65"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 1,
+          "sum": "157,89 zł",
+          "sum_float": 157.89000000000001,
+          "sum_products": "139,90 zł",
+          "sum_products_float": 139.9,
+          "sum_no_shipping": "139,90 zł",
+          "sum_no_shipping_float": 139.9,
+          "loyalty_points": 139
+        },
+        "products": [
+          {
+            "id": 164047,
+            "parent_id": null,
+            "stock_id": 15707,
+            "product_id": 15704,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+            "variant": "",
+            "quantity": 1,
+            "image": "38733",
+            "image_filename": "38733.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 139.9,
+            "price": "139,90 zł",
+            "sum_float": 139.9,
+            "sum": "139,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164047"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Kurier",
+            "description": "",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": true,
+            "title": "InPost Paczkomat 24/7",
+            "description": "1-2 dni robocze",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "InPost Kurier Pobranie",
+            "description": "",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "29,90 zł",
+            "cost_float": 29.9,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "29,90 zł",
+                "cost_float": 29.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Pobranie",
+            "description": "",
+            "cost": "35,89 zł",
+            "cost_float": 35.89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "1,40 zł",
+                "additional_cost_float": 1.399
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,89 zł",
+                "cost_float": 35.89
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Pocztex KURIER",
+            "description": "Dostawa w ciągu 48h",
+            "cost": "21,00 zł",
+            "cost_float": 21,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,00 zł",
+                "cost_float": 21
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "Pocztex PUNKT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego punktu w uwagach",
+            "cost": "17,40 zł",
+            "cost_float": 17.4,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,40 zł",
+                "cost_float": 17.4
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Pocztex AUTOMAT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego automatu w uwagach",
+            "cost": "17,40 zł",
+            "cost_float": 17.4,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,40 zł",
+                "cost_float": 17.4
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 10,
+            "selected": false,
+            "name": "zagiel",
+            "title": "eRaty Santander Consumer Bank S.A.",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 360.1,
+          "missing": "360,10 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 24900,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452241154",
+              "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_19103_500_500/4_primer-g-pro_20l_pl_4aaf7bd94b4c46708f4e182628687303.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-20l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 24900,
+                "lineCostGrosze": 24900
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 3599,
+          "carrier": "Przesyłka kurierska",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:48.965Z",
+          "expiresAt": "2026-11-01T11:18:48.965Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "369c946fe0dc6145ffe4bf81c586745655dfc5191e57d1515d6ecedfed3da9af"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 1,
+          "sum": "284,99 zł",
+          "sum_float": 284.99,
+          "sum_products": "249,00 zł",
+          "sum_products_float": 249,
+          "sum_no_shipping": "249,00 zł",
+          "sum_no_shipping_float": 249,
+          "loyalty_points": 249
+        },
+        "products": [
+          {
+            "id": 164048,
+            "parent_id": null,
+            "stock_id": 10832,
+            "product_id": 10828,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+            "variant": "",
+            "quantity": 1,
+            "image": "19103",
+            "image_filename": "19103.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 249,
+            "price": "249,00 zł",
+            "sum_float": 249,
+            "sum": "249,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164048"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 49,
+            "selected": true,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 10,
+            "selected": false,
+            "name": "zagiel",
+            "title": "eRaty Santander Consumer Bank S.A.",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 251,
+          "missing": "251,00 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 7990,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452249266",
+              "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_48728_500_500/Opakowanie-folii-w-plynie-hydroizalacyjnej-o-pojemnosci-3kg.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-mapegum-wps-3kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+                "packageSize": 3,
+                "count": 1,
+                "unitPriceGrosze": 7990,
+                "lineCostGrosze": 7990
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 1050,
+          "carrier": "Pocztex KURIER",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:49.326Z",
+          "expiresAt": "2026-11-01T11:18:49.326Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "91eb03e866cea9ebb33e1ba1f47da037f6d3282cc3358a524d4d13f78378cc8d"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 1,
+          "sum": "97,89 zł",
+          "sum_float": 97.89,
+          "sum_products": "79,90 zł",
+          "sum_products_float": 79.9,
+          "sum_no_shipping": "79,90 zł",
+          "sum_no_shipping_float": 79.9,
+          "loyalty_points": 79
+        },
+        "products": [
+          {
+            "id": 164049,
+            "parent_id": null,
+            "stock_id": 16595,
+            "product_id": 16590,
+            "type": null,
+            "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "48728",
+            "image_filename": "48728.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 79.9,
+            "price": "79,90 zł",
+            "sum_float": 79.9,
+            "sum": "79,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1000,
+              "translation": {
+                "name": "Hydroizolacje"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164049"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Kurier",
+            "description": "",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": true,
+            "title": "InPost Paczkomat 24/7",
+            "description": "1-2 dni robocze",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "InPost Kurier Pobranie",
+            "description": "",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "19,30 zł",
+            "cost_float": 19.3,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,30 zł",
+                "cost_float": 19.3
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Pobranie",
+            "description": "",
+            "cost": "25,29 zł",
+            "cost_float": 25.29,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "0,80 zł",
+                "additional_cost_float": 0.799
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "25,29 zł",
+                "cost_float": 25.29
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Pocztex KURIER",
+            "description": "Dostawa w ciągu 48h",
+            "cost": "10,50 zł",
+            "cost_float": 10.5,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "10,50 zł",
+                "cost_float": 10.5
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "Pocztex PUNKT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego punktu w uwagach",
+            "cost": "8,70 zł",
+            "cost_float": 8.7,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "8,70 zł",
+                "cost_float": 8.7
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Pocztex AUTOMAT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego automatu w uwagach",
+            "cost": "8,70 zł",
+            "cost_float": 8.7,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "8,70 zł",
+                "cost_float": 8.7
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 420.1,
+          "missing": "420,10 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 38500,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452242502",
+              "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_17482_500_500/Zrzut-ekranu-2022-02-12-090849.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-mapegum-wps-20kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 38500,
+                "lineCostGrosze": 38500
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 1799,
+          "carrier": "InPost Kurier",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:49.656Z",
+          "expiresAt": "2026-11-01T11:18:49.656Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "8a505f31f355d915d57d49f9e5ecd8a08da9f0048002d2bd5a7f877807aafc9a"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 1,
+          "sum": "402,99 zł",
+          "sum_float": 402.99,
+          "sum_products": "385,00 zł",
+          "sum_products_float": 385,
+          "sum_no_shipping": "385,00 zł",
+          "sum_no_shipping_float": 385,
+          "loyalty_points": 385
+        },
+        "products": [
+          {
+            "id": 164050,
+            "parent_id": null,
+            "stock_id": 9879,
+            "product_id": 9875,
+            "type": null,
+            "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+            "variant": "",
+            "quantity": 1,
+            "image": "17482",
+            "image_filename": "17482.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 385,
+            "price": "385,00 zł",
+            "sum_float": 385,
+            "sum": "385,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1000,
+              "translation": {
+                "name": "Hydroizolacje"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164050"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Kurier",
+            "description": "",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": true,
+            "title": "InPost Paczkomat 24/7",
+            "description": "1-2 dni robocze",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "InPost Kurier Pobranie",
+            "description": "",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "29,90 zł",
+            "cost_float": 29.9,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "29,90 zł",
+                "cost_float": 29.9
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Pobranie",
+            "description": "",
+            "cost": "35,89 zł",
+            "cost_float": 35.89,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "3,85 zł",
+                "additional_cost_float": 3.85
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,89 zł",
+                "cost_float": 35.89
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Pocztex KURIER",
+            "description": "Dostawa w ciągu 48h",
+            "cost": "21,00 zł",
+            "cost_float": 21,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "21,00 zł",
+                "cost_float": 21
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "Pocztex PUNKT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego punktu w uwagach",
+            "cost": "17,40 zł",
+            "cost_float": 17.4,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,40 zł",
+                "cost_float": 17.4
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Pocztex AUTOMAT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego automatu w uwagach",
+            "cost": "17,40 zł",
+            "cost_float": 17.4,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,40 zł",
+                "cost_float": 17.4
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "17,99 zł",
+            "cost_float": 17.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,99 zł",
+                "cost_float": 17.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "22,99 zł",
+            "cost_float": 22.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "22,99 zł",
+                "cost_float": 22.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 10,
+            "selected": false,
+            "name": "zagiel",
+            "title": "eRaty Santander Consumer Bank S.A.",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 115,
+          "missing": "115,00 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 52490,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452241147",
+              "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38733_500_500/primer-g-10l.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-10l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+                "packageSize": 10,
+                "count": 1,
+                "unitPriceGrosze": 13990,
+                "lineCostGrosze": 13990
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-8022452242502",
+              "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_17482_500_500/Zrzut-ekranu-2022-02-12-090849.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-mapegum-wps-20kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 38500,
+                "lineCostGrosze": 38500
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 0,
+          "carrier": "InPost Kurier",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:50.184Z",
+          "expiresAt": "2026-11-01T11:18:50.184Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "232756fd4f10bfcfc93d9c5597a78cfaea3c499fdcc9f32263380838089b679f"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        },
+        {
+          "basket": {
+            "count": 2
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 2,
+          "sum": "524,90 zł",
+          "sum_float": 524.9,
+          "sum_products": "524,90 zł",
+          "sum_products_float": 524.9,
+          "sum_no_shipping": "524,90 zł",
+          "sum_no_shipping_float": 524.9,
+          "loyalty_points": 524
+        },
+        "products": [
+          {
+            "id": 164051,
+            "parent_id": null,
+            "stock_id": 15707,
+            "product_id": 15704,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+            "variant": "",
+            "quantity": 1,
+            "image": "38733",
+            "image_filename": "38733.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 139.9,
+            "price": "139,90 zł",
+            "sum_float": 139.9,
+            "sum": "139,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164051"
+          },
+          {
+            "id": 164052,
+            "parent_id": null,
+            "stock_id": 9879,
+            "product_id": 9875,
+            "type": null,
+            "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+            "variant": "",
+            "quantity": 1,
+            "image": "17482",
+            "image_filename": "17482.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 385,
+            "price": "385,00 zł",
+            "sum_float": 385,
+            "sum": "385,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1000,
+              "translation": {
+                "name": "Hydroizolacje"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164052"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "InPost Kurier",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 16,
+            "selected": true,
+            "title": "InPost Paczkomat 24/7",
+            "description": "1-2 dni robocze",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 12,
+            "selected": false,
+            "title": "InPost Kurier Pobranie",
+            "description": "",
+            "cost": "45,99 zł",
+            "cost_float": 45.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "45,99 zł",
+                "cost_float": 45.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 31,
+            "selected": false,
+            "title": "Kurier DPD",
+            "description": "",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 32,
+            "selected": false,
+            "title": "Kurier DPD Pobranie",
+            "description": "",
+            "cost": "54,19 zł",
+            "cost_float": 54.19,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2,
+                "additional_cost": "5,25 zł",
+                "additional_cost_float": 5.249
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "54,19 zł",
+                "cost_float": 54.19
+              }
+            ]
+          },
+          {
+            "shipping_id": 26,
+            "selected": false,
+            "title": "Pocztex KURIER",
+            "description": "Dostawa w ciągu 48h",
+            "cost": "31,50 zł",
+            "cost_float": 31.5,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "31,50 zł",
+                "cost_float": 31.5
+              }
+            ]
+          },
+          {
+            "shipping_id": 53,
+            "selected": false,
+            "title": "Pocztex PUNKT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego punktu w uwagach",
+            "cost": "26,10 zł",
+            "cost_float": 26.1,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,10 zł",
+                "cost_float": 26.1
+              }
+            ]
+          },
+          {
+            "shipping_id": 55,
+            "selected": false,
+            "title": "Pocztex AUTOMAT",
+            "description": "Dostawa w ciągu 48h - Prosimy o podanie adresu wybranego automatu w uwagach",
+            "cost": "26,10 zł",
+            "cost_float": 26.1,
+            "engine": "pickupPoint",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "26,10 zł",
+                "cost_float": 26.1
+              }
+            ]
+          },
+          {
+            "shipping_id": 49,
+            "selected": false,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 10,
+            "selected": false,
+            "name": "zagiel",
+            "title": "eRaty Santander Consumer Bank S.A.",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": -24.899999999999977,
+          "missing": "-24,90 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 32890,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452241154",
+              "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_19103_500_500/4_primer-g-pro_20l_pl_4aaf7bd94b4c46708f4e182628687303.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-20l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 24900,
+                "lineCostGrosze": 24900
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-8022452249266",
+              "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_48728_500_500/Opakowanie-folii-w-plynie-hydroizalacyjnej-o-pojemnosci-3kg.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-mapegum-wps-3kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+                "packageSize": 3,
+                "count": 1,
+                "unitPriceGrosze": 7990,
+                "lineCostGrosze": 7990
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 3599,
+          "carrier": "Przesyłka kurierska",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:50.726Z",
+          "expiresAt": "2026-11-01T11:18:50.726Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "d6a03378886c8ff245ecf1dd4afe03e9e2579c5770863e5ee909b05e696103db"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        },
+        {
+          "basket": {
+            "count": 2
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 2,
+          "sum": "364,89 zł",
+          "sum_float": 364.89,
+          "sum_products": "328,90 zł",
+          "sum_products_float": 328.9,
+          "sum_no_shipping": "328,90 zł",
+          "sum_no_shipping_float": 328.9,
+          "loyalty_points": 328
+        },
+        "products": [
+          {
+            "id": 164053,
+            "parent_id": null,
+            "stock_id": 10832,
+            "product_id": 10828,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+            "variant": "",
+            "quantity": 1,
+            "image": "19103",
+            "image_filename": "19103.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 249,
+            "price": "249,00 zł",
+            "sum_float": 249,
+            "sum": "249,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164053"
+          },
+          {
+            "id": 164054,
+            "parent_id": null,
+            "stock_id": 16595,
+            "product_id": 16590,
+            "type": null,
+            "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "48728",
+            "image_filename": "48728.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 79.9,
+            "price": "79,90 zł",
+            "sum_float": 79.9,
+            "sum": "79,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1000,
+              "translation": {
+                "name": "Hydroizolacje"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164054"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 49,
+            "selected": true,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "35,99 zł",
+            "cost_float": 35.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "35,99 zł",
+                "cost_float": 35.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 10,
+            "selected": false,
+            "name": "zagiel",
+            "title": "eRaty Santander Consumer Bank S.A.",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": 171.10000000000002,
+          "missing": "171,10 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "Rab-Dom",
+        "materialsGrosze": 85380,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452241147",
+              "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_38733_500_500/primer-g-10l.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-10l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+                "packageSize": 10,
+                "count": 1,
+                "unitPriceGrosze": 13990,
+                "lineCostGrosze": 13990
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-8022452241154",
+              "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_19103_500_500/4_primer-g-pro_20l_pl_4aaf7bd94b4c46708f4e182628687303.webp"
+            },
+            "unit": "l",
+            "packages": [
+              {
+                "offerId": "rabdom-primer-g-pro-20l",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 24900,
+                "lineCostGrosze": 24900
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-8022452249266",
+              "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_48728_500_500/Opakowanie-folii-w-plynie-hydroizalacyjnej-o-pojemnosci-3kg.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-mapegum-wps-3kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+                "packageSize": 3,
+                "count": 1,
+                "unitPriceGrosze": 7990,
+                "lineCostGrosze": 7990
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-8022452242502",
+              "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+              "imageUrl": "https://www.rabdom.pl/environment/cache/images/productGfx_17482_500_500/Zrzut-ekranu-2022-02-12-090849.webp"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "rabdom-mapegum-wps-20kg",
+                "store": "Rab-Dom",
+                "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 38500,
+                "lineCostGrosze": 38500
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 7200,
+          "carrier": "Przesyłka kurierska",
+          "payment": "Bezpieczne przelewy",
+          "checkedAt": "2026-11-01T11:08:51.673Z",
+          "expiresAt": "2026-11-01T11:18:51.673Z",
+          "sourceUrl": "https://www.rabdom.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "0ade673eb559e91d1f4404e9e2765c9e43d3ef8a2dade8cd6deed8c25302e3fe"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        },
+        {
+          "basket": {
+            "count": 2
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        },
+        {
+          "basket": {
+            "count": 3
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        },
+        {
+          "basket": {
+            "count": 4
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 4,
+          "sum": "925,80 zł",
+          "sum_float": 925.8,
+          "sum_products": "853,80 zł",
+          "sum_products_float": 853.8,
+          "sum_no_shipping": "853,80 zł",
+          "sum_no_shipping_float": 853.8,
+          "loyalty_points": 853
+        },
+        "products": [
+          {
+            "id": 164055,
+            "parent_id": null,
+            "stock_id": 15707,
+            "product_id": 15704,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+            "variant": "",
+            "quantity": 1,
+            "image": "38733",
+            "image_filename": "38733.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 139.9,
+            "price": "139,90 zł",
+            "sum_float": 139.9,
+            "sum": "139,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164055"
+          },
+          {
+            "id": 164056,
+            "parent_id": null,
+            "stock_id": 10832,
+            "product_id": 10828,
+            "type": null,
+            "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+            "variant": "",
+            "quantity": 1,
+            "image": "19103",
+            "image_filename": "19103.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 249,
+            "price": "249,00 zł",
+            "sum_float": 249,
+            "sum": "249,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1046,
+              "translation": {
+                "name": "Wodne"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164056"
+          },
+          {
+            "id": 164057,
+            "parent_id": null,
+            "stock_id": 16595,
+            "product_id": 16590,
+            "type": null,
+            "name": "Folia w płynie hydroizolacyjna MAPEI Mapegum WPS 3kg",
+            "variant": "",
+            "quantity": 1,
+            "image": "48728",
+            "image_filename": "48728.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 79.9,
+            "price": "79,90 zł",
+            "sum_float": 79.9,
+            "sum": "79,90 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1000,
+              "translation": {
+                "name": "Hydroizolacje"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164057"
+          },
+          {
+            "id": 164058,
+            "parent_id": null,
+            "stock_id": 9879,
+            "product_id": 9875,
+            "type": null,
+            "name": "MAPEI Mapegum WPS 20kg HYDROIZOLACJA PŁYNNA FOLIA",
+            "variant": "",
+            "quantity": 1,
+            "image": "17482",
+            "image_filename": "17482.png",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 385,
+            "price": "385,00 zł",
+            "sum_float": 385,
+            "sum": "385,00 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 1000,
+              "translation": {
+                "name": "Hydroizolacje"
+              }
+            },
+            "producer": {
+              "producer_id": "57",
+              "name": "Mapei"
+            },
+            "url": "https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875",
+            "remove_url": "https://www.rabdom.pl/pl/basket/remove/164058"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 49,
+            "selected": true,
+            "title": "Przesyłka kurierska",
+            "description": "Produkty ponad 20kg",
+            "cost": "72,00 zł",
+            "cost_float": 72,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "72,00 zł",
+                "cost_float": 72
+              }
+            ]
+          },
+          {
+            "shipping_id": 50,
+            "selected": false,
+            "title": "Przesyłka kurierska pobranie",
+            "description": "Produkty ponad 20kg",
+            "cost": "78,99 zł",
+            "cost_float": 78.99,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "78,99 zł",
+                "cost_float": 78.99
+              }
+            ]
+          },
+          {
+            "shipping_id": 47,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Wielicka",
+            "description": "ul. Wielicka 87",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 46,
+            "selected": false,
+            "title": "Odbiór Osobisty Kraków Zakopiańska",
+            "description": "ul. Zakopiańska 58",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 20,
+            "selected": false,
+            "title": "Odbiór Osobisty Raba Wyżna",
+            "description": "Raba Wyżna 507A",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 36,
+            "selected": false,
+            "title": "Odbiór Osobisty Skawina",
+            "description": "ul. Radziszowska 26a",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 18,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowy Targ",
+            "description": "ul. Sikorskiego 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 29,
+            "selected": false,
+            "title": "Odbiór osobisty Szczawnica",
+            "description": "ul. Szalaya 95",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 19,
+            "selected": false,
+            "title": "Odbiór Osobisty Szczawnica ",
+            "description": "ul. Szalaya 41B",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 21,
+            "selected": false,
+            "title": "Odbiór Osobisty Nowa Biała",
+            "description": "ul. Główna 2",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 10
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          },
+          {
+            "shipping_id": 37,
+            "selected": false,
+            "title": "Odbiór Osobisty Jordanów",
+            "description": "ul. Rynek 16",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "personal",
+            "payments": [
+              {
+                "payment_id": 1
+              },
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3
+              },
+              {
+                "payment_id": 7
+              },
+              {
+                "payment_id": 18
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 3,
+            "selected": true,
+            "name": "onlinePayment",
+            "title": "Bezpieczne przelewy",
+            "description": "Autopay"
+          },
+          {
+            "payment_id": 18,
+            "selected": false,
+            "name": "transfer",
+            "title": "Przelew tradycyjny",
+            "description": ""
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 2,
+            "selected": false,
+            "name": "cod",
+            "title": "Pobranie",
+            "description": ""
+          },
+          {
+            "payment_id": 7,
+            "selected": false,
+            "name": "przelewy24.pl",
+            "title": "Przelewy24.pl",
+            "description": ""
+          },
+          {
+            "payment_id": 10,
+            "selected": false,
+            "name": "zagiel",
+            "title": "eRaty Santander Consumer Bank S.A.",
+            "description": ""
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "15",
+          "title": "InPost Kurier",
+          "free_shipping_float": 500,
+          "free_shipping": "500,00 zł",
+          "missing_float": -353.79999999999995,
+          "missing": "-353,80 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    },
+    {
+      "order": {
+        "store": "WinBud",
+        "materialsGrosze": 36770,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-8022452242502",
+              "name": "Mapei Mapegum WPS 20kg folia w płynie",
+              "imageUrl": "https://winbud24.pl/environment/cache/images/productGfx_10095_500_500/Mapei-Mapegum-WPS-folia-w-plynie-20kg.jpg"
+            },
+            "unit": "kg",
+            "packages": [
+              {
+                "offerId": "winbud-mapegum-wps-20kg",
+                "store": "WinBud",
+                "url": "https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543",
+                "packageSize": 20,
+                "count": 1,
+                "unitPriceGrosze": 36770,
+                "lineCostGrosze": 36770
+              }
+            ]
+          }
+        ]
+      },
+      "result": {
+        "quote": {
+          "costGrosze": 1950,
+          "carrier": "Kurier InPost do 30kg - przelew",
+          "payment": "Przelew",
+          "checkedAt": "2026-11-01T11:08:52.113Z",
+          "expiresAt": "2026-11-01T11:18:52.113Z",
+          "sourceUrl": "https://winbud24.pl/pl/basket",
+          "basis": "retailer_basket_national",
+          "destinationScope": "PL",
+          "evidenceSha256": "7488a5815ba3c6164bbb46c754b3727630a5f14988fec068d8845fe490ac700d"
+        }
+      },
+      "added": [
+        {
+          "basket": {
+            "count": 1
+          },
+          "_flash_messenger": {
+            "error": [],
+            "warning": [],
+            "info": [],
+            "success": [
+              "Produkt dodany do koszyka."
+            ]
+          }
+        }
+      ],
+      "basket": {
+        "basket": {
+          "count": 1,
+          "sum": "385,40 zł",
+          "sum_float": 385.4,
+          "sum_products": "367,70 zł",
+          "sum_products_float": 367.7,
+          "sum_no_shipping": "367,70 zł",
+          "sum_no_shipping_float": 367.7,
+          "loyalty_points": 0
+        },
+        "products": [
+          {
+            "id": 232059,
+            "parent_id": null,
+            "stock_id": 3879,
+            "product_id": 3543,
+            "type": null,
+            "name": "Mapei Mapegum WPS 20kg folia w płynie",
+            "variant": "",
+            "quantity": 1,
+            "image": "10095",
+            "image_filename": "10095.jpg",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "price_float": 367.7,
+            "price": "367,70 zł",
+            "sum_float": 367.7,
+            "sum": "367,70 zł",
+            "delivery": "24 godziny",
+            "loyalty": null,
+            "category": {
+              "category_id": 21,
+              "translation": {
+                "name": "Izolacja podpłytkowa"
+              }
+            },
+            "producer": {
+              "producer_id": "8",
+              "name": "Mapei"
+            },
+            "url": "https://winbud24.pl/pl/p/Mapei-Mapegum-WPS-20kg-folia-w-plynie/3543",
+            "remove_url": "https://winbud24.pl/pl/basket/remove/232059"
+          }
+        ],
+        "countries": [
+          {
+            "id": 179,
+            "name": "Polska",
+            "selected": true
+          }
+        ],
+        "shippings": [
+          {
+            "shipping_id": 21,
+            "selected": true,
+            "title": "Inpost Paczkomaty",
+            "description": "Uwaga: limit długości, proszę nie wybierać dla towarów powyżej 55cm(np. kije malarskie)",
+            "cost": "17,70 zł",
+            "cost_float": 17.7,
+            "engine": "inpost",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "17,70 zł",
+                "cost_float": 17.7
+              }
+            ]
+          },
+          {
+            "shipping_id": 11,
+            "selected": false,
+            "title": "Kurier InPost do 30kg - przelew",
+            "description": "płatność przelewem",
+            "cost": "19,50 zł",
+            "cost_float": 19.5,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "19,50 zł",
+                "cost_float": 19.5
+              }
+            ]
+          },
+          {
+            "shipping_id": 15,
+            "selected": false,
+            "title": "Kurier InPost do 30kg - pobranie",
+            "description": "płatnośc: pobranie",
+            "cost": "23,50 zł",
+            "cost_float": 23.5,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 3
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "23,50 zł",
+                "cost_float": 23.5
+              }
+            ]
+          },
+          {
+            "shipping_id": 13,
+            "selected": false,
+            "title": "Kurier do 970kg - PALETA ",
+            "description": "jedna paleta - max. 38 worków ",
+            "cost": "255,00 zł",
+            "cost_float": 255,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 2
+              },
+              {
+                "payment_id": 3,
+                "additional_cost": "25,00 zł",
+                "additional_cost_float": 25
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "255,00 zł",
+                "cost_float": 255
+              }
+            ]
+          },
+          {
+            "shipping_id": 1,
+            "selected": false,
+            "title": "Odbiór osobisty - CIECHOCINEK",
+            "description": "odbiór w siedzibie firmy po wcześniejszym potwierdzeniu (ul. Nieszawska 78, Ciechocinek)",
+            "cost": "0,00 zł",
+            "cost_float": 0,
+            "engine": "",
+            "payments": [
+              {
+                "payment_id": 1
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "cost": "0,00 zł",
+                "cost_float": 0
+              }
+            ]
+          }
+        ],
+        "payments": [
+          {
+            "payment_id": 2,
+            "selected": true,
+            "name": "transfer",
+            "title": "Przelew",
+            "description": "przedpłata na konto"
+          },
+          {
+            "payment_id": 1,
+            "selected": false,
+            "name": "cash",
+            "title": "Gotówka",
+            "description": ""
+          },
+          {
+            "payment_id": 3,
+            "selected": false,
+            "name": "cash",
+            "title": "Pobranie",
+            "description": "płatność przy odbiorze"
+          }
+        ],
+        "free_shipping": {
+          "shipping_id": "21",
+          "title": "Inpost Paczkomaty",
+          "free_shipping_float": 400,
+          "free_shipping": "400,00 zł",
+          "missing_float": 32.30000000000001,
+          "missing": "32,30 zł"
+        },
+        "_flash_messenger": {
+          "error": [],
+          "warning": [],
+          "info": [],
+          "success": []
+        }
+      }
+    }
+  ]
+}

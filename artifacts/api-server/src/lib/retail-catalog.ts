@@ -4,9 +4,11 @@ import {DEKORK_SOURCES} from './dekork';
 import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
 import {ETAK_SOURCES} from './etak-sources';
 import {KNAUF_PLASTER_SOURCES} from './knauf-plasters';
+import {MAPEI_SUPPLY_SOURCES} from './mapei-supplies';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...MAPEI_SUPPLY_SOURCES,
   ...NORGIPS_JOINT_TAPE_SOURCES,
   // source: https://hipper.pl/puszka-podtynkowa-laczeniowa-60-mm-pro-z-wkretami-elektro-plast-956340504
   // source: https://www.elektro-plast.com.pl/download/EPN_CENNIK_2024_05.02.2024.pdf
@@ -1390,6 +1392,12 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704
+  "Mapei Primer G Pro — koncentrat gruntujący 10 l": "8022452241147",
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828
+  "Mapei Primer G Pro — koncentrat gruntujący 20 l": "8022452241154",
+  // source: https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590
+  "Mapei Mapegum WPS — folia w płynie 3 kg": "8022452249266",
   // source: https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716
   "Knauf MP 75 L — lekki tynk maszynowy 30 kg": "5902367206451",
   // source: https://www.rabdom.pl/pl/p/Knauf-GOLDBAND-Reczny-tynk-gipsowy-30kg/2022

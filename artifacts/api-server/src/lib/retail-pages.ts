@@ -1,3 +1,4 @@
+import {confirmMapeiSupplyPurchase} from './mapei-supplies';
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEtakCard} from './etak-product';
 import {confirmKnaufPlasterPurchase} from './knauf-plasters';
@@ -334,6 +335,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  confirmMapeiSupplyPurchase(item,source);
   confirmKnaufPlasterPurchase(item,source);
   // This native Shoper "szt." is a sealed25-piece box, not one connector.
   // The same manufacturer GTIN is also used by Prescot for individual pieces.

@@ -12,6 +12,12 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704
+  {"ids":["mat-primer-g-pro-10l"],"ean":"8022452241147","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_38733_500_500/primer-g-10l.webp"},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828
+  {"ids":["mat-primer-g-pro-20l"],"ean":"8022452241154","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_19103_500_500/4_primer-g-pro_20l_pl_4aaf7bd94b4c46708f4e182628687303.webp"},
+  // source: https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590
+  {"ids":["mat-mapegum-wps-3kg"],"ean":"8022452249266","sourceUrl":"https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_48728_500_500/Opakowanie-folii-w-plynie-hydroizalacyjnej-o-pojemnosci-3kg.webp"},
   // source: https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716
   // source: https://knauf.com/pl-PL/p/produkt/knauf-mp-75-l-10257_0120
   {"ids":["mat-plaster-knauf-mp75l-30kg"],"ean":"5902367206451","sourceUrl":"https://www.plus-market.pl/pl/p/Tynk-maszynowy-gipsowy-Knauf-MP-75-L-30-kg-lekki/15716","imageUrl":"https://www.plus-market.pl/environment/cache/images/productGfx_39104_500_500/Tynk-maszynowy-MP75-30-kg-KNAUF.webp"},
