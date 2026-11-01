@@ -56,6 +56,37 @@ function surplusComparison(){
  Object.assign(c,{best:base,cheapestSingleStore:base,productCount:1,allowExtraPackages:true,extraPackageOption:{basket:proposed,savingGrosze:2711}});return c;
 }
 
+function fewerComparison(){
+ const c=comparison();c.best=basket([['A',400,100],['B',400,100],['C',400,100]]);c.productCount=3;
+ c.cheapestSingleStore=basket([['One',2000,300]]);c.cheapestFewerStores=basket([['D',800,100],['E',700,100]]);return c;
+}
+test('fewer-store choice retains the exact delivered amounts, summary and copied shopping list',()=>{
+ const c=fewerComparison(),before=JSON.stringify(c),o=confirmedBasketOptions(c,settings,null,now)!;
+ assert.equal(o.fewerStores!.extraGrosze,200);assert.equal(o.fewerStores!.basket.totalGrosze,1700);assert.equal(basketForChoice(c,'fewer_stores',now),c.cheapestFewerStores);
+ const data={deliveryComparison:c,stages:[{lines:[],unresolvedCount:0}],consolidated:{lines:[],consolidatedTotalGrosze:0}}as unknown as SerializedProject;
+ const summary=purchaseSummary(purchaseSnapshot(data,null,now,'fewer_stores'),now);assert.equal(summary.status,'complete');assert.equal(summary.totalGrosze,1700);assert.equal(summary.basketChoice,'fewer_stores');assert.deepEqual(summary.storeSteps.map(s=>s.store),['D','E']);
+ const text=purchaseListText({basket:o.fewerStores!.basket,mode:'shipping',postalCode:'30-001'},'pl',now)!;assert.match(text,/17,00/);assert.match(text,/D product/);assert.match(text,/E product/);assert.ok(!text.includes('A product'));assert.equal(JSON.stringify(c),before);
+});
+test('fewer-store choices reject missing freight, wrong destinations, expiry and inconsistent money',()=>{
+ for(const mutate of [(b:DeliveredBasket)=>{b.totalGrosze!++;},(b:DeliveredBasket)=>{b.stores[0].quote!.postalCode='00-001';},(b:DeliveredBasket)=>{b.stores[0].quote!.expiresAt=new Date(now).toISOString();},(b:DeliveredBasket)=>{b.stores[0].quote!.evidenceSha256='invalid';},(b:DeliveredBasket)=>{b.stores[0].deliveryGrosze=null;}]){
+  const c=fewerComparison();mutate(c.cheapestFewerStores!);assert.equal(confirmedBasketOptions(c,settings,null,now)!.fewerStores,null);assert.equal(basketForChoice(c,'fewer_stores',now),null);
+ }
+});
+test('a convenience choice needs strictly fewer stores and is omitted when a one-store basket costs no more',()=>{
+ const c=fewerComparison();c.cheapestFewerStores=c.best;assert.equal(confirmedBasketOptions(c,settings,null,now)!.fewerStores,null);
+ c.cheapestFewerStores=c.cheapestSingleStore;assert.equal(confirmedBasketOptions(c,settings,null,now)!.fewerStores,null);
+ c.cheapestFewerStores=basket([['D',2000,100],['E',2000,100]]);assert.equal(confirmedBasketOptions(c,settings,null,now)!.fewerStores,null);
+});
+test('an explicit unavailable fewer-store result cannot be replaced by a fallback; older APIs retain a valid alternative',()=>{
+ const c=fewerComparison(),fewer=c.cheapestFewerStores!;c.alternatives=[fewer];c.cheapestFewerStores=null;assert.equal(confirmedBasketOptions(c,settings,null,now)!.fewerStores,null);
+ delete c.cheapestFewerStores;assert.equal(confirmedBasketOptions(c,settings,null,now)!.fewerStores!.basket,fewer);
+});
+test('an earlier fewer-store expiry triggers refresh and expires the chosen project summary',()=>{
+ const c=fewerComparison();c.cheapestFewerStores!.stores[0].quote!.expiresAt=new Date(now+1000).toISOString();assert.equal(deliveryRefreshDelay(c,true,now),1100);
+ const data={deliveryComparison:c,stages:[],consolidated:{lines:[],consolidatedTotalGrosze:0}}as unknown as SerializedProject;
+ assert.equal(purchaseSummary(purchaseSnapshot(data,null,now,'fewer_stores'),now+1000).status,'expired');assert.equal(basketForChoice(c,'fewer_stores',now+1000),null);
+});
+
 test('surplus is an explicit third choice even when the standard basket already uses one store',()=>{
  const c=surplusComparison(),before=JSON.stringify(c),options=confirmedBasketOptions(c,settings,null,now)!;
  assert.equal(options.alreadySingleStore,true);assert.equal(options.extraPackages!.savingGrosze,2711);assert.equal(options.extraPackages!.additions[0].extraPackages,1);

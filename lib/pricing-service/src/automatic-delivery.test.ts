@@ -39,6 +39,31 @@ test('one-store output never promotes missing delivery, invalid stock or a stale
  const result=await compareAutomaticDelivery([await stage()],{mode:'shipping',postalCode:'00-001'},async(order,p)=>{const q=await known(order,p);assert.ok('quote'in q);q.quote.expiresAt=new Date(Date.now()-1).toISOString();return q;});assert.equal(result.cheapestSingleStore??null,null);
 });
 
+test('a complete fewer-store choice is retained beyond three cheaper multi-store alternatives and the material bound',async()=>{
+ const template=await manyProducts(3,1);
+ const sellers:Array<Array<[string,number]>>=[[
+  ['A0',100],['A1',101],['A2',102],['A3',103],['D',1000],['E',10000]
+ ],[['B',100],['D',1000],['E',10000]],[['C',100],['E',10000]]];
+ for(let i=0;i<template.lines.length;i++){const line=template.lines[i];assert.ok(line.resolved);line.offers=sellers[i].map(([store,price])=>({...line.offers[0],id:`${i}-${store}`,store,price:(price/100).toFixed(2)}));}
+ const calls:string[][]=[];
+ const result=await compareAutomaticDelivery([template],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:false},async(order,p)=>{calls.push(order.lines.flatMap(l=>l.packages.map(pack=>pack.offerId)));const q=await known(order,p);assert.ok('quote'in q);q.quote.costGrosze=0;return q;});
+ assert.equal(result.best!.totalGrosze,300);assert.equal(result.best!.stores.length,3);
+ assert.equal(result.alternatives.length,3);assert.ok(result.alternatives.every(b=>b.stores.length===3));
+ const fewer=result.cheapestFewerStores!;assert.equal(fewer.totalGrosze,2100);assert.deepEqual(fewer.stores.map(s=>s.store).sort(),['C','D']);
+ assert.equal(result.cheapestSingleStore!.totalGrosze,30000);assert.ok(!result.alternatives.includes(fewer));
+ assert.deepEqual(fewer.stores.flatMap(s=>s.lines.map(l=>l.product.id)).sort(),['product-0','product-1','product-2']);
+ assert.ok(calls.some(ids=>ids.length===2&&ids.includes('0-D')&&ids.includes('1-D')));assert.ok(calls.length<=80);
+});
+
+test('a fewer-store option cannot be made from a rejected or expired complete order',async()=>{
+ for(const failure of ['quote_unavailable','price_changed','expired']){
+  const input=await manyProducts(3,1);
+  for(let i=0;i<input.lines.length;i++){const line=input.lines[i];assert.ok(line.resolved);line.offers=[{...line.offers[0],id:`${i}-local`,store:`L${i}`,price:'1.00'},...(i<2?[{...line.offers[0],id:`${i}-D`,store:'D',price:'10.00'}]:[])];}
+  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:false},async(order,p)=>{if(order.store==='D'&&failure!=='expired')return{reason:failure};const q=await known(order,p);assert.ok('quote'in q);q.quote.costGrosze=0;if(order.store==='D')q.quote.expiresAt=new Date(Date.now()-1).toISOString();return q;});
+  assert.equal(result.best!.stores.length,3);assert.equal(result.best!.totalGrosze,300);assert.equal(result.cheapestFewerStores,null);
+ }
+});
+
 test('merchant m² rounding affects materials and payable ranking, never freight or physical pack price',async()=>{
  const input=await stage();for(const line of input.lines)if(line.resolved)line.offers=line.offers.filter(o=>o.store==='A');const before=JSON.stringify(input);
  const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'00-001',allowSeparateOrders:true},async(order,p)=>{const r=await known(order,p);assert.ok('quote'in r);r.quote.costGrosze=100;r.quote.materialsRoundingGrosze=1;return r;});

@@ -291,6 +291,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     const options=confirmedBasketOptions(state.data.deliveryComparison,delivery,selectedStore);
     if(!options||choice==='single_store'&&!options.singleStore)return;
     if(choice==='extra_packages'&&!options.extraPackages)return;
+    if(choice==='fewer_stores'&&!options.fewerStores)return;
     const next=choice==='single_store'&&options.alreadySingleStore?'lowest':choice;
     setBasketChoice({data:state.data,choice:next});
     onPurchaseSnapshot?.(purchaseSnapshot(state.data,selectedStore,Date.now(),next));

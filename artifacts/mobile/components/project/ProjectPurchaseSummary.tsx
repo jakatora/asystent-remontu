@@ -24,6 +24,7 @@ export function ProjectPurchaseSummary({ snapshot, onCompare }: { snapshot: Purc
       {summary.materialsGrosze !== null && <Txt>{pl ? 'Materiały z potwierdzoną ceną' : 'Materials with a confirmed price'}: {formatGrosze(summary.materialsGrosze)}</Txt>}
       {summary.status === 'complete' ? <>
         {summary.basketChoice==='single_store'&&<Txt w="semibold">{pl?'Wybrany wariant: jeden sklep':'Selected option: one store'}</Txt>}
+        {summary.basketChoice==='fewer_stores'&&<Txt w="semibold">{pl?'Wybrany wariant: mniej sklepów':'Selected option: fewer stores'}</Txt>}
         {summary.basketChoice==='extra_packages'&&<Txt w="semibold">{pl?'Wybrany wariant: dodatkowe opakowania':'Selected option: extra packs'}</Txt>}
         {summary.mode === 'shipping' && <Txt>{pl?'Dostawa':'Delivery'}{summary.postalCode ? ` (${summary.postalCode})` : ''}: {formatGrosze(summary.deliveryGrosze!)}</Txt>}
         <Txt w="bold" style={{fontSize:24,color:Colors.primaryDark}}>{formatGrosze(summary.totalGrosze!)}</Txt>

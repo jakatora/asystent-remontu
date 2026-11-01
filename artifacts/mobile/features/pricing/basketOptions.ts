@@ -1,7 +1,7 @@
 import type { DeliveredBasket, DeliveryComparison, DeliveryQuote, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 import { normalizeDeliveryPostalCode } from './deliveryInput';
 import {extraPackageAdditions,type ExtraPackageAddition} from '../../../../lib/pricing-service/src/extra-package-difference';
-export type BasketChoice = 'lowest' | 'single_store' | 'extra_packages';
+export type BasketChoice = 'lowest' | 'single_store' | 'fewer_stores' | 'extra_packages';
 const money = (n: unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0;
 function currentQuote(quote: DeliveryQuote | undefined, postalCode: string, now: number): boolean {
   if (!quote || !money(quote.costGrosze) || !/^https:\/\//.test(quote.sourceUrl ?? '') || !/^[a-f0-9]{64}$/.test(quote.evidenceSha256 ?? '')) return false;
@@ -43,6 +43,7 @@ export function deliveredBasketKey(basket: DeliveredBasket): string {
     store.lines.flatMap(line => line.packages.map(pack => [line.product.id, pack.offerId, pack.count, pack.packageSize, pack.lineCostGrosze, pack.cutRoll ?? null])).sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))]).sort((a, b) => String(a[0]).localeCompare(String(b[0])))]);
 }
 export interface ConfirmedBasketOptions { lowest: DeliveredBasket; singleStore: DeliveredBasket | null; extraGrosze: number | null; alreadySingleStore: boolean;
+  fewerStores:{basket:DeliveredBasket;extraGrosze:number}|null;
   extraPackages:{basket:DeliveredBasket;savingGrosze:number;additions:ExtraPackageAddition[]}|null }
 export function confirmedBasketOptions(comparison: DeliveryComparison | undefined, settings: DeliverySettings, selectedStore?: string | null, now = Date.now()): ConfirmedBasketOptions | null {
   const postalCode = normalizeDeliveryPostalCode(settings.postalCode ?? '');
@@ -56,15 +57,22 @@ export function confirmedBasketOptions(comparison: DeliveryComparison | undefine
     &&lowest.totalGrosze! - proposed.basket.totalGrosze! === proposed.savingGrosze?extraPackageAdditions(lowest,proposed.basket):null;
   const extraPackages=proposed&&additions?{...proposed,additions}:null;
   if(selectedStore&&(!extraPackages||lowest.stores.length!==1||lowest.stores[0].store!==selectedStore))return null;
-  if (lowest.stores.length === 1) return { lowest, singleStore: lowest, extraGrosze: 0, alreadySingleStore: true,extraPackages };
+  if (lowest.stores.length === 1) return { lowest, singleStore: lowest, extraGrosze: 0, alreadySingleStore: true,extraPackages,fewerStores:null };
   // Older APIs may expose a one-store choice in their sorted alternatives.
   const candidate = comparison.cheapestSingleStore === undefined ? comparison.alternatives.find(b => b.stores.length === 1) : comparison.cheapestSingleStore;
   const singleStore = candidate?.stores.length === 1 && confirmedDeliveredBasket(candidate, postalCode!, now) && candidate.totalGrosze! >= lowest.totalGrosze! ? candidate : null;
-  return { lowest, singleStore, extraGrosze: singleStore ? singleStore.totalGrosze! - lowest.totalGrosze! : null, alreadySingleStore: false,extraPackages };
+  const fewerCandidate = comparison.cheapestFewerStores === undefined
+    ? [...comparison.alternatives].filter(b=>b.stores.length>1&&b.stores.length<lowest.stores.length&&confirmedDeliveredBasket(b,postalCode!,now)).sort((a,b)=>a.totalGrosze!-b.totalGrosze!||a.stores.length-b.stores.length)[0]
+    : comparison.cheapestFewerStores;
+  const fewerStores = fewerCandidate && fewerCandidate.stores.length>1 && fewerCandidate.stores.length<lowest.stores.length
+    && confirmedDeliveredBasket(fewerCandidate,postalCode!,now) && fewerCandidate.totalGrosze!>=lowest.totalGrosze!
+    && (!singleStore || fewerCandidate.totalGrosze!<singleStore.totalGrosze!)
+    ? {basket:fewerCandidate,extraGrosze:fewerCandidate.totalGrosze!-lowest.totalGrosze!}:null;
+  return { lowest, singleStore, extraGrosze: singleStore ? singleStore.totalGrosze! - lowest.totalGrosze! : null, alreadySingleStore: false,extraPackages,fewerStores };
 }
 export function basketForChoice(comparison: DeliveryComparison | undefined, choice: BasketChoice, now = Date.now()): DeliveredBasket | null {
   if (choice === 'lowest') return comparison?.best ?? null;
   if (!comparison) return null;
   const options=confirmedBasketOptions(comparison, { mode: comparison.mode, postalCode: comparison.postalCode ?? undefined, allowSeparateOrders: comparison.allowSeparateOrders }, undefined, now);
-  return choice==='single_store'?options?.singleStore??null:choice==='extra_packages'?options?.extraPackages?.basket??null:null;
+  return choice==='single_store'?options?.singleStore??null:choice==='fewer_stores'?options?.fewerStores?.basket??null:choice==='extra_packages'?options?.extraPackages?.basket??null:null;
 }

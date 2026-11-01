@@ -413,13 +413,15 @@ async function quoteAndRank(
     }));
   };
   await quoteKeys([...priority]);
-  const confirmedUpperBound = Math.min(...candidates.flatMap(orders => orders.every(order => order.quote && order.totalGrosze !== null
+  const confirmedCandidates = candidates.filter(orders => orders.every(order => order.quote && order.totalGrosze !== null
     && Date.parse(order.quote.expiresAt) > Date.now())
-    ? [orders.reduce((sum, order) => sum + order.totalGrosze!, 0)] : []));
+  ).sort((a,b) => a.reduce((sum,o)=>sum+o.totalGrosze!,0)-b.reduce((sum,o)=>sum+o.totalGrosze!,0) || a.length-b.length);
+  const confirmedUpperBound = confirmedCandidates[0]?.reduce((sum,order)=>sum+order.totalGrosze!,0) ?? Infinity;
+  const confirmedStoreCount = confirmedCandidates[0]?.length ?? Infinity;
   const canStillWin = new Set(candidates.filter(orders => {
     // A full one-store option is useful even when it cannot beat the cheapest
     // multi-store basket. It shares the same bounded quote budget and deadline.
-    if(orders.length===1)return true;
+    if(orders.length===1 || orders.length < confirmedStoreCount)return true;
     if (!Number.isFinite(confirmedUpperBound)) return true;
     // A fresh native ABUD cart can discount materials. Its unquoted catalogue
     // sum is not a lower bound and must not prune a potentially cheaper cart.
@@ -447,6 +449,7 @@ async function quoteAndRank(
   result.comparedBasketCount = known.length;
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);
   result.cheapestSingleStore = known.find(basket=>basket.stores.length===1) ?? null;
+  result.cheapestFewerStores = known.find(basket=>basket.stores.length>1 && basket.stores.length<(result.best?.stores.length??0)) ?? null;
   result.lowerBound = baskets.sort((a,b) => a.lowerBoundGrosze - b.lowerBoundGrosze)[0] ?? null;
   if (!result.best) {
     const unquoted = (basket: DeliveredBasket) => basket.stores.filter(store => store.deliveryGrosze === null).length;

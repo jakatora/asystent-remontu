@@ -18,6 +18,7 @@ export function BasketOptionsSection({ options, choice, onChange, disabled }: { 
     <Txt>{options.lowest.stores[0].store} · {counts(1, basketOrderCount(options.lowest))}</Txt>
   </View>;
   const variants = [{ value: 'lowest' as const, basket: options.lowest, title: options.extraPackages?tr('Standardowy zestaw','Standard basket'):tr('Najniższy potwierdzony koszt', 'Lowest confirmed total') },
+    ...(options.fewerStores ? [{value:'fewer_stores' as const,basket:options.fewerStores.basket,title:tr('Mniej sklepów','Fewer stores')}] : []),
     ...(options.singleStore&&!options.alreadySingleStore ? [{ value: 'single_store' as const, basket: options.singleStore, title: tr('Wszystko w jednym sklepie', 'Everything from one store') }] : []),
     ...(options.extraPackages?[{value:'extra_packages' as const,basket:options.extraPackages.basket,title:tr('Niższy koszt z dodatkowym materiałem','Lower total with extra material')}]:[])];
   return <View style={{ gap: 12 }}>
@@ -30,6 +31,10 @@ export function BasketOptionsSection({ options, choice, onChange, disabled }: { 
       <Txt style={{ lineHeight: 21, color: Colors.textSecondary }}>{basket.stores.map(store => store.store).join(' + ')}</Txt>
       <Txt style={{ fontSize: 13, lineHeight: 20 }}>{counts(basket.stores.length, basketOrderCount(basket))}</Txt>
       {value === 'single_store' && <Txt w="semibold" style={{ lineHeight: 21 }}>{options.extraGrosze === 0 ? tr('Ta sama cena z dostawą', 'Same total including delivery') : tr('Dopłata za jeden sklep: ', 'Extra for one store: ') + formatGrosze(options.extraGrosze!)}</Txt>}
+      {value==='fewer_stores'&&options.fewerStores&&<>
+        <Txt w="semibold" style={{lineHeight:21}}>{options.fewerStores.extraGrosze===0?tr('Ta sama cena z dostawą','Same total including delivery'):tr('Dopłata za mniej sklepów: ','Extra for fewer stores: ')+formatGrosze(options.fewerStores.extraGrosze)}</Txt>
+        <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{tr(`Sklepy: ${options.lowest.stores.length} → ${basket.stores.length}. Najtańszy potwierdzony wariant z mniejszą liczbą sklepów spośród sprawdzonych zestawów wielosklepowych.`,`Stores: ${options.lowest.stores.length} → ${basket.stores.length}. Lowest confirmed option using fewer stores among the checked multi-store baskets.`)}</Txt>
+      </>}
       {value==='extra_packages'&&options.extraPackages&&<>
         <Txt w="semibold" style={{lineHeight:21,color:Colors.primaryDark}}>{tr('Całość tańsza o: ','Full total lower by: ')}{formatGrosze(options.extraPackages.savingGrosze)}</Txt>
         {options.extraPackages.additions.map(item=><View key={item.store+item.product.id} style={{gap:4}}>

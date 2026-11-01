@@ -134,6 +134,10 @@ export interface DeliveryComparison {
    * Retained independently of the three overall alternatives. One store can
    * still require several explicitly quoted orders or dispatches. */
   cheapestSingleStore?: DeliveredBasket | null;
+  /** Cheapest checked complete basket using fewer stores than best, but at
+   * least two. Kept outside the three price-ranked alternatives. It may still
+   * require separate quoted orders; no claim of exhaustive store-count search. */
+  cheapestFewerStores?: DeliveredBasket | null;
   lowerBound: DeliveredBasket | null;
   /** A bounded, unfinished purchase plan: fewest stores without delivery
    * confirmation, then lowest material + confirmed-delivery cost. No winner. */
