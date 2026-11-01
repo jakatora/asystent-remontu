@@ -1,4 +1,5 @@
 import type {PrimerPackageChoice} from './primerPackageChoice';
+import type {MapegumPackageChoice} from './mapegumPackageChoice';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 import type { CalculationResult, ShoppingItem } from '@/types/domain';
 import type { PricingStageInput } from './pricingApi';
@@ -12,6 +13,7 @@ export interface ShoppingStageContext {
   items: readonly ShoppingItem[];
   materialStock?: readonly MaterialStockEntry[];
   primerPackages?: readonly PrimerPackageChoice[];
+  mapegumPackages?: readonly MapegumPackageChoice[];
 }
 
 const nameKey = (name: string) => typeof name === 'string' ? name.trim().normalize('NFC').toLocaleLowerCase('pl') : '';

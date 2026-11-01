@@ -18,9 +18,23 @@ export const PRIMER_G_PRO_PACKS = [
   // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828
   {ean:'8022452241154',size:20},
 ] as const;
+// source: https://cdnmedia.mapei.com/docs/librariesprovider24/products-documents/1_02014_mapegum-wps_pl-pl_6ff17f2c535848d99d22681a305a079c.pdf?sfvrsn=eb49cbd6_0
+export const MAPEGUM_WPS_FAMILY = 'mapei-mapegum-wps-kg-v1' as const;
+export const MAPEGUM_WPS_FAMILY_NAME = 'Mapei Mapegum WPS — dobór opakowań 3/5/10/20 kg';
+export const MAPEGUM_WPS_PACKS = [
+  // source: https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590
+  {ean:'8022452249266',size:3},
+  // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751
+  {ean:'8022452242489',size:5},
+  // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-10kg-mapei-p7754
+  {ean:'8022452242496',size:10},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-20kg-HYDROIZOLACJA-PLYNNA-FOLIA/9875
+  {ean:'8022452242502',size:20},
+] as const;
 export const REVIEWED_PACKAGE_FAMILIES = [
   {key:V33_CABINET_FAMILY,name:V33_CABINET_FAMILY_NAME,category:'cabinet-paint',unit:'ml',packs:V33_CABINET_PACKS},
   {key:PRIMER_G_PRO_FAMILY,name:PRIMER_G_PRO_FAMILY_NAME,category:'primer',unit:'l',packs:PRIMER_G_PRO_PACKS},
+  {key:MAPEGUM_WPS_FAMILY,name:MAPEGUM_WPS_FAMILY_NAME,category:'waterproofing',unit:'kg',packs:MAPEGUM_WPS_PACKS},
 ] as const;
 export type ReviewedPackageFamily = typeof REVIEWED_PACKAGE_FAMILIES[number]['key'];
 const normalized=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ł/g,'l').replace(/[^a-z0-9]/g,'');

@@ -1,4 +1,5 @@
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices} from '../pricing/primerPackageChoice';
+import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices} from '../pricing/mapegumPackageChoice';
 import type {ProjectBackup} from './projectBackup';
 import {parseDoorSelection} from '../pricing/doorSelection';
 import {parseLaminateChoices} from '../pricing/laminateChoice';
@@ -17,6 +18,7 @@ import type {CalculationResult} from '../../types/domain';
 // Adding a product selector must not silently omit it from a shared basket backup.
 export const BACKUP_PRODUCT_CHOICE_PARSERS: Readonly<Record<string,(raw:string)=>readonly unknown[]>>={
   [PRIMER_PACKAGE_CHOICE_PREFIX]:parsePrimerPackageChoices,
+  [MAPEGUM_PACKAGE_CHOICE_PREFIX]:parseMapegumPackageChoices,
   'remont.laminate-choice.v1:':parseLaminateChoices,'remont.foil-choice.v1:':parseFoilChoices,
   'remont.washbasin-choice.v1:':parseWashbasinChoices,'remont.tile-choice.v1:':parseTileChoices,
   'remont.tile-adhesive-choice.v1:':parseTileAdhesiveChoices,'remont.flush-box-choice.v1:':parseFlushBoxChoices,

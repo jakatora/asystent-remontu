@@ -1,4 +1,7 @@
 import {PrimerPackageSection} from './PrimerPackageSection';
+import {MapegumPackageSection} from './MapegumPackageSection';
+import {applyMapegumPackageChoices,mapegumPackageRequirements} from '@/features/pricing/mapegumPackageChoice';
+import {useMapegumPackages} from '@/features/pricing/useMapegumPackages';
 import {applyPrimerPackageChoices,primerPackageRequirements} from '@/features/pricing/primerPackageChoice';
 import {usePrimerPackages} from '@/features/pricing/usePrimerPackages';
 import {TRAP_JOB} from '@/features/calculator/trapReplacement';
@@ -120,6 +123,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [stages, calc, qualityTier, doorChoice.selection, shoppingItems, projectId]);
   const primerReferences=useMemo(()=>primerPackageRequirements(rawInput),[rawInput]);
   const primers=usePrimerPackages(projectId,primerReferences.length>0);
+  const mapegumReferences=useMemo(()=>mapegumPackageRequirements(rawInput),[rawInput]);
+  const mapegum=useMapegumPackages(projectId,mapegumReferences.length>0);
   const laminateReferences = useMemo(() => laminateRequirements(rawInput), [rawInput]);
   const panels = useLaminateChoices(projectId, laminateReferences.length > 0);
   const foilReferences = useMemo(() => foilRequirements(rawInput), [rawInput]);
@@ -128,7 +133,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const washbasins = useWashbasinChoices(projectId, washbasinReferences.length > 0);
   const flushBoxReferences = useMemo(() => projectId === 'renovation-basket' ? flushBoxRequirements(rawInput) : [], [rawInput, projectId]);
   const boxes = useFlushBoxChoices(projectId, flushBoxReferences.length > 0);
-  const productSelectionReady = boxes.ready && !boxes.readFailed && primers.ready && !primers.readFailed;
+  const productSelectionReady = boxes.ready && !boxes.readFailed && primers.ready && !primers.readFailed && mapegum.ready && !mapegum.readFailed;
   const tileReferences = useMemo(() => tileRequirements(rawInput), [rawInput]);
   const tiles = useTileChoices(projectId, tileReferences.length > 0);
   const baseProducts = useMemo(() => applyFlushBoxChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(rawInput, panels.choices), foils.choices), washbasins.choices), boxes.choices), [rawInput, panels.choices, foils.choices, washbasins.choices, boxes.choices]);
@@ -142,7 +147,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     return applyShoppingContexts(chosen, shoppingContexts ?? (!stages && calc && projectId ? [{ projectId, calc, original: rawInput[0], items: shoppingItems ?? [], materialStock: stock.entries }] : []));
   }, [selectedProducts, adhesives.choices, tiles.choices, rawInput, shoppingContexts, stages, calc, projectId, shoppingItems, stock.entries]);
   const kitCandidates = useMemo(() => floorKitCandidates(baseProducts, tiles.choices, shoppingContexts ?? (!stages && calc && projectId && shoppingItems ? [{ projectId, calc, original: rawInput[0], items: shoppingItems, materialStock: stock.entries }] : [])), [baseProducts, tiles.choices, shoppingContexts, stages, calc, projectId, shoppingItems, rawInput, stock.entries]);
-  const input = useMemo(()=>applyPrimerPackageChoices(pending.stages,primers.choices),[pending.stages,primers.choices]);
+  const input = useMemo(()=>applyMapegumPackageChoices(applyPrimerPackageChoices(pending.stages,primers.choices),mapegum.choices),[pending.stages,primers.choices,mapegum.choices]);
   const [state, setState] = useState<LoadState>({ status: 'idle' });
   const lastEstimateHeight = useRef(0);
   const [refreshing, setRefreshing] = useState(false);
@@ -266,6 +271,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [hasInput, fetchEstimate]);
 
   const primerSection=<PrimerPackageSection references={primerReferences} {...primers} commonBasket={projectId==='renovation-basket'}/>;
+  const mapegumSection=<MapegumPackageSection references={mapegumReferences} {...mapegum} commonBasket={projectId==='renovation-basket'}/>;
   if (!hasInput) {
     return <InfoState icon="dollar-sign" text={t('cmp.CostEstimate.noCalc')} />;
   }
@@ -273,6 +279,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   if (!input.some(stage => stage.materials.length > 0)) return <View style={{gap:16}}>
     {stockEnabled && <MaterialStockSection key={projectId} requirements={pending.stockRequirements} entries={stock.entries} ready={stock.ready} readFailed={stock.readFailed} saveFailed={stock.saveFailed} saving={stock.saving} onChange={stock.onChange} onRetry={stock.onRetry} />}
     {primerSection}
+    {mapegumSection}
     <InfoState icon="check-circle" text={language === 'pl' ? 'Nie ma materiałów do dokupienia z tej listy. Narzędzia i robociznę sprawdź osobno.' : 'No materials remain to buy from this list. Check tools and labour separately.'} />
   </View>;
 
@@ -298,6 +305,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {pending.excluded > 0 && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? `Posiadane lub kupione pozycje pokrywające wybrane produkty: ${pending.excluded}.` : `Owned or purchased items covering the selected products: ${pending.excluded}.`}</Txt>}
       {stockEnabled && <MaterialStockSection key={projectId} requirements={pending.stockRequirements} entries={stock.entries} ready={stock.ready} readFailed={stock.readFailed} saveFailed={stock.saveFailed} saving={stock.saving} onChange={stock.onChange} onRetry={stock.onRetry} />}
     {primerSection}
+    {mapegumSection}
       {pending.stockAdjustments.map((row,index) => <View key={`${index}:${row.materialId}`} style={{ padding: 10, gap: 4, borderRadius: 10, backgroundColor: Colors.successBg }}><Txt w="semibold" style={{fontSize:13}}>{row.name}</Txt><Txt style={{fontSize:13,lineHeight:20}}>{language === 'pl' ? `Zapas uwzględniony: ${formatPackageSize(row.coveredQuantity,language)} ${row.unit}. Pozostało do kupienia: ${formatPackageSize(row.remainingQuantity,language)} ${row.unit}.` : `Stock included: ${formatPackageSize(row.coveredQuantity,language)} ${row.unit}. Remaining to buy: ${formatPackageSize(row.remainingQuantity,language)} ${row.unit}.`}</Txt></View>)}
       {(panels.choices.length > 0 || foils.choices.length > 0 || washbasins.choices.length > 0 || tiles.choices.length > 0 || adhesives.choices.length > 0) && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Po zmianie produktu sprawdzamy ponownie posiadane materiały i potrzebne ilości. Oznaczenie poprzedniego modelu nie usuwa nowego produktu z koszyka.' : 'After a product change we recheck ownership and required quantities. Marks for an earlier model do not exclude the new product.'}</Txt>}
       {!stages && calc?.jobId === 'floor-tiles' && selectedStore === null && <FloorKitSection candidates={kitCandidates} scope={JSON.stringify([scope, delivery])} ready={loadedScope === scope && stock.ready && !stock.readFailed && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} settings={delivery} onSettings={settings => {

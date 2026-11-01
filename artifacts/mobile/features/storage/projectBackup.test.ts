@@ -11,6 +11,8 @@ import {calculateMaterials} from '../calculator/engine';
 import {getJobById} from '../content/registry';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';
 import {writePrimerPackageChoices} from '../pricing/primerPackageStorage';
+import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices,MAPEGUM_PACKAGE_PRODUCTS} from '../pricing/mapegumPackageChoice';
+import {writeMapegumPackageChoices} from '../pricing/mapegumPackageStorage';
 import {LAMINATE_PRODUCTS} from '../pricing/laminateChoice';
 import {FOIL_PRODUCTS} from '../pricing/foilChoice';
 import {WASHBASIN_PRODUCTS} from '../pricing/washbasinChoice';
@@ -23,6 +25,8 @@ function sharedChoices():Record<string,string>{
   const save=(choices:unknown[])=>JSON.stringify({version:1,choices});
   const floor=TILE_PRODUCTS.filter(p=>p.uses.includes('floor'));
   return{
+    [PRIMER_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:PRIMER_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
+    [MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:MAPEGUM_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
     'remont.laminate-choice.v1:renovation-basket':save([{from:LAMINATE_PRODUCTS[0].id,to:LAMINATE_PRODUCTS[1].id}]),
     'remont.foil-choice.v1:renovation-basket':save([{from:FOIL_PRODUCTS[0].id,to:FOIL_PRODUCTS[1].id}]),
     'remont.washbasin-choice.v1:renovation-basket':save([{from:WASHBASIN_PRODUCTS[0].id,to:WASHBASIN_PRODUCTS[1].id}]),
@@ -34,6 +38,23 @@ function sharedChoices():Record<string,string>{
 
 const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
 const primerChoice={from:PRIMER_PACKAGE_PRODUCTS.find(p=>p.packageSize===1)!.id,to:'automatic' as const};
+const mapegumChoice={from:MAPEGUM_PACKAGE_PRODUCTS.find(p=>p.packageSize===3)!.id,to:'automatic' as const};
+
+test('project and common Mapegum choices round-trip through real SQLite with the other family preferences',async t=>{
+ const a=await source(t),b=await fixture(t);await writeMapegumPackageChoices(a.storage,'room',[mapegumChoice]);await writeMapegumPackageChoices(a.storage,'renovation-basket',[mapegumChoice]);await writePrimerPackageChoices(a.storage,'room',[primerChoice]);
+ const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);const restored=await readProjectBackup(b.db,b.storage);
+ for(const id of ['room','renovation-basket'])assert.deepEqual(parseMapegumPackageChoices(restored.preferences[MAPEGUM_PACKAGE_CHOICE_PREFIX+id]),[mapegumChoice]);assert.deepEqual(parsePrimerPackageChoices(restored.preferences[PRIMER_PACKAGE_CHOICE_PREFIX+'room']),[primerChoice]);
+});
+test('export waits for a pending Mapegum preference write',async t=>{
+ const a=await source(t),set=a.storage.setItem.bind(a.storage);let finish!:()=>void;const gate=new Promise<void>(r=>{finish=r;});a.storage.setItem=async(key,value)=>{if(key.startsWith(MAPEGUM_PACKAGE_CHOICE_PREFIX))await gate;await set(key,value);};
+ const write=writeMapegumPackageChoices(a.storage,'room',[mapegumChoice]);let done=false;const read=readProjectBackup(a.db,a.storage).then(result=>{done=true;return result;});await new Promise(r=>setImmediate(r));assert.equal(done,false);finish();await write;assert.deepEqual(parseMapegumPackageChoices((await read).preferences[MAPEGUM_PACKAGE_CHOICE_PREFIX+'room']),[mapegumChoice]);
+});
+test('a Mapegum-only common basket preference transfers without creating a project',async t=>{
+ const a=await fixture(t),b=await fixture(t);await writeMapegumPackageChoices(a.storage,'renovation-basket',[mapegumChoice]);const backup=await readProjectBackup(a.db,a.storage);assert.equal(backup.tables.projects.length,0);assert.equal(hasBackupContent(backup),true);await importProjectBackup(parseProjectBackup(JSON.stringify(backup)),b.db,b.storage);assert.deepEqual(parseMapegumPackageChoices((await readProjectBackup(b.db,b.storage)).preferences[MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket']),[mapegumChoice]);
+});
+test('foreign, older or price-bearing Mapegum choices reject the entire archive',async t=>{
+ const a=await source(t),backup=await readProjectBackup(a.db,a.storage);for(const choice of [{from:'mat-mapegum-wps-5kg',to:'automatic'},{from:primerChoice.from,to:'automatic'},{...mapegumChoice,to:'other'},{...mapegumChoice,price:1}]){const bad=structuredClone(backup);bad.preferences[MAPEGUM_PACKAGE_CHOICE_PREFIX+'room']=JSON.stringify({version:1,choices:[choice]});assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
+});
 test('project and common-basket primer pack choices survive real SQLite export and import',async t=>{
  const a=await source(t),b=await fixture(t);await writePrimerPackageChoices(a.storage,'room',[primerChoice]);await writePrimerPackageChoices(a.storage,'renovation-basket',[primerChoice]);
  const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);const restored=await readProjectBackup(b.db,b.storage);
@@ -166,7 +187,7 @@ test('deleted work left in a saved shared basket does not prevent backing up the
   const backup=await readProjectBackup(a.db,a.storage);assert.deepEqual(JSON.parse(backup.preferences['remont.renovation-basket.v1']).projectIds,['room']);
 });
 
-test('six existing shared product choices survive real SQLite export, file parsing and import',async t=>{
+test('all shared product choices survive real SQLite export, file parsing and import',async t=>{
   const a=await source(t),b=await fixture(t);await setSharedChoices(a.storage);
   const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));
   for(const[key,value]of Object.entries(sharedChoices()))assert.equal(backup.preferences[key],value,'The shared choice must be exported even though renovation-basket is not a project row');

@@ -59,7 +59,7 @@ import type {
  * For richer control use `MaterialRequirement` from types/engine.
  */
 export interface MaterialItem {
-  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1';
+  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1' | 'mapei-mapegum-wps-kg-v1';
   readonly ean?: string;
   readonly sourceUrl?: string;
   readonly imageUrl?: string;

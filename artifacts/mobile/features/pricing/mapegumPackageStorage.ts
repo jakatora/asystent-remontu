@@ -1,0 +1,4 @@
+import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices} from './mapegumPackageChoice';
+import {createPackageChoiceStorage} from './packageChoiceStorage';
+export const mapegumPackageStorage=createPackageChoiceStorage(MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices,'invalid_mapegum_package_project');
+export const waitForMapegumPackageWrites=mapegumPackageStorage.wait,readMapegumPackageChoices=mapegumPackageStorage.read,writeMapegumPackageChoices=mapegumPackageStorage.write;

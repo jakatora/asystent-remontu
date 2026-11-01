@@ -1,4 +1,5 @@
 import {applyPrimerPackageChoices,type PrimerPackageChoice} from './primerPackageChoice';
+import {applyMapegumPackageChoices,type MapegumPackageChoice} from './mapegumPackageChoice';
 import type { Project, ShoppingItem } from '@/types/domain';
 import type { MaterialCategory } from '@/types/pricing';
 import { toPricingStageInput, type PricingStageInput } from './pricingApi';
@@ -43,6 +44,7 @@ export function buildRenovationBasket(
   tileAdhesivesByProject: Readonly<Record<string, readonly TileAdhesiveChoice[]>> = {},
   stockByProject: Readonly<Record<string, readonly MaterialStockEntry[]>> = {},
   primerPackagesByProject: Readonly<Record<string, readonly PrimerPackageChoice[]>> = {},
+  mapegumPackagesByProject: Readonly<Record<string, readonly MapegumPackageChoice[]>> = {},
 ): { stages: PricingStageInput[]; selectionStages: PricingStageInput[]; shoppingContexts: ShoppingStageContext[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
@@ -60,12 +62,13 @@ export function buildRenovationBasket(
     const pending = applyProjectShopping(chosen, calc, project.id, items, stage, materialStock);
     selectionStages.push(chosen);
     const primerPackages=primerPackagesByProject[project.id]??[];
-    shoppingContexts.push({ projectId: project.id, calc, original: stage, items, materialStock, primerPackages });
+    const mapegumPackages=mapegumPackagesByProject[project.id]??[];
+    shoppingContexts.push({ projectId: project.id, calc, original: stage, items, materialStock, primerPackages,mapegumPackages });
     const unknown = calc.materials.filter(line => line.quantityKnown === false && pending.stage.materials.some(row => row.material.id === line.material.id));
     if (unknown.length) measurementReviews.push({ projectId: project.id, projectName: project.name, materials: [...new Set(unknown.map(line => line.material.name))] });
     excludedMaterials += pending.excludedMaterials;
     manualItems += pending.manualItems;
-    stages.push(applyPrimerPackageChoices([pending.stage],primerPackages)[0]);
+    stages.push(applyMapegumPackageChoices(applyPrimerPackageChoices([pending.stage],primerPackages),mapegumPackages)[0]);
   }
   return { stages, selectionStages, shoppingContexts, includedProjects, excludedMaterials, manualItems, missingCalculations, measurementReviews };
 }

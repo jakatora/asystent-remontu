@@ -34,7 +34,7 @@ export type PurchaseOffer = ProductOffer & {
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
 export interface ItemQuery {
-  packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1';
+  packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1' | 'mapei-mapegum-wps-kg-v1';
   /** EAN-13/8 produktu. Priorytet dopasowania #1. */
   ean?: string | null;
   /** GTIN (gdy sklep rozróżnia od EAN). Priorytet dopasowania #2. */

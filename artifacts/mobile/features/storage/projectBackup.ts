@@ -1,4 +1,6 @@
 import {PRIMER_PACKAGE_CHOICE_PREFIX} from '../pricing/primerPackageChoice';
+import {MAPEGUM_PACKAGE_CHOICE_PREFIX} from '../pricing/mapegumPackageChoice';
+import {waitForMapegumPackageWrites} from '../pricing/mapegumPackageStorage';
 import {waitForPrimerPackageWrites} from '../pricing/primerPackageStorage';
 import {z} from 'zod';
 import type {DatabaseConnection, DatabaseCommand} from '../../db/connection';
@@ -107,6 +109,7 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
   const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{
     if(key.startsWith(MATERIAL_STOCK_PREFIX))await waitForMaterialStockWrites(storage,key.slice(MATERIAL_STOCK_PREFIX.length));
     if(key.startsWith(PRIMER_PACKAGE_CHOICE_PREFIX))await waitForPrimerPackageWrites(storage,key.slice(PRIMER_PACKAGE_CHOICE_PREFIX.length));
+    if(key.startsWith(MAPEGUM_PACKAGE_CHOICE_PREFIX))await waitForMapegumPackageWrites(storage,key.slice(MAPEGUM_PACKAGE_CHOICE_PREFIX.length));
     return [key,await storage.getItem(key)] as const;
   }))).filter((entry):entry is readonly[string,string]=>entry[1]!==null));
   // Removing a project can leave its old ID in the basket's selection. Deleted
