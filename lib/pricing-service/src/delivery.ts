@@ -11,6 +11,8 @@ export interface DeliverySettings {
   postalCode?: string;
   /** Opt-in from clients that can display the required separate orders. */
   allowSeparateOrders?: boolean;
+  /** Client can show and explicitly select a separately quoted surplus option. */
+  allowExtraPackages?: boolean;
   /** A user-entered, fixed fee for ONE whole order from a store, in grosze. */
   costsGrosze?: Record<string, number>;
 }
@@ -41,6 +43,11 @@ export interface DeliveredBasket {
   totalGrosze: number | null;
   lowerBoundGrosze: number;
   stores: DeliveredStoreBasket[];
+}
+export interface ExtraPackageOption {
+  /** An optional purchase plan; never a change to the measured requirement. */
+  basket: DeliveredBasket;
+  savingGrosze: number;
 }
 export interface DeliveryQuote {
   /** Actual anonymous-cart material prices for this exact pack allocation.
@@ -98,6 +105,9 @@ export interface BasketQuoteContext {
 export type BasketQuoter = (basket: DeliveredStoreBasket, postalCode: string, context?: BasketQuoteContext) => Promise<DeliveryQuoteResult>;
 export interface DeliveryComparison {
   allowSeparateOrders?: boolean;
+  allowExtraPackages?: boolean;
+  /** Cheaper confirmed total after adding packs of one already chosen product. */
+  extraPackageOption?: ExtraPackageOption | null;
   mode: DeliverySettings['mode'];
   postalCode: string | null;
   status: 'compared' | 'needs_delivery_costs' | 'needs_postal_code' | 'partial' | 'empty' | 'limit_exceeded';

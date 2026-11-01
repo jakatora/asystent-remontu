@@ -5,7 +5,7 @@ import type { DeliveryComparison, DeliveredBasket } from '../../../../lib/pricin
 export function deliveryRefreshDelay(comparison: DeliveryComparison, current: boolean, now = Date.now()): number | null {
   if (!current || comparison.mode !== 'shipping') return null;
   const basket = comparison.best ?? comparison.purchasePlan ?? comparison.lowerBound ?? comparison.availablePart?.basket;
-  const expiries = [basket,comparison.cheapestSingleStore].flatMap(basket=>basket?.stores.flatMap(store=>store.quote?[Date.parse(store.quote.expiresAt),...(store.quote.orders??[]).map(order=>Date.parse(order.quote.expiresAt))]:[])??[]).filter(Number.isFinite);
+  const expiries = [basket,comparison.cheapestSingleStore,comparison.extraPackageOption?.basket].flatMap(basket=>basket?.stores.flatMap(store=>store.quote?[Date.parse(store.quote.expiresAt),...(store.quote.orders??[]).map(order=>Date.parse(order.quote.expiresAt))]:[])??[]).filter(Number.isFinite);
   if (!expiries.length) return null;
   const delay = Math.min(...expiries) - now + 100;
   return delay <= 0 ? 5000 : delay;

@@ -49,3 +49,42 @@ test('an earlier-expiring one-store quote refreshes the comparison and expires i
  const c=comparison();c.cheapestSingleStore!.stores[0].quote!.expiresAt=new Date(now+1000).toISOString();assert.equal(deliveryRefreshDelay(c,true,now),1100);
  const data={deliveryComparison:c,stages:[],consolidated:{lines:[],consolidatedTotalGrosze:0}} as unknown as SerializedProject,snapshot=purchaseSnapshot(data,null,now,'single_store');assert.equal(purchaseSummary(snapshot,now+1000).status,'expired');assert.equal(confirmedBasketOptions(c,settings,null,now+1000)!.singleStore,null);
 });
+
+function surplusComparison(){
+ const c=comparison(),base=basket([['A',18312,5000]]),order=base.stores[0],pack=order.lines[0].packages[0];order.lines[0].unit='m';Object.assign(pack,{count:8,packageSize:30,unitPriceGrosze:2289,lineCostGrosze:18312});
+ const proposed=structuredClone(base),next=proposed.stores[0];Object.assign(next.lines[0].packages[0],{count:9,lineCostGrosze:20601});Object.assign(next,{materialsGrosze:20601,deliveryGrosze:0,totalGrosze:20601,deliveryMinimumGrosze:0});next.quote!.costGrosze=0;Object.assign(proposed,{materialsGrosze:20601,deliveryGrosze:0,totalGrosze:20601,lowerBoundGrosze:20601});
+ Object.assign(c,{best:base,cheapestSingleStore:base,productCount:1,allowExtraPackages:true,extraPackageOption:{basket:proposed,savingGrosze:2711}});return c;
+}
+
+test('surplus is an explicit third choice even when the standard basket already uses one store',()=>{
+ const c=surplusComparison(),before=JSON.stringify(c),options=confirmedBasketOptions(c,settings,null,now)!;
+ assert.equal(options.alreadySingleStore,true);assert.equal(options.extraPackages!.savingGrosze,2711);assert.equal(options.extraPackages!.additions[0].extraPackages,1);
+ assert.equal(basketForChoice(c,'lowest',now)!.totalGrosze,23312);assert.equal(basketForChoice(c,'extra_packages',now)!.totalGrosze,20601);assert.equal(JSON.stringify(c),before);
+ assert.equal(confirmedBasketOptions(c,{...settings,allowExtraPackages:false},null,now)!.extraPackages,null);
+ assert.ok(confirmedBasketOptions(c,settings,'A',now)!.extraPackages);assert.equal(confirmedBasketOptions(c,settings,'B',now),null);
+});
+
+test('surplus choice drives the project summary and copied nine-pack plan without rewriting standard demand',()=>{
+ const c=surplusComparison(),data={deliveryComparison:c,stages:[{lines:[],unresolvedCount:0}],consolidated:{lines:[],consolidatedTotalGrosze:0}}as unknown as SerializedProject,before=JSON.stringify(data);
+ const summary=purchaseSummary(purchaseSnapshot(data,null,now,'extra_packages'),now);assert.equal(summary.status,'complete');if(summary.status!=='complete')throw Error('not complete');
+ assert.equal(summary.totalGrosze,20601);assert.equal(summary.basketChoice,'extra_packages');assert.deepEqual(summary.products,['A product']);assert.equal(c.best!.totalGrosze,23312);
+ const text=purchaseListText({basket:c.extraPackageOption!.basket,extraPackageBaseline:c.best!,mode:'shipping',postalCode:'30-001'},'pl',now)!;
+ assert.match(text,/Wybrany wariant: dodatkowe opakowania/);assert.match(text,/27,11/);assert.match(text,/233,12/);assert.match(text,/206,01/);assert.match(text,/8 → 9/);assert.match(text,/1 × 30 m/);assert.equal(JSON.stringify(data),before);
+});
+
+test('a forged saving, changed SKU, insufficient quote or expired extra option cannot be selected',()=>{
+ for(const mutate of [(c:DeliveryComparison)=>{c.extraPackageOption!.savingGrosze++;},(c:DeliveryComparison)=>{c.extraPackageOption!.basket.stores[0].lines[0].packages[0].offerId='other';},
+  (c:DeliveryComparison)=>{c.extraPackageOption!.basket.stores[0].deliveryGrosze=null;},(c:DeliveryComparison)=>{c.extraPackageOption!.basket.stores[0].quote!.expiresAt=new Date(now).toISOString();},
+  (c:DeliveryComparison)=>{c.allowExtraPackages=false;}]){const c=surplusComparison();mutate(c);assert.equal(confirmedBasketOptions(c,settings,null,now)!.extraPackages,null);assert.equal(basketForChoice(c,'extra_packages',now),null);assert.equal(basketForChoice(c,'lowest',now),c.best);}
+});
+
+test('an earlier extra-pack expiry schedules a refresh and expires its selected project summary',()=>{
+ const c=surplusComparison();c.extraPackageOption!.basket.stores[0].quote!.expiresAt=new Date(now+1000).toISOString();assert.equal(deliveryRefreshDelay(c,true,now),1100);
+ const data={deliveryComparison:c,stages:[],consolidated:{lines:[],consolidatedTotalGrosze:0}}as unknown as SerializedProject,snapshot=purchaseSnapshot(data,null,now,'extra_packages');assert.equal(purchaseSummary(snapshot,now+1000).status,'expired');assert.equal(basketForChoice(c,'extra_packages',now+1000),null);
+});
+
+test('copy cannot silently drop a stale or unrelated surplus explanation while retaining a payable extra basket',()=>{
+ const c=surplusComparison(),input={basket:c.extraPackageOption!.basket,extraPackageBaseline:c.best!,mode:'shipping' as const,postalCode:'30-001'};
+ c.best!.stores[0].quote!.expiresAt=new Date(now).toISOString();assert.equal(purchaseListText(input,'pl',now),null);
+ const fresh=surplusComparison();fresh.extraPackageOption!.basket.stores[0].lines[0].packages[0].offerId='other';assert.equal(purchaseListText({...input,basket:fresh.extraPackageOption!.basket,extraPackageBaseline:fresh.best!},'pl',now),null);
+});

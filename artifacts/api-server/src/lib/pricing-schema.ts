@@ -45,6 +45,7 @@ export const optionsSchema = z
       method: z.enum(['automatic', 'manual']).optional(),
       postalCode: z.string().regex(/^\d{2}-\d{3}$/).optional(),
       allowSeparateOrders: z.boolean().optional(),
+      allowExtraPackages: z.boolean().optional(),
       costsGrosze: z.record(z.string().min(1).max(80), z.number().int().min(0).max(10_000_000))
         .refine(value => Object.keys(value).length <= 20).optional(),
     }).optional(),

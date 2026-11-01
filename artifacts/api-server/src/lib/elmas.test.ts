@@ -71,3 +71,20 @@ test('generic methods and redirects cannot turn the public carrier calculation i
 test('the same courier fee for different quantities still has basket-bound native evidence',async()=>{
   const hashes=[];for(const count of [1,2,8]){const result=await quoteElmas(order(count),network(count).fetcher);assert.ok('quote'in result);assert.equal(result.quote.costGrosze,5000);hashes.push(result.quote.evidenceSha256);}assert.equal(new Set(hashes).size,3);
 });
+
+test('HTTP surplus opt-in compares the recorded eight/nine-roll native carts while preserving the original 240 m request',async()=>{
+  const eight=network(8),nine=network(9),fetcher:typeof fetch=async(input,init)=>{
+    const body=init?.body?JSON.parse(String(init.body)):undefined;
+    return(body?.basket?.[0]?.quantity===9?nine:eight).fetcher(input,init);
+  },service=createRemontService({background:false,initialObservations:[parseRetailPage(fixture.html,ELMAS_TAPE,new Date())],fetchImpl:fetcher}),app=express();app.use(express.json());app.use(service.router);
+  const server=app.listen(0,'127.0.0.1');await new Promise<void>(r=>server.once('listening',r));
+  const request=(allowExtraPackages:unknown)=>fetch('http://127.0.0.1:'+(server.address()as {port:number}).port+'/pricing/project',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs:[{jobId:'additional-materials',materials:[{material:{id:'tape',ean:ELMAS_TAPE.ean,name:ELMAS_TAPE.name,unit:'m',category:ELMAS_TAPE.category},quantity:240}]}],options:{delivery:{mode:'shipping',postalCode:'30-001',allowSeparateOrders:false,allowExtraPackages}}})});
+  try{
+    for(const enabled of [undefined,true,false]){const response=await request(enabled);assert.equal(response.status,200);const data:any=await response.json(),c=data.deliveryComparison;
+      assert.equal(data.stages[0].lines[0].quantity,240);assert.equal(c.best.totalGrosze,23312);assert.equal(c.best.stores[0].lines[0].packages[0].count,8);
+      if(enabled){assert.equal(c.extraPackageOption.basket.totalGrosze,20601);assert.equal(c.extraPackageOption.savingGrosze,2711);assert.equal(c.extraPackageOption.basket.stores[0].lines[0].packages[0].count,9);assert.equal(c.extraPackageOption.basket.stores[0].quote.destinationScope,'PL');}
+      else assert.equal(c.extraPackageOption??null,null);
+    }
+    assert.equal((await request('yes')).status,400);assert.ok(nine.calls.length>0);assert.ok([...eight.calls,...nine.calls].every(call=>!call.url.endsWith('/order/new')));
+  }finally{service.close();await new Promise<void>(r=>server.close(()=>r()));}
+});

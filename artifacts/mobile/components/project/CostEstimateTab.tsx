@@ -290,7 +290,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     if(state.status!=='success'||refreshing||loadedScope!==scope)return;
     const options=confirmedBasketOptions(state.data.deliveryComparison,delivery,selectedStore);
     if(!options||choice==='single_store'&&!options.singleStore)return;
-    const next=options.alreadySingleStore?'lowest':choice;
+    if(choice==='extra_packages'&&!options.extraPackages)return;
+    const next=choice==='single_store'&&options.alreadySingleStore?'lowest':choice;
     setBasketChoice({data:state.data,choice:next});
     onPurchaseSnapshot?.(purchaseSnapshot(state.data,selectedStore,Date.now(),next));
   };

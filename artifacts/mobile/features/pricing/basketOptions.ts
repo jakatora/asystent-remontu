@@ -1,6 +1,7 @@
 import type { DeliveredBasket, DeliveryComparison, DeliveryQuote, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 import { normalizeDeliveryPostalCode } from './deliveryInput';
-export type BasketChoice = 'lowest' | 'single_store';
+import {extraPackageAdditions,type ExtraPackageAddition} from '../../../../lib/pricing-service/src/extra-package-difference';
+export type BasketChoice = 'lowest' | 'single_store' | 'extra_packages';
 const money = (n: unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0;
 function currentQuote(quote: DeliveryQuote | undefined, postalCode: string, now: number): boolean {
   if (!quote || !money(quote.costGrosze) || !/^https:\/\//.test(quote.sourceUrl ?? '') || !/^[a-f0-9]{64}$/.test(quote.evidenceSha256 ?? '')) return false;
@@ -41,21 +42,29 @@ export function deliveredBasketKey(basket: DeliveredBasket): string {
   return JSON.stringify([basket.totalGrosze, basket.materialsGrosze, basket.deliveryGrosze, basket.stores.map(store => [store.store, store.totalGrosze, store.quote?.orders?.length ?? 1,
     store.lines.flatMap(line => line.packages.map(pack => [line.product.id, pack.offerId, pack.count, pack.packageSize, pack.lineCostGrosze, pack.cutRoll ?? null])).sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))]).sort((a, b) => String(a[0]).localeCompare(String(b[0])))]);
 }
-export interface ConfirmedBasketOptions { lowest: DeliveredBasket; singleStore: DeliveredBasket | null; extraGrosze: number | null; alreadySingleStore: boolean }
+export interface ConfirmedBasketOptions { lowest: DeliveredBasket; singleStore: DeliveredBasket | null; extraGrosze: number | null; alreadySingleStore: boolean;
+  extraPackages:{basket:DeliveredBasket;savingGrosze:number;additions:ExtraPackageAddition[]}|null }
 export function confirmedBasketOptions(comparison: DeliveryComparison | undefined, settings: DeliverySettings, selectedStore?: string | null, now = Date.now()): ConfirmedBasketOptions | null {
   const postalCode = normalizeDeliveryPostalCode(settings.postalCode ?? '');
-  if (!comparison || selectedStore || settings.mode !== 'shipping' || comparison.mode !== 'shipping' || comparison.method !== 'automatic' || comparison.postalCode !== postalCode
+  if (!comparison || settings.mode !== 'shipping' || comparison.mode !== 'shipping' || comparison.method !== 'automatic' || comparison.postalCode !== postalCode
     || !/^\d{2}-\d{3}$/.test(postalCode ?? '') || (settings.allowSeparateOrders ?? true) !== (comparison.allowSeparateOrders ?? false)
     || comparison.missingProductCount !== 0 || !['compared', 'needs_delivery_costs'].includes(comparison.status) || !confirmedDeliveredBasket(comparison.best, postalCode!, now)) return null;
   const lowest = comparison.best;
-  if (lowest.stores.length === 1) return { lowest, singleStore: lowest, extraGrosze: 0, alreadySingleStore: true };
+  const proposed=comparison.extraPackageOption;
+  const additions=proposed&&comparison.allowExtraPackages===true&&settings.allowExtraPackages!==false&&money(proposed.savingGrosze)&&proposed.savingGrosze>0
+    &&confirmedDeliveredBasket(proposed.basket,postalCode!,now)&&proposed.basket.totalGrosze! < lowest.totalGrosze!
+    &&lowest.totalGrosze! - proposed.basket.totalGrosze! === proposed.savingGrosze?extraPackageAdditions(lowest,proposed.basket):null;
+  const extraPackages=proposed&&additions?{...proposed,additions}:null;
+  if(selectedStore&&(!extraPackages||lowest.stores.length!==1||lowest.stores[0].store!==selectedStore))return null;
+  if (lowest.stores.length === 1) return { lowest, singleStore: lowest, extraGrosze: 0, alreadySingleStore: true,extraPackages };
   // Older APIs may expose a one-store choice in their sorted alternatives.
   const candidate = comparison.cheapestSingleStore === undefined ? comparison.alternatives.find(b => b.stores.length === 1) : comparison.cheapestSingleStore;
   const singleStore = candidate?.stores.length === 1 && confirmedDeliveredBasket(candidate, postalCode!, now) && candidate.totalGrosze! >= lowest.totalGrosze! ? candidate : null;
-  return { lowest, singleStore, extraGrosze: singleStore ? singleStore.totalGrosze! - lowest.totalGrosze! : null, alreadySingleStore: false };
+  return { lowest, singleStore, extraGrosze: singleStore ? singleStore.totalGrosze! - lowest.totalGrosze! : null, alreadySingleStore: false,extraPackages };
 }
 export function basketForChoice(comparison: DeliveryComparison | undefined, choice: BasketChoice, now = Date.now()): DeliveredBasket | null {
   if (choice === 'lowest') return comparison?.best ?? null;
   if (!comparison) return null;
-  return confirmedBasketOptions(comparison, { mode: comparison.mode, postalCode: comparison.postalCode ?? undefined, allowSeparateOrders: comparison.allowSeparateOrders }, undefined, now)?.singleStore ?? null;
+  const options=confirmedBasketOptions(comparison, { mode: comparison.mode, postalCode: comparison.postalCode ?? undefined, allowSeparateOrders: comparison.allowSeparateOrders }, undefined, now);
+  return choice==='single_store'?options?.singleStore??null:choice==='extra_packages'?options?.extraPackages?.basket??null:null;
 }

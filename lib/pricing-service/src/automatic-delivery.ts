@@ -9,6 +9,7 @@ import { DELIVERY_LIMITS } from './delivery-limits';
 import { withOrderPartitions } from './order-partitions';
 import { materialPurchasePlans } from './material-purchase-plan';
 import {applyCartPrices,quotedMaterialsGrosze,supportsCartPricing} from './cart-pricing';
+import {findExtraPackageOption} from './extra-package-options';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}:${pack.packageSize}:${JSON.stringify(pack.cutRoll??null)}`)).sort().join('|');
@@ -67,12 +68,25 @@ export async function compareAutomaticDelivery(
       return [{...offer,maxPackages:Math.min(offer.maxPackages??Infinity,limit.maxPackages)}];
     })})}));
     result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+    if(settings.allowExtraPackages===true&&result.best){
+      const extra=await findExtraPackageOption(result.best,constrained,settings.postalCode!,quoteWithStock);
+      if(extra.baselineExpired){
+        const previous=allowNewQuotes;allowNewQuotes=false;
+        result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+        allowNewQuotes=previous;result.extraPackageOption=null;result.searchLimited=true;
+      }else{
+        result.extraPackageOption=extra.option;
+        result.comparedBasketCount=(result.comparedBasketCount??0)+extra.confirmed;
+        if(extra.searched)result.searchLimited=true;
+      }
+    }
     const next=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
     if(revision===next)break;
   }
   if(limits.size)result!.stockLimits=[...limits.values()];
   if(partitionSearchLimited)result!.searchLimited=true;
   result!.allowSeparateOrders=settings.allowSeparateOrders===true;
+  if(settings.allowExtraPackages===true){result!.allowExtraPackages=true;result!.extraPackageOption??=null;}
   return result!;
 }
 

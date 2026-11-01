@@ -1,7 +1,9 @@
 import type { DeliveredBasket, DeliveryQuote } from '../../../../lib/pricing-service/src/delivery';
 import { formatGrosze } from './pricingApi';
-import { formatPurchase } from './packageDisplay';
+import { formatPurchase,formatPackageSize,formatPackageUnit } from './packageDisplay';
 import { displayProductName } from './productDisplay';
+import {confirmedDeliveredBasket} from './basketOptions';
+import {extraPackageAdditions} from '../../../../lib/pricing-service/src/extra-package-difference';
 
 export interface PurchaseListInput {
   basket: DeliveredBasket;
@@ -9,6 +11,8 @@ export interface PurchaseListInput {
   postalCode: string | null;
   partial?: boolean;
   limited?: boolean;
+  /** Preserve the explicit surplus decision in the exported shopping plan. */
+  extraPackageBaseline?:DeliveredBasket;
 }
 const money = (n: unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0;
 const inline = (s: string) => s.replace(/[\u0000-\u001f\u007f]+/g, ' ').trim();
@@ -20,6 +24,10 @@ function productLink(value: string | null | undefined): string | null {
 /** A portable copy of this allocation, never a checkout or an exhaustive
  * market claim. Recheck expiry at the actual copy click, not only at render. */
 export function purchaseListText(input: PurchaseListInput, language = 'pl', now = Date.now()): string | null {
+  const additions=input.extraPackageBaseline?extraPackageAdditions(input.extraPackageBaseline,input.basket):null;
+  if(input.extraPackageBaseline&&(!additions||input.mode!=='shipping'||!/^\d{2}-\d{3}$/.test(input.postalCode??'')
+    ||!confirmedDeliveredBasket(input.extraPackageBaseline,input.postalCode!,now)||!confirmedDeliveredBasket(input.basket,input.postalCode!,now)
+    ||input.extraPackageBaseline.totalGrosze!<=input.basket.totalGrosze!))return null;
   const { basket, mode, postalCode } = input, pl = language === 'pl';
   const tr = (a: string, b: string) => pl ? a : b;
   const amount = (n: number) => formatGrosze(n, 'PLN', pl ? 'pl-PL' : 'en-GB');
@@ -54,6 +62,12 @@ export function purchaseListText(input: PurchaseListInput, language = 'pl', now 
   const text = [tr('Plan zakupów — Asystent Remontu', 'Shopping plan — Asystent Remontu'),
     tr(`Kopia z ${time(now)} (czas Warszawy).`, `Copied ${time(now)} (Warsaw time).`),
     tr('Ceny i dostępność mogą się zmienić. Przed zakupem sprawdź koszyk sklepu.', 'Prices and availability may change. Check the store cart before purchasing.')];
+  if(additions&&input.extraPackageBaseline){
+    text.push(tr('Wybrany wariant: dodatkowe opakowania.','Selected option: extra packs.'),
+      tr('Standardowy zestaw z dostawą: ','Standard basket including delivery: ')+formatGrosze(input.extraPackageBaseline.totalGrosze!),
+      tr('Całość tańsza o: ','Full total lower by: ')+formatGrosze(input.extraPackageBaseline.totalGrosze!-input.basket.totalGrosze!));
+    for(const item of additions)text.push(tr('Dodatkowo kupisz: ','Extra to buy: ')+inline(displayProductName(item.product))+' — '+item.extraPackages+' × '+formatPackageSize(item.packageSize,language)+' '+formatPackageUnit(item.unit)+'. '+tr(`Liczba opakowań: ${item.baselinePackages} → ${item.proposedPackages}.`,`Pack count: ${item.baselinePackages} → ${item.proposedPackages}.`));
+  }
   if (input.partial) text.push(tr('NIEPEŁNY KOSZYK: lista i kwoty obejmują tylko dostępną część. Brakujące zakupy i ich dostawa są poza wyceną.', 'INCOMPLETE BASKET: only the available part is listed and priced. Missing purchases and their delivery are excluded.'));
   if (mode === 'shipping') {
     if (postalCode) text.push(tr('Podany kod pocztowy: ', 'Entered postcode: ') + inline(postalCode));
