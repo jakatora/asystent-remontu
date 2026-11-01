@@ -10,7 +10,6 @@ import {PAINTING_TAPE_SOURCES} from './painting-tapes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
-  ...CERESIT_PRIMER_SOURCES,
   ...PAINTING_TAPE_SOURCES,
   // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751
   {"id":"sewera-mapegum-wps-5kg","ean":"8022452242489","name":"Folia w płynie Mapegum WPS 5kg Mapei","brand":"Mapei","category":"waterproofing","packageSize":5,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17476_500_500/Zrzut-ekranu-2022-02-12-091101.webp","pickupRequiresConfirmation":true},
@@ -1396,6 +1395,7 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   {"id":"ehw-wago-221415-25","ean":"4055143234658","name":"WAGO 221-415 Złączka instalacyjna COMPACT do wszystkich rodzajów przewodów, transparentna opakowanie 25 szt.","brand":"WAGO","category":"wire-connector","packageSize":25,"unit":"szt","store":"Elektro-Hurt","format":"shoper-api","productId":462,"retailerSku":"WAGO-125138*25","apiPurchaseUnit":"szt.","variant":["221-415","25 szt."],"packageDescription":"Złączka 221-415 opakowanie 25 sztuk.","pickupRequiresConfirmation":true,"url":"https://sklep.ehw.com.pl/osprzet-laczeniowy/szybkozlaczka-zlaczka-wago-221-415-5x4-mm","imageUrl":"https://sklep.ehw.com.pl/environment/cache/images/productGfx_857_500_500/Szybkozlaczka-zlaczka-WAGO-221-415-5x4-mm-EAN-4055143234658.jpg"},
   ...ETAK_SOURCES,
   ...KNAUF_PLASTER_SOURCES,
+  ...CERESIT_PRIMER_SOURCES,
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
