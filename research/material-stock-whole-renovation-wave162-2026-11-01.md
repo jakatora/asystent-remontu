@@ -16,7 +16,7 @@ Całkowite pokrycie materiałów daje komunikat o braku zakupów. Nadal można z
 
 ## Rzeczywiste kwoty
 
-Ściana4m²,10mm MP75L,10% zapasu:35,2kg. Kodeks testów używa30-001, a metody Shoper zwracają jawne taryfy krajowePL, bez osobnej wyceny adresu.
+Ściana4m²,10mm MP75L,10% zapasu:35,2kg. Kod testowy to30-001, a metody Shoper zwracają jawne taryfy krajowePL, bez osobnej wyceny adresu.
 
 | Zakupy | Brakujące kg | Materiały | Dostawa | Razem |
 |---|---:|---:|---:|---:|
