@@ -181,7 +181,7 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   // source: https://sklep.sewera.pl/tasma-spoinowa-papierowa-50mm-x-75m-rigips-p7448
   {"ids":["mat-gypsum-paper-rigips-50x75"],"ean":"5905637118010","sourceUrl":"https://sklep.sewera.pl/tasma-spoinowa-papierowa-50mm-x-75m-rigips-p7448","imageUrl":"https://sklep.sewera.pl/photo/25025/tasma-spoinowa-papierowa-50mm-x-75m-rigips.webp"},
   // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html
-  {"ids":["mat-gypsum-acoustic-norgips-50x30"],"ean":"5907651698004","sourceUrl":"https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-50-mm-30-mb-norgips-43912722.html","imageUrl":"https://media.adeo.com/media/2631597/media.jpg"},
+  {"ids":["mat-gypsum-acoustic-norgips-50x30"],"ean":"5907651698004","sourceUrl":"https://sklep-elmas.pl/p/tasma-akustyczna-samoprzylepna-z-klejem-50x3x30","imageUrl":"https://sklep-elmas.pl/upload/6b89e6014d62a9e7cb888fdfa8ba.jpg"},
   // source: https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips-p7445
   {"ids":["mat-gypsum-acoustic-rigips-50x30"],"ean":"5905637113503","sourceUrl":"https://sklep.sewera.pl/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips-p7445","imageUrl":"https://sklep.sewera.pl/photo/191957/tasma-akustyczna-do-profili-piankowa-uszczelniajaca-50mm-x-30m-rigips.webp"},
   // source: https://www.leroymerlin.pl/produkty/tasma-uszczelniajaca-akustyczna-30-mm-30-mb-norgips-44420222.html

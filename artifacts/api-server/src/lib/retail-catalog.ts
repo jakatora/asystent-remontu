@@ -1,5 +1,6 @@
 import type { RetailSource } from './retail-pages';
 import {CERESIT_PRIMER_SOURCES} from './ceresit-primers';
+import {ELMAS_TAPE} from './elmas-source';
 import {AKS_CABLE_SOURCES} from './aks-cables';
 import {DEKORK_SOURCES} from './dekork';
 import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
@@ -1396,6 +1397,7 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   ...ETAK_SOURCES,
   ...KNAUF_PLASTER_SOURCES,
   ...CERESIT_PRIMER_SOURCES,
+  ELMAS_TAPE,
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.

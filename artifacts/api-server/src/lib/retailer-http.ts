@@ -1,4 +1,5 @@
 import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
+import {ELMAS_ORIGIN,ELMAS_TAPE,ELMAS_VARIANT,ELMAS_HOME_CARRIER} from './elmas-source';
 export const MAX_RETAIL_PACKAGES = DELIVERY_LIMITS.packagesPerProduct;
 export const MAX_BUDSHOP_COURIER_PARCELS = 32;
 export function retailerRequestBudget(productCount: number): number {
@@ -24,6 +25,16 @@ export class AnonymousShop {
   }
   async text(path: string, form?: Record<string, string>): Promise<string> {
     return this.read(path, form ? new URLSearchParams(form).toString() : undefined, false);
+  }
+  /** Fixed public PL carrier calculation for one reviewed roll; no customer,
+   * login, consent, discount, payment execution or order/new operation.
+   * source: https://sklep-elmas.pl/scripts/order-form.js */
+  async elmasShipping(args:{count:number;priceGrosze:number;nettoGrosze:number;stock:number;selected?:boolean;previousTotalGrosze?:number}):Promise<any>{
+    if(this.origin!==ELMAS_ORIGIN||!args||Object.keys(args).some(k=>!['count','priceGrosze','nettoGrosze','stock','selected','previousTotalGrosze'].includes(k))||![args.count,args.priceGrosze,args.nettoGrosze,args.stock].every(n=>Number.isSafeInteger(n)&&n>0)||args.count>MAX_RETAIL_PACKAGES||args.count>args.stock||args.stock>1_000_000||args.priceGrosze>100_000_000||args.nettoGrosze>100_000_000||Math.round(args.nettoGrosze*1.23)!==args.priceGrosze||args.selected!==undefined&&typeof args.selected!=='boolean'||args.previousTotalGrosze!==undefined&&(!Number.isSafeInteger(args.previousTotalGrosze)||args.previousTotalGrosze<0||args.previousTotalGrosze>2_000_000_000))throw Error('invalid_cart_action');
+    const gross=args.priceGrosze/100,net=args.nettoGrosze/100;
+    const basket=[{variant:{'5e70dce30acac12465cf0ee1':'1'},product:{_id:ELMAS_TAPE.retailerSku,mainImage:new URL(ELMAS_TAPE.imageUrl!).pathname,name:ELMAS_TAPE.name,url:new URL(ELMAS_TAPE.url).pathname,mainCategory:'Taśmy montażowe',price:{brutto:gross,discountBrutto:gross,netto:net,discountNetto:net,old:gross,discount:0,vat:23,currency:'PLN'},weight:0.3,variantHash:ELMAS_VARIANT,componentsHash:'',variantName:'',preorder:false,vars:{'6a69ca5e869b9bc4c7953c50':'0.05','6a69ca5e869b9bc4c7953c2f':'inny','6a69ca5e869b9bc4c7953c91':'1','5e70dce30acac12465cf0ee1':'none'}},quantity:args.count,max:args.stock}];
+    const body={step:args.selected?2:1,code:'',giftCardCode:'',currency:'PLN',basket,lang:'pl',deliveryCountry:'pl',total:(args.previousTotalGrosze??0)/100,init:!args.selected,...(args.selected?{selectedDeliveryId:ELMAS_HOME_CARRIER}:{})};
+    return JSON.parse(await this.read('/api/public/order/form',JSON.stringify(body),true,false,true));
   }
   /** Exact public cut-to-length calculator, no checkout/customer submission.
    * source: https://ewinyl.pl/produkt/orion-514-05-wykladzina-winylowy-3m-4m/ */
@@ -299,6 +310,11 @@ export class AnonymousShop {
     let url = new URL(path, this.origin), method = overrideMethod ?? (payload || forcePost ? 'POST' : 'GET');
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
+      if(this.origin===ELMAS_ORIGIN){
+        const card=method==='GET'&&[ELMAS_TAPE.url,ELMAS_ORIGIN+'/api/public/p/'+ELMAS_TAPE.retailerSku+'?lang=pl&id=1'].includes(url.href);
+        const carrier=method==='POST'&&url.href===ELMAS_ORIGIN+'/api/public/order/form'&&json&&rawJson;
+        if(!card&&!carrier)throw Error('invalid_cart_route');
+      }
       if (++this.calls > this.maxCalls) throw Error('request_limit');
       const cookie = [...this.cookies].map(([k,v]) => `${k}=${v}`).join('; ');
       if (cookie.length > 8192 || this.cookies.size > 64) throw Error('invalid_cookie_size');
