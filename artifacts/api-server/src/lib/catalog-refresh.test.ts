@@ -14,11 +14,12 @@ const post=(base:string,body:unknown)=>fetch(base+'/pricing/catalog-availability
 
 test('explicit refresh restores an expired exact PEX offer with one current product read and no shipping/order action',async()=>{
   let calls=0;const fetcher:typeof fetch=async(input,init)=>{calls++;assert.equal(String(input),'https://www.plus-market.pl/webapi/front/pl_PL/products/PLN/12990');assert.equal(init?.method,undefined);return Response.json(fixture.cases[0].product);};
-  const previous=await readRetailSource(source,fetcher);previous.observedAt='2026-10-25T15:14:56.417Z';calls=0;
+  const previous=await readRetailSource(source,fetcher);previous.observedAt=new Date(Date.now()-8*86400000).toISOString();calls=0;
   await host(async(base,service)=>{
     const before:any=await(await fetch(base+'/pricing/catalog-availability')).json();assert(!before.products.some((p:any)=>p.ean===identity.ean));
     const r=await post(base,identity);assert.equal(r.status,200);assert.equal(r.headers.get('cache-control'),'no-store');const result=parseCatalogProductRefresh(await r.json());assert.deepEqual(result.refresh.confirmedOfferIds,[source.id]);assert.equal(result.refresh.failedOfferIds.length,0);assert.equal(calls,1);assert(result.availability.products.some(p=>p.ean===identity.ean&&p.packageSize===1&&p.unit==='mb'&&p.stores.includes('Plus-Market')));assert.equal(service.status().sources.find(s=>s.id===source.id)?.active,true);
-    const again=parseCatalogProductRefresh(await(await post(base,identity)).json());assert.equal(again.refresh.status,'recent');assert(again.refresh.retryAfterSeconds>0);assert.equal(calls,1);
+    assert.equal(result.offers?.length,1);assert.equal(result.offers[0].priceGrosze,399);assert.equal(result.offers[0].packageSize,1);assert.equal(result.offers[0].unit,'mb');assert.equal(result.offers[0].previous?.checkedAt,previous.observedAt);assert.equal(result.offers[0].deltaGrosze,0);
+    const again=parseCatalogProductRefresh(await(await post(base,identity)).json());assert.equal(again.refresh.status,'recent');assert(again.refresh.retryAfterSeconds>0);assert.equal(calls,1);assert.deepEqual(again.offers,result.offers);
   },fetcher,[previous]);
 });
 
@@ -31,7 +32,18 @@ test('concurrent explicit checks share a single product request',async()=>{
 });
 
 test('out-of-stock refresh withdraws the current badge; a failed read cannot renew an old timestamp',async()=>{
-  const initial=await readRetailSource(source,async()=>Response.json(fixture.cases[0].product));for(const kind of ['stock','network'])await host(async(base,service)=>{const r=await post(base,identity);assert.equal(r.status,200);const data=parseCatalogProductRefresh(await r.json());assert.deepEqual(data.refresh.failedOfferIds,[source.id]);assert.equal(service.status().sources.find(s=>s.id===source.id)?.checkedAt,initial.observedAt);if(kind==='stock')assert(!data.availability.products.some(p=>p.ean===identity.ean));},async()=>kind==='stock'?Response.json({...fixture.cases[0].product,can_buy:false}):new Response('',{status:503}),[initial]);
+  const initial=await readRetailSource(source,async()=>Response.json(fixture.cases[0].product));for(const kind of ['stock','network'])await host(async(base,service)=>{const r=await post(base,identity);assert.equal(r.status,200);const data=parseCatalogProductRefresh(await r.json());assert.deepEqual(data.refresh.failedOfferIds,[source.id]);assert.deepEqual(data.offers,[]);assert.equal(service.status().sources.find(s=>s.id===source.id)?.checkedAt,initial.observedAt);if(kind==='stock')assert(!data.availability.products.some(p=>p.ean===identity.ean));},async()=>kind==='stock'?Response.json({...fixture.cases[0].product,can_buy:false}):new Response('',{status:503}),[initial]);
+});
+
+test('catalogue price changes compare two accepted observations of the same store and package',async()=>{
+  for(const [previousPrice,currentPrice]of [[449,399],[349,399],[399,399]]){
+    const initial=await readRetailSource(source,async()=>Response.json(fixture.cases[0].product));initial.observedAt=new Date(Date.now()-3600000).toISOString();initial.priceGrosze=previousPrice;
+    await host(async base=>{const data=parseCatalogProductRefresh(await(await post(base,identity)).json()),o=data.offers![0];assert.equal(o.priceGrosze,currentPrice);assert.deepEqual(o.previous,{priceGrosze:previousPrice,checkedAt:initial.observedAt});assert.equal(o.deltaGrosze,currentPrice-previousPrice);assert.equal(o.offerId,source.id);assert.equal(o.sourceUrl,source.url);assert.equal(o.store,source.store);assert(Date.parse(o.checkedAt)>Date.parse(o.previous!.checkedAt));},async()=>Response.json(fixture.cases[0].product),[initial]);
+  }
+});
+
+test('a first accepted offer exposes a price without inventing a baseline or delta',async()=>{
+  await host(async base=>{const data=parseCatalogProductRefresh(await(await post(base,identity)).json());assert.equal(data.offers?.length,1);assert.equal(data.offers[0].priceGrosze,399);assert.equal(data.offers[0].previous,null);assert.equal(data.offers[0].deltaGrosze,null);},async()=>Response.json(fixture.cases[0].product));
 });
 test('all reviewed merchant-only variants have a scoped refresh path without a fabricated manufacturer code',async()=>{
   let calls=0;await host(async base=>{for(const productId of ['remont-sku-ewinyl-5329-2m','remont-sku-ewinyl-5329-4m','remont-sku-irbud-10911','remont-sku-sewera-465325']){const s=RETAIL_SOURCES.find(s=>retailProductId(s)===productId)!;assert.ok(s);const r=await post(base,{productId,category:s.category,packageSize:s.packageSize,unit:s.unit});assert.equal(r.status,200);const result=parseCatalogProductRefresh(await r.json());assert.equal(result.identity.ean,undefined);assert.deepEqual(result.refresh.failedOfferIds,[s.id]);}assert.equal(calls,4);},async()=>{calls++;throw Error('Simulated unavailability; no confirmed price');});

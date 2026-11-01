@@ -12,6 +12,7 @@ import { extraMaterial, EXTRA_UNITS, MAX_BASKET_EXTRAS, parseExtraQuantity, sear
 import { ProductImage } from './ProductImage';
 import {useCatalogAvailability} from '@/features/pricing/useCatalogAvailability';
 import {catalogueProductAvailability,catalogueRefreshIdentity,filterCatalogueByAvailability,isCatalogAvailabilityFresh} from '@/features/pricing/catalogAvailability';
+import {CatalogRefreshPrices} from './CatalogRefreshPrices';
 
 export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: {
   items: readonly BasketExtra[]; onChange: (items: BasketExtra[]) => void; ready: boolean; error: boolean; onRetry: () => void;
@@ -100,6 +101,7 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
         {ref&&refreshIdentity&&<>
           <Button variant="outline" label={availability.refreshing?(pl?'Sprawdzamy aktualną cenę…':'Checking the current price…'):productRetrySeconds>0?(pl?`Sprawdź cenę za ${productRetrySeconds} s`:`Check price in ${productRetrySeconds} s`):(pl?'Sprawdź aktualną cenę produktu':'Check current product price')} disabled={availability.refreshing||productRetrySeconds>0} onPress={()=>{void availability.refreshProduct(refreshIdentity);}}/>
           {productRefresh&&<Txt accessibilityLiveRegion="polite" style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{productRefresh.result?.refresh.confirmedOfferIds.length?(pl?`Potwierdzone oferty: ${productRefresh.result.refresh.confirmedOfferIds.length}. ${productRefresh.result.refresh.status==='recent'?'Ceny sprawdzono przed chwilą. ':''}Dostawę i zapas dla potrzebnej ilości sprawdzimy po dodaniu do koszyka.`:`Confirmed offers: ${productRefresh.result.refresh.confirmedOfferIds.length}. Delivery and stock for your required quantity are checked after adding.`):(pl?'Nie udało się potwierdzić nowej ceny. Możesz dodać produkt i sprawdzić go ponownie w koszyku.':'A new price could not be confirmed. You can add the product and check again in the basket.')}</Txt>}
+          {productRefresh?.result?.offers&&<CatalogRefreshPrices offers={productRefresh.result.offers}/>}
         </>}
         {ref?.materialType==='wire' && <Txt style={{color:Colors.textSecondary,fontSize:13,lineHeight:19}}>{pl?'Przekrój, rodzaj i długość przewodu dobierz zgodnie z projektem instalacji. Porównujemy ceny wybranego wariantu.':'Choose the cable type, cross-section and length according to the installation design. We compare prices for the selected variant.'}</Txt>}
         {ref?.id==='mat-pex-pipe-tycner-16x2'&&<Txt style={{color:Colors.textSecondary,fontSize:13,lineHeight:19}}>{pl?'Porównujemy zakup rury w pełnych metrach. Podane zapotrzebowanie pozostaje bez zmian; pokażemy ilość do kupienia i nadwyżkę.':'We compare whole-metre purchases. Your required length stays unchanged; the purchase quantity and surplus are shown.'}</Txt>}

@@ -23,6 +23,7 @@ import { parseRetailPage, readRetailSource, retailPriceIsValid, type RetailObser
 import {RetailPriceHistory} from './lib/retail-history';
 import {catalogAvailability} from './lib/catalog-availability';
 import {parseCatalogRefreshIdentity,catalogRefreshUnit} from '../../../lib/pricing-service/src/catalog-refresh';
+import {catalogRefreshOffers} from './lib/catalog-refresh-offers';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const normalUnit = (value: string) => ({ litr: 'l', litry: 'l', 'm²': 'm2', 'szt.': 'szt' }[value] ?? value);
@@ -255,8 +256,9 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     if(!sources.length){res.status(404).json({error:'catalog_product_not_reviewed'});return;}
     try{
       const refresh=await refreshProjectSources(sources);
+      const current=catalog();
       res.setHeader('Cache-Control','no-store');
-      res.json({version:1,identity,refresh,availability:catalogAvailability(RETAIL_SOURCES,catalog().offers,observations)});
+      res.json({version:1,identity,refresh,availability:catalogAvailability(RETAIL_SOURCES,current.offers,observations),offers:catalogRefreshOffers(sources,observations,new Set(current.offers.filter(o=>isComparableOffer(o)).map(o=>o.id)),refresh.confirmedOfferIds,history)});
     }catch{res.status(503).json({error:'catalog_product_refresh_unavailable'});}
   });
   async function handleEstimate(req: Request, res: Response) {
