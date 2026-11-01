@@ -44,7 +44,8 @@ export async function findExtraPackageOption(base:DeliveredBasket,stages:readonl
       }
     }
   }
-  trials.sort((a,b)=>a.increment-b.increment||a.order.store.localeCompare(b.order.store));
+  const potential=(trial:typeof trials[number])=>base.stores.find(order=>order.store===trial.order.store)!.deliveryGrosze!-trial.increment;
+  trials.sort((a,b)=>potential(b)-potential(a)||a.increment-b.increment||a.order.store.localeCompare(b.order.store));
   const first=new Map<string,typeof trials[number]>();for(const trial of trials)if(!first.has(trial.order.store))first.set(trial.order.store,trial);
   const selected=[...first.values(),...trials.filter(trial=>first.get(trial.order.store)!==trial)].slice(0,MAX_EXTRA_QUOTES);
   for(const trial of selected){

@@ -13,7 +13,7 @@ async function stage(rolls=8,maxPackages=197,multiple=1){
   const offer={id:'roll',productId:'tape',store:'Elmas',price:'22.89',promoPrice:null,packageSize:'30',source:'observed-store-page',availability:'in_stock',fetchedAt:new Date(),productUrl:'https://example.org/tape',maxPackages,purchaseMultiple:multiple}as PurchaseOffer;
   return estimateStageCost({}as Database,[{query:{ean:'5907651698004'},quantity:rolls*30,unit:'m'}],{},{findProductByCode:async()=>product,findProductByNameAndCategory:async()=>product,listOffers:async()=>[offer]});
 }
-function quote(count:number):DeliveryQuote{return{costGrosze:count>=9?0:5000,carrier:'Courier',payment:'Prepaid',checkedAt:new Date().toISOString(),expiresAt:new Date(Date.now()+600000).toISOString(),sourceUrl:'https://example.org/cart',destinationScope:'PL',basis:'retailer_basket_national',evidenceSha256:'a'.repeat(64)};}
+function quote(count:number):DeliveryQuote{const now=Date.now();return{costGrosze:count>=9?0:5000,carrier:'Courier',payment:'Prepaid',checkedAt:new Date(now).toISOString(),expiresAt:new Date(now+600000).toISOString(),sourceUrl:'https://example.org/cart',destinationScope:'PL',basis:'retailer_basket_national',evidenceSha256:'a'.repeat(64)};}
 const count=(order:Parameters<BasketQuoter>[0])=>order.lines.flatMap(line=>line.packages).reduce((n,pack)=>n+pack.count,0);
 const native:BasketQuoter=async order=>({quote:quote(count(order))});
 
@@ -86,4 +86,18 @@ test('a base quote that expires during surplus I/O is re-ranked from cache and c
   t.mock.timers.enable({apis:['Date'],now:Date.now()});let calls=0;
   const result=await compareAutomaticDelivery([await stage()],settings,async order=>{calls++;const n=count(order);if(n>8)t.mock.timers.tick(20);const q=quote(n);if(n===8)q.expiresAt=new Date(Date.now()+10).toISOString();return{quote:q};});
   assert.equal(result.best,null);assert.equal(result.extraPackageOption,null);assert.equal(result.purchasePlan!.totalGrosze,null);assert.equal(calls,2);
+});
+
+test('a large multi-store renovation leaves room for a genuinely cheaper extra pack within the same eighty-quote budget',async()=>{
+  const inputs=await Promise.all(Array.from({length:20},async(_,i)=>{const input=await stage(1),line=input.lines[0];assert.ok(line.resolved);line.product={...line.product,id:'item-'+i};const original=line.offers[0];line.offers=Array.from({length:12},(_,j)=>({...original,id:`offer-${i}-${j}`,productId:'item-'+i,store:'Shop'+j,price:((100+j)/100).toFixed(2)}));return input;}));
+  inputs.push(await stage(8));let calls=0;
+  const result=await compareAutomaticDelivery(inputs,{...settings,allowSeparateOrders:true},async order=>{calls++;return{quote:{...quote(count(order)),costGrosze:order.store==='Elmas'?(count(order)>=9?0:5000):1000}};});
+  assert.equal(result.best!.totalGrosze,26312);assert.equal(result.extraPackageOption!.basket.totalGrosze,23601);assert.equal(result.extraPackageOption!.savingGrosze,2711);assert.ok(calls<=80);
+});
+
+test('unused surplus slots return to ordinary search when every extra pack costs more than the entire freight',async()=>{
+  const inputs=await Promise.all(Array.from({length:20},async(_,i)=>{const input=await stage(1),line=input.lines[0];assert.ok(line.resolved);line.product={...line.product,id:'item-'+i};const original=line.offers[0];line.offers=Array.from({length:12},(_,j)=>({...original,id:`offer-${i}-${j}`,productId:'item-'+i,store:'Shop'+j,price:((100+j)/100).toFixed(2)}));return input;}));
+  inputs.push(await stage(8));const counts:number[]=[];
+  for(const allowExtraPackages of [false,true]){let calls=0;const result=await compareAutomaticDelivery(inputs,{...settings,allowExtraPackages,allowSeparateOrders:true},async order=>{calls++;return{quote:{...quote(count(order)),costGrosze:50}};});assert.equal(result.best!.totalGrosze,20412);assert.equal(result.extraPackageOption??null,null);counts.push(calls);}
+  assert.deepEqual(counts,[80,80]);
 });

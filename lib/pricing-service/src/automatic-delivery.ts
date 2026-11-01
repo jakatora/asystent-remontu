@@ -30,12 +30,12 @@ export async function compareAutomaticDelivery(
 ): Promise<DeliveryComparison> {
   if (settings.mode==='pickup'||settings.method==='manual') return compareDeliveredBaskets(stages,settings,policies,now);
   const limits=new Map<string,DeliveryStockLimit>(),cache=new Map<string,Promise<DeliveryQuoteResult>>();
-  let allowNewQuotes=true, partitionSearchLimited=false;
+  let allowNewQuotes=true, partitionSearchLimited=false,quoteBudget=MAX_STORE_BASKETS,reserveHit=false;
   const quoteWithStock: BasketQuoter=async(order,postalCode,context)=>{
     const ignoredStock=new Set(context?.ignoreStockOfferIds??[]);
     const key=JSON.stringify([order.store,signature(order),[...ignoredStock].sort()]);
     if(cache.has(key))return cache.get(key)!;
-    if(!allowNewQuotes||cache.size>=MAX_STORE_BASKETS){partitionSearchLimited=true;return {reason:'quote_limit'};}
+    if(!allowNewQuotes||cache.size>=quoteBudget){if(quoteBudget<MAX_STORE_BASKETS&&cache.size>=quoteBudget)reserveHit=true;partitionSearchLimited=true;return {reason:'quote_limit'};}
     const pending=(async()=>{
       const outcome=await quoteBasket(order,postalCode);
       if (!('reason' in outcome)||outcome.reason!=='insufficient_stock'||!outcome.stockLimits) return outcome;
@@ -61,6 +61,10 @@ export async function compareAutomaticDelivery(
   for(let attempt=0;attempt<4;attempt++){
     // A final cache-only pass applies the last discovered limit without more I/O.
     allowNewQuotes=attempt<3;
+    // Reserve a few probes for surplus plans on the first pass. Unused slots
+    // return to ordinary allocation/partition search; the shared cap stays 80.
+    quoteBudget=settings.allowExtraPackages===true&&attempt===0?MAX_STORE_BASKETS-8:MAX_STORE_BASKETS;
+    reserveHit=false;
     const revision=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
     const constrained=stages.map(stage=>({...stage,lines:stage.lines.map(line=>!line.resolved?line:{...line,offers:line.offers.flatMap(offer=>{
       const limit=limits.get(offer.id);if(!limit||limit.store!==offer.store)return [offer];
@@ -68,7 +72,8 @@ export async function compareAutomaticDelivery(
       return [{...offer,maxPackages:Math.min(offer.maxPackages??Infinity,limit.maxPackages)}];
     })})}));
     result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
-    if(settings.allowExtraPackages===true&&result.best){
+    quoteBudget=MAX_STORE_BASKETS;
+    const addExtra=async()=>{if(settings.allowExtraPackages===true&&result.best){
       const extra=await findExtraPackageOption(result.best,constrained,settings.postalCode!,quoteWithStock);
       if(extra.baselineExpired){
         const previous=allowNewQuotes;allowNewQuotes=false;
@@ -79,6 +84,11 @@ export async function compareAutomaticDelivery(
         result.comparedBasketCount=(result.comparedBasketCount??0)+extra.confirmed;
         if(extra.searched)result.searchLimited=true;
       }
+    }};
+    await addExtra();
+    if(reserveHit&&cache.size<MAX_STORE_BASKETS){
+      result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+      await addExtra();
     }
     const next=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
     if(revision===next)break;
