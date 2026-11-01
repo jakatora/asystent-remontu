@@ -15,15 +15,28 @@ const home=(data:any)=>{
 /** The card's free-shipping label and the default 40 PLN locker are not home
  * delivery. Select and recheck the native courier for this complete PL basket.
  * source: https://sklep-elmas.pl/order/form */
-export async function quoteElmas(order:DeliveredStoreBasket,fetchImpl:typeof fetch):Promise<DeliveryQuoteResult>{
+function reviewedLines(order:DeliveredStoreBasket){
   if(order.store!=='Elmas'||order.lines.length<1||order.lines.length>ELMAS_ITEMS.length||!Number.isSafeInteger(order.materialsGrosze)||order.materialsGrosze<1)throw Error('invalid_basket');
   const seen=new Set<string>(),lines=order.lines.map(line=>{
     if(line.unit!=='m'||line.packages.length!==1)throw Error('invalid_basket');
     const pack=line.packages[0],item=ELMAS_ITEMS.find(item=>item.source.id===pack.offerId),source=item?.source;
-    if(!source||seen.has(source.id)||line.product.id!=='remont-'+source.ean||pack.store!=='Elmas'||pack.url!==source.url||pack.packageSize!==source.packageSize||!Number.isSafeInteger(pack.count)||pack.count<1||pack.count>MAX_RETAIL_PACKAGES||!Number.isSafeInteger(pack.unitPriceGrosze)||pack.unitPriceGrosze<1||pack.lineCostGrosze!==pack.count*pack.unitPriceGrosze)throw Error('invalid_basket');
+    if(!source||seen.has(source.id)||line.product.id!=='remont-'+source.ean||pack.store!=='Elmas'||pack.url!==source.url||pack.packageSize!==source.packageSize||(pack.minimumPackages??1)!==1||(pack.purchaseMultiple??1)!==1||pack.cutRoll!==undefined||!Number.isSafeInteger(pack.count)||pack.count<1||pack.count>MAX_RETAIL_PACKAGES||!Number.isSafeInteger(pack.unitPriceGrosze)||pack.unitPriceGrosze<1||pack.lineCostGrosze!==pack.count*pack.unitPriceGrosze)throw Error('invalid_basket');
     seen.add(source.id);return{source,pack};
   });
   if(lines.reduce((sum,line)=>sum+line.pack.lineCostGrosze,0)!==order.materialsGrosze)throw Error('invalid_basket');
+  return lines;
+}
+
+/** Only the two reviewed complete-roll products. A confirmed quote from this
+ * calculator covers country PL and has no postcode input. Other merchants and
+ * unreviewed/altered baskets cannot use its national cache identity.
+ * source: https://sklep-elmas.pl/api/public/order/form */
+export function elmasNationalBasketKey(order:DeliveredStoreBasket):string|null{
+  try{return JSON.stringify(['PL',order.materialsGrosze,reviewedLines(order).map(({source,pack})=>[source.id,pack.count,pack.unitPriceGrosze]).sort((a,b)=>String(a[0]).localeCompare(String(b[0])))]);}catch{return null;}
+}
+
+export async function quoteElmas(order:DeliveredStoreBasket,fetchImpl:typeof fetch):Promise<DeliveryQuoteResult>{
+  const lines=reviewedLines(order);
   const client=new AnonymousShop(ELMAS_ORIGIN,fetchImpl,AbortSignal.timeout(20000),2*lines.length+4),evidence:{raw:string;api:any}[]=[],cart:ElmasCartLine[]=[];
   for(const {source,pack} of lines){
     const raw=await client.text(source.url),card=readElmasProduct(raw,source),api=await client.json('/api/public/p/'+source.retailerSku+'?lang=pl&id=1'),current=readElmasNativeCard(api,source);

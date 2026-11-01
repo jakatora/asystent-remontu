@@ -1,6 +1,6 @@
 import {quoteRelayEnabled,quoteThroughRelay} from './quote-relay-client';
 import {quoteEtak} from './etak-delivery';
-import {quoteElmas} from './elmas-delivery';
+import {quoteElmas,elmasNationalBasketKey} from './elmas-delivery';
 import {selectRealbudMp75lDelivery} from './knauf-plasters';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEwinyl} from './ewinyl';
@@ -191,19 +191,34 @@ export function quoteBeforeDeadline(quoter: CachedBasketQuoter, order: Delivered
  * excess load with a bounded FIFO queue shared by all requests. */
 export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBasketQuoter {
   const pages=createCheckoutPageReader();
-  const cache = new Map<string, { until: number; result: Promise<DeliveryQuoteResult>; confirmed?: DeliveryQuoteResult }>();
+  type CacheRow={until:number;result:Promise<DeliveryQuoteResult>;confirmed?:DeliveryQuoteResult};
+  const cache = new Map<string,CacheRow>();
+  const elmasNational = new Map<string,CacheRow>();
+  const nationalKey=(order:DeliveredStoreBasket)=>order.store==='Elmas'?elmasNationalBasketKey(order):null;
+  const validNational=(result:DeliveryQuoteResult|undefined,now:number)=>{
+    if(!result||!('quote'in result))return false;const q=result.quote,checked=Date.parse(q.checkedAt),expires=Date.parse(q.expiresAt);
+    return q.basis==='retailer_basket_national'&&q.destinationScope==='PL'&&q.postalCode===undefined&&q.sourceUrl==='https://sklep-elmas.pl/order/form'&&Number.isSafeInteger(q.costGrosze)&&q.costGrosze>=0&&/^[a-f0-9]{64}$/.test(q.evidenceSha256??'')&&Number.isFinite(checked)&&checked<=now&&expires>now&&expires<=checked+600000;
+  };
+  const cachedNational=(order:DeliveredStoreBasket,now=Date.now()):DeliveryQuoteResult|null=>{
+    const key=nationalKey(order);if(!key)return null;const row=elmasNational.get(key);if(!row)return null;
+    if(row.until>now&&validNational(row.confirmed,now))return row.confirmed!;
+    elmasNational.delete(key);return null;
+  };
   const queue = new QuoteQueue();
   const keyFor = (order: DeliveredStoreBasket, postalCode: string) => JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze,p.packageSize,p.cutRoll??null])).sort()]);
   const cached = (order: DeliveredStoreBasket, postalCode: string): DeliveryQuoteResult | null => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return null;
+    if(order.store==='Elmas'&&!nationalKey(order))return null;
     const row = cache.get(keyFor(order, postalCode)), now = Date.now();
     return row && row.until > now && row.confirmed && 'quote' in row.confirmed && Date.parse(row.confirmed.quote.expiresAt) > now
-      ? row.confirmed : null;
+      ? row.confirmed : cachedNational(order,now);
   };
   const quote: BasketQuoter = async (order, postalCode) => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return { reason: 'invalid_postal_code' };
     const unsupported = unavailableReason(order.store);
     if (unsupported) return { reason: unsupported };
+    if(order.store==='Elmas'&&!nationalKey(order))return{reason:'quote_unavailable'};
+    const national=cachedNational(order);if(national)return national;
     const key = keyFor(order, postalCode);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
@@ -250,7 +265,13 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
       if ('quote' in result) {
         // Leave enough time for the other merchant calls before returning a
         // cached quotation. The original native expiry is never extended.
-        cache.set(key, { until: Math.min(Date.now() + TTL, Date.parse(result.quote.expiresAt)) - 60_000, result: Promise.resolve(result), confirmed: result });
+        const row={until:Math.min(Date.now()+TTL,Date.parse(result.quote.expiresAt))-60_000,result:Promise.resolve(result),confirmed:result};
+        cache.set(key,row);
+        const countryKey=nationalKey(order);
+        if(countryKey&&validNational(result,Date.now())){
+          if(elmasNational.size>=64&&!elmasNational.has(countryKey))elmasNational.delete(elmasNational.keys().next().value!);
+          elmasNational.set(countryKey,row);
+        }
       } else if (result.reason === 'quote_busy') cache.delete(key);
       else cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
     }
