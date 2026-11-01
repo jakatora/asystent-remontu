@@ -5,9 +5,11 @@ import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
 import {ETAK_SOURCES} from './etak-sources';
 import {KNAUF_PLASTER_SOURCES} from './knauf-plasters';
 import {MAPEI_SUPPLY_SOURCES} from './mapei-supplies';
+import {PAINTING_TAPE_SOURCES} from './painting-tapes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...PAINTING_TAPE_SOURCES,
   // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751
   {"id":"sewera-mapegum-wps-5kg","ean":"8022452242489","name":"Folia w płynie Mapegum WPS 5kg Mapei","brand":"Mapei","category":"waterproofing","packageSize":5,"unit":"kg","store":"Sewera","format":"sewera","retailUnit":"SZT","url":"https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17476_500_500/Zrzut-ekranu-2022-02-12-091101.webp","pickupRequiresConfirmation":true},
   // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-10kg-mapei-p7754

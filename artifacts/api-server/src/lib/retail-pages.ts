@@ -1,4 +1,5 @@
 import {confirmMapeiSupplyPurchase} from './mapei-supplies';
+import {confirmPaintingTapePurchase,reviewedPaintingTape} from './painting-tapes';
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEtakCard} from './etak-product';
 import {confirmKnaufPlasterPurchase} from './knauf-plasters';
@@ -120,6 +121,7 @@ function objects(value: unknown): Record<string, any>[] {
 
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
+  reviewedPaintingTape(source);
   if (source.disabledReason) throw Error(source.disabledReason);
   if(source.format==='bmb'||source.format==='integra'||source.format==='mlazienka')throw Error('retailer_basket_required');
   if ((!source.ean || source.skuIdentity) && !isReviewedSkuSource(source)) throw Error('retailer_sku_source_not_reviewed');
@@ -335,6 +337,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  confirmPaintingTapePurchase(item,source);
   confirmMapeiSupplyPurchase(item,source);
   confirmKnaufPlasterPurchase(item,source);
   // This native Shoper "szt." is a sealed25-piece box, not one connector.

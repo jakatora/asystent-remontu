@@ -12,6 +12,19 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/tasma-malarska-niebieska-25mmx50m-p6965
+  // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-do-wnetrz-i-na-zwenatrz-25mm-x-50m-niebieska/648
+  {"ids":["mat-tape-bluedolphin-blue25-50m"],"ean":"5907758507308","sourceUrl":"https://sklep.sewera.pl/tasma-malarska-niebieska-25mmx50m-p6965","imageUrl":"https://sklep.sewera.pl/photo/23322/tasma-malarska-niebieska-25mmx50m.webp"},
+  // source: https://sklep.sewera.pl/tasma-malarska-niebieska-48mmx50m-p6969
+  // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-do-wnetrz-i-na-zewnatrz-48mm-x-50m-niebieska/548
+  {"ids":["mat-tape-bluedolphin-blue48-50m"],"ean":"5907758507292","sourceUrl":"https://sklep.sewera.pl/tasma-malarska-niebieska-48mmx50m-p6969","imageUrl":"https://sklep.sewera.pl/photo/23329/tasma-malarska-niebieska-48mm-x-50m-blue-dolphin.webp"},
+  // source: https://sklep.sewera.pl/tasma-malarska-papierowa-38mm-x-50m-zolta-blue-dolphin-p22108
+  // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-38mm-x-50m/3745
+  {"ids":["mat-tape-bluedolphin-yellow38-50m"],"ean":"5907758504789","sourceUrl":"https://sklep.sewera.pl/tasma-malarska-papierowa-38mm-x-50m-zolta-blue-dolphin-p22108","imageUrl":"https://sklep.sewera.pl/photo/356176/tasma-malarska-papierowa-38mm-x-50m-zolta-blue-dolphin.webp"},
+  // source: https://sklep.sewera.pl/tasma-malarska-papierowa-48mmx50m-p6963
+  // source: https://www.rabdom.pl/pl/p/BLUE-DOLPHIN-Tasma-malarska-papierowa-48mm-x-50m/3744
+  {"ids":["mat-tape-bluedolphin-yellow48-50m"],"ean":"5907758504581","sourceUrl":"https://sklep.sewera.pl/tasma-malarska-papierowa-48mmx50m-p6963","imageUrl":"https://sklep.sewera.pl/photo/356183/tasma-malarska-papierowa-48mm-x-50m-blue-dolphin.webp"},
+
   // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906
   {"ids":["mat-mapegum-wps-5kg-124805pl"],"ean":"8022452242489","sourceUrl":"https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906","imageUrl":"https://www.rabdom.pl/environment/cache/images/productGfx_17476_500_500/Zrzut-ekranu-2022-02-12-091101.webp"},
   // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873
