@@ -1,3 +1,4 @@
+import type {ReviewedPackageFamily} from './reviewed-package-families';
 import {confirmedIndoEndcapDemand,type IndoEndcapDemand} from './indo-endcaps';
 // Adapter: wynik kalkulatora (engine.calculate z mobile) -> wejście wyceny.
 //
@@ -45,7 +46,7 @@ import type {
  * ma priorytet bez zmian w tym adapterze.
  */
 export interface CalculatorMaterial {
-  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1' | 'mapei-mapegum-wps-kg-v1';
+  readonly packageFamily?: ReviewedPackageFamily;
   readonly id: string;
   readonly name: string;
   readonly unit: string;

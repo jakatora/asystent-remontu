@@ -1,0 +1,4 @@
+import {CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices} from './ceresitPackageChoice';
+import {createPackageChoiceStorage} from './packageChoiceStorage';
+export const ceresitPackageStorage=createPackageChoiceStorage(CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices,'invalid_ceresit_package_project');
+export const waitForCeresitPackageWrites=ceresitPackageStorage.wait,readCeresitPackageChoices=ceresitPackageStorage.read,writeCeresitPackageChoices=ceresitPackageStorage.write;

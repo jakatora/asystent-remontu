@@ -3,9 +3,10 @@
 // EstimateOptions). Waliduje TYLKO strukturę wejścia z kalkulatora — ceny i
 // opakowania liczy serwis wyceny na podstawie katalogu, nie klient.
 import { z } from "zod";
+import {REVIEWED_PACKAGE_FAMILY_KEYS} from '../../../../lib/pricing-service/src/reviewed-package-families';
 
 const materialSchema = z.object({
-  packageFamily: z.enum(['v33-easy-kitchen-white-satin-v1','mapei-primer-g-pro-litres-v1','mapei-mapegum-wps-kg-v1']).optional(),
+  packageFamily: z.enum(REVIEWED_PACKAGE_FAMILY_KEYS).optional(),
   id: z.string(),
   name: z.string(),
   unit: z.string(),

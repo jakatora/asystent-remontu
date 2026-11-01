@@ -1,4 +1,5 @@
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices} from '../pricing/primerPackageChoice';
+import {CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices} from '../pricing/ceresitPackageChoice';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices} from '../pricing/mapegumPackageChoice';
 import {MAPEGUM_PRODUCT_CHOICE_PREFIX,parseMapegumProductChoices} from '../pricing/mapegumProductChoice';
 import type {ProjectBackup} from './projectBackup';
@@ -20,6 +21,7 @@ import {PREFERENCE_RECOVERY_PREFIX,parsePreferenceRecovery,recoveryArchiveKey} f
 // Adding a product selector must not silently omit it from a shared basket backup.
 export const BACKUP_PRODUCT_CHOICE_PARSERS: Readonly<Record<string,(raw:string)=>readonly unknown[]>>={
   [PRIMER_PACKAGE_CHOICE_PREFIX]:parsePrimerPackageChoices,
+  [CERESIT_PACKAGE_CHOICE_PREFIX]:parseCeresitPackageChoices,
   [MAPEGUM_PACKAGE_CHOICE_PREFIX]:parseMapegumPackageChoices,
   [MAPEGUM_PRODUCT_CHOICE_PREFIX]:parseMapegumProductChoices,
   'remont.laminate-choice.v1:':parseLaminateChoices,'remont.foil-choice.v1:':parseFoilChoices,

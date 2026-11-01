@@ -18,7 +18,7 @@ Ocena walidacji według jobs-to-be-done: **3/10**, nie ocena jakości aplikacji.
 
 1. Start od zamiaru i wymiarów. Pierwsza kompletna lista bez obowiązkowego konta; cel pilotażu do 90 sekund jest hipotezą, nie zmierzonym wynikiem.
 2. Jeden wynik: produkty + transport + suma, obok dopłata za jeden sklep, brakujące pozycje i czas sprawdzenia. Istniejący wybór koszyka wielosklepowego/jednego sklepu zachować.
-3. Pokaż właściwe zdjęcie, model, wielkość opakowania, ile kupić i ile zostanie. Aktualny audyt katalogu z wave169: 236 referencji, 203 z aktualnymi ofertami, 33 braki. To nie dowodzi kompletności dowolnego remontu.
+3. Pokaż właściwe zdjęcie, model, wielkość opakowania, ile kupić i ile zostanie. Aktualny audyt katalogu z wave174: 239 referencji, 206 z potwierdzonymi ofertami, 33 braki (306 ofert). To nie dowodzi kompletności dowolnego remontu.
 4. Dokończ drogę do zakupów: lista na sklep, link do konkretnego produktu, oznaczenie kupione, ponowne przeliczenie pozostałych potrzeb. Bez deklarowania automatycznego przekazania całego koszyka, dopóki sklep tego rzeczywiście nie umożliwia.
 5. Rozwijaj współdzielenie i kontrolę faktycznych wydatków po potwierdzeniu użyteczności w pilotażu. Zachowaj backup i lokalne projekty.
 

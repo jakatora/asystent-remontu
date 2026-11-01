@@ -1,4 +1,4 @@
-import {reviewedPackageFamily,PRIMER_G_PRO_FAMILY,MAPEGUM_WPS_FAMILY} from '../../../lib/pricing-service/src/reviewed-package-families';
+import {reviewedPackageFamily,V33_CABINET_FAMILY} from '../../../lib/pricing-service/src/reviewed-package-families';
 import { Router, type Request, type Response } from 'express';
 import { existsSync, readFileSync, writeFileSync, mkdirSync, renameSync } from 'node:fs';
 import { dirname } from 'node:path';
@@ -274,11 +274,11 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     }
     try {
       let priceRefresh;
-      // A selected Mapei family checks all reviewed pack sizes; recent checks are
+      // A selected reviewed material family checks all its pack sizes; recent checks are
       // coalesced by the existing bounded refresh cache. Unrelated products
       // refresh only when the client explicitly requests it.
       const materials = parsed.data.jobs.flatMap(job => job.materials.map(line => line.material)).filter(material =>
-        parsed.data.options?.refreshPrices || (material.packageFamily===PRIMER_G_PRO_FAMILY||material.packageFamily===MAPEGUM_WPS_FAMILY)&&reviewedPackageFamily({...material,normalizedName:material.name},normalUnit(material.unit)));
+        parsed.data.options?.refreshPrices || material.packageFamily!==V33_CABINET_FAMILY&&reviewedPackageFamily({...material,normalizedName:material.name},normalUnit(material.unit)));
       if (materials.length) {
         const requestedEans = new Set(materials.flatMap(material => {
           const family=reviewedPackageFamily({...material,normalizedName:material.name},normalUnit(material.unit));

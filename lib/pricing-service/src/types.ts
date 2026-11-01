@@ -1,3 +1,4 @@
+import type {ReviewedPackageFamily} from './reviewed-package-families';
 // Typy serwisu wyceny (bridge kalkulator -> katalog cen).
 //
 // KONWENCJA PIENIĘDZY: wszystkie kwoty są w GROSZACH (integer), spójnie z
@@ -34,7 +35,7 @@ export type PurchaseOffer = ProductOffer & {
 
 /** Zapytanie o pojedynczy materiał/narzędzie wyliczone przez kalkulator. */
 export interface ItemQuery {
-  packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1' | 'mapei-mapegum-wps-kg-v1';
+  packageFamily?: ReviewedPackageFamily;
   /** EAN-13/8 produktu. Priorytet dopasowania #1. */
   ean?: string | null;
   /** GTIN (gdy sklep rozróżnia od EAN). Priorytet dopasowania #2. */

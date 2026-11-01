@@ -11,6 +11,8 @@ import {calculateMaterials} from '../calculator/engine';
 import {getJobById} from '../content/registry';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';
 import {writePrimerPackageChoices} from '../pricing/primerPackageStorage';
+import {CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices,CERESIT_PACKAGE_PRODUCTS} from '../pricing/ceresitPackageChoice';
+import {ceresitPackageStorage} from '../pricing/ceresitPackageStorage';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices,MAPEGUM_PACKAGE_PRODUCTS} from '../pricing/mapegumPackageChoice';
 import {writeMapegumPackageChoices,mapegumPackageStorage} from '../pricing/mapegumPackageStorage';
 import {MAPEGUM_PRODUCT_CHOICE_PREFIX,MAPEGUM_PRODUCT_PAIRS} from '../pricing/mapegumProductChoice';
@@ -31,6 +33,7 @@ function sharedChoices():Record<string,string>{
   const floor=TILE_PRODUCTS.filter(p=>p.uses.includes('floor'));
   return{
     [PRIMER_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:PRIMER_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
+    [CERESIT_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:CERESIT_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
     [MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket']:save([{from:MAPEGUM_PACKAGE_PRODUCTS[0].id,to:'automatic'}]),
     [MAPEGUM_PRODUCT_CHOICE_PREFIX+'renovation-basket']:save([MAPEGUM_PRODUCT_PAIRS[0]]),
     'remont.laminate-choice.v1:renovation-basket':save([{from:LAMINATE_PRODUCTS[0].id,to:LAMINATE_PRODUCTS[1].id}]),
@@ -45,6 +48,27 @@ function sharedChoices():Record<string,string>{
 const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
 const primerChoice={from:PRIMER_PACKAGE_PRODUCTS.find(p=>p.packageSize===1)!.id,to:'automatic' as const};
 const mapegumChoice={from:MAPEGUM_PACKAGE_PRODUCTS.find(p=>p.packageSize===3)!.id,to:'automatic' as const};
+
+test('separate Ceresit families, project/common choices and exact damaged archives survive real SQLite export/import',async t=>{
+  const a=await source(t),b=await fixture(t),choices=CERESIT_PACKAGE_PRODUCTS.filter(p=>p.packageSize===5).map(p=>({from:p.id,to:'automatic' as const})),key=CERESIT_PACKAGE_CHOICE_PREFIX+'room';
+  await a.storage.setItem(key,'{damaged-ceresit');await ceresitPackageStorage.recover(a.storage,'room');await ceresitPackageStorage.write(a.storage,'room',choices.slice(0,1));await ceresitPackageStorage.write(a.storage,'renovation-basket',choices.slice().reverse());
+  const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);const restored=await readProjectBackup(b.db,b.storage);
+  assert.deepEqual(await ceresitPackageStorage.read(b.storage,'room'),choices.slice(0,1));assert.deepEqual(await ceresitPackageStorage.read(b.storage,'renovation-basket'),choices.slice().reverse());assert.equal(parsePreferenceRecovery(restored.preferences[recoveryArchiveKey(key)]).records[0].raw,'{damaged-ceresit');assert.equal(canonical(restored.tables),canonical(backup.tables));
+});
+test('Ceresit export waits for a queued selection and for both recovery writes',async t=>{
+  const a=await source(t),key=CERESIT_PACKAGE_CHOICE_PREFIX+'room',choice={from:CERESIT_PACKAGE_PRODUCTS[0].id,to:'automatic' as const},set=a.storage.setItem.bind(a.storage);
+  for(const recovery of [false,true]){
+    if(recovery)await set(key,'{broken-ct17');let release!:()=>void,began!:()=>void;const gate=new Promise<void>(r=>{release=r;}),started=new Promise<void>(r=>{began=r;});a.storage.setItem=async(k,v)=>{if(k===(recovery?recoveryArchiveKey(key):key)){began();await gate;}await set(k,v);};
+    const write=recovery?ceresitPackageStorage.recover(a.storage,'room'):ceresitPackageStorage.write(a.storage,'room',[choice]);await started;let done=false;const exportPromise=readProjectBackup(a.db,a.storage).then(v=>{done=true;return v;});await new Promise(r=>setImmediate(r));assert.equal(done,false);release();await write;const backup=await exportPromise;assert.deepEqual(parseCeresitPackageChoices(backup.preferences[key]),recovery?[]:[choice]);if(recovery)assert.equal(parsePreferenceRecovery(backup.preferences[recoveryArchiveKey(key)]).records[0].raw,'{broken-ct17');a.storage.setItem=set;
+  }
+});
+test('a Ceresit-only shared basket transfers without inventing project rows or leaking choices into a project',async t=>{
+  const a=await fixture(t),b=await fixture(t),choice={from:CERESIT_PACKAGE_PRODUCTS[0].id,to:'automatic' as const};await ceresitPackageStorage.write(a.storage,'renovation-basket',[choice]);const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));assert.equal(backup.tables.projects.length,0);assert.equal(hasBackupContent(backup),true);await importProjectBackup(backup,b.db,b.storage);assert.deepEqual(await ceresitPackageStorage.read(b.storage,'renovation-basket'),[choice]);assert.deepEqual(await ceresitPackageStorage.read(b.storage,'room'),[]);
+});
+test('foreign, crossed or price-bearing Ceresit choices reject the entire backup',async t=>{
+  const a=await source(t);const backup=await readProjectBackup(a.db,a.storage),choice={from:CERESIT_PACKAGE_PRODUCTS[0].id,to:'automatic'};
+  for(const choices of [[{...choice,to:CERESIT_PACKAGE_PRODUCTS[2].id}],[{from:'mat-primer-g-pro-1l',to:'automatic'}],[{...choice,price:1}],[choice,choice]]){const bad=structuredClone(backup);bad.preferences[CERESIT_PACKAGE_CHOICE_PREFIX+'room']=JSON.stringify({version:1,choices});assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
+});
 
 test('current Mapegum SKU choices and recovery copies survive SQLite export and import for project and common scopes',async t=>{
   const a=await source(t),b=await fixture(t),key=MAPEGUM_PRODUCT_CHOICE_PREFIX+'room';

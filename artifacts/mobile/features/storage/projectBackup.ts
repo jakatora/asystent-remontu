@@ -1,4 +1,6 @@
 import {PRIMER_PACKAGE_CHOICE_PREFIX} from '../pricing/primerPackageChoice';
+import {CERESIT_PACKAGE_CHOICE_PREFIX} from '../pricing/ceresitPackageChoice';
+import {waitForCeresitPackageWrites} from '../pricing/ceresitPackageStorage';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX} from '../pricing/mapegumPackageChoice';
 import {waitForMapegumPackageWrites} from '../pricing/mapegumPackageStorage';
 import {waitForMapegumProductWrites} from '../pricing/mapegumProductStorage';
@@ -114,12 +116,14 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
   await Promise.all([...data.projects.map(project=>String(project.id)),'renovation-basket'].flatMap(id=>[
     ...(id==='renovation-basket'?[]:[waitForMaterialStockWrites(storage,id)]),
     waitForPrimerPackageWrites(storage,id),waitForMapegumPackageWrites(storage,id),
+    waitForCeresitPackageWrites(storage,id),
     waitForMapegumProductWrites(storage,id),
   ]));
   const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS];
   const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{
     if(key.startsWith(MATERIAL_STOCK_PREFIX))await waitForMaterialStockWrites(storage,key.slice(MATERIAL_STOCK_PREFIX.length));
     if(key.startsWith(PRIMER_PACKAGE_CHOICE_PREFIX))await waitForPrimerPackageWrites(storage,key.slice(PRIMER_PACKAGE_CHOICE_PREFIX.length));
+    if(key.startsWith(CERESIT_PACKAGE_CHOICE_PREFIX))await waitForCeresitPackageWrites(storage,key.slice(CERESIT_PACKAGE_CHOICE_PREFIX.length));
     if(key.startsWith(MAPEGUM_PACKAGE_CHOICE_PREFIX))await waitForMapegumPackageWrites(storage,key.slice(MAPEGUM_PACKAGE_CHOICE_PREFIX.length));
     if(key.startsWith(MAPEGUM_PRODUCT_CHOICE_PREFIX))await waitForMapegumProductWrites(storage,key.slice(MAPEGUM_PRODUCT_CHOICE_PREFIX.length));
     return [key,await storage.getItem(key)] as const;

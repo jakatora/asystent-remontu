@@ -1,3 +1,4 @@
+import {isReviewedPackageFamilyKey,type ReviewedPackageFamily} from '../../../../lib/pricing-service/src/reviewed-package-families';
 import {ROLLED_JOB,ROLLED_MODEL,rolledDemand} from '@/features/calculator/rolledVinyl';
 import { ApiError, createBackoffFetch } from './requestBackoff';
 export { ApiError } from './requestBackoff';
@@ -52,7 +53,7 @@ export const isPricingApiConfigured = pricingApiBaseUrl !== null;
 // ─── Kontrakt WEJŚCIA (zgodny z api-server/lib/pricing-schema.ts) ─────────────
 
 export interface PricingMaterialInput {
-  readonly packageFamily?: 'v33-easy-kitchen-white-satin-v1' | 'mapei-primer-g-pro-litres-v1' | 'mapei-mapegum-wps-kg-v1';
+  readonly packageFamily?: ReviewedPackageFamily;
   readonly id: string;
   readonly name: string;
   readonly unit: string;
@@ -456,7 +457,7 @@ export function toPricingStageInput(calc: CalculationResult, tier: MaterialCateg
       return priceKitchenMaterial(priceTileSpacer({
         material: {
           id: line.material.id,
-            ...('packageFamily' in line.material && (line.material.packageFamily === 'v33-easy-kitchen-white-satin-v1' || line.material.packageFamily === 'mapei-primer-g-pro-litres-v1' || line.material.packageFamily === 'mapei-mapegum-wps-kg-v1') ? {packageFamily:line.material.packageFamily} : {}),
+            ...('packageFamily' in line.material && isReviewedPackageFamilyKey(line.material.packageFamily) ? {packageFamily:line.material.packageFamily} : {}),
           name: reference?.productLabel ?? line.material.name,
           unit: reference?.packageUnit ?? line.material.unit,
           category: reference?.materialType ?? line.material.category ?? null,

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Pressable,View} from 'react-native';
+import {View} from 'react-native';
+import {RadioCard} from '@/components/ui/RadioCard';
 import {Feather} from '@expo/vector-icons';
 import {Txt} from '@/components/ui/Txt';
 import {Button} from '@/components/ui/Button';
@@ -18,7 +19,7 @@ export interface PackageChoiceCopy{
   accessibility:(ref:MaterialPriceReference,automatic:boolean)=>string;fixed:(ref:MaterialPriceReference)=>string;
 }
 export function PackageChoiceSection({references,choices,ready,readFailed,saveFailed,saving,commonBasket,onChange,onRetry,copy,...recovery}:PackageChoiceSectionProps&{copy:PackageChoiceCopy}){
-  const{language}=useLanguage(),pl=language==='pl';if(!references.length&&!readFailed)return null;
+  const{language}=useLanguage(),pl=language==='pl',group=React.useId();if(!references.length&&!readFailed&&!recovery.recovered)return null;
   return <View style={{padding:16,gap:12,borderRadius:16,borderWidth:1,borderColor:Colors.border,backgroundColor:Colors.surface}}>
     <View style={{flexDirection:'row',gap:8,alignItems:'center'}}><Feather name="package" size={20} color={Colors.primary}/><Txt w="bold" style={{flex:1,fontSize:18}}>{copy.title}</Txt></View>
     <Txt style={{lineHeight:21,color:Colors.textSecondary}}>{copy.explanation}</Txt>
@@ -27,9 +28,9 @@ export function PackageChoiceSection({references,choices,ready,readFailed,saveFa
     <PreferenceRecoveryAction key={recovery.recoveryKey} {...recovery} readFailed={readFailed} kind="packages"/>
     {ready&&references.map(ref=>{const automatic=choices.some(c=>c.from===ref.id);return <View key={ref.id} style={{gap:8,paddingVertical:8}}>
       <Txt w="semibold">{ref.productLabel}</Txt>
-      {[false,true].map(value=><Pressable key={String(value)} accessibilityRole="radio" accessibilityLabel={copy.accessibility(ref,value)} aria-checked={automatic===value} accessibilityState={{checked:automatic===value,disabled:saving}} disabled={saving} onPress={()=>{void onChange(value?[...choices.filter(c=>c.from!==ref.id),{from:ref.id,to:'automatic'}]:choices.filter(c=>c.from!==ref.id));}} style={{minHeight:52,padding:12,gap:10,flexDirection:'row',alignItems:'center',borderWidth:1,borderColor:automatic===value?Colors.primary:Colors.border,borderRadius:10,backgroundColor:automatic===value?Colors.primaryBg:Colors.surface}}>
+      {[false,true].map(value=><RadioCard key={String(value)} label={copy.accessibility(ref,value)} value={String(value)} group={group+':'+ref.id} checked={automatic===value} disabled={saving||!ready||readFailed} onSelect={()=>{void onChange(value?[...choices.filter(c=>c.from!==ref.id),{from:ref.id,to:'automatic'}]:choices.filter(c=>c.from!==ref.id));}} style={{minHeight:52,padding:12,gap:10,flexDirection:'row',alignItems:'center',borderWidth:1,borderColor:automatic===value?Colors.primary:Colors.border,borderRadius:10,backgroundColor:automatic===value?Colors.primaryBg:Colors.surface}}>
         <Feather name={automatic===value?'check-circle':'circle'} size={22} color={automatic===value?Colors.primary:Colors.textSecondary}/><Txt style={{flex:1}}>{value?copy.automatic:commonBasket?(pl?'Zachowaj wybory z projektów i pozycji':'Keep project and item choices'):copy.fixed(ref)}</Txt>
-      </Pressable>)}
+      </RadioCard>)}
     </View>;})}
     {saving&&<Txt accessibilityLiveRegion="polite">{pl?'Zapisuję wybór opakowań…':'Saving pack choices…'}</Txt>}
     {saveFailed&&<Txt accessibilityRole="alert" style={{color:Colors.danger}}>{pl?'Nie zapisano wyboru. Zachowano poprzednie ustawienie i wycenę. Spróbuj ponownie.':'The choice was not saved. The previous setting and quote are preserved. Try again.'}</Txt>}

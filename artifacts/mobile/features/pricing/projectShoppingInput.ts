@@ -1,4 +1,5 @@
 import {applyPrimerPackageChoices} from './primerPackageChoice';
+import {applyCeresitPackageChoices} from './ceresitPackageChoice';
 import {applyMapegumPackageChoices} from './mapegumPackageChoice';
 import {TRAP_JOB,reviewTrapShopping} from '@/features/calculator/trapReplacement';
 import {SEAT_JOB,reviewSeatShopping} from '@/features/calculator/toiletSeatReplacement';
@@ -65,7 +66,7 @@ export function applyShoppingContexts(stages: readonly PricingStageInput[], cont
     const context = contexts[index];
     if(!context)return {stage,excludedMaterials:0,stockAdjustments:[],stockRequirements:[]};
     const result=applyProjectShopping(stage,context.calc,context.projectId,context.items,context.original,context.materialStock);
-    return {...result,stage:applyMapegumPackageChoices(applyPrimerPackageChoices([result.stage],context.primerPackages??[]),context.mapegumPackages??[])[0]};
+    return {...result,stage:applyCeresitPackageChoices(applyMapegumPackageChoices(applyPrimerPackageChoices([result.stage],context.primerPackages??[]),context.mapegumPackages??[]),context.ceresitPackages??[])[0]};
   });
   return { stages: results.map(result => result.stage), excluded: results.reduce((sum, result) => sum + result.excludedMaterials, 0), stockAdjustments: results.flatMap(result => result.stockAdjustments), stockRequirements: results.flatMap(result => result.stockRequirements) };
 }
