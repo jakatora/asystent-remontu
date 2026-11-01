@@ -18,7 +18,7 @@ Ocena walidacji według jobs-to-be-done: **3/10**, nie ocena jakości aplikacji.
 
 1. Start od zamiaru i wymiarów. Pierwsza kompletna lista bez obowiązkowego konta; cel pilotażu do 90 sekund jest hipotezą, nie zmierzonym wynikiem.
 2. Jeden wynik: produkty + transport + suma, obok dopłata za jeden sklep, brakujące pozycje i czas sprawdzenia. Istniejący wybór koszyka wielosklepowego/jednego sklepu zachować.
-3. Pokaż właściwe zdjęcie, model, wielkość opakowania, ile kupić i ile zostanie. Aktualny audyt katalogu z wave174: 239 referencji, 206 z potwierdzonymi ofertami, 33 braki (306 ofert). To nie dowodzi kompletności dowolnego remontu.
+3. Pokaż właściwe zdjęcie, model, wielkość opakowania, ile kupić i ile zostanie. Audyt produkcyjny wave177 z 2026-11-01 20:24:48 UTC: 239 referencji, 207 z potwierdzonymi ofertami, 32 braki (307 ofert). Potwierdzona oferta produktu nie oznacza potwierdzonej dostawy każdego koszyka. Te liczby nie dowodzą kompletności dowolnego remontu.
 4. Dokończ drogę do zakupów: lista na sklep, link do konkretnego produktu, oznaczenie kupione, ponowne przeliczenie pozostałych potrzeb. Bez deklarowania automatycznego przekazania całego koszyka, dopóki sklep tego rzeczywiście nie umożliwia.
 5. Rozwijaj współdzielenie i kontrolę faktycznych wydatków po potwierdzeniu użyteczności w pilotażu. Zachowaj backup i lokalne projekty.
 
@@ -60,3 +60,23 @@ Przed zwiększaniem wydatków na pozyskanie proponowane minimum dowodów: 20 rze
 Rozmowy i pilotaż wymagają rzeczywistych uczestników. Automatyczne scenariusze QA nie zastępują badania klientów. Niniejszy plan nie uruchamia kontaktowania się z osobami trzecimi ani przyjmowania opłat.
 
 Kolejność inwestycji: pomiar i rozmowy → zaufanie oraz prostota trzech ścieżek → partnerstwa i zatwierdzone zakupy → test płatnej wartości → skalowanie kanału o dodatniej marży. Obecny stały cel rozwoju pozostaje aktywny.
+
+## Decyzja właścicielska po wave177 — 2026-11-01
+
+Gdybym finansował tę aplikację sam, traktowałbym ukończone, wiarygodnie wycenione zakupy jako główny wynik produktu. Liczba produktów, sklepów i instalacji jest pomocnicza. Rozwój katalogu trwa, ale priorytet mają brakujące materiały potrzebne do ukończenia wybranego zadania oraz sklepy pozwalające faktycznie kupić je z dostawą.
+
+Obecny dowód techniczny: [wave177](./dodatkowe-opakowania-i-dostawa-wave177-2026-11-01.md) potwierdził w publicznym scenariuszu QA pełny testowy remont za 2712,10 zł i świadomie wybraną nadwyżkę obniżającą sumę do 2684,99 zł. Są to ceny z konkretnego testu, nie oszczędność klienta ani obietnica dla kolejnego remontu. Osiem sklepów w tym przykładzie pokazuje także potrzebę przedstawienia kosztu wygody: pełnego wariantu jednosklepowego, a docelowo ograniczenia liczby sklepów, gdy uda się potwierdzić taki zestaw.
+
+Pierwsza odpowiedź tego publicznego scenariusza trwała około 37 s. Odrębny lokalny zimny pomiar wykazał 449 żądań do sklepów, łącznie z odświeżaniem cen. Limit 80 wycen koszyków nie jest limitem liczby HTTP. Nie ekstrapolować tych pojedynczych obserwacji na p95 ani gotowość na dużą liczbę klientów. Przed zakupem większego ruchu mierzyć p50/p95, udział kompletnych wycen, błędy, 429 i koszt jednej ukończonej wyceny; optymalizować powtórzone żądania i współdzielenie nadal ważnych danych bez mieszania kodów pocztowych, wariantów, ilości lub krajów. Próby obciążeniowe wykonywać na odtworzonych odpowiedziach; rzeczywiste sklepy sprawdzać ograniczonymi próbami, bez generowania zamówień.
+
+| Decyzja | Co musi być prawdą, zanim wydam więcej |
+| --- | --- |
+| Szerszy katalog | Nowa pozycja usuwa brak w rzeczywistym zadaniu; model, opakowanie, zdjęcie, dostępność i możliwość zakupu są potwierdzone |
+| Płatne pozyskanie | Pilotaż pokazuje samodzielne ukończenie wyceny i zakup; znam koszt wyceny, obsługi i pozyskania względem zatwierdzonego przychodu |
+| Afiliacja | Partner przyjął aplikację, ustalone są dane i atrybucja; prowizja nie wpływa na ranking, link jest oznaczony |
+| Pakiet jednorazowy | Klient płaci za dostępny dodatkowy efekt, np. współpracę lub kontrolę wydatków; 49–99 zł pozostaje hipotezą |
+| Abonament ekip | Co najmniej trzy ekipy płacą w osobnym pilotażu i wracają przy kolejnych realizacjach |
+
+Przychód oceniać po zatwierdzeniu zakupów, zwrotach i kosztach; instalacje oraz kliknięcia nie są sprzedażą. Stawkę programu stosować wyłącznie do podstawy i transakcji kwalifikujących się według umowy. Publiczne programy Castoramy i Leroy Merlin odczytano ponownie 2026-11-01; sama ich obecność nie potwierdza uczestnictwa aplikacji ani źródła wyceny transportu.
+
+Ocena rozpoznania potrzeb klientów pozostaje **3/10**. Do poprawy są konkretne braki diagnostyki JTBD: potwierdzenie czterech sił decyzji na podstawie zakupów, dowody wymiaru emocjonalnego i społecznego, osobny pomiar pierwszego użycia i powrotu, powiązanie propozycji funkcji z zadaniem oraz wywiady rekonstruujące rzeczywisty zakup. Rozmowy i gotowość do zapłaty nie zostały zastąpione testami technicznymi.
