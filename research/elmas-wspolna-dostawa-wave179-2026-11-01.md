@@ -40,3 +40,5 @@ Audyt 2026-11-01 20:59:24 UTC porównał obie wersje na tej samej rzeczywistej p
 Artefakty: `G:/Projekty/asystent-remontu-work/wave179-20261101`, zwłaszcza `source.json`, `preparation.json`, `shared-source.json`, oba `*-native.json`, `local-mixed-qa.json`, `local-surplus-attempt-r1.json`, `merchant-rate-limit.json`, `local-catalog-audit.json` i `production-cache-provenance.json`. `pre-seed-*` i `pre-fixture-*` są zastąpionymi buildami, nie końcowym kandydatem.
 
 Następny krok: ograniczyć powtarzane wyceny tego samego koszyka dla potwierdzonej krajowej dostawy PL w Elmas, bez przenoszenia ofert zależnych od kodu i bez przedłużania ważności; po ustąpieniu ograniczenia dokończyć dotychczasową regresję, ponownie sprawdzić aktualny stan, PR i dopiero opublikować API/WWW z pełną publiczną weryfikacją. Stały cel pozostaje aktywny.
+
+Aktualizacja: kandydat został rozszerzony i opublikowany w [wave180](./elmas-pamiec-i-publikacja-wave180-2026-11-01.md). Pełne lokalne i publiczne kontrole przeszły; powyższy HOLD opisuje historyczny stan wave179.
