@@ -53,8 +53,9 @@ test('fresh native price and stock are checked before a shipping calculation',as
   const exhausted=network(9,(phase,p)=>{if(phase==='product')p.variants[0].count=8;});await assert.rejects(quoteElmas(order(9),exhausted.fetcher),/insufficient_stock/);assert.equal(exhausted.calls.length,2);
 });
 test('the scoped transport cannot accept customer fields, another country, generic action or final order route',async()=>{
-  let calls=0;const client=new AnonymousShop(ELMAS_ORIGIN,async()=>{calls++;throw Error('must not reach network');},AbortSignal.timeout(1000)),base={count:1,priceGrosze:2289,nettoGrosze:1861,stock:197};
-  for(const patch of [{count:0},{count:1.5},{count:198},{priceGrosze:1},{email:'not-sent@example.org'},{deliveryCountry:'de'},{path:'/api/public/order/new'},{selected:ELMAS_HOME_CARRIER},{previousTotalGrosze:NaN}])await assert.rejects(client.elmasShipping({...base,...patch} as any),/invalid_cart_action/);
+  let calls=0;const client=new AnonymousShop(ELMAS_ORIGIN,async()=>{calls++;throw Error('must not reach network');},AbortSignal.timeout(1000)),line={sourceId:ELMAS_TAPE.id,count:1,priceGrosze:2289,nettoGrosze:1861,stock:197},base={lines:[line]};
+  for(const patch of [{count:0},{count:1.5},{count:198},{priceGrosze:1},{email:'not-sent@example.org'},{sourceId:'unreviewed'}])await assert.rejects(client.elmasShipping({lines:[{...line,...patch}]} as any),/invalid_cart_action/);
+  for(const patch of [{email:'not-sent@example.org'},{deliveryCountry:'de'},{path:'/api/public/order/new'},{selected:ELMAS_HOME_CARRIER},{previousTotalGrosze:NaN}])await assert.rejects(client.elmasShipping({...base,...patch} as any),/invalid_cart_action/);
   const other=new AnonymousShop('https://other.example',fetch,AbortSignal.timeout(1000));await assert.rejects(other.elmasShipping(base),/invalid_cart_action/);assert.equal(calls,0);
 });
 test('real Express estimation buys a whole roll for tiny demand and carries the confirmed national courier cost',async()=>{
@@ -65,7 +66,7 @@ test('real Express estimation buys a whole roll for tiny demand and carries the 
 test('generic methods and redirects cannot turn the public carrier calculation into an order submission',async()=>{
   let calls=0;const fetcher:typeof fetch=async()=>{calls++;return new Response('',{status:307,headers:{location:ELMAS_ORIGIN+'/api/public/order/new'}});};
   const client=new AnonymousShop(ELMAS_ORIGIN,fetcher,AbortSignal.timeout(1000));await assert.rejects(client.json('/api/public/order/new',{basket:[]}),/invalid_cart_route/);assert.equal(calls,0);
-  await assert.rejects(client.elmasShipping({count:1,priceGrosze:2289,nettoGrosze:1861,stock:197}),/invalid_cart_route/);assert.equal(calls,1);
+  await assert.rejects(client.elmasShipping({lines:[{sourceId:ELMAS_TAPE.id,count:1,priceGrosze:2289,nettoGrosze:1861,stock:197}]}),/invalid_cart_route/);assert.equal(calls,1);
 });
 
 test('the same courier fee for different quantities still has basket-bound native evidence',async()=>{

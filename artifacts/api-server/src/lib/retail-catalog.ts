@@ -1,6 +1,6 @@
 import type { RetailSource } from './retail-pages';
 import {CERESIT_PRIMER_SOURCES} from './ceresit-primers';
-import {ELMAS_TAPE} from './elmas-source';
+import {ELMAS_SOURCES} from './elmas-source';
 import {AKS_CABLE_SOURCES} from './aks-cables';
 import {DEKORK_SOURCES} from './dekork';
 import {NORGIPS_JOINT_TAPE_SOURCES} from './norgips-joint-tapes';
@@ -1397,11 +1397,13 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
   ...ETAK_SOURCES,
   ...KNAUF_PLASTER_SOURCES,
   ...CERESIT_PRIMER_SOURCES,
-  ELMAS_TAPE,
+  ...ELMAS_SOURCES,
 ];
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  // source: https://sklep-elmas.pl/p/tasma-akustyczna-norgips-3-mm-x-0075-m
+  'Taśma uszczelniająca Norgips 75 mm × 30 m':'5907651698011',
   // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906
   "Mapei Mapegum WPS — folia w płynie 5 kg (124805PL)": "8022452242489",
   // source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873
