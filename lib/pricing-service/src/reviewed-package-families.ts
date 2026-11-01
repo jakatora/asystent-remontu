@@ -1,0 +1,29 @@
+/** Each member keeps its own factory barcode and physical purchase package.
+ * No category-wide substitution, old Primer G, or litre/kilogram conversion.
+ * source: https://fugi.pl/wp-content/uploads/2021/06/2949-primergpro-pl.pdf (page 3)
+ * source: https://www.v33.pl/v33-product/easy-renowacja-kuchnia/
+ */
+export const V33_CABINET_FAMILY = 'v33-easy-kitchen-white-satin-v1' as const;
+export const V33_CABINET_FAMILY_NAME = 'V33 Easy Renowacja Kuchnia — biały satyna, dobór opakowań';
+export const V33_CABINET_PACKS = [{ean:'3153895149044',size:750},{ean:'3153895149228',size:2000}] as const;
+export const PRIMER_G_PRO_FAMILY = 'mapei-primer-g-pro-litres-v1' as const;
+export const PRIMER_G_PRO_FAMILY_NAME = 'Mapei Primer G Pro — koncentrat, dobór opakowań 1/5/10/20 l';
+export const PRIMER_G_PRO_PACKS = [
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970
+  {ean:'8022452241123',size:1},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969
+  {ean:'8022452241130',size:5},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704
+  {ean:'8022452241147',size:10},
+  // source: https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828
+  {ean:'8022452241154',size:20},
+] as const;
+export const REVIEWED_PACKAGE_FAMILIES = [
+  {key:V33_CABINET_FAMILY,name:V33_CABINET_FAMILY_NAME,category:'cabinet-paint',unit:'ml',packs:V33_CABINET_PACKS},
+  {key:PRIMER_G_PRO_FAMILY,name:PRIMER_G_PRO_FAMILY_NAME,category:'primer',unit:'l',packs:PRIMER_G_PRO_PACKS},
+] as const;
+export type ReviewedPackageFamily = typeof REVIEWED_PACKAGE_FAMILIES[number]['key'];
+const normalized=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ł/g,'l').replace(/[^a-z0-9]/g,'');
+export function reviewedPackageFamily(query:{packageFamily?:string;ean?:string|null;gtin?:string|null;category?:string|null;normalizedName?:string|null},unit:string|null){
+  return REVIEWED_PACKAGE_FAMILIES.find(f=>query.packageFamily===f.key&&!query.ean&&!query.gtin&&query.category===f.category&&unit===f.unit&&normalized(query.normalizedName??'')===normalized(f.name));
+}

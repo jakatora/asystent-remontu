@@ -1,0 +1,181 @@
+{
+  "checkedAt": "2026-11-01T11:34:14.294Z",
+  "cards": [
+    {
+      "sourceId": "rabdom-primer-g-pro-1l",
+      "item": {
+        "id": 10970,
+        "stockId": 10974,
+        "ean": "8022452241123",
+        "code": "37969",
+        "name": "MAPEI PRIMER G PRO 1l KONCENTRAT GRUNTUJĄCY GRUNT",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-1l-KONCENTRAT-GRUNTUJACY-GRUNT/10970",
+        "price": {
+          "gross": {
+            "base": "37,90 zł",
+            "base_float": 37.9,
+            "final": "37,90 zł",
+            "final_float": 37.9,
+            "historical_lowest_price": "17,50 zł",
+            "historical_lowest_price_float": 17.5
+          },
+          "net": {
+            "base": "30,81 zł",
+            "base_float": 30.81,
+            "final": "30,81 zł",
+            "final_float": 30.81,
+            "historical_lowest_price": "14,23 zł",
+            "historical_lowest_price_float": 14.23
+          }
+        },
+        "weight": {
+          "weight_float": 2,
+          "weight": "2 kg"
+        }
+      }
+    },
+    {
+      "sourceId": "rabdom-primer-g-pro-5l",
+      "item": {
+        "id": 10969,
+        "stockId": 10973,
+        "ean": "8022452241130",
+        "code": "37970",
+        "name": "MAPEI PRIMER G PRO 5l KONCENTRAT GRUNTUJĄCY GRUNT",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-5l-KONCENTRAT-GRUNTUJACY-GRUNT/10969",
+        "price": {
+          "gross": {
+            "base": "79,90 zł",
+            "base_float": 79.9,
+            "final": "79,90 zł",
+            "final_float": 79.9,
+            "historical_lowest_price": "79,90 zł",
+            "historical_lowest_price_float": 79.9
+          },
+          "net": {
+            "base": "64,96 zł",
+            "base_float": 64.96,
+            "final": "64,96 zł",
+            "final_float": 64.96,
+            "historical_lowest_price": "64,96 zł",
+            "historical_lowest_price_float": 64.96
+          }
+        },
+        "weight": {
+          "weight_float": 10,
+          "weight": "10 kg"
+        }
+      }
+    },
+    {
+      "sourceId": "rabdom-primer-g-pro-10l",
+      "item": {
+        "id": 15704,
+        "stockId": 15707,
+        "ean": "8022452241147",
+        "code": "37971",
+        "name": "MAPEI PRIMER G PRO 10l KONCENTRAT GRUNTUJĄCY GRUNT",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-10l-KONCENTRAT-GRUNTUJACY-GRUNT/15704",
+        "price": {
+          "gross": {
+            "base": "139,90 zł",
+            "base_float": 139.9,
+            "final": "139,90 zł",
+            "final_float": 139.9,
+            "historical_lowest_price": "79,90 zł",
+            "historical_lowest_price_float": 79.9
+          },
+          "net": {
+            "base": "113,74 zł",
+            "base_float": 113.74,
+            "final": "113,74 zł",
+            "final_float": 113.74,
+            "historical_lowest_price": "64,96 zł",
+            "historical_lowest_price_float": 64.96
+          }
+        },
+        "weight": {
+          "weight_float": 20,
+          "weight": "20 kg"
+        }
+      }
+    },
+    {
+      "sourceId": "rabdom-primer-g-pro-20l",
+      "item": {
+        "id": 10828,
+        "stockId": 10832,
+        "ean": "8022452241154",
+        "code": "37718",
+        "name": "MAPEI PRIMER G PRO KONCENTRAT GRUNTUJĄCY GRUNT 20L",
+        "can_buy": true,
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "producer": {
+          "name": "Mapei",
+          "id": 57,
+          "img": "https://www.rabdom.pl/userdata/public/producers/57.jpg"
+        },
+        "url": "https://www.rabdom.pl/pl/p/MAPEI-PRIMER-G-PRO-KONCENTRAT-GRUNTUJACY-GRUNT-20L/10828",
+        "price": {
+          "gross": {
+            "base": "249,00 zł",
+            "base_float": 249,
+            "final": "249,00 zł",
+            "final_float": 249,
+            "historical_lowest_price": "249,00 zł",
+            "historical_lowest_price_float": 249
+          },
+          "net": {
+            "base": "202,44 zł",
+            "base_float": 202.44,
+            "final": "202,44 zł",
+            "final_float": 202.44,
+            "historical_lowest_price": "202,44 zł",
+            "historical_lowest_price_float": 202.44
+          }
+        },
+        "weight": {
+          "weight_float": 25,
+          "weight": "25 kg"
+        }
+      }
+    }
+  ]
+}

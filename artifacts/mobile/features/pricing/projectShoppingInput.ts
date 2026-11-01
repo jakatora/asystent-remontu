@@ -1,3 +1,4 @@
+import {applyPrimerPackageChoices} from './primerPackageChoice';
 import {TRAP_JOB,reviewTrapShopping} from '@/features/calculator/trapReplacement';
 import {SEAT_JOB,reviewSeatShopping} from '@/features/calculator/toiletSeatReplacement';
 import {SOCKET_FRAME_JOB,reviewSocketFrameShopping} from '@/features/calculator/socketFrames';
@@ -61,7 +62,9 @@ export function withManualShopping(stage: PricingStageInput, calc: CalculationRe
 export function applyShoppingContexts(stages: readonly PricingStageInput[], contexts: readonly (ShoppingStageContext | undefined)[]) {
   const results = stages.map((stage, index) => {
     const context = contexts[index];
-    return context ? applyProjectShopping(stage, context.calc, context.projectId, context.items, context.original, context.materialStock) : { stage, excludedMaterials: 0, stockAdjustments: [], stockRequirements: [] };
+    if(!context)return {stage,excludedMaterials:0,stockAdjustments:[],stockRequirements:[]};
+    const result=applyProjectShopping(stage,context.calc,context.projectId,context.items,context.original,context.materialStock);
+    return {...result,stage:applyPrimerPackageChoices([result.stage],context.primerPackages??[])[0]};
   });
   return { stages: results.map(result => result.stage), excluded: results.reduce((sum, result) => sum + result.excludedMaterials, 0), stockAdjustments: results.flatMap(result => result.stockAdjustments), stockRequirements: results.flatMap(result => result.stockRequirements) };
 }

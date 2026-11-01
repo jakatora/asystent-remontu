@@ -1,3 +1,4 @@
+import type {PrimerPackageChoice} from './primerPackageChoice';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 import type { CalculationResult, ShoppingItem } from '@/types/domain';
 import type { PricingStageInput } from './pricingApi';
@@ -10,6 +11,7 @@ export interface ShoppingStageContext {
   original: PricingStageInput;
   items: readonly ShoppingItem[];
   materialStock?: readonly MaterialStockEntry[];
+  primerPackages?: readonly PrimerPackageChoice[];
 }
 
 const nameKey = (name: string) => typeof name === 'string' ? name.trim().normalize('NFC').toLocaleLowerCase('pl') : '';

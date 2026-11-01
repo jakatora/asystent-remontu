@@ -9,6 +9,8 @@ import {migration_004} from '../../db/migrations/004_pricing';
 import {backupExtraCount,canonical,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
 import {calculateMaterials} from '../calculator/engine';
 import {getJobById} from '../content/registry';
+import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';
+import {writePrimerPackageChoices} from '../pricing/primerPackageStorage';
 import {LAMINATE_PRODUCTS} from '../pricing/laminateChoice';
 import {FOIL_PRODUCTS} from '../pricing/foilChoice';
 import {WASHBASIN_PRODUCTS} from '../pricing/washbasinChoice';
@@ -31,6 +33,30 @@ function sharedChoices():Record<string,string>{
 }
 
 const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
+const primerChoice={from:PRIMER_PACKAGE_PRODUCTS.find(p=>p.packageSize===1)!.id,to:'automatic' as const};
+test('project and common-basket primer pack choices survive real SQLite export and import',async t=>{
+ const a=await source(t),b=await fixture(t);await writePrimerPackageChoices(a.storage,'room',[primerChoice]);await writePrimerPackageChoices(a.storage,'renovation-basket',[primerChoice]);
+ const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);const restored=await readProjectBackup(b.db,b.storage);
+ for(const id of ['room','renovation-basket'])assert.deepEqual(parsePrimerPackageChoices(restored.preferences[PRIMER_PACKAGE_CHOICE_PREFIX+id]),[primerChoice]);
+});
+
+test('backup export waits for a pending primer pack choice save',async t=>{
+ const a=await source(t),set=a.storage.setItem.bind(a.storage);let finish!:()=>void;const gate=new Promise<void>(r=>{finish=r;});
+ a.storage.setItem=async(key,value)=>{if(key.startsWith(PRIMER_PACKAGE_CHOICE_PREFIX))await gate;await set(key,value);};
+ const write=writePrimerPackageChoices(a.storage,'room',[primerChoice]);let finished=false;const snapshot=readProjectBackup(a.db,a.storage).then(value=>{finished=true;return value;});
+ await new Promise(r=>setImmediate(r));assert.equal(finished,false);finish();await write;assert.deepEqual(parsePrimerPackageChoices((await snapshot).preferences[PRIMER_PACKAGE_CHOICE_PREFIX+'room']),[primerChoice]);
+});
+
+test('an automatic primer choice is transferable even without any projects',async t=>{
+ const a=await fixture(t),b=await fixture(t);await writePrimerPackageChoices(a.storage,'renovation-basket',[primerChoice]);const backup=await readProjectBackup(a.db,a.storage);assert.equal(backup.tables.projects.length,0);assert.equal(hasBackupContent(backup),true);
+ await importProjectBackup(parseProjectBackup(JSON.stringify(backup)),b.db,b.storage);assert.deepEqual(parsePrimerPackageChoices((await readProjectBackup(b.db,b.storage)).preferences[PRIMER_PACKAGE_CHOICE_PREFIX+'renovation-basket']),[primerChoice]);
+});
+
+test('foreign or price-bearing primer family choices cannot enter an imported archive',async t=>{
+ const a=await source(t),backup=await readProjectBackup(a.db,a.storage);
+ for(const choice of [{from:'unreviewed',to:'automatic'},{...primerChoice,to:'other'},{...primerChoice,price:1}]){const bad=structuredClone(backup);bad.preferences[PRIMER_PACKAGE_CHOICE_PREFIX+'room']=JSON.stringify({version:1,choices:[choice]});assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
+});
+
 test('allocated usable material stock survives a real SQLite and preference backup round trip',async t=>{
  const a=await source(t),b=await fixture(t);await writeMaterialStock(a.storage,'room',[stockEntry]);
  const snapshot=await readProjectBackup(a.db,a.storage),backup=parseProjectBackup(JSON.stringify(snapshot));
@@ -140,7 +166,7 @@ test('deleted work left in a saved shared basket does not prevent backing up the
   const backup=await readProjectBackup(a.db,a.storage);assert.deepEqual(JSON.parse(backup.preferences['remont.renovation-basket.v1']).projectIds,['room']);
 });
 
-test('all six shared product choices survive real SQLite export, file parsing and import',async t=>{
+test('six existing shared product choices survive real SQLite export, file parsing and import',async t=>{
   const a=await source(t),b=await fixture(t);await setSharedChoices(a.storage);
   const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));
   for(const[key,value]of Object.entries(sharedChoices()))assert.equal(backup.preferences[key],value,'The shared choice must be exported even though renovation-basket is not a project row');

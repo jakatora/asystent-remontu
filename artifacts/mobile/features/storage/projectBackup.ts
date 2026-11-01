@@ -1,3 +1,5 @@
+import {PRIMER_PACKAGE_CHOICE_PREFIX} from '../pricing/primerPackageChoice';
+import {waitForPrimerPackageWrites} from '../pricing/primerPackageStorage';
 import {z} from 'zod';
 import type {DatabaseConnection, DatabaseCommand} from '../../db/connection';
 import {BACKUP_PRODUCT_CHOICE_PARSERS,BACKUP_PRODUCT_CHOICE_PREFIXES,validateBackupPreferences} from './projectBackupPreferences';
@@ -104,6 +106,7 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
   const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS];
   const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{
     if(key.startsWith(MATERIAL_STOCK_PREFIX))await waitForMaterialStockWrites(storage,key.slice(MATERIAL_STOCK_PREFIX.length));
+    if(key.startsWith(PRIMER_PACKAGE_CHOICE_PREFIX))await waitForPrimerPackageWrites(storage,key.slice(PRIMER_PACKAGE_CHOICE_PREFIX.length));
     return [key,await storage.getItem(key)] as const;
   }))).filter((entry):entry is readonly[string,string]=>entry[1]!==null));
   // Removing a project can leave its old ID in the basket's selection. Deleted

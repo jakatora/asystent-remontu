@@ -1,3 +1,4 @@
+import {reviewedPackageFamily,PRIMER_G_PRO_FAMILY} from '../../../lib/pricing-service/src/reviewed-package-families';
 import { Router, type Request, type Response } from 'express';
 import { existsSync, readFileSync, writeFileSync, mkdirSync, renameSync } from 'node:fs';
 import { dirname } from 'node:path';
@@ -273,9 +274,16 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     }
     try {
       let priceRefresh;
-      if (parsed.data.options?.refreshPrices) {
-        const materials = parsed.data.jobs.flatMap(job => job.materials.map(line => line.material));
-        const requestedEans = new Set(materials.map(material => material.ean ?? RETAIL_NAME_ALIASES[material.name]).filter((ean): ean is string => Boolean(ean)));
+      // A primer family selection checks all reviewed pack sizes; recent checks are
+      // coalesced by the existing bounded refresh cache. Unrelated products
+      // refresh only when the client explicitly requests it.
+      const materials = parsed.data.jobs.flatMap(job => job.materials.map(line => line.material)).filter(material =>
+        parsed.data.options?.refreshPrices || material.packageFamily===PRIMER_G_PRO_FAMILY&&reviewedPackageFamily({...material,normalizedName:material.name},normalUnit(material.unit)));
+      if (materials.length) {
+        const requestedEans = new Set(materials.flatMap(material => {
+          const family=reviewedPackageFamily({...material,normalizedName:material.name},normalUnit(material.unit));
+          return family ? family.packs.map(pack=>pack.ean) : [material.ean ?? RETAIL_NAME_ALIASES[material.name]].filter((ean): ean is string => Boolean(ean));
+        }));
         const requestedProductIds = new Set(RETAIL_SOURCES.filter(source => requestedEans.has(source.ean)).map(retailProductId));
         const sources = RETAIL_SOURCES.filter(source => requestedProductIds.has(retailProductId(source)) || materials.some(material =>
           !material.ean && !RETAIL_NAME_ALIASES[material.name] && source.skuIdentity &&
