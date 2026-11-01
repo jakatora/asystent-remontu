@@ -48,6 +48,7 @@ export default function RenovationBasketScreen() {
   const [mapegumPackages,setMapegumPackages]=useState<Record<string,MapegumPackageChoice[]>>({});
   const [itemsReady, setItemsReady] = useState(false);
   const [itemsFailed, setItemsFailed] = useState(false);
+  const [failedProjects,setFailedProjects]=useState<string[]>([]),[itemsRetry,setItemsRetry]=useState(0);
   const writes = useRef(Promise.resolve());
   const extrasWrites = useRef(Promise.resolve());
   const [extras, setExtras] = useState<BasketExtra[]>([]), [extrasReady, setExtrasReady] = useState(false);
@@ -81,16 +82,16 @@ export default function RenovationBasketScreen() {
   // Refresh after returning from a project's Shopping tab as well as selection changes.
   useFocusEffect(React.useCallback(() => {
     let active = true;
-    setItemsReady(false); setItemsFailed(false);
-    void Promise.all(selectedProjects.map(async project => {
+    setItemsReady(false); setItemsFailed(false);setFailedProjects([]);
+    void Promise.allSettled(selectedProjects.map(async project => {
       const [shopping, rawDoor, rawLaminate, rawFoil, rawWashbasin, rawTile, rawTileAdhesive] = await Promise.all([shoppingRepo.findByProject(project.id), project.calculationResult?.jobId === 'interior-doors' ? AsyncStorage.getItem(DOOR_SELECTION_PREFIX + project.id) : Promise.resolve(null), AsyncStorage.getItem(LAMINATE_CHOICE_PREFIX + project.id), AsyncStorage.getItem(FOIL_CHOICE_PREFIX + project.id), AsyncStorage.getItem(WASHBASIN_CHOICE_PREFIX + project.id), AsyncStorage.getItem(TILE_CHOICE_PREFIX + project.id), AsyncStorage.getItem(TILE_ADHESIVE_CHOICE_PREFIX + project.id)]);
       const [stock,primerPackages,mapegumPackages]=await Promise.all([readMaterialStock(AsyncStorage,project.id),readPrimerPackageChoices(AsyncStorage,project.id),readMapegumPackageChoices(AsyncStorage,project.id)]);
       return { id: project.id, shopping, door: project.calculationResult ? parseDoorSelection(rawDoor, project.calculationResult) : null, laminate: parseLaminateChoices(rawLaminate), foil: parseFoilChoices(rawFoil), washbasin: parseWashbasinChoices(rawWashbasin), tile: parseTileChoices(rawTile), tileAdhesive: parseTileAdhesiveChoices(rawTileAdhesive), stock, primerPackages,mapegumPackages };
     }))
-      .then(entries => { if (active) { setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setLaminates(Object.fromEntries(entries.map(entry => [entry.id, entry.laminate]))); setFoils(Object.fromEntries(entries.map(entry => [entry.id, entry.foil]))); setWashbasins(Object.fromEntries(entries.map(entry => [entry.id, entry.washbasin]))); setTiles(Object.fromEntries(entries.map(entry => [entry.id, entry.tile]))); setTileAdhesives(Object.fromEntries(entries.map(entry => [entry.id, entry.tileAdhesive]))); setMaterialStock(Object.fromEntries(entries.map(entry => [entry.id, entry.stock]))); setPrimerPackages(Object.fromEntries(entries.map(entry=>[entry.id,entry.primerPackages]))); setMapegumPackages(Object.fromEntries(entries.map(entry=>[entry.id,entry.mapegumPackages]))); setItemsReady(true); } })
+      .then(results => { if (active) { const failed=results.flatMap((result,index)=>result.status==='rejected'?[selectedProjects[index].id]:[]);setFailedProjects(failed);if(failed.length){setItemsFailed(true);return;}const entries=results.flatMap(result=>result.status==='fulfilled'?[result.value]:[]);setItems(Object.fromEntries(entries.map(entry => [entry.id, entry.shopping]))); setDoors(Object.fromEntries(entries.map(entry => [entry.id, entry.door]))); setLaminates(Object.fromEntries(entries.map(entry => [entry.id, entry.laminate]))); setFoils(Object.fromEntries(entries.map(entry => [entry.id, entry.foil]))); setWashbasins(Object.fromEntries(entries.map(entry => [entry.id, entry.washbasin]))); setTiles(Object.fromEntries(entries.map(entry => [entry.id, entry.tile]))); setTileAdhesives(Object.fromEntries(entries.map(entry => [entry.id, entry.tileAdhesive]))); setMaterialStock(Object.fromEntries(entries.map(entry => [entry.id, entry.stock]))); setPrimerPackages(Object.fromEntries(entries.map(entry=>[entry.id,entry.primerPackages]))); setMapegumPackages(Object.fromEntries(entries.map(entry=>[entry.id,entry.mapegumPackages]))); setItemsReady(true); } })
       .catch(() => { if (active) setItemsFailed(true); });
     return () => { active = false; };
-  }, [selectedProjects]));
+  }, [selectedProjects,itemsRetry]));
   const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates, foils, washbasins, tiles, tileAdhesives, materialStock, primerPackages,mapegumPackages), [projects, selected, selectedQualityTier, items, doors, laminates, foils, washbasins, tiles, tileAdhesives, materialStock, primerPackages,mapegumPackages]);
   const stages = useMemo(() => withBasketExtras(basket.selectionStages, extras), [basket.selectionStages, extras]);
   const hasBasket = selectedProjects.length > 0 || extras.length > 0;
@@ -153,7 +154,15 @@ export default function RenovationBasketScreen() {
         {itemsReady && basket.manualItems > 0 && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Ceny wpisane ręcznie w Zakupach nie są ofertą sklepu. Tutaj porównujemy potwierdzone ceny i dostawy.' : 'Prices typed in Shopping are not retailer offers. Here we compare confirmed retailer prices and deliveries.'}</Txt>}
       </View>}
       {selectedProjects.length > 0 && !itemsReady && !itemsFailed && <ActivityIndicator color={Colors.primary} />}
-      {itemsFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie odczytano zakupów lub wyboru produktów. Otwórz koszyk ponownie, aby uwzględnić wybrane i posiadane materiały.' : 'Shopping lists or product choices could not be read. Reopen the basket to include your selected and owned materials.'}</Txt>}
+      {itemsFailed && <View style={{gap:12,padding:16,borderRadius:16,backgroundColor:Colors.warningBg}}>
+        <Txt accessibilityRole="alert" style={{color:Colors.danger}}>{pl?'Nie odczytano zakupów lub ustawień wybranych prac. Wycena całego koszyka jest wstrzymana.':'Shopping lists or settings for selected works could not be read. Whole-basket pricing is paused.'}</Txt>
+        <Button variant="outline" label={pl?'Ponów odczyt projektów':'Read projects again'} onPress={()=>setItemsRetry(n=>n+1)}/>
+        {selectedProjects.filter(project=>failedProjects.includes(project.id)).map(project=><View key={project.id} style={{gap:8}}>
+          <Txt w="semibold">{[project.roomName,project.name].filter(Boolean).join(' · ')}</Txt>
+          <Txt style={{lineHeight:21}}>{pl?'Otwórz wycenę tej pracy. Znajdziesz tam ustawienie wymagające ponownego odczytu lub przywrócenia. Możesz też odznaczyć tę pracę w wyborze koszyka.':'Open this work’s estimate to find the setting that needs reading again or recovery. You can also deselect this work from the basket.'}</Txt>
+          <Button variant="outline" label={pl?`Otwórz wycenę: ${project.name}`:`Open estimate: ${project.name}`} onPress={()=>router.push({pathname:'/project/[id]',params:{id:project.id,tab:'estimate'}})}/>
+        </View>)}
+      </View>}
       {basket.missingCalculations > 0 && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Uzupełnij obmiary zaznaczonych prac lub usuń je z wyboru. Wycena całego zestawu wymaga wszystkich obmiarów.' : 'Complete measurements for selected works or deselect them. The complete basket needs all measurements.'}</Txt>}
       {itemsReady && basket.measurementReviews.map(review => <View key={review.projectId} style={{ padding: 16, gap: 10, borderRadius: 16, backgroundColor: Colors.warningBg }}>
         <Txt w="semibold">{pl ? 'Uzupełnij ilości przed zakupem' : 'Confirm quantities before buying'}</Txt>

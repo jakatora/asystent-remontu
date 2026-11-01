@@ -13,6 +13,7 @@ import {parseBasketExtras} from '../pricing/basketExtras';
 import {parseBasketSelection} from '../pricing/renovationBasket';
 import {MATERIAL_STOCK_PREFIX,parseMaterialStock} from '../pricing/materialStock';
 import type {CalculationResult} from '../../types/domain';
+import {PREFERENCE_RECOVERY_PREFIX,parsePreferenceRecovery,recoveryArchiveKey} from './preferenceRecovery';
 
 // One reviewed list drives validation and project/common-basket export keys.
 // Adding a product selector must not silently omit it from a shared basket backup.
@@ -30,6 +31,10 @@ export const BACKUP_PRODUCT_CHOICE_PREFIXES=Object.keys(BACKUP_PRODUCT_CHOICE_PA
 export function validateBackupPreferences(backup:ProjectBackup):void{
   const projects=new Map(backup.tables.projects.map(row=>[String(row.id),row]));
   for(const[key,raw]of Object.entries(backup.preferences)){
+    if(key.startsWith(PREFERENCE_RECOVERY_PREFIX)){
+      if(recoveryArchiveKey(key.slice(PREFERENCE_RECOVERY_PREFIX.length))!==key)throw Error('backup_invalid_recovery');
+      parsePreferenceRecovery(raw);continue;
+    }
     const value=JSON.parse(raw);
     const prefix=BACKUP_PRODUCT_CHOICE_PREFIXES.find(prefix=>key.startsWith(prefix));
     if(prefix){const parsed=BACKUP_PRODUCT_CHOICE_PARSERS[prefix](raw);if(value.version!==1||!Array.isArray(value.choices)||parsed.length!==value.choices.length)throw Error('backup_invalid_product_choice');continue;}

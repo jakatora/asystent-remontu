@@ -6,13 +6,14 @@ import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import { formatPackageSize } from '@/features/pricing/packageDisplay';
 import { materialStockKey, parseMaterialStockQuantity, type MaterialStockEntry, type MaterialStockRequirement } from '@/features/pricing/materialStock';
+import { PreferenceRecoveryAction, type PreferenceRecoveryProps } from './PreferenceRecoveryAction';
 
-interface Props {
+interface Props extends PreferenceRecoveryProps {
   requirements: readonly MaterialStockRequirement[]; entries: readonly MaterialStockEntry[];
   ready: boolean; readFailed: boolean; saveFailed: boolean; saving: boolean;
   onChange: (entries: readonly MaterialStockEntry[]) => Promise<boolean>; onRetry: () => void;
 }
-export function MaterialStockSection({ requirements, entries, ready, readFailed, saveFailed, saving, onChange, onRetry }: Props) {
+export function MaterialStockSection({ requirements, entries, ready, readFailed, saveFailed, saving, onChange, onRetry, ...recovery }: Props) {
   const { language } = useLanguage(), pl = language === 'pl', tr = (a: string, b: string) => pl ? a : b;
   const [open, setOpen] = useState(false), [editing, setEditing] = useState<string | null>(null), [draft, setDraft] = useState(''), [error, setError] = useState(false);
   if (ready && !requirements.length && !entries.length) return null;
@@ -30,8 +31,9 @@ export function MaterialStockSection({ requirements, entries, ready, readFailed,
     <Pressable accessibilityRole="button" accessibilityState={{ expanded: open }} aria-expanded={open} onPress={() => setOpen(value => !value)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Txt w="semibold" style={{ color: Colors.primary }}>{tr('Mam część materiałów', 'I already have some materials')}{entries.length ? ` (${entries.length})` : ''}</Txt>
     </Pressable>
-    <Txt style={{ color: Colors.textSecondary, fontSize: 13, lineHeight: 20 }}>{tr('Podaj użyteczną ilość przeznaczoną do tego projektu. Kupimy tylko brakującą część. Rozdziel zapas między projekty — każdą ilość wpisz raz.', 'Enter the usable quantity allocated to this project. Only the remainder will be priced. Allocate stock across projects and enter each quantity once.')}</Txt>
-    {readFailed && <><Txt accessibilityRole="alert">{tr('Nie odczytano zapasu. Porównanie jest wstrzymane.', 'Stock could not be read. The comparison is paused.')}</Txt><Button variant="outline" label={tr('Odczytaj zapas ponownie', 'Read stock again')} onPress={onRetry} /></>}
+    <Txt style={{ color: Colors.textSecondary, fontSize: 13, lineHeight: 20 }}>{tr('Podaj użyteczną ilość przeznaczoną do tego projektu. Wycenimy tylko brakującą część. Rozdziel zapas między projekty — każdą ilość wpisz raz.', 'Enter the usable quantity allocated to this project. Only the remainder will be priced. Allocate stock across projects and enter each quantity once.')}</Txt>
+    {readFailed && <><Txt accessibilityRole="alert">{tr('Nie odczytano zapasu. Porównanie jest wstrzymane.', 'Stock could not be read. The comparison is paused.')}</Txt><Button variant="outline" label={tr('Odczytaj zapas ponownie', 'Read stock again')} disabled={recovery.recovering} onPress={onRetry} /></>}
+    <PreferenceRecoveryAction key={recovery.recoveryKey} {...recovery} readFailed={readFailed} kind="stock" />
     {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{tr('Nie zapisano nowej ilości. Wycena nadal uwzględnia ostatni zapisany zapas. Spróbuj zapisać ponownie.', 'The new quantity was not saved. Pricing still uses the last saved stock. Try saving again.')}</Txt>}
     {open && ready && <>
       <Txt style={{ fontSize: 13, lineHeight: 20, color: Colors.textSecondary }}>{tr('Wpisuj kg, litry, ml lub całe sztuki tego samego produktu. Np. jeden worek 30 kg = 30 kg. Zmiana produktu nie przenosi zapasu. Pełne oznaczenia „Mam” i „Kupione” mają pierwszeństwo.', 'Enter kg, litres, ml or whole pieces of the same product. For example, one 30 kg bag = 30 kg. Stock does not transfer to another product. Whole-item Owned and Purchased marks take priority.')}</Txt>

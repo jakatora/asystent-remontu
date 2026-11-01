@@ -12,7 +12,10 @@ import {getJobById} from '../content/registry';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';
 import {writePrimerPackageChoices} from '../pricing/primerPackageStorage';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices,MAPEGUM_PACKAGE_PRODUCTS} from '../pricing/mapegumPackageChoice';
-import {writeMapegumPackageChoices} from '../pricing/mapegumPackageStorage';
+import {writeMapegumPackageChoices,mapegumPackageStorage} from '../pricing/mapegumPackageStorage';
+import {primerPackageStorage} from '../pricing/primerPackageStorage';
+import {recoverMaterialStock} from '../pricing/materialStockStorage';
+import {recoveryArchiveKey,parsePreferenceRecovery} from './preferenceRecovery';
 import {LAMINATE_PRODUCTS} from '../pricing/laminateChoice';
 import {FOIL_PRODUCTS} from '../pricing/foilChoice';
 import {WASHBASIN_PRODUCTS} from '../pricing/washbasinChoice';
@@ -39,6 +42,23 @@ function sharedChoices():Record<string,string>{
 const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
 const primerChoice={from:PRIMER_PACKAGE_PRODUCTS.find(p=>p.packageSize===1)!.id,to:'automatic' as const};
 const mapegumChoice={from:MAPEGUM_PACKAGE_PRODUCTS.find(p=>p.packageSize===3)!.id,to:'automatic' as const};
+
+test('recovered stock and both family archives round-trip through real SQLite without applying damaged contents',async t=>{
+ const a=await source(t),b=await fixture(t),sources=[MATERIAL_STOCK_PREFIX+'room',PRIMER_PACKAGE_CHOICE_PREFIX+'room',MAPEGUM_PACKAGE_CHOICE_PREFIX+'room',MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket'];
+ for(const key of sources)await a.storage.setItem(key,'{broken-'+key);
+ await recoverMaterialStock(a.storage,'room');await primerPackageStorage.recover(a.storage,'room');await mapegumPackageStorage.recover(a.storage,'room');await mapegumPackageStorage.recover(a.storage,'renovation-basket');
+ const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);const restored=await readProjectBackup(b.db,b.storage);
+ for(const key of sources){assert.equal(parsePreferenceRecovery(restored.preferences[recoveryArchiveKey(key)]).records[0].raw,'{broken-'+key);assert.equal(restored.preferences[key],backup.preferences[key]);}
+ assert.deepEqual(parseMaterialStock(restored.preferences[MATERIAL_STOCK_PREFIX+'room']),[]);assert.deepEqual(parseMapegumPackageChoices(restored.preferences[MAPEGUM_PACKAGE_CHOICE_PREFIX+'room']),[]);
+});
+test('backup waits for both the archive and source replacement during recovery',async t=>{
+ const a=await source(t),key=MAPEGUM_PACKAGE_CHOICE_PREFIX+'room';await a.storage.setItem(key,'{broken');const set=a.storage.setItem.bind(a.storage);let release!:()=>void,began!:()=>void;const gate=new Promise<void>(r=>{release=r;}),started=new Promise<void>(r=>{began=r;});a.storage.setItem=async(k,v)=>{if(k===recoveryArchiveKey(key)){began();await gate;}await set(k,v);};
+ const recovery=mapegumPackageStorage.recover(a.storage,'room');await started;let done=false;const exportPromise=readProjectBackup(a.db,a.storage).then(v=>{done=true;return v;});await new Promise(r=>setImmediate(r));assert.equal(done,false);release();await recovery;const backup=await exportPromise;assert.equal(parsePreferenceRecovery(backup.preferences[recoveryArchiveKey(key)]).records[0].raw,'{broken');assert.deepEqual(parseMapegumPackageChoices(backup.preferences[key]),[]);
+});
+test('an archive-only common basket is transferable and arbitrary recovery keys or malformed records reject import',async t=>{
+ const a=await fixture(t),b=await fixture(t),key=MAPEGUM_PACKAGE_CHOICE_PREFIX+'renovation-basket';await a.storage.setItem(key,'{broken');await mapegumPackageStorage.recover(a.storage,'renovation-basket');const backup=await readProjectBackup(a.db,a.storage);assert.equal(hasBackupContent(backup),true);await importProjectBackup(parseProjectBackup(JSON.stringify(backup)),b.db,b.storage);assert.equal(parsePreferenceRecovery((await readProjectBackup(b.db,b.storage)).preferences[recoveryArchiveKey(key)]).records[0].raw,'{broken');
+ for(const [k,v]of [['remont.preference-recovery.v1:unreviewed:renovation-basket',JSON.stringify({version:1,records:[]})],[recoveryArchiveKey(key),JSON.stringify({version:1,records:[{raw:'data',savedAt:'yesterday',price:0}]})]]){const bad=structuredClone(backup);bad.preferences[k]=v;assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
+});
 
 test('project and common Mapegum choices round-trip through real SQLite with the other family preferences',async t=>{
  const a=await source(t),b=await fixture(t);await writeMapegumPackageChoices(a.storage,'room',[mapegumChoice]);await writeMapegumPackageChoices(a.storage,'renovation-basket',[mapegumChoice]);await writePrimerPackageChoices(a.storage,'room',[primerChoice]);

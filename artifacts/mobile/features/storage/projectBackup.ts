@@ -9,6 +9,7 @@ import {parseBasketSelection} from '../pricing/renovationBasket';
 import {parseBasketExtras} from '../pricing/basketExtras';
 import {MATERIAL_STOCK_PREFIX} from '../pricing/materialStock';
 import {waitForMaterialStockWrites} from '../pricing/materialStockStorage';
+import {RECOVERY_BACKUP_PREFIXES,RECOVERY_GLOBAL_KEYS,parsePreferenceRecovery} from './preferenceRecovery';
 
 export const BACKUP_MAX_BYTES=20*1024*1024;
 const id=z.string().min(1).max(200);
@@ -39,9 +40,9 @@ export type BackupTable=keyof typeof BACKUP_TABLES;
 export type BackupRow=Record<string,string|number|null>;
 export const BACKUP_PREFERENCE_PREFIXES=[
   'remont.door-selection.v1:',...BACKUP_PRODUCT_CHOICE_PREFIXES,
-  'remont.delivery.v2:','remont.price-seen.v1:',MATERIAL_STOCK_PREFIX,
+  'remont.delivery.v2:','remont.price-seen.v1:',MATERIAL_STOCK_PREFIX,...RECOVERY_BACKUP_PREFIXES,
 ] as const;
-export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket',...BACKUP_PRODUCT_CHOICE_PREFIXES.map(prefix=>prefix+'renovation-basket')] as const;
+export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket',...BACKUP_PRODUCT_CHOICE_PREFIXES.map(prefix=>prefix+'renovation-basket'),...RECOVERY_GLOBAL_KEYS] as const;
 const tables=Object.keys(BACKUP_TABLES) as BackupTable[];
 const tableShape=Object.fromEntries(tables.map(table=>[table,z.array(BACKUP_TABLES[table]).max(10_000)]));
 const envelope=z.object({format:z.literal('asystent-remontu-projects'),version:z.literal(1),createdAt:time,tables:z.object(tableShape).strict(),preferences:z.record(z.string(),z.string().max(1_000_000))}).strict();
@@ -51,6 +52,7 @@ export const canonical=(value:unknown):string=>JSON.stringify(value,(_key,item)=
 export const backupExtraCount=(backup:ProjectBackup):number=>parseBasketExtras(backup.preferences['remont.basket-extras.v1']??null).length;
 export function hasBackupContent(backup:ProjectBackup):boolean{
   if(backup.tables.projects.length>0||backupExtraCount(backup)>0)return true;
+  if(RECOVERY_GLOBAL_KEYS.some(key=>parsePreferenceRecovery(backup.preferences[key]??null).records.length>0))return true;
   if(BACKUP_PRODUCT_CHOICE_PREFIXES.some(prefix=>{
     const raw=backup.preferences[prefix+'renovation-basket'];
     return raw!==undefined&&BACKUP_PRODUCT_CHOICE_PARSERS[prefix](raw).length>0;
@@ -105,6 +107,12 @@ async function readBackupTables(db:DatabaseConnection):Promise<ProjectBackup['ta
 }
 export async function readProjectBackup(db:DatabaseConnection,storage:BackupStorage):Promise<ProjectBackup>{
   const data=await readBackupTables(db);
+  // Recovery writes an archive and its setting in the same queue. Wait before
+  // reading either key so an export cannot lose the preserved damaged record.
+  await Promise.all([...data.projects.map(project=>String(project.id)),'renovation-basket'].flatMap(id=>[
+    ...(id==='renovation-basket'?[]:[waitForMaterialStockWrites(storage,id)]),
+    waitForPrimerPackageWrites(storage,id),waitForMapegumPackageWrites(storage,id),
+  ]));
   const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS];
   const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{
     if(key.startsWith(MATERIAL_STOCK_PREFIX))await waitForMaterialStockWrites(storage,key.slice(MATERIAL_STOCK_PREFIX.length));
