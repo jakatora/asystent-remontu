@@ -67,11 +67,26 @@ export function confirmSeweraBasket(html: string, expected: { url:string; pid:st
     const input=attr(one(nodes(row,a=>a.name==='amount')));
     const pid=attr(one(nodes(row,a=>a.wybierz!==undefined))).wybierz;
     if (Number(input.value)!==wanted.count || pid!==wanted.pid || checkoutMoney(tdValue(row,'Cena brutto:'))!==wanted.price || checkoutMoney(tdValue(row,'Wartość:'))!==wanted.count*wanted.price) throw Error('basket_not_confirmed');
-    if (stock) {
-      const maxPackages=Number(stock[1].replace(',','.'));
-      if (stock[2].toUpperCase()!==(wanted.retailUnit??'SZT') || !Number.isSafeInteger(maxPackages) || maxPackages<0) throw Error('basket_not_confirmed');
-      if (maxPackages<wanted.count) shortages.push({url:wanted.url,count:wanted.count,price:wanted.price,maxPackages});
+    // A priced native row can still be impossible to order from this branch.
+    // The card's aggregate stock is not the selected branch's cart maximum.
+    // source: https://sklep.sewera.pl/naroznik-do-mokrych-tynkow-34x34mm-2-5m-profigips-p16477
+    let maxPackages:number|undefined;
+    if (input.max!==undefined) {
+      if (!/^\d+(?:[.,]\d{1,4})?$/.test(input.max)) throw Error('basket_not_confirmed');
+      maxPackages=Number(input.max.replace(',','.'));
+      if (!Number.isSafeInteger(maxPackages) || maxPackages<0) throw Error('basket_not_confirmed');
     }
+    const unavailable=nodes(row,a=>cls(a,'basket-no-product')).some(node=>text(node)==='Towar nie może zostać zamówiony - brak w magazynie!');
+    if (stock) {
+      const statedStock=Number(stock[1].replace(',','.'));
+      if (stock[2].toUpperCase()!==(wanted.retailUnit??'SZT') || !Number.isSafeInteger(statedStock) || statedStock<0 || maxPackages!==undefined&&maxPackages!==statedStock) throw Error('basket_not_confirmed');
+      maxPackages=statedStock;
+    }
+    if (unavailable) {
+      if (maxPackages!==undefined&&maxPackages!==0) throw Error('basket_not_confirmed');
+      maxPackages=0;
+    }
+    if (maxPackages!==undefined&&maxPackages<wanted.count) shortages.push({url:wanted.url,count:wanted.count,price:wanted.price,maxPackages});
   }
   const sum=text(one(nodes(table,a=>cls(a,'basket_sum')))).replace(/^Razem do zapłaty:\s*/, '');
   if (checkoutMoney(sum)!==total) throw Error('basket_not_confirmed');
