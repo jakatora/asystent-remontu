@@ -28,7 +28,7 @@ for(const optional of [false,true])test(`bounded multi-size comparison retains t
   const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'30-001',allowSeparateOrders:optional,allowExtraPackages:optional},quote);
   assert(result.best);assert(calls<=80);results.push(result);
  }
- const [fixed,automatic]=results;assert.equal(fixed.best!.totalGrosze,50314);assert.equal(automatic.searchLimited,true);
+ const [fixed,automatic]=results;assert(fixed.best);assert(automatic.best);assert.equal(fixed.best.totalGrosze,50314);assert.equal(automatic.searchLimited,true);
  assert(automatic.best!.totalGrosze<=fixed.best!.totalGrosze,`automatic ${automatic.best!.totalGrosze} omitted fixed-size ${fixed.best!.totalGrosze}`);
  assert.equal(automatic.best!.deliveryGrosze,0);
  for(const order of automatic.best!.stores)for(const line of order.lines)for(const pack of line.packages)assert(pack.count<=(pack.maxPackages??Infinity));
