@@ -14,6 +14,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://buduj24.pl/produkt/19506,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-white-01
+  {ids:['mat-grout-ceresit-viva-white-2kg'],ean:'9000101173451',sourceUrl:'https://buduj24.pl/produkt/19506,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-white-01',imageUrl:'https://buduj24.pl/files/_product/19506/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(1).png'},
+  // source: https://buduj24.pl/produkt/19564,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-white-01
+  {ids:['mat-grout-ceresit-viva-white-4kg'],ean:'9000101175134',sourceUrl:'https://buduj24.pl/produkt/19564,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-white-01',imageUrl:'https://buduj24.pl/files/_product/19564/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(1).png'},
   // source: https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips-p7501
   {"ids":["mat-gypsum-corner-rigips-235-25m"],"ean":"5905637118041","sourceUrl":"https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips-p7501","imageUrl":"https://sklep.sewera.pl/photo/195931/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips.webp"},
 

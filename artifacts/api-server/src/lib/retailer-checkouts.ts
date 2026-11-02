@@ -269,6 +269,7 @@ export async function quoteBuduj24(order:DeliveredStoreBasket,fetchImpl:typeof f
   for (const {source,pack} of expectedPacks(order)) {
     const page=await client.text(source.url), observed=parseRetailPage(page,source,new Date());
     if (observed.priceGrosze!==pack.unitPriceGrosze) throw Error('price_changed');
+    if(observed.stockPackages!==undefined&&pack.count>observed.stockPackages)throw Error('insufficient_stock');
     const id=source.url.match(/\/produkt\/(\d+),/)?.[1]; if (!id) throw Error('invalid_basket');
     await client.text(`/ajax/cart/add?lang=pl&add=${id}&count=${pack.count}`);
     expected.push({url:source.url,count:pack.count,price:pack.unitPriceGrosze});

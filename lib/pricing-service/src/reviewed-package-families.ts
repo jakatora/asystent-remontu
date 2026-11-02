@@ -55,7 +55,15 @@ export const KNAUF_SUPER_FINISH_PACKS=[{ean:'5901793357959',size:5.4},{ean:'5901
 export const ATLAS_WODER_E_FAMILY='atlas-woder-e-kg-v1' as const;
 export const ATLAS_WODER_E_FAMILY_NAME='Atlas Woder E — dobór dostępnych opakowań';
 export const ATLAS_WODER_E_PACKS=[{ean:'5905400514483',size:2},{ean:'5905400514490',size:5},{ean:'5905400514506',size:15}] as const;
+// Viva White 01 only: a new formulation, never a CE40 or shade substitution.
+// source: https://datasheets.tdx.henkel.com/CERESIT-Fuga-Viva-pl_PL.pdf (p.3: wiadra 2/4 kg)
+// source: https://www.grupapsb.com.pl/produkt/fuga-viva-elastyczna-cementowa-1-8-mm-white-2-kg-ceresit-9000101173451.html
+// source: https://www.grupapsb.com.pl/produkt/fuga-viva-elastyczna-cementowa-1-8-mm-white-4-kg-ceresit-9000101175134.html
+export const CERESIT_VIVA_WHITE_FAMILY='ceresit-viva-white01-kg-v1' as const;
+export const CERESIT_VIVA_WHITE_FAMILY_NAME='Ceresit Fuga Viva White 01 — dobór wiader 2/4 kg';
+export const CERESIT_VIVA_WHITE_PACKS=[{ean:'9000101173451',size:2},{ean:'9000101175134',size:4}] as const;
 export const REVIEWED_PACKAGE_FAMILIES = [
+  {key:CERESIT_VIVA_WHITE_FAMILY,name:CERESIT_VIVA_WHITE_FAMILY_NAME,category:'grout',unit:'kg',packs:CERESIT_VIVA_WHITE_PACKS},
   {key:V33_CABINET_FAMILY,name:V33_CABINET_FAMILY_NAME,category:'cabinet-paint',unit:'ml',packs:V33_CABINET_PACKS},
   {key:PRIMER_G_PRO_FAMILY,name:PRIMER_G_PRO_FAMILY_NAME,category:'primer',unit:'l',packs:PRIMER_G_PRO_PACKS},
   {key:MAPEGUM_WPS_FAMILY,name:MAPEGUM_WPS_FAMILY_NAME,category:'waterproofing',unit:'kg',packs:MAPEGUM_WPS_PACKS},
@@ -64,7 +72,7 @@ export const REVIEWED_PACKAGE_FAMILIES = [
   {key:KNAUF_SUPER_FINISH_FAMILY,name:KNAUF_SUPER_FINISH_FAMILY_NAME,category:'skim-coat',unit:'kg',packs:KNAUF_SUPER_FINISH_PACKS},
   {key:ATLAS_WODER_E_FAMILY,name:ATLAS_WODER_E_FAMILY_NAME,category:'waterproofing',unit:'kg',packs:ATLAS_WODER_E_PACKS},
 ] as const;
-export const REVIEWED_PACKAGE_FAMILY_KEYS=[V33_CABINET_FAMILY,PRIMER_G_PRO_FAMILY,MAPEGUM_WPS_FAMILY,CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,KNAUF_SUPER_FINISH_FAMILY,ATLAS_WODER_E_FAMILY] as const;
+export const REVIEWED_PACKAGE_FAMILY_KEYS=[V33_CABINET_FAMILY,PRIMER_G_PRO_FAMILY,MAPEGUM_WPS_FAMILY,CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,KNAUF_SUPER_FINISH_FAMILY,ATLAS_WODER_E_FAMILY,CERESIT_VIVA_WHITE_FAMILY] as const;
 export type ReviewedPackageFamily = typeof REVIEWED_PACKAGE_FAMILIES[number]['key'];
 export function isReviewedPackageFamilyKey(value:unknown):value is ReviewedPackageFamily{
   return typeof value==='string'&&REVIEWED_PACKAGE_FAMILY_KEYS.some(key=>key===value);

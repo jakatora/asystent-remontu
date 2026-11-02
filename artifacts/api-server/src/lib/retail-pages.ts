@@ -1,3 +1,4 @@
+import {ceresitVivaStock} from './ceresit-viva';
 import {confirmRigipsCorner} from './rigips-corners';
 import {confirmDecowantSource,confirmDecowantPurchase} from './decowant-supplies';
 import {confirmAtlasWoderSource,confirmAtlasWoderPurchase} from './atlas-woder-packs';
@@ -194,6 +195,8 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
     : products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
   confirmRigipsCorner(html,product,source);
+  const vivaStock=ceresitVivaStock(html,product,source);
+  if(vivaStock!==undefined)stockPackages=vivaStock;
   const name = String(product.name ?? '');
   const normalize = (value: string) => normalizeProductName(value.replace(/(\d|mm|cm|m)\s*[x×/]\s*(?=\d)/gi, '$1 x ').replace(/(\d)([a-zA-Z])/g, '$1 $2'));
   const normalized = normalize(name);

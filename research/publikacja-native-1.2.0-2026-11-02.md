@@ -1,6 +1,6 @@
 # Asystent Remontu 1.2.0 / build 10 — publikacja Android i iOS
 
-Stan na 2026-11-02 13:32 UTC: **Google zatwierdziło 1.2.0 / versionCode 10**, ale oficjalny odczyt zwraca `RELEASE_LIFECYCLE_STATE_APPROVED_NOT_PUBLISHED`. Wymagane ręczne opublikowanie zatwierdzonych zmian. Apple nadal potwierdza `WAITING_FOR_REVIEW` dla 1.2.0 / build 10 i automatyczne udostępnienie po akceptacji. Oba zgłoszenia rzeczywiście wysłano o 12:34 UTC lub wcześniej. To jeszcze nie publiczna dostępność aktualizacji. Nie utożsamiać uploadu, walidacji paczki ani statusu skonfigurowanego tracku `completed` z publikacją.
+Stan na 2026-11-02 13:58 UTC: **Android 1.2.0 / versionCode 10 opublikowany w Google Play**. Właściciel potwierdził kliknięcie publikacji, a niezależny oficjalny odczyt zwraca `RELEASE_LIFECYCLE_STATE_PUBLISHED` dla aktywnego artefaktu 10 w kanale produkcyjnym. Apple nadal potwierdza `WAITING_FOR_REVIEW` dla 1.2.0 / build 10 i automatyczne udostępnienie po akceptacji. Oba zgłoszenia rzeczywiście wysłano o 12:34 UTC lub wcześniej. Nie utożsamiać samego uploadu, walidacji paczki ani statusu skonfigurowanego tracku `completed` z publikacją; tutaj potwierdza ją stan cyklu wydania.
 
 ## Źródło i pakiety
 
@@ -56,7 +56,7 @@ Stan na 2026-11-02 13:32 UTC: **Google zatwierdziło 1.2.0 / versionCode 10**, a
 
 ## Pozostałe kroki po stronie sklepów
 
-1. Google już zatwierdziło aktualizację. W Google Play Console → Asystent Remontu → Przegląd publikowania należy kliknąć „Opublikuj zmiany”. [Oficjalne znaczenie stanu i metody zasobu](https://developers.google.com/android-publisher/api-ref/rest/v3/applications.tracks.releases) potwierdzają zatwierdzenie oczekujące ręcznej publikacji; zasób oferuje tylko `list`. Świeży discovery v3 potwierdził brak osobnej metody publikowania zatwierdzonych zmian. Nie tworzono nowej edycji ani ponownego review dla już zaakceptowanego wydania. Oba dostępne narzędzia sterowania przeglądarką / Windows ponownie zwróciły `failed to write kernel assets ... OS error 3`; dlatego przekazano właścicielowi konkretny krok w Console. To brak możliwości kliknięcia, nie brak autoryzacji właściciela. Na Apple pozostaje poczekać na decyzję.
+1. **Google: wykonane.** Po stanie `APPROVED_NOT_PUBLISHED` właściciel kliknął publikację w Console i potwierdził wykonanie. Odczyt 2026-11-02 13:58:23 UTC zwraca `PUBLISHED`. Nie tworzono nowej edycji ani ponownego review. [Oficjalne znaczenie stanu](https://developers.google.com/android-publisher/api-ref/rest/v3/applications.tracks.releases) oznacza dostępność wydania dla użytkowników kanału. Wcześniejszy ręczny krok wynikał z braku metody publikacji zatwierdzonych zmian w API i błędu OS error 3 obu narzędzi UI. Na Apple pozostaje poczekać na decyzję.
 2. Sprawdzać rzeczywisty `releaseLifecycleState` Google dla versionCode 10 oraz stan wersji Apple. `PUBLISHED` / dostępność nowej wersji potwierdza publikację; status przeglądu jej nie zastępuje. Apple ma `AFTER_APPROVAL`; nie wyciągać z tego wniosku o ustawieniach managed publishing Google.
 3. Po akceptacji potwierdzić publiczną dostępność 1.2.0 i zapisać wynik. Nie obiecywać czasu oceny sklepów.
 
