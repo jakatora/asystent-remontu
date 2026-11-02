@@ -313,18 +313,21 @@ workflows:
           echo "5056d8cc2e0cf68069fbf64b4f7a7ace372ed9275c6ce9e02c70c4feb45567e3  android-qa.apk" | sha256sum -c -
       - name: Boot a disposable rootable Android 15 emulator
         script: |
+          set -euo pipefail
           cd "$CM_BUILD_DIR"
-          sdkmanager "system-images;android-35;google_apis;x86_64"
+          trap 'RESULT=$?; tail -n 80 android-emulator.log 2>/dev/null || true; exit "$RESULT"' EXIT
+          "$ANDROID_HOME/emulator/emulator" -accel-check
+          timeout 600s sdkmanager "system-images;android-35;google_apis;x86_64"
           echo no | avdmanager create avd --name RemontNative35 --package "system-images;android-35;google_apis;x86_64" --device pixel_6
-          "$ANDROID_HOME/emulator/emulator" -avd RemontNative35 -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -skin 1080x2400 > android-emulator.log 2>&1 &
-          adb wait-for-device
+          nohup "$ANDROID_HOME/emulator/emulator" -avd RemontNative35 -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -skin 1080x2400 > android-emulator.log 2>&1 < /dev/null &
+          timeout 180s adb wait-for-device
           for ATTEMPT in $(seq 1 120); do
             if [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; then break; fi
             sleep 2
           done
           test "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1"
           adb root
-          adb wait-for-device
+          timeout 60s adb wait-for-device
           adb shell input keyevent 82
           adb install android-qa.apk
           adb shell am start -n pl.asystentremontu.app/.MainActivity
