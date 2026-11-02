@@ -440,3 +440,71 @@ workflows:
       - artifacts/mobile/android/app/build/outputs/apk/release/*.apk
       - artifacts/mobile/android/app/build/outputs/bundle/release/*.aab
       - android-signing-proof.json
+
+  ios-simulator-reuse:
+    name: Remont Asystent 1.2.1 — reuse exact iPhone binary for ordinary menu
+      acceptance
+    max_build_duration: 40
+    instance_type: mac_mini_m2
+    environment:
+      groups:
+        - native_acceptance
+      vars:
+        CI: "1"
+        MAESTRO_CLI_NO_ANALYTICS: "true"
+        MAESTRO_VERSION: 2.12.0
+      node: 22.19.0
+      java: 17
+      xcode: 26.6
+    scripts:
+      - name: Verify and reuse the exact already compiled iPhone application
+        script: |-
+          set -euo pipefail
+          cd "$CM_BUILD_DIR"
+          curl -fL --retry 2 "$REMONT_IOS_SIMULATOR_ARCHIVE_11_URL" -o frozen-simulator.zip
+          echo "38f8e2b59a44dd8349ca810c4bdf2788a1d9dba9ae566e0f3f3f0e19351cc45f  frozen-simulator.zip" | shasum -a 256 -c -
+          python3 <<'PY'
+          import zipfile,pathlib,hashlib
+          with zipfile.ZipFile('frozen-simulator.zip') as z:
+              b=z.read('simulator-app.tar.gz')
+              assert hashlib.sha256(b).hexdigest()=='79c4e2ab715ecceb8f51c4c1d6d36788f53f7a369458c606f94f498e4c77e87c'
+              pathlib.Path('simulator-app.tar.gz').write_bytes(b)
+          PY
+          mkdir frozen-simulator
+          tar -xzf simulator-app.tar.gz -C frozen-simulator
+          python3 <<'PY'
+          import pathlib,plistlib,json
+          p=pathlib.Path('frozen-simulator/AsystentRemontu.app/Info.plist')
+          d=plistlib.loads(p.read_bytes())
+          assert d['CFBundleShortVersionString']=='1.2.1' and d['CFBundleVersion']=='11'
+          pathlib.Path('simulator-reuse-proof.json').write_text(json.dumps({'originalBuildId':'6ae8dd9f5953172967559527','applicationSourceCommit':'feff7c19e9646f29b5356577cc337d342c5e3c1e','version':'1.2.1','build':'11','originalArchiveSha256':'38f8e2b59a44dd8349ca810c4bdf2788a1d9dba9ae566e0f3f3f0e19351cc45f','sameCompiledApplication':True}))
+          PY
+      - name: Boot iPhone 14 Plus and seed only synthetic project data
+        script: |
+          cd "$CM_BUILD_DIR"
+          RUNTIME_ID=$(xcrun simctl list runtimes available -j | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const rows=JSON.parse(s).runtimes.filter(r=>r.isAvailable&&r.identifier.includes("iOS-")&&r.version.startsWith("26."));if(!rows.length)process.exit(1);console.log(rows[0].identifier);})')
+          REMONT_SIM_UDID=$(xcrun simctl create "Remont native acceptance" com.apple.CoreSimulator.SimDeviceType.iPhone-14-Plus "$RUNTIME_ID")
+          echo "REMONT_SIM_UDID=$REMONT_SIM_UDID" >> "$CM_ENV"
+          xcrun simctl boot "$REMONT_SIM_UDID"
+          xcrun simctl bootstatus "$REMONT_SIM_UDID" -b
+          xcrun simctl install "$REMONT_SIM_UDID" frozen-simulator/AsystentRemontu.app
+          xcrun simctl launch "$REMONT_SIM_UDID" app.replit.remontasystent
+          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID"
+      - name: Native project, real price and screenshot acceptance
+        script: >
+          cd "$CM_BUILD_DIR"
+
+          curl -fsSL https://get.maestro.mobile.dev | bash
+
+          export PATH="$HOME/.maestro/bin:$PATH"
+
+          mkdir -p native-screens
+
+          maestro --device "$REMONT_SIM_UDID" test --config
+          scripts/ci/ios-native/config.yaml --format junit --output
+          native-smoke.xml scripts/ci/ios-native
+    artifacts:
+      - native-screens/*.png
+      - native-smoke.xml
+      - simulator-reuse-proof.json
+      - ~/.maestro/tests/**
