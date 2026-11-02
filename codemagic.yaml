@@ -317,8 +317,15 @@ workflows:
           cd "$CM_BUILD_DIR"
           trap 'RESULT=$?; tail -n 80 android-emulator.log 2>/dev/null || true; exit "$RESULT"' EXIT
           "$ANDROID_HOME/emulator/emulator" -accel-check
-          timeout 600s sdkmanager "system-images;android-35;google_apis;x86_64"
-          echo no | avdmanager create avd --name RemontNative35 --package "system-images;android-35;google_apis;x86_64" --device pixel_6
+          REMONT_SDK_BIN="$ANDROID_HOME/cmdline-tools/latest/bin"
+          if [ ! -x "$REMONT_SDK_BIN/sdkmanager" ]; then
+            REMONT_SDK_MANAGER=$(find "$ANDROID_HOME/cmdline-tools" -type f -path '*/bin/sdkmanager' | sort -V | tail -n 1)
+            REMONT_SDK_BIN=$(dirname "$REMONT_SDK_MANAGER")
+          fi
+          test -x "$REMONT_SDK_BIN/sdkmanager"
+          test -x "$REMONT_SDK_BIN/avdmanager"
+          timeout 600s "$REMONT_SDK_BIN/sdkmanager" "system-images;android-35;google_apis;x86_64"
+          echo no | "$REMONT_SDK_BIN/avdmanager" create avd --name RemontNative35 --package "system-images;android-35;google_apis;x86_64" --device pixel_6
           nohup "$ANDROID_HOME/emulator/emulator" -avd RemontNative35 -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -skin 1080x2400 > android-emulator.log 2>&1 < /dev/null &
           timeout 180s adb wait-for-device
           for ATTEMPT in $(seq 1 120); do
