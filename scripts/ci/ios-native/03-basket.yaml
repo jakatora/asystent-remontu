@@ -5,7 +5,10 @@ appId: app.replit.remontasystent
 - extendedWaitUntil:
     visible: Remont Asystent
     timeout: 60000
-- tapOn: Projekty
+- tapOn:
+    text: Projekty
+    rightOf:
+      text: Odkryj
 - extendedWaitUntil:
     visible: Twoje projekty
     timeout: 60000

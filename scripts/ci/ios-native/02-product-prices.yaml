@@ -33,6 +33,13 @@ appId: app.replit.remontasystent
     direction: DOWN
     timeout: 90000
 - takeScreenshot: native-screens/04-material-prices
+- scrollUntilVisible:
+    element:
+      text: '.*ST10.*'
+    direction: UP
+    timeout: 30000
+    centerElement: true
+- takeScreenshot: native-screens/07-first-material-photo
 - swipe:
     from:
       text: Koszt
@@ -45,3 +52,10 @@ appId: app.replit.remontasystent
     timeout: 90000
 - assertVisible: '.*zł.*1 szt.*'
 - takeScreenshot: native-screens/05-brush-price
+- scrollUntilVisible:
+    element:
+      text: '.*Pędzelek do gruntowania.*'
+    direction: UP
+    timeout: 30000
+    centerElement: true
+- takeScreenshot: native-screens/06-brush-with-photo
