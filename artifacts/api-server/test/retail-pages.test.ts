@@ -48,11 +48,12 @@ test('a reviewed unavailable checkout cannot be imported again from structured p
 });
 
 test('Product manufacturer supplies a missing Brand but cannot overwrite an explicit conflicting Brand',()=>{
-  const item={...product(),manufacturer:{'@type':'Organization',name:source.brand.toUpperCase()}};
-  assert.equal(parseRetailPage(html(item),source,now).priceGrosze,11800);
-  assert.throws(()=>parseRetailPage(html({...item,manufacturer:{name:'Other'}}),source,now),/variant_mismatch/);
-  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'}}),source,now),/variant_mismatch/);
-  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'},manufacturer:{name:source.brand}}),source,now),/variant_mismatch/);
+  const withoutBrand={...source,name:source.name.replace(source.brand,'').replace(/\s+/g,' ').trim()};
+  const item={...product(),name:withoutBrand.name,manufacturer:{'@type':'Organization',name:source.brand.toUpperCase()}};
+  assert.equal(parseRetailPage(html(item),withoutBrand,now).priceGrosze,11800);
+  assert.throws(()=>parseRetailPage(html({...item,manufacturer:{name:'Other'}}),withoutBrand,now),/variant_mismatch/);
+  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'}}),withoutBrand,now),/variant_mismatch/);
+  assert.throws(()=>parseRetailPage(html({...product(),brand:{name:'Other'},manufacturer:{name:source.brand}}),source,now),/variant_mismatch/);
 });
 
 test('Shoper custom URLs use a reviewed ID and reject a different response identity or malformed gross amount', async () => {

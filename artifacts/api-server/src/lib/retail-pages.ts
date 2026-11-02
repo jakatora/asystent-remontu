@@ -205,9 +205,10 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const sourceBrand=normalizeProductName(source.brand);
   const unbranded=source.unbranded===true&&source.id==='castorama-paint-economy-10l'&&source.store==='Castorama'&&source.ean==='3663602567240'&&source.name==='Farba biała mat 10 l'&&sourceBrand==='';
   if(!sourceBrand&&!unbranded)throw Error('product_brand_not_confirmed');
-  // A familiar brand in the title cannot override a conflicting declared brand
-  // or manufacturer. Missing brand metadata may still use the reviewed name.
-  if (!unbranded && brand && !brand.includes(sourceBrand)) throw Error('product_variant_mismatch');
+  // A declared JSON-LD Brand must agree even when its title looks familiar.
+  // Native template readers may expose a corporate producer (e.g. Selena for
+  // Tytan) in their brand field; that is not a conflicting JSON-LD trade brand.
+  if ((!source.format || source.format === 'jsonld') && !unbranded && explicitBrand && !brand.includes(sourceBrand)) throw Error('product_variant_mismatch');
   if ((unbranded ? Boolean(brand) : !(normalized.includes(sourceBrand) || brand.includes(sourceBrand))) || !(source.variant ? variantMatches : packagePattern.test(normalized))) throw new Error('product_variant_mismatch');
   // The configured exact product name also protects against a wrong EAN on a retailer page.
   if (!normalize(source.name).split(' ').filter(token => token.length > 3).every(token => normalized.includes(token))) throw new Error('product_name_mismatch');
