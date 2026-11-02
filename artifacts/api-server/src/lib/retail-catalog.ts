@@ -1,3 +1,4 @@
+import {DECOWANT_SOURCES} from './decowant-supplies';
 import {ATLAS_WODER_E_SOURCES} from './atlas-woder-packs';
 import type { RetailSource } from './retail-pages';
 import {CERESIT_PRIMER_SOURCES} from './ceresit-primers';
@@ -13,6 +14,7 @@ import {KNAUF_FINISH_SOURCES} from './knauf-finishes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...DECOWANT_SOURCES,
   ...ATLAS_WODER_E_SOURCES,
   ...KNAUF_FINISH_SOURCES,
   ...PAINTING_TAPE_SOURCES,
@@ -1406,6 +1408,9 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
 
 // Stable calculator catalogue labels, not fuzzy matches against store search results.
 export const RETAIL_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "Atlas Hydroband 3G — taśma uszczelniająca 125 mm × 10 m": "5905400602807",
+  "Atlas Hydroband 3G — narożnik wewnętrzny, 1 szt.": "4260112880754",
+  "Atlas Hydroband 3G — narożnik zewnętrzny, 1 szt.": "4260112880761",
   "Knauf Super Finish — gotowa masa szpachlowa 5,4 kg": "5901793357959",
   "Knauf Super Finish — gotowa masa szpachlowa 28 kg": "5901793357935",
   // source: https://sklep-elmas.pl/p/tasma-akustyczna-norgips-3-mm-x-0075-m

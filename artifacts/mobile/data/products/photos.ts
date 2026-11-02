@@ -608,6 +608,12 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-waterproof-membrane-atlas-woder-e-2kg"],"ean":"5905400514483","sourceUrl":"https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_129684_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-2-KG.webp"},
   // source: https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg
   {"ids":["mat-waterproof-membrane-atlas-woder-e-5kg"],"ean":"5905400514490","sourceUrl":"https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp"},
+  // source: https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370
+  {"ids":["mat-atlas-hydroband-125-10m"],"ean":"5905400602807","sourceUrl":"https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370","imageUrl":"https://www.sklepdecowant.pl/environment/cache/images/productGfx_1099_500_500/AT-HYDROBAND-3G-TASMA-USZCZELNIAJACA-A-10.jpg"},
+  // source: https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318
+  {"ids":["mat-atlas-hydroband-internal-piece"],"ean":"4260112880754","sourceUrl":"https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318","imageUrl":"https://www.sklepdecowant.pl/environment/cache/images/productGfx_952_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY.jpg"},
+  // source: https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319
+  {"ids":["mat-atlas-hydroband-external-piece"],"ean":"4260112880761","sourceUrl":"https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319","imageUrl":"https://www.sklepdecowant.pl/environment/cache/images/productGfx_954_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY.jpg"},
 ];
 
 export function getProductPhoto(product: {

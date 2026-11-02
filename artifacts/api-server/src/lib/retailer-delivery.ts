@@ -55,6 +55,9 @@ const ORIGINS: Readonly<Record<string, string>> = {
   eBardo: 'https://ebardo.pl', Mensura: 'https://www.mensura.pl', KELOT: 'https://listwy.sklep.pl', LiderzyCen: 'https://liderzycen.pl', TGS: 'https://tgs.pl',
   // source: https://lobo.pl/dulux-rapidry-farba-do-drewna-metalu-pcv-mat-bialy-1l
   Lobo: 'https://lobo.pl',
+  // Native anonymous baskets checked 2026-11-02; courier for Poland, not a postcode quote.
+  // source: https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370
+  Decowant: 'https://www.sklepdecowant.pl',
 };
 const TTL = 10 * 60_000;
 

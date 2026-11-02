@@ -1,0 +1,2039 @@
+{
+  "capturedAt": "2026-11-02T03:37:43.217Z",
+  "products": [
+    {
+      "sourceId": "decowant-atlas-hydroband-125-10m",
+      "product": {
+        "id": 370,
+        "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+        "can_buy": true,
+        "ean": "5905400602807",
+        "code": "13766461859",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 458,
+        "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+        "price": {
+          "gross": {
+            "base": "119,99 zł",
+            "base_float": 119.99,
+            "final": "119,99 zł",
+            "final_float": 119.99,
+            "historical_lowest_price": "115,99 zł",
+            "historical_lowest_price_float": 115.99
+          },
+          "net": {
+            "base": "97,55 zł",
+            "base_float": 97.55,
+            "final": "97,55 zł",
+            "final_float": 97.55,
+            "historical_lowest_price": "94,30 zł",
+            "historical_lowest_price_float": 94.3
+          }
+        },
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Atlas",
+          "id": 26
+        },
+        "description": "1 rolkę taśmy"
+      }
+    },
+    {
+      "sourceId": "decowant-atlas-hydroband-internal",
+      "product": {
+        "id": 318,
+        "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+        "can_buy": true,
+        "ean": "4260112880754",
+        "code": "14462773403",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 406,
+        "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+        "price": {
+          "gross": {
+            "base": "12,87 zł",
+            "base_float": 12.87,
+            "final": "12,87 zł",
+            "final_float": 12.87,
+            "historical_lowest_price": "12,39 zł",
+            "historical_lowest_price_float": 12.39
+          },
+          "net": {
+            "base": "10,46 zł",
+            "base_float": 10.46,
+            "final": "10,46 zł",
+            "final_float": 10.46,
+            "historical_lowest_price": "10,07 zł",
+            "historical_lowest_price_float": 10.07
+          }
+        },
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Atlas",
+          "id": 26
+        },
+        "description": "1 sztuka"
+      }
+    },
+    {
+      "sourceId": "decowant-atlas-hydroband-external",
+      "product": {
+        "id": 319,
+        "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+        "can_buy": true,
+        "ean": "4260112880761",
+        "code": "14462780805",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 407,
+        "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+        "price": {
+          "gross": {
+            "base": "12,18 zł",
+            "base_float": 12.18,
+            "final": "12,18 zł",
+            "final_float": 12.18,
+            "historical_lowest_price": "12,39 zł",
+            "historical_lowest_price_float": 12.39
+          },
+          "net": {
+            "base": "9,90 zł",
+            "base_float": 9.9,
+            "final": "9,90 zł",
+            "final_float": 9.9,
+            "historical_lowest_price": "10,07 zł",
+            "historical_lowest_price_float": 10.07
+          }
+        },
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Atlas",
+          "id": 26
+        },
+        "description": "1 sztuka"
+      }
+    },
+    {
+      "sourceId": "decowant-atlas-woder-e-5kg",
+      "product": {
+        "id": 317,
+        "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+        "can_buy": true,
+        "ean": "5905400514490",
+        "code": "14419222906",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 405,
+        "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-5-KG/317",
+        "price": {
+          "gross": {
+            "base": "119,99 zł",
+            "base_float": 119.99,
+            "final": "119,99 zł",
+            "final_float": 119.99,
+            "historical_lowest_price": "119,99 zł",
+            "historical_lowest_price_float": 119.99
+          },
+          "net": {
+            "base": "97,55 zł",
+            "base_float": 97.55,
+            "final": "97,55 zł",
+            "final_float": 97.55,
+            "historical_lowest_price": "97,55 zł",
+            "historical_lowest_price_float": 97.55
+          }
+        },
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Atlas",
+          "id": 26
+        }
+      }
+    },
+    {
+      "sourceId": "decowant-atlas-woder-e-15kg",
+      "product": {
+        "id": 367,
+        "name": "ATLAS WODER E-FOLIA IZOLACYJNA 15 KG",
+        "can_buy": true,
+        "ean": "5905400514506",
+        "code": "13783058229",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 455,
+        "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-15-KG/367",
+        "price": {
+          "gross": {
+            "base": "329,87 zł",
+            "base_float": 329.87,
+            "final": "329,87 zł",
+            "final_float": 329.87,
+            "historical_lowest_price": "329,87 zł",
+            "historical_lowest_price_float": 329.87
+          },
+          "net": {
+            "base": "268,19 zł",
+            "base_float": 268.19,
+            "final": "268,19 zł",
+            "final_float": 268.19,
+            "historical_lowest_price": "268,19 zł",
+            "historical_lowest_price_float": 268.19
+          }
+        },
+        "weight": {
+          "weight_float": 0,
+          "weight": "0 kg"
+        },
+        "producer": {
+          "name": "Atlas",
+          "id": 26
+        }
+      }
+    }
+  ],
+  "baskets": [
+    {
+      "name": "one-corner",
+      "records": [
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.066Z",
+          "path": "/webapi/front/pl_PL/products/PLN/318",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 318,
+            "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+            "can_buy": true,
+            "ean": "4260112880754",
+            "code": "14462773403",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 406,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+            "price": {
+              "gross": {
+                "base": "12,87 zł",
+                "base_float": 12.87,
+                "final": "12,87 zł",
+                "final_float": 12.87,
+                "historical_lowest_price": "12,39 zł",
+                "historical_lowest_price_float": 12.39
+              },
+              "net": {
+                "base": "10,46 zł",
+                "base_float": 10.46,
+                "final": "10,46 zł",
+                "final_float": 10.46,
+                "historical_lowest_price": "10,07 zł",
+                "historical_lowest_price_float": 10.07
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 sztuka"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.266Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 406,
+            "quantity": 1
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 1,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+                "variant": "",
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "12,87 zł",
+                "stock_id": 406,
+                "price_float": 12.87,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.425Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "shippings": [
+              {
+                "shipping_id": 22,
+                "selected": false,
+                "title": "KURIER INPOST ",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 18,
+                "selected": false,
+                "title": "Poczta Polska",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 19,
+                "selected": false,
+                "title": "DPD Kurier",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 20,
+                "selected": false,
+                "title": "DHL Kurier",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 21,
+                "selected": false,
+                "title": "Orlen Paczka",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 14,
+                "selected": true,
+                "title": "InPost Paczkomat",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 2,
+                "selected": true,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              },
+              {
+                "payment_id": 3,
+                "selected": false,
+                "name": "onlinePayment",
+                "title": "Autopay",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "basket": {
+              "count": 1,
+              "sum": "32,86 zł",
+              "sum_float": 32.86,
+              "sum_products": "12,87 zł",
+              "sum_products_float": 12.87,
+              "sum_no_shipping": "12,87 zł",
+              "sum_no_shipping_float": 12.87,
+              "loyalty_points": 1
+            },
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            },
+            "products": [
+              {
+                "id": 1,
+                "parent_id": null,
+                "stock_id": 406,
+                "product_id": 318,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+                "variant": "",
+                "quantity": 1,
+                "image": "952",
+                "image_filename": "952.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 12.87,
+                "price": "12,87 zł",
+                "sum_float": 12.87,
+                "sum": "12,87 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/1"
+              }
+            ]
+          }
+        }
+      ],
+      "expectedCostGrosze": 1999,
+      "postcode": "30-001",
+      "order": {
+        "store": "Decowant",
+        "materialsGrosze": 1287,
+        "lines": [
+          {
+            "product": {
+              "id": "remont-4260112880754",
+              "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+              "ean": "4260112880754",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_952_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY.jpg"
+            },
+            "unit": "szt",
+            "quantity": 1,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-internal",
+                "store": "Decowant",
+                "count": 1,
+                "packageSize": 1,
+                "unitPriceGrosze": 1287,
+                "lineCostGrosze": 1287,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "band-and-corners",
+      "records": [
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.581Z",
+          "path": "/webapi/front/pl_PL/products/PLN/370",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 370,
+            "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+            "can_buy": true,
+            "ean": "5905400602807",
+            "code": "13766461859",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 458,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+            "price": {
+              "gross": {
+                "base": "119,99 zł",
+                "base_float": 119.99,
+                "final": "119,99 zł",
+                "final_float": 119.99,
+                "historical_lowest_price": "115,99 zł",
+                "historical_lowest_price_float": 115.99
+              },
+              "net": {
+                "base": "97,55 zł",
+                "base_float": 97.55,
+                "final": "97,55 zł",
+                "final_float": 97.55,
+                "historical_lowest_price": "94,30 zł",
+                "historical_lowest_price_float": 94.3
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 rolkę taśmy"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.600Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 458,
+            "quantity": 2
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 2,
+                "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+                "variant": "",
+                "quantity": 2,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "119,99 zł",
+                "stock_id": 458,
+                "price_float": 119.99,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.774Z",
+          "path": "/webapi/front/pl_PL/products/PLN/318",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 318,
+            "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+            "can_buy": true,
+            "ean": "4260112880754",
+            "code": "14462773403",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 406,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+            "price": {
+              "gross": {
+                "base": "12,87 zł",
+                "base_float": 12.87,
+                "final": "12,87 zł",
+                "final_float": 12.87,
+                "historical_lowest_price": "12,39 zł",
+                "historical_lowest_price_float": 12.39
+              },
+              "net": {
+                "base": "10,46 zł",
+                "base_float": 10.46,
+                "final": "10,46 zł",
+                "final_float": 10.46,
+                "historical_lowest_price": "10,07 zł",
+                "historical_lowest_price_float": 10.07
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 sztuka"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.799Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 406,
+            "quantity": 4
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 3,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+                "variant": "",
+                "quantity": 4,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "12,87 zł",
+                "stock_id": 406,
+                "price_float": 12.87,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.964Z",
+          "path": "/webapi/front/pl_PL/products/PLN/319",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 319,
+            "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+            "can_buy": true,
+            "ean": "4260112880761",
+            "code": "14462780805",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 407,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+            "price": {
+              "gross": {
+                "base": "12,18 zł",
+                "base_float": 12.18,
+                "final": "12,18 zł",
+                "final_float": 12.18,
+                "historical_lowest_price": "12,39 zł",
+                "historical_lowest_price_float": 12.39
+              },
+              "net": {
+                "base": "9,90 zł",
+                "base_float": 9.9,
+                "final": "9,90 zł",
+                "final_float": 9.9,
+                "historical_lowest_price": "10,07 zł",
+                "historical_lowest_price_float": 10.07
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 sztuka"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:41.999Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 407,
+            "quantity": 1
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 4,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+                "variant": "",
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "12,18 zł",
+                "stock_id": 407,
+                "price_float": 12.18,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.175Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "shippings": [
+              {
+                "shipping_id": 22,
+                "selected": false,
+                "title": "KURIER INPOST ",
+                "description": "",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 18,
+                "selected": false,
+                "title": "Poczta Polska",
+                "description": "",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 19,
+                "selected": false,
+                "title": "DPD Kurier",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 20,
+                "selected": false,
+                "title": "DHL Kurier",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 21,
+                "selected": false,
+                "title": "Orlen Paczka",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 14,
+                "selected": true,
+                "title": "InPost Paczkomat",
+                "description": "",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 2,
+                "selected": true,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              },
+              {
+                "payment_id": 3,
+                "selected": false,
+                "name": "onlinePayment",
+                "title": "Autopay",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "basket": {
+              "count": 7,
+              "sum": "303,64 zł",
+              "sum_float": 303.64,
+              "sum_products": "303,64 zł",
+              "sum_products_float": 303.64,
+              "sum_no_shipping": "303,64 zł",
+              "sum_no_shipping_float": 303.64,
+              "loyalty_points": 30
+            },
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            },
+            "products": [
+              {
+                "id": 2,
+                "parent_id": null,
+                "stock_id": 458,
+                "product_id": 370,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+                "variant": "",
+                "quantity": 2,
+                "image": "1099",
+                "image_filename": "1099.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 119.99,
+                "price": "119,99 zł",
+                "sum_float": 239.98,
+                "sum": "239,98 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/2"
+              },
+              {
+                "id": 3,
+                "parent_id": null,
+                "stock_id": 406,
+                "product_id": 318,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+                "variant": "",
+                "quantity": 4,
+                "image": "952",
+                "image_filename": "952.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 12.87,
+                "price": "12,87 zł",
+                "sum_float": 51.48,
+                "sum": "51,48 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/3"
+              },
+              {
+                "id": 4,
+                "parent_id": null,
+                "stock_id": 407,
+                "product_id": 319,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+                "variant": "",
+                "quantity": 1,
+                "image": "954",
+                "image_filename": "954.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 12.18,
+                "price": "12,18 zł",
+                "sum_float": 12.18,
+                "sum": "12,18 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/4"
+              }
+            ]
+          }
+        }
+      ],
+      "expectedCostGrosze": 1999,
+      "postcode": "30-001",
+      "order": {
+        "store": "Decowant",
+        "materialsGrosze": 30364,
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5905400602807",
+              "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+              "ean": "5905400602807",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_1099_500_500/AT-HYDROBAND-3G-TASMA-USZCZELNIAJACA-A-10.jpg"
+            },
+            "unit": "m",
+            "quantity": 20,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-125-10m",
+                "store": "Decowant",
+                "count": 2,
+                "packageSize": 10,
+                "unitPriceGrosze": 11999,
+                "lineCostGrosze": 23998,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370"
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-4260112880754",
+              "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+              "ean": "4260112880754",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_952_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY.jpg"
+            },
+            "unit": "szt",
+            "quantity": 4,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-internal",
+                "store": "Decowant",
+                "count": 4,
+                "packageSize": 1,
+                "unitPriceGrosze": 1287,
+                "lineCostGrosze": 5148,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318"
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-4260112880761",
+              "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+              "ean": "4260112880761",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_954_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY.jpg"
+            },
+            "unit": "szt",
+            "quantity": 1,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-external",
+                "store": "Decowant",
+                "count": 1,
+                "packageSize": 1,
+                "unitPriceGrosze": 1218,
+                "lineCostGrosze": 1218,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "woder-and-accessories",
+      "records": [
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.291Z",
+          "path": "/webapi/front/pl_PL/products/PLN/317",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 317,
+            "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+            "can_buy": true,
+            "ean": "5905400514490",
+            "code": "14419222906",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 405,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-5-KG/317",
+            "price": {
+              "gross": {
+                "base": "119,99 zł",
+                "base_float": 119.99,
+                "final": "119,99 zł",
+                "final_float": 119.99,
+                "historical_lowest_price": "119,99 zł",
+                "historical_lowest_price_float": 119.99
+              },
+              "net": {
+                "base": "97,55 zł",
+                "base_float": 97.55,
+                "final": "97,55 zł",
+                "final_float": 97.55,
+                "historical_lowest_price": "97,55 zł",
+                "historical_lowest_price_float": 97.55
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.398Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 405,
+            "quantity": 2
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 5,
+                "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+                "variant": "",
+                "quantity": 2,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "119,99 zł",
+                "stock_id": 405,
+                "price_float": 119.99,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.495Z",
+          "path": "/webapi/front/pl_PL/products/PLN/370",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 370,
+            "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+            "can_buy": true,
+            "ean": "5905400602807",
+            "code": "13766461859",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 458,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+            "price": {
+              "gross": {
+                "base": "119,99 zł",
+                "base_float": 119.99,
+                "final": "119,99 zł",
+                "final_float": 119.99,
+                "historical_lowest_price": "115,99 zł",
+                "historical_lowest_price_float": 115.99
+              },
+              "net": {
+                "base": "97,55 zł",
+                "base_float": 97.55,
+                "final": "97,55 zł",
+                "final_float": 97.55,
+                "historical_lowest_price": "94,30 zł",
+                "historical_lowest_price_float": 94.3
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 rolkę taśmy"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.528Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 458,
+            "quantity": 2
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 6,
+                "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+                "variant": "",
+                "quantity": 2,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "119,99 zł",
+                "stock_id": 458,
+                "price_float": 119.99,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.688Z",
+          "path": "/webapi/front/pl_PL/products/PLN/318",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 318,
+            "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+            "can_buy": true,
+            "ean": "4260112880754",
+            "code": "14462773403",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 406,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+            "price": {
+              "gross": {
+                "base": "12,87 zł",
+                "base_float": 12.87,
+                "final": "12,87 zł",
+                "final_float": 12.87,
+                "historical_lowest_price": "12,39 zł",
+                "historical_lowest_price_float": 12.39
+              },
+              "net": {
+                "base": "10,46 zł",
+                "base_float": 10.46,
+                "final": "10,46 zł",
+                "final_float": 10.46,
+                "historical_lowest_price": "10,07 zł",
+                "historical_lowest_price_float": 10.07
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 sztuka"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.728Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 406,
+            "quantity": 4
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 7,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+                "variant": "",
+                "quantity": 4,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "12,87 zł",
+                "stock_id": 406,
+                "price_float": 12.87,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.887Z",
+          "path": "/webapi/front/pl_PL/products/PLN/319",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "id": 319,
+            "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+            "can_buy": true,
+            "ean": "4260112880761",
+            "code": "14462780805",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 407,
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+            "price": {
+              "gross": {
+                "base": "12,18 zł",
+                "base_float": 12.18,
+                "final": "12,18 zł",
+                "final_float": 12.18,
+                "historical_lowest_price": "12,39 zł",
+                "historical_lowest_price_float": 12.39
+              },
+              "net": {
+                "base": "9,90 zł",
+                "base_float": 9.9,
+                "final": "9,90 zł",
+                "final_float": 9.9,
+                "historical_lowest_price": "10,07 zł",
+                "historical_lowest_price_float": 10.07
+              }
+            },
+            "weight": {
+              "weight_float": 0,
+              "weight": "0 kg"
+            },
+            "producer": {
+              "name": "Atlas",
+              "id": 26
+            },
+            "description": "1 sztuka"
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:42.930Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "body": {
+            "stock_id": 407,
+            "quantity": 1
+          },
+          "status": 200,
+          "response": {
+            "added": [
+              {
+                "id": 8,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+                "variant": "",
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "12,18 zł",
+                "stock_id": 407,
+                "price_float": 12.18,
+                "children": []
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Product added to cart."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://www.sklepdecowant.pl",
+          "at": "2026-11-02T03:37:43.089Z",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "body": null,
+          "status": 200,
+          "response": {
+            "shippings": [
+              {
+                "shipping_id": 22,
+                "selected": false,
+                "title": "KURIER INPOST ",
+                "description": "",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 18,
+                "selected": false,
+                "title": "Poczta Polska",
+                "description": "",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 19,
+                "selected": false,
+                "title": "DPD Kurier",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 20,
+                "selected": false,
+                "title": "DHL Kurier",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 21,
+                "selected": false,
+                "title": "Orlen Paczka",
+                "description": "",
+                "cost": "19,99 zł",
+                "cost_float": 19.99,
+                "engine": "ShoperShipment",
+                "payments": [
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "19,99 zł",
+                    "cost_float": 19.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 14,
+                "selected": true,
+                "title": "InPost Paczkomat",
+                "description": "",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 2
+                  },
+                  {
+                    "payment_id": 3
+                  },
+                  {
+                    "payment_id": 18
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 2,
+                "selected": true,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              },
+              {
+                "payment_id": 3,
+                "selected": false,
+                "name": "onlinePayment",
+                "title": "Autopay",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              }
+            ],
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "basket": {
+              "count": 9,
+              "sum": "543,62 zł",
+              "sum_float": 543.6199999999999,
+              "sum_products": "543,62 zł",
+              "sum_products_float": 543.6199999999999,
+              "sum_no_shipping": "543,62 zł",
+              "sum_no_shipping_float": 543.6199999999999,
+              "loyalty_points": 54
+            },
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            },
+            "products": [
+              {
+                "id": 5,
+                "parent_id": null,
+                "stock_id": 405,
+                "product_id": 317,
+                "type": null,
+                "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+                "variant": "",
+                "quantity": 2,
+                "image": "949",
+                "image_filename": "949.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 119.99,
+                "price": "119,99 zł",
+                "sum_float": 239.98,
+                "sum": "239,98 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-5-KG/317",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/5"
+              },
+              {
+                "id": 6,
+                "parent_id": null,
+                "stock_id": 458,
+                "product_id": 370,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+                "variant": "",
+                "quantity": 2,
+                "image": "1099",
+                "image_filename": "1099.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 119.99,
+                "price": "119,99 zł",
+                "sum_float": 239.98,
+                "sum": "239,98 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/6"
+              },
+              {
+                "id": 7,
+                "parent_id": null,
+                "stock_id": 406,
+                "product_id": 318,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+                "variant": "",
+                "quantity": 4,
+                "image": "952",
+                "image_filename": "952.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 12.87,
+                "price": "12,87 zł",
+                "sum_float": 51.48,
+                "sum": "51,48 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/7"
+              },
+              {
+                "id": 8,
+                "parent_id": null,
+                "stock_id": 407,
+                "product_id": 319,
+                "type": null,
+                "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+                "variant": "",
+                "quantity": 1,
+                "image": "954",
+                "image_filename": "954.jpg",
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price_float": 12.18,
+                "price": "12,18 zł",
+                "sum_float": 12.18,
+                "sum": "12,18 zł",
+                "delivery": "24 godziny",
+                "loyalty": null,
+                "category": {
+                  "category_id": 43,
+                  "translation": {
+                    "name": "HYDROIZOLACJE"
+                  }
+                },
+                "producer": {
+                  "producer_id": 26,
+                  "name": "Atlas"
+                },
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+                "remove_url": "https://www.sklepdecowant.pl/pl/basket/remove/8"
+              }
+            ]
+          }
+        }
+      ],
+      "expectedCostGrosze": 1999,
+      "postcode": "30-001",
+      "order": {
+        "store": "Decowant",
+        "materialsGrosze": 54362,
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5905400514490",
+              "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+              "ean": "5905400514490",
+              "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp"
+            },
+            "unit": "kg",
+            "quantity": 10,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-woder-e-5kg",
+                "store": "Decowant",
+                "count": 2,
+                "packageSize": 5,
+                "unitPriceGrosze": 11999,
+                "lineCostGrosze": 23998,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-5-KG/317"
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-5905400602807",
+              "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+              "ean": "5905400602807",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_1099_500_500/AT-HYDROBAND-3G-TASMA-USZCZELNIAJACA-A-10.jpg"
+            },
+            "unit": "m",
+            "quantity": 20,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-125-10m",
+                "store": "Decowant",
+                "count": 2,
+                "packageSize": 10,
+                "unitPriceGrosze": 11999,
+                "lineCostGrosze": 23998,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370"
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-4260112880754",
+              "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+              "ean": "4260112880754",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_952_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY.jpg"
+            },
+            "unit": "szt",
+            "quantity": 4,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-internal",
+                "store": "Decowant",
+                "count": 4,
+                "packageSize": 1,
+                "unitPriceGrosze": 1287,
+                "lineCostGrosze": 5148,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318"
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-4260112880761",
+              "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+              "ean": "4260112880761",
+              "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_954_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY.jpg"
+            },
+            "unit": "szt",
+            "quantity": 1,
+            "packages": [
+              {
+                "offerId": "decowant-atlas-hydroband-external",
+                "store": "Decowant",
+                "count": 1,
+                "packageSize": 1,
+                "unitPriceGrosze": 1218,
+                "lineCostGrosze": 1218,
+                "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
