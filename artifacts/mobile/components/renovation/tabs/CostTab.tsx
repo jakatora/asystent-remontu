@@ -5,8 +5,8 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
-import { formatCurrency } from '@/utils/calculator';
-import { ShopPriceList } from '@/components/renovation/ShopPriceList';
+import { JobProductPrices } from '@/components/renovation/JobProductPrices';
+import { reviewedJobProduct } from '@/features/pricing/jobProduct';
 import { resolveThumbnail } from '@/components/renovation/thumbnail-resolver';
 import { ProductImage } from '@/components/project/ProductImage';
 import type { RenovationJob, MaterialItem } from '@/types/domain';
@@ -55,7 +55,6 @@ export function CostTab({ job }: CostTabProps) {
           const brand = (mat as MaterialItem).brand;
           const notes = (mat as MaterialItem).notes;
           const shopPrices = (mat as MaterialItem).shopPrices;
-          const purchaseUnit = (mat as MaterialItem).purchaseUnit;
           const thumbnailUrl = resolveThumbnail(mat as MaterialItem);
           return (
             <View
@@ -84,11 +83,6 @@ export function CostTab({ job }: CostTabProps) {
                       <Txt style={{ fontSize: 10, color: Colors.textMuted }}>{t('job.detail.cost.optional')}</Txt>
                     </View>
                   )}
-                  {mat.pricePerUnit > 0 && (
-                    <Txt w="semibold" style={{ fontSize: 12, color: Colors.textMuted }}>
-                      {t('job.detail.cost.estPrice', { price: formatCurrency(mat.pricePerUnit) })}
-                    </Txt>
-                  )}
                 </View>
               </View>
 
@@ -98,7 +92,7 @@ export function CostTab({ job }: CostTabProps) {
                 </Txt>
               )}
 
-              <ShopPriceList prices={shopPrices ?? []} unitLabel={purchaseUnit} />
+              <JobProductPrices product={reviewedJobProduct(mat as MaterialItem,'material')} links={shopPrices} />
             </View>
           );
         })}

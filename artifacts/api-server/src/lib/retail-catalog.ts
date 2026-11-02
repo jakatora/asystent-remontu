@@ -1,3 +1,4 @@
+import {BRUSH_SOURCES} from './brush-sources';
 import {CERESIT_VIVA_SOURCES} from './ceresit-viva';
 import {RIGIPS_CORNER_SOURCES} from './rigips-corners';
 import {HIPPER_PAINT_SOURCES} from './hipper-paints';
@@ -21,6 +22,7 @@ import {KNAUF_FINISH_SOURCES} from './knauf-finishes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...BRUSH_SOURCES,
   ...CERESIT_VIVA_SOURCES,
   ...RIGIPS_CORNER_SOURCES,
   ...HIPPER_PAINT_SOURCES,

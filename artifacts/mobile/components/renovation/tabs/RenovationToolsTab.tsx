@@ -4,7 +4,8 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
-import { ShopPriceList } from '@/components/renovation/ShopPriceList';
+import { JobProductPrices } from '@/components/renovation/JobProductPrices';
+import { reviewedJobProduct } from '@/features/pricing/jobProduct';
 import { resolveThumbnail } from '@/components/renovation/thumbnail-resolver';
 import { ProductImage } from '@/components/project/ProductImage';
 import type { RenovationJob, ToolItem } from '@/types/domain';
@@ -23,11 +24,12 @@ export function RenovationToolsTab({ job }: RenovationToolsTabProps) {
 
   const renderTool = (tool: AnyTool) => {
     const shopPrices = (tool as ToolItem).shopPrices;
-    const thumbnailUrl = resolveThumbnail(tool as ToolItem);
+    const product = reviewedJobProduct(tool as ToolItem,'tool');
+    const thumbnailUrl = product?.imageUrl ?? resolveThumbnail(tool as ToolItem);
     return (
       <View key={tool.id} style={{ backgroundColor: Colors.surfaceAlt, borderRadius: 14, padding: 12, marginBottom: 10, gap: 8 }}>
         <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10 }}>
-          <ProductImage uri={thumbnailUrl} name={tool.name} size={64} />
+          <ProductImage uri={thumbnailUrl} name={product?.name ?? tool.name} size={64} />
           <View style={{ flex: 1 }}>
             <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{tool.name}</Txt>
             {tool.notes && (
@@ -49,7 +51,7 @@ export function RenovationToolsTab({ job }: RenovationToolsTabProps) {
             </View>
           </View>
         </View>
-        <ShopPriceList prices={shopPrices ?? []} />
+        <JobProductPrices product={product} links={shopPrices} />
       </View>
     );
   };

@@ -171,7 +171,7 @@ const pl = {
   'job.detail.howTo.warning': 'Uwaga',
 
   // Cost tab
-  'job.detail.cost.heroNote': 'Ceny w 4 sklepach. Stuknij, aby otworzyć produkt w sklepie.',
+  'job.detail.cost.heroNote': 'Potwierdzone ceny produktów zobaczysz tutaj. Dostawę całego zestawu sprawdzisz we wspólnym koszyku.',
   'job.detail.cost.openCalc': 'Otwórz kalkulator zużycia',
   'job.detail.cost.materialsHeader': 'Materiały',
   'job.detail.cost.estPrice': 'ok. {price}',
@@ -371,7 +371,7 @@ const en: Record<K, string> = {
   'job.detail.howTo.tip': 'Tip',
   'job.detail.howTo.warning': 'Warning',
 
-  'job.detail.cost.heroNote': 'Prices at 4 shops. Tap to open the product page.',
+  'job.detail.cost.heroNote': 'View confirmed product prices here. Check delivery for the whole set in the shared basket.',
   'job.detail.cost.openCalc': 'Open usage calculator',
   'job.detail.cost.materialsHeader': 'Materials',
   'job.detail.cost.estPrice': '~{price}',
