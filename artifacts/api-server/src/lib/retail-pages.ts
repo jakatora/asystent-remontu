@@ -13,6 +13,8 @@ import {isReviewedDekorkSource,readDekorkProduct} from './dekork';
 import {readEwinylProduct} from './ewinyl-product';
 import {readDekoratorProduct} from './dekorator';
 import {readAlnarProduct} from './alnar';
+import {readFugiProduct} from './fugi';
+import {confirmFugiSource} from './fugi-sources';
 import {confirmAlnarSource} from './alnar-source';
 import {readIntegraProduct} from './integra';
 import {readMlazienkaProduct} from './mlazienka';
@@ -81,7 +83,7 @@ export interface RetailSource {
   unit: string;
   store: string;
   url: string;
-  format?: 'ewinyl' | 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'budshop-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra' | 'mlazienka' | 'dekorator' | 'elmas' | 'alnar';
+  format?: 'ewinyl' | 'jsonld' | 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'shoper-api' | 'unimet' | 'shopify-api' | 'idosell' | 'fixero' | 'rodimax' | 'woocommerce' | 'topboden-api' | 'prestashop' | 'abstore' | 'certusoft' | 'modna' | 'betterial' | 'folnet' | 'kronosfera' | 'skyshop' | 'qshop' | 'irbud-woo' | 'pati-woo' | 'budshop-woo' | 'kowalczyk-magento' | 'izosystems' | 'krasny' | 'bmb' | 'integra' | 'mlazienka' | 'dekorator' | 'elmas' | 'alnar' | 'fugi-woo';
   /** Reviewed photograph for this exact EAN; may use another public product card. */
   imageUrl?: string;
   variant?: readonly string[];
@@ -239,6 +241,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 }
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
+  confirmFugiSource(source);
   confirmAlnarSource(source);
   confirmAtlasWoderSource(source);
   confirmDecowantSource(source);
@@ -304,6 +307,10 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
     const p=await readBudshopProduct(source,fetchImpl);
     const html=`<script type="application/ld+json">${JSON.stringify({'@type':'Product',name:p.name,gtin13:source.ean,brand:source.brand,image:p.imageUrl,offers:{'@type':'Offer',price:(p.priceGrosze/100).toFixed(2),priceCurrency:'PLN',availability:'https://schema.org/InStock',url:source.url}})}</script>`;
     return {...parseRetailPage(html,{...source,format:'jsonld'},new Date()),stockPackages:p.stockPackages,evidenceSha256:p.evidenceSha256};
+  }
+  if(source.format==='fugi-woo'){
+    const p=await readFugiProduct(source,fetchImpl),html=`<script type="application/ld+json">${JSON.stringify(p.product)}</script>`;
+    return{...parseRetailPage(html,{...source,format:'jsonld'},new Date()),evidenceSha256:p.evidenceSha256};
   }
   if (source.format==='woocommerce') {
     const product=await readWooProduct(source,fetchImpl);

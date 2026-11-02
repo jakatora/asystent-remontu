@@ -1,3 +1,4 @@
+import {FUGI_SOURCES} from './fugi-sources';
 import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
 import {ELMAS_ORIGIN,ELMAS_ITEMS,ELMAS_VARIANT,ELMAS_HOME_CARRIER} from './elmas-source';
 export interface ElmasCartLine{sourceId:string;count:number;priceGrosze:number;nettoGrosze:number;stock:number}
@@ -16,6 +17,7 @@ export class AnonymousShop {
   private cookies = new Map<string, string>();
   private calls = 0;
   private storeCartToken: string | null = null;
+  private fugiCartNonce: string | null = null;
   private skyshopCartId: string | null = null;
   private magentoCartId: string | null = null;
   constructor(private origin: string, private fetchImpl: typeof fetch, private signal: AbortSignal, private maxCalls = 30, private encoding: 'utf-8' | 'iso-8859-2' = 'utf-8') {
@@ -225,12 +227,17 @@ export class AnonymousShop {
       (multi.length>0&&/^(?:medium_parcel|large_parcel)(?:_(?:medium_parcel|large_parcel))+$/u.test(multi)&&
         (multi.match(/(?:medium_parcel|large_parcel)/gu)?.length??0)<=MAX_BUDSHOP_COURIER_PARCELS);
     if (this.origin==='https://budshop24.pl'&&path==='/wp-json/wc/store/v1/cart/add-item'&&(!body||Object.keys(body).sort().join(',')!=='id,quantity'||![4808,7381,6484,6240].includes((body as any).id)||!Number.isSafeInteger((body as any).quantity)||(body as any).quantity<1||(body as any).quantity>MAX_RETAIL_PACKAGES))throw Error('invalid_cart_route');
-    const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&((courierId&&((body as any).rate_id===courierId))||(this.origin==='https://budshop24.pl'&&budshopCourier));
+    // FUGI uses a public nonce from this same anonymous cart in addition to Cart-Token.
+    // source: https://fugi.pl/wp-json/wc/store/v1/cart
+    if(this.origin==='https://fugi.pl'&&path==='/wp-json/wc/store/v1/cart/add-item'&&(!body||Object.keys(body).sort().join(',')!=='id,quantity'||![12115,3792,3793,3797,3798].includes((body as any).id)||!Number.isSafeInteger((body as any).quantity)||(body as any).quantity<1||(body as any).quantity>MAX_RETAIL_PACKAGES))throw Error('invalid_cart_route');
+    if(this.origin==='https://fugi.pl'&&path==='/wp-json/wc/store/v1/cart'&&body!==undefined)throw Error('invalid_cart_route');
+    const fugiCourier=this.origin==='https://fugi.pl'&&['flexible_shipping_single:15','flexible_shipping_single:22'].includes((body as any)?.rate_id);
+    const shipping=path==='/wp-json/wc/store/v1/cart/select-shipping-rate'&&body&&Object.keys(body).sort().join(',')==='package_id,rate_id'&&(body as any).package_id===0&&((courierId&&((body as any).rate_id===courierId))||(this.origin==='https://budshop24.pl'&&budshopCourier)||fugiCourier);
     const address=(body as any)?.shipping_address;
-    const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&(courierId||this.origin==='https://budshop24.pl')&&body&&Object.keys(body).join(',')==='shipping_address'
+    const destination=path==='/wp-json/wc/store/v1/cart/update-customer'&&(courierId||this.origin==='https://budshop24.pl'||this.origin==='https://fugi.pl')&&body&&Object.keys(body).join(',')==='shipping_address'
       &&address&&typeof address==='object'&&Object.keys(address).sort().join(',')==='country,postcode'&&address.country==='PL'&&typeof address.postcode==='string'&&/^\d{2}-\d{3}$/.test(address.postcode);
     if (!['/wp-json/wc/store/v1/cart','/wp-json/wc/store/v1/cart/add-item'].includes(path)&&!shipping&&!destination) throw Error('invalid_cart_route');
-    if (body && !this.storeCartToken) throw Error('cart_session_not_confirmed');
+    if (body && (!this.storeCartToken||this.origin==='https://fugi.pl'&&!this.fugiCartNonce)) throw Error('cart_session_not_confirmed');
     const raw=await this.read(path,body?JSON.stringify(body):undefined,true,true);
     if (!this.storeCartToken) throw Error('cart_session_not_confirmed');
     return JSON.parse(raw);
@@ -331,6 +338,11 @@ export class AnonymousShop {
     let url = new URL(path, this.origin), method = overrideMethod ?? (payload || forcePost ? 'POST' : 'GET');
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
+      if(this.origin==='https://fugi.pl'){
+        const read=method==='GET'&&(FUGI_SOURCES.some(s=>url.href===s.url||url.href==='https://fugi.pl/wp-json/wc/store/v1/products/'+s.productId)||storeCart&&url.href==='https://fugi.pl/wp-json/wc/store/v1/cart');
+        const write=method==='POST'&&json&&storeCart&&['/wp-json/wc/store/v1/cart/add-item','/wp-json/wc/store/v1/cart/update-customer','/wp-json/wc/store/v1/cart/select-shipping-rate'].includes(url.pathname)&&!url.search;
+        if(!read&&!write)throw Error('invalid_cart_route');
+      }
       if(this.origin===ELMAS_ORIGIN){
         const card=method==='GET'&&ELMAS_ITEMS.some(({source})=>[source.url,ELMAS_ORIGIN+'/api/public/p/'+source.retailerSku+'?lang=pl&id=1'].includes(url.href));
         const carrier=method==='POST'&&url.href===ELMAS_ORIGIN+'/api/public/order/form'&&json&&rawJson;
@@ -348,6 +360,7 @@ export class AnonymousShop {
         headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : htmlOnly ? 'text/html' : 'text/html, application/json', Cookie: cookie,
           ...(this.origin==='https://izosystems.pl'?{'Accept-Language':'pl-PL'}:{}),
           ...(storeCart&&this.storeCartToken?{'Cart-Token':this.storeCartToken}:{}),
+          ...(storeCart&&this.origin==='https://fugi.pl'&&this.fugiCartNonce?{Nonce:this.fugiCartNonce}:{}),
           ...(modnaCsrf ? {'X-CSRF-Token':modnaCsrf,'X-Requested-With':'XMLHttpRequest',Origin:this.origin,Referer:this.origin+'/'} : {}),
           ...(payload || forcePost ? { 'Content-Type': storeCart||rawJson?'application/json':'application/x-www-form-urlencoded' } : {}) } });
       for (const entry of r.headers.getSetCookie()) {
@@ -364,6 +377,7 @@ export class AnonymousShop {
       if (!r.ok && !(magentoErrors && this.origin === 'https://sklep-kowalczyk.pl' && r.status === 400)) { await r.body?.cancel(); throw Error('retailer_unavailable'); }
       if (json && !r.headers.get('content-type')?.includes('json')) { await r.body?.cancel(); throw Error('invalid_response'); }
       if (storeCart) {
+        if(this.origin==='https://fugi.pl'){const nonce=r.headers.get('Nonce');if(nonce!==null){if(!/^[a-f0-9]{10}$/.test(nonce)){await r.body?.cancel();throw Error('invalid_cart_session');}this.fugiCartNonce=nonce;}}
         const token=r.headers.get('Cart-Token');
         if (token) {
           if (token.length>4096 || !/^[A-Za-z0-9._~-]+$/.test(token)) { await r.body?.cancel(); throw Error('invalid_cart_session'); }
