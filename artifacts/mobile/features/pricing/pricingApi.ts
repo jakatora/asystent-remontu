@@ -86,6 +86,7 @@ export interface PricingStageInput {
 }
 
 export interface PricingOptions {
+  readonly includeStoreChoices?: boolean;
   readonly refreshPrices?: boolean;
   readonly delivery?: DeliverySettings;
   readonly region?: string | null;
@@ -329,6 +330,8 @@ export interface SerializedStoreComparison {
 }
 
 export interface SerializedProject {
+  /** Material-only alternatives; never a delivered result or selected basket. */
+  storeChoiceComparison?: Pick<SerializedProject,'stages'|'consolidated'|'storeComparison'>;
   priceRefresh?: { status: 'updated' | 'recent'; checkedAt: string | null; confirmedOfferIds: string[]; failedOfferIds: string[]; retryAfterSeconds: number };
   deliveryComparison?: DeliveryComparison;
   coverage?: {

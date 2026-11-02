@@ -307,7 +307,16 @@ export function createRemontService(options: SharedPricingOptions = {}) {
           source.category === material.category && normalizeProductName(retailProductName(source)) === normalizeProductName(material.name)));
         priceRefresh = await refreshProjectSources(sources);
       }
-      const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, parsed.data.options ?? {}, catalog(parsed.data.options?.delivery?.mode === 'pickup').deps);
+      const requestOptions=parsed.data.options??{};
+      // Both views use the same observed catalogue. Alternatives need material
+      // prices and stock only; their delivery baskets must not be requested.
+      const snapshot=catalog(requestOptions.delivery?.mode==='pickup').deps;
+      const estimate = await estimateProjectCostFromCalculation({} as Database, parsed.data.jobs, requestOptions, snapshot);
+      let storeChoiceComparison;
+      if(!stageOnly&&requestOptions.store&&requestOptions.includeStoreChoices){
+        const alternatives=serializeProject(await estimateProjectCostFromCalculation({} as Database,parsed.data.jobs,{...requestOptions,store:undefined},snapshot));
+        storeChoiceComparison={stages:alternatives.stages,consolidated:alternatives.consolidated,storeComparison:alternatives.storeComparison};
+      }
       res.setHeader('Cache-Control', 'no-store');
       const serialized = serializeProject(estimate);
       // Reserve enough time to start complete native quotes for a medium
@@ -318,7 +327,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         (order, postalCode) => ['Castorama','OBI'].includes(order.store) ? quoteBasket(order, postalCode) : quoteBeforeDeadline(quoteBasket, order, postalCode, deadline), STORE_DELIVERY_POLICIES, new Date(),
         knownUnavailableRetailers(),parsed.data.options?.store??undefined);
       res.json(stageOnly ? serialized.stages[0] : { ...serialized, coverage: status(), priceRefresh,
-        deliveryComparison,
+        deliveryComparison,...(storeChoiceComparison?{storeChoiceComparison}:{}),
       });
     } catch {
       res.status(503).json({ error: 'pricing_unavailable' });

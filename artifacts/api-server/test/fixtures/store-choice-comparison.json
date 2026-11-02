@@ -1,0 +1,227 @@
+{
+  "anchor": "2026-11-02T03:58:00.000Z",
+  "observations": [
+    {
+      "sourceId": "lobo-atlas-woder-e-5kg",
+      "ean": "5905400514490",
+      "name": "ATLAS WODER E Szybkoschnąca folia w płynie 5 KG",
+      "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp",
+      "priceGrosze": 9900,
+      "currency": "PLN",
+      "availability": "in_stock",
+      "observedAt": "2026-11-02T03:54:22.227Z",
+      "sourceUrl": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg",
+      "evidenceSha256": "7418ffab54095e289d62d19f86362cee4fc67a6651f149294fa10be55495ddb8",
+      "validUntil": null
+    },
+    {
+      "sourceId": "decowant-atlas-hydroband-125-10m",
+      "ean": "5905400602807",
+      "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+      "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_1099_500_500/AT-HYDROBAND-3G-TASMA-USZCZELNIAJACA-A-10.jpg",
+      "priceGrosze": 11999,
+      "currency": "PLN",
+      "availability": "in_stock",
+      "observedAt": "2026-11-02T03:54:22.002Z",
+      "sourceUrl": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+      "evidenceSha256": "224da5e9edfb5ed44f73bd4f883f58af2666b09676aa2a47df249e8cd90efaa6",
+      "validUntil": null
+    },
+    {
+      "sourceId": "decowant-atlas-hydroband-internal",
+      "ean": "4260112880754",
+      "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+      "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_952_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY.jpg",
+      "priceGrosze": 1287,
+      "currency": "PLN",
+      "availability": "in_stock",
+      "observedAt": "2026-11-02T03:54:22.100Z",
+      "sourceUrl": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+      "evidenceSha256": "40dc8f2aa11a645f0e21ec477a5ff38571a85ba77689377282ff13011c049660",
+      "validUntil": null
+    },
+    {
+      "sourceId": "decowant-atlas-hydroband-external",
+      "ean": "4260112880761",
+      "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+      "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_954_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY.jpg",
+      "priceGrosze": 1218,
+      "currency": "PLN",
+      "availability": "in_stock",
+      "observedAt": "2026-11-02T03:54:22.201Z",
+      "sourceUrl": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+      "evidenceSha256": "bc25735c0c1ac311b18152cd8904125ac34082287381b98f6fdb2d1d7ad9afce",
+      "validUntil": null
+    },
+    {
+      "sourceId": "decowant-atlas-woder-e-5kg",
+      "ean": "5905400514490",
+      "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+      "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp",
+      "priceGrosze": 11999,
+      "currency": "PLN",
+      "availability": "in_stock",
+      "observedAt": "2026-11-02T03:54:22.301Z",
+      "sourceUrl": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-5-KG/317",
+      "evidenceSha256": "71f8d7c84cd36cab52d3f4f5fa65a8506d324ac28c6b701655c4eca3ea6cad41",
+      "validUntil": null
+    }
+  ],
+  "request": {
+    "jobs": [
+      {
+        "jobId": "atlas-room",
+        "materials": [
+          {
+            "material": {
+              "id": "5905400514490",
+              "name": "Reviewed Atlas 5905400514490",
+              "ean": "5905400514490",
+              "category": "waterproofing",
+              "unit": "kg"
+            },
+            "quantity": 7
+          },
+          {
+            "material": {
+              "id": "5905400602807",
+              "name": "Reviewed Atlas 5905400602807",
+              "ean": "5905400602807",
+              "category": "sealing-tape",
+              "unit": "m"
+            },
+            "quantity": 12.5
+          },
+          {
+            "material": {
+              "id": "4260112880754",
+              "name": "Reviewed Atlas 4260112880754",
+              "ean": "4260112880754",
+              "category": "sealing-corner",
+              "unit": "szt"
+            },
+            "quantity": 4
+          },
+          {
+            "material": {
+              "id": "4260112880761",
+              "name": "Reviewed Atlas 4260112880761",
+              "ean": "4260112880761",
+              "category": "sealing-corner",
+              "unit": "szt"
+            },
+            "quantity": 1
+          }
+        ]
+      }
+    ],
+    "options": {
+      "refreshPrices": false,
+      "store": "Decowant",
+      "delivery": {
+        "mode": "shipping",
+        "method": "automatic",
+        "postalCode": "30-001",
+        "allowSeparateOrders": true,
+        "allowExtraPackages": true
+      }
+    }
+  },
+  "order": {
+    "store": "Decowant",
+    "materialsGrosze": 54362,
+    "deliveryGrosze": 1999,
+    "deliveryMinimumGrosze": 1999,
+    "totalGrosze": 56361,
+    "source": "retailer",
+    "lines": [
+      {
+        "product": {
+          "id": "remont-5905400514490",
+          "name": "ATLAS WODER E-FOLIA IZOLACYJNA 5 KG",
+          "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp"
+        },
+        "unit": "kg",
+        "packages": [
+          {
+            "offerId": "decowant-atlas-woder-e-5kg",
+            "store": "Decowant",
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-WODER-E-FOLIA-IZOLACYJNA-5-KG/317",
+            "packageSize": 5,
+            "count": 2,
+            "unitPriceGrosze": 11999,
+            "lineCostGrosze": 23998
+          }
+        ]
+      },
+      {
+        "product": {
+          "id": "remont-5905400602807",
+          "name": "ATLAS HYDROBAND 3G taśma uszczelniająca 125 mm × 10 m",
+          "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_1099_500_500/AT-HYDROBAND-3G-TASMA-USZCZELNIAJACA-A-10.jpg"
+        },
+        "unit": "m",
+        "packages": [
+          {
+            "offerId": "decowant-atlas-hydroband-125-10m",
+            "store": "Decowant",
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-tasma-uszczelniajaca-125-mm-10-m/370",
+            "packageSize": 10,
+            "count": 2,
+            "unitPriceGrosze": 11999,
+            "lineCostGrosze": 23998
+          }
+        ]
+      },
+      {
+        "product": {
+          "id": "remont-4260112880754",
+          "name": "ATLAS HYDROBAND 3G NAROŻNIK WEWNĘTRZNY",
+          "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_952_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY.jpg"
+        },
+        "unit": "szt",
+        "packages": [
+          {
+            "offerId": "decowant-atlas-hydroband-internal",
+            "store": "Decowant",
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-WEWNETRZNY/318",
+            "packageSize": 1,
+            "count": 4,
+            "unitPriceGrosze": 1287,
+            "lineCostGrosze": 5148
+          }
+        ]
+      },
+      {
+        "product": {
+          "id": "remont-4260112880761",
+          "name": "ATLAS HYDROBAND 3G NAROŻNIK ZEWNĘTRZNY",
+          "imageUrl": "https://www.sklepdecowant.pl/environment/cache/images/productGfx_954_500_500/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY.jpg"
+        },
+        "unit": "szt",
+        "packages": [
+          {
+            "offerId": "decowant-atlas-hydroband-external",
+            "store": "Decowant",
+            "url": "https://www.sklepdecowant.pl/pl/p/ATLAS-HYDROBAND-3G-NAROZNIK-ZEWNETRZNY/319",
+            "packageSize": 1,
+            "count": 1,
+            "unitPriceGrosze": 1218,
+            "lineCostGrosze": 1218
+          }
+        ]
+      }
+    ],
+    "quote": {
+      "costGrosze": 1999,
+      "carrier": "DPD Kurier",
+      "payment": "Autopay",
+      "checkedAt": "2026-11-02T03:54:14.037Z",
+      "expiresAt": "2026-11-02T04:04:14.037Z",
+      "sourceUrl": "https://www.sklepdecowant.pl/pl/basket",
+      "basis": "retailer_basket_national",
+      "destinationScope": "PL",
+      "evidenceSha256": "b436d58f946b66c2d527b994636bc6a7c9f960a0c78daa629b56b57d4bb74583"
+    }
+  }
+}

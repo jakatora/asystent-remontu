@@ -15,7 +15,7 @@ export interface StoreStockShortfall {store:string;productId:string;productName:
 /** Explain only an explicit capacity shortfall for the consolidated demand.
  * Unknown stock, conflicting snapshots and incompatible units remain unknown.
  * A repeated offer in two rooms describes one stock pool, never two pools. */
-export function collectStoreStockShortfalls(data:SerializedProject):StoreStockShortfall[]{
+export function collectStoreStockShortfalls(data:Pick<SerializedProject,'stages'|'consolidated'>):StoreStockShortfall[]{
   return (data.consolidated?.lines??[]).flatMap(line=>{
     const offers=data.stages.flatMap(stage=>stage.lines.filter(row=>row.resolved&&row.product?.id===line.product.id).flatMap(row=>row.offers??[]));
     return [...new Set(offers.map(offer=>offer.store))].flatMap(store=>{
@@ -34,13 +34,14 @@ export function collectStoreStockShortfalls(data:SerializedProject):StoreStockSh
 }
 
 export function collectStoreChoices(data: SerializedProject): StoreChoices {
+  const materialComparison=data.storeChoiceComparison??data;
   return {
-    comparison: data.storeComparison,
-    stores: data.coverage?.stores ?? data.storeComparison.stores.map(store => store.store),
-    unresolvedCount: groupUnpricedLines(data.stages).filter(group => group.line.quantity > 0).length,
+    comparison: materialComparison.storeComparison,
+    stores: data.coverage?.stores ?? materialComparison.storeComparison.stores.map(store => store.store),
+    unresolvedCount: groupUnpricedLines(materialComparison.stages).filter(group => group.line.quantity > 0).length,
     pickupUnavailableStores: data.coverage?.pickupUnavailableStores ?? [],
     pickupOnlyStores: data.coverage?.pickupOnlyStores ?? [],
-    stockShortfalls:collectStoreStockShortfalls(data),
+    stockShortfalls:collectStoreStockShortfalls(materialComparison),
   };
 }
 

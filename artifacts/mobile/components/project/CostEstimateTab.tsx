@@ -1,4 +1,5 @@
 import {PrimerPackageSection} from './PrimerPackageSection';
+import {estimateStoreSelection} from '@/features/pricing/estimateStoreSelection';
 import {CeresitPackageSection} from './CeresitPackageSection';
 import {applyCeresitPackageChoices,ceresitPackageRequirements} from '@/features/pricing/ceresitPackageChoice';
 import {useCeresitPackages} from '@/features/pricing/useCeresitPackages';
@@ -49,7 +50,7 @@ import { CO_JOB } from '@/features/calculator/coDetector';
 import { floorKitCandidates, preserveFloorKitAdhesive, updateFloorKitAdhesive } from '@/features/pricing/floorKits';
 import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
-import { collectStoreChoices, deliverySettingsForStore, estimateHonoursStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
+import { collectStoreChoices, deliverySettingsForStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
 import { unpricedReference } from '@/features/pricing/unpricedReference';
 import { groupUnpricedLines } from '@/features/pricing/unpricedGroups';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
@@ -246,17 +247,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         const choices = { ...collectStoreChoices(data), scope,mode:delivery.mode };
         storeChoicesRef.current = choices; setStoreChoices(choices);
       };
-      // Keep the unfiltered comparison available while the user explores one
-      // store. A saved preference must not erase the alternatives on reopening.
-      if (selectedStore && (storeChoicesRef.current?.scope !== scope || storeChoicesRef.current?.mode!==delivery.mode || refreshPrices)) {
-        const all = await estimateProject(input, { region, delivery, refreshPrices });
-        if (version !== requestVersion.current) return;
-        rememberChoices(all);
-      }
-      const data = await estimateProject(input, { region, delivery, ...(selectedStore ? { store: selectedStore } : {}), refreshPrices: refreshPrices && !selectedStore });
-      if (selectedStore && !estimateHonoursStore(data, selectedStore)) throw Error('store_selection_not_confirmed');
+      const needsChoices=Boolean(selectedStore&&(storeChoicesRef.current?.scope!==scope||storeChoicesRef.current?.mode!==delivery.mode||refreshPrices));
+      const result=await estimateStoreSelection(input,{region,delivery,...(selectedStore?{store:selectedStore}:{}),refreshPrices},needsChoices,()=>version===requestVersion.current,estimateProject);
+      if(!result)return;
+      const{data,choiceSource}=result;
       if (version === requestVersion.current) {
-        if (!selectedStore) rememberChoices(data);
+        if(choiceSource)rememberChoices(choiceSource);
         const current=collectSeenPrices(data), previous=priceSnapshot.current;
         const priceChanges=comparePriceSnapshots(previous,current);
         const hasPriceBaseline=Object.keys(current.offers).some(key=>Boolean(previous.offers[key]));

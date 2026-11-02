@@ -40,6 +40,7 @@ export const optionsSchema = z
     region: z.string().nullish(),
     store: z.string().nullish(),
     refreshPrices: z.boolean().optional(),
+    includeStoreChoices: z.boolean().optional(),
     delivery: z.object({
       mode: z.enum(['shipping', 'pickup']),
       method: z.enum(['automatic', 'manual']).optional(),
