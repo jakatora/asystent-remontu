@@ -461,8 +461,23 @@ workflows:
         script: |-
           set -euo pipefail
           cd "$CM_BUILD_DIR"
-          curl -fL --retry 2 "$REMONT_IOS_SIMULATOR_ARCHIVE_11_URL" -o frozen-simulator.zip
-          echo "38f8e2b59a44dd8349ca810c4bdf2788a1d9dba9ae566e0f3f3f0e19351cc45f  frozen-simulator.zip" | shasum -a 256 -c -
+          node <<'JS'
+          const fs=require('fs'),crypto=require('crypto'),assert=require('assert/strict');
+          (async()=>{
+            const endpoint=new URL(process.env.REMONT_IOS_SIMULATOR_API_11_URL);
+            assert.equal(endpoint.origin,'https://api.codemagic.io');
+            const first=await fetch(endpoint,{headers:{'x-auth-token':process.env.REMONT_CM_ARTIFACT_READ_TOKEN},redirect:'manual',signal:AbortSignal.timeout(20000)});
+            assert.equal(first.status,302,'Authenticated artifact response');
+            const signed=new URL(first.headers.get('location'),endpoint);
+            assert.equal(signed.origin,'https://storage.googleapis.com');
+            const response=await fetch(signed,{redirect:'error',signal:AbortSignal.timeout(60000)});
+            assert(response.ok,'Archive download status '+response.status);
+            const bytes=Buffer.from(await response.arrayBuffer());
+            assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),'38f8e2b59a44dd8349ca810c4bdf2788a1d9dba9ae566e0f3f3f0e19351cc45f');
+            fs.writeFileSync('frozen-simulator.zip',bytes);
+            console.log('Exact frozen simulator archive verified. No credentials forwarded to storage.');
+          })().catch(()=>{console.error('Frozen simulator download or integrity check failed.');process.exitCode=1;});
+          JS
           python3 <<'PY'
           import zipfile,pathlib,hashlib
           with zipfile.ZipFile('frozen-simulator.zip') as z:
