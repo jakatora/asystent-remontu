@@ -28,6 +28,21 @@ appId: pl.asystentremontu.app
     element:
       text: Łączny koszt
     direction: DOWN
+    timeout: 90000
+    centerElement: true
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: Łączny koszt
+    direction: UP
     timeout: 180000
+    centerElement: true
+- scrollUntilVisible:
+    element:
+      text: 'Podany kod pocztowy: 30-001'
+    direction: UP
+    timeout: 30000
+    centerElement: true
+- assertVisible: 'Podany kod pocztowy: 30-001'
 - assertVisible: Łączny koszt
 - takeScreenshot: native-screens/02-paint-with-delivery
