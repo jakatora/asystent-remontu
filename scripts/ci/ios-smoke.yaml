@@ -5,8 +5,13 @@ appId: app.replit.remontasystent
 - tapOn:
     text: Pomiń
     optional: true
-- takeScreenshot: native-screens/01-projects
-- openLink: remont://project/paint-base?tab=estimate
+- assertVisible: Remont Asystent
+- takeScreenshot: native-screens/01-home
+- openLink:
+    link: remont://project/paint-base?tab=estimate
+- tapOn:
+    text: Open
+    optional: true
 - extendedWaitUntil:
     visible: 'Gdzie kupisz najtaniej\?'
     timeout: 60000
