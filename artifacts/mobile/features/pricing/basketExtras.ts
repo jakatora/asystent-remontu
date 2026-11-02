@@ -4,13 +4,23 @@ import type { MaterialPriceReference } from '@/types/pricing';
 import type { PricingMaterialLineInput, PricingStageInput } from './pricingApi';
 import { normalizeProductName } from '../../../../lib/db/src/repositories/helpers';
 import { normalizeUnit } from './quantity';
+import {REVIEWED_PACKAGE_FAMILIES,type ReviewedPackageFamily} from '../../../../lib/pricing-service/src/reviewed-package-families';
 
 export const BASKET_EXTRAS_KEY = 'remont.basket-extras.v1';
 export const MAX_BASKET_EXTRAS = 50;
 export const EXTRA_UNITS = ['szt', 'kg', 'l', 'ml', 'mb', 'm2', 'm3'] as const;
 export type BasketExtra = { id: string; quantity: number } & (
-  { kind: 'catalogue'; referenceId: string } | { kind: 'custom'; name: string; unit: typeof EXTRA_UNITS[number] }
+  { kind: 'catalogue'; referenceId: string; packageFamily?: ReviewedPackageFamily } | { kind: 'custom'; name: string; unit: typeof EXTRA_UNITS[number] }
 );
+
+/** Only a reviewed factory GTIN, package and unit may opt into other sizes of
+ * that same model. The original reference remains saved for an explicit return
+ * to the selected size; it never supplies prices or purchasable pack counts. */
+export function extraPackageFamily(ref:MaterialPriceReference){
+  const ean=PRODUCT_PHOTOS.find(photo=>photo.ids.includes(ref.id))?.ean;
+  return REVIEWED_PACKAGE_FAMILIES.find(family=>family.category===ref.materialType&&family.unit===ref.packageUnit&&
+    family.packs.some(pack=>pack.ean===ean&&pack.size===ref.packageSize));
+}
 
 const EXTRA_SEARCH_ROWS = MATERIAL_PRICES.map(ref => ({
   ref,
@@ -47,11 +57,14 @@ export function parseBasketExtras(raw: string | null): BasketExtra[] {
     if (!row || typeof row.id !== 'string' || !row.id || row.id.length > 200 || ids.has(row.id) ||
       typeof row.quantity !== 'number' || !Number.isFinite(row.quantity) || row.quantity <= 0 || row.quantity > 100_000) throw Error('invalid_basket_extras');
     ids.add(row.id);
-    if (row.kind === 'catalogue' && MATERIAL_PRICES.some(ref => ref.id === row.referenceId)) return {
-      id: row.id, quantity: row.quantity, kind: 'catalogue', referenceId: row.referenceId,
-    };
+    if (row.kind === 'catalogue') {
+      const ref=MATERIAL_PRICES.find(ref=>ref.id===row.referenceId);
+      if(!ref||row.packageFamily!==undefined&&extraPackageFamily(ref)?.key!==row.packageFamily)throw Error('invalid_basket_extras');
+      return {id:row.id,quantity:row.quantity,kind:'catalogue',referenceId:row.referenceId,
+        ...(row.packageFamily!==undefined?{packageFamily:row.packageFamily}:{})};
+    }
     if (row.kind === 'custom' && typeof row.name === 'string' && row.name.trim().length > 0 && row.name.length <= 200 &&
-      !/[\u0000-\u001f]/.test(row.name) && EXTRA_UNITS.includes(row.unit)) return {
+      !/[\u0000-\u001f]/.test(row.name) && EXTRA_UNITS.includes(row.unit) && row.packageFamily===undefined) return {
       id: row.id, quantity: row.quantity, kind: 'custom', name: row.name.trim(), unit: row.unit,
     };
     throw Error('invalid_basket_extras');
@@ -62,6 +75,11 @@ export function extraMaterial(item: BasketExtra): PricingMaterialLineInput {
   if (item.kind === 'custom') return additionalMaterial(`extra:${item.id}`, item.name, item.unit, item.quantity);
   const ref = MATERIAL_PRICES.find(ref => ref.id === item.referenceId);
   if (!ref) throw Error('unknown_extra_reference');
+  if(item.packageFamily!==undefined){
+    const family=extraPackageFamily(ref);
+    if(!family||family.key!==item.packageFamily)throw Error('invalid_basket_extras');
+    return{material:{id:`extra:${item.id}`,name:family.name,unit:family.unit,category:family.category,packageFamily:family.key},quantity:item.quantity};
+  }
   const photo = PRODUCT_PHOTOS.find(photo => photo.ids.includes(ref.id));
   return { material: { id: `extra:${item.id}`, name: ref.productLabel, unit: ref.packageUnit, category: ref.materialType,
     ...(photo?.ean ? { ean: photo.ean } : {}) }, quantity: item.quantity };
