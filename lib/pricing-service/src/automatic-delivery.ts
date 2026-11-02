@@ -294,6 +294,26 @@ async function compareSelectedBaskets(
   const materialPlans=groups.map(g=>optimizeGroupPackages(g));
   for(const store of stores){const perStore=groups.map(g=>optimizeGroupPackages(g,g.offers.filter(o=>o.store===store)));if(perStore.every(Boolean))addGroupedPlan(perStore.map(plan=>plan!.packages),true);}
   if(materialPlans.every(Boolean))addGroupedPlan(materialPlans.map(plan=>plan!.packages),materialPlans.every(plan=>plan!.packages.length===1));
+  // Offering more sizes must retain useful single-size stock allocations.
+  // A seller unable to supply the whole need may still provide part of it;
+  // discarding that offer from full-order options loses delivery alternatives.
+  // Keep the other products' mixed-size plans intact while varying one family.
+  // These are bounded candidates, not assumed free-shipping thresholds.
+  homogeneousCandidates: if(materialPlans.every(Boolean))for(const [index,group]of groups.entries()){
+    if(group.cutRoll)continue;
+    const variants=group.offers.filter(o=>isComparableOffer(o,now.getTime())).flatMap(o=>buildPackageVariants([o],group.product));
+    const sizes=[...new Set(variants.map(v=>v.packageSize))];
+    if(sizes.length<2)continue;
+    for(const size of sizes){
+      const homogeneous=mixedPackagePlans(group.totalQuantity,variants.filter(v=>v.packageSize===size),group.requiredBySize,64,10000);
+      for(const plan of homogeneous.plans){
+        // Reserve most proposal slots for the original whole-store seeds and
+        // alternate-seller expansion. The shared native quote cap stays 80.
+        if(proposed.size>=64)break homogeneousCandidates;
+        addGroupedPlan(materialPlans.map((other,i)=>i===index?plan.packages:other!.packages),false);
+      }
+    }
+  }
   const orderedOptions = options.map(option=>option!.sort((a,b)=>a.lineCostGrosze-b.lineCostGrosze || a.offerId.localeCompare(b.offerId)));
   function addBase(selected: (PackagePlanEntry | undefined)[]) {
     if (selected.some(pack=>!pack)) return;
