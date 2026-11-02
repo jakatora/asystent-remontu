@@ -11,7 +11,7 @@ import type {Project} from '@/types/domain';
 
 test('explicit Optima choices quote raw m² for one 10 m² roll SKU at every tier, without another vapour foil',()=>{
  for(const[choice,ean]of [[3,'5905167881811'],[4,'5905167881804']] as const)for(const jobId of ['laminate-flooring','underlay-install']){
-  const m=jobId==='laminate-flooring'?{floorArea:20,laminateUnderlayChoice:choice,laminateThresholdCount:0,laminateKitCount:1,laminateJointTapeM:5}:{floorArea:20,underlaySystem:choice,underlayFit:1,underlayTapeM:5,underlayBarrierChoice:1,underlayFoilFit:1,underlayFoilAreaM2:30};
+  const m:Record<string,number>=jobId==='laminate-flooring'?{floorArea:20,laminateUnderlayChoice:choice,laminateThresholdCount:0,laminateKitCount:1,laminateJointTapeM:5}:{floorArea:20,underlaySystem:choice,underlayFit:1,underlayTapeM:5,underlayBarrierChoice:1,underlayFoilFit:1,underlayFoilAreaM2:30};
   const calc=calculatorEngine.calculate(getJobById(jobId)!,m);
   for(const tier of ['economy','standard','better']as const){
    const input=toPricingStageInput(calc,tier),line=input.materials.find(l=>l.material.id==='underlay')!;
