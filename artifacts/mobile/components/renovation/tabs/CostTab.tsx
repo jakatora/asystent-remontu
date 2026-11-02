@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { formatCurrency } from '@/utils/calculator';
 import { ShopPriceList } from '@/components/renovation/ShopPriceList';
 import { resolveThumbnail } from '@/components/renovation/thumbnail-resolver';
+import { ProductImage } from '@/components/project/ProductImage';
 import type { RenovationJob, MaterialItem } from '@/types/domain';
 import type { MaterialRequirement } from '@/types/engine';
 
@@ -68,22 +69,7 @@ export function CostTab({ job }: CostTabProps) {
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                {thumbnailUrl ? (
-                  <Image
-                    source={{ uri: thumbnailUrl }}
-                    style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: 10,
-                      backgroundColor: Colors.surface,
-                    }}
-                    resizeMode="cover"
-                  />
-                ) : (
-                  <View style={{ width: 56, height: 56, borderRadius: 10, backgroundColor: Colors.surface, alignItems: 'center', justifyContent: 'center' }}>
-                    <Feather name="package" size={22} color={Colors.textMuted} />
-                  </View>
-                )}
+                <ProductImage uri={thumbnailUrl} name={mat.name} size={64} />
                 <View style={{ flex: 1 }}>
                   <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>{mat.name}</Txt>
                   {brand && (
