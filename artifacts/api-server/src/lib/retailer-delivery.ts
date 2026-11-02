@@ -6,6 +6,7 @@ import {selectRealbudMp75lDelivery} from './knauf-plasters';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEwinyl} from './ewinyl';
 import {quoteDekorator} from './dekorator';
+import {quoteAlnar} from './alnar';
 import {quoteMlazienka} from './mlazienka';
 import {quoteIntegra} from './integra';
 import { createHash } from 'node:crypto';
@@ -76,12 +77,12 @@ function unavailableReason(store: string): string | undefined {
   // source: https://marbet24.pl/zamowienie
   if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','eWinyl','ChemiaDoParkietu25','eTak','Elmas'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','ALNAR','eWinyl','ChemiaDoParkietu25','eTak','Elmas'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','eWinyl','ChemiaDoParkietu25','eTak','Elmas'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','ALNAR','eWinyl','ChemiaDoParkietu25','eTak','Elmas'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
     postcodeStores:['Dekork','ChemiaDoParkietu25','eWinyl','Sewera','Cezar','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
@@ -260,6 +261,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
         if(order.store==='Dekork')return await quoteDekork(order,postalCode,fetchImpl);
         if(order.store==='ChemiaDoParkietu25')return await quoteChemia(order,postalCode,nativeFetch);
         if(order.store==='eWinyl')return await quoteEwinyl(order,postalCode,fetchImpl);
+        if(order.store==='ALNAR')return await quoteAlnar(order,fetchImpl);
         if(order.store==='DekoratorMarket')return await quoteDekorator(order,fetchImpl);
         if(order.store==='mŁazienka')return await quoteMlazienka(order,fetchImpl);
         if(order.store==='Integra Bielińscy')return await quoteIntegra(order,fetchImpl);

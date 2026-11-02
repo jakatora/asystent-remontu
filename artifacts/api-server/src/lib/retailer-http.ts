@@ -67,6 +67,20 @@ export class AnonymousShop {
     const form:Record<string,string>=action==='check'?{id:'1367',ilosc:String(count),cechy:'',akcja:'dodaj'}:action==='add'?{id:'1367',ilosc:String(count),cechy:'',komentarz:'',txt:'',wroc:'',miejsce:'0',lista_produktow:'tak'}:{data:action==='country'?'PL':'1'};
     return this.read('/inne/'+routes[action]+'.php?tok='+token,new URLSearchParams(form).toString(),false);
   }
+  /** Only reviewed ShopGold anonymous basket actions for product 6949.
+   * Tokens come from this same session's public storefront scripts. No generic
+   * endpoint, customer fields, checkout, consent or final order operation.
+   * source: https://alnar.pl/javascript/skrypty.php
+   * source: https://alnar.pl/javascript/koszyk.php */
+  async alnar(action:'check'|'add'|'country'|'shipping'|'payment',token:string,count?:number):Promise<string>{
+    if(this.origin!=='https://alnar.pl'||!/^[a-z0-9]{8,48}$/.test(token))throw Error('invalid_cart_action');
+    const routes={check:'do_koszyka_ilosc',add:'do_koszyka',country:'zmiana_kraju',shipping:'zmiana_wysylki',payment:'zmiana_platnosci'};
+    if(!Object.hasOwn(routes,action))throw Error('invalid_cart_action');
+    const product=action==='check'||action==='add';
+    if(product?count===undefined||!Number.isSafeInteger(count)||count<1||count>MAX_RETAIL_PACKAGES:count!==undefined)throw Error('invalid_cart_action');
+    const form:Record<string,string>=action==='check'?{id:'6949',ilosc:String(count),cechy:'',akcja:'dodaj'}:action==='add'?{id:'6949',ilosc:String(count),cechy:'',komentarz:'',txt:'',wroc:'',miejsce:'0',lista_produktow:'tak'}:{data:action==='country'?'PL':action==='shipping'?'14':'1'};
+    return this.read('/inne/'+routes[action]+'.php?tok='+token,new URLSearchParams(form).toString(),false);
+  }
   /** Reviewed anonymous cart additions/selections; never checkout, contact
    * fields, optional services or order submission.
    * source: https://www.mlazienka.pl/cache/3732e758432979f5637b628610eabf8e.js */
