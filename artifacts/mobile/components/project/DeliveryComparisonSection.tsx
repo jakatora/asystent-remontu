@@ -19,6 +19,7 @@ import {formatPackageSize,formatPackageUnit,formatPurchase} from '@/features/pri
 import {unconfirmedDeliveryCoverage,deliveryRateLimitMessage} from '@/features/pricing/deliveryCoverage';
 import {confirmedBasketOptions,deliveredBasketKey,type BasketChoice} from '@/features/pricing/basketOptions';
 import {BasketOptionsSection} from './BasketOptionsSection';
+import {PendingDeliverySummary} from './PendingDeliverySummary';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
 export function DeliveryComparisonSection({ comparison, missingItemCount, settings, selectedStore, onApply,choice,onChoice,choosingDisabled=false }: {
@@ -59,7 +60,6 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const available = availableStoreBasket(comparison,current,selectedStore);
   const pendingPlan = pendingDeliveryPlan(comparison, current);
   const displayedBasket = best ?? available ?? pendingPlan;
-  const pendingStores = pendingPlan?.stores.filter(store => store.deliveryGrosze === null) ?? [];
   useEffect(() => {
     const delay = deliveryRefreshDelay(comparison, current);
     if (delay === null) return;
@@ -147,14 +147,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {mode === 'shipping' && !incompleteCompetition && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Wynik obejmuje potwierdzone koszyki. Pozostałe sklepy (${comparison.missingDeliveryStores.length}) mają niepotwierdzoną dostawę lub nie pokrywają potrzebnej ilości. Szczegóły sprawdzisz poniżej.`, `The result covers confirmed baskets. Other stores (${comparison.missingDeliveryStores.length}) have unconfirmed delivery or cannot cover the required quantity. See the details below.`)}</Txt>}
     </View>}
     {current && mode === 'shipping' && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
-    {pendingPlan && <View style={{ padding: 18, gap: 10, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface }}>
-      <Txt w="bold" style={{ fontSize: 18 }}>{tr('Plan zakupów — dostawy do potwierdzenia', 'Purchase plan — delivery pending')}</Txt>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt style={{ flex: 1 }}>{tr('Materiały w tym planie', 'Materials in this plan')}</Txt><Txt w="bold">{formatGrosze(pendingPlan.materialsGrosze)}</Txt></View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12 }}><Txt style={{ flex: 1 }}>{tr(`Potwierdzone dostawy (${pendingPlan.stores.length - pendingStores.length} z ${pendingPlan.stores.length})`, `Confirmed delivery charges (${pendingPlan.stores.length - pendingStores.length} of ${pendingPlan.stores.length})`)}</Txt><Txt w="semibold">{formatGrosze(pendingPlan.stores.reduce((sum, store) => sum + (store.deliveryGrosze ?? 0), 0))}</Txt></View>
-      <Txt w="semibold" style={{ lineHeight: 22 }}>{tr('Dostawa do potwierdzenia', 'Delivery to confirm')}: {pendingStores.map(store => store.store).join(', ')}.</Txt>
-      {comparison.purchasePlanBasis === 'fewest_unquoted_stores' && <Txt style={{ lineHeight: 21, color: Colors.textSecondary }}>{tr('Spośród sprawdzonych wariantów wybraliśmy plan z najmniejszą liczbą sklepów bez wyceny dostawy, a następnie najniższym znanym kosztem. Inny podział może okazać się tańszy po potwierdzeniu brakujących opłat.', 'Among the checked allocations, this plan has the fewest stores without a delivery quote, then the lowest known cost. Another allocation may be cheaper once missing fees are confirmed.')}</Txt>}
-      <Txt style={{ lineHeight: 21, color: Colors.textSecondary }}>{tr('Poniżej znajdziesz wszystkie potrzebne opakowania i ceny materiałów w każdym sklepie. Pełny koszt i najtańszy zestaw z dostawą poznamy po potwierdzeniu brakujących opłat.', 'All required packs and each store’s material prices are listed below. The full total and lowest delivered basket depend on the missing delivery quotes.')}</Txt>
-    </View>}
+    {pendingPlan && <PendingDeliverySummary plan={pendingPlan} basis={comparison.purchasePlanBasis} />}
     {displayedBasket && <PurchaseListActions key={deliveredBasketKey(displayedBasket)} input={{ basket: displayedBasket, mode, postalCode: destination, partial: Boolean(available), limited: incompleteCompetition || comparison.searchLimited,...(extraSelected&&lowest?{extraPackageBaseline:lowest}:{}) }} />}
     {current && comparison.stockLimits?.map(limit => <View key={`${limit.store}:${limit.offerId}`} accessibilityRole="alert" style={{padding:12,gap:4,borderRadius:10,backgroundColor:Colors.warningBg}}>
       <Txt w="semibold">{limit.productName}</Txt>
