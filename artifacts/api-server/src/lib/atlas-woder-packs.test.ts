@@ -36,12 +36,12 @@ test('changed Lobo formulation, GTIN, producer or native purchase unit cannot su
 });
 
 test('production quoter replays actual whole native Lobo baskets with their distinct freight amounts',async()=>{
- for(const basket of fixture.baskets){const r=replay(basket),result=await createRetailerQuoter(r.fetcher)(basket.order as unknown as DeliveredStoreBasket,basket.postcode);r.done();assert.ok(result.quote);assert.equal(result.quote.costGrosze,basket.expectedCostGrosze);assert.equal(result.quote.basis,'retailer_basket_national');assert.equal(result.quote.destinationScope,'PL');assert.equal(result.quote.postalCode,undefined);assert.ok(Date.parse(result.quote.expiresAt)>Date.now());}
+ for(const basket of fixture.baskets){const r=replay(basket),result=await createRetailerQuoter(r.fetcher)(basket.order as unknown as DeliveredStoreBasket,basket.postcode);r.done();assert.ok('quote' in result);assert.equal(result.quote.costGrosze,basket.expectedCostGrosze);assert.equal(result.quote.basis,'retailer_basket_national');assert.equal(result.quote.destinationScope,'PL');assert.equal(result.quote.postalCode,undefined);assert.ok(Date.parse(result.quote.expiresAt)>Date.now());}
 });
 
 test('a changed native count, amount, country or absent home courier leaves freight unknown',async()=>{
  const basket=fixture.baskets.find(b=>b.name==='lobo-mixed')!;
  for(const change of [(v:any)=>{if(v.products?.length)v.products[0].quantity++;},(v:any)=>{if(v.products?.length)v.products[0].price_float++;},(v:any)=>{if(v.countries)v.countries=[];},(v:any)=>{if(v.shippings)v.shippings=[];}]){
-  const result=await createRetailerQuoter(replay(basket,change).fetcher)(basket.order as unknown as DeliveredStoreBasket,'30-001');assert.equal(result.quote,undefined);assert.ok(result.reason);
+  const result=await createRetailerQuoter(replay(basket,change).fetcher)(basket.order as unknown as DeliveredStoreBasket,'30-001');assert.ok('reason' in result);assert.ok(result.reason);assert.equal('quote' in result,false);
  }
 });
