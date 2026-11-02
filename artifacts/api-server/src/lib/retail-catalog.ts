@@ -1,3 +1,4 @@
+import {KOWALCZYK_PLASTER_SOURCES} from './kowalczyk-plasters';
 import {FUGI_SOURCES} from './fugi-sources';
 import {ALNAR_SOURCES} from './alnar-source';
 import {TOPBODEN_UNDERLAY_SOURCES} from './topboden-underlays';
@@ -17,6 +18,7 @@ import {KNAUF_FINISH_SOURCES} from './knauf-finishes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...KOWALCZYK_PLASTER_SOURCES,
   ...FUGI_SOURCES,
   ...ALNAR_SOURCES,
   ...TOPBODEN_UNDERLAY_SOURCES,

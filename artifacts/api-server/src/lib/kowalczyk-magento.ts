@@ -1,3 +1,4 @@
+import {KOWALCZYK_PLASTER_REVIEWS} from './kowalczyk-plasters';
 import { createHash } from 'node:crypto';
 import { parsePriceToGrosze } from '@workspace/price-collector';
 import type { DeliveredStoreBasket, DeliveryQuoteResult } from '../../../../lib/pricing-service/src/delivery';
@@ -8,6 +9,7 @@ import { cleanHtml, htmlAttributes, htmlElements, htmlText } from './retail-micr
 
 const ORIGIN = 'https://sklep-kowalczyk.pl';
 const reviews = [
+  ...KOWALCZYK_PLASTER_REVIEWS,
   // source: https://sklep-kowalczyk.pl/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html
   { id: 35759, ean: '5906675303024', size: 1000, unit: 'szt', brand: 'Koelner', category: 'drywall-accessory', name: 'KOELNER Wkręt samowiercący fosfatowy TEX 3,5x9,5mm 1000 szt (WS-3595)', path: '/koelner-wkret-samowiercacy-fosfatowy-tex-3-5x9-5mm-1000-szt-ws-3595.html', photo: '/5/9/5906675303024.png' },
   // source: https://sklep-kowalczyk.pl/rawlplug-koelner-kolek-szybkiego-montazu-6x40-z-kolnierzem-200szt-op-fx-06k040.html
@@ -73,7 +75,7 @@ export function confirmKowalczykTotals(t: any, expected: Wanted[], shippingGrosz
 }
 
 async function prepare(wanted: Wanted[], fetchImpl: typeof fetch) {
-  if (!wanted.length || wanted.length > 3 || new Set(wanted.map(row => row.source.ean)).size !== wanted.length) throw Error('invalid_basket');
+  if (!wanted.length || wanted.length > reviews.length || new Set(wanted.map(row => row.source.ean)).size !== wanted.length) throw Error('invalid_basket');
   const client = new AnonymousShop(ORIGIN, fetchImpl, AbortSignal.timeout(20000), retailerRequestBudget(wanted.length));
   const evidence: unknown[] = [], images = new Map<string, string>();
   for (const row of wanted) {

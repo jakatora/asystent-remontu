@@ -14,6 +14,10 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  {"ids":["mat-plaster-knauf-goldband-5kg"],"ean":"5901793354729","sourceUrl":"https://sklep-kowalczyk.pl/knauf-goldband-gipsowa-zaprawa-tynkarska-5kg-507331-52455-52455.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5901793354729.png"},
+
+  {"ids":["mat-plaster-knauf-goldband-10kg"],"ean":"5901793351162","sourceUrl":"https://sklep-kowalczyk.pl/knauf-goldband-gipsowa-zaprawa-tynkarska-10-kg-94713-52454-52454.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5901793351162.png"},
+
   // source: https://topboden.pl/podklad-pod-panele/arbiton-optima-thermo-aquastop-podklady-pod-panele-laminowane
   {"ids":["mat-underlay-arbiton-optima-thermo-10m2"],"ean":"5905167881811","sourceUrl":"https://topboden.pl/podklad-pod-panele/arbiton-optima-thermo-aquastop-podklady-pod-panele-laminowane","imageUrl":"https://topboden.pl/media/cache/gallery/photos/webp/5905167881811_P_02.webp"},
   // source: https://topboden.pl/podklad-pod-panele/arbiton-optima-aquastop-podklady-pod-panele-laminowane

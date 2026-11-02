@@ -8,9 +8,9 @@ export const PLASTER_JOB='wall-plastering';
 export const PLASTER_MODEL='wall-plastering-v2';
 const IDS=['plaster-base','plaster-primer','plaster-corner','plaster-mesh'];
 export const isPlasterMaterial=(job:string,id:string)=>job===PLASTER_JOB&&IDS.includes(id);
-// Append values only: saved measurements 1–3 keep their original product.
-const BASES=['','mat-plaster-gypsum-machine-knauf-mp75-25kg','mat-plaster-gypsum-manual-knauf-goldband-25kg','mat-plaster-cementlime-baumit-mpi25-30kg','mat-plaster-knauf-mp75l-30kg','mat-plaster-knauf-goldband-30kg'];
-const knaufGypsum=(system:number|undefined)=>[1,2,4,5].includes(system??0);
+// Append values only: saved measurements 1–5 keep their original product.
+const BASES=['','mat-plaster-gypsum-machine-knauf-mp75-25kg','mat-plaster-gypsum-manual-knauf-goldband-25kg','mat-plaster-cementlime-baumit-mpi25-30kg','mat-plaster-knauf-mp75l-30kg','mat-plaster-knauf-goldband-30kg','mat-plaster-knauf-goldband-5kg','mat-plaster-knauf-goldband-10kg'];
+const knaufGypsum=(system:number|undefined)=>[1,2,4,5,6,7].includes(system??0);
 export function plasterReference(id:string,m:MeasurementMap={}):string|null{
   if(id==='plaster-base')return Number.isInteger(m.plasterSystem)?BASES[m.plasterSystem]||null:null;
   if(id==='plaster-primer')return knaufGypsum(m.plasterSystem)?m.plasterPrimerChoice===1?'mat-plaster-primer-knauf-betokontakt-5kg':m.plasterPrimerChoice===3?'mat-plaster-primer-knauf-grundiermittel60-15kg':null:null;
@@ -26,7 +26,7 @@ const fixed=(n:number)=>Number(n.toFixed(8));
 // source: https://knauf.com/api/download-center/v1/assets/c3040106-6435-4ba9-bc4d-1d22ed5451ed?download=true
 // source: https://knauf.com/api/download-center/v1/assets/b839a52b-89ad-4679-8a6e-33ce1c23399a?country=pl&download=true
 // source: https://knauf.com/api/download-center/v1/assets/7639fea2-44c7-4c59-b464-b436316de77a?country=pl&download=true
-// MP75L: 8 kg/m²/10 mm; Goldband (both pack sizes): 13 kg/m²/15 mm.
+// MP75L: 8 kg/m²/10 mm; Goldband (all reviewed bag sizes): 13 kg/m²/15 mm.
 // source: https://knauf.com/api/download-center/v1/assets/86ef5f4d-c2b2-4734-aad6-91723572ea98?country=pl&download=true
 export function plasterQuantity(id:string,m:MeasurementMap):number|null{
   if(!IDS.includes(id)||!valid(m.wallArea,1,500))return null;
@@ -38,7 +38,7 @@ export function plasterQuantity(id:string,m:MeasurementMap):number|null{
     const finish=m.plasterFinish??0;
     const minimum=system===3?10:(m.plasterMeshArea??0)>0?15:finish===1?10:8;
     if(![0,1].includes(finish)||!plasterReference(id,m)||!valid(thickness,minimum,system===3?25:30))return null;
-    return fixed(m.wallArea*thickness*([0,1,13/15,1.4,0.8,13/15][system])*factor);
+    return fixed(m.wallArea*thickness*([0,1,13/15,1.4,0.8,13/15,13/15,13/15][system])*factor);
   }
   if(id==='plaster-primer'){
     if(m.plasterPrimerChoice===2)return 0;
@@ -71,7 +71,7 @@ export function plasterMaterials(m:MeasurementMap={}):MaterialItem[]{
 }
 export const plasterInputs:MeasurementInputDefinition[]=[
   {id:'plasterFinish',label:'Planowane wykończenie tynku',unit:'',inputType:'select',placeholder:'Wybierz wykończenie',min:0,max:1,defaultValue:0,required:false,options:[{value:0,label:'Malowanie, tapeta lub gładź'},{value:1,label:'Płytki ceramiczne'}],hint:'Pod płytki gipsowy Knauf musi mieć co najmniej 10 mm; powierzchni nie wygładzaj i nie zacieraj. Dobierz ciężar okładziny i hydroizolację do całego systemu. Zbrojenie siatką wymaga minimum 15 mm niezależnie od wykończenia.'},
-  {id:'plasterSystem',label:'Tynk dopasowany do pomieszczenia i sposobu pracy',unit:'',inputType:'select',placeholder:'Wybierz system',min:0,max:5,defaultValue:0,required:false,options:[{value:0,label:'Jeszcze dobieram tynk'},{value:1,label:'Knauf MP 75 25 kg — maszynowo'},{value:2,label:'Knauf Goldband 25 kg — ręcznie'},{value:3,label:'Baumit MPI 25 30 kg — cementowo-wapienny'},{value:4,label:'Knauf MP 75 L 30 kg — lekki, maszynowo'},{value:5,label:'Knauf Goldband 30 kg — ręcznie'}],hint:'Tynk dobierz do pomieszczenia i sposobu pracy. Orientacyjne zużycie przy 10 mm: MP 75 — 10 kg/m², MP 75 L — 8 kg/m², MPI 25 — 14 kg/m². Goldband: 13 kg/m² przy 15 mm; przeliczamy do podanej grubości. Zapas dodajemy osobno. Kalkulator dla ścian: gipsowe 8–30 mm, MPI 25 10–25 mm. Worek 25 kg i 30 kg to odrębne oferty; dostawę liczymy dla potrzebnych opakowań.'},
+  {id:'plasterSystem',label:'Tynk dopasowany do pomieszczenia i sposobu pracy',unit:'',inputType:'select',placeholder:'Wybierz system',min:0,max:7,defaultValue:0,required:false,options:[{value:0,label:'Jeszcze dobieram tynk'},{value:1,label:'Knauf MP 75 25 kg — maszynowo'},{value:2,label:'Knauf Goldband 25 kg — ręcznie'},{value:3,label:'Baumit MPI 25 30 kg — cementowo-wapienny'},{value:4,label:'Knauf MP 75 L 30 kg — lekki, maszynowo'},{value:5,label:'Knauf Goldband 30 kg — ręcznie'},{value:6,label:'Knauf Goldband 5 kg — ręcznie'},{value:7,label:'Knauf Goldband 10 kg — ręcznie'}],hint:'Tynk dobierz do pomieszczenia i sposobu pracy. Orientacyjne zużycie przy 10 mm: MP 75 — 10 kg/m², MP 75 L — 8 kg/m², MPI 25 — 14 kg/m². Goldband: 13 kg/m² przy 15 mm; przeliczamy do podanej grubości. Zapas dodajemy osobno. Kalkulator dla ścian: gipsowe 8–30 mm, MPI 25 10–25 mm. Worki 5, 10, 25 i 30 kg to odrębne oferty; dostawę liczymy dla potrzebnych opakowań.'},
   {id:'plasterPrimerChoice',label:'Podłoże i grunt pod wybrany tynk',unit:'',inputType:'select',placeholder:'Sprawdź podłoże',min:0,max:3,defaultValue:0,required:false,options:[{value:0,label:'Podłoże lub przygotowanie do ustalenia'},{value:1,label:'Gładki niechłonny beton pod tynk Knauf — Betokontakt 5 kg'},{value:2,label:'Podłoże już prawidłowo przygotowane — bez zakupu gruntu'},{value:3,label:'Chłonny mur pod tynk Knauf — Grundiermittel 60 15 kg, 1:2'}],hint:'Betokontakt: ok. 0,225 kg/m² na gładki niechłonny beton. Grundiermittel 60: koncentrat na chłonny mur (np. cegła, beton komórkowy, silikat); ten wariant liczy rozcieńczenie 1:2. Dobierz je po próbie na podłożu według karty. Nie dobieramy tych gruntów automatycznie do Baumit. Oba wymagają wyschnięcia przed tynkowaniem, minimum 12 h w warunkach karty.'},
   {id:'plasterPrimerCoverageM2',label:'Wydajność całego wiadra 15 kg przy rozcieńczeniu 1:2',unit:'m²',inputType:'area',placeholder:'400',defaultValue:400,min:1,max:1000,required:false,hint:'Karta Grundiermittel 60 (08/2026): ok. 400–450 m² z wiadra przy 1:2, czyli 45 l gotowej mieszanki. Przyjmujemy 400 m² jako założenie zakupowe, przed dodaniem zapasu. Skoryguj po próbie na swojej ścianie. Liczymy kilogramy koncentratu, bez masy dolewanej wody. Inne rozcieńczenie wymaga ponownego doboru zużycia.'},
   {id:'plasterReservePercent',label:'Zapas tynku i gruntu',unit:'%',inputType:'count',placeholder:'10',defaultValue:10,min:0,max:30,required:false,hint:'Założenie zakupowe ponad zużycie orientacyjne producenta. Opakowania zaokrąglamy po zsumowaniu zapotrzebowania we wspólnym koszyku.'},
