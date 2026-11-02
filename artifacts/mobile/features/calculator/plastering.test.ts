@@ -134,7 +134,7 @@ test('new packs retain the Knauf substrate, mesh and finish rules rather than be
   assert.equal(line('plaster-base',{plasterSystem:system,plasterThickness:8,plasterFinish:1,plasterMeshArea:0}).quantityKnown,false);
   assert.equal(line('plaster-base',{plasterSystem:system,plasterThickness:8,plasterFinish:0,plasterMeshArea:0}).quantityKnown,true);
  }
- for(const system of [-1,1.5,4.5,6,NaN,Infinity])assert.equal(line('plaster-base',{plasterSystem:system}).quantityKnown,false);
+ for(const system of [-1,1.5,4.5,8,NaN,Infinity])assert.equal(line('plaster-base',{plasterSystem:system}).quantityKnown,false);
 });
 
 test('appended selections preserve existing measurement values and exact25kg identities; owning that pack cannot exclude a30kg product',()=>{
