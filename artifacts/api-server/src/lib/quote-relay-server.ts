@@ -7,12 +7,15 @@ import {relaySignature,relayDigest,relaySecretValid,equalSignature} from './quot
 import {QuoteQueue} from './quote-queue';
 import {RETAIL_SOURCES} from './retail-catalog';
 import {readRetailSource,type RetailSource,type RetailObservation} from './retail-pages';
-const REASONS=['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed','retailer_rate_limited'];
-const native:BasketQuoter=(order,postcode)=>order.store==='ABUD'?quoteAbud(order,postcode,fetch):order.store==='eTak'?quoteEtak(order,postcode,fetch):quoteChemia(order,postcode,fetch);
+import {createRetailerConnectionGuard} from './retailer-connection';
+const REASONS=['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed','retailer_rate_limited','retailer_connection_unavailable'];
 /** No URL, product action or arbitrary GraphQL can be supplied over this route.
  * A caller must hold the service-only key; bodies/replies are signed and bound
  * to a fresh nonce. Replayed or malformed requests never reach a merchant. */
-export function createQuoteRelayHandler({secret=process.env.REMONT_QUOTE_RELAY_SECRET,quote=native,readSource=readRetailSource,now=Date.now,queue=new QuoteQueue(3,12,3000)}:{secret?:string;quote?:BasketQuoter;readSource?:(source:RetailSource)=>Promise<RetailObservation>;now?:()=>number;queue?:QuoteQueue}={}){
+export function createQuoteRelayHandler({secret=process.env.REMONT_QUOTE_RELAY_SECRET,quote,readSource,now=Date.now,queue=new QuoteQueue(3,12,3000),fetchImpl=fetch}:{secret?:string;quote?:BasketQuoter;readSource?:(source:RetailSource)=>Promise<RetailObservation>;now?:()=>number;queue?:QuoteQueue;fetchImpl?:typeof fetch}={}){
+ const connections=createRetailerConnectionGuard(fetchImpl,RETAIL_SOURCES.map(source=>source.url),now);
+ quote??=(order,postcode)=>order.store==='ABUD'?quoteAbud(order,postcode,connections.fetch):order.store==='eTak'?quoteEtak(order,postcode,connections.fetch):quoteChemia(order,postcode,connections.fetch);
+ readSource??=source=>readRetailSource(source,connections.fetch);
  const seen=new Map<string,number>();
  return async(req:IncomingMessage,res:ServerResponse)=>{
   const send=(status:number,value:unknown,signature?:string)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',...(signature?{'X-Remont-Signature':signature}:{})});res.end(JSON.stringify(value));};
@@ -33,7 +36,7 @@ export function createQuoteRelayHandler({secret=process.env.REMONT_QUOTE_RELAY_S
     const source=RETAIL_SOURCES.find(s=>s.id===data.sourceId&&s.format==='idosell'&&['ABUD','ChemiaDoParkietu25','eTak'].includes(s.store)&&!s.disabledReason);
     if(data.version!==1||!source||Object.keys(data).some(k=>!['version','action','sourceId'].includes(k))){reply({reason:'invalid_basket'});return;}
     const release=await queue.acquire();if(!release){reply({reason:'quote_busy'});return;}
-    try{reply({observation:await readSource(source)});}catch(error){reply({reason:error instanceof Error&&error.message==='retailer_http_429'?'retailer_rate_limited':error instanceof Error&&['retailer_out_of_stock','purchase_rules_changed','retailer_rate_limited'].includes(error.message)?error.message:'quote_unavailable'});}finally{release();}return;
+    try{reply({observation:await readSource(source)});}catch(error){reply({reason:error instanceof Error&&error.message==='retailer_http_429'?'retailer_rate_limited':error instanceof Error&&['retailer_out_of_stock','purchase_rules_changed','retailer_rate_limited','retailer_connection_unavailable'].includes(error.message)?error.message:'quote_unavailable'});}finally{release();}return;
   }
   const basket=data?.basket as DeliveredStoreBasket;
   if(data.version!==1||data.action!=='quote'||Object.keys(data).some(k=>!['version','action','basket','postalCode'].includes(k))||!/^\d{2}-\d{3}$/.test(data.postalCode??'')||!basket||!['ABUD','ChemiaDoParkietu25','eTak'].includes(basket.store)||!Number.isSafeInteger(basket.materialsGrosze)||basket.materialsGrosze<=0||!Array.isArray(basket.lines)||basket.lines.length<1||basket.lines.length>20||basket.lines.some(l=>!l?.product||typeof l.product.id!=='string'||!Array.isArray(l.packages)||l.packages.length<1||l.packages.length>20)){reply({reason:'invalid_basket'});return;}

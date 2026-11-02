@@ -24,6 +24,7 @@ import {RetailPriceHistory} from './lib/retail-history';
 import {catalogAvailability} from './lib/catalog-availability';
 import {parseCatalogRefreshIdentity,catalogRefreshUnit} from '../../../lib/pricing-service/src/catalog-refresh';
 import {catalogRefreshOffers} from './lib/catalog-refresh-offers';
+import {createRetailerConnectionGuard} from './lib/retailer-connection';
 
 const REFRESH_INTERVAL_MS = 6 * 60 * 60 * 1000;
 const normalUnit = (value: string) => ({ litr: 'l', litry: 'l', 'm²': 'm2', 'szt.': 'szt' }[value] ?? value);
@@ -39,7 +40,8 @@ export interface SharedPricingOptions {
 /** Uses the existing pricing engine and HTTP serializer with an isolated cache.
  * It neither opens the other apps' databases nor invokes paid AI. */
 export function createRemontService(options: SharedPricingOptions = {}) {
-  const quoteBasket = options.basketQuoter ?? createRetailerQuoter(options.fetchImpl);
+  const connections=createRetailerConnectionGuard(options.fetchImpl??fetch,RETAIL_SOURCES.map(source=>source.url));
+  const quoteBasket = options.basketQuoter ?? createRetailerQuoter(connections.fetch,connections);
   const observations = new Map<string, RetailObservation>();
   const errors = new Map<string, string>();
   const withdrawnAt = new Map<string, string>();
@@ -159,7 +161,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     const read = (async () => {
       let succeeded = false;
       try {
-        accept(await readRetailSource(source, options.fetchImpl));
+        accept(await readRetailSource(source, connections.fetch));
+        connections.confirmAvailable(source.url);
         errors.delete(source.id);
         succeeded = true;
       } catch (error) {

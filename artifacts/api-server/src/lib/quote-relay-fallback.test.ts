@@ -5,6 +5,7 @@ import {readRetailSource} from './retail-pages';
 import {ETAK_SOURCES} from './etak-sources';
 import {QUOTE_RELAY_URL,relayDigest,relaySignature} from './quote-relay-auth';
 import {AnonymousShop} from './retailer-http';
+import {createRetailerConnectionGuard} from './retailer-connection';
 import cards from './fixtures/etak-cards-wave158.json';
 import native from './fixtures/etak-baskets-wave158.json';
 import type {DeliveredStoreBasket} from '../../../../lib/pricing-service/src/delivery';
@@ -24,7 +25,7 @@ function transport(reason:string){let relayed=0,direct=0;const fetcher:typeof fe
 
 test('one transient relay failure uses the same verified native basket; duplicate callers share that work',async t=>{
   clientMode(t);
-  for(const reason of ['network','quote_unavailable']){const mock=transport(reason),quote=createRetailerQuoter(mock.fetcher),[a,b]=await Promise.all([quote(order,'30-001'),quote(order,'30-001')]);assert.deepEqual(a,b);assert.ok('quote'in a);assert.equal(a.quote.materialsRoundingGrosze,-54);assert.equal(a.quote.costGrosze,1750);assert.equal(a.quote.cartPricing,undefined);assert.equal(mock.counts().relayed,1);assert.equal(mock.counts().direct,5);}
+  for(const reason of ['network','quote_unavailable','retailer_connection_unavailable']){const mock=transport(reason),quote=createRetailerQuoter(mock.fetcher),[a,b]=await Promise.all([quote(order,'30-001'),quote(order,'30-001')]);assert.deepEqual(a,b);assert.ok('quote'in a);assert.equal(a.quote.materialsRoundingGrosze,-54);assert.equal(a.quote.costGrosze,1750);assert.equal(a.quote.cartPricing,undefined);assert.equal(mock.counts().relayed,1);assert.equal(mock.counts().direct,5);}
 });
 
 test('price, stock, purchase rules, retailer rate limits and a busy quote queue never trigger a second route',async t=>{
@@ -34,7 +35,7 @@ test('price, stock, purchase rules, retailer rate limits and a busy quote queue 
 
 test('price refresh can use a directly verified card after a network failure, while stock and rate limits remain final',async t=>{
   clientMode(t);
-  for(const reason of ['network','quote_unavailable']){const mock=transport(reason),result=await readRetailSource(source,mock.fetcher);assert.equal(result.ean,source.ean);assert.equal(result.priceGrosze,260);assert.equal(mock.counts().relayed,1);assert.equal(mock.counts().direct,1);}
+  for(const reason of ['network','quote_unavailable','retailer_connection_unavailable']){const mock=transport(reason),result=await readRetailSource(source,mock.fetcher);assert.equal(result.ean,source.ean);assert.equal(result.priceGrosze,260);assert.equal(mock.counts().relayed,1);assert.equal(mock.counts().direct,1);}
   for(const reason of ['retailer_out_of_stock','purchase_rules_changed','retailer_rate_limited']){const mock=transport(reason);await assert.rejects(readRetailSource(source,mock.fetcher),new RegExp(reason));assert.equal(mock.counts().direct,0);}
 });
 
@@ -47,4 +48,12 @@ test('a busy price-refresh relay ends the read without adding native merchant tr
  clientMode(t);const mock=transport('quote_busy');
  await assert.rejects(readRetailSource(source,mock.fetcher),/^Error: quote_busy$/);
  assert.deepEqual(mock.counts(),{relayed:1,direct:0});
+});
+
+test('an exact unexpired cached quote survives a later connection failure, while another postcode never borrows it',async t=>{
+ clientMode(t);let offline=false;
+ const mock=transport('network'),guard=createRetailerConnectionGuard(async(input,init)=>{if(offline&&String(input)===source.url)throw new TypeError('fetch failed',{cause:Object.assign(Error('connect'),{code:'UND_ERR_CONNECT_TIMEOUT'})});return mock.fetcher(input,init);},[source.url]);
+ const quote=createRetailerQuoter(guard.fetch,guard),first=await quote(order,'30-001');assert.ok('quote'in first);const original=JSON.stringify(first);offline=true;await assert.rejects(guard.fetch(source.url),/retailer_connection_unavailable/);const before=mock.counts();
+ assert.deepEqual(await quote(order,'30-001'),first);assert.deepEqual(await quote(order,'00-001'),{reason:'retailer_connection_unavailable'});assert.equal(quote.cached!(order,'00-001'),null);assert.deepEqual(mock.counts(),before);assert.equal(JSON.stringify(first),original);
+ offline=false;guard.confirmAvailable(source.url);const recovered=await quote(order,'00-001');assert.ok('quote'in recovered);assert.equal(recovered.quote.postalCode,'00-001');assert.equal(recovered.quote.costGrosze,1750);
 });

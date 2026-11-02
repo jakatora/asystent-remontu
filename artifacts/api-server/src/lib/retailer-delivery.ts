@@ -32,6 +32,7 @@ import { quoteKowalczyk } from './kowalczyk-magento';
 import { quoteIzosystems } from './izosystems-delivery';
 import {quoteBmb} from './bmb';
 import {quoteKronodom} from './kronodom-delivery';
+import {createRetailerConnectionGuard,type RetailerConnectionGuard} from './retailer-connection';
 
 // Public anonymous storefront APIs, the same paths used by these shop frontends.
 // source: https://dcsaascdn.net/js/front-api-1.5.0.min.js
@@ -193,7 +194,13 @@ export function quoteBeforeDeadline(quoter: CachedBasketQuoter, order: Delivered
 /** Per-service cache: destination + complete basket + price, never browser
  * cookies or personal details. Cap memory, coalesce duplicate work and reject
  * excess load with a bounded FIFO queue shared by all requests. */
-export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBasketQuoter {
+export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionGuard?:RetailerConnectionGuard): CachedBasketQuoter {
+  const connections=connectionGuard??createRetailerConnectionGuard(fetchImpl,RETAIL_SOURCES.map(source=>source.url));
+  fetchImpl=connections.fetch;
+  const sourceUrls=(order:DeliveredStoreBasket)=>order.lines.flatMap(line=>line.packages.flatMap(pack=>{
+    const source=RETAIL_SOURCES.find(source=>source.id===pack.offerId&&source.store===order.store&&source.url===pack.url);
+    return source?[source.url]:[];
+  }));
   const pages=createCheckoutPageReader();
   type CacheRow={until:number;result:Promise<DeliveryQuoteResult>;confirmed?:DeliveryQuoteResult};
   const cache = new Map<string,CacheRow>();
@@ -225,18 +232,22 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
     const national=cachedNational(order);if(national)return national;
     const key = keyFor(order, postalCode);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
+    if(sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     const pending = (async (): Promise<DeliveryQuoteResult> => {
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
+        // The connection may have failed while this basket waited in the FIFO.
+        if(sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
         let nativeFetch=fetchImpl;
         if(quoteRelayEnabled(order.store)){
           const deadline=AbortSignal.timeout(20000);
           nativeFetch=(input,init)=>fetchImpl(input,{...init,signal:AbortSignal.any([deadline,...(init?.signal?[init.signal]:[])])});
           let relayed:DeliveryQuoteResult;
           try{relayed=await quoteThroughRelay(order,postalCode,nativeFetch);}catch{relayed={reason:'quote_unavailable'};}
-          if('quote'in relayed||relayed.reason!=='quote_unavailable')return relayed;
+          if('quote'in relayed){for(const url of sourceUrls(order))connections.confirmAvailable(url);return relayed;}
+          if(!['quote_unavailable','retailer_connection_unavailable'].includes(relayed.reason))return relayed;
           // One fallback, same pinned basket and total I/O deadline. A known
           // price/stock/rule change, rate limit or busy queue never retries.
           if(deadline.aborted)return relayed;
@@ -260,7 +271,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch): CachedBas
         if(order.store==='ABUD')return await quoteAbud(order,postalCode,nativeFetch);
         return await (order.store === 'Kronosfera' ? quoteKronosfera(order,fetchImpl) : order.store === 'Folnet' ? quoteFolnet(order,fetchImpl) : order.store === 'Modna Łazienka' ? quoteModna(order,fetchImpl) : order.store === 'HIPPER' ? quoteCertusoft(order,fetchImpl) : order.store === 'Eelektryka' ? quotePrestashop(order,fetchImpl) : order.store === 'TopBoden' ? quoteTopboden(order,fetchImpl) : order.store === 'Sewera' ? quoteSewera(order, postalCode, fetchImpl, pages) : order.store === 'Buduj24' ? quoteBuduj24(order, fetchImpl) : order.store === 'Cezar' ? quoteCezar(order, postalCode, fetchImpl) : quoteShoper(order, fetchImpl));
       } catch (error: unknown) {
-        return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed','retailer_rate_limited'].includes(error.message) ? error.message : 'quote_unavailable' };
+        return { reason: error instanceof Error && error.message === 'retailer_out_of_stock' ? 'product_unavailable' : error instanceof Error && ['price_changed','product_unavailable','insufficient_stock','basket_not_confirmed','no_home_delivery','address_required','purchase_rules_changed','retailer_rate_limited','retailer_connection_unavailable'].includes(error.message) ? error.message : 'quote_unavailable' };
       } finally { release(); }
     })();
     cache.set(key, { until: Date.now() + TTL, result: pending });
