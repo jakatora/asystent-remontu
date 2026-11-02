@@ -315,7 +315,7 @@ workflows:
         script: |
           set -euo pipefail
           cd "$CM_BUILD_DIR"
-          trap 'RESULT=$?; tail -n 80 android-emulator.log 2>/dev/null || true; exit "$RESULT"' EXIT
+          trap 'RESULT=$?; adb logcat -d > android-native-logcat.txt 2>&1 || true; tail -n 80 android-emulator.log 2>/dev/null || true; exit "$RESULT"' EXIT
           "$ANDROID_HOME/emulator/emulator" -accel-check
           REMONT_SDK_BIN="$ANDROID_HOME/cmdline-tools/latest/bin"
           if [ ! -x "$REMONT_SDK_BIN/sdkmanager" ]; then
