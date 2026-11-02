@@ -1353,6 +1353,8 @@ export default function WizardScreen() {
                       room: roomLabel || t('wizard.summary.fallbackRoom'),
                     })}
                     placeholderTextColor={Colors.textMuted}
+                    accessibilityLabel={t('wizard.summary.nameLabel')}
+                    accessibilityHint={t('wizard.summary.nameHint')}
                     value={draft.projectName}
                     onChangeText={(v) => patchDraft({ projectName: v })}
                     returnKeyType="done"

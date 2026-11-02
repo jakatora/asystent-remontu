@@ -7,7 +7,7 @@ import type { SerializedLine } from './pricingApi';
 /** A known reference helps the user check a shop; it never supplies a price,
  * availability, delivery charge or a replacement product for the ranking. */
 export function unpricedReference(line: SerializedLine) {
-  if (line.resolved) return null;
+  if (line.resolved || line.query.packageFamily !== undefined) return null;
   const codes = [line.product?.ean, line.product?.gtin, line.query.ean, line.query.gtin].filter((code): code is string => Boolean(code));
   if (new Set(codes).size > 1) return null;
   const category = line.product?.category ?? line.query.category;

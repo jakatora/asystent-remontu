@@ -1,6 +1,14 @@
+import {reviewedPackageFamily} from '../../../../lib/pricing-service/src/reviewed-package-families';
 import { normalizeUnit } from './quantity';
 import { unpricedReference } from './unpricedReference';
 import type { SerializedLine, SerializedStage } from './pricingApi';
+
+/** A family is recognised only by its closed key, name, category and unit.
+ * Never turn it into a particular GTIN, package size or available offer. */
+export function unpricedPackageFamily(line:SerializedLine){
+  if(line.resolved||line.product)return null;
+  return reviewedPackageFamily(line.query,normalizeUnit(line.unit??''))??null;
+}
 
 export interface UnpricedGroup { key: string; line: SerializedLine; sourceCount: number }
 /** Presentation only: combine exact identities and compatible quantities, never
@@ -14,7 +22,8 @@ export function groupUnpricedLines(stages: readonly Pick<SerializedStage, 'lines
     const unit = normalizeUnit(line.unit ?? ''), ref = codes.length < 2 ? unpricedReference(line) : null;
     const knownQuantity = Number.isFinite(line.quantity) && line.quantity > 0 && ['l','kg','ml','m','m2','szt'].includes(unit);
     const missing = ['no-offer','no_offer','no_price','no-product','not_found','insufficient-stock'].includes(line.reason ?? '');
-    const identity = ref ? ['reference',ref.id] : code ? ['code',code,line.query.category ?? line.product?.category ?? ''] : null;
+    const family=unpricedPackageFamily(line);
+    const identity = line.query.packageFamily!==undefined ? family ? ['family',family.key] : null : ref ? ['reference',ref.id] : code ? ['code',code,line.query.category ?? line.product?.category ?? ''] : null;
     const key = identity && knownQuantity && missing ? JSON.stringify([identity,unit,line.reason]) : `single:${stageIndex}:${lineIndex}`;
     const found = groups.get(key), sum = found ? found.line.quantity + line.quantity : line.quantity;
     if (found && Number.isFinite(sum)) {

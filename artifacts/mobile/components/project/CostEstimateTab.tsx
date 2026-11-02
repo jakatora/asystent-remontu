@@ -55,7 +55,7 @@ import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, deliverySettingsForStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
 import { unpricedReference } from '@/features/pricing/unpricedReference';
-import { groupUnpricedLines } from '@/features/pricing/unpricedGroups';
+import { groupUnpricedLines, unpricedPackageFamily } from '@/features/pricing/unpricedGroups';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
 import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
@@ -187,6 +187,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const priceWrites=useRef(Promise.resolve());
   const preferenceWrites = useRef(Promise.resolve());
   const requestVersion = useRef(0);
+  const automaticEstimateTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
   const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, productSelectionReady, stock.ready, stock.readFailed]);
@@ -235,6 +236,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [storageKey, priceStorageKey, scope]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
+    // Explicit refresh/retry takes priority over an automatic pending update.
+    if(automaticEstimateTimer.current!==null){clearTimeout(automaticEstimateTimer.current);automaticEstimateTimer.current=null;}
     if (pendingDestination || !productSelectionReady || !stock.ready || stock.readFailed) return;
     if (!hasInput || !shoppingReady || loadedScope !== scope || !doorChoice.ready || !panels.ready || panels.readFailed || !foils.ready || foils.readFailed || !washbasins.ready || washbasins.readFailed || !tiles.ready || tiles.readFailed || !adhesives.ready || adhesives.readFailed) return;
     const version = ++requestVersion.current;
@@ -283,8 +286,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   }, [input, hasInput, region, t, language, delivery, selectedStore, loadedScope, scope, priceStorageKey, doorChoice.ready, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, onPurchaseSnapshot, pendingDestination, productSelectionReady, stock.ready, stock.readFailed]);
 
   useEffect(() => {
-    if (hasInput && isPricingApiConfigured) void fetchEstimate();
-    return () => { requestVersion.current++; };
+    // Coalesce rapid work/product choices before starting native shop carts.
+    // Hide old purchase actions while the automatic update is pending.
+    if(hasInput&&isPricingApiConfigured){onPurchaseSnapshot?.(null);setState({status:'loading'});setRefreshing(false);}
+    const timer=hasInput&&isPricingApiConfigured?setTimeout(()=>{automaticEstimateTimer.current=null;void fetchEstimate();},300):null;
+    automaticEstimateTimer.current=timer;
+    return()=>{if(timer!==null)clearTimeout(timer);if(automaticEstimateTimer.current===timer)automaticEstimateTimer.current=null;requestVersion.current++;};
   }, [hasInput, fetchEstimate]);
 
   const chooseBasket=(choice:BasketChoice)=>{
@@ -1589,7 +1596,7 @@ function Badge({
 
 function UnresolvedLineCard({ line, sourceCount = 1, selectedStore, postalCode, pickup }: { line: SerializedLine; sourceCount?: number; selectedStore?: string | null; postalCode?: string; pickup?:boolean }) {
   const { t, language } = useLanguage();
-  const ref = unpricedReference(line), pl = language === 'pl';
+  const ref = unpricedReference(line), family=unpricedPackageFamily(line), pl = language === 'pl';
   const [linkFailed, setLinkFailed] = useState(false);
   const mapUrl = ref && postalCode ? storeMapSearchUrl(ref.store, postalCode) : null;
   const open = (url: string) => { setLinkFailed(false); void Linking.openURL(url).catch(() => setLinkFailed(true)); };
@@ -1607,7 +1614,7 @@ function UnresolvedLineCard({ line, sourceCount = 1, selectedStore, postalCode, 
       <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
         {ref && <ProductImage uri={ref.imageUrl} name={ref.name} size={56} />}
         <View style={{ flex: 1, gap: 5 }}>
-          <Txt w="medium" style={{ fontSize: 14, color: Colors.text }}>{ref?.name ?? line.query.normalizedName ?? line.query.ean ?? line.query.gtin ?? '—'}</Txt>
+          <Txt w="medium" style={{ fontSize: 14, color: Colors.text }}>{family?.name ?? ref?.name ?? line.query.normalizedName ?? line.query.ean ?? line.query.gtin ?? '—'}</Txt>
           {ref?.ean && <Txt selectable style={{ fontSize: 12, color: Colors.textSecondary }}>EAN: {ref.ean}</Txt>}
         </View>
       </View>

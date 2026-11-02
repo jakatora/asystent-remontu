@@ -181,6 +181,8 @@ export interface SerializedLine {
   quantity: number;
   unit: string | null;
   query: {
+    /** Exact reviewed family requested by the user; not a particular bucket. */
+    packageFamily?: ReviewedPackageFamily;
     ean: string | null;
     gtin: string | null;
     normalizedName: string | null;
