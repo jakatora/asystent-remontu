@@ -1,0 +1,896 @@
+{
+  "capturedAt": "2026-11-02T08:18:40.347Z",
+  "scope": "Real anonymous responses. Product/cart HTML projected to identity, purchase rules, anonymous state and country; payment HTML retains only transfer identity and payable gross amount. CSRF tokens and ephemeral address keys masked. No contact, order or payment submission.",
+  "records": [
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "location": null,
+      "response": "<script>var prestashop = {\"shop\":{\"name\":\"Unimet sp z o.o.\"},\"currency\":{\"iso_code\":\"PLN\"},\"customer\":{\"is_logged\":false},\"cart\":{\"products\":[],\"totals\":{\"total\":{\"type\":\"total\",\"label\":\"Razem\",\"amount\":0,\"value\":\"0,00 zł\"},\"total_including_tax\":{\"type\":\"total\",\"label\":\"Suma (brutto)\",\"amount\":0,\"value\":\"0,00 zł\"},\"total_excluding_tax\":{\"type\":\"total\",\"label\":\"Suma (netto)\",\"amount\":0,\"value\":\"0,00 zł\"}},\"subtotals\":{\"products\":{\"type\":\"products\",\"label\":\"Produkty\",\"amount\":0,\"value\":\"0,00 zł\"},\"discounts\":null,\"shipping\":{\"type\":\"shipping\",\"label\":\"Wysyłka\",\"amount\":0,\"value\":\"\"},\"tax\":null},\"products_count\":0,\"summary_string\":\"0 sztuk\",\"vouchers\":{\"allowed\":1,\"added\":[]},\"discounts\":[],\"minimalPurchase\":0.01,\"minimalPurchaseRequired\":\"Minimalny zakup na kwotę 0,01 zł (netto) jest wymagany aby zatwierdzić Twoje zamówienie, obecna wartość koszyka to 0,00 zł (netto).\"},\"static_token\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"};</script>\n<div itemscope itemtype=\"https://schema.org/Product\"><img class=\"js-qv-product-cover\" src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" style=\"width:100%;\" itemprop=\"image\">\n<img class=\"thumb js-thumb selected \" data-image-medium-src=\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" data-image-large-src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" src=\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" width=\"100\" itemprop=\"image\" >\n<h1 class=\"product_name\" itemprop=\"name\">NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM</h1>\n<div id=\"product_manufacturer\" itemprop=\"brand\" itemscope itemtype=\"http://schema.org/Brand\"> <label class=\"label\">Marka </label> <a class=\"editable\" itemprop=\"url\" href=\"https://www.unimet.pl/brand/366-budmat\" title=\"BUDMAT\"><span itemprop=\"name\">BUDMAT</span></a></div>\n<span itemprop=\"name\">BUDMAT</span>\n<div class=\"product-price h5 \" itemprop=\"offers\" itemscope itemtype=\"https://schema.org/Offer\" ><meta itemprop=\"url\" content=\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\"><link itemprop=\"availability\" href=\"https://schema.org/InStock\"/><meta itemprop=\"priceCurrency\" content=\"PLN\"><div class=\"current-price\"> <span class=\"price\" itemprop=\"price\" content=\"6.35\">6,35&nbsp;zł</span></div><p class=\"product-unit-price sub\"> 2,54&nbsp;zł za <span>1 metr bieżący</span></p></div>\n<meta itemprop=\"gtin13\" content=\"5900308102411\" />\n<img class=\"js-modal-product-cover product-cover-modal\" width=\"800\" src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" itemprop=\"image\">\n<img data-image-large-src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" class=\"thumb js-modal-thumb\" src=\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" width=\"259\" itemprop=\"image\">\n<div class=\"tax-shipping-delivery-label\"><span class=\"price_tax_label\"> <span>SZT</span>Brutto </span></div><form action=\"https://www.unimet.pl/koszyk\" method=\"post\" id=\"add-to-cart-or-refresh\"><input type=\"hidden\" name=\"id_product\" value=\"262771\" id=\"product_page_product_id\">\n<input type=\"text\" name=\"qty\" id=\"quantity_wanted\" value=\"25\" class=\"input-group\" min=\"25\" aria-label=\"Ilość\" ><input name=\"token\" value=\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"></form></div>"
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/koszyk",
+      "method": "POST",
+      "body": "token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&id_product=262771&id_customization=0&qty=25&add=1&action=update&ajax=1",
+      "status": 200,
+      "location": null,
+      "response": {
+        "success": true,
+        "id_product": 262771,
+        "id_product_attribute": 0,
+        "id_customization": 0,
+        "quantity": 25,
+        "cart": {
+          "products": [
+            {
+              "add_to_cart_url": "https://www.unimet.pl/koszyk?add=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "id": "262771",
+              "attributes": [],
+              "show_price": true,
+              "weight_unit": "kg",
+              "url": "https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+              "canonical_url": "https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+              "condition": false,
+              "embedded_attributes": {
+                "id_product": "262771",
+                "id_manufacturer": "366",
+                "on_sale": "0",
+                "online_only": "0",
+                "ecotax": "0.000000",
+                "quantity": 25,
+                "minimal_quantity": "25",
+                "price": "6,35 zł",
+                "reference": "G-NA 250+SIA",
+                "customizable": "0",
+                "condition": "new",
+                "description_short": "<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...",
+                "link_rewrite": "naroznik-aluminiowy-z-siatka-7070-250cm",
+                "name": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+                "available_now": "Towar w naszym magazynie            ",
+                "available_later": "                                                                        ",
+                "new": "0",
+                "id_product_attribute": "0",
+                "id_customization": null,
+                "category": "narozniki-6",
+                "id_image": "262771-2006367",
+                "reduction": 0,
+                "price_without_reduction": 6.3468,
+                "specific_prices": {
+                  "id_specific_price": "1326202999",
+                  "id_specific_price_rule": "0",
+                  "id_cart": "0",
+                  "id_product": "262771",
+                  "id_shop": "1",
+                  "id_shop_group": "0",
+                  "id_currency": "0",
+                  "id_country": "0",
+                  "id_group": "1",
+                  "id_customer": "0",
+                  "id_product_attribute": "0",
+                  "price": 5.16,
+                  "from_quantity": "0",
+                  "reduction": "0.000000",
+                  "reduction_tax": "0",
+                  "reduction_type": "amount",
+                  "from": "0000-00-00 00:00:00",
+                  "to": "0000-00-00 00:00:00",
+                  "score": "50"
+                },
+                "features": [
+                  {
+                    "id_feature": "602",
+                    "id_product": "262771",
+                    "id_feature_value": "179295"
+                  }
+                ],
+                "attributes": [],
+                "rate": 23,
+                "tax_name": "PTU PL 23%",
+                "pack": false,
+                "ecotax_rate": 0,
+                "price_amount": "6,35 zł",
+                "quantity_wanted": "25"
+              },
+              "quantity_discounts": [],
+              "reference_to_display": "G-NA 250+SIA",
+              "seo_availability": "https://schema.org/InStock",
+              "labels": {
+                "tax_short": "(brutto)",
+                "tax_long": "Brutto"
+              },
+              "ecotax": {
+                "value": "0,00 zł",
+                "amount": "0.000000",
+                "rate": 0
+              },
+              "flags": [],
+              "main_variants": [],
+              "id_product": "262771",
+              "id_manufacturer": "366",
+              "on_sale": "0",
+              "online_only": "0",
+              "ean13": "5900308102411",
+              "isbn": "",
+              "upc": "5",
+              "quantity": 25,
+              "minimal_quantity": "25",
+              "price": "6,35 zł",
+              "reference": "G-NA 250+SIA",
+              "customizable": "0",
+              "description_short": "<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...",
+              "link_rewrite": "naroznik-aluminiowy-z-siatka-7070-250cm",
+              "name": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+              "available_now": "Towar w naszym magazynie            ",
+              "available_later": "                                                                        ",
+              "new": "0",
+              "id_product_attribute": "0",
+              "cart_quantity": "25",
+              "id_customization": null,
+              "manufacturer_name": "BUDMAT",
+              "category": "narozniki-6",
+              "price_attribute": null,
+              "ecotax_attr": null,
+              "id_image": "262771-2006367",
+              "legend": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+              "reduction": 0,
+              "price_without_reduction": 6.3468,
+              "specific_prices": {
+                "id_specific_price": "1326202999",
+                "id_specific_price_rule": "0",
+                "id_cart": "0",
+                "id_product": "262771",
+                "id_shop": "1",
+                "id_shop_group": "0",
+                "id_currency": "0",
+                "id_country": "0",
+                "id_group": "1",
+                "id_customer": "0",
+                "id_product_attribute": "0",
+                "price": 5.16,
+                "from_quantity": "0",
+                "reduction": "0.000000",
+                "reduction_tax": "0",
+                "reduction_type": "amount",
+                "from": "0000-00-00 00:00:00",
+                "to": "0000-00-00 00:00:00",
+                "score": "50"
+              },
+              "stock_quantity": 400,
+              "price_with_reduction": 6.3468,
+              "price_with_reduction_without_tax": 5.16,
+              "total": "158,75 zł",
+              "total_wt": 158.75,
+              "price_wt": 6.3468,
+              "allow_oosp": 0,
+              "attributes_small": "",
+              "rate": 23,
+              "tax_name": "PTU PL 23%",
+              "pack": false,
+              "ecotax_rate": 0,
+              "unit_price": "2,54 zł",
+              "remove_from_cart_url": "https://www.unimet.pl/koszyk?delete=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "up_quantity_url": "https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=up",
+              "down_quantity_url": "https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=down",
+              "update_quantity_url": "https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "price_amount": "6,35 zł",
+              "quantity_wanted": "25",
+              "images": [
+                {
+                  "bySize": {
+                    "small_default": {
+                      "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 98,
+                      "height": 98
+                    },
+                    "cart_default": {
+                      "url": "https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 125,
+                      "height": 125
+                    },
+                    "home_default": {
+                      "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 259,
+                      "height": 259
+                    },
+                    "medium_default": {
+                      "url": "https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 452,
+                      "height": 452
+                    },
+                    "large_default": {
+                      "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 800,
+                      "height": 800
+                    }
+                  },
+                  "small": {
+                    "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 98,
+                    "height": 98
+                  },
+                  "medium": {
+                    "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 259,
+                    "height": 259
+                  },
+                  "large": {
+                    "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 800,
+                    "height": 800
+                  },
+                  "legend": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+                  "id_image": "2006367",
+                  "cover": "1",
+                  "position": "1",
+                  "associatedVariants": []
+                }
+              ],
+              "cover": {
+                "bySize": {
+                  "small_default": {
+                    "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 98,
+                    "height": 98
+                  },
+                  "cart_default": {
+                    "url": "https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 125,
+                    "height": 125
+                  },
+                  "home_default": {
+                    "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 259,
+                    "height": 259
+                  },
+                  "medium_default": {
+                    "url": "https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 452,
+                    "height": 452
+                  },
+                  "large_default": {
+                    "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 800,
+                    "height": 800
+                  }
+                },
+                "small": {
+                  "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                  "width": 98,
+                  "height": 98
+                },
+                "medium": {
+                  "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                  "width": 259,
+                  "height": 259
+                },
+                "large": {
+                  "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                  "width": 800,
+                  "height": 800
+                },
+                "legend": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+                "id_image": "2006367",
+                "cover": "1",
+                "position": "1",
+                "associatedVariants": []
+              },
+              "has_discount": false,
+              "discount_type": "amount",
+              "discount_percentage": "0%",
+              "discount_percentage_absolute": "0%",
+              "discount_amount": "0,00 zł",
+              "regular_price_amount": 6.3468,
+              "regular_price": "6,35 zł",
+              "discount_to_display": "0,00 zł",
+              "unit_price_full": "2,54 zł SZT",
+              "show_availability": true,
+              "availability_date": null,
+              "availability_message": "Towar w naszym magazynie            ",
+              "availability": "available",
+              "customizations": []
+            }
+          ],
+          "totals": {
+            "total": {
+              "type": "total",
+              "label": "Razem",
+              "amount": 158.75,
+              "value": "158,75 zł"
+            },
+            "total_including_tax": {
+              "type": "total",
+              "label": "Suma (brutto)",
+              "amount": 158.75,
+              "value": "158,75 zł"
+            },
+            "total_excluding_tax": {
+              "type": "total",
+              "label": "Suma (netto)",
+              "amount": 129,
+              "value": "129,00 zł"
+            }
+          },
+          "subtotals": {
+            "products": {
+              "type": "products",
+              "label": "Produkty",
+              "amount": 158.75,
+              "value": "158,75 zł"
+            },
+            "discounts": null,
+            "shipping": {
+              "type": "shipping",
+              "label": "Wysyłka",
+              "amount": 0,
+              "value": "0 zł"
+            },
+            "tax": null
+          },
+          "products_count": 25,
+          "summary_string": "25 sztuk",
+          "cod_value": 0,
+          "is_smart": false,
+          "is_shopee": false,
+          "get_sped_type": "",
+          "has_log": [],
+          "all_log": false,
+          "has_sized": [
+            "262771"
+          ],
+          "all_sized": true,
+          "has_no_del": [],
+          "no_quan": [],
+          "cart_no_stock": [],
+          "labels": {
+            "tax_short": "(brutto)",
+            "tax_long": "(brutto)"
+          },
+          "id_address_delivery": 0,
+          "id_address_invoice": 0,
+          "is_virtual": false,
+          "vouchers": {
+            "allowed": 1,
+            "added": []
+          },
+          "discounts": [],
+          "minimalPurchase": 0.01,
+          "minimalPurchaseRequired": ""
+        },
+        "errors": ""
+      }
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/zam%C3%B3wienie",
+      "method": "GET",
+      "body": null,
+      "status": 302,
+      "location": "https://www.unimet.pl/module/supercheckout/supercheckout",
+      "response": ""
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/supercheckout",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "location": null,
+      "response": "<script>var prestashop = {\"shop\":{\"name\":\"Unimet sp z o.o.\"},\"currency\":{\"iso_code\":\"PLN\"},\"customer\":{\"is_logged\":false},\"cart\":{\"products\":[{\"add_to_cart_url\":\"https://www.unimet.pl/koszyk?add=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"id\":\"262771\",\"attributes\":[],\"show_price\":true,\"weight_unit\":\"kg\",\"url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"canonical_url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"condition\":false,\"embedded_attributes\":{\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ecotax\":\"0.000000\",\"quantity\":25,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"condition\":\"new\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"id_customization\":null,\"category\":\"narozniki-6\",\"id_image\":\"262771-2006367\",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"features\":[{\"id_feature\":\"602\",\"id_product\":\"262771\",\"id_feature_value\":\"179295\"}],\"attributes\":[],\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"25\"},\"quantity_discounts\":[],\"reference_to_display\":\"G-NA 250+SIA\",\"seo_availability\":\"https://schema.org/InStock\",\"labels\":{\"tax_short\":\"(brutto)\",\"tax_long\":\"Brutto\"},\"ecotax\":{\"value\":\"0,00 zł\",\"amount\":\"0.000000\",\"rate\":0},\"flags\":[],\"main_variants\":[],\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ean13\":\"5900308102411\",\"isbn\":\"\",\"upc\":\"5\",\"quantity\":25,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"cart_quantity\":\"25\",\"id_customization\":null,\"manufacturer_name\":\"BUDMAT\",\"category\":\"narozniki-6\",\"price_attribute\":null,\"ecotax_attr\":null,\"id_image\":\"262771-2006367\",\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"stock_quantity\":400,\"price_with_reduction\":6.3468,\"price_with_reduction_without_tax\":5.16,\"total\":\"158,75 zł\",\"total_wt\":158.75,\"price_wt\":6.3468,\"allow_oosp\":0,\"attributes_small\":\"\",\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"unit_price\":\"2,54 zł\",\"remove_from_cart_url\":\"https://www.unimet.pl/koszyk?delete=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"up_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=up\",\"down_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=down\",\"update_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"25\",\"images\":[{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]}],\"cover\":{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]},\"has_discount\":false,\"discount_type\":\"amount\",\"discount_percentage\":\"0%\",\"discount_percentage_absolute\":\"0%\",\"discount_amount\":\"0,00 zł\",\"regular_price_amount\":6.3468,\"regular_price\":\"6,35 zł\",\"discount_to_display\":\"0,00 zł\",\"unit_price_full\":\"2,54 zł SZT\",\"show_availability\":true,\"availability_date\":null,\"availability_message\":\"Towar w naszym magazynie            \",\"availability\":\"available\",\"customizations\":[]}],\"totals\":{\"total\":{\"type\":\"total\",\"label\":\"Razem\",\"amount\":158.75,\"value\":\"158,75 zł\"},\"total_including_tax\":{\"type\":\"total\",\"label\":\"Suma (brutto)\",\"amount\":158.75,\"value\":\"158,75 zł\"},\"total_excluding_tax\":{\"type\":\"total\",\"label\":\"Suma (netto)\",\"amount\":129,\"value\":\"129,00 zł\"}},\"subtotals\":{\"products\":{\"type\":\"products\",\"label\":\"Produkty\",\"amount\":158.75,\"value\":\"158,75 zł\"},\"discounts\":null,\"shipping\":{\"type\":\"shipping\",\"label\":\"Wysyłka\",\"amount\":0,\"value\":\"0 zł\"},\"tax\":null},\"products_count\":25,\"summary_string\":\"25 sztuk\",\"vouchers\":{\"allowed\":1,\"added\":[]},\"discounts\":[],\"minimalPurchase\":0.01,\"minimalPurchaseRequired\":\"\"},\"static_token\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"};</script>\n<select name=\"shipping_address[id_country]\" class=\"supercheckout-large-field form-control\" onchange=\"restrictAutofillbyCountry(this)\" ><option value=\"14\" id='PL' selected=\"selected\">Polska</option></select>"
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&id_country=14&id_state=0&postcode=30-001&vat_number=&id_address_delivery=&method=loadCarriers",
+      "status": 200,
+      "location": null,
+      "response": {
+        "hasError": false,
+        "shipping_error": [],
+        "html": "    <div class=\"velsof_sc_overlay\"></div>\n                        <div class=\"supercheckout-checkout-content\" style=\"display:block\"></div>\n            <div id=\"hook-display-before-carrier\">\n                            </div>\n                                            <ul>\n                    \n                        <li class=\"highlight\">\n                            <div class=\"radio \">\n                                                                                                        <input class='supercheckout_shipping_option delivery_option_radio' type=\"radio\" name=\"delivery_option[1]\" value=\"387,\" id=\"shipping_method_1_387\" />\n                                \n                                <label for=\"shipping_method_1_387\">\n                                                                                                                Odbiór osobisty                                                       \n                                                                        <span class=\"supercheckout-shipping-small-title shippingPrice\">0 zł</span></label>                                <p class=\"shippingInfo supercheckout-shipping-small-title\">1</p>\n                            </div>\n                                                        <div class=\"carrier-extra-content kbshippingparceloption shipping_method_1_387\">\n                                \n                            </div>\n                                                    </li>\n                    \n                        <li class=\"highlight\">\n                            <div class=\"radio \">\n                                                                                                        <input class='supercheckout_shipping_option delivery_option_radio' type=\"radio\" name=\"delivery_option[1]\" value=\"381,\" id=\"shipping_method_1_381\" />\n                                \n                                <label for=\"shipping_method_1_381\">\n                                                                                                                GABARYT                                                       \n                                                                        <span class=\"supercheckout-shipping-small-title shippingPrice\">91,02 zł brutto</span></label>                                <p class=\"shippingInfo supercheckout-shipping-small-title\">1</p>\n                            </div>\n                                                        <div class=\"carrier-extra-content kbshippingparceloption shipping_method_1_381\">\n                                \n                            </div>\n                                                    </li>\n                    \n                        <li class=\"highlight\">\n                            <div class=\"radio \">\n                                                                                                        <input class='supercheckout_shipping_option delivery_option_radio' type=\"radio\" name=\"delivery_option[1]\" value=\"382,\" id=\"shipping_method_1_382\" />\n                                \n                                <label for=\"shipping_method_1_382\">\n                                                                                                                GABARYT - POBRANIE                                                       \n                                                                        <span class=\"supercheckout-shipping-small-title shippingPrice\">97,17 zł brutto</span></label>                                <p class=\"shippingInfo supercheckout-shipping-small-title\">1</p>\n                            </div>\n                                                        <div class=\"carrier-extra-content kbshippingparceloption shipping_method_1_382\">\n                                \n                            </div>\n                                                    </li>\n                                    </ul>\n                        <div id=\"hook-display-after-carrier\">\n                            </div>\n            "
+      }
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&delivery_available=3&delivery_option%5B1%5D=381%2C&method=updateCarrier",
+      "status": 200,
+      "location": null,
+      "response": {
+        "hasError": false,
+        "errors": []
+      }
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&method=loadCart",
+      "status": 200,
+      "location": null,
+      "response": {
+        "redirect": false,
+        "html": "        \n    <div id=\"confirmCheckout\" class=\"shopping-cart-totals\">\n                                                                                                        \n                                                                                                                                <div class=\"row cart_list_item\" id=\"product_262771_0_1_0\">\n                                <div class=\"col-md-1 col-xs-3 col-3 text-md-center Cart-product-Image\">\n                        <img class=\"product_img img-responsive\"  src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt='NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ' onclick=\"showEnlargedImage(this)\"/>\n                </div>\n                                <div class=\"col-md-4 col-xs-9 col-9 shopping-cart-description\">\n                        <p class=\"product-title\">\n                                <span style=\";\" ><a href=\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\">NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  </a></span>\n                                <span class=\"product_reference\" style=\";\" >\n                                        Model : G-NA 250+SIA                                </span>\n                                                                                                <span class=\"product_stock_status\" style=\"\" >\n                                        \n                                                                                    <p class=\"kblabel label-success\">W magazynie</p>\n                                                                                                            </span>\n                                                                                                                          </p>\n                </div>\n                 \n                <div class=\"clear-mobile-div\"></div>\n                <div class=\"col-md-2 col-xs-3 col-3 col-lg-3 col-xl-3 text-md-center text-xs-left text-sm-left shopping-product-price\" style=\";\">\n                        <span class=\"cart-product-price\" id=\"\">\n                                <span class=\"unit-price-text d-block\">Cena jednostkowa</span>\n                                <span class=\"price special-price d-block\">6,35 zł</span>                         </span>\n                </div>\n                <div class=\"col-md-3 col-lg-2 col-xs-6 col-6 text-md-center quantity-section\" style=\";\" >\n                        <div class=\"input-group bootstrap-touchspin\">\n                                <div class=\"input-group\">\n                                        <input type=\"hidden\" value=\"25\" name=\"quantity_262771_0_1_0_hidden\" />\n                                        <input type=\"hidden\" name=\"quantity_262771_0_1_0_minqty\" value=\"25\">\n                                                                                <span class=\"input-group-btn\">\n                                            <button type=\"button\" class=\"cart_quantity_down qty-btn increase_button quantity-left-minus btn btn-primary btn-number\" data-type=\"plus\" data-field=\"\" onclick=\"downQty('quantity_262771_0_1_0')\">\n                                                \n                                                        <span class=\"fas fa-chevron-down\"></span>\n                                                </button>\n                                        </span>                                \n                                        <input min=\"1\" max=\"100\" autocomplete=\"off\" type=\"text\" id=\"quantity\" class=\"form-control input-number quantitybox\" name=\"quantity_262771_0_1_0\" value=\"25\">\n                                        <span class=\"input-group-btn\">\n                                                <button type=\"button\" class=\"cart_quantity_down qty-btn decrease_button quantity-right-plus btn btn-primary btn-number\" data-type=\"plus\" data-field=\"\"  onclick=\"upQty('quantity_262771_0_1_0')\">\n                                                        <span class=\"fas fa-chevron-up\"></span>\n                                                </button>\n                                        </span>\n                                                                            \n                                </div>\n                            \n                                <a id=\"262771_0_28730_0\" onclick=\"deleteProductFromCart(this.id);\" class=\"remove-from-cart\" rel=\"nofollow\" href=\"#\" style=\";\">\n                                        <i class=\"fas fa-trash\"></i>\n                                </a>\n                        </div>\n                </div>\n                <div class=\"col-md-2 col-xs-3 col-3 text-md-right text-xs-right text-sm-right productTotalSection\" id=\"total_product_price_262771_0_28730\" style=\";\" >\n                        <span class=\"total-price-text\">Wartość</span>\n                                <span class=\"cart-product-price d-block text-right\">158,75 zł</span>                        </div>\n                </div>\n                </div>\n<div id=\"confirmCheckout\">\n<script type=\"text/javascript\">\n    var subtotal_msg = \"Subtowal\";\n    var shipping_msg = \"Wysyłka\";\n    var taxex_msg = \"Podatki\";\n</script>\n\n<div class=\"velsof_sc_overlay\"></div>\n\n<div class=\"row cart_list_item\">\n    \n</div>\n\n<table class=\"supercheckout-totals table table-bordered totalTable\">\n\n    <tfoot>\n        \n                                                <tr id=\"supercehckout_summary_total_products\" style=\";\">\n                                        <td colspan=\"5\" class=\"text-right title\"><strong>Produkty: </strong></td>\n                    <td class=\"value text-right\"><span id=\"supercehckout_total_products_value\" class=\"price\">158,75 zł</span></td>\n                </tr>\n                    \n                    \n                                                <tr id=\"supercehckout_summary_total_shipping\" style=\";\">\n                                        <td colspan=\"5\" class=\"text-right title\"><strong>Wysyłka: </strong></td>\n                    <td class=\"value text-right\"><span id=\"supercehckout_total_shipping_value\" class=\"price\">91,02 zł</span></td>\n                </tr>\n                    \n                        </tfoot>\n</table>\n\n<div class=\"custom-panel rewardsection\">\n                    <div class=\"rewardHeader\" style=\";\">\n            <a href=\"javascript:void(0)\" onclick=\"$('.rewardBody').toggle();\">Masz kod promocyjny? </a>\n        </div>\n        <div class=\"rewardBody\" style=\"display:none\">\n            <!--h2>Coupon / Voucher / Reward</h2-->\n            <div id=\"supercheckout_voucher_input_row\" class=\"form-group form-coupon\" style=\";\">\n                <!--label for=\"input-coupon\" class=\"control-label\">Enter your coupon here</label-->\n                <div class=\"input-group\" id=\"voucher-form\">\n                    <input type=\"hidden\" value=\"1\" name=\"submitDiscount\">\n                    <input name=\"discount_name\" id=\"discount_name\" type=\"text\" placeholder=\"Wpisz tutaj swój kupon\" class=\"voucherText form-control\"> \n                    <span class=\"input-group-btn\"><button id=\"button-coupon\" onClick=\"callCoupon();\" type=\"button\" data-loading-text=\"Loading...\" class=\"btn btn-primary orangebuttonapply\" style=\"min-height: 33px;\">Zastosować</button>\n                    </span>\n                </div>\t\t\t\t\t\t\t\t\n            </div>\n        </div>\n                    <div class=\"totalAmount\" style=\";\">\n            <h3>\n                                    Całkowita kwota (z VAT):\n                    <span id=\"total_price\" class=\"price amountMoney\">249,77 zł</span>\n                    <input type=\"hidden\" id=\"total_price_wfee\" value=\"249,77 zł\">                            </h3>\n        </div><br>\n        </div>\n\n\n\n<div id=\"highlighted_cart_rules\">\n                        </div>\n\n                    <!-- INSERT INTO #CART BLOCK -->\n                    <!-- Start - Code to insert custom fields in cart block -->\n                    <div class=\"div_custom_fields\">\n                                            </div>\n        </div>\n                    <!-- End - Code to insert custom fields in registration form block -->\n\n                    "
+      }
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&method=loadPayment",
+      "status": 200,
+      "location": null,
+      "response": {
+        "html": "<input type=\"radio\" name=\"payment_method\" style=\"height: auto\" data-module-name=\"ps_checkpayment\" value=\"payment-option-1\" id=\"payment-option-1\"  class=\"\"/><label id=\"payment_lbl_13\" for=\"payment-option-1\">\n                                                Przelew tradycyjny \n                    </label><div id=\"payment-option-1-additional-information\"><dd>249,77 zł (brutto)</dd></div>"
+      }
+    },
+    {
+      "context": "quote:25:30-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/koszyk?action=show",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "location": null,
+      "response": "<script>var prestashop = {\"shop\":{\"name\":\"Unimet sp z o.o.\"},\"currency\":{\"iso_code\":\"PLN\"},\"customer\":{\"is_logged\":false},\"cart\":{\"products\":[{\"add_to_cart_url\":\"https://www.unimet.pl/koszyk?add=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"id\":\"262771\",\"attributes\":[],\"show_price\":true,\"weight_unit\":\"kg\",\"url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"canonical_url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"condition\":false,\"embedded_attributes\":{\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ecotax\":\"0.000000\",\"quantity\":25,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"condition\":\"new\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"id_customization\":null,\"category\":\"narozniki-6\",\"id_image\":\"262771-2006367\",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"features\":[{\"id_feature\":\"602\",\"id_product\":\"262771\",\"id_feature_value\":\"179295\"}],\"attributes\":[],\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"25\"},\"quantity_discounts\":[],\"reference_to_display\":\"G-NA 250+SIA\",\"seo_availability\":\"https://schema.org/InStock\",\"labels\":{\"tax_short\":\"(brutto)\",\"tax_long\":\"Brutto\"},\"ecotax\":{\"value\":\"0,00 zł\",\"amount\":\"0.000000\",\"rate\":0},\"flags\":[],\"main_variants\":[],\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ean13\":\"5900308102411\",\"isbn\":\"\",\"upc\":\"5\",\"quantity\":25,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"cart_quantity\":\"25\",\"id_customization\":null,\"manufacturer_name\":\"BUDMAT\",\"category\":\"narozniki-6\",\"price_attribute\":null,\"ecotax_attr\":null,\"id_image\":\"262771-2006367\",\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"stock_quantity\":400,\"price_with_reduction\":6.3468,\"price_with_reduction_without_tax\":5.16,\"total\":\"158,75 zł\",\"total_wt\":158.75,\"price_wt\":6.3468,\"allow_oosp\":0,\"attributes_small\":\"\",\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"unit_price\":\"2,54 zł\",\"remove_from_cart_url\":\"https://www.unimet.pl/koszyk?delete=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"up_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=up\",\"down_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=down\",\"update_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"25\",\"images\":[{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]}],\"cover\":{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]},\"has_discount\":false,\"discount_type\":\"amount\",\"discount_percentage\":\"0%\",\"discount_percentage_absolute\":\"0%\",\"discount_amount\":\"0,00 zł\",\"regular_price_amount\":6.3468,\"regular_price\":\"6,35 zł\",\"discount_to_display\":\"0,00 zł\",\"unit_price_full\":\"2,54 zł SZT\",\"show_availability\":true,\"availability_date\":null,\"availability_message\":\"Towar w naszym magazynie            \",\"availability\":\"available\",\"customizations\":[]}],\"totals\":{\"total\":{\"type\":\"total\",\"label\":\"Razem\",\"amount\":249.77,\"value\":\"249,77 zł\"},\"total_including_tax\":{\"type\":\"total\",\"label\":\"Suma (brutto)\",\"amount\":249.77,\"value\":\"249,77 zł\"},\"total_excluding_tax\":{\"type\":\"total\",\"label\":\"Suma (netto)\",\"amount\":203,\"value\":\"203,00 zł\"}},\"subtotals\":{\"products\":{\"type\":\"products\",\"label\":\"Produkty\",\"amount\":158.75,\"value\":\"158,75 zł\"},\"discounts\":null,\"shipping\":{\"type\":\"shipping\",\"label\":\"Wysyłka\",\"amount\":91.02,\"value\":\"91,02 zł\"},\"tax\":null},\"products_count\":25,\"summary_string\":\"25 sztuk\",\"vouchers\":{\"allowed\":1,\"added\":[]},\"discounts\":[],\"minimalPurchase\":0.01,\"minimalPurchaseRequired\":\"\"},\"static_token\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"};</script>\n"
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "location": null,
+      "response": "<script>var prestashop = {\"shop\":{\"name\":\"Unimet sp z o.o.\"},\"currency\":{\"iso_code\":\"PLN\"},\"customer\":{\"is_logged\":false},\"cart\":{\"products\":[],\"totals\":{\"total\":{\"type\":\"total\",\"label\":\"Razem\",\"amount\":0,\"value\":\"0,00 zł\"},\"total_including_tax\":{\"type\":\"total\",\"label\":\"Suma (brutto)\",\"amount\":0,\"value\":\"0,00 zł\"},\"total_excluding_tax\":{\"type\":\"total\",\"label\":\"Suma (netto)\",\"amount\":0,\"value\":\"0,00 zł\"}},\"subtotals\":{\"products\":{\"type\":\"products\",\"label\":\"Produkty\",\"amount\":0,\"value\":\"0,00 zł\"},\"discounts\":null,\"shipping\":{\"type\":\"shipping\",\"label\":\"Wysyłka\",\"amount\":0,\"value\":\"\"},\"tax\":null},\"products_count\":0,\"summary_string\":\"0 sztuk\",\"vouchers\":{\"allowed\":1,\"added\":[]},\"discounts\":[],\"minimalPurchase\":0.01,\"minimalPurchaseRequired\":\"Minimalny zakup na kwotę 0,01 zł (netto) jest wymagany aby zatwierdzić Twoje zamówienie, obecna wartość koszyka to 0,00 zł (netto).\"},\"static_token\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"};</script>\n<div itemscope itemtype=\"https://schema.org/Product\"><img class=\"js-qv-product-cover\" src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" style=\"width:100%;\" itemprop=\"image\">\n<img class=\"thumb js-thumb selected \" data-image-medium-src=\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" data-image-large-src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" src=\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" width=\"100\" itemprop=\"image\" >\n<h1 class=\"product_name\" itemprop=\"name\">NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM</h1>\n<div id=\"product_manufacturer\" itemprop=\"brand\" itemscope itemtype=\"http://schema.org/Brand\"> <label class=\"label\">Marka </label> <a class=\"editable\" itemprop=\"url\" href=\"https://www.unimet.pl/brand/366-budmat\" title=\"BUDMAT\"><span itemprop=\"name\">BUDMAT</span></a></div>\n<span itemprop=\"name\">BUDMAT</span>\n<div class=\"product-price h5 \" itemprop=\"offers\" itemscope itemtype=\"https://schema.org/Offer\" ><meta itemprop=\"url\" content=\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\"><link itemprop=\"availability\" href=\"https://schema.org/InStock\"/><meta itemprop=\"priceCurrency\" content=\"PLN\"><div class=\"current-price\"> <span class=\"price\" itemprop=\"price\" content=\"6.35\">6,35&nbsp;zł</span></div><p class=\"product-unit-price sub\"> 2,54&nbsp;zł za <span>1 metr bieżący</span></p></div>\n<meta itemprop=\"gtin13\" content=\"5900308102411\" />\n<img class=\"js-modal-product-cover product-cover-modal\" width=\"800\" src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" itemprop=\"image\">\n<img data-image-large-src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" class=\"thumb js-modal-thumb\" src=\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" title=\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM \" width=\"259\" itemprop=\"image\">\n<div class=\"tax-shipping-delivery-label\"><span class=\"price_tax_label\"> <span>SZT</span>Brutto </span></div><form action=\"https://www.unimet.pl/koszyk\" method=\"post\" id=\"add-to-cart-or-refresh\"><input type=\"hidden\" name=\"id_product\" value=\"262771\" id=\"product_page_product_id\">\n<input type=\"text\" name=\"qty\" id=\"quantity_wanted\" value=\"25\" class=\"input-group\" min=\"25\" aria-label=\"Ilość\" ><input name=\"token\" value=\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"></form></div>"
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/koszyk",
+      "method": "POST",
+      "body": "token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&id_product=262771&id_customization=0&qty=26&add=1&action=update&ajax=1",
+      "status": 200,
+      "location": null,
+      "response": {
+        "success": true,
+        "id_product": 262771,
+        "id_product_attribute": 0,
+        "id_customization": 0,
+        "quantity": 26,
+        "cart": {
+          "products": [
+            {
+              "add_to_cart_url": "https://www.unimet.pl/koszyk?add=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "id": "262771",
+              "attributes": [],
+              "show_price": true,
+              "weight_unit": "kg",
+              "url": "https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+              "canonical_url": "https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+              "condition": false,
+              "embedded_attributes": {
+                "id_product": "262771",
+                "id_manufacturer": "366",
+                "on_sale": "0",
+                "online_only": "0",
+                "ecotax": "0.000000",
+                "quantity": 26,
+                "minimal_quantity": "25",
+                "price": "6,35 zł",
+                "reference": "G-NA 250+SIA",
+                "customizable": "0",
+                "condition": "new",
+                "description_short": "<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...",
+                "link_rewrite": "naroznik-aluminiowy-z-siatka-7070-250cm",
+                "name": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+                "available_now": "Towar w naszym magazynie            ",
+                "available_later": "                                                                        ",
+                "new": "0",
+                "id_product_attribute": "0",
+                "id_customization": null,
+                "category": "narozniki-6",
+                "id_image": "262771-2006367",
+                "reduction": 0,
+                "price_without_reduction": 6.3468,
+                "specific_prices": {
+                  "id_specific_price": "1326202999",
+                  "id_specific_price_rule": "0",
+                  "id_cart": "0",
+                  "id_product": "262771",
+                  "id_shop": "1",
+                  "id_shop_group": "0",
+                  "id_currency": "0",
+                  "id_country": "0",
+                  "id_group": "1",
+                  "id_customer": "0",
+                  "id_product_attribute": "0",
+                  "price": 5.16,
+                  "from_quantity": "0",
+                  "reduction": "0.000000",
+                  "reduction_tax": "0",
+                  "reduction_type": "amount",
+                  "from": "0000-00-00 00:00:00",
+                  "to": "0000-00-00 00:00:00",
+                  "score": "50"
+                },
+                "features": [
+                  {
+                    "id_feature": "602",
+                    "id_product": "262771",
+                    "id_feature_value": "179295"
+                  }
+                ],
+                "attributes": [],
+                "rate": 23,
+                "tax_name": "PTU PL 23%",
+                "pack": false,
+                "ecotax_rate": 0,
+                "price_amount": "6,35 zł",
+                "quantity_wanted": "26"
+              },
+              "quantity_discounts": [],
+              "reference_to_display": "G-NA 250+SIA",
+              "seo_availability": "https://schema.org/InStock",
+              "labels": {
+                "tax_short": "(brutto)",
+                "tax_long": "Brutto"
+              },
+              "ecotax": {
+                "value": "0,00 zł",
+                "amount": "0.000000",
+                "rate": 0
+              },
+              "flags": [],
+              "main_variants": [],
+              "id_product": "262771",
+              "id_manufacturer": "366",
+              "on_sale": "0",
+              "online_only": "0",
+              "ean13": "5900308102411",
+              "isbn": "",
+              "upc": "5",
+              "quantity": 26,
+              "minimal_quantity": "25",
+              "price": "6,35 zł",
+              "reference": "G-NA 250+SIA",
+              "customizable": "0",
+              "description_short": "<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...",
+              "link_rewrite": "naroznik-aluminiowy-z-siatka-7070-250cm",
+              "name": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+              "available_now": "Towar w naszym magazynie            ",
+              "available_later": "                                                                        ",
+              "new": "0",
+              "id_product_attribute": "0",
+              "cart_quantity": "26",
+              "id_customization": null,
+              "manufacturer_name": "BUDMAT",
+              "category": "narozniki-6",
+              "price_attribute": null,
+              "ecotax_attr": null,
+              "id_image": "262771-2006367",
+              "legend": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+              "reduction": 0,
+              "price_without_reduction": 6.3468,
+              "specific_prices": {
+                "id_specific_price": "1326202999",
+                "id_specific_price_rule": "0",
+                "id_cart": "0",
+                "id_product": "262771",
+                "id_shop": "1",
+                "id_shop_group": "0",
+                "id_currency": "0",
+                "id_country": "0",
+                "id_group": "1",
+                "id_customer": "0",
+                "id_product_attribute": "0",
+                "price": 5.16,
+                "from_quantity": "0",
+                "reduction": "0.000000",
+                "reduction_tax": "0",
+                "reduction_type": "amount",
+                "from": "0000-00-00 00:00:00",
+                "to": "0000-00-00 00:00:00",
+                "score": "50"
+              },
+              "stock_quantity": 400,
+              "price_with_reduction": 6.3468,
+              "price_with_reduction_without_tax": 5.16,
+              "total": "165,10 zł",
+              "total_wt": 165.1,
+              "price_wt": 6.3468,
+              "allow_oosp": 0,
+              "attributes_small": "",
+              "rate": 23,
+              "tax_name": "PTU PL 23%",
+              "pack": false,
+              "ecotax_rate": 0,
+              "unit_price": "2,54 zł",
+              "remove_from_cart_url": "https://www.unimet.pl/koszyk?delete=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "up_quantity_url": "https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=up",
+              "down_quantity_url": "https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=down",
+              "update_quantity_url": "https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "price_amount": "6,35 zł",
+              "quantity_wanted": "26",
+              "images": [
+                {
+                  "bySize": {
+                    "small_default": {
+                      "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 98,
+                      "height": 98
+                    },
+                    "cart_default": {
+                      "url": "https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 125,
+                      "height": 125
+                    },
+                    "home_default": {
+                      "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 259,
+                      "height": 259
+                    },
+                    "medium_default": {
+                      "url": "https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 452,
+                      "height": 452
+                    },
+                    "large_default": {
+                      "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                      "width": 800,
+                      "height": 800
+                    }
+                  },
+                  "small": {
+                    "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 98,
+                    "height": 98
+                  },
+                  "medium": {
+                    "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 259,
+                    "height": 259
+                  },
+                  "large": {
+                    "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 800,
+                    "height": 800
+                  },
+                  "legend": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+                  "id_image": "2006367",
+                  "cover": "1",
+                  "position": "1",
+                  "associatedVariants": []
+                }
+              ],
+              "cover": {
+                "bySize": {
+                  "small_default": {
+                    "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 98,
+                    "height": 98
+                  },
+                  "cart_default": {
+                    "url": "https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 125,
+                    "height": 125
+                  },
+                  "home_default": {
+                    "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 259,
+                    "height": 259
+                  },
+                  "medium_default": {
+                    "url": "https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 452,
+                    "height": 452
+                  },
+                  "large_default": {
+                    "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                    "width": 800,
+                    "height": 800
+                  }
+                },
+                "small": {
+                  "url": "https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                  "width": 98,
+                  "height": 98
+                },
+                "medium": {
+                  "url": "https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                  "width": 259,
+                  "height": 259
+                },
+                "large": {
+                  "url": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+                  "width": 800,
+                  "height": 800
+                },
+                "legend": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ",
+                "id_image": "2006367",
+                "cover": "1",
+                "position": "1",
+                "associatedVariants": []
+              },
+              "has_discount": false,
+              "discount_type": "amount",
+              "discount_percentage": "0%",
+              "discount_percentage_absolute": "0%",
+              "discount_amount": "0,00 zł",
+              "regular_price_amount": 6.3468,
+              "regular_price": "6,35 zł",
+              "discount_to_display": "0,00 zł",
+              "unit_price_full": "2,54 zł SZT",
+              "show_availability": true,
+              "availability_date": null,
+              "availability_message": "Towar w naszym magazynie            ",
+              "availability": "available",
+              "customizations": []
+            }
+          ],
+          "totals": {
+            "total": {
+              "type": "total",
+              "label": "Razem",
+              "amount": 165.1,
+              "value": "165,10 zł"
+            },
+            "total_including_tax": {
+              "type": "total",
+              "label": "Suma (brutto)",
+              "amount": 165.1,
+              "value": "165,10 zł"
+            },
+            "total_excluding_tax": {
+              "type": "total",
+              "label": "Suma (netto)",
+              "amount": 134.16,
+              "value": "134,16 zł"
+            }
+          },
+          "subtotals": {
+            "products": {
+              "type": "products",
+              "label": "Produkty",
+              "amount": 165.1,
+              "value": "165,10 zł"
+            },
+            "discounts": null,
+            "shipping": {
+              "type": "shipping",
+              "label": "Wysyłka",
+              "amount": 0,
+              "value": "0 zł"
+            },
+            "tax": null
+          },
+          "products_count": 26,
+          "summary_string": "26 sztuk",
+          "cod_value": 0,
+          "is_smart": false,
+          "is_shopee": false,
+          "get_sped_type": "",
+          "has_log": [],
+          "all_log": false,
+          "has_sized": [
+            "262771"
+          ],
+          "all_sized": true,
+          "has_no_del": [],
+          "no_quan": [],
+          "cart_no_stock": [],
+          "labels": {
+            "tax_short": "(brutto)",
+            "tax_long": "(brutto)"
+          },
+          "id_address_delivery": 0,
+          "id_address_invoice": 0,
+          "is_virtual": false,
+          "vouchers": {
+            "allowed": 1,
+            "added": []
+          },
+          "discounts": [],
+          "minimalPurchase": 0.01,
+          "minimalPurchaseRequired": ""
+        },
+        "errors": ""
+      }
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/zam%C3%B3wienie",
+      "method": "GET",
+      "body": null,
+      "status": 302,
+      "location": "https://www.unimet.pl/module/supercheckout/supercheckout",
+      "response": ""
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/supercheckout",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "location": null,
+      "response": "<script>var prestashop = {\"shop\":{\"name\":\"Unimet sp z o.o.\"},\"currency\":{\"iso_code\":\"PLN\"},\"customer\":{\"is_logged\":false},\"cart\":{\"products\":[{\"add_to_cart_url\":\"https://www.unimet.pl/koszyk?add=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"id\":\"262771\",\"attributes\":[],\"show_price\":true,\"weight_unit\":\"kg\",\"url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"canonical_url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"condition\":false,\"embedded_attributes\":{\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ecotax\":\"0.000000\",\"quantity\":26,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"condition\":\"new\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"id_customization\":null,\"category\":\"narozniki-6\",\"id_image\":\"262771-2006367\",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"features\":[{\"id_feature\":\"602\",\"id_product\":\"262771\",\"id_feature_value\":\"179295\"}],\"attributes\":[],\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"26\"},\"quantity_discounts\":[],\"reference_to_display\":\"G-NA 250+SIA\",\"seo_availability\":\"https://schema.org/InStock\",\"labels\":{\"tax_short\":\"(brutto)\",\"tax_long\":\"Brutto\"},\"ecotax\":{\"value\":\"0,00 zł\",\"amount\":\"0.000000\",\"rate\":0},\"flags\":[],\"main_variants\":[],\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ean13\":\"5900308102411\",\"isbn\":\"\",\"upc\":\"5\",\"quantity\":26,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"cart_quantity\":\"26\",\"id_customization\":null,\"manufacturer_name\":\"BUDMAT\",\"category\":\"narozniki-6\",\"price_attribute\":null,\"ecotax_attr\":null,\"id_image\":\"262771-2006367\",\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"stock_quantity\":400,\"price_with_reduction\":6.3468,\"price_with_reduction_without_tax\":5.16,\"total\":\"165,10 zł\",\"total_wt\":165.1,\"price_wt\":6.3468,\"allow_oosp\":0,\"attributes_small\":\"\",\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"unit_price\":\"2,54 zł\",\"remove_from_cart_url\":\"https://www.unimet.pl/koszyk?delete=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"up_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=up\",\"down_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=down\",\"update_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"26\",\"images\":[{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]}],\"cover\":{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]},\"has_discount\":false,\"discount_type\":\"amount\",\"discount_percentage\":\"0%\",\"discount_percentage_absolute\":\"0%\",\"discount_amount\":\"0,00 zł\",\"regular_price_amount\":6.3468,\"regular_price\":\"6,35 zł\",\"discount_to_display\":\"0,00 zł\",\"unit_price_full\":\"2,54 zł SZT\",\"show_availability\":true,\"availability_date\":null,\"availability_message\":\"Towar w naszym magazynie            \",\"availability\":\"available\",\"customizations\":[]}],\"totals\":{\"total\":{\"type\":\"total\",\"label\":\"Razem\",\"amount\":165.1,\"value\":\"165,10 zł\"},\"total_including_tax\":{\"type\":\"total\",\"label\":\"Suma (brutto)\",\"amount\":165.1,\"value\":\"165,10 zł\"},\"total_excluding_tax\":{\"type\":\"total\",\"label\":\"Suma (netto)\",\"amount\":134.16,\"value\":\"134,16 zł\"}},\"subtotals\":{\"products\":{\"type\":\"products\",\"label\":\"Produkty\",\"amount\":165.1,\"value\":\"165,10 zł\"},\"discounts\":null,\"shipping\":{\"type\":\"shipping\",\"label\":\"Wysyłka\",\"amount\":0,\"value\":\"0 zł\"},\"tax\":null},\"products_count\":26,\"summary_string\":\"26 sztuk\",\"vouchers\":{\"allowed\":1,\"added\":[]},\"discounts\":[],\"minimalPurchase\":0.01,\"minimalPurchaseRequired\":\"\"},\"static_token\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"};</script>\n<select name=\"shipping_address[id_country]\" class=\"supercheckout-large-field form-control\" onchange=\"restrictAutofillbyCountry(this)\" ><option value=\"14\" id='PL' selected=\"selected\">Polska</option></select>"
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&id_country=14&id_state=0&postcode=00-001&vat_number=&id_address_delivery=&method=loadCarriers",
+      "status": 200,
+      "location": null,
+      "response": {
+        "hasError": false,
+        "shipping_error": [],
+        "html": "    <div class=\"velsof_sc_overlay\"></div>\n                        <div class=\"supercheckout-checkout-content\" style=\"display:block\"></div>\n            <div id=\"hook-display-before-carrier\">\n                            </div>\n                                            <ul>\n                    \n                        <li class=\"highlight\">\n                            <div class=\"radio \">\n                                                                                                        <input class='supercheckout_shipping_option delivery_option_radio' type=\"radio\" name=\"delivery_option[1]\" value=\"387,\" id=\"shipping_method_1_387\" />\n                                \n                                <label for=\"shipping_method_1_387\">\n                                                                                                                Odbiór osobisty                                                       \n                                                                        <span class=\"supercheckout-shipping-small-title shippingPrice\">0 zł</span></label>                                <p class=\"shippingInfo supercheckout-shipping-small-title\">1</p>\n                            </div>\n                                                        <div class=\"carrier-extra-content kbshippingparceloption shipping_method_1_387\">\n                                \n                            </div>\n                                                    </li>\n                    \n                        <li class=\"highlight\">\n                            <div class=\"radio \">\n                                                                                                        <input class='supercheckout_shipping_option delivery_option_radio' type=\"radio\" name=\"delivery_option[1]\" value=\"381,\" id=\"shipping_method_1_381\" />\n                                \n                                <label for=\"shipping_method_1_381\">\n                                                                                                                GABARYT                                                       \n                                                                        <span class=\"supercheckout-shipping-small-title shippingPrice\">91,02 zł brutto</span></label>                                <p class=\"shippingInfo supercheckout-shipping-small-title\">1</p>\n                            </div>\n                                                        <div class=\"carrier-extra-content kbshippingparceloption shipping_method_1_381\">\n                                \n                            </div>\n                                                    </li>\n                    \n                        <li class=\"highlight\">\n                            <div class=\"radio \">\n                                                                                                        <input class='supercheckout_shipping_option delivery_option_radio' type=\"radio\" name=\"delivery_option[1]\" value=\"382,\" id=\"shipping_method_1_382\" />\n                                \n                                <label for=\"shipping_method_1_382\">\n                                                                                                                GABARYT - POBRANIE                                                       \n                                                                        <span class=\"supercheckout-shipping-small-title shippingPrice\">97,17 zł brutto</span></label>                                <p class=\"shippingInfo supercheckout-shipping-small-title\">1</p>\n                            </div>\n                                                        <div class=\"carrier-extra-content kbshippingparceloption shipping_method_1_382\">\n                                \n                            </div>\n                                                    </li>\n                                    </ul>\n                        <div id=\"hook-display-after-carrier\">\n                            </div>\n            "
+      }
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&delivery_available=3&delivery_option%5B1%5D=381%2C&method=updateCarrier",
+      "status": 200,
+      "location": null,
+      "response": {
+        "hasError": false,
+        "errors": []
+      }
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&method=loadCart",
+      "status": 200,
+      "location": null,
+      "response": {
+        "redirect": false,
+        "html": "        \n    <div id=\"confirmCheckout\" class=\"shopping-cart-totals\">\n                                                                                                        \n                                                                                                                                <div class=\"row cart_list_item\" id=\"product_262771_0_1_0\">\n                                <div class=\"col-md-1 col-xs-3 col-3 text-md-center Cart-product-Image\">\n                        <img class=\"product_img img-responsive\"  src=\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\" alt='NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  ' onclick=\"showEnlargedImage(this)\"/>\n                </div>\n                                <div class=\"col-md-4 col-xs-9 col-9 shopping-cart-description\">\n                        <p class=\"product-title\">\n                                <span style=\";\" ><a href=\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\">NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  </a></span>\n                                <span class=\"product_reference\" style=\";\" >\n                                        Model : G-NA 250+SIA                                </span>\n                                                                                                <span class=\"product_stock_status\" style=\"\" >\n                                        \n                                                                                    <p class=\"kblabel label-success\">W magazynie</p>\n                                                                                                            </span>\n                                                                                                                          </p>\n                </div>\n                 \n                <div class=\"clear-mobile-div\"></div>\n                <div class=\"col-md-2 col-xs-3 col-3 col-lg-3 col-xl-3 text-md-center text-xs-left text-sm-left shopping-product-price\" style=\";\">\n                        <span class=\"cart-product-price\" id=\"\">\n                                <span class=\"unit-price-text d-block\">Cena jednostkowa</span>\n                                <span class=\"price special-price d-block\">6,35 zł</span>                         </span>\n                </div>\n                <div class=\"col-md-3 col-lg-2 col-xs-6 col-6 text-md-center quantity-section\" style=\";\" >\n                        <div class=\"input-group bootstrap-touchspin\">\n                                <div class=\"input-group\">\n                                        <input type=\"hidden\" value=\"26\" name=\"quantity_262771_0_1_0_hidden\" />\n                                        <input type=\"hidden\" name=\"quantity_262771_0_1_0_minqty\" value=\"25\">\n                                                                                <span class=\"input-group-btn\">\n                                            <button type=\"button\" class=\"cart_quantity_down qty-btn increase_button quantity-left-minus btn btn-primary btn-number\" data-type=\"plus\" data-field=\"\" onclick=\"downQty('quantity_262771_0_1_0')\">\n                                                \n                                                        <span class=\"fas fa-chevron-down\"></span>\n                                                </button>\n                                        </span>                                \n                                        <input min=\"1\" max=\"100\" autocomplete=\"off\" type=\"text\" id=\"quantity\" class=\"form-control input-number quantitybox\" name=\"quantity_262771_0_1_0\" value=\"26\">\n                                        <span class=\"input-group-btn\">\n                                                <button type=\"button\" class=\"cart_quantity_down qty-btn decrease_button quantity-right-plus btn btn-primary btn-number\" data-type=\"plus\" data-field=\"\"  onclick=\"upQty('quantity_262771_0_1_0')\">\n                                                        <span class=\"fas fa-chevron-up\"></span>\n                                                </button>\n                                        </span>\n                                                                            \n                                </div>\n                            \n                                <a id=\"262771_0_28731_0\" onclick=\"deleteProductFromCart(this.id);\" class=\"remove-from-cart\" rel=\"nofollow\" href=\"#\" style=\";\">\n                                        <i class=\"fas fa-trash\"></i>\n                                </a>\n                        </div>\n                </div>\n                <div class=\"col-md-2 col-xs-3 col-3 text-md-right text-xs-right text-sm-right productTotalSection\" id=\"total_product_price_262771_0_28731\" style=\";\" >\n                        <span class=\"total-price-text\">Wartość</span>\n                                <span class=\"cart-product-price d-block text-right\">165,10 zł</span>                        </div>\n                </div>\n                </div>\n<div id=\"confirmCheckout\">\n<script type=\"text/javascript\">\n    var subtotal_msg = \"Subtowal\";\n    var shipping_msg = \"Wysyłka\";\n    var taxex_msg = \"Podatki\";\n</script>\n\n<div class=\"velsof_sc_overlay\"></div>\n\n<div class=\"row cart_list_item\">\n    \n</div>\n\n<table class=\"supercheckout-totals table table-bordered totalTable\">\n\n    <tfoot>\n        \n                                                <tr id=\"supercehckout_summary_total_products\" style=\";\">\n                                        <td colspan=\"5\" class=\"text-right title\"><strong>Produkty: </strong></td>\n                    <td class=\"value text-right\"><span id=\"supercehckout_total_products_value\" class=\"price\">165,10 zł</span></td>\n                </tr>\n                    \n                    \n                                                <tr id=\"supercehckout_summary_total_shipping\" style=\";\">\n                                        <td colspan=\"5\" class=\"text-right title\"><strong>Wysyłka: </strong></td>\n                    <td class=\"value text-right\"><span id=\"supercehckout_total_shipping_value\" class=\"price\">91,02 zł</span></td>\n                </tr>\n                    \n                        </tfoot>\n</table>\n\n<div class=\"custom-panel rewardsection\">\n                    <div class=\"rewardHeader\" style=\";\">\n            <a href=\"javascript:void(0)\" onclick=\"$('.rewardBody').toggle();\">Masz kod promocyjny? </a>\n        </div>\n        <div class=\"rewardBody\" style=\"display:none\">\n            <!--h2>Coupon / Voucher / Reward</h2-->\n            <div id=\"supercheckout_voucher_input_row\" class=\"form-group form-coupon\" style=\";\">\n                <!--label for=\"input-coupon\" class=\"control-label\">Enter your coupon here</label-->\n                <div class=\"input-group\" id=\"voucher-form\">\n                    <input type=\"hidden\" value=\"1\" name=\"submitDiscount\">\n                    <input name=\"discount_name\" id=\"discount_name\" type=\"text\" placeholder=\"Wpisz tutaj swój kupon\" class=\"voucherText form-control\"> \n                    <span class=\"input-group-btn\"><button id=\"button-coupon\" onClick=\"callCoupon();\" type=\"button\" data-loading-text=\"Loading...\" class=\"btn btn-primary orangebuttonapply\" style=\"min-height: 33px;\">Zastosować</button>\n                    </span>\n                </div>\t\t\t\t\t\t\t\t\n            </div>\n        </div>\n                    <div class=\"totalAmount\" style=\";\">\n            <h3>\n                                    Całkowita kwota (z VAT):\n                    <span id=\"total_price\" class=\"price amountMoney\">256,12 zł</span>\n                    <input type=\"hidden\" id=\"total_price_wfee\" value=\"256,12 zł\">                            </h3>\n        </div><br>\n        </div>\n\n\n\n<div id=\"highlighted_cart_rules\">\n                        </div>\n\n                    <!-- INSERT INTO #CART BLOCK -->\n                    <!-- Start - Code to insert custom fields in cart block -->\n                    <div class=\"div_custom_fields\">\n                                            </div>\n        </div>\n                    <!-- End - Code to insert custom fields in registration form block -->\n\n                    "
+      }
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/module/supercheckout/pl/index.php?fc=module&module=supercheckout&controller=supercheckout",
+      "method": "POST",
+      "body": "ajax=true&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&method=loadPayment",
+      "status": 200,
+      "location": null,
+      "response": {
+        "html": "<input type=\"radio\" name=\"payment_method\" style=\"height: auto\" data-module-name=\"ps_checkpayment\" value=\"payment-option-1\" id=\"payment-option-1\"  class=\"\"/><label id=\"payment_lbl_13\" for=\"payment-option-1\">\n                                                Przelew tradycyjny \n                    </label><div id=\"payment-option-1-additional-information\"><dd>256,12 zł (brutto)</dd></div>"
+      }
+    },
+    {
+      "context": "quote:26:00-001",
+      "origin": "https://www.unimet.pl",
+      "path": "/koszyk?action=show",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "location": null,
+      "response": "<script>var prestashop = {\"shop\":{\"name\":\"Unimet sp z o.o.\"},\"currency\":{\"iso_code\":\"PLN\"},\"customer\":{\"is_logged\":false},\"cart\":{\"products\":[{\"add_to_cart_url\":\"https://www.unimet.pl/koszyk?add=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"id\":\"262771\",\"attributes\":[],\"show_price\":true,\"weight_unit\":\"kg\",\"url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"canonical_url\":\"https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html\",\"condition\":false,\"embedded_attributes\":{\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ecotax\":\"0.000000\",\"quantity\":26,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"condition\":\"new\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"id_customization\":null,\"category\":\"narozniki-6\",\"id_image\":\"262771-2006367\",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"features\":[{\"id_feature\":\"602\",\"id_product\":\"262771\",\"id_feature_value\":\"179295\"}],\"attributes\":[],\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"26\"},\"quantity_discounts\":[],\"reference_to_display\":\"G-NA 250+SIA\",\"seo_availability\":\"https://schema.org/InStock\",\"labels\":{\"tax_short\":\"(brutto)\",\"tax_long\":\"Brutto\"},\"ecotax\":{\"value\":\"0,00 zł\",\"amount\":\"0.000000\",\"rate\":0},\"flags\":[],\"main_variants\":[],\"id_product\":\"262771\",\"id_manufacturer\":\"366\",\"on_sale\":\"0\",\"online_only\":\"0\",\"ean13\":\"5900308102411\",\"isbn\":\"\",\"upc\":\"5\",\"quantity\":26,\"minimal_quantity\":\"25\",\"price\":\"6,35 zł\",\"reference\":\"G-NA 250+SIA\",\"customizable\":\"0\",\"description_short\":\"<p style=margin-top: 0px margin-bottom: 0px padding-top: 0px padding-bottom: 0px><span style=font-size:12ptfont-family:Times, serif>NAROŻNIK ALUMINIOWY Z SIATKĄ MIN. DO ŁĄCZENIA ŚCIAN GIPSOWYCH. WYSOKOŚĆ 250CM, SZEROKOŚĆ 70CM&nbsp</span></p>...\",\"link_rewrite\":\"naroznik-aluminiowy-z-siatka-7070-250cm\",\"name\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"available_now\":\"Towar w naszym magazynie            \",\"available_later\":\"                                                                        \",\"new\":\"0\",\"id_product_attribute\":\"0\",\"cart_quantity\":\"26\",\"id_customization\":null,\"manufacturer_name\":\"BUDMAT\",\"category\":\"narozniki-6\",\"price_attribute\":null,\"ecotax_attr\":null,\"id_image\":\"262771-2006367\",\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"reduction\":0,\"price_without_reduction\":6.3468,\"specific_prices\":{\"id_specific_price\":\"1326202999\",\"id_specific_price_rule\":\"0\",\"id_cart\":\"0\",\"id_product\":\"262771\",\"id_shop\":\"1\",\"id_shop_group\":\"0\",\"id_currency\":\"0\",\"id_country\":\"0\",\"id_group\":\"1\",\"id_customer\":\"0\",\"id_product_attribute\":\"0\",\"price\":5.16,\"from_quantity\":\"0\",\"reduction\":\"0.000000\",\"reduction_tax\":\"0\",\"reduction_type\":\"amount\",\"from\":\"0000-00-00 00:00:00\",\"to\":\"0000-00-00 00:00:00\",\"score\":\"50\"},\"stock_quantity\":400,\"price_with_reduction\":6.3468,\"price_with_reduction_without_tax\":5.16,\"total\":\"165,10 zł\",\"total_wt\":165.1,\"price_wt\":6.3468,\"allow_oosp\":0,\"attributes_small\":\"\",\"rate\":23,\"tax_name\":\"PTU PL 23%\",\"pack\":false,\"ecotax_rate\":0,\"unit_price\":\"2,54 zł\",\"remove_from_cart_url\":\"https://www.unimet.pl/koszyk?delete=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"up_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=up\",\"down_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&op=down\",\"update_quantity_url\":\"https://www.unimet.pl/koszyk?update=1&id_product=262771&id_product_attribute=0&token=bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"price_amount\":\"6,35 zł\",\"quantity_wanted\":\"26\",\"images\":[{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]}],\"cover\":{\"bySize\":{\"small_default\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"cart_default\":{\"url\":\"https://www.unimet.pl/2006367-cart_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":125,\"height\":125},\"home_default\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"medium_default\":{\"url\":\"https://www.unimet.pl/2006367-medium_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":452,\"height\":452},\"large_default\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800}},\"small\":{\"url\":\"https://www.unimet.pl/2006367-small_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":98,\"height\":98},\"medium\":{\"url\":\"https://www.unimet.pl/2006367-home_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":259,\"height\":259},\"large\":{\"url\":\"https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp\",\"width\":800,\"height\":800},\"legend\":\"NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM                  \",\"id_image\":\"2006367\",\"cover\":\"1\",\"position\":\"1\",\"associatedVariants\":[]},\"has_discount\":false,\"discount_type\":\"amount\",\"discount_percentage\":\"0%\",\"discount_percentage_absolute\":\"0%\",\"discount_amount\":\"0,00 zł\",\"regular_price_amount\":6.3468,\"regular_price\":\"6,35 zł\",\"discount_to_display\":\"0,00 zł\",\"unit_price_full\":\"2,54 zł SZT\",\"show_availability\":true,\"availability_date\":null,\"availability_message\":\"Towar w naszym magazynie            \",\"availability\":\"available\",\"customizations\":[]}],\"totals\":{\"total\":{\"type\":\"total\",\"label\":\"Razem\",\"amount\":256.12,\"value\":\"256,12 zł\"},\"total_including_tax\":{\"type\":\"total\",\"label\":\"Suma (brutto)\",\"amount\":256.12,\"value\":\"256,12 zł\"},\"total_excluding_tax\":{\"type\":\"total\",\"label\":\"Suma (netto)\",\"amount\":208.16,\"value\":\"208,16 zł\"}},\"subtotals\":{\"products\":{\"type\":\"products\",\"label\":\"Produkty\",\"amount\":165.1,\"value\":\"165,10 zł\"},\"discounts\":null,\"shipping\":{\"type\":\"shipping\",\"label\":\"Wysyłka\",\"amount\":91.02,\"value\":\"91,02 zł\"},\"tax\":null},\"products_count\":26,\"summary_string\":\"26 sztuk\",\"vouchers\":{\"allowed\":1,\"added\":[]},\"discounts\":[],\"minimalPurchase\":0.01,\"minimalPurchaseRequired\":\"\"},\"static_token\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"};</script>\n"
+    }
+  ]
+}

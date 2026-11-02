@@ -39,6 +39,7 @@ import {readBmbCart} from './bmb';
 import { readAbstoreProduct } from './abstore-product';
 import { readCertusoftProduct } from './certusoft-product';
 import { readModnaProduct } from './modna-product';
+import { confirmUnimetPurchase } from './unimet-purchase';
 import { readBetterialProduct } from './betterial-product';
 import { inspectFolnetProduct } from './folnet-product';
 import { inspectKronosferaProduct } from './kronosfera-product';
@@ -150,6 +151,7 @@ function idosellPromotion(product: Record<string, any>, now: Date): Record<strin
 
 /** Read explicit Product + Offer JSON-LD, never a price from search snippets. */
 export function parseRetailPage(html: string, source: RetailSource, observedAt: Date): RetailObservation {
+  confirmUnimetPurchase(html, source);
   if(source.id.startsWith('buduj24-ceresit-ct17-'))confirmCeresitPrimerSource(source);
   reviewedPaintingTape(source);
   if (source.disabledReason) throw Error(source.disabledReason);

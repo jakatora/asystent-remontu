@@ -32,6 +32,7 @@ import { quotePati } from './pati-woo';
 import { quoteBudshop } from './budshop-woo';
 import { quoteKowalczyk } from './kowalczyk-magento';
 import { quoteIzosystems } from './izosystems-delivery';
+import { quoteUnimet } from './unimet-delivery';
 import {quoteBmb} from './bmb';
 import {quoteKronodom} from './kronodom-delivery';
 import {createRetailerConnectionGuard,type RetailerConnectionGuard} from './retailer-connection';
@@ -78,14 +79,14 @@ function unavailableReason(store: string): string | undefined {
   // source: https://marbet24.pl/zamowienie
   if (store === 'Marbet24') return 'customer_details_required';
   if (sources.length && sources.every(source=>source.disabledReason)) return sources[0].disabledReason;
-  if (ORIGINS[store] || ['Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','ALNAR','FUGI.PL','eWinyl','ChemiaDoParkietu25','eTak','Elmas'].includes(store)) return undefined;
+  if (ORIGINS[store] || ['Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Unimet','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','ALNAR','FUGI.PL','eWinyl','ChemiaDoParkietu25','eTak','Elmas'].includes(store)) return undefined;
   return ['Castorama','OBI','Leroy Merlin'].includes(store) ? 'retailer_access_required' : 'integration_unavailable';
 }
 export function retailerDeliveryCapabilities() {
   return {
-    automaticStores:[...new Set([...Object.keys(ORIGINS),'Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','ALNAR','FUGI.PL','eWinyl','ChemiaDoParkietu25','eTak','Elmas'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
+    automaticStores:[...new Set([...Object.keys(ORIGINS),'Dekork','Sewera','Buduj24','Cezar','TopBoden','Eelektryka','HIPPER','Modna Łazienka','Folnet','Kronosfera','Kronodom','Centrum Matbud','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Unimet','Izosystems','BMB Technologie','Integra Bielińscy','mŁazienka','DekoratorMarket','ALNAR','FUGI.PL','eWinyl','ChemiaDoParkietu25','eTak','Elmas'])].filter(store=>RETAIL_SOURCES.some(source=>source.store===store&&!source.disabledReason)),
     country:'PL',quoteTtlSeconds:600,
-    postcodeStores:['Dekork','ChemiaDoParkietu25','eWinyl','Sewera','Cezar','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Izosystems'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
+    postcodeStores:['Dekork','ChemiaDoParkietu25','eWinyl','Sewera','Cezar','ABUD','IRBUD','Pati Art Studio','Budshop24','E-Kowalczyk','Unimet','Izosystems'],accessRequiredStores:[...new Set(['Castorama','OBI','Leroy Merlin',...RETAIL_SOURCES.filter(source=>source.marketplaceSeller).map(source=>source.store)])],
   };
 }
 export function knownUnavailableRetailers(): Readonly<Record<string,string>> {
@@ -271,6 +272,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
         if(order.store==='BMB Technologie')return await quoteBmb(order,fetchImpl);
         if(order.store==='Izosystems')return await quoteIzosystems(order,postalCode,fetchImpl);
         if(order.store==='E-Kowalczyk')return await quoteKowalczyk(order,postalCode,fetchImpl);
+        if(order.store==='Unimet')return await quoteUnimet(order,postalCode,fetchImpl);
         if(order.store==='IRBUD')return await quoteIrbud(order,postalCode,fetchImpl);
         if(order.store==='Pati Art Studio')return await quotePati(order,postalCode,fetchImpl);
         if(order.store==='Budshop24')return await quoteBudshop(order,postalCode,fetchImpl);

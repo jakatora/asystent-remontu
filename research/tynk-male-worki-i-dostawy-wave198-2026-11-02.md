@@ -42,6 +42,25 @@ Siedem nowych testów API oraz jedenaście wcześniejszych testów Kowalczyk/Cer
 
 Fixture zawiera wyłącznie wybrane oryginalne fragmenty kart i odpowiedzi anonimowego API, z zamaskowanymi identyfikatorami sesji. Brak cookies, kluczy formularzy, kontaktów, zamówień i płatności. Nie poluzowano zamkniętej listy originów, SKU, operacji ani kontroli groszy i VAT.
 
-Seed: zachowano pierwsze 369 obserwacji i dopisano trzy prawdziwe odczyty. Przewidywany katalog po odbiorze: 251 referencji, 219 potwierdzonych, 333 oferty; wcześniejsze 32 luki pozostają. Nie utożsamia się innego worka lub sprzedawcy z uzupełnieniem starego brakującego GTIN.
+Seed: zachowano pierwsze 369 obserwacji i dopisano trzy prawdziwe odczyty nowych ofert oraz ponowne sprawdzenie istniejącego narożnika Unimet (łącznie 373). Przewidywany katalog po odbiorze: 251 referencji, 219 potwierdzonych, 333 oferty; wcześniejsze 32 luki pozostają. Nie utożsamia się innego worka lub sprzedawcy z uzupełnieniem starego brakującego GTIN.
 
 MP 75 L 30 kg z tej samej hurtowni pozostaje wykluczony: niejednoznaczność zdjęcia/identyfikacji oraz niepotwierdzony transport domowy. Nie zastępuje on brakującego MP 75 25 kg. ATLAS Hydroband nadal wymaga potwierdzenia kompletu akcesoriów; nie przyjęto oferty zbiorczej rolki jako ceny mankietu.
+
+## Wykryte minimum narożników i rzeczywista dostawa dłużycy Unimet
+
+Pierwszy odbiór pełnej czteropozycyjnej receptury wykrył brak integracji transportu narożnika, więc całkowita kwota prawidłowo pozostawała nieznana. Kontrola pierwotnej karty i formularza sklepu ujawniła istotniejszy problem: narożnik 2,5 m kosztuje 6,35 PLN za sztukę, lecz minimalny zakup wynosi 25 sztuk. Dotychczasowa oferta nie uwzględniała tego minimum. Nie zwiększono fizycznego opakowania do 62,5 m ani nie przyjęto wielokrotności 25: rzeczywisty koszyk przyjmuje również 26 sztuk, natomiast odrzuca jedną.
+
+Dodano `minimumPackages:25`, niezależną kontrolę pierwotnego formularza i informacje w notatce produktu. Zmiana minimum na karcie unieważnia ofertę zamiast zachowywać dawną regułę w cache. Cena jednostkowa pozostaje 6,35 PLN; minimum stosujemy raz do połączonych prac, bez fałszywej zmiany ceny jednostkowej.
+
+Nowy adapter transportu jest ograniczony do tego dokładnego GTIN, produktu 262771 i odrębnej sesji anonimowej. Potwierdzono na rzeczywistych świeżych koszykach:
+
+| Ilość | Kod przekazany sklepowi | Materiały | Transport GABARYT | Razem |
+| --- | --- | ---: | ---: | ---: |
+| 25 listew | 30-001 | 158,75 | 91,02 | 249,77 |
+| 26 listew | 00-001 | 165,10 | 91,02 | 256,12 |
+
+Wybrano natywną metodę 381 `GABARYT`, z odrzuceniem odbioru 387 i pobrania 382. `loadCarriers` otrzymuje wyłącznie Polskę i kod pocztowy, następnie potwierdzamy wybór przewoźnika, odświeżony koszyk, ilości, kwoty brutto i kwotę do zapłaty przy przelewie tradycyjnym. Nie wysłano formularza klienta, adresu, zgód, walidacji płatności ani zamówienia. Zero kosztów w koszyku przed wyborem przewoźnika pozostaje wartością wstępną.
+
+Sześć regresji transportu i trzy minimum zakupowego sprawdzają oryginalne odpowiedzi, błędne ilości/ceny, rabaty, kwoty końcowe, pobranie, odbiór, zmianę płatności i zamknięte operacje HTTP. Fixture usuwa kontakty, dane rachunku firmy i zbędną zawartość strony, maskuje tokeny oraz klucze tymczasowego adresu. Rzeczywiste dowody pozostają poza repo w katalogu W198 na G.
+
+Pułapki badawcze: łączny `Accept: text/html, application/json` daje w tym sklepie pustą odpowiedź, dlatego dla tego originu używamy `text/html`. Natywny endpoint AJAX wymaga pełnego, zaobserwowanego query `fc=module&module=supercheckout&controller=supercheckout`; sam pathname zwraca 404. Pierwsza próba kliknięcia ukrytego radia została zastąpiona zwykłym kliknięciem jego widocznej etykiety, bez wymuszania i obchodzenia nakładek. Wszystkie te nieudane próby były narzędziami badawczymi, nie opublikowanym zachowaniem aplikacji.

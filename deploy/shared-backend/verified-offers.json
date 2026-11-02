@@ -5007,5 +5007,18 @@
     "sourceUrl": "https://sklep-kowalczyk.pl/knauf-grunt-betokontakt-5kg.html",
     "evidenceSha256": "b43cd46e9e24a61185844f81ee6aa0e875ba463bb075c5249f4ceac199a1f770",
     "validUntil": null
+  },
+  {
+    "sourceId": "unimet-corner-mesh-25m",
+    "ean": "5900308102411",
+    "name": "NAROŻNIK ALUMINIOWY Z SIATKĄ 70*70 - 250CM",
+    "imageUrl": "https://www.unimet.pl/2006367-large_default/naroznik-aluminiowy-z-siatka-7070-250cm.webp",
+    "priceGrosze": 635,
+    "currency": "PLN",
+    "availability": "in_stock",
+    "observedAt": "2026-11-02T08:21:06.642Z",
+    "sourceUrl": "https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html",
+    "evidenceSha256": "5cf0aec9dad59fc758df287c57d8e8733b70e297a448213607dc453c46e3fef4",
+    "validUntil": null
   }
 ]

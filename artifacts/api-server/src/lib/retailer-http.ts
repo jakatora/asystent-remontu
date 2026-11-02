@@ -1,4 +1,5 @@
 import {KOWALCZYK_PLASTER_REVIEWS} from './kowalczyk-plasters';
+import { UNIMET_ORIGIN, UNIMET_AJAX_PATH } from './unimet-purchase';
 import {FUGI_SOURCES} from './fugi-sources';
 import { DELIVERY_LIMITS } from '../../../../lib/pricing-service/src/delivery-limits';
 import {ELMAS_ORIGIN,ELMAS_ITEMS,ELMAS_VARIANT,ELMAS_HOME_CARRIER} from './elmas-source';
@@ -335,10 +336,40 @@ export class AnonymousShop {
     }
     return data;
   }
-  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string, forcePost=false, overrideMethod?: 'PUT', magentoErrors=false): Promise<string> {
+  /** Reviewed strip and anonymous carrier calculation only. No customer, address,
+   * consent, validation, order or payment submission is exposed.
+   * source: https://www.unimet.pl/modules/supercheckout/views/js/front/front.js */
+  async unimet(action: 'add' | 'carriers' | 'carrier' | 'cart' | 'payments', args: { token: string; count?: number; postalCode?: string; addressId?: string }): Promise<any> {
+    if (this.origin !== UNIMET_ORIGIN || !args || !/^[a-f0-9]{32}$/i.test(args.token)
+      || Object.keys(args).some(k => !['token', 'count', 'postalCode', 'addressId'].includes(k))) throw Error('invalid_cart_action');
+    let path = UNIMET_AJAX_PATH, form: Record<string, string> = { ajax: 'true', token: args.token };
+    if (action === 'add') {
+      if (Object.keys(args).length !== 2 || !Number.isSafeInteger(args.count) || args.count! < 25 || args.count! > MAX_RETAIL_PACKAGES) throw Error('invalid_cart_action');
+      path = '/koszyk'; form = { token: args.token, id_product: '262771', id_customization: '0', qty: String(args.count), add: '1', action: 'update', ajax: '1' };
+    } else if (action === 'carriers') {
+      if (Object.keys(args).length !== 2 || !/^\d{2}-\d{3}$/.test(args.postalCode ?? '')) throw Error('invalid_cart_action');
+      form = { ...form, id_country: '14', id_state: '0', postcode: args.postalCode!, vat_number: '', id_address_delivery: '', method: 'loadCarriers' };
+    } else if (action === 'carrier') {
+      if (Object.keys(args).length !== 2 || !/^\d{1,12}$/.test(args.addressId ?? '')) throw Error('invalid_cart_action');
+      form = { ...form, delivery_available: '3', ['delivery_option[' + args.addressId + ']']: '381,', method: 'updateCarrier' };
+    } else if (action === 'cart' || action === 'payments') {
+      if (Object.keys(args).length !== 1) throw Error('invalid_cart_action');
+      form.method = action === 'cart' ? 'loadCart' : 'loadPayment';
+    } else throw Error('invalid_cart_action');
+    return JSON.parse(await this.read(path, new URLSearchParams(form).toString(), false, false, false, undefined, false, undefined, false, true));
+  }
+  private async read(path: string, payload: string | undefined, json: boolean, storeCart = false, rawJson = false, modnaCsrf?: string, forcePost=false, overrideMethod?: 'PUT', magentoErrors=false, unimetAction=false): Promise<string> {
     let url = new URL(path, this.origin), method = overrideMethod ?? (payload || forcePost ? 'POST' : 'GET');
     for (let i = 0; i < 4; i++) {
       if (url.origin !== this.origin) throw Error('invalid_redirect');
+      if (this.origin === UNIMET_ORIGIN) {
+        const read = method === 'GET' && [
+          '/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html',
+          '/zam%C3%B3wienie', '/module/supercheckout/supercheckout', '/koszyk?action=show',
+        ].includes(url.pathname + url.search);
+        const write = method === 'POST' && unimetAction && ['/koszyk', UNIMET_AJAX_PATH].includes(url.pathname + url.search);
+        if (!read && !write) throw Error('invalid_cart_route');
+      }
       if(this.origin==='https://fugi.pl'){
         const read=method==='GET'&&(FUGI_SOURCES.some(s=>url.href===s.url||url.href==='https://fugi.pl/wp-json/wc/store/v1/products/'+s.productId)||storeCart&&url.href==='https://fugi.pl/wp-json/wc/store/v1/cart');
         const write=method==='POST'&&json&&storeCart&&['/wp-json/wc/store/v1/cart/add-item','/wp-json/wc/store/v1/cart/update-customer','/wp-json/wc/store/v1/cart/select-shipping-rate'].includes(url.pathname)&&!url.search;
@@ -356,7 +387,8 @@ export class AnonymousShop {
       // value. Request HTML explicitly while keeping the honest agent identity.
       // source: https://izosystems.pl/tasmy-wewnetrzne-do-cieplego-montazu-okien/1783-Tasma-paroszczelna-do-cieplego-montazu-okien-soudal-sws-basic-plus-inside-90mm-x-30m.html
       // source: https://integra-bielinscy.pl/uchwyty/1614-uchwyt-meblowy-nyxa-c-128-l-138-czarny-mat-5902801422652.html
-      const htmlOnly = ['https://izosystems.pl', 'https://integra-bielinscy.pl'].includes(this.origin);
+      // source: https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html
+      const htmlOnly = ['https://izosystems.pl', 'https://integra-bielinscy.pl', 'https://www.unimet.pl'].includes(this.origin);
       const r = await this.fetchImpl(url, { method, body: payload, signal: this.signal, redirect: 'manual',
         headers: { 'User-Agent': 'AsystentRemontu/1.0', Accept: json ? 'application/json' : htmlOnly ? 'text/html' : 'text/html, application/json', Cookie: cookie,
           ...(this.origin==='https://izosystems.pl'?{'Accept-Language':'pl-PL'}:{}),

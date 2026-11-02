@@ -2130,7 +2130,7 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
       'https://www.unimet.pl/narozniki-6/262771-naroznik-aluminiowy-z-siatka-7070-250cm-5900308102411.html',
     lastUpdated: '2026-10-25',
     currency: 'PLN',
-    notes: 'Na zewnętrzne krawędzie (ościeża, słupki). Siatka zbroi tynk przy narożniku i chroni przed wykruszeniem.',
+    notes: 'Cena jednej listwy 2,5 m. Unimet wymaga zakupu co najmniej 25 sztuk; porównanie sklepów uwzględnia to minimum raz dla całego remontu. Koszt dostawy dłużycy wymaga potwierdzenia. Sprawdź dopasowanie profilu do tynku i warunków pomieszczenia.',
   },
 
   // --- Etap ocieplenia ścian zewnętrznych metodą lekką mokrą (BSO/ETICS) ---
