@@ -1,6 +1,6 @@
 # ALNAR — konkurencyjna oferta zestawu do paneli, 2026-11-02
 
-W 195 dodaje drugi sklep dla istniejącego produktu Wolfcraft 6931000, GTIN 4006885693104. Jedna sztuka handlowa oznacza jeden kompletny zestaw 22 elementów, a nie 22 zestawy. Nie zmienia receptur, starych projektów ani migracji.
+W195 dodaje drugi sklep dla istniejącego produktu Wolfcraft 6931000, GTIN 4006885693104. Jedna sztuka handlowa oznacza jeden kompletny zestaw 22 elementów, a nie 22 zestawy. Nie zmienia receptur, starych projektów ani migracji.
 
 ## Źródła i rzeczywiste koszyki
 
@@ -28,10 +28,10 @@ To jawna taryfa krajowa PL. Sklep na tym etapie nie wycenia adresu według kodu;
 
 ## Weryfikacja i publikacja — zakończona
 
-Produkcja źródła aplikacji **0 cfe 630076 d 421506 fcdb 26 cd 820 bfdb 90 cb 58 c 9**. PR backendu [176](https://github.com/jakatora/przetargai/pull/176) scalony; head 0271 ae 62369892412 d 7 ef 5 c 0 cae 12999358 a 6 a 76, mergec 8852 bd 1793 f 1 cb 0 e 5 aef 0 c 547 bd 9 aa 725709 cdc. GitHub nie zwrócił statusów CI; opisane testy wykonano lokalnie i na prawdziwym publicznym API/UI.
+Produkcja źródła aplikacji **0cfe630076d421506fcdb26cd820bfdb90cb58c9**. PR backendu [176](https://github.com/jakatora/przetargai/pull/176) scalony; head 0271ae62369892412d7ef5c0cae12999358a6a76, mergec8852bd1793f1cb0e5aef0c547bd9aa725709cdc. GitHub nie zwrócił statusów CI; opisane testy wykonano lokalnie i na prawdziwym publicznym API/UI.
 
-- API 69100076-fdf 0-40 dd-8 e 36-19 eb 3 f 6 ec 44 f SUCCESS 2026-11-02 05:51:35.730 UTC. Publiczny snapshot wszystkich 150 plików jest identyczny z zatwierdzoną paczką. Bundel SHA 2564 d 39 efc 6977 da 829612 fa 941 b 69 c 8 f 6 b 8883719419 ac 4 a 97 c 2 e 5421456 d 9 e 7 f 0.
-- WWW 16 a 3576 f-4 a 8 f-452 f-b 43 f-bb 564387 f 61 f SUCCESS 2026-11-02 05:53:10.742 UTC. Wszystkie 63 zasoby sprawdzone SHA 256, bez braków. Przejrzano 77 wartości vaulta:0 wycieków. Osiem z dziewięciu plików hostingu bez zmiany; zmienił się tylko wygenerowany delivery-relay.cjs z aktualnym katalogiem. Zakres prywatnego relay bez rozszerzenia.
+- API 69100076-fdf0-40dd-8e36-19eb3f6ec44f SUCCESS 2026-11-02 05:51:35.730 UTC. Publiczny snapshot wszystkich 150 plików jest identyczny z zatwierdzoną paczką. Bundel SHA 2564d39efc6977da829612fa941b69c8f6b8883719419ac4a97c2e5421456d9e7f0.
+- WWW 16a3576f-4a8f-452f-b43f-bb564387f61f SUCCESS 2026-11-02 05:53:10.742 UTC. Wszystkie 63 zasoby sprawdzone SHA 256, bez braków. Przejrzano 77 wartości vaulta:0 wycieków. Osiem z dziewięciu plików hostingu bez zmiany; zmienił się tylko wygenerowany delivery-relay.cjs z aktualnym katalogiem. Zakres prywatnego relay bez rozszerzenia.
 - Zmieniono wyłącznie bundel remontu i seed w 150 plikach API;148 innych zachowane. Seed 364:363 poprzednie obserwacje zachowane dokładnie+1 rzeczywista obserwacja ALNAR.
 - Czysta kopia:571 mobile/237 pricing/165 APIlib/190 adapters/1064 shared PASS,0 skip. Grupy częściowo się pokrywają. Typy API/mobile/pricing oraz 66 legacyjob IDs PASS.
 - Osiem rzeczywistych lokalnych HTTP i osiem publicznych HTTP PASS: dwa warianty Optima, pełne trzy projekty, niepełny wybrany TopBoden, niepełny ALNAR oraz 1/2/7 zestawów. Żadne ceny/dostawy nie były wstrzyknięte do aplikacji.
@@ -47,7 +47,7 @@ Historia ALNAR po publicznym odświeżeniu:3 rzeczywiste punkty po 49,00 PLN, de
 
 Pierwszy import ESM ujawnił cykl zależności; metadane wydzielono do czystego alnar-source.ts, powtórzony adapter przeszedł wszystkie 3 natywne koszyki. W fixture i parserze koszyka rozróżniono jawne Brutto/Netto; niższe netto nie może wygrać.
 
-Wcześniejsze próby QA r 1–r 7 zachowano. Poprawiono selektory, uwzględniono istniejące pierwszeństwo zdjęcia katalogowego i natywne Linking.openURL. Lokalny przechwytujący CORS runner czyta autentyczną APIResponse przed przekazaniem tej samej odpowiedzi do przeglądarki; zapobiega to utracie odczytu body przez CDP po nawigacji. R 8 lokalnie i r 1 publicznie mają 0 błędów. Produkcja nie ma przechwytywania lub podmieniania odpowiedzi. Dotychczasowy API missingProductCount liczy linie etapów (ALNAR 5), a UI grupuje identyczne brakujące produkty; nie zmieniono tego kontraktu.
+Wcześniejsze próby QA r1–r7 zachowano. Poprawiono selektory, uwzględniono istniejące pierwszeństwo zdjęcia katalogowego i natywne Linking.openURL. Lokalny przechwytujący CORS runner czyta autentyczną APIResponse przed przekazaniem tej samej odpowiedzi do przeglądarki; zapobiega to utracie odczytu body przez CDP po nawigacji. R8 lokalnie i r1 publicznie mają 0 błędów. Produkcja nie ma przechwytywania lub podmieniania odpowiedzi. Dotychczasowy API missingProductCount liczy linie etapów (ALNAR 5), a UI grupuje identyczne brakujące produkty; nie zmieniono tego kontraktu.
 
 Własny serwer PID 28536/session 58182 zamknięty exit 0.313 merchantHTTP to łączna liczba wszystkich lokalnych prób, w tym poprawek runnera, nie pojedynczego użytkownika. Browser contexts zamknięte. Localhost 8082, projekty użytkownika i obce WIP nietknięte. Nie zmieniono zależności, migracji lub dotychczasowych ID. Cel ciągły pozostaje aktywny.
 
