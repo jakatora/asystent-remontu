@@ -2,10 +2,15 @@ appId: pl.asystentremontu.app
 ---
 - launchApp:
     clearState: false
+- extendedWaitUntil:
+    visible:
+      id: onboarding-skip
+    timeout: 60000
 - tapOn:
-    text: Pomiń
-    optional: true
-- assertVisible: Remont Asystent
+    id: onboarding-skip
+- extendedWaitUntil:
+    visible: Remont Asystent
+    timeout: 60000
 - takeScreenshot: native-screens/01-home
 - openLink:
     link: remont://project/paint-base?tab=estimate

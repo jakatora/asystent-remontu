@@ -341,12 +341,13 @@ workflows:
           python3 scripts/ci/seed-android-smoke.py
       - name: Native release project, real quotes and screenshots
         script: |
+          set -euo pipefail
           cd "$CM_BUILD_DIR"
+          trap 'adb logcat -d > android-native-logcat.txt 2>&1 || true' EXIT
           curl -fsSL https://get.maestro.mobile.dev | bash
           export PATH="$HOME/.maestro/bin:$PATH"
           mkdir -p native-screens
           maestro test --format junit --output android-native-smoke.xml scripts/ci/android-smoke.yaml
-          adb logcat -d > android-native-logcat.txt
     artifacts:
       - native-screens/*.png
       - android-native-smoke.xml
