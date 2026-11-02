@@ -15,7 +15,7 @@ test('explicit Optima choices quote raw m² for one 10 m² roll SKU at every tie
   const calc=calculatorEngine.calculate(getJobById(jobId)!,m);
   for(const tier of ['economy','standard','better']as const){
    const input=toPricingStageInput(calc,tier),line=input.materials.find(l=>l.material.id==='underlay')!;
-   assert.equal(line.quantity,22);assert.equal(line.material.ean,ean);assert.equal(line.material.unit,'m²');assert(!input.materials.some(l=>l.material.category==='vapor-barrier'));
+   assert.equal(line.quantity,22);assert.equal(line.material.ean,ean);assert.equal(line.material.unit,'m2');assert(!input.materials.some(l=>l.material.category==='vapor-barrier'));
    const ref=getMaterialsForJob(jobId,tier,m).find(r=>r.materialType==='underlay')!;assert.equal(ref.packageSize,10);assert.equal(PRODUCT_PHOTOS.find(p=>p.ids.includes(ref.id))?.ean,ean);
   }
  }
