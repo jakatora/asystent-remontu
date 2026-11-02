@@ -1,0 +1,11 @@
+# source: https://docs.maestro.dev/maestro-flows/workspace-management/sequential-execution
+flows:
+  - 01-welcome.yaml
+  - 02-product-prices.yaml
+  - 03-basket.yaml
+executionOrder:
+  continueOnFailure: true
+  flowsOrder:
+    - 01-welcome
+    - 02-product-prices
+    - 03-basket

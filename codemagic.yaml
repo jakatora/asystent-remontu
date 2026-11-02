@@ -324,8 +324,8 @@ workflows:
       - name: Verify the exact signed release APK
         script: |
           cd "$CM_BUILD_DIR"
-          curl -fL --retry 2 "$REMONT_NATIVE_APK_URL" -o android-qa.apk
-          echo "5056d8cc2e0cf68069fbf64b4f7a7ace372ed9275c6ce9e02c70c4feb45567e3  android-qa.apk" | sha256sum -c -
+          curl -fL --retry 2 "$REMONT_NATIVE_APK_11_URL" -o android-qa.apk
+          echo "3ec719d02e17d09be6a60286a3e4d8067f7b36fb9081445d8b07975ceb1b0efb  android-qa.apk" | sha256sum -c -
       - name: Boot a disposable rootable Android 15 emulator
         script: |
           set -euo pipefail
@@ -362,7 +362,7 @@ workflows:
           curl -fsSL https://get.maestro.mobile.dev | bash
           export PATH="$HOME/.maestro/bin:$PATH"
           mkdir -p native-screens
-          maestro test --format junit --output android-native-smoke.xml scripts/ci/android-smoke.yaml
+          maestro test --config scripts/ci/android-native/config.yaml --format junit --output android-native-smoke.xml scripts/ci/android-native
     artifacts:
       - native-screens/*.png
       - android-native-smoke.xml

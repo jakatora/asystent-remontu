@@ -1,0 +1,37 @@
+appId: pl.asystentremontu.app
+---
+- launchApp:
+    clearState: false
+- openLink:
+    link: remont://project/paint-base?tab=estimate
+    autoVerify: true
+- extendedWaitUntil:
+    visible: 'Gdzie kupisz najtaniej\?'
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: Kod pocztowy dostawy
+    direction: DOWN
+    timeout: 30000
+- tapOn: Kod pocztowy dostawy
+- inputText: 30001
+- takeScreenshot: native-screens/02-postcode-entered
+- hideKeyboard
+- extendedWaitUntil:
+    notVisible: Sprawdzamy koszyki sklepów i koszty dostawy…
+    timeout: 180000
+- scrollUntilVisible:
+    element:
+      text: Łączny koszt
+    direction: DOWN
+    timeout: 30000
+    centerElement: true
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: Łączny koszt
+    direction: UP
+    timeout: 180000
+    centerElement: true
+- assertVisible: Łączny koszt
+- takeScreenshot: native-screens/03-paint-with-delivery
