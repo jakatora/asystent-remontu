@@ -1,0 +1,11 @@
+# W208 — ponowna wycena poprzedniego najtańszego koszyka
+
+Po wygaśnięciu dostawy ograniczony czas sprawdzania sklepów mógł wystarczyć tylko na inny, droższy podział zakupów. W207 dla zapotrzebowania Grey5kg/Manhattan5kg/White20kg odnotowano 510,63 i później 502,09 zł przy odmiennych potwierdzonych alokacjach, bez wykazanej zmiany jednostkowej ceny produktu. Żadnej z tych historycznych kwot nie traktujemy jako bieżącej oferty.
+
+W208 przechowuje wyłącznie identyfikatory ofert i produktów, jednostki, rozmiary opakowań oraz liczby sztuk wcześniejszego pełnego zwycięzcy. Nie przechowuje cen, rabatów, kosztów dostawy ani dowodów wyceny. Cały wariant musi ponownie spełnić aktualne zapotrzebowanie wszystkich pomieszczeń, ograniczenia rozmiarów, dostępność, aktualność ofert, minima, partie i stany. Niepoprawny wariant jest odrzucany w całości. Właściwe aktualne koszyki sklepów są wyceniane jako pierwsze, a następnie działa zwykłe porównanie w tym samym limicie80 wycen. Potwierdzone tańsze nowe plany mogą wygrać. Nie ma gwarancji globalnego minimum.
+
+Pamięć jest oddzielna dla kodu pocztowego, wymagań, wskazanego sklepu i opcji zakupów, ograniczona do64 wpisów na instancję istniejącego API i2 godzin. Sam odczyt nie przedłuża czasu wpisu. To pamięć priorytetu wyszukiwania, a nie ważności ceny; po restarcie lub usunięciu wpisu działa zwykłe wyszukiwanie. Materiały cięte nadal korzystają ze swojego pełnego planu wymiarowego, bez skróconej wskazówki. Częściowy remont nie staje się pełnym koszykiem.
+
+Kontrolowane testy8 PASS: pierwszeństwo wcześniejszego zwycięzcy pod ograniczeniem czasu, aktualna cena/dostawa/dowód po wygaśnięciu, odmowa lub wygasła nowa wycena, aktualne stany/minima/partie/rozmiary/tożsamość, separacja kodów i opcji, brakujący materiał, dwa pomieszczenia ze wspólnym stanem oraz pojemność/TTL/izolacja instancji. TypyAPI/pricing PASS przed zamrożeniem. Pełne testy z czystego źródła, prawdziwe HTTP/UI i wdrożenie jeszcze w toku.
+
+Stan sklepów 2 listopada2026: Android1.2.0(10) production PUBLISHED o16:47:36UTC; Apple WAITING_FOR_REVIEW/AFTER_APPROVAL o16:46:10UTC. Nie anulowano ani nie ponawiano buildów i zgłoszeń. W208 zmienia backend i działa dla istniejących klientów; WWW i aplikacje sklepowe zachowują swój kod.

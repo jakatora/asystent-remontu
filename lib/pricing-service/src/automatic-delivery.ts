@@ -11,6 +11,7 @@ import { materialPurchasePlans } from './material-purchase-plan';
 import {applyCartPrices,quotedMaterialsGrosze,supportsCartPricing} from './cart-pricing';
 import {findExtraPackageOption} from './extra-package-options';
 import {recombineQuotedOrders} from './quoted-order-combinations';
+import {rebuildDeliveryAllocation,type PreferredDeliveryPlan} from './preferred-delivery-plan';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}:${pack.packageSize}:${JSON.stringify(pack.cutRoll??null)}`)).sort().join('|');
@@ -28,6 +29,7 @@ export async function compareAutomaticDelivery(
   stages: readonly StageEstimate[], settings: DeliverySettings, quoteBasket: BasketQuoter,
   policies: readonly StoreDeliveryPolicy[] = [], now = new Date(),
   knownUnavailableStores: Readonly<Record<string,string>> = {},
+  preferredPlan?:PreferredDeliveryPlan,
 ): Promise<DeliveryComparison> {
   if (settings.mode==='pickup'||settings.method==='manual') return compareDeliveredBaskets(stages,settings,policies,now);
   const limits=new Map<string,DeliveryStockLimit>(),cache=new Map<string,Promise<DeliveryQuoteResult>>();
@@ -77,10 +79,10 @@ export async function compareAutomaticDelivery(
     // budget before another mandatory merchant gets a complete-cart quote.
     // Keep the same 80-call cap, cache, postcode and native expiry throughout.
     optionalPartitions=false;
-    result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+    result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores,preferredPlan);
     if(settings.allowSeparateOrders===true&&result.best&&revision===[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|')){
       optionalPartitions=true;
-      result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+      result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores,preferredPlan);
     }else if(settings.allowSeparateOrders===true&&result.purchasePlan){
       // Optional partitions require a confirmed parent quote and cannot turn
       // an unquoted mandatory order into a complete delivered renovation.
@@ -93,7 +95,7 @@ export async function compareAutomaticDelivery(
       const extra=await findExtraPackageOption(result.best,constrained,settings.postalCode!,quoteWithStock);
       if(extra.baselineExpired){
         const previous=allowNewQuotes;allowNewQuotes=false;
-        result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+        result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores,preferredPlan);
         allowNewQuotes=previous;result.extraPackageOption=null;result.searchLimited=true;
       }else{
         result.extraPackageOption=extra.option;
@@ -103,7 +105,7 @@ export async function compareAutomaticDelivery(
     }};
     await addExtra();
     if(reserveHit&&cache.size<MAX_STORE_BASKETS){
-      result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+      result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores,preferredPlan);
       await addExtra();
     }
     const next=[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|');
@@ -120,6 +122,7 @@ async function compareAutomaticDeliveryOnce(
   stages: readonly StageEstimate[], settings: DeliverySettings, quoteBasket: BasketQuoter,
   policies: readonly StoreDeliveryPolicy[] = [], now = new Date(),
   knownUnavailableStores: Readonly<Record<string,string>> = {},
+  preferredPlan?:PreferredDeliveryPlan,
 ): Promise<DeliveryComparison> {
   if (settings.mode === 'pickup' || settings.method === 'manual') return compareDeliveredBaskets(stages, settings, policies, now);
   let groups = groupProjectByProduct(stages).filter(group => group.totalQuantity > 0);
@@ -149,13 +152,13 @@ async function compareAutomaticDeliveryOnce(
       candidates.push(orders); for (const order of orders) unique.set(signature(order), order);
     }
     result.searchLimited = true;
-    return quoteAndRank(candidates, unique, result, settings, knownOnly, now,allGroups);
+    return quoteAndRank(candidates, unique, result, settings, knownOnly, now,allGroups,preferredPlan);
   }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
   const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
   if (groups.length > DELIVERY_LIMITS.products || activeStores.length > DELIVERY_LIMITS.stores) return tooLarge();
-  if (groups.length > 20 || activeStores.length > 10) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
-  if(groups.some(group=>group.cutRoll))return compareSelectedBaskets(groups,activeStores,result,settings,quoteBasket,now);
+  if (groups.length > 20 || activeStores.length > 10) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now,preferredPlan);
+  if(groups.some(group=>group.cutRoll))return compareSelectedBaskets(groups,activeStores,result,settings,quoteBasket,now,preferredPlan);
   const choices: PackagePlanEntry[][][] = [];
   let candidateCount = 1;
   for (const group of groups) {
@@ -165,13 +168,13 @@ async function compareAutomaticDeliveryOnce(
     if(group.requiredBySize||sizes.some(size=>size!==sizes[0])){
       const mixed=mixedPackagePlans(group.totalQuantity,offers.flatMap(offer=>buildPackageVariants([offer],group.product)),group.requiredBySize);
       candidateCount*=mixed.plans.length;
-      if(mixed.limited||candidateCount>MAX_CANDIDATES)return compareSelectedBaskets(groups,activeStores,result,settings,quoteBasket,now);
+      if(mixed.limited||candidateCount>MAX_CANDIDATES)return compareSelectedBaskets(groups,activeStores,result,settings,quoteBasket,now,preferredPlan);
       if(!mixed.plans.length)return tooLarge();
       choices.push(mixed.plans.map(plan=>plan.packages));continue;
     }
     const count = computePackagesNeeded(group.totalQuantity, sizes[0]);
     if (!Number.isSafeInteger(count) || count > DELIVERY_LIMITS.packagesPerProduct) return tooLarge();
-    if (count > 60) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
+    if (count > 60) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now,preferredPlan);
     const variants: PackagePlanEntry[][] = [];
     const visit = (index: number, remaining: number, packs: PackagePlanEntry[]) => {
       if (variants.length > MAX_CANDIDATES) return;
@@ -198,7 +201,7 @@ async function compareAutomaticDeliveryOnce(
     visit(0, count, []);
     candidateCount *= variants.length;
     if (!variants.length) return tooLarge();
-    if (candidateCount > MAX_CANDIDATES) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
+    if (candidateCount > MAX_CANDIDATES) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now,preferredPlan);
     choices.push(variants);
   }
   const candidates: DeliveredStoreBasket[][] = [], unique = new Map<string, DeliveredStoreBasket>();
@@ -219,8 +222,8 @@ async function compareAutomaticDeliveryOnce(
     candidates.push(actual);
   }
   enumerate(0, []);
-  if (unique.size > MAX_STORE_BASKETS) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
-  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now,groups);
+  if (unique.size > MAX_STORE_BASKETS) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now,preferredPlan);
+  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now,groups,preferredPlan);
 }
 
 /** For large renovations compare a bounded selection of complete orders.
@@ -230,6 +233,7 @@ async function compareAutomaticDeliveryOnce(
 async function compareSelectedBaskets(
   groups: ReturnType<typeof groupProjectByProduct>, stores: string[], result: DeliveryComparison,
   settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,
+  preferredPlan?:PreferredDeliveryPlan,
 ): Promise<DeliveryComparison> {
   const options = groups.map(group => {
     const offers = group.offers.filter(offer => isComparableOffer(offer, now.getTime()));
@@ -403,13 +407,21 @@ async function compareSelectedBaskets(
   }
   result.searchLimited = true;
   if (!candidates.length) { result.status = 'limit_exceeded'; return result; }
-  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now,groups);
+  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now,groups,preferredPlan);
 }
 
 async function quoteAndRank(
   candidates: DeliveredStoreBasket[][], unique: Map<string, DeliveredStoreBasket>, result: DeliveryComparison,
   settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,groups:ReturnType<typeof groupProjectByProduct>,
+  preferredPlan?:PreferredDeliveryPlan,
 ): Promise<DeliveryComparison> {
+  const preferred=preferredPlan&&rebuildDeliveryAllocation(preferredPlan,groups,now,new Set(result.unavailableStores?.map(item=>item.store)));
+  const preferredKeys=new Set<string>();
+  if(preferred){
+    for(const order of preferred){const key=signature(order);preferredKeys.add(key);if(!unique.has(key))unique.set(key,order);}
+    const key=(orders:DeliveredStoreBasket[])=>orders.map(order=>order.store+':'+signature(order)).sort().join('|');
+    if(!candidates.some(orders=>key(orders)===key(preferred)))candidates.unshift(preferred);
+  }
   const failures = new Map<string, string>((result.unavailableStores ?? []).map(item => [item.store,item.reason]));
   const orderFailures = new Map<string,string>();
   const unavailableIntegrations=new Set(failures.keys());
@@ -462,7 +474,10 @@ async function quoteAndRank(
       }
     }));
   };
-  await quoteKeys([...priority]);
+  // Finish the previous winner before spending the same bounded I/O budget
+  // on other candidates. Its old fee and cart discounts never enter this map.
+  await quoteKeys([...preferredKeys]);
+  await quoteKeys([...priority].filter(key=>!preferredKeys.has(key)));
   const confirmedCandidates = candidates.filter(orders => orders.every(order => order.quote && order.totalGrosze !== null
     && Date.parse(order.quote.expiresAt) > Date.now())
   ).sort((a,b) => a.reduce((sum,o)=>sum+o.totalGrosze!,0)-b.reduce((sum,o)=>sum+o.totalGrosze!,0) || a.length-b.length);
@@ -479,7 +494,7 @@ async function quoteAndRank(
       - order.lines.reduce((packs, line) => packs + line.packages.reduce((count, pack) => count + pack.count, 0), 0)), 0);
     return optimisticMaterials <= confirmedUpperBound;
   }).flatMap(orders => orders.map(signature)));
-  await quoteKeys(ordered.map(([key])=>key).filter(key=>!priority.has(key) && canStillWin.has(key)));
+  await quoteKeys(ordered.map(([key])=>key).filter(key=>!priority.has(key)&&!preferredKeys.has(key) && canStillWin.has(key)));
   // A quote valid at request start may expire while another shop is still
   // responding. Keep the material plan, but do not expose that fee as current.
   for (const order of unique.values()) if (order.quote && Date.parse(order.quote.expiresAt) <= Date.now()) {
