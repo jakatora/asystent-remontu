@@ -2,8 +2,8 @@
   "expo": {
     "name": "Asystent Remontu",
     "slug": "asystent-remontu",
-    "version": "1.0.3",
-    "runtimeVersion": "1.0.3",
+    "version": "1.2.0",
+    "runtimeVersion": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "remont",
@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "app.replit.remontasystent",
-      "buildNumber": "9",
+      "buildNumber": "10",
       "infoPlist": {
         "NSCameraUsageDescription": "Aplikacja potrzebuje dostepu do kamery aby robic zdjecia remontu.",
         "NSPhotoLibraryUsageDescription": "Aplikacja potrzebuje dostepu do galerii aby dodawac zdjecia remontu.",
@@ -27,7 +27,7 @@
     },
     "android": {
       "package": "pl.asystentremontu.app",
-      "versionCode": 9,
+      "versionCode": 10,
       "backgroundColor": "#F97316",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",

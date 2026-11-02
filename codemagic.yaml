@@ -173,67 +173,64 @@ workflows:
           failure: true
 
   ios-release-ipa:
-    name: Asystent Remontu — iOS Release IPA (App Store, auto-signing via ASC API)
+    name: Remont Asystent 1.2.0 — iOS Store Build
     max_build_duration: 90
-    integrations:
-      app_store_connect: codemagic_app_manager
+    instance_type: mac_mini_m2
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: app.replit.remontasystent
       groups:
-        - certificate_credentials
+        - app_store
       vars:
-        XCODE_WORKSPACE: AsystentRemontu.xcworkspace
-        XCODE_SCHEME: AsystentRemontu
         BUNDLE_ID: app.replit.remontasystent
-      node: 20.18.0
-      xcode: latest
+        APP_STORE_APPLE_ID: "6761497453"
+        CI: "1"
+      node: 22.19.0
+      xcode: 26.6
       cocoapods: default
     cache:
       cache_paths:
         - $HOME/Library/Caches/CocoaPods
-        - $HOME/Library/Caches/Homebrew
-        - $CM_BUILD_DIR/artifacts/mobile/node_modules
-        - $HOME/.cocoapods/repos
+        - $HOME/.pnpm-store
+        - $HOME/.npm
     scripts:
-      - name: Install pnpm + workspace deps
+      - name: Install exact workspace dependencies
         script: |
-          npm install -g pnpm@10
-          cd $CM_BUILD_DIR
-          pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
-      - name: Expo prebuild (iOS)
+          npm install -g pnpm@10.17.1
+          cd "$CM_BUILD_DIR"
+          pnpm install --frozen-lockfile
+      - name: Validate mobile TypeScript
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile
-          npx expo prebuild --platform ios --clean --non-interactive
-      - name: Pod install
+          cd "$CM_BUILD_DIR"
+          pnpm exec tsc --build lib/pricing-service/tsconfig.json
+          pnpm --filter @workspace/mobile typecheck
+      - name: Generate native iOS project
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile/ios
+          cd "$CM_BUILD_DIR/artifacts/mobile"
+          pnpm exec expo prebuild --platform ios --clean --no-install
+      - name: Install current CocoaPods and project pods
+        script: |
+          sudo gem install cocoapods --no-document
+          cd "$CM_BUILD_DIR/artifacts/mobile/ios"
           pod install --repo-update
-      - name: Set up provisioning profiles
+      - name: Reuse Apple distribution signing credentials
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile/ios
+          keychain initialize
+          node -e 'require("fs").writeFileSync("/tmp/remont-certificate-key.pem", process.env.CERTIFICATE_PRIVATE_KEY, {mode:0o600})'
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --certificate-key=@file:/tmp/remont-certificate-key.pem --create
+          keychain add-certificates
+          cd "$CM_BUILD_DIR/artifacts/mobile/ios"
           xcode-project use-profiles
-      - name: Build .ipa
+      - name: Build signed store IPA
         script: |
-          cd $CM_BUILD_DIR/artifacts/mobile/ios
-          xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+          cd "$CM_BUILD_DIR/artifacts/mobile/ios"
+          xcode-project build-ipa --workspace AsystentRemontu.xcworkspace --scheme AsystentRemontu --archive-flags "-destination 'generic/platform=iOS'"
     artifacts:
       - artifacts/mobile/ios/build/ios/ipa/*.ipa
+      - artifacts/mobile/ios/build/ios/archive/*.xcarchive
       - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
-      email:
-        recipients:
-          - jakatora68@gmail.com
-        notify:
-          success: true
-          failure: true
       app_store_connect:
-        auth: integration
-        submit_to_testflight: true
-        beta_groups:
-          - Internal Testing
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: false
+        submit_to_app_store: false
