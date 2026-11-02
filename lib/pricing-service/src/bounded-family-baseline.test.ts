@@ -21,14 +21,14 @@ async function renovation(automaticWhite:boolean) {
   {findProductByCode:async(_db,q)=>products.find(p=>p.ean===q.ean)??null,findProductByNameAndCategory:async()=>null,listOffers:async(_db,id)=>offers.filter(o=>o.productId===id)});
 }
 
-for(const optional of [false,true])test(`bounded multi-size comparison retains the cheaper fixed-size stock split; optional strategies=${optional}`,async()=>{
+for(const threshold of [18000,15000])for(const optional of [false,true])test(`bounded multi-size comparison retains the cheaper fixed-size stock split; A threshold=${threshold}, optional strategies=${optional}`,async()=>{
  const inputs=[await renovation(false),await renovation(true)],results=[];
  for(const input of inputs){
-  let calls=0;const quote:BasketQuoter=async order=>{calls++;const now=Date.now();return{quote:{costGrosze:order.store==='A'?(order.materialsGrosze>=18000?0:1300):(order.materialsGrosze>=30000?0:1500),carrier:'Controlled courier',payment:'Prepaid',checkedAt:new Date(now).toISOString(),expiresAt:new Date(now+600000).toISOString(),sourceUrl:'https://example.test/cart',basis:'retailer_basket_national',destinationScope:'PL',evidenceSha256:'a'.repeat(64)}};};
+  let calls=0;const quote:BasketQuoter=async order=>{calls++;const now=Date.now();return{quote:{costGrosze:order.store==='A'?(order.materialsGrosze>=threshold?0:1300):(order.materialsGrosze>=30000?0:1500),carrier:'Controlled courier',payment:'Prepaid',checkedAt:new Date(now).toISOString(),expiresAt:new Date(now+600000).toISOString(),sourceUrl:'https://example.test/cart',basis:'retailer_basket_national',destinationScope:'PL',evidenceSha256:'a'.repeat(64)}};};
   const result=await compareAutomaticDelivery([input],{mode:'shipping',postalCode:'30-001',allowSeparateOrders:optional,allowExtraPackages:optional},quote);
   assert(result.best);assert(calls<=80);results.push(result);
  }
- const [fixed,automatic]=results;assert(fixed.best);assert(automatic.best);assert.equal(fixed.best.totalGrosze,50314);assert.equal(automatic.searchLimited,true);
+ const [fixed,automatic]=results;assert(fixed.best);assert(automatic.best);assert.equal(fixed.best.totalGrosze,threshold===18000?50314:50209);assert.equal(automatic.searchLimited,true);
  const fixedTotal=fixed.best.totalGrosze,automaticTotal=automatic.best.totalGrosze;
  assert.equal(typeof fixedTotal,'number');assert.equal(typeof automaticTotal,'number');
  assert(fixedTotal!==null&&automaticTotal!==null&&automaticTotal<=fixedTotal,`automatic ${automaticTotal} omitted fixed-size ${fixedTotal}`);

@@ -314,6 +314,18 @@ async function compareSelectedBaskets(
       }
     }
   }
+  // A second family can also benefit from a slightly dearer size/seller mix
+  // in an already required merchant order. Vary it independently around the
+  // material baseline instead of multiplying every family's alternatives.
+  mixedFamilyCandidates: if(materialPlans.every(Boolean))for(const [index,group]of groups.entries()){
+    if(group.cutRoll)continue;
+    const variants=group.offers.filter(o=>isComparableOffer(o,now.getTime())).flatMap(o=>buildPackageVariants([o],group.product));
+    if(new Set(variants.map(v=>v.packageSize)).size<2)continue;
+    for(const plan of mixedPackagePlans(group.totalQuantity,variants,group.requiredBySize,32,10000).plans){
+      if(proposed.size>=96)break mixedFamilyCandidates;
+      addGroupedPlan(materialPlans.map((other,i)=>i===index?plan.packages:other!.packages),false);
+    }
+  }
   const orderedOptions = options.map(option=>option!.sort((a,b)=>a.lineCostGrosze-b.lineCostGrosze || a.offerId.localeCompare(b.offerId)));
   function addBase(selected: (PackagePlanEntry | undefined)[]) {
     if (selected.some(pack=>!pack)) return;
