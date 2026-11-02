@@ -25,4 +25,27 @@ Osobny trop do gipsu: [Profigips PMT](https://profigips.com/produkt/naroznik-pro
 
 ## Stan odbioru
 
-Cztery nowe regresje przechodzą po poprawce. Odbiór pełnych regresji, świeżych koszyków i wdrożenie pozostają do wykonania. Katalog i seed nie zostały rozszerzone ofertami niedostępnymi. Artefakty robocze: `G:/Projekty/asystent-remontu-work/wave199-20261102`.
+Cztery nowe regresje przechodzą po poprawce. Zakończono opisany poniżej odbiór i wdrożenie. Katalog i seed nie zostały rozszerzone ofertami niedostępnymi. Artefakty: `G:/Projekty/asystent-remontu-work/wave199-20261102`.
+
+## Wdrożenie i końcowe dowody
+
+- Źródło aplikacji `93c263c9bba31083d166aaf0b4114c7d67c0e032` wypchnięte na `codex/remont-zakupy-20261024`.
+- [PR współdzielonego backendu nr 179](https://github.com/jakatora/przetargai/pull/179), head `72b1db814ffe9b0945259cd3366221e8b193e4f3`, scalony jako `2b5e3a90a3150c464f4d1e94d02b30e5b46fcbc6`. Statusy GitHub były puste; to nie jest dowód zielonego CI.
+- API Railway `1c4f4d40-2868-488b-8144-3881e968a3bb`: SUCCESS 2026-11-02T09:29:21.062Z. SHA256 bundle `242bdd5ee69e205212e4bbf4a03241a18e3b3af5d08b71fab8fefb5353de40a4`.
+- Pobrane po wdrożeniu wszystkie 150 plików odpowiadają dokładnie przesłanej paczce. Zmieniono jeden bundle, zachowano pozostałe 149 plików i wszystkie 373 obserwacje seeda. Pierwszy lokalny weryfikator błędnie porównał paczkę z katalogiem testowym zawierającym dodatkowo testy, bazę testową i junction zależności. Poprawiono porównanie do rzeczywistych 150 plików uploadu; ponownie wykorzystano już poprawnie pobrany snapshot, bez ponownego wdrożenia.
+- WWW pozostaje na źródle `4ad7867515dda6676b08279032ffc83009e34497` i dotychczasowym wdrożeniu. Sewera nie korzysta z relaya WWW, którego lista obejmuje ABUD, ChemiaDoParkietu25 i eTak. Zmiana nie wymagała nowego buildu interfejsu.
+- Kontrole typów i 237 testów cen, 165 API-lib, 238 adapterów (w tym 11 dotychczasowych checkoutów i 4 nowe), 1064 współdzielonego backendu PASS, bez pominięć. Grupy częściowo się pokrywają. Całe mobile i pricing-service są identyczne ze sprawdzonym źródłem W198; nie przypisuje się tej zmianie nowego wydania Android/iOS.
+
+Rzeczywiste ponowienie koszyków narożników o 09:18:24–27 UTC: zarówno kod 427185, jak i 399955 mają w Katowicach `maxPackages:0`; po poprawce kontrola kończy się potwierdzonym niedoborem, przed zapytaniem o dostawę. Osobne dostępne koszyki taśmy 30 mm × 50 m i folii 20 m² potwierdzono prawdziwym adapterem oraz publicznym API po wdrożeniu: po jednej sztuce / 30-001 = 22,62 + 19,90 = 42,52 PLN; dwie taśmy i folia / 00-001 = 37,34 + 19,90 = 57,24 PLN. To zakup wskazanych akcesoriów, nie cała receptura malowania.
+
+Lokalnie i publicznie: po 7 rzeczywistych scenariuszy HTTP receptury tynkowania oraz po 18 scenariuszy UI / 8 rzeczywistych odpowiedzi API, 0 błędów strony i 0 odpowiedzi 429. Publiczne UI korzystało bezpośrednio z publicznego API. Obejrzano nowe publiczne zrzuty 320/390 px: pełna kwota i jawne niepełne porównanie zachowane. Nie jest to pełny audyt WCAG. Pełna receptura z czterema dodatnimi materiałami: 494,73 + 133,01 = 627,74 PLN. Dwie pełne prace wspólnie: 517,19 + 133,01 = 650,20 PLN; porównanie nadal niepełne ze względu na niepotwierdzony alternatywny transport Kowalczyk. Nie zerowano siatki i narożników, aby domknąć wynik.
+
+Końcowy dowód `final-proof.json`: 2026-11-02T09:32:24.232Z. Ostatni widoczny pełny wynik miał oryginalne terminy wycen do 09:40:43–45 UTC. Późniejszy zakup wymaga odnowienia wycen; dat nie przedłużano w plikach. Historia przed/po: 370/370 obserwacji, wszystkie wcześniejsze zachowane, 13 531 → 13 831 punktów; zachowano 13 521 starych, dziesięć najstarszych usunięto zgodnie z limitem 60 na serię, bez innych strat. Nie tworzono fikcyjnych zmian cen.
+
+Kontrola ścieżki pieniędzy obejmuje rzeczywistą cenę brutto i sumę całego koszyka, tożsamość SKU oraz oddziału, rzeczywiste ilości, rozróżnienie zerowego zapasu od zerowej dostawy, nieznane transporty i zachowanie historii. Dowodem są opisane rzeczywiste HTTP/UI i porównanie wdrożonych plików, oprócz testów jednostkowych.
+
+## Dalsze prace
+
+Próba domyślnego malowania w wariancie standard z rzeczywistego kalkulatora ujawniła dwa nadal nierozpoznane materiały: „Farba lateksowa Śnieżka Barwy Natury biała 5 l” i „Grunt uniwersalny Knauf 5 l”. Rzeczywiste żądanie i częściowy wynik zapisano w `local-paint-http.json`; nie uznano tej próby za poprawną pełną wycenę i nie obniżono wymagań testu. Taśma i folia pozostają rozpoznane. Następny priorytet: zweryfikować tożsamości, zastosowanie, jednostki i aktywne oferty tych domyślnych materiałów oraz umożliwić użytkownikowi świadomy dobór potwierdzonego zestawu. Nie aliasować innej farby ani 5 kg gruntu jako 5 l. Osobno pozostaje właściwy do gipsu profil narożnikowy sprzedawany na sztuki. Niedostępne Adamex/BMB oraz usunięty Realbud nie wymagają ponawiania bez nowej przesłanki.
+
+Cel rozwoju pozostaje aktywny.
