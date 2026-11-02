@@ -17,7 +17,7 @@ export function createPreferredDeliveryComparison(now=Date.now,maxEntries=64){
     const groups=automatic?groupProjectByProduct(stages).filter(g=>g.totalQuantity>0):[];
     const eligible=automatic&&groups.length>0&&!groups.some(g=>g.cutRoll)&&!stages.some(s=>s.lines.some(l=>!l.resolved&&l.quantity>0));
     const key=eligible?createHash('sha256').update(stable([
-      settings.postalCode,settings.allowSeparateOrders!==false,settings.allowExtraPackages===true,selectedStore??null,
+      settings.postalCode,settings.allowSeparateOrders===true,settings.allowExtraPackages===true,selectedStore??null,
       groups.map(g=>[g.product.id,g.unit,g.totalQuantity,g.requiredBySize??null]).sort((a,b)=>String(a[0]).localeCompare(String(b[0]))),
     ])).digest('hex'):null;
     const time=now();

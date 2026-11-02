@@ -474,10 +474,10 @@ async function quoteAndRank(
       }
     }));
   };
-  // Finish the previous winner before spending the same bounded I/O budget
-  // on other candidates. Its old fee and cart discounts never enter this map.
-  await quoteKeys([...preferredKeys]);
-  await quoteKeys([...priority].filter(key=>!preferredKeys.has(key)));
+  // Start the previous winner first within the same three workers and bounded
+  // I/O budget. Free workers can still confirm alternatives when one of its
+  // stores stalls. Old fees and cart discounts never enter this map.
+  await quoteKeys([...new Set([...preferredKeys,...priority])]);
   const confirmedCandidates = candidates.filter(orders => orders.every(order => order.quote && order.totalGrosze !== null
     && Date.parse(order.quote.expiresAt) > Date.now())
   ).sort((a,b) => a.reduce((sum,o)=>sum+o.totalGrosze!,0)-b.reduce((sum,o)=>sum+o.totalGrosze!,0) || a.length-b.length);

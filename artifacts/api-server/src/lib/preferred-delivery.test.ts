@@ -26,6 +26,17 @@ test('the previous delivered winner is checked before other carts under a fresh 
   assert.equal(coldSeen[0],'B');assert.equal(cold.best?.totalGrosze,1600);
 });
 
+test('a stalled previous winner does not hold free workers away from healthy alternatives',{timeout:1000},async()=>{
+  const compare=createPreferredDeliveryComparison(),input=[await stage()];await compare(input,settings,known);
+  let release!:()=>void;const alternativeStarted=new Promise<void>(resolve=>{release=resolve;});const seen:string[]=[];
+  const result=await compare(input,settings,async(order,p)=>{
+    seen.push(order.store);
+    if(order.store==='A'){await alternativeStarted;return{reason:'quote_timeout'};}
+    release();return known(order,p);
+  });
+  assert.equal(seen[0],'A');assert.ok(seen.includes('B'));assert.equal(result.best?.stores[0].store,'B');assert.equal(result.best?.totalGrosze,1600);
+});
+
 test('an allocation survives delivery expiry but never reuses its price, fee, discount or evidence',async()=>{
   let clock=Date.now();const compare=createPreferredDeliveryComparison(()=>clock),input=[await stage()];
   const first=await compare(input,settings,known),old=first.best!.stores[0].quote!;
