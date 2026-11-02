@@ -10,6 +10,7 @@ import { withOrderPartitions } from './order-partitions';
 import { materialPurchasePlans } from './material-purchase-plan';
 import {applyCartPrices,quotedMaterialsGrosze,supportsCartPricing} from './cart-pricing';
 import {findExtraPackageOption} from './extra-package-options';
+import {recombineQuotedOrders} from './quoted-order-combinations';
 
 const MAX_CANDIDATES = 4096, MAX_STORE_BASKETS = 80, MAX_PROPOSED = 256;
 const signature = (order: DeliveredStoreBasket) => order.lines.flatMap(line => line.packages.map(pack => `${pack.offerId}:${pack.count}:${pack.unitPriceGrosze}:${pack.packageSize}:${JSON.stringify(pack.cutRoll??null)}`)).sort().join('|');
@@ -142,7 +143,7 @@ async function compareAutomaticDeliveryOnce(
       candidates.push(orders); for (const order of orders) unique.set(signature(order), order);
     }
     result.searchLimited = true;
-    return quoteAndRank(candidates, unique, result, settings, knownOnly, now);
+    return quoteAndRank(candidates, unique, result, settings, knownOnly, now,allGroups);
   }
   const tooLarge = () => { result.status = 'limit_exceeded'; return result; };
   const activeStores = [...new Set(groups.flatMap(group=>group.offers.filter(offer=>isComparableOffer(offer,now.getTime())).map(offer=>offer.store)))].sort();
@@ -213,7 +214,7 @@ async function compareAutomaticDeliveryOnce(
   }
   enumerate(0, []);
   if (unique.size > MAX_STORE_BASKETS) return compareSelectedBaskets(groups, activeStores, result, settings, quoteBasket, now);
-  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now);
+  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now,groups);
 }
 
 /** For large renovations compare a bounded selection of complete orders.
@@ -364,12 +365,12 @@ async function compareSelectedBaskets(
   }
   result.searchLimited = true;
   if (!candidates.length) { result.status = 'limit_exceeded'; return result; }
-  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now);
+  return quoteAndRank(candidates, unique, result, settings, quoteBasket, now,groups);
 }
 
 async function quoteAndRank(
   candidates: DeliveredStoreBasket[][], unique: Map<string, DeliveredStoreBasket>, result: DeliveryComparison,
-  settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,
+  settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,groups:ReturnType<typeof groupProjectByProduct>,
 ): Promise<DeliveryComparison> {
   const failures = new Map<string, string>((result.unavailableStores ?? []).map(item => [item.store,item.reason]));
   const unavailableIntegrations=new Set(failures.keys());
@@ -454,7 +455,13 @@ async function quoteAndRank(
     return { stores: actual, materialsGrosze, deliveryGrosze, totalGrosze: deliveryGrosze === null ? null : materialsGrosze + deliveryGrosze,
       lowerBoundGrosze: materialsGrosze + actual.reduce((sum, o) => sum + (o.deliveryGrosze ?? 0), 0) };
   }).filter(b => b.stores.every(order => !invalidMaterialOrders.has(signature(order))) && [b.materialsGrosze, b.lowerBoundGrosze, b.totalGrosze ?? 0].every(Number.isSafeInteger));
-  const known = baskets.filter(b => b.totalGrosze !== null).sort((a,b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
+  if(result.searchLimited){
+    const combined=recombineQuotedOrders(candidates,[...unique.values()].filter(order=>!invalidMaterialOrders.has(signature(order))).map(applyCartPrices),groups,settings.postalCode!,baskets);
+    const key=(basket:DeliveredBasket)=>JSON.stringify(basket.stores.map(order=>[order.store,signature(order)]).sort());
+    const present=new Set(baskets.map(key));for(const basket of combined.baskets)if(!present.has(key(basket))){baskets.push(basket);present.add(key(basket));}
+    if(combined.limited)result.searchLimited=true;
+  }
+  const known = baskets.filter(b => b.totalGrosze !== null&&b.stores.every(order=>order.quote&&Date.parse(order.quote.expiresAt)>Date.now())).sort((a,b) => a.totalGrosze! - b.totalGrosze! || a.stores.length - b.stores.length);
   result.comparedBasketCount = known.length;
   result.best = known[0] ?? null; result.alternatives = known.slice(1,4);
   result.cheapestSingleStore = known.find(basket=>basket.stores.length===1) ?? null;
