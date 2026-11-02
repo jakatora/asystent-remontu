@@ -1,6 +1,6 @@
 # Asystent Remontu 1.2.0 / build 10 — publikacja Android i iOS
 
-Stan na 2026-11-02 13:58 UTC: **Android 1.2.0 / versionCode 10 opublikowany w Google Play**. Właściciel potwierdził kliknięcie publikacji, a niezależny oficjalny odczyt zwraca `RELEASE_LIFECYCLE_STATE_PUBLISHED` dla aktywnego artefaktu 10 w kanale produkcyjnym. Apple nadal potwierdza `WAITING_FOR_REVIEW` dla 1.2.0 / build 10 i automatyczne udostępnienie po akceptacji. Oba zgłoszenia rzeczywiście wysłano o 12:34 UTC lub wcześniej. Nie utożsamiać samego uploadu, walidacji paczki ani statusu skonfigurowanego tracku `completed` z publikacją; tutaj potwierdza ją stan cyklu wydania.
+Stan na 2026-11-02 14:13 UTC: **Android 1.2.0 / versionCode 10 opublikowany w Google Play**. Właściciel potwierdził kliknięcie publikacji, a niezależny oficjalny odczyt zwraca `RELEASE_LIFECYCLE_STATE_PUBLISHED` dla aktywnego artefaktu 10 w kanale produkcyjnym. Apple nadal potwierdza `WAITING_FOR_REVIEW` dla 1.2.0 / build 10 i automatyczne udostępnienie po akceptacji. Oba zgłoszenia rzeczywiście wysłano o 12:34 UTC lub wcześniej. Nie utożsamiać samego uploadu, walidacji paczki ani statusu skonfigurowanego tracku `completed` z publikacją; tutaj potwierdza ją stan cyklu wydania.
 
 ## Źródło i pakiety
 
@@ -63,3 +63,5 @@ Stan na 2026-11-02 13:58 UTC: **Android 1.2.0 / versionCode 10 opublikowany w Go
 Obserwacja do kolejnej wersji: na emulatorze Androida białe ikony systemowego paska są słabo widoczne na jasnym tle. Warto sprawdzić kontrast w jasnym/ciemnym trybie na urządzeniu i ustawić styl jawnie, jeśli problem się potwierdzi. To nie dowód błędu na każdym urządzeniu ani powód wycofania poprawnie zgłoszonego wydania.
 
 Zastane zmiany robocze w głównym repozytorium (m.in. mappings, foilChoice, ean-overlay i lockfile) pozostają poza tym wydaniem i nie są nadpisywane. Cel dalszego rozwoju aplikacji pozostaje aktywny.
+
+Ponowny niezależny odczyt 2026-11-02: Google 14:12:59 UTC nadal PUBLISHED / production / versionCode 10, Apple 14:13:00 UTC nadal WAITING_FOR_REVIEW / 1.2.0 (10). Nowe zgłoszenie ani build nie były wykonywane. Po potwierdzeniu właściciela ręczna publikacja Google nie jest już zadaniem do wykonania.
