@@ -1,5 +1,7 @@
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
+import {wallPaintLitres} from '@/features/calculator/wallPaint';
+import {substratePrimerInputs,substratePrimerMaterial,substratePrimerQuantity} from '@/features/calculator/substratePrimer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PAINT WALLS — canonical reference job showcasing all engine fields.
@@ -93,6 +95,7 @@ export const paintJob: RenovationJob = {
       required:     false,
       hint:         'Podane na opakowaniu farby. Standardowo 10 m²/litr. Gęstsza farba może dawać 7–8 m²/litr.',
     },
+    ...substratePrimerInputs('paint-walls'),
     {
       id: 'tapeRolls', label: 'Rolki taśmy malarskiej po 50 m', unit: 'szt.',
       inputType: 'count', placeholder: '1', defaultValue: 1, min: 0, max: 100, required: false,
@@ -116,7 +119,7 @@ export const paintJob: RenovationJob = {
       unit:         'litr',
       purchaseUnit: 'litr',
       // Inline formula: reads m.coveragePerLiter from user input
-      formula:      formulaBuilder.coverage(10),
+      formula:      (m,waste)=>wallPaintLitres(m,waste)??0,
       wasteFactor:  1.05,
       roundingRule: 'ceil',
       packaging: {
@@ -137,31 +140,11 @@ export const paintJob: RenovationJob = {
       ],
     },
     {
-      id:           'primer-paint',
-      name:         'Grunt pod farbę',
-      brand:        'Dragon Grunt głęboko penetrujący akrylowy 5 L (referencja)',
-      unit:         'litr',
-      purchaseUnit: 'litr',
-      formulaKey:   'primer',
-      wasteFactor:  1.0,
-      roundingRule: 'ceil',
-      packaging: {
-        size:         5,
-        label:        'pojemnik 5 L',
-        purchaseUnit: 'pojemnik',
-      },
-      pricePerUnit: 9,
-      // source: https://www.leroymerlin.pl/produkty/grunt-gleboko-penetrujacy-akrylowy-dragon-5-litrow-94230442.html
-      priceBasis: 'unit',
-      category:     'grunt',
+      // Keep a rich requirement with the reviewed product's litre identity.
+      // source: https://knauf.com/api/download-center/v1/assets/3ed7306f-27be-4d9d-a14d-388477a68c24?country=pl&download=true
+      ...substratePrimerMaterial('paint-walls'),
+      formula: (m)=>substratePrimerQuantity('paint-walls',m)??0,
       optional:     true,
-      notes:        'Wymagany na: nowych ścianach, naprawianych miejscach, ścianach po zeskrobaniu, pylących/kredujących/bardzo chłonnych podłożach. Na stabilnej, wcześniej malowanej ścianie NIE jest konieczny.',
-      shopPrices: [
-        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/grunt-g-boko-penetruj-cy-akrylowy-dragon-5l/5903649007612_CAPL.prd',                          verifiedAt: '2026-06-09' },
-        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/grunt-do-malowania-gleboko-penetrujacy-akrylowy-dragon-5-litrow-94230442.html',             verifiedAt: '2026-06-09' },
-        { shop: 'obi',         url: 'https://www.obi.pl/srodki-do-glebokiego-gruntowania/dragon-grunt-blauer-gleboko-penetrujacy-5l/p/7000094',                       verifiedAt: '2026-06-09' },
-        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/grunt-gleboko-penetrujacy-akrylowy-5-l-dragon',                                                       verifiedAt: '2026-06-09' },
-      ],
     },
     {
       id:           'painters-tape',

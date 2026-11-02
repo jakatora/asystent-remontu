@@ -24,12 +24,14 @@ import { computeRawQuantity } from './engine';
 import { epsRequirement, EPS_JOB_ID } from './eps';
 import { isSinkConnection, sinkConnectionQuantity, SINK_JOB_ID, SINK_QUANTITY_MODEL } from './sink';
 import { ceilingPrimerLitres } from './ceilingPrimer';
+import {WALL_PAINT_JOB,wallPaintLitres} from './wallPaint';
 import { isCurrentSubstratePrimer, substratePrimerQuantity, levelingEdgeTapeMetres, SUBSTRATE_PRIMER_MODEL } from './substratePrimer';
 import { isSanitaryMaterial, sanitaryQuantity, SANITARY_MODEL } from './sanitarySealant';
 import { isLaminateSupply, laminateSupplyQuantity, LAMINATE_SUPPLIES_MODEL } from './laminateSupplies';
 
 /** Old JSON snapshots do not retain inline formula functions. Resolve by stable ID. */
 export function getRequiredQuantity(line: MaterialLineItem, calc: CalculationResult): number {
+  if(calc.jobId===WALL_PAINT_JOB&&line.material.id==='paint')return wallPaintLitres(calc.measurements,line.material.wasteFactor??1.05)??0;
   if(calc.quantityModel===ROLLED_MODEL&&isRolledMaterial(calc.jobId,line.material.id))return rolledQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===VINYL_CLICK_MODEL&&isVinylClickMaterial(calc.jobId,line.material.id))return vinylClickQuantity(line.material.id,calc.measurements)??0;
   if(calc.quantityModel===TRAP_MODEL&&isTrapMaterial(calc.jobId,line.material.id))return trapQuantity(line.material.id,calc.measurements)??0;

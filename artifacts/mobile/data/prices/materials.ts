@@ -405,6 +405,8 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     lastUpdated: '2026-08-23',
     currency: 'PLN',
   },
+  // source: https://realbud.com/pl/p/Grunt-KNAUF-Universalgrund-5-L-Srodek-gleboko-gruntujacy/75056675 (odczyt 2026-11-02T09:37:21.218Z)
+  // source: https://knauf.com/api/download-center/v1/assets/3ed7306f-27be-4d9d-a14d-388477a68c24?country=pl&download=true
   {
     id: 'mat-universal-primer-5l',
     materialType: 'primer',
@@ -412,12 +414,12 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     brand: 'Knauf',
     packageSize: 5,
     packageUnit: 'l',
-    pricePerPackage: 35.48,
+    pricePerPackage: 43.92,
     category: 'standard',
-    storeName: 'Castorama',
+    storeName: 'Realbud',
     sourceUrl:
-      'https://www.castorama.pl/grunt-uniwersalny-knauf-5-l/5901793357737_CAPL.prd',
-    lastUpdated: '2026-08-23',
+      'https://realbud.com/pl/p/Grunt-KNAUF-Universalgrund-5-L-Srodek-gleboko-gruntujacy/75056675',
+    lastUpdated: '2026-11-02',
     currency: 'PLN',
   },
   {

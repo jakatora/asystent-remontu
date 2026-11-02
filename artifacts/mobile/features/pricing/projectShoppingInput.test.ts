@@ -37,7 +37,8 @@ test('quantity confirmation applies to sink as well as EPS and persists the newl
   assert.deepEqual(shoppingQuantityAction(calc.jobId, { ...old, customQuantity: 2 }), { allowed: false });
   assert.deepEqual(shoppingQuantityAction(calc.jobId, { ...old, quantityKnown: false }), { allowed: false });
   assert.deepEqual(shoppingQuantityAction('eps-insulation-bso', old), { allowed: true, confirmQuantity: 4 });
-  assert.deepEqual(shoppingQuantityAction('paint-walls', old), { allowed: true });
+  assert.deepEqual(shoppingQuantityAction('paint-walls', old), { allowed: true, confirmQuantity: 4 });
+  assert.deepEqual(shoppingQuantityAction('paint-ceiling', old), { allowed: true });
 });
 
 test('a direct caller with historical JSON still cannot cover four current valves by owning the old two', () => {

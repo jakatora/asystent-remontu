@@ -9,7 +9,13 @@ function project(id: string, area = 10): Project {
   const calc = calculatorEngine.calculate(getJobById('paint-walls')!, { wallArea: area, coats: 2, coveragePerLiter: 10, tapeRolls: 1, protectiveFilmPacks: 1 });
   return { id, name: id, jobId: 'paint-walls', jobName: 'Malowanie', categoryId: 'paint', measurements: calc.measurements, calculationResult: calc, status: 'planning', createdAt: '', updatedAt: '' };
 }
-const item = (projectId: string, materialId: string, owned = false, purchased = false) => ({ id: materialId, projectId, materialId, name: materialId, owned, purchased, itemType: 'material' }) as ShoppingItem;
+const item = (projectId: string, materialId: string, owned = false, purchased = false) => {
+  // Ownership must describe actual quantities/units from this calculation.
+  const line=project(projectId).calculationResult!.materials.find(line=>line.material.id===materialId);
+  return { id: materialId, projectId, materialId, name: materialId, owned, purchased, itemType: 'material',
+    ...(line?{name:line.material.name,quantity:line.quantity,unit:line.material.unit}:{}),
+  } as ShoppingItem;
+};
 test('bulk selection includes measured works only and respects the quote limit', () => {
   const ready = Array.from({ length: MAX_BASKET_PROJECTS + 2 }, (_, index) => project(`ready-${index}`));
   const pending = { ...project('pending'), calculationResult: undefined };

@@ -1,4 +1,5 @@
 import { parsePriceToGrosze } from '@workspace/price-collector';
+import {isReviewedHipperPaint,confirmHipperPaintCard} from './hipper-paints';
 import type { RetailSource } from './retail-pages';
 import { cleanHtml, htmlAttributes, htmlElements, htmlText } from './retail-microdata';
 import {isReviewedAksCableSource} from './aks-cables';
@@ -58,11 +59,13 @@ export function readCertusoftProduct(html: string, source: RetailSource) {
   // source: https://media.adeo.com/media/4774947/media.pdf
   const reviewedCable = source.id==='hipper-aks-ydyp-3x25-25m'&&isReviewedAksCableSource(source);
   const reviewedJointTape = isReviewedNorgipsJointTape(source);
-  if ((!singlePiece && !reviewedRoll && !reviewedBottle && !reviewedCarton && !reviewedCable && !reviewedJointTape) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
+  const reviewedPaint=isReviewedHipperPaint(source);
+  if ((!singlePiece && !reviewedRoll && !reviewedBottle && !reviewedCarton && !reviewedCable && !reviewedJointTape && !reviewedPaint) || source.apiPurchaseUnit !== 'szt' || (source.purchaseMultiple ?? 1) !== 1) throw Error('retailer_unit_not_confirmed');
   const state = readCertusoftState(html), card = state.csAppWindowsUtils?.csAppWindows?.csB2BItemCard;
   const rows = card?.dataSets?.itemCard?.rows;
   if (!Array.isArray(rows) || rows.length !== 1) throw Error('product_identity_ambiguous');
   const row = rows[0], schema = JSON.parse(row.structuredData ?? 'null');
+  confirmHipperPaintCard(card,source);
   if (row.EAN !== source.ean || schema?.sku !== source.ean || schema.mpn !== String(source.productId) || row.csItemsId !== source.productId || row.csItemsUnitsId !== source.retailerUnitId) throw Error('product_ean_not_confirmed');
   if (typeof row.itemName !== 'string' || typeof schema.name !== 'string' || nameText(row.itemName) !== nameText(schema.name) || schema.brand?.name !== source.brand || '/' + row.appWindowIdentRoute !== url.pathname) throw Error('product_identity_not_confirmed');
   if (row.stockUnit !== 'szt' || row.quantityUnits !== 1 || row.isNegative !== 0) throw Error('purchase_rules_changed');

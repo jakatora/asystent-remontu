@@ -1,4 +1,5 @@
 import { REMOVAL_JOB, REMOVAL_MODEL } from './wallpaperRemoval';
+import {WALL_PAINT_JOB,WALL_PAINT_MODEL} from './wallPaint';
 import { isWallpaperAdhesiveJob, isCurrentWallpaperAdhesiveModel, isWallpaperAdhesive } from './wallpaperAdhesive';
 import { isWallpaperRoll } from './wallpaperRolls';
 import { isWallpaperTape } from './wallpaperTape';
@@ -26,6 +27,7 @@ const KNAUF_CARD = 'https://knauf.com/api/download-center/v1/assets/3ed7306f-27b
 // source: https://www.atlas.com.pl/produkt/atlas-uni-grunt/
 // source: https://knauf.com/pl-PL/p/produkt/knauf-universalgrund-22064_0120
 const SPECIFICATIONS: Readonly<Record<string, PrimerSpecification>> = {
+  'paint-walls': { materialId: 'primer-paint', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 500, source: KNAUF_CARD },
   'primer-walls': { materialId: 'primer', referenceId: 'mat-primer-deep-ceresit-ct17-10l', ean: '5900089617081', area: 'wallArea', usage: 0.1, maxArea: 500, source: 'https://www.ceresit.pl/produkty/grunty-i-gladzie/grunty/produkt.html/ceresit-ct-17-profi/SAP_0201JAC014F1.html' },
   'skim-coat': { materialId: 'primer-skim', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 500, source: KNAUF_CARD },
   'wall-repair': { materialId: 'primer-repair', referenceId: 'mat-universal-primer-5l', ean: '5901793357737', area: 'wallArea', usage: 0.15, maxArea: 200, source: KNAUF_CARD },
@@ -56,7 +58,9 @@ export function substratePrimerQuantity(jobId: string, m: MeasurementMap): numbe
   const min = spec.ean === '5905400520026' ? 0.05 : spec.ean === '5900089617081' ? 0.1 : 0.01;
   const max = spec.ean === '5905400520026' ? 0.2 : spec.ean === '5900089617081' ? 0.5 : 1;
   if (!Number.isFinite(usage) || usage < min || usage > max) return null;
-  return Number((area * usage).toFixed(6));
+  const applications=jobId===WALL_PAINT_JOB?m.primerApplications??1:1;
+  if(!Number.isSafeInteger(applications)||applications<1||applications>2)return null;
+  return Number((area * usage * applications).toFixed(6));
 }
 
 export function levelingEdgeTapeMetres(m: MeasurementMap): number | null {
@@ -69,7 +73,7 @@ export function substratePrimerInputs(jobId: string): MeasurementInputDefinition
   const spec = SPECIFICATIONS[jobId];
   if (!spec || jobId === 'primer-walls') return [];
   const atlas = spec.ean === '5905400520026', ceresit = spec.ean === '5900089617081';
-  return [{
+  const inputs:MeasurementInputDefinition[]=[{
     id: 'primerConsumption', label: atlas ? 'Zużycie emulsji ATLAS UNI-GRUNT' : 'Zużycie gruntu',
     unit: atlas ? 'kg/m²' : 'l/m²', inputType: 'coverage', placeholder: String(spec.usage),
     defaultValue: spec.usage, min: atlas ? 0.05 : ceresit ? 0.1 : 0.01,
@@ -80,6 +84,10 @@ export function substratePrimerInputs(jobId: string): MeasurementInputDefinition
         ? 'CT 17: założenie 0,20 l/m², zakres producenta 0,10–0,50. Podłoże musi być chłonne; sprawdź zużycie próbą.'
         : 'Knauf Universalgrund: założenie dla ściany 0,15 l/m². Liczymy całą podaną powierzchnię; rzeczywiste zużycie zależy od chłonności. Gotowego gruntu nie traktuj jako koncentratu.',
   }];
+  if(jobId===WALL_PAINT_JOB)inputs.push({id:'primerApplications',label:'Liczba aplikacji gruntu',unit:'',inputType:'select',placeholder:'Sprawdź chłonność podłoża',defaultValue:1,min:1,max:2,required:false,
+    options:[{value:1,label:'Jedna aplikacja'},{value:2,label:'Dwie aplikacje — bardzo chłonne podłoże'}],
+    hint:'Knauf Universalgrund: na bardzo chłonne podłoże producent zaleca dwukrotne gruntowanie. Zużycie l/m² powyżej dotyczy jednej aplikacji. Nie mnożymy go przez liczbę warstw farby.'});
+  return inputs;
 }
 
 /** Existing jobs remain legacy materials; exact product and pack are explicit. */
@@ -97,7 +105,7 @@ export function substratePrimerMaterial(jobId: string): MaterialItem {
   };
 }
 
-const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || calc.jobId === REMOVAL_JOB && calc.quantityModel === REMOVAL_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL || isWallpaperAdhesiveJob(calc.jobId) && isCurrentWallpaperAdhesiveModel(calc.quantityModel);
+const currentPrimerModel = (calc: CalculationResult) => calc.quantityModel === SUBSTRATE_PRIMER_MODEL || calc.jobId===WALL_PAINT_JOB&&calc.quantityModel===WALL_PAINT_MODEL || calc.jobId === REMOVAL_JOB && calc.quantityModel === REMOVAL_MODEL || isWallFinishingJob(calc.jobId) && calc.quantityModel === WALL_FINISHING_MODEL || isWallpaperAdhesiveJob(calc.jobId) && isCurrentWallpaperAdhesiveModel(calc.quantityModel);
 
 export function isCurrentSubstratePrimer(calc: CalculationResult, line: MaterialLineItem): boolean {
   const spec = SPECIFICATIONS[calc.jobId];

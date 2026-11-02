@@ -1,0 +1,734 @@
+{
+  "product": {
+    "state": {
+      "csAppWindowsUtils": {
+        "sessionId": "11111111-1111-4111-8111-111111111111",
+        "csAppWindows": {
+          "csB2BItemCard": {
+            "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+            "dataSets": {
+              "itemCard": {
+                "rows": [
+                  {
+                    "structuredData": "{\"@context\":\"https://schema.org/\",\"@type\":\"Product\",\"name\":\"Śnieżka Barwy Natury Biały 173 5L farba lateksowa\",\"image\":[\"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|C9BA9C65-9EA1-494C-BD0D-6253ED37D8E5|1/Śnieżka Barwy Natury Biały 173 5L farba lateksowa.webp\",\"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|9D27FBE7-FB5E-4A91-B47B-D0198EB4B57D|2/Śnieżka Barwy Natury Biały 173 5L farba lateksowa_1.webp\",\"https://hipper.pl/api/attachment/get/C3095A86-0FCB-46FF-A52A-63855FB53DDB/ImageIdent/csPhotos|PhotoMed|25F8BB05-6D64-4DE3-A5E7-5D7067437926|2/Śnieżka Barwy Natury Biały 173 5L farba lateksowa_2.webp\"],\"sku\":\"5903973139188\",\"mpn\":\"956234361\",\"brand\":{\"@type\":\"Brand\",\"name\":\"Śnieżka\"},\"offers\":{\"@type\":\"Offer\",\"price\":99.99,\"availability\":\"InStock\",\"priceCurrency\":\"PLN\"}}",
+                    "appWindowIdentRoute": "sniezka-barwy-natury-bialy-173-5l-farba-lateksowa-956234361",
+                    "csItemsId": 956234361,
+                    "itemName": "Śnieżka Barwy Natury Biały 173 5L farba lateksowa",
+                    "EAN": "5903973139188",
+                    "cUnitPrice": 99.99,
+                    "discount": 0,
+                    "cUnitPriceADis": 99.99,
+                    "csItemsUnitsId": 956413761,
+                    "quantityUnits": 1,
+                    "isNegative": 0,
+                    "qStockAv": 11,
+                    "stockUnit": "szt"
+                  }
+                ]
+              },
+              "features": {
+                "rows": [
+                  {
+                    "featureDesc": "Metoda aplikacji",
+                    "featureValue": "Wałek, Natrysk"
+                  },
+                  {
+                    "featureDesc": "Przeznaczenie",
+                    "featureValue": "Salon, Korytarz, Sypialnia, Jadalnia"
+                  },
+                  {
+                    "featureDesc": "Pojemność",
+                    "featureValue": "5 l"
+                  },
+                  {
+                    "featureDesc": "Grupa kolorów",
+                    "featureValue": "Biały"
+                  },
+                  {
+                    "featureDesc": "Symbol koloru",
+                    "featureValue": "173"
+                  },
+                  {
+                    "featureDesc": "Kolor",
+                    "featureValue": "Biały"
+                  },
+                  {
+                    "featureDesc": "Wydajność do",
+                    "featureValue": "14 m2/l"
+                  },
+                  {
+                    "featureDesc": "Powierzchnia",
+                    "featureValue": "Ściana, Sufit"
+                  },
+                  {
+                    "featureDesc": "Wykończenie",
+                    "featureValue": "Mat"
+                  },
+                  {
+                    "featureDesc": "Rodzaj",
+                    "featureValue": "Lateksowa"
+                  },
+                  {
+                    "featureDesc": "Odporność",
+                    "featureValue": "Szorowanie"
+                  },
+                  {
+                    "featureDesc": "Czas schnięcia",
+                    "featureValue": "3 h"
+                  },
+                  {
+                    "featureDesc": "Liczba warstw",
+                    "featureValue": "2"
+                  },
+                  {
+                    "featureDesc": "Kolejna warstwa po",
+                    "featureValue": "4 h"
+                  },
+                  {
+                    "featureDesc": "Kolekcja",
+                    "featureValue": "Śnieżka Barwy Natury"
+                  },
+                  {
+                    "featureDesc": "Marka\n",
+                    "featureValue": "Śnieżka"
+                  },
+                  {
+                    "featureDesc": "Zawartość LZO",
+                    "featureValue": "<30 g/l"
+                  },
+                  {
+                    "featureDesc": "Norma PN-EN 13300",
+                    "featureValue": "Klasa 2"
+                  },
+                  {
+                    "featureDesc": "Norma PN-C- 81914:2002",
+                    "featureValue": "Rodzaj 1"
+                  },
+                  {
+                    "featureDesc": "Atesty / rekomendacje",
+                    "featureValue": "Atest higieniczny"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "dom": "<section id=\"item\"><h1>Śnieżka Barwy Natury Biały 173 5L farba lateksowa</h1><div class=\"c-ean\">\n              (Kod produktu: 5903973139188)\n            </div><div class=\"c-prc\"><span class=\"c-upad\">99,99 zł</span>  <div class=\"c-upc\"><div>\n                20,00 zł/litr\n              </div> </div></div><input type=\"quantity\" inputmode=\"numeric\" tabindex=\"0\" autocomplete=\"off\" value=\"1\" class=\"c-input input c-ft-integer\"><button type=\"button\" class=\"c-btn-cart-add c-btna cartAdd\">\n    Do koszyka\n       </button><div class=\"c-itm-s\"><div>\n              W magazynie\n            </div> <div>\n              11 szt\n            </div> <div class=\"c-skeleton\" style=\"height:50px;width:90px;display:none;\"></div></div></section>"
+  },
+  "carts": {
+    "count1step1": {
+      "state": {
+        "csAppWindowsUtils": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "csAppWindows": {
+            "csB2BCart": {
+              "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+              "dataSets": {
+                "csB2BCartHeader": {
+                  "rows": [
+                    {
+                      "cGAmount": 99.99,
+                      "sumDiscountValue": 0,
+                      "csDocsHeadersId": 3271877349,
+                      "isRegulationsAccepted": 0,
+                      "isProcessingPersonalDataAccepted": 0,
+                      "doRegisterAccount": 0,
+                      "csB2BPortalsDeliveryMethodsId": null,
+                      "deliveryMethodsCUnitPrice": 0,
+                      "isReceptionPoint": null,
+                      "csPaymentsTypesId": 2674564140,
+                      "paymentsTypesCUnitPrice": 0
+                    }
+                  ]
+                },
+                "csB2BCartPositions": {
+                  "rows": [
+                    {
+                      "csItemsId": 956234361,
+                      "csItemsUnitsId": 956413761,
+                      "quantityUnits": 1,
+                      "unit": "szt",
+                      "itemDesc": "Śnieżka Barwy Natury Biały 173 5L farba lateksowa",
+                      "menuPath": "/sniezka-barwy-natury-bialy-173-5l-farba-lateksowa-956234361",
+                      "isStock": 1,
+                      "discount": 0,
+                      "cUnitPrice": 99.99,
+                      "cUnitPriceADis": 99.99,
+                      "cGAmount": 99.99
+                    }
+                  ]
+                },
+                "deliveryMethods": {
+                  "rows": [
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": null,
+                      "csB2BPortalsDeliveryMethodsId": null,
+                      "deliveryMethod": "Wybierz formę dostawy",
+                      "currencyIdent": null,
+                      "cUnitPrice": null,
+                      "freeDeliveryFrom": null
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667018159,
+                      "deliveryMethod": "InPost Paczkomat 24/7 (24-48h) - najczęściej wybierana",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 17.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667017562,
+                      "deliveryMethod": "Kurier InPost",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 18.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667023043,
+                      "deliveryMethod": "Kurier DHL",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 29.99,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2844329220,
+                      "deliveryMethod": "Kurier GLS",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2864054502,
+                      "deliveryMethod": "Kurier DPD",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.99,
+                      "freeDeliveryFrom": 6000
+                    }
+                  ]
+                },
+                "paymentMethods": {
+                  "rows": [
+                    {
+                      "csPaymentsTypesId": null,
+                      "isAvailable": 1,
+                      "priceListType": null,
+                      "paymentTypeTranslatedDesc": "Wybierz formę płatności",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021221,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Przelew gotówkowy",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021230,
+                      "isAvailable": 1,
+                      "priceListType": 2,
+                      "paymentTypeTranslatedDesc": "Pobranie",
+                      "cUnitPrice": 2.9
+                    },
+                    {
+                      "csPaymentsTypesId": 955021233,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Karta płatnicza PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2666172468,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "BLIK PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2674564140,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Płatność błyskawiczna PayU",
+                      "cUnitPrice": null
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "summary": "<div class=\"c-sum-in\">Wartość produktów: 99,99 zł Sposób płatności: 0,00 zł Razem do zapłaty: 99,99 zł Do zapłaty po rabacie: 99,99 zł</div>"
+    },
+    "count1step2": {
+      "state": {
+        "csAppWindowsUtils": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "csAppWindows": {
+            "csB2BCart": {
+              "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+              "dataSets": {
+                "csB2BCartHeader": {
+                  "rows": [
+                    {
+                      "cGAmount": 99.99,
+                      "sumDiscountValue": 0,
+                      "csDocsHeadersId": 3271877349,
+                      "isRegulationsAccepted": 0,
+                      "isProcessingPersonalDataAccepted": 0,
+                      "doRegisterAccount": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667017562,
+                      "deliveryMethodsCUnitPrice": 18.9,
+                      "isReceptionPoint": 0,
+                      "csPaymentsTypesId": 2674564140,
+                      "paymentsTypesCUnitPrice": 0
+                    }
+                  ]
+                },
+                "csB2BCartPositions": {
+                  "rows": [
+                    {
+                      "csItemsId": 956234361,
+                      "csItemsUnitsId": 956413761,
+                      "quantityUnits": 1,
+                      "unit": "szt",
+                      "itemDesc": "Śnieżka Barwy Natury Biały 173 5L farba lateksowa",
+                      "menuPath": "/sniezka-barwy-natury-bialy-173-5l-farba-lateksowa-956234361",
+                      "isStock": 1,
+                      "discount": 0,
+                      "cUnitPrice": 99.99,
+                      "cUnitPriceADis": 99.99,
+                      "cGAmount": 99.99
+                    }
+                  ]
+                },
+                "deliveryMethods": {
+                  "rows": [
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": null,
+                      "csB2BPortalsDeliveryMethodsId": null,
+                      "deliveryMethod": "Wybierz formę dostawy",
+                      "currencyIdent": null,
+                      "cUnitPrice": null,
+                      "freeDeliveryFrom": null
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667018159,
+                      "deliveryMethod": "InPost Paczkomat 24/7 (24-48h) - najczęściej wybierana",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 17.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667017562,
+                      "deliveryMethod": "Kurier InPost",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 18.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667023043,
+                      "deliveryMethod": "Kurier DHL",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 29.99,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2844329220,
+                      "deliveryMethod": "Kurier GLS",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2864054502,
+                      "deliveryMethod": "Kurier DPD",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.99,
+                      "freeDeliveryFrom": 6000
+                    }
+                  ]
+                },
+                "paymentMethods": {
+                  "rows": [
+                    {
+                      "csPaymentsTypesId": null,
+                      "isAvailable": 1,
+                      "priceListType": null,
+                      "paymentTypeTranslatedDesc": "Wybierz formę płatności",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021221,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Przelew gotówkowy",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021230,
+                      "isAvailable": 1,
+                      "priceListType": 2,
+                      "paymentTypeTranslatedDesc": "Pobranie",
+                      "cUnitPrice": 2.9
+                    },
+                    {
+                      "csPaymentsTypesId": 955021233,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Karta płatnicza PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2666172468,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "BLIK PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2674564140,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Płatność błyskawiczna PayU",
+                      "cUnitPrice": null
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "summary": "<div class=\"c-sum-in\">Wartość produktów: 99,99 zł Sposób płatności: 0,00 zł Sposób dostawy: 18,90 zł Razem do zapłaty: 118,89 zł Do zapłaty po rabacie: 118,89 zł</div>"
+    },
+    "count2step1": {
+      "state": {
+        "csAppWindowsUtils": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "csAppWindows": {
+            "csB2BCart": {
+              "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+              "dataSets": {
+                "csB2BCartHeader": {
+                  "rows": [
+                    {
+                      "cGAmount": 199.98,
+                      "sumDiscountValue": 0,
+                      "csDocsHeadersId": 3271877358,
+                      "isRegulationsAccepted": 0,
+                      "isProcessingPersonalDataAccepted": 0,
+                      "doRegisterAccount": 0,
+                      "csB2BPortalsDeliveryMethodsId": null,
+                      "deliveryMethodsCUnitPrice": 0,
+                      "isReceptionPoint": null,
+                      "csPaymentsTypesId": 2674564140,
+                      "paymentsTypesCUnitPrice": 0
+                    }
+                  ]
+                },
+                "csB2BCartPositions": {
+                  "rows": [
+                    {
+                      "csItemsId": 956234361,
+                      "csItemsUnitsId": 956413761,
+                      "quantityUnits": 2,
+                      "unit": "szt",
+                      "itemDesc": "Śnieżka Barwy Natury Biały 173 5L farba lateksowa",
+                      "menuPath": "/sniezka-barwy-natury-bialy-173-5l-farba-lateksowa-956234361",
+                      "isStock": 1,
+                      "discount": 0,
+                      "cUnitPrice": 99.99,
+                      "cUnitPriceADis": 99.99,
+                      "cGAmount": 199.98
+                    }
+                  ]
+                },
+                "deliveryMethods": {
+                  "rows": [
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": null,
+                      "csB2BPortalsDeliveryMethodsId": null,
+                      "deliveryMethod": "Wybierz formę dostawy",
+                      "currencyIdent": null,
+                      "cUnitPrice": null,
+                      "freeDeliveryFrom": null
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667018159,
+                      "deliveryMethod": "InPost Paczkomat 24/7 (24-48h) - najczęściej wybierana",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 17.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667017562,
+                      "deliveryMethod": "Kurier InPost",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 18.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667023043,
+                      "deliveryMethod": "Kurier DHL",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 29.99,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2844329220,
+                      "deliveryMethod": "Kurier GLS",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2864054502,
+                      "deliveryMethod": "Kurier DPD",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.99,
+                      "freeDeliveryFrom": 6000
+                    }
+                  ]
+                },
+                "paymentMethods": {
+                  "rows": [
+                    {
+                      "csPaymentsTypesId": null,
+                      "isAvailable": 1,
+                      "priceListType": null,
+                      "paymentTypeTranslatedDesc": "Wybierz formę płatności",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021221,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Przelew gotówkowy",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021230,
+                      "isAvailable": 1,
+                      "priceListType": 2,
+                      "paymentTypeTranslatedDesc": "Pobranie",
+                      "cUnitPrice": 2.9
+                    },
+                    {
+                      "csPaymentsTypesId": 955021233,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Karta płatnicza PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2666172468,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "BLIK PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2674564140,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Płatność błyskawiczna PayU",
+                      "cUnitPrice": null
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "summary": "<div class=\"c-sum-in\">Wartość produktów: 199,98 zł Sposób płatności: 0,00 zł Razem do zapłaty: 199,98 zł Do zapłaty po rabacie: 199,98 zł</div>"
+    },
+    "count2step2": {
+      "state": {
+        "csAppWindowsUtils": {
+          "sessionId": "11111111-1111-4111-8111-111111111111",
+          "csAppWindows": {
+            "csB2BCart": {
+              "csAppNameSpacesG": "800DB636-13CF-4B3B-A705-06E7B2A426E9",
+              "dataSets": {
+                "csB2BCartHeader": {
+                  "rows": [
+                    {
+                      "cGAmount": 199.98,
+                      "sumDiscountValue": 0,
+                      "csDocsHeadersId": 3271877358,
+                      "isRegulationsAccepted": 0,
+                      "isProcessingPersonalDataAccepted": 0,
+                      "doRegisterAccount": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667017562,
+                      "deliveryMethodsCUnitPrice": 18.9,
+                      "isReceptionPoint": 0,
+                      "csPaymentsTypesId": 2674564140,
+                      "paymentsTypesCUnitPrice": 0
+                    }
+                  ]
+                },
+                "csB2BCartPositions": {
+                  "rows": [
+                    {
+                      "csItemsId": 956234361,
+                      "csItemsUnitsId": 956413761,
+                      "quantityUnits": 2,
+                      "unit": "szt",
+                      "itemDesc": "Śnieżka Barwy Natury Biały 173 5L farba lateksowa",
+                      "menuPath": "/sniezka-barwy-natury-bialy-173-5l-farba-lateksowa-956234361",
+                      "isStock": 1,
+                      "discount": 0,
+                      "cUnitPrice": 99.99,
+                      "cUnitPriceADis": 99.99,
+                      "cGAmount": 199.98
+                    }
+                  ]
+                },
+                "deliveryMethods": {
+                  "rows": [
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": null,
+                      "csB2BPortalsDeliveryMethodsId": null,
+                      "deliveryMethod": "Wybierz formę dostawy",
+                      "currencyIdent": null,
+                      "cUnitPrice": null,
+                      "freeDeliveryFrom": null
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667018159,
+                      "deliveryMethod": "InPost Paczkomat 24/7 (24-48h) - najczęściej wybierana",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 17.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667017562,
+                      "deliveryMethod": "Kurier InPost",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 18.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2667023043,
+                      "deliveryMethod": "Kurier DHL",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 29.99,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2844329220,
+                      "deliveryMethod": "Kurier GLS",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.9,
+                      "freeDeliveryFrom": 6000
+                    },
+                    {
+                      "isAvailable": 1,
+                      "isCollectionInPerson": 0,
+                      "csB2BPortalsDeliveryMethodsId": 2864054502,
+                      "deliveryMethod": "Kurier DPD",
+                      "currencyIdent": "zł",
+                      "cUnitPrice": 20.99,
+                      "freeDeliveryFrom": 6000
+                    }
+                  ]
+                },
+                "paymentMethods": {
+                  "rows": [
+                    {
+                      "csPaymentsTypesId": null,
+                      "isAvailable": 1,
+                      "priceListType": null,
+                      "paymentTypeTranslatedDesc": "Wybierz formę płatności",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021221,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Przelew gotówkowy",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 955021230,
+                      "isAvailable": 1,
+                      "priceListType": 2,
+                      "paymentTypeTranslatedDesc": "Pobranie",
+                      "cUnitPrice": 2.9
+                    },
+                    {
+                      "csPaymentsTypesId": 955021233,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Karta płatnicza PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2666172468,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "BLIK PayU",
+                      "cUnitPrice": null
+                    },
+                    {
+                      "csPaymentsTypesId": 2674564140,
+                      "isAvailable": 1,
+                      "priceListType": 0,
+                      "paymentTypeTranslatedDesc": "Płatność błyskawiczna PayU",
+                      "cUnitPrice": null
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "summary": "<div class=\"c-sum-in\">Wartość produktów: 199,98 zł Sposób płatności: 0,00 zł Sposób dostawy: 18,90 zł Razem do zapłaty: 218,88 zł Do zapłaty po rabacie: 218,88 zł</div>"
+    }
+  }
+}
