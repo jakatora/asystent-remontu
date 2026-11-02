@@ -1,0 +1,27 @@
+appId: app.replit.remontasystent
+---
+- launchApp:
+    clearState: false
+- openLink:
+    link: remont://job/wall-repair
+- tapOn:
+    text: Open
+    optional: true
+- extendedWaitUntil:
+    visible: Naprawa pęknięć i ubytków
+    timeout: 60000
+- tapOn: Koszt
+- scrollUntilVisible:
+    element:
+      text: Kup w Sewera
+    direction: DOWN
+    timeout: 90000
+- takeScreenshot: native-screens/04-material-prices
+- tapOn: Narzędzia
+- scrollUntilVisible:
+    element:
+      text: Kup w Sewera
+    direction: DOWN
+    timeout: 90000
+- assertVisible: '.*zł.*1 szt.*'
+- takeScreenshot: native-screens/05-brush-price

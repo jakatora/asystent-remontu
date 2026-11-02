@@ -268,6 +268,18 @@ workflows:
         script: |
           cd "$CM_BUILD_DIR/artifacts/mobile/ios"
           xcodebuild -workspace AsystentRemontu.xcworkspace -scheme AsystentRemontu -configuration Release -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath "$CM_BUILD_DIR/simulator-build" CODE_SIGNING_ALLOWED=NO > "$CM_BUILD_DIR/simulator-build.log" 2>&1
+      - name: Archive the exact simulator application for test-only retries
+        script: |
+          cd "$CM_BUILD_DIR"
+          python3 - <<'PY'
+          import pathlib,plistlib,json
+          path=pathlib.Path('simulator-build/Build/Products/Release-iphonesimulator/AsystentRemontu.app/Info.plist')
+          data=plistlib.loads(path.read_bytes())
+          assert data['CFBundleShortVersionString']=='1.2.1' and data['CFBundleVersion']=='11'
+          pathlib.Path('simulator-app-source.json').write_text(json.dumps({'applicationSourceCommit':'feff7c19e9646f29b5356577cc337d342c5e3c1e','version':'1.2.1','build':'11'}))
+          PY
+          tar -czf simulator-app.tar.gz -C simulator-build/Build/Products/Release-iphonesimulator AsystentRemontu.app
+          shasum -a 256 simulator-app.tar.gz > simulator-app.sha256
       - name: Boot iPhone 14 Plus and seed only synthetic project data
         script: |
           cd "$CM_BUILD_DIR"
@@ -285,11 +297,14 @@ workflows:
           curl -fsSL https://get.maestro.mobile.dev | bash
           export PATH="$HOME/.maestro/bin:$PATH"
           mkdir -p native-screens
-          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-smoke.xml scripts/ci/ios-smoke.yaml
+          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-smoke.xml scripts/ci/ios-native
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
       - simulator-build.log
+      - simulator-app.tar.gz
+      - simulator-app.sha256
+      - simulator-app-source.json
       - ~/.maestro/tests/**
 
   android-release-smoke:
