@@ -68,8 +68,10 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
         <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
           {reference && <ProductImage uri={getProductPhoto(reference)} name={material.name} size={48} />}
           <View style={{ flex: 1, gap: 4 }}><Txt w="semibold">{material.name}</Txt><Txt>{item.quantity.toLocaleString(pl ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 6 })} {material.unit}</Txt></View>
-          <Pressable accessibilityRole="button" accessibilityLabel={pl ? `Edytuj dodatkową pozycję ${material.name}` : `Edit additional item ${material.name}`} onPress={() => edit(item)} style={{ minWidth: 48, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}><Feather name="edit-2" size={20} color={Colors.primary} /></Pressable>
-          <Pressable accessibilityRole="button" accessibilityLabel={pl ? `Usuń dodatkową pozycję ${material.name}` : `Remove additional item ${material.name}`} onPress={() => { onChange(items.filter(row => row.id !== item.id)); if (editingId === item.id) reset(); }} style={{ minWidth: 48, minHeight: 48, alignItems: 'center', justifyContent: 'center' }}><Feather name="trash-2" size={20} color={Colors.danger} /></Pressable>
+        </View>
+        <View style={{flexDirection:'row',justifyContent:'flex-end',gap:8}}>
+          <Pressable accessibilityRole="button" accessibilityLabel={pl ? `Edytuj dodatkową pozycję ${material.name}` : `Edit additional item ${material.name}`} onPress={() => edit(item)} style={{ minWidth: 86, minHeight: 48, flexDirection:'row',gap:6,alignItems: 'center', justifyContent: 'center' }}><Feather name="edit-2" size={18} color={Colors.primary} /><Txt style={{color:Colors.primary}}>{pl?'Edytuj':'Edit'}</Txt></Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel={pl ? `Usuń dodatkową pozycję ${material.name}` : `Remove additional item ${material.name}`} onPress={() => { onChange(items.filter(row => row.id !== item.id)); if (editingId === item.id) reset(); }} style={{ minWidth: 86, minHeight: 48, flexDirection:'row',gap:6,alignItems: 'center', justifyContent: 'center' }}><Feather name="trash-2" size={18} color={Colors.danger} /><Txt style={{color:Colors.danger}}>{pl?'Usuń':'Remove'}</Txt></Pressable>
         </View>
       </View>;
     })}
