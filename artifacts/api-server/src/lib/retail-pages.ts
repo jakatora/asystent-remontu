@@ -4,7 +4,7 @@ import {confirmCeresitPrimerSource} from './ceresit-primers';
 import {readElmasProduct} from './elmas-product';
 import {shoperFloatingPointUnit,confirmShoperMetreCard} from './shoper-metres';
 import {confirmPaintingTapePurchase,reviewedPaintingTape} from './painting-tapes';
-import {confirmKnaufFinishPurchase} from './knauf-finishes';
+import {confirmKnaufFinishPurchase,confirmKnaufFinishSource} from './knauf-finishes';
 import {quoteRelayEnabled,readThroughRelay} from './quote-relay-client';
 import {readEtakCard} from './etak-product';
 import {confirmKnaufPlasterPurchase} from './knauf-plasters';
@@ -236,6 +236,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
   confirmAtlasWoderSource(source);
+  confirmKnaufFinishSource(source);
   if (source.disabledReason) throw Error(source.disabledReason);
   if(source.format==='idosell'&&quoteRelayEnabled(source.store)){
     const originalFetch=fetchImpl,deadline=AbortSignal.timeout(20000);

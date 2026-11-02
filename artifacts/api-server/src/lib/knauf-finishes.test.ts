@@ -10,6 +10,12 @@ const fixture=(name:string)=>readFileSync(new URL('../../test/fixtures/knauf-fin
 const source=(id:string)=>KNAUF_FINISH_SOURCES.find(s=>s.id===id)!;
 const small=source('abud-knauf-superfinish-54kg'),large=source('abud-knauf-superfinish-28kg'),real=source('realbud-knauf-superfinish-28kg');
 const now=new Date('2026-11-01T23:20:00Z');
+test('the actual Sewera alternative confirms the same 28 kg GTIN and rejects a changed source package before HTTP',async()=>{
+ const reviewed=source('sewera-knauf-superfinish-28kg'),raw=fixture('sewera-superfinish-28.html');
+ const observed=await readRetailSource(reviewed,async input=>{assert.equal(String(input),reviewed.url);return new Response(raw,{headers:{'content-type':'text/html'}});});
+ assert.equal(observed.ean,'5901793357935');assert.equal(observed.priceGrosze,9690);assert.equal(observed.currency,'PLN');
+ for(const patch of [{packageSize:20},{unit:'l'},{retailUnit:'OPA' as const},{ean:'5901793358123'},{purchaseMultiple:2}])await assert.rejects(readRetailSource({...reviewed,...patch},async()=>{assert.fail('An altered reviewed source cannot start HTTP');}),/package_not_confirmed/);
+});
 function alterOffer(html:string,change:(offer:Record<string,any>)=>void):string {
  return html.replace(/(<script\b[^>]*type="application\/ld\+json"[^>]*>)([\s\S]*?)(<\/script>)/,(_all,a,json,b)=>{const p=JSON.parse(json);change(p.offers[0]);return a+JSON.stringify(p)+b;});
 }
