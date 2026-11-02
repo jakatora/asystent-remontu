@@ -3,6 +3,9 @@ import type {MeasurementMap} from '@/types/calculator';
 import type {MeasurementInputDefinition} from '@/types/engine';
 import {MATERIAL_PRICES} from '@/data/prices/materials';
 import {PRODUCT_PHOTOS} from '@/data/products/photos';
+// source: https://arbiton.com/content/uploads/ARBITON-underlayments-2025.pdf
+// source: https://topboden.pl/podklad-pod-panele/arbiton-optima-thermo-aquastop-podklady-pod-panele-laminowane
+// source: https://topboden.pl/podklad-pod-panele/arbiton-optima-aquastop-podklady-pod-panele-laminowane
 
 export const UNDERLAY_JOB='underlay-install';
 export const UNDERLAY_MODEL='underlay-install-v1';
@@ -11,7 +14,7 @@ export const isUnderlayMaterial=(job:string,id:string)=>job===UNDERLAY_JOB&&IDS.
 const valid=(n:number|undefined,min:number,max:number):n is number=>Number.isFinite(n)&&n!>=min&&n!<=max;
 const FOILS=['','mat-vapor-foil-conkret-conpar-100m2','mat-vapor-foil-conkret-ecovil-p-100m2','mat-vapor-foil-arbiton-aquaprotec-10m2'];
 export function underlayReference(id:string,m:MeasurementMap={}):string|null{
-  if(id==='underlay')return m.underlaySystem===1?'mat-underlay-volden-xps-10m2':m.underlaySystem===2?'mat-underlay-arbiton-xps-aquastop-6m2':null;
+  if(id==='underlay')return m.underlaySystem===1?'mat-underlay-volden-xps-10m2':m.underlaySystem===2?'mat-underlay-arbiton-xps-aquastop-6m2':m.underlaySystem===3?'mat-underlay-arbiton-optima-thermo-10m2':m.underlaySystem===4?'mat-underlay-arbiton-optima-aquastop-10m2':null;
   if(id==='vapor-barrier')return Number.isInteger(m.underlayBarrierChoice)?FOILS[m.underlayBarrierChoice]||null:null;
   if(id==='adhesive-tape')return 'mat-underlay-joint-tape-arbiton-izo-25m';
   return null;
@@ -23,7 +26,7 @@ export function underlayReference(id:string,m:MeasurementMap={}):string|null{
 export function underlayQuantity(id:string,m:MeasurementMap):number|null{
   if(!IDS.includes(id)||!valid(m.floorArea,1,300))return null;
   if(id==='adhesive-tape')return valid(m.underlayTapeM,0,1000)?m.underlayTapeM:null;
-  if(id==='vapor-barrier'&&(m.underlaySystem===2||m.underlayBarrierChoice===4))return 0;
+  if(id==='vapor-barrier'&&([2,3,4].includes(m.underlaySystem)||m.underlayBarrierChoice===4))return 0;
   if(id==='vapor-barrier')return underlayReference(id,m)&&m.underlayFoilFit===1&&valid(m.underlayFoilAreaM2,m.floorArea,1000)?m.underlayFoilAreaM2:null;
   const reserve=m.underlayReservePercent??10;
   return underlayReference(id,m)&&m.underlayFit===1&&valid(reserve,0,30)?Number((m.floorArea*(1+reserve/100)).toFixed(8)):null;
@@ -39,7 +42,7 @@ export function underlayMaterials(m:MeasurementMap={}):MaterialItem[]{
 }
 export const underlayInputs:MeasurementInputDefinition[]=[
   {id:'floorArea',label:'Powierzchnia podłogi',unit:'m²',inputType:'area',placeholder:'np. 20',min:1,max:300,required:true},
-  {id:'underlaySystem',label:'Podkład do porównania cen',unit:'',inputType:'select',placeholder:'Dobierz podkład',min:0,max:2,defaultValue:0,required:false,options:[{value:0,label:'Jeszcze dobieram podkład'},{value:1,label:'Volden XPS Smart 3 mm — 10 m², bez osobnej bariery w podkładzie'},{value:2,label:'Arbiton Secura Thermo Aquastop Smart 1,6 mm — 6 m², 3 w 1'}],hint:'Te warianty dotyczą podłóg pływających z paneli laminowanych. Nie dobieramy ich automatycznie do winylu, podłogi klejonej ani ogrzewania elektrycznego. Poziom cen nie zmienia wybranego modelu.'},
+  {id:'underlaySystem',label:'Podkład do porównania cen',unit:'',inputType:'select',placeholder:'Dobierz podkład',min:0,max:4,defaultValue:0,required:false,options:[{value:0,label:'Jeszcze dobieram podkład'},{value:1,label:'Volden XPS Smart 3 mm — 10 m², bez osobnej bariery w podkładzie'},{value:2,label:'Arbiton Secura Thermo Aquastop Smart 1,6 mm — 6 m², 3 w 1'},{value:3,label:'Arbiton Optima Thermo Aquastop 1,5 mm — 10 m², 3 w 1'},{value:4,label:'Arbiton Optima Aquastop 2 mm — 10 m², 3 w 1'}],hint:'Te warianty dotyczą podłóg pływających z paneli laminowanych. Nie dobieramy ich automatycznie do winylu, podłogi klejonej ani ogrzewania elektrycznego. Poziom cen nie zmienia wybranego modelu.'},
   {id:'underlayFit',label:'Zgodność podkładu z podłogą i podłożem',unit:'',inputType:'select',placeholder:'Sprawdź instrukcje',min:0,max:1,defaultValue:0,required:false,options:[{value:0,label:'Zgodność wymaga sprawdzenia'},{value:1,label:'Potwierdzam dobranie podkładu według instrukcji moich paneli'}],hint:'Sprawdź rodzaj paneli, równość i wilgotność podłoża oraz cały układ ogrzewania. Parametry i dopuszczalny podkład wynikają z instrukcji konkretnej podłogi; wybrany produkt nie jest uniwersalnym rozwiązaniem.'},
   {id:'underlayReservePercent',label:'Zapas podkładu na docinki',unit:'%',inputType:'count',placeholder:'10',defaultValue:10,min:0,max:30,required:false,hint:'Założenie zakupowe; skoryguj z planem docinek. Nie zwiększamy ponownie ilości już wskazanej folii ani metrów taśmy.'},
   {id:'underlayBarrierChoice',label:'Osobna folia lub istniejąca ochrona przed wilgocią',unit:'',inputType:'select',placeholder:'Dobierz barierę',min:0,max:4,defaultValue:0,required:false,options:[{value:0,label:'Wymagania bariery jeszcze do ustalenia'},{value:1,label:'Conkret Conpar 0,20 mm — rolka 100 m²'},{value:2,label:'Conkret Ecovil P 0,20 mm — rolka 100 m²'},{value:3,label:'Arbiton Aquaprotec Vapour Barrier 0,18 mm — 10 m²'},{value:4,label:'Bez zakupu folii — odpowiednia bariera już jest lub instrukcja jej nie wymaga'}],hint:'Dobierz według instrukcji paneli i podkładu. Nie utożsamiamy nominalnych grubości i tolerancji. Aquaprotec 0,18 mm / SD>150 m należy do systemu Energy Saving Flooring System; nie jest automatycznym zamiennikiem wymaganej folii min.0,20 mm. Przy Arbiton 3 w 1 nie doliczamy drugiej folii.'},
@@ -49,7 +52,7 @@ export const underlayInputs:MeasurementInputDefinition[]=[
 ];
 export function underlayInputVisible(job:string,id:string,m:Readonly<Record<string,string|number|undefined>>):boolean{
   if(job!==UNDERLAY_JOB)return true;
-  const integrated=Number(m.underlaySystem)===2,foil=[1,2,3].includes(Number(m.underlayBarrierChoice));
+  const integrated=[2,3,4].includes(Number(m.underlaySystem)),foil=[1,2,3].includes(Number(m.underlayBarrierChoice));
   if(id==='underlayBarrierChoice')return !integrated;
   if(['underlayFoilFit','underlayFoilAreaM2'].includes(id))return !integrated&&foil;
   return true;

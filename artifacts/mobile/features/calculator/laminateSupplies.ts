@@ -3,6 +3,9 @@ import type { MeasurementMap } from '@/types/calculator';
 import type { MeasurementInputDefinition } from '@/types/engine';
 import { MATERIAL_PRICES } from '@/data/prices/materials';
 import { PRODUCT_PHOTOS } from '@/data/products/photos';
+// source: https://arbiton.com/content/uploads/ARBITON-underlayments-2025.pdf
+// source: https://topboden.pl/podklad-pod-panele/arbiton-optima-thermo-aquastop-podklady-pod-panele-laminowane
+// source: https://topboden.pl/podklad-pod-panele/arbiton-optima-aquastop-podklady-pod-panele-laminowane
 
 export const LAMINATE_JOB = 'laminate-flooring';
 export const LAMINATE_SUPPLIES_MODEL = 'laminate-supplies-v1';
@@ -15,7 +18,7 @@ export function laminateSupplyWarnings(lines: readonly { quantityKnown?: boolean
 const valid = (value: number | undefined, min: number, max: number): value is number => Number.isFinite(value) && value! >= min && value! <= max;
 const whole = (value: number | undefined, max: number): value is number => valid(value, 0, max) && Number.isSafeInteger(value);
 export function laminateSupplyReference(id: string, m: MeasurementMap = {}): string | null {
-  if (id === 'underlay') return m.laminateUnderlayChoice === 1 ? 'mat-underlay-volden-xps-10m2' : m.laminateUnderlayChoice === 2 ? 'mat-underlay-arbiton-xps-aquastop-6m2' : null;
+  if (id === 'underlay') return m.laminateUnderlayChoice === 1 ? 'mat-underlay-volden-xps-10m2' : m.laminateUnderlayChoice === 2 ? 'mat-underlay-arbiton-xps-aquastop-6m2' : m.laminateUnderlayChoice === 3 ? 'mat-underlay-arbiton-optima-thermo-10m2' : m.laminateUnderlayChoice === 4 ? 'mat-underlay-arbiton-optima-aquastop-10m2' : null;
   if (id === 'vapor-barrier') return 'mat-vapor-foil-diall-pe-20m2';
   if (id === 'threshold') return 'mat-vinyl-threshold-cezar-alu-40mm-1m';
   if (id === 'spacers') return 'mat-laminate-kit-wolfcraft-6931000';
@@ -31,8 +34,8 @@ export function laminateSupplyQuantity(id: string, m: MeasurementMap): number | 
   if (!valid(m.floorArea, 1, 300)) return null;
   if (id === 'underlay' || id === 'vapor-barrier') {
     const choice = m.laminateUnderlayChoice ?? 0;
-    if (!whole(choice, 2)) return null;
-    if (id === 'vapor-barrier' && choice === 2) return 0;
+    if (!whole(choice, 4)) return null;
+    if (id === 'vapor-barrier' && [2, 3, 4].includes(choice)) return 0;
     return Number((m.floorArea * 1.1).toFixed(8));
   }
   if (id === 'spacers') return whole(m.laminateKitCount, 20) ? m.laminateKitCount : null;
@@ -48,9 +51,9 @@ export function laminateSupplyQuantity(id: string, m: MeasurementMap): number | 
 }
 
 export const laminateSupplyInputs: MeasurementInputDefinition[] = [
-  { id: 'laminateUnderlayChoice', label: 'Podkład i ochrona przed wilgocią', unit: '', inputType: 'select', placeholder: 'Dobierz do podłogi i podłoża', min: 0, max: 2, defaultValue: 0, required: false,
-    options: [{ value: 0, label: 'Wariant z wybranego poziomu + osobna folia PE' }, { value: 1, label: 'Volden XPS Smart 3 mm, 10 m² + osobna folia PE' }, { value: 2, label: 'Arbiton Secura Thermo Aquastop Smart 1,6 mm, 6 m² — 3 w 1' }],
-    hint: 'Dobierz zgodnie z instrukcją paneli i podłoża. Arbiton 3 w 1 ma zintegrowaną barierę i taśmę; przy tym jawnym wyborze nie doliczamy drugiej folii. Dodatkowe uszczelnienia po docinaniu policz niżej. Zapas podkładu 10% jest założeniem zakupowym.' },
+  { id: 'laminateUnderlayChoice', label: 'Podkład i ochrona przed wilgocią', unit: '', inputType: 'select', placeholder: 'Dobierz do podłogi i podłoża', min: 0, max: 4, defaultValue: 0, required: false,
+    options: [{ value: 0, label: 'Wariant z wybranego poziomu + osobna folia PE' }, { value: 1, label: 'Volden XPS Smart 3 mm, 10 m² + osobna folia PE' }, { value: 2, label: 'Arbiton Secura Thermo Aquastop Smart 1,6 mm, 6 m² — 3 w 1' }, { value: 3, label: 'Arbiton Optima Thermo Aquastop 1,5 mm, 10 m² — 3 w 1' }, { value: 4, label: 'Arbiton Optima Aquastop 2 mm, 10 m² — 3 w 1' }],
+    hint: 'Dobierz zgodnie z instrukcją paneli i podłoża. Wybrane podkłady Arbiton 3 w 1 mają zintegrowaną barierę i taśmę; przy tym jawnym wyborze nie doliczamy drugiej folii. Dodatkowe uszczelnienia po docinaniu policz niżej. Zapas podkładu 10% jest założeniem zakupowym.' },
   { id: 'laminateThresholdCount', label: 'Liczba profili progowych do kupienia', unit: 'szt.', inputType: 'count', placeholder: '0, jeśli nie są potrzebne lub już je masz', min: 0, max: 50, required: true,
     hint: 'Liczymy całe odcinki Cezar 40 mm × 1 m. Nie wyliczamy liczby przejść z powierzchni podłogi. Dla dłuższych przejść dobierz inny profil; nie zakładamy łączenia odcinków.' },
   { id: 'laminateThresholdFit', label: 'Dobór profilu Cezar 40 mm × 1 m', unit: '', inputType: 'select', placeholder: 'Sprawdź przejścia', min: 0, max: 1, defaultValue: 0, required: false,

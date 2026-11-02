@@ -1,0 +1,371 @@
+{
+  "capturedAt": "2026-11-02T04:52:55.015Z",
+  "projection": "Public native product/card fields used by the production adapter, actual national delivery matrix; no sessions, cookies or contact data.",
+  "products": [
+    {
+      "sourceId": "topboden-optima-thermo-aquastop-10m2",
+      "product": {
+        "uuid": "72ace8a7-643a-4f87-a517-e98e05d476c0",
+        "name": "Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm - do paneli laminowanych",
+        "ean": "5905167881811",
+        "brand": {
+          "name": "Arbiton",
+          "uuid": "628a6037-0937-4f0c-b41d-cde299fc650d"
+        },
+        "units": {
+          "basicUnit": "m<sup>2</sup>",
+          "priceListUnit": "m<sup>2</sup>",
+          "orderUnit": "opk.",
+          "numerator": 10,
+          "denominator": 1,
+          "multiple": 1,
+          "minOrderQuantity": 1
+        },
+        "available": true,
+        "baseUnitStock": 20980,
+        "price": {
+          "netPrice": 1260,
+          "grossPrice": 1550,
+          "packageNetPrice": 12600,
+          "packageGrossPrice": 15500,
+          "lowestPriceFromMonth": null,
+          "isDiscount": false,
+          "discountNetPrice": null,
+          "discountGrossPrice": null,
+          "discountPackageNetPrice": null,
+          "discountPackageGrossPrice": null,
+          "discountValue": 0
+        },
+        "promotionCode": {
+          "code": "EXTRA20",
+          "discount": "20",
+          "freeProductsMessage": null
+        },
+        "images": [
+          {
+            "webp": "/photos/webp/5905167881811_P_02.webp",
+            "default": "/photos/5905167881811_P_02.png",
+            "category": "Packshot",
+            "resized": {
+              "original": {
+                "webp": "/photos/webp/5905167881811_P_02.webp",
+                "default": "/photos/5905167881811_P_02.png"
+              },
+              "gallery": {
+                "webp": "/media/cache/gallery/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/gallery/photos/5905167881811_P_02.png"
+              },
+              "gallery2": {
+                "webp": "/media/cache/gallery2/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/gallery2/photos/5905167881811_P_02.png"
+              },
+              "list": {
+                "webp": "/media/cache/list/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/list/photos/5905167881811_P_02.png"
+              },
+              "galleryThumb": {
+                "webp": "/media/cache/galleryThumb/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/galleryThumb/photos/5905167881811_P_02.png"
+              },
+              "thumbnail": {
+                "webp": "/media/cache/thumbnail/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/thumbnail/photos/5905167881811_P_02.png"
+              },
+              "decor": {
+                "webp": "/media/cache/decor/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/decor/photos/5905167881811_P_02.png"
+              },
+              "full": {
+                "webp": "/media/cache/full/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/full/photos/5905167881811_P_02.png"
+              },
+              "full2": {
+                "webp": "/media/cache/full2/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/full2/photos/5905167881811_P_02.png"
+              },
+              "full3": {
+                "webp": "/media/cache/full3/photos/webp/5905167881811_P_02.webp",
+                "default": "/media/cache/full3/photos/5905167881811_P_02.png"
+              }
+            }
+          }
+        ],
+        "metaTitle": "Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm | Podkład pod panele podłogowe",
+        "data": {
+          "logisticData": {
+            "ean": "5905167881811"
+          }
+        },
+        "technicalParameters": {
+          "thickness": "1.5",
+          "moisture_insulation": "1"
+        },
+        "category": {
+          "uuid": "245143e5-6962-4fcf-9722-aaf9beb5edec",
+          "parentUuid": "527860a8-4573-4f04-ac8f-e522a57bb84c"
+        },
+        "isSlab": false,
+        "isTile": false
+      },
+      "html": "<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"categoryAllData\":{\"uuid\":\"72ace8a7-643a-4f87-a517-e98e05d476c0\",\"name\":\"Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm - do paneli laminowanych\",\"ean\":\"5905167881811\",\"brand\":{\"name\":\"Arbiton\",\"uuid\":\"628a6037-0937-4f0c-b41d-cde299fc650d\"},\"units\":{\"basicUnit\":\"m<sup>2</sup>\",\"priceListUnit\":\"m<sup>2</sup>\",\"orderUnit\":\"opk.\",\"numerator\":10,\"denominator\":1,\"multiple\":1,\"minOrderQuantity\":1},\"available\":true,\"baseUnitStock\":20980,\"price\":{\"netPrice\":1260,\"grossPrice\":1550,\"packageNetPrice\":12600,\"packageGrossPrice\":15500,\"lowestPriceFromMonth\":null,\"isDiscount\":false,\"discountNetPrice\":null,\"discountGrossPrice\":null,\"discountPackageNetPrice\":null,\"discountPackageGrossPrice\":null,\"discountValue\":0},\"promotionCode\":{\"code\":\"EXTRA20\",\"discount\":\"20\",\"freeProductsMessage\":null},\"images\":[{\"webp\":\"/photos/webp/5905167881811_P_02.webp\",\"default\":\"/photos/5905167881811_P_02.png\",\"category\":\"Packshot\",\"resized\":{\"original\":{\"webp\":\"/photos/webp/5905167881811_P_02.webp\",\"default\":\"/photos/5905167881811_P_02.png\"},\"gallery\":{\"webp\":\"/media/cache/gallery/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/gallery/photos/5905167881811_P_02.png\"},\"gallery2\":{\"webp\":\"/media/cache/gallery2/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/gallery2/photos/5905167881811_P_02.png\"},\"list\":{\"webp\":\"/media/cache/list/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/list/photos/5905167881811_P_02.png\"},\"galleryThumb\":{\"webp\":\"/media/cache/galleryThumb/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/galleryThumb/photos/5905167881811_P_02.png\"},\"thumbnail\":{\"webp\":\"/media/cache/thumbnail/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/thumbnail/photos/5905167881811_P_02.png\"},\"decor\":{\"webp\":\"/media/cache/decor/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/decor/photos/5905167881811_P_02.png\"},\"full\":{\"webp\":\"/media/cache/full/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/full/photos/5905167881811_P_02.png\"},\"full2\":{\"webp\":\"/media/cache/full2/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/full2/photos/5905167881811_P_02.png\"},\"full3\":{\"webp\":\"/media/cache/full3/photos/webp/5905167881811_P_02.webp\",\"default\":\"/media/cache/full3/photos/5905167881811_P_02.png\"}}}],\"metaTitle\":\"Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm | Podkład pod panele podłogowe\",\"data\":{\"logisticData\":{\"ean\":\"5905167881811\"}},\"technicalParameters\":{\"thickness\":\"1.5\",\"moisture_insulation\":\"1\"},\"category\":{\"uuid\":\"245143e5-6962-4fcf-9722-aaf9beb5edec\",\"parentUuid\":\"527860a8-4573-4f04-ac8f-e522a57bb84c\"},\"isSlab\":false,\"isTile\":false}}}}</script><script type=\"application/ld+json\">{\"@context\":\"http://schema.org/\",\"@type\":\"Product\",\"brand\":\"Arbiton\",\"name\":\"Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm | Podkład pod panele podłogowe\",\"category\":\"Podkład pod panele\",\"image\":\"/media/cache/thumbnail/photos/5905167881811_I_01.jpg\",\"description\":\"Arbiton Optima Thermo Aquastop 1,5 mm – idealny pod ogrzewanie podłogowe. Komfort cieplny i trwała podłoga. Kup w TopBoden.pl.\",\"offers\":{\"@type\":\"Offer\",\"priceCurrency\":\"PLN\",\"price\":155,\"availability\":\"http://schema.org/InStock\",\"seller\":{\"@type\":\"Organization\",\"name\":\"OBZ DECORA sp. z o.o.\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Ignacego Prądzyńskiego 24A\",\"addressLocality\":\"Środa Wielkopolska\",\"addressCountry\":\"PL\",\"postalCode\":\"63-000\"}},\"priceValidUntil\":\"2026-11-04\",\"sale_price\":0}}</script>"
+    },
+    {
+      "sourceId": "topboden-optima-aquastop-10m2",
+      "product": {
+        "uuid": "fb3e962e-5389-4fca-b7d0-4e63d2c1b29d",
+        "name": "Podkład pod panele Arbiton Optima Aquastop - 2mm - do paneli laminowanych",
+        "ean": "5905167881804",
+        "brand": {
+          "name": "Arbiton",
+          "uuid": "628a6037-0937-4f0c-b41d-cde299fc650d"
+        },
+        "units": {
+          "basicUnit": "m<sup>2</sup>",
+          "priceListUnit": "m<sup>2</sup>",
+          "orderUnit": "opk.",
+          "numerator": 10,
+          "denominator": 1,
+          "multiple": 1,
+          "minOrderQuantity": 1
+        },
+        "available": true,
+        "baseUnitStock": 28990,
+        "price": {
+          "netPrice": 1423,
+          "grossPrice": 1750,
+          "packageNetPrice": 14230,
+          "packageGrossPrice": 17500,
+          "lowestPriceFromMonth": null,
+          "isDiscount": false,
+          "discountNetPrice": null,
+          "discountGrossPrice": null,
+          "discountPackageNetPrice": null,
+          "discountPackageGrossPrice": null,
+          "discountValue": 0
+        },
+        "promotionCode": {
+          "code": "EXTRA20",
+          "discount": "20",
+          "freeProductsMessage": null
+        },
+        "images": [
+          {
+            "webp": "/photos/webp/5905167881804_P_02.webp",
+            "default": "/photos/5905167881804_P_02.png",
+            "category": "Packshot",
+            "resized": {
+              "original": {
+                "webp": "/photos/webp/5905167881804_P_02.webp",
+                "default": "/photos/5905167881804_P_02.png"
+              },
+              "gallery": {
+                "webp": "/media/cache/gallery/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/gallery/photos/5905167881804_P_02.png"
+              },
+              "gallery2": {
+                "webp": "/media/cache/gallery2/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/gallery2/photos/5905167881804_P_02.png"
+              },
+              "list": {
+                "webp": "/media/cache/list/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/list/photos/5905167881804_P_02.png"
+              },
+              "galleryThumb": {
+                "webp": "/media/cache/galleryThumb/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/galleryThumb/photos/5905167881804_P_02.png"
+              },
+              "thumbnail": {
+                "webp": "/media/cache/thumbnail/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/thumbnail/photos/5905167881804_P_02.png"
+              },
+              "decor": {
+                "webp": "/media/cache/decor/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/decor/photos/5905167881804_P_02.png"
+              },
+              "full": {
+                "webp": "/media/cache/full/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/full/photos/5905167881804_P_02.png"
+              },
+              "full2": {
+                "webp": "/media/cache/full2/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/full2/photos/5905167881804_P_02.png"
+              },
+              "full3": {
+                "webp": "/media/cache/full3/photos/webp/5905167881804_P_02.webp",
+                "default": "/media/cache/full3/photos/5905167881804_P_02.png"
+              }
+            }
+          }
+        ],
+        "metaTitle": "Podkład pod panele Arbiton Optima Aquastop - 2mm | Podkład pod panele podłogowe",
+        "data": {
+          "logisticData": {
+            "ean": "5905167881804"
+          }
+        },
+        "technicalParameters": {
+          "thickness": "2",
+          "moisture_insulation": "1"
+        },
+        "category": {
+          "uuid": "245143e5-6962-4fcf-9722-aaf9beb5edec",
+          "parentUuid": "527860a8-4573-4f04-ac8f-e522a57bb84c"
+        },
+        "isSlab": false,
+        "isTile": false
+      },
+      "html": "<script id=\"__NEXT_DATA__\" type=\"application/json\">{\"props\":{\"pageProps\":{\"categoryAllData\":{\"uuid\":\"fb3e962e-5389-4fca-b7d0-4e63d2c1b29d\",\"name\":\"Podkład pod panele Arbiton Optima Aquastop - 2mm - do paneli laminowanych\",\"ean\":\"5905167881804\",\"brand\":{\"name\":\"Arbiton\",\"uuid\":\"628a6037-0937-4f0c-b41d-cde299fc650d\"},\"units\":{\"basicUnit\":\"m<sup>2</sup>\",\"priceListUnit\":\"m<sup>2</sup>\",\"orderUnit\":\"opk.\",\"numerator\":10,\"denominator\":1,\"multiple\":1,\"minOrderQuantity\":1},\"available\":true,\"baseUnitStock\":28990,\"price\":{\"netPrice\":1423,\"grossPrice\":1750,\"packageNetPrice\":14230,\"packageGrossPrice\":17500,\"lowestPriceFromMonth\":null,\"isDiscount\":false,\"discountNetPrice\":null,\"discountGrossPrice\":null,\"discountPackageNetPrice\":null,\"discountPackageGrossPrice\":null,\"discountValue\":0},\"promotionCode\":{\"code\":\"EXTRA20\",\"discount\":\"20\",\"freeProductsMessage\":null},\"images\":[{\"webp\":\"/photos/webp/5905167881804_P_02.webp\",\"default\":\"/photos/5905167881804_P_02.png\",\"category\":\"Packshot\",\"resized\":{\"original\":{\"webp\":\"/photos/webp/5905167881804_P_02.webp\",\"default\":\"/photos/5905167881804_P_02.png\"},\"gallery\":{\"webp\":\"/media/cache/gallery/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/gallery/photos/5905167881804_P_02.png\"},\"gallery2\":{\"webp\":\"/media/cache/gallery2/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/gallery2/photos/5905167881804_P_02.png\"},\"list\":{\"webp\":\"/media/cache/list/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/list/photos/5905167881804_P_02.png\"},\"galleryThumb\":{\"webp\":\"/media/cache/galleryThumb/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/galleryThumb/photos/5905167881804_P_02.png\"},\"thumbnail\":{\"webp\":\"/media/cache/thumbnail/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/thumbnail/photos/5905167881804_P_02.png\"},\"decor\":{\"webp\":\"/media/cache/decor/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/decor/photos/5905167881804_P_02.png\"},\"full\":{\"webp\":\"/media/cache/full/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/full/photos/5905167881804_P_02.png\"},\"full2\":{\"webp\":\"/media/cache/full2/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/full2/photos/5905167881804_P_02.png\"},\"full3\":{\"webp\":\"/media/cache/full3/photos/webp/5905167881804_P_02.webp\",\"default\":\"/media/cache/full3/photos/5905167881804_P_02.png\"}}}],\"metaTitle\":\"Podkład pod panele Arbiton Optima Aquastop - 2mm | Podkład pod panele podłogowe\",\"data\":{\"logisticData\":{\"ean\":\"5905167881804\"}},\"technicalParameters\":{\"thickness\":\"2\",\"moisture_insulation\":\"1\"},\"category\":{\"uuid\":\"245143e5-6962-4fcf-9722-aaf9beb5edec\",\"parentUuid\":\"527860a8-4573-4f04-ac8f-e522a57bb84c\"},\"isSlab\":false,\"isTile\":false}}}}</script><script type=\"application/ld+json\">{\"@context\":\"http://schema.org/\",\"@type\":\"Product\",\"brand\":\"Arbiton\",\"name\":\"Podkład pod panele Arbiton Optima Aquastop - 2mm | Podkład pod panele podłogowe\",\"category\":\"Podkład pod panele\",\"image\":\"/media/cache/thumbnail/photos/5905167881804_I_01.jpg\",\"description\":\"Podkład Arbiton Optima Aquastop 2 mm do paneli laminowanych. Skuteczna bariera przed wilgocią i lepszy komfort. Zamów teraz w TopBoden.pl.\",\"offers\":{\"@type\":\"Offer\",\"priceCurrency\":\"PLN\",\"price\":175,\"availability\":\"http://schema.org/InStock\",\"seller\":{\"@type\":\"Organization\",\"name\":\"OBZ DECORA sp. z o.o.\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Ignacego Prądzyńskiego 24A\",\"addressLocality\":\"Środa Wielkopolska\",\"addressCountry\":\"PL\",\"postalCode\":\"63-000\"}},\"priceValidUntil\":\"2026-11-04\",\"sale_price\":0}}</script>"
+    }
+  ],
+  "delivery": [
+    {
+      "uuid": "cade7cee-ed2e-4dd0-962e-4c7607bd54cf",
+      "name": "Kurier",
+      "deliveryTimeInfo": "Przewidywany czas dostawy: 3-5 dni robocze",
+      "isSample": false,
+      "minOrderValue": 2000,
+      "prices": {
+        "categories": {
+          "a99927af-ce68-4fbc-9224-04bca2e6c330": "99.00",
+          "06813e93-4b58-4f3f-b4d5-d783bc6f0459": "29.99",
+          "527860a8-4573-4f04-ac8f-e522a57bb84c": "39.99",
+          "e076d9c3-8ec1-4faf-919d-c8c9a5a95f70": "29.99",
+          "1d37bf89-1039-4f9a-a157-a0d24161b874": "19.99",
+          "40fb8a53-e83b-4fb3-9202-88c176e03af7": "19.99",
+          "b7695283-7de4-4f8c-95da-1d60337a2364": "29.99"
+        },
+        "formats": {
+          "36708ff4-b0e6-4f02-a2ff-27ff3edf0cbf": "99.99",
+          "4ee25b28-2305-4f9d-a1a0-c452489d6564": "249.99"
+        }
+      },
+      "type": "COURIER"
+    },
+    {
+      "uuid": "957cbf8e-f6d3-4da6-ab03-d49741359e7e",
+      "name": "Kurier inpost",
+      "deliveryTimeInfo": "Przewidywany czas dostawy: 1-2 dni robocze",
+      "isSample": true,
+      "minOrderValue": 0,
+      "prices": {
+        "all": "0"
+      },
+      "type": "COURIER"
+    },
+    {
+      "uuid": "5606685e-daf4-4cda-8bea-92ec477f1547",
+      "name": "Paczkomat",
+      "deliveryTimeInfo": "Przewidywany czas dostawy: 1-2 dni robocze",
+      "isSample": true,
+      "minOrderValue": 0,
+      "prices": {
+        "all": "0"
+      },
+      "type": "PARCEL_LOCKER"
+    }
+  ],
+  "baskets": [
+    {
+      "name": "topboden-optima-thermo-aquastop-10m2-1",
+      "order": {
+        "store": "TopBoden",
+        "materialsGrosze": 15500,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "5905167881811",
+              "name": "Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm - do paneli laminowanych",
+              "imageUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167881811_P_02.webp"
+            },
+            "unit": "m2",
+            "packages": [
+              {
+                "offerId": "topboden-optima-thermo-aquastop-10m2",
+                "count": 1,
+                "packageSize": 10,
+                "unitPriceGrosze": 15500,
+                "lineCostGrosze": 15500,
+                "store": "TopBoden",
+                "url": "https://topboden.pl/podklad-pod-panele/arbiton-optima-thermo-aquastop-podklady-pod-panele-laminowane"
+              }
+            ]
+          }
+        ]
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 3999
+    },
+    {
+      "name": "topboden-optima-aquastop-10m2-1",
+      "order": {
+        "store": "TopBoden",
+        "materialsGrosze": 17500,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "5905167881804",
+              "name": "Podkład pod panele Arbiton Optima Aquastop - 2mm - do paneli laminowanych",
+              "imageUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167881804_P_02.webp"
+            },
+            "unit": "m2",
+            "packages": [
+              {
+                "offerId": "topboden-optima-aquastop-10m2",
+                "count": 1,
+                "packageSize": 10,
+                "unitPriceGrosze": 17500,
+                "lineCostGrosze": 17500,
+                "store": "TopBoden",
+                "url": "https://topboden.pl/podklad-pod-panele/arbiton-optima-aquastop-podklady-pod-panele-laminowane"
+              }
+            ]
+          }
+        ]
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 3999
+    },
+    {
+      "name": "topboden-optima-thermo-aquastop-10m2-3",
+      "order": {
+        "store": "TopBoden",
+        "materialsGrosze": 46500,
+        "deliveryGrosze": null,
+        "deliveryMinimumGrosze": 0,
+        "totalGrosze": null,
+        "source": "unknown",
+        "lines": [
+          {
+            "product": {
+              "id": "5905167881811",
+              "name": "Podkład pod panele Arbiton Optima Thermo Aquastop - 1.5mm - do paneli laminowanych",
+              "imageUrl": "https://topboden.pl/media/cache/gallery/photos/webp/5905167881811_P_02.webp"
+            },
+            "unit": "m2",
+            "packages": [
+              {
+                "offerId": "topboden-optima-thermo-aquastop-10m2",
+                "count": 3,
+                "packageSize": 10,
+                "unitPriceGrosze": 15500,
+                "lineCostGrosze": 46500,
+                "store": "TopBoden",
+                "url": "https://topboden.pl/podklad-pod-panele/arbiton-optima-thermo-aquastop-podklady-pod-panele-laminowane"
+              }
+            ]
+          }
+        ]
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 3999
+    }
+  ]
+}

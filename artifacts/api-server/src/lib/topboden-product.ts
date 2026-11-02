@@ -1,3 +1,4 @@
+import {confirmTopbodenUnderlaySource} from './topboden-underlays';
 import {createHash} from 'node:crypto';
 import {parsePriceToGrosze} from '@workspace/price-collector';
 import {AnonymousShop} from './retailer-http';
@@ -8,8 +9,10 @@ export const TOPBODEN_API='https://api.topboden.pl';
 /** The barcode describes one piece. The published order lot is separate from
  * that physical package and must not be silently converted to a new EAN. */
 export function confirmTopbodenProduct(product:any,source:RetailSource,count=source.purchaseMultiple??1) {
+  const underlay=confirmTopbodenUnderlaySource(source);
   if(!source.productUuid||!/^[a-f0-9-]{36}$/.test(source.productUuid)||product?.uuid!==source.productUuid||product.ean!==source.ean||product.data?.logisticData?.ean!==source.ean)throw Error('product_ean_not_confirmed');
   if(product.brand?.name!==source.brand||typeof product.name!=='string')throw Error('product_brand_not_confirmed');
+  if(underlay&&(product.name!==source.name||product.technicalParameters?.thickness!==(source.ean==='5905167881811'?'1.5':'2')||product.technicalParameters?.moisture_insulation!=='1'))throw Error('product_package_not_confirmed');
   const units=product.units,multiple=source.purchaseMultiple??1;
   // These EANs identify sealed accessory packs, unlike the metre-priced
   // skirting. One native opk. buys two identical corners/connectors or one
@@ -38,7 +41,7 @@ export function confirmTopbodenProduct(product:any,source:RetailSource,count=sou
   const supply=supplies[source.id];
   if(supply&&(source.ean!==supply[0]||source.productUuid!==supply[1]||source.packageSize!==supply[2]||source.unit!==supply[3]||source.apiPurchaseUnit!==supply[4]||multiple!==1))throw Error('product_package_not_confirmed');
   if(units&&Number.isSafeInteger(units.multiple)&&Number.isSafeInteger(units.minOrderQuantity)&&(units.multiple!==multiple||units.minOrderQuantity!==multiple))throw Error('purchase_rules_changed');
-  const nativeUnit=supply?supply[4]:accessory?'opk.':glue?'szt.':source.unit,nativeOrderUnit=accessory?'opk.':'szt.',nativePackSize=supply?supply[5]:accessory||glue?1:source.packageSize;
+  const nativeUnit=underlay?'m<sup>2</sup>':supply?supply[4]:accessory?'opk.':glue?'szt.':source.unit,nativeOrderUnit=accessory||underlay?'opk.':'szt.',nativePackSize=supply?supply[5]:accessory||glue?1:source.packageSize;
   if(!Number.isSafeInteger(multiple)||multiple<1||multiple>10000||!units||units.orderUnit!==nativeOrderUnit||units.priceListUnit!==nativeUnit||units.basicUnit!==nativeUnit||!Number.isFinite(units.numerator)||!Number.isFinite(units.denominator)||units.denominator<=0||units.numerator/units.denominator!==nativePackSize||units.multiple!==multiple||units.minOrderQuantity!==multiple)throw Error('retailer_unit_not_confirmed');
   if(!Number.isSafeInteger(count)||count<multiple||count%multiple||count>10000)throw Error('purchase_multiple_required');
   if(product.available===false)throw Error('retailer_out_of_stock');
@@ -49,12 +52,12 @@ export function confirmTopbodenProduct(product:any,source:RetailSource,count=sou
   // price from an optional EXTRA20 code. Import only that ordinary price;
   // a coupon, gift, changed discount or already-discounted price is not inferred.
   // source: https://topboden.pl/listwy-przypodlogowe/klej-montazowy-strongman-300ml
-  const regularReviewedPrice=(glue||supply)&&product.promotionCode?.code==='EXTRA20'&&product.promotionCode?.discount==='20'
+  const regularReviewedPrice=(glue||supply||underlay)&&product.promotionCode?.code==='EXTRA20'&&product.promotionCode?.discount==='20'
     &&product.promotionCode?.freeProductsMessage===null&&price?.isDiscount===false&&price.discountValue===0
     &&['discountNetPrice','discountGrossPrice','discountPackageNetPrice','discountPackageGrossPrice'].every(key=>price[key]===null)
     &&price.grossPrice*nativePackSize===price.packageGrossPrice;
   if(!price||typeof price.isDiscount!=='boolean'||product.promotionCode&&!regularReviewedPrice)throw Error('conditional_price_not_supported');
-  if(supply&&(!Number.isSafeInteger(price.grossPrice)||price.grossPrice<=0||price.grossPrice*nativePackSize!==price.packageGrossPrice))throw Error('retailer_gross_price_not_confirmed');
+  if((supply||underlay)&&(!Number.isSafeInteger(price.grossPrice)||price.grossPrice<=0||price.grossPrice*nativePackSize!==price.packageGrossPrice))throw Error('retailer_gross_price_not_confirmed');
   const priceGrosze=price.isDiscount?price.discountPackageGrossPrice:price.packageGrossPrice;
   if(!Number.isSafeInteger(priceGrosze)||priceGrosze<=0)throw Error('retailer_gross_price_not_confirmed');
   const photo=product.images?.find((image:any)=>image.category==='Packshot')??product.images?.[0];
@@ -72,6 +75,7 @@ export function confirmTopbodenProduct(product:any,source:RetailSource,count=sou
 // the gross piece price. It is not the rounded price per metre.
 export async function readTopbodenProduct(source:RetailSource,fetchImpl:typeof fetch,count=source.purchaseMultiple??1,signal=AbortSignal.timeout(12_000)) {
   if(new URL(source.url).origin!=='https://topboden.pl')throw Error('invalid_retailer_origin');
+  const underlay=confirmTopbodenUnderlaySource(source);
   const api=new AnonymousShop(TOPBODEN_API,fetchImpl,signal),page=new AnonymousShop('https://topboden.pl',fetchImpl,signal);
   const product=await api.json('/api/product/by-uuid/'+source.productUuid);
   const confirmed=confirmTopbodenProduct(product,source,count);
@@ -85,7 +89,7 @@ export async function readTopbodenProduct(source:RetailSource,fetchImpl:typeof f
   // Accessory cards use the SEO title in JSON-LD, not the catalogue name.
   // Both primary records already bind the reviewed UUID/EAN/pack. Tie this
   // differently named price record to their exact SEO title, brand and photo.
-  const reviewedNativePack=source.apiPurchaseUnit==='opk.'||['topboden-strongman-300ml','topboden-aquaprotec-vapour-10m2','topboden-arbiton-izo-floor-tape-25m'].includes(source.id);
+  const reviewedNativePack=underlay||source.apiPurchaseUnit==='opk.'||['topboden-strongman-300ml','topboden-aquaprotec-vapour-10m2','topboden-arbiton-izo-floor-tape-25m'].includes(source.id);
   const accessoryIdentity=reviewedNativePack&&records.length===1
     &&typeof product.metaTitle==='string'&&product.metaTitle.length>0&&card.metaTitle===product.metaTitle
     &&records[0].name===product.metaTitle&&records[0].brand===source.brand
