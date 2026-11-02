@@ -88,7 +88,7 @@ test('confirmed unavailability survives cache reload and a successful new read r
   try {
     assert.equal(service.status().offers, 1);
     await service.refresh(); assert.equal(service.status().offers, 0);
-    assert.equal(JSON.parse(readFileSync(cachePath, 'utf8')).version, 2);
+    assert.equal(JSON.parse(readFileSync(cachePath, 'utf8')).version, 3);
     const restored = createRemontService({ initialObservations: [initial], cachePath, fetchImpl, background: false });
     assert.equal(restored.status().offers, 0);
     available = true; await restored.refresh(); assert.equal(restored.status().offers, 1);

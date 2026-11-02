@@ -3,7 +3,8 @@ import { test } from 'node:test';
 import { parseRetailPage, readRetailSource, shoperProductId } from '../src/lib/retail-pages';
 import { RETAIL_SOURCES } from '../src/lib/retail-catalog';
 
-const source = RETAIL_SOURCES[0];
+// Generic JSON-LD behavior must not depend on whichever native adapter is first.
+const source = RETAIL_SOURCES.find(row => row.id === 'bricoman-soudal-26a-5kg')!;
 const now = new Date('2026-10-24T20:00:00Z');
 const product = () => ({ '@type': 'Product', name: source.name, gtin13: source.ean,
   offers: { '@type': 'Offer', price: '118.00', priceCurrency: 'PLN', availability: 'https://schema.org/InStock' },
@@ -20,7 +21,7 @@ test('retail page: explicit EAN, PLN price, variant and actual read timestamp', 
 
 test('retail page rejects another EAN, wrong package, currency and availability', () => {
   assert.throws(() => parseRetailPage(html({ ...product(), gtin13: '5903973005797' }), source, now));
-  assert.throws(() => parseRetailPage(html({ ...product(), name: source.name.replace('5 l', '10 l') }), source, now));
+  assert.throws(() => parseRetailPage(html({ ...product(), name: source.name.replace('5kg', '10kg') }), source, now));
   assert.throws(() => parseRetailPage(html({ ...product(), offers: { ...product().offers, priceCurrency: 'EUR' } }), source, now));
   assert.throws(() => parseRetailPage(html({ ...product(), offers: { ...product().offers, availability: 'https://schema.org/OutOfStock' } }), source, now));
   assert.throws(() => parseRetailPage(html({ ...product(), offers: { ...product().offers, availableDeliveryMethod: 'https://schema.org/OnSitePickup' } }), source, now));
@@ -47,11 +48,11 @@ test('a reviewed unavailable checkout cannot be imported again from structured p
 });
 
 test('Product manufacturer supplies a missing Brand but cannot overwrite an explicit conflicting Brand',()=>{
-  const plaster={...source,brand:'Knauf',name:'Gips Goldband 25kg',packageSize:25,unit:'kg'};
-  const item={...product(),name:plaster.name,manufacturer:{'@type':'Organization',name:'KNAUF'}};
-  assert.equal(parseRetailPage(html(item),plaster,now).priceGrosze,11800);
-  assert.throws(()=>parseRetailPage(html({...item,manufacturer:{name:'Other'}}),plaster,now),/variant_mismatch/);
-  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'}}),plaster,now),/variant_mismatch/);
+  const item={...product(),manufacturer:{'@type':'Organization',name:source.brand.toUpperCase()}};
+  assert.equal(parseRetailPage(html(item),source,now).priceGrosze,11800);
+  assert.throws(()=>parseRetailPage(html({...item,manufacturer:{name:'Other'}}),source,now),/variant_mismatch/);
+  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'}}),source,now),/variant_mismatch/);
+  assert.throws(()=>parseRetailPage(html({...item,brand:{name:'Other'},manufacturer:{name:source.brand}}),source,now),/variant_mismatch/);
 });
 
 test('Shoper custom URLs use a reviewed ID and reject a different response identity or malformed gross amount', async () => {

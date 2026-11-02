@@ -64,3 +64,19 @@ Wybrano natywną metodę 381 `GABARYT`, z odrzuceniem odbioru 387 i pobrania 382
 Sześć regresji transportu i trzy minimum zakupowego sprawdzają oryginalne odpowiedzi, błędne ilości/ceny, rabaty, kwoty końcowe, pobranie, odbiór, zmianę płatności i zamknięte operacje HTTP. Fixture usuwa kontakty, dane rachunku firmy i zbędną zawartość strony, maskuje tokeny oraz klucze tymczasowego adresu. Rzeczywiste dowody pozostają poza repo w katalogu W198 na G.
 
 Pułapki badawcze: łączny `Accept: text/html, application/json` daje w tym sklepie pustą odpowiedź, dlatego dla tego originu używamy `text/html`. Natywny endpoint AJAX wymaga pełnego, zaobserwowanego query `fc=module&module=supercheckout&controller=supercheckout`; sam pathname zwraca 404. Pierwsza próba kliknięcia ukrytego radia została zastąpiona zwykłym kliknięciem jego widocznej etykiety, bez wymuszania i obchodzenia nakładek. Wszystkie te nieudane próby były narzędziami badawczymi, nie opublikowanym zachowaniem aplikacji.
+
+## Odbiór całej receptury i rozszerzona regresja czytnika
+
+Siedem rzeczywistych żądań lokalnego HTTP na źródle `0fa6f95ee2d3ec0386345d4141c7fc8e79cff631` zakończono bez podstawiania wycen:
+
+- mała naprawa, 7,62666667 surowych kg: dwa worki 5 kg i grunt — 92,58 + 16,99 = 109,57 PLN;
+- pełna ściana 1 m² / 15 mm: 14,3 kg tynku, 0,2475 kg gruntu, 1,1 m² siatki i 2,5 m narożnika — 494,73 materiałów + 133,01 transportu = 627,74 PLN;
+- dwie pełne prace, 28,6 kg tynku, 0,495 kg gruntu, 2,2 m² siatki i 5 m narożnika: trzy worki 10 kg, jedno wiadro gruntu Realbud, jedna rolka siatki i minimum 25 narożników — 517,19 + 133,01 = 650,20 PLN. Minimum narożników zastosowano raz, nie po 25 na pomieszczenie. Ten wynik ma status `needs_delivery_costs`, bo konkurencyjny tańszy materiałowo wariant E-Kowalczyk z gruntem nie ma potwierdzonej dostawy. Kwota 650,20 PLN jest pełnym potwierdzonym wariantem, nie dowodem minimum wśród nieznanych transportów;
+- wybór wyłącznie E-Kowalczyk dla jednej pełnej ściany: dwa brakujące produkty, bez całkowitej ceny remontu, potwierdzona część tynk + grunt 125,97 PLN;
+- cięższa część w tym sklepie bez podziału zamówień: `no_home_delivery`, brak wycenionego koszyka części; nie zamieniono tego na zero;
+- drugi kod 00-001: osobna wycena części koszyka;
+- rzeczywiste odświeżenie: pełna receptura i akcesoria zachowane, nadal 627,74 PLN w tej kontroli.
+
+Szersza kontrola czytnika wykryła stare założenia testów o pierwszej pozycji katalogu i wersji cache 2. Testy wiążą teraz właściwy szablon JSON-LD oraz aktualny cache 3; uruchamiamy je przez bundler tak samo jak inne testy API, aby poprawnie obsłużyć import modułu mobile. Nie osłabiono reguł produkcyjnych dla dopasowania tych fixture. Test konfliktu marki dodatkowo ujawnił prawdziwą lukę: nazwa zawierająca oczekiwaną markę mogła przeważyć nad jawnie sprzeczną marką producenta. Czytnik odrzuca teraz taką sprzeczność, pozostawiając dozwolone uzupełnienie brakującej marki przez producenta. Wszystkie 16 rozszerzonych regresji czytnika przechodzi.
+
+Poza powyższymi testami przed tą korektą potwierdzono 586 testów mobile, 237 obliczeń cen, 165 API-lib, 223 adapterów, 30 dodatkowych transportu i 1064 współdzielonego backendu, bez pominięć. Grupy częściowo się pokrywają; nie sumować ich jako liczby unikalnych testów. Po końcowej korekcie wymagane jest ponowne sprawdzenie odpowiednich grup i finalnego artefaktu. Odbiór UI i publikacja nadal pozostają do wykonania.
