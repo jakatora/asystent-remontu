@@ -354,3 +354,74 @@ workflows:
       - android-emulator.log
       - android-native-logcat.txt
       - ~/.maestro/tests/**
+
+  android-store-patch:
+    name: Remont Asystent 1.2.1 — signed Android fallback
+    instance_type: linux_x2
+    max_build_duration: 90
+    environment:
+      android_signing:
+        - asystent_remontu_keystore
+      vars:
+        CI: "1"
+      node: 22.19.0
+      java: 17
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $HOME/.pnpm-store
+    scripts:
+      - name: Install exact workspace dependencies
+        script: |
+          npm install -g pnpm@10.17.1
+          cd "$CM_BUILD_DIR"
+          pnpm install --frozen-lockfile
+      - name: Generate the frozen Android application
+        script: |
+          cd "$CM_BUILD_DIR/artifacts/mobile"
+          pnpm exec expo prebuild --platform android --clean --no-install
+      - name: Use the existing application signing identity
+        script: |
+          cd "$CM_BUILD_DIR/artifacts/mobile/android/app"
+          python3 <<'PY'
+          import os,pathlib
+          assert all(os.environ.get(k) for k in ['CM_KEYSTORE_PATH','CM_KEYSTORE_PASSWORD','CM_KEY_ALIAS','CM_KEY_PASSWORD'])
+          assert pathlib.Path(os.environ['CM_KEYSTORE_PATH']).is_file()
+          block="""
+          android {
+            signingConfigs {
+              remontStore {
+                storeFile file(System.getenv('CM_KEYSTORE_PATH'))
+                storePassword System.getenv('CM_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('CM_KEY_ALIAS')
+                keyPassword System.getenv('CM_KEY_PASSWORD')
+              }
+            }
+            buildTypes { release { signingConfig signingConfigs.remontStore } }
+          }
+          """
+          with pathlib.Path('build.gradle').open('a') as target: target.write(block)
+          PY
+      - name: Build signed APK and AAB from the same code
+        script: |
+          cd "$CM_BUILD_DIR/artifacts/mobile/android"
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease :app:bundleRelease --no-daemon --stacktrace
+      - name: Require the currently published upload certificate
+        script: |
+          cd "$CM_BUILD_DIR"
+          python3 <<'PY'
+          import os,pathlib,subprocess,re,json
+          tools=sorted(pathlib.Path(os.environ['ANDROID_HOME'],'build-tools').glob('*/apksigner'))
+          assert tools
+          apk=pathlib.Path('artifacts/mobile/android/app/build/outputs/apk/release/app-release.apk')
+          raw=subprocess.check_output([str(tools[-1]),'verify','--print-certs',str(apk)],text=True)
+          digest=re.search(r'Signer #1 certificate SHA-256 digest: ([0-9a-fA-F]+)',raw).group(1).lower()
+          assert digest=='060bb3db364b08c01efce9e72c802d493925c2338d8bf068572c9dd5d02274d4','Signing identity differs from the published application'
+          pathlib.Path('android-signing-proof.json').write_text(json.dumps({'publishedUploadCertificateMatched':True,'sha256':digest}))
+          print('Published upload certificate matched.')
+          PY
+    artifacts:
+      - artifacts/mobile/android/app/build/outputs/apk/release/*.apk
+      - artifacts/mobile/android/app/build/outputs/bundle/release/*.aab
+      - android-signing-proof.json
