@@ -3,6 +3,18 @@ import {currentDeliveryQuote as valid,quantityOrderPartitions,combineOrderQuotes
 import {quoteRequiredDispatch} from './dispatch-order-partitions';
 import {quotedMaterialsGrosze,quotedOrderTotal,supportsCartPricing} from './cart-pricing';
 
+/** Suborders have separate anonymous sessions. Bound each parent's pending
+ * work to three carts; the retailer quoter still enforces its shared FIFO,
+ * request cap and deadline across parents/users. Fold results in input order
+ * so network completion order cannot change an equally priced plan. */
+async function readIndependentCarts<T,R>(values:readonly T[],read:(value:T)=>Promise<R>):Promise<R[]>{
+  const results:R[]=new Array(values.length);let cursor=0;
+  await Promise.all(Array.from({length:Math.min(3,values.length)},async()=>{
+    while(cursor<values.length){const index=cursor++;results[index]=await read(values[index]);}
+  }));
+  return results;
+}
+
 /** Compare real separate orders, never divide a fee or invent a tariff.
  * The complete order must pass native stock/price checks first. Single-product
  * baskets may also split physical packs, retaining every per-order minimum and
@@ -49,11 +61,9 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void, a
       // Singles and their complements first: useful complete plans survive a
       // bounded request budget even when later combinations cannot be checked.
       const masks = [...new Set([...Array.from({ length: count }, (_, i) => 1 << i), ...Array.from({ length: count }, (_, i) => all ^ (1 << i)), ...Array.from({ length: all - 1 }, (_, i) => i + 1)])];
-      for (const mask of masks) {
-        if (mask === all) continue;
-        const part = await read(Array.from({ length: count }, (_, i) => i).filter(i => mask & (1 << i)));
-        if (part) parts.set(mask, part);
-      }
+      const properMasks=masks.filter(mask=>mask!==all);
+      const quoted=await readIndependentCarts(properMasks,mask=>read(Array.from({length:count},(_,i)=>i).filter(i=>mask&(1<<i))));
+      for(const[index,part]of quoted.entries())if(part)parts.set(properMasks[index],part);
       const memo = new Map<number, Part[] | null>([[0, []]]);
       const solve = (mask: number): Part[] | null => {
         if (memo.has(mask)) return memo.get(mask)!;
@@ -72,10 +82,11 @@ export function withOrderPartitions(atomic: BasketQuoter, limited: () => void, a
       limited();
       // Large orders retain a bounded selection of independently verified
       // two-order plans. Do not claim an exhaustive partition search.
-      for (let i = 0; i < Math.min(count, 8); i++) {
+      const quoted=await readIndependentCarts(Array.from({length:Math.min(count,8)},(_,i)=>i),async i=>{
         const one = await read([i]), rest = await read(Array.from({ length: count }, (_, j) => j).filter(j => j !== i));
-        if (one && rest && total([...one, ...rest]) < total(best)) best = [...one, ...rest];
-      }
+        return one&&rest?[...one,...rest]:null;
+      });
+      for(const parts of quoted)if(parts&&total(parts)<total(best))best=parts;
     }
     const costGrosze = total(best);
     if (best.length < 2 || costGrosze >= quotedOrderTotal(order,base.quote)! || !Number.isSafeInteger(costGrosze)
