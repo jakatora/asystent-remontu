@@ -29,7 +29,9 @@ for(const optional of [false,true])test(`bounded multi-size comparison retains t
   assert(result.best);assert(calls<=80);results.push(result);
  }
  const [fixed,automatic]=results;assert(fixed.best);assert(automatic.best);assert.equal(fixed.best.totalGrosze,50314);assert.equal(automatic.searchLimited,true);
- assert(automatic.best!.totalGrosze<=fixed.best!.totalGrosze,`automatic ${automatic.best!.totalGrosze} omitted fixed-size ${fixed.best!.totalGrosze}`);
+ const fixedTotal=fixed.best.totalGrosze,automaticTotal=automatic.best.totalGrosze;
+ assert.equal(typeof fixedTotal,'number');assert.equal(typeof automaticTotal,'number');
+ assert(fixedTotal!==null&&automaticTotal!==null&&automaticTotal<=fixedTotal,`automatic ${automaticTotal} omitted fixed-size ${fixedTotal}`);
  assert.equal(automatic.best!.deliveryGrosze,0);
  for(const order of automatic.best!.stores)for(const line of order.lines)for(const pack of line.packages)assert(pack.count<=(pack.maxPackages??Infinity));
  const quantities=new Map<string,number>();for(const order of automatic.best!.stores)for(const line of order.lines)for(const pack of line.packages)quantities.set(line.product.id,(quantities.get(line.product.id)??0)+pack.count*pack.packageSize);
