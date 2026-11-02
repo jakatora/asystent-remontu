@@ -16,9 +16,9 @@ const stage=(quantity:number,ean?:string,patch:Partial<EstimateDeps>={})=>estima
 test('reviewed Woder E buckets match an independent integer-gram exhaustive price oracle',async()=>{
  for(const grams of [1,1999,2000,2001,4000,4001,5000,5001,6000,6001,7000,7001,10000,10001,12000,14999,15000,15001,17000,20000,30001]){
   let expected=Infinity;for(let a=0;a<=17;a++)for(let b=0;b<=7;b++)for(let c=0;c<=3;c++)if(a*2000+b*5000+c*15000>=grams)expected=Math.min(expected,a*4890+b*9900+c*24900);
-  const line=(await stage(grams/1000)).lines[0];assert.equal(line.lineCost,expected,String(grams));assert.ok(line.packagePlan!.packages.every(p=>[2,5,15].includes(p.packageSize)));
+  const line=(await stage(grams/1000)).lines[0];assert.ok(line.resolved);assert.equal(line.lineCost,expected,String(grams));assert.ok(line.packagePlan!.packages.every(p=>[2,5,15].includes(p.packageSize)));
  }
- const seven=(await stage(7)).lines[0];assert.deepEqual(seven.packagePlan!.packages.map(p=>[p.packageSize,p.count]).sort((a,b)=>a[0]-b[0]),[[2,1],[5,1]]);
+ const seven=(await stage(7)).lines[0];assert.ok(seven.resolved);assert.deepEqual(seven.packagePlan!.packages.map(p=>[p.packageSize,p.count]).sort((a,b)=>a[0]-b[0]),[[2,1],[5,1]]);
 });
 
 test('fixed 15 kg demand stays fixed when another room allows automatic Woder E sizes',async()=>{
