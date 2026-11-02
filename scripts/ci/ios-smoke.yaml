@@ -1,0 +1,30 @@
+appId: app.replit.remontasystent
+---
+- launchApp:
+    clearState: false
+- tapOn:
+    text: Pomiń
+    optional: true
+- takeScreenshot: native-screens/01-projects
+- openLink: remont://project/paint-base?tab=estimate
+- extendedWaitUntil:
+    visible: 'Gdzie kupisz najtaniej\?'
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: Kod pocztowy dostawy
+    direction: DOWN
+    timeout: 30000
+- tapOn: Kod pocztowy dostawy
+- inputText: 30-001
+- hideKeyboard
+- extendedWaitUntil:
+    notVisible: Sprawdzamy koszyki sklepów i koszty dostawy…
+    timeout: 180000
+- scrollUntilVisible:
+    element:
+      text: Łączny koszt
+    direction: DOWN
+    timeout: 180000
+- assertVisible: Łączny koszt
+- takeScreenshot: native-screens/02-paint-with-delivery

@@ -234,3 +234,60 @@ workflows:
         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: false
         submit_to_app_store: false
+
+  ios-simulator-smoke:
+    name: Remont Asystent — native iPhone acceptance
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      vars:
+        CI: "1"
+        MAESTRO_CLI_NO_ANALYTICS: "true"
+        MAESTRO_VERSION: "2.12.0"
+      node: 22.19.0
+      java: 17
+      xcode: 26.6
+      cocoapods: default
+    cache:
+      cache_paths:
+        - $HOME/Library/Caches/CocoaPods
+        - $HOME/.pnpm-store
+        - $HOME/.npm
+    scripts:
+      - name: Install exact dependencies and generate iOS
+        script: |
+          npm install -g pnpm@10.17.1
+          cd "$CM_BUILD_DIR"
+          pnpm install --frozen-lockfile
+          cd artifacts/mobile
+          pnpm exec expo prebuild --platform ios --clean --no-install
+          sudo gem install cocoapods --no-document
+          cd ios
+          pod install --repo-update
+      - name: Build the same application for iPhone Simulator
+        script: |
+          cd "$CM_BUILD_DIR/artifacts/mobile/ios"
+          xcodebuild -workspace AsystentRemontu.xcworkspace -scheme AsystentRemontu -configuration Release -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath "$CM_BUILD_DIR/simulator-build" CODE_SIGNING_ALLOWED=NO > "$CM_BUILD_DIR/simulator-build.log" 2>&1
+      - name: Boot iPhone 14 Plus and seed only synthetic project data
+        script: |
+          cd "$CM_BUILD_DIR"
+          RUNTIME_ID=$(xcrun simctl list runtimes available -j | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const rows=JSON.parse(s).runtimes.filter(r=>r.isAvailable&&r.identifier.includes("iOS-")&&r.version.startsWith("26."));if(!rows.length)process.exit(1);console.log(rows[0].identifier);})')
+          REMONT_SIM_UDID=$(xcrun simctl create "Remont native acceptance" com.apple.CoreSimulator.SimDeviceType.iPhone-14-Plus "$RUNTIME_ID")
+          echo "REMONT_SIM_UDID=$REMONT_SIM_UDID" >> "$CM_ENV"
+          xcrun simctl boot "$REMONT_SIM_UDID"
+          xcrun simctl bootstatus "$REMONT_SIM_UDID" -b
+          xcrun simctl install "$REMONT_SIM_UDID" simulator-build/Build/Products/Release-iphonesimulator/AsystentRemontu.app
+          xcrun simctl launch "$REMONT_SIM_UDID" app.replit.remontasystent
+          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID"
+      - name: Native project, real price and screenshot acceptance
+        script: |
+          cd "$CM_BUILD_DIR"
+          curl -fsSL https://get.maestro.mobile.dev | bash
+          export PATH="$HOME/.maestro/bin:$PATH"
+          mkdir -p native-screens
+          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-smoke.xml scripts/ci/ios-smoke.yaml
+    artifacts:
+      - native-screens/*.png
+      - native-smoke.xml
+      - simulator-build.log
+      - ~/.maestro/tests/**
