@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pressable, TextInput, View } from 'react-native';
+import { Platform, Pressable, TextInput, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
@@ -103,7 +103,7 @@ export function BasketExtrasSection({ items, onChange, ready, error, onRetry }: 
         {ref && <Txt w="semibold">{pl ? 'Wybrano' : 'Selected'}: {ref.productLabel}</Txt>}
         {ref&&packageFamily&&<View style={{gap:8}}>
           <Txt w="semibold">{pl?'Dobór opakowań':'Package sizes'}</Txt>
-          {[false,true].map(value=><Pressable key={String(value)} accessibilityRole="radio" aria-checked={automaticPackages===value} accessibilityState={{checked:automaticPackages===value}} onPress={()=>setAutomaticPackages(value)} style={{minHeight:48,padding:12,borderWidth:1,borderColor:automaticPackages===value?Colors.primary:Colors.border,borderRadius:10,justifyContent:'center',backgroundColor:automaticPackages===value?Colors.primaryBg:Colors.surface}}>
+          {[false,true].map(value=><Pressable key={String(value)} accessibilityRole="radio" aria-checked={automaticPackages===value} accessibilityState={{checked:automaticPackages===value}} onPress={()=>setAutomaticPackages(value)} {...(Platform.OS==='web'?{onKeyDown:(event:React.KeyboardEvent)=>{if(event.key===' '||event.key==='Spacebar'){event.preventDefault();setAutomaticPackages(value);}}}:{})} style={{minHeight:48,padding:12,borderWidth:1,borderColor:automaticPackages===value?Colors.primary:Colors.border,borderRadius:10,justifyContent:'center',backgroundColor:automaticPackages===value?Colors.primaryBg:Colors.surface}}>
             <Txt w="semibold">{value?(pl?'Dobierz dostępne opakowania':'Compare available package sizes'):(pl?`Wybrane opakowanie: ${ref.packageSize.toLocaleString('pl-PL')} ${ref.packageUnit}`:`Selected pack: ${ref.packageSize} ${ref.packageUnit}`)}</Txt>
           </Pressable>)}
           <Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{automaticPackages?(pl?'Zachowamy potrzebną ilość. Porównamy pełne opakowania tego samego modelu wraz z dostawą. Rozmiary bez potwierdzonej oferty pominiemy.':'Your required quantity stays unchanged. We compare full packs of the same model including delivery, using confirmed offers only.'):(pl?'Porównamy sklepy dla wybranego rozmiaru opakowania.':'We compare shops for the selected package size.')}</Txt>

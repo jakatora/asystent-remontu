@@ -54,7 +54,8 @@ export async function compareAutomaticDelivery(
     })();
     cache.set(key,pending);return pending;
   };
-  const quoteOrders = settings.allowSeparateOrders === true ? withOrderPartitions(quoteWithStock, () => { partitionSearchLimited = true; }) : quoteWithStock;
+  let optionalPartitions=false;
+  const quoteOrders = settings.allowSeparateOrders === true ? withOrderPartitions(quoteWithStock, () => { partitionSearchLimited = true; },()=>optionalPartitions) : quoteWithStock;
   let result:DeliveryComparison;
   // Stop the current quote batch as soon as a verified native limit arrives.
   // Reuse finished quotes and reserve the same total I/O budget for replanning.
@@ -71,7 +72,15 @@ export async function compareAutomaticDelivery(
       if(limit.maxPackages===0)return [];
       return [{...offer,maxPackages:Math.min(offer.maxPackages??Infinity,limit.maxPackages)}];
     })})}));
+    // Optional splits from the first merchant must not spend the shared quote
+    // budget before another mandatory merchant gets a complete-cart quote.
+    // Keep the same 80-call cap, cache, postcode and native expiry throughout.
+    optionalPartitions=false;
     result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+    if(settings.allowSeparateOrders===true&&revision===[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|')){
+      optionalPartitions=true;
+      result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+    }
     quoteBudget=MAX_STORE_BASKETS;
     const addExtra=async()=>{if(settings.allowExtraPackages===true&&result.best){
       const extra=await findExtraPackageOption(result.best,constrained,settings.postalCode!,quoteWithStock);

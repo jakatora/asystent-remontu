@@ -7,13 +7,17 @@ import {quotedMaterialsGrosze,quotedOrderTotal,supportsCartPricing} from './cart
  * The complete order must pass native stock/price checks first. Single-product
  * baskets may also split physical packs, retaining every per-order minimum and
  * purchase lot. Atomic quoting retains its global cache, budget and deadline. */
-export function withOrderPartitions(atomic: BasketQuoter, limited: () => void): BasketQuoter {
+export function withOrderPartitions(atomic: BasketQuoter, limited: () => void, allowOptional: () => boolean = () => true): BasketQuoter {
   return async (order, postcode): Promise<DeliveryQuoteResult> => {
     const base = await atomic(order, postcode), count = order.lines.length;
     if ('reason' in base && base.reason==='requires_separate_dispatch' && order.store==='Sewera' && count>=2 && order.lines.every(line=>line.packages.length===1)) {
       return quoteRequiredDispatch(order,base,atomic,postcode,limited);
     }
     if (!('quote' in base) || !valid(base.quote, postcode) || base.quote.orders || !count || quotedMaterialsGrosze(order,base.quote)===null) return base;
+    // The full renovation gets its mandatory whole-store quotes first. A
+    // later pass reuses these exact native quotes before exploring optional
+    // splits. Required Sewera branch dispatch remains above this gate.
+    if(!allowOptional())return base;
     // Native line rounding is not additive across separate carts. Retain the
     // verified whole-cart total until partitions support those merchandise sums.
     if(base.quote.materialsRoundingGrosze!==undefined){if(count>1||order.lines.some(l=>l.packages.some(p=>p.count>1)))limited();return base;}
