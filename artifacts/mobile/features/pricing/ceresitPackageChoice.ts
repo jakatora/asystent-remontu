@@ -1,14 +1,14 @@
-import {CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,REVIEWED_PACKAGE_FAMILIES} from '../../../../lib/pricing-service/src/reviewed-package-families';
+import {CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,CERESIT_VIVA_WHITE_FAMILY,CERESIT_VIVA_GREY_FAMILY,CERESIT_VIVA_MANHATTAN_FAMILY,REVIEWED_PACKAGE_FAMILIES} from '../../../../lib/pricing-service/src/reviewed-package-families';
 import {createPackageChoiceModel,type PackageChoice} from './packageChoiceModel';
 import type {PricingStageInput} from './pricingApi';
 
 export const CERESIT_PACKAGE_CHOICE_PREFIX='remont.ceresit-package-choice.v1:';
 export type CeresitPackageChoice=PackageChoice;
 const invalid='invalid_ceresit_package_choices';
-const models=[CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY].map(key=>createPackageChoiceModel(REVIEWED_PACKAGE_FAMILIES.find(f=>f.key===key)!,invalid));
+const models=[CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,CERESIT_VIVA_WHITE_FAMILY,CERESIT_VIVA_GREY_FAMILY,CERESIT_VIVA_MANHATTAN_FAMILY].map(key=>createPackageChoiceModel(REVIEWED_PACKAGE_FAMILIES.find(f=>f.key===key)!,invalid));
 export const CERESIT_PACKAGE_PRODUCTS=models.flatMap(model=>model.products);
 
-/** Both reviewed families share persistence, never a product family or demand.
+/** Reviewed Ceresit families share persistence, never a formulation or demand.
  * Unknown identities and a corrupt row must stop the entire saved choice. */
 export function parseCeresitPackageChoices(raw:string|null):CeresitPackageChoice[]{
   if(raw===null)return [];

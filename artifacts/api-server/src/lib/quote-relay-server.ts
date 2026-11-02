@@ -3,6 +3,7 @@ import type {BasketQuoter,DeliveredStoreBasket,DeliveryQuoteResult} from '../../
 import {quoteAbud} from './abud-delivery';
 import {quoteChemia} from './chemia-delivery';
 import {quoteEtak} from './etak-delivery';
+import {quoteBuduj24} from './retailer-checkouts';
 import {relaySignature,relayDigest,relaySecretValid,equalSignature} from './quote-relay-auth';
 import {QuoteQueue} from './quote-queue';
 import {RETAIL_SOURCES} from './retail-catalog';
@@ -14,7 +15,7 @@ const REASONS=['price_changed','product_unavailable','insufficient_stock','baske
  * to a fresh nonce. Replayed or malformed requests never reach a merchant. */
 export function createQuoteRelayHandler({secret=process.env.REMONT_QUOTE_RELAY_SECRET,quote,readSource,now=Date.now,queue=new QuoteQueue(3,12,3000),fetchImpl=fetch}:{secret?:string;quote?:BasketQuoter;readSource?:(source:RetailSource)=>Promise<RetailObservation>;now?:()=>number;queue?:QuoteQueue;fetchImpl?:typeof fetch}={}){
  const connections=createRetailerConnectionGuard(fetchImpl,RETAIL_SOURCES.map(source=>source.url),now);
- quote??=(order,postcode)=>order.store==='ABUD'?quoteAbud(order,postcode,connections.fetch):order.store==='eTak'?quoteEtak(order,postcode,connections.fetch):quoteChemia(order,postcode,connections.fetch);
+ quote??=(order,postcode)=>order.store==='Buduj24'?quoteBuduj24(order,connections.fetch):order.store==='ABUD'?quoteAbud(order,postcode,connections.fetch):order.store==='eTak'?quoteEtak(order,postcode,connections.fetch):quoteChemia(order,postcode,connections.fetch);
  readSource??=source=>readRetailSource(source,connections.fetch);
  const seen=new Map<string,number>();
  return async(req:IncomingMessage,res:ServerResponse)=>{
@@ -33,13 +34,13 @@ export function createQuoteRelayHandler({secret=process.env.REMONT_QUOTE_RELAY_S
   let data:any;try{data=JSON.parse(raw);}catch{reply({reason:'invalid_basket'});return;}
   if(!data||typeof data!=='object'||Array.isArray(data)){reply({reason:'invalid_basket'});return;}
   if(data?.action==='read'){
-    const source=RETAIL_SOURCES.find(s=>s.id===data.sourceId&&s.format==='idosell'&&['ABUD','ChemiaDoParkietu25','eTak'].includes(s.store)&&!s.disabledReason);
+    const source=RETAIL_SOURCES.find(s=>s.id===data.sourceId&&((s.format==='idosell'&&['ABUD','ChemiaDoParkietu25','eTak'].includes(s.store))||(s.format==='buduj24'&&s.store==='Buduj24'))&&!s.disabledReason);
     if(data.version!==1||!source||Object.keys(data).some(k=>!['version','action','sourceId'].includes(k))){reply({reason:'invalid_basket'});return;}
     const release=await queue.acquire();if(!release){reply({reason:'quote_busy'});return;}
     try{reply({observation:await readSource(source)});}catch(error){reply({reason:error instanceof Error&&error.message==='retailer_http_429'?'retailer_rate_limited':error instanceof Error&&['retailer_out_of_stock','purchase_rules_changed','retailer_rate_limited','retailer_connection_unavailable'].includes(error.message)?error.message:'quote_unavailable'});}finally{release();}return;
   }
   const basket=data?.basket as DeliveredStoreBasket;
-  if(data.version!==1||data.action!=='quote'||Object.keys(data).some(k=>!['version','action','basket','postalCode'].includes(k))||!/^\d{2}-\d{3}$/.test(data.postalCode??'')||!basket||!['ABUD','ChemiaDoParkietu25','eTak'].includes(basket.store)||!Number.isSafeInteger(basket.materialsGrosze)||basket.materialsGrosze<=0||!Array.isArray(basket.lines)||basket.lines.length<1||basket.lines.length>20||basket.lines.some(l=>!l?.product||typeof l.product.id!=='string'||!Array.isArray(l.packages)||l.packages.length<1||l.packages.length>20)){reply({reason:'invalid_basket'});return;}
+  if(data.version!==1||data.action!=='quote'||Object.keys(data).some(k=>!['version','action','basket','postalCode'].includes(k))||!/^\d{2}-\d{3}$/.test(data.postalCode??'')||!basket||!['ABUD','ChemiaDoParkietu25','eTak','Buduj24'].includes(basket.store)||!Number.isSafeInteger(basket.materialsGrosze)||basket.materialsGrosze<=0||!Array.isArray(basket.lines)||basket.lines.length<1||basket.lines.length>20||basket.lines.some(l=>!l?.product||typeof l.product.id!=='string'||!Array.isArray(l.packages)||l.packages.length<1||l.packages.length>20)){reply({reason:'invalid_basket'});return;}
   const release=await queue.acquire();if(!release){reply({reason:'quote_busy'});return;}
   try{reply(await quote(basket,data.postalCode));}catch(error){reply({reason:error instanceof Error&&error.message==='retailer_out_of_stock'?'product_unavailable':error instanceof Error&&REASONS.includes(error.message)?error.message:'quote_unavailable'});}finally{release();}
  };

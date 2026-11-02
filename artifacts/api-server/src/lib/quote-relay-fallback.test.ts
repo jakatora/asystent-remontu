@@ -51,9 +51,12 @@ test('a busy price-refresh relay ends the read without adding native merchant tr
 });
 
 test('an exact unexpired cached quote survives a later connection failure, while another postcode never borrows it',async t=>{
- clientMode(t);let offline=false;
+ clientMode(t);t.mock.timers.enable({apis:['Date'],now:Date.now()});let offline=false;
  const mock=transport('network'),guard=createRetailerConnectionGuard(async(input,init)=>{if(offline&&String(input)===source.url)throw new TypeError('fetch failed',{cause:Object.assign(Error('connect'),{code:'UND_ERR_CONNECT_TIMEOUT'})});return mock.fetcher(input,init);},[source.url]);
  const quote=createRetailerQuoter(guard.fetch,guard),first=await quote(order,'30-001');assert.ok('quote'in first);const original=JSON.stringify(first);offline=true;await assert.rejects(guard.fetch(source.url),/retailer_connection_unavailable/);const before=mock.counts();
- assert.deepEqual(await quote(order,'30-001'),first);assert.deepEqual(await quote(order,'00-001'),{reason:'retailer_connection_unavailable'});assert.equal(quote.cached!(order,'00-001'),null);assert.deepEqual(mock.counts(),before);assert.equal(JSON.stringify(first),original);
+ assert.deepEqual(await quote(order,'30-001'),first);assert.deepEqual(await quote(order,'00-001'),{reason:'retailer_connection_unavailable'});assert.equal(quote.cached!(order,'00-001'),null);assert.deepEqual(mock.counts(),{...before,relayed:before.relayed+1});assert.equal(JSON.stringify(first),original);
+ // Both routes failed for the new postcode, so the normal 30-second negative
+ // cache applies. An origin cooldown never prevents trying a healthy relay.
+ t.mock.timers.setTime(Date.now()+30_001);
  offline=false;guard.confirmAvailable(source.url);const recovered=await quote(order,'00-001');assert.ok('quote'in recovered);assert.equal(recovered.quote.postalCode,'00-001');assert.equal(recovered.quote.costGrosze,1750);
 });

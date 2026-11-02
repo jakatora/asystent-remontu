@@ -1,6 +1,7 @@
 import {quoteRelayEnabled,quoteThroughRelay} from './quote-relay-client';
 import {quoteEtak} from './etak-delivery';
 import {quoteElmas,elmasNationalBasketKey} from './elmas-delivery';
+import {budujNationalBasketKey} from './buduj-national-cache';
 import {shoperFloatingPointUnit} from './shoper-metres';
 import {selectRealbudMp75lDelivery} from './knauf-plasters';
 import {quoteChemia} from './chemia-delivery';
@@ -210,16 +211,25 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
   const pages=createCheckoutPageReader();
   type CacheRow={until:number;result:Promise<DeliveryQuoteResult>;confirmed?:DeliveryQuoteResult};
   const cache = new Map<string,CacheRow>();
-  const elmasNational = new Map<string,CacheRow>();
-  const nationalKey=(order:DeliveredStoreBasket)=>order.store==='Elmas'?elmasNationalBasketKey(order):null;
-  const validNational=(result:DeliveryQuoteResult|undefined,now:number)=>{
+  const nationalQuotes = new Map<string,CacheRow>();
+  const nationalKey=(order:DeliveredStoreBasket)=>order.store==='Elmas'?elmasNationalBasketKey(order):order.store==='Buduj24'?budujNationalBasketKey(order):null;
+  const validNational=(order:DeliveredStoreBasket,result:DeliveryQuoteResult|undefined,now:number)=>{
     if(!result||!('quote'in result))return false;const q=result.quote,checked=Date.parse(q.checkedAt),expires=Date.parse(q.expiresAt);
-    return q.basis==='retailer_basket_national'&&q.destinationScope==='PL'&&q.postalCode===undefined&&q.sourceUrl==='https://sklep-elmas.pl/order/form'&&Number.isSafeInteger(q.costGrosze)&&q.costGrosze>=0&&/^[a-f0-9]{64}$/.test(q.evidenceSha256??'')&&Number.isFinite(checked)&&checked<=now&&expires>now&&expires<=checked+600000;
+    const source=order.store==='Elmas'?'https://sklep-elmas.pl/order/form':'https://buduj24.pl/cart';
+    return q.basis==='retailer_basket_national'&&q.destinationScope==='PL'&&q.postalCode===undefined&&q.sourceUrl===source&&(order.store!=='Buduj24'||q.cartPricing===undefined&&q.materialsRoundingGrosze===undefined)&&Number.isSafeInteger(q.costGrosze)&&q.costGrosze>=0&&/^[a-f0-9]{64}$/.test(q.evidenceSha256??'')&&Number.isFinite(checked)&&checked<=now&&expires>now&&expires<=checked+600000;
+  };
+  const rememberNational=(order:DeliveredStoreBasket,row:CacheRow,now=Date.now())=>{
+    const key=nationalKey(order);if(!key||row.until<=now||!validNational(order,row.confirmed,now))return;
+    // A still-valid ordinary cache hit can restore a country entry evicted by
+    // other basket alternatives. Touch recency without changing either time.
+    nationalQuotes.delete(key);
+    if(nationalQuotes.size>=64)nationalQuotes.delete(nationalQuotes.keys().next().value!);
+    nationalQuotes.set(key,row);
   };
   const cachedNational=(order:DeliveredStoreBasket,now=Date.now()):DeliveryQuoteResult|null=>{
-    const key=nationalKey(order);if(!key)return null;const row=elmasNational.get(key);if(!row)return null;
-    if(row.until>now&&validNational(row.confirmed,now))return row.confirmed!;
-    elmasNational.delete(key);return null;
+    const key=nationalKey(order);if(!key)return null;const row=nationalQuotes.get(key);if(!row)return null;
+    if(row.until>now&&validNational(order,row.confirmed,now)){rememberNational(order,row,now);return row.confirmed!;}
+    nationalQuotes.delete(key);return null;
   };
   const queue = new QuoteQueue();
   const keyFor = (order: DeliveredStoreBasket, postalCode: string) => JSON.stringify([postalCode, order.store, order.materialsGrosze, order.lines.flatMap(l => l.packages.map(p => [p.offerId,p.count,p.unitPriceGrosze,p.packageSize,p.cutRoll??null])).sort()]);
@@ -227,8 +237,8 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return null;
     if(order.store==='Elmas'&&!nationalKey(order))return null;
     const row = cache.get(keyFor(order, postalCode)), now = Date.now();
-    return row && row.until > now && row.confirmed && 'quote' in row.confirmed && Date.parse(row.confirmed.quote.expiresAt) > now
-      ? row.confirmed : cachedNational(order,now);
+    if(row&&row.until>now&&row.confirmed&&'quote'in row.confirmed&&Date.parse(row.confirmed.quote.expiresAt)>now){rememberNational(order,row,now);return row.confirmed;}
+    return cachedNational(order,now);
   };
   const quote: BasketQuoter = async (order, postalCode) => {
     if (!/^\d{2}-\d{3}$/.test(postalCode)) return { reason: 'invalid_postal_code' };
@@ -237,15 +247,15 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
     if(order.store==='Elmas'&&!nationalKey(order))return{reason:'quote_unavailable'};
     const national=cachedNational(order);if(national)return national;
     const key = keyFor(order, postalCode);
-    const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
-    if(sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
+    const cached = cache.get(key); if (cached && cached.until > Date.now()) {rememberNational(order,cached);return cached.result;}
+    if(!quoteRelayEnabled(order.store)&&sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     const pending = (async (): Promise<DeliveryQuoteResult> => {
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
         // The connection may have failed while this basket waited in the FIFO.
-        if(sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
+        if(!quoteRelayEnabled(order.store)&&sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
         let nativeFetch=fetchImpl;
         if(quoteRelayEnabled(order.store)){
           const deadline=AbortSignal.timeout(20000);
@@ -291,11 +301,7 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
         // cached quotation. The original native expiry is never extended.
         const row={until:Math.min(Date.now()+TTL,Date.parse(result.quote.expiresAt))-60_000,result:Promise.resolve(result),confirmed:result};
         cache.set(key,row);
-        const countryKey=nationalKey(order);
-        if(countryKey&&validNational(result,Date.now())){
-          if(elmasNational.size>=64&&!elmasNational.has(countryKey))elmasNational.delete(elmasNational.keys().next().value!);
-          elmasNational.set(countryKey,row);
-        }
+        rememberNational(order,row);
       } else if (result.reason === 'quote_busy') cache.delete(key);
       else cache.set(key, { until: Date.now() + 30_000, result: Promise.resolve(result) });
     }

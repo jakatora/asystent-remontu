@@ -12,7 +12,7 @@ import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
 import { retailComparableEan, retailProductId, retailProductName } from './lib/retail-sku';
 import type { BasketQuoter } from '../../../lib/pricing-service/src/delivery';
-import {compareDeliveryWithAvailablePart} from '../../../lib/pricing-service/src/selected-store-delivery';
+import {createPreferredDeliveryComparison} from './lib/preferred-delivery';
 import { DELIVERY_LIMITS } from '../../../lib/pricing-service/src/delivery-limits';
 import { createRetailerQuoter, knownUnavailableRetailers, quoteBeforeDeadline, retailerDeliveryCapabilities } from './lib/retailer-delivery';
 import { STORE_DELIVERY_POLICIES } from './lib/store-delivery';
@@ -40,6 +40,7 @@ export interface SharedPricingOptions {
 /** Uses the existing pricing engine and HTTP serializer with an isolated cache.
  * It neither opens the other apps' databases nor invokes paid AI. */
 export function createRemontService(options: SharedPricingOptions = {}) {
+  const compareDeliveryWithAvailablePart=createPreferredDeliveryComparison();
   const connections=createRetailerConnectionGuard(options.fetchImpl??fetch,RETAIL_SOURCES.map(source=>source.url));
   const quoteBasket = options.basketQuoter ?? createRetailerQuoter(connections.fetch,connections);
   const observations = new Map<string, RetailObservation>();

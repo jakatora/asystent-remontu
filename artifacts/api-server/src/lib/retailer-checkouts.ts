@@ -127,6 +127,16 @@ export function seweraHomeDeliveryMethods(checkout:string) {
   }).filter(node=>!/\sdisabled(?:\s|=|>)/i.test(node.match(/^<[^>]+>/)?.[0]??'')).map(attr);
 }
 
+/** Local radius/HDS offers still need an individual quote; absence of a
+ * parcel courier does not mean that this store has no transport service.
+ * source: https://sklep.sewera.pl/zamowienie */
+export function seweraUnquotedDeliveryReason(checkout:string):'retailer_transport_quote_required'|'no_home_delivery'{
+  const local=nodes(cleanHtml(checkout),a=>a.name==='dostawa'&&a['data-personal-collection']==='3'
+    &&(a.value==='12'&&a['data-name']==='Transport Sewera do 50km'||a.value==='162'&&a['data-name']==='Transport HDS wycena indywidualna'))
+    .filter(node=>!/\sdisabled(?:\s|=|>)/i.test(node.match(/^<[^>]+>/)?.[0]??''));
+  return local.length?'retailer_transport_quote_required':'no_home_delivery';
+}
+
 // Public calculator used by the retailer's checkout; no customer/order form is
 // submitted. Only country and the user's postcode accompany this basket quote.
 // source: https://sklep.sewera.pl/js/zamowienie.js?v=20260716
@@ -196,7 +206,8 @@ export async function quoteSewera(order: DeliveredStoreBasket, postalCode: strin
   const country=one(nodes(checkout,a=>a.id==='selectCountryUser'));
   if (!nodes(country,a=>a.value==='1').some(n=>text(n)==='Polska')) throw Error('country_not_confirmed');
   const methods=seweraHomeDeliveryMethods(checkout);
-  if (!methods.length || methods.length>5) throw Error('no_home_delivery');
+  if (!methods.length) return {reason:seweraUnquotedDeliveryReason(checkout)};
+  if (methods.length>5) throw Error('no_home_delivery');
   const options: {costGrosze:number;payment:string;carrier:string;hash:string}[]=[];
   for (const method of methods) {
     const response=await client.text('/ajax/ax_default.php?operation=get_order_delivery_cost',{
@@ -258,6 +269,7 @@ export async function quoteBuduj24(order:DeliveredStoreBasket,fetchImpl:typeof f
   for (const {source,pack} of expectedPacks(order)) {
     const page=await client.text(source.url), observed=parseRetailPage(page,source,new Date());
     if (observed.priceGrosze!==pack.unitPriceGrosze) throw Error('price_changed');
+    if(observed.stockPackages!==undefined&&pack.count>observed.stockPackages)throw Error('insufficient_stock');
     const id=source.url.match(/\/produkt\/(\d+),/)?.[1]; if (!id) throw Error('invalid_basket');
     await client.text(`/ajax/cart/add?lang=pl&add=${id}&count=${pack.count}`);
     expected.push({url:source.url,count:pack.count,price:pack.unitPriceGrosze});

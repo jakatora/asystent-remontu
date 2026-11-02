@@ -14,6 +14,24 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://buduj24.pl/produkt/19544,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-grey-07
+  {"ids":["mat-grout-ceresit-viva-grey-2kg"],"ean":"9000101173499","sourceUrl":"https://buduj24.pl/produkt/19544,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-grey-07","imageUrl":"https://buduj24.pl/files/_product/19544/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(3).png"},
+  // source: https://buduj24.pl/produkt/19562,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-grey-07
+  {"ids":["mat-grout-ceresit-viva-grey-4kg"],"ean":"9000101174854","sourceUrl":"https://buduj24.pl/produkt/19562,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-grey-07","imageUrl":"https://buduj24.pl/files/_product/19562/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(3).png"},
+  // source: https://buduj24.pl/produkt/19516,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-manhattan-10
+  {"ids":["mat-grout-ceresit-viva-manhattan-2kg"],"ean":"9000101173536","sourceUrl":"https://buduj24.pl/produkt/19516,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-manhattan-10","imageUrl":"https://buduj24.pl/files/_product/19516/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy.png"},
+  // source: https://buduj24.pl/produkt/19561,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-manhattan-10
+  {"ids":["mat-grout-ceresit-viva-manhattan-4kg"],"ean":"9000101174991","sourceUrl":"https://buduj24.pl/produkt/19561,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-manhattan-10","imageUrl":"https://buduj24.pl/files/_product/19561/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy.png"},
+  // source: https://buduj24.pl/produkt/19506,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-white-01
+  {ids:['mat-grout-ceresit-viva-white-2kg'],ean:'9000101173451',sourceUrl:'https://buduj24.pl/produkt/19506,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-white-01',imageUrl:'https://buduj24.pl/files/_product/19506/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(1).png'},
+  // source: https://buduj24.pl/produkt/19564,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-white-01
+  {ids:['mat-grout-ceresit-viva-white-4kg'],ean:'9000101175134',sourceUrl:'https://buduj24.pl/produkt/19564,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-white-01',imageUrl:'https://buduj24.pl/files/_product/19564/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(1).png'},
+  // source: https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips-p7501
+  {"ids":["mat-gypsum-corner-rigips-235-25m"],"ean":"5905637118041","sourceUrl":"https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips-p7501","imageUrl":"https://sklep.sewera.pl/photo/195931/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips.webp"},
+
+  // source: https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-3m-rigips-p7500
+  {"ids":["mat-gypsum-corner-rigips-235-3m"],"ean":"5905637118058","sourceUrl":"https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-3m-rigips-p7500","imageUrl":"https://sklep.sewera.pl/photo/195935/naroznik-aluminiowy-23-5x23-5mm-3m-rigips.webp"},
+
   {"ids":["mat-plaster-knauf-goldband-5kg"],"ean":"5901793354729","sourceUrl":"https://sklep-kowalczyk.pl/knauf-goldband-gipsowa-zaprawa-tynkarska-5kg-507331-52455-52455.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5901793354729.png"},
 
   {"ids":["mat-plaster-knauf-goldband-10kg"],"ean":"5901793351162","sourceUrl":"https://sklep-kowalczyk.pl/knauf-goldband-gipsowa-zaprawa-tynkarska-10-kg-94713-52454-52454.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5901793351162.png"},

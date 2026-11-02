@@ -1,3 +1,5 @@
+import {ceresitVivaStock} from './ceresit-viva';
+import {confirmRigipsCorner} from './rigips-corners';
 import {confirmDecowantSource,confirmDecowantPurchase} from './decowant-supplies';
 import {confirmAtlasWoderSource,confirmAtlasWoderPurchase} from './atlas-woder-packs';
 import {confirmMapeiSupplyPurchase} from './mapei-supplies';
@@ -192,6 +194,9 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const product = source.skuIdentity ? products.find(item => item.sku === retailSkuCode(source) && !item.gtin13 && !item.gtin)
     : products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
+  confirmRigipsCorner(html,product,source);
+  const vivaStock=ceresitVivaStock(html,product,source);
+  if(vivaStock!==undefined)stockPackages=vivaStock;
   const name = String(product.name ?? '');
   const normalize = (value: string) => normalizeProductName(value.replace(/(\d|mm|cm|m)\s*[x×/]\s*(?=\d)/gi, '$1 x ').replace(/(\d)([a-zA-Z])/g, '$1 $2'));
   const normalized = normalize(name);
@@ -253,7 +258,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   confirmDecowantSource(source);
   confirmKnaufFinishSource(source);
   if (source.disabledReason) throw Error(source.disabledReason);
-  if(source.format==='idosell'&&quoteRelayEnabled(source.store)){
+  if((source.format==='idosell'||source.format==='buduj24'&&source.store==='Buduj24')&&quoteRelayEnabled(source.store)){
     const originalFetch=fetchImpl,deadline=AbortSignal.timeout(20000);
     fetchImpl=(input,init)=>originalFetch(input,{...init,signal:AbortSignal.any([deadline,...(init?.signal?[init.signal]:[])])});
     try{return await readThroughRelay(source,fetchImpl);}catch(error){

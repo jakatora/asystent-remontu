@@ -4,6 +4,7 @@ import {groupProjectByProduct,buildPackageVariants,isComparableOffer} from './es
 import {optimizePackages} from './package-optimizer';
 import type {StageEstimate,ItemQuery} from './types';
 import type {BasketQuoter,DeliverySettings,StoreDeliveryPolicy,DeliveryComparison} from './delivery';
+import type {PreferredDeliveryPlan} from './preferred-delivery-plan';
 
 /** Quote only whole product requirements which this chosen store can fulfil.
  * The complete renovation remains partial, with no full-basket winner. Do not
@@ -12,8 +13,9 @@ export async function compareDeliveryWithAvailablePart(
  stages:readonly StageEstimate[],settings:DeliverySettings,quoteBasket:BasketQuoter,
  policies:readonly StoreDeliveryPolicy[]=[],now=new Date(),
  knownUnavailableStores:Readonly<Record<string,string>>={},selectedStore?:string,
+ preferredPlan?:PreferredDeliveryPlan,
 ):Promise<DeliveryComparison>{
- const comparison=await compareAutomaticDelivery(stages,settings,quoteBasket,policies,now,knownUnavailableStores);
+ const comparison=await compareAutomaticDelivery(stages,settings,quoteBasket,policies,now,knownUnavailableStores,preferredPlan);
  if(!selectedStore||comparison.status!=='partial'||comparison.best||settings.mode!=='shipping'||settings.method==='manual'||!/^\d{2}-\d{3}$/.test(settings.postalCode??''))return comparison;
  const selected=stages.map(stage=>({...stage,lines:stage.lines.map(line=>line.resolved?{...line,offers:line.offers.filter(o=>o.store===selectedStore&&isComparableOffer(o,now.getTime()))}:line)}));
  const unresolved=selected.flatMap(s=>s.lines).filter(l=>!l.resolved&&l.quantity>0);

@@ -3,6 +3,9 @@ const pl = {
   'onboarding.skip': 'Pomiń',
   'onboarding.next': 'Dalej',
   'onboarding.start': 'Zacznij korzystać',
+  'onboarding.back': 'Wstecz',
+  'onboarding.step': 'Krok {current} z {total}',
+  'onboarding.saveError': 'Nie udało się zapisać ustawień. Spróbuj ponownie.',
 
   'onboarding.slide1.title': 'Witaj w Asystencie Remontu',
   'onboarding.slide1.description':
@@ -24,6 +27,9 @@ const en: Record<K, string> = {
   'onboarding.skip': 'Skip',
   'onboarding.next': 'Next',
   'onboarding.start': 'Get started',
+  'onboarding.back': 'Back',
+  'onboarding.step': 'Step {current} of {total}',
+  'onboarding.saveError': 'Could not save your settings. Please try again.',
 
   'onboarding.slide1.title': 'Welcome to Asystent Remontu',
   'onboarding.slide1.description':
