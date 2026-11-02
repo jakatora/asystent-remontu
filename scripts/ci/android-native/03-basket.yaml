@@ -2,6 +2,12 @@ appId: pl.asystentremontu.app
 ---
 - launchApp:
     clearState: false
+# Dismiss only the observed unrelated emulator launcher dialog; application ANRs remain test failures.
+- runFlow:
+    when:
+      visible: "Pixel Launcher isn't responding"
+    commands:
+      - tapOn: Close app
 - extendedWaitUntil:
     visible: Remont Asystent
     timeout: 60000

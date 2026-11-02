@@ -351,6 +351,10 @@ workflows:
           adb root
           timeout 60s adb wait-for-device
           adb shell input keyevent 82
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell am force-stop com.google.android.apps.nexuslauncher
           adb install android-qa.apk
           adb shell am start -n pl.asystentremontu.app/.MainActivity
           python3 scripts/ci/seed-android-smoke.py
