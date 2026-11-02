@@ -7,15 +7,20 @@ export const WATERPROOFING_JOB = 'bathroom-waterproofing';
 export const WATERPROOFING_MODEL = 'waterproofing-mapei-v1';
 export const WATERPROOFING_IDS = ['membrane', 'sealing-tape', 'primer-waterproof', 'hydro-corner-inside', 'hydro-corner-outside', 'hydro-collar-wall', 'hydro-collar-floor'] as const;
 export const isWaterproofingMaterial = (job: string, id: string) => job === WATERPROOFING_JOB && WATERPROOFING_IDS.some(role => role === id);
+// Already reviewed catalogue products; source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-5kg-HYDROIZOLACJA-PLYNNA-FOLIA/1906
+// source: https://www.rabdom.pl/pl/p/MAPEI-Mapegum-WPS-10kg-HYDROIZOLACJA-PLYNNA-FOLIA/9873
+// source: https://www.rabdom.pl/pl/p/Folia-w-plynie-hydroizolacyjna-MAPEI-Mapegum-WPS-3kg/16590
+const MEMBRANE_REFERENCES: Readonly<Record<number,string>> = {1:'mat-mapegum-wps-5kg',2:'mat-mapegum-wps-10kg',3:'mat-mapegum-wps-20kg',4:'mat-mapegum-wps-5kg-124805pl',5:'mat-mapegum-wps-10kg-124810pl',6:'mat-mapegum-wps-3kg'};
 const CODES: Readonly<Record<string, string>> = {
   'mat-mapegum-wps-5kg': '8022452002113', 'mat-mapegum-wps-10kg': '8022452002120', 'mat-mapegum-wps-20kg': '8022452242502',
+  'mat-mapegum-wps-5kg-124805pl':'8022452242489','mat-mapegum-wps-10kg-124810pl':'8022452242496','mat-mapegum-wps-3kg':'8022452249266',
   'mat-mapeband-w-10m': '8022452113932', 'mat-primer-g-pro-1l': '8022452241123', 'mat-primer-g-pro-5l': '8022452241130',
   'mat-sealing-corner-internal-mapei': '8022452113802', 'mat-sealing-corner-external-mapei': '8022452113789',
   'mat-sealing-cuff-wall-mapei-12x12-2': '8022452113925', 'mat-mapeband-w-floor-300': '8022452113895',
 };
 export function waterproofingReference(id: string, m: MeasurementMap = {}): string | null {
-  if (![1, 2, 3].includes(m.hydroSystem)) return null;
-  if (id === 'membrane') return `mat-mapegum-wps-${m.hydroSystem === 1 ? 5 : m.hydroSystem === 2 ? 10 : 20}kg`;
+  if (!MEMBRANE_REFERENCES[m.hydroSystem]) return null;
+  if (id === 'membrane') return MEMBRANE_REFERENCES[m.hydroSystem];
   if (id === 'sealing-tape') return 'mat-mapeband-w-10m';
   if (id === 'primer-waterproof') return m.hydroSubstrate === 1 ? (m.hydroPrimerPack ?? 1) === 1 ? 'mat-primer-g-pro-1l' : m.hydroPrimerPack === 5 ? 'mat-primer-g-pro-5l' : null : null;
   return ({ 'hydro-corner-inside': 'mat-sealing-corner-internal-mapei', 'hydro-corner-outside': 'mat-sealing-corner-external-mapei', 'hydro-collar-wall': 'mat-sealing-cuff-wall-mapei-12x12-2', 'hydro-collar-floor': 'mat-mapeband-w-floor-300' } as Record<string, string>)[id] ?? null;
@@ -54,9 +59,9 @@ export function waterproofingQuantity(id: string, m: MeasurementMap): number | n
 }
 
 export const waterproofingInputs: MeasurementInputDefinition[] = [
-  { id: 'hydroSystem', label: 'System hydroizolacji i opakowanie folii', unit: '', inputType: 'select', placeholder: 'Wybierz', defaultValue: 0, min: 0, max: 3, required: false,
-    options: [{ value: 0, label: 'Jeszcze nie wiem — dobiorę system' }, { value: 1, label: 'Mapei Mapegum WPS 5 kg + Mapeband W' }, { value: 2, label: 'Mapei Mapegum WPS 10 kg + Mapeband W' }, { value: 3, label: 'Mapei Mapegum WPS 20 kg + Mapeband W' }],
-    hint: 'Spójny zestaw do wnętrz pod płytki. Wybierz wielkość wiadra i porównaj koszt. Nie stosuj Mapegum WPS do stałego zanurzenia, na zewnątrz ani na podłoża z podciągającą wilgocią.' },
+  { id: 'hydroSystem', label: 'System hydroizolacji i opakowanie folii', unit: '', inputType: 'select', placeholder: 'Wybierz', defaultValue: 0, min: 0, max: 6, required: false,
+    options: [{ value: 0, label: 'Jeszcze nie wiem — dobiorę system' }, { value: 6, label: 'Mapei Mapegum WPS 3 kg + Mapeband W' }, { value: 4, label: 'Mapei Mapegum WPS 5 kg (124805PL) + Mapeband W' }, { value: 5, label: 'Mapei Mapegum WPS 10 kg (124810PL) + Mapeband W' }, { value: 3, label: 'Mapei Mapegum WPS 20 kg + Mapeband W' }, { value: 1, label: 'Mapei Mapegum WPS 5 kg — wcześniejszy kod produktu' }, { value: 2, label: 'Mapei Mapegum WPS 10 kg — wcześniejszy kod produktu' }],
+    hint: 'Spójny zestaw do wnętrz pod płytki. Wybierz wiadro 3, 5, 10 lub 20 kg. Koszyk porówna koszt materiałów i dostawy; możesz też włączyć dobór mieszanych opakowań. Wcześniejsze kody pozostają dostępne w zapisanych projektach. Nie stosuj Mapegum WPS do stałego zanurzenia, na zewnątrz ani na podłoża z podciągającą wilgocią.' },
   { id: 'hydroSubstrate', label: 'Podłoże pod hydroizolację', unit: '', inputType: 'select', placeholder: 'Wybierz', defaultValue: 0, min: 0, max: 2, required: false,
     options: [{ value: 0, label: 'Rodzaj i przygotowanie podłoża do ustalenia' }, { value: 1, label: 'Chłonne mineralne lub gipsowe — Primer G Pro' }, { value: 2, label: 'Inne, np. stare płytki — grunt do osobnego doboru' }],
     hint: 'Powierzchnia musi być nośna, sucha i przygotowana według karty. Istniejące płytki i inne niechłonne podłoża wymagają odrębnego doboru gruntu. Wymagania wilgotności i sezonowania sprawdź przed aplikacją.' },
@@ -77,11 +82,18 @@ export const waterproofingInputs: MeasurementInputDefinition[] = [
 /** Show detailed assumptions when useful, while keeping all saved values. */
 export function waterproofingInputVisible(jobId: string, inputId: string, m: Readonly<Record<string, number | string>>): boolean {
   if (jobId !== WATERPROOFING_JOB || !inputId.startsWith('hydro') || inputId === 'hydroSystem') return true;
-  if (![1, 2, 3].includes(Number(m.hydroSystem))) return false;
+  if (!MEMBRANE_REFERENCES[Number(m.hydroSystem)]) return false;
   if (['hydroMembraneConsumption', 'hydroReservePercent', 'hydroPrimerConsumption'].includes(inputId)) return Number(m.hydroAdvanced) === 1 && (inputId !== 'hydroPrimerConsumption' || Number(m.hydroSubstrate) === 1);
   if (inputId === 'hydroPrimerPack') return Number(m.hydroSubstrate) === 1;
   if (inputId === 'hydroCollarFit') return Number(m.hydroWallCollars ?? 0) > 0 || Number(m.hydroFloorCollars ?? 0) > 0;
   return true;
+}
+
+/** New projects start from the reviewed 3/5/10/20 kg choices. A saved older
+ * selection remains visible and can be restored while editing that project. */
+export function waterproofingInputDefinition<T extends {readonly id:string;readonly options?:readonly {readonly value:number;readonly label:string}[]}>(jobId:string,input:T,m:Readonly<Record<string,number|string>>,savedSystem?:number):T {
+ if(jobId!==WATERPROOFING_JOB||input.id!=='hydroSystem'||[1,2].includes(Number(m.hydroSystem))||[1,2].includes(savedSystem??0))return input;
+ return {...input,options:input.options?.filter(option=>![1,2].includes(option.value))};
 }
 
 const unknownNames: Record<string, string> = { membrane: 'Folia hydroizolacyjna — wybierz system', 'sealing-tape': 'Taśma systemowa — wybierz system i policz łączenia', 'primer-waterproof': 'Grunt pod hydroizolację — dobierz do podłoża', 'hydro-corner-inside': 'Narożniki wewnętrzne — ilość do ustalenia', 'hydro-corner-outside': 'Narożniki zewnętrzne — ilość do ustalenia', 'hydro-collar-wall': 'Mankiety ścienne — dopasowanie i ilość do ustalenia', 'hydro-collar-floor': 'Mankiety podłogowe — dopasowanie i ilość do ustalenia' };
