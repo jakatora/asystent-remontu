@@ -24,9 +24,9 @@ appId: app.replit.remontasystent
 - tapOn:
     text: '.*Naprawa pęknięć i ubytków.*'
 - extendedWaitUntil:
-    visible: Koszt
+    visible: '.*Koszt'
     timeout: 60000
-- tapOn: Koszt
+- tapOn: '.*Koszt'
 - scrollUntilVisible:
     element:
       text: Kup w Sewera
@@ -42,9 +42,9 @@ appId: app.replit.remontasystent
 - takeScreenshot: native-screens/07-first-material-photo
 - swipe:
     from:
-      text: Koszt
+      text: '.*Koszt'
     direction: LEFT
-- tapOn: Narzędzia
+- tapOn: '.*Narzędzia'
 - scrollUntilVisible:
     element:
       text: Kup w Sewera
