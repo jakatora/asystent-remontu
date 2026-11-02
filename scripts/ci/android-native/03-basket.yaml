@@ -2,9 +2,24 @@ appId: pl.asystentremontu.app
 ---
 - launchApp:
     clearState: false
-- openLink:
-    link: remont://project/paint-base?tab=estimate
-    autoVerify: true
+- extendedWaitUntil:
+    visible: Remont Asystent
+    timeout: 60000
+- tapOn: Projekty
+- extendedWaitUntil:
+    visible: Twoje projekty
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: '.*Malowanie 40,5.*osobny grunt.*'
+    direction: DOWN
+    timeout: 30000
+- tapOn:
+    text: '.*Malowanie 40,5.*osobny grunt.*'
+- extendedWaitUntil:
+    visible: Gdzie najtaniej
+    timeout: 60000
+- tapOn: Gdzie najtaniej
 - extendedWaitUntil:
     visible: 'Gdzie kupisz najtaniej\?'
     timeout: 60000
