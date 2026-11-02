@@ -1,6 +1,6 @@
 # W200 — dokładne ilości malowania i druga oferta farby
 
-Stan 2026-11-02: zmiany źródłowe i regresje gotowe do odbioru w przeglądarce; **bez wdrożenia W200**. Produkcja API pozostaje W199 (93c263c), WWW W198 (4ad7867). Ten raport nie stanowi dowodu nowego wdrożenia ani aktualnej oferty zakupowej po wygaśnięciu natywnych wycen.
+Stan 2026-11-02: W200 wdrożona i odebrana. API: 0d448bb / f9998b84-c3dd-46f3-a6b1-7fe7e5390a6c SUCCESS; WWW: ba7d745 / f1b36f56-a8f3-4465-b185-399a86b07789 SUCCESS. Kwoty niżej są historycznym dowodem odbioru, nie aktualną ofertą po wygaśnięciu wyceny.
 
 ## Korekta diagnozy W199
 
@@ -38,3 +38,16 @@ Lokalne źródła D: 592 testy mobile PASS (6 nowych, wcześniej 6 RED), 244 tes
 Przed wdrożeniem: zamrozić i sprawdzić czysty checkout bez cudzego WIP, zbudować nowy WWW i API, sprawdzić rzeczywisty formularz zużycia/liczby aplikacji, starą kalkulację wymagającą przeliczenia oraz wspólny koszyk dwóch pomieszczeń. Kandydat musi korzystać z aktualnych obserwacji cen; nie powtarzać błędu starego seeda. Następnie świeży snapshot wspólnego backendu, pełne regresje, PR i deployment oraz publiczny odbiór prawdziwych wycen i zachowania historii. Cudze zmiany ean-overlay, mappings, lockfile, .atlas i PROPOZYCJE pozostają poza zakresem.
 
 Artefakty: G:/Projekty/asystent-remontu-work/wave200-20261102. Ważne pliki: public-paint-initial.json, existing-paint-reads.json, painting-red.log, painting-green.log, mobile-work-tests.log, adapter-regression.log, hipper-paint-observation.json, hipper-paint-records.json i hipper-paint-native.json. Cel rozwoju pozostaje aktywny.
+
+
+## Odbiór wdrożenia — 2026-11-02
+
+Finalny dowód 2026-11-02T10:30:26.749Z: lokalnie i publicznie 17 scenariuszy malowania/10 rzeczywistych odpowiedzi API oraz 18 scenariuszy tynkowania/8 odpowiedzi, po 5+7 rzeczywistych HTTP. Bez podmiany wycen, błędów strony i HTTP429. Dodano jasny komunikat potwierdzenia ilości farby/gruntu z przyciskiem Przelicz ilości materiałów; rzeczywiste kliknięcie prowadzi do obmiarów, zapis usuwa ostrzeżenie i odtwarza pełną kalkulację. UI-only ba7d745 różni się od 0d448bb wyłącznie tym ekranem; typy czystego checkoutu PASS.
+
+Native odczyty potwierdziły pełne malowanie40,5m²:30746+4890=35636gr; dwa pokoje po11,91m²:27688+5440=33128gr (HIPPER/Rab-Dom/Realbud). Są to różne wymagania i koszyki; różnicy nie oznaczać jako zmiany ceny. Zmienione zużycie gruntu0,2l/m²×2aplikacje daje16,2l i widoczną pełną kwotę44420gr. Wybór samego HIPPER pokazuje21888gr za farbę z dostawą oraz trzy brakujące materiały, bez udawania kompletnego remontu. Fotografia w interfejsie korzysta ze zweryfikowanego obrazu katalogowego tego samego GTIN; początkowy test błędnie oczekiwał nadpisania jej URL-em HIPPER i został poprawiony po inspekcji DOM.
+
+Katalog251referencji/219potwierdzonych/334oferty/32luki,0fałszywych potwierdzeń. Seed373→374, cały poprzedni prefix zachowany; pozostałe148/150plików API identyczne. Cache370→371, wszystkie stare obserwacje zachowane. Historia13831→14143,13817 dawnych zachowanych,14 usunięto wyłącznie przez limit60punktów na serię,0niewyjaśnionych strat. Brak rzeczywistych zmian cen w najnowszych odczytach; nie dopisano fikcyjnych spadków. Pierwszy verifier czasu odpadł na różnicy zegarów142ms (serwer przed zegarem lokalnym); sprawdzono ją i zastosowano istniejącą granicę klienta5000ms bez zmiany oryginalnych dat.
+
+PR180 https://github.com/jakatora/przetargai/pull/180: head29a0e870927f617e1bfdf20168cd59bf2a044252, base2b5e3a90a3150c464f4d1e94d02b30e5b46fcbc6, merge5153399e5d0407511512758e19933ae2bd826675. StatusyGitHub puste, nie deklarować zielonegoCI; lokalne237pricing/165APIlib/244adapter/16reader/30transport/1064shared/592mobilePASS,0skip. BundleSHA256 5986148738aea781d75f38c4bd7a2c8dff501ab29de2bd669b11ccedb4f26184. WWW63zweryfikowanepliki/17319524B,82wartości vaulta sprawdzone,0wycieków.
+
+Własne serwery kandydata zatrzymane39193/61651exit0; Edgekonteksty QA zamknięte, publiczne QA73385/97253exit0. Oryginalne wyceny końcowe ważne do10:32:54–10:38:36UTC (malowanie) i10:32:57–59UTC (tynkowanie), nie odnawiać plików. Następne polecenie użytkownika: build i publikacjaAndroid/iOS; osobny worktreeG:/Projekty/asystent-remontu-release-20261102, źródło startoweba7d745, artefaktynative-release-20261102. To nie wydanie natywne; budowa i zgłoszenia do sklepów w toku. Cel aktywny.
