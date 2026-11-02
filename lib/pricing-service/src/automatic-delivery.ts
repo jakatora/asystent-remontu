@@ -78,9 +78,15 @@ export async function compareAutomaticDelivery(
     // Keep the same 80-call cap, cache, postcode and native expiry throughout.
     optionalPartitions=false;
     result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
-    if(settings.allowSeparateOrders===true&&revision===[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|')){
+    if(settings.allowSeparateOrders===true&&result.best&&revision===[...limits].map(([id,limit])=>`${id}:${limit.maxPackages}`).sort().join('|')){
       optionalPartitions=true;
       result=await compareAutomaticDeliveryOnce(constrained,settings,quoteOrders,policies,now,knownUnavailableStores);
+    }else if(settings.allowSeparateOrders===true&&result.purchasePlan){
+      // Optional partitions require a confirmed parent quote and cannot turn
+      // an unquoted mandatory order into a complete delivered renovation.
+      // Keep the useful material plan; resume split optimisation once every
+      // required order has a quote, under the same total request budget.
+      result.searchLimited=true;
     }
     quoteBudget=MAX_STORE_BASKETS;
     const addExtra=async()=>{if(settings.allowExtraPackages===true&&result.best){
@@ -373,6 +379,7 @@ async function quoteAndRank(
   settings: DeliverySettings, quoteBasket: BasketQuoter, now: Date,groups:ReturnType<typeof groupProjectByProduct>,
 ): Promise<DeliveryComparison> {
   const failures = new Map<string, string>((result.unavailableStores ?? []).map(item => [item.store,item.reason]));
+  const orderFailures = new Map<string,string>();
   const unavailableIntegrations=new Set(failures.keys());
   const invalidMaterialOrders = new Set<string>();
   // Quote a representative order from every store first. Full store baskets
@@ -414,11 +421,12 @@ async function quoteAndRank(
           order.materialsGrosze = materials;
           order.totalGrosze = order.materialsGrosze + outcome.quote.costGrosze; order.source = 'retailer';
         } else {
-          failures.set(order.store, 'reason' in outcome ? outcome.reason : 'invalid_quote');
+          const reason='reason' in outcome ? outcome.reason : 'invalid_quote';
+          failures.set(order.store,reason);orderFailures.set(key,reason);
           if ('reason' in outcome && ['price_changed','product_unavailable','insufficient_stock','purchase_rules_changed'].includes(outcome.reason)) invalidMaterialOrders.add(key);
           if('reason' in outcome&&outcome.reason==='insufficient_stock'&&outcome.stockLimits?.length)stockChanged=true;
         }
-      } catch { failures.set(order.store, 'quote_unavailable'); }
+      } catch { failures.set(order.store, 'quote_unavailable');orderFailures.set(key,'quote_unavailable'); }
       }
     }));
   };
@@ -447,6 +455,7 @@ async function quoteAndRank(
     delete order.quote;
     order.deliveryGrosze = null; order.deliveryMinimumGrosze = 0; order.totalGrosze = null; order.source = 'unknown';
     failures.set(order.store, 'quote_expired');
+    orderFailures.set(signature(order),'quote_expired');
   }
   const baskets: DeliveredBasket[] = candidates.map(orders => {
     const actual = orders.map(o => applyCartPrices(unique.get(signature(o))!));
@@ -471,6 +480,14 @@ async function quoteAndRank(
     const unquoted = (basket: DeliveredBasket) => basket.stores.filter(store => store.deliveryGrosze === null).length;
     result.purchasePlan = [...baskets].filter(basket => basket.totalGrosze === null).sort((a,b) => unquoted(a)-unquoted(b) || a.lowerBoundGrosze-b.lowerBoundGrosze || a.stores.length-b.stores.length)[0] ?? null;
     if (result.purchasePlan) result.purchasePlanBasis = 'fewest_unquoted_stores';
+  }
+  // Explain the exact unquoted cart shown to the user. A late timeout from a
+  // different quantity/allocation must not replace its native freight reason;
+  // nor may an individual-transport result from another cart describe it.
+  for(const order of result.purchasePlan?.stores??[]){
+    if(order.deliveryGrosze!==null)continue;
+    const reason=orderFailures.get(signature(order));
+    if(reason)failures.set(order.store,reason);
   }
   const quotedStores=new Set([...unique.values()].filter(o=>o.quote).map(o=>o.store));
   // A native rejection of stock, price or purchase rules removes that exact
