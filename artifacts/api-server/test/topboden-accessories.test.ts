@@ -11,7 +11,9 @@ import {createRemontService} from '../src/shared-backend';
 
 function replay(context:string,mutate?:(value:any,index:number)=>any){const rows=fixture.records.filter(row=>row.context===context);let i=0;const fetcher:typeof fetch=async(input,init)=>{const u=new URL(String(input)),row=rows[i++];assert.ok(row,context);assert.equal(init?.method??'GET','GET');assert.equal(u.origin,row.origin);assert.equal(u.pathname+u.search,row.path);let value=structuredClone(row.response);value=mutate?.(value,i-1)??value;return typeof value==='string'?new Response(value,{status:row.status}):Response.json(value,{status:row.status})};return{fetcher,done:()=>assert.equal(i,rows.length)}}
 
-test('four actual TopBoden accessory packs bind whole-pack prices and distinguish a left/right pair',async()=>{
+test('four actual TopBoden accessory packs bind whole-pack prices and distinguish a left/right pair',async t=>{
+ // Replay this dated capture at its original observation time; do not extend its offer validity.
+ t.mock.timers.enable({apis:['Date'],now:new Date(fixture.checkedAt)});
  const sources=fixture.sources.filter(s=>s.apiPurchaseUnit==='opk.');assert.equal(sources.length,4);
  for(const raw of sources){const source=RETAIL_SOURCES.find(s=>s.id===raw.id)!;const r=replay('read:'+source.id),o=await readRetailSource(source,r.fetcher);r.done();assert.equal(o.ean,source.ean);assert.equal(o.priceGrosze,source.id.includes('connector')?1000:800);assert.ok(o.imageUrl?.includes(source.ean));
   for(const patch of [{packageSize:source.packageSize+1},{unit:'mb'},{apiPurchaseUnit:'szt.'},{productUuid:'00000000-0000-0000-0000-000000000000'}])await assert.rejects(readRetailSource({...source,...patch},replay('read:'+source.id).fetcher));
@@ -36,4 +38,11 @@ test('actual Express HTTP combines purchased accessories and minimum skirting lo
  const jobs=[0,1].map(i=>({jobId:'explicit-skirting-purchases',materials:specs.map(([ean,unit,a,b])=>({material:{id:ean,ean,name:fixture.sources.find(s=>s.ean===ean)!.name,unit,category:ean==='5905167725719'?'skirting':'skirting-accessory'},quantity:i===0?a:b}))}));
  try{const response=await fetch(`http://127.0.0.1:${(server.address() as any).port}/pricing/project`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jobs,options:{delivery:{mode:'shipping',postalCode:'00-001',allowSeparateOrders:false}}})});assert.equal(response.status,200);const result=await response.json();const best=result.deliveryComparison.best;assert.ok(best);assert.equal(result.deliveryComparison.missingProductCount,0);assert.equal(best.materialsGrosze,41380);assert.equal(best.deliveryGrosze,2999);assert.equal(best.totalGrosze,44379);const packs=Object.fromEntries(result.consolidated.lines.map((line:any)=>[line.product.ean,line.packagesNeeded]));assert.deepEqual(packs,{'5905167725719':10,'5905167726037':3,'5905167726198':2,'5905167725870':3,'5905167726358':3});r.done();}
  finally{service.close();await new Promise<void>(resolve=>server.close(()=>resolve()));}
+});
+
+
+test('historical TopBoden accessory offers remain rejected after their original expiry',async t=>{
+ t.mock.timers.enable({apis:['Date'],now:new Date('2026-11-02T00:00:00Z')});
+ const source=RETAIL_SOURCES.find(s=>s.id==='topboden-indo-inside-gloss-2')!;
+ await assert.rejects(readRetailSource(source,replay('read:'+source.id).fetcher),/no_confirmed_online_pln_offer/);
 });
