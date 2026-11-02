@@ -1,3 +1,4 @@
+import {waitForCeilingPaintWrites} from '../pricing/ceilingPaintStorage';
 import {PRIMER_PACKAGE_CHOICE_PREFIX} from '../pricing/primerPackageChoice';
 import {CERESIT_PACKAGE_CHOICE_PREFIX} from '../pricing/ceresitPackageChoice';
 import {waitForCeresitPackageWrites} from '../pricing/ceresitPackageStorage';
@@ -117,7 +118,7 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
     ...(id==='renovation-basket'?[]:[waitForMaterialStockWrites(storage,id)]),
     waitForPrimerPackageWrites(storage,id),waitForMapegumPackageWrites(storage,id),
     waitForCeresitPackageWrites(storage,id),
-    waitForMapegumProductWrites(storage,id),
+    waitForMapegumProductWrites(storage,id),waitForCeilingPaintWrites(storage,id),
   ]));
   const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS];
   const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{

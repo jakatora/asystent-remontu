@@ -1,3 +1,5 @@
+import {applyCeilingPaintChoices} from './ceilingPaintChoice';
+import {readCeilingPaintChoices} from './ceilingPaintStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { applyLaminateChoices, LAMINATE_CHOICE_PREFIX, parseLaminateChoices } from './laminateChoice';
 import { applyFoilChoices, FOIL_CHOICE_PREFIX, parseFoilChoices } from './foilChoice';
@@ -14,6 +16,8 @@ export async function readSelectedStage(projectId: string, original: PricingStag
   ].map(prefix => AsyncStorage.getItem(prefix + projectId)));
   const tileChoices = parseTileChoices(tiles);
   const mapegumProducts=await readMapegumProductChoices(AsyncStorage,projectId);
-  return applyMapegumProductChoices(applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([original], parseLaminateChoices(panels)),
-    parseFoilChoices(foils)), parseWashbasinChoices(basins)), tileChoices), parseTileAdhesiveChoices(adhesives), tileChoices),mapegumProducts)[0];
+  const ceilingPaint=await readCeilingPaintChoices(AsyncStorage,projectId);
+  const chosen=applyMapegumProductChoices(applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([original], parseLaminateChoices(panels)),
+    parseFoilChoices(foils)), parseWashbasinChoices(basins)), tileChoices), parseTileAdhesiveChoices(adhesives), tileChoices),mapegumProducts);
+  return applyCeilingPaintChoices(chosen,ceilingPaint)[0];
 }

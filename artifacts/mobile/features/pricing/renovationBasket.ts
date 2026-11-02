@@ -1,3 +1,4 @@
+import {applyCeilingPaintChoices,type CeilingPaintChoice} from './ceilingPaintChoice';
 import {applyPrimerPackageChoices,type PrimerPackageChoice} from './primerPackageChoice';
 import {applyCeresitPackageChoices,type CeresitPackageChoice} from './ceresitPackageChoice';
 import {applyMapegumPackageChoices,type MapegumPackageChoice} from './mapegumPackageChoice';
@@ -49,6 +50,7 @@ export function buildRenovationBasket(
   mapegumPackagesByProject: Readonly<Record<string, readonly MapegumPackageChoice[]>> = {},
   mapegumProductsByProject: Readonly<Record<string, readonly MapegumProductChoice[]>> = {},
   ceresitPackagesByProject: Readonly<Record<string, readonly CeresitPackageChoice[]>> = {},
+  ceilingPaintByProject: Readonly<Record<string, readonly CeilingPaintChoice[]>> = {},
 ): { stages: PricingStageInput[]; selectionStages: PricingStageInput[]; shoppingContexts: ShoppingStageContext[]; includedProjects: Project[]; excludedMaterials: number; manualItems: number; missingCalculations: number; measurementReviews: { projectId: string; projectName: string; materials: string[] }[] } {
   const ids = new Set(selectedIds);
   const includedProjects = projects.filter(project => ids.has(project.id));
@@ -61,7 +63,8 @@ export function buildRenovationBasket(
     if (!calc) { missingCalculations++; continue; }
     const items = shoppingByProject[project.id] ?? [];
     const stage = withManualShopping(toPricingStageInput(calc, tier, doorsByProject[project.id]), calc, project.id, items);
-    const chosen = applyMapegumProductChoices(applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [], tilesByProject[project.id] ?? []),mapegumProductsByProject[project.id]??[])[0];
+    const productChosen = applyMapegumProductChoices(applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [], tilesByProject[project.id] ?? []),mapegumProductsByProject[project.id]??[])[0];
+    const chosen = applyCeilingPaintChoices([productChosen],ceilingPaintByProject[project.id]??[])[0];
     const materialStock = stockByProject[project.id] ?? [];
     const pending = applyProjectShopping(chosen, calc, project.id, items, stage, materialStock);
     selectionStages.push(chosen);

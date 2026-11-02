@@ -1,3 +1,4 @@
+import {CEILING_PAINT_CHOICE_PREFIX,parseCeilingPaintChoices} from '../pricing/ceilingPaintChoice';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices} from '../pricing/primerPackageChoice';
 import {CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices} from '../pricing/ceresitPackageChoice';
 import {MAPEGUM_PACKAGE_CHOICE_PREFIX,parseMapegumPackageChoices} from '../pricing/mapegumPackageChoice';
@@ -20,6 +21,7 @@ import {PREFERENCE_RECOVERY_PREFIX,parsePreferenceRecovery,recoveryArchiveKey} f
 // One reviewed list drives validation and project/common-basket export keys.
 // Adding a product selector must not silently omit it from a shared basket backup.
 export const BACKUP_PRODUCT_CHOICE_PARSERS: Readonly<Record<string,(raw:string)=>readonly unknown[]>>={
+  [CEILING_PAINT_CHOICE_PREFIX]:parseCeilingPaintChoices,
   [PRIMER_PACKAGE_CHOICE_PREFIX]:parsePrimerPackageChoices,
   [CERESIT_PACKAGE_CHOICE_PREFIX]:parseCeresitPackageChoices,
   [MAPEGUM_PACKAGE_CHOICE_PREFIX]:parseMapegumPackageChoices,

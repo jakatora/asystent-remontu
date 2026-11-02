@@ -1,3 +1,5 @@
+import {CEILING_PAINT_CHOICE_PREFIX,parseCeilingPaintChoices} from '../pricing/ceilingPaintChoice';
+import {ceilingPaintStorage} from '../pricing/ceilingPaintStorage';
 import assert from 'node:assert/strict';
 import {test,type TestContext} from 'node:test';
 import {DatabaseSync} from 'node:sqlite';
@@ -41,6 +43,7 @@ function sharedChoices():Record<string,string>{
     'remont.washbasin-choice.v1:renovation-basket':save([{from:WASHBASIN_PRODUCTS[0].id,to:WASHBASIN_PRODUCTS[1].id}]),
     'remont.tile-choice.v1:renovation-basket':save([{from:floor[0].id,to:floor[1].id,use:'floor',floorAdhesive:'mat-tile-adhesive-atlas-plus-standard-25kg'}]),
     'remont.tile-adhesive-choice.v1:renovation-basket':save([{from:TILE_ADHESIVE_PRODUCTS[0].id,to:TILE_ADHESIVE_PRODUCTS[1].id}]),
+    [CEILING_PAINT_CHOICE_PREFIX+'renovation-basket']:save([{from:'mat-paint-standard-white-10l',to:'mat-paint-better-white-10l'}]),
     'remont.flush-box-choice.v1:renovation-basket':save([{from:'mat-flush-box-elektroplast-pk60-10',to:'mat-epn-pk60-pro-0285-01'}]),
   };
 }
@@ -311,4 +314,20 @@ test('default empty settings remain empty; a deliberate postcode or product choi
 test('invalid identities in every shared product selector reject the entire archive',async t=>{
   const a=await source(t);await setSharedChoices(a.storage);const backup=await readProjectBackup(a.db,a.storage);
   for(const key of Object.keys(sharedChoices())){const bad=structuredClone(backup);bad.preferences[key]=JSON.stringify({version:1,choices:[{from:'missing',to:'missing',use:'floor'}]});assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
+});
+
+
+test('ceiling paint project/common choices and a damaged original survive SQLite export/import',async t=>{
+  const a=await source(t),b=await fixture(t),choice={from:'mat-paint-standard-white-10l',to:'mat-paint-better-white-10l'},key=CEILING_PAINT_CHOICE_PREFIX+'room';
+  await a.storage.setItem(key,'{damaged-ceiling-paint');await assert.rejects(ceilingPaintStorage.read(a.storage,'room'));
+  await ceilingPaintStorage.recover(a.storage,'room');await ceilingPaintStorage.write(a.storage,'room',[choice]);await ceilingPaintStorage.write(a.storage,'renovation-basket',[{...choice,from:'mat-paint-economy-white-10l'}]);
+  const backup=parseProjectBackup(JSON.stringify(await readProjectBackup(a.db,a.storage)));await importProjectBackup(backup,b.db,b.storage);const restored=await readProjectBackup(b.db,b.storage);
+  assert.deepEqual(await ceilingPaintStorage.read(b.storage,'room'),[choice]);assert.deepEqual(await ceilingPaintStorage.read(b.storage,'renovation-basket'),[{...choice,from:'mat-paint-economy-white-10l'}]);
+  assert.equal(parsePreferenceRecovery(restored.preferences[recoveryArchiveKey(key)]).records[0].raw,'{damaged-ceiling-paint');assert.equal(canonical(restored.tables),canonical(backup.tables));
+});
+test('backup waits for the exact pending ceiling paint selection',async t=>{
+  const a=await source(t),key=CEILING_PAINT_CHOICE_PREFIX+'room',choice={from:'mat-paint-standard-white-10l',to:'mat-paint-better-white-10l'},set=a.storage.setItem.bind(a.storage);
+  let release!:()=>void,began!:()=>void;const gate=new Promise<void>(r=>{release=r;}),started=new Promise<void>(r=>{began=r;});a.storage.setItem=async(k,v)=>{if(k===key){began();await gate;}await set(k,v);};
+  const write=ceilingPaintStorage.write(a.storage,'room',[choice]);await started;let done=false;const exporting=readProjectBackup(a.db,a.storage).then(value=>{done=true;return value;});await new Promise(r=>setImmediate(r));assert.equal(done,false);release();await write;
+  assert.deepEqual(parseCeilingPaintChoices((await exporting).preferences[key]),[choice]);
 });

@@ -3,7 +3,7 @@ export const PREFERENCE_RECOVERY_PREFIX = 'remont.preference-recovery.v1:';
 export const RECOVERABLE_PREFERENCE_PREFIXES = [
   'remont.material-stock.v1:', 'remont.primer-package-choice.v1:', 'remont.mapegum-package-choice.v1:',
   'remont.mapegum-product-choice.v1:',
-  'remont.ceresit-package-choice.v1:',
+  'remont.ceresit-package-choice.v1:', 'remont.ceiling-paint-choice.v1:',
 ] as const;
 export const RECOVERY_BACKUP_PREFIXES = RECOVERABLE_PREFERENCE_PREFIXES.map(prefix => PREFERENCE_RECOVERY_PREFIX + prefix);
 export const RECOVERY_GLOBAL_KEYS = RECOVERY_BACKUP_PREFIXES.slice(1).map(prefix => prefix + 'renovation-basket');

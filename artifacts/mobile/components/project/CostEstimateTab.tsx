@@ -1,3 +1,6 @@
+import { CeilingPaintChoiceSection } from './CeilingPaintChoiceSection';
+import { applyCeilingPaintChoices, ceilingPaintRequirements } from '@/features/pricing/ceilingPaintChoice';
+import { useCeilingPaintChoices } from '@/features/pricing/useCeilingPaintChoices';
 import {PrimerPackageSection} from './PrimerPackageSection';
 import {estimateStoreSelection} from '@/features/pricing/estimateStoreSelection';
 import {CeresitPackageSection} from './CeresitPackageSection';
@@ -149,11 +152,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   const washbasins = useWashbasinChoices(projectId, washbasinReferences.length > 0);
   const flushBoxReferences = useMemo(() => projectId === 'renovation-basket' ? flushBoxRequirements(rawInput) : [], [rawInput, projectId]);
   const boxes = useFlushBoxChoices(projectId, flushBoxReferences.length > 0);
-  const productSelectionReady = boxes.ready && !boxes.readFailed && primers.ready && !primers.readFailed && mapegum.ready && !mapegum.readFailed && mapegumProducts.ready && !mapegumProducts.readFailed && ceresit.ready && !ceresit.readFailed;
+  const ceilingReferences = useMemo(() => ceilingPaintRequirements(rawInput), [rawInput]);
+  const ceilingPaint = useCeilingPaintChoices(projectId, ceilingReferences.length > 0);
+  const productSelectionReady = ceilingPaint.ready && !ceilingPaint.readFailed && !ceilingPaint.saving && boxes.ready && !boxes.readFailed && primers.ready && !primers.readFailed && mapegum.ready && !mapegum.readFailed && mapegumProducts.ready && !mapegumProducts.readFailed && ceresit.ready && !ceresit.readFailed;
   const tileReferences = useMemo(() => tileRequirements(rawInput), [rawInput]);
   const tiles = useTileChoices(projectId, tileReferences.length > 0);
   const baseProducts = useMemo(() => applyFlushBoxChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices(productInput, panels.choices), foils.choices), washbasins.choices), boxes.choices), [productInput, panels.choices, foils.choices, washbasins.choices, boxes.choices]);
-  const selectedProducts = useMemo(() => applyTileChoices(baseProducts, tiles.choices), [baseProducts, tiles.choices]);
+  const selectedProducts = useMemo(() => applyCeilingPaintChoices(applyTileChoices(baseProducts, tiles.choices), ceilingPaint.choices), [baseProducts, tiles.choices, ceilingPaint.choices]);
   const adhesiveReferences = useMemo(() => tileAdhesiveRequirements(selectedProducts), [selectedProducts]);
   const adhesives = useTileAdhesiveChoices(projectId, adhesiveReferences.length > 0);
   const stockEnabled = !stages && Boolean(calc && projectId);
@@ -364,6 +369,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Zestaw obejmuje materiały i wybraną liczbę zestawów montażowych Wolfcraft. Piła i miara są osobno w Narzędziach. Liczbę profili, mocowania, długość taśmy i podkład potwierdź w obmiarach.' : 'The basket includes materials and your selected number of Wolfcraft installation kits. Saw and tape measure are separate under Tools. Confirm profiles, fixings, tape length and underlay in measurements.'}</Txt>
         <Button label={language === 'pl' ? 'Dobierz podkład, profile i zestaw montażowy' : 'Choose underlay, profiles and installation supplies'} variant="outline" onPress={() => router.push({pathname:'/project/[id]/edit',params:{id:projectId}})} />
       </View>}
+      <CeilingPaintChoiceSection references={ceilingReferences} {...ceilingPaint} commonBasket={projectId === 'renovation-basket'} onChange={async choices => {
+        requestVersion.current++;
+        onPurchaseSnapshot?.(null);
+        setState({ status: 'loading' });
+        return ceilingPaint.onChange(choices);
+      }} />
       <LaminateChoiceSection references={laminateReferences} {...panels} commonBasket={projectId === 'renovation-basket'} onChange={choices => {
         requestVersion.current++;
         setState({ status: 'loading' });
