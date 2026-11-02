@@ -195,3 +195,46 @@ Produkcja: Railway **167032cc-d305-4410-a5ca-c11b0fde73af SUCCESS**, 2026-10-25 
 Odbiór: 223 testy logiki/HTTP PASS bez skip, 55 regresji wspólnego backendu PASS, typecheck mobile/API i 743 ID zachowane. Rzeczywisty HTTPS potwierdził35produktów/58ofert i wszystkie23nowe produkty po dokładnym aliasie, jednostce i zdjęciu. Rzeczywisty kalkulator malowania40,5m²/2warstwy/3taśmy/1folia/Ekonom:244,37złmateriały+46,00złdostawy=290,37zł, Rab-Dom+Realbud. To koszyk kontrolny, nie uniwersalna oferta ani gwarancja minimum całego rynku. Health200/auth401. Dowody work/full-catalog-production-proof.json i work/full-retail-batch-live-proof.json.
 
 Następne: pozostałe68produktów; korekta błędnego EAN FixAll290ml (5411183175723 dotyczy125ml;290mlbiały5411183045620 potwierdza katalog producenta); sprzeczny wariant Soudal SWSBasic/BasicPlus; dostawy materiałów dostępnych tylko lokalnie; zgodność grubości i fizycznych jednostek kalkulatorów; narzędzia/ręczne materiały i częściowe zapasy we wspólnym koszyku; utrwalenie wyboru jakości. Castorama/OBI nadal wymagają działającego dostępu serwerowego. Nowego Android/iOS nie wydano.
+
+## Proponowany kierunek biznesowy — 2026-11-02
+
+Ta sekcja odpowiada na pytanie właściciela o rozwój i przyszły zarobek. To rekomendacja oraz hipotezy do sprawdzenia, nie zatwierdzony cennik, wynik badania klientów ani uruchomiona sprzedaż. Wcześniejsze liczby katalogu i checklisty powyżej są historyczne.
+
+### Punkt wyjścia
+
+W198 została opublikowana i odebrana w publicznym WWW i API: 251 referencji materiałowych, 219 potwierdzonych, 333 oferty, 32 nierozwiązane dopasowania. Dowód: [raport W198](../research/tynk-male-worki-i-dostawy-wave198-2026-11-02.md). Potwierdzony produkt nie oznacza potwierdzonego transportu dowolnego koszyka.
+
+Wspólny koszyk remontu, rzeczywiste fotografie, dobór opakowań, częściowe zapasy, historia zmian cen oraz wyceny dostępnych dostaw już istnieją. Następne prace powinny poprawiać ukończenie zakupów i niezawodność tych funkcji. Przejrzane źródła aplikacji nie wykazały pomiaru całej ścieżki od rozpoczęcia planowania do powrotu z kolejnym remontem. Brakuje potwierdzonych wyników badań użytkowników i ekonomiki pozyskania klienta.
+
+### Obietnica i pierwsi klienci
+
+Zadanie klienta: „Kiedy przygotowuję zakup do remontu, chcę zebrać właściwe materiały w wystarczających ilościach i znać pełny koszt, aby rozpocząć pracę bez dodatkowych wyjazdów i nieprzewidzianych wydatków”.
+
+Dla osób remontujących: podstawowe planowanie i porównanie dostępne bez opłaty. Dla małych ekip wykonujących kolejne zlecenia: test płatnego narzędzia do pracy z wieloma klientami. Stałe zapotrzebowanie ekip jest hipotezą do zweryfikowania w rozmowach o ostatnich rzeczywistych zleceniach.
+
+Robocza ocena dowodów JTBD: **5/10**, zgodna z dotychczasowym audytem. Określono zadanie, cztery siły zmiany i konkurencję: znaną hurtownię, listę wykonawcy, arkusz oraz odkładanie planowania. Do sprawdzenia: emocjonalna i społeczna strona zakupu w wywiadach, osobny pomiar pozyskania i powrotów oraz związek każdej rozwijanej funkcji z zadaniem klienta. Spokój o budżet i odpowiedzialność wobec domowników/klienta pozostają hipotezami.
+
+### Kolejność prac
+
+1. **Pomiar i trzy kompletne zastosowania.** Wybrać malowanie, gładź i podłogę jako początkowe scenariusze pilotażu; sprawdzić ich pełne materiały, opakowania, własne zapasy i rzeczywisty transport. Zdarzenia: rozpoczęcie, gotowa lista, próba wyceny, kompletna wycena, brak i jego przyczyna, otwarcie sklepu, udostępnienie oraz kolejny projekt. Otwarcie sklepu nie jest zakupem. Mierzyć czas do wyniku, udział kompletnych wyników, opóźnienia i koszt obsługi wycen. Nie wysyłać adresów, kodów pocztowych, nazw projektów i treści kosztorysów do analityki; przed wdrożeniem określić podstawę i zakres przetwarzania.
+2. **Krótsza droga do decyzji.** Wyeksponować przejście praca → wymiary → kod → pełna kwota i lista sklepów. Pokazywać wariant zakupu w jednym sklepie oraz tańszy potwierdzony podział, jeśli są dostępne. Różnicę liczyć dla tego samego kompletnego zapotrzebowania z dostawami. Brak dostawy, nieaktualność i brak produktu pozostają widoczne. Zamiennik wymaga potwierdzonego zastosowania i świadomego wyboru użytkownika.
+3. **Pilot z prawdziwymi zakupami.** Propozycja: 20 remontujących i 5 ekip; najpierw co najmniej 5 obserwowanych sesji. Pytać o ostatni zakup, poprzedni sposób porównania, błędy, transport i ostateczny rachunek. Nie wpisywać wyników przed przeprowadzeniem pilotażu. Przygotować scenariusze i raport; rekrutacja oraz wysyłanie zaproszeń to osobne działanie wymagające konkretnej instrukcji.
+4. **Stabilne dane i partnerstwa.** Kolejność nowych produktów wynika z przerwanych scenariuszy i brakujących pozycji. Dążyć do uzgodnionych feedów/API, aktualności stanów oraz wycen całego koszyka. Zaplanować koszt utrzymania każdego sklepu. Udział w afiliacji nie zapewnia API dostawy.
+5. **Test zarabiania i pozyskania.** Przyjęte programy afiliacyjne dla kwalifikujących się zakupów; następnie pilotaż Pro dla ekip. Rozwijać strony konkretnych kalkulatorów, materiały pokazujące rzeczywiste zakupy i łatwe udostępnianie planu. Skalować płatne pozyskanie po zmierzeniu przychodu i kosztu obsługi przypadającego na pozyskanego klienta.
+
+Proponowany pierwszy cykl 2026-11-02–2026-11-15: definicja i wdrożenie pomiaru po określeniu zasad przetwarzania, odbiór trzech scenariuszy oraz przygotowanie pilotażu. Termin rekrutacji i wyniki zależą od dostępności uczestników; nie stanowią zadeklarowanego efektu.
+
+### Model przychodu do sprawdzenia
+
+- **Afiliacja:** przychód wyłącznie zgodnie z zaakceptowanymi warunkami programu i potwierdzonym rozliczeniem. Ranking według pełnej kwoty, niezależnie od prowizji; oznaczenie linków partnerskich. Oferty bez prowizji nadal uczestniczą w porównaniu.
+- **Pro dla ekip:** hipoteza 79–99 PLN/miesiąc, do sprawdzenia przed wdrożeniem płatności. Wartość: wielu klientów, kosztorys dla klienta, wspólna lista i kontrola wydatków. Najpierw ustalić, które z istniejących funkcji rzeczywiście skłaniają ekipę do ponownego użycia i płacenia.
+- **Lokalne hurtownie:** późniejszy test zapytań o konkretny zestaw i dostawę, z wiedzą użytkownika i uzgodnionymi warunkami partnerstwa. Nie utożsamiać wysłanego zapytania z dostępną ofertą ani sprzedawać danych użytkowników.
+
+Przykład rachunkowy, **nie prognoza ani dostępna stawka**: 100 zaakceptowanych transakcji × 1500 PLN podstawy objętej prowizją × 3% = 4500 PLN przychodu przed kosztami i podatkami. Liczba rejestracji lub kliknięć sama nie dowodzi takiego przychodu. Uwzględnić odrzucone prowizje, zwroty, czas rozliczenia, pozyskanie, serwer i obsługę.
+
+### Sprawdzone źródła partnerstw — 2026-11-02
+
+- [VIVnetworks — LeroyMerlin PL](https://www.vivnetworks.com/pl/affiliate-katalog/leroymerlin-pl/): publiczny opis programu, feed XML i tracking S2S. Udział, dopuszczony model aplikacji/porównywarki i rzeczywiste warunki wymagają akceptacji; nie używać publicznej stawki jako gwarantowanego przychodu aplikacji.
+- [Admitad — Castorama PL](https://www.admitad.com/store/offers/castorama-pl/): indywidualna akceptacja przez Castoramę; publicznie wymieniono ruch okazje/kupony i cashback. Nie zakładać automatycznego dopuszczenia porównywarki. Prowizja jest widoczna dopiero po autoryzacji.
+
+Nie uruchomiono płatności, śledzenia klientów, afiliacji ani wysyłki do potencjalnych partnerów w ramach tego przeglądu. Cel rozwoju aplikacji pozostaje aktywny.
