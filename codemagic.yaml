@@ -297,7 +297,7 @@ workflows:
           curl -fsSL https://get.maestro.mobile.dev | bash
           export PATH="$HOME/.maestro/bin:$PATH"
           mkdir -p native-screens
-          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-smoke.xml scripts/ci/ios-native
+          maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
