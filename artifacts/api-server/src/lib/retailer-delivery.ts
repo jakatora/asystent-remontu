@@ -238,14 +238,14 @@ export function createRetailerQuoter(fetchImpl: typeof fetch = fetch,connectionG
     const national=cachedNational(order);if(national)return national;
     const key = keyFor(order, postalCode);
     const cached = cache.get(key); if (cached && cached.until > Date.now()) return cached.result;
-    if(sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
+    if(!quoteRelayEnabled(order.store)&&sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
     if (cache.size >= 256) cache.delete(cache.keys().next().value!);
     const pending = (async (): Promise<DeliveryQuoteResult> => {
       const release = await queue.acquire();
       if (!release) return { reason:'quote_busy' };
       try {
         // The connection may have failed while this basket waited in the FIFO.
-        if(sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
+        if(!quoteRelayEnabled(order.store)&&sourceUrls(order).some(url=>connections.isUnavailable(url)))return{reason:'retailer_connection_unavailable'};
         let nativeFetch=fetchImpl;
         if(quoteRelayEnabled(order.store)){
           const deadline=AbortSignal.timeout(20000);

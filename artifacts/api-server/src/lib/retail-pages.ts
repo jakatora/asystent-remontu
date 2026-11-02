@@ -258,7 +258,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
   confirmDecowantSource(source);
   confirmKnaufFinishSource(source);
   if (source.disabledReason) throw Error(source.disabledReason);
-  if(source.format==='idosell'&&quoteRelayEnabled(source.store)){
+  if((source.format==='idosell'||source.format==='buduj24'&&source.store==='Buduj24')&&quoteRelayEnabled(source.store)){
     const originalFetch=fetchImpl,deadline=AbortSignal.timeout(20000);
     fetchImpl=(input,init)=>originalFetch(input,{...init,signal:AbortSignal.any([deadline,...(init?.signal?[init.signal]:[])])});
     try{return await readThroughRelay(source,fetchImpl);}catch(error){
