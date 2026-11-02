@@ -1,4 +1,5 @@
 import { ProjectNavigation } from '@/components/project/ProjectNavigation';
+import {isWallPaintingMaterial} from '@/features/calculator/wallPaint';
 import { parseDecimal } from '@/shared/lib/number';
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Alert, Platform, Share } from 'react-native';
@@ -481,6 +482,14 @@ export default function ProjectDetailScreen() {
         showsVerticalScrollIndicator={false}
       >
         {['overview', 'shopping', 'budget'].includes(tab) && <View style={{marginBottom:16}}><ProjectPurchaseSummary snapshot={lastPurchase?.scope === purchaseScope ? lastPurchase.snapshot : null} onCompare={() => setTab('estimate')}/></View>}
+        {calc?.materials.some(line => line.quantityKnown === false && isWallPaintingMaterial(calc.jobId, line.material.id)) && ['overview', 'shopping', 'estimate', 'budget'].includes(tab) && <View accessibilityRole="alert" style={{ marginBottom: 16, gap: 10, padding: 16, borderWidth: 1, borderColor: Colors.warning, borderRadius: 16, backgroundColor: Colors.warningBg }}>
+          <Txt w="semibold">{language === 'pl' ? 'Potwierdź ilości farby i gruntu' : 'Confirm paint and primer quantities'}</Txt>
+          <Txt style={{ color: Colors.textSecondary, lineHeight: 21 }}>{language === 'pl'
+            ? 'Przed porównaniem całego zestawu sprawdź powierzchnię, wydajność farby oraz osobne zużycie i liczbę aplikacji gruntu. Zapisz obmiary, aby przeliczyć pełne opakowania.'
+            : 'Before comparing the complete basket, check the area, paint coverage, and separate primer usage and application count. Save the measurements to recalculate whole containers.'}</Txt>
+          <Button label={language === 'pl' ? 'Przelicz ilości materiałów' : 'Recalculate material quantities'} variant="outline"
+            onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: project.id } })}/>
+        </View>}
         {project.jobId === 'sink-installation' && ['overview', 'shopping', 'estimate'].includes(tab) && <View style={{ marginBottom: 16, gap: 8, padding: 16, borderWidth: 1, borderColor: Colors.border, borderRadius: 16, backgroundColor: Colors.surface }}>
           <Txt w="semibold">{language === 'pl' ? 'Mocowania umywalki' : 'Basin fixings'}</Txt>
           <Txt style={{ color: Colors.textSecondary, lineHeight: 21 }}>{calc?.measurements.sinkFixingChoice === 1
