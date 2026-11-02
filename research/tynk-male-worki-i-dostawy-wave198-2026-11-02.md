@@ -1,6 +1,6 @@
 # Małe worki Goldband i wspólna dostawa — W198, 2026-11-02
 
-Status: implementacja i testy adaptera zakończone; pełny odbiór kandydata oraz publikacja jeszcze przed nami.
+Status: wdrożone i odebrane publicznie 2026-11-02. Źródło aplikacji i API: `4ad7867515dda6676b08279032ffc83009e34497`. Potwierdzono 18 scenariuszy publicznego UI, 7 rzeczywistych HTTP i zgodność 150 plików API. Poniżej opis wdrożonej zmiany oraz wcześniejszych etapów kontroli.
 
 ## Problem użytkownika
 
@@ -82,3 +82,29 @@ Szersza kontrola czytnika wykryła stare założenia testów o pierwszej pozycji
 Poza powyższymi testami przed tą korektą potwierdzono 586 testów mobile, 237 obliczeń cen, 165 API-lib, 223 adapterów, 30 dodatkowych transportu i 1064 współdzielonego backendu, bez pominięć. Grupy częściowo się pokrywają; nie sumować ich jako liczby unikalnych testów. Po końcowej korekcie wymagane jest ponowne sprawdzenie odpowiednich grup i finalnego artefaktu. Odbiór UI i publikacja nadal pozostają do wykonania.
 
 Pierwszy pełny odbiór lokalnego UI na źródle `cefe523cbe833edf113165b5b550810e911de401`: 18 scenariuszy PASS, 8 rzeczywistych odpowiedzi API, 0 błędów strony i 0 odpowiedzi 429. Sprawdzono import/eksport czterech projektów, edytor 5/10 kg i zachowanie 30 kg, ponowny dobór gruntu po zmianie worka, pełną recepturę i wspólny koszyk, minimum 25 listew widoczne w planie, prawdziwe zdjęcia obu nowych worków, dokładny link narożnika, kopię planu zakupów, 320/390 px, drugi kod pocztowy, odświeżenie cen oraz brak dwóch akcesoriów w pojedynczym sklepie. Intercept lokalnego UI przekazywał niezmienione rzeczywiste odpowiedzi lokalnego API; nie podstawiano ofert ani transportu. Fotografia 10 kg pojawia się po rozwinięciu karty produktów sklepu — pierwszy test błędnie oczekiwał jej przy zwiniętej karcie. Finalny build wymaga ponownego odbioru po zawężeniu kontroli JSON-LD.
+
+## Publikacja i końcowy odbiór
+
+- API `09445f55-472a-4bbf-af21-b91b5f3a3547`: SUCCESS 2026-11-02T08:43:56.967Z.
+- WWW `9054c94e-c051-411e-af86-1f6568a5ed58`: SUCCESS 2026-11-02T08:46:11.600Z.
+- [PR backendu nr 178](https://github.com/jakatora/przetargai/pull/178): head `828c988af3341ec04670301bf2f4d6828c980d90`, scalony jako `b8cae1ec2ff2909e7022350608a715b7103efdb8`. Statusy CI były puste; nie przedstawia się tego jako zielonego CI.
+- Bundle API SHA256 `11bc3eb159aacfcb140f5942783d5e9c770372b46d677db54e78d6a975b57b90`. Pobrane po wdrożeniu wszystkie 150 plików odpowiadają kandydatowi. Zmieniono wyłącznie bundle i seed; pozostałe 148 plików zachowano.
+- Finalne źródło: 237 testów cen, 165 API-lib, 223 adapterów, 16 czytnika, 30 transportu oraz 1064 backendu współdzielonego PASS, bez pominięć. 586 testów mobile, typy i 66 ID PASS na identycznym kodzie mobile; zgodność całych katalogów mobile i pricing-service z testowanym źródłem `0fa6f95ee2d3ec0386345d4141c7fc8e79cff631` sprawdzono przez Git.
+- Lokalnie i publicznie po 18 scenariuszy UI oraz 8 rzeczywistych odpowiedzi wycen, 0 błędów strony i 0 odpowiedzi 429. Publiczne UI korzystało bezpośrednio z publicznego API, bez interceptowania i podstawiania odpowiedzi. Dodatkowo po 7 rzeczywistych scenariuszy HTTP na końcowym źródle.
+- Publiczne zrzuty 320/390 px obejrzano: brak poziomego overflow, pełna kwota, rozróżnienie dwóch wycen dla kodu i jednej taryfy krajowej oraz jawne niepełne porównanie przy nieznanej alternatywie. Nie jest to pełny audyt WCAG wszystkich istniejących kolorów.
+- Oba zdjęcia worków ładowały się w rzeczywistym publicznym UI. Obejrzano też ich pierwotne grafiki: sklep używa podobnego wspólnego opakowania Goldband, dlatego rozmiary rozróżniają jawne nazwy, pojemności i GTIN. Nie tworzono zastępczych obrazów produktu ani binarnych zdjęć w repo.
+- 63 publiczne zasoby zgodne SHA256, 17 315 221 B. Sprawdzono 82 wartości vaulta, 0 wycieków. Osiem z dziewięciu plików hostingu pozostaje identycznych z W197; zmienił się tylko relay dostaw. Trasy aplikacji 200, prywatne pliki 404, nieuwierzytelniony relay POST 401, nagłówki ochronne i polski język dokumentu zachowane.
+
+Publiczny katalog: **251 referencji / 219 potwierdzonych / 333 oferty / 32 wcześniejsze luki**, 238 wierszy katalogu i cztery odrębne tożsamości SKU sprzedawców. Nie mylić potwierdzenia produktu z potwierdzeniem dostawy; snapshot katalogu ma `deliveryIncluded:false`.
+
+Końcowy dowód: 2026-11-02T08:50:12.450Z. Ostatnia widoczna pełna receptura miała 494,73 + 133,01 = 627,74 PLN, a oryginalne wyceny dostawy pozostawały ważne wtedy do 08:54:35–38 UTC. Dat nie przedłużano; kolejne zakupy wymagają aktualnej wyceny sklepu. Wariant dwóch pełnych prac kosztował 650,20 PLN w badanym porównaniu i zachowywał komunikat o niepełnym porównaniu alternatywnych transportów.
+
+## Historia cen i kontrola kwot
+
+Seed zachowuje 369 pierwotnych obserwacji i cztery dopisane rzeczywiste odczyty. Cache po wdrożeniu zawierał 370 obserwacji zamiast 367; wszystkie 367 wcześniejszych zachowano. Historia zmieniła się z 13 252 do 13 531 punktów. Zachowano 13 199 dawnych punktów; dziewięć usunięto zgodnie z limitem 60 na ofertę, a 44 dawne punkty narożnika miały poprzednią tożsamość warunków zakupu bez poprawionego minimum 25. To jedyna zmieniona tożsamość. Audyt nie wykazał innych utraconych punktów. Nie przenoszono starej serii pod nową tożsamość, aby udawać ciągłość warunków zakupu.
+
+Cztery sprawdzane serie mają rzeczywiste dane, bez sztucznej promocji: Goldband 5 kg 2 punkty, 10 kg 3 punkty, Betokontakt 3 punkty, narożnik Unimet 4 punkty. We wszystkich ostatnia cena jednostkowa była równa poprzedniej, delta 0. Minimum 25 sztuk nie jest podwyżką ceny jednej listwy. Obliczenia i kwoty końcowe weryfikowano w groszach, na całych rzeczywistych koszykach, z odrębnym potwierdzeniem kodu, kuriera i kwoty przelewu. Nieznane koszty oraz braki nie stają się zerem. To są punkty kontroli ścieżki pieniędzy istotne dla tej zmiany; dowodem są opisane rzeczywiste HTTP i UI, oprócz regresji jednostkowych.
+
+Artefakty odbioru: `G:/Projekty/asystent-remontu-work/wave198-20261102`. Wszystkie własne procesy testów i konteksty Edge zakończono; ostatni lokalny serwer PID 54784 / session 87950 zatrzymany poprawnie po 348 żądaniach do sklepów w tym procesie. Cudze WIP pozostało nietknięte.
+
+Cel rozwoju pozostaje aktywny. Następny priorytet: zweryfikowana alternatywa narożnika na pojedyncze sztuki (m.in. rzeczywisty koszyk Adamex), uzupełnianie 32 luk oraz pomiar opóźnień i kosztu wycen. Pilotaż z użytkownikami pozostaje proponowanym kierunkiem; nie włączano płatności, afiliacji ani outreach.
