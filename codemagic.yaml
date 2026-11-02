@@ -291,3 +291,55 @@ workflows:
       - native-smoke.xml
       - simulator-build.log
       - ~/.maestro/tests/**
+
+  android-release-smoke:
+    name: Remont Asystent — frozen release APK acceptance
+    instance_type: linux_x2
+    max_build_duration: 45
+    environment:
+      groups:
+        - native_acceptance
+      vars:
+        CI: "1"
+        MAESTRO_CLI_NO_ANALYTICS: "true"
+        MAESTRO_VERSION: "2.12.0"
+      node: 22.19.0
+      java: 17
+    scripts:
+      - name: Verify the exact signed release APK
+        script: |
+          cd "$CM_BUILD_DIR"
+          curl -fL --retry 2 "$REMONT_NATIVE_APK_URL" -o android-qa.apk
+          echo "5056d8cc2e0cf68069fbf64b4f7a7ace372ed9275c6ce9e02c70c4feb45567e3  android-qa.apk" | sha256sum -c -
+      - name: Boot a disposable rootable Android 15 emulator
+        script: |
+          cd "$CM_BUILD_DIR"
+          sdkmanager "system-images;android-35;google_apis;x86_64"
+          echo no | avdmanager create avd --name RemontNative35 --package "system-images;android-35;google_apis;x86_64" --device pixel_6
+          "$ANDROID_HOME/emulator/emulator" -avd RemontNative35 -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -skin 1080x2400 > android-emulator.log 2>&1 &
+          adb wait-for-device
+          for ATTEMPT in $(seq 1 120); do
+            if [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; then break; fi
+            sleep 2
+          done
+          test "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1"
+          adb root
+          adb wait-for-device
+          adb shell input keyevent 82
+          adb install android-qa.apk
+          adb shell am start -n pl.asystentremontu.app/.MainActivity
+          python3 scripts/ci/seed-android-smoke.py
+      - name: Native release project, real quotes and screenshots
+        script: |
+          cd "$CM_BUILD_DIR"
+          curl -fsSL https://get.maestro.mobile.dev | bash
+          export PATH="$HOME/.maestro/bin:$PATH"
+          mkdir -p native-screens
+          maestro test --format junit --output android-native-smoke.xml scripts/ci/android-smoke.yaml
+          adb logcat -d > android-native-logcat.txt
+    artifacts:
+      - native-screens/*.png
+      - android-native-smoke.xml
+      - android-emulator.log
+      - android-native-logcat.txt
+      - ~/.maestro/tests/**
