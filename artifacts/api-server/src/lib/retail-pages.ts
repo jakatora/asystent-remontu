@@ -1,3 +1,4 @@
+import {confirmAtlasWoderSource,confirmAtlasWoderPurchase} from './atlas-woder-packs';
 import {confirmMapeiSupplyPurchase} from './mapei-supplies';
 import {confirmCeresitPrimerSource} from './ceresit-primers';
 import {readElmasProduct} from './elmas-product';
@@ -234,6 +235,7 @@ export function retailPriceIsValid(validUntil: unknown, now: Date): boolean {
 }
 
 export async function readRetailSource(source: RetailSource, fetchImpl: typeof fetch = fetch): Promise<RetailObservation> {
+  confirmAtlasWoderSource(source);
   if (source.disabledReason) throw Error(source.disabledReason);
   if(source.format==='idosell'&&quoteRelayEnabled(source.store)){
     const originalFetch=fetchImpl,deadline=AbortSignal.timeout(20000);
@@ -363,6 +365,7 @@ export async function readRetailSource(source: RetailSource, fetchImpl: typeof f
  * source: https://liderzycen.pl/pl/p/Panele-podlogowe-laminowane-wodoodporne-Classen-Dab-Niasa-AC5-1%2C973-m2/31535
  */
 export function confirmShoperPurchaseUnit(item: Record<string, any>, source: RetailSource): void {
+  confirmAtlasWoderPurchase(item,source);
   confirmKnaufFinishPurchase(item,source);
   confirmPaintingTapePurchase(item,source);
   confirmMapeiSupplyPurchase(item,source);

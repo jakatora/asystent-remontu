@@ -1,3 +1,4 @@
+import {ATLAS_WODER_E_SOURCES} from './atlas-woder-packs';
 import type { RetailSource } from './retail-pages';
 import {CERESIT_PRIMER_SOURCES} from './ceresit-primers';
 import {ELMAS_SOURCES} from './elmas-source';
@@ -12,6 +13,7 @@ import {KNAUF_FINISH_SOURCES} from './knauf-finishes';
 
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
+  ...ATLAS_WODER_E_SOURCES,
   ...KNAUF_FINISH_SOURCES,
   ...PAINTING_TAPE_SOURCES,
   // source: https://sklep.sewera.pl/folia-w-plynie-mapegum-wps-5kg-mapei-p7751

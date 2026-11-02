@@ -604,6 +604,10 @@ export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
   {"ids":["mat-seat-cersanit-carina-softclose"],"ean":"5907720651084","sourceUrl":"https://tgs.pl/pl/p/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem/4896","imageUrl":"https://tgs.pl/environment/cache/images/productGfx_112712_500_500/Cersanit-Carina-deska-wolnoopadajaca-z-latwym-wypinaniem..jpg"},
   // source: https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740
   {"ids":["mat-seat-cersanit-carina-slim"],"ean":"5902115712524","sourceUrl":"https://tgs.pl/pl/p/Cersanit-Carina-deska-wc-slim-antybakteryjna%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa/12740","imageUrl":"https://tgs.pl/environment/cache/images/productGfx_112916_500_500/a%2Cwolnoopadajaca%2Clatwe-wypinanie%2Cduroplastowa.jpg"},
+  // source: https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg
+  {"ids":["mat-waterproof-membrane-atlas-woder-e-2kg"],"ean":"5905400514483","sourceUrl":"https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_129684_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-2-KG.webp"},
+  // source: https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg
+  {"ids":["mat-waterproof-membrane-atlas-woder-e-5kg"],"ean":"5905400514490","sourceUrl":"https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg","imageUrl":"https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp"},
 ];
 
 export function getProductPhoto(product: {

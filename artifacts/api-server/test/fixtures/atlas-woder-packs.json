@@ -1,0 +1,1478 @@
+{
+  "capturedAt": "2026-11-02T01:59:41.713Z",
+  "description": "Actual public Lobo API responses from fresh anonymous carts. Only fields used by the production adapter; no cookie/session/contact/customer data. Sewera postcode proofs are saved separately in the private research artifacts.",
+  "products": [
+    {
+      "sourceId": "lobo-atlas-woder-e-2kg",
+      "product": {
+        "id": 55847,
+        "name": "ATLAS WODER E Szybkoschnąca folia w płynie 2 KG",
+        "can_buy": true,
+        "ean": "5905400514483",
+        "code": "n.Woder E - 02",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 55980,
+        "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg",
+        "price": {
+          "gross": {
+            "base": "48,90 zł",
+            "base_float": 48.9,
+            "final": "48,90 zł",
+            "final_float": 48.9,
+            "historical_lowest_price": "58,99 zł",
+            "historical_lowest_price_float": 58.99
+          },
+          "net": {
+            "base": "39,76 zł",
+            "base_float": 39.76,
+            "final": "39,76 zł",
+            "final_float": 39.76,
+            "historical_lowest_price": "47,96 zł",
+            "historical_lowest_price_float": 47.96
+          }
+        },
+        "weight": {
+          "weight_float": 3,
+          "weight": "3 kg"
+        },
+        "producer": {
+          "name": "ATLAS",
+          "id": 81
+        }
+      }
+    },
+    {
+      "sourceId": "lobo-atlas-woder-e-5kg",
+      "product": {
+        "id": 54319,
+        "name": "ATLAS WODER E Szybkoschnąca folia w płynie 5 KG",
+        "can_buy": true,
+        "ean": "5905400514490",
+        "code": "n.WODER E-055",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 54439,
+        "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg",
+        "price": {
+          "gross": {
+            "base": "99,00 zł",
+            "base_float": 99,
+            "final": "99,00 zł",
+            "final_float": 99,
+            "historical_lowest_price": "87,20 zł",
+            "historical_lowest_price_float": 87.2
+          },
+          "net": {
+            "base": "80,49 zł",
+            "base_float": 80.49,
+            "final": "80,49 zł",
+            "final_float": 80.49,
+            "historical_lowest_price": "70,89 zł",
+            "historical_lowest_price_float": 70.89
+          }
+        },
+        "weight": {
+          "weight_float": 7,
+          "weight": "7 kg"
+        },
+        "producer": {
+          "name": "ATLAS",
+          "id": 81
+        }
+      }
+    },
+    {
+      "sourceId": "lobo-atlas-woder-e-15kg",
+      "product": {
+        "id": 59282,
+        "name": "ATLAS WODER E Szybkoschnąca folia w płynie 15 KG",
+        "can_buy": true,
+        "ean": "5905400514506",
+        "code": "n.Woder E - 15",
+        "package": "0",
+        "unit": {
+          "name": "szt.",
+          "floating_point": false
+        },
+        "stockId": 59418,
+        "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-15-kg",
+        "price": {
+          "gross": {
+            "base": "249,00 zł",
+            "base_float": 249,
+            "final": "249,00 zł",
+            "final_float": 249,
+            "historical_lowest_price": "289,00 zł",
+            "historical_lowest_price_float": 289
+          },
+          "net": {
+            "base": "202,44 zł",
+            "base_float": 202.44,
+            "final": "202,44 zł",
+            "final_float": 202.44,
+            "historical_lowest_price": "234,96 zł",
+            "historical_lowest_price_float": 234.96
+          }
+        },
+        "weight": {
+          "weight_float": 16,
+          "weight": "16 kg"
+        },
+        "producer": {
+          "name": "ATLAS",
+          "id": 81
+        }
+      }
+    }
+  ],
+  "baskets": [
+    {
+      "name": "lobo2",
+      "order": {
+        "store": "Lobo",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5905400514483",
+              "name": "ATLAS WODER E Szybkoschnąca folia w płynie 2 KG",
+              "ean": "5905400514483",
+              "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_129684_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-2-KG.webp"
+            },
+            "unit": "kg",
+            "quantity": 2,
+            "packages": [
+              {
+                "offerId": "lobo-atlas-woder-e-2kg",
+                "store": "Lobo",
+                "count": 1,
+                "packageSize": 2,
+                "unitPriceGrosze": 4890,
+                "lineCostGrosze": 4890,
+                "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg"
+              }
+            ]
+          }
+        ],
+        "materialsGrosze": 4890
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 2290,
+      "records": [
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/products/PLN/55847",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "id": 55847,
+            "name": "ATLAS WODER E Szybkoschnąca folia w płynie 2 KG",
+            "can_buy": true,
+            "ean": "5905400514483",
+            "code": "n.Woder E - 02",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 55980,
+            "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg",
+            "price": {
+              "gross": {
+                "base": "48,90 zł",
+                "base_float": 48.9,
+                "final": "48,90 zł",
+                "final_float": 48.9,
+                "historical_lowest_price": "58,99 zł",
+                "historical_lowest_price_float": 58.99
+              },
+              "net": {
+                "base": "39,76 zł",
+                "base_float": 39.76,
+                "final": "39,76 zł",
+                "final_float": 39.76,
+                "historical_lowest_price": "47,96 zł",
+                "historical_lowest_price_float": 47.96
+              }
+            },
+            "weight": {
+              "weight_float": 3,
+              "weight": "3 kg"
+            },
+            "producer": {
+              "name": "ATLAS",
+              "id": 81
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "status": 200,
+          "body": {
+            "stock_id": 55980,
+            "quantity": 1
+          },
+          "response": {
+            "basket": {},
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Produkt dodany do koszyka."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "products": [
+              {
+                "stock_id": 55980,
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "48,90 zł",
+                "price_float": 48.9,
+                "sum": "48,90 zł",
+                "sum_float": 48.9
+              }
+            ],
+            "basket": {
+              "sum_products": "48,90 zł",
+              "sum_products_float": 48.9
+            },
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "shippings": [
+              {
+                "shipping_id": 26,
+                "selected": true,
+                "title": "InPost Paczkomat 24/7  -        ",
+                "description": "Na następny dzień roboczy",
+                "cost": "18,99 zł",
+                "cost_float": 18.99,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "18,99 zł",
+                    "cost_float": 18.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 25,
+                "selected": false,
+                "title": "Przesyłka kurierska (InPost)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "22,90 zł",
+                "cost_float": 22.9,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "22,90 zł",
+                    "cost_float": 22.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 17,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "24,90 zł",
+                "cost_float": 24.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "24,90 zł",
+                    "cost_float": 24.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 23,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL) - pobranie ",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów. Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "25,90 zł",
+                "cost_float": 25.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 18,
+                    "additional_cost": "39,90 zł",
+                    "additional_cost_float": 39.9
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "25,90 zł",
+                    "cost_float": 25.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 1,
+                "selected": false,
+                "title": "Odbiór osobisty",
+                "description": "- Poznań, ul. Czarnieckiego 12",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 16,
+                "selected": false,
+                "title": "Dostawa na terenie Poznania (Darmowa powyżej 500 PLN)",
+                "description": "",
+                "cost": "16,90 zł",
+                "cost_float": 16.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "16,90 zł",
+                    "cost_float": 16.9
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 16,
+                "selected": true,
+                "name": "transfer",
+                "title": "Przelew tradycyjny.       ",
+                "description": "          UWAGA: Towar zostanie wysłany po zaksięgowaniu wpłaty na naszym koncie (1-2 dni robocze od momentu zlecenia dyspozycji przelewu)."
+              },
+              {
+                "payment_id": 24,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "lobo5",
+      "order": {
+        "store": "Lobo",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5905400514490",
+              "name": "ATLAS WODER E Szybkoschnąca folia w płynie 5 KG",
+              "ean": "5905400514490",
+              "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp"
+            },
+            "unit": "kg",
+            "quantity": 5,
+            "packages": [
+              {
+                "offerId": "lobo-atlas-woder-e-5kg",
+                "store": "Lobo",
+                "count": 1,
+                "packageSize": 5,
+                "unitPriceGrosze": 9900,
+                "lineCostGrosze": 9900,
+                "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg"
+              }
+            ]
+          }
+        ],
+        "materialsGrosze": 9900
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 2290,
+      "records": [
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/products/PLN/54319",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "id": 54319,
+            "name": "ATLAS WODER E Szybkoschnąca folia w płynie 5 KG",
+            "can_buy": true,
+            "ean": "5905400514490",
+            "code": "n.WODER E-055",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 54439,
+            "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg",
+            "price": {
+              "gross": {
+                "base": "99,00 zł",
+                "base_float": 99,
+                "final": "99,00 zł",
+                "final_float": 99,
+                "historical_lowest_price": "87,20 zł",
+                "historical_lowest_price_float": 87.2
+              },
+              "net": {
+                "base": "80,49 zł",
+                "base_float": 80.49,
+                "final": "80,49 zł",
+                "final_float": 80.49,
+                "historical_lowest_price": "70,89 zł",
+                "historical_lowest_price_float": 70.89
+              }
+            },
+            "weight": {
+              "weight_float": 7,
+              "weight": "7 kg"
+            },
+            "producer": {
+              "name": "ATLAS",
+              "id": 81
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "status": 200,
+          "body": {
+            "stock_id": 54439,
+            "quantity": 1
+          },
+          "response": {
+            "basket": {},
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Produkt dodany do koszyka."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "products": [
+              {
+                "stock_id": 54439,
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "99,00 zł",
+                "price_float": 99,
+                "sum": "99,00 zł",
+                "sum_float": 99
+              }
+            ],
+            "basket": {
+              "sum_products": "99,00 zł",
+              "sum_products_float": 99
+            },
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "shippings": [
+              {
+                "shipping_id": 26,
+                "selected": true,
+                "title": "InPost Paczkomat 24/7  -        ",
+                "description": "Na następny dzień roboczy",
+                "cost": "18,99 zł",
+                "cost_float": 18.99,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "18,99 zł",
+                    "cost_float": 18.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 25,
+                "selected": false,
+                "title": "Przesyłka kurierska (InPost)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "22,90 zł",
+                "cost_float": 22.9,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "22,90 zł",
+                    "cost_float": 22.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 17,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "24,90 zł",
+                "cost_float": 24.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "24,90 zł",
+                    "cost_float": 24.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 23,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL) - pobranie ",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów. Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "25,90 zł",
+                "cost_float": 25.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 18,
+                    "additional_cost": "39,90 zł",
+                    "additional_cost_float": 39.9
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "25,90 zł",
+                    "cost_float": 25.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 1,
+                "selected": false,
+                "title": "Odbiór osobisty",
+                "description": "- Poznań, ul. Czarnieckiego 12",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 16,
+                "selected": false,
+                "title": "Dostawa na terenie Poznania (Darmowa powyżej 500 PLN)",
+                "description": "",
+                "cost": "16,90 zł",
+                "cost_float": 16.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "16,90 zł",
+                    "cost_float": 16.9
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 16,
+                "selected": true,
+                "name": "transfer",
+                "title": "Przelew tradycyjny.       ",
+                "description": "          UWAGA: Towar zostanie wysłany po zaksięgowaniu wpłaty na naszym koncie (1-2 dni robocze od momentu zlecenia dyspozycji przelewu)."
+              },
+              {
+                "payment_id": 24,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "lobo15",
+      "order": {
+        "store": "Lobo",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5905400514506",
+              "name": "ATLAS WODER E Szybkoschnąca folia w płynie 15 KG",
+              "ean": "5905400514506",
+              "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_142134_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-15-KG.webp"
+            },
+            "unit": "kg",
+            "quantity": 15,
+            "packages": [
+              {
+                "offerId": "lobo-atlas-woder-e-15kg",
+                "store": "Lobo",
+                "count": 1,
+                "packageSize": 15,
+                "unitPriceGrosze": 24900,
+                "lineCostGrosze": 24900,
+                "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-15-kg"
+              }
+            ]
+          }
+        ],
+        "materialsGrosze": 24900
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 4590,
+      "records": [
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/products/PLN/59282",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "id": 59282,
+            "name": "ATLAS WODER E Szybkoschnąca folia w płynie 15 KG",
+            "can_buy": true,
+            "ean": "5905400514506",
+            "code": "n.Woder E - 15",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 59418,
+            "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-15-kg",
+            "price": {
+              "gross": {
+                "base": "249,00 zł",
+                "base_float": 249,
+                "final": "249,00 zł",
+                "final_float": 249,
+                "historical_lowest_price": "289,00 zł",
+                "historical_lowest_price_float": 289
+              },
+              "net": {
+                "base": "202,44 zł",
+                "base_float": 202.44,
+                "final": "202,44 zł",
+                "final_float": 202.44,
+                "historical_lowest_price": "234,96 zł",
+                "historical_lowest_price_float": 234.96
+              }
+            },
+            "weight": {
+              "weight_float": 16,
+              "weight": "16 kg"
+            },
+            "producer": {
+              "name": "ATLAS",
+              "id": 81
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "status": 200,
+          "body": {
+            "stock_id": 59418,
+            "quantity": 1
+          },
+          "response": {
+            "basket": {},
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Produkt dodany do koszyka."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "products": [
+              {
+                "stock_id": 59418,
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "249,00 zł",
+                "price_float": 249,
+                "sum": "249,00 zł",
+                "sum_float": 249
+              }
+            ],
+            "basket": {
+              "sum_products": "249,00 zł",
+              "sum_products_float": 249
+            },
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "shippings": [
+              {
+                "shipping_id": 26,
+                "selected": true,
+                "title": "InPost Paczkomat 24/7  -        ",
+                "description": "Na następny dzień roboczy",
+                "cost": "37,90 zł",
+                "cost_float": 37.9,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "37,90 zł",
+                    "cost_float": 37.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 25,
+                "selected": false,
+                "title": "Przesyłka kurierska (InPost)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "45,90 zł",
+                "cost_float": 45.9,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "45,90 zł",
+                    "cost_float": 45.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 17,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "49,00 zł",
+                "cost_float": 49,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "49,00 zł",
+                    "cost_float": 49
+                  }
+                ]
+              },
+              {
+                "shipping_id": 23,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL) - pobranie ",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów. Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "49,90 zł",
+                "cost_float": 49.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 18,
+                    "additional_cost": "39,90 zł",
+                    "additional_cost_float": 39.9
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "49,90 zł",
+                    "cost_float": 49.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 1,
+                "selected": false,
+                "title": "Odbiór osobisty",
+                "description": "- Poznań, ul. Czarnieckiego 12",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 16,
+                "selected": false,
+                "title": "Dostawa na terenie Poznania (Darmowa powyżej 500 PLN)",
+                "description": "",
+                "cost": "16,90 zł",
+                "cost_float": 16.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "16,90 zł",
+                    "cost_float": 16.9
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 16,
+                "selected": true,
+                "name": "transfer",
+                "title": "Przelew tradycyjny.       ",
+                "description": "          UWAGA: Towar zostanie wysłany po zaksięgowaniu wpłaty na naszym koncie (1-2 dni robocze od momentu zlecenia dyspozycji przelewu)."
+              },
+              {
+                "payment_id": 24,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "lobo-mixed",
+      "order": {
+        "store": "Lobo",
+        "lines": [
+          {
+            "product": {
+              "id": "remont-5905400514483",
+              "name": "ATLAS WODER E Szybkoschnąca folia w płynie 2 KG",
+              "ean": "5905400514483",
+              "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_129684_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-2-KG.webp"
+            },
+            "unit": "kg",
+            "quantity": 2,
+            "packages": [
+              {
+                "offerId": "lobo-atlas-woder-e-2kg",
+                "store": "Lobo",
+                "count": 1,
+                "packageSize": 2,
+                "unitPriceGrosze": 4890,
+                "lineCostGrosze": 4890,
+                "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg"
+              }
+            ]
+          },
+          {
+            "product": {
+              "id": "remont-5905400514490",
+              "name": "ATLAS WODER E Szybkoschnąca folia w płynie 5 KG",
+              "ean": "5905400514490",
+              "imageUrl": "https://lobo.pl/environment/cache/images/productGfx_122194_500_500/ATLAS-WODER-E-Szybkoschnaca-folia-w-plynie-5-KG.webp"
+            },
+            "unit": "kg",
+            "quantity": 5,
+            "packages": [
+              {
+                "offerId": "lobo-atlas-woder-e-5kg",
+                "store": "Lobo",
+                "count": 1,
+                "packageSize": 5,
+                "unitPriceGrosze": 9900,
+                "lineCostGrosze": 9900,
+                "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg"
+              }
+            ]
+          }
+        ],
+        "materialsGrosze": 14790
+      },
+      "postcode": "30-001",
+      "expectedCostGrosze": 2290,
+      "records": [
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/products/PLN/55847",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "id": 55847,
+            "name": "ATLAS WODER E Szybkoschnąca folia w płynie 2 KG",
+            "can_buy": true,
+            "ean": "5905400514483",
+            "code": "n.Woder E - 02",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 55980,
+            "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-2-kg",
+            "price": {
+              "gross": {
+                "base": "48,90 zł",
+                "base_float": 48.9,
+                "final": "48,90 zł",
+                "final_float": 48.9,
+                "historical_lowest_price": "58,99 zł",
+                "historical_lowest_price_float": 58.99
+              },
+              "net": {
+                "base": "39,76 zł",
+                "base_float": 39.76,
+                "final": "39,76 zł",
+                "final_float": 39.76,
+                "historical_lowest_price": "47,96 zł",
+                "historical_lowest_price_float": 47.96
+              }
+            },
+            "weight": {
+              "weight_float": 3,
+              "weight": "3 kg"
+            },
+            "producer": {
+              "name": "ATLAS",
+              "id": 81
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "status": 200,
+          "body": {
+            "stock_id": 55980,
+            "quantity": 1
+          },
+          "response": {
+            "basket": {},
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Produkt dodany do koszyka."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/products/PLN/54319",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "id": 54319,
+            "name": "ATLAS WODER E Szybkoschnąca folia w płynie 5 KG",
+            "can_buy": true,
+            "ean": "5905400514490",
+            "code": "n.WODER E-055",
+            "package": "0",
+            "unit": {
+              "name": "szt.",
+              "floating_point": false
+            },
+            "stockId": 54439,
+            "url": "https://lobo.pl/atlas-woder-e-szybkoschnaca-folia-w-plynie-5-kg",
+            "price": {
+              "gross": {
+                "base": "99,00 zł",
+                "base_float": 99,
+                "final": "99,00 zł",
+                "final_float": 99,
+                "historical_lowest_price": "87,20 zł",
+                "historical_lowest_price_float": 87.2
+              },
+              "net": {
+                "base": "80,49 zł",
+                "base_float": 80.49,
+                "final": "80,49 zł",
+                "final_float": 80.49,
+                "historical_lowest_price": "70,89 zł",
+                "historical_lowest_price_float": 70.89
+              }
+            },
+            "weight": {
+              "weight_float": 7,
+              "weight": "7 kg"
+            },
+            "producer": {
+              "name": "ATLAS",
+              "id": 81
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "POST",
+          "status": 200,
+          "body": {
+            "stock_id": 54439,
+            "quantity": 1
+          },
+          "response": {
+            "basket": {},
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": [
+                "Produkt dodany do koszyka."
+              ]
+            }
+          }
+        },
+        {
+          "origin": "https://lobo.pl",
+          "path": "/webapi/front/pl_PL/basket/PLN/",
+          "method": "GET",
+          "status": 200,
+          "body": null,
+          "response": {
+            "products": [
+              {
+                "stock_id": 55980,
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "48,90 zł",
+                "price_float": 48.9,
+                "sum": "48,90 zł",
+                "sum_float": 48.9
+              },
+              {
+                "stock_id": 54439,
+                "quantity": 1,
+                "unit": {
+                  "name": "szt.",
+                  "floating_point": false
+                },
+                "price": "99,00 zł",
+                "price_float": 99,
+                "sum": "99,00 zł",
+                "sum_float": 99
+              }
+            ],
+            "basket": {
+              "sum_products": "147,90 zł",
+              "sum_products_float": 147.9
+            },
+            "countries": [
+              {
+                "id": 179,
+                "name": "Polska",
+                "selected": true
+              }
+            ],
+            "shippings": [
+              {
+                "shipping_id": 26,
+                "selected": true,
+                "title": "InPost Paczkomat 24/7  -        ",
+                "description": "Na następny dzień roboczy",
+                "cost": "18,99 zł",
+                "cost_float": 18.99,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "18,99 zł",
+                    "cost_float": 18.99
+                  }
+                ]
+              },
+              {
+                "shipping_id": 25,
+                "selected": false,
+                "title": "Przesyłka kurierska (InPost)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "22,90 zł",
+                "cost_float": 22.9,
+                "engine": "inpost",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "22,90 zł",
+                    "cost_float": 22.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 17,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL)",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów.  Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "24,90 zł",
+                "cost_float": 24.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "24,90 zł",
+                    "cost_float": 24.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 23,
+                "selected": false,
+                "title": "Przesyłka kurierska (DHL) - pobranie ",
+                "description": "UWAGA -  Opłata naliczana w zależności od wagi produktów. Przesyłki paletowe nie zawierają usługi wniesienia. ",
+                "cost": "25,90 zł",
+                "cost_float": 25.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 18,
+                    "additional_cost": "39,90 zł",
+                    "additional_cost_float": 39.9
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "25,90 zł",
+                    "cost_float": 25.9
+                  }
+                ]
+              },
+              {
+                "shipping_id": 1,
+                "selected": false,
+                "title": "Odbiór osobisty",
+                "description": "- Poznań, ul. Czarnieckiego 12",
+                "cost": "0,00 zł",
+                "cost_float": 0,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "0,00 zł",
+                    "cost_float": 0
+                  }
+                ]
+              },
+              {
+                "shipping_id": 16,
+                "selected": false,
+                "title": "Dostawa na terenie Poznania (Darmowa powyżej 500 PLN)",
+                "description": "",
+                "cost": "16,90 zł",
+                "cost_float": 16.9,
+                "engine": "",
+                "payments": [
+                  {
+                    "payment_id": 16
+                  },
+                  {
+                    "payment_id": 24
+                  }
+                ],
+                "countries": [
+                  {
+                    "id": 179,
+                    "cost": "16,90 zł",
+                    "cost_float": 16.9
+                  }
+                ]
+              }
+            ],
+            "payments": [
+              {
+                "payment_id": 16,
+                "selected": true,
+                "name": "transfer",
+                "title": "Przelew tradycyjny.       ",
+                "description": "          UWAGA: Towar zostanie wysłany po zaksięgowaniu wpłaty na naszym koncie (1-2 dni robocze od momentu zlecenia dyspozycji przelewu)."
+              },
+              {
+                "payment_id": 24,
+                "selected": false,
+                "name": "shoperP24",
+                "title": "Przelewy24",
+                "description": ""
+              },
+              {
+                "payment_id": 18,
+                "selected": false,
+                "name": "cod",
+                "title": "Pobranie",
+                "description": ""
+              }
+            ],
+            "_flash_messenger": {
+              "error": [],
+              "warning": [],
+              "info": [],
+              "success": []
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

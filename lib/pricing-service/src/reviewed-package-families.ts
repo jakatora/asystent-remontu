@@ -46,6 +46,15 @@ export const CT17_TRANSPARENT_PACKS=[{ean:'5900089218653',size:5},{ean:'59000892
 export const KNAUF_SUPER_FINISH_FAMILY='knauf-super-finish-kg-v1' as const;
 export const KNAUF_SUPER_FINISH_FAMILY_NAME='Knauf Super Finish — dobór dostępnych opakowań';
 export const KNAUF_SUPER_FINISH_PACKS=[{ean:'5901793357959',size:5.4},{ean:'5901793357942',size:20},{ean:'5901793357935',size:28}] as const;
+// Reviewed factory buckets of Woder E only. No Woder W/Duo substitution,
+// litre conversion or unreviewed 10 kg GTIN inferred from a size list.
+// source: https://www.atlas.com.pl/produkt/atlas-szybkoschnaca-folia-w-plynie-woder-e/
+// source: https://www.grupapsb.com.pl/produkt/szybkoschnaca-folia-w-plynie-2-kg-woder-e-atlas-5905400514483.html
+// source: https://www.grupapsb.com.pl/produkt/szybkoschnaca-folia-w-plynie-5-kg-woder-e-atlas-5905400514490.html
+// source: https://www.grupapsb.com.pl/produkt/folia-w-plynie-woder-e-szybkoschnaca-15-kg-atlas-5905400514506.html
+export const ATLAS_WODER_E_FAMILY='atlas-woder-e-kg-v1' as const;
+export const ATLAS_WODER_E_FAMILY_NAME='Atlas Woder E — dobór dostępnych opakowań';
+export const ATLAS_WODER_E_PACKS=[{ean:'5905400514483',size:2},{ean:'5905400514490',size:5},{ean:'5905400514506',size:15}] as const;
 export const REVIEWED_PACKAGE_FAMILIES = [
   {key:V33_CABINET_FAMILY,name:V33_CABINET_FAMILY_NAME,category:'cabinet-paint',unit:'ml',packs:V33_CABINET_PACKS},
   {key:PRIMER_G_PRO_FAMILY,name:PRIMER_G_PRO_FAMILY_NAME,category:'primer',unit:'l',packs:PRIMER_G_PRO_PACKS},
@@ -53,8 +62,9 @@ export const REVIEWED_PACKAGE_FAMILIES = [
   {key:CT17_PROFI_FAMILY,name:CT17_PROFI_FAMILY_NAME,category:'primer',unit:'l',packs:CT17_PROFI_PACKS},
   {key:CT17_TRANSPARENT_FAMILY,name:CT17_TRANSPARENT_FAMILY_NAME,category:'primer',unit:'l',packs:CT17_TRANSPARENT_PACKS},
   {key:KNAUF_SUPER_FINISH_FAMILY,name:KNAUF_SUPER_FINISH_FAMILY_NAME,category:'skim-coat',unit:'kg',packs:KNAUF_SUPER_FINISH_PACKS},
+  {key:ATLAS_WODER_E_FAMILY,name:ATLAS_WODER_E_FAMILY_NAME,category:'waterproofing',unit:'kg',packs:ATLAS_WODER_E_PACKS},
 ] as const;
-export const REVIEWED_PACKAGE_FAMILY_KEYS=[V33_CABINET_FAMILY,PRIMER_G_PRO_FAMILY,MAPEGUM_WPS_FAMILY,CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,KNAUF_SUPER_FINISH_FAMILY] as const;
+export const REVIEWED_PACKAGE_FAMILY_KEYS=[V33_CABINET_FAMILY,PRIMER_G_PRO_FAMILY,MAPEGUM_WPS_FAMILY,CT17_PROFI_FAMILY,CT17_TRANSPARENT_FAMILY,KNAUF_SUPER_FINISH_FAMILY,ATLAS_WODER_E_FAMILY] as const;
 export type ReviewedPackageFamily = typeof REVIEWED_PACKAGE_FAMILIES[number]['key'];
 export function isReviewedPackageFamilyKey(value:unknown):value is ReviewedPackageFamily{
   return typeof value==='string'&&REVIEWED_PACKAGE_FAMILY_KEYS.some(key=>key===value);
