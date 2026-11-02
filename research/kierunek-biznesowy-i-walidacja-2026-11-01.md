@@ -80,3 +80,30 @@ Pierwsza odpowiedź tego publicznego scenariusza trwała około 37 s. Odrębny l
 Przychód oceniać po zatwierdzeniu zakupów, zwrotach i kosztach; instalacje oraz kliknięcia nie są sprzedażą. Stawkę programu stosować wyłącznie do podstawy i transakcji kwalifikujących się według umowy. Publiczne programy Castoramy i Leroy Merlin odczytano ponownie 2026-11-01; sama ich obecność nie potwierdza uczestnictwa aplikacji ani źródła wyceny transportu.
 
 Ocena rozpoznania potrzeb klientów pozostaje **3/10**. Do poprawy są konkretne braki diagnostyki JTBD: potwierdzenie czterech sił decyzji na podstawie zakupów, dowody wymiaru emocjonalnego i społecznego, osobny pomiar pierwszego użycia i powrotu, powiązanie propozycji funkcji z zadaniem oraz wywiady rekonstruujące rzeczywisty zakup. Rozmowy i gotowość do zapłaty nie zostały zastąpione testami technicznymi.
+
+## Priorytet właścicielski po wave187 — 2026-11-02
+
+Obietnica do sprawdzenia z klientami: „Podaj zakres remontu i kod pocztowy. Dostaniesz kompletną listę właściwych materiałów i porównanie potwierdzonego kosztu zakupu z dostawą”. Najtańszy wynik dotyczy sprawdzonych, kompletnych wariantów; nie jest deklaracją najniższej ceny w całym internecie. Dopasowanie produktu, dostępność, data sprawdzenia i brakujące opłaty pozostają widoczne.
+
+Kolejność rozwoju podporządkować trzem zadaniom: malowaniu, podłodze i hydroizolacji. Nowe produkty i sklepy mają przede wszystkim zamykać braki w tych zadaniach albo zmniejszać koszt lub liczbę dostaw. Rozwój katalogu nadal trwa, w tym weryfikacja Super Finish 20 kg i świadomego doboru opakowań tej samej masy. Niedostępnego towaru nie dodawać jako aktywnej oferty.
+
+Stan techniczny opisuje [wave187](./podsumowanie-dostaw-i-publiczne-koszyki-wave187-2026-11-02.md): 242 referencje, 210 z ofertami, 311 ofert i 32 braki. Jeden publiczny scenariusz 16 pozycji wymagał dziewięciu sklepów i około 34,1 s. To konkretny test techniczny, nie obserwacja klienta lub p95. Wariant „Mniej sklepów” już istnieje; należy mierzyć jego użyteczność i kompletność, a nie planować ponownie tę samą funkcję.
+
+Pierwszy ekran powinien prowadzić od rodzaju pracy i wymiarów do ilości oraz kodu pocztowego, potem do jednego rekomendowanego planu. Obok planu pokazać porównanie kosztu i liczby sklepów, właściwe fotografie, pełne opakowania, pozostałość oraz listę do zakupu w każdym sklepie. Zapotrzebowanie użytkownika pozostaje odrębne od ilości opakowań. Docelowe współdzielenie z wykonawcą i kontrolę wydatków sprawdzić w pilotażu przed budowaniem płatnego zakresu.
+
+### Przychód i pozyskiwanie
+
+- Podstawowe wyliczenie oraz porównanie pozostawić dostępne bez opłaty. Pierwszy potencjalny przychód: oznaczone linki afiliacyjne po przyjęciu aplikacji do programu i sprawdzeniu atrybucji. Prowizja nie wpływa na ranking i nie usuwa sklepów bez umowy.
+- Pakiet dla jednego remontu 49–99 zł oraz abonament ekipy 49–99 zł/mies. pozostają osobnymi hipotezami, nie cennikiem. Dla osoby remontującej sporadycznie testować jednorazową wartość; dla ekipy powtarzalną pracę: wiele projektów, listy dla klientów i zespołu, raporty. Najpierw potwierdzić użyteczność i rzeczywistą gotowość do zapłaty za dostępny zakres.
+- Pierwszy kanał do pilotażu: osoby aktualnie planujące konkretny etap remontu, następnie polecenia małych ekip. Treści i kalkulatory odpowiadające pytaniom o ilości materiałów powinny prowadzić do właściwego gotowego zestawu. To propozycje kanałów do testu, nie dowód ich rentowności.
+- Zwiększenie wydatków na pozyskanie uzależnić od zatwierdzonego przychodu po kosztach wycen, obsługi i pozyskania. Kliknięcia, instalacje, naliczona prowizja oczekująca oraz samodzielne oznaczenie „kupione” nie są zatwierdzoną sprzedażą.
+
+Programy Castoramy i Leroy Merlin ponownie odczytano 2026-11-02: [Tradedoubler](https://directory.tradedoubler.com/pl/programs/383060-Castorama-Afiliacja) publikuje 4% CPS i dopuszcza porównywarki oraz aplikacje mobilne; [VIVnetworks](https://www.vivnetworks.com/pl/affiliate-katalog/leroymerlin-pl/) publikuje 6%, XML feed i S2S. Są to warunki publiczne, nie potwierdzenie umowy tej aplikacji. Nie wdrożono linków partnerskich ani rozliczeń. Feed afiliacyjny nadal nie rozwiązuje automatycznie wyceny dostawy dla kodu pocztowego.
+
+### Najbliższa bramka decyzyjna
+
+Zachować plan pilotażu 2026-11-02–2026-12-01 z poprzedniej sekcji. Najpierw 10 rozmów o ostatnim rzeczywistym zakupie i pięć obserwowanych prób. Potem ocenić 20 rzeczywistych remontów; proponowany próg przed szerszym pozyskiwaniem: 10 samodzielnie ukończonych porównań i pięć potwierdzonych zakupów. Dla abonamentu osobna bramka trzech płacących ekip wracających do następnej realizacji. To minimalne sygnały do dalszego eksperymentu, nie dowód dopasowania do całego rynku.
+
+Mierzyć ukończone, w pełni wycenione zestawy, czas do pierwszego użytecznego wyniku, rezygnacje przy dostawie, koszt i p50/p95 wyceny, przejście do sklepu oraz osobno zakup potwierdzony przez partnera. Dla ekip mierzyć powrót przy kolejnej realizacji. Wyszukanie aktywnych źródeł mobile/lib 2026-11-02 nadal nie znalazło `logEvent`, `trackEvent`, `outbound_click`, `affiliate_click` lub `firebase/analytics`. To ograniczony odczyt kodu, nie dowód braku użytkowników lub każdej możliwej analityki. Nowego śledzenia nie uruchomiono.
+
+Ocena dowodów potrzeb i gotowości do zapłaty pozostaje **3/10** według JTBD. Do zdobycia: rzeczywiste historie zakupów, cztery siły decyzji, potrzeba spokoju i współpracy, osobny pomiar pierwszej wartości i powrotu oraz powiązanie funkcji z ukończonym zadaniem. Testy automatyczne tego nie zastępują. Zapisano rekomendację i kolejność prac; nie uruchomiono kontaktów, reklam, kont partnerskich ani płatności. Ciągły cel rozwoju aplikacji pozostaje aktywny.
