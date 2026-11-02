@@ -1,3 +1,4 @@
+import {confirmRigipsCorner} from './rigips-corners';
 import {confirmDecowantSource,confirmDecowantPurchase} from './decowant-supplies';
 import {confirmAtlasWoderSource,confirmAtlasWoderPurchase} from './atlas-woder-packs';
 import {confirmMapeiSupplyPurchase} from './mapei-supplies';
@@ -192,6 +193,7 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   const product = source.skuIdentity ? products.find(item => item.sku === retailSkuCode(source) && !item.gtin13 && !item.gtin)
     : products.find(item => String(item.gtin13 ?? item.gtin ?? '') === source.ean);
   if (!product) throw new Error('product_ean_not_confirmed');
+  confirmRigipsCorner(html,product,source);
   const name = String(product.name ?? '');
   const normalize = (value: string) => normalizeProductName(value.replace(/(\d|mm|cm|m)\s*[x×/]\s*(?=\d)/gi, '$1 x ').replace(/(\d)([a-zA-Z])/g, '$1 $2'));
   const normalized = normalize(name);

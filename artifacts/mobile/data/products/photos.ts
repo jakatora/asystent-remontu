@@ -14,6 +14,12 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips-p7501
+  {"ids":["mat-gypsum-corner-rigips-235-25m"],"ean":"5905637118041","sourceUrl":"https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips-p7501","imageUrl":"https://sklep.sewera.pl/photo/195931/naroznik-aluminiowy-23-5x23-5mm-2-5m-rigips.webp"},
+
+  // source: https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-3m-rigips-p7500
+  {"ids":["mat-gypsum-corner-rigips-235-3m"],"ean":"5905637118058","sourceUrl":"https://sklep.sewera.pl/naroznik-aluminiowy-23-5x23-5mm-3m-rigips-p7500","imageUrl":"https://sklep.sewera.pl/photo/195935/naroznik-aluminiowy-23-5x23-5mm-3m-rigips.webp"},
+
   {"ids":["mat-plaster-knauf-goldband-5kg"],"ean":"5901793354729","sourceUrl":"https://sklep-kowalczyk.pl/knauf-goldband-gipsowa-zaprawa-tynkarska-5kg-507331-52455-52455.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5901793354729.png"},
 
   {"ids":["mat-plaster-knauf-goldband-10kg"],"ean":"5901793351162","sourceUrl":"https://sklep-kowalczyk.pl/knauf-goldband-gipsowa-zaprawa-tynkarska-10-kg-94713-52454-52454.html","imageUrl":"https://sklep-kowalczyk.pl/media/catalog/product/cache/d24a34bded6d2df740ef66d66d2112c9/5/9/5901793351162.png"},
