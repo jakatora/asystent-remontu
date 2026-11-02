@@ -14,6 +14,14 @@ interface ProductPhoto {
 }
 
 export const PRODUCT_PHOTOS: readonly ProductPhoto[] = [
+  // source: https://buduj24.pl/produkt/19544,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-grey-07
+  {"ids":["mat-grout-ceresit-viva-grey-2kg"],"ean":"9000101173499","sourceUrl":"https://buduj24.pl/produkt/19544,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-grey-07","imageUrl":"https://buduj24.pl/files/_product/19544/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(3).png"},
+  // source: https://buduj24.pl/produkt/19562,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-grey-07
+  {"ids":["mat-grout-ceresit-viva-grey-4kg"],"ean":"9000101174854","sourceUrl":"https://buduj24.pl/produkt/19562,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-grey-07","imageUrl":"https://buduj24.pl/files/_product/19562/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(3).png"},
+  // source: https://buduj24.pl/produkt/19516,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-manhattan-10
+  {"ids":["mat-grout-ceresit-viva-manhattan-2kg"],"ean":"9000101173536","sourceUrl":"https://buduj24.pl/produkt/19516,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-manhattan-10","imageUrl":"https://buduj24.pl/files/_product/19516/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy.png"},
+  // source: https://buduj24.pl/produkt/19561,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-manhattan-10
+  {"ids":["mat-grout-ceresit-viva-manhattan-4kg"],"ean":"9000101174991","sourceUrl":"https://buduj24.pl/produkt/19561,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-manhattan-10","imageUrl":"https://buduj24.pl/files/_product/19561/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy.png"},
   // source: https://buduj24.pl/produkt/19506,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-white-01
   {ids:['mat-grout-ceresit-viva-white-2kg'],ean:'9000101173451',sourceUrl:'https://buduj24.pl/produkt/19506,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-2kg-white-01',imageUrl:'https://buduj24.pl/files/_product/19506/__product_gallery/Kopia%20%E2%80%93%20Projekt%20bez%20nazwy%20(1).png'},
   // source: https://buduj24.pl/produkt/19564,ceresit-fuga-viva-elastyczna-cementowa-1-8-mm-4kg-white-01
