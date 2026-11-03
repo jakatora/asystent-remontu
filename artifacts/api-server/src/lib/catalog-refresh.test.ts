@@ -66,6 +66,8 @@ test('pricing health reports an aging offer and a failed refresh separately with
     assert.equal(find(after).current, 1);
     assert.equal(find(after).olderThanCycle, 1);
     assert.equal(find(after).readErrors, 1);
+    assert.equal(find(after).readErrorBreakdown.httpServer, 1);
+    assert.equal(Object.values(find(after).readErrorBreakdown).reduce((sum, count) => sum + count, 0), 1);
   }, async () => { calls++; return new Response('', { status: 503 }); }, [initial]);
 });
 

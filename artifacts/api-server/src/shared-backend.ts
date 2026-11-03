@@ -234,18 +234,32 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     const eligible = offers.filter(offer => isComparableOffer(offer, now));
     const activeIds = new Set(eligible.map(offer => offer.id));
     const online = RETAIL_SOURCES.filter(source => !source.disabledReason && !source.pickupOnly);
-    const stores = new Map<string, { reviewed: number; current: number; olderThanCycle: number; readErrors: number; outOfStock: number; manualReviewRequired: number }>();
+    const emptyStoreStats = () => ({
+      reviewed: 0, current: 0, olderThanCycle: 0, readErrors: 0, outOfStock: 0, manualReviewRequired: 0,
+      readErrorBreakdown: { httpNotFound: 0, rateLimited: 0, httpServer: 0, httpOther: 0, timeout: 0, connection: 0, other: 0 },
+    });
+    const stores = new Map<string, ReturnType<typeof emptyStoreStats>>();
     for (const source of online) {
-      const stats = stores.get(source.store) ?? { reviewed: 0, current: 0, olderThanCycle: 0, readErrors: 0, outOfStock: 0, manualReviewRequired: 0 };
+      const stats = stores.get(source.store) ?? emptyStoreStats();
       const error = errors.get(source.id);
       stats.reviewed++;
       if (activeIds.has(source.id)) {
         stats.current++;
         if (now - Date.parse(observations.get(source.id)!.observedAt) > REFRESH_INTERVAL_MS) stats.olderThanCycle++;
       }
-      if (error === 'browser_refresh_required') stats.manualReviewRequired++;
+      if (error === 'browser_refresh_required' || error === 'browser_package_review_required') stats.manualReviewRequired++;
       else if (error === 'retailer_out_of_stock') stats.outOfStock++;
-      else if (error) stats.readErrors++;
+      else if (error) {
+        stats.readErrors++;
+        const breakdown = stats.readErrorBreakdown;
+        if (error === 'retailer_http_404') breakdown.httpNotFound++;
+        else if (error === 'retailer_http_429' || error === 'retailer_rate_limited') breakdown.rateLimited++;
+        else if (/^retailer_http_5\d\d$/.test(error)) breakdown.httpServer++;
+        else if (/^retailer_http_\d{3}$/.test(error)) breakdown.httpOther++;
+        else if (error === 'The operation was aborted due to timeout' || error === 'quote_timeout') breakdown.timeout++;
+        else if (error === 'retailer_connection_unavailable' || error === 'fetch failed') breakdown.connection++;
+        else breakdown.other++;
+      }
       stores.set(source.store, stats);
     }
     return {
