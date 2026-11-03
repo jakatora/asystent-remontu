@@ -148,12 +148,12 @@ export default function ProjectBackupScreen(){
   return <><Stack.Screen options={{headerShown:true,title:say('Kopia projektów','Project backup')}}/>
     <ScrollView style={{flex:1,backgroundColor:Colors.background}} contentContainerStyle={{padding:20,paddingBottom:insets.bottom+32,gap:20}}>
       <View style={{maxWidth:760,width:'100%',alignSelf:'center',gap:20}}>
-        <Txt w="bold" style={{fontSize:24,color:Colors.text}}>{say('Kopie remontów i budowy domu','Renovation and house-building backups')}</Txt>
+        <Txt accessibilityRole="header" w="bold" style={{fontSize:24,color:Colors.text}}>{say('Kopie remontów i budowy domu','Renovation and house-building backups')}</Txt>
         <Txt style={{fontSize:15,lineHeight:23,color:Colors.textSecondary}}>{say('Zapisz remont do pliku i wczytaj go w aplikacji na innym urządzeniu lub w przeglądarce. Kopia obejmuje projekty, obmiary, zakupy, wybrane produkty, notatki, checklisty i zdjęcia. Zawiera również wspólny koszyk z dodatkowymi materiałami i wybranymi opakowaniami, nawet gdy nie masz jeszcze projektu.','Save your renovation to a file and import it on another device or in the browser. The backup includes projects, measurements, shopping, selected products, notes, checklists and photos. It also includes the shared basket, additional materials and selected packaging, even without a project.')}</Txt>
         <Txt style={{fontSize:13,lineHeight:20,color:Colors.textMuted}}>{say('Każdy plik kopii może zawierać prywatne dane i ma limit 20 MiB. Kopie remontów i budowy domu zapisujesz osobno.','Each backup file can contain private data and has a 20 MiB limit. Save renovation and house-building backups separately.')}</Txt>
           <View style={card}>
             <Feather name="download" size={24} color={Colors.primary}/>
-            <Txt w="semibold" style={{fontSize:18,color:Colors.text}}>{say('1. Zapisz kopię','1. Save a backup')}</Txt>
+            <Txt accessibilityRole="header" w="semibold" style={{fontSize:18,color:Colors.text}}>{say('1. Zapisz kopię','1. Save a backup')}</Txt>
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say(`Zapisane projekty: ${projects.length}. Zdjęcia zostaną dołączone do pliku.`,`Saved projects: ${projects.length}. Photos will be included in the file.`)}</Txt>
             <Button label={Platform.OS==='web'?say('Pobierz kopię remontu','Download renovation backup'):say('Zapisz lub udostępnij kopię','Save or share backup')} onPress={exportProjects} loading={busy==='export'} disabled={busy!==null}/>
             {renderFeedback('export')}
@@ -163,7 +163,7 @@ export default function ProjectBackupScreen(){
           </View>
           <View style={card}>
             <Feather name="upload" size={24} color={Colors.primary}/>
-            <Txt w="semibold" style={{fontSize:18,color:Colors.text}}>{say('2. Wczytaj na drugim urządzeniu','2. Import on another device')}</Txt>
+            <Txt accessibilityRole="header" w="semibold" style={{fontSize:18,color:Colors.text}}>{say('2. Wczytaj na drugim urządzeniu','2. Import on another device')}</Txt>
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say('Wybierz pobrany plik. Najpierw zobaczysz jego zawartość. Import dodaje projekty i zatrzymuje się przy powtórzonych identyfikatorach — nie zastępuje istniejących zapisów.','Choose your downloaded file to preview its contents. Import adds projects and stops on duplicate IDs, preserving existing records.')}</Txt>
             <Button label={say('Wybierz plik z kopią','Choose a backup file')} variant="outline" onPress={choose} loading={busy==='choose'} disabled={busy!==null}/>
             {renderFeedback('choose')}
