@@ -7,8 +7,10 @@ import React, {
   type PropsWithChildren,
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
 import {
+  LANGUAGES,
   translations,
   type Language,
   type TranslationKey,
@@ -43,11 +45,8 @@ export function LanguageProvider({ children }: PropsWithChildren) {
     let mounted = true;
     AsyncStorage.getItem(STORAGE_KEY)
       .then((stored) => {
-        // English is currently hidden — if the user had it stored from a prior version,
-        // fall back to Polish so the UI stays in the only language we ship.
-        if (mounted && stored === 'pl') {
-          setLanguageState('pl');
-        }
+        const enabledLanguage = LANGUAGES.find(option => option.code === stored);
+        if (mounted && enabledLanguage) setLanguageState(enabledLanguage.code);
       })
       .catch(() => {})
       .finally(() => {
@@ -57,6 +56,12 @@ export function LanguageProvider({ children }: PropsWithChildren) {
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
+  }, [language]);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
