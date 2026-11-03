@@ -310,8 +310,11 @@ workflows:
           smoke_status=0
           maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native || smoke_status=$?
           maestro --device "$REMONT_SIM_UDID" test --format junit --output native-photo-smoke.xml scripts/ci/ios-managed-photo.yaml || exit $?
-          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-share.xml scripts/ci/ios-backup-share.yaml || smoke_status=$?
-          python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" > native-backup-share-verification.json || smoke_status=$?
+          if maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-share.xml scripts/ci/ios-backup-share.yaml; then
+            python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" > native-backup-share-verification.json || smoke_status=$?
+          else
+            smoke_status=$?
+          fi
           if [ "${REMONT_TEST_HOUSE_BACKUP:-0}" = "1" ]; then
             maestro --device "$REMONT_SIM_UDID" test --format junit --output native-house-backup-share.xml scripts/ci/ios-house-backup-share.yaml || exit $?
             python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" --house-backup > native-house-backup-share-verification.json || exit $?

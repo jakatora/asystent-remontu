@@ -17,10 +17,12 @@ appId: app.replit.remontasystent
 # Tap the actual folder icon shown on the pinned iPhone 14 Plus simulator.
 - tapOn:
     point: '39%,89%'
-- extendedWaitUntil:
-    visible: '^Save$'
-    timeout: 30000
-- tapOn: '^Save$'
+# The remote Files sheet is visible but does not expose its Save button to Maestro.
+- waitForAnimationToEnd:
+    timeout: 5000
+- takeScreenshot: native-screens/ios-files-picker-renovation
+- tapOn:
+    point: '87%,11%'
 - extendedWaitUntil:
     visible: Kopie remontów i budowy domu
     timeout: 30000
