@@ -10,16 +10,10 @@ export const ACTIVITY_ICONS: Record<ActivityAction, string> = {
   edited: 'edit',
 };
 
-export const PHOTO_TYPE_LABELS: Record<PhotoType, string> = {
-  before: 'Przed',
-  during: 'W trakcie',
-  after: 'Po',
-};
-
 export const PHOTO_TYPE_COLORS: Record<PhotoType, { color: string; bg: string }> = {
-  before: { color: '#3B82F6', bg: '#EFF6FF' },
-  during: { color: '#F59E0B', bg: '#FFFBEB' },
-  after: { color: '#22C55E', bg: '#F0FDF4' },
+  before: { color: '#1D4ED8', bg: '#EFF6FF' },
+  during: { color: '#92400E', bg: '#FFFBEB' },
+  after: { color: '#166534', bg: '#F0FDF4' },
 };
 
 export const STATUS_LABELS: Record<ProjectStatus, string> = {

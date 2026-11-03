@@ -18,7 +18,7 @@ import { requiresCurrentShoppingQuantity, shoppingQuantityAction } from '@/featu
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
-import { STATUS_LABELS, PHOTO_TYPE_LABELS } from '@/utils/format';
+import { STATUS_LABELS } from '@/utils/format';
 import type { ShoppingItem, PhotoType, ChecklistItem } from '@/types/domain';
 import type { PriceOverride, PricedBudgetEstimate } from '@/types/pricing';
 import {
@@ -315,26 +315,17 @@ export default function ProjectDetailScreen() {
     }
   };
 
-  const handleDeletePhoto = (photo: import('@/types/domain').ProjectPhoto) => {
-    Alert.alert(t('project.detail.deletePhotoTitle'), t('project.detail.deletePhotoBody'), [
-      { text: t('project.detail.deletePhotoCancel'), style: 'cancel' },
-      {
-        text: t('project.detail.deletePhotoCta'),
-        style: 'destructive',
-        onPress: async () => {
-          await removePhoto(photo.id);
-          removeStoredProjectPhoto(photo.uri);
-          await loadAll();
-        },
-      },
-    ]);
+  const handleDeletePhoto = async (photo: import('@/types/domain').ProjectPhoto) => {
+    await removePhoto(photo.id);
+    removeStoredProjectPhoto(photo.uri);
+    setPhotos(current => current.filter(item => item.id !== photo.id));
   };
 
   const handleAddPhotoMenu = (photoType: PhotoType) => {
     // Native Alert menus are not rendered by React Native Web. Open the file
     // picker directly from the user's click; persist its bytes, not a blob URL.
     if(Platform.OS==='web'){void handlePickPhoto(photoType);return;}
-    Alert.alert(t('project.detail.addPhotoTitle'), t('project.detail.addPhotoBody', { type: PHOTO_TYPE_LABELS[photoType] }), [
+    Alert.alert(t('project.detail.addPhotoTitle'), t('project.detail.addPhotoBody', { type: t(`cmp.PhotosTab.${photoType}`) }), [
       { text: t('project.detail.addPhotoCamera'), onPress: () => handleTakePhoto(photoType) },
       { text: t('project.detail.addPhotoGallery'), onPress: () => handlePickPhoto(photoType) },
       { text: t('project.detail.addPhotoCancel'), style: 'cancel' },

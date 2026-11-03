@@ -212,7 +212,12 @@ const pl = {
   'cmp.PhotosTab.subtitle': 'Dodaj zdjęcia przed, w trakcie i po remoncie.',
   'cmp.PhotosTab.add': 'Dodaj',
   'cmp.PhotosTab.noPhotos': 'Brak zdjęć',
-  'cmp.PhotosTab.deleteHint': 'Przytrzymaj zdjęcie, aby je usunąć.',
+  'cmp.PhotosTab.before': 'Przed',
+  'cmp.PhotosTab.during': 'W trakcie',
+  'cmp.PhotosTab.after': 'Po',
+  'cmp.PhotosTab.photoLabel': 'Zdjęcie {number}, etap: {stage}',
+  'cmp.PhotosTab.removeLabel': 'Usuń zdjęcie {number}, etap: {stage}',
+  'cmp.PhotosTab.removeError': 'Nie udało się potwierdzić usunięcia zdjęcia. Otwórz projekt ponownie i sprawdź galerię.',
 
   // project/PriceDisclaimer
   'cmp.PriceDisclaimer.title': 'Ceny orientacyjne',
@@ -605,7 +610,12 @@ const en: Record<K, string> = {
   'cmp.PhotosTab.subtitle': 'Add photos before, during and after the renovation.',
   'cmp.PhotosTab.add': 'Add',
   'cmp.PhotosTab.noPhotos': 'No photos',
-  'cmp.PhotosTab.deleteHint': 'Press and hold a photo to delete it.',
+  'cmp.PhotosTab.before': 'Before',
+  'cmp.PhotosTab.during': 'During',
+  'cmp.PhotosTab.after': 'After',
+  'cmp.PhotosTab.photoLabel': 'Photo {number}, stage: {stage}',
+  'cmp.PhotosTab.removeLabel': 'Delete photo {number}, stage: {stage}',
+  'cmp.PhotosTab.removeError': 'Photo deletion could not be confirmed. Reopen the project and check the gallery.',
 
   // project/PriceDisclaimer
   'cmp.PriceDisclaimer.title': 'Indicative prices',
