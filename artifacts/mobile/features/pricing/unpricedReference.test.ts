@@ -14,6 +14,7 @@ test('an unpriced item keeps the exact known product, image and primary shop lin
   assert.equal(result.id, ref.id); assert.equal(result.name, ref.productLabel); assert.equal(result.ean, '5902367206352');
   assert.equal(result.url, ref.sourceUrl); assert.equal(result.store, 'Castorama'); assert.match(result.imageUrl!, /5902367206352/);
   assert.equal(result.packageSize, 25); assert.equal(result.packageUnit, 'kg');
+  assert.deepEqual(result.refreshIdentity, { ean: '5902367206352', category: 'plaster', packageSize: 25, unit: 'kg' });
   assert.ok(!('price' in result) && !('priceGrosze' in result) && !('availability' in result) && !('totalGrosze' in result));
   assert.equal(JSON.stringify(input), original);
 });

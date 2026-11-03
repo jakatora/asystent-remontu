@@ -2,6 +2,7 @@ import { MATERIAL_PRICES } from '@/data/prices/materials';
 import { PRODUCT_PHOTOS, getProductPhoto } from '@/data/products/photos';
 import { normalizeProductName } from '../../../../lib/db/src/repositories/helpers';
 import { normalizeUnit } from './quantity';
+import { catalogueRefreshIdentity } from './catalogAvailability';
 import type { SerializedLine } from './pricingApi';
 
 /** A known reference helps the user check a shop; it never supplies a price,
@@ -27,5 +28,6 @@ export function unpricedReference(line: SerializedLine) {
     if (url.protocol !== 'https:' || url.username || url.password) return null;
   } catch { return null; }
   return { id: ref.id, name: ref.productLabel, ean: photo?.ean, imageUrl: getProductPhoto(ref),
-    store: ref.storeName, url: ref.sourceUrl, packageSize: ref.packageSize, packageUnit: ref.packageUnit };
+    store: ref.storeName, url: ref.sourceUrl, packageSize: ref.packageSize, packageUnit: ref.packageUnit,
+    refreshIdentity: catalogueRefreshIdentity(ref) };
 }

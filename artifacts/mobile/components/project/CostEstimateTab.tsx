@@ -55,6 +55,7 @@ import { router } from 'expo-router';
 import { useDoorSelection } from '@/features/pricing/useDoorSelection';
 import { collectStoreChoices, deliverySettingsForStore, parsePreferredStore, storeMapSearchUrl, type StoreChoices } from '@/features/pricing/storeChoice';
 import { unpricedReference } from '@/features/pricing/unpricedReference';
+import { JobProductPrices } from '@/components/renovation/JobProductPrices';
 import { groupUnpricedLines, unpricedPackageFamily } from '@/features/pricing/unpricedGroups';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
@@ -1608,6 +1609,7 @@ function UnresolvedLineCard({ line, sourceCount = 1, selectedStore, postalCode, 
   const { t, language } = useLanguage();
   const ref = unpricedReference(line), family=unpricedPackageFamily(line), pl = language === 'pl';
   const [linkFailed, setLinkFailed] = useState(false);
+  const [showPrices, setShowPrices] = useState(false);
   const mapUrl = ref && postalCode ? storeMapSearchUrl(ref.store, postalCode) : null;
   const open = (url: string) => { setLinkFailed(false); void Linking.openURL(url).catch(() => setLinkFailed(true)); };
   return (
@@ -1635,6 +1637,18 @@ function UnresolvedLineCard({ line, sourceCount = 1, selectedStore, postalCode, 
       </Txt>
       {ref && <>
         <Txt style={{ fontSize: 13, color: Colors.textSecondary, lineHeight: 19 }}>{pl ? 'Nie doliczamy tej pozycji do sumy. W sklepie sprawdzisz aktualną cenę, zapas i możliwość odbioru.' : 'This item is excluded from the total. Check its current price, stock and collection options at the shop.'}</Txt>
+        {!pickup && ref.refreshIdentity && <>
+          <Button variant="outline" label={showPrices
+            ? (pl ? 'Ukryj ceny produktu' : 'Hide product prices')
+            : (pl ? 'Sprawdź ceny w aplikacji' : 'Check prices in the app')}
+            onPress={() => setShowPrices(value => !value)} fullWidth />
+          {showPrices && <>
+            <JobProductPrices product={{name:ref.name,identity:ref.refreshIdentity}} />
+            <Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl
+              ? 'Jeśli pojawi się oferta, odśwież wycenę zestawu, aby sprawdzić łączny koszt.'
+              : 'If an offer appears, refresh the basket quote to check the total cost.'}</Txt>
+          </>}
+        </>}
         <Button variant="outline" label={pl ? `Sprawdź produkt — ${ref.store}` : `Check product — ${ref.store}`} onPress={() => open(ref.url)} fullWidth />
         {mapUrl && <>
           <Button variant="outline" label={pl ? `Wyszukaj placówkę ${ref.store} dla ${postalCode}` : `Find ${ref.store} near ${postalCode}`} onPress={() => open(mapUrl)} fullWidth />
