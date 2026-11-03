@@ -43,13 +43,18 @@ test('pricing health reports an aging offer and a failed refresh separately with
     const read = async () => {
       const response = await fetch(base + '/pricing/health');
       assert.equal(response.headers.get('cache-control'), 'no-store');
-      return (await response.json()).monitoring;
+      const body = await response.json() as ReturnType<ReturnType<typeof createRemontService>['status']>;
+      return body.monitoring;
     };
     const before = await read();
     assert.equal(calls, 0);
     assert.equal(before.scheduled, false);
     assert.equal(before.fullRefreshCompletedAt, null);
-    const find = (monitor: typeof before) => monitor.stores.find((store: { store: string }) => store.store === source.store);
+    const find = (monitor: typeof before) => {
+      const store = monitor.stores.find(store => store.store === source.store);
+      assert.ok(store);
+      return store;
+    };
     assert.equal(find(before).current, 1);
     assert.equal(find(before).olderThanCycle, 1);
     assert.equal(find(before).readErrors, 0);
