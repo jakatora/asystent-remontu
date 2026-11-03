@@ -12,7 +12,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { getJobById } from '@/data/jobs';
 import { computePricedBudget } from '@/features/pricing';
 import { ProjectPurchaseSummary } from '@/components/project/ProjectPurchaseSummary';
-import {makePortableProjectPhoto} from '@/features/storage/projectBackupFiles';
+import {makePortableProjectPhoto, removeStoredProjectPhoto} from '@/features/storage/projectBackupFiles';
 import type { PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
 import { requiresCurrentShoppingQuantity, shoppingQuantityAction } from '@/features/pricing/projectShoppingInput';
 import { Txt } from '@/components/ui/Txt';
@@ -298,6 +298,7 @@ export default function ProjectDetailScreen() {
 
   const handleTakePhoto = async (photoType: PhotoType) => {
     if (!project) return;
+    setPhotoSaveFailed(false);
     try {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== 'granted') {
@@ -306,9 +307,10 @@ export default function ProjectDetailScreen() {
       }
       const result = await ImagePicker.launchCameraAsync({ quality: 0.8 });
       if (result.canceled || !result.assets?.[0]) return;
-      await addPhoto({ projectId: project.id, uri: result.assets[0].uri, photoType });
+      await addPhoto({ projectId: project.id, uri: await makePortableProjectPhoto(result.assets[0].uri), photoType });
       await loadAll();
     } catch (err) {
+      setPhotoSaveFailed(true);
       console.error('[Photos] camera error:', err);
     }
   };
@@ -319,7 +321,11 @@ export default function ProjectDetailScreen() {
       {
         text: t('project.detail.deletePhotoCta'),
         style: 'destructive',
-        onPress: async () => { await removePhoto(photo.id); await loadAll(); },
+        onPress: async () => {
+          await removePhoto(photo.id);
+          removeStoredProjectPhoto(photo.uri);
+          await loadAll();
+        },
       },
     ]);
   };

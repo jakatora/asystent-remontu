@@ -6,6 +6,7 @@ import { Colors } from '@/constants/colors';
 import { PHOTO_TYPE_LABELS, PHOTO_TYPE_COLORS, timeAgo } from '@/utils/format';
 import type { ProjectPhoto, PhotoType } from '@/types/domain';
 import { useLanguage } from '@/context/LanguageContext';
+import { resolveProjectPhotoUri } from '@/features/storage/projectBackupFiles';
 
 interface PhotosTabProps {
   photos: ProjectPhoto[];
@@ -73,7 +74,7 @@ export function PhotosTab({ photos, onAddPhotoMenu, onDeletePhoto }: PhotosTabPr
                     activeOpacity={0.9}
                   >
                     <Image
-                      source={{ uri: photo.uri }}
+                      source={{ uri: resolveProjectPhotoUri(photo.uri) }}
                       style={{
                         width: 140,
                         height: 140,

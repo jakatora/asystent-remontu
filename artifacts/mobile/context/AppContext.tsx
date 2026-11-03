@@ -21,6 +21,7 @@ import type { CalculationResult } from '@/types/domain';
 import type { PriceOverride, QualityTier } from '@/types/pricing';
 import { projectsRepo } from '@/db/repositories/projects.repo';
 import { saveProjectWithReadback } from '@/features/storage/projectSave';
+import { removeStoredProjectPhoto } from '@/features/storage/projectBackupFiles';
 import { generateId } from '@/shared/lib/id';
 import { nowISO } from '@/shared/lib/date';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
@@ -158,7 +159,9 @@ export function AppProvider({ children }: PropsWithChildren) {
   }, []);
 
   const removeProject = useCallback(async (id: string): Promise<void> => {
+    const photos = await photosRepo.findByProject(id);
     await projectsRepo.delete(id);
+    for (const photo of photos) removeStoredProjectPhoto(photo.uri);
     setProjects((prev) => prev.filter((p) => p.id !== id));
   }, []);
 

@@ -2,12 +2,52 @@ import { Directory, File, Paths } from 'expo-file-system';
 import { getDocumentAsync } from 'expo-document-picker';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import { isAvailableAsync, shareAsync } from 'expo-sharing';
+import { generateId } from '@/shared/lib/id';
 import { BACKUP_MAX_BYTES, checkBackupSize, portablePhoto, type ProjectBackup } from './projectBackup';
 
-// Image picker URIs are still used for the local gallery. Export embeds the
-// bytes so the receiving device can restore the photo independently.
+const photoPrefix = 'project-photo:';
+const photoDirectory = () => new Directory(Paths.document, 'project-photos');
+
+function storedPhoto(uri: string): File | undefined {
+  const name = uri.startsWith(photoPrefix) ? uri.slice(photoPrefix.length) : '';
+  if (/^photo_[a-z0-9]+\.[a-z0-9]{1,10}$/.test(name)) return new File(photoDirectory(), name);
+}
+
+export function resolveProjectPhotoUri(uri: string): string {
+  return storedPhoto(uri)?.uri ?? uri;
+}
+
+export function removeStoredProjectPhoto(uri: string): void {
+  try {
+    const file = storedPhoto(uri);
+    if (file?.exists) file.delete();
+  } catch {
+    // An unavailable file must not undo a confirmed database deletion.
+  }
+}
+
 export async function makePortableProjectPhoto(uri: string): Promise<string> {
-  return uri;
+  if (portablePhoto(uri)) return uri;
+  if (!uri.startsWith('file://')) throw Error('backup_photo_unreadable');
+  const source = new File(uri);
+  if (!source.exists || source.size === 0) throw Error('backup_photo_unreadable');
+
+  // source: https://docs.expo.dev/versions/v54.0.0/sdk/filesystem/
+  // Keep only a relative reference so the file survives a sandbox path change.
+  const directory = photoDirectory();
+  directory.create({ idempotent: true, intermediates: true });
+  const extension = source.extension.toLowerCase();
+  const name = generateId('photo') + (/^\.[a-z0-9]{1,10}$/.test(extension) ? extension : '.img');
+  const target = new File(directory, name);
+  if (target.exists) throw Error('backup_photo_unreadable');
+  try {
+    source.copy(target);
+    if (!target.exists || target.size !== source.size) throw Error('backup_photo_unreadable');
+    return photoPrefix + name;
+  } catch (error) {
+    removeTemporaryFile(target);
+    throw error;
+  }
 }
 
 function removeTemporaryFile(file: File) {
@@ -20,6 +60,7 @@ function removeTemporaryFile(file: File) {
 
 async function embedPhoto(uri: string): Promise<string> {
   if (portablePhoto(uri)) return uri;
+  uri = resolveProjectPhotoUri(uri);
   if (!uri.startsWith('file://')) throw Error('backup_photo_unreadable');
 
   try {

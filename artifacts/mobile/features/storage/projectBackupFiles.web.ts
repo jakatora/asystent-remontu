@@ -1,5 +1,8 @@
 import {BACKUP_MAX_BYTES,portablePhoto,type ProjectBackup} from './projectBackup';
 
+export const resolveProjectPhotoUri = (uri: string): string => uri;
+export const removeStoredProjectPhoto = (_uri: string): void => {};
+
 // source: https://developer.mozilla.org/en-US/docs/Web/API/Blob
 // source: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
 export async function embedBackupPhotos(backup:ProjectBackup):Promise<ProjectBackup>{
