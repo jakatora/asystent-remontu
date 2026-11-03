@@ -19,7 +19,7 @@ async function empty(db:DatabaseConnection,tables:readonly string[]):Promise<boo
  * No backend account deletion, subscription cancellation or money movement.
  * source: https://www.sqlite.org/lang_transaction.html
  * source: https://www.sqlite.org/pragma.html#pragma_defer_foreign_keys */
-export async function resetLocalData(db:DatabaseConnection,storage:ResetStorage):Promise<{clearedTables:number}>{
+export async function resetLocalData(db:DatabaseConnection,storage:ResetStorage,clearFiles?:()=>void):Promise<{clearedTables:number}>{
   const tables=await userTables(db);
   const versions=await db.getAllAsync('SELECT * FROM schema_versions ORDER BY version');
   let writeError:unknown;
@@ -31,6 +31,9 @@ export async function resetLocalData(db:DatabaseConnection,storage:ResetStorage)
   try{
     if(!await empty(db,tables)||JSON.stringify(await db.getAllAsync('SELECT * FROM schema_versions ORDER BY version'))!==JSON.stringify(versions))throw Error('not_empty');
   }catch(error){throw new Error('local_reset_database_unconfirmed',{cause:writeError??error});}
+
+  try{clearFiles?.();}
+  catch(error){throw new Error('local_reset_files_unconfirmed',{cause:error});}
 
   // A lost reply may follow a committed SQLite batch. The actual empty rows
   // above prove that result; never replay the delete automatically.

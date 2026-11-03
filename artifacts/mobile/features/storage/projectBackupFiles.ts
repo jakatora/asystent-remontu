@@ -26,6 +26,14 @@ export function removeStoredProjectPhoto(uri: string): void {
   }
 }
 
+export function clearManagedProjectFiles(): void {
+  // These two app-owned directories contain only managed photos and share copies.
+  for (const directory of [photoDirectory(), new Directory(Paths.cache, 'renovation-backup')]) {
+    if (directory.exists) directory.delete();
+    if (directory.exists) throw Error('local_reset_files_unconfirmed');
+  }
+}
+
 export async function makePortableProjectPhoto(uri: string): Promise<string> {
   if (portablePhoto(uri)) return uri;
   if (!uri.startsWith('file://')) throw Error('backup_photo_unreadable');

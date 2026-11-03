@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useLanguage} from '@/context/LanguageContext';
 import {getDb} from '@/db/client';
 import {resetLocalData} from '@/features/storage/localDataReset';
+import {clearManagedProjectFiles} from '@/features/storage/projectBackupFiles';
 import {Button} from '@/components/ui/Button';
 import {Txt} from '@/components/ui/Txt';
 import {Colors} from '@/constants/colors';
@@ -23,11 +24,13 @@ export function LocalDataResetDialog({visible,onClose}:{visible:boolean;onClose:
     if(working.current||confirmation!==word)return;
     working.current=true;setBusy(true);setError('');
     try{
-      await resetLocalData(await getDb(),AsyncStorage);setFinished(true);
+      await resetLocalData(await getDb(),AsyncStorage,clearManagedProjectFiles);setFinished(true);
       try{await restart();}catch{setError(say('Dane lokalne zostały usunięte. Zamknij i ponownie otwórz aplikację, aby zacząć od nowa.','Local data was deleted. Close and reopen the app to start again.'));}
     }catch(reason){
       setError(reason instanceof Error&&reason.message==='local_reset_preferences_unconfirmed'
         ?say('Dane w bazie zostały usunięte, ale nie udało się potwierdzić usunięcia ustawień. Zamknij inne karty aplikacji i spróbuj ponownie.','Database data was deleted, but settings removal could not be confirmed. Close other app tabs and try again.')
+        :reason instanceof Error&&reason.message==='local_reset_files_unconfirmed'
+        ?say('Dane w bazie zostały usunięte, ale nie udało się potwierdzić usunięcia lokalnych plików zdjęć lub kopii. Spróbuj ponownie.','Database data was deleted, but removal of local photo or backup files could not be confirmed. Try again.')
         :say('Nie udało się potwierdzić pełnego usunięcia danych. Zamknij inne karty aplikacji, ponownie ją otwórz i sprawdź zapisane projekty przed kolejną próbą.','Complete deletion could not be confirmed. Close other app tabs, reopen the app and check saved projects before trying again.'));
     }finally{working.current=false;setBusy(false);}
   };

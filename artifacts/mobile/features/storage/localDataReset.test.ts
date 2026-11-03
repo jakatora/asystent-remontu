@@ -33,7 +33,21 @@ test('confirmed reset clears every real data table from all14 migrations and pre
 test('a late SQL failure rolls all local data back and does not clear any preference',async t=>{
   const f=await fixture(t),before=f.snapshot(),prefs=new Map(f.values);
   f.sqlite.exec("CREATE TRIGGER stop_reset BEFORE DELETE ON shopping_items BEGIN SELECT RAISE(ABORT,'disk_failure_fixture'); END;");
-  await assert.rejects(resetLocalData(f.db,f.storage),/local_reset_database_unconfirmed/);assert.deepEqual(f.snapshot(),before);assert.deepEqual(f.values,prefs);
+  let filesCleared=false;
+  await assert.rejects(resetLocalData(f.db,f.storage,()=>{filesCleared=true;}),/local_reset_database_unconfirmed/);
+  assert.equal(filesCleared,false);assert.deepEqual(f.snapshot(),before);assert.deepEqual(f.values,prefs);
+});
+
+test('local file cleanup follows verified database removal and can be retried',async t=>{
+  const f=await fixture(t);
+  await assert.rejects(resetLocalData(f.db,f.storage,()=>{
+    assert.ok(f.snapshot().every(table=>table.rows.length===0));
+    throw Error('fixture_file_locked');
+  }),/local_reset_files_unconfirmed/);
+  assert.ok(f.values.size>0);
+  let cleaned=false;
+  await resetLocalData(f.db,f.storage,()=>{cleaned=true;});
+  assert.equal(cleaned,true);assert.equal(f.values.size,0);
 });
 
 test('lost SQLite and storage replies are checked against actual state without a second delete or false failure',async t=>{
