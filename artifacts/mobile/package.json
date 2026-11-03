@@ -61,6 +61,10 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "2.100.0",
+    "expo-document-picker": "~14.0.8",
+    "expo-file-system": "~19.0.21",
+    "expo-image-manipulator": "~14.0.8",
+    "expo-sharing": "~14.0.8",
     "expo-sqlite": "^16.0.10",
     "nativewind": "4.2.3",
     "react-hook-form": "^7.72.0",

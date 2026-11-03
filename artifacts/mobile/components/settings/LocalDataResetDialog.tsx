@@ -42,10 +42,8 @@ export function LocalDataResetDialog({visible,onClose}:{visible:boolean;onClose:
           </>:<>
             <Txt style={{fontSize:15,lineHeight:23,color:Colors.textSecondary}}>{say('Usuniesz wszystkie zapisane tutaj projekty remontu i budowy domu, zdjęcia, zakupy, lokalne dane wykonawców oraz ustawienia. Tej operacji nie można cofnąć w aplikacji.','This removes all renovation and house-building projects, photos, shopping, local contractor data and settings saved here. This cannot be undone in the app.')}</Txt>
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say('Zamknij inne karty aplikacji przed usunięciem. Pobrane wcześniej pliki kopii pozostaną na Twoim urządzeniu. Ta operacja nie usuwa kont ani zamówień w zewnętrznych usługach.','Close other app tabs before deleting. Previously downloaded backup files remain on your device. This does not delete accounts or orders in external services.')}</Txt>
-            {Platform.OS==='web'&&<>
               <Button label={say('Najpierw zrób kopię remontów','Back up renovations first')} variant="outline" disabled={busy} onPress={()=>{onClose();router.push('/project-backup' as Href);}}/>
               <Txt style={{fontSize:13,lineHeight:20,color:Colors.textMuted}}>{say('Kopia remontów nie obejmuje modułu budowy domu ani danych wykonawców.','Renovation backups exclude the house-building module and contractor data.')}</Txt>
-            </>}
             <Txt style={{fontSize:14,color:Colors.text}}>{say('Aby potwierdzić, wpisz: ','To confirm, type: ')+word}</Txt>
             <TextInput accessibilityLabel={say('Potwierdzenie usunięcia','Deletion confirmation')} value={confirmation} onChangeText={setConfirmation} editable={!busy} autoCapitalize="characters" autoCorrect={false} placeholder={word} style={{minHeight:48,borderWidth:1,borderColor:Colors.border,borderRadius:12,padding:12,fontSize:16,color:Colors.text}}/>
             <Button label={say('Usuń lokalne dane','Delete local data')} variant="danger" onPress={()=>void remove()} disabled={confirmation!==word||busy} loading={busy}/>

@@ -8,7 +8,13 @@ import {migration_001} from '../../db/migrations/001_initial';
 import {migration_002} from '../../db/migrations/002_shopping_extended';
 import {migration_003} from '../../db/migrations/003_project_management';
 import {migration_004} from '../../db/migrations/004_pricing';
-import {backupExtraCount,canonical,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
+import {BACKUP_MAX_BYTES,backupExtraCount,canonical,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
+
+test('backup size uses UTF-8 bytes for Polish text and supplementary characters', () => {
+  const prefix = 'a'.repeat(BACKUP_MAX_BYTES - 6);
+  assert.doesNotThrow(() => checkBackupSize(prefix + 'ł🧱'));
+  assert.throws(() => checkBackupSize(prefix + 'ł🧱a'), /backup_too_large/);
+});
 import {calculateMaterials} from '../calculator/engine';
 import {getJobById} from '../content/registry';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';

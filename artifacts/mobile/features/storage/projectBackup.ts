@@ -17,6 +17,15 @@ import {waitForMaterialStockWrites} from '../pricing/materialStockStorage';
 import {RECOVERY_BACKUP_PREFIXES,RECOVERY_GLOBAL_KEYS,parsePreferenceRecovery} from './preferenceRecovery';
 
 export const BACKUP_MAX_BYTES=20*1024*1024;
+export function checkBackupSize(raw:string):void{
+  if(raw.length>BACKUP_MAX_BYTES)throw Error('backup_too_large');
+  let bytes=0;
+  for(const character of raw){
+    const code=character.codePointAt(0)!;
+    bytes+=code<0x80?1:code<0x800?2:code<0x10000?3:4;
+    if(bytes>BACKUP_MAX_BYTES)throw Error('backup_too_large');
+  }
+}
 const id=z.string().min(1).max(200);
 const text=z.string().max(100_000);
 const number=z.number().finite();
@@ -77,7 +86,7 @@ function containsRows(actual:ProjectBackup['tables'],expected:ProjectBackup['tab
 export function portablePhoto(uri:string):boolean{return /^data:image\/(?:jpeg|png|webp|gif);base64,[A-Za-z0-9+/]+={0,2}$/.test(uri);}
 
 export function parseProjectBackup(raw:string,portable=true):ProjectBackup{
-  if(new TextEncoder().encode(raw).byteLength>BACKUP_MAX_BYTES)throw Error('backup_too_large');
+  checkBackupSize(raw);
   let backup:ProjectBackup;
   try{backup=envelope.parse(JSON.parse(raw)) as unknown as ProjectBackup;}catch{throw Error('invalid_project_backup');}
   if(!tables.every(table=>Array.isArray(backup.tables[table])))fail();

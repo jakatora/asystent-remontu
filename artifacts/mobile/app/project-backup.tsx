@@ -27,6 +27,7 @@ export default function ProjectBackupScreen(){
     if(code==='backup_too_large')return say('Kopia przekracza limit 20 MB. Nie zapisano częściowej kopii.','This backup exceeds the 20 MB limit. No partial backup was saved.');
     if(code==='backup_photo_unreadable'||code==='backup_photo_not_portable')return say('Nie można przenieść jednego ze zdjęć. Otwórz zdjęcia w projekcie źródłowym i spróbuj ponownie. Kopia musi zawierać dostępne zdjęcia.','A photo cannot be transferred. Open the photos in the source project and try again. Photos must be available for a complete backup.');
     if(code==='backup_import_unconfirmed')return say('Nie udało się potwierdzić zapisu. Otwórz ponownie aplikację i sprawdź projekty przed kolejnym importem.','The save could not be confirmed. Reopen the app and check your projects before importing again.');
+    if(code==='backup_share_unavailable')return say('Systemowe udostępnianie plików jest niedostępne na tym urządzeniu.','System file sharing is unavailable on this device.');
     if(code==='backup_empty')return say('Brak projektów, materiałów lub ustawień koszyka do przeniesienia.','There are no projects, materials or basket settings to transfer.');
     if(code==='backup_changed_during_export')return say('Projekty zmieniły się w trakcie tworzenia kopii. Zaczekaj na zapis zmian i pobierz kopię ponownie.','Projects changed while preparing the backup. Wait for changes to save and download it again.');
     return say('Nie udało się wykonać operacji. Sprawdź plik kopii i spróbuj ponownie. Istniejące projekty pozostają zachowane.','The operation could not be completed. Check the backup file and try again. Existing projects are preserved.');
@@ -40,7 +41,8 @@ export default function ProjectBackupScreen(){
     if(canonical([snapshot.tables,snapshot.preferences])!==canonical([check.tables,check.preferences]))throw Error('backup_changed_during_export');
     if(!hasBackupContent(snapshot))throw Error('backup_empty');
     const portable=await embedBackupPhotos(snapshot),raw=JSON.stringify(portable,null,2);parseProjectBackup(raw);
-    downloadProjectBackup(raw);setMessage(say('Plik kopii został przygotowany do pobrania. Zachowaj go na swoim urządzeniu.','Your backup file is ready to download. Keep it on your device.'));
+    await downloadProjectBackup(raw);
+    if(Platform.OS==='web')setMessage(say('Plik kopii został przygotowany do pobrania. Zachowaj go na swoim urządzeniu.','Your backup file is ready to download. Keep it on your device.'));
   });
   const choose=()=>void run('choose',async()=>{setPreview(null);const raw=await chooseProjectBackup();if(raw!==null){const backup=parseProjectBackup(raw);if(!hasBackupContent(backup))throw Error('backup_empty');setPreview(backup);}});
   const restore=()=>void run('import',async()=>{
@@ -52,14 +54,13 @@ export default function ProjectBackupScreen(){
     <ScrollView style={{flex:1,backgroundColor:Colors.background}} contentContainerStyle={{padding:20,paddingBottom:insets.bottom+32,gap:20}}>
       <View style={{maxWidth:760,width:'100%',alignSelf:'center',gap:20}}>
         <Txt w="bold" style={{fontSize:24,color:Colors.text}}>{say('Zachowaj swój remont','Keep your renovation safe')}</Txt>
-        <Txt style={{fontSize:15,lineHeight:23,color:Colors.textSecondary}}>{say('Pobierz remont do pliku i wczytaj go w innej przeglądarce lub na stronie aplikacji. Kopia obejmuje projekty, obmiary, zakupy, wybrane produkty, notatki, checklisty i zdjęcia. Zawiera również wspólny koszyk z dodatkowymi materiałami i wybranymi opakowaniami, nawet gdy nie masz jeszcze projektu.','Download your renovation to a file and import it in another browser or on the app website. The backup includes projects, measurements, shopping, selected products, notes, checklists and photos. It also includes the shared basket, additional materials and selected packaging, even without a project.')}</Txt>
+        <Txt style={{fontSize:15,lineHeight:23,color:Colors.textSecondary}}>{say('Zapisz remont do pliku i wczytaj go w aplikacji na innym urządzeniu lub w przeglądarce. Kopia obejmuje projekty, obmiary, zakupy, wybrane produkty, notatki, checklisty i zdjęcia. Zawiera również wspólny koszyk z dodatkowymi materiałami i wybranymi opakowaniami, nawet gdy nie masz jeszcze projektu.','Save your renovation to a file and import it on another device or in the browser. The backup includes projects, measurements, shopping, selected products, notes, checklists and photos. It also includes the shared basket, additional materials and selected packaging, even without a project.')}</Txt>
         <Txt style={{fontSize:13,lineHeight:20,color:Colors.textMuted}}>{say('To kopia projektów remontowych, bez modułu budowy domu i kont wykonawców. Plik jest przechowywany u Ciebie; może zawierać prywatne notatki i zdjęcia. Limit: 20 MB.','This backup covers renovation projects, excluding house-building and contractor accounts. You keep the file; it may contain private notes and photos. Limit: 20 MB.')}</Txt>
-        {Platform.OS==='web'?<>
           <View style={card}>
             <Feather name="download" size={24} color={Colors.primary}/>
-            <Txt w="semibold" style={{fontSize:18,color:Colors.text}}>{say('1. Pobierz kopię','1. Download a backup')}</Txt>
-            <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say(`Zapisane projekty w tej przeglądarce: ${projects.length}. Zdjęcia zostaną dołączone do pliku.`,`Projects saved in this browser: ${projects.length}. Photos will be included in the file.`)}</Txt>
-            <Button label={say('Pobierz kopię remontu','Download renovation backup')} onPress={exportProjects} loading={busy==='export'} disabled={busy!==null}/>
+            <Txt w="semibold" style={{fontSize:18,color:Colors.text}}>{say('1. Zapisz kopię','1. Save a backup')}</Txt>
+            <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say(`Zapisane projekty: ${projects.length}. Zdjęcia zostaną dołączone do pliku.`,`Saved projects: ${projects.length}. Photos will be included in the file.`)}</Txt>
+            <Button label={Platform.OS==='web'?say('Pobierz kopię remontu','Download renovation backup'):say('Zapisz lub udostępnij kopię','Save or share backup')} onPress={exportProjects} loading={busy==='export'} disabled={busy!==null}/>
           </View>
           <View style={card}>
             <Feather name="upload" size={24} color={Colors.primary}/>
@@ -79,7 +80,6 @@ export default function ProjectBackupScreen(){
               <Button label={say('Anuluj wczytywanie','Cancel import')} variant="ghost" onPress={()=>setPreview(null)} disabled={busy!==null}/>
             </View>}
           </View>
-        </>:<Txt>{say('Kopie projektów są obecnie dostępne w wersji przeglądarkowej aplikacji.','Project backups are currently available in the browser version of the app.')}</Txt>}
         {error&&<View accessibilityRole="alert" style={{...card,backgroundColor:Colors.dangerBg}}><Txt style={{color:Colors.danger,lineHeight:22}}>{error}</Txt></View>}
         {message&&<View accessibilityLiveRegion="polite" style={{...card,backgroundColor:Colors.successBg}}><Txt style={{color:Colors.text,lineHeight:22}}>{message}</Txt></View>}
         <Button label={say('Otwórz moje projekty','Open my projects')} variant="ghost" onPress={()=>router.replace('/projects')} disabled={busy!==null}/>

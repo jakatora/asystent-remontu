@@ -254,7 +254,7 @@ export default function SettingsScreen() {
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
           />
-          {Platform.OS==='web'&&<><SettingDivider/><SettingRow icon="download" title={language==='pl'?'Kopia i przenoszenie projektów':'Back up and transfer projects'} subtitle={language==='pl'?'Pobierz plik lub wczytaj remont z innej przeglądarki':'Download a file or import a renovation from another browser'} onPress={()=>router.push('/project-backup' as Href)}/></>}
+          <SettingDivider/><SettingRow icon="download" title={language==='pl'?'Kopia i przenoszenie projektów':'Back up and transfer projects'} subtitle={language==='pl'?'Zapisz plik lub wczytaj remont z innego urządzenia':'Save a file or import a renovation from another device'} onPress={()=>router.push('/project-backup' as Href)}/>
           <SettingDivider />
           <SettingRow
             icon="shield"
