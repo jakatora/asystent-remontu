@@ -1,5 +1,5 @@
-import React,{useRef,useState} from 'react';
-import {Platform,ScrollView,View} from 'react-native';
+import React,{useEffect,useRef,useState} from 'react';
+import {AccessibilityInfo,Platform,ScrollView,View} from 'react-native';
 import {Stack,useRouter} from 'expo-router';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,8 +21,14 @@ export default function ProjectBackupScreen(){
   const {projects:houseProjects,refreshProjects:refreshHouseProjects}=useHouseBuild();
   const say=(pl:string,en:string)=>language==='pl'?pl:en;
   type Action='export'|'export-house'|'choose'|'import';
+  type Destination='/projects'|'/house-build'|'/renovation-basket';
+  type Feedback={action:Action;text:string;error?:boolean;destination?:Destination};
   const [busy,setBusy]=useState<Action|null>(null),working=useRef(false);
-  const [preview,setPreview]=useState<ProjectBackup|null>(null),[error,setError]=useState(''),[message,setMessage]=useState('');
+  const [feedback,setFeedback]=useState<Feedback|null>(null);
+  useEffect(()=>{
+    if(feedback&&Platform.OS==='ios')AccessibilityInfo.announceForAccessibility(feedback.text);
+  },[feedback]);
+  const [preview,setPreview]=useState<ProjectBackup|null>(null);
   const [housePreview,setHousePreview]=useState<HouseBuildBackup|null>(null);
   const conflict=preview?.tables.projects.some(row=>projects.some(project=>project.id===row.id));
   const houseConflict=housePreview?.tables.house_build_projects.some(row=>houseProjects.some(project=>project.id===row.id));
@@ -40,8 +46,8 @@ export default function ProjectBackupScreen(){
     return say('Nie udało się wykonać operacji. Sprawdź plik kopii i spróbuj ponownie. Istniejące projekty pozostają zachowane.','The operation could not be completed. Check the backup file and try again. Existing projects are preserved.');
   };
   const run=async(action:Action,task:()=>Promise<void>)=>{
-    if(working.current)return;working.current=true;setBusy(action);setError('');setMessage('');
-    try{await task();}catch(reason){setError(errorMessage(reason));}finally{working.current=false;setBusy(null);}
+    if(working.current)return;working.current=true;setBusy(action);setFeedback(null);
+    try{await task();}catch(reason){setFeedback({action,text:errorMessage(reason),error:true});}finally{working.current=false;setBusy(null);}
   };
   const exportProjects=()=>void run('export',async()=>{
     const db=await getDb(),snapshot=await readProjectBackup(db,AsyncStorage),check=await readProjectBackup(db,AsyncStorage);
@@ -49,13 +55,13 @@ export default function ProjectBackupScreen(){
     if(!hasBackupContent(snapshot))throw Error('backup_empty');
     const portable=await embedBackupPhotos(snapshot),raw=JSON.stringify(portable,null,2);parseProjectBackup(raw);
     await downloadProjectBackup(raw);
-    if(Platform.OS==='web')setMessage(say('Plik kopii został przygotowany do pobrania. Zachowaj go na swoim urządzeniu.','Your backup file is ready to download. Keep it on your device.'));
+    if(Platform.OS==='web')setFeedback({action:'export',text:say('Plik kopii został przygotowany do pobrania. Zachowaj go na swoim urządzeniu.','Your backup file is ready to download. Keep it on your device.')});
   });
   const exportHouse=()=>void run('export-house',async()=>{
     const backup=await readHouseBuildBackup(await getDb());
     if(!backup.tables.house_build_projects.length)throw Error('backup_empty');
     await downloadProjectBackup(JSON.stringify(backup),'house');
-    if(Platform.OS==='web')setMessage(say('Plik kopii budowy domu jest gotowy do pobrania.','Your house-building backup is ready to download.'));
+    if(Platform.OS==='web')setFeedback({action:'export-house',text:say('Plik kopii budowy domu jest gotowy do pobrania.','Your house-building backup is ready to download.')});
   });
   const choose=()=>void run('choose',async()=>{
     setPreview(null);setHousePreview(null);
@@ -77,13 +83,28 @@ export default function ProjectBackupScreen(){
     const count=await importHouseBuildBackup(housePreview,await getDb());
     setHousePreview(null);
     await refreshHouseProjects();
-    setMessage(say(`Przywrócono projekty budowy domu: ${count}.`,`House-building projects restored: ${count}.`));
+    setFeedback({action:'import',destination:'/house-build',text:say(`Przywrócono projekty budowy domu: ${count}.`,`House-building projects restored: ${count}.`)});
   });
   const restore=()=>void run('import',async()=>{
     if(!preview)return;const result=await importProjectBackup(preview,await getDb(),AsyncStorage);setPreview(null);await refreshProjects();
-    setMessage(result.projects===0?say('Wczytano wspólny koszyk i jego ustawienia. Odśwież ceny i dostawy przed zakupem.','The shared basket and its settings were restored. Refresh prices and delivery before buying.'):say(`Przeniesiono projektów: ${result.projects}. Odśwież ceny i dostawy przed zakupem.${result.keptBasketSettings?' Zachowano ustawienia Twojego obecnego wspólnego koszyka.':''}`,`Projects transferred: ${result.projects}. Refresh prices and delivery before buying.${result.keptBasketSettings?' Your current shared basket settings were preserved.':''}`));
+    setFeedback({action:'import',destination:result.projects===0?'/renovation-basket':'/projects',text:result.projects===0?say('Wczytano wspólny koszyk i jego ustawienia. Odśwież ceny i dostawy przed zakupem.','The shared basket and its settings were restored. Refresh prices and delivery before buying.'):say(`Przeniesiono projektów: ${result.projects}. Odśwież ceny i dostawy przed zakupem.${result.keptBasketSettings?' Zachowano ustawienia Twojego obecnego wspólnego koszyka.':''}`,`Projects transferred: ${result.projects}. Refresh prices and delivery before buying.${result.keptBasketSettings?' Your current shared basket settings were preserved.':''}`)});
   });
   const card={backgroundColor:Colors.surface,borderRadius:16,padding:20,borderWidth:1,borderColor:Colors.border,gap:14} as const;
+  const renderFeedback=(action:Action)=>{
+    const current=feedback?.action===action?feedback:null;
+    const destination=current?.destination;
+    const destinationLabel=destination==='/house-build'
+      ?say('Zobacz przywróconą budowę','View restored house-building projects')
+      :destination==='/renovation-basket'
+        ?say('Zobacz przywrócony koszyk','View restored basket')
+        :say('Zobacz przywrócone projekty','View restored projects');
+    return <View accessibilityLiveRegion="polite" aria-live="polite" style={current?undefined:{position:'absolute'}}>
+      {current&&<View style={{...card,backgroundColor:current.error?Colors.dangerBg:Colors.successBg}}>
+        <Txt style={{color:Colors.text,lineHeight:22}}>{current.text}</Txt>
+        {destination&&<Button label={destinationLabel} variant="outline" onPress={()=>router.replace(destination)}/>}
+      </View>}
+    </View>;
+  };
   return <><Stack.Screen options={{headerShown:true,title:say('Kopia projektów','Project backup')}}/>
     <ScrollView style={{flex:1,backgroundColor:Colors.background}} contentContainerStyle={{padding:20,paddingBottom:insets.bottom+32,gap:20}}>
       <View style={{maxWidth:760,width:'100%',alignSelf:'center',gap:20}}>
@@ -95,20 +116,23 @@ export default function ProjectBackupScreen(){
             <Txt w="semibold" style={{fontSize:18,color:Colors.text}}>{say('1. Zapisz kopię','1. Save a backup')}</Txt>
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say(`Zapisane projekty: ${projects.length}. Zdjęcia zostaną dołączone do pliku.`,`Saved projects: ${projects.length}. Photos will be included in the file.`)}</Txt>
             <Button label={Platform.OS==='web'?say('Pobierz kopię remontu','Download renovation backup'):say('Zapisz lub udostępnij kopię','Save or share backup')} onPress={exportProjects} loading={busy==='export'} disabled={busy!==null}/>
+            {renderFeedback('export')}
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say(`Projekty budowy domu: ${houseProjects.length}. Kopia obejmuje harmonogram, budżet, dokumentację, notatki i powiązane szkice zapytań. Zewnętrzne załączniki i konta wymagają osobnego przeniesienia.`,`House-building projects: ${houseProjects.length}. Includes schedules, budgets, document records, notes and linked request drafts. Transfer external attachments and accounts separately.`)}</Txt>
             <Button label={say('Zapisz kopię budowy domu','Save house-building backup')} variant="outline" onPress={exportHouse} loading={busy==='export-house'} disabled={busy!==null}/>
+            {renderFeedback('export-house')}
           </View>
           <View style={card}>
             <Feather name="upload" size={24} color={Colors.primary}/>
             <Txt w="semibold" style={{fontSize:18,color:Colors.text}}>{say('2. Wczytaj na drugim urządzeniu','2. Import on another device')}</Txt>
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say('Wybierz pobrany plik. Najpierw zobaczysz jego zawartość. Import dodaje projekty i zatrzymuje się przy powtórzonych identyfikatorach — nie zastępuje istniejących zapisów.','Choose your downloaded file to preview its contents. Import adds projects and stops on duplicate IDs, preserving existing records.')}</Txt>
             <Button label={say('Wybierz plik z kopią','Choose a backup file')} variant="outline" onPress={choose} loading={busy==='choose'} disabled={busy!==null}/>
+            {renderFeedback('choose')}
             {housePreview&&<View style={{gap:12}}>
               <Txt w="semibold" style={{fontSize:16,color:Colors.text}}>{say(`Do wczytania: ${housePreview.tables.house_build_projects.length} projektów budowy domu`,`Ready to import: ${housePreview.tables.house_build_projects.length} house-building projects`)}</Txt>
               {housePreview.tables.house_build_projects.slice(0,20).map(row=><Txt key={String(row.id)} style={{fontSize:14,color:Colors.text}}>{String(row.name)}</Txt>)}
               {houseConflict&&<Txt accessibilityRole="alert" style={{color:Colors.danger,fontSize:14}}>{say('Projekt budowy z tego pliku jest już na urządzeniu. Wybierz kopię innych projektów.','A house-building project in this file already exists on this device. Choose a backup of other projects.')}</Txt>}
               <Button label={say('Wczytaj projekty budowy domu','Import house-building projects')} onPress={restoreHouse} loading={busy==='import'} disabled={busy!==null||Boolean(houseConflict)}/>
-              <Button label={say('Anuluj wczytywanie','Cancel import')} variant="ghost" onPress={()=>setHousePreview(null)} disabled={busy!==null}/>
+              <Button label={say('Anuluj wczytywanie','Cancel import')} variant="ghost" onPress={()=>{setHousePreview(null);setFeedback(null);}} disabled={busy!==null}/>
             </View>}
             {preview&&<View style={{gap:12}}>
               <Txt w="semibold" style={{fontSize:16,color:Colors.text}}>{say(`Do wczytania: ${preview.tables.projects.length} projektów, ${preview.tables.shopping_items.length} pozycji zakupów, ${preview.tables.project_photos.length} zdjęć`,`Ready to import: ${preview.tables.projects.length} projects, ${preview.tables.shopping_items.length} shopping items, ${preview.tables.project_photos.length} photos`)}</Txt>
@@ -120,11 +144,10 @@ export default function ProjectBackupScreen(){
               {projects.length>0&&<Txt style={{fontSize:13,color:Colors.textSecondary}}>{say('Ustawienia obecnego wspólnego koszyka i jego dodatkowe produkty pozostaną bez zmian.','Your current shared basket settings and additional products will be preserved.')}</Txt>}
               {conflict&&<Txt accessibilityRole="alert" style={{color:Colors.danger,fontSize:14}}>{say('Jeden z tych projektów już tu istnieje. Import tej kopii jest zablokowany, żeby zachować zapisane zmiany.','One of these projects already exists here. Import is blocked to preserve your saved changes.')}</Txt>}
               <Button label={preview.tables.projects.length?say('Wczytaj projekty z kopii','Import projects from backup'):say('Wczytaj koszyk z kopii','Import basket from backup')} onPress={restore} loading={busy==='import'} disabled={busy!==null||Boolean(conflict)}/>
-              <Button label={say('Anuluj wczytywanie','Cancel import')} variant="ghost" onPress={()=>setPreview(null)} disabled={busy!==null}/>
+              <Button label={say('Anuluj wczytywanie','Cancel import')} variant="ghost" onPress={()=>{setPreview(null);setFeedback(null);}} disabled={busy!==null}/>
             </View>}
+            {renderFeedback('import')}
           </View>
-        {error&&<View accessibilityRole="alert" style={{...card,backgroundColor:Colors.dangerBg}}><Txt style={{color:Colors.danger,lineHeight:22}}>{error}</Txt></View>}
-        {message&&<View accessibilityLiveRegion="polite" style={{...card,backgroundColor:Colors.successBg}}><Txt style={{color:Colors.text,lineHeight:22}}>{message}</Txt></View>}
         <Button label={say('Otwórz moje projekty','Open my projects')} variant="ghost" onPress={()=>router.replace('/projects')} disabled={busy!==null}/>
         <Button label={say('Otwórz budowę domu','Open house-building projects')} variant="ghost" onPress={()=>router.replace('/house-build')} disabled={busy!==null}/>
         <Button label={say('Otwórz wspólny koszyk','Open shared basket')} variant="ghost" onPress={()=>router.replace('/renovation-basket')} disabled={busy!==null}/>
