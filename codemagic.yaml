@@ -296,7 +296,11 @@ workflows:
           xcrun simctl bootstatus "$REMONT_SIM_UDID" -b
           xcrun simctl install "$REMONT_SIM_UDID" simulator-build/Build/Products/Release-iphonesimulator/AsystentRemontu.app
           xcrun simctl launch "$REMONT_SIM_UDID" app.replit.remontasystent
-          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID" --managed-photo
+          seed_args=(--managed-photo)
+          if [ "${REMONT_TEST_HOUSE_BACKUP:-0}" = "1" ]; then
+            seed_args+=(--house-backup)
+          fi
+          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID" "${seed_args[@]}"
       - name: Native project, real price and screenshot acceptance
         script: |
           cd "$CM_BUILD_DIR"
@@ -308,6 +312,10 @@ workflows:
           maestro --device "$REMONT_SIM_UDID" test --format junit --output native-photo-smoke.xml scripts/ci/ios-managed-photo.yaml || exit $?
           maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-share.xml scripts/ci/ios-backup-share.yaml || exit $?
           python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" > native-backup-share-verification.json || exit $?
+          if [ "${REMONT_TEST_HOUSE_BACKUP:-0}" = "1" ]; then
+            maestro --device "$REMONT_SIM_UDID" test --format junit --output native-house-backup-share.xml scripts/ci/ios-house-backup-share.yaml || exit $?
+            python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" --house-backup > native-house-backup-share-verification.json || exit $?
+          fi
           exit "$smoke_status"
     artifacts:
       - native-screens/*.png
@@ -315,6 +323,8 @@ workflows:
       - native-photo-smoke.xml
       - native-backup-share.xml
       - native-backup-share-verification.json
+      - native-house-backup-share.xml
+      - native-house-backup-share-verification.json
       - simulator-build.log
       - simulator-app.tar.gz
       - simulator-app.sha256
