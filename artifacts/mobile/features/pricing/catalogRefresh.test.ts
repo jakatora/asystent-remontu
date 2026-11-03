@@ -19,6 +19,17 @@ test('explicit catalogue POST sends only the chosen physical identity and reject
   globalThis.fetch=async(input,init)=>{calls++;assert.match(String(input),/\/pricing\/catalog-availability\/refresh$/);assert.equal(init?.method,'POST');assert.deepEqual(JSON.parse(String(init?.body)),identity);assert.ok(init?.signal);return Response.json({version:1,identity:mismatch?{...identity,packageSize:200}:{unit:identity.unit,packageSize:identity.packageSize,category:identity.category,ean:identity.ean},refresh:{status:'updated',checkedAt:'2026-11-01T21:00:00Z',confirmedOfferIds:['plusmarket-pex-pipe-16x2'],failedOfferIds:[],retryAfterSeconds:60},availability:snap('Plus-Market')});};
   try{assert.equal((await refreshCatalogProduct(identity)).refresh.confirmedOfferIds.length,1);mismatch=true;await assert.rejects(refreshCatalogProduct(identity),/catalog_refresh_identity_mismatch/);assert.equal(calls,2);await assert.rejects(refreshCatalogProduct({...identity,url:'https://other.example'}as any));assert.equal(calls,2);}finally{globalThis.fetch=previous;}
 });
+test('refresh distinguishes an unreviewed product from a missing API route', async () => {
+  const previous = globalThis.fetch;
+  const identity = catalogueRefreshIdentity(ref('mat-profile-ud30-norgips-06-3m'))!;
+  try {
+    globalThis.fetch = async () => Response.json({error:'catalog_product_not_reviewed'}, {status:404});
+    await assert.rejects(refreshCatalogProduct(identity), e => e instanceof ApiError && e.message === 'catalog_product_not_reviewed');
+    globalThis.fetch = async () => new Response('Not found', {status:404});
+    await assert.rejects(refreshCatalogProduct(identity), e => e instanceof ApiError && e.message === 'HTTP 404');
+  } finally { globalThis.fetch = previous; }
+});
+
 test('catalogue product POST observes the shared Retry-After and never automatically retries',async()=>{
   const previous=globalThis.fetch;let calls=0;globalThis.fetch=async()=>{calls++;return new Response('{}',{status:429,headers:{'retry-after':'90'}});};
   try{await assert.rejects(refreshCatalogProduct(catalogueRefreshIdentity(ref('mat-pex-pipe-tycner-16x2'))!),e=>e instanceof ApiError&&e.status===429);await assert.rejects(fetchCatalogAvailability(),e=>e instanceof ApiError&&e.status===429);assert.equal(calls,1);}finally{globalThis.fetch=previous;}

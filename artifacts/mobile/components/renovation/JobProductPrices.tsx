@@ -5,7 +5,7 @@ import {Button} from '@/components/ui/Button';
 import {Colors} from '@/constants/colors';
 import {useLanguage} from '@/context/LanguageContext';
 import {SHOP_DISPLAY_NAMES,type ShopPrice} from '@/types/domain';
-import {formatGrosze,refreshCatalogProduct} from '@/features/pricing/pricingApi';
+import {ApiError,formatGrosze,refreshCatalogProduct} from '@/features/pricing/pricingApi';
 import {formatPackageSize,formatPackageUnit} from '@/features/pricing/packageDisplay';
 import {jobProductKey,type ReviewedJobProduct} from '@/features/pricing/jobProduct';
 import {JobProductPriceCache} from '@/features/pricing/jobProductPriceCache';
@@ -16,18 +16,29 @@ const cache=new JobProductPriceCache(refreshCatalogProduct);
 
 export function JobProductPrices({product,links=[]}:{product:ReviewedJobProduct|null;links?:readonly ShopPrice[]}){
   const {language}=useLanguage(),pl=language==='pl',key=product?jobProductKey(product.identity):null;
-  const [data,setData]=useState<CatalogProductRefresh|null>(null),[loading,setLoading]=useState(false),[error,setError]=useState(false),[otherLinks,setOtherLinks]=useState(false);
+  const [data,setData]=useState<CatalogProductRefresh|null>(null),[loading,setLoading]=useState(false),[error,setError]=useState<null | 'unreviewed' | 'request'>(null),[otherLinks,setOtherLinks]=useState(false);
   const generation=useRef(0);
   const load=async(force=false)=>{
     if(!product)return;
-    const request=++generation.current;setLoading(true);setError(false);setData(null);
+    const request=++generation.current;setLoading(true);setError(null);setData(null);
     try{const result=await cache.read(product.identity,force);if(request===generation.current)setData(result);}
-    catch{if(request===generation.current)setError(true);}
+    catch (failure) {
+      if (request === generation.current) setError(
+        failure instanceof ApiError && failure.message === 'catalog_product_not_reviewed' ? 'unreviewed' : 'request',
+      );
+    }
     finally{if(request===generation.current)setLoading(false);}
   };
-  useEffect(()=>{setData(null);setError(false);setOtherLinks(false);setLoading(false);if(product)void load();return()=>{generation.current++;};},[key]);
+  useEffect(()=>{setData(null);setError(null);setOtherLinks(false);setLoading(false);if(product)void load();return()=>{generation.current++;};},[key]);
   const date=(s:string)=>new Intl.DateTimeFormat(pl?'pl-PL':'en-GB',{dateStyle:'short',timeStyle:'short',timeZone:'Europe/Warsaw'}).format(new Date(s));
   const offers=key&&data&&jobProductKey(data.identity)===key?data.offers??[]:[];
+  const emptyLabel = !product
+    ? (pl ? 'Bieżąca cena nie jest jeszcze potwierdzona.' : 'A current price has not been confirmed yet.')
+    : error === 'unreviewed'
+      ? (pl ? 'Dla tego modelu nie ma jeszcze źródła aktualnej ceny w aplikacji.' : 'The app does not yet have a current price source for this model.')
+      : error === 'request'
+        ? (pl ? 'Nie udało się teraz pobrać ceny. Spróbuj ponownie.' : 'Could not load the price. Please try again.')
+        : (pl ? 'Brak potwierdzonej bieżącej ceny tego modelu.' : 'No confirmed current price for this model.');
   return <View style={{gap:8}} accessibilityLiveRegion="polite">
     {product?.example&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl?`Przykładowy model: ${product.name}. Dobierz narzędzie do powierzchni i używanego preparatu.`:`Example model: ${product.name}. Choose a tool suitable for the surface and coating.`}</Txt>}
     {loading&&<Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?'Sprawdzam ceny w sklepach…':'Checking store prices…'}</Txt>}
@@ -46,8 +57,8 @@ export function JobProductPrices({product,links=[]}:{product:ReviewedJobProduct|
         </View>;
       })}
     </>}
-    {!loading&&!offers.length&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{product?(error?(pl?'Nie udało się teraz pobrać ceny. Spróbuj ponownie.':'Could not load the price. Please try again.'):(pl?'Brak potwierdzonej bieżącej ceny tego modelu.':'No confirmed current price for this model.')):(pl?'Bieżąca cena nie jest jeszcze potwierdzona.':'A current price has not been confirmed yet.')}</Txt>}
-    {product&&<Button size="sm" variant="ghost" label={pl?'Odśwież ceny':'Refresh prices'} loading={loading} onPress={()=>{void load(true);}}/>}
+    {!loading&&!offers.length&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{emptyLabel}</Txt>}
+    {product&&error!=='unreviewed'&&<Button size="sm" variant="ghost" label={pl?'Odśwież ceny':'Refresh prices'} loading={loading} onPress={()=>{void load(true);}}/>}
     {data&&data.refresh.failedOfferIds.length>0&&<Txt style={{fontSize:11,lineHeight:17,color:Colors.textMuted}}>{pl?'Części ofert nie udało się potwierdzić. Lista cen może być niepełna.':'Some offers could not be confirmed. The list may be incomplete.'}</Txt>}
     {links.length>0&&<>
       <Button size="sm" variant="ghost" label={pl?(otherLinks?'Ukryj pozostałe linki':'Inne sklepy — ceny niepotwierdzone'):(otherLinks?'Hide other links':'Other stores — prices unconfirmed')} onPress={()=>setOtherLinks(value=>!value)}/>

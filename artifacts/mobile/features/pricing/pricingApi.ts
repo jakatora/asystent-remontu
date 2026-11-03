@@ -443,6 +443,10 @@ export async function refreshCatalogProduct(identity:CatalogRefreshIdentity):Pro
   const checked=parseCatalogRefreshIdentity(identity),controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),45_000);
   try{
     const response=await pricingFetch(endpoint('/api/pricing/catalog-availability/refresh'),{method:'POST',headers:{accept:'application/json','content-type':'application/json'},body:JSON.stringify(checked),signal:controller.signal});
+    if (response.status === 404) {
+      const body = await response.json().catch(() => null);
+      if (body?.error === 'catalog_product_not_reviewed') throw new ApiError(404, body.error);
+    }
     if(!response.ok)throw new ApiError(response.status,`HTTP ${response.status}`);
     const result=parseCatalogProductRefresh(await response.json());
     if(!(['ean','productId','category','packageSize','unit']as const).every(key=>result.identity[key]===checked[key]))throw Error('catalog_refresh_identity_mismatch');
