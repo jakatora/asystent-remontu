@@ -31,8 +31,16 @@ const HARDY_MAXPROFI:ReviewedJobProduct={
   imageUrl:'https://sklep.sewera.pl/photo/309526/walek-malarski-maxprofi-18cm-runo-12mm-hardy.webp',
 };
 
+// source: https://sklep.sewera.pl/pedzel-lawkowiec-190mm-kraus-p22550
+const KRAUS_L19:ReviewedJobProduct={
+  identity:{ean:'5904178021308',category:'paint-brush',packageSize:1,unit:'szt'},
+  name:'Kraus Ł19 — pędzel ławkowiec 190 mm',example:true,
+  imageUrl:'https://sklep.sewera.pl/photo/359210/pedzel-lawkowiec-190mm-kraus.webp',
+};
+
 export function reviewedJobProduct(item:JobProductItem,kind:'material'|'tool'):ReviewedJobProduct|null{
   if(kind==='tool'){
+    if(item.id==='paint-roller-bso'&&item.name==='Wałek lub szeroki pędzel do gruntu pod tynk')return KRAUS_L19;
     if(item.shopPrices===SHARED_SHOP_PRICES.brush50mm)return KRAUS_A50;
     if(item.id==='roller'&&item.name==='Wałek malarski 18–22 cm'&&item.shopPrices===SHARED_SHOP_PRICES.roller18cm)return HARDY_MAXPROFI;
     return null;

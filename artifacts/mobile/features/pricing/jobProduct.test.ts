@@ -37,6 +37,9 @@ test('the painting roller example excludes the primer and long-pile facade rolle
   const facadeRoller=ALL_JOBS.find(job=>job.id==='eps-insulation-bso')?.tools.find(tool=>tool.id==='paint-roller-bso');
   assert(facadeRoller);
   assert.equal(facadeRoller.shopPrices,undefined);
+  const facadeBrush=reviewedJobProduct(facadeRoller,'tool');
+  assert.equal(facadeBrush?.identity.ean,'5904178021308');
+  assert.equal(facadeBrush?.example,true);
 });
 
 test('duplicate cards and forced clicks share one pending read; completed prices expire rather than persist',async()=>{
