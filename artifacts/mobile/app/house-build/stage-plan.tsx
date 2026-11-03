@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform, TextInput, Alert } from 'react-native';
 import { useLocalSearchParams, Stack, useFocusEffect, router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { parseOptionalPositiveInteger } from '@/shared/lib/number';
 import { getStageByKey } from '@/features/house-build/stages';
 import { getDependenciesForStage, getBlockingStages } from '@/features/house-build/dependencies';
 import { getContractorMappingForStage } from '@/features/house-build/contractor-mapping';
@@ -75,6 +76,11 @@ export default function StagePlanScreen() {
   const [notes, setNotes] = useState<TimelineNoteRecord[]>([]);
   const [customName, setCustomName] = useState('');
   const [customWeeks, setCustomWeeks] = useState('');
+  const [savingCustom, setSavingCustom] = useState(false);
+  const [saveCustomFailed, setSaveCustomFailed] = useState(false);
+  const savingCustomRef = useRef(false);
+  const estimatedWeeks = parseOptionalPositiveInteger(customWeeks);
+  const invalidWeeks = Number.isNaN(estimatedWeeks);
   const [stageNotes, setStageNotes] = useState('');
   const [showAddNote, setShowAddNote] = useState(false);
   const [newNoteType, setNewNoteType] = useState<TimelineNoteType>('custom');
@@ -130,15 +136,25 @@ export default function StagePlanScreen() {
     await loadData();
   }, [projectId, stageKey, loadData]);
 
-  const handleSaveCustom = useCallback(async () => {
-    if (!projectId) return;
-    await timelineBudgetRepo.upsertTimelineStage(projectId, stageKey, {
-      customName: customName.trim() || null,
-      estimatedWeeks: customWeeks ? parseInt(customWeeks) : null,
-      notes: stageNotes,
-    });
-    await loadData();
-  }, [projectId, stageKey, customName, customWeeks, stageNotes, loadData]);
+  const handleSaveCustom = async () => {
+    if (!projectId || !stage || invalidWeeks || savingCustomRef.current) return;
+    savingCustomRef.current = true;
+    setSavingCustom(true);
+    setSaveCustomFailed(false);
+    try {
+      await timelineBudgetRepo.upsertTimelineStage(projectId, stageKey, {
+        customName: customName.trim() || null,
+        estimatedWeeks,
+        notes: stageNotes,
+      });
+      await loadData();
+    } catch {
+      setSaveCustomFailed(true);
+    } finally {
+      savingCustomRef.current = false;
+      setSavingCustom(false);
+    }
+  };
 
   const handleAddNote = useCallback(async () => {
     if (!projectId || !newNoteText.trim()) return;
@@ -235,39 +251,44 @@ export default function StagePlanScreen() {
             ))}
           </View>
 
-          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>Edycja</Txt>
+          <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 8 }}>{t('hb.stagePlan.editSection')}</Txt>
           <View style={{
             backgroundColor: Colors.surface, borderRadius: 12, padding: 14, marginBottom: 16,
             borderWidth: 1, borderColor: Colors.border,
           }}>
             <TextInput
               style={{ borderBottomWidth: 1, borderBottomColor: Colors.border, paddingBottom: 8, marginBottom: 10, fontSize: 14, color: Colors.text }}
-              placeholder="Wlasna nazwa etapu (opcjonalnie)"
+              placeholder={t('hb.stagePlan.customNamePlaceholder')}
               placeholderTextColor={Colors.textMuted}
               value={customName}
               onChangeText={setCustomName}
             />
             <TextInput
               style={{ borderBottomWidth: 1, borderBottomColor: Colors.border, paddingBottom: 8, marginBottom: 10, fontSize: 14, color: Colors.text }}
-              placeholder="Szacowany czas (tygodnie)"
+              placeholder={t('hb.stagePlan.customWeeksPlaceholder')}
+              accessibilityLabel={t('hb.stagePlan.customWeeksPlaceholder')}
               placeholderTextColor={Colors.textMuted}
-              keyboardType="numeric"
+              keyboardType="number-pad"
               value={customWeeks}
               onChangeText={setCustomWeeks}
             />
+            {invalidWeeks && <Txt accessibilityRole="alert" style={{ color: Colors.danger, marginBottom: 8 }}>{t('hb.stagePlan.invalidWeeks')}</Txt>}
             <TextInput
               style={{ fontSize: 14, color: Colors.text, minHeight: 60, textAlignVertical: 'top' }}
-              placeholder="Notatki do etapu..."
+              placeholder={t('hb.stagePlan.stageNotesPlaceholder')}
               placeholderTextColor={Colors.textMuted}
               multiline
               value={stageNotes}
               onChangeText={setStageNotes}
             />
+            {saveCustomFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger, marginTop: 8 }}>{t('hb.stagePlan.saveFailed')}</Txt>}
             <TouchableOpacity
-              style={{ backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center', marginTop: 10 }}
+              style={{ backgroundColor: invalidWeeks || savingCustom ? Colors.border : HB_ACCENT, borderRadius: 8, minHeight: 44, justifyContent: 'center', alignItems: 'center', marginTop: 10 }}
               onPress={handleSaveCustom}
+              accessibilityRole="button"
+              disabled={invalidWeeks || savingCustom}
             >
-              <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>Zapisz</Txt>
+              <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.stagePlan.saveCta')}</Txt>
             </TouchableOpacity>
           </View>
 

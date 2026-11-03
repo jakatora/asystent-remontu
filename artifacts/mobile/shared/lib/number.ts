@@ -12,3 +12,11 @@ export function parseOptionalPositiveDecimal(value: string): number | null {
   const parsed = parseDecimal(value);
   return parsed > 0 ? parsed : NaN;
 }
+
+/** A blank input clears an override. Fractions and partial numbers are invalid. */
+export function parseOptionalPositiveInteger(value: string): number | null {
+  const input = value.trim();
+  if (!input) return null;
+  const parsed = Number(input);
+  return /^\d+$/.test(input) && Number.isSafeInteger(parsed) && parsed > 0 ? parsed : NaN;
+}

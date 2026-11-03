@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { parseDecimal, parseOptionalPositiveDecimal } from '@/shared/lib/number';
+import { parseDecimal, parseOptionalPositiveDecimal, parseOptionalPositiveInteger } from '@/shared/lib/number';
 import { parseMeasurements } from '@/shared/lib/measurements';
 import { paintJob } from '@/data/jobs/paint';
 
@@ -22,6 +22,14 @@ test('optional building footprint retains the fraction and rejects invalid posit
   assert.equal(parseOptionalPositiveDecimal('  '), null);
   for (const input of ['70,5 m²', '-1', '0', '70,5,1', 'Infinity']) {
     assert.ok(Number.isNaN(parseOptionalPositiveDecimal(input)), input);
+  }
+});
+
+test('an optional stage duration accepts only positive whole weeks', () => {
+  assert.equal(parseOptionalPositiveInteger(' 12 '), 12);
+  assert.equal(parseOptionalPositiveInteger(' '), null);
+  for (const input of ['2,5', '2.5', '-2', '0', '2 tyg.', '1e3', '9007199254740992']) {
+    assert.ok(Number.isNaN(parseOptionalPositiveInteger(input)), input);
   }
 });
 
