@@ -1,0 +1,23 @@
+appId: app.replit.remontasystent
+---
+- openLink: remont://project-backup
+- tapOn:
+    text: "^Open$"
+    optional: true
+- extendedWaitUntil:
+    visible: Kopie remontĂłw i budowy domu
+    timeout: 30000
+- tapOn: Zapisz lub udostÄ™pnij kopiÄ™
+- extendedWaitUntil:
+    visible: '.*asystent-remontu-budowa-domu.*'
+    timeout: 30000
+- takeScreenshot: native-screens/11-house-backup-share
+- tapOn: '^Save to Files$'
+- extendedWaitUntil:
+    visible: '^Save$'
+    timeout: 30000
+- tapOn: '^Save$'
+- extendedWaitUntil:
+    visible: Kopie remontĂłw i budowy domu
+    timeout: 30000
+- takeScreenshot: native-screens/12-house-backup-saved
