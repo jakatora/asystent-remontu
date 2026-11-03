@@ -306,11 +306,15 @@ workflows:
           smoke_status=0
           maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native || smoke_status=$?
           maestro --device "$REMONT_SIM_UDID" test --format junit --output native-photo-smoke.xml scripts/ci/ios-managed-photo.yaml || exit $?
+          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-share.xml scripts/ci/ios-backup-share.yaml || exit $?
+          python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" > native-backup-share-verification.json || exit $?
           exit "$smoke_status"
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
       - native-photo-smoke.xml
+      - native-backup-share.xml
+      - native-backup-share-verification.json
       - simulator-build.log
       - simulator-app.tar.gz
       - simulator-app.sha256
