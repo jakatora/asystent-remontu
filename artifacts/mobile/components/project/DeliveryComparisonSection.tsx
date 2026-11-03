@@ -50,6 +50,15 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const fewerSelected=choice==='fewer_stores'&&Boolean(options?.fewerStores);
   const best = current ? extraSelected?options!.extraPackages!.basket:fewerSelected?options!.fewerStores!.basket:singleSelected?options!.singleStore:comparison.best : null;
   const otherBaskets=((singleSelected||extraSelected||fewerSelected)&&lowest?[lowest,...comparison.alternatives]:comparison.alternatives).filter(basket=>!best||deliveredBasketKey(basket)!==deliveredBasketKey(best));
+  const selectedTotalLabel = singleSelected
+    ? tr('Kwota dotyczy wybranego wariantu z jednego sklepu.', 'This total is for the selected one-store option.')
+    : fewerSelected
+      ? tr('Kwota dotyczy wybranego wariantu z mniejszą liczbą sklepów.', 'This total is for the selected option with fewer stores.')
+      : extraSelected
+        ? tr('Kwota dotyczy wybranego wariantu z dodatkowymi opakowaniami.', 'This total is for the selected option with extra packs.')
+        : selectedStore
+          ? tr('To najtańszy z potwierdzonych koszyków w wybranym sklepie.', 'This is the lowest confirmed basket at the selected store.')
+          : tr('To najtańszy z potwierdzonych koszyków.', 'This is the lowest confirmed basket.');
   const coverageWarning=unconfirmedDeliveryCoverage(comparison,current,selectedStore);
   const incompleteCompetition = Boolean(coverageWarning);
   const unquotedStoreNames = coverageWarning?.stores??[];
@@ -125,8 +134,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {incompleteCompetition && <View accessibilityRole="alert" style={{ padding: 12, borderRadius: 12, backgroundColor: Colors.warningBg, gap: 8 }}>
         <Txt w="bold" style={{ fontSize: 15 }}>{tr('Porównanie niepełne', 'Comparison incomplete')}</Txt>
         <Txt style={{ fontSize: 14, lineHeight: 21 }}>{tr(
-          `${singleSelected?'Kwota dotyczy wybranego wariantu z jednego sklepu.':selectedStore?'To najtańszy z potwierdzonych koszyków w wybranym sklepie.':'To najtańszy z potwierdzonych koszyków.'} ${unquotedStoreNames.length ? `Nie udało się wycenić innych koszyków: ${unquotedStoreLabel}.` : 'Nie udało się wycenić wszystkich pozostałych koszyków.'} Inny zestaw może być tańszy.`,
-          `${singleSelected?'This total is for the selected one-store option.':selectedStore?'This is the lowest confirmed basket at the selected store.':'This is the lowest confirmed basket.'} ${unquotedStoreNames.length ? `Other baskets could not be quoted: ${unquotedStoreLabel}.` : 'Not every other basket could be quoted.'} Another basket may cost less.`,
+          `${selectedTotalLabel} ${unquotedStoreNames.length ? `Nie udało się wycenić innych koszyków: ${unquotedStoreLabel}.` : 'Nie udało się wycenić wszystkich pozostałych koszyków.'} Inny zestaw może być tańszy.`,
+          `${selectedTotalLabel} ${unquotedStoreNames.length ? `Other baskets could not be quoted: ${unquotedStoreLabel}.` : 'Not every other basket could be quoted.'} Another basket may cost less.`,
         )}</Txt>
         {!!coverageWarning?.rateLimitedStores.length&&<Txt style={{fontSize:14,lineHeight:21}}>{coverageWarning.rateLimitedStores.join(', ')}: {deliveryRateLimitMessage(language)}</Txt>}
         <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Retry delivery quotes')} onPress={() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) })} />
