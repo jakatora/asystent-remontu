@@ -32,11 +32,15 @@ export default function ProjectBackupScreen(){
   const [housePreview,setHousePreview]=useState<HouseBuildBackup|null>(null);
   const conflict=preview?.tables.projects.some(row=>projects.some(project=>project.id===row.id));
   const houseConflict=housePreview?.tables.house_build_projects.some(row=>houseProjects.some(project=>project.id===row.id));
-  const errorMessage=(reason:unknown)=>{
+  const errorMessage=(action:Action,reason:unknown)=>{
     const code=reason instanceof Error?reason.message:'';
     if(code==='backup_project_conflict')return say('Co najmniej jeden projekt z tej kopii jest już zapisany tutaj. Istniejące dane nie zostały nadpisane.','At least one project from this backup is already saved here. Existing data was not overwritten.');
     if(code==='backup_basket_conflict')return say('Ta kopia zawiera sam wspólny koszyk, a tutaj są już dane remontu. Import został zatrzymany; obecny koszyk i projekty pozostają zachowane. Sam koszyk można przywrócić w pustej aplikacji.','This file contains only a shared basket, and renovation data already exists here. Import stopped; your current basket and projects are preserved. A basket-only file can be restored in an empty app.');
-    if(code==='backup_too_large')return say('Kopia przekracza limit 20 MB. Nie zapisano częściowej kopii.','This backup exceeds the 20 MB limit. No partial backup was saved.');
+    if(code==='backup_too_large')return say('Plik kopii przekracza limit 20 MiB.','The backup file exceeds the 20 MiB limit.');
+    if(action==='choose'&&(reason instanceof SyntaxError||code==='invalid_project_backup'||code==='invalid_house_build_backup'))return say(
+      'Nie można odczytać tej kopii. Wybierz plik JSON zapisany przez Asystenta Remontu.',
+      'This backup could not be read. Choose a JSON file saved by Asystent Remontu.',
+    );
     if(code==='backup_photo_not_portable')return say('Plik kopii zawiera zdjęcie w nieprawidłowym formacie. Zapisz nową kopię na urządzeniu źródłowym.','The backup contains a photo in an invalid format. Save a new backup on the source device.');
     if(code==='backup_photo_unreadable')return say('Nie można przenieść jednego ze zdjęć. Otwórz zdjęcia w projekcie źródłowym i spróbuj ponownie. Kopia musi zawierać dostępne zdjęcia.','A photo cannot be transferred. Open the photos in the source project and try again. Photos must be available for a complete backup.');
     if(code==='backup_import_unconfirmed')return say('Nie udało się potwierdzić zapisu. Otwórz ponownie aplikację i sprawdź projekty przed kolejnym importem.','The save could not be confirmed. Reopen the app and check your projects before importing again.');
@@ -47,7 +51,7 @@ export default function ProjectBackupScreen(){
   };
   const run=async(action:Action,task:()=>Promise<void>)=>{
     if(working.current)return;working.current=true;setBusy(action);setFeedback(null);
-    try{await task();}catch(reason){setFeedback({action,text:errorMessage(reason),error:true});}finally{working.current=false;setBusy(null);}
+    try{await task();}catch(reason){setFeedback({action,text:errorMessage(action,reason),error:true});}finally{working.current=false;setBusy(null);}
   };
   const exportProjects=()=>void run('export',async()=>{
     const db=await getDb(),snapshot=await readProjectBackup(db,AsyncStorage),check=await readProjectBackup(db,AsyncStorage);
@@ -65,9 +69,10 @@ export default function ProjectBackupScreen(){
   });
   const choose=()=>void run('choose',async()=>{
     setPreview(null);setHousePreview(null);
-    const raw=await chooseProjectBackup();
-    if(raw===null)return;
-    checkBackupSize(raw);
+    const file=await chooseProjectBackup();
+    if(file===null)return;
+    checkBackupSize(file);
+    const raw=file.replace(/^\uFEFF/,'');
     if(JSON.parse(raw)?.format===HOUSE_BACKUP_FORMAT){
       const backup=parseHouseBuildBackup(raw);
       if(!backup.tables.house_build_projects.length)throw Error('backup_empty');
