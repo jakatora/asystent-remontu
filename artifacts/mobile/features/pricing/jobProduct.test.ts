@@ -36,7 +36,7 @@ test('the painting roller example excludes the primer and long-pile facade rolle
   assert.equal(reviewedJobProduct({...roller,id:'paint-roller-bso'},'tool'),null);
   const facadeRoller=ALL_JOBS.find(job=>job.id==='eps-insulation-bso')?.tools.find(tool=>tool.id==='paint-roller-bso');
   assert(facadeRoller);
-  assert.equal(facadeRoller.shopPrices,undefined);
+  assert.equal('shopPrices' in facadeRoller ? facadeRoller.shopPrices : undefined,undefined);
   const facadeBrush=reviewedJobProduct(facadeRoller,'tool');
   assert.equal(facadeBrush?.identity.ean,'5904178021308');
   assert.equal(facadeBrush?.example,true);
