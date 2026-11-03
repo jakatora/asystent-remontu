@@ -86,8 +86,34 @@ export default function ProjectBackupScreen(){
     setFeedback({action:'import',destination:'/house-build',text:say(`Przywrócono projekty budowy domu: ${count}.`,`House-building projects restored: ${count}.`)});
   });
   const restore=()=>void run('import',async()=>{
-    if(!preview)return;const result=await importProjectBackup(preview,await getDb(),AsyncStorage);setPreview(null);await refreshProjects();
-    setFeedback({action:'import',destination:result.projects===0?'/renovation-basket':'/projects',text:result.projects===0?say('Wczytano wspólny koszyk i jego ustawienia. Odśwież ceny i dostawy przed zakupem.','The shared basket and its settings were restored. Refresh prices and delivery before buying.'):say(`Przeniesiono projektów: ${result.projects}. Odśwież ceny i dostawy przed zakupem.${result.keptBasketSettings?' Zachowano ustawienia Twojego obecnego wspólnego koszyka.':''}`,`Projects transferred: ${result.projects}. Refresh prices and delivery before buying.${result.keptBasketSettings?' Your current shared basket settings were preserved.':''}`)});
+    if(!preview)return;
+    const result=await importProjectBackup(preview,await getDb(),AsyncStorage);
+    setPreview(null);
+    if(result.projects===0){
+      setFeedback({action:'import',destination:'/renovation-basket',text:say(
+        'Wczytano wspólny koszyk i jego ustawienia. Odśwież ceny i dostawy przed zakupem.',
+        'The shared basket and its settings were restored. Refresh prices and delivery before buying.',
+      )});
+      return;
+    }
+    const restored=say(`Przeniesiono projektów: ${result.projects}.`,`Projects transferred: ${result.projects}.`);
+    const preserved=result.keptBasketSettings?say(
+      ' Zachowano ustawienia Twojego obecnego wspólnego koszyka.',
+      ' Your current shared basket settings were preserved.',
+    ):'';
+    try{
+      await refreshProjects();
+    }catch{
+      setFeedback({action:'import',text:restored+preserved+say(
+        ' Nie udało się odświeżyć listy. Otwórz ponownie aplikację, aby zobaczyć zapisane projekty.',
+        ' The list could not be refreshed. Reopen the app to see the saved projects.',
+      )});
+      return;
+    }
+    setFeedback({action:'import',destination:'/projects',text:restored+say(
+      ' Odśwież ceny i dostawy przed zakupem.',
+      ' Refresh prices and delivery before buying.',
+    )+preserved});
   });
   const card={backgroundColor:Colors.surface,borderRadius:16,padding:20,borderWidth:1,borderColor:Colors.border,gap:14} as const;
   const renderFeedback=(action:Action)=>{
