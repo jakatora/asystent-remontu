@@ -2,6 +2,7 @@
 from pathlib import Path
 import json, sqlite3, subprocess, sys, time
 from managed_photo_fixture import write_managed_photo
+from house_backup_fixture import seed_house_backup
 
 udid=sys.argv[1]
 container=Path(subprocess.check_output(['xcrun','simctl','get_app_container',udid,'app.replit.remontasystent','data'],text=True).strip()).resolve()
@@ -42,6 +43,8 @@ with sqlite3.connect(database) as connection:
             'INSERT INTO project_photos (id,project_id,uri,photo_type,created_at) VALUES (?,?,?,?,?)',
             ('qa-managed-photo','paint-base','project-photo:'+name,'before',projects[0]['created_at']),
         )
+    if '--house-backup' in sys.argv[2:]:
+        seed_house_backup(connection)
     connection.commit()
     connection.execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchall()
 print(json.dumps({'syntheticProjects':len(projects),'managedPhoto':managed_photo,'databaseCreatedByNativeApp':True,'deliveryQuotesInjected':False}))
