@@ -23,11 +23,12 @@ export async function makePortableProjectPhoto(uri:string):Promise<string>{
     return new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('backup_photo_unreadable'));reader.onload=()=>resolve(String(reader.result));reader.readAsDataURL(blob);});
 }
 
-export function downloadProjectBackup(raw:string):void{
+export function downloadProjectBackup(raw:string,scope:'renovation'|'house'='renovation'):void{
   const blob=new Blob([raw],{type:'application/json'});
   if(blob.size>BACKUP_MAX_BYTES)throw Error('backup_too_large');
   const url=URL.createObjectURL(blob),link=document.createElement('a');
-  link.href=url;link.download=`asystent-remontu-projekty-${new Date().toISOString().slice(0,10)}.json`;
+  const kind=scope==='house'?'budowa-domu':'projekty';
+  link.href=url;link.download=`asystent-remontu-${kind}-${new Date().toISOString().slice(0,10)}.json`;
   document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30_000);
 }
 

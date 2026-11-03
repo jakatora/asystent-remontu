@@ -62,14 +62,15 @@ export async function embedBackupPhotos(backup: ProjectBackup): Promise<ProjectB
   return { ...backup, tables: { ...backup.tables, project_photos: photos } };
 }
 
-export async function downloadProjectBackup(raw: string): Promise<void> {
+export async function downloadProjectBackup(raw: string, scope: 'renovation' | 'house' = 'renovation'): Promise<void> {
   checkBackupSize(raw);
   if (!await isAvailableAsync()) throw Error('backup_share_unavailable');
   const directory = new Directory(Paths.cache, 'renovation-backup');
   directory.create({ idempotent: true });
   // A recipient may read the file after the share sheet closes. Each export
   // gets its own URI so a later export cannot change the shared contents.
-  const file = new File(directory, `asystent-remontu-projekty-${Date.now()}.json`);
+  const kind = scope === 'house' ? 'budowa-domu' : 'projekty';
+  const file = new File(directory, `asystent-remontu-${kind}-${Date.now()}.json`);
   file.write(raw);
   await shareAsync(file.uri, { mimeType: 'application/json', UTI: 'public.json' });
 }
