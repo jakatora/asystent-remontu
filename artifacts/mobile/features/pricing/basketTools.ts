@@ -6,6 +6,25 @@ import type { PricingMaterialLineInput } from './pricingApi';
 
 export type BasketToolChoice = 'owned' | 'buy' | 'rent';
 export const BASKET_TOOL_PREFIX = 'remont.basket-tool.v1:';
+export const MAX_SAVED_BASKET_TOOLS = 1000;
+
+export function isBasketToolStorageKey(key: string): boolean {
+  if (!key.startsWith(BASKET_TOOL_PREFIX) || key.length > 360) return false;
+  const encoded = key.slice(BASKET_TOOL_PREFIX.length);
+  try {
+    const parts: unknown = JSON.parse(encoded);
+    if (!Array.isArray(parts) || JSON.stringify(parts) !== encoded) return false;
+    const safeText = (value: unknown): value is string =>
+      typeof value === 'string' && value.trim() === value && value.length > 0 && !/[\u0000-\u001f]/.test(value);
+    const [identity, nameOrCategory, size, unit] = parts;
+    if (!safeText(identity) || !safeText(nameOrCategory)) return false;
+    if (parts.length === 2) return /^[a-z0-9][a-z0-9-]*$/.test(identity);
+    return parts.length === 4 && /^(?:\d{13}|remont-sku-[a-z0-9-]+)$/.test(identity)
+      && typeof size === 'number' && Number.isFinite(size) && size > 0 && safeText(unit);
+  } catch {
+    return false;
+  }
+}
 
 export interface BasketTool {
   key: string;

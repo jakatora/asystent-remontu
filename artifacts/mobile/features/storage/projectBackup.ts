@@ -12,6 +12,7 @@ import type {DatabaseConnection, DatabaseCommand} from '../../db/connection';
 import {BACKUP_PRODUCT_CHOICE_PARSERS,BACKUP_PRODUCT_CHOICE_PREFIXES,validateBackupPreferences} from './projectBackupPreferences';
 import {parseBasketSelection} from '../pricing/renovationBasket';
 import {parseBasketExtras} from '../pricing/basketExtras';
+import {BASKET_TOOL_PREFIX,isBasketToolStorageKey,MAX_SAVED_BASKET_TOOLS} from '../pricing/basketTools';
 import {MATERIAL_STOCK_PREFIX} from '../pricing/materialStock';
 import {waitForMaterialStockWrites} from '../pricing/materialStockStorage';
 import {RECOVERY_BACKUP_PREFIXES,RECOVERY_GLOBAL_KEYS,parsePreferenceRecovery} from './preferenceRecovery';
@@ -61,11 +62,12 @@ const tables=Object.keys(BACKUP_TABLES) as BackupTable[];
 const tableShape=Object.fromEntries(tables.map(table=>[table,z.array(BACKUP_TABLES[table]).max(10_000)]));
 const envelope=z.object({format:z.literal('asystent-remontu-projects'),version:z.literal(1),createdAt:time,tables:z.object(tableShape).strict(),preferences:z.record(z.string(),z.string().max(1_000_000))}).strict();
 export interface ProjectBackup {format:'asystent-remontu-projects';version:1;createdAt:string;tables:Record<BackupTable,BackupRow[]>;preferences:Record<string,string>}
-export interface BackupStorage {getItem(key:string):Promise<string|null>;setItem(key:string,value:string):Promise<void>;removeItem(key:string):Promise<void>}
+export interface BackupStorage {getAllKeys():Promise<readonly string[]>;getItem(key:string):Promise<string|null>;setItem(key:string,value:string):Promise<void>;removeItem(key:string):Promise<void>}
 export const canonical=(value:unknown):string=>JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(key=>[key,item[key]])):item);
 export const backupExtraCount=(backup:ProjectBackup):number=>parseBasketExtras(backup.preferences['remont.basket-extras.v1']??null).length;
+export const backupToolChoiceCount=(backup:ProjectBackup):number=>Object.keys(backup.preferences).filter(isBasketToolStorageKey).length;
 export function hasBackupContent(backup:ProjectBackup):boolean{
-  if(backup.tables.projects.length>0||backupExtraCount(backup)>0)return true;
+  if(backup.tables.projects.length>0||backupExtraCount(backup)>0||backupToolChoiceCount(backup)>0)return true;
   if(RECOVERY_GLOBAL_KEYS.some(key=>parsePreferenceRecovery(backup.preferences[key]??null).records.length>0))return true;
   if(BACKUP_PRODUCT_CHOICE_PREFIXES.some(prefix=>{
     const raw=backup.preferences[prefix+'renovation-basket'];
@@ -101,8 +103,10 @@ export function parseProjectBackup(raw:string,portable=true):ProjectBackup{
   }
   if(rowCount>10_000||new Set(backup.tables.project_price_snapshots.map(row=>row.project_id)).size!==backup.tables.project_price_snapshots.length)fail();
   const keys=Object.keys(backup.preferences);
-  if(keys.length>projects.size*BACKUP_PREFERENCE_PREFIXES.length+BACKUP_GLOBAL_KEYS.length)fail();
+  const toolKeys=new Set(keys.filter(isBasketToolStorageKey));
+  if(toolKeys.size>MAX_SAVED_BASKET_TOOLS||keys.length-toolKeys.size>projects.size*BACKUP_PREFERENCE_PREFIXES.length+BACKUP_GLOBAL_KEYS.length)fail();
   for(const key of keys){
+    if(toolKeys.has(key))continue;
     if(!BACKUP_GLOBAL_KEYS.includes(key as any)&&!BACKUP_PREFERENCE_PREFIXES.some(prefix=>key.startsWith(prefix)&&projects.has(key.slice(prefix.length))))fail();
     try{const value=JSON.parse(backup.preferences[key]);if(!value||typeof value!=='object'||Array.isArray(value))fail();}catch{fail();}
   }
@@ -129,7 +133,9 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
     waitForCeresitPackageWrites(storage,id),
     waitForMapegumProductWrites(storage,id),waitForCeilingPaintWrites(storage,id),
   ]));
-  const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS];
+  const toolKeys=(await storage.getAllKeys()).filter(key=>key.startsWith(BASKET_TOOL_PREFIX));
+  if(toolKeys.length>MAX_SAVED_BASKET_TOOLS||toolKeys.some(key=>!isBasketToolStorageKey(key)))fail();
+  const keys=[...data.projects.flatMap(project=>BACKUP_PREFERENCE_PREFIXES.map(prefix=>prefix+project.id)),...BACKUP_GLOBAL_KEYS,...toolKeys];
   const preferences=Object.fromEntries((await Promise.all(keys.map(async key=>{
     if(key.startsWith(MATERIAL_STOCK_PREFIX))await waitForMaterialStockWrites(storage,key.slice(MATERIAL_STOCK_PREFIX.length));
     if(key.startsWith(PRIMER_PACKAGE_CHOICE_PREFIX))await waitForPrimerPackageWrites(storage,key.slice(PRIMER_PACKAGE_CHOICE_PREFIX.length));
@@ -162,7 +168,7 @@ export async function importProjectBackup(backup:ProjectBackup,db:DatabaseConnec
   // success while skipping its only content, or replace an existing renovation.
   if(!backup.tables.projects.length&&keepBasket)throw Error('backup_basket_conflict');
   const globalKeys=new Set<string>(BACKUP_GLOBAL_KEYS);
-  const entries=Object.entries(backup.preferences).filter(([key])=>!globalKeys.has(key)||!keepBasket);
+  const entries=Object.entries(backup.preferences).filter(([key])=>!keepBasket||!(globalKeys.has(key)||isBasketToolStorageKey(key)));
   const previous=new Map(await Promise.all(entries.map(async([key])=>[key,await storage.getItem(key)] as const)));
   const commands:DatabaseCommand[]=tables.flatMap(table=>{
     const columns=Object.keys(BACKUP_TABLES[table].shape);

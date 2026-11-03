@@ -11,7 +11,7 @@ import {getDb} from '@/db/client';
 import {Colors} from '@/constants/colors';
 import {Txt} from '@/components/ui/Txt';
 import {Button} from '@/components/ui/Button';
-import {backupExtraCount,canonical,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type ProjectBackup} from '@/features/storage/projectBackup';
+import {backupExtraCount,backupToolChoiceCount,canonical,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type ProjectBackup} from '@/features/storage/projectBackup';
 import {HOUSE_BACKUP_FORMAT,importHouseBuildBackup,parseHouseBuildBackup,readHouseBuildBackup,type HouseBuildBackup} from '@/features/storage/houseBuildBackup';
 import {chooseProjectBackup,downloadProjectBackup,embedBackupPhotos} from '@/features/storage/projectBackupFiles';
 
@@ -111,7 +111,7 @@ export default function ProjectBackupScreen(){
             </View>}
             {preview&&<View style={{gap:12}}>
               <Txt w="semibold" style={{fontSize:16,color:Colors.text}}>{say(`Do wczytania: ${preview.tables.projects.length} projektów, ${preview.tables.shopping_items.length} pozycji zakupów, ${preview.tables.project_photos.length} zdjęć`,`Ready to import: ${preview.tables.projects.length} projects, ${preview.tables.shopping_items.length} shopping items, ${preview.tables.project_photos.length} photos`)}</Txt>
-              <Txt style={{fontSize:14,color:Colors.text}}>{say(`Dodatkowe produkty we wspólnym koszyku: ${backupExtraCount(preview)}. Wybory modeli i opakowań są częścią kopii.`,`Additional shared-basket products: ${backupExtraCount(preview)}. Model and packaging choices are included in the backup.`)}</Txt>
+              <Txt style={{fontSize:14,color:Colors.text}}>{say(`Dodatkowe produkty: ${backupExtraCount(preview)}. Zapisane wybory narzędzi: ${backupToolChoiceCount(preview)}. Kopia obejmuje też wybory modeli i opakowań.`,`Additional products: ${backupExtraCount(preview)}. Saved tool choices: ${backupToolChoiceCount(preview)}. The backup also includes model and packaging choices.`)}</Txt>
               <Txt style={{fontSize:13,color:Colors.textMuted}}>{say('Utworzono kopię: ','Backup created: ')+new Date(preview.createdAt).toLocaleString(language==='pl'?'pl-PL':'en-GB')}</Txt>
               {preview.tables.projects.slice(0,20).map(row=><Txt key={String(row.id)} style={{fontSize:14,color:Colors.text}}>{String(row.name)}</Txt>)}
               {preview.tables.projects.length>20&&<Txt>{say(`…oraz ${preview.tables.projects.length-20} pozostałych`,`…and ${preview.tables.projects.length-20} more`)}</Txt>}

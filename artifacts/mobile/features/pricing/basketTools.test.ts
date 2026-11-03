@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { withBasketExtras } from './basketExtras';
-import { basketToolPurchases, collectBasketTools, parseBasketToolChoice } from './basketTools';
+import { ALL_JOBS } from '../content/registry';
+import { BASKET_TOOL_PREFIX, basketToolPurchases, collectBasketTools, isBasketToolStorageKey, parseBasketToolChoice } from './basketTools';
+
+test('all current tool keys can be included in a portable backup', () => {
+  const tools = collectBasketTools(ALL_JOBS.map(job => ({ jobId: job.id, name: job.name })));
+  for (const tool of tools) assert.ok(isBasketToolStorageKey(BASKET_TOOL_PREFIX + tool.key), tool.key);
+});
 
 test('the same reviewed brush needed for three works contributes one purchase', () => {
   const tools = collectBasketTools([

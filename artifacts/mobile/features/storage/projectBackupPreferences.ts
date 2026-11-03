@@ -13,6 +13,7 @@ import {parseTileChoices} from '../pricing/tileChoice';
 import {parseTileAdhesiveChoices} from '../pricing/tileAdhesiveChoice';
 import {parsePriceSnapshot} from '../pricing/priceChanges';
 import {parseBasketExtras} from '../pricing/basketExtras';
+import {isBasketToolStorageKey,parseBasketToolChoice} from '../pricing/basketTools';
 import {parseBasketSelection} from '../pricing/renovationBasket';
 import {MATERIAL_STOCK_PREFIX,parseMaterialStock} from '../pricing/materialStock';
 import type {CalculationResult} from '../../types/domain';
@@ -37,6 +38,7 @@ export const BACKUP_PRODUCT_CHOICE_PREFIXES=Object.keys(BACKUP_PRODUCT_CHOICE_PA
 export function validateBackupPreferences(backup:ProjectBackup):void{
   const projects=new Map(backup.tables.projects.map(row=>[String(row.id),row]));
   for(const[key,raw]of Object.entries(backup.preferences)){
+    if(isBasketToolStorageKey(key)){parseBasketToolChoice(raw);continue;}
     if(key.startsWith(PREFERENCE_RECOVERY_PREFIX)){
       if(recoveryArchiveKey(key.slice(PREFERENCE_RECOVERY_PREFIX.length))!==key)throw Error('backup_invalid_recovery');
       parsePreferenceRecovery(raw);continue;

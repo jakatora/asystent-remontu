@@ -17,6 +17,7 @@ test('backup size uses UTF-8 bytes for Polish text and supplementary characters'
 });
 import {calculateMaterials} from '../calculator/engine';
 import {getJobById} from '../content/registry';
+import {BASKET_TOOL_PREFIX,collectBasketTools} from '../pricing/basketTools';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';
 import {writePrimerPackageChoices} from '../pricing/primerPackageStorage';
 import {CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices,CERESIT_PACKAGE_PRODUCTS} from '../pricing/ceresitPackageChoice';
@@ -186,9 +187,44 @@ async function fixture(t:TestContext){
   const raw={execAsync:async(sql:string)=>sqlite.exec(sql),runAsync:async(...args:any[])=>{const result=sqlite.prepare(args[0]).run(...params(args));return{changes:Number(result.changes),lastInsertRowId:Number(result.lastInsertRowid)};},getAllAsync:async(...args:any[])=>sqlite.prepare(args[0]).all(...params(args)).map(row=>({...row})),getFirstAsync:async(...args:any[])=>{const row=sqlite.prepare(args[0]).get(...params(args));return row?{...row}:null;}};
   for(const migration of[migration_001,migration_002,migration_003,migration_004])await migration(raw as any);
   const db=queuedDatabase(raw as any,()=>{}),values=new Map<string,string>();
-  const storage:BackupStorage={getItem:async key=>values.get(key)??null,setItem:async(key,value)=>{values.set(key,value);},removeItem:async key=>{values.delete(key);}};
+  const storage:BackupStorage={getAllKeys:async()=>[...values.keys()],getItem:async key=>values.get(key)??null,setItem:async(key,value)=>{values.set(key,value);},removeItem:async key=>{values.delete(key);}};
   return{sqlite,db,storage,values};
 }
+
+test('tool choices alone round-trip as a basket backup, without copying unrelated settings', async t => {
+  const from = await fixture(t), to = await fixture(t);
+  const tools = collectBasketTools([{ jobId: 'repaint-walls', name: 'Ściany' }]);
+  const choices = ['owned', 'buy', 'rent'];
+  const keys = tools.slice(0, choices.length).map(tool => BASKET_TOOL_PREFIX + tool.key);
+  for (const [index, key] of keys.entries()) await from.storage.setItem(key, choices[index]);
+  await from.storage.setItem('account.token', 'secret');
+
+  const backup = parseProjectBackup(JSON.stringify(await readProjectBackup(from.db, from.storage)));
+  assert.equal(hasBackupContent(backup), true);
+  assert.deepEqual(Object.keys(backup.preferences).sort(), [...keys].sort());
+  assert.equal((await importProjectBackup(backup, to.db, to.storage)).projects, 0);
+  assert.deepEqual(await Promise.all(keys.map(key => to.storage.getItem(key))), choices);
+  await assert.rejects(importProjectBackup(backup, to.db, to.storage), /backup_basket_conflict/);
+
+  const corrupt = structuredClone(backup);
+  corrupt.preferences[keys[0]] = 'automatic';
+  assert.throws(() => parseProjectBackup(JSON.stringify(corrupt)), /invalid_basket_tool_choice/);
+  corrupt.preferences[keys[0]] = 'owned';
+  corrupt.preferences[BASKET_TOOL_PREFIX + 'account.token'] = 'buy';
+  assert.throws(() => parseProjectBackup(JSON.stringify(corrupt)), /invalid_project_backup/);
+});
+
+test('adding archived projects keeps existing shared tool choices', async t => {
+  const from = await source(t), to = await fixture(t);
+  const [tool] = collectBasketTools([{ jobId: 'primer-walls', name: 'Ściany' }]);
+  const key = BASKET_TOOL_PREFIX + tool.key;
+  await from.storage.setItem(key, 'buy');
+  await to.storage.setItem(key, 'owned');
+  const result = await importProjectBackup(await readProjectBackup(from.db, from.storage), to.db, to.storage);
+  assert.deepEqual(result, { projects: 1, keptBasketSettings: true });
+  assert.equal(await to.storage.getItem(key), 'owned');
+});
+
 async function source(t:TestContext){
   const result=await fixture(t),{sqlite,storage}=result;
   const calc=calculateMaterials(getJobById('rolled-vinyl-floor')??getJobById('vinyl-flooring')!,{});
