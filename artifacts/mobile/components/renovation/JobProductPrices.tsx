@@ -5,7 +5,7 @@ import {Button} from '@/components/ui/Button';
 import {Colors} from '@/constants/colors';
 import {useLanguage} from '@/context/LanguageContext';
 import {SHOP_DISPLAY_NAMES,type ShopPrice} from '@/types/domain';
-import {ApiError,formatGrosze,refreshCatalogProduct} from '@/features/pricing/pricingApi';
+import {formatGrosze,isUnreviewedCatalogProduct,refreshCatalogProduct} from '@/features/pricing/pricingApi';
 import {formatPackageSize,formatPackageUnit} from '@/features/pricing/packageDisplay';
 import {jobProductKey,type ReviewedJobProduct} from '@/features/pricing/jobProduct';
 import {JobProductPriceCache} from '@/features/pricing/jobProductPriceCache';
@@ -24,7 +24,7 @@ export function JobProductPrices({product,links=[]}:{product:ReviewedJobProduct|
     try{const result=await cache.read(product.identity,force);if(request===generation.current)setData(result);}
     catch (failure) {
       if (request === generation.current) setError(
-        failure instanceof ApiError && failure.message === 'catalog_product_not_reviewed' ? 'unreviewed' : 'request',
+        isUnreviewedCatalogProduct(failure) ? 'unreviewed' : 'request',
       );
     }
     finally{if(request===generation.current)setLoading(false);}

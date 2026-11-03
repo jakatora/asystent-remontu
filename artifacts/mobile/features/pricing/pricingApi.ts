@@ -437,6 +437,12 @@ export async function fetchCatalogAvailability(): Promise<unknown> {
   } finally { clearTimeout(timeout); }
 }
 
+const UNREVIEWED_CATALOG_PRODUCT = 'catalog_product_not_reviewed';
+
+export function isUnreviewedCatalogProduct(error: unknown): boolean {
+  return error instanceof ApiError && error.status === 404 && error.message === UNREVIEWED_CATALOG_PRODUCT;
+}
+
 /** Explicitly recheck only the reviewed product selected in the catalogue.
  * No delivery calculation, customer data, project changes or typed prices. */
 export async function refreshCatalogProduct(identity:CatalogRefreshIdentity):Promise<CatalogProductRefresh>{
@@ -445,7 +451,7 @@ export async function refreshCatalogProduct(identity:CatalogRefreshIdentity):Pro
     const response=await pricingFetch(endpoint('/api/pricing/catalog-availability/refresh'),{method:'POST',headers:{accept:'application/json','content-type':'application/json'},body:JSON.stringify(checked),signal:controller.signal});
     if (response.status === 404) {
       const body = await response.json().catch(() => null);
-      if (body?.error === 'catalog_product_not_reviewed') throw new ApiError(404, body.error);
+      if (body?.error === UNREVIEWED_CATALOG_PRODUCT) throw new ApiError(404, body.error);
     }
     if(!response.ok)throw new ApiError(response.status,`HTTP ${response.status}`);
     const result=parseCatalogProductRefresh(await response.json());

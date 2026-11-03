@@ -1,5 +1,5 @@
 import {useCallback,useEffect,useRef,useState} from 'react';
-import {ApiError,fetchCatalogAvailability,refreshCatalogProduct} from './pricingApi';
+import {ApiError,fetchCatalogAvailability,isUnreviewedCatalogProduct,refreshCatalogProduct} from './pricingApi';
 import {CatalogAvailabilityCache,type CatalogAvailabilityRead} from './catalogAvailability';
 import type {CatalogRefreshIdentity,CatalogProductRefresh} from '../../../../lib/pricing-service/src/catalog-refresh';
 
@@ -9,7 +9,7 @@ export function useCatalogAvailability(enabled: boolean) {
   const [data,setData] = useState<CatalogAvailabilityRead | null>(null);
   const [loading,setLoading] = useState(false), [error,setError] = useState(false), [expired,setExpired] = useState(false);
   const [retryAt,setRetryAt] = useState<number | null>(null), [now,setNow] = useState(Date.now);
-  const [refreshing,setRefreshing]=useState(false),[productResult,setProductResult]=useState<{key:string;result:CatalogProductRefresh|null;error:boolean;retryAt:number|null}|null>(null);
+  const [refreshing,setRefreshing]=useState(false),[productResult,setProductResult]=useState<{key:string;result:CatalogProductRefresh|null;unreviewed:boolean;retryAt:number|null}|null>(null);
   const version = useRef(0);
   const currentRead = useRef<CatalogAvailabilityRead | null>(null);
   const load = useCallback(async (force: boolean) => {
@@ -41,7 +41,7 @@ export function useCatalogAvailability(enabled: boolean) {
       if(read.expiresAt<=Date.now())setExpired(true);else{currentRead.current=read;setData(read);}
     }catch{if(request===version.current)setError(true);}
     if(request!==version.current)return;
-    setNow(Date.now());setProductResult({key,result,error:result===null,retryAt:result?completedAt+result.refresh.retryAfterSeconds*1000:failure instanceof ApiError?failure.retryAt:null});setRefreshing(false);setLoading(false);
+    setNow(Date.now());setProductResult({key,result,unreviewed:isUnreviewedCatalogProduct(failure),retryAt:result?completedAt+result.refresh.retryAfterSeconds*1000:failure instanceof ApiError?failure.retryAt:null});setRefreshing(false);setLoading(false);
   },[]);
   useEffect(() => {
     if (enabled) void load(false);else{setRefreshing(false);setProductResult(null);}
