@@ -647,12 +647,15 @@ export function getProductPhoto(product: {
   id?: string; ean?: string | null; imageUrl?: string | null; sourceUrl?: string;
   shopPrices?: readonly { url: string }[];
 }): string | undefined {
-  const urls = [product.sourceUrl, ...product.shopPrices?.map(price => price.url) ?? []];
-  // Prefer the reviewed catalogue image for an exact identity. Some shop
-  // domains serve prices correctly on the backend but time out on the device.
-  const reviewed = PRODUCT_PHOTOS.find(photo =>
-    (product.id && (photo.ids.includes(product.id) || photo.ean && product.id === `remont-${photo.ean}`)) ||
-    (product.ean && photo.ean === product.ean) || urls.includes(photo.sourceUrl),
-  )?.imageUrl;
-  return reviewed ?? (product.imageUrl?.startsWith('https://') ? product.imageUrl : undefined);
+  const { ean, id } = product;
+  const urls = [product.sourceUrl, ...(product.shopPrices?.map(price => price.url) ?? [])];
+  // A stale link or local ID must not override the explicitly selected EAN.
+  const reviewed = ean
+    ? PRODUCT_PHOTOS.find(photo => photo.ean === ean)
+    : (id ? PRODUCT_PHOTOS.find(photo =>
+      photo.ids.includes(id) ||
+      (photo.ean && id === `remont-${photo.ean}`) ||
+      Object.values(photo.merchantProductIds ?? {}).includes(id),
+    ) : undefined) ?? PRODUCT_PHOTOS.find(photo => urls.includes(photo.sourceUrl));
+  return reviewed?.imageUrl ?? (product.imageUrl?.startsWith('https://') ? product.imageUrl : undefined);
 }
