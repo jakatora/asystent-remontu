@@ -18,7 +18,7 @@ test('incomplete snapshots and malformed identities, scopes, duplicates or lifet
 
 test('exact EAN also requires category, physical unit and complete pack size; missing is not a substitute',()=>{
   const read={snapshot:snapshot(),expiresAt:30_000};
-  assert.deepEqual(catalogueProductAvailability(ref,read,0),{confirmed:true,stores:['HIPPER']});
+  assert.deepEqual(catalogueProductAvailability(ref,read,0),{confirmed:true,stores:['HIPPER'],lastCheckedAt:'2026-10-31T15:59:00Z'});
   for(const change of [{packageSize:1},{packageSize:90},{unit:'szt'},{category:'masking-tape'},{ean:'5907651699988'}])assert.equal(catalogueProductAvailability(ref,{...read,snapshot:{...snapshot(),products:[{...snapshot().products[0],...change}]}},0)?.confirmed,false);
   assert.equal(catalogueProductAvailability({...ref,packageUnit:'mb'},read,0)?.confirmed,true);
   assert.equal(catalogueProductAvailability(missing,read,0)?.confirmed,false);

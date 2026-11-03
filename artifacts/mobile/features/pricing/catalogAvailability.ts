@@ -59,7 +59,9 @@ export function catalogueProductAvailability(ref: MaterialPriceReference, read: 
     : p.ean === null && p.merchantIdentity?.name === ref.productLabel && p.merchantIdentity?.url === ref.sourceUrl) && p.category === category
     && p.packageSize === ref.packageSize && normalizeUnit(p.unit) === normalizeUnit(ref.packageUnit));
   const stores = [...new Set(matches.flatMap(p => p.stores))];
-  return {confirmed:stores.length > 0,stores};
+  const lastCheckedAt = matches.reduce<string | null>((latest, product) =>
+    latest === null || Date.parse(product.lastCheckedAt) > Date.parse(latest) ? product.lastCheckedAt : latest, null);
+  return {confirmed:stores.length > 0,stores,lastCheckedAt};
 }
 
 /** An expired/error response never hides items or pretends they are unavailable. */
