@@ -71,3 +71,17 @@ test('store comparisons distinguish an unchanged price from a missing baseline i
   assert.match(storePriceComparisonLabel(null, 'en'), /No earlier reading/);
   assert.equal(storePriceComparisonLabel(-225, 'pl'), priceDeltaLabel(-225, 'pl'));
 });
+
+test('duplicate stage offers use the latest reading and reject conflicting prices at that time', () => {
+  const old = response(10000, '2026-10-25T12:00:00Z');
+  const latest = response(11210);
+  const conflict = response(11100);
+  const before = collectSeenPrices(old);
+  for (const stages of [[...old.stages, ...latest.stages], [...latest.stages, ...old.stages]]) {
+    const changes = comparePriceSnapshots(before, collectSeenPrices({...latest, stages}));
+    assert.deepEqual(changes.map(change => change.deltaGrosze), [1210]);
+  }
+  const conflicting = collectSeenPrices({...latest, stages: [...latest.stages, ...conflict.stages, ...old.stages]});
+  assert.deepEqual(conflicting, emptyPriceSnapshot());
+  assert.deepEqual(mergePriceSnapshots(before, conflicting), before);
+});

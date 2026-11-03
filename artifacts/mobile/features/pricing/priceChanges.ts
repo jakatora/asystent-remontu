@@ -83,8 +83,15 @@ export function collectSeenPrices(data: SerializedProject): PriceSnapshot {
       const key=JSON.stringify([line.product.ean ?? line.product.gtin ?? line.product.id,offer.offerId,offer.store,pack,unit]);
       const seen: SeenPrice={key,offerId:offer.offerId,productName:line.product.name,store:offer.store,priceGrosze:offer.priceGrosze,packageSize:pack,unit,checkedAt:offer.fetchedAt};
       if (!valid(seen)) continue;
-      if (offers[key] && offers[key].priceGrosze!==seen.priceGrosze) conflicts.add(key);
-      offers[key]=seen;
+      const prior = offers[key];
+      const ageDifference = prior ? Date.parse(seen.checkedAt) - Date.parse(prior.checkedAt) : 1;
+      if (ageDifference < 0) continue;
+      if (ageDifference === 0) {
+        if (prior.priceGrosze !== seen.priceGrosze) conflicts.add(key);
+        continue;
+      }
+      offers[key] = seen;
+      conflicts.delete(key);
     }
   }
   for (const key of conflicts) delete offers[key];
