@@ -63,7 +63,7 @@ const NOTE_TYPES: { value: TimelineNoteType; labelKey: TranslationKey }[] = [
 export default function StagePlanScreen() {
   const { projectId, stageKey } = useLocalSearchParams<{ projectId: string; stageKey: string }>();
   const insets = useSafeAreaInsets();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const stage = getStageByKey(stageKey);
@@ -413,6 +413,7 @@ export default function StagePlanScreen() {
                   const ov = stageOverrides.find((o) => o.referenceId === ref.id);
                   const dMin = ov?.overrideMin ?? ref.priceMin;
                   const dMax = ov?.overrideMax ?? ref.priceMax;
+                  const formatRate = (rate: number) => rate.toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 2 });
                   const isRegional = ref.regionCode !== 'PL';
                   return (
                     <View key={ref.id} style={{
@@ -424,12 +425,13 @@ export default function StagePlanScreen() {
                         <View style={{ flex: 1, marginRight: 8 }}>
                           <Txt style={{ fontSize: 11, color: Colors.text }}>{ref.label}</Txt>
                           <Txt style={{ fontSize: 9, color: Colors.textMuted }}>{ref.unit} | {ref.regionLabel}</Txt>
+                          {ov && <Txt style={{ fontSize: 9, color: Colors.primaryDark }}>{t('hb.pricingReferences.overriddenBadge')}</Txt>}
                         </View>
                         <Txt w="semibold" style={{ fontSize: 12, color: ov ? '#16A34A' : HB_ACCENT }}>
                           {dMin === dMax
-                            ? dMin.toLocaleString('pl-PL', { maximumFractionDigits: 2 })
-                            : `${dMin.toLocaleString('pl-PL', { maximumFractionDigits: 0 })} - ${dMax.toLocaleString('pl-PL', { maximumFractionDigits: 0 })}`
-                          } zl
+                            ? formatRate(dMin)
+                            : `${formatRate(dMin)} – ${formatRate(dMax)}`
+                          } zł
                         </Txt>
                       </View>
                       {isRegional && (

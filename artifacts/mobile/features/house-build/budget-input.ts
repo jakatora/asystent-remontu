@@ -15,3 +15,16 @@ export function parseBudgetRange(low: string, high: string) {
   if (amountLow !== null && amountHigh !== null && amountLow > amountHigh) return { error: 'order' } as const;
   return { error: null, amountLow, amountHigh } as const;
 }
+
+export function parseReferenceOverride(low: string, high: string, referenceMin: number, referenceMax: number) {
+  const range = parseBudgetRange(low, high);
+  if (range.error) return range;
+  const { amountLow, amountHigh } = range;
+  if ((amountLow ?? referenceMin) > (amountHigh ?? referenceMax)) return { error: 'order' } as const;
+  const baseline = amountLow === null || amountHigh === null ? null : (() => {
+    const min = Math.round(amountLow * 100);
+    const max = Math.round(amountHigh * 100);
+    return (min + Math.round((max - min) / 2)) / 100;
+  })();
+  return { error: null, overrideMin: amountLow, overrideMax: amountHigh, overrideBaseline: baseline } as const;
+}

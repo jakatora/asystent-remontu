@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform, TextInput, Alert } from 'react-native';
 import { useLocalSearchParams, Stack, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { houseBuildPricingRepo } from '@/db/repositories/house-build-pricing.repo';
 import { PRICE_CATEGORY_LABELS, PRICE_CATEGORY_ORDER, PRICE_DISCLAIMER } from '@/features/house-build/house-build-prices';
+import { parseReferenceOverride } from '@/features/house-build/budget-input';
 import type { HouseBuildPriceReference, HouseBuildPriceOverride, PriceCategory, PriceSourceType } from '@/types/house-build';
 import { useLanguage } from '@/context/LanguageContext';
 import type { TranslationKey } from '@/constants/i18n';
@@ -23,7 +24,7 @@ const SOURCE_TYPE_LABEL_KEYS: Record<PriceSourceType, TranslationKey> = {
 export default function PricingReferencesScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const [references, setReferences] = useState<HouseBuildPriceReference[]>([]);
@@ -33,6 +34,9 @@ export default function PricingReferencesScreen() {
   const [editMin, setEditMin] = useState('');
   const [editMax, setEditMax] = useState('');
   const [editNotes, setEditNotes] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+  const savingRef = useRef(false);
 
   const loadData = useCallback(async () => {
     await houseBuildPricingRepo.seedReferences();
@@ -61,23 +65,27 @@ export default function PricingReferencesScreen() {
     return groups;
   }, [references]);
 
-  const formatPrice = (n: number) => n.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const formatAmount = (n: number) => n.toLocaleString('pl-PL', { maximumFractionDigits: 0 });
+  const formatPrice = (n: number) => n.toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  const handleSaveOverride = useCallback(async (ref: HouseBuildPriceReference) => {
-    if (!projectId) return;
-    await houseBuildPricingRepo.upsertOverride(projectId, ref.id, ref.itemKey, {
-      overrideMin: editMin ? parseFloat(editMin) : null,
-      overrideMax: editMax ? parseFloat(editMax) : null,
-      overrideBaseline: editMin && editMax ? (parseFloat(editMin) + parseFloat(editMax)) / 2 : null,
-      notes: editNotes || '',
-    });
-    setEditingRef(null);
-    setEditMin('');
-    setEditMax('');
-    setEditNotes('');
-    await loadData();
-  }, [projectId, editMin, editMax, editNotes, loadData]);
+  const handleSaveOverride = async (ref: HouseBuildPriceReference) => {
+    if (!projectId || savingRef.current) return;
+    const range = parseReferenceOverride(editMin, editMax, ref.priceMin, ref.priceMax);
+    if (range.error) return;
+    savingRef.current = true;
+    setSaving(true);
+    setSaveError(false);
+    try {
+      const { overrideMin, overrideMax, overrideBaseline } = range;
+      await houseBuildPricingRepo.upsertOverride(projectId, ref.id, ref.itemKey, { overrideMin, overrideMax, overrideBaseline, notes: editNotes });
+      setEditingRef(null);
+      await loadData();
+    } catch {
+      setSaveError(true);
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
+  };
 
   const handleDeleteOverride = useCallback(async (overrideId: string) => {
     Alert.alert(t('hb.pricingReferences.restoreTitle'), t('hb.pricingReferences.restoreBody'), [
@@ -103,8 +111,9 @@ export default function PricingReferencesScreen() {
   const startEdit = (ref: HouseBuildPriceReference) => {
     const ov = overrideMap.get(ref.id);
     setEditingRef(ref.id);
-    setEditMin(ov?.overrideMin?.toString() ?? ref.priceMin.toString());
-    setEditMax(ov?.overrideMax?.toString() ?? ref.priceMax.toString());
+    setSaveError(false);
+    setEditMin(ov ? ov.overrideMin?.toString() ?? '' : ref.priceMin.toString());
+    setEditMax(ov ? ov.overrideMax?.toString() ?? '' : ref.priceMax.toString());
     setEditNotes(ov?.notes ?? '');
   };
 
@@ -118,6 +127,7 @@ export default function PricingReferencesScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
+          {saveError && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{t('hb.budget.saveUnconfirmed')}</Txt>}
           <View style={{
             backgroundColor: HB_ACCENT_BG, borderRadius: 16, padding: 16,
             borderWidth: 1, borderColor: '#BFDBFE', marginBottom: 16,
@@ -195,6 +205,7 @@ export default function PricingReferencesScreen() {
                   const displayMin = ov?.overrideMin ?? ref.priceMin;
                   const displayMax = ov?.overrideMax ?? ref.priceMax;
                   const isEditing = editingRef === ref.id;
+                  const rangeError = isEditing ? parseReferenceOverride(editMin, editMax, ref.priceMin, ref.priceMax).error : null;
 
                   return (
                     <View key={ref.id} style={{
@@ -214,11 +225,11 @@ export default function PricingReferencesScreen() {
                         <View style={{ alignItems: 'flex-end' }}>
                           {displayMin === displayMax ? (
                             <Txt w="bold" style={{ fontSize: 13, color: hasOverride ? '#16A34A' : HB_ACCENT }}>
-                              {formatPrice(displayMin)} zl
+                              {formatPrice(displayMin)} zł
                             </Txt>
                           ) : (
                             <Txt w="bold" style={{ fontSize: 13, color: hasOverride ? '#16A34A' : HB_ACCENT }}>
-                              {formatAmount(displayMin)} - {formatAmount(displayMax)} zl
+                              {formatPrice(displayMin)} – {formatPrice(displayMax)} zł
                             </Txt>
                           )}
                           {hasOverride && (
@@ -256,7 +267,8 @@ export default function PricingReferencesScreen() {
                               <TextInput
                                 style={{ backgroundColor: '#fff', borderRadius: 6, padding: 8, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                                 value={editMin} onChangeText={setEditMin}
-                                keyboardType="numeric" placeholder={ref.priceMin.toString()}
+                                keyboardType="decimal-pad" placeholder={ref.priceMin.toString()}
+                                accessibilityLabel={t('hb.pricingReferences.minLabel')}
                                 placeholderTextColor={Colors.textMuted}
                               />
                             </View>
@@ -265,11 +277,16 @@ export default function PricingReferencesScreen() {
                               <TextInput
                                 style={{ backgroundColor: '#fff', borderRadius: 6, padding: 8, fontSize: 13, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                                 value={editMax} onChangeText={setEditMax}
-                                keyboardType="numeric" placeholder={ref.priceMax.toString()}
+                                keyboardType="decimal-pad" placeholder={ref.priceMax.toString()}
+                                accessibilityLabel={t('hb.pricingReferences.maxLabel')}
                                 placeholderTextColor={Colors.textMuted}
                               />
                             </View>
                           </View>
+                          <Txt style={{ fontSize: 12, color: Colors.textSecondary }}>{t('hb.pricingReferences.overrideHelp')}</Txt>
+                          {rangeError && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>
+                            {t(rangeError === 'amount' ? 'hb.budget.invalidAmount' : 'hb.budget.invalidRange')}
+                          </Txt>}
                           <TextInput
                             style={{ backgroundColor: '#fff', borderRadius: 6, padding: 8, fontSize: 12, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                             value={editNotes} onChangeText={setEditNotes}
@@ -280,12 +297,15 @@ export default function PricingReferencesScreen() {
                             <TouchableOpacity
                               style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 8, alignItems: 'center' }}
                               onPress={() => handleSaveOverride(ref)}
+                              accessibilityRole="button"
+                              disabled={saving || Boolean(rangeError)}
                             >
                               <Txt w="semibold" style={{ fontSize: 12, color: '#fff' }}>{t('hb.pricingReferences.saveCta')}</Txt>
                             </TouchableOpacity>
                             <TouchableOpacity
                               style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 8, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }}
                               onPress={() => setEditingRef(null)}
+                              disabled={saving}
                             >
                               <Txt style={{ fontSize: 12, color: Colors.text }}>{t('hb.pricingReferences.cancelCta')}</Txt>
                             </TouchableOpacity>
@@ -296,6 +316,8 @@ export default function PricingReferencesScreen() {
                           <TouchableOpacity
                             style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}
                             onPress={() => startEdit(ref)}
+                            accessibilityRole="button"
+                            disabled={saving}
                           >
                             <Feather name="edit-2" size={10} color={HB_ACCENT} />
                             <Txt style={{ fontSize: 10, color: HB_ACCENT }}>{t('hb.pricingReferences.editCta')}</Txt>
