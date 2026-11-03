@@ -52,6 +52,8 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   const lastReadAt = new Map<string, number>();
   const lastReadSucceeded = new Map<string, boolean>();
   let lastAttemptAt: string | null = null;
+  let fullRefreshStartedAt: string | null = null;
+  let fullRefreshCompletedAt: string | null = null;
   const acceptedSource = (observation: RetailObservation) => {
     if (!observation || typeof observation !== 'object') return;
     const source = RETAIL_SOURCES.find(source => source.id === observation.sourceId);
@@ -204,7 +206,10 @@ export function createRemontService(options: SharedPricingOptions = {}) {
 
   function refresh(): Promise<void> {
     if (fullRefreshPromise) return fullRefreshPromise;
-    fullRefreshPromise = refreshSources(RETAIL_SOURCES).then(() => {}).finally(() => { fullRefreshPromise = null; });
+    fullRefreshStartedAt = new Date().toISOString();
+    fullRefreshPromise = refreshSources(RETAIL_SOURCES)
+      .then(() => { fullRefreshCompletedAt = new Date().toISOString(); })
+      .finally(() => { fullRefreshPromise = null; });
     return fullRefreshPromise;
   }
 
@@ -224,8 +229,25 @@ export function createRemontService(options: SharedPricingOptions = {}) {
   }
 
   function status() {
+    const now = Date.now();
     const { offers } = catalog();
-    const eligible = offers.filter(offer => isComparableOffer(offer));
+    const eligible = offers.filter(offer => isComparableOffer(offer, now));
+    const activeIds = new Set(eligible.map(offer => offer.id));
+    const online = RETAIL_SOURCES.filter(source => !source.disabledReason && !source.pickupOnly);
+    const stores = new Map<string, { reviewed: number; current: number; olderThanCycle: number; readErrors: number; outOfStock: number; manualReviewRequired: number }>();
+    for (const source of online) {
+      const stats = stores.get(source.store) ?? { reviewed: 0, current: 0, olderThanCycle: 0, readErrors: 0, outOfStock: 0, manualReviewRequired: 0 };
+      const error = errors.get(source.id);
+      stats.reviewed++;
+      if (activeIds.has(source.id)) {
+        stats.current++;
+        if (now - Date.parse(observations.get(source.id)!.observedAt) > REFRESH_INTERVAL_MS) stats.olderThanCycle++;
+      }
+      if (error === 'browser_refresh_required') stats.manualReviewRequired++;
+      else if (error === 'retailer_out_of_stock') stats.outOfStock++;
+      else if (error) stats.readErrors++;
+      stores.set(source.store, stats);
+    }
     return {
       status: eligible.length > 0 ? 'ok' : 'no-current-offers',
       offers: eligible.length, products: new Set(eligible.map(offer => offer.productId)).size,
@@ -236,9 +258,19 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       pickupOnlyStores:[...new Set(RETAIL_SOURCES.filter(source=>source.pickupOnly).map(source=>source.store))],
       scope: { channel: 'online', currency: 'PLN', deliveryIncluded: false, locationAdjusted: false },
       delivery: retailerDeliveryCapabilities(),
+      monitoring: {
+        checkedAt: new Date(now).toISOString(),
+        refreshIntervalMs: REFRESH_INTERVAL_MS,
+        scheduled: options.background !== false,
+        fullRefreshStartedAt,
+        fullRefreshCompletedAt,
+        fullRefreshRunning: fullRefreshPromise !== null,
+        cacheError: errors.get('cache') ?? null,
+        stores: [...stores].map(([store, stats]) => ({ store, ...stats })),
+      },
       sources: RETAIL_SOURCES.map(source => ({
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,
-        active: eligible.some(offer => offer.id === source.id),
+        active: activeIds.has(source.id),
         error: source.disabledReason ?? errors.get(source.id) ?? null,
         ...(observations.get(source.id)?.stockPackages !== undefined ? {stockPackages:observations.get(source.id)!.stockPackages} : {}),
         ...(observations.get(source.id)?.verification ? {verification:observations.get(source.id)!.verification} : {}),
@@ -248,7 +280,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
 
   const router = Router();
   router.get('/health', (_req, res) => { res.json(status()); });
-  router.get('/pricing/health', (_req, res) => { res.json(status()); });
+  router.get('/pricing/health', (_req, res) => { res.set('Cache-Control', 'no-store'); res.json(status()); });
   router.get('/pricing/catalog-availability', (_req,res) => {
     res.set('Cache-Control','no-store');
     res.json(catalogAvailability(RETAIL_SOURCES,catalog().offers,observations));

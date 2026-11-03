@@ -35,6 +35,35 @@ test('out-of-stock refresh withdraws the current badge; a failed read cannot ren
   const initial=await readRetailSource(source,async()=>Response.json(fixture.cases[0].product));for(const kind of ['stock','network'])await host(async(base,service)=>{const r=await post(base,identity);assert.equal(r.status,200);const data=parseCatalogProductRefresh(await r.json());assert.deepEqual(data.refresh.failedOfferIds,[source.id]);assert.deepEqual(data.offers,[]);assert.equal(service.status().sources.find(s=>s.id===source.id)?.checkedAt,initial.observedAt);if(kind==='stock')assert(!data.availability.products.some(p=>p.ean===identity.ean));},async()=>kind==='stock'?Response.json({...fixture.cases[0].product,can_buy:false}):new Response('',{status:503}),[initial]);
 });
 
+test('pricing health reports an aging offer and a failed refresh separately without calling the store', async () => {
+  const initial = await readRetailSource(source, async () => Response.json(fixture.cases[0].product));
+  initial.observedAt = new Date(Date.now() - 7 * 60 * 60 * 1000).toISOString();
+  let calls = 0;
+  await host(async base => {
+    const read = async () => {
+      const response = await fetch(base + '/pricing/health');
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      return (await response.json()).monitoring;
+    };
+    const before = await read();
+    assert.equal(calls, 0);
+    assert.equal(before.scheduled, false);
+    assert.equal(before.fullRefreshCompletedAt, null);
+    const find = (monitor: typeof before) => monitor.stores.find((store: { store: string }) => store.store === source.store);
+    assert.equal(find(before).current, 1);
+    assert.equal(find(before).olderThanCycle, 1);
+    assert.equal(find(before).readErrors, 0);
+
+    assert.equal((await post(base, identity)).status, 200);
+    const after = await read();
+    assert.equal(calls, 1);
+    assert.equal(after.fullRefreshCompletedAt, null);
+    assert.equal(find(after).current, 1);
+    assert.equal(find(after).olderThanCycle, 1);
+    assert.equal(find(after).readErrors, 1);
+  }, async () => { calls++; return new Response('', { status: 503 }); }, [initial]);
+});
+
 test('catalogue price changes compare two accepted observations of the same store and package',async()=>{
   for(const [previousPrice,currentPrice]of [[449,399],[349,399],[399,399]]){
     const initial=await readRetailSource(source,async()=>Response.json(fixture.cases[0].product));initial.observedAt=new Date(Date.now()-3600000).toISOString();initial.priceGrosze=previousPrice;
