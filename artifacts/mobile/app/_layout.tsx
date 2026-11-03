@@ -29,7 +29,7 @@ import { initSentry } from '@/lib/sentry';
 
 SplashScreen.preventAutoHideAsync();
 
-initSentry().catch(() => {});
+void initSentry();
 
 function RootLayoutNav() {
   const { onboardingDone, isLoading, initializationFailed, retryInitialization } = useApp();

@@ -1,13 +1,14 @@
 const DSN = process.env.EXPO_PUBLIC_SENTRY_DSN;
 
-export const isSentryConfigured = Boolean(DSN);
+export type ErrorReportingStatus = 'starting' | 'active' | 'disabled' | 'unavailable';
+export const initialErrorReportingStatus: ErrorReportingStatus = DSN ? 'starting' : 'disabled';
 
 type SentrySdk = typeof import('@sentry/react-native');
 let sentry: SentrySdk | undefined;
-let initialization: Promise<void> | undefined;
+let initialization: Promise<ErrorReportingStatus> | undefined;
 
-export async function initSentry(): Promise<void> {
-  if (!DSN) return;
+export async function initSentry(): Promise<ErrorReportingStatus> {
+  if (!DSN) return 'disabled';
   const dsn = DSN;
   initialization ??= import('@sentry/react-native').then(sdk => {
     sdk.init({
@@ -22,21 +23,25 @@ export async function initSentry(): Promise<void> {
         return event;
       },
     });
+    const client = sdk.getClient();
+    if (!client?.getDsn() || client.getOptions().enabled === false) return 'unavailable';
     sentry = sdk;
-  }).catch(error => {
-    initialization = undefined;
-    throw error;
-  });
-  await initialization;
+    return 'active';
+  }).catch(() => 'unavailable');
+  return initialization;
 }
 
 export function captureError(error: unknown, context?: Record<string, unknown>) {
-  const operation = context?.context;
-  if (sentry) {
-    sentry.captureException(error, typeof operation === 'string' ? { tags: { operation } } : undefined);
-  } else {
-    console.error('[Error]', error, context);
-  }
+  const report = () => {
+    const operation = context?.context;
+    if (sentry) {
+      sentry.captureException(error, typeof operation === 'string' ? { tags: { operation } } : undefined);
+    } else {
+      console.error('[Error]', error, context);
+    }
+  };
+  if (DSN && !sentry) void initSentry().then(report);
+  else report();
 }
 
 export function captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info') {

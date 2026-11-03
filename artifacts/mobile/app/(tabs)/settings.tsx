@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Alert, Platform, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { isSentryConfigured } from '@/lib/sentry';
+import { initialErrorReportingStatus, initSentry } from '@/lib/sentry';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { pluralize } from '@/utils/format';
@@ -137,6 +137,14 @@ function LanguageRow({
 }
 
 export default function SettingsScreen() {
+  const [errorReporting, setErrorReporting] = useState(initialErrorReportingStatus);
+  useEffect(() => {
+    let mounted = true;
+    void initSentry().then(status => {
+      if (mounted) setErrorReporting(status);
+    });
+    return () => { mounted = false; };
+  }, []);
   const router=useRouter();
   const insets = useSafeAreaInsets();
   const { projects } = useApp();
@@ -296,7 +304,7 @@ export default function SettingsScreen() {
           <SettingRow
             icon="activity"
             title={t('settings.errors.title')}
-            subtitle={isSentryConfigured ? t('settings.errors.on') : t('settings.errors.off')}
+            subtitle={t(`settings.errors.${errorReporting}`)}
             iconColor={Colors.warning}
             iconBg={Colors.warningBg}
           />
