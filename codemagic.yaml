@@ -398,12 +398,18 @@ workflows:
           maestro test --config scripts/ci/android-native/config.yaml --format junit --output android-native-smoke.xml scripts/ci/android-native || smoke_status=$?
           if [[ "${REMONT_TEST_MANAGED_PHOTO:-}" == 1 ]]; then
             maestro test --format junit --output android-photo-smoke.xml scripts/ci/android-managed-photo.yaml
+            if [[ "${REMONT_TEST_BACKUP_SHARE:-}" == 1 ]]; then
+              maestro test --format junit --output android-backup-share.xml scripts/ci/android-backup-share.yaml
+              python3 scripts/ci/verify-android-backup-share.py > android-backup-share-verification.json
+            fi
           fi
           exit "$smoke_status"
     artifacts:
       - native-screens/*.png
       - android-native-smoke.xml
       - android-photo-smoke.xml
+      - android-backup-share.xml
+      - android-backup-share-verification.json
       - android-emulator.log
       - android-native-logcat.txt
       - tested-android-apk.sha256
