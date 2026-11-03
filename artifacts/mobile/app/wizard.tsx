@@ -1,19 +1,18 @@
-import {ROLLED_JOB,rolledInputVisible,withRolledMeasurement} from '@/features/calculator/rolledVinyl';
-import {VINYL_CLICK_JOB,vinylClickInputVisible,withVinylClickMeasurement} from '@/features/calculator/vinylClick';
-import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
+import {ROLLED_JOB,withRolledMeasurement} from '@/features/calculator/rolledVinyl';
+import {VINYL_CLICK_JOB,withVinylClickMeasurement} from '@/features/calculator/vinylClick';
+import {SOCKET_FRAME_JOB} from '@/features/calculator/socketFrames';
 import {SEAT_JOB,withSeatMeasurement} from '@/features/calculator/toiletSeatReplacement';
-import {CABINET_JOB,cabinetInputVisible} from '@/features/calculator/cabinetPainting';
-import {UNDERLAY_JOB,underlayInputVisible,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
-import {GROUT_ONLY_JOB,groutOnlyInputVisible} from '@/features/calculator/groutOnly';
-import {PLASTER_JOB,plasterInputVisible,withPlasterMeasurement} from '@/features/calculator/plastering';
-import {windowInputVisible,windowInputHint,withWindowMeasurement} from '@/features/calculator/windowSealing';
-import {isGypsumJob,gypsumInputVisible,withGypsumMeasurement} from '@/features/calculator/gypsumBoard';
-import {skirtingInputVisible,skirtingInputHint} from '@/features/calculator/skirting';
-import { waterproofingInputVisible, waterproofingInputDefinition } from '@/features/calculator/waterproofing';
+import {CABINET_JOB} from '@/features/calculator/cabinetPainting';
+import {UNDERLAY_JOB,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
+import {GROUT_ONLY_JOB} from '@/features/calculator/groutOnly';
+import {PLASTER_JOB,withPlasterMeasurement} from '@/features/calculator/plastering';
+import {windowInputHint,withWindowMeasurement} from '@/features/calculator/windowSealing';
+import {isGypsumJob,withGypsumMeasurement} from '@/features/calculator/gypsumBoard';
+import {skirtingInputHint} from '@/features/calculator/skirting';
+import { waterproofingInputDefinition } from '@/features/calculator/waterproofing';
 import { parseDecimal } from '@/shared/lib/number';
 import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
-import { parseMeasurements } from '@/shared/lib/measurements';
-import { frameInputVisible } from '@/features/calculator/framePainting';
+import { measurementInputVisible, parseMeasurements } from '@/shared/lib/measurements';
 import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
@@ -1092,7 +1091,7 @@ export default function WizardScreen() {
                 />
 
                 <View style={{ gap: 16 }}>
-                  {selectedJob.measurementInputs.filter(inp=>rolledInputVisible(selectedJob.id,inp.id,draft.measurements) && frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && vinylClickInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements) && cabinetInputVisible(selectedJob.id,inp.id,draft.measurements) && socketFrameInputVisible(selectedJob.id,inp.id,draft.measurements)).map(inp=>waterproofingInputDefinition(selectedJob.id,inp,draft.measurements)).map((inp) => {
+                  {selectedJob.measurementInputs.filter(inp => measurementInputVisible(selectedJob.id, inp.id, draft.measurements)).map(inp=>waterproofingInputDefinition(selectedJob.id,inp,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
                     const hasError = invalidMeasurementIds.has(inp.id);
@@ -1305,7 +1304,7 @@ export default function WizardScreen() {
                   {/* Measurements */}
                   {selectedJob && selectedJob.measurementInputs.length > 0 && (
                     <View>
-                      {selectedJob.measurementInputs.filter(inp=>rolledInputVisible(selectedJob.id,inp.id,draft.measurements) && frameInputVisible(selectedJob.id,inp.id,draft.measurements.frameSystem) && waterproofingInputVisible(selectedJob.id,inp.id,draft.measurements) && skirtingInputVisible(selectedJob.id,inp.id,draft.measurements) && windowInputVisible(selectedJob.id,inp.id,draft.measurements) && vinylClickInputVisible(selectedJob.id,inp.id,draft.measurements) && gypsumInputVisible(selectedJob.id,inp.id,draft.measurements) && plasterInputVisible(selectedJob.id,inp.id,draft.measurements) && groutOnlyInputVisible(selectedJob.id,inp.id,draft.measurements) && underlayInputVisible(selectedJob.id,inp.id,draft.measurements)).map(inp=>waterproofingInputDefinition(selectedJob.id,inp,draft.measurements)).map((inp) => {
+                      {selectedJob.measurementInputs.filter(inp => measurementInputVisible(selectedJob.id, inp.id, draft.measurements)).map(inp=>waterproofingInputDefinition(selectedJob.id,inp,draft.measurements)).map((inp) => {
                         const val = draft.measurements[inp.id];
                         const selectedOption = 'inputType' in inp && inp.inputType === 'select' ? inp.options?.find(option => option.value === (val ? parseDecimal(val) : inp.defaultValue)) : undefined;
                         const displayVal = selectedOption?.label ?? (val

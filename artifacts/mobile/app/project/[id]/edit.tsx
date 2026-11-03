@@ -1,16 +1,16 @@
-import {VINYL_CLICK_JOB,vinylClickInputVisible,withVinylClickMeasurement} from '@/features/calculator/vinylClick';
+import {VINYL_CLICK_JOB,withVinylClickMeasurement} from '@/features/calculator/vinylClick';
 import {TRAP_JOB} from '@/features/calculator/trapReplacement';
 import {SEAT_JOB,withSeatMeasurement} from '@/features/calculator/toiletSeatReplacement';
-import {SOCKET_FRAME_JOB,socketFrameInputVisible} from '@/features/calculator/socketFrames';
+import {SOCKET_FRAME_JOB} from '@/features/calculator/socketFrames';
 import {HARDWARE_JOB} from '@/features/calculator/cabinetHardware';
-import {CABINET_JOB,cabinetInputVisible} from '@/features/calculator/cabinetPainting';
+import {CABINET_JOB} from '@/features/calculator/cabinetPainting';
 import { CO_JOB } from '@/features/calculator/coDetector';
-import {UNDERLAY_JOB,underlayInputVisible,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
-import {GROUT_ONLY_JOB,groutOnlyInputVisible} from '@/features/calculator/groutOnly';
-import {PLASTER_JOB,plasterInputVisible,withPlasterMeasurement} from '@/features/calculator/plastering';
-import {windowInputVisible,windowInputHint,withWindowMeasurement,WINDOW_JOB} from '@/features/calculator/windowSealing';
-import {SKIRTING_JOB,skirtingInputVisible,skirtingInputHint} from '@/features/calculator/skirting';
-import { WATERPROOFING_JOB, waterproofingInputVisible, waterproofingInputDefinition } from '@/features/calculator/waterproofing';
+import {UNDERLAY_JOB,withUnderlayMeasurement} from '@/features/calculator/underlayInstall';
+import {GROUT_ONLY_JOB} from '@/features/calculator/groutOnly';
+import {PLASTER_JOB,withPlasterMeasurement} from '@/features/calculator/plastering';
+import {windowInputHint,withWindowMeasurement,WINDOW_JOB} from '@/features/calculator/windowSealing';
+import {SKIRTING_JOB,skirtingInputHint} from '@/features/calculator/skirting';
+import { WATERPROOFING_JOB, waterproofingInputDefinition } from '@/features/calculator/waterproofing';
 import { parseDecimal } from '@/shared/lib/number';
 import React, { useState, useEffect,useRef } from 'react';
 import {
@@ -30,13 +30,13 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { getJobById } from '@/features/content/registry';
 import { calculateMaterials } from '@/features/calculator/engine';
-import { parseMeasurements } from '@/shared/lib/measurements';
+import { measurementInputVisible, parseMeasurements } from '@/shared/lib/measurements';
 import { MeasurementSelect } from '@/components/ui/MeasurementSelect';
 import { substratePrimerSpecification } from '@/features/calculator/substratePrimer';
 import { isSanitaryJob } from '@/features/calculator/sanitarySealant';
 import { isWallFinishingJob } from '@/features/calculator/wallFinishing';
-import { isFrameJob, frameInputVisible } from '@/features/calculator/framePainting';
-import { isGypsumJob,gypsumInputVisible,withGypsumMeasurement } from '@/features/calculator/gypsumBoard';
+import { isFrameJob } from '@/features/calculator/framePainting';
+import { isGypsumJob,withGypsumMeasurement } from '@/features/calculator/gypsumBoard';
 
 function Field({
   label,
@@ -336,7 +336,7 @@ export default function EditProjectScreen() {
               : epsJob.id === 'sink-installation'
               ? (language === 'pl' ? 'Wpisz liczbę umywalek i dodatkowych wężyków. Mocowania pozostają do ustalenia, dopóki nie potwierdzisz dopasowanego zestawu lub posiadania wszystkich potrzebnych mocowań. Zmiana ilości wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Enter basin and extra hose counts. Fixings remain unconfirmed until you select a suitable kit or declare that all required fixings are owned. Quantity changes require confirming “Owned” and “Purchased” again.')
               : (language === 'pl' ? 'Puste pola bez wartości domyślnej pozostają do ustalenia. Wpisane 0 oznacza świadomie pominiętą ilość. Zmiana obmiaru wymaga ponownego potwierdzenia „Mam” i „Kupione”.' : 'Blank fields without defaults remain unconfirmed. Entering 0 explicitly excludes that quantity. Changed measurements require confirming “Owned” and “Purchased” again.')}</Txt>
-            {epsJob.measurementInputs.filter(input=>frameInputVisible(epsJob.id,input.id,epsMeasurements.frameSystem) && waterproofingInputVisible(epsJob.id,input.id,epsMeasurements) && skirtingInputVisible(epsJob.id,input.id,epsMeasurements) && windowInputVisible(epsJob.id,input.id,epsMeasurements) && vinylClickInputVisible(epsJob.id,input.id,epsMeasurements) && gypsumInputVisible(epsJob.id,input.id,epsMeasurements) && plasterInputVisible(epsJob.id,input.id,epsMeasurements) && groutOnlyInputVisible(epsJob.id,input.id,epsMeasurements) && underlayInputVisible(epsJob.id,input.id,epsMeasurements) && cabinetInputVisible(epsJob.id,input.id,epsMeasurements) && socketFrameInputVisible(epsJob.id,input.id,epsMeasurements)).map(input=>waterproofingInputDefinition(epsJob.id,input,epsMeasurements,project.calculationResult?.measurements.hydroSystem)).map(input => <View key={input.id} style={{ gap: 4 }}>
+            {epsJob.measurementInputs.filter(input => measurementInputVisible(epsJob.id, input.id, epsMeasurements)).map(input=>waterproofingInputDefinition(epsJob.id,input,epsMeasurements,project.calculationResult?.measurements.hydroSystem)).map(input => <View key={input.id} style={{ gap: 4 }}>
               {'inputType' in input && input.inputType === 'select' ? <>
                 <Txt w="medium" style={{ fontSize: 15 }}>{input.label}</Txt>
                 <MeasurementSelect label={input.label} options={input.options ?? []} value={epsMeasurements[input.id] ? parseDecimal(epsMeasurements[input.id]) : input.defaultValue}

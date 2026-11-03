@@ -13,13 +13,26 @@ import type { RenovationJob } from '@/types/domain';
 import { parseDecimal } from './number';
 import { isFrameJob, frameInputVisible } from '@/features/calculator/framePainting';
 
+export function measurementInputVisible(jobId: string, inputId: string, raw: Readonly<Record<string, string | undefined>>): boolean {
+  return rolledInputVisible(jobId, inputId, raw) &&
+    vinylClickInputVisible(jobId, inputId, raw) &&
+    socketFrameInputVisible(jobId, inputId, raw) &&
+    cabinetInputVisible(jobId, inputId, raw) &&
+    underlayInputVisible(jobId, inputId, raw) &&
+    groutOnlyInputVisible(jobId, inputId, raw) &&
+    windowInputVisible(jobId, inputId, raw) &&
+    waterproofingInputVisible(jobId, inputId, raw) &&
+    skirtingInputVisible(jobId, inputId, raw) &&
+    gypsumInputVisible(jobId, inputId, raw) &&
+    plasterInputVisible(jobId, inputId, raw) &&
+    frameInputVisible(jobId, inputId, raw.frameSystem);
+}
+
 export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<string, string | undefined>>) {
   const values: Record<string, number> = {};
   const errors: { label: string; id: string; min?: number; max?: number }[] = [];
   for (const input of job.measurementInputs) {
-    if (!waterproofingInputVisible(job.id, input.id, raw)) continue;
-    if (!gypsumInputVisible(job.id, input.id, raw) || !skirtingInputVisible(job.id, input.id, raw)) continue;
-    if (!rolledInputVisible(job.id,input.id,raw) || !vinylClickInputVisible(job.id,input.id,raw) || !socketFrameInputVisible(job.id,input.id,raw) || !cabinetInputVisible(job.id,input.id,raw) || !underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
+    if (!measurementInputVisible(job.id, input.id, raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
     if (!text && input.defaultValue === undefined && input.required === false) continue;
     const value = text ? parseDecimal(text) : input.defaultValue;
