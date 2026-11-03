@@ -119,8 +119,14 @@ export async function downloadProjectBackup(raw: string, scope: 'renovation' | '
   // A recipient may read the file after the share sheet closes. Each export
   // gets its own URI so a later export cannot change the shared contents.
   const kind = scope === 'house' ? 'budowa-domu' : 'projekty';
-  const file = new File(directory, `asystent-remontu-${kind}-${Date.now()}.json`);
-  file.write(raw);
+  const file = new File(directory, generateId(`asystent-remontu-${kind}`) + '.json');
+  file.create({ overwrite: false });
+  try {
+    file.write(raw);
+  } catch (error) {
+    removeTemporaryFile(file);
+    throw error;
+  }
   await shareAsync(file.uri, { mimeType: 'application/json', UTI: 'public.json' });
 }
 
