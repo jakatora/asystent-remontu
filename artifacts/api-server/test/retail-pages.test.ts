@@ -11,6 +11,19 @@ const product = () => ({ '@type': 'Product', name: source.name, gtin13: source.e
 });
 const html = (value: unknown) => `<script type="application/ld+json">${JSON.stringify(value)}</script>`;
 
+test('Viverto accepts the primary 2 kg pack and ignores unrelated products', () => {
+  const viverto = RETAIL_SOURCES.find(row => row.id === 'viverto-ceresit-ce40-white-2kg')!;
+  const grout = {
+    ...product(), name: viverto.name, gtin13: undefined, gtin: viverto.ean,
+    offers: { ...product().offers, price: '34.05' },
+  };
+  const page = { '@type': 'WebPage', mainEntity: grout };
+  assert.equal(parseRetailPage(html([page, { ...grout, offers: { ...grout.offers, price: '1' } }]), viverto, now).priceGrosze, 3405);
+  assert.throws(() => parseRetailPage(html([page, page]), viverto, now), /product_identity_ambiguous/);
+  assert.throws(() => parseRetailPage(html([grout]), viverto, now), /product_identity_ambiguous/);
+  assert.throws(() => parseRetailPage(html({ ...page, mainEntity: { ...grout, name: grout.name.replace('2 kg', '5 kg') } }), viverto, now), /product_variant_mismatch/);
+});
+
 test('retail page: explicit EAN, PLN price, variant and actual read timestamp', () => {
   const result = parseRetailPage(html(product()), source, now);
   assert.equal(result.priceGrosze, 11800);

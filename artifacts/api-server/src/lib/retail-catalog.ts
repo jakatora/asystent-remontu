@@ -386,6 +386,21 @@ export const RETAIL_SOURCES: readonly RetailSource[] = [
     "format": "sewera",
     "url": "https://sklep.sewera.pl/ceresit-fuga-ce40-01-wodoodporna-elastyczna-2kg-p9147"
   },
+  // source: https://viverto.pl/fuga-elastyczna-ce-40-aquastatic-bialy-01-2-kg-ceresit/
+  // source: https://dm.henkel-dam.com/is/content/henkel/Cennik-Henkel-ACB
+  {
+    id: 'viverto-ceresit-ce40-white-2kg',
+    ean: '5900089140015',
+    name: 'Fuga Elastyczna CE 40 Aquastatic Biały 01 2 kg Ceresit',
+    category: 'grout',
+    brand: 'Ceresit',
+    packageSize: 2,
+    unit: 'kg',
+    store: 'Viverto',
+    format: 'jsonld',
+    pickupRequiresConfirmation: true,
+    url: 'https://viverto.pl/fuga-elastyczna-ce-40-aquastatic-bialy-01-2-kg-ceresit/',
+  },
   // source: https://sklep.zino.pl/pl/p/Akrylit-W-plus-snieznobiala-5l-Dekoral/2071
   // source: https://www.obi.pl/biale-farby-do-scian/dekoral-emulsja-akrylit-w-bialy-5-l/p/1237502
   {

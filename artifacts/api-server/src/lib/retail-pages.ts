@@ -184,8 +184,22 @@ export function parseRetailPage(html: string, source: RetailSource, observedAt: 
   else if (source.format === 'modna') products.push(readModnaProduct(html, source).product);
   else if (source.format && !['jsonld','shoper-api','shopify-api','idosell','fixero','rodimax','irbud-woo','krasny'].includes(source.format)) products.push(readRetailMicrodata(html, source.format as 'sewera' | 'realbud' | 'shoper' | 'buduj24' | 'unimet', source.url, source.retailUnit));
   for (const script of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
-    try { products.push(...objects(JSON.parse(script[1])).filter(item => [item['@type']].flat().includes('Product'))); } catch { /* Other JSON-LD must not supply a price. */ }
+    try {
+      const entities = objects(JSON.parse(script[1]));
+      const isProduct = (item: Record<string, any>) => [item['@type']].flat().includes('Product');
+      if (source.id === 'viverto-ceresit-ce40-white-2kg') {
+        // source: https://viverto.pl/fuga-elastyczna-ce-40-aquastatic-bialy-01-2-kg-ceresit/
+        // Only the primary product can supply this merchant's offer.
+        for (const page of entities.filter(item => item['@type'] === 'WebPage')) {
+          const primary = page.mainEntity;
+          if (primary && !Array.isArray(primary) && isProduct(primary)) products.push(primary);
+        }
+      } else {
+        products.push(...entities.filter(isProduct));
+      }
+    } catch { /* Other JSON-LD must not supply a price. */ }
   }
+  if (source.id === 'viverto-ceresit-ce40-white-2kg' && products.length !== 1) throw Error('product_identity_ambiguous');
   if (source.format === 'idosell' || source.format === 'fixero' || source.format === 'rodimax') {
     if (products.length !== 1) throw Error('product_identity_ambiguous');
     if (source.format === 'idosell') products[0] = idosellPromotion(products[0], observedAt);
