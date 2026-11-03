@@ -4,7 +4,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { isSupabaseConfigured } from '@/lib/supabase';
 import { isSentryConfigured } from '@/lib/sentry';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
@@ -254,7 +253,13 @@ export default function SettingsScreen() {
             iconColor={Colors.info}
             iconBg={Colors.infoBg}
           />
-          <SettingDivider/><SettingRow icon="download" title={language==='pl'?'Kopia i przenoszenie projektów':'Back up and transfer projects'} subtitle={language==='pl'?'Zapisz plik lub wczytaj remont z innego urządzenia':'Save a file or import a renovation from another device'} onPress={()=>router.push('/project-backup' as Href)}/>
+          <SettingDivider />
+          <SettingRow
+            icon="download"
+            title={t('settings.backup.title')}
+            subtitle={t('settings.backup.subtitle')}
+            onPress={() => router.push('/project-backup' as Href)}
+          />
           <SettingDivider />
           <SettingRow
             icon="shield"
@@ -263,27 +268,6 @@ export default function SettingsScreen() {
             iconColor={Colors.success}
             iconBg={Colors.successBg}
             badge={t('settings.offline.badge')}
-          />
-        </View>
-      </View>
-
-      <View style={{ paddingHorizontal: 20, marginBottom: 24 }}>
-        <SectionLabel label={t('settings.section.sync')} />
-        <View style={{ backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1, borderColor: Colors.border, overflow: 'hidden' }}>
-          <SettingRow
-            icon="cloud"
-            title={t('settings.cloud.title')}
-            subtitle={isSupabaseConfigured ? t('settings.cloud.connected') : t('settings.cloud.unavailable')}
-            iconColor={Colors.info}
-            iconBg={Colors.infoBg}
-          />
-          <SettingDivider />
-          <SettingRow
-            icon="user"
-            title={t('settings.account.title')}
-            subtitle={t('settings.account.subtitle')}
-            iconColor="#8B5CF6"
-            iconBg="#F5F3FF"
           />
         </View>
       </View>

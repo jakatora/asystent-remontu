@@ -2,7 +2,6 @@
 const pl = {
   'settings.title': 'Ustawienia',
   'settings.section.data': 'Dane',
-  'settings.section.sync': 'Synchronizacja',
   'settings.section.app': 'Aplikacja',
   'settings.section.helpLegal': 'Pomoc i prawne',
   'settings.section.safety': 'Bezpieczeństwo',
@@ -15,14 +14,11 @@ const pl = {
   'settings.projects.title': 'Moje projekty',
   'settings.projects.subtitle': '{count} {word} w pamięci urządzenia',
   'settings.offline.title': 'Dane offline',
-  'settings.offline.subtitle': 'Wszystkie dane są na Twoim urządzeniu',
+  'settings.offline.subtitle': 'Projekty i zdjęcia zapisują się na tym urządzeniu',
   'settings.offline.badge': 'Aktywne',
 
-  'settings.cloud.title': 'Synchronizacja z chmurą',
-  'settings.cloud.connected': 'Połączone z Supabase',
-  'settings.cloud.unavailable': 'Niedostępne — brak konfiguracji',
-  'settings.account.title': 'Konto użytkownika',
-  'settings.account.subtitle': 'Zaloguj się aby synchronizować projekty',
+  'settings.backup.title': 'Kopia i przenoszenie projektów',
+  'settings.backup.subtitle': 'Zapisz plik kopii lub wczytaj go na tym urządzeniu',
 
   'settings.about.title': 'O aplikacji',
   'settings.about.subtitle': 'Wersja {version}',
@@ -73,7 +69,6 @@ type K = keyof typeof pl;
 const en: Record<K, string> = {
   'settings.title': 'Settings',
   'settings.section.data': 'Data',
-  'settings.section.sync': 'Sync',
   'settings.section.app': 'App',
   'settings.section.helpLegal': 'Help & legal',
   'settings.section.safety': 'Safety',
@@ -86,14 +81,11 @@ const en: Record<K, string> = {
   'settings.projects.title': 'My projects',
   'settings.projects.subtitle': '{count} {word} on this device',
   'settings.offline.title': 'Offline data',
-  'settings.offline.subtitle': 'All your data stays on your device',
+  'settings.offline.subtitle': 'Projects and photos are saved on this device',
   'settings.offline.badge': 'Active',
 
-  'settings.cloud.title': 'Cloud sync',
-  'settings.cloud.connected': 'Connected to Supabase',
-  'settings.cloud.unavailable': 'Unavailable — not configured',
-  'settings.account.title': 'User account',
-  'settings.account.subtitle': 'Sign in to sync your projects',
+  'settings.backup.title': 'Back up and transfer projects',
+  'settings.backup.subtitle': 'Save a backup file or import one on this device',
 
   'settings.about.title': 'About the app',
   'settings.about.subtitle': 'Version {version}',
