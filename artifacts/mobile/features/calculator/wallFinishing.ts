@@ -64,7 +64,7 @@ export function finishingInputs(jobId: string): MeasurementInputDefinition[] {
     ]),
     {id:'fillerPackSize',label:'Opakowanie masy do porównania',unit:'kg',inputType:'select',placeholder:'Wybierz',defaultValue:repair?5:20,min:5,max:20,required:false,
       options:[{value:5,label:'ACRYL-PUTZ ST10 START 5 kg'},{value:20,label:'ACRYL-PUTZ ST10 START 20 kg'}],
-      hint:'Wybierasz wielkość opakowania tej samej masy. Porównujemy wybrany wariant między sklepami; liczba opakowań wynika z sumy prac.'},
+      hint:'ST10 jest masą sypką do rozrobienia z wodą. Liczbę worków dobieramy do sumy prac. Sprawdź w koszyku oba opakowania: większy worek może obniżyć cenę materiału, ale zmienić koszt dostawy.'},
     {id:'fillerReservePercent',label:'Zapas masy i taśmy',unit:'%',inputType:'percent',placeholder:'10',defaultValue:10,min:0,max:30,required:false,
       hint:'Jawne założenie zakupowe. Zapas nie zmienia liczby arkuszy papieru, którą podajesz osobno.'},
     {id:'coarsePaperSheets',label:`Arkusze Klingspor PL 28 C P${repair?'120':'150'}`,unit:'szt.',inputType:'count',placeholder:'1',defaultValue:1,min:0,max:500,required:false,
