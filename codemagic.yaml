@@ -244,6 +244,7 @@ workflows:
         CI: "1"
         MAESTRO_CLI_NO_ANALYTICS: "true"
         MAESTRO_VERSION: "2.12.0"
+        EXPO_PUBLIC_PRICING_API_URL: "https://backend-production-a43e3.up.railway.app/api/remont"
       node: 22.19.0
       java: 17
       xcode: 26.6
@@ -256,8 +257,9 @@ workflows:
     scripts:
       - name: Install exact dependencies and generate iOS
         script: |
-          npm install -g pnpm@10.17.1
           cd "$CM_BUILD_DIR"
+          test -z "$REMONT_EXPECTED_COMMIT" || test "$(git rev-parse HEAD)" = "$REMONT_EXPECTED_COMMIT" || exit 1
+          npm install -g pnpm@10.17.1
           pnpm install --frozen-lockfile
           cd artifacts/mobile
           pnpm exec expo prebuild --platform ios --clean --no-install
@@ -272,11 +274,15 @@ workflows:
         script: |
           cd "$CM_BUILD_DIR"
           python3 - <<'PY'
-          import pathlib,plistlib,json
+          import pathlib,plistlib,json,os,subprocess
           path=pathlib.Path('simulator-build/Build/Products/Release-iphonesimulator/AsystentRemontu.app/Info.plist')
           data=plistlib.loads(path.read_bytes())
-          assert data['CFBundleShortVersionString']=='1.2.1' and data['CFBundleVersion']=='11'
-          pathlib.Path('simulator-app-source.json').write_text(json.dumps({'applicationSourceCommit':'feff7c19e9646f29b5356577cc337d342c5e3c1e','version':'1.2.1','build':'11'}))
+          commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          assert commit==os.environ['CM_COMMIT']
+          expected=os.environ.get('REMONT_EXPECTED_COMMIT')
+          assert not expected or commit==expected
+          assert data['CFBundleIdentifier']=='app.replit.remontasystent'
+          pathlib.Path('simulator-app-source.json').write_text(json.dumps({'applicationSourceCommit':commit,'version':data['CFBundleShortVersionString'],'build':data['CFBundleVersion']}))
           PY
           tar -czf simulator-app.tar.gz -C simulator-build/Build/Products/Release-iphonesimulator AsystentRemontu.app
           shasum -a 256 simulator-app.tar.gz > simulator-app.sha256
@@ -290,17 +296,21 @@ workflows:
           xcrun simctl bootstatus "$REMONT_SIM_UDID" -b
           xcrun simctl install "$REMONT_SIM_UDID" simulator-build/Build/Products/Release-iphonesimulator/AsystentRemontu.app
           xcrun simctl launch "$REMONT_SIM_UDID" app.replit.remontasystent
-          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID"
+          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID" --managed-photo
       - name: Native project, real price and screenshot acceptance
         script: |
           cd "$CM_BUILD_DIR"
           curl -fsSL https://get.maestro.mobile.dev | bash
           export PATH="$HOME/.maestro/bin:$PATH"
           mkdir -p native-screens
-          maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native
+          smoke_status=0
+          maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native || smoke_status=$?
+          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-photo-smoke.xml scripts/ci/ios-managed-photo.yaml || exit $?
+          exit "$smoke_status"
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
+      - native-photo-smoke.xml
       - simulator-build.log
       - simulator-app.tar.gz
       - simulator-app.sha256
