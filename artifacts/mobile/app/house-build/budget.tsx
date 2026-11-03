@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { View, ScrollView, TouchableOpacity, Platform, TextInput, Alert } from 'react-native';
 import { useLocalSearchParams, Stack, useFocusEffect, router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import { BUILD_STAGES } from '@/features/house-build/stages';
+import { parseBudgetRange } from '@/features/house-build/budget-input';
 import { timelineBudgetRepo } from '@/db/repositories/timeline-budget.repo';
 import type { StageBudgetItem, StageCostCategory, BudgetCompletenessState } from '@/types/house-build';
 
@@ -34,7 +35,7 @@ function getStageCompleteness(items: StageBudgetItem[]): BudgetCompletenessState
 export default function BudgetScreen() {
   const { projectId } = useLocalSearchParams<{ projectId: string }>();
   const insets = useSafeAreaInsets();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 80;
 
   const CATEGORY_LABELS: Record<StageCostCategory, string> = {
@@ -60,6 +61,10 @@ export default function BudgetScreen() {
   const [newLow, setNewLow] = useState('');
   const [newHigh, setNewHigh] = useState('');
   const [newCategory, setNewCategory] = useState<StageCostCategory>('materials');
+  const [savingItem, setSavingItem] = useState(false);
+  const [saveError, setSaveError] = useState(false);
+  const addingItem = useRef(false);
+  const range = parseBudgetRange(newLow, newHigh);
 
   const loadData = useCallback(async () => {
     if (!projectId) return;
@@ -84,20 +89,30 @@ export default function BudgetScreen() {
   const estimatedStages = stageSummaries.filter((s) => s.completeness !== 'no-estimate').length;
   const unestimatedStages = stageSummaries.filter((s) => s.completeness === 'no-estimate').length;
 
-  const handleAddItem = useCallback(async () => {
-    if (!projectId || !addingTo || !newLabel.trim()) return;
-    await timelineBudgetRepo.addBudgetItem(projectId, addingTo, {
-      category: newCategory,
-      label: newLabel.trim(),
-      amountLow: newLow ? parseFloat(newLow) : null,
-      amountHigh: newHigh ? parseFloat(newHigh) : null,
-    });
-    setNewLabel('');
-    setNewLow('');
-    setNewHigh('');
-    setAddingTo(null);
-    await loadData();
-  }, [projectId, addingTo, newLabel, newLow, newHigh, newCategory, loadData]);
+  const handleAddItem = async () => {
+    if (addingItem.current || !projectId || !addingTo || !newLabel.trim() || range.error) return;
+    addingItem.current = true;
+    setSavingItem(true);
+    setSaveError(false);
+    try {
+      await timelineBudgetRepo.addBudgetItem(projectId, addingTo, {
+        category: newCategory,
+        label: newLabel.trim(),
+        amountLow: range.amountLow,
+        amountHigh: range.amountHigh,
+      });
+      setNewLabel('');
+      setNewLow('');
+      setNewHigh('');
+      setAddingTo(null);
+      await loadData();
+    } catch {
+      setSaveError(true);
+    } finally {
+      addingItem.current = false;
+      setSavingItem(false);
+    }
+  };
 
   const handleDeleteItem = useCallback(async (id: string) => {
     Alert.alert(t('hb.budget.deleteItemTitle'), t('hb.budget.deleteItemBody'), [
@@ -109,7 +124,7 @@ export default function BudgetScreen() {
     ]);
   }, [loadData]);
 
-  const formatAmount = (n: number) => n.toLocaleString('pl-PL', { maximumFractionDigits: 0 });
+  const formatAmount = (n: number) => n.toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 2 });
 
   return (
     <>
@@ -121,6 +136,7 @@ export default function BudgetScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
+          {saveError && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{t('hb.budget.saveUnconfirmed')}</Txt>}
           <View style={{
             backgroundColor: HB_ACCENT_BG,
             borderRadius: 16,
@@ -244,8 +260,8 @@ export default function BudgetScreen() {
                           {item.userOverride !== null
                             ? `${formatAmount(item.userOverride)} zl`
                             : item.amountLow !== null
-                              ? `${formatAmount(item.amountLow)}${item.amountHigh ? ` - ${formatAmount(item.amountHigh)}` : ''} zl`
-                              : '--'}
+                              ? `${formatAmount(item.amountLow)}${item.amountHigh !== null ? ` - ${formatAmount(item.amountHigh)}` : ''} zł`
+                              : item.amountHigh !== null ? `${t('hb.budget.toPlaceholder')} ${formatAmount(item.amountHigh)}` : '--'}
                         </Txt>
                       </TouchableOpacity>
                     ))}
@@ -271,7 +287,8 @@ export default function BudgetScreen() {
                             style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                             placeholder={t('hb.budget.fromPlaceholder')}
                             placeholderTextColor={Colors.textMuted}
-                            keyboardType="numeric"
+                            keyboardType="decimal-pad"
+                            accessibilityLabel={t('hb.budget.fromPlaceholder')}
                             value={newLow}
                             onChangeText={setNewLow}
                           />
@@ -279,11 +296,15 @@ export default function BudgetScreen() {
                             style={{ flex: 1, backgroundColor: '#fff', borderRadius: 8, padding: 10, fontSize: 14, color: Colors.text, borderWidth: 1, borderColor: Colors.border }}
                             placeholder={t('hb.budget.toPlaceholder')}
                             placeholderTextColor={Colors.textMuted}
-                            keyboardType="numeric"
+                            keyboardType="decimal-pad"
+                            accessibilityLabel={t('hb.budget.toPlaceholder')}
                             value={newHigh}
                             onChangeText={setNewHigh}
                           />
                         </View>
+                        {range.error && <Txt accessibilityRole="alert" style={{ color: Colors.danger, marginBottom: 8 }}>
+                          {t(range.error === 'amount' ? 'hb.budget.invalidAmount' : 'hb.budget.invalidRange')}
+                        </Txt>}
                         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 8 }}>
                           <View style={{ flexDirection: 'row', gap: 6 }}>
                             {(Object.keys(CATEGORY_LABELS) as StageCostCategory[]).map((cat) => (
@@ -306,12 +327,15 @@ export default function BudgetScreen() {
                           <TouchableOpacity
                             style={{ flex: 1, backgroundColor: HB_ACCENT, borderRadius: 8, padding: 10, alignItems: 'center' }}
                             onPress={handleAddItem}
+                            accessibilityRole="button"
+                            disabled={savingItem || !newLabel.trim() || Boolean(range.error)}
                           >
                             <Txt w="semibold" style={{ fontSize: 13, color: '#fff' }}>{t('hb.budget.addCta')}</Txt>
                           </TouchableOpacity>
                           <TouchableOpacity
                             style={{ flex: 1, backgroundColor: Colors.surface, borderRadius: 8, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: Colors.border }}
                             onPress={() => setAddingTo(null)}
+                            disabled={savingItem}
                           >
                             <Txt style={{ fontSize: 13, color: Colors.text }}>{t('hb.budget.cancelCta')}</Txt>
                           </TouchableOpacity>
@@ -321,6 +345,7 @@ export default function BudgetScreen() {
                       <TouchableOpacity
                         style={{ alignItems: 'center', paddingVertical: 8 }}
                         onPress={() => { setAddingTo(stage.key); setNewCategory('materials'); }}
+                        disabled={savingItem}
                       >
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                           <Feather name="plus" size={14} color={HB_ACCENT} />
