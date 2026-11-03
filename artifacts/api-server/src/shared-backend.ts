@@ -6,7 +6,7 @@ import type { Database, Product } from '@workspace/db/repositories';
 import type { PurchaseOffer as ProductOffer } from '../../../lib/pricing-service/src/types';
 import { normalizeProductName } from '@workspace/db/repositories';
 import { estimateProjectCostFromCalculation, type EstimateDeps } from '@workspace/pricing-service';
-import { isComparableOffer } from '../../../lib/pricing-service/src/estimate';
+import { isComparableOffer, MAX_COMPARABLE_OFFER_AGE_MS } from '../../../lib/pricing-service/src/estimate';
 import { projectRequestSchema } from './lib/pricing-schema';
 import { serializeProject } from './lib/pricing-serialize';
 import { RETAIL_SOURCES, RETAIL_NAME_ALIASES } from './lib/retail-catalog';
@@ -235,7 +235,7 @@ export function createRemontService(options: SharedPricingOptions = {}) {
     const activeIds = new Set(eligible.map(offer => offer.id));
     const online = RETAIL_SOURCES.filter(source => !source.disabledReason && !source.pickupOnly);
     const emptyStoreStats = () => ({
-      reviewed: 0, current: 0, olderThanCycle: 0, readErrors: 0, outOfStock: 0, manualReviewRequired: 0,
+      reviewed: 0, current: 0, olderThanCycle: 0, expiredPrices: 0, readErrors: 0, outOfStock: 0, manualReviewRequired: 0,
       readErrorBreakdown: { httpNotFound: 0, rateLimited: 0, httpServer: 0, httpOther: 0, timeout: 0, connection: 0, other: 0 },
     });
     const stores = new Map<string, ReturnType<typeof emptyStoreStats>>();
@@ -243,9 +243,17 @@ export function createRemontService(options: SharedPricingOptions = {}) {
       const stats = stores.get(source.store) ?? emptyStoreStats();
       const error = errors.get(source.id);
       stats.reviewed++;
+      const observation = observations.get(source.id);
+      const age = observation ? now - Date.parse(observation.observedAt) : null;
       if (activeIds.has(source.id)) {
         stats.current++;
-        if (now - Date.parse(observations.get(source.id)!.observedAt) > REFRESH_INTERVAL_MS) stats.olderThanCycle++;
+        if (age !== null && age > REFRESH_INTERVAL_MS) stats.olderThanCycle++;
+      } else if (observation && age !== null && (
+        age > MAX_COMPARABLE_OFFER_AGE_MS ||
+        (observation.validUntil && !retailPriceIsValid(observation.validUntil, new Date(now))) ||
+        (observation.verification && Date.parse(observation.verification.expiresAt) <= now)
+      )) {
+        stats.expiredPrices++;
       }
       if (error === 'browser_refresh_required' || error === 'browser_package_review_required') stats.manualReviewRequired++;
       else if (error === 'retailer_out_of_stock') stats.outOfStock++;
@@ -280,7 +288,11 @@ export function createRemontService(options: SharedPricingOptions = {}) {
         fullRefreshCompletedAt,
         fullRefreshRunning: fullRefreshPromise !== null,
         cacheError: errors.get('cache') ?? null,
-        stores: [...stores].map(([store, stats]) => ({ store, ...stats })),
+        stores: [...stores].map(([store, stats]) => ({
+          store, ...stats,
+          freshWithinCycle: stats.current - stats.olderThanCycle,
+          withoutComparablePrice: stats.reviewed - stats.current,
+        })),
       },
       sources: RETAIL_SOURCES.map(source => ({
         id: source.id, store: source.store, checkedAt: observations.get(source.id)?.observedAt ?? null,

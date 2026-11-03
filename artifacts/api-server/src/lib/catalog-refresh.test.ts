@@ -17,7 +17,15 @@ test('explicit refresh restores an expired exact PEX offer with one current prod
   const previous=await readRetailSource(source,fetcher);previous.observedAt=new Date(Date.now()-8*86400000).toISOString();calls=0;
   await host(async(base,service)=>{
     const before:any=await(await fetch(base+'/pricing/catalog-availability')).json();assert(!before.products.some((p:any)=>p.ean===identity.ean));
+    const expired = service.status().monitoring.stores.find(store => store.store === source.store)!;
+    assert.equal(expired.expiredPrices, 1);
+    assert.equal(expired.freshWithinCycle, 0);
+    assert.equal(expired.withoutComparablePrice, expired.reviewed);
     const r=await post(base,identity);assert.equal(r.status,200);assert.equal(r.headers.get('cache-control'),'no-store');const result=parseCatalogProductRefresh(await r.json());assert.deepEqual(result.refresh.confirmedOfferIds,[source.id]);assert.equal(result.refresh.failedOfferIds.length,0);assert.equal(calls,1);assert(result.availability.products.some(p=>p.ean===identity.ean&&p.packageSize===1&&p.unit==='mb'&&p.stores.includes('Plus-Market')));assert.equal(service.status().sources.find(s=>s.id===source.id)?.active,true);
+    const fresh = service.status().monitoring.stores.find(store => store.store === source.store)!;
+    assert.equal(fresh.expiredPrices, 0);
+    assert.equal(fresh.freshWithinCycle, 1);
+    assert.equal(fresh.withoutComparablePrice, fresh.reviewed - 1);
     assert.equal(result.offers?.length,1);assert.equal(result.offers[0].priceGrosze,399);assert.equal(result.offers[0].packageSize,1);assert.equal(result.offers[0].unit,'mb');assert.equal(result.offers[0].previous?.checkedAt,previous.observedAt);assert.equal(result.offers[0].deltaGrosze,0);
     const again=parseCatalogProductRefresh(await(await post(base,identity)).json());assert.equal(again.refresh.status,'recent');assert(again.refresh.retryAfterSeconds>0);assert.equal(calls,1);assert.deepEqual(again.offers,result.offers);
   },fetcher,[previous]);
@@ -57,6 +65,8 @@ test('pricing health reports an aging offer and a failed refresh separately with
     };
     assert.equal(find(before).current, 1);
     assert.equal(find(before).olderThanCycle, 1);
+    assert.equal(find(before).freshWithinCycle, 0);
+    assert.equal(find(before).expiredPrices, 0);
     assert.equal(find(before).readErrors, 0);
 
     assert.equal((await post(base, identity)).status, 200);
