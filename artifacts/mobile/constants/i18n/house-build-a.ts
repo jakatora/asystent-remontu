@@ -432,7 +432,7 @@ const pl = {
   'hb.create.planningMode.planningOnly': 'Tylko planowanie',
   'hb.create.planningMode.planningOnlyDesc': 'Chcę planować i śledzić etapy',
   'hb.create.planningMode.planningAndContractors': 'Planowanie + wykonawcy',
-  'hb.create.planningMode.planningAndContractorsDesc': 'Chcę też szukać fachowców',
+  'hb.create.planningMode.planningAndContractorsDesc': 'Chcę też przygotowywać szkice zapytań i zapisywać własnych wykonawców',
 
   // decisions.tsx
   'hb.decisions.title': 'Decyzje inwestora',
@@ -943,7 +943,7 @@ const en: Record<K, string> = {
   'hb.create.planningMode.planningOnly': 'Planning only',
   'hb.create.planningMode.planningOnlyDesc': 'I want to plan and track stages',
   'hb.create.planningMode.planningAndContractors': 'Planning + contractors',
-  'hb.create.planningMode.planningAndContractorsDesc': 'I also want to look for professionals',
+  'hb.create.planningMode.planningAndContractorsDesc': 'I also want to draft requests and keep a list of my own contractors',
 
   // decisions.tsx
   'hb.decisions.title': 'Investor decisions',

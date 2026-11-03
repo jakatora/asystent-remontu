@@ -281,7 +281,7 @@ const pl = {
   // ─── stage-contractors.tsx ───────────────────────────────────────────────
   'hb.stageContractors.statusSection': 'Status wykonawcy',
   'hb.stageContractors.prepRequest': 'Przygotuj zapytanie',
-  'hb.stageContractors.searchContractor': 'Szukaj wykonawcy',
+  'hb.stageContractors.openDrafts': 'Moje szkice',
   'hb.stageContractors.guidanceTitle': 'Wskazowki dla inwestora',
   'hb.stageContractors.commonRoles': 'Kto zazwyczaj jest potrzebny:',
   'hb.stageContractors.whenToStart': 'Kiedy zaczac szukac:',
@@ -833,7 +833,7 @@ const en: Record<K, string> = {
   // ─── stage-contractors.tsx ───────────────────────────────────────────────
   'hb.stageContractors.statusSection': 'Contractor status',
   'hb.stageContractors.prepRequest': 'Prepare request',
-  'hb.stageContractors.searchContractor': 'Search for contractor',
+  'hb.stageContractors.openDrafts': 'My drafts',
   'hb.stageContractors.guidanceTitle': 'Tips for the investor',
   'hb.stageContractors.commonRoles': 'Who is usually needed:',
   'hb.stageContractors.whenToStart': 'When to start looking:',

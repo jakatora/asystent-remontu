@@ -46,19 +46,21 @@ export default function HouseBuildLayout() {
       <Stack.Screen name="utility-internet" options={{ title: t('hb.layout.title.utilityInternet') }} />
       <Stack.Screen name="utility-alternatives" options={{ title: t('hb.layout.title.utilityAlternatives') }} />
       <Stack.Screen name="pricing-references" options={{ title: t('hb.layout.title.pricingReferences') }} />
-      <Stack.Screen name="content-admin-hub" options={{ title: t('hb.layout.title.contentAdminHub') }} />
-      <Stack.Screen name="content-dashboard" options={{ title: t('hb.layout.title.contentDashboard') }} />
-      <Stack.Screen name="content-stages" options={{ title: t('hb.layout.title.contentStages') }} />
-      <Stack.Screen name="content-formal" options={{ title: t('hb.layout.title.contentFormal') }} />
-      <Stack.Screen name="content-utilities" options={{ title: t('hb.layout.title.contentUtilities') }} />
-      <Stack.Screen name="content-decisions" options={{ title: t('hb.layout.title.contentDecisions') }} />
-      <Stack.Screen name="content-questions" options={{ title: t('hb.layout.title.contentQuestions') }} />
-      <Stack.Screen name="content-warnings" options={{ title: t('hb.layout.title.contentWarnings') }} />
-      <Stack.Screen name="content-sources" options={{ title: t('hb.layout.title.contentSources') }} />
-      <Stack.Screen name="content-import-export" options={{ title: t('hb.layout.title.contentImportExport') }} />
-      <Stack.Screen name="content-snapshots" options={{ title: t('hb.layout.title.contentSnapshots') }} />
-      <Stack.Screen name="content-health" options={{ title: t('hb.layout.title.contentHealth') }} />
-      <Stack.Screen name="content-disclaimers" options={{ title: t('hb.layout.title.contentDisclaimers') }} />
+      <Stack.Protected guard={__DEV__}>
+        <Stack.Screen name="content-admin-hub" options={{ title: t('hb.layout.title.contentAdminHub') }} />
+        <Stack.Screen name="content-dashboard" options={{ title: t('hb.layout.title.contentDashboard') }} />
+        <Stack.Screen name="content-stages" options={{ title: t('hb.layout.title.contentStages') }} />
+        <Stack.Screen name="content-formal" options={{ title: t('hb.layout.title.contentFormal') }} />
+        <Stack.Screen name="content-utilities" options={{ title: t('hb.layout.title.contentUtilities') }} />
+        <Stack.Screen name="content-decisions" options={{ title: t('hb.layout.title.contentDecisions') }} />
+        <Stack.Screen name="content-questions" options={{ title: t('hb.layout.title.contentQuestions') }} />
+        <Stack.Screen name="content-warnings" options={{ title: t('hb.layout.title.contentWarnings') }} />
+        <Stack.Screen name="content-sources" options={{ title: t('hb.layout.title.contentSources') }} />
+        <Stack.Screen name="content-import-export" options={{ title: t('hb.layout.title.contentImportExport') }} />
+        <Stack.Screen name="content-snapshots" options={{ title: t('hb.layout.title.contentSnapshots') }} />
+        <Stack.Screen name="content-health" options={{ title: t('hb.layout.title.contentHealth') }} />
+        <Stack.Screen name="content-disclaimers" options={{ title: t('hb.layout.title.contentDisclaimers') }} />
+      </Stack.Protected>
       <Stack.Screen name="contractor-board" options={{ title: t('hb.layout.title.contractorBoard') }} />
       <Stack.Screen name="stage-contractors" options={{ title: t('hb.layout.title.stageContractors') }} />
       <Stack.Screen name="stage-request-prep" options={{ title: t('hb.layout.title.stageRequestPrep') }} />

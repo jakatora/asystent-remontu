@@ -137,11 +137,11 @@ export default function StageContractorsScreen() {
           <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>{t('hb.stageContractors.prepRequest')}</Txt>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => router.push({ pathname: '/contractor/results' as any, params: { fromHouseBuild: '1', stageKey, projectId } })}
+          onPress={() => router.push('/contractor/my-requests')}
           style={{ flex: 1, backgroundColor: '#059669', borderRadius: 10, padding: 12, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 6 }}
         >
-          <Feather name="search" size={14} color="#FFFFFF" />
-          <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>{t('hb.stageContractors.searchContractor')}</Txt>
+          <Feather name="file-text" size={14} color="#FFFFFF" />
+          <Txt style={{ fontSize: 12, color: '#FFFFFF' }}>{t('hb.stageContractors.openDrafts')}</Txt>
         </TouchableOpacity>
       </View>
 

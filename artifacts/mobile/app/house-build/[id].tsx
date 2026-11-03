@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { View, ScrollView, TouchableOpacity, Platform, Alert } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Platform, Modal } from 'react-native';
 import { router, useLocalSearchParams, useFocusEffect, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { BUILD_STAGES } from '@/features/house-build/stages';
 import { getWarningsForStage } from '@/features/house-build/warnings';
 import { Txt } from '@/components/ui/Txt';
+import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import type { ChecklistItemRecord } from '@/db/repositories/house-build.repo';
 
@@ -38,6 +39,8 @@ export default function HouseBuildProjectDetail() {
 
   const [checklistCounts, setChecklistCounts] = useState<Record<string, { done: number; total: number }>>({});
   const [isDeleting, setIsDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteFailed, setDeleteFailed] = useState(false);
   const deletedRef = useRef(false);
 
   const project = getProjectById(id);
@@ -69,33 +72,23 @@ export default function HouseBuildProjectDetail() {
     })();
   }, [project, getChecklist]);
 
-  const handleDelete = useCallback(() => {
-    if (isDeleting || !project) return;
-    Alert.alert(
-      t('hb.id.deleteTitle'),
-      t('hb.id.deleteBody', { name: project.name }),
-      [
-        { text: t('common.cancel'), style: 'cancel' },
-        {
-          text: t('hb.id.deleteCta'),
-          style: 'destructive',
-          onPress: async () => {
-            if (isDeleting) return;
-            setIsDeleting(true);
-            deletedRef.current = true;
-            try {
-              await deleteProject(project.id);
-              safeNavigateAway();
-            } catch {
-              deletedRef.current = false;
-              setIsDeleting(false);
-              Alert.alert(t('common.error'), t('hb.id.deleteError'));
-            }
-          },
-        },
-      ]
-    );
-  }, [isDeleting, project, deleteProject]);
+  const handleDelete = async () => {
+    if (deletedRef.current || !project) return;
+    deletedRef.current = true;
+    setIsDeleting(true);
+    setDeleteFailed(false);
+    try {
+      await deleteProject(project.id);
+      router.replace('/house-build');
+    } catch {
+      deletedRef.current = false;
+      setIsDeleting(false);
+      setDeleteFailed(true);
+    }
+  };
+  const closeDelete = () => {
+    if (!deletedRef.current) setConfirmDelete(false);
+  };
 
   const handleOpenStage = useCallback(async (stageKey: string) => {
     if (!project) return;
@@ -128,10 +121,21 @@ export default function HouseBuildProjectDetail() {
   return (
     <>
       <Stack.Screen options={{ title: project.name, headerRight: () => (
-        <TouchableOpacity onPress={handleDelete} style={{ marginRight: 8 }} accessibilityLabel={t('hb.id.deleteA11y')}>
+        <TouchableOpacity onPress={() => { setDeleteFailed(false); setConfirmDelete(true); }} style={{ marginRight: 8 }} accessibilityRole="button" accessibilityLabel={t('hb.id.deleteA11y')}>
           <Feather name="trash-2" size={20} color={Colors.danger} />
         </TouchableOpacity>
       )}} />
+      <Modal visible={confirmDelete} transparent animationType="fade" onRequestClose={closeDelete}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(15,23,42,0.55)', justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+          <View accessibilityViewIsModal style={{ width: '100%', maxWidth: 440, padding: 20, gap: 14, borderRadius: 16, backgroundColor: Colors.surface }}>
+            <Txt accessibilityRole="header" w="bold">{t('hb.id.deleteTitle')}</Txt>
+            <Txt>{t('hb.id.deleteBody', { name: project.name })}</Txt>
+            {deleteFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{t('hb.id.deleteError')}</Txt>}
+            <Button label={t('hb.id.deleteCta')} variant="danger" disabled={isDeleting} loading={isDeleting} onPress={() => void handleDelete()} />
+            <Button label={t('common.cancel')} variant="ghost" disabled={isDeleting} onPress={closeDelete} />
+          </View>
+        </View>
+      </Modal>
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -311,13 +315,13 @@ export default function HouseBuildProjectDetail() {
               bg="#ECFDF5"
               onPress={() => router.push({ pathname: '/house-build/pricing-references' as any, params: { projectId: project.id } })}
             />
-            <QuickAction
+            {__DEV__ && <QuickAction
               icon="settings"
               label={t('hb.id.action.contentAdmin')}
               color="#7C3AED"
               bg="#F5F3FF"
               onPress={() => router.push({ pathname: '/house-build/content-admin-hub' as any })}
-            />
+            />}
           </View>
 
           <Txt w="semibold" style={{ fontSize: 15, color: Colors.text, marginBottom: 12 }}>{t('hb.id.stagesHeader')}</Txt>
