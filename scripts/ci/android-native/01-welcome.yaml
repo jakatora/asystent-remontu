@@ -1,0 +1,34 @@
+appId: pl.asystentremontu.app
+---
+- launchApp:
+    clearState: false
+# Dismiss only the observed unrelated emulator launcher dialog; application ANRs remain test failures.
+- runFlow:
+    when:
+      visible: "Pixel Launcher isn't responding"
+    commands:
+      - tapOn: Close app
+- extendedWaitUntil:
+    visible:
+      id: onboarding-next
+    timeout: 60000
+- tapOn:
+    id: onboarding-next
+- assertVisible: Precyzyjne obliczenia
+- tapOn:
+    id: onboarding-next
+- assertVisible: Gotowa lista zakupów
+- tapOn:
+    id: onboarding-next
+- assertVisible: Bezpieczeństwo
+- tapOn:
+    id: onboarding-back
+- assertVisible: Gotowa lista zakupów
+- tapOn:
+    id: onboarding-next
+- tapOn:
+    id: onboarding-next
+- extendedWaitUntil:
+    visible: Remont Asystent
+    timeout: 60000
+- takeScreenshot: native-screens/01-home

@@ -16,6 +16,7 @@ import {
   getUpgradeSuggestion,
 } from '@/features/contractor/contractor-plans';
 import { billingProvider } from '@/features/contractor/billing-provider';
+import {useLanguage} from '@/context/LanguageContext';
 import type {
   ContractorPlanDefinition,
   ContractorPlanAssignment,
@@ -37,6 +38,7 @@ import {
 
 export default function ContractorPlansScreen() {
   const insets = useSafeAreaInsets();
+  const {language} = useLanguage();
   const [loading, setLoading] = useState(true);
   const [plans, setPlans] = useState<ContractorPlanDefinition[]>([]);
   const [assignment, setAssignment] = useState<ContractorPlanAssignment | null>(null);
@@ -45,6 +47,7 @@ export default function ContractorPlansScreen() {
   const [comparison, setComparison] = useState<PlanComparisonColumn[]>([]);
   const [usageItems, setUsageItems] = useState<UsageVsLimit[]>([]);
   const [showComparison, setShowComparison] = useState(false);
+  const purchasesAvailable = billingProvider.providerType !== 'admin_manual_assignment';
 
   const { contractors } = useContractor();
   const currentContractorId = contractors.length > 0 ? contractors[0].id : 'c-001';
@@ -107,6 +110,12 @@ export default function ContractorPlansScreen() {
     <>
       <Stack.Screen options={{ title: 'Plany i Widocznosc' }} />
       <ScrollView style={{ flex: 1, backgroundColor: Colors.background }} contentContainerStyle={{ padding: 16, paddingBottom: insets.bottom + 32 }}>
+        {!purchasesAvailable && <View style={{ backgroundColor: Colors.infoBg, padding: 16, borderRadius: 12, marginBottom: 16 }}>
+          <Txt w="semibold">{language === 'pl' ? 'Zakupy planów są wyłączone' : 'Plan purchases are disabled'}</Txt>
+          <Txt style={{ color: Colors.textSecondary, marginTop: 6 }}>{language === 'pl'
+            ? 'Ta wersja nie sprzedaje subskrypcji ani nie pobiera opłat za planowanie remontu. Widoczne uprawnienia dotyczą lokalnej konfiguracji profilu wykonawcy.'
+            : 'This version does not sell subscriptions or charge for renovation planning. The permissions shown reflect the local contractor profile configuration.'}</Txt>
+        </View>}
         {currentPlan && (
           <View style={{ backgroundColor: '#FFFFFF', borderRadius: 14, padding: 16, borderWidth: 2, borderColor: currentPlan.color, marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
@@ -136,7 +145,7 @@ export default function ContractorPlansScreen() {
               </View>
             )}
 
-            {currentPlan.monthlyPricePlaceholder > 0 && (
+            {purchasesAvailable && currentPlan.monthlyPricePlaceholder > 0 && (
               <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
                 {currentPlan.monthlyPricePlaceholder} zl/mies. | {currentPlan.yearlyPricePlaceholder} zl/rok
               </Txt>
@@ -173,7 +182,7 @@ export default function ContractorPlansScreen() {
                 <Txt style={{ fontSize: 11, color: '#DC2626' }}>{item.label}</Txt>
               </View>
             ))}
-            {upgradePlan && (
+            {purchasesAvailable && upgradePlan && (
               <Txt style={{ fontSize: 10, color: '#DC2626', marginTop: 6 }}>
                 Dostepne w planie: {upgradePlan.name}
               </Txt>
@@ -210,16 +219,16 @@ export default function ContractorPlansScreen() {
           </View>
         )}
 
-        <TouchableOpacity
+        {purchasesAvailable && <TouchableOpacity
           onPress={() => setShowComparison(!showComparison)}
           style={{ backgroundColor: '#2563EB', borderRadius: 12, paddingVertical: 14, alignItems: 'center', marginBottom: 16 }}
         >
           <Txt w="semibold" style={{ fontSize: 14, color: '#FFFFFF' }}>
             {showComparison ? 'Ukryj porownanie planow' : 'Porownaj plany'}
           </Txt>
-        </TouchableOpacity>
+        </TouchableOpacity>}
 
-        {showComparison && (
+        {purchasesAvailable && showComparison && (
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', gap: 10 }}>
               {comparison.map((col) => (

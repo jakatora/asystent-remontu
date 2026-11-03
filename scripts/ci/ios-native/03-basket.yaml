@@ -1,0 +1,55 @@
+appId: app.replit.remontasystent
+---
+- launchApp:
+    clearState: false
+- extendedWaitUntil:
+    visible: Remont Asystent
+    timeout: 60000
+# Fixed CI iPhone 14 Plus: tap the observed bottom Projects tab, not the home statistic.
+- tapOn:
+    point: "60%,94%"
+- extendedWaitUntil:
+    visible: Twoje projekty
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: '.*Malowanie 40,5.*osobny grunt.*'
+    direction: DOWN
+    timeout: 30000
+- tapOn:
+    text: '.*Malowanie 40,5.*osobny grunt.*'
+- extendedWaitUntil:
+    visible: '.*Gdzie najtaniej'
+    timeout: 60000
+- tapOn: '.*Gdzie najtaniej'
+- extendedWaitUntil:
+    visible: 'Gdzie kupisz najtaniej\?'
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: Kod pocztowy dostawy
+    direction: DOWN
+    timeout: 30000
+- tapOn: Kod pocztowy dostawy
+- inputText: 30001
+- takeScreenshot: native-screens/02-postcode-entered
+- tapOn:
+    point: "50%,25%"
+- extendedWaitUntil:
+    notVisible: Sprawdzamy koszyki sklepów i koszty dostawy…
+    timeout: 180000
+- scrollUntilVisible:
+    element:
+      text: Łączny koszt
+    direction: DOWN
+    timeout: 30000
+    centerElement: true
+    optional: true
+- scrollUntilVisible:
+    element:
+      text: Łączny koszt
+    direction: UP
+    timeout: 180000
+    centerElement: true
+- assertVisible: Łączny koszt
+- takeScreenshot: native-screens/03-paint-with-delivery

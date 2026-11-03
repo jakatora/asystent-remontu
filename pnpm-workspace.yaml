@@ -74,9 +74,7 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 overrides:
-  # keep native binaries for Windows, but exclude non-Windows targets we do not ship
-  "esbuild>@esbuild/darwin-arm64": "-"
-  "esbuild>@esbuild/darwin-x64": "-"
+  # Keep Windows plus macOS binaries needed by the Codemagic iOS build.
   "esbuild>@esbuild/freebsd-arm64": "-"
   "esbuild>@esbuild/freebsd-x64": "-"
   "esbuild>@esbuild/linux-arm": "-"
@@ -107,8 +105,6 @@ overrides:
   "@tailwindcss/oxide>@tailwindcss/oxide-linux-x64-musl": "-"
   "rollup>@rollup/rollup-android-arm-eabi": "-"
   "rollup>@rollup/rollup-android-arm64": "-"
-  "rollup>@rollup/rollup-darwin-arm64": "-"
-  "rollup>@rollup/rollup-darwin-x64": "-"
   "rollup>@rollup/rollup-freebsd-arm64": "-"
   "rollup>@rollup/rollup-freebsd-x64": "-"
   "rollup>@rollup/rollup-linux-arm-gnueabihf": "-"

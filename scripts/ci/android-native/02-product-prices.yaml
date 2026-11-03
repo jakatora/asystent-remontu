@@ -1,0 +1,67 @@
+appId: pl.asystentremontu.app
+---
+- launchApp:
+    clearState: false
+# Dismiss only the observed unrelated emulator launcher dialog; application ANRs remain test failures.
+- runFlow:
+    when:
+      visible: "Pixel Launcher isn't responding"
+    commands:
+      - tapOn: Close app
+- extendedWaitUntil:
+    visible: Remont Asystent
+    timeout: 60000
+- tapOn: Odkryj
+- extendedWaitUntil:
+    visible: Odkryj prace remontowe
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: '.*Naprawa ścian.*'
+    direction: DOWN
+    timeout: 30000
+- tapOn:
+    text: '.*Naprawa ścian.*'
+- scrollUntilVisible:
+    element:
+      text: '.*Naprawa pęknięć i ubytków.*'
+    direction: DOWN
+    timeout: 30000
+- tapOn:
+    text: '.*Naprawa pęknięć i ubytków.*'
+- extendedWaitUntil:
+    visible: Koszt
+    timeout: 60000
+- tapOn: Koszt
+- scrollUntilVisible:
+    element:
+      text: Kup w Sewera
+    direction: DOWN
+    timeout: 90000
+- takeScreenshot: native-screens/04-material-prices
+- scrollUntilVisible:
+    element:
+      text: '.*ST10.*'
+    direction: UP
+    timeout: 30000
+    centerElement: true
+- takeScreenshot: native-screens/07-first-material-photo
+- swipe:
+    from:
+      text: Koszt
+    direction: LEFT
+- tapOn: Narzędzia
+- scrollUntilVisible:
+    element:
+      text: Kup w Sewera
+    direction: DOWN
+    timeout: 90000
+- assertVisible: '.*zł.*1 szt.*'
+- takeScreenshot: native-screens/05-brush-price
+- scrollUntilVisible:
+    element:
+      text: '.*Pędzelek do gruntowania.*'
+    direction: UP
+    timeout: 30000
+    centerElement: true
+- takeScreenshot: native-screens/06-brush-with-photo
