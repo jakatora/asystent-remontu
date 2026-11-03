@@ -37,7 +37,7 @@ interface HouseBuildContextValue {
   }) => Promise<string>;
   updateProject: (id: string, updates: Partial<Pick<HouseBuildProject, 'name' | 'status' | 'currentStageId' | 'notes'>>) => Promise<void>;
   deleteProject: (id: string) => Promise<void>;
-  refreshProjects: () => Promise<void>;
+  refreshProjects: (reportFailure?: boolean) => Promise<void>;
   getProjectById: (id: string) => HouseBuildProject | undefined;
 
   getChecklist: (projectId: string, stageKey?: string) => Promise<ChecklistItemRecord[]>;
@@ -59,11 +59,12 @@ export function HouseBuildProvider({ children }: PropsWithChildren) {
   const [projects, setProjects] = useState<HouseBuildProject[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const refreshProjects = useCallback(async () => {
+  const refreshProjects = useCallback(async (reportFailure = false) => {
     try {
       const all = await houseBuildRepo.findAllProjects();
       setProjects(all);
     } catch (err) {
+      if (reportFailure) throw err;
       console.error('[HouseBuildContext] refresh error:', err);
     }
   }, []);

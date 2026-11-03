@@ -82,8 +82,17 @@ export default function ProjectBackupScreen(){
     if(!housePreview)return;
     const count=await importHouseBuildBackup(housePreview,await getDb());
     setHousePreview(null);
-    await refreshHouseProjects();
-    setFeedback({action:'import',destination:'/house-build',text:say(`Przywrócono projekty budowy domu: ${count}.`,`House-building projects restored: ${count}.`)});
+    const restored=say(`Przywrócono projekty budowy domu: ${count}.`,`House-building projects restored: ${count}.`);
+    try{
+      await refreshHouseProjects(true);
+    }catch{
+      setFeedback({action:'import',text:restored+say(
+        ' Nie udało się odświeżyć listy. Otwórz ponownie aplikację, aby zobaczyć zapisane projekty.',
+        ' The list could not be refreshed. Reopen the app to see the saved projects.',
+      )});
+      return;
+    }
+    setFeedback({action:'import',destination:'/house-build',text:restored});
   });
   const restore=()=>void run('import',async()=>{
     if(!preview)return;
