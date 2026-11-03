@@ -6,7 +6,7 @@ import {Colors} from '@/constants/colors';
 import {useLanguage} from '@/context/LanguageContext';
 import {formatGrosze} from '@/features/pricing/pricingApi';
 import {formatPackageSize,formatPackageUnit} from '@/features/pricing/packageDisplay';
-import {priceDeltaLabel} from '@/features/pricing/priceChanges';
+import {storePriceComparisonLabel} from '@/features/pricing/priceChanges';
 import type {CatalogRefreshOffer} from '../../../../lib/pricing-service/src/catalog-refresh';
 
 export function CatalogRefreshPrices({offers}:{offers:readonly CatalogRefreshOffer[]}){
@@ -18,11 +18,11 @@ export function CatalogRefreshPrices({offers}:{offers:readonly CatalogRefreshOff
     <Txt w="semibold">{pl?'Potwierdzone ceny — bez dostawy':'Confirmed prices — delivery excluded'}</Txt>
     {(expanded?offers:offers.slice(0,1)).map(o=>{
       const pack=`${formatPackageSize(o.packageSize,language)} ${formatPackageUnit(o.unit)}`;
-      const change=priceDeltaLabel(o.deltaGrosze,language);
+      const change=storePriceComparisonLabel(o.deltaGrosze,language);
       return <View key={o.offerId} style={{gap:6,padding:12,borderWidth:1,borderColor:Colors.border,borderRadius:12,backgroundColor:Colors.surface}}>
         <Txt w="semibold">{o.store}</Txt>
         <Txt w="bold" style={{fontSize:18}}>{formatGrosze(o.priceGrosze)} / {pack}</Txt>
-        {change?<Txt style={{fontSize:13,lineHeight:19,color:(o.deltaGrosze??0)>0?Colors.text:Colors.primaryDark}}>{change} / {pack}</Txt>:<Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{o.previous?(pl?'Cena bez zmian względem poprzedniego odczytu.':'Price unchanged since the previous reading.'):(pl?'Brak wcześniejszego odczytu do porównania.':'No earlier reading to compare.')}</Txt>}
+        <Txt style={{fontSize:13,lineHeight:19,color:o.deltaGrosze?o.deltaGrosze>0?Colors.text:Colors.primaryDark:Colors.textSecondary}}>{change}{o.deltaGrosze ? ` / ${pack}` : ''}</Txt>
         {o.previous&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl?'Poprzednio w tym sklepie':'Previously at this store'}: {formatGrosze(o.previous.priceGrosze)} / {pack} · {date(o.previous.checkedAt)}</Txt>}
         <Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl?'Sprawdzono':'Checked'}: {date(o.checkedAt)} · {pl?'czas Warszawy':'Warsaw time'}</Txt>
       </View>;

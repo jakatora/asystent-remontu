@@ -32,7 +32,7 @@ export function PriceChangeBadge({ change:explicit, offer, productName, basketPa
       <Feather name={up?'trending-up':'trending-down'} color={color} size={16} />
       <Txt w="semibold" style={{fontSize:13,color,flex:1}}>{label} / {roll?'m²':language==='pl'?'opak.':'pack'}</Txt>
     </View>
-    <Txt style={{fontSize:12,color:Colors.textSecondary}}>{formatGrosze(change.previousGrosze)} → {formatGrosze(change.priceGrosze)} · {change.store}</Txt>
+    <Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?'Poprzednia cena w Twojej wycenie':'Previous price in your quote'}: {formatGrosze(change.previousGrosze)} → {formatGrosze(change.priceGrosze)} · {change.store}</Txt>
     {basketPack && (basketPack.count > 1||roll) && basketDelta !== null && <Txt style={{fontSize:12,color}}>{language==='pl' ? `${roll?'Dla wycenionych odcinków':`Przy ${basketPack.count} op.`} koszt tego produktu ${up?'wzrósł':'spadł'} o ${formatGrosze(Math.abs(basketDelta))}. Dostawa jest liczona osobno.` : `${roll?'For the quoted cuts':`For ${basketPack.count} packs`}, this product costs ${formatGrosze(Math.abs(basketDelta))} ${up?'more':'less'}. Delivery is calculated separately.`}</Txt>}
   </View>;
 }

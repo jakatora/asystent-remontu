@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import { basketMaterialPriceDelta, collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, matchesPriceChangeOffer, priceDeltaLabel } from './priceChanges';
+import { basketMaterialPriceDelta, collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, matchesPriceChangeOffer, priceDeltaLabel, storePriceComparisonLabel } from './priceChanges';
 import type {SerializedProject} from './pricingApi';
 import type {PriceChange} from './priceChanges';
 function response(price:number,date='2026-10-25T12:01:00Z',offerId='a',store='Sklep',size='5',quantity=1):SerializedProject {
@@ -62,4 +62,12 @@ test('the same offer ID does not attach a change to a different price, pack, sto
   assert.match(priceDeltaLabel(change.deltaGrosze, 'pl')!, /^Cena wzrosła o 12,10/);
   assert.match(priceDeltaLabel(-change.deltaGrosze, 'en')!, /^Price decreased by .*12\.10/);
   for (const value of [0, null, undefined, NaN, 1.5]) assert.equal(priceDeltaLabel(value, 'pl'), null);
+});
+
+test('store comparisons distinguish an unchanged price from a missing baseline in both languages', () => {
+  assert.match(storePriceComparisonLabel(0, 'pl'), /bez zmian/);
+  assert.match(storePriceComparisonLabel(null, 'pl'), /Brak wcześniejszego odczytu/);
+  assert.match(storePriceComparisonLabel(0, 'en'), /unchanged/);
+  assert.match(storePriceComparisonLabel(null, 'en'), /No earlier reading/);
+  assert.equal(storePriceComparisonLabel(-225, 'pl'), priceDeltaLabel(-225, 'pl'));
 });

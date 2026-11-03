@@ -21,6 +21,12 @@ export function priceDeltaLabel(delta: number | null | undefined, language: 'pl'
   return `Price ${delta > 0 ? 'increased' : 'decreased'} by ${amount}`;
 }
 
+export function storePriceComparisonLabel(delta: number | null, language: 'pl' | 'en'): string {
+  return priceDeltaLabel(delta, language) ?? (delta === 0
+    ? (language === 'pl' ? 'Cena bez zmian względem poprzedniego odczytu.' : 'Price unchanged since the previous reading.')
+    : (language === 'pl' ? 'Brak wcześniejszego odczytu do porównania.' : 'No earlier reading to compare.'));
+}
+
 export function matchesPriceChangeOffer(change: PriceChange, offer: SerializedProductOffer): boolean {
   return change.offerId === offer.offerId && change.store === offer.store
     && change.priceGrosze === offer.priceGrosze && change.checkedAt === offer.fetchedAt
