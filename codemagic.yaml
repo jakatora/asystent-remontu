@@ -333,9 +333,19 @@ workflows:
     scripts:
       - name: Verify the exact signed release APK
         script: |
+          set -euo pipefail
           cd "$CM_BUILD_DIR"
-          curl -fL --retry 2 "$REMONT_NATIVE_APK_11_URL" -o android-qa.apk
-          echo "3ec719d02e17d09be6a60286a3e4d8067f7b36fb9081445d8b07975ceb1b0efb  android-qa.apk" | sha256sum -c -
+          if [[ -n "${REMONT_NATIVE_APK_URL:-}" || -n "${REMONT_NATIVE_APK_SHA256:-}" ]]; then
+            apk_url="${REMONT_NATIVE_APK_URL:?Missing APK URL}"
+            apk_sha="${REMONT_NATIVE_APK_SHA256:?Missing APK digest}"
+          else
+            apk_url="$REMONT_NATIVE_APK_11_URL"
+            apk_sha="3ec719d02e17d09be6a60286a3e4d8067f7b36fb9081445d8b07975ceb1b0efb"
+          fi
+          [[ "$apk_url" == https://* && "$apk_sha" =~ ^[a-f0-9]{64}$ ]]
+          curl -fsL --proto '=https' --proto-redir '=https' --retry 2 "$apk_url" -o android-qa.apk
+          printf '%s  android-qa.apk\n' "$apk_sha" | sha256sum -c -
+          sha256sum android-qa.apk > tested-android-apk.sha256
       - name: Boot a disposable rootable Android 15 emulator
         script: |
           set -euo pipefail
@@ -382,6 +392,7 @@ workflows:
       - android-native-smoke.xml
       - android-emulator.log
       - android-native-logcat.txt
+      - tested-android-apk.sha256
       - ~/.maestro/tests/**
 
   android-store-patch:
