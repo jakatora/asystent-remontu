@@ -235,7 +235,7 @@ async function source(t:TestContext){
     INSERT INTO project_activities VALUES('activity','room','edited','Notatka','2026-10-31');
     INSERT INTO price_overrides VALUES('override','room','material','glue',90,'Moja cena','2026-10-31');
     INSERT INTO project_price_snapshots(id,project_id,region_code,snapshot_date,created_at) VALUES('old-estimate','room','lodzkie','2026-10-30','2026-10-31');`);
-  sqlite.prepare('INSERT INTO project_photos VALUES(?,?,?,?,?,?)').run('photo','room','data:image/png;base64,iVBORw0KGgo=','before','Przed remontem','2026-10-31');
+  sqlite.prepare('INSERT INTO project_photos VALUES(?,?,?,?,?,?)').run('photo','room','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jPioAAAAASUVORK5CYII=','before','Przed remontem','2026-10-31');
   await storage.setItem('remont.delivery.v2:room',JSON.stringify({scope:'old',settings:{mode:'shipping',method:'manual',postalCode:'30-001',legacyFees:{Sewera:0}},store:null}));
   await storage.setItem('remont.renovation-basket.v1',JSON.stringify({version:1,projectIds:['room']}));
   await storage.setItem('remont.basket-extras.v1',JSON.stringify({version:1,items:[{id:'extra',kind:'custom',name:'Listwa',unit:'mb',quantity:3}]}));
@@ -262,7 +262,7 @@ test('duplicate project IDs stop before any write and preserve current child row
 
 test('invalid, foreign and partial archives are rejected without silently dropping project content',async t=>{
   const a=await source(t),backup=await readProjectBackup(a.db,a.storage);
-  const mutate=[(b:any)=>b.version=2,(b:any)=>delete b.tables.shopping_items,(b:any)=>b.tables.projects[0].measurements='{"width":"oops"}',(b:any)=>b.tables.projects[0].calculation_result='{}',(b:any)=>b.tables.shopping_items[0].project_id='unknown',(b:any)=>b.tables.shopping_items.push(b.tables.shopping_items[0]),(b:any)=>b.tables.projects[0].rogue=1,(b:any)=>b.preferences['account.token']='secret',(b:any)=>b.preferences['remont.laminate-choice.v1:room']='{"version":1,"choices":[{"from":"missing","to":"missing"}]}',(b:any)=>b.tables.project_photos[0].uri='blob:https://old-browser/photo',(b:any)=>b.tables.project_photos[0].uri='data:image/svg+xml;base64,PHN2Zz4='];
+  const mutate=[(b:any)=>b.version=2,(b:any)=>delete b.tables.shopping_items,(b:any)=>b.tables.projects[0].measurements='{"width":"oops"}',(b:any)=>b.tables.projects[0].calculation_result='{}',(b:any)=>b.tables.shopping_items[0].project_id='unknown',(b:any)=>b.tables.shopping_items.push(b.tables.shopping_items[0]),(b:any)=>b.tables.projects[0].rogue=1,(b:any)=>b.preferences['account.token']='secret',(b:any)=>b.preferences['remont.laminate-choice.v1:room']='{"version":1,"choices":[{"from":"missing","to":"missing"}]}',(b:any)=>b.tables.project_photos[0].uri='blob:https://old-browser/photo',(b:any)=>b.tables.project_photos[0].uri=b.tables.project_photos[0].uri.replace('image/png','image/jpeg'),(b:any)=>b.tables.project_photos[0].uri='data:image/png;base64,AAAAAAAAAAAAAAAA',(b:any)=>b.tables.project_photos[0].uri='data:image/svg+xml;base64,PHN2Zz4='];
   for(const change of mutate){const bad=structuredClone(backup);change(bad);assert.throws(()=>parseProjectBackup(JSON.stringify(bad)));}
   assert.throws(()=>parseProjectBackup('null'));assert.throws(()=>parseProjectBackup('{'));
 });

@@ -85,7 +85,21 @@ function containsRows(actual:ProjectBackup['tables'],expected:ProjectBackup['tab
     return expected[table].every(row=>saved.get(row.id)===canonical(row));
   });
 }
-export function portablePhoto(uri:string):boolean{return /^data:image\/(?:jpeg|png|webp|gif);base64,[A-Za-z0-9+/]+={0,2}$/.test(uri);}
+export function portablePhoto(uri: string): boolean {
+  const match = /^data:image\/(jpeg|png|webp|gif);base64,([A-Za-z0-9+/]+={0,2})$/.exec(uri);
+  if (!match || match[0].length !== uri.length) return false;
+  const [, format, payload] = match;
+  if (payload.length < 16 || payload.length % 4 === 1 || (payload.endsWith('=') && payload.length % 4 !== 0)) return false;
+
+  // Check the file signature against the declared type before importing it.
+  switch (format) {
+    case 'jpeg': return payload.startsWith('/9j/');
+    case 'png': return /^iVBORw0KGg[opqr]/.test(payload);
+    case 'gif': return /^R0lGOD[dl]h/.test(payload);
+    case 'webp': return /^UklGR[ghijklmnopqrstuv].{6}RUJQ/.test(payload);
+    default: return false;
+  }
+}
 
 export function parseProjectBackup(raw:string,portable=true):ProjectBackup{
   checkBackupSize(raw);
