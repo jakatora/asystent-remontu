@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {calculatorEngine} from './engine';
+import {parseMeasurements} from '@/shared/lib/measurements';
 import {getJobById} from '@/features/content/registry';
 import {MATERIAL_PRICES} from '@/data/prices/materials';
 import {PRODUCT_PHOTOS} from '@/data/products/photos';
@@ -42,4 +43,18 @@ test('both rooms retain the selected exact hanger in the renovation basket and c
  const result=buildRenovationBasket([project('a',first),project('b',second)],['a','b'],'standard'),lines=result.stages.flatMap(s=>s.materials).filter(l=>l.material.id==='hanger');assert.equal(lines.length,2);assert.equal(lines.reduce((n,l)=>n+l.quantity,0),40);assert.ok(lines.every(l=>l.material.ean==='5905637101074'));
  const item={id:'h',projectId:'a',itemType:'material',materialId:'hanger',name:hanger(first).material.name,unit:'szt',quantity:29,owned:true,purchased:true}as ShoppingItem;
  const same=reviewGypsumShopping([item],first)[0];assert.equal(same.owned,true);const changed=reviewGypsumShopping([item],calc({gypsumHanger:2,gypsumHangerCount:26}))[0];assert.equal(changed.owned,false);assert.equal(changed.purchased,false);assert.equal(changed.needsQuantityConfirmation,true);
+});
+
+
+test('stale hidden ceiling fields cannot block saving the selected Norgips variant',()=>{
+ const job=getJobById('gypsum-ceiling')!;
+ const dimensions={ceilingArea:'10',perimeter:'14'};
+ const stale={...dimensions,gypsumHanger:'0',gypsumHangerCount:'1,5',gypsumUdProfile:'0',gypsumUdFit:'9'};
+ const parsed=parseMeasurements(job,stale);
+ assert.deepEqual(parsed.errors,[]);
+ assert.equal(parsed.values.gypsumHangerCount,undefined);
+ assert.equal(parsed.values.gypsumUdFit,undefined);
+ assert.equal(hanger(calculatorEngine.calculate(job,parsed.values)).rawQuantity,15);
+ const visible=parseMeasurements(job,{...stale,gypsumHanger:'1',gypsumUdProfile:'1'});
+ assert.deepEqual(visible.errors.map(error=>error.id).sort(),['gypsumHangerCount','gypsumUdFit']);
 });
