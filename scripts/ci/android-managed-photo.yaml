@@ -1,0 +1,29 @@
+appId: pl.asystentremontu.app
+---
+- launchApp:
+    clearState: false
+- extendedWaitUntil:
+    visible: Remont Asystent
+    timeout: 60000
+- tapOn:
+    text: Projekty
+    rightOf:
+      text: Odkryj
+- extendedWaitUntil:
+    visible: Twoje projekty
+    timeout: 60000
+- scrollUntilVisible:
+    element:
+      text: '.*Malowanie 40,5.*osobny grunt.*'
+    direction: DOWN
+    timeout: 30000
+- tapOn:
+    text: '.*Malowanie 40,5.*osobny grunt.*'
+- extendedWaitUntil:
+    visible: Zdjęcia
+    timeout: 60000
+- tapOn: Zdjęcia
+- extendedWaitUntil:
+    visible: '\(1\)'
+    timeout: 30000
+- takeScreenshot: native-screens/08-managed-photo

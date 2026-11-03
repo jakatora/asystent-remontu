@@ -1,7 +1,8 @@
 """Seed only synthetic projects on a disposable rootable emulator running the release APK."""
 from pathlib import Path
 from contextlib import closing
-import subprocess,sqlite3,json,time
+import subprocess,sqlite3,json,time,sys
+from managed_photo_fixture import write_managed_photo
 
 package='pl.asystentremontu.app'
 def adb(*args):return subprocess.check_output(['adb',*args],text=True).strip()
@@ -43,6 +44,19 @@ assert schema_ready,'The release app did not complete native SQLite migrations'
 adb('shell','am','force-stop',package)
 pull_snapshot()
 projects=json.loads(Path(__file__).with_name('remont-smoke-projects.json').read_text())
+managed_photo='--managed-photo' in sys.argv[1:]
+if managed_photo:
+    name='photo_qa233.png'
+    local_photo=local/name
+    write_managed_photo(local_photo)
+    photo_dir='/data/user/0/'+package+'/files/project-photos'
+    adb('shell','mkdir','-p',photo_dir)
+    adb('shell','chown',owner,photo_dir)
+    adb('shell','chmod','700',photo_dir)
+    subprocess.run(['adb','push',str(local_photo),photo_dir+'/'+name],check=True)
+    adb('shell','chown',owner,photo_dir+'/'+name)
+    adb('shell','chmod','600',photo_dir+'/'+name)
+    adb('shell','restorecon','-R',photo_dir)
 with closing(sqlite3.connect(local/'remont_v2.db')) as connection:
     assert [r[0] for r in connection.execute('SELECT version FROM schema_versions ORDER BY version')]==list(range(1,15))
     columns={r[1] for r in connection.execute('PRAGMA table_info(projects)')}
@@ -51,10 +65,15 @@ with closing(sqlite3.connect(local/'remont_v2.db')) as connection:
         fields=[k for k in project if k in columns]
         assert not connection.execute('SELECT 1 FROM projects WHERE id=?',(project['id'],)).fetchone()
         connection.execute('INSERT INTO projects ('+','.join(fields)+') VALUES ('+','.join('?' for _ in fields)+')',[project[k] for k in fields])
+    if managed_photo:
+        connection.execute(
+            'INSERT INTO project_photos (id,project_id,uri,photo_type,created_at) VALUES (?,?,?,?,?)',
+            ('qa-managed-photo','paint-base','project-photo:'+name,'before',projects[0]['created_at']),
+        )
     connection.commit();connection.execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchall()
 subprocess.run(['adb','push',str(local/'remont_v2.db'),database],check=True)
 adb('shell','chown',owner,database)
 adb('shell','chmod','660',database)
 # The only removed files belong to this newly installed test application's DB.
 for suffix in ['-wal','-shm']:adb('shell','rm','-f',database+suffix)
-print(json.dumps({'syntheticProjects':len(projects),'nativeMigrationsCompleted':14,'databaseCreatedByReleaseApk':True,'deliveryQuotesInjected':False}))
+print(json.dumps({'syntheticProjects':len(projects),'managedPhoto':managed_photo,'nativeMigrationsCompleted':14,'databaseCreatedByReleaseApk':True,'deliveryQuotesInjected':False}))

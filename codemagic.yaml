@@ -377,7 +377,11 @@ workflows:
           adb shell am force-stop com.google.android.apps.nexuslauncher
           adb install android-qa.apk
           adb shell am start -n pl.asystentremontu.app/.MainActivity
-          python3 scripts/ci/seed-android-smoke.py
+          if [[ "${REMONT_TEST_MANAGED_PHOTO:-}" == 1 ]]; then
+            python3 scripts/ci/seed-android-smoke.py --managed-photo
+          else
+            python3 scripts/ci/seed-android-smoke.py
+          fi
       - name: Native release project, real quotes and screenshots
         script: |
           set -euo pipefail
@@ -386,10 +390,16 @@ workflows:
           curl -fsSL https://get.maestro.mobile.dev | bash
           export PATH="$HOME/.maestro/bin:$PATH"
           mkdir -p native-screens
-          maestro test --config scripts/ci/android-native/config.yaml --format junit --output android-native-smoke.xml scripts/ci/android-native
+          smoke_status=0
+          maestro test --config scripts/ci/android-native/config.yaml --format junit --output android-native-smoke.xml scripts/ci/android-native || smoke_status=$?
+          if [[ "${REMONT_TEST_MANAGED_PHOTO:-}" == 1 ]]; then
+            maestro test --format junit --output android-photo-smoke.xml scripts/ci/android-managed-photo.yaml
+          fi
+          exit "$smoke_status"
     artifacts:
       - native-screens/*.png
       - android-native-smoke.xml
+      - android-photo-smoke.xml
       - android-emulator.log
       - android-native-logcat.txt
       - tested-android-apk.sha256
