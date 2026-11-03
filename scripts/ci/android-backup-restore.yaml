@@ -16,14 +16,21 @@ appId: pl.asystentremontu.app
 - tapOn:
     text: '^(Downloads|Pobrane)$'
     optional: true
-- extendedWaitUntil:
-    visible: '.*remont-qa-import\.json.*'
-    timeout: 30000
-# DocumentsUI exposes the filename but the click target is the grid tile.
+# The grid also exposes a preview action with the filename in its label.
+# Use list mode when available and select only the exact file title.
 - tapOn:
-    point: '27%,21%'
+    id: 'com.google.android.documentsui:id/sub_menu_list'
+    optional: true
 - extendedWaitUntil:
-    notVisible: '^(Downloads|Pobrane)$'
+    visible:
+      id: 'android:id/title'
+      text: '^remont-qa-import\.json$'
+    timeout: 30000
+- tapOn:
+    id: 'android:id/title'
+    text: '^remont-qa-import\.json$'
+- extendedWaitUntil:
+    visible: Kopie remontów i budowy domu
     timeout: 15000
 - scrollUntilVisible:
     element:
