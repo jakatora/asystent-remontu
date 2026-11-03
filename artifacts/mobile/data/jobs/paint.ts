@@ -1,3 +1,4 @@
+import { SHARED_SHOP_PRICES } from '@/data/prices/shared-shop-prices';
 import type { RenovationJob } from '@/types/domain';
 import { formulaBuilder } from '@/features/calculator/formula-builder';
 import {wallPaintLitres} from '@/features/calculator/wallPaint';
@@ -198,12 +199,7 @@ export const paintJob: RenovationJob = {
       required:            true,
       estimatedBuyCostPLN: 25,
       notes:               'Wełna 10–12 mm do farb akrylowych/lateksowych. Szerokość 18 cm na typowe ściany. Referencja: Motive / LUX Basic / Hardy Maxprofi.',
-      shopPrices: [
-        { shop: 'castorama',   url: 'https://www.castorama.pl/departments/wa-ek-motive-malarski-nylon-czerwony-pasek-18cm-w-os-12mm-1-szt/5905033135338_CAPL.prd', verifiedAt: '2026-06-09' },
-        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/produkty/zestaw-malarski-do-farb-emulsyjnych-walek-18-cm-zapas-kuweta-45878546.html',              verifiedAt: '2026-06-09' },
-        { shop: 'obi',         url: 'https://www.obi.pl/walki-malarskie/lux-walek-malarski-basic-180-mm-12-mm/p/2498491',                                          verifiedAt: '2026-06-09' },
-        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/walek-malarski-gelbfaden-18-cm-rdzen-48-mm-poliakryl-12-mm-rota',                                  verifiedAt: '2026-06-09' },
-      ],
+      shopPrices: SHARED_SHOP_PRICES.roller18cm,
     },
     {
       id:                  'brush',
@@ -212,12 +208,7 @@ export const paintJob: RenovationJob = {
       required:            true,
       estimatedBuyCostPLN: 15,
       notes:               'Do narożników i krawędzi — wałek tam nie dochodzi. Płaski 50 mm. Referencja: Diall / Dexter / LUX Profi / NINJA.',
-      shopPrices: [
-        { shop: 'castorama',   url: 'https://www.castorama.pl/pedzel-plaski-diall-50-mm-id-1091492.html',                                                          verifiedAt: '2026-06-09' },
-        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/narzedzia-reczne/pedzle-walki-kuwety/pedzle/pedzel-plaski-uniwersalny-50-mm-dexter,p587218,l754.html', verifiedAt: '2026-06-09' },
-        { shop: 'obi',         url: 'https://www.obi.pl/pedzle/lux-pedzel-plaski-do-emalii-uniwersalny-profi-50-mm/p/5693205',                                     verifiedAt: '2026-06-09' },
-        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/pedzel-ninja-50-mm-angular',                                                                       verifiedAt: '2026-06-09' },
-      ],
+      shopPrices: SHARED_SHOP_PRICES.brush50mm,
     },
     {
       id:       'tray',
@@ -626,12 +617,7 @@ export const paintCeilingJob: RenovationJob = {
       required:            true,
       estimatedBuyCostPLN: 15,
       notes:               'Płaski 50 mm do narożników sufit-ściana.',
-      shopPrices: [
-        { shop: 'castorama',   url: 'https://www.castorama.pl/pedzel-plaski-diall-50-mm-id-1091492.html',                                                          verifiedAt: '2026-06-09' },
-        { shop: 'leroyMerlin', url: 'https://www.leroymerlin.pl/narzedzia-reczne/pedzle-walki-kuwety/pedzle/pedzel-plaski-uniwersalny-50-mm-dexter,p587218,l754.html', verifiedAt: '2026-06-09' },
-        { shop: 'obi',         url: 'https://www.obi.pl/pedzle/lux-pedzel-plaski-do-emalii-uniwersalny-profi-50-mm/p/5693205',                                     verifiedAt: '2026-06-09' },
-        { shop: 'bricomarche', url: 'https://www.bricomarche.pl/pedzel-ninja-50-mm-angular',                                                                       verifiedAt: '2026-06-09' },
-      ],
+      shopPrices: SHARED_SHOP_PRICES.brush50mm,
     },
     {
       id:       'foil',

@@ -40,3 +40,18 @@ test('owned, rented and unspecified models create no priced demand', () => {
   assert.equal(parseBasketToolChoice('rent'), 'rent');
   assert.throws(() => parseBasketToolChoice('other'), /invalid_basket_tool_choice/);
 });
+
+
+test('wall painting, repainting and ceiling painting share the applicable reviewed tools', () => {
+  const tools = collectBasketTools([
+    {jobId:'paint-walls',name:'Nowe ściany'},
+    {jobId:'repaint-walls',name:'Odświeżanie'},
+    {jobId:'paint-ceiling',name:'Sufit'},
+  ]);
+  const brush = tools.filter(tool => tool.product?.identity.ean === '5904178020035');
+  const roller = tools.filter(tool => tool.product?.identity.ean === '5905061052744');
+  assert.deepEqual(brush.map(tool => tool.projectNames), [['Nowe ściany','Odświeżanie','Sufit']]);
+  assert.deepEqual(roller.map(tool => tool.projectNames), [['Nowe ściany','Odświeżanie']]);
+  const purchases = basketToolPurchases(tools, {[brush[0].key]:'buy',[roller[0].key]:'buy'});
+  assert.deepEqual(purchases.map(line => [line.material.ean,line.quantity]), [['5905061052744',1],['5904178020035',1]]);
+});
