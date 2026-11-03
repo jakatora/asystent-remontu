@@ -12,3 +12,12 @@ appId: app.replit.remontasystent
     visible: '.*asystent-remontu-projekty.*'
     timeout: 30000
 - takeScreenshot: native-screens/09-backup-share
+- tapOn: '^Save to Files$'
+- extendedWaitUntil:
+    visible: '^Save$'
+    timeout: 30000
+- tapOn: '^Save$'
+- extendedWaitUntil:
+    visible: Kopie remontów i budowy domu
+    timeout: 30000
+- takeScreenshot: native-screens/10-backup-saved
