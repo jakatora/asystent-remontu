@@ -176,8 +176,10 @@ const pl = {
 
   // project/MaterialsTab
   'cmp.MaterialsTab.title': 'Lista materiałów',
-  'cmp.MaterialsTab.subtitle': 'Ilości uwzględniają 10% zapasu na straty i docięcia.',
-  'cmp.MaterialsTab.totalCost': 'Łączny koszt materiałów',
+  'cmp.MaterialsTab.subtitle': 'Ilości wynikają z obmiarów i założeń zapasu dla tej pracy.',
+  'cmp.MaterialsTab.totalCost': 'Szacunkowy koszt materiałów',
+  'cmp.MaterialsTab.priceScope': 'Kwoty na liście są orientacyjne. Aktualne ceny produktów i koszt dostawy sprawdzisz w porównaniu sklepów.',
+  'cmp.MaterialsTab.compareStores': 'Sprawdź ceny w sklepach',
   'cmp.MaterialsTab.refreshList': 'Odśwież listę zakupów',
   'cmp.MaterialsTab.generateList': 'Generuj listę zakupów',
 
@@ -574,8 +576,10 @@ const en: Record<K, string> = {
 
   // project/MaterialsTab
   'cmp.MaterialsTab.title': 'Materials list',
-  'cmp.MaterialsTab.subtitle': 'Quantities include a 10% buffer for waste and cuts.',
-  'cmp.MaterialsTab.totalCost': 'Total materials cost',
+  'cmp.MaterialsTab.subtitle': 'Quantities follow your measurements and the waste allowances for this job.',
+  'cmp.MaterialsTab.totalCost': 'Estimated materials cost',
+  'cmp.MaterialsTab.priceScope': 'Amounts on this list are estimates. See the store comparison for current product prices and delivery costs.',
+  'cmp.MaterialsTab.compareStores': 'Check store prices',
   'cmp.MaterialsTab.refreshList': 'Refresh shopping list',
   'cmp.MaterialsTab.generateList': 'Generate shopping list',
 

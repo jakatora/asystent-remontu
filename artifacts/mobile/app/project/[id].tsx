@@ -512,6 +512,7 @@ export default function ProjectDetailScreen() {
             calc={calc}
             hasShoppingItems={shoppingItems.length > 0}
             onGenerateShoppingList={handleGenerateShoppingList}
+            onCompareStores={() => setTab('estimate')}
           />
         )}
 

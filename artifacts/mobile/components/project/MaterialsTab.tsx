@@ -15,9 +15,10 @@ interface MaterialsTabProps {
   calc: CalculationResult;
   hasShoppingItems: boolean;
   onGenerateShoppingList: () => Promise<void>;
+  onCompareStores: () => void;
 }
 
-export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }: MaterialsTabProps) {
+export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList, onCompareStores }: MaterialsTabProps) {
   const { t, language } = useLanguage();
   const previews = React.useMemo(() => getMaterialPhotoPreviews(calc), [calc]);
   return (
@@ -28,6 +29,10 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
       <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
         {calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Ilości wynikają z obmiarów i pokazanych założeń zapasu. Dobierz produkty w jednym zgodnym systemie ocieplenia i według projektu.' : 'Quantities follow your measurements and stated reserve assumptions. Select products from a compatible insulation system and follow its design.') : t('cmp.MaterialsTab.subtitle')}
       </Txt>
+      <Txt style={{ fontSize: 14, lineHeight: 20, color: Colors.textSecondary }}>
+        {t('cmp.MaterialsTab.priceScope')}
+      </Txt>
+      <Button label={t('cmp.MaterialsTab.compareStores')} onPress={onCompareStores} variant="outline" fullWidth />
       {Boolean(calc.quantityIssues?.length) && <Txt accessibilityRole="alert" style={{ color: Colors.warning, lineHeight: 20 }}>{language === 'pl' ? `Dla ${calc.quantityIssues!.length} pozycji podaj ilości z projektu lub karty wybranego produktu. Pokazany koszt jest częściowym szacunkiem według cen referencyjnych.` : `Enter design or selected-product quantities for ${calc.quantityIssues!.length} items. The displayed cost is a partial estimate using reference prices.`}</Txt>}
 
       {calc.materials.map((m, i) => {
@@ -92,7 +97,7 @@ export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList }:
         }}
       >
         <Txt w="semibold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-          {calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek materiałów' : 'Partial material estimate') : calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Szacunek wg cen referencyjnych' : 'Estimate using reference prices') : t('cmp.MaterialsTab.totalCost')}
+          {calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek materiałów' : 'Partial material estimate') : t('cmp.MaterialsTab.totalCost')}
         </Txt>
         <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
           {formatCurrency(calc.totalCost)}
