@@ -79,8 +79,8 @@ export const waterproofingInputs: MeasurementInputDefinition[] = [
     options: [{ value: 0, label: 'Wymiar i połączenie do sprawdzenia' }, { value: 1, label: 'Potwierdzone dopasowanie wybranych mankietów' }], hint: 'Przy dodatniej liczbie przejść wycenimy mankiety dopiero po potwierdzeniu zgodności wymiarów i sposobu połączenia. Wymiar 120/300 mm to zewnętrzny rozmiar mankietu, nie średnica rury.' },
 ];
 
-/** Show detailed assumptions when useful, while keeping all saved values. */
-export function waterproofingInputVisible(jobId: string, inputId: string, m: Readonly<Record<string, number | string>>): boolean {
+/** Show only the inputs used by the selected waterproofing variant. */
+export function waterproofingInputVisible(jobId: string, inputId: string, m: Readonly<Record<string, number | string | undefined>>): boolean {
   if (jobId !== WATERPROOFING_JOB || !inputId.startsWith('hydro') || inputId === 'hydroSystem') return true;
   if (!MEMBRANE_REFERENCES[Number(m.hydroSystem)]) return false;
   if (['hydroMembraneConsumption', 'hydroReservePercent', 'hydroPrimerConsumption'].includes(inputId)) return Number(m.hydroAdvanced) === 1 && (inputId !== 'hydroPrimerConsumption' || Number(m.hydroSubstrate) === 1);

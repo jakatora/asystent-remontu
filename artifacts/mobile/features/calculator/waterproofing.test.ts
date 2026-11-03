@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { parseMeasurements } from '@/shared/lib/measurements';
 import { calculatorEngine, computeRawQuantity } from './engine';
 import { getJobById } from '@/features/content/registry';
 import { toPricingStageInput } from '@/features/pricing/pricingApi';
@@ -41,4 +42,24 @@ test('historical three-line mixed-brand JSON cannot become a complete new system
   const reviewed = projectShopping(owned,current); assert.ok(reviewed.filter(i=>i.itemType==='material').every(i=>!i.owned&&!i.purchased));
   const stale = projectShopping(generateShoppingItems('qa',old).map((item,i)=>({...item,id:`stale-${i}`,owned:true})),old); assert.ok(stale.filter(i=>i.itemType==='material').every(i=>!i.owned));
   assert.equal(WATERPROOFING_IDS.length,7);
+});
+
+
+test('waterproofing saves dimensions before system selection and uses only visible consumption settings', () => {
+  const job = getJobById(WATERPROOFING_JOB)!;
+  const raw = Object.fromEntries(Object.entries(measures).map(([id, value]) => [id, String(value)]));
+  const pending = parseMeasurements(job, { wallArea: '10', floorArea: '5', perimeter: '10', hydroSystem: '0' });
+  assert.deepEqual(pending.errors, []);
+  assert.equal(waterproofingQuantity('membrane', pending.values), null);
+  const customFields = { hydroMembraneConsumption: '2', hydroReservePercent: '20', hydroPrimerConsumption: '0,1' };
+  const standard = parseMeasurements(job, { ...raw, ...customFields, hydroAdvanced: '0' });
+  assert.deepEqual(standard.errors, []);
+  assert.equal(waterproofingQuantity('membrane', standard.values), 19.8);
+  assert.equal(waterproofingQuantity('primer-waterproof', standard.values), 3);
+  const custom = parseMeasurements(job, { ...raw, ...customFields, hydroAdvanced: '1' });
+  assert.deepEqual(custom.errors, []);
+  assert.equal(waterproofingQuantity('membrane', custom.values), 36);
+  assert.equal(waterproofingQuantity('primer-waterproof', custom.values), 1.5);
+  const invalid = parseMeasurements(job, { ...raw, hydroAdvanced: '1', hydroMembraneConsumption: '0,6' });
+  assert.ok(invalid.errors.some(error => error.id === 'hydroMembraneConsumption'));
 });

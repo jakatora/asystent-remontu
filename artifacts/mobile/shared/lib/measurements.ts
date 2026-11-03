@@ -5,6 +5,7 @@ import {cabinetInputVisible} from '@/features/calculator/cabinetPainting';
 import {UNDERLAY_JOB,underlayInputVisible} from '@/features/calculator/underlayInstall';
 import {groutOnlyInputVisible} from '@/features/calculator/groutOnly';
 import {windowInputVisible} from '@/features/calculator/windowSealing';
+import {waterproofingInputVisible} from '@/features/calculator/waterproofing';
 import {skirtingInputVisible} from '@/features/calculator/skirting';
 import {gypsumInputVisible} from '@/features/calculator/gypsumBoard';
 import {plasterInputVisible} from '@/features/calculator/plastering';
@@ -16,6 +17,7 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   const values: Record<string, number> = {};
   const errors: { label: string; id: string; min?: number; max?: number }[] = [];
   for (const input of job.measurementInputs) {
+    if (!waterproofingInputVisible(job.id, input.id, raw)) continue;
     if (!gypsumInputVisible(job.id, input.id, raw) || !skirtingInputVisible(job.id, input.id, raw)) continue;
     if (!rolledInputVisible(job.id,input.id,raw) || !vinylClickInputVisible(job.id,input.id,raw) || !socketFrameInputVisible(job.id,input.id,raw) || !cabinetInputVisible(job.id,input.id,raw) || !underlayInputVisible(job.id,input.id,raw) || !groutOnlyInputVisible(job.id,input.id,raw) || !frameInputVisible(job.id,input.id,raw.frameSystem) || !windowInputVisible(job.id,input.id,raw) || !plasterInputVisible(job.id,input.id,raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
