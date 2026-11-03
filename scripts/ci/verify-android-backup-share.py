@@ -3,6 +3,7 @@ import base64
 import json
 from pathlib import Path, PurePosixPath
 import subprocess
+import sys
 
 app = '/data/user/0/pl.asystentremontu.app'
 
@@ -27,4 +28,13 @@ assert (photo['id'], photo['project_id']) == ('qa-managed-photo', 'paint-base')
 prefix, encoded = photo['uri'].split(',', 1)
 assert prefix == 'data:image/png;base64'
 assert base64.b64decode(encoded, validate=True) == adb('exec-out', 'cat', app + '/files/project-photos/photo_qa233.png')
+if len(sys.argv) == 2:
+    # Keep the original projects on the emulator. Import one new project with
+    # the exported photograph so overwriting an existing ID cannot pass QA.
+    project = next(row for row in backup['tables']['projects'] if row['id'] == 'paint-base')
+    tables = {key: [] for key in backup['tables']}
+    tables['projects'] = [{**project, 'id': 'qa-backup-import', 'name': 'QA Kopia Android'}]
+    tables['project_photos'] = [{**photo, 'id': 'qa-backup-photo-import', 'project_id': 'qa-backup-import'}]
+    Path(sys.argv[1]).write_text(json.dumps({**backup, 'tables': tables, 'preferences': {}}), encoding='utf-8')
+
 print(json.dumps({'passed': True, 'projects': len(project_ids), 'embeddedPhotoMatches': True}))

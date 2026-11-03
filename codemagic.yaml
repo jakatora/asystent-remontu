@@ -400,7 +400,10 @@ workflows:
             maestro test --format junit --output android-photo-smoke.xml scripts/ci/android-managed-photo.yaml
             if [[ "${REMONT_TEST_BACKUP_SHARE:-}" == 1 ]]; then
               maestro test --format junit --output android-backup-share.xml scripts/ci/android-backup-share.yaml
-              python3 scripts/ci/verify-android-backup-share.py > android-backup-share-verification.json
+              python3 scripts/ci/verify-android-backup-share.py remont-qa-import.json > android-backup-share-verification.json
+              adb shell mkdir -p /sdcard/Download
+              adb push remont-qa-import.json /sdcard/Download/remont-qa-import.json
+              maestro test --format junit --output android-backup-restore.xml scripts/ci/android-backup-restore.yaml
             fi
           fi
           exit "$smoke_status"
@@ -409,6 +412,7 @@ workflows:
       - android-native-smoke.xml
       - android-photo-smoke.xml
       - android-backup-share.xml
+      - android-backup-restore.xml
       - android-backup-share-verification.json
       - android-emulator.log
       - android-native-logcat.txt

@@ -1,0 +1,44 @@
+appId: pl.asystentremontu.app
+---
+- openLink: remont://project-backup
+- extendedWaitUntil:
+    visible: Kopie remontów i budowy domu
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: Wybierz plik z kopią
+    direction: DOWN
+    timeout: 30000
+- tapOn: Wybierz plik z kopią
+- tapOn:
+    text: '^(Show roots|Pokaż katalogi|Open navigation drawer)$'
+    optional: true
+- tapOn:
+    text: '^(Downloads|Pobrane)$'
+    optional: true
+- extendedWaitUntil:
+    visible: '.*remont-qa-import\.json.*'
+    timeout: 30000
+- tapOn: '.*remont-qa-import\.json.*'
+- scrollUntilVisible:
+    element:
+      text: Wczytaj projekty z kopii
+    direction: DOWN
+    timeout: 30000
+- assertVisible: QA Kopia Android
+- tapOn: Wczytaj projekty z kopii
+- extendedWaitUntil:
+    visible: '.*Przeniesiono projektów: 1.*'
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: Zobacz przywrócone projekty
+    direction: DOWN
+    timeout: 30000
+- tapOn: Zobacz przywrócone projekty
+- tapOn: QA Kopia Android
+- tapOn: Zdjęcia
+- extendedWaitUntil:
+    visible: '\(1\)'
+    timeout: 30000
+- takeScreenshot: native-screens/10-backup-restored
