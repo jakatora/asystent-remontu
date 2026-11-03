@@ -122,7 +122,7 @@ export default function RequestDraftScreen() {
             </Txt>
             <Button
               label={pl ? 'Moje szkice i zapisy' : 'My drafts and records'}
-              onPress={() => router.replace('/contractor/my-requests')}
+              onPress={() => router.dismissTo('/contractor/my-requests')}
             />
           </>
         ) : (
@@ -206,7 +206,7 @@ export default function RequestDraftScreen() {
             <Button
               label={pl ? 'Moje szkice i zapisy' : 'My drafts and records'}
               variant="ghost"
-              onPress={() => router.replace('/contractor/my-requests')}
+            onPress={() => router.dismissTo('/contractor/my-requests')}
             />
           </>
         )}

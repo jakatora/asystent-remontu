@@ -303,6 +303,7 @@ function ActionTile({
 }) {
   return (
     <TouchableOpacity
+      accessibilityRole="button"
       onPress={onPress}
       activeOpacity={0.85}
       style={{

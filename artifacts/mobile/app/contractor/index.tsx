@@ -100,7 +100,7 @@ export default function ContractorRequestWizard() {
         status: 'draft',
         estimatedMatchCount: matchCount,
       });
-      router.replace('/contractor/my-requests');
+      router.dismissTo('/contractor/my-requests');
     } catch {
       setSaveError(language === 'pl' ? 'Nie udało się zapisać szkicu. Spróbuj ponownie.' : 'The draft could not be saved. Try again.');
     } finally {
@@ -129,7 +129,7 @@ export default function ContractorRequestWizard() {
         status: 'draft',
         estimatedMatchCount: matchCount,
       });
-      router.push({
+      router.replace({
         pathname: '/contractor/send-request',
         params: { requestId: id },
       });
@@ -266,6 +266,8 @@ export default function ContractorRequestWizard() {
           }}
         >
           <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel={t('contractor.index.headerBack')}
             onPress={handleBack}
             style={{
               width: 48,
@@ -315,6 +317,9 @@ function StepCategory({ selected, onSelect }: { selected: string; onSelect: (id:
         {CATEGORIES.map((cat) => (
           <TouchableOpacity
             key={cat.id}
+            accessibilityRole="radio"
+            accessibilityLabel={cat.name}
+            accessibilityState={{checked:selected===cat.id}}
             onPress={() => onSelect(cat.id, cat.name)}
             style={{
               flexDirection: 'row',
@@ -379,6 +384,7 @@ function StepText({
       <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>{title}</Txt>
       <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>{hint}</Txt>
       <TextInput
+        accessibilityLabel={title}
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
@@ -392,7 +398,7 @@ function StepText({
           color: Colors.text,
           borderWidth: 1,
           borderColor: Colors.border,
-          minHeight: multiline ? 120 : undefined,
+          minHeight: multiline ? 120 : 48,
           textAlignVertical: multiline ? 'top' : undefined,
           fontFamily: 'Inter_400Regular',
         }}
@@ -425,6 +431,7 @@ function StepLocation({
         {t('contractor.index.location.subtitle')}
       </Txt>
       <TextInput
+        accessibilityLabel={t('contractor.index.location.cityPlaceholder')}
         value={city}
         onChangeText={onCityChange}
         placeholder={t('contractor.index.location.cityPlaceholder')}
@@ -442,6 +449,7 @@ function StepLocation({
         }}
       />
       <TextInput
+        accessibilityLabel={t('contractor.index.location.postalPlaceholder')}
         value={postalCode}
         onChangeText={onPostalChange}
         placeholder={t('contractor.index.location.postalPlaceholder')}
@@ -475,6 +483,9 @@ function StepBudget({ selected, onSelect }: { selected: BudgetRange; onSelect: (
         {options.map((b) => (
           <TouchableOpacity
             key={b}
+            accessibilityRole="radio"
+            accessibilityState={{checked:selected===b}}
+            accessibilityLabel={BUDGET_RANGE_LABELS[b]}
             onPress={() => onSelect(b)}
             style={{
               backgroundColor: selected === b ? Colors.primaryBg : Colors.surface,

@@ -12,7 +12,7 @@ const pl = {
   'contractor.index.sendRequest': 'Wyślij zapytanie',
 
   'contractor.index.category.title': 'Jakiego rodzaju pracy szukasz?',
-  'contractor.index.category.subtitle': 'Wybierz kategorię, a my dopasujemy fachowców',
+  'contractor.index.category.subtitle': 'Wybierz kategorię do opisu zakresu prac',
 
   'contractor.index.room.title': 'Jaki pokój lub obszar?',
   'contractor.index.room.hint': 'np. łazienka, kuchnia, salon, cały dom (opcjonalne)',
@@ -25,17 +25,17 @@ const pl = {
 
   'contractor.index.date.title': 'Preferowany termin (opcjonalne)',
   'contractor.index.date.hint': 'Wpisz orientacyjny termin rozpoczęcia prac',
-  'contractor.index.date.placeholder': 'np. styczeń 2026, jak najszybciej...',
+  'contractor.index.date.placeholder': 'Wpisz dogodny termin rozpoczęcia',
 
-  'contractor.index.location.title': 'Gdzie szukasz fachowca?',
+  'contractor.index.location.title': 'Gdzie będą prowadzone prace?',
   'contractor.index.location.subtitle':
-    'Podaj miasto, abyśmy znaleźli fachowców w Twojej okolicy',
+    'Dodaj miejscowość do treści zapytania',
   'contractor.index.location.cityPlaceholder': 'Miasto',
   'contractor.index.location.postalPlaceholder': 'Kod pocztowy (opcjonalnie)',
 
   'contractor.index.budget.title': 'Orientacyjny budżet',
   'contractor.index.budget.subtitle':
-    'Pomoże to dopasować fachowców do Twoich oczekiwań (opcjonalne)',
+    'Określ budżet, który przekażesz wykonawcy (opcjonalnie)',
 
   'contractor.index.offers.title': 'Jeden fachowiec czy kilka ofert?',
   'contractor.index.offers.subtitle':
@@ -422,7 +422,7 @@ const en: Record<K, string> = {
   'contractor.index.sendRequest': 'Send request',
 
   'contractor.index.category.title': 'What kind of work are you looking for?',
-  'contractor.index.category.subtitle': 'Pick a category and we will match pros for you',
+  'contractor.index.category.subtitle': 'Choose a category for your scope of work',
 
   'contractor.index.room.title': 'Which room or area?',
   'contractor.index.room.hint': 'e.g. bathroom, kitchen, living room, whole house (optional)',
@@ -435,17 +435,17 @@ const en: Record<K, string> = {
 
   'contractor.index.date.title': 'Preferred date (optional)',
   'contractor.index.date.hint': 'Enter an approximate start date for the work',
-  'contractor.index.date.placeholder': 'e.g. January 2026, as soon as possible...',
+  'contractor.index.date.placeholder': 'Enter your preferred start date',
 
-  'contractor.index.location.title': 'Where are you looking for a pro?',
+  'contractor.index.location.title': 'Where will the work take place?',
   'contractor.index.location.subtitle':
-    'Enter your city so we can find pros in your area',
+    'Include your city or town in the request text',
   'contractor.index.location.cityPlaceholder': 'City',
   'contractor.index.location.postalPlaceholder': 'Postal code (optional)',
 
   'contractor.index.budget.title': 'Approximate budget',
   'contractor.index.budget.subtitle':
-    'This helps us match pros to your expectations (optional)',
+    'Specify the budget you will share with a contractor (optional)',
 
   'contractor.index.offers.title': 'One pro or multiple quotes?',
   'contractor.index.offers.subtitle':
