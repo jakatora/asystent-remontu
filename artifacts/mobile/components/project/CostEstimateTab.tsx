@@ -114,6 +114,7 @@ interface CostEstimateTabProps {
   shoppingItems?: readonly ShoppingItem[];
   shoppingReady?: boolean;
   shoppingContexts?: readonly ShoppingStageContext[];
+  includesToolPurchases?: boolean;
   onPurchaseSnapshot?: (snapshot: PurchaseSnapshot | null) => void;
 }
 
@@ -123,7 +124,7 @@ type LoadState =
   | { status: 'error'; message: string; retryAt?: number | null }
   | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
-export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, shoppingContexts, onPurchaseSnapshot }: CostEstimateTabProps) {
+export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, shoppingContexts, includesToolPurchases = false, onPurchaseSnapshot }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
   const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
   const rawInput = useMemo(() => {
@@ -456,7 +457,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         <Txt style={{flex:1,fontSize:14,lineHeight:20,color:Colors.text}}>{language==='pl'?'Sprawdzamy aktualne ceny i dostawę. Poniżej jest poprzednia wycena; aktualny koszt zakupów potwierdzimy po sprawdzeniu.':'Checking current prices and delivery. The previous quote is shown below; we will confirm the current purchase cost after the check.'}</Txt>
       </View>}
       {!pendingDestination && productSelectionReady && stock.ready && !stock.readFailed && state.status === 'success' && loadedScope === scope && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed && (
-        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={applyDelivery} basketChoice={basketChoice?.data===state.data?basketChoice.choice:'lowest'} onBasketChoice={chooseBasket}/></PriceChangesProvider>
+        <PriceChangesProvider changes={state.priceChanges}><EstimateResult data={state.data} selectedStore={selectedStore} priceChanges={state.priceChanges} hasPriceBaseline={state.hasPriceBaseline} refreshing={refreshing} onRefresh={() => void fetchEstimate(true)} delivery={delivery} onDeliveryChange={applyDelivery} basketChoice={basketChoice?.data===state.data?basketChoice.choice:'lowest'} onBasketChoice={chooseBasket} includesToolPurchases={includesToolPurchases}/></PriceChangesProvider>
       )}
       {saveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{language === 'pl' ? 'Nie zapisano wyboru sklepu lub dostawy. Sprawdź ustawienia po ponownym otwarciu projektu.' : 'The store or delivery preference could not be saved. Check the settings when reopening the project.'}</Txt>}
       {priceSaveFailed && <Txt accessibilityRole="alert" style={{color:Colors.textSecondary}}>{language==='pl'?'Nie zapisano cen do porównania przy następnym otwarciu projektu.':'Prices could not be saved for comparison when reopening the project.'}</Txt>}
@@ -473,6 +474,7 @@ function EstimateResult({
   onRefresh,
   delivery,
   onDeliveryChange,
+  includesToolPurchases,
   basketChoice,onBasketChoice,
 }: {
   data: SerializedProject;
@@ -483,6 +485,7 @@ function EstimateResult({
   onRefresh: () => void;
   delivery: DeliverySettings;
   onDeliveryChange: (settings: DeliverySettings) => void;
+  includesToolPurchases: boolean;
   basketChoice:BasketChoice;onBasketChoice:(choice:BasketChoice)=>void;
 }) {
   const { t, language } = useLanguage();
@@ -585,7 +588,9 @@ function EstimateResult({
 
 
       <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-        {t('upgrade.compare.materialsOnly')}
+        {includesToolPurchases
+          ? tr('Porównanie obejmuje materiały i wybrane modele narzędzi do kupienia. Wypożyczenie i robocizna są rozliczane osobno.', 'The comparison covers materials and selected tool models for purchase. Rentals and labor are priced separately.')
+          : t('upgrade.compare.materialsOnly')}
       </Txt>
 
       {data.deliveryComparison?.best && consolidatedLines.filter(line => line.wallpaperCutPlan).map(line => (

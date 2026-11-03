@@ -21,7 +21,9 @@ import { Colors } from '@/constants/colors';
 import { CostEstimateTab } from '@/components/project/CostEstimateTab';
 import { QualityTierSelector } from '@/components/project/QualityTierSelector';
 import { BasketExtrasSection } from '@/components/project/BasketExtrasSection';
+import { BasketToolsSection } from '@/components/project/BasketToolsSection';
 import { BASKET_EXTRAS_KEY, parseBasketExtras, withBasketExtras, type BasketExtra } from '@/features/pricing/basketExtras';
+import { BASKET_TOOL_PREFIX, basketToolPurchases, collectBasketTools, parseBasketToolChoice, type BasketToolChoice } from '@/features/pricing/basketTools';
 import { shoppingRepo } from '@/db/repositories/shopping.repo';
 import type { ShoppingItem } from '@/types/domain';
 import { buildRenovationBasket, MAX_BASKET_PROJECTS, measuredBasketProjectIds, parseBasketSelection, RENOVATION_BASKET_KEY } from '@/features/pricing/renovationBasket';
@@ -85,6 +87,41 @@ export default function RenovationBasketScreen() {
     return () => { active = false; };
   }, []);
   const selectedProjects = useMemo(() => projects.filter(project => selected.includes(project.id)), [projects, selected]);
+  const tools = useMemo(() => collectBasketTools(selectedProjects), [selectedProjects]);
+  const [toolChoices, setToolChoices] = useState<Partial<Record<string, BasketToolChoice>>>({});
+  const [loadedTools, setLoadedTools] = useState<typeof tools | null>(null);
+  const [toolReadError, setToolReadError] = useState(false);
+  const [toolSaveError, setToolSaveError] = useState(false);
+  const [toolSaving, setToolSaving] = useState(false);
+  const [toolRetry, setToolRetry] = useState(0);
+  const toolWrite = useRef<Promise<void> | null>(null);
+  useFocusEffect(React.useCallback(() => {
+    let active = true;
+    setLoadedTools(null);
+    setToolReadError(false);
+    void Promise.resolve(toolWrite.current)
+      .then(() => tools.length ? AsyncStorage.multiGet(tools.map(tool => BASKET_TOOL_PREFIX + tool.key)) : [])
+      .then(rows => {
+        const saved = Object.fromEntries(rows.map(([key, value]) => [key.slice(BASKET_TOOL_PREFIX.length), parseBasketToolChoice(value)]));
+        if (active) { setToolChoices(saved); setLoadedTools(tools); }
+      }).catch(() => { if (active) setToolReadError(true); });
+    return () => { active = false; };
+  }, [tools, toolRetry]));
+  const saveToolChoice = (key: string, choice: BasketToolChoice | undefined) => {
+    if (toolWrite.current) return;
+    const storageKey = BASKET_TOOL_PREFIX + key;
+    setToolSaving(true);
+    setToolSaveError(false);
+    const write = choice ? AsyncStorage.setItem(storageKey, choice) : AsyncStorage.removeItem(storageKey);
+    toolWrite.current = write.then(() => setToolChoices(current => ({ ...current, [key]: choice })))
+      .catch(() => setToolSaveError(true))
+      .finally(() => { toolWrite.current = null; setToolSaving(false); });
+  };
+  const toolsReady = !tools.length || loadedTools === tools;
+  const toolPurchases = useMemo(() => basketToolPurchases(tools, toolChoices), [tools, toolChoices]);
+  const pendingTools = tools.filter(tool => tool.required && !toolChoices[tool.key]).length;
+  const unpricedTools = tools.filter(tool => toolChoices[tool.key] === 'buy').length - toolPurchases.length;
+  const rentedTools = tools.filter(tool => toolChoices[tool.key] === 'rent').length;
   const measuredProjectIds = useMemo(() => measuredBasketProjectIds(projects), [projects]);
   const measuredProjectCount = projects.filter(project => Boolean(project.calculationResult)).length;
   const showProjects = projectsExpanded ?? (selectedProjects.length === 0 && extras.length === 0);
@@ -102,7 +139,7 @@ export default function RenovationBasketScreen() {
     return () => { active = false; };
   }, [selectedProjects,itemsRetry]));
   const basket = useMemo(() => buildRenovationBasket(projects, selected, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier, items, doors, laminates, foils, washbasins, tiles, tileAdhesives, materialStock, primerPackages,mapegumPackages,mapegumProducts,ceresitPackages,ceilingPaint), [projects, selected, selectedQualityTier, items, doors, laminates, foils, washbasins, tiles, tileAdhesives, materialStock, primerPackages,mapegumPackages,mapegumProducts,ceresitPackages,ceilingPaint]);
-  const stages = useMemo(() => withBasketExtras(basket.selectionStages, extras), [basket.selectionStages, extras]);
+  const stages = useMemo(() => withBasketExtras(basket.selectionStages, extras, toolPurchases), [basket.selectionStages, extras, toolPurchases]);
   const hasBasket = selectedProjects.length > 0 || extras.length > 0;
   const saveSelection = (next: string[]) => {
     if (next.length > MAX_BASKET_PROJECTS) return;
@@ -158,10 +195,20 @@ export default function RenovationBasketScreen() {
         <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Poziom wybiera warianty produktów do porównania. Możesz zmienić go i sprawdzić cenę całego zestawu.' : 'The level selects product variants for comparison. Change it to compare the complete basket price.'}</Txt>
       </View>}
       {selectedProjects.length > 0 && <View style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, gap: 6 }}>
-        <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Łączymy materiały z obmiarów, dopisane w Zakupach i dodane tutaj. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”. Narzędzia są liczone osobno.' : 'We combine measured materials, items added in Shopping and materials added here. Items marked Owned or Purchased are excluded. Tools are separate.'}</Txt>
+        <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Łączymy materiały z obmiarów, dopisane w Zakupach i dodane tutaj. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”.' : 'We combine measured materials, items added in Shopping and materials added here. Items marked Owned or Purchased are excluded.'}</Txt>
         {itemsReady && basket.manualItems > 0 && <Txt>{pl ? `Uwzględniamy pozycje dopisane w Zakupach: ${basket.manualItems}. Brak ceny lub ilości będzie widoczny w wycenie.` : `Items added in Shopping included: ${basket.manualItems}. Missing prices or quantities remain visible in the quote.`}</Txt>}
         {itemsReady && basket.manualItems > 0 && <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Ceny wpisane ręcznie w Zakupach nie są ofertą sklepu. Tutaj porównujemy potwierdzone ceny i dostawy.' : 'Prices typed in Shopping are not retailer offers. Here we compare confirmed retailer prices and deliveries.'}</Txt>}
       </View>}
+      {toolsReady && <BasketToolsSection tools={tools} choices={toolChoices} saving={toolSaving} onChoice={saveToolChoice} />}
+      {toolsReady && pendingTools > 0 && <Txt style={{ color: Colors.textSecondary }}>
+        {pl ? `Wymagane narzędzia bez decyzji (${pendingTools}) są poza bieżącą wyceną.` : `Required tools without a decision (${pendingTools}) are outside the current quote.`}
+      </Txt>}
+      {!toolsReady && !toolReadError && <ActivityIndicator color={Colors.primary} />}
+      {toolReadError && <View style={{ gap: 8 }}>
+        <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie udało się odczytać wyboru narzędzi. Wycena czeka na ponowny odczyt.' : 'Tool choices could not be read. The quote is paused until they reload.'}</Txt>
+        <Button variant="outline" label={pl ? 'Ponów odczyt narzędzi' : 'Reload tool choices'} onPress={() => setToolRetry(value => value + 1)} />
+      </View>}
+      {toolSaveError && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie zapisano wyboru narzędzia. Spróbuj ponownie.' : 'The tool choice was not saved. Try again.'}</Txt>}
       {selectedProjects.length > 0 && !itemsReady && !itemsFailed && <ActivityIndicator color={Colors.primary} />}
       {itemsFailed && <View style={{gap:12,padding:16,borderRadius:16,backgroundColor:Colors.warningBg}}>
         <Txt accessibilityRole="alert" style={{color:Colors.danger}}>{pl?'Nie odczytano zakupów lub ustawień wybranych prac. Wycena całego koszyka jest wstrzymana.':'Shopping lists or settings for selected works could not be read. Whole-basket pricing is paused.'}</Txt>
@@ -181,9 +228,14 @@ export default function RenovationBasketScreen() {
         <Button label={pl ? `Uzupełnij obmiary: ${review.projectName}` : `Complete measurements: ${review.projectName}`} variant="outline" size="sm"
           onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: review.projectId } })} />
       </View>)}
-      {loaded && itemsReady && extrasReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
-        ? <CostEstimateTab projectId="renovation-basket" stages={stages} shoppingContexts={basket.shoppingContexts} qualityTier={selectedQualityTier} region={selectedRegion} />
-        : <Txt w="semibold">{pl ? 'Wszystkie materiały z wybranych obmiarów masz już lub są kupione.' : 'All measured materials for selected works are already owned or purchased.'}</Txt>)}
+      {toolsReady && (unpricedTools > 0 || rentedTools > 0) && <View style={{ padding: 14, gap: 6, borderRadius: 14, backgroundColor: Colors.warningBg }}>
+        <Txt w="semibold">{pl ? 'Zakres wyceny sklepów' : 'Store quote scope'}</Txt>
+        {unpricedTools > 0 && <Txt>{pl ? `Zakupy narzędzi poza wyceną z powodu braku modelu: ${unpricedTools}.` : `Tool purchases outside this quote without an exact model: ${unpricedTools}.`}</Txt>}
+        {rentedTools > 0 && <Txt>{pl ? `Narzędzia do wypożyczenia, rozliczane osobno: ${rentedTools}.` : `Tools to rent, priced separately: ${rentedTools}.`}</Txt>}
+      </View>}
+      {loaded && itemsReady && extrasReady && toolsReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
+        ? <CostEstimateTab projectId="renovation-basket" stages={stages} shoppingContexts={basket.shoppingContexts} qualityTier={selectedQualityTier} region={selectedRegion} includesToolPurchases={toolPurchases.length > 0} />
+        : <Txt w="semibold">{pl ? 'Brak materiałów i narzędzi do wyceny w sklepach.' : 'There are no materials or tools to quote in stores.'}</Txt>)}
     </ScrollView>
   </>;
 }

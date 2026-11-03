@@ -97,6 +97,7 @@ export function additionalMaterial(id: string, name: string, unit: string, quant
 
 /** Keep raw demand in the common request; the server merges identical
  * products across works and extras before rounding to purchasable packages. */
-export function withBasketExtras(stages: readonly PricingStageInput[], extras: readonly BasketExtra[]): PricingStageInput[] {
-  return extras.length ? [...stages, { jobId: 'additional-materials', materials: extras.map(extraMaterial) }] : [...stages];
+export function withBasketExtras(stages: readonly PricingStageInput[], extras: readonly BasketExtra[], toolPurchases: readonly PricingMaterialLineInput[] = []): PricingStageInput[] {
+  const materials = [...extras.map(extraMaterial), ...toolPurchases];
+  return materials.length ? [...stages, { jobId: 'additional-materials', materials }] : [...stages];
 }
