@@ -53,13 +53,16 @@ test('separate merchant orders retain their own quantities and freight and canno
   const value = input(), s = value.basket.stores[0], a = store(), b = store();
   s.materialsGrosze = 15000; s.deliveryGrosze = 5000; s.totalGrosze = 20000; s.quote!.costGrosze = 5000;
   s.lines[0].packages[0].count = 2; s.lines[0].packages[0].lineCostGrosze = 15000;
+  a.quote!.dispatchFrom = 'Sosnowiec'; b.quote!.dispatchFrom = 'Katowice';
   s.quote!.orders = [a, b].map(part => ({ materialsGrosze: part.materialsGrosze, lines: part.lines, quote: part.quote! }));
   Object.assign(value.basket, { materialsGrosze: 15000, deliveryGrosze: 5000, totalGrosze: 20000 });
   const text = purchaseListText(value, 'pl', now)!;
   assert.match(text, /Złóż osobne zamówienia/); assert.match(text, /Zamówienie 1 z 2/); assert.match(text, /Zamówienie 2 z 2/);
   assert.equal((text.match(/1 × 30 kg/g) ?? []).length, 2); assert.doesNotMatch(text, /2 × 30 kg/);
   assert.match(normalized(text)!, /Potwierdzone dostawy: 50,00 zł/);
-  s.quote!.orders[0].quote.expiresAt = new Date(now).toISOString(); assert.doesNotMatch(purchaseListText(value, 'pl', now)!, /Zestaw z potwierdzoną dostawą:/);
+  assert.match(text, /Zamówienie 1 z 2[\s\S]*Wysyłka z: Sosnowiec[\s\S]*Zamówienie 2 z 2[\s\S]*Wysyłka z: Katowice/);
+  assert.match(purchaseListText(value, 'en', now)!, /Dispatched from: Sosnowiec/);
+  s.quote!.orders[0].quote.expiresAt = new Date(now).toISOString(); assert.doesNotMatch(purchaseListText(value, 'pl', now)!, /Zestaw z potwierdzoną dostawą:|Wysyłka z:/);
 });
 test('partial baskets and pickup do not become complete renovation totals; English is available', () => {
   const value = input(); value.partial = true; value.limited = true;

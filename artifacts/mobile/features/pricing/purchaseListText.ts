@@ -89,6 +89,7 @@ export function purchaseListText(input: PurchaseListInput, language = 'pl', now 
   const shipping = (quote: DeliveryQuote | undefined, cost: number | null, confirmed: boolean) => {
     if (!confirmed || !quote || cost === null) { text.push(tr('Dostawa: do potwierdzenia', 'Delivery: pending confirmation')); return; }
     text.push(tr('Dostawa: ', 'Delivery: ') + amount(cost) + ` (${inline(quote.carrier)}; ${inline(quote.payment)})`);
+    if (quote.dispatchFrom) text.push(tr('Wysyłka z: ', 'Dispatched from: ') + inline(quote.dispatchFrom));
     text.push(quote.destinationScope === 'PL' ? tr('Taryfa krajowa PL, bez osobnej wyceny dla kodu.', 'Nationwide PL rate, without a separate postcode quote.') : tr('Wycena dla kodu: ', 'Quoted for postcode: ') + quote.postalCode);
     text.push(tr('Sprawdzono: ', 'Checked: ') + time(Date.parse(quote.checkedAt)) + tr(' · ważna do: ', ' · valid until: ') + time(Date.parse(quote.expiresAt)));
   };
