@@ -105,7 +105,7 @@ const pl = {
   'hb.formalPath.q.freeStandingLabel': 'Czy dom bedzie wolnostojacy?',
   'hb.formalPath.q.freeStandingHelp':
     'Blizniak lub zabudowa szeregowa to nie dom wolnostojacy.',
-  'hb.formalPath.q.footprintLabel': 'Planowana powierzchnia zabudowy (m2)',
+  'hb.formalPath.q.footprintLabel': 'Planowana powierzchnia zabudowy (m²)',
   'hb.formalPath.q.footprintPlaceholder': 'np. 120',
   'hb.formalPath.q.floorsLabel': 'Liczba kondygnacji nadziemnych',
   'hb.formalPath.q.ownHousingLabel': 'Czy budowa jest na wlasne cele mieszkaniowe?',
@@ -657,7 +657,7 @@ const en: Record<K, string> = {
   'hb.formalPath.q.freeStandingLabel': 'Will the house be free-standing?',
   'hb.formalPath.q.freeStandingHelp':
     'A semi-detached or terraced house is not a free-standing house.',
-  'hb.formalPath.q.footprintLabel': 'Planned building footprint (m2)',
+  'hb.formalPath.q.footprintLabel': 'Planned building footprint (m²)',
   'hb.formalPath.q.footprintPlaceholder': 'e.g. 120',
   'hb.formalPath.q.floorsLabel': 'Number of above-ground storeys',
   'hb.formalPath.q.ownHousingLabel': 'Is the build for your own housing needs?',

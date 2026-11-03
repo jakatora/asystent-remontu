@@ -8,6 +8,7 @@ import { Colors } from '@/constants/colors';
 import { assessFormalPath } from '@/features/house-build/formal-path';
 import type { FormalPathInput } from '@/features/house-build/formal-path';
 import { useLanguage } from '@/context/LanguageContext';
+import { parseOptionalPositiveDecimal } from '@/shared/lib/number';
 
 const HB_ACCENT = '#2563EB';
 const HB_ACCENT_BG = '#EFF6FF';
@@ -24,7 +25,7 @@ export default function FormalPathWizard() {
   const [isSingleFamily, setIsSingleFamily] = useState(true);
   const [isFreeStanding, setIsFreeStanding] = useState(true);
   const [footprintArea, setFootprintArea] = useState('');
-  const [floorsAboveGround, setFloorsAboveGround] = useState('1');
+  const [floorsAboveGround, setFloorsAboveGround] = useState(1);
   const [forOwnHousing, setForOwnHousing] = useState(true);
   const [isFirstTimeInvestor, setIsFirstTimeInvestor] = useState(true);
   const [prefersConservativePath, setPrefersConservativePath] = useState(false);
@@ -35,14 +36,17 @@ export default function FormalPathWizard() {
     { title: t('hb.formalPath.step3Title'), subtitle: t('hb.formalPath.step3Subtitle') },
   ];
 
+  const footprintValue = parseOptionalPositiveDecimal(footprintArea);
+  const invalidFootprint = Number.isNaN(footprintValue);
   const handleFinish = useCallback(() => {
+    if (invalidFootprint) return;
     const input: FormalPathInput = {
       hasMpzp,
       hasWz,
       isSingleFamily,
       isFreeStanding,
-      footprintArea: footprintArea ? parseFloat(footprintArea) : null,
-      floorsAboveGround: parseInt(floorsAboveGround, 10) || 1,
+      footprintArea: footprintValue,
+      floorsAboveGround,
       forOwnHousing,
       isFirstTimeInvestor,
       prefersConservativePath,
@@ -52,9 +56,9 @@ export default function FormalPathWizard() {
       pathname: '/house-build/formal-result',
       params: { assessment: JSON.stringify(assessment) },
     });
-  }, [hasMpzp, hasWz, isSingleFamily, isFreeStanding, footprintArea, floorsAboveGround, forOwnHousing, isFirstTimeInvestor, prefersConservativePath]);
+  }, [hasMpzp, hasWz, isSingleFamily, isFreeStanding, footprintValue, invalidFootprint, floorsAboveGround, forOwnHousing, isFirstTimeInvestor, prefersConservativePath]);
 
-  const canNext = step < 2;
+  const nextDisabled = step > 0 && invalidFootprint;
   const canFinish = step === 2;
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 20;
 
@@ -138,17 +142,19 @@ export default function FormalPathWizard() {
                     fontSize: 16,
                     color: Colors.text,
                   }}
-                  keyboardType="numeric"
+                  keyboardType="decimal-pad"
+                  accessibilityLabel={t('hb.formalPath.q.footprintLabel')}
                   value={footprintArea}
                   onChangeText={setFootprintArea}
                   placeholder={t('hb.formalPath.q.footprintPlaceholder')}
                   placeholderTextColor={Colors.textMuted}
                 />
+                {invalidFootprint && <Txt accessibilityRole="alert" style={{ color: Colors.danger, marginTop: 6 }}>{t('hb.create.footprintInvalid')}</Txt>}
               </View>
               <View>
                 <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 6 }}>{t('hb.formalPath.q.floorsLabel')}</Txt>
                 <View style={{ flexDirection: 'row', gap: 10 }}>
-                  {['1', '2', '3'].map(v => (
+                  {[1, 2, 3].map(v => (
                     <TouchableOpacity
                       key={v}
                       style={{
@@ -212,12 +218,14 @@ export default function FormalPathWizard() {
             <TouchableOpacity
               style={{
                 flex: 1,
-                backgroundColor: HB_ACCENT,
+                backgroundColor: nextDisabled ? Colors.border : HB_ACCENT,
                 borderRadius: 14,
                 padding: 16,
                 alignItems: 'center',
               }}
               onPress={canFinish ? handleFinish : () => setStep(s => s + 1)}
+              accessibilityRole="button"
+              disabled={nextDisabled}
             >
               <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>
                 {canFinish ? t('hb.formalPath.seeResult') : t('hb.formalPath.next')}

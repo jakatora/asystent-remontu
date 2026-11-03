@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { parseDecimal } from '@/shared/lib/number';
+import { parseDecimal, parseOptionalPositiveDecimal } from '@/shared/lib/number';
 import { parseMeasurements } from '@/shared/lib/measurements';
 import { paintJob } from '@/data/jobs/paint';
 
@@ -13,6 +13,15 @@ test('Polish and English decimal input retains the fractional part', () => {
 test('Invalid or partially numeric input is rejected instead of truncated', () => {
   for (const input of ['', ' ', '2m', '2,5,1', '1.2.3', 'Infinity', 'NaN', '2 5', '1e3', '1,234.5']) {
     assert.ok(Number.isNaN(parseDecimal(input)), input);
+  }
+});
+
+test('optional building footprint retains the fraction and rejects invalid positive measurements', () => {
+  assert.equal(parseOptionalPositiveDecimal('70,5'), 70.5);
+  assert.equal(parseOptionalPositiveDecimal('70.5'), 70.5);
+  assert.equal(parseOptionalPositiveDecimal('  '), null);
+  for (const input of ['70,5 m²', '-1', '0', '70,5,1', 'Infinity']) {
+    assert.ok(Number.isNaN(parseOptionalPositiveDecimal(input)), input);
   }
 });
 

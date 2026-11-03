@@ -7,6 +7,7 @@ import { useHouseBuild } from '@/context/HouseBuildContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
+import { parseOptionalPositiveDecimal } from '@/shared/lib/number';
 import type {
   HouseType,
   UserConfidenceLevel,
@@ -67,12 +68,15 @@ export default function CreateHouseBuildProject() {
 
   const stepIdx = STEPS.indexOf(step);
   const progress = ((stepIdx + 1) / STEPS.length) * 100;
+  const footprintValue = parseOptionalPositiveDecimal(footprint);
+  const invalidFootprint = Number.isNaN(footprintValue);
 
   const canNext = useCallback(() => {
     if (step === 'name') return projectName.trim().length > 0;
     if (step === 'location') return plotCity.trim().length > 0;
+    if (step === 'house' || step === 'summary') return !invalidFootprint;
     return true;
-  }, [step, projectName, plotCity]);
+  }, [step, projectName, plotCity, invalidFootprint]);
 
   const goNext = () => {
     if (stepIdx < STEPS.length - 1) setStep(STEPS[stepIdx + 1]);
@@ -83,7 +87,7 @@ export default function CreateHouseBuildProject() {
   };
 
   const handleSave = async () => {
-    if (saving) return;
+    if (saving || invalidFootprint) return;
     setSaving(true);
     try {
       const landContext: LandContext = {
@@ -94,7 +98,7 @@ export default function CreateHouseBuildProject() {
       const planningContext: PlanningContext = {
         legalPath: hasMpzp ? 'mpzp' : hasWz ? 'wz' : null,
         houseType,
-        approximateFootprint: footprint ? parseFloat(footprint) : null,
+        approximateFootprint: footprintValue,
         floorsAboveGround: floors,
         forOwnHousing,
         userConfidence: confidence,
@@ -205,14 +209,15 @@ export default function CreateHouseBuildProject() {
               ))}
 
               <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginTop: 20, marginBottom: 10 }}>
-                Orientacyjna powierzchnia zabudowy (m2)
+                {t('hb.create.footprintLabel')}
               </Txt>
               <TextInput
                 value={footprint}
+                accessibilityLabel={t('hb.create.footprintLabel')}
                 onChangeText={setFootprint}
-                placeholder="np. 120"
+                placeholder={t('hb.create.footprintPlaceholder')}
                 placeholderTextColor={Colors.textMuted}
-                keyboardType="numeric"
+                keyboardType="decimal-pad"
                 style={{
                   backgroundColor: Colors.surface,
                   borderWidth: 1,
@@ -224,6 +229,7 @@ export default function CreateHouseBuildProject() {
                   fontFamily: 'Inter_400Regular',
                 }}
               />
+              {invalidFootprint && <Txt accessibilityRole="alert" style={{ color: Colors.danger, marginTop: 6 }}>{t('hb.create.footprintInvalid')}</Txt>}
 
               <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginTop: 20, marginBottom: 10 }}>
                 Kondygnacje nadziemne
@@ -282,7 +288,7 @@ export default function CreateHouseBuildProject() {
               <SummaryRow label="MPZP" value={hasMpzp === true ? 'Tak' : hasMpzp === false ? 'Nie' : 'Nie wiem'} />
               <SummaryRow label="WZ" value={hasWz === true ? 'Tak' : hasWz === false ? 'Nie' : 'Nie wiem'} />
               <SummaryRow label="Typ domu" value={HOUSE_TYPE_OPTIONS.find((o) => o.value === houseType)?.label ?? houseType} />
-              <SummaryRow label="Powierzchnia" value={footprint ? `${footprint} m2` : 'Nie podano'} />
+              <SummaryRow label={t('hb.create.footprintLabel')} value={footprintValue === null ? t('hb.create.footprintMissing') : `${footprint.trim()} m²`} />
               <SummaryRow label="Kondygnacje" value={`${floors}`} />
               <SummaryRow label="Cel" value={forOwnHousing ? 'Wlasne mieszkanie' : 'Inny cel'} />
               <SummaryRow label="Doswiadczenie" value={CONFIDENCE_OPTIONS.find((o) => o.value === confidence)?.label ?? confidence} />
@@ -315,11 +321,12 @@ export default function CreateHouseBuildProject() {
               alignItems: 'center',
             }}
             onPress={step === 'summary' ? handleSave : goNext}
+            accessibilityRole="button"
             disabled={!canNext() || saving}
             activeOpacity={0.8}
           >
             <Txt w="bold" style={{ fontSize: 15, color: '#fff' }}>
-              {step === 'summary' ? (saving ? 'Tworzenie...' : 'Utworz projekt') : 'Dalej'}
+              {step === 'summary' ? t(saving ? 'hb.create.creating' : 'hb.create.createCta') : t('hb.create.next')}
             </Txt>
           </TouchableOpacity>
         </View>
