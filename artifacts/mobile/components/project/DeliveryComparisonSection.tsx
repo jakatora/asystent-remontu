@@ -22,12 +22,12 @@ import {BasketOptionsSection} from './BasketOptionsSection';
 import {PendingDeliverySummary} from './PendingDeliverySummary';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
 
-export function DeliveryComparisonSection({ comparison, missingItemCount, settings, selectedStore, onApply,choice,onChoice,choosingDisabled=false }: {
+export function DeliveryComparisonSection({ comparison, missingItemCount, settings, selectedStore, onApply,choice,onChoice,choosingDisabled=false, includesToolPurchases=false }: {
   comparison: DeliveryComparison; settings: DeliverySettings;
   selectedStore?: string | null;
   missingItemCount?: number;
   onApply: (settings: DeliverySettings) => void;
-  choice:BasketChoice;onChoice:(choice:BasketChoice)=>void;choosingDisabled?:boolean;
+  choice:BasketChoice;onChoice:(choice:BasketChoice)=>void;choosingDisabled?:boolean;includesToolPurchases?:boolean;
 }) {
   const { language } = useLanguage();
   const tr = (pl: string, en: string) => language === 'pl' ? pl : en;
@@ -153,7 +153,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
     </View>}
     {current && mode === 'shipping' && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
     {pendingPlan && <PendingDeliverySummary plan={pendingPlan} basis={comparison.purchasePlanBasis} />}
-    {displayedBasket && <PurchaseListActions key={deliveredBasketKey(displayedBasket)} input={{ basket: displayedBasket, mode, postalCode: destination, partial: Boolean(available), limited: incompleteCompetition || comparison.searchLimited,...(extraSelected&&lowest?{extraPackageBaseline:lowest}:{}) }} />}
+    {displayedBasket && <PurchaseListActions key={deliveredBasketKey(displayedBasket)} input={{ basket: displayedBasket, mode, postalCode: destination, partial: Boolean(available), includesToolPurchases, limited: incompleteCompetition || comparison.searchLimited,...(extraSelected&&lowest?{extraPackageBaseline:lowest}:{}) }} />}
     {current && comparison.stockLimits?.map(limit => <View key={`${limit.store}:${limit.offerId}`} accessibilityRole="alert" style={{padding:12,gap:4,borderRadius:10,backgroundColor:Colors.warningBg}}>
       <Txt w="semibold">{limit.productName}</Txt>
       <Txt style={{fontSize:13,lineHeight:19}}>{tr(`${limit.store}: dostępne ${limit.maxPackages} z ${limit.requestedPackages} sprawdzanych opakowań. Uwzględniono limit przy doborze zestawu.`, `${limit.store}: ${limit.maxPackages} of ${limit.requestedPackages} requested packs available. The limit is included in basket selection.`)}</Txt>
@@ -258,6 +258,8 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       {!showAllAlternatives && otherBaskets.length > 2 && <Button variant="outline" label={tr(`Pokaż pozostałe zestawy (${otherBaskets.length - 2})`, `Show other baskets (${otherBaskets.length - 2})`)} onPress={() => setShowAllAlternatives(true)} />}
     </View>}
     {current && mode === 'shipping' && destination && !incompleteCompetition && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
-    {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}
+    {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{includesToolPurchases
+      ? tr('Porównanie obejmuje wycenione produkty, w tym widoczne narzędzia do kupienia. Wypożyczenie, robocizna i opcjonalne rabaty są osobno.', 'The comparison covers quoted products, including any tools listed for purchase. Rentals, labour and optional discounts are separate.')
+      : tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}
   </View>;
 }

@@ -82,3 +82,15 @@ test('unsafe product URLs are excluded and malformed allocations cannot be copie
   pack.count = 0; assert.equal(purchaseListText(value, 'pl', now), null);
   pack.count = 1; value.basket.materialsGrosze = 1; assert.equal(purchaseListText(value, 'pl', now), null);
 });
+
+test('a basket with a quoted tool describes the purchase consistently in both languages', () => {
+  const value = input();
+  value.includesToolPurchases = true;
+  value.basket.stores[0].lines[0].product.name = 'Kraus A50';
+  const pl = purchaseListText(value, 'pl', now)!;
+  assert.match(pl, /Kraus A50/);
+  assert.match(normalized(pl)!, /Produkty według planu: 75,00 zł/);
+  assert.match(pl, /Wliczono narzędzia widoczne na liście/);
+  assert.match(purchaseListText(value, 'en', now)!, /Tools listed above are included/);
+  assert.match(normalized(pl)!, /Zestaw z potwierdzoną dostawą: 100,00 zł/);
+});

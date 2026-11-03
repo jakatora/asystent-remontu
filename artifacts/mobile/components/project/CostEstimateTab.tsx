@@ -566,7 +566,7 @@ function EstimateResult({
         <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Przed zakupem sprawdź rozmiar, stronę otwierania, przylgę, zawiasy i zakres regulacji ościeżnicy. Pozycje referencyjne w wycenie wymagają dopasowania do siebie.', 'Before buying, check the size, opening direction, rebate, hinges and frame adjustment range. Reference items in the quote need to be matched to each other.')}</Txt>
         {hasLeftCredis && <Txt style={{ fontSize: 14, lineHeight: 21, color: Colors.text }}>{tr('Credis w tej wycenie to lewe białe skrzydło w rozmiarze 80, bez ościeżnicy i klamki. Nie łącz go z prawą ościeżnicą.', 'The Credis in this quote is a white, left-hand size-80 leaf without a frame or handle. Do not combine it with a right-hand frame.')}</Txt>}
       </View>}
-      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} missingItemCount={unresolved.length || undefined} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} choice={basketChoice} onChoice={onBasketChoice} choosingDisabled={refreshing}/>}
+      {data.deliveryComparison && <DeliveryComparisonSection comparison={data.deliveryComparison} missingItemCount={unresolved.length || undefined} settings={delivery} selectedStore={selectedStore} onApply={onDeliveryChange} choice={basketChoice} onChoice={onBasketChoice} choosingDisabled={refreshing} includesToolPurchases={includesToolPurchases}/>}
       {!data.deliveryComparison && storeComparison && <WhereToBuySection cmp={storeComparison} unresolvedCount={unresolved.length} showScope={!data.coverage} />}
 
       {/* „Kupując łącznie oszczędzasz X zł" — zysk z jednorazowego zaokrąglenia

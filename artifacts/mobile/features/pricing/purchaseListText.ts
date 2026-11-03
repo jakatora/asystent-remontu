@@ -11,6 +11,7 @@ export interface PurchaseListInput {
   postalCode: string | null;
   partial?: boolean;
   limited?: boolean;
+  includesToolPurchases?: boolean;
   /** Preserve the explicit surplus decision in the exported shopping plan. */
   extraPackageBaseline?:DeliveredBasket;
 }
@@ -30,6 +31,9 @@ export function purchaseListText(input: PurchaseListInput, language = 'pl', now 
     ||input.extraPackageBaseline.totalGrosze!<=input.basket.totalGrosze!))return null;
   const { basket, mode, postalCode } = input, pl = language === 'pl';
   const tr = (a: string, b: string) => pl ? a : b;
+  const productTotalLabel = input.includesToolPurchases
+    ? tr('Produkty według planu: ', 'Products in this plan: ')
+    : tr('Materiały według planu: ', 'Materials in this plan: ');
   const amount = (n: number) => formatGrosze(n, 'PLN', pl ? 'pl-PL' : 'en-GB');
   const time = (n: number) => new Date(n).toLocaleString(pl ? 'pl-PL' : 'en-GB', { timeZone: 'Europe/Warsaw' });
   if (!Number.isFinite(now) || !basket.stores.length || !money(basket.materialsGrosze)
@@ -104,15 +108,18 @@ export function purchaseListText(input: PurchaseListInput, language = 'pl', now 
         if (mode === 'shipping') shipping(order.quote, order.quote.costGrosze, storeConfirmed[index]);
       });
     } else { linesText(store.lines); if (mode === 'shipping') shipping(store.quote, store.deliveryGrosze, storeConfirmed[index]); }
-    text.push(tr('Materiały według planu: ', 'Materials in this plan: ') + amount(store.materialsGrosze));
+    text.push(productTotalLabel + amount(store.materialsGrosze));
     if (store.quote?.cartPricing) text.push(tr('Rabat koszyka już wliczony: ', 'Cart discount already included: ') + amount(store.quote.cartPricing.discountGrosze));
     if (store.quote?.materialsRoundingGrosze) text.push(tr('Zaokrąglenie cen w koszyku już wliczone: ', 'Cart price rounding already included: ') + amount(store.quote.materialsRoundingGrosze));
   });
-  text.push('', tr('Materiały według planu: ', 'Materials in this plan: ') + amount(basket.materialsGrosze));
+  text.push('', productTotalLabel + amount(basket.materialsGrosze));
   if (complete) {
     text.push(tr('Potwierdzone dostawy: ', 'Confirmed shipping: ') + amount(basket.deliveryGrosze!));
     text.push(input.partial ? tr('Razem za dostępną część: ', 'Total for the available part: ') + amount(basket.totalGrosze!) : tr('Zestaw z potwierdzoną dostawą: ', 'Basket with confirmed shipping: ') + amount(basket.totalGrosze!));
   }
-  text.push(tr('Narzędzia i robocizna nie są wliczone. Lista nie rezerwuje produktów ani nie składa zamówień.', 'Tools and labour are excluded. This list does not reserve products or place orders.'));
+  text.push(input.includesToolPurchases
+    ? tr('Wliczono narzędzia widoczne na liście. Wypożyczenie i robocizna są osobno.', 'Tools listed above are included. Rentals and labour are separate.')
+    : tr('Narzędzia i robocizna są osobno.', 'Tools and labour are separate.'));
+  text.push(tr('Lista nie rezerwuje produktów ani nie składa zamówień.', 'This list does not reserve products or place orders.'));
   return text.join('\n');
 }
