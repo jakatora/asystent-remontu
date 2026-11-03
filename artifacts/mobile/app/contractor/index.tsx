@@ -318,6 +318,7 @@ function StepCategory({ selected, onSelect }: { selected: string; onSelect: (id:
           <TouchableOpacity
             key={cat.id}
             accessibilityRole="radio"
+            aria-checked={selected===cat.id}
             accessibilityLabel={cat.name}
             accessibilityState={{checked:selected===cat.id}}
             onPress={() => onSelect(cat.id, cat.name)}
@@ -484,6 +485,7 @@ function StepBudget({ selected, onSelect }: { selected: BudgetRange; onSelect: (
           <TouchableOpacity
             key={b}
             accessibilityRole="radio"
+            aria-checked={selected===b}
             accessibilityState={{checked:selected===b}}
             accessibilityLabel={BUDGET_RANGE_LABELS[b]}
             onPress={() => onSelect(b)}

@@ -183,3 +183,23 @@ test('sharing includes the scope and optional fields in PL/EN without internal I
     assert.ok(text.includes(language === 'pl' ? 'Miejscowość' : 'Location'));
   }
 });
+
+test('sharing preserves the chosen work category and budget rather than dropping wizard answers', () => {
+  const request = {
+    ...input,
+    categoryName: 'Malowanie',
+    budgetRange: 'low' as const,
+  };
+  const pl = contractorRequestText(request, 'pl'),
+    en = contractorRequestText(request, 'en');
+  assert.ok(pl.includes('Malowanie'));
+  assert.ok(en.includes('Malowanie'));
+  assert.match(pl, /Budżet:.*5 000/);
+  assert.match(en, /Budget:.*5,000/);
+  assert.ok(
+    contractorRequestText(
+      { ...request, jobName: 'Malowanie sufitu' },
+      'pl',
+    ).includes('Malowanie sufitu'),
+  );
+});

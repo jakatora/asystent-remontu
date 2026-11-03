@@ -4,8 +4,12 @@ import { ContractorUnavailableScreen } from '@/components/contractor/ServiceAvai
 
 export default function ContractorUnavailable() {
   const { language } = useLanguage();
-  return <>
-    <Stack.Screen options={{ title: language === 'pl' ? 'Fachowcy' : 'Contractors' }} />
-    <ContractorUnavailableScreen />
-  </>;
+  return (
+    <>
+      <Stack.Screen
+        options={{ title: language === 'pl' ? 'Fachowcy' : 'Contractors' }}
+      />
+      <ContractorUnavailableScreen />
+    </>
+  );
 }
