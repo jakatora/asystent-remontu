@@ -58,7 +58,7 @@ import { unpricedReference } from '@/features/pricing/unpricedReference';
 import { groupUnpricedLines, unpricedPackageFamily } from '@/features/pricing/unpricedGroups';
 import { isMissingOffer, unresolvedReasonKey } from '@/features/pricing/unresolvedReason';
 import { PriceChangeNotice, PriceChangeBadge, PriceChangesProvider } from './PriceChangeNotice';
-import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, type PriceChange } from '@/features/pricing/priceChanges';
+import { collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, priceDeltaLabel, type PriceChange } from '@/features/pricing/priceChanges';
 import { projectOfferCoverage } from '@/features/pricing/projectOfferCoverage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
@@ -264,7 +264,11 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         if(choiceSource)rememberChoices(choiceSource);
         const current=collectSeenPrices(data), previous=priceSnapshot.current;
         const priceChanges=comparePriceSnapshots(previous,current);
-        const hasPriceBaseline=Object.keys(current.offers).some(key=>Boolean(previous.offers[key]));
+        const confirmed=new Set(data.priceRefresh?.confirmedOfferIds);
+        const hasPriceBaseline=Object.values(current.offers).some(offer => {
+          const prior=previous.offers[offer.key];
+          return confirmed.has(offer.offerId) && prior && Date.parse(offer.checkedAt)>Date.parse(prior.checkedAt);
+        });
         priceSnapshot.current=mergePriceSnapshots(previous,current);
         const saved=JSON.stringify(priceSnapshot.current);
         setPriceSaveFailed(false);
@@ -961,7 +965,7 @@ function OfferRow({
         )}
       </View>
 
-      <PriceChangeBadge offerId={offer.offerId} />
+      <PriceChangeBadge offer={offer} />
       {offer.fetchedAt && (
         <Txt style={{ fontSize: 10, color: Colors.textMuted }}>
           {t('cmp.CostEstimate.offerFreshness', {
@@ -1329,6 +1333,7 @@ function PriceHistoryPanel({
   if(recorded&&!selected)return null;
   const stats = selected?.stats ?? data.stats;
   const delta = selected?.stats.deltaGrosze;
+  const recordedDeltaLabel = priceDeltaLabel(delta,language);
   const hasChange = recorded ? delta!==null&&delta!==undefined&&delta!==0 : stats.changePct !== null && stats.changePct !== 0;
   const wentUp = recorded ? (delta??0)>0 : (stats.changePct ?? 0) > 0;
   const changePercent = `${wentUp?'+':''}${formatPackageSize(stats.changePct??0,language)}%`;
@@ -1404,7 +1409,7 @@ function PriceHistoryPanel({
           {recorded && <>
             <Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?'Zapisane odczyty tego samego sklepu i opakowania. To nie jest pełna historia sklepu. Ceny materiału bez dostawy.':'Recorded reads for the same store and purchase unit. This is not the store’s complete history. Material prices exclude delivery.'}</Txt>
             {series.length>1 && <View style={{flexDirection:'row',flexWrap:'wrap',gap:8}}>{series.map(s=><Pressable key={s.offerId} accessibilityRole="radio" accessibilityState={{checked:s.offerId===selected?.offerId}} accessibilityLabel={`${s.store}, ${formatPackageSize(s.packageSize,language)} ${formatPackageUnit(s.unit)}`} onPress={()=>setHistoryOfferId(s.offerId)} style={{padding:10,minHeight:44,borderRadius:8,borderWidth:1,borderColor:s.offerId===selected?.offerId?Colors.primary:Colors.border,backgroundColor:s.offerId===selected?.offerId?Colors.surfaceAlt:Colors.surface,maxWidth:'100%'}}><Txt style={{fontSize:12}}>{s.store} · {formatPackageSize(s.packageSize,language)} {formatPackageUnit(s.unit)}</Txt></Pressable>)}</View>}
-            {selected?.stats.deltaGrosze!==null && selected?.stats.deltaGrosze!==undefined && selected.stats.deltaGrosze!==0 && <Txt w="semibold" style={{fontSize:13,color:selected.stats.deltaGrosze>0?Colors.text:Colors.primaryDark}}>{language==='pl'?`${selected.stats.deltaGrosze>0?'Podrożał':'Taniej'} o ${formatGrosze(Math.abs(selected.stats.deltaGrosze))} względem poprzedniego zapisanego odczytu.`:`${selected.stats.deltaGrosze>0?'Up':'Down'} ${formatGrosze(Math.abs(selected.stats.deltaGrosze))} since the previous recorded read.`}</Txt>}
+            {recordedDeltaLabel && <Txt w="semibold" style={{fontSize:13,color:(delta??0)>0?Colors.text:Colors.primaryDark}}>{recordedDeltaLabel}{language==='pl'?' względem poprzedniego zapisanego odczytu.':' since the previous recorded reading.'}</Txt>}
             {stats.count===1 && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{language==='pl'?'Pierwszy zapis. Kolejne potwierdzone odczyty pozwolą pokazać zmianę ceny.':'First record. Further confirmed reads will allow price changes to be shown.'}</Txt>}
           </>}
           {/* Sparkline z punktów cenowych (>=2 punkty, żeby był sens rysować). */}

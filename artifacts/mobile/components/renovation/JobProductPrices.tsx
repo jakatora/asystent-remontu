@@ -9,6 +9,7 @@ import {formatGrosze,refreshCatalogProduct} from '@/features/pricing/pricingApi'
 import {formatPackageSize,formatPackageUnit} from '@/features/pricing/packageDisplay';
 import {jobProductKey,type ReviewedJobProduct} from '@/features/pricing/jobProduct';
 import {JobProductPriceCache} from '@/features/pricing/jobProductPriceCache';
+import {priceDeltaLabel} from '@/features/pricing/priceChanges';
 import type {CatalogProductRefresh} from '../../../../lib/pricing-service/src/catalog-refresh';
 
 const cache=new JobProductPriceCache(refreshCatalogProduct);
@@ -34,10 +35,11 @@ export function JobProductPrices({product,links=[]}:{product:ReviewedJobProduct|
       <Txt w="semibold" style={{fontSize:12,color:Colors.textSecondary}}>{pl?'Ceny brutto — bez dostawy':'Prices include VAT — delivery excluded'}</Txt>
       {offers.map(offer=>{
         const pack=`${formatPackageSize(offer.packageSize,language)} ${formatPackageUnit(offer.unit)}`;
+        const change=priceDeltaLabel(offer.deltaGrosze,language);
         return <View key={offer.offerId} style={{gap:6,padding:12,borderRadius:12,borderWidth:1,borderColor:Colors.border,backgroundColor:Colors.surface}}>
           <Txt w="semibold" style={{fontSize:13}}>{offer.store}</Txt>
           <Txt w="bold" style={{fontSize:19,color:Colors.text}}>{formatGrosze(offer.priceGrosze)} / {pack}</Txt>
-          {offer.deltaGrosze!==null&&offer.deltaGrosze!==0&&<Txt style={{fontSize:13,color:offer.deltaGrosze>0?Colors.text:Colors.primaryDark}}>{pl?`${offer.deltaGrosze>0?'Podrożał':'Taniej'} o ${formatGrosze(Math.abs(offer.deltaGrosze))} / ${pack}.`:`${offer.deltaGrosze>0?'Up':'Down'} ${formatGrosze(Math.abs(offer.deltaGrosze))} / ${pack}.`}</Txt>}
+          {change&&<Txt style={{fontSize:13,color:(offer.deltaGrosze??0)>0?Colors.text:Colors.primaryDark}}>{change} / {pack}</Txt>}
           {offer.previous&&<Txt style={{fontSize:11,lineHeight:17,color:Colors.textMuted}}>{pl?'Poprzedni odczyt':'Previous reading'}: {formatGrosze(offer.previous.priceGrosze)} / {pack} · {date(offer.previous.checkedAt)}</Txt>}
           <Txt style={{fontSize:11,color:Colors.textMuted}}>{pl?'Sprawdzono':'Checked'}: {date(offer.checkedAt)} ({pl?'Warszawa':'Warsaw'})</Txt>
           <Button size="sm" variant="outline" label={pl?`Kup w ${offer.store}`:`Buy at ${offer.store}`} onPress={()=>{void Linking.openURL(offer.sourceUrl).catch(()=>{});}}/>

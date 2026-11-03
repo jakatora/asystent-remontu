@@ -1,4 +1,5 @@
-import type { SerializedProject } from './pricingApi';
+import type {SerializedProductOffer,SerializedProject} from './pricingApi';
+import {formatGrosze} from './priceDisplay';
 import {cutRollCost,type CutRollPurchase} from '../../../../lib/pricing-service/src/cut-rolls';
 
 export interface SeenPrice {
@@ -11,6 +12,20 @@ export interface BasketPricePack {
   cutRoll?: CutRollPurchase;
   offerId: string; packageSize: number; count: number;
   unitPriceGrosze: number; lineCostGrosze: number;
+}
+
+export function priceDeltaLabel(delta: number | null | undefined, language: 'pl' | 'en'): string | null {
+  if (typeof delta !== 'number' || !Number.isSafeInteger(delta) || delta === 0) return null;
+  const amount = formatGrosze(Math.abs(delta), 'PLN', language === 'pl' ? 'pl-PL' : 'en-GB');
+  if (language === 'pl') return `Cena ${delta > 0 ? 'wzrosła' : 'spadła'} o ${amount}`;
+  return `Price ${delta > 0 ? 'increased' : 'decreased'} by ${amount}`;
+}
+
+export function matchesPriceChangeOffer(change: PriceChange, offer: SerializedProductOffer): boolean {
+  return change.offerId === offer.offerId && change.store === offer.store
+    && change.priceGrosze === offer.priceGrosze && change.checkedAt === offer.fetchedAt
+    && (offer.packageSize == null || Number(offer.packageSize) === change.packageSize)
+    && (offer.unit == null || offer.unit === change.unit);
 }
 
 /** Material-only difference for the same priced pack in the displayed basket.

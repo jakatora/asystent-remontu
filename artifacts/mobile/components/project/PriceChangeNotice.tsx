@@ -4,17 +4,23 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
-import { formatGrosze, type SerializedProject } from '@/features/pricing';
-import { basketMaterialPriceDelta,isCutRollPrice, type BasketPricePack, type PriceChange } from '@/features/pricing/priceChanges';
+import { formatGrosze, type SerializedProductOffer, type SerializedProject } from '@/features/pricing';
+import { basketMaterialPriceDelta,isCutRollPrice,matchesPriceChangeOffer,priceDeltaLabel, type BasketPricePack, type PriceChange } from '@/features/pricing/priceChanges';
 
-const PriceChangesContext=createContext<Record<string,PriceChange>>({});
+const PriceChangesContext=createContext<readonly PriceChange[]>([]);
 export function PriceChangesProvider({changes,children}:{changes:PriceChange[];children:React.ReactNode}) {
-  return <PriceChangesContext.Provider value={Object.fromEntries(changes.map(c=>[c.offerId,c]))}>{children}</PriceChangesContext.Provider>;
+  return <PriceChangesContext.Provider value={changes}>{children}</PriceChangesContext.Provider>;
 }
-export function PriceChangeBadge({ change:explicit, offerId, productName, basketPack }: { change?: PriceChange; offerId?:string; productName?:string; basketPack?:BasketPricePack }) {
+export function PriceChangeBadge({ change:explicit, offer, productName, basketPack }: { change?: PriceChange; offer?:SerializedProductOffer; productName?:string; basketPack?:(BasketPricePack & {store:string}) }) {
   const { language }=useLanguage();
-  const changes=useContext(PriceChangesContext);const change=explicit ?? (offerId?changes[offerId]:undefined);
+  const changes=useContext(PriceChangesContext);
+  const matching=explicit ? [explicit] : changes.filter(change => offer
+    ? matchesPriceChangeOffer(change,offer)
+    : basketPack && change.store===basketPack.store && basketMaterialPriceDelta(change,basketPack)!==null);
+  const change=matching.length===1 ? matching[0] : undefined;
   if (!change) return null;
+  const label=priceDeltaLabel(change.deltaGrosze,language);
+  if (!label) return null;
   const up=change.deltaGrosze>0;
   const basketDelta=basketPack ? basketMaterialPriceDelta(change,basketPack) : null;
   const roll=isCutRollPrice(change);
@@ -24,7 +30,7 @@ export function PriceChangeBadge({ change:explicit, offerId, productName, basket
     {productName && <Txt w="medium" style={{fontSize:13,color}}>{productName}</Txt>}
     <View style={{flexDirection:'row',alignItems:'center',gap:6}}>
       <Feather name={up?'trending-up':'trending-down'} color={color} size={16} />
-      <Txt w="semibold" style={{fontSize:13,color,flex:1}}>{language==='pl' ? `${up?'Podrożał':'Taniej'} o ${formatGrosze(Math.abs(change.deltaGrosze))} / ${roll?'m²':'opak.'}` : `${up?'Up':'Down'} ${formatGrosze(Math.abs(change.deltaGrosze))} / ${roll?'m²':'pack'}`}</Txt>
+      <Txt w="semibold" style={{fontSize:13,color,flex:1}}>{label} / {roll?'m²':language==='pl'?'opak.':'pack'}</Txt>
     </View>
     <Txt style={{fontSize:12,color:Colors.textSecondary}}>{formatGrosze(change.previousGrosze)} → {formatGrosze(change.priceGrosze)} · {change.store}</Txt>
     {basketPack && (basketPack.count > 1||roll) && basketDelta !== null && <Txt style={{fontSize:12,color}}>{language==='pl' ? `${roll?'Dla wycenionych odcinków':`Przy ${basketPack.count} op.`} koszt tego produktu ${up?'wzrósł':'spadł'} o ${formatGrosze(Math.abs(basketDelta))}. Dostawa jest liczona osobno.` : `${roll?'For the quoted cuts':`For ${basketPack.count} packs`}, this product costs ${formatGrosze(Math.abs(basketDelta))} ${up?'more':'less'}. Delivery is calculated separately.`}</Txt>}
@@ -39,7 +45,10 @@ export function PriceChangeNotice({changes,refresh,hasBaseline}:{changes:PriceCh
     {changes.length>0 ? <>
       <Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?'Zmiana ceny opakowania lub m² wykładziny w tym samym sklepie od poprzedniego sprawdzenia.':'Change per pack or m² of cut flooring in the same store since your previous check.'}</Txt>
       {changes.map(change=><View key={change.key} style={{gap:6}}><Txt w="medium" style={{fontSize:14}}>{change.productName}</Txt><PriceChangeBadge change={change}/></View>)}
-    </> : <Txt style={{fontSize:13}}>{refresh?.confirmedOfferIds.length ? (hasBaseline ? (pl?'Brak zmian cen w ponownie sprawdzonych ofertach.':'No price changes in the rechecked offers.') : (pl?'Zapisano pierwsze ceny. Przy kolejnym sprawdzeniu pokażemy różnice.':'First prices saved. The next check will show any differences.')) : (pl?'Nie udało się potwierdzić nowych cen. Zachowano poprzednie dane i daty.':'New prices could not be confirmed. Previous data and timestamps were retained.')}</Txt>}
+    </> : <Txt style={{fontSize:13}}>{refresh?.confirmedOfferIds.length
+      ? (hasBaseline ? (pl?'Brak zmian w ofertach z nowym i poprzednim odczytem.':'No changes in offers with a new and a previous reading.')
+        : (pl?'Brak nowej pary odczytów do porównania. Pokazujemy ostatnie potwierdzone ceny.':'There are no new pairs of readings to compare. The latest confirmed prices are shown.'))
+      : (pl?'Nie udało się potwierdzić nowych cen. Zachowano poprzednie dane i daty.':'New prices could not be confirmed. Previous data and timestamps were retained.')}</Txt>}
     {refresh && <Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl ? `Potwierdzone oferty: ${refresh.confirmedOfferIds.length}. Bez nowego odczytu: ${refresh.failedOfferIds.length}.` : `Confirmed offers: ${refresh.confirmedOfferIds.length}. Without a new reading: ${refresh.failedOfferIds.length}.`}{refresh.status==='recent' ? (pl?' Ceny sprawdzono niedawno; wynik pochodzi z ostatniego odczytu.':' Prices were checked recently; the latest reading is shown.') : ''}</Txt>}
   </View>;
 }

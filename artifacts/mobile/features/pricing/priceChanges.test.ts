@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import { basketMaterialPriceDelta, collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot } from './priceChanges';
+import { basketMaterialPriceDelta, collectSeenPrices, comparePriceSnapshots, mergePriceSnapshots, parsePriceSnapshot, emptyPriceSnapshot, matchesPriceChangeOffer, priceDeltaLabel } from './priceChanges';
 import type {SerializedProject} from './pricingApi';
 import type {PriceChange} from './priceChanges';
 function response(price:number,date='2026-10-25T12:01:00Z',offerId='a',store='Sklep',size='5',quantity=1):SerializedProject {
@@ -47,4 +47,19 @@ test('basket price notice multiplies only a matching current pack and never incl
     {...pack,lineCostGrosze:59437},
     {...pack,count:1.5},
   ]) assert.equal(basketMaterialPriceDelta(increase,invalid),null);
+});
+
+test('the same offer ID does not attach a change to a different price, pack, store or reading', () => {
+  const before = collectSeenPrices(response(10000, '2026-10-25T12:00:00Z'));
+  const current = response(11210);
+  const [change] = comparePriceSnapshots(before, collectSeenPrices(current));
+  const offer = current.stages[0].lines[0].offers![0];
+  assert.equal(matchesPriceChangeOffer(change, offer), true);
+  for (const mismatch of [
+    { priceGrosze: 11200 }, { store: 'Inny' }, { packageSize: '10' }, { unit: 'kg' },
+    { fetchedAt: '2026-10-25T12:00:00Z' },
+  ]) assert.equal(matchesPriceChangeOffer(change, { ...offer, ...mismatch }), false);
+  assert.match(priceDeltaLabel(change.deltaGrosze, 'pl')!, /^Cena wzrosła o 12,10/);
+  assert.match(priceDeltaLabel(-change.deltaGrosze, 'en')!, /^Price decreased by .*12\.10/);
+  for (const value of [0, null, undefined, NaN, 1.5]) assert.equal(priceDeltaLabel(value, 'pl'), null);
 });

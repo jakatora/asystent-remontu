@@ -195,7 +195,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         {(pack.minimumPackages ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Minimalny zakup: ${pack.minimumPackages} opakowań (${formatPackageSize(pack.minimumPackages! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). Kwota uwzględnia to minimum.`, `Minimum purchase: ${pack.minimumPackages} packs (${formatPackageSize(pack.minimumPackages! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). The cost includes this minimum.`)}</Txt>}
         {(pack.purchaseMultiple ?? 1) > 1 && <Txt style={{fontSize:13}}>{tr(`Zakup w partiach po ${pack.purchaseMultiple} opakowań (${formatPackageSize(pack.purchaseMultiple! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). Wycenę policzono z tym ograniczeniem.`, `Purchase in lots of ${pack.purchaseMultiple} packs (${formatPackageSize(pack.purchaseMultiple! * pack.packageSize,language)} ${formatPackageUnit(line.unit)}). The quote follows this rule.`)}</Txt>}
       </View>)}
-      {packs.map(({line,pack}) => <PriceChangeBadge key={`change:${line.product.id}:${pack.offerId}`} offerId={pack.offerId} productName={displayProductName(line.product)} basketPack={pack} />)}
+      {packs.map(({line,pack}) => <PriceChangeBadge key={`change:${line.product.id}:${pack.offerId}`} productName={displayProductName(line.product)} basketPack={pack} />)}
       <Pressable accessibilityRole="button" aria-expanded={expanded} accessibilityState={{expanded}} onPress={() => setOpenProducts(previous => ({...previous,[store.store]:!expanded}))} style={{ minHeight:48, flexDirection:'row', alignItems:'center', gap:8 }}>
         <Feather name={expanded?'chevron-up':'chevron-down'} size={18} color={Colors.primary} />
         <Txt w="semibold" style={{flex:1,color:Colors.primary}}>{tr(`${expanded?'Ukryj':'Pokaż'} produkty: ${store.store} (${store.lines.length})`, `${expanded?'Hide':'Show'} products: ${store.store} (${store.lines.length})`)}</Txt>
@@ -243,7 +243,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
               <View style={{flexDirection:'row',alignItems:'center',gap:10}}><ProductImage uri={getProductPhoto(line.product)} name={displayProductName(line.product)} size={48}/><Txt w="medium" style={{flex:1,fontSize:14,lineHeight:20}}>{displayProductName(line.product)}</Txt></View>
               {line.packages.map((pack,packIndex) => <View key={`${pack.offerId}:${packIndex}`} style={{paddingLeft:58,gap:2}}>
                 <Txt style={{fontSize:13}}>{formatPurchase(pack,line.unit,language)} · {formatGrosze(pack.lineCostGrosze)}</Txt>
-                <PriceChangeBadge offerId={pack.offerId} basketPack={pack} />
+                <PriceChangeBadge basketPack={pack} />
                 {pack.url && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(pack.url!)} style={{minHeight:44,justifyContent:'center'}}><Txt w="semibold" style={{color:Colors.primary,fontSize:13}}>{tr('Sprawdź w sklepie ↗','View in store ↗')}</Txt></Pressable>}
               </View>)}
             </View>)}
