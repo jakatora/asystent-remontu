@@ -404,6 +404,7 @@ workflows:
               adb shell mkdir -p /sdcard/Download
               adb push remont-qa-import.json /sdcard/Download/remont-qa-import.json
               maestro test --format junit --output android-backup-restore.xml scripts/ci/android-backup-restore.yaml
+              python3 scripts/ci/verify-android-backup-restore.py remont-qa-import.json > android-backup-restore-verification.json
             fi
           fi
           exit "$smoke_status"
@@ -413,6 +414,7 @@ workflows:
       - android-photo-smoke.xml
       - android-backup-share.xml
       - android-backup-restore.xml
+      - android-backup-restore-verification.json
       - android-backup-share-verification.json
       - android-emulator.log
       - android-native-logcat.txt
