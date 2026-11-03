@@ -402,7 +402,7 @@ function validateRegistry(jobs: readonly RenovationJob[]): void {
   }
 }
 
-if (__DEV__) {
+if (typeof __DEV__ !== 'undefined' && __DEV__) {
   validateRegistry(JOB_REGISTRY);
 }
 
