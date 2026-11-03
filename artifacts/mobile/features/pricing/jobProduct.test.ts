@@ -5,6 +5,7 @@ import {JobProductPriceCache} from './jobProductPriceCache';
 import {finishingMaterials} from '@/features/calculator/wallFinishing';
 import {substratePrimerMaterial} from '@/features/calculator/substratePrimer';
 import {SHARED_SHOP_PRICES} from '@/data/prices/shared-shop-prices';
+import {ALL_JOBS} from '@/features/content/registry';
 import type {CatalogProductRefresh,CatalogRefreshIdentity} from '../../../../lib/pricing-service/src/catalog-refresh';
 
 const identity:CatalogRefreshIdentity={ean:'5903973104414',category:'filler',packageSize:5,unit:'kg'};
@@ -33,6 +34,9 @@ test('the painting roller example excludes the primer and long-pile facade rolle
   assert.equal(reviewedJobProduct(roller,'tool')?.identity.ean,'5905061052744');
   assert.equal(reviewedJobProduct({...roller,name:'Wałek malarski'},'tool'),null);
   assert.equal(reviewedJobProduct({...roller,id:'paint-roller-bso'},'tool'),null);
+  const facadeRoller=ALL_JOBS.find(job=>job.id==='eps-insulation-bso')?.tools.find(tool=>tool.id==='paint-roller-bso');
+  assert(facadeRoller);
+  assert.equal(facadeRoller.shopPrices,undefined);
 });
 
 test('duplicate cards and forced clicks share one pending read; completed prices expire rather than persist',async()=>{

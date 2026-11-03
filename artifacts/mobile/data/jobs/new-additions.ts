@@ -77,7 +77,7 @@ export const epsInsulationBsoJob: RenovationJob = {
     { id: 'sanding-grater', name: 'Tarka z siatką ścierną do styropianu', icon: 'square', required: true, estimatedBuyCostPLN: 35 },
     { id: 'hammer-drill-anchors', name: 'Wiertarka SDS-plus + wiertło 10 mm do kołkowania', icon: 'tool', required: true, shopPrices: SHARED_SHOP_PRICES.sdsHammerDrill, notes: 'Do osadzania kołków po klejeniu.' },
     { id: 'level-laser-bso', name: 'Poziomica laserowa krzyżowa', icon: 'crosshair', required: true, estimatedBuyCostPLN: 280, notes: 'Wyznaczenie linii startowej cokołu na całej elewacji.' },
-    { id: 'paint-roller-bso', name: 'Wałek z długim włosiem 25 mm do gruntu', icon: 'edit-2', required: true, shopPrices: SHARED_SHOP_PRICES.roller18cm },
+    { id: 'paint-roller-bso', name: 'Wałek z długim włosiem 25 mm do gruntu', icon: 'edit-2', required: true },
     { id: 'harness-safety', name: 'Szelki bezpieczeństwa z atestem + lina', icon: 'shield', required: true, rentable: true, estimatedBuyCostPLN: 450 },
     { id: 'thermal-camera', name: 'Kamera termowizyjna (kontrola mostków)', icon: 'eye', required: false, rentable: true, estimatedBuyCostPLN: 1800, notes: 'Pożyczyć do końcowego odbioru — wykrywa pominięte kołki i mostki.' },
   ],
