@@ -15,7 +15,20 @@ test('Goldband 5 and 10 kg keep exact factory barcodes and all four required pla
 
 test('a small work keeps the same raw kilograms before package rounding and does not infer accessories from zero',()=>{
  for(const choice of [6,7]){const c=calc(choice,{plasterThickness:8,plasterMeshArea:0,plasterCornerCount:0}),input=toPricingStageInput(c);assert.equal(input.materials.length,2);assert.equal(input.materials.find(l=>l.material.id==='plaster-base')!.quantity,7.62666667);assert.equal(plasterQuantity('plaster-base',c.measurements),7.62666667);}
- const options=plasterInputs.find(i=>i.id==='plasterSystem')!;assert.equal(options.max,7);assert(options.options?.some(o=>o.value===6&&o.label.includes('5 kg')));assert(options.options?.some(o=>o.value===7&&o.label.includes('10 kg')));
+ const options=plasterInputs.find(i=>i.id==='plasterSystem')!;assert(options.options?.some(o=>o.value===6&&o.label.includes('5 kg')));assert(options.options?.some(o=>o.value===7&&o.label.includes('10 kg')));
+});
+
+test('the Bricoman MP 75 bag has its own EAN and keeps the original calculation', () => {
+  const original = calc(1);
+  const alternate = calc(8);
+  const baseLine = (result: ReturnType<typeof calc>) => toPricingStageInput(result).materials.find(line => line.material.id === 'plaster-base')!;
+  assert.equal(baseLine(original).material.ean, '5902367206352');
+  assert.equal(baseLine(alternate).material.ean, '5901793355085');
+  assert.equal(baseLine(alternate).quantity, baseLine(original).quantity);
+  assert.equal(baseLine(alternate).quantity, 16.5);
+  assert.equal(alternate.materials.find(line => line.material.id === 'plaster-base')?.material.packaging?.size, 25);
+  const options = plasterInputs.find(input => input.id === 'plasterSystem');
+  assert.ok(options?.options?.some(option => option.value === 8 && option.label.includes('55085')));
 });
 
 test('five saved plaster choices retain their original references and the quantity model is unchanged',()=>{

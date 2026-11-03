@@ -2065,6 +2065,24 @@ export const MATERIAL_PRICES: readonly MaterialPriceReference[] = [
     notes: 'Jednowarstwowy tynk gipsowy nakładany agregatem. Zużycie ok. 10 kg/m² na 10 mm. Pomieszczenia o wilgotności do 70%.',
   },
 
+  // source: https://www.bricoman.pl/produkty/tynk-gipsowy-maszynowy-knauf-mp-75-25-kg-20444235.html
+  // source: https://knauf.com/sk-SK/p/produkt/mp-75-10256_0105
+  {
+    id: 'mat-plaster-knauf-mp75-25kg-55085',
+    materialType: 'plaster',
+    productLabel: 'Tynk maszynowy Knauf MP 75 25 kg (EAN 55085)',
+    brand: 'Knauf',
+    packageSize: 25,
+    packageUnit: 'kg',
+    pricePerPackage: 23.47,
+    category: 'economy',
+    storeName: 'Bricoman',
+    sourceUrl: 'https://www.bricoman.pl/produkty/tynk-gipsowy-maszynowy-knauf-mp-75-25-kg-20444235.html',
+    lastUpdated: '2026-11-03',
+    currency: 'PLN',
+    notes: 'Worek EAN 5901793355085. Odczyt brutto za worek 25 kg. Koszt dostawy wymaga osobnego potwierdzenia.',
+  },
+
   // Tynk gipsowy ręczny Knauf Goldband 25 kg — EAN 5902367206383.
   // Cena brutto całego worka30,38zł, odczyt2026-10-28; dostawa osobno.
   // source: https://liderzycen.pl/pl/p/Tynk-gipsowy-reczny-Knauf-Goldband-25-kg/55390

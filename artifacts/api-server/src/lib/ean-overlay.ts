@@ -790,6 +790,15 @@ export const MATERIAL_EAN_OVERLAY: Readonly<Record<string, EanOverlayEntry>> = {
       "https://www.castorama.pl/tynk-maszynowy-knauf-mp-75-25-kg/5902367206352_CAPL.prd",
   },
 
+  // source: https://www.bricoman.pl/produkty/tynk-gipsowy-maszynowy-knauf-mp-75-25-kg-20444235.html
+  // source: https://knauf.com/sk-SK/p/produkt/mp-75-10256_0105
+  "mat-plaster-knauf-mp75-25kg-55085": {
+    ean: "5901793355085",
+    variant: "MP 75, maszynowy, 25 kg",
+    manufacturer: "Knauf",
+    productUrl: "https://www.bricoman.pl/produkty/tynk-gipsowy-maszynowy-knauf-mp-75-25-kg-20444235.html",
+  },
+
   // Tynk gipsowy ręczny Knauf Goldband 25 kg (materials.ts: mat-plaster-gypsum-manual-knauf-goldband-25kg).
   // source: https://www.castorama.pl/tynk-gipsowy-reczny-knauf-goldband-25-kg/5902367206383_CAPL.prd (EAN 5902367206383)
   // source: https://krasny.pl/gips-goldband-25-gips-tynkarski-goldband-25kg-id-5902367206383 (EAN 5902367206383)
