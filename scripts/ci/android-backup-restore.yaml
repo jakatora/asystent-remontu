@@ -30,7 +30,7 @@ appId: pl.asystentremontu.app
     id: 'android:id/title'
     text: '^remont-qa-import\.json$'
 - extendedWaitUntil:
-    visible: Kopie remontów i budowy domu
+    visible: '^Do wczytania: 1 projekt.w, 0 pozycji zakup.w, 1 zdj..$'
     timeout: 15000
 - scrollUntilVisible:
     element:
