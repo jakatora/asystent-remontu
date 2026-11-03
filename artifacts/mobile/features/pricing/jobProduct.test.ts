@@ -28,6 +28,13 @@ test('generic brush links select a clearly named example, not four supposedly id
   assert.equal(reviewedJobProduct({name:'Pędzelek do gruntowania',shopPrices:SHARED_SHOP_PRICES.roller18cm},'tool'),null);
 });
 
+test('the painting roller example excludes the primer and long-pile facade rollers',()=>{
+  const roller={id:'roller',name:'Wałek malarski 18–22 cm',shopPrices:SHARED_SHOP_PRICES.roller18cm};
+  assert.equal(reviewedJobProduct(roller,'tool')?.identity.ean,'5905061052744');
+  assert.equal(reviewedJobProduct({...roller,name:'Wałek malarski'},'tool'),null);
+  assert.equal(reviewedJobProduct({...roller,id:'paint-roller-bso'},'tool'),null);
+});
+
 test('duplicate cards and forced clicks share one pending read; completed prices expire rather than persist',async()=>{
   let now=0,calls=0,release!:()=>void;const gate=new Promise<void>(r=>release=r);
   const cache=new JobProductPriceCache(async id=>{calls++;await gate;return result(id);},()=>now);

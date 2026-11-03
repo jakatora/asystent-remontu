@@ -23,6 +23,14 @@ import {KNAUF_FINISH_SOURCES} from './knauf-finishes';
 /** Only exact, reviewed product pages. Client input can never add a fetch URL. */
 export const RETAIL_SOURCES: readonly RetailSource[] = [
   ...BRUSH_SOURCES,
+  // source: https://b2b.hardy.pl/hardy-walek-malarski-maxprofi-szer-18-cm-wys-runa-12-mm-z-raczka?c=257
+  // source: https://sklep.sewera.pl/walek-maxprofi-18cm-raczka-11mm-hardy-p12761
+  { id:'sewera-hardy-maxprofi-18cm',ean:'5905061052744',name:'Wałek malarski Maxprofi 18cm runo 12mm Hardy',
+    brand:'Hardy',category:'paint-roller',packageSize:1,unit:'szt',store:'Sewera',format:'sewera',retailUnit:'SZT',
+    variant:['Maxprofi','18cm','12mm'],pickupRequiresConfirmation:true,
+    url:'https://sklep.sewera.pl/walek-maxprofi-18cm-raczka-11mm-hardy-p12761',
+    imageUrl:'https://sklep.sewera.pl/photo/309526/walek-malarski-maxprofi-18cm-runo-12mm-hardy.webp' },
+
   ...CERESIT_VIVA_SOURCES,
   ...RIGIPS_CORNER_SOURCES,
   ...HIPPER_PAINT_SOURCES,

@@ -29,7 +29,7 @@ export function JobProductPrices({product,links=[]}:{product:ReviewedJobProduct|
   const date=(s:string)=>new Intl.DateTimeFormat(pl?'pl-PL':'en-GB',{dateStyle:'short',timeStyle:'short',timeZone:'Europe/Warsaw'}).format(new Date(s));
   const offers=key&&data&&jobProductKey(data.identity)===key?data.offers??[]:[];
   return <View style={{gap:8}} accessibilityLiveRegion="polite">
-    {product?.example&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl?`Przykładowy model: ${product.name}. Dobierz pędzel do używanego preparatu.`:`Example model: ${product.name}. Choose a brush suitable for your coating.`}</Txt>}
+    {product?.example&&<Txt style={{fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{pl?`Przykładowy model: ${product.name}. Dobierz narzędzie do powierzchni i używanego preparatu.`:`Example model: ${product.name}. Choose a tool suitable for the surface and coating.`}</Txt>}
     {loading&&<Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?'Sprawdzam ceny w sklepach…':'Checking store prices…'}</Txt>}
     {offers.length>0&&<>
       <Txt w="semibold" style={{fontSize:12,color:Colors.textSecondary}}>{pl?'Ceny brutto — bez dostawy':'Prices include VAT — delivery excluded'}</Txt>
