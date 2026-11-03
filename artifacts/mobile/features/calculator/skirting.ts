@@ -68,7 +68,7 @@ export const skirtingInputs:MeasurementInputDefinition[]=[
  {id:'skirtingReservePercent',label:'Zapas długości listew na docinki',unit:'%',inputType:'percent',placeholder:'10',defaultValue:10,min:0,max:30,required:false},
  {id:'skirtingExtraPieces',label:'Dodatkowe całe listwy po sprawdzeniu planu',unit:'szt',inputType:'count',placeholder:'0',defaultValue:0,min:0,max:200,required:false},
 ];
-export function skirtingInputVisible(job:string,id:string,m:Readonly<Record<string,number|string>>):boolean {
+export function skirtingInputVisible(job:string,id:string,m:Readonly<Record<string,number|string|undefined>>):boolean {
  if(job!==SKIRTING_JOB||!id.startsWith('skirting')||id==='skirtingSystem')return true;
  if(Number(m.skirtingSystem)!==1)return false;
  if(id==='skirtingGlueCartridges')return Number(m.skirtingMounting)===1;
@@ -78,7 +78,7 @@ export function skirtingInputVisible(job:string,id:string,m:Readonly<Record<stri
 }
 export function skirtingInputHint(job:string,id:string,m:Readonly<Record<string,number|string>>,fallback?:string):string|undefined {
  if(job!==SKIRTING_JOB||id!=='skirtingLayoutFit')return fallback;
- const parsed=Object.fromEntries(Object.entries(m).filter(([,v])=>String(v).trim()!=='').map(([k,v])=>[k,typeof v==='number'?v:Number(v.replace(',','.'))]));
+ const parsed=Object.fromEntries(Object.entries(m).filter(([key,v])=>skirtingInputVisible(job,key,m)&&String(v).trim()!=='').map(([k,v])=>[k,typeof v==='number'?v:Number(v.replace(',','.'))]));
  const pieces=skirtingPieces(parsed);
  return pieces===null?fallback:`Z tego obmiaru wynika ${pieces} listew po 2,5 m (${String(pieces*2.5).replace('.',',')} m, z zapasem). Sprawdź docinki, szerokość cięcia i łączniki; dodatkowe sztuki możesz dodać poniżej. Sklep zaokrągli zakup do swojej partii. Resztek między pomieszczeniami nie planujemy automatycznie.`;
 }

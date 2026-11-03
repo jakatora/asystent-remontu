@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
+import {parseMeasurements} from '@/shared/lib/measurements';
 import {calculatorEngine,computeRawQuantity} from './engine';
 import {getJobById} from '@/features/content/registry';
 import {toPricingStageInput} from '@/features/pricing/pricingApi';
 import {getMaterialsForJob} from '@/features/pricing/registry';
 import {upgradeCalculation,projectShopping} from './upgrades';
 import {generateShoppingItems} from './shopping';
-import {SKIRTING_MODEL,skirtingPieces,skirtingQuantity,skirtingInputVisible} from './skirting';
+import {SKIRTING_MODEL,skirtingPieces,skirtingQuantity,skirtingInputHint,skirtingInputVisible} from './skirting';
 import type {CalculationResult} from '@/types/domain';
 const job=getJobById('skirting-boards')!;
 const m={perimeter:18,skirtingSystem:1,skirtingInside:5,skirtingOutside:3,skirtingConnectors:5,skirtingEndLeft:3,skirtingEndRight:1,skirtingLayoutFit:1,skirtingMounting:1,skirtingGlueCartridges:2,skirtingMountFit:1};
@@ -31,4 +32,24 @@ test('old generic skirting JSON cannot claim a current kit or keep an unconfirme
  const current=calc(),old={...current,quantityModel:undefined,materials:current.materials.slice(0,3).map(l=>({...l,quantityKnown:undefined}))}as CalculationResult,before=JSON.stringify(old),reviewed=upgradeCalculation(old)!;
  assert.equal(JSON.stringify(old),before);assert.ok(reviewed.materials.length>=7);assert.ok(reviewed.materials.every(l=>l.quantityKnown===false));
  const owned=generateShoppingItems('qa',current).map((item,i)=>({...item,id:'owned-'+i,owned:true,purchased:true,needsQuantityConfirmation:true}));assert.ok(projectShopping(owned,current).every(i=>!i.owned&&!i.purchased));
+});
+
+
+test('skirting validates the chosen installation and uses the visible cutting allowance',()=>{
+ const undecided=parseMeasurements(job,{perimeter:'18',skirtingSystem:'0'});
+ assert.deepEqual(undecided.errors,[]);
+ assert.equal(skirtingQuantity('skirting',undecided.values),null);
+ const inputs=Object.fromEntries(Object.entries({...m,skirtingMounting:2,skirtingAdvanced:0,skirtingReservePercent:30,skirtingExtraPieces:2}).map(([id,value])=>[id,String(value)]));
+ const owned=parseMeasurements(job,{...inputs,skirtingGlueCartridges:'bad'});
+ assert.deepEqual(owned.errors,[]);
+ assert.equal(skirtingPieces(owned.values),8);
+ assert.equal(skirtingQuantity('skirting-glue',owned.values),0);
+ assert.match(skirtingInputHint(job.id,'skirtingLayoutFit',inputs)!,/8 listew/);
+ const custom={...inputs,skirtingMounting:'1',skirtingAdvanced:'1'};
+ const glued=parseMeasurements(job,custom);
+ assert.deepEqual(glued.errors,[]);
+ assert.equal(skirtingPieces(glued.values),12);
+ assert.equal(skirtingQuantity('skirting-glue',glued.values),600);
+ assert.match(skirtingInputHint(job.id,'skirtingLayoutFit',custom)!,/12 listew/);
+ assert.ok(parseMeasurements(job,{...custom,skirtingGlueCartridges:'bad'}).errors.some(error=>error.id==='skirtingGlueCartridges'));
 });
