@@ -19,7 +19,6 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { DatabaseGate, ProjectLoadError } from '@/components/DatabaseGate';
 import { AppProvider, useApp } from '@/context/AppContext';
 import { LanguageProvider, useLanguage } from '@/context/LanguageContext';
-import { CommerceProvider } from '@/context/CommerceContext';
 import { ContractorProvider } from '@/context/ContractorContext';
 import { HouseBuildProvider } from '@/context/HouseBuildContext';
 import { LoadingState } from '@/components/ui/LoadingState';
@@ -111,15 +110,13 @@ export default function RootLayout() {
             <KeyboardProvider>
               <LanguageProvider>
                 <DatabaseGate>
-                <AppProvider>
-                  <CommerceProvider>
+                  <AppProvider>
                     <ContractorProvider>
                       <HouseBuildProvider>
                         <RootLayoutNav />
                       </HouseBuildProvider>
                     </ContractorProvider>
-                  </CommerceProvider>
-                </AppProvider>
+                  </AppProvider>
                 </DatabaseGate>
               </LanguageProvider>
             </KeyboardProvider>
