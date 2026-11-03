@@ -1,308 +1,252 @@
-import React, { useState } from 'react';
-import { View, ScrollView, TextInput, TouchableOpacity, Platform, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, TextInput, Platform } from 'react-native';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { useContractor } from '@/context/ContractorContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { isContractorVerified as isContractorVerifiedFn } from '@/features/contractor/contractor-trust';
+import { ContractorServiceNotice } from '@/components/contractor/ServiceAvailability';
+import { RequestDraftShare } from '@/components/contractor/RequestDraftShare';
+import type { ContractorRequest } from '@/types/contractor';
 
-export default function SendRequestScreen() {
-  const { contractorId, requestId } = useLocalSearchParams<{
-    contractorId?: string;
-    requestId?: string;
-  }>();
+export default function RequestDraftScreen() {
+  const { requestId } = useLocalSearchParams<{ requestId?: string }>();
+  const { requests, saveRequest, isLoading } = useContractor();
+  const { language } = useLanguage();
+  const pl = language === 'pl';
   const insets = useSafeAreaInsets();
-  const { t } = useLanguage();
-  const { getContractorById, requests, saveRequest, updateRequestStatus } = useContractor();
-  const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
-
-  const contractor = contractorId ? getContractorById(contractorId) : undefined;
-  const existingRequest = requestId ? requests.find((r) => r.id === requestId) : undefined;
-
-  const [workDescription, setWorkDescription] = useState(existingRequest?.workDescription ?? '');
-  const [city, setCity] = useState(existingRequest?.city ?? '');
-  const [preferredDate, setPreferredDate] = useState(existingRequest?.preferredDate ?? '');
-  const [notes, setNotes] = useState(existingRequest?.notes ?? '');
-  const [isSending, setIsSending] = useState(false);
-  const [sent, setSent] = useState(false);
-
-  const canSend = workDescription.trim().length >= 10 && city.trim().length >= 2;
-
-  const handleSend = async () => {
-    if (!canSend) return;
-    setIsSending(true);
+  const [draftId, setDraftId] = useState(
+    () =>
+      requestId ??
+      `req-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+  );
+  const existing = draftId
+    ? requests.find((request) => request.id === draftId)
+    : undefined;
+  const [workDescription, setWorkDescription] = useState('');
+  const [city, setCity] = useState('');
+  const [preferredDate, setPreferredDate] = useState('');
+  const [notes, setNotes] = useState('');
+  const [loadedId, setLoadedId] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [saved, setSaved] = useState<ContractorRequest | null>(null);
+  useEffect(() => {
+    // Populate once after the asynchronous local read, preserving unsaved edits.
+    if (!existing || loadedId === existing.id) return;
+    setWorkDescription(existing.workDescription);
+    setCity(existing.city);
+    setPreferredDate(existing.preferredDate ?? '');
+    setNotes(existing.notes ?? '');
+    setLoadedId(existing.id);
+    setSaved(existing);
+  }, [existing, loadedId]);
+  const save = async () => {
+    if (busy || !workDescription.trim() || !city.trim()) return;
+    setBusy(true);
+    setError('');
     try {
-      const existingIds = existingRequest?.selectedContractorIds ?? [];
-      const mergedIds = contractorId && !existingIds.includes(contractorId)
-        ? [...existingIds, contractorId]
-        : existingIds.length > 0 ? existingIds : (contractorId ? [contractorId] : []);
-
-      await saveRequest({
-        ...(existingRequest ? { id: existingRequest.id } : {}),
-        categoryId: existingRequest?.categoryId,
-        categoryName: existingRequest?.categoryName,
-        jobId: existingRequest?.jobId,
-        jobName: existingRequest?.jobName,
-        roomDescription: existingRequest?.roomDescription,
-        workDescription,
-        city,
-        postalCode: existingRequest?.postalCode,
-        preferredDate: preferredDate || undefined,
-        budgetRange: existingRequest?.budgetRange ?? 'any',
-        offerMode: existingRequest?.offerMode ?? 'single',
-        notes: notes || undefined,
-        photoRefs: existingRequest?.photoRefs,
-        selectedContractorIds: mergedIds,
-        status: 'sent',
-        sentAt: new Date().toISOString(),
-        estimatedMatchCount: existingRequest?.estimatedMatchCount,
+      const input = {
+        ...existing,
+        id: draftId,
+        workDescription: workDescription.trim(),
+        city: city.trim(),
+        preferredDate: preferredDate.trim() || undefined,
+        notes: notes.trim() || undefined,
+        budgetRange: existing?.budgetRange ?? ('any' as const),
+        offerMode: existing?.offerMode ?? ('single' as const),
+        selectedContractorIds: existing?.selectedContractorIds ?? [],
+        status: 'draft' as const,
+        sentAt: undefined,
+      };
+      const id = await saveRequest(input);
+      const now = new Date().toISOString();
+      setDraftId(id);
+      setLoadedId(id);
+      setSaved({
+        ...input,
+        id,
+        createdAt: existing?.createdAt ?? now,
+        updatedAt: now,
       });
-      setSent(true);
+    } catch {
+      setError(
+        pl
+          ? 'Nie udało się zapisać szkicu. Treść pozostaje w formularzu. Spróbuj ponownie.'
+          : 'The draft could not be saved. Your text is still in the form. Try again.',
+      );
     } finally {
-      setIsSending(false);
+      setBusy(false);
     }
   };
-
-  if (sent) {
-    return (
-      <>
-        <Stack.Screen
-          options={{
-            title: t('contractor.sendRequest.screenTitleSent'),
-            headerBackTitle: t('contractor.sendRequest.headerBack'),
-            headerStyle: { backgroundColor: Colors.background },
-            headerTintColor: Colors.text,
-            headerShadowVisible: false,
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: Colors.background,
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 40,
-          }}
-        >
-          <View
-            style={{
-              width: 80,
-              height: 80,
-              borderRadius: 40,
-              backgroundColor: Colors.successBg,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 24,
-            }}
-          >
-            <Feather name="check" size={36} color={Colors.success} />
-          </View>
-          <Txt w="bold" style={{ fontSize: 22, color: Colors.text, textAlign: 'center', marginBottom: 8 }}>
-            {t('contractor.sendRequest.sentTitle')}
-          </Txt>
-          <Txt style={{ fontSize: 15, color: Colors.textSecondary, textAlign: 'center', marginBottom: 32, lineHeight: 22 }}>
-            {contractor
-              ? t('contractor.sendRequest.sentBodyWithName', { name: contractor.displayName })
-              : t('contractor.sendRequest.sentBodyGeneric')}
-          </Txt>
-          <View style={{ width: '100%', marginBottom: 12 }}>
-            <Button
-              label={t('contractor.sendRequest.myRequests')}
-              variant="primary"
-              onPress={() => router.replace('/contractor/my-requests')}
-              fullWidth
-            />
-          </View>
-          <View style={{ width: '100%' }}>
-            <Button
-              label={t('contractor.sendRequest.backHome')}
-              variant="secondary"
-              onPress={() => router.replace('/(tabs)')}
-              fullWidth
-            />
-          </View>
-        </View>
-      </>
-    );
-  }
-
+  const edit = (setter: (value: string) => void) => (value: string) => {
+    setter(value);
+    setSaved(null);
+  };
   return (
     <>
       <Stack.Screen
         options={{
-          title: t('contractor.sendRequest.screenTitle'),
-          headerBackTitle: t('contractor.sendRequest.headerBack'),
-          headerStyle: { backgroundColor: Colors.background },
-          headerTintColor: Colors.text,
-          headerShadowVisible: false,
+          title: pl ? 'Szkic zapytania' : 'Request draft',
+          headerBackTitle: pl ? 'Wstecz' : 'Back',
         }}
       />
       <ScrollView
         style={{ flex: 1, backgroundColor: Colors.background }}
-        contentContainerStyle={{ padding: 20, paddingBottom: bottomPad + 80 }}
-        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          padding: 20,
+          paddingBottom: Platform.OS === 'web' ? 24 : insets.bottom + 24,
+          gap: 16,
+          maxWidth: 640,
+          width: '100%',
+          alignSelf: 'center',
+        }}
         keyboardShouldPersistTaps="handled"
       >
-        {contractor && (
-          <View
-            style={{
-              backgroundColor: Colors.surface,
-              borderRadius: 14,
-              padding: 14,
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 12,
-              borderWidth: 1,
-              borderColor: Colors.border,
-              marginBottom: 20,
-            }}
-          >
-            <View
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: 22,
-                backgroundColor: Colors.primaryBg,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+        <ContractorServiceNotice />
+        {requestId && !existing ? (
+          <>
+            <Txt
+              accessibilityRole="alert"
+              style={{ color: Colors.textSecondary, fontSize: 16 }}
             >
-              <Txt w="bold" style={{ fontSize: 18, color: Colors.primary }}>
-                {contractor.displayName.charAt(0)}
+              {isLoading
+                ? pl
+                  ? 'Wczytywanie szkicu…'
+                  : 'Loading draft…'
+                : pl
+                  ? 'Nie znaleziono tego zapisu na tym urządzeniu.'
+                  : 'This record was not found on this device.'}
+            </Txt>
+            <Button
+              label={pl ? 'Moje szkice i zapisy' : 'My drafts and records'}
+              onPress={() => router.replace('/contractor/my-requests')}
+            />
+          </>
+        ) : (
+          <>
+            {existing && existing.status !== 'draft' && (
+              <Txt
+                style={{
+                  color: Colors.textSecondary,
+                  fontSize: 14,
+                  lineHeight: 22,
+                }}
+              >
+                {pl
+                  ? 'To zapis z wcześniejszej wersji. Dawny status nie potwierdza dostarczenia wiadomości. Zapisanie zmian utworzy z niego lokalny szkic.'
+                  : 'This is a record from an earlier version. Its old status does not confirm message delivery. Saving changes will make it a local draft.'}
               </Txt>
-            </View>
-            <View style={{ flex: 1 }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                <Txt w="bold" style={{ fontSize: 15, color: Colors.text }}>{contractor.displayName}</Txt>
-                {isContractorVerifiedFn(contractor.verificationStatus) && (
-                  <Feather name="check-circle" size={14} color={Colors.success} />
-                )}
+            )}
+            <DraftField
+              label={pl ? 'Opis prac' : 'Scope of work'}
+              value={workDescription}
+              onChangeText={edit(setWorkDescription)}
+              multiline
+            />
+            <DraftField
+              label={pl ? 'Miejscowość' : 'City or town'}
+              value={city}
+              onChangeText={edit(setCity)}
+            />
+            <DraftField
+              label={
+                pl
+                  ? 'Preferowany termin (opcjonalnie)'
+                  : 'Preferred date (optional)'
+              }
+              value={preferredDate}
+              onChangeText={edit(setPreferredDate)}
+            />
+            <DraftField
+              label={pl ? 'Uwagi (opcjonalnie)' : 'Notes (optional)'}
+              value={notes}
+              onChangeText={edit(setNotes)}
+              multiline
+            />
+            {existing?.photoRefs?.length ? (
+              <Txt style={{ color: Colors.textSecondary, fontSize: 14 }}>
+                {pl
+                  ? 'Zachowamy zapisane odwołania do zdjęć. Udostępnienie tekstu nie dołącza zdjęć.'
+                  : 'Saved photo references will be preserved. Sharing text does not attach photos.'}
+              </Txt>
+            ) : null}
+            {error ? (
+              <Txt
+                accessibilityRole="alert"
+                style={{ color: Colors.text, fontSize: 15, lineHeight: 22 }}
+              >
+                {error}
+              </Txt>
+            ) : null}
+            <Button
+              label={
+                pl ? 'Zapisz szkic na urządzeniu' : 'Save draft on this device'
+              }
+              onPress={save}
+              loading={busy}
+              disabled={!workDescription.trim() || !city.trim()}
+            />
+            {saved && (
+              <View testID="contractor-draft-saved" style={{ gap: 12 }}>
+                <Txt
+                  accessibilityLiveRegion="polite"
+                  w="bold"
+                  style={{ color: Colors.primaryDark, fontSize: 16 }}
+                >
+                  {pl
+                    ? 'Treść zapisana lokalnie. Aplikacja nie wysłała jej do wykonawcy.'
+                    : 'Text saved locally. The app has not sent it to a contractor.'}
+                </Txt>
+                <RequestDraftShare request={saved} />
               </View>
-              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{contractor.city}</Txt>
-            </View>
-          </View>
+            )}
+            <Button
+              label={pl ? 'Moje szkice i zapisy' : 'My drafts and records'}
+              variant="ghost"
+              onPress={() => router.replace('/contractor/my-requests')}
+            />
+          </>
         )}
-
-        <Txt w="bold" style={{ fontSize: 18, color: Colors.text, marginBottom: 4 }}>
-          {t('contractor.sendRequest.title')}
-        </Txt>
-        <Txt style={{ fontSize: 13, color: Colors.textSecondary, marginBottom: 16 }}>
-          {t('contractor.sendRequest.subtitle')}
-        </Txt>
-
-        <LabeledInput
-          label={t('contractor.sendRequest.workLabel')}
-          value={workDescription}
-          onChangeText={setWorkDescription}
-          placeholder={t('contractor.sendRequest.workPlaceholder')}
-          multiline
-        />
-
-        <LabeledInput
-          label={t('contractor.sendRequest.cityLabel')}
-          value={city}
-          onChangeText={setCity}
-          placeholder={t('contractor.sendRequest.cityPlaceholder')}
-        />
-
-        <LabeledInput
-          label={t('contractor.sendRequest.dateLabel')}
-          value={preferredDate}
-          onChangeText={setPreferredDate}
-          placeholder={t('contractor.sendRequest.datePlaceholder')}
-        />
-
-        <LabeledInput
-          label={t('contractor.sendRequest.notesLabel')}
-          value={notes}
-          onChangeText={setNotes}
-          placeholder={t('contractor.sendRequest.notesPlaceholder')}
-          multiline
-        />
-
-        <TouchableOpacity
-          style={{
-            backgroundColor: Colors.surfaceAlt,
-            borderRadius: 14,
-            padding: 16,
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 12,
-            marginBottom: 16,
-            borderWidth: 1,
-            borderColor: Colors.border,
-            borderStyle: 'dashed',
-          }}
-          activeOpacity={0.7}
-        >
-          <Feather name="camera" size={20} color={Colors.textMuted} />
-          <Txt style={{ fontSize: 14, color: Colors.textMuted }}>{t('contractor.sendRequest.addPhotos')}</Txt>
-        </TouchableOpacity>
       </ScrollView>
-
-      <View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: Colors.background,
-          borderTopWidth: 1,
-          borderTopColor: Colors.border,
-          paddingHorizontal: 20,
-          paddingTop: 12,
-          paddingBottom: bottomPad,
-        }}
-      >
-        <Button
-          label={t('contractor.sendRequest.sendCta')}
-          variant="primary"
-          onPress={handleSend}
-          loading={isSending}
-          disabled={!canSend}
-        />
-      </View>
     </>
   );
 }
 
-function LabeledInput({
+function DraftField({
   label,
   value,
   onChangeText,
-  placeholder,
-  multiline,
+  multiline = false,
 }: {
   label: string;
   value: string;
-  onChangeText: (t: string) => void;
-  placeholder: string;
+  onChangeText: (value: string) => void;
   multiline?: boolean;
 }) {
   return (
-    <View style={{ marginBottom: 16 }}>
-      <Txt w="semibold" style={{ fontSize: 14, color: Colors.text, marginBottom: 6 }}>{label}</Txt>
+    <View style={{ gap: 8 }}>
+      <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>
+        {label}
+      </Txt>
       <TextInput
+        accessibilityLabel={label}
         value={value}
         onChangeText={onChangeText}
-        placeholder={placeholder}
-        placeholderTextColor={Colors.textMuted}
         multiline={multiline}
+        textAlignVertical={multiline ? 'top' : 'center'}
         style={{
           backgroundColor: Colors.surface,
-          borderRadius: 12,
-          padding: 14,
-          fontSize: 14,
-          color: Colors.text,
           borderWidth: 1,
           borderColor: Colors.border,
-          minHeight: multiline ? 100 : undefined,
-          textAlignVertical: multiline ? 'top' : undefined,
-          fontFamily: 'Inter_400Regular',
+          borderRadius: 12,
+          padding: 14,
+          minHeight: multiline ? 112 : 48,
+          fontSize: 16,
+          lineHeight: 24,
+          color: Colors.text,
         }}
       />
     </View>

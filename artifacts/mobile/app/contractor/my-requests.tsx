@@ -11,10 +11,12 @@ import { RequestSummaryCard } from '@/components/contractor/RequestSummary';
 import { useContractor } from '@/context/ContractorContext';
 import { useLanguage } from '@/context/LanguageContext';
 import type { ContractorRequest } from '@/types/contractor';
+import { ContractorServiceNotice } from '@/components/contractor/ServiceAvailability';
 
 export default function MyRequestsScreen() {
   const insets = useSafeAreaInsets();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const pl = language === 'pl';
   const { requests, refreshRequests, removeRequest, contractors, savedContractorIds, isContractorSaved } = useContractor();
   const bottomPad = Platform.OS === 'web' ? 34 : insets.bottom + 16;
 
@@ -43,7 +45,7 @@ export default function MyRequestsScreen() {
     <>
       <Stack.Screen
         options={{
-          title: t('contractor.myRequests.screenTitle'),
+          title: pl ? 'Moje szkice i zapisy' : 'My drafts and records',
           headerBackTitle: t('contractor.myRequests.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
@@ -56,6 +58,7 @@ export default function MyRequestsScreen() {
           renderItem={() => null}
           ListHeaderComponent={
             <View style={{ padding: 20, gap: 24 }}>
+              <ContractorServiceNotice />
               {drafts.length > 0 && (
                 <View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -63,11 +66,10 @@ export default function MyRequestsScreen() {
                     <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('contractor.myRequests.drafts', { count: drafts.length })}</Txt>
                   </View>
                   {drafts.map((req) => (
-                    <RequestSummaryCard
-                      key={req.id}
-                      request={req}
-                      onPress={() => handleDeleteRequest(req)}
-                    />
+                    <View key={req.id}>
+                      <RequestSummaryCard request={req} onPress={() => router.push({ pathname: '/contractor/send-request', params: { requestId: req.id } })} />
+                      <Button label={pl ? 'Usuń szkic' : 'Delete draft'} variant="ghost" size="sm" onPress={() => handleDeleteRequest(req)} />
+                    </View>
                   ))}
                 </View>
               )}
@@ -75,11 +77,11 @@ export default function MyRequestsScreen() {
               {sentRequests.length > 0 && (
                 <View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                    <Feather name="send" size={16} color={Colors.textSecondary} />
-                    <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{t('contractor.myRequests.sent', { count: sentRequests.length })}</Txt>
+                    <Feather name="file-text" size={16} color={Colors.textSecondary} />
+                    <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>{pl ? `Zapisy z wcześniejszej wersji (${sentRequests.length})` : `Records from an earlier version (${sentRequests.length})`}</Txt>
                   </View>
                   {sentRequests.map((req) => (
-                    <RequestSummaryCard key={req.id} request={req} />
+                    <RequestSummaryCard key={req.id} request={req} onPress={() => router.push({ pathname: '/contractor/send-request', params: { requestId: req.id } })} />
                   ))}
                 </View>
               )}
@@ -136,8 +138,8 @@ export default function MyRequestsScreen() {
               {requests.length === 0 && savedContractors.length === 0 && (
                 <EmptyState
                   icon="search"
-                  title={t('contractor.myRequests.emptyTitle')}
-                  description={t('contractor.myRequests.emptyDescription')}
+                  title={pl ? 'Nie masz jeszcze zapisanych szkiców' : 'No saved drafts yet'}
+                  description={pl ? 'Przygotuj zakres prac i zapisz go na tym urządzeniu.' : 'Prepare your scope of work and save it on this device.'}
                 />
               )}
             </View>
@@ -161,7 +163,7 @@ export default function MyRequestsScreen() {
           }}
         >
           <Button
-            label={t('contractor.myRequests.findContractor')}
+            label={pl ? 'Przygotuj szkic zapytania' : 'Prepare a request draft'}
             variant="primary"
             onPress={() => router.push('/contractor')}
           />

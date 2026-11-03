@@ -23,7 +23,7 @@ const STARTER_JOBS = [
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { projects, getRecentActivities } = useApp();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [recentActivities, setRecentActivities] = useState<ProjectActivity[]>([]);
   const [categoriesExpanded, setCategoriesExpanded] = useState(false);
 
@@ -241,41 +241,18 @@ export default function HomeScreen() {
         <SectionHeader title={t('home.section.fastTools')} />
         <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
           <ActionTile
-            icon="search"
-            label={t('home.action.findPro')}
+            icon="edit-3"
+            label={language === 'pl' ? 'Przygotuj zakres prac' : 'Prepare scope of work'}
             bg={Colors.primaryBg}
             fg={Colors.primary}
             onPress={() => router.push('/contractor')}
           />
           <ActionTile
             icon="file-text"
-            label={t('home.action.myRequests')}
+            label={language === 'pl' ? 'Moje szkice i zapisy' : 'My drafts and records'}
             bg={Colors.infoBg}
             fg={Colors.info}
             onPress={() => router.push('/contractor/my-requests')}
-          />
-          <ActionTile
-            icon="user-plus"
-            label={t('home.action.iAmPro')}
-            bg={Colors.successBg}
-            fg={Colors.success}
-            onPress={() => router.push('/contractor/register')}
-          />
-        </View>
-        <View style={{ flexDirection: 'row', gap: 10 }}>
-          <ActionTile
-            icon="award"
-            label={t('home.action.plans')}
-            bg="#FEF3C7"
-            fg="#D97706"
-            onPress={() => router.push('/contractor/plans' as any)}
-          />
-          <ActionTile
-            icon="settings"
-            label={t('home.action.adminPlans')}
-            bg="#EDE9FE"
-            fg="#7C3AED"
-            onPress={() => router.push('/contractor/admin-plans' as any)}
           />
         </View>
       </View>

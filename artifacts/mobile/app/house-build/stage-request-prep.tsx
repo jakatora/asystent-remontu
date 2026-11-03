@@ -10,10 +10,13 @@ import { getRequestPresetForStage } from '@/features/house-build/contractor-mapp
 import { contractorRequestsRepo } from '@/db/repositories/contractor-requests.repo';
 import { houseBuildContractorsRepo } from '@/db/repositories/house-build-contractors.repo';
 import { houseBuildRepo } from '@/db/repositories/house-build.repo';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HB_ACCENT = '#2563EB';
 
 export default function StageRequestPrepScreen() {
+  const { language } = useLanguage();
+  const pl = language === 'pl';
   const { projectId, stageKey } = useLocalSearchParams<{ projectId: string; stageKey: string }>();
   const insets = useSafeAreaInsets();
   const stage = getStageByKey(stageKey);
@@ -66,7 +69,7 @@ export default function StageRequestPrepScreen() {
           requestId,
         });
       }
-      Alert.alert('Zapisano', 'Zapytanie zapisane jako szkic. Mozesz je wyslac z listy zapytan.', [
+      Alert.alert(pl ? 'Zapisano' : 'Saved', pl ? 'Szkic zapisano na tym urządzeniu. Aplikacja nie wysyła go do wykonawcy. Treść możesz skopiować z listy szkiców.' : 'Draft saved on this device. The app does not send it to a contractor. You can copy its text from your draft list.', [
         { text: 'OK', onPress: () => router.back() },
       ]);
     } catch (err) {
@@ -78,10 +81,7 @@ export default function StageRequestPrepScreen() {
   };
 
   const handleBrowse = () => {
-    if (projectId && stageKey) {
-      houseBuildContractorsRepo.upsertNeed(projectId, stageKey, { status: 'browsing' });
-    }
-    router.push({ pathname: '/contractor/results' as any, params: { fromHouseBuild: '1', stageKey, projectId } });
+    router.push('/contractor/my-requests');
   };
 
   return (
@@ -143,7 +143,7 @@ export default function StageRequestPrepScreen() {
         style={{ backgroundColor: '#059669', borderRadius: 10, padding: 14, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 6 }}
       >
         <Feather name="search" size={16} color="#FFFFFF" />
-        <Txt w="semibold" style={{ fontSize: 13, color: '#FFFFFF' }}>Tylko przegladaj wykonawcow</Txt>
+        <Txt w="semibold" style={{ fontSize: 13, color: '#FFFFFF' }}>{pl ? 'Moje szkice i zapisy' : 'My drafts and records'}</Txt>
       </TouchableOpacity>
     </ScrollView>
   );

@@ -17,13 +17,9 @@ import type {
 } from '@/types/contractor';
 
 import {
-  MOCK_CONTRACTORS,
-  filterContractors,
-  sortContractors,
-  searchContractorsByText,
   countMatchingContractors,
   filterAndSeparateResults,
-} from '@/features/contractor';
+} from '@/features/contractor/search';
 
 import { contractorRequestsRepo } from '@/db/repositories/contractor-requests.repo';
 import { savedContractorsRepo } from '@/db/repositories/saved-contractors.repo';
@@ -61,7 +57,7 @@ interface ContractorContextValue {
 
   refreshBlockedIds: () => Promise<void>;
 
-  /** Faza 5 — rejestracja kontraktora w lokalnym katalogu (in-memory). */
+  /** Requires a real, persistent account service before becoming available. */
   registerContractor: (registration: ContractorRegistration) => Promise<ContractorProfile>;
 }
 
@@ -70,7 +66,7 @@ const ContractorContext = createContext<ContractorContextValue | null>(null);
 const EMPTY_FILTERS: ContractorSearchFilters = {};
 
 export function ContractorProvider({ children }: PropsWithChildren) {
-  const [contractors, setContractors] = useState<ContractorProfile[]>(MOCK_CONTRACTORS);
+  const [contractors] = useState<ContractorProfile[]>([]);
   const [requests, setRequests] = useState<ContractorRequest[]>([]);
   const [savedIds, setSavedIds] = useState<Set<string>>(new Set());
   const [blockedIds, setBlockedIds] = useState<Set<string>>(new Set());
@@ -174,38 +170,8 @@ export function ContractorProvider({ children }: PropsWithChildren) {
     setBlockedIds(new Set(blocked));
   }, []);
 
-  const registerContractor = useCallback(async (registration: ContractorRegistration): Promise<ContractorProfile> => {
-    const now = new Date().toISOString();
-    const profile: ContractorProfile = {
-      id: `c-${Math.random().toString(36).slice(2, 9)}`,
-      type: registration.type,
-      displayName: registration.displayName,
-      companyName: registration.companyName,
-      email: registration.email,
-      phone: registration.phone,
-      city: registration.city,
-      serviceArea: registration.serviceArea,
-      specialties: registration.specialties,
-      specializedJobIds: registration.specializedJobIds,
-      shortDescription: registration.shortDescription,
-      longDescription: registration.longDescription,
-      taxId: registration.taxId,
-      businessRegistration: registration.businessRegistration,
-      website: registration.website,
-      socialLinks: registration.socialLinks,
-      verificationStatus: 'unverified',
-      listingTier: 'free',
-      isPromoted: false,
-      materialsIncluded: registration.materialsIncluded,
-      jobScales: registration.jobScales,
-      availableSoon: true,
-      reviewCount: 0,
-      currentLeadCapacity: 'available',
-      createdAt: now,
-      updatedAt: now,
-    };
-    setContractors((prev) => [...prev, profile]);
-    return profile;
+  const registerContractor = useCallback(async (_registration: ContractorRegistration): Promise<ContractorProfile> => {
+    throw new Error('contractor_registration_unavailable');
   }, []);
 
   const value: ContractorContextValue = {

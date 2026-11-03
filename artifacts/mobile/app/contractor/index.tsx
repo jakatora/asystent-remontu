@@ -18,10 +18,11 @@ import { useContractor } from '@/context/ContractorContext';
 import { useLanguage } from '@/context/LanguageContext';
 import type { BudgetRange, OfferMode } from '@/types/contractor';
 import { BUDGET_RANGE_LABELS } from '@/types/contractor';
+import { ContractorServiceNotice } from '@/components/contractor/ServiceAvailability';
 
-type WizardStep = 'category' | 'room' | 'description' | 'location' | 'date' | 'budget' | 'offers' | 'summary';
+type WizardStep = 'category' | 'room' | 'description' | 'location' | 'date' | 'budget' | 'summary';
 
-const STEPS: WizardStep[] = ['category', 'room', 'description', 'location', 'date', 'budget', 'offers', 'summary'];
+const STEPS: WizardStep[] = ['category', 'room', 'description', 'location', 'date', 'budget', 'summary'];
 
 export default function ContractorRequestWizard() {
   const { prefillCategoryId, prefillJobId, prefillJobName } = useLocalSearchParams<{
@@ -31,7 +32,7 @@ export default function ContractorRequestWizard() {
   }>();
   const insets = useSafeAreaInsets();
   const { getMatchCount, saveRequest } = useContractor();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const [stepIdx, setStepIdx] = useState(0);
   const [categoryId, setCategoryId] = useState(prefillCategoryId ?? '');
@@ -45,8 +46,10 @@ export default function ContractorRequestWizard() {
   const [postalCode, setPostalCode] = useState('');
   const [preferredDate, setPreferredDate] = useState('');
   const [budgetRange, setBudgetRange] = useState<BudgetRange>('any');
-  const [offerMode, setOfferMode] = useState<OfferMode>('multiple');
+  const offerMode: OfferMode = 'multiple';
   const [isSaving, setIsSaving] = useState(false);
+  const [draftId] = useState(() => `req-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`);
+  const [saveError, setSaveError] = useState('');
 
   const step = STEPS[stepIdx];
   const progress = (stepIdx + 1) / STEPS.length;
@@ -62,7 +65,6 @@ export default function ContractorRequestWizard() {
       case 'location': return city.trim().length >= 2;
       case 'date': return true;
       case 'budget': return true;
-      case 'offers': return true;
       case 'summary': return true;
       default: return false;
     }
@@ -78,9 +80,11 @@ export default function ContractorRequestWizard() {
   };
 
   const handleSaveDraft = async () => {
-    setIsSaving(true);
+    if (isSaving) return;
+    setIsSaving(true); setSaveError('');
     try {
       await saveRequest({
+        id: draftId,
         categoryId: categoryId || undefined,
         categoryName: categoryName || undefined,
         jobId: prefillJobId || undefined,
@@ -96,23 +100,20 @@ export default function ContractorRequestWizard() {
         status: 'draft',
         estimatedMatchCount: matchCount,
       });
-      router.back();
+      router.replace('/contractor/my-requests');
+    } catch {
+      setSaveError(language === 'pl' ? 'Nie udało się zapisać szkicu. Spróbuj ponownie.' : 'The draft could not be saved. Try again.');
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleShowResults = () => {
-    router.push({
-      pathname: '/contractor/results',
-      params: { categoryId, city },
-    });
-  };
-
-  const handleSendRequest = async () => {
-    setIsSaving(true);
+  const handleSaveComplete = async () => {
+    if (isSaving) return;
+    setIsSaving(true); setSaveError('');
     try {
       const id = await saveRequest({
+        id: draftId,
         categoryId: categoryId || undefined,
         categoryName: categoryName || undefined,
         jobId: prefillJobId || undefined,
@@ -129,9 +130,11 @@ export default function ContractorRequestWizard() {
         estimatedMatchCount: matchCount,
       });
       router.push({
-        pathname: '/contractor/results',
-        params: { categoryId, city, requestId: id },
+        pathname: '/contractor/send-request',
+        params: { requestId: id },
       });
+    } catch {
+      setSaveError(language === 'pl' ? 'Nie udało się zapisać szkicu. Spróbuj ponownie.' : 'The draft could not be saved. Try again.');
     } finally {
       setIsSaving(false);
     }
@@ -141,13 +144,13 @@ export default function ContractorRequestWizard() {
     <>
       <Stack.Screen
         options={{
-          title: t('contractor.index.screenTitle'),
+          title: language === 'pl' ? 'Przygotuj zakres prac' : 'Prepare scope of work',
           headerBackTitle: t('contractor.index.headerBack'),
           headerStyle: { backgroundColor: Colors.background },
           headerTintColor: Colors.text,
           headerShadowVisible: false,
           headerRight: () => (
-            <TouchableOpacity onPress={handleSaveDraft} style={{ marginRight: 8 }}>
+            <TouchableOpacity accessibilityRole="button" accessibilityState={{disabled:isSaving}} disabled={isSaving} onPress={handleSaveDraft} style={{ marginRight: 8, minHeight:48, justifyContent:'center' }}>
               <Txt w="medium" style={{ fontSize: 14, color: Colors.primary }}>{t('contractor.index.saveDraft')}</Txt>
             </TouchableOpacity>
           ),
@@ -186,6 +189,8 @@ export default function ContractorRequestWizard() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
+          {step === 'category' && <View style={{marginBottom:16}}><ContractorServiceNotice /></View>}
+          {saveError ? <Txt accessibilityRole="alert" style={{fontSize:15,color:Colors.text,marginBottom:16}}>{saveError}</Txt> : null}
           {step === 'category' && (
             <StepCategory
               selected={categoryId}
@@ -232,9 +237,6 @@ export default function ContractorRequestWizard() {
           {step === 'budget' && (
             <StepBudget selected={budgetRange} onSelect={setBudgetRange} />
           )}
-          {step === 'offers' && (
-            <StepOfferMode selected={offerMode} onSelect={setOfferMode} />
-          )}
           {step === 'summary' && (
             <StepSummary
               categoryName={categoryName}
@@ -243,8 +245,6 @@ export default function ContractorRequestWizard() {
               city={city}
               preferredDate={preferredDate}
               budgetRange={budgetRange}
-              offerMode={offerMode}
-              matchCount={matchCount}
             />
           )}
         </ScrollView>
@@ -281,24 +281,8 @@ export default function ContractorRequestWizard() {
           </TouchableOpacity>
 
           {step === 'summary' ? (
-            <View style={{ flex: 1, flexDirection: 'row', gap: 8 }}>
-              <View style={{ flex: 1 }}>
-                <Button
-                  label={t('contractor.index.showContractors')}
-                  variant="secondary"
-                  onPress={handleShowResults}
-                  fullWidth
-                />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Button
-                  label={t('contractor.index.sendRequest')}
-                  variant="primary"
-                  onPress={handleSendRequest}
-                  loading={isSaving}
-                  fullWidth
-                />
-              </View>
+            <View style={{ flex: 1 }}>
+              <Button label={language === 'pl' ? 'Zapisz szkic na urządzeniu' : 'Save draft on this device'} onPress={handleSaveComplete} loading={isSaving} fullWidth />
             </View>
           ) : (
             <View style={{ flex: 1 }}>
@@ -515,137 +499,23 @@ function StepBudget({ selected, onSelect }: { selected: BudgetRange; onSelect: (
   );
 }
 
-function StepOfferMode({ selected, onSelect }: { selected: OfferMode; onSelect: (m: OfferMode) => void }) {
-  const { t } = useLanguage();
-  return (
-    <View>
-      <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>
-        {t('contractor.index.offers.title')}
-      </Txt>
-      <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        {t('contractor.index.offers.subtitle')}
-      </Txt>
-      <View style={{ gap: 8 }}>
-        <TouchableOpacity
-          onPress={() => onSelect('single')}
-          style={{
-            backgroundColor: selected === 'single' ? Colors.primaryBg : Colors.surface,
-            borderRadius: 14,
-            padding: 16,
-            borderWidth: 1.5,
-            borderColor: selected === 'single' ? Colors.primary : Colors.border,
-          }}
-          activeOpacity={0.7}
-        >
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-            <Feather name="user" size={20} color={selected === 'single' ? Colors.primary : Colors.textSecondary} />
-            <View style={{ flex: 1 }}>
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('contractor.index.offers.singleTitle')}</Txt>
-              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('contractor.index.offers.singleDesc')}</Txt>
-            </View>
-            {selected === 'single' && <Feather name="check-circle" size={20} color={Colors.primary} />}
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => onSelect('multiple')}
-          style={{
-            backgroundColor: selected === 'multiple' ? Colors.primaryBg : Colors.surface,
-            borderRadius: 14,
-            padding: 16,
-            borderWidth: 1.5,
-            borderColor: selected === 'multiple' ? Colors.primary : Colors.border,
-          }}
-          activeOpacity={0.7}
-        >
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-            <Feather name="users" size={20} color={selected === 'multiple' ? Colors.primary : Colors.textSecondary} />
-            <View style={{ flex: 1 }}>
-              <Txt w="semibold" style={{ fontSize: 15, color: Colors.text }}>{t('contractor.index.offers.multipleTitle')}</Txt>
-              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{t('contractor.index.offers.multipleDesc')}</Txt>
-            </View>
-            {selected === 'multiple' && <Feather name="check-circle" size={20} color={Colors.primary} />}
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
-function StepSummary({
-  categoryName,
-  roomDescription,
-  workDescription,
-  city,
-  preferredDate,
-  budgetRange,
-  offerMode,
-  matchCount,
-}: {
-  categoryName: string;
-  roomDescription: string;
-  workDescription: string;
-  city: string;
-  preferredDate: string;
-  budgetRange: BudgetRange;
-  offerMode: OfferMode;
-  matchCount: number;
+function StepSummary({ categoryName, roomDescription, workDescription, city, preferredDate, budgetRange }: {
+  categoryName: string; roomDescription: string; workDescription: string; city: string;
+  preferredDate: string; budgetRange: BudgetRange;
 }) {
   const { t } = useLanguage();
-  return (
-    <View>
-      <Txt w="bold" style={{ fontSize: 22, color: Colors.text, marginBottom: 4 }}>
-        {t('contractor.index.summary.title')}
-      </Txt>
-      <Txt style={{ fontSize: 14, color: Colors.textSecondary, marginBottom: 16 }}>
-        {t('contractor.index.summary.subtitle')}
-      </Txt>
-
-      <View style={{ backgroundColor: Colors.surface, borderRadius: 16, padding: 16, borderWidth: 1, borderColor: Colors.border, gap: 12 }}>
-        <SummaryRow label={t('contractor.index.summary.workType')} value={categoryName || t('contractor.index.summary.notSelected')} />
-        {roomDescription ? <SummaryRow label={t('contractor.index.summary.room')} value={roomDescription} /> : null}
-        <SummaryRow label={t('contractor.index.summary.description')} value={workDescription} />
-        <SummaryRow label={t('contractor.index.summary.location')} value={city} />
-        {preferredDate ? <SummaryRow label={t('contractor.index.summary.date')} value={preferredDate} /> : null}
-        <SummaryRow label={t('contractor.index.summary.budget')} value={BUDGET_RANGE_LABELS[budgetRange]} />
-        <SummaryRow label={t('contractor.index.summary.mode')} value={offerMode === 'single' ? t('contractor.index.summary.modeSingle') : t('contractor.index.summary.modeMultiple')} />
-      </View>
-
-      <View
-        style={{
-          backgroundColor: Colors.primaryBg,
-          borderRadius: 14,
-          padding: 16,
-          marginTop: 16,
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 12,
-        }}
-      >
-        <View
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            backgroundColor: Colors.primary,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Txt w="bold" style={{ fontSize: 16, color: '#fff' }}>{matchCount}</Txt>
-        </View>
-        <View style={{ flex: 1 }}>
-          <Txt w="semibold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-            {matchCount === 0 ? t('contractor.index.summary.noMatches') : t('contractor.index.summary.matchCount', { count: matchCount })}
-          </Txt>
-          <Txt style={{ fontSize: 12, color: Colors.primary }}>
-            {matchCount === 0
-              ? t('contractor.index.summary.noMatchesHint')
-              : t('contractor.index.summary.matchesHint')}
-          </Txt>
-        </View>
-      </View>
+  return <View style={{gap:16}}>
+    <Txt w="bold" style={{fontSize:22,color:Colors.text}}>{t('contractor.index.summary.title')}</Txt>
+    <View style={{backgroundColor:Colors.surface,borderRadius:16,padding:16,borderWidth:1,borderColor:Colors.border,gap:12}}>
+      <SummaryRow label={t('contractor.index.summary.workType')} value={categoryName || t('contractor.index.summary.notSelected')} />
+      {roomDescription ? <SummaryRow label={t('contractor.index.summary.room')} value={roomDescription} /> : null}
+      <SummaryRow label={t('contractor.index.summary.description')} value={workDescription} />
+      <SummaryRow label={t('contractor.index.summary.location')} value={city} />
+      {preferredDate ? <SummaryRow label={t('contractor.index.summary.date')} value={preferredDate} /> : null}
+      <SummaryRow label={t('contractor.index.summary.budget')} value={BUDGET_RANGE_LABELS[budgetRange]} />
     </View>
-  );
+    <ContractorServiceNotice />
+  </View>;
 }
 
 function SummaryRow({ label, value }: { label: string; value: string }) {

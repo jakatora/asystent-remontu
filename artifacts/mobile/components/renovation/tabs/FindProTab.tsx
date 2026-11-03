@@ -9,6 +9,9 @@ import { useContractor } from '@/context/ContractorContext';
 import { CATEGORIES } from '@/data/categories';
 import type { RenovationJob } from '@/types/domain';
 import type { ContractorProfile } from '@/types/contractor';
+import { CONTRACTOR_DIRECTORY_AVAILABLE } from '@/features/contractor/local-requests';
+import { ContractorServiceNotice } from '@/components/contractor/ServiceAvailability';
+import { Button } from '@/components/ui/Button';
 
 interface FindProTabProps {
   job: RenovationJob;
@@ -29,10 +32,15 @@ function matchesJob(c: ContractorProfile, job: RenovationJob): { match: boolean;
 }
 
 export function FindProTab({ job }: FindProTabProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { contractors } = useContractor();
   const category = CATEGORIES.find((c) => c.id === job.categoryId);
   const proCost = job.costRules?.find((r) => r.isMaterialCost === false && r.unit?.includes('/m²'));
+
+  if (!CONTRACTOR_DIRECTORY_AVAILABLE) return <View style={{ padding: 16, gap: 16 }}>
+    <ContractorServiceNotice />
+    <Button label={language === 'pl' ? 'Przygotuj zakres tych prac' : 'Prepare this scope of work'} onPress={() => router.push({ pathname: '/contractor', params: { prefillCategoryId: job.categoryId, prefillJobId: job.id, prefillJobName: job.name } })} />
+  </View>;
 
   const matches = contractors
     .map((c) => ({ contractor: c, ...matchesJob(c, job) }))

@@ -4,18 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Colors } from '@/constants/colors';
 import type { ContractorRequest } from '@/types/contractor';
-import { REQUEST_STATUS_LABELS, BUDGET_RANGE_LABELS } from '@/types/contractor';
 import { useLanguage } from '@/context/LanguageContext';
-
-const STATUS_COLORS: Record<string, string> = {
-  draft: Colors.textMuted,
-  sent: Colors.info,
-  viewed: Colors.warning,
-  replied: Colors.success,
-  accepted: Colors.success,
-  declined: Colors.danger,
-  expired: Colors.textMuted,
-};
 
 interface Props {
   request: ContractorRequest;
@@ -23,12 +12,15 @@ interface Props {
 }
 
 export function RequestSummaryCard({ request, onPress }: Props) {
-  const { t } = useLanguage();
-  const statusColor = STATUS_COLORS[request.status] ?? Colors.textMuted;
+  const { t, language } = useLanguage();
+  const pl = language === 'pl';
+  const statusColor = Colors.textSecondary;
 
   return (
     <TouchableOpacity
       onPress={onPress}
+      accessibilityRole={onPress ? 'button' : undefined}
+      accessibilityHint={onPress ? (pl ? 'Otwiera zapisany szkic do edycji.' : 'Opens the saved draft for editing.') : undefined}
       activeOpacity={onPress ? 0.85 : 1}
       style={{
         backgroundColor: Colors.surface,
@@ -50,7 +42,7 @@ export function RequestSummaryCard({ request, onPress }: Props) {
         </View>
         <View style={{ backgroundColor: statusColor + '20', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 }}>
           <Txt w="semibold" style={{ fontSize: 11, color: statusColor }}>
-            {REQUEST_STATUS_LABELS[request.status]}
+            {request.status === 'draft' ? (pl ? 'Szkic lokalny' : 'Local draft') : (pl ? 'Zapis lokalny' : 'Local record')}
           </Txt>
         </View>
       </View>
@@ -64,14 +56,6 @@ export function RequestSummaryCard({ request, onPress }: Props) {
           <Feather name="map-pin" size={12} color={Colors.textMuted} />
           <Txt style={{ fontSize: 12, color: Colors.textMuted }}>{request.city}</Txt>
         </View>
-        {request.selectedContractorIds.length > 0 && (
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <Feather name="users" size={12} color={Colors.textMuted} />
-            <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-              {request.selectedContractorIds.length} {request.selectedContractorIds.length === 1 ? t('cmp.RequestSummary.contractorOne') : t('cmp.RequestSummary.contractorMany')}
-            </Txt>
-          </View>
-        )}
         {request.preferredDate && (
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Feather name="calendar" size={12} color={Colors.textMuted} />
@@ -81,7 +65,7 @@ export function RequestSummaryCard({ request, onPress }: Props) {
       </View>
 
       <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 8 }}>
-        {new Date(request.updatedAt).toLocaleDateString('pl-PL')}
+        {new Date(request.updatedAt).toLocaleDateString(pl ? 'pl-PL' : 'en-GB')}
       </Txt>
     </TouchableOpacity>
   );
