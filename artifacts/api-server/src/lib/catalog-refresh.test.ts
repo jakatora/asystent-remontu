@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import express from 'express';
 import fixture from './fixtures/plusmarket-pex-wave181.json';
-import {createRemontService} from '../shared-backend';
+import {catalogReadinessProblems,createRemontService} from '../shared-backend';
 import {RETAIL_SOURCES} from './retail-catalog';
 import {readRetailSource} from './retail-pages';
 import {parseCatalogProductRefresh} from '../../../../lib/pricing-service/src/catalog-refresh';
@@ -93,4 +93,23 @@ test('a first accepted offer exposes a price without inventing a baseline or del
 });
 test('all reviewed merchant-only variants have a scoped refresh path without a fabricated manufacturer code',async()=>{
   let calls=0;await host(async base=>{for(const productId of ['remont-sku-ewinyl-5329-2m','remont-sku-ewinyl-5329-4m','remont-sku-irbud-10911','remont-sku-sewera-465325']){const s=RETAIL_SOURCES.find(s=>retailProductId(s)===productId)!;assert.ok(s);const r=await post(base,{productId,category:s.category,packageSize:s.packageSize,unit:s.unit});assert.equal(r.status,200);const result=parseCatalogProductRefresh(await r.json());assert.equal(result.identity.ean,undefined);assert.deepEqual(result.refresh.failedOfferIds,[s.id]);}assert.equal(calls,4);},async()=>{calls++;throw Error('Simulated unavailability; no confirmed price');});
+});
+
+test('readiness flags a stopped, overdue or empty catalogue and reports the startup state over HTTP', async () => {
+  const now = Date.parse('2026-11-03T21:00:00Z');
+  const monitoring = { scheduled: true, fullRefreshCompletedAt: '2026-11-03T14:45:00Z', cacheError: null };
+  assert.deepEqual(catalogReadinessProblems(now, 5, monitoring), []);
+  assert.deepEqual(catalogReadinessProblems(now + 1, 5, monitoring), ['refresh_overdue']);
+  assert.deepEqual(catalogReadinessProblems(now, 0, { ...monitoring, cacheError: 'cache_write_failed' }), ['cache_error', 'no_comparable_offers']);
+  await host(async base => {
+    const response = await fetch(base + '/pricing/readiness');
+    assert.equal(response.status, 503);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.deepEqual(await response.json(), {
+      ready: false,
+      problems: ['refresh_disabled', 'no_comparable_offers', 'no_completed_refresh'],
+      offers: 0,
+      fullRefreshCompletedAt: null,
+    });
+  }, async () => { throw Error('Readiness must not contact a retailer'); });
 });
