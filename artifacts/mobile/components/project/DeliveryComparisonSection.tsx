@@ -17,7 +17,7 @@ import { PurchaseListActions } from './PurchaseListActions';
 import { displayProductName } from '@/features/pricing/productDisplay';
 import {formatPackageSize,formatPackageUnit,formatPurchase} from '@/features/pricing/packageDisplay';
 import {unconfirmedDeliveryCoverage,deliveryRateLimitMessage} from '@/features/pricing/deliveryCoverage';
-import {confirmedBasketOptions,deliveredBasketKey,type BasketChoice} from '@/features/pricing/basketOptions';
+import {confirmedBasketOptions,confirmedDeliveredBasket,deliveredBasketKey,type BasketChoice} from '@/features/pricing/basketOptions';
 import {BasketOptionsSection} from './BasketOptionsSection';
 import {PendingDeliverySummary} from './PendingDeliverySummary';
 import type { DeliveryComparison, DeliverySettings } from '../../../../lib/pricing-service/src/delivery';
@@ -43,13 +43,19 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const [openAlternatives, setOpenAlternatives] = useState<Record<string, boolean>>({});
   const [showAllAlternatives, setShowAllAlternatives] = useState(false);
   const current = mode === comparison.mode && (mode === 'pickup' || destination === comparison.postalCode && allowSeparateOrders === (comparison.allowSeparateOrders ?? false));
-  const lowest = current ? comparison.best : null;
-  const options=confirmedBasketOptions(comparison,settings,selectedStore);
+  const now = Date.now();
+  const lowest = current && (mode === 'pickup' || destination !== null && confirmedDeliveredBasket(comparison.best, destination, now))
+    ? comparison.best
+    : null;
+  const quoteNeedsConfirmation = current && mode === 'shipping' && Boolean(comparison.best) && !lowest;
+  const options=confirmedBasketOptions(comparison,settings,selectedStore,now);
   const singleSelected=choice==='single_store'&&Boolean(options?.singleStore)&&!options?.alreadySingleStore;
   const extraSelected=choice==='extra_packages'&&Boolean(options?.extraPackages);
   const fewerSelected=choice==='fewer_stores'&&Boolean(options?.fewerStores);
-  const best = current ? extraSelected?options!.extraPackages!.basket:fewerSelected?options!.fewerStores!.basket:singleSelected?options!.singleStore:comparison.best : null;
-  const otherBaskets=((singleSelected||extraSelected||fewerSelected)&&lowest?[lowest,...comparison.alternatives]:comparison.alternatives).filter(basket=>!best||deliveredBasketKey(basket)!==deliveredBasketKey(best));
+  const best = current ? extraSelected?options!.extraPackages!.basket:fewerSelected?options!.fewerStores!.basket:singleSelected?options!.singleStore:lowest : null;
+  const otherBaskets=((singleSelected||extraSelected||fewerSelected)&&lowest?[lowest,...comparison.alternatives]:comparison.alternatives)
+    .filter(basket => mode === 'pickup' || destination !== null && confirmedDeliveredBasket(basket, destination, now))
+    .filter(basket => !best || deliveredBasketKey(basket) !== deliveredBasketKey(best));
   const selectedTotalLabel = singleSelected
     ? tr('Kwota dotyczy wybranego wariantu z jednego sklepu.', 'This total is for the selected one-store option.')
     : fewerSelected
@@ -165,6 +171,10 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         ? tr('Cena materiałów może pochodzić z kilku sklepów. Koszt dojazdu i dostępność do odbioru potwierdź w każdym z nich.', 'Material prices may come from several stores. Confirm travel costs and collection availability with each store.')
         : tr('Ceny brutto produktów i dostaw przy płatności z góry. Przy każdej dostawie pokazujemy podstawę: koszyk dla Twojego kodu lub aktualną taryfę krajową sklepu. Dostępność pełnego adresu potwierdzisz przy zakupie.', 'Gross product and delivery prices with prepayment. Each delivery shows its basis: a basket for your postcode or the current national store tariff. Confirm full address availability when purchasing.')}</Txt>
       {mode === 'shipping' && !incompleteCompetition && comparison.missingDeliveryStores.length > 0 && <Txt style={{ fontSize: 12, lineHeight: 18 }}>{tr(`Wynik obejmuje potwierdzone koszyki. Pozostałe sklepy (${comparison.missingDeliveryStores.length}) mają niepotwierdzoną dostawę lub nie pokrywają potrzebnej ilości. Szczegóły sprawdzisz poniżej.`, `The result covers confirmed baskets. Other stores (${comparison.missingDeliveryStores.length}) have unconfirmed delivery or cannot cover the required quantity. See the details below.`)}</Txt>}
+    </View>}
+    {quoteNeedsConfirmation && <View style={{ gap: 8 }}>
+      <Txt accessibilityRole="alert">{tr('Wycena dostawy wymaga ponownego potwierdzenia. Łączny koszt pokażemy po sprawdzeniu dostawy.', 'The delivery quote needs to be confirmed again. We will show the total after checking delivery.')}</Txt>
+      <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Retry delivery quotes')} onPress={() => apply({ mode, method: 'automatic', ...(destination ? { postalCode: destination } : {}) })} />
     </View>}
     {current && mode === 'shipping' && destination && !best && comparison.status === 'needs_delivery_costs' && <Txt accessibilityRole="alert">{tr('Brak pełnej wyceny dostawy dla tego zestawu. Poniżej sprawdzisz, które sklepy wymagają potwierdzenia.', 'No complete delivery quote is available for this basket. See below which stores need confirmation.')}</Txt>}
     {pendingPlan && <PendingDeliverySummary plan={pendingPlan} basis={comparison.purchasePlanBasis} />}
