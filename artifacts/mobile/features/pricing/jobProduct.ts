@@ -38,8 +38,36 @@ const KRAUS_L19:ReviewedJobProduct={
   imageUrl:'https://sklep.sewera.pl/photo/359210/pedzel-lawkowiec-190mm-kraus.webp',
 };
 
+// source: https://sklep.sewera.pl/miara-zwijana-5m-x-19mm-gumowana-stalco-p20547
+// source: https://stalco.pl/media/katalogi/KATALOG_STALCO_2026_PL.pdf
+const STALCO_MEASURE:ReviewedJobProduct={
+  identity:{ean:'5905947919611',category:'tape-measure',packageSize:1,unit:'szt'},
+  name:'Stalco S010124205 — miara zwijana 5 m × 19 mm',example:true,
+  imageUrl:'https://sklep.sewera.pl/photo/292162/miara-zwijana-5m-x-19mm-gumowana-stalco.webp',
+};
+
+// source: https://sklep.sewera.pl/kuweta-malarska-37x34-cm-hardy-p6310
+// source: https://hardy.pl/product/resource?prid=909
+const HARDY_TRAY:ReviewedJobProduct={
+  identity:{ean:'5905061980771',category:'paint-tray',packageSize:1,unit:'szt'},
+  name:'Hardy 0146-323734K — kuweta 37 × 34 cm, do wałka do 25 cm',example:true,
+  imageUrl:'https://sklep.sewera.pl/photo/308205/kuweta-malarska-37x34-cm-hardy.webp',
+};
+
+// source: https://sklep.sewera.pl/wyciskacz-do-kartuszy-szkieletowy-310ml-tytan-p18099
+// source: https://tytan.com/pl/produkt/akcesoria/wyciskacz-mechaniczny-szkieletowy-do-kartuszy/
+const TYTAN_CAULK_GUN:ReviewedJobProduct={
+  identity:{ean:'5903518042997',category:'caulk-gun',packageSize:1,unit:'szt'},
+  name:'Tytan 10003240 — wyciskacz szkieletowy do kartuszy 310 ml',example:true,
+  imageUrl:'https://sklep.sewera.pl/photo/256251/wyciskacz-do-kartuszy-szkieletowy-310ml-tytan.webp',
+};
+
 export function reviewedJobProduct(item:JobProductItem,kind:'material'|'tool'):ReviewedJobProduct|null{
   if(kind==='tool'){
+    // Do not replace combined kits, measuring lasers or foam guns with one tool.
+    if(item.id==='tape-measure'&&item.name==='Miara')return STALCO_MEASURE;
+    if(item.id==='tray'&&item.name==='Kuweta do farby')return HARDY_TRAY;
+    if(item.id==='caulk-gun'&&item.name==='Pistolet do silikonu')return TYTAN_CAULK_GUN;
     if(item.id==='paint-roller-bso'&&item.name==='Wałek lub szeroki pędzel do gruntu pod tynk')return KRAUS_L19;
     if(item.shopPrices===SHARED_SHOP_PRICES.brush50mm)return KRAUS_A50;
     if(item.id==='roller'&&item.name==='Wałek malarski 18–22 cm'&&item.shopPrices===SHARED_SHOP_PRICES.roller18cm)return HARDY_MAXPROFI;
