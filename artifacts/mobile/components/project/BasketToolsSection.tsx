@@ -49,8 +49,16 @@ export function BasketToolsSection({ tools, choices, saving, onChoice }: Props) 
             </Pressable>;
           })}
         </View>
+        {tool.required && choice !== undefined && <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={pl ? `Cofnij wybór narzędzia: ${tool.name}` : `Clear tool choice: ${tool.name}`}
+          disabled={saving}
+          onPress={() => onChoice(tool.key, undefined)}
+          style={{ alignSelf: 'flex-start', minHeight: 44, justifyContent: 'center' }}>
+          <Txt style={{ color: Colors.primary }}>{pl ? 'Cofnij wybór' : 'Clear choice'}</Txt>
+        </Pressable>}
         {choice === 'buy' && !tool.product?.identity.ean && <Txt style={{ color: Colors.textSecondary }}>
-          {pl ? 'Zakup zapisany. Brakuje ustalonego modelu do porównania cen.' : 'Purchase saved. An exact model is needed to compare prices.'}
+          {pl ? 'Zapisano wybór „Kupuję”. Do porównania cen potrzebny jest konkretny model.' : 'Buy selected. Price comparison requires an exact model.'}
         </Txt>}
         {choice === 'rent' && !tool.rentable && <Txt style={{ color: Colors.textSecondary }}>
           {pl ? 'Sprawdź dostępność w wypożyczalni.' : 'Check availability with a rental provider.'}
