@@ -62,6 +62,12 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
   const coverageWarning=unconfirmedDeliveryCoverage(comparison,current,selectedStore);
   const incompleteCompetition = Boolean(coverageWarning);
   const unquotedStoreNames = coverageWarning?.stores??[];
+  const deliveryDetails = new Map((comparison.unavailableStores ?? []).map(item => [item.store, item]));
+  const storesNeedingConfirmation = [...new Set([
+    ...deliveryDetails.keys(),
+    ...(comparison.partiallyQuotedStores ?? []),
+    ...comparison.missingDeliveryStores,
+  ])];
   const unquotedStoreLabel = unquotedStoreNames.length <= 2 ? unquotedStoreNames.join(', ') : tr(`${unquotedStoreNames.length} ${unquotedStoreNames.length < 5 ? 'sklepy' : 'sklepów'}`, `${unquotedStoreNames.length} stores`);
   const postcodeQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'postal_code').length ?? 0;
   const nationallyQuotedStores = best?.stores.filter(store => store.quote?.destinationScope === 'PL').length ?? 0;
@@ -224,12 +230,20 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
         </View>)}
       </View>)}
     </View>;})}
-    {current && mode === 'shipping' && comparison.unavailableStores?.length ? <>
+    {current && mode === 'shipping' && storesNeedingConfirmation.length ? <>
       <Pressable accessibilityRole="button" accessibilityLabel={tr('Sklepy wymagające potwierdzenia dostawy', 'Stores needing delivery confirmation')} aria-expanded={details} accessibilityState={{ expanded: details }} onPress={() => setDetails(value => !value)} style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 8 }}><Feather name={details ? 'chevron-up' : 'chevron-down'} size={18} color={Colors.primary} /><Txt style={{ color: Colors.primary, flex: 1 }}>{tr('Sklepy wymagające potwierdzenia dostawy', 'Stores needing delivery confirmation')}</Txt></Pressable>
-      {details && comparison.unavailableStores.map(store => <View key={store.store} style={{ gap: 4 }}>
-        <Txt w="semibold">{store.store}{store.partial?tr(' · inne koszyki',' · other baskets'):''}</Txt><Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{reason(store.reason)}</Txt>
-        {comparison.policies.find(p => p.store === store.store)?.sourceUrl && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(comparison.policies.find(p => p.store === store.store)!.sourceUrl!)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt style={{ color: Colors.primary }}>{tr('Warunki sklepu ↗', 'Store terms ↗')}</Txt></Pressable>}
-      </View>)}
+      {details && storesNeedingConfirmation.map(store => {
+        const detail = deliveryDetails.get(store);
+        const partial = detail?.partial || comparison.partiallyQuotedStores?.includes(store);
+        const sourceUrl = comparison.policies.find(policy => policy.store === store)?.sourceUrl;
+        return <View key={store} style={{ gap: 4 }}>
+          <Txt w="semibold">{store}{partial ? tr(' · inne koszyki', ' · other baskets') : ''}</Txt>
+          <Txt style={{ fontSize: 13, color: Colors.textSecondary }}>{detail
+            ? reason(detail.reason)
+            : tr('Nie potwierdzono pełnej wyceny dla potrzebnych produktów i ilości.', 'A complete quote for the required products and quantities was not confirmed.')}</Txt>
+          {sourceUrl && <Pressable accessibilityRole="link" onPress={() => void Linking.openURL(sourceUrl)} style={{ minHeight: 44, justifyContent: 'center' }}><Txt style={{ color: Colors.primary }}>{tr('Warunki sklepu ↗', 'Store terms ↗')}</Txt></Pressable>}
+        </View>;
+      })}
     </> : null}
     {current && best && otherBaskets.length > 0 && <View style={{ gap: 8 }}>
       <Txt w="semibold">{tr('Inne wycenione zestawy', 'Other quoted baskets')}</Txt>
