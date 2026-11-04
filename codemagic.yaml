@@ -319,6 +319,11 @@ workflows:
             maestro --device "$REMONT_SIM_UDID" test --format junit --output native-house-backup-share.xml scripts/ci/ios-house-backup-share.yaml || exit $?
             python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" --house-backup > native-house-backup-share-verification.json || exit $?
           fi
+          if [ "${REMONT_TEST_BACKUP_RESTORE:-0}" = "1" ]; then
+            python3 scripts/ci/prepare-ios-backup-restore.py "$REMONT_SIM_UDID" remont-qa-ios-import.json || exit $?
+            maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-restore.xml scripts/ci/ios-backup-restore.yaml || exit $?
+            python3 scripts/ci/verify-ios-backup-restore.py "$REMONT_SIM_UDID" remont-qa-ios-import.json > native-backup-restore-verification.json || exit $?
+          fi
           exit "$smoke_status"
     artifacts:
       - native-screens/*.png
@@ -328,6 +333,8 @@ workflows:
       - native-backup-share-verification.json
       - native-house-backup-share.xml
       - native-house-backup-share-verification.json
+      - native-backup-restore.xml
+      - native-backup-restore-verification.json
       - simulator-build.log
       - simulator-app.tar.gz
       - simulator-app.sha256

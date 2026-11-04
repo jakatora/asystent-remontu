@@ -1,0 +1,30 @@
+appId: app.replit.remontasystent
+---
+- extendedWaitUntil:
+    visible: Kopie remontów i budowy domu
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: Wybierz plik z kopią
+    direction: DOWN
+    timeout: 30000
+- tapOn: Wybierz plik z kopią
+- takeScreenshot: native-screens/13-ios-import-picker
+- extendedWaitUntil:
+    visible: '^remont-qa-ios-import(\.json)?$'
+    timeout: 30000
+- tapOn: '^remont-qa-ios-import(\.json)?$'
+- extendedWaitUntil:
+    visible: '^Do wczytania: 1 projekt.w, 0 pozycji zakup.w, 1 zdj..$'
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      text: Wczytaj projekty z kopii
+    direction: DOWN
+    timeout: 30000
+- assertVisible: QA Kopia iOS
+- tapOn: Wczytaj projekty z kopii
+- extendedWaitUntil:
+    visible: '.*Przeniesiono projektów: 1.*'
+    timeout: 30000
+- takeScreenshot: native-screens/14-ios-import-confirmed
