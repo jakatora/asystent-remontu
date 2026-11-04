@@ -20,8 +20,12 @@ appId: pl.asystentremontu.app
 - extendedWaitUntil:
     visible: '^(Downloads|Pobrane)$'
     timeout: 15000
+# Match the drawer row, not the Downloads breadcrumb underneath the drawer.
+# The previous text-only selector tapped Recent at the breadcrumb coordinates.
 - tapOn:
+    id: 'android:id/title'
     text: '^(Downloads|Pobrane)$'
+- takeScreenshot: native-screens/10b-house-import-downloads
 # The grid also exposes a preview action with the filename in its label.
 # Use list mode when available and select only the exact file title.
 - tapOn:

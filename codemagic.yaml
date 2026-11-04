@@ -302,29 +302,7 @@ workflows:
           fi
           python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID" "${seed_args[@]}"
       - name: Native project, real price and screenshot acceptance
-        script: |
-          cd "$CM_BUILD_DIR"
-          curl -fsSL https://get.maestro.mobile.dev | bash
-          export PATH="$HOME/.maestro/bin:$PATH"
-          mkdir -p native-screens
-          smoke_status=0
-          maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native || smoke_status=$?
-          maestro --device "$REMONT_SIM_UDID" test --format junit --output native-photo-smoke.xml scripts/ci/ios-managed-photo.yaml || exit $?
-          if maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-share.xml scripts/ci/ios-backup-share.yaml; then
-            python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" > native-backup-share-verification.json || smoke_status=$?
-          else
-            smoke_status=$?
-          fi
-          if [ "${REMONT_TEST_HOUSE_BACKUP:-0}" = "1" ]; then
-            maestro --device "$REMONT_SIM_UDID" test --format junit --output native-house-backup-share.xml scripts/ci/ios-house-backup-share.yaml || exit $?
-            python3 scripts/ci/verify-ios-backup-share.py "$REMONT_SIM_UDID" --house-backup > native-house-backup-share-verification.json || exit $?
-          fi
-          if [ "${REMONT_TEST_BACKUP_RESTORE:-0}" = "1" ]; then
-            python3 scripts/ci/prepare-ios-backup-restore.py "$REMONT_SIM_UDID" remont-qa-ios-import.json || exit $?
-            maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-restore.xml scripts/ci/ios-backup-restore.yaml || exit $?
-            python3 scripts/ci/verify-ios-backup-restore.py "$REMONT_SIM_UDID" remont-qa-ios-import.json > native-backup-restore-verification.json || exit $?
-          fi
-          exit "$smoke_status"
+        script: bash "$CM_BUILD_DIR/scripts/ci/run-ios-acceptance.sh"
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
@@ -520,8 +498,7 @@ workflows:
       - android-signing-proof.json
 
   ios-simulator-reuse:
-    name: Remont Asystent 1.2.1 — reuse exact iPhone binary for ordinary menu
-      acceptance
+    name: Remont Asystent 1.2.2 — reuse verified iPhone binary for backup acceptance
     max_build_duration: 40
     instance_type: mac_mini_m2
     environment:
@@ -539,10 +516,11 @@ workflows:
         script: |-
           set -euo pipefail
           cd "$CM_BUILD_DIR"
+          test "$(git rev-parse HEAD)" = "$REMONT_EXPECTED_COMMIT"
           node <<'JS'
           const fs=require('fs'),crypto=require('crypto'),assert=require('assert/strict');
           (async()=>{
-            const endpoint=new URL(process.env.REMONT_IOS_SIMULATOR_API_11_URL);
+            const endpoint=new URL(process.env.REMONT_IOS_SIMULATOR_API_URL);
             assert.equal(endpoint.origin,'https://api.codemagic.io');
             const first=await fetch(endpoint,{headers:{'x-auth-token':process.env.REMONT_CM_ARTIFACT_READ_TOKEN},redirect:'manual',signal:AbortSignal.timeout(20000)});
             assert.equal(first.status,302,'Authenticated artifact response');
@@ -551,16 +529,18 @@ workflows:
             const response=await fetch(signed,{redirect:'error',signal:AbortSignal.timeout(60000)});
             assert(response.ok,'Archive download status '+response.status);
             const bytes=Buffer.from(await response.arrayBuffer());
-            assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),'38f8e2b59a44dd8349ca810c4bdf2788a1d9dba9ae566e0f3f3f0e19351cc45f');
+            assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),'9a4e61c6eb953da7bc01471ce3850c942845b1c06e7f5f5a1d61e5eaf0b12eca');
             fs.writeFileSync('frozen-simulator.zip',bytes);
             console.log('Exact frozen simulator archive verified. No credentials forwarded to storage.');
           })().catch(()=>{console.error('Frozen simulator download or integrity check failed.');process.exitCode=1;});
           JS
           python3 <<'PY'
-          import zipfile,pathlib,hashlib
+          import zipfile,pathlib,hashlib,json
           with zipfile.ZipFile('frozen-simulator.zip') as z:
+              source=json.loads(z.read('simulator-app-source.json'))
+              assert source=={'applicationSourceCommit':'df77c2d1922659938e85b07752380c7a2c8d4623','version':'1.2.2','build':'12'}
               b=z.read('simulator-app.tar.gz')
-              assert hashlib.sha256(b).hexdigest()=='79c4e2ab715ecceb8f51c4c1d6d36788f53f7a369458c606f94f498e4c77e87c'
+              assert hashlib.sha256(b).hexdigest()=='4a4b4a7147109eb633776ef2dc544403f641d74bdf034118195e07ec9d81ea6a'
               pathlib.Path('simulator-app.tar.gz').write_bytes(b)
           PY
           mkdir frozen-simulator
@@ -569,8 +549,8 @@ workflows:
           import pathlib,plistlib,json
           p=pathlib.Path('frozen-simulator/AsystentRemontu.app/Info.plist')
           d=plistlib.loads(p.read_bytes())
-          assert d['CFBundleShortVersionString']=='1.2.1' and d['CFBundleVersion']=='11'
-          pathlib.Path('simulator-reuse-proof.json').write_text(json.dumps({'originalBuildId':'6ae8dd9f5953172967559527','applicationSourceCommit':'feff7c19e9646f29b5356577cc337d342c5e3c1e','version':'1.2.1','build':'11','originalArchiveSha256':'38f8e2b59a44dd8349ca810c4bdf2788a1d9dba9ae566e0f3f3f0e19351cc45f','sameCompiledApplication':True}))
+          assert d['CFBundleShortVersionString']=='1.2.2' and d['CFBundleVersion']=='12'
+          pathlib.Path('simulator-reuse-proof.json').write_text(json.dumps({'originalBuildId':'6aea8593bcf1f29e68a5a809','applicationSourceCommit':'df77c2d1922659938e85b07752380c7a2c8d4623','version':'1.2.2','build':'12','originalArchiveSha256':'9a4e61c6eb953da7bc01471ce3850c942845b1c06e7f5f5a1d61e5eaf0b12eca','sameCompiledApplication':True}))
           PY
       - name: Boot iPhone 14 Plus and seed only synthetic project data
         script: |
@@ -582,22 +562,22 @@ workflows:
           xcrun simctl bootstatus "$REMONT_SIM_UDID" -b
           xcrun simctl install "$REMONT_SIM_UDID" frozen-simulator/AsystentRemontu.app
           xcrun simctl launch "$REMONT_SIM_UDID" app.replit.remontasystent
-          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID"
+          seed_args=(--managed-photo)
+          if [ "${REMONT_TEST_HOUSE_BACKUP:-0}" = "1" ]; then
+            seed_args+=(--house-backup)
+          fi
+          python3 scripts/ci/seed-ios-smoke.py "$REMONT_SIM_UDID" "${seed_args[@]}"
       - name: Native project, real price and screenshot acceptance
-        script: >
-          cd "$CM_BUILD_DIR"
-
-          curl -fsSL https://get.maestro.mobile.dev | bash
-
-          export PATH="$HOME/.maestro/bin:$PATH"
-
-          mkdir -p native-screens
-
-          maestro --device "$REMONT_SIM_UDID" test --config
-          scripts/ci/ios-native/config.yaml --format junit --output
-          native-smoke.xml scripts/ci/ios-native
+        script: bash "$CM_BUILD_DIR/scripts/ci/run-ios-acceptance.sh"
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
+      - native-photo-smoke.xml
+      - native-backup-share.xml
+      - native-backup-share-verification.json
+      - native-house-backup-share.xml
+      - native-house-backup-share-verification.json
+      - native-backup-restore.xml
+      - native-backup-restore-verification.json
       - simulator-reuse-proof.json
       - ~/.maestro/tests/**

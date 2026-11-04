@@ -20,7 +20,10 @@ appId: app.replit.remontasystent
 - extendedWaitUntil:
     visible: '^remont-qa-ios-import(\.json)?$'
     timeout: 30000
-- tapOn: '^remont-qa-ios-import(\.json)?$'
+# Tapping the filename label leaves the iOS 26.5 picker open. Tap the file
+# thumbnail observed at [287,201][418,294] on this fixed iPhone 14 Plus fixture.
+- tapOn:
+    point: '82%,27%'
 - extendedWaitUntil:
     visible: '^Do wczytania: 1 projekt.w, 0 pozycji zakup.w, 1 zdj..$'
     timeout: 15000
