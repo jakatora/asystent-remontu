@@ -432,7 +432,7 @@ export default function WizardScreen() {
         if (!selectedJob) return null;
         const { errors } = parseMeasurements(selectedJob, draft.measurements);
         const [error] = errors;
-        if (error) return error.messageKey ? t(error.messageKey) : t('wizard.error.measureValue', { label: error.label });
+        if (error) return error.messageKey ? t(error.messageKey, { max: error.max ?? '' }) : t('wizard.error.measureValue', { label: error.label });
         return null;
       }
       default: return null;
@@ -457,7 +457,7 @@ export default function WizardScreen() {
     if (parsed.errors.length > 0) {
       goTo('measure');
       const [error] = parsed.errors;
-      setValidationError(error.messageKey ? t(error.messageKey) : t('wizard.error.measureValue', { label: error.label }));
+      setValidationError(error.messageKey ? t(error.messageKey, { max: error.max ?? '' }) : t('wizard.error.measureValue', { label: error.label }));
       return;
     }
     saveInFlight.current=true;setSaving(true);
@@ -1182,7 +1182,7 @@ export default function WizardScreen() {
 
                         {hasError && (
                           <Txt accessibilityRole="alert" style={{ fontSize: 12, color: Colors.danger }}>
-                            {fieldError?.messageKey ? t(fieldError.messageKey) : 'inputType' in inp && inp.inputType === 'count'
+                            {fieldError?.messageKey ? t(fieldError.messageKey, { max: fieldError.max ?? '' }) : 'inputType' in inp && inp.inputType === 'count'
                               ? (language === 'pl' ? 'Podaj całkowitą liczbę sztuk w podanym zakresie.' : 'Enter a whole number of items within the allowed range.')
                               : t('wizard.error.measureValue', { label: inp.label })}
                           </Txt>
