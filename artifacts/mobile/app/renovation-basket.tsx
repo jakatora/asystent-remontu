@@ -120,8 +120,8 @@ export default function RenovationBasketScreen() {
   const toolsReady = !tools.length || loadedTools === tools;
   const toolPurchases = useMemo(() => basketToolPurchases(tools, toolChoices), [tools, toolChoices]);
   const pendingTools = tools.filter(tool => tool.required && !toolChoices[tool.key]).length;
-  const unpricedTools = tools.filter(tool => toolChoices[tool.key] === 'buy').length - toolPurchases.length;
-  const rentedTools = tools.filter(tool => toolChoices[tool.key] === 'rent').length;
+  const unpricedTools = tools.filter(tool => toolChoices[tool.key] === 'buy' && !tool.product?.identity.ean);
+  const rentedTools = tools.filter(tool => toolChoices[tool.key] === 'rent');
   const measuredProjectIds = useMemo(() => measuredBasketProjectIds(projects), [projects]);
   const measuredProjectCount = projects.filter(project => Boolean(project.calculationResult)).length;
   const showProjects = projectsExpanded ?? (selectedProjects.length === 0 && extras.length === 0);
@@ -228,10 +228,16 @@ export default function RenovationBasketScreen() {
         <Button label={pl ? `Uzupełnij obmiary: ${review.projectName}` : `Complete measurements: ${review.projectName}`} variant="outline" size="sm"
           onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: review.projectId } })} />
       </View>)}
-      {toolsReady && (unpricedTools > 0 || rentedTools > 0) && <View style={{ padding: 14, gap: 6, borderRadius: 14, backgroundColor: Colors.warningBg }}>
-        <Txt w="semibold">{pl ? 'Zakres wyceny sklepów' : 'Store quote scope'}</Txt>
-        {unpricedTools > 0 && <Txt>{pl ? `Zakupy narzędzi poza wyceną z powodu braku modelu: ${unpricedTools}.` : `Tool purchases outside this quote without an exact model: ${unpricedTools}.`}</Txt>}
-        {rentedTools > 0 && <Txt>{pl ? `Narzędzia do wypożyczenia, rozliczane osobno: ${rentedTools}.` : `Tools to rent, priced separately: ${rentedTools}.`}</Txt>}
+      {toolsReady && (unpricedTools.length > 0 || rentedTools.length > 0) && <View style={{ padding: 14, gap: 6, borderRadius: 14, backgroundColor: Colors.warningBg }}>
+        <Txt w="semibold" accessibilityRole="header">{pl ? 'Zakres wyceny sklepów' : 'Store quote scope'}</Txt>
+        {unpricedTools.length > 0 && <View style={{ gap: 4 }}>
+          <Txt>{pl ? `Zakupy narzędzi poza wyceną z powodu braku modelu: ${unpricedTools.length}.` : `Tool purchases outside this quote without an exact model: ${unpricedTools.length}.`}</Txt>
+          {unpricedTools.map(tool => <Txt key={tool.key} style={{ color: Colors.textSecondary }}>{tool.name}</Txt>)}
+        </View>}
+        {rentedTools.length > 0 && <View style={{ gap: 4 }}>
+          <Txt>{pl ? `Narzędzia do wypożyczenia, rozliczane osobno: ${rentedTools.length}.` : `Tools to rent, priced separately: ${rentedTools.length}.`}</Txt>
+          {rentedTools.map(tool => <Txt key={tool.key} style={{ color: Colors.textSecondary }}>{tool.name}</Txt>)}
+        </View>}
       </View>}
       {loaded && itemsReady && extrasReady && toolsReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
         ? <CostEstimateTab projectId="renovation-basket" stages={stages} shoppingContexts={basket.shoppingContexts} qualityTier={selectedQualityTier} region={selectedRegion} includesToolPurchases={toolPurchases.length > 0} />
