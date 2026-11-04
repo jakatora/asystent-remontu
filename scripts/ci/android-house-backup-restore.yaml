@@ -10,12 +10,18 @@ appId: pl.asystentremontu.app
     direction: DOWN
     timeout: 30000
 - tapOn: Wybierz plik z kopią
+# The Android 15 file picker can reopen on Recent after the renovation
+# import. Tap the observed toolbar button to explicitly open Downloads.
+- extendedWaitUntil:
+    visible: '^(Recent|Recent files|Ostatnie|Ostatnie pliki|Downloads|Pobrane)$'
+    timeout: 15000
 - tapOn:
-    text: '^(Show roots|Pokaż katalogi|Open navigation drawer)$'
-    optional: true
+    point: '7%,8%'
+- extendedWaitUntil:
+    visible: '^(Downloads|Pobrane)$'
+    timeout: 15000
 - tapOn:
     text: '^(Downloads|Pobrane)$'
-    optional: true
 # The grid also exposes a preview action with the filename in its label.
 # Use list mode when available and select only the exact file title.
 - tapOn:
