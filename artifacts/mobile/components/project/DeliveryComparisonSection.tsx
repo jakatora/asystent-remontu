@@ -290,7 +290,7 @@ export function DeliveryComparisonSection({ comparison, missingItemCount, settin
       })}
       {!showAllAlternatives && otherBaskets.length > 2 && <Button variant="outline" label={tr(`Pokaż pozostałe zestawy (${otherBaskets.length - 2})`, `Show other baskets (${otherBaskets.length - 2})`)} onPress={() => setShowAllAlternatives(true)} />}
     </View>}
-    {current && mode === 'shipping' && destination && !incompleteCompetition && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
+    {current && mode === 'shipping' && destination && !incompleteCompetition && !quoteNeedsConfirmation && <Button variant="outline" label={tr('Sprawdź dostawy ponownie', 'Check deliveries again')} onPress={() => apply({ mode, method: 'automatic', postalCode: destination })} />}
     {best && <Txt style={{ fontSize: 12, color: Colors.textSecondary, lineHeight: 18 }}>{includesToolPurchases
       ? tr('Porównanie obejmuje wycenione produkty, w tym widoczne narzędzia do kupienia. Wypożyczenie, robocizna i opcjonalne rabaty są osobno.', 'The comparison covers quoted products, including any tools listed for purchase. Rentals, labour and optional discounts are separate.')
       : tr('Porównanie potrzebnych opakowań materiałów, bez dokupowania nadmiaru dla rabatów. Kwoty nie obejmują opcjonalnych kodów promocyjnych i rabatów lojalnościowych. Narzędzia i robocizna są liczone osobno.', 'Comparison of required material packs, without buying extras for discounts. Amounts exclude optional coupon codes and loyalty discounts. Tools and labour are separate.')}</Txt>}
