@@ -14,6 +14,17 @@ import type { ShoppingItem } from '@/types/domain';
 
 const wall=getJobById('gypsum-wall')!,ceiling=getJobById('gypsum-ceiling')!;
 const calculate=(id='gypsum-wall',more:Record<string,number>={})=>calculatorEngine.calculate(getJobById(id)!,{wallArea:10,gypsumWallHeight:2.5,ceilingArea:10,perimeter:id==='gypsum-wall'?13:14,...more});
+test('the wall measurement examples describe one consistent partition', () => {
+  const fields = ['wallArea', 'gypsumWallHeight', 'perimeter'];
+  const raw = Object.fromEntries(fields.map(id => [
+    id, wall.measurementInputs.find(input => input.id === id)?.placeholder?.replace(/^np\. /, ''),
+  ]));
+  const { values, errors } = parseMeasurements(wall, raw);
+  assert.deepEqual(errors, []);
+  const result = calculatorEngine.calculate(wall, values);
+  assert.equal(result.materials.find(line => line.material.id === 'gk-board')?.rawQuantity, 22);
+  assert.equal(result.materials.find(line => line.material.id === 'profile-cw')?.packs, 8);
+});
 test('SUPER C3 is an explicit different UD profile, whose quantity stays unknown until its fit is confirmed',()=>{
  const old=calculate('gypsum-ceiling'),waiting=calculate('gypsum-ceiling',{gypsumUdProfile:1}),chosen=calculate('gypsum-ceiling',{gypsumUdProfile:1,gypsumUdFit:1});
  const ud=(c:typeof chosen)=>c.materials.find(l=>l.material.id==='profile-ud')!;
