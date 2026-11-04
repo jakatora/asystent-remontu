@@ -11,7 +11,7 @@ import {getDb} from '@/db/client';
 import {Colors} from '@/constants/colors';
 import {Txt} from '@/components/ui/Txt';
 import {Button} from '@/components/ui/Button';
-import {backupExtraCount,backupToolChoiceCount,canonical,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type ProjectBackup} from '@/features/storage/projectBackup';
+import {backupExtraCount,backupToolChoiceCount,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,prepareProjectBackup,type ProjectBackup} from '@/features/storage/projectBackup';
 import {HOUSE_BACKUP_FORMAT,importHouseBuildBackup,parseHouseBuildBackup,readHouseBuildBackup,type HouseBuildBackup} from '@/features/storage/houseBuildBackup';
 import {chooseProjectBackup,downloadProjectBackup,embedBackupPhotos} from '@/features/storage/projectBackupFiles';
 
@@ -54,10 +54,7 @@ export default function ProjectBackupScreen(){
     try{await task();}catch(reason){setFeedback({action,text:errorMessage(action,reason),error:true});}finally{working.current=false;setBusy(null);}
   };
   const exportProjects=()=>void run('export',async()=>{
-    const db=await getDb(),snapshot=await readProjectBackup(db,AsyncStorage),check=await readProjectBackup(db,AsyncStorage);
-    if(canonical([snapshot.tables,snapshot.preferences])!==canonical([check.tables,check.preferences]))throw Error('backup_changed_during_export');
-    if(!hasBackupContent(snapshot))throw Error('backup_empty');
-    const portable=await embedBackupPhotos(snapshot),raw=JSON.stringify(portable,null,2);parseProjectBackup(raw);
+    const raw=await prepareProjectBackup(await getDb(),AsyncStorage,embedBackupPhotos);
     await downloadProjectBackup(raw);
     if(Platform.OS==='web')setFeedback({action:'export',text:say('Plik kopii został przygotowany do pobrania. Zachowaj go na swoim urządzeniu.','Your backup file is ready to download. Keep it on your device.')});
   });

@@ -8,7 +8,7 @@ import {migration_001} from '../../db/migrations/001_initial';
 import {migration_002} from '../../db/migrations/002_shopping_extended';
 import {migration_003} from '../../db/migrations/003_project_management';
 import {migration_004} from '../../db/migrations/004_pricing';
-import {BACKUP_MAX_BYTES,backupExtraCount,canonical,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
+import {BACKUP_MAX_BYTES,backupExtraCount,canonical,checkBackupSize,hasBackupContent,importProjectBackup,parseProjectBackup,prepareProjectBackup,readProjectBackup,type BackupStorage,type ProjectBackup} from './projectBackup';
 
 test('backup size uses UTF-8 bytes for Polish text and supplementary characters', () => {
   const prefix = 'a'.repeat(BACKUP_MAX_BYTES - 6);
@@ -58,6 +58,17 @@ function sharedChoices():Record<string,string>{
 const stockEntry:MaterialStockEntry={materialId:'plaster-base',ean:'5902367206451',name:'Knauf MP 75 L 30 kg',unit:'kg',quantity:30};
 const primerChoice={from:PRIMER_PACKAGE_PRODUCTS.find(p=>p.packageSize===1)!.id,to:'automatic' as const};
 const mapegumChoice={from:MAPEGUM_PACKAGE_PRODUCTS.find(p=>p.packageSize===3)!.id,to:'automatic' as const};
+
+test('export stops when the project changes during photo preparation and succeeds on retry', async t => {
+  const { db, storage } = await source(t);
+  await assert.rejects(prepareProjectBackup(db, storage, async snapshot => {
+    await db.runAsync('UPDATE projects SET name = ? WHERE id = ?', 'Edited during export', 'room');
+    return snapshot;
+  }), /backup_changed_during_export/);
+  const raw = await prepareProjectBackup(db, storage, async snapshot => snapshot);
+  const [project] = parseProjectBackup(raw).tables.projects;
+  assert.equal(project.name, 'Edited during export');
+});
 
 test('separate Ceresit families, project/common choices and exact damaged archives survive real SQLite export/import',async t=>{
   const a=await source(t),b=await fixture(t),choices=CERESIT_PACKAGE_PRODUCTS.filter(p=>p.packageSize===5).map(p=>({from:p.id,to:'automatic' as const})),key=CERESIT_PACKAGE_CHOICE_PREFIX+'room';

@@ -170,6 +170,23 @@ export async function readProjectBackup(db:DatabaseConnection,storage:BackupStor
   return parseProjectBackup(JSON.stringify({format:'asystent-remontu-projects',version:1,createdAt:new Date().toISOString(),tables:data,preferences}),false);
 }
 
+export async function prepareProjectBackup(
+  db: DatabaseConnection,
+  storage: BackupStorage,
+  embedPhotos: (backup: ProjectBackup) => Promise<ProjectBackup>,
+): Promise<string> {
+  const snapshot = await readProjectBackup(db, storage);
+  if (!hasBackupContent(snapshot)) throw Error('backup_empty');
+  const raw = JSON.stringify(await embedPhotos(snapshot), null, 2);
+  parseProjectBackup(raw);
+  // Photo encoding can outlast an edit in another tab or screen.
+  const current = await readProjectBackup(db, storage);
+  if (canonical([snapshot.tables, snapshot.preferences]) !== canonical([current.tables, current.preferences])) {
+    throw Error('backup_changed_during_export');
+  }
+  return raw;
+}
+
 /** Add whole projects only. Original IDs and all child records are retained;
  * a duplicate is an explicit conflict, never REPLACE/cascade or silent merge. */
 export async function importProjectBackup(backup:ProjectBackup,db:DatabaseConnection,storage:BackupStorage):Promise<{projects:number;keptBasketSettings:boolean}>{
