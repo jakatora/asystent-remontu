@@ -61,6 +61,7 @@ const pl = {
   'wizard.error.budget': 'Wybierz poziom budżetu.',
   'wizard.error.diy': 'Wybierz kto wykona pracę.',
   'wizard.error.measureValue': 'Podaj wartość dla "{label}".',
+  'wizard.error.rollArea': 'Sprawdź długość i szerokość. Powierzchnia podłogi może wynosić maksymalnie 200 m².',
 
   // Save error alert
   'wizard.saveError.title': 'Błąd',
@@ -205,6 +206,7 @@ const en: Record<K, string> = {
   'wizard.error.budget': 'Choose a budget level.',
   'wizard.error.diy': 'Choose who will do the work.',
   'wizard.error.measureValue': 'Enter a value for "{label}".',
+  'wizard.error.rollArea': 'Check the length and width. The floor area can be at most 200 m².',
 
   'wizard.saveError.title': 'Error',
   'wizard.saveError.body': 'Could not save the project. Please try again.',

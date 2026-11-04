@@ -13,6 +13,18 @@ const job=getJobById('vinyl-glued')!;
 const complete={rollChoice:1,rollRoomLengthM:3,rollRoomWidthM:1.8,rollAdhesiveChoice:3,rollAdhesiveFit:1,rollAdhesiveGm2:400,rollAdhesiveReserve:5,rollPreparation:1,rollSkirting:1};
 const calc=(m:Record<string,number>={})=>calculatorEngine.calculate(job,{...complete,...m});
 
+test('the floor area limit is checked only once both dimensions are valid', () => {
+  const check = (length: string, width: string) =>
+    parseMeasurements(job, { rollRoomLengthM: length, rollRoomWidthM: width });
+  assert.deepEqual(check('', '12').errors.map(error => error.id), ['rollRoomLengthM']);
+  assert.deepEqual(check('10', '26').errors.map(error => error.id), ['rollRoomWidthM']);
+  assert.equal(check('10', '26').errors[0].messageKey, undefined);
+  assert.equal(check('20', '10').values.floorArea, 200);
+  const oversized = check('20', '10,1');
+  assert.deepEqual(oversized.errors.map(error => error.messageKey), ['wizard.error.rollArea']);
+  assert.equal(oversized.values.floorArea, undefined);
+});
+
 test('one full-width cut includes 10 cm at dimensions, not floor area plus ten percent or self-adhesive tiles',()=>{
  const c=calc();assert.equal(c.quantityModel,ROLLED_MODEL);assert.equal(c.measurements.floorArea,5.4);
  const roll=c.materials.find(l=>l.material.id==='vinyl-roll')!;assert.equal(roll.rawQuantity,6.2);assert.equal(roll.quantity,6.2);assert.equal(roll.packs,undefined);assert.equal(roll.cost,341);

@@ -403,8 +403,8 @@ export default function WizardScreen() {
   const categories = CATEGORIES.filter((c) => c.jobCount > 0);
   const availJobs  = draft.categoryId ? getJobsByCategory(draft.categoryId) : [];
   const selectedJob: RenovationJob | undefined = draft.jobId ? getJobById(draft.jobId) : undefined;
-  const invalidMeasurementIds = new Set(validationError && selectedJob
-    ? parseMeasurements(selectedJob, draft.measurements).errors.map(error => error.id) : []);
+  const measurementErrors = validationError && selectedJob
+    ? parseMeasurements(selectedJob, draft.measurements).errors : [];
 
   // ── Navigation ──────────────────────────────────────────────────────────────
 
@@ -431,7 +431,8 @@ export default function WizardScreen() {
       case 'measure': {
         if (!selectedJob) return null;
         const { errors } = parseMeasurements(selectedJob, draft.measurements);
-        if (errors.length > 0) return t('wizard.error.measureValue', { label: errors[0].label });
+        const [error] = errors;
+        if (error) return error.messageKey ? t(error.messageKey) : t('wizard.error.measureValue', { label: error.label });
         return null;
       }
       default: return null;
@@ -455,7 +456,8 @@ export default function WizardScreen() {
     const parsed = parseMeasurements(selectedJob, draft.measurements);
     if (parsed.errors.length > 0) {
       goTo('measure');
-      setValidationError(t('wizard.error.measureValue', { label: parsed.errors[0].label }));
+      const [error] = parsed.errors;
+      setValidationError(error.messageKey ? t(error.messageKey) : t('wizard.error.measureValue', { label: error.label }));
       return;
     }
     saveInFlight.current=true;setSaving(true);
@@ -1094,7 +1096,8 @@ export default function WizardScreen() {
                   {selectedJob.measurementInputs.filter(inp => measurementInputVisible(selectedJob.id, inp.id, draft.measurements)).map(inp=>waterproofingInputDefinition(selectedJob.id,inp,draft.measurements)).map((inp) => {
                     const isOptional = inp.required === false || inp.defaultValue !== undefined;
                     const val = draft.measurements[inp.id] ?? '';
-                    const hasError = invalidMeasurementIds.has(inp.id);
+                    const fieldError = measurementErrors.find(error => error.id === inp.id);
+                    const hasError = Boolean(fieldError);
 
                     return (
                       <View key={inp.id} style={{ gap: 6 }}>
@@ -1179,7 +1182,7 @@ export default function WizardScreen() {
 
                         {hasError && (
                           <Txt accessibilityRole="alert" style={{ fontSize: 12, color: Colors.danger }}>
-                            {'inputType' in inp && inp.inputType === 'count'
+                            {fieldError?.messageKey ? t(fieldError.messageKey) : 'inputType' in inp && inp.inputType === 'count'
                               ? (language === 'pl' ? 'Podaj całkowitą liczbę sztuk w podanym zakresie.' : 'Enter a whole number of items within the allowed range.')
                               : t('wizard.error.measureValue', { label: inp.label })}
                           </Txt>

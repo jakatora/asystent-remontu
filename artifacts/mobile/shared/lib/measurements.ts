@@ -30,7 +30,7 @@ export function measurementInputVisible(jobId: string, inputId: string, raw: Rea
 
 export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<string, string | undefined>>) {
   const values: Record<string, number> = {};
-  const errors: { label: string; id: string; min?: number; max?: number }[] = [];
+  const errors: { label: string; id: string; min?: number; max?: number; messageKey?: 'wizard.error.rollArea' }[] = [];
   for (const input of job.measurementInputs) {
     if (!measurementInputVisible(job.id, input.id, raw)) continue;
     const text = raw[input.id]?.trim() ?? '';
@@ -57,6 +57,13 @@ export function parseMeasurements(job: RenovationJob, raw: Readonly<Record<strin
   if(job.id===UNDERLAY_JOB&&values.underlayFoilAreaM2<values.floorArea)errors.push({id:'underlayFoilAreaM2',label:'Powierzchnia folii nie może być mniejsza od podłogi',min:values.floorArea});
   if(job.id===SOCKET_FRAME_JOB&&values.frameLayout===2&&Number.isFinite(values.frameCount)&&values.frameDoubleCount+values.frameTripleCount>values.frameCount)errors.push({id:'frameDoubleCount',label:'Suma ramek podwójnych i potrójnych przekracza łączną liczbę ramek',max:values.frameCount});
   if(job.id===ROLLED_JOB&&values.rollAdhesiveChoice===1&&Number.isFinite(values.rollAdhesiveGm2)&&(values.rollAdhesiveGm2<400||values.rollAdhesiveGm2>600))errors.push({id:'rollAdhesiveGm2',label:'Soudal 26A: zużycie od 400 do 600 g/m²',min:400,max:600});
-  if(job.id===ROLLED_JOB){const area=rolledFloorArea(values);if(area===null)errors.push({id:'rollRoomWidthM',label:'Sprawdź wymiary: powierzchnia podłogi musi mieścić się w 200 m²'});else values.floorArea=area;}
+  if (job.id === ROLLED_JOB && values.rollRoomLengthM !== undefined && values.rollRoomWidthM !== undefined) {
+    const area = rolledFloorArea(values);
+    if (area === null) {
+      errors.push({ id: 'rollRoomWidthM', label: 'Powierzchnia podłogi', messageKey: 'wizard.error.rollArea' });
+    } else {
+      values.floorArea = area;
+    }
+  }
   return { values, errors };
 }
