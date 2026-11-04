@@ -418,6 +418,11 @@ workflows:
               adb push remont-qa-import.json /sdcard/Download/remont-qa-import.json
               maestro test --format junit --output android-backup-restore.xml scripts/ci/android-backup-restore.yaml
               python3 scripts/ci/verify-android-backup-restore.py remont-qa-import.json > android-backup-restore-verification.json
+              if [[ "${REMONT_TEST_HOUSE_BACKUP:-}" == 1 ]]; then
+                adb push scripts/ci/remont-qa-house.json /sdcard/Download/remont-qa-house.json
+                maestro test --format junit --output android-house-backup-restore.xml scripts/ci/android-house-backup-restore.yaml
+                python3 scripts/ci/verify-android-backup-restore.py remont-qa-import.json scripts/ci/remont-qa-house.json > android-house-backup-verification.json
+              fi
             fi
           fi
           exit "$smoke_status"
@@ -428,6 +433,8 @@ workflows:
       - android-backup-share.xml
       - android-backup-restore.xml
       - android-backup-restore-verification.json
+      - android-house-backup-restore.xml
+      - android-house-backup-verification.json
       - android-backup-share-verification.json
       - android-emulator.log
       - android-native-logcat.txt

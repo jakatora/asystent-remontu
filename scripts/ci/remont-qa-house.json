@@ -1,0 +1,50 @@
+{
+  "format": "asystent-remontu-house-build",
+  "version": 1,
+  "createdAt": "2026-11-04T00:00:00.000Z",
+  "tables": {
+    "contractor_requests": [],
+    "house_build_projects": [
+      {
+        "land_context": "{}",
+        "notes": "Syntetyczny projekt QA",
+        "current_stage_id": null,
+        "status": "planning",
+        "name": "QA Budowa Android",
+        "planning_context": "{}",
+        "created_at": "2026-11-04T00:00:00.000Z",
+        "id": "qa-house-restore",
+        "updated_at": "2026-11-04T00:00:00.000Z"
+      }
+    ],
+    "build_checklist_items": [],
+    "build_documents": [],
+    "build_utilities": [],
+    "build_timeline_stages": [],
+    "build_budget_items": [],
+    "build_budget_notes": [
+      {
+        "project_id": "qa-house-restore",
+        "stage_key": "planning",
+        "created_at": "2026-11-04T00:00:00.000Z",
+        "text": "Rezerwa budżetowa QA",
+        "id": "qa-house-budget-note"
+      }
+    ],
+    "build_milestones": [],
+    "build_timeline_notes": [],
+    "build_professional_plans": [],
+    "build_energy_strategy": [],
+    "build_official_forms": [],
+    "build_investor_docs": [],
+    "build_decisions": [],
+    "build_questions": [],
+    "build_completion_items": [],
+    "build_utility_plans": [],
+    "build_utility_checklist": [],
+    "build_utility_alternatives": [],
+    "build_price_overrides": [],
+    "hb_stage_contractor_needs": [],
+    "hb_stage_contractor_shortlist": []
+  }
+}

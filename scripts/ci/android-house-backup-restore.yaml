@@ -1,0 +1,45 @@
+appId: pl.asystentremontu.app
+---
+- openLink: remont://project-backup
+- extendedWaitUntil:
+    visible: Kopie remontów i budowy domu
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      text: Wybierz plik z kopią
+    direction: DOWN
+    timeout: 30000
+- tapOn: Wybierz plik z kopią
+- tapOn:
+    text: '^(Show roots|Pokaż katalogi|Open navigation drawer)$'
+    optional: true
+- tapOn:
+    text: '^(Downloads|Pobrane)$'
+    optional: true
+# The grid also exposes a preview action with the filename in its label.
+# Use list mode when available and select only the exact file title.
+- tapOn:
+    id: 'com.google.android.documentsui:id/sub_menu_list'
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: 'android:id/title'
+      text: '^remont-qa-house\.json$'
+    timeout: 30000
+- tapOn:
+    id: 'android:id/title'
+    text: '^remont-qa-house\.json$'
+- extendedWaitUntil:
+    visible: '^Do wczytania: 1 projekt.w budowy domu$'
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      text: Wczytaj projekty budowy domu
+    direction: DOWN
+    timeout: 30000
+- assertVisible: QA Budowa Android
+- tapOn: Wczytaj projekty budowy domu
+- extendedWaitUntil:
+    visible: '^Przywrócono projekty budowy domu: 1\.$'
+    timeout: 30000
+- takeScreenshot: native-screens/11-house-backup-restored

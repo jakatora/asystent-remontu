@@ -18,6 +18,7 @@ def adb(*args):
 fixture = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
 project, = fixture['tables']['projects']
 photo, = fixture['tables']['project_photos']
+house = json.loads(Path(sys.argv[2]).read_text(encoding='utf-8')) if len(sys.argv) == 3 else None
 assert adb('shell', 'id', '-u').strip() == b'0'
 assert adb('shell', 'getprop', 'ro.kernel.qemu').strip() == b'1'
 adb('shell', 'am', 'force-stop', package)
@@ -42,4 +43,12 @@ with tempfile.TemporaryDirectory() as directory:
         original = json.loads(Path(__file__).with_name('remont-smoke-projects.json').read_text(encoding='utf-8'))
         for row in original:
             assert connection.execute('SELECT name FROM projects WHERE id=?', (row['id'],)).fetchone()['name'] == row['name']
-print(json.dumps({'passed': True, 'projectMatches': True, 'embeddedPhotoMatches': True, 'originalProjectsRetained': len(original)}))
+        if house is not None:
+            for table in ('house_build_projects', 'build_budget_notes'):
+                expected, = house['tables'][table]
+                saved = connection.execute(f'SELECT * FROM "{table}" WHERE id=?', (expected['id'],)).fetchone()
+                assert saved is not None and all(saved[key] == value for key, value in expected.items()), table
+result = {'passed': True, 'projectMatches': True, 'embeddedPhotoMatches': True, 'originalProjectsRetained': len(original)}
+if house is not None:
+    result.update(houseProjectMatches=True, houseBudgetNoteMatches=True)
+print(json.dumps(result))
