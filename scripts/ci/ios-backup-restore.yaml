@@ -10,6 +10,13 @@ appId: app.replit.remontasystent
     timeout: 30000
 - tapOn: Wybierz plik z kopią
 - takeScreenshot: native-screens/13-ios-import-picker
+# The iOS 26.5 picker opens on an empty Recents tab for this fixture.
+- tapOn:
+    point: '70%,95%'
+- tapOn:
+    text: '^On My iPhone$'
+    optional: true
+- takeScreenshot: native-screens/13b-ios-import-browse
 - extendedWaitUntil:
     visible: '^remont-qa-ios-import(\.json)?$'
     timeout: 30000
