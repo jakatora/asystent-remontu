@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Pressable, View } from 'react-native';
 import { Txt } from '@/components/ui/Txt';
+import { RadioCard } from '@/components/ui/RadioCard';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
 import type { BasketTool, BasketToolChoice } from '@/features/pricing/basketTools';
@@ -15,6 +16,7 @@ interface Props {
 
 export function BasketToolsSection({ tools, choices, saving, onChoice }: Props) {
   const { language } = useLanguage();
+  const groupId = useId();
   const pl = language === 'pl';
   if (!tools.length) return null;
   return <View style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, gap: 12 }}>
@@ -41,12 +43,12 @@ export function BasketToolsSection({ tools, choices, saving, onChoice }: Props) 
         <View accessibilityRole="radiogroup" aria-label={tool.name} style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           {options.map(option => {
             const checked = choice === option.value;
-            return <Pressable key={option.value ?? 'skip'} accessibilityRole="radio" accessibilityLabel={option.label}
-              accessibilityState={{ checked, disabled: saving }} aria-checked={checked} disabled={saving}
-              onPress={() => { if (!checked) onChoice(tool.key, option.value); }}
+            return <RadioCard key={option.value ?? 'skip'} label={option.label} value={option.value ?? 'skip'}
+              group={groupId + ':' + tool.key} checked={checked} disabled={saving}
+              onSelect={() => { if (!checked) onChoice(tool.key, option.value); }}
               style={{ minHeight: 44, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 10, borderWidth: 1, borderColor: checked ? Colors.primary : Colors.border, backgroundColor: checked ? Colors.primaryBg : Colors.surface }}>
               <Txt w={checked ? 'semibold' : 'regular'}>{option.label}</Txt>
-            </Pressable>;
+            </RadioCard>;
           })}
         </View>
         {tool.required && choice !== undefined && <Pressable
