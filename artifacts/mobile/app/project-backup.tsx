@@ -30,6 +30,7 @@ export default function ProjectBackupScreen(){
   },[feedback]);
   const [preview,setPreview]=useState<ProjectBackup|null>(null);
   const [housePreview,setHousePreview]=useState<HouseBuildBackup|null>(null);
+  const houseRows=housePreview?.tables;
   const conflict=preview?.tables.projects.some(row=>projects.some(project=>project.id===row.id));
   const houseConflict=housePreview?.tables.house_build_projects.some(row=>houseProjects.some(project=>project.id===row.id));
   const errorMessage=(action:Action,reason:unknown)=>{
@@ -164,9 +165,14 @@ export default function ProjectBackupScreen(){
             <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{say('Wybierz pobrany plik. Najpierw zobaczysz jego zawartość. Import dodaje projekty i zatrzymuje się przy powtórzonych identyfikatorach — nie zastępuje istniejących zapisów.','Choose your downloaded file to preview its contents. Import adds projects and stops on duplicate IDs, preserving existing records.')}</Txt>
             <Button label={say('Wybierz plik z kopią','Choose a backup file')} variant="outline" onPress={choose} loading={busy==='choose'} disabled={busy!==null}/>
             {renderFeedback('choose')}
-            {housePreview&&<View style={{gap:12}}>
-              <Txt w="semibold" style={{fontSize:16,color:Colors.text}}>{say(`Do wczytania: ${housePreview.tables.house_build_projects.length} projektów budowy domu`,`Ready to import: ${housePreview.tables.house_build_projects.length} house-building projects`)}</Txt>
-              {housePreview.tables.house_build_projects.slice(0,20).map(row=><Txt key={String(row.id)} style={{fontSize:14,color:Colors.text}}>{String(row.name)}</Txt>)}
+            {housePreview&&houseRows&&<View style={{gap:12}}>
+              <Txt accessibilityRole="header" w="semibold" style={{fontSize:16,color:Colors.text}}>{say(`Do wczytania: ${houseRows.house_build_projects.length} projektów budowy domu`,`Ready to import: ${houseRows.house_build_projects.length} house-building projects`)}</Txt>
+              <Txt style={{fontSize:14,color:Colors.text}}>{say(
+                `Etapy harmonogramu: ${houseRows.build_timeline_stages.length}. Pozycje budżetu: ${houseRows.build_budget_items.length}. Notatki budżetowe: ${houseRows.build_budget_notes.length}.`,
+                `Schedule stages: ${houseRows.build_timeline_stages.length}. Budget items: ${houseRows.build_budget_items.length}. Budget notes: ${houseRows.build_budget_notes.length}.`,
+              )}</Txt>
+              <Txt style={{fontSize:13,color:Colors.textMuted}}>{say('Utworzono kopię: ','Backup created: ')+new Date(housePreview.createdAt).toLocaleString(language==='pl'?'pl-PL':'en-GB')}</Txt>
+              {houseRows.house_build_projects.slice(0,20).map(row=><Txt key={String(row.id)} style={{fontSize:14,color:Colors.text}}>{String(row.name)}</Txt>)}
               {houseConflict&&<Txt accessibilityRole="alert" style={{color:Colors.danger,fontSize:14}}>{say('Projekt budowy z tego pliku jest już na urządzeniu. Wybierz kopię innych projektów.','A house-building project in this file already exists on this device. Choose a backup of other projects.')}</Txt>}
               <Button label={say('Wczytaj projekty budowy domu','Import house-building projects')} onPress={restoreHouse} loading={busy==='import'} disabled={busy!==null||Boolean(houseConflict)}/>
               <Button label={say('Anuluj wczytywanie','Cancel import')} variant="ghost" onPress={()=>{setHousePreview(null);setFeedback(null);}} disabled={busy!==null}/>
