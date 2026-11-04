@@ -33,41 +33,6 @@ const pl = {
   // ui/ProgressBar
   'cmp.ProgressBar.default': 'Postęp',
 
-  // commerce/BundleSuggestionCard
-  'cmp.BundleSuggestionCard.more': '+{count} więcej',
-  'cmp.BundleSuggestionCard.select': 'Wybierz',
-  'cmp.BundleSuggestionCard.optionalUpgrades': '+ {count} opcjonalnych ulepszeń',
-
-  // commerce/CartDraftPreview
-  'cmp.CartDraftPreview.title': 'Koszyk sklepowy (wersja robocza)',
-  'cmp.CartDraftPreview.mappedProducts': 'Produkty zmapowane',
-  'cmp.CartDraftPreview.materials': 'Materiały',
-  'cmp.CartDraftPreview.tools': 'Narzędzia',
-  'cmp.CartDraftPreview.unmapped': 'Niezmapowane',
-  'cmp.CartDraftPreview.estimatedAmount': 'Szacunkowa kwota',
-  'cmp.CartDraftPreview.unmappedWarning': '{count} pozycji nie jest jeszcze zmapowanych do sklepu.',
-  'cmp.CartDraftPreview.unmappedHint': 'Te produkty są uwzględnione w planie remontu, ale nie mają jeszcze odpowiedników w sklepie.',
-  'cmp.CartDraftPreview.prepareOrder': 'Przygotuj zamówienie',
-
-  // commerce/CommerceReadinessSummary
-  'cmp.CommerceReadinessSummary.title': 'Gotowość sklepowa',
-  'cmp.CommerceReadinessSummary.readyForCart': 'Gotowe do koszyka',
-  'cmp.CommerceReadinessSummary.materials': 'Materiały',
-  'cmp.CommerceReadinessSummary.tools': 'Narzędzia',
-  'cmp.CommerceReadinessSummary.unmapped': 'Niezmapowane',
-
-  // commerce/MappingStatusChip
-  'cmp.MappingStatusChip.mapped': 'W sklepie',
-  'cmp.MappingStatusChip.unmapped': 'Brak w sklepie',
-  'cmp.MappingStatusChip.discontinued': 'Wycofany',
-  'cmp.MappingStatusChip.outOfStock': 'Brak na stanie',
-
-  // commerce/ToolCartToggle
-  'cmp.ToolCartToggle.heading': 'Co dodać do koszyka?',
-  'cmp.ToolCartToggle.materialsOnly': 'Tylko materiały',
-  'cmp.ToolCartToggle.requiredTools': '+ wymagane narzędzia',
-  'cmp.ToolCartToggle.allTools': '+ wszystkie narzędzia',
-
   // contractor/ContractorCard
   'cmp.ContractorCard.basic': 'Podstawowy',
   'cmp.ContractorCard.available': 'Dostępny',
@@ -432,41 +397,6 @@ const en: Record<K, string> = {
 
   // ui/ProgressBar
   'cmp.ProgressBar.default': 'Progress',
-
-  // commerce/BundleSuggestionCard
-  'cmp.BundleSuggestionCard.more': '+{count} more',
-  'cmp.BundleSuggestionCard.select': 'Select',
-  'cmp.BundleSuggestionCard.optionalUpgrades': '+ {count} optional upgrades',
-
-  // commerce/CartDraftPreview
-  'cmp.CartDraftPreview.title': 'Store cart (draft)',
-  'cmp.CartDraftPreview.mappedProducts': 'Mapped products',
-  'cmp.CartDraftPreview.materials': 'Materials',
-  'cmp.CartDraftPreview.tools': 'Tools',
-  'cmp.CartDraftPreview.unmapped': 'Unmapped',
-  'cmp.CartDraftPreview.estimatedAmount': 'Estimated amount',
-  'cmp.CartDraftPreview.unmappedWarning': '{count} items are not yet mapped to the store.',
-  'cmp.CartDraftPreview.unmappedHint': 'These products are included in the renovation plan but do not yet have store equivalents.',
-  'cmp.CartDraftPreview.prepareOrder': 'Prepare order',
-
-  // commerce/CommerceReadinessSummary
-  'cmp.CommerceReadinessSummary.title': 'Store readiness',
-  'cmp.CommerceReadinessSummary.readyForCart': 'Ready for cart',
-  'cmp.CommerceReadinessSummary.materials': 'Materials',
-  'cmp.CommerceReadinessSummary.tools': 'Tools',
-  'cmp.CommerceReadinessSummary.unmapped': 'Unmapped',
-
-  // commerce/MappingStatusChip
-  'cmp.MappingStatusChip.mapped': 'In store',
-  'cmp.MappingStatusChip.unmapped': 'Not in store',
-  'cmp.MappingStatusChip.discontinued': 'Discontinued',
-  'cmp.MappingStatusChip.outOfStock': 'Out of stock',
-
-  // commerce/ToolCartToggle
-  'cmp.ToolCartToggle.heading': 'What to add to the cart?',
-  'cmp.ToolCartToggle.materialsOnly': 'Materials only',
-  'cmp.ToolCartToggle.requiredTools': '+ required tools',
-  'cmp.ToolCartToggle.allTools': '+ all tools',
 
   // contractor/ContractorCard
   'cmp.ContractorCard.basic': 'Basic',
