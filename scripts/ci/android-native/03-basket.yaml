@@ -41,21 +41,17 @@ appId: pl.asystentremontu.app
 - inputText: 30001
 - takeScreenshot: native-screens/02-postcode-entered
 - hideKeyboard
-- extendedWaitUntil:
-    notVisible: Sprawdzamy koszyki sklepów i koszty dostawy…
-    timeout: 180000
 - scrollUntilVisible:
     element:
-      text: Łączny koszt
-    direction: DOWN
-    timeout: 30000
-    centerElement: true
-    optional: true
-- scrollUntilVisible:
-    element:
-      text: Łączny koszt
+      text: Twoje zakupy
     direction: UP
+    timeout: 30000
+# The total is now shown upfront, above the postcode. Require a real quote,
+# its materials/delivery split and the requested destination instead of scrolling
+# past this overview to the old detailed-total label.
+- extendedWaitUntil:
+    visible: 'Materiały: .*zł.*dostawa.*zł'
     timeout: 180000
-    centerElement: true
-- assertVisible: Łączny koszt
+- assertVisible: 'Z dostawą do 30-001.*'
+- assertVisible: 'Porównanie obejmuje potwierdzone wyceny.*'
 - takeScreenshot: native-screens/03-paint-with-delivery

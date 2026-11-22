@@ -70,8 +70,10 @@ function RootLayoutNav() {
     );
   }
 
+  // Native Stack defaults to light status-bar icons on Android; this app uses a light theme.
+  // source: https://reactnavigation.org/docs/native-stack-navigator/#statusbarstyle
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{ headerShown: false, ...(Platform.OS === 'android' ? { statusBarStyle: 'dark' as const } : {}) }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="onboarding" options={{ headerShown: false, gestureEnabled: false }} />
       <Stack.Screen name="wizard" options={{ headerShown: true, presentation: 'modal' }} />

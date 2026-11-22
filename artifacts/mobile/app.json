@@ -8,6 +8,9 @@
     "icon": "./assets/images/icon.png",
     "scheme": "remont",
     "userInterfaceStyle": "light",
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
@@ -27,7 +30,7 @@
     },
     "android": {
       "package": "pl.asystentremontu.app",
-      "versionCode": 13,
+      "versionCode": 14,
       "backgroundColor": "#F97316",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
