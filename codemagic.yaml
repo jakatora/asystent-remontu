@@ -536,7 +536,7 @@ workflows:
             const response=await fetch(signed,{redirect:'error',signal:AbortSignal.timeout(60000)});
             assert(response.ok,'Archive download status '+response.status);
             const bytes=Buffer.from(await response.arrayBuffer());
-            assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),'9a4e61c6eb953da7bc01471ce3850c942845b1c06e7f5f5a1d61e5eaf0b12eca');
+            assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),'6d69fe75e9e65831520bb1e1c941829ff6308955e654e1ccb89170c263623e38');
             fs.writeFileSync('frozen-simulator.zip',bytes);
             console.log('Exact frozen simulator archive verified. No credentials forwarded to storage.');
           })().catch(()=>{console.error('Frozen simulator download or integrity check failed.');process.exitCode=1;});
@@ -545,9 +545,9 @@ workflows:
           import zipfile,pathlib,hashlib,json
           with zipfile.ZipFile('frozen-simulator.zip') as z:
               source=json.loads(z.read('simulator-app-source.json'))
-              assert source=={'applicationSourceCommit':'df77c2d1922659938e85b07752380c7a2c8d4623','version':'1.2.2','build':'12'}
+              assert source=={'applicationSourceCommit':'a9ad0547517caff9a64f5d34110ef8628d14f118','version':'1.2.3','build':'13'}
               b=z.read('simulator-app.tar.gz')
-              assert hashlib.sha256(b).hexdigest()=='4a4b4a7147109eb633776ef2dc544403f641d74bdf034118195e07ec9d81ea6a'
+              assert hashlib.sha256(b).hexdigest()=='7b95f88ddc93a3988fa97446db32c11d6c425c8754c4017c7eafdf3c9ffcaf0c'
               pathlib.Path('simulator-app.tar.gz').write_bytes(b)
           PY
           mkdir frozen-simulator
@@ -556,8 +556,8 @@ workflows:
           import pathlib,plistlib,json
           p=pathlib.Path('frozen-simulator/AsystentRemontu.app/Info.plist')
           d=plistlib.loads(p.read_bytes())
-          assert d['CFBundleShortVersionString']=='1.2.2' and d['CFBundleVersion']=='12'
-          pathlib.Path('simulator-reuse-proof.json').write_text(json.dumps({'originalBuildId':'6aea8593bcf1f29e68a5a809','applicationSourceCommit':'df77c2d1922659938e85b07752380c7a2c8d4623','version':'1.2.2','build':'12','originalArchiveSha256':'9a4e61c6eb953da7bc01471ce3850c942845b1c06e7f5f5a1d61e5eaf0b12eca','sameCompiledApplication':True}))
+          assert d['CFBundleShortVersionString']=='1.2.3' and d['CFBundleVersion']=='13'
+          pathlib.Path('simulator-reuse-proof.json').write_text(json.dumps({'originalBuildId':'6b02fcd1b4bf2a380ce9562e','applicationSourceCommit':'a9ad0547517caff9a64f5d34110ef8628d14f118','version':'1.2.3','build':'13','originalArchiveSha256':'6d69fe75e9e65831520bb1e1c941829ff6308955e654e1ccb89170c263623e38','sameCompiledApplication':True}))
           PY
       - name: Boot iPhone 14 Plus and seed only synthetic project data
         script: |
@@ -587,4 +587,5 @@ workflows:
       - native-backup-restore.xml
       - native-backup-restore-verification.json
       - simulator-reuse-proof.json
+      - native-wizard-ux.xml
       - ~/.maestro/tests/**

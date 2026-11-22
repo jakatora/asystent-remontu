@@ -6,6 +6,10 @@ cd "$CM_BUILD_DIR"
 curl -fsSL https://get.maestro.mobile.dev | bash
 export PATH="$HOME/.maestro/bin:$PATH"
 mkdir -p native-screens
+if [ "${REMONT_TEST_WIZARD_ONLY:-0}" = "1" ]; then
+  maestro --device "$REMONT_SIM_UDID" test --format junit --output native-wizard-ux.xml scripts/ci/ios-wizard-ux.yaml
+  exit 0
+fi
 smoke_status=0
 maestro --device "$REMONT_SIM_UDID" test --config scripts/ci/ios-native/config.yaml --format junit --output native-smoke.xml scripts/ci/ios-native || smoke_status=$?
 maestro --device "$REMONT_SIM_UDID" test --format junit --output native-photo-smoke.xml scripts/ci/ios-managed-photo.yaml

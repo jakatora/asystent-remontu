@@ -9,7 +9,9 @@ appId: app.replit.remontasystent
     timeout: 30000
 - tapOn: 'np. 40'
 - inputText: '40'
-- hideKeyboard
+# The iOS decimal keyboard exposes a real Done button; Maestro hideKeyboard
+# does not dismiss this keyboard on iOS 26.5.
+- tapOn: '^Done$'
 - takeScreenshot: native-screens/15-wizard-measurements
 - scrollUntilVisible:
     element:
