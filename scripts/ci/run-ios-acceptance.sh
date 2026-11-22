@@ -23,4 +23,5 @@ if [ "${REMONT_TEST_BACKUP_RESTORE:-0}" = "1" ]; then
   maestro --device "$REMONT_SIM_UDID" test --format junit --output native-backup-restore.xml scripts/ci/ios-backup-restore.yaml
   python3 scripts/ci/verify-ios-backup-restore.py "$REMONT_SIM_UDID" remont-qa-ios-import.json > native-backup-restore-verification.json
 fi
+maestro --device "$REMONT_SIM_UDID" test --format junit --output native-wizard-ux.xml scripts/ci/ios-wizard-ux.yaml || smoke_status=$?
 exit "$smoke_status"

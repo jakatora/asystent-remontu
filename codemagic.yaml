@@ -306,6 +306,7 @@ workflows:
     artifacts:
       - native-screens/*.png
       - native-smoke.xml
+      - native-wizard-ux.xml
       - native-photo-smoke.xml
       - native-backup-share.xml
       - native-backup-share-verification.json
@@ -410,10 +411,12 @@ workflows:
               fi
             fi
           fi
+          maestro test --format junit --output android-wizard-ux.xml scripts/ci/android-wizard-ux.yaml || smoke_status=$?
           exit "$smoke_status"
     artifacts:
       - native-screens/*.png
       - android-native-smoke.xml
+      - android-wizard-ux.xml
       - android-photo-smoke.xml
       - android-backup-share.xml
       - android-backup-restore.xml

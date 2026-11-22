@@ -1,0 +1,45 @@
+appId: app.replit.remontasystent
+---
+- openLink: remont://wizard?jobId=paint-walls
+- tapOn:
+    text: '^Open$'
+    optional: true
+- extendedWaitUntil:
+    visible: Krok 1 z 2
+    timeout: 30000
+- tapOn: 'np. 40'
+- inputText: '40'
+- hideKeyboard
+- takeScreenshot: native-screens/15-wizard-measurements
+- scrollUntilVisible:
+    element:
+      text: Dalej — sprawdź podsumowanie
+    direction: DOWN
+    timeout: 30000
+- tapOn: Dalej — sprawdź podsumowanie
+- assertVisible: Krok 2 z 2
+- scrollUntilVisible:
+    element:
+      text: Premium
+    direction: DOWN
+    timeout: 30000
+- tapOn: Premium
+- takeScreenshot: native-screens/16-wizard-summary
+- scrollUntilVisible:
+    element:
+      text: Oblicz i pokaż wynik
+    direction: DOWN
+    timeout: 30000
+- tapOn: Oblicz i pokaż wynik
+- extendedWaitUntil:
+    visible: '.*Gdzie najtaniej'
+    timeout: 60000
+- takeScreenshot: native-screens/17-wizard-saved-project
+- openLink: remont://wizard
+- tapOn:
+    text: '^Open$'
+    optional: true
+- extendedWaitUntil:
+    visible: Krok 1 z 4
+    timeout: 30000
+- takeScreenshot: native-screens/18-wizard-four-steps
