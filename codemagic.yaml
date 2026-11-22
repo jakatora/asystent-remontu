@@ -362,8 +362,9 @@ workflows:
           fi
           test -x "$REMONT_SDK_BIN/sdkmanager"
           test -x "$REMONT_SDK_BIN/avdmanager"
-          timeout 600s "$REMONT_SDK_BIN/sdkmanager" "system-images;android-35;google_apis;x86_64"
-          echo no | "$REMONT_SDK_BIN/avdmanager" create avd --name RemontNative35 --package "system-images;android-35;google_apis;x86_64" --device pixel_6
+          REMONT_ANDROID_IMAGE="${REMONT_ANDROID_IMAGE:-system-images;android-35;google_apis;x86_64}"
+          timeout 600s "$REMONT_SDK_BIN/sdkmanager" "$REMONT_ANDROID_IMAGE"
+          echo no | "$REMONT_SDK_BIN/avdmanager" create avd --name RemontNative35 --package "$REMONT_ANDROID_IMAGE" --device pixel_6
           nohup "$ANDROID_HOME/emulator/emulator" -avd RemontNative35 -no-window -no-audio -no-snapshot -no-boot-anim -gpu swiftshader_indirect -skin 1080x2400 > android-emulator.log 2>&1 < /dev/null &
           timeout 180s adb wait-for-device
           for ATTEMPT in $(seq 1 120); do
@@ -371,6 +372,8 @@ workflows:
             sleep 2
           done
           test "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1"
+          adb shell getconf PAGE_SIZE | tr -d '\r' > android-page-size.txt
+          test "$(cat android-page-size.txt)" = "${REMONT_EXPECTED_PAGE_SIZE:-4096}"
           adb root
           timeout 60s adb wait-for-device
           adb shell input keyevent 82
@@ -425,6 +428,7 @@ workflows:
       - android-house-backup-verification.json
       - android-backup-share-verification.json
       - android-emulator.log
+      - android-page-size.txt
       - android-native-logcat.txt
       - tested-android-apk.sha256
       - ~/.maestro/tests/**
