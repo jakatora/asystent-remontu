@@ -591,4 +591,5 @@ workflows:
       - native-backup-restore-verification.json
       - simulator-reuse-proof.json
       - native-wizard-ux.xml
+      - native-welcome-retry.xml
       - ~/.maestro/tests/**

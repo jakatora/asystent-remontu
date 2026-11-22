@@ -7,6 +7,8 @@ curl -fsSL https://get.maestro.mobile.dev | bash
 export PATH="$HOME/.maestro/bin:$PATH"
 mkdir -p native-screens
 if [ "${REMONT_TEST_WIZARD_ONLY:-0}" = "1" ]; then
+  # The isolated retry starts with a fresh installation and must finish onboarding.
+  maestro --device "$REMONT_SIM_UDID" test --format junit --output native-welcome-retry.xml scripts/ci/ios-native/01-welcome.yaml
   maestro --device "$REMONT_SIM_UDID" test --format junit --output native-wizard-ux.xml scripts/ci/ios-wizard-ux.yaml
   exit 0
 fi
