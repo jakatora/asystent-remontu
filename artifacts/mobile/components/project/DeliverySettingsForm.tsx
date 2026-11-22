@@ -55,7 +55,7 @@ export function DeliverySettingsForm({ settings, onApply, onPendingChange }: {
         if (Platform.OS === 'web' && ['delivery-mode-shipping', 'delivery-mode-pickup', 'delivery-orders-separate', 'delivery-orders-single'].includes(focus.relatedTarget?.id ?? focus.nativeEvent?.relatedTarget?.id ?? '')) return;
         commitDestination();
       }} onSubmitEditing={commitDestination} style={{ minHeight: 50, fontSize: 18, borderWidth: 1, borderColor: Colors.border, borderRadius: 10, paddingHorizontal: 12, color: Colors.text }} />
-      <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{tr('Wpisz 5 cyfr. Automatycznie sprawdzimy koszyki sklepów i doliczymy dostawę całego zamówienia.', 'Enter 5 digits. We will automatically check store baskets and add delivery for the whole order.')}</Txt>
+      <Txt style={{ fontSize: 13, lineHeight: 19, color: Colors.textSecondary }}>{tr('Wpisz 5 cyfr. Zapamiętamy kod dla projektów i koszyka remontu. Dostawę przeliczymy osobno dla każdego zestawu.', 'Enter 5 digits. We remember the postcode for projects and the shared basket. Delivery is recalculated for each basket.')}</Txt>
       <Pressable accessibilityRole="button" aria-expanded={comparisonOptionsOpen} accessibilityState={{ expanded: comparisonOptionsOpen }} onPress={() => setComparisonOptionsOpen(value => !value)} style={{ minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <Feather name={comparisonOptionsOpen ? 'chevron-up' : 'chevron-down'} size={18} color={Colors.primary} />
         <Txt w="semibold" style={{ flex: 1, color: Colors.primary }}>{tr('Sposób porównania', 'Comparison options')}</Txt>

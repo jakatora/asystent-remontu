@@ -1,3 +1,4 @@
+import { projectQualityTier } from '@/features/pricing/projectQuality';
 import React, {
   createContext,
   useContext,
@@ -186,7 +187,7 @@ export function AppProvider({ children }: PropsWithChildren) {
       }
       const reviewed = projectShopping(saved, calc);
       if (!calc) return reviewed;
-      const original = toPricingStageInput(calc, selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier);
+      const original = toPricingStageInput(calc, projectQualityTier(calc, selectedQualityTier));
       const selected = await readSelectedStage(projectId, original);
       return reviewSelectedShopping(reviewed, original, selected, saved);
     },

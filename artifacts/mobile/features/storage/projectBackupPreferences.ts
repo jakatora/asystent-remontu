@@ -1,3 +1,4 @@
+import { DELIVERY_POSTCODE_KEY, isClearedSharedPostcode, parseSharedPostcode, serializeSharedPostcode } from '@/features/pricing/deliveryPostcode';
 import {CEILING_PAINT_CHOICE_PREFIX,parseCeilingPaintChoices} from '../pricing/ceilingPaintChoice';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices} from '../pricing/primerPackageChoice';
 import {CERESIT_PACKAGE_CHOICE_PREFIX,parseCeresitPackageChoices} from '../pricing/ceresitPackageChoice';
@@ -49,6 +50,10 @@ export function validateBackupPreferences(backup:ProjectBackup):void{
     if(key.startsWith('remont.door-selection.v1:')){
       const row=projects.get(key.slice('remont.door-selection.v1:'.length));
       if(!row?.calculation_result||!parseDoorSelection(raw,JSON.parse(String(row.calculation_result)) as CalculationResult))throw Error('backup_invalid_product_choice');
+    }else if(key===DELIVERY_POSTCODE_KEY){
+      const code=parseSharedPostcode(raw);
+      if(!code&&!isClearedSharedPostcode(raw))throw Error('backup_invalid_delivery');
+      backup.preferences[key]=serializeSharedPostcode(code??undefined)!;
     }else if(key.startsWith('remont.delivery.v2:')){
       if(!value||!['shipping','pickup'].includes(value.settings?.mode)||value.settings.postalCode!==undefined&&!/^\d{2}-\d{3}$/.test(value.settings.postalCode))throw Error('backup_invalid_delivery');
       // Historical delivery quotes and hand-entered tariffs never move as proof.

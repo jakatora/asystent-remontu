@@ -1,3 +1,4 @@
+import { projectQualityTier } from './projectQuality';
 import {applyCeilingPaintChoices,type CeilingPaintChoice} from './ceilingPaintChoice';
 import {applyPrimerPackageChoices,type PrimerPackageChoice} from './primerPackageChoice';
 import {applyCeresitPackageChoices,type CeresitPackageChoice} from './ceresitPackageChoice';
@@ -62,7 +63,7 @@ export function buildRenovationBasket(
     const calc = upgradeCalculation(project.calculationResult);
     if (!calc) { missingCalculations++; continue; }
     const items = shoppingByProject[project.id] ?? [];
-    const stage = withManualShopping(toPricingStageInput(calc, tier, doorsByProject[project.id]), calc, project.id, items);
+    const stage = withManualShopping(toPricingStageInput(calc, projectQualityTier(calc, tier), doorsByProject[project.id]), calc, project.id, items);
     const productChosen = applyMapegumProductChoices(applyTileAdhesiveChoices(applyTileChoices(applyWashbasinChoices(applyFoilChoices(applyLaminateChoices([stage], laminatesByProject[project.id] ?? []), foilsByProject[project.id] ?? []), washbasinsByProject[project.id] ?? []), tilesByProject[project.id] ?? []), tileAdhesivesByProject[project.id] ?? [], tilesByProject[project.id] ?? []),mapegumProductsByProject[project.id]??[])[0];
     const chosen = applyCeilingPaintChoices([productChosen],ceilingPaintByProject[project.id]??[])[0];
     const materialStock = stockByProject[project.id] ?? [];

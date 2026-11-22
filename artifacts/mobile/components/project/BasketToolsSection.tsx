@@ -29,8 +29,8 @@ export function BasketToolsSection({ tools, choices, saving, onChoice }: Props) 
       const options: { value: BasketToolChoice | undefined; label: string }[] = [
         { value: 'owned', label: pl ? 'Mam' : 'Own' },
         { value: 'buy', label: pl ? 'Kupuję' : 'Buy' },
-        { value: 'rent', label: pl ? 'Wypożyczam' : 'Rent' },
       ];
+      if (tool.rentable || choice === 'rent') options.push({value:'rent',label:pl?'Wypożyczam':'Rent'});
       if (!tool.required) options.push({ value: undefined, label: pl ? 'Pomiń' : 'Skip' });
       return <View key={tool.key} style={{ paddingVertical: 10, borderTopWidth: 1, borderTopColor: Colors.border, gap: 8 }}>
         <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
@@ -46,7 +46,7 @@ export function BasketToolsSection({ tools, choices, saving, onChoice }: Props) 
             return <RadioCard key={option.value ?? 'skip'} label={option.label} value={option.value ?? 'skip'}
               group={groupId + ':' + tool.key} checked={checked} disabled={saving}
               onSelect={() => { if (!checked) onChoice(tool.key, option.value); }}
-              style={{ minHeight: 44, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 10, borderWidth: 1, borderColor: checked ? Colors.primary : Colors.border, backgroundColor: checked ? Colors.primaryBg : Colors.surface }}>
+              style={{ minWidth:72, minHeight: 48, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 10, borderWidth: 1, borderColor: checked ? Colors.primary : Colors.border, backgroundColor: checked ? Colors.primaryBg : Colors.surface }}>
               <Txt w={checked ? 'semibold' : 'regular'}>{option.label}</Txt>
             </RadioCard>;
           })}

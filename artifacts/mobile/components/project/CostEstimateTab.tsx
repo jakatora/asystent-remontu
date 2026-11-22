@@ -1,3 +1,6 @@
+import { useFocusEffect } from 'expo-router';
+import { DELIVERY_POSTCODE_KEY, isClearedSharedPostcode, parseSharedPostcode, serializeSharedPostcode } from '@/features/pricing/deliveryPostcode';
+import { PurchaseOverview } from './PurchaseOverview';
 import { CeilingPaintChoiceSection } from './CeilingPaintChoiceSection';
 import { applyCeilingPaintChoices, ceilingPaintRequirements } from '@/features/pricing/ceilingPaintChoice';
 import { useCeilingPaintChoices } from '@/features/pricing/useCeilingPaintChoices';
@@ -116,6 +119,7 @@ interface CostEstimateTabProps {
   shoppingReady?: boolean;
   shoppingContexts?: readonly ShoppingStageContext[];
   includesToolPurchases?: boolean;
+  hideOverview?: boolean;
   onPurchaseSnapshot?: (snapshot: PurchaseSnapshot | null) => void;
 }
 
@@ -125,7 +129,7 @@ type LoadState =
   | { status: 'error'; message: string; retryAt?: number | null }
   | { status: 'success'; data: SerializedProject; priceChanges:PriceChange[]; hasPriceBaseline:boolean };
 
-export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, shoppingContexts, includesToolPurchases = false, onPurchaseSnapshot }: CostEstimateTabProps) {
+export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standard', region, shoppingItems, shoppingReady = true, shoppingContexts, includesToolPurchases = false, hideOverview = false, onPurchaseSnapshot: reportPurchaseSnapshot }: CostEstimateTabProps) {
   const { t, language } = useLanguage();
   const doorChoice = useDoorSelection(stages ? undefined : projectId, calc);
   const rawInput = useMemo(() => {
@@ -193,6 +197,13 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
   // A previous delivery quote must not silently follow changed measurements,
   // product tier, region, or a different user's local project.
   const scope = JSON.stringify([projectId, stages ?? calc, qualityTier, region, doorChoice.selection, doorChoice.ready, input, panels.ready, panels.readFailed, foils.ready, foils.readFailed, washbasins.ready, washbasins.readFailed, tiles.ready, tiles.readFailed, adhesives.ready, adhesives.readFailed, shoppingReady, productSelectionReady, stock.ready, stock.readFailed]);
+  const [overview, setOverview] = useState<{scope:string;snapshot:PurchaseSnapshot}|null>(null);
+  const onPurchaseSnapshot = useCallback((snapshot:PurchaseSnapshot|null) => {
+    setOverview(snapshot ? {scope,snapshot} : null);
+    reportPurchaseSnapshot?.(snapshot);
+  }, [scope,reportPurchaseSnapshot]);
+  const [preferenceVisit,setPreferenceVisit]=useState(0);
+  useFocusEffect(useCallback(()=>{setPreferenceVisit(value=>value+1);},[]));
   const hasInput = stages ? stages.length > 0 : Boolean(calc);
   // Previous manually entered fees must never become automatic quotes.
   const storageKey = `remont.delivery.v2:${projectId ?? 'preview'}`;
@@ -215,12 +226,14 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
     setPendingDestination(false);
     deliveryRef.current = settings;
     setState({ status: 'loading' }); setDelivery(settings); setSaveFailed(false);
-    preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
+    preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => Promise.all([AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore })), ...(serializeSharedPostcode(settings.postalCode) ? [AsyncStorage.setItem(DELIVERY_POSTCODE_KEY, serializeSharedPostcode(settings.postalCode)!)] : [])])).then(() => {}).catch(() => setSaveFailed(true));
   }, [scope, selectedStore, storageKey, onPurchaseSnapshot]);
   useEffect(() => { onPurchaseSnapshot?.(null); }, [scope, delivery, selectedStore, onPurchaseSnapshot]);
   useEffect(() => {
     let active = true;
-    void Promise.all([preferenceWrites.current, priceWrites.current]).then(() => Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey)])).then(([raw,prices]) => {
+    setLoadedScope('');
+    onPurchaseSnapshot(null);
+    void Promise.all([preferenceWrites.current, priceWrites.current]).then(() => Promise.all([AsyncStorage.getItem(storageKey),AsyncStorage.getItem(priceStorageKey),AsyncStorage.getItem(DELIVERY_POSTCODE_KEY)])).then(([raw,prices,shared]) => {
       let settings: DeliverySettings = { mode: 'shipping' };
       let preferredStore: string | null = null;
       try {
@@ -232,10 +245,12 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
           ...(/^\d{2}-\d{3}$/.test(saved.settings.postalCode ?? '') ? { postalCode: saved.settings.postalCode } : {}),
         };
       } catch { /* A corrupt local preference cannot supply a shipping fee. */ }
+      const sharedCode=parseSharedPostcode(shared);
+      if(sharedCode || isClearedSharedPostcode(shared)) settings={...settings,postalCode:sharedCode ?? undefined};
       if (active) { priceSnapshot.current=parsePriceSnapshot(prices); deliveryRef.current=settings; setDelivery(settings); setPendingDestination(false); setSelectedStore(preferredStore); setLoadedScope(scope); }
     }).catch(() => { if (active) { priceSnapshot.current=emptyPriceSnapshot(); deliveryRef.current={ mode:'shipping' }; setDelivery(deliveryRef.current); setSelectedStore(null); setLoadedScope(scope); } });
     return () => { active = false; };
-  }, [storageKey, priceStorageKey, scope]);
+  }, [storageKey, priceStorageKey, scope, preferenceVisit]);
 
   const fetchEstimate = useCallback(async (refreshPrices = false) => {
     // Explicit refresh/retry takes priority over an automatic pending update.
@@ -345,6 +360,8 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         </Txt>
       </View>
 
+      {!hideOverview && <PurchaseOverview snapshot={!pendingDestination && !refreshing && loadedScope===scope && overview?.scope===scope ? overview.snapshot : null} includesTools={includesToolPurchases}/>}
+      {loadedScope === scope && <DeliverySettingsForm settings={delivery} onApply={applyDelivery} onPendingChange={onDestinationPending} />}
       {shoppingItems && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? 'Porównanie obejmuje materiały pozostałe do kupienia, z uwzględnieniem oznaczeń „Mam” i „Kupione” oraz dodatkowych pozycji z Zakupów.' : 'This comparison covers remaining materials, accounting for owned and purchased items and additional shopping rows.'}</Txt>}
       {pending.excluded > 0 && <Txt style={{fontSize:13,lineHeight:20,color:Colors.textSecondary}}>{language === 'pl' ? `Posiadane lub kupione pozycje pokrywające wybrane produkty: ${pending.excluded}.` : `Owned or purchased items covering the selected products: ${pending.excluded}.`}</Txt>}
       {stockEnabled && <MaterialStockSection key={projectId} requirements={pending.stockRequirements} entries={stock.entries} ready={stock.ready} readFailed={stock.readFailed} saveFailed={stock.saveFailed} saving={stock.saving} onChange={stock.onChange} onRetry={stock.onRetry} recoveryKey={stock.recoveryKey} recovering={stock.recovering} recoveryFailed={stock.recoveryFailed} recovered={stock.recovered} onRecover={stock.onRecover} />}
@@ -357,7 +374,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {!stages && calc?.jobId === 'floor-tiles' && selectedStore === null && <FloorKitSection candidates={kitCandidates} scope={JSON.stringify([scope, delivery])} ready={loadedScope === scope && stock.ready && !stock.readFailed && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} settings={delivery} onSettings={settings => {
         requestVersion.current++;
         deliveryRef.current = settings; setDelivery(settings); setState({ status: 'loading' }); setSaveFailed(false);
-        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
+        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => Promise.all([AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore })), ...(serializeSharedPostcode(settings.postalCode) ? [AsyncStorage.setItem(DELIVERY_POSTCODE_KEY, serializeSharedPostcode(settings.postalCode)!)] : [])])).then(() => {}).catch(() => setSaveFailed(true));
       }} onApply={candidate => {
         requestVersion.current++; setState({ status: 'loading' }); tiles.onChange(candidate.choices);
       }} />}
@@ -366,7 +383,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
       {!stages && projectId && calc?.jobId === CABINET_JOB && <CabinetPreparationSection projectId={projectId} calc={calc} items={shoppingItems ?? []} materialStock={stock.entries} tier={qualityTier === 'custom' ? 'standard' : qualityTier} region={region} store={selectedStore} settings={delivery} ready={loadedScope === scope && stock.ready && !stock.readFailed && shoppingReady && doorChoice.ready && panels.ready && !panels.readFailed && foils.ready && !foils.readFailed && washbasins.ready && !washbasins.readFailed && tiles.ready && !tiles.readFailed && adhesives.ready && !adhesives.readFailed} onSettings={settings => {
         requestVersion.current++;
         deliveryRef.current = settings; setDelivery(settings); setState({ status: 'loading' }); setSaveFailed(false);
-        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore }))).catch(() => setSaveFailed(true));
+        preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => Promise.all([AsyncStorage.setItem(storageKey, JSON.stringify({ scope, settings, store: selectedStore })), ...(serializeSharedPostcode(settings.postalCode) ? [AsyncStorage.setItem(DELIVERY_POSTCODE_KEY, serializeSharedPostcode(settings.postalCode)!)] : [])])).then(() => {}).catch(() => setSaveFailed(true));
       }} />}
       {projectId && calc?.jobId === CABINET_JOB && <Button variant="outline" label={language === 'pl' ? 'Zmień powierzchnię, farbę lub środki' : 'Change area, paint or supplies'} onPress={() => router.push({ pathname: '/project/[id]/edit', params: { id: projectId } })} />}
       {projectId && calc?.jobId === SEAT_JOB && <View style={{gap:8}}>
@@ -432,7 +449,7 @@ export function CostEstimateTab({ calc, stages, projectId, qualityTier = 'standa
         preferenceWrites.current = preferenceWrites.current.catch(() => {}).then(() => AsyncStorage.setItem(storageKey, saved)).catch(() => setSaveFailed(true));
       }} />}
 
-      {loadedScope === scope && <DeliverySettingsForm settings={delivery} onApply={applyDelivery} onPendingChange={onDestinationPending} />}
+
       {pendingDestination && <Txt accessibilityLiveRegion="polite" style={{color:Colors.textSecondary,lineHeight:21}}>{language === 'pl' ? 'Zmieniasz miejsce dostawy. Wpisz pełny kod pocztowy, aby sprawdzić aktualny koszt zestawu.' : 'Delivery destination is changing. Enter a full postcode to check the current basket cost.'}</Txt>}
       {!pendingDestination && !primers.readFailed && !boxes.readFailed && !panels.readFailed && !foils.readFailed && !washbasins.readFailed && !tiles.readFailed && !adhesives.readFailed && (state.status === 'loading' || loadedScope !== scope || !doorChoice.ready || !panels.ready || !foils.ready || !washbasins.ready || !tiles.ready || !adhesives.ready || !boxes.ready || !primers.ready) && (
         <View style={{ alignItems: 'center', gap: 12, paddingVertical: 40 }}>

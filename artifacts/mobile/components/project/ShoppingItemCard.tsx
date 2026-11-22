@@ -1,3 +1,5 @@
+import type { ReviewedJobProduct } from '@/features/pricing/jobProduct';
+import { JobProductPrices } from '@/components/renovation/JobProductPrices';
 import React from 'react';
 import { View, TouchableOpacity, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
@@ -13,6 +15,8 @@ import { ProductImage } from './ProductImage';
 interface ShoppingItemCardProps {
   item: ShoppingItem;
   imageUrl?: string;
+  previewName?: string;
+  toolProduct?: ReviewedJobProduct | null;
   packageLabel?: string;
   editing: boolean;
   editPrice: string;
@@ -30,6 +34,8 @@ interface ShoppingItemCardProps {
 export function ShoppingItemCard({
   item,
   imageUrl,
+  previewName,
+  toolProduct,
   packageLabel,
   editing,
   editPrice,
@@ -153,7 +159,7 @@ export function ShoppingItemCard({
           </View>
         </TouchableOpacity>
 
-        <ProductImage uri={imageUrl} name={item.name} size={52} />
+        <ProductImage uri={imageUrl} name={toolProduct?.name ?? previewName ?? item.name} size={52} />
 
         <View style={{ flex: 1, gap: 2 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
@@ -179,14 +185,18 @@ export function ShoppingItemCard({
           </Txt>
         </View>
 
+
+      </View>
+
+      <View style={{flexDirection:'row',justifyContent:'space-between',gap:8}}>
+        <Txt style={{flex:1,fontSize:12,lineHeight:18,color:Colors.textSecondary}}>{item.customPrice!==undefined?(language==='pl'?'Twoja zapisana cena':'Your saved price'):(language==='pl'?'Zapisany szacunek':'Saved estimate')}</Txt>
         <Txt
           w="semibold"
           style={{ fontSize: 14, color: item.purchased ? Colors.textMuted : Colors.primary }}
         >
           {hasShoppingPrice(item) ? formatCurrency(effectivePrice) : '—'}
-        </Txt>
-      </View>
-
+        </Txt>      </View>
+      {previewName && previewName!==item.name && <Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{language==='pl'?'Model do porównania':'Model for comparison'}: {previewName}</Txt>}
       {!hasShoppingPrice(item) && item.quantityKnown !== false && <Txt style={{fontSize:12,color:Colors.textSecondary}}>{t('upgrade.shopping.priceUnknown')}</Txt>}
 
       {item.selectedProductChanged && <Txt accessibilityRole="alert" style={{ fontSize: 14, color: Colors.text, backgroundColor: Colors.warningBg, padding: 10, borderRadius: 8, lineHeight: 21 }}>{language === 'pl' ? 'Wybrano inny produkt. Wcześniejsza cena oraz oznaczenia „Mam” i „Kupione” dotyczą poprzedniego modelu. Potwierdź je ponownie dla produktu pokazanego powyżej.' : 'A different product is selected. The earlier price and Owned or Purchased marks belong to the previous model. Confirm them again for the product shown above.'}</Txt>}
@@ -194,7 +204,7 @@ export function ShoppingItemCard({
 
       {item.notes && (
         <Txt style={{ fontSize: 12, color: Colors.textMuted, paddingLeft: 0, lineHeight: 18 }}>
-          {item.notes}
+          {previewName ? item.notes.replace(/Referencyjny produkt:[^.]*\./g,'').trim() : item.notes}
         </Txt>
       )}
 
@@ -254,6 +264,7 @@ export function ShoppingItemCard({
           <Txt style={{ fontSize: 11, color: Colors.danger }}>{t('cmp.ShoppingItemCard.remove')}</Txt>
         </TouchableOpacity>
       </View>
+      {toolProduct && <View style={{gap:6,marginTop:10}}><JobProductPrices product={toolProduct}/></View>}
     </View>
   );
 }

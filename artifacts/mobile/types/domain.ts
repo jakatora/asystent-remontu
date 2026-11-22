@@ -355,6 +355,8 @@ export interface MaterialLineItem {
 }
 
 export interface CalculationResult {
+  /** Product quality chosen for this project, persisted with its calculation. */
+  readonly pricingQualityTier?: 'economy' | 'standard' | 'better' | 'custom';
   readonly quantityModel?: string;
   readonly quantityIssues?: readonly string[];
   readonly jobId: string;

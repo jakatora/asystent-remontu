@@ -1,3 +1,7 @@
+import { useMaterialPreview, pricingProductPhoto } from '@/features/pricing/useMaterialPreview';
+import type { PricingStageInput } from '@/features/pricing/pricingApi';
+import type { QualityTier } from '@/types/pricing';
+import { reviewedJobProduct } from '@/features/pricing/jobProduct';
 import { getProductPhoto } from '@/data/products/photos';
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
@@ -16,6 +20,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import { selectedShoppingReference } from '@/features/pricing/selectedShopping';
 
 interface ShoppingTabProps {
+  projectId:string;
+  qualityTier:QualityTier;
   shoppingItems: ShoppingItem[];
   job: RenovationJob;
   calc: CalculationResult | undefined;
@@ -31,6 +37,7 @@ interface ShoppingTabProps {
 }
 
 export function ShoppingTab({
+  projectId, qualityTier,
   shoppingItems,
   job,
   calc,
@@ -45,6 +52,7 @@ export function ShoppingTab({
   onShare,
 }: ShoppingTabProps) {
   const { t, language } = useLanguage();
+  const {stage:pricingStage}=useMaterialPreview(projectId,calc,qualityTier);
   const quantitiesMissing = shoppingItems.some(item => item.quantityKnown === false);
   const pricesMissing = shoppingItems.some(item => !item.owned && !hasShoppingPrice(item));
   const materialItems = shoppingItems.filter((i) => i.itemType === 'material');
@@ -124,7 +132,7 @@ export function ShoppingTab({
             </View>
           </View>
 
-          <ShoppingSection
+          <ShoppingSection pricingStage={pricingStage}
             job={job}
             calc={calc}
             icon="package"
@@ -141,7 +149,7 @@ export function ShoppingTab({
             onRemoveItem={onRemoveItem}
           />
 
-          <ShoppingSection
+          <ShoppingSection pricingStage={pricingStage}
             job={job}
             calc={calc}
             icon="tool"
@@ -243,6 +251,7 @@ export function ShoppingTab({
 }
 
 function ShoppingSection({
+  pricingStage,
   job,
   calc,
   icon,
@@ -258,6 +267,7 @@ function ShoppingSection({
   onSaveEdit,
   onRemoveItem,
 }: {
+  pricingStage:PricingStageInput|null;
   job: RenovationJob;
   calc?: CalculationResult;
   icon: string;
@@ -288,13 +298,18 @@ function ShoppingSection({
         const line = calc?.materials.find(line => line.material.id === item.materialId);
         const product = line?.material ?? job.materials.find(material => material.id === item.materialId);
         const selected = selectedShoppingReference(item);
+        const preview = item.itemType==='material'&&!item.purchased&&!item.owned ? pricingStage?.materials.find(row=>row.material.id===item.materialId)?.material : undefined;
+        const tool = item.itemType==='tool' ? job.tools.find(tool=>tool.id===item.materialId) : undefined;
+        const toolProduct=tool?reviewedJobProduct(tool,'tool'):null;
         const packageLabel = !item.selectedRequirement && line?.packs !== undefined && product?.packaging
           ? t('upgrade.product.packagingLabel', { count: line.packs, label: product.packaging.label })
           : undefined;
         return <ShoppingItemCard
           key={item.id}
           item={item}
-          imageUrl={getProductPhoto(selected ?? product ?? { id: item.materialId })}
+          imageUrl={toolProduct?.imageUrl ?? (preview ? pricingProductPhoto(preview) : getProductPhoto(selected ?? product ?? { id: item.materialId }))}
+          previewName={preview?.name}
+          toolProduct={toolProduct}
           packageLabel={packageLabel}
           editing={editState.editingId === item.id}
           editPrice={editState.editPrice}

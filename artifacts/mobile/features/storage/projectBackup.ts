@@ -57,7 +57,7 @@ export const BACKUP_PREFERENCE_PREFIXES=[
   'remont.door-selection.v1:',...BACKUP_PRODUCT_CHOICE_PREFIXES,
   'remont.delivery.v2:','remont.price-seen.v1:',MATERIAL_STOCK_PREFIX,...RECOVERY_BACKUP_PREFIXES,
 ] as const;
-export const BACKUP_GLOBAL_KEYS=['remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket',...BACKUP_PRODUCT_CHOICE_PREFIXES.map(prefix=>prefix+'renovation-basket'),...RECOVERY_GLOBAL_KEYS] as const;
+export const BACKUP_GLOBAL_KEYS=['remont.delivery-postcode.v1','remont.renovation-basket.v1','remont.basket-extras.v1','remont.delivery.v2:renovation-basket','remont.price-seen.v1:renovation-basket',...BACKUP_PRODUCT_CHOICE_PREFIXES.map(prefix=>prefix+'renovation-basket'),...RECOVERY_GLOBAL_KEYS] as const;
 const tables=Object.keys(BACKUP_TABLES) as BackupTable[];
 const tableShape=Object.fromEntries(tables.map(table=>[table,z.array(BACKUP_TABLES[table]).max(10_000)]));
 const envelope=z.object({format:z.literal('asystent-remontu-projects'),version:z.literal(1),createdAt:time,tables:z.object(tableShape).strict(),preferences:z.record(z.string(),z.string().max(1_000_000))}).strict();

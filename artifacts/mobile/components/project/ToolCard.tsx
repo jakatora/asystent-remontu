@@ -7,15 +7,20 @@ import { useLanguage } from '@/context/LanguageContext';
 import { formatCurrency } from '@/utils/calculator';
 import type { ToolItem } from '@/types/domain';
 import type { ToolRequirement } from '@/types/engine';
+import { ProductImage } from './ProductImage';
+import { JobProductPrices } from '@/components/renovation/JobProductPrices';
+import { reviewedJobProduct } from '@/features/pricing/jobProduct';
+import { resolveThumbnail } from '@/components/renovation/thumbnail-resolver';
 
 type AnyTool = ToolItem | ToolRequirement;
 
 export function ToolCard({ tool }: { tool: AnyTool }) {
   const { t } = useLanguage();
+  const product = reviewedJobProduct(tool as ToolItem, 'tool');
   return (
     <View
       style={{
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'flex-start',
         backgroundColor: Colors.surface,
         borderRadius: 14,
@@ -25,25 +30,9 @@ export function ToolCard({ tool }: { tool: AnyTool }) {
         gap: 12,
       }}
     >
-      <View
-        style={{
-          width: 40,
-          height: 40,
-          borderRadius: 10,
-          backgroundColor: tool.required ? Colors.primaryBg : Colors.surfaceAlt,
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}
-      >
-        <Feather
-          name={(tool.icon as any) ?? 'tool'}
-          size={18}
-          color={tool.required ? Colors.primary : Colors.textSecondary}
-        />
-      </View>
-
-      <View style={{ flex: 1, gap: 3 }}>
+      <View style={{ flexDirection: 'row', gap: 12 }}>
+      <ProductImage uri={product?.imageUrl ?? resolveThumbnail(tool as ToolItem)} name={product?.name ?? tool.name} size={64} />
+      <View style={{ flex: 1, minWidth: 0, gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
           <Txt w="semibold" style={{ fontSize: 14, color: Colors.text }}>
             {tool.name}
@@ -66,13 +55,8 @@ export function ToolCard({ tool }: { tool: AnyTool }) {
           </Txt>
         )}
 
-        {(tool.estimatedBuyCostPLN || tool.estimatedRentCostPLN) ? (
-          <View style={{ flexDirection: 'row', gap: 10, marginTop: 2 }}>
-            {tool.estimatedBuyCostPLN && (
-              <Txt style={{ fontSize: 12, color: Colors.textMuted }}>
-                {t('cmp.ToolCard.buy', { price: formatCurrency(tool.estimatedBuyCostPLN) })}
-              </Txt>
-            )}
+        {tool.estimatedRentCostPLN ? (
+          <View style={{ marginTop: 2 }}>
             {tool.estimatedRentCostPLN && (
               <Txt style={{ fontSize: 12, color: Colors.info }}>
                 {t('cmp.ToolCard.rent', { price: formatCurrency(tool.estimatedRentCostPLN) })}
@@ -100,6 +84,8 @@ export function ToolCard({ tool }: { tool: AnyTool }) {
           </View>
         )}
       </View>
+      </View>
+      <JobProductPrices product={product} links={(tool as ToolItem).shopPrices} />
     </View>
   );
 }

@@ -160,7 +160,7 @@ export default function EditProjectScreen() {
         roomLength: isFinite(l) && l > 0 ? l : undefined,
         roomHeight: isFinite(h) && h > 0 ? h : undefined,
         notes: notes.trim() || undefined,
-        ...(epsJob && parsed ? { measurements: parsed.values, calculationResult: calculateMaterials(epsJob, parsed.values) } : {}),
+        ...(epsJob && parsed ? { measurements: parsed.values, calculationResult: {...calculateMaterials(epsJob, parsed.values), pricingQualityTier: project.calculationResult?.pricingQualityTier} } : {}),
       });
 
       // The project has been read back and confirmed. An activity-log failure

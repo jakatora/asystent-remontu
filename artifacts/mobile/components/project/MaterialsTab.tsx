@@ -1,115 +1,49 @@
+import { useMaterialPreview, pricingProductPhoto } from '@/features/pricing/useMaterialPreview';
 import React from 'react';
 import { View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
-import { formatCurrency } from '@/utils/calculator';
 import type { CalculationResult } from '@/types/domain';
+import type { QualityTier } from '@/types/pricing';
 import { useLanguage } from '@/context/LanguageContext';
 import { ProductImage } from './ProductImage';
-import { getProductPhoto } from '@/data/products/photos';
-import { getMaterialPhotoPreviews } from '@/features/pricing/materialPhotoPreviews';
+import { getRequiredQuantity } from '@/features/calculator/requirements';
 
 interface MaterialsTabProps {
   calc: CalculationResult;
+  projectId: string;
+  qualityTier: QualityTier;
   hasShoppingItems: boolean;
   onGenerateShoppingList: () => Promise<void>;
   onCompareStores: () => void;
 }
 
-export function MaterialsTab({ calc, hasShoppingItems, onGenerateShoppingList, onCompareStores }: MaterialsTabProps) {
-  const { t, language } = useLanguage();
-  const previews = React.useMemo(() => getMaterialPhotoPreviews(calc), [calc]);
-  return (
-    <View style={{ gap: 12 }}>
-      <Txt w="bold" style={{ fontSize: 18, color: Colors.text, marginBottom: 4 }}>
-        {t('cmp.MaterialsTab.title')}
-      </Txt>
-      <Txt style={{ fontSize: 14, color: Colors.textSecondary }}>
-        {calc.jobId === 'eps-insulation-bso' ? (language === 'pl' ? 'Ilości wynikają z obmiarów i pokazanych założeń zapasu. Dobierz produkty w jednym zgodnym systemie ocieplenia i według projektu.' : 'Quantities follow your measurements and stated reserve assumptions. Select products from a compatible insulation system and follow its design.') : t('cmp.MaterialsTab.subtitle')}
-      </Txt>
-      <Txt style={{ fontSize: 14, lineHeight: 20, color: Colors.textSecondary }}>
-        {t('cmp.MaterialsTab.priceScope')}
-      </Txt>
-      <Button label={t('cmp.MaterialsTab.compareStores')} onPress={onCompareStores} variant="outline" fullWidth />
-      {Boolean(calc.quantityIssues?.length) && <Txt accessibilityRole="alert" style={{ color: Colors.warning, lineHeight: 20 }}>{language === 'pl' ? `Dla ${calc.quantityIssues!.length} pozycji podaj ilości z projektu lub karty wybranego produktu. Pokazany koszt jest częściowym szacunkiem według cen referencyjnych.` : `Enter design or selected-product quantities for ${calc.quantityIssues!.length} items. The displayed cost is a partial estimate using reference prices.`}</Txt>}
-
-      {calc.materials.map((m, i) => {
-        const exactPhoto = getProductPhoto(m.material);
-        const preview = exactPhoto ? undefined : previews.get(m);
-        return (
-            <View
-              key={i}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: Colors.surface,
-                borderRadius: 12,
-                padding: 12,
-                borderWidth: 1,
-                borderColor: Colors.border,
-                gap: 10,
-              }}
-            >
-              <ProductImage uri={exactPhoto ?? preview?.uri} name={preview?.name ?? m.material.name} size={52} />
-              <View style={{ flex: 1 }}>
-                <Txt w="medium" style={{ fontSize: 14, color: Colors.text }}>
-                  {m.material.name}
-                </Txt>
-                {preview && (
-                  <Txt style={{ fontSize: 12, color: Colors.textSecondary, marginTop: 4 }}>
-                    {language === 'pl' ? 'Przykładowy produkt' : 'Example product'} · {preview.name}
-                  </Txt>
-                )}
-                {m.packs !== undefined && m.material.packaging && <Txt w="semibold" style={{ fontSize: 13, marginTop: 4, color: Colors.text }}>{t('upgrade.product.packagingLabel', { count: m.packs, label: m.material.packaging.label })}</Txt>}
-                {m.material.notes && (
-                  <Txt style={{ fontSize: 11, color: Colors.textMuted, marginTop: 2 }}>
-                    {m.material.notes}
-                  </Txt>
-                )}
-              </View>
-              <View style={{ alignItems: 'center', minWidth: 52 }}>
-                <Txt w="bold" style={{ fontSize: 16, color: Colors.text }}>
-                  {m.quantityKnown === false ? (language === 'pl' ? 'Do ustalenia' : 'To confirm') : m.quantity.toLocaleString(language === 'pl' ? 'pl-PL' : 'en-GB', { maximumFractionDigits: 3 })}
-                </Txt>
-                <Txt style={{ fontSize: 11, color: Colors.textMuted }}>
-                  {m.material.unit}
-                </Txt>
-              </View>
-              <Txt w="semibold" style={{ fontSize: 14, color: Colors.primary, minWidth: 70, textAlign: 'right' }}>
-                {m.quantityKnown === false ? '—' : formatCurrency(m.cost)}
-              </Txt>
-            </View>
-        );
-      })}
-
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          backgroundColor: Colors.primaryBg,
-          borderRadius: 12,
-          padding: 14,
-          borderWidth: 1,
-          borderColor: Colors.primaryLight,
-        }}
-      >
-        <Txt w="semibold" style={{ fontSize: 15, color: Colors.primaryDark }}>
-          {calc.quantityIssues?.length ? (language === 'pl' ? 'Częściowy szacunek materiałów' : 'Partial material estimate') : t('cmp.MaterialsTab.totalCost')}
-        </Txt>
-        <Txt w="bold" style={{ fontSize: 20, color: Colors.primary }}>
-          {formatCurrency(calc.totalCost)}
-        </Txt>
-      </View>
-
-      <Button
-        label={hasShoppingItems ? t('cmp.MaterialsTab.refreshList') : t('cmp.MaterialsTab.generateList')}
-        onPress={onGenerateShoppingList}
-        fullWidth
-        icon={<Feather name="shopping-cart" size={16} color="#fff" />}
-      />
-    </View>
-  );
+export function MaterialsTab({ calc, projectId, qualityTier, hasShoppingItems, onGenerateShoppingList, onCompareStores }: MaterialsTabProps) {
+  const { t, language } = useLanguage(), pl=language==='pl';
+  const {stage,failed}=useMaterialPreview(projectId,calc,qualityTier);
+  return <View style={{gap:12}}>
+    <Txt w="bold" style={{fontSize:20}}>{t('cmp.MaterialsTab.title')}</Txt>
+    <Txt style={{fontSize:14,lineHeight:21,color:Colors.textSecondary}}>{pl?'Tu sprawdzisz zapotrzebowanie. W porównaniu sklepów zobaczysz wybrane opakowania, aktualne oferty i dostawę. Ilość potrzebna do pracy może być mniejsza niż zawartość kupowanych opakowań.':'Check quantities here. The store comparison shows selected packs, current offers and delivery. Required quantities may be smaller than full packs.'}</Txt>
+    <Button label={t('cmp.MaterialsTab.compareStores')} onPress={onCompareStores} variant="outline" fullWidth/>
+    {calc.jobId==='eps-insulation-bso'&&<Txt style={{lineHeight:20}}>{pl?'Dobierz produkty w jednym zgodnym systemie ocieplenia i według projektu.':'Select products from one compatible insulation system and follow the design.'}</Txt>}
+    {failed&&<Txt accessibilityRole="alert">{pl?'Nie odczytano wybranych modeli. Otwórz porównanie sklepów, aby sprawdzić ustawienia.':'Selected models could not be read. Open the store comparison to check settings.'}</Txt>}
+    {calc.materials.map((line,index)=>{
+      const product=stage?.materials.find(row=>row.material.id===line.material.id)?.material;
+      const photo=product?pricingProductPhoto(product):undefined;
+      return <View key={`${line.material.id}:${index}`} style={{gap:10,padding:14,borderRadius:14,backgroundColor:Colors.surface,borderWidth:1,borderColor:Colors.border}}>
+        <View style={{flexDirection:'row',gap:12,alignItems:'flex-start'}}>
+          <ProductImage uri={photo} name={product?.name??line.material.name} size={64}/>
+          <View style={{flex:1,minWidth:0,gap:5}}>
+            <Txt w="semibold" style={{fontSize:15,lineHeight:21}}>{line.material.name}</Txt>
+            {product&&product.name!==line.material.name&&<Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{pl?'Model do porównania':'Model for comparison'}: {product.name}</Txt>}
+          </View>
+        </View>
+        <Txt w="semibold" style={{fontSize:16,lineHeight:23}}>{pl?'Potrzebujesz':'Required'}: {line.quantityKnown===false?(pl?'ilość do ustalenia':'quantity to confirm'):`${getRequiredQuantity(line,calc).toLocaleString(pl?'pl-PL':'en-GB',{maximumFractionDigits:3})} ${line.material.unit}`}</Txt>
+        {line.material.notes&&<Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{line.material.notes.replace(/Referencyjny produkt:[^.]*\./g,'').trim()}</Txt>}
+      </View>;
+    })}
+    <Button label={hasShoppingItems?t('cmp.MaterialsTab.refreshList'):t('cmp.MaterialsTab.generateList')} onPress={onGenerateShoppingList} fullWidth icon={<Feather name="shopping-cart" size={16} color="#fff"/>}/>
+  </View>;
 }

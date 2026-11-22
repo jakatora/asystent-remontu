@@ -1,3 +1,5 @@
+import { wizardQualityTier } from '@/features/pricing/projectQuality';
+import { QualityTierSelector } from '@/components/project/QualityTierSelector';
 import {ROLLED_JOB,withRolledMeasurement} from '@/features/calculator/rolledVinyl';
 import {VINYL_CLICK_JOB,withVinylClickMeasurement} from '@/features/calculator/vinylClick';
 import {SOCKET_FRAME_JOB} from '@/features/calculator/socketFrames';
@@ -35,7 +37,6 @@ import { useApp } from '@/context/AppContext';
 import { Button } from '@/components/ui/Button';
 import { Txt } from '@/components/ui/Txt';
 import { useWizardDraft } from '@/hooks/useWizardDraft';
-import type { WizardCondition, WizardDesired, WizardBudget, WizardDiyMode } from '@/hooks/useWizardDraft';
 import { ROOM_OPTIONS } from '@/shared/schemas/wizard.schema';
 import { Colors } from '@/constants/colors';
 import { useLanguage } from '@/context/LanguageContext';
@@ -43,31 +44,10 @@ import type { TranslationKey } from '@/constants/translations';
 
 // ─── Step types ───────────────────────────────────────────────────────────────
 
-type WizardStep =
-  | 'category'
-  | 'room'
-  | 'job'
-  | 'condition'
-  | 'desired'
-  | 'budget'
-  | 'diy'
-  | 'measure'
-  | 'summary';
-
-const STEPS: WizardStep[] = [
-  'category', 'room', 'job', 'condition', 'desired', 'budget', 'diy', 'measure', 'summary',
-];
-
+type WizardStep = 'category' | 'job' | 'measure' | 'summary';
 const STEP_LABEL_KEYS: Record<WizardStep, TranslationKey> = {
-  category:  'wizard.step.category',
-  room:      'wizard.step.room',
-  job:       'wizard.step.job',
-  condition: 'wizard.step.condition',
-  desired:   'wizard.step.desired',
-  budget:    'wizard.step.budget',
-  diy:       'wizard.step.diy',
-  measure:   'wizard.step.measure',
-  summary:   'wizard.step.summary',
+  category: 'wizard.step.category', job: 'wizard.step.job',
+  measure: 'wizard.step.measure', summary: 'wizard.step.summary',
 };
 
 // ─── Pick option type ──────────────────────────────────────────────────────────
@@ -259,121 +239,13 @@ export default function WizardScreen() {
   const { t, language } = useLanguage();
 
   // ── Option lists (built inside component for translation) ───────────────────
-  const CONDITION_OPTIONS: PickOption<WizardCondition>[] = [
-    {
-      id: 'poor',
-      label: t('wizard.condition.poor.label'),
-      subtitle: t('wizard.condition.poor.subtitle'),
-      icon: 'alert-triangle',
-      iconColor: Colors.danger,
-      iconBg: Colors.dangerBg,
-    },
-    {
-      id: 'fair',
-      label: t('wizard.condition.fair.label'),
-      subtitle: t('wizard.condition.fair.subtitle'),
-      icon: 'minus-circle',
-      iconColor: Colors.warning,
-      iconBg: Colors.warningBg,
-    },
-    {
-      id: 'good',
-      label: t('wizard.condition.good.label'),
-      subtitle: t('wizard.condition.good.subtitle'),
-      icon: 'check-circle',
-      iconColor: Colors.success,
-      iconBg: Colors.successBg,
-    },
-  ];
-
-  const DESIRED_OPTIONS: PickOption<WizardDesired>[] = [
-    {
-      id: 'refresh',
-      label: t('wizard.desired.refresh.label'),
-      subtitle: t('wizard.desired.refresh.subtitle'),
-      icon: 'wind',
-      iconColor: Colors.info,
-      iconBg: Colors.infoBg,
-    },
-    {
-      id: 'standard',
-      label: t('wizard.desired.standard.label'),
-      subtitle: t('wizard.desired.standard.subtitle'),
-      icon: 'star',
-      iconColor: Colors.warning,
-      iconBg: Colors.warningBg,
-    },
-    {
-      id: 'complete',
-      label: t('wizard.desired.complete.label'),
-      subtitle: t('wizard.desired.complete.subtitle'),
-      icon: 'award',
-      iconColor: Colors.primary,
-      iconBg: Colors.primaryBg,
-    },
-  ];
-
-  const BUDGET_OPTIONS: PickOption<WizardBudget>[] = [
-    {
-      id: 'economy',
-      label: t('wizard.budget.economy.label'),
-      subtitle: t('wizard.budget.economy.subtitle'),
-      icon: 'tag',
-      iconColor: Colors.success,
-      iconBg: Colors.successBg,
-    },
-    {
-      id: 'standard',
-      label: t('wizard.budget.standard.label'),
-      subtitle: t('wizard.budget.standard.subtitle'),
-      icon: 'bar-chart-2',
-      iconColor: Colors.info,
-      iconBg: Colors.infoBg,
-    },
-    {
-      id: 'premium',
-      label: t('wizard.budget.premium.label'),
-      subtitle: t('wizard.budget.premium.subtitle'),
-      icon: 'award',
-      iconColor: Colors.primary,
-      iconBg: Colors.primaryBg,
-    },
-  ];
-
-  const DIY_OPTIONS: PickOption<WizardDiyMode>[] = [
-    {
-      id: 'diy',
-      label: t('wizard.diy.diy.label'),
-      subtitle: t('wizard.diy.diy.subtitle'),
-      icon: 'tool',
-      iconColor: Colors.primary,
-      iconBg: Colors.primaryBg,
-    },
-    {
-      id: 'compare',
-      label: t('wizard.diy.compare.label'),
-      subtitle: t('wizard.diy.compare.subtitle'),
-      icon: 'bar-chart',
-      iconColor: Colors.info,
-      iconBg: Colors.infoBg,
-    },
-    {
-      id: 'hire',
-      label: t('wizard.diy.hire.label'),
-      subtitle: t('wizard.diy.hire.subtitle'),
-      icon: 'phone',
-      iconColor: Colors.success,
-      iconBg: Colors.successBg,
-    },
-  ];
-
   // ── Draft state ──────────────────────────────────────────────────────────────
   const { draft, patchDraft, clearDraft, loaded: draftLoaded } = useWizardDraft();
   const appliedInitialJob = useRef<string | null>(null);
 
   // ── Local wizard step state ───────────────────────────────────────────────────
   const [step, setStep] = useState<WizardStep>(() => {
-    if (initialJobId) return 'room'; // skip category+job if pre-selected
+    if (initialJobId && getJobById(initialJobId)) return 'measure'; // skip category+job if pre-selected
     return 'category';
   });
   const [saving, setSaving] = useState(false);
@@ -397,6 +269,8 @@ export default function WizardScreen() {
 
   const scrollRef = useRef<ScrollView>(null);
 
+  const STEPS: WizardStep[] = initialJobId && getJobById(initialJobId) ? ['measure', 'summary'] : ['category', 'job', 'measure', 'summary'];
+
   // Derived data
   const stepIdx    = STEPS.indexOf(step);
   const progress   = (stepIdx + 1) / STEPS.length;
@@ -411,7 +285,8 @@ export default function WizardScreen() {
   const goTo = useCallback((s: WizardStep) => {
     setValidationError(null);
     setStep(s);
-    setTimeout(() => scrollRef.current?.scrollTo({ y: 0, animated: true }), 50);
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+    setTimeout(() => scrollRef.current?.scrollTo({ y: 0, animated: false }), 0);
   }, []);
 
   const goBack = useCallback(() => {
@@ -422,12 +297,7 @@ export default function WizardScreen() {
   const validateStep = useCallback((): string | null => {
     switch (step) {
       case 'category':  return draft.categoryId    ? null : t('wizard.error.category');
-      case 'room':      return draft.room           ? null : t('wizard.error.room');
       case 'job':       return draft.jobId          ? null : t('wizard.error.job');
-      case 'condition': return draft.condition      ? null : t('wizard.error.condition');
-      case 'desired':   return draft.desiredResult  ? null : t('wizard.error.desired');
-      case 'budget':    return draft.budgetLevel    ? null : t('wizard.error.budget');
-      case 'diy':       return draft.diyMode        ? null : t('wizard.error.diy');
       case 'measure': {
         if (!selectedJob) return null;
         const { errors } = parseMeasurements(selectedJob, draft.measurements);
@@ -465,7 +335,7 @@ export default function WizardScreen() {
     try {
       const meas = parsed.values;
 
-      const calcResult = calculateMaterials(selectedJob, meas);
+      const calcResult = { ...calculateMaterials(selectedJob, meas), pricingQualityTier: wizardQualityTier(draft.budgetLevel) };
 
       const autoName = draft.projectName.trim() ||
         `${selectedJob.name} — ${draft.room ?? t('wizard.summary.fallbackRoom')}`;
@@ -498,27 +368,6 @@ export default function WizardScreen() {
   }, [selectedJob, draft, createProject, generateAndAddShoppingItems, clearDraft, t,language,saveError]);
 
   // ── Helper labels ────────────────────────────────────────────────────────────
-
-  const conditionLabel: Record<WizardCondition, string> = {
-    poor: t('wizard.condition.poor.label'),
-    fair: t('wizard.condition.fair.label'),
-    good: t('wizard.condition.good.label'),
-  };
-  const desiredLabel: Record<WizardDesired, string> = {
-    refresh: t('wizard.desired.refresh.label'),
-    standard: t('wizard.desired.standard.label'),
-    complete: t('wizard.desired.complete.label'),
-  };
-  const budgetLabel: Record<WizardBudget, string> = {
-    economy: t('wizard.budget.economy.label'),
-    standard: t('wizard.budget.standard.label'),
-    premium: t('wizard.budget.premium.label'),
-  };
-  const diyLabel: Record<WizardDiyMode, string> = {
-    diy: t('wizard.diy.diy.label'),
-    compare: t('wizard.diy.compare.label'),
-    hire: t('wizard.diy.hire.label'),
-  };
 
   const roomLabel = ROOM_OPTIONS.find((r) => r.id === draft.room)?.label ?? draft.room ?? '';
 
@@ -689,86 +538,7 @@ export default function WizardScreen() {
             {/* ════════════════════════════════════════════════════════════════
                 STEP 2 — ROOM
             ════════════════════════════════════════════════════════════════ */}
-            {step === 'room' && (
-              <>
-                <View style={{ gap: 4 }}>
-                  <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    {t('wizard.room.title')}
-                  </Txt>
-                  <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {t('wizard.room.subtitle')}
-                  </Txt>
-                </View>
 
-                <View style={{ gap: 8 }}>
-                  {ROOM_OPTIONS.map((room) => {
-                    const selected = draft.room === room.id;
-                    return (
-                      <TouchableOpacity
-                        key={room.id}
-                        onPress={() => { patchDraft({ room: room.id }); setValidationError(null); }}
-                        activeOpacity={0.8}
-                        style={{
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                          gap: 14,
-                          padding: 14,
-                          borderRadius: 14,
-                          borderWidth: 2,
-                          borderColor: selected ? Colors.primary : Colors.border,
-                          backgroundColor: selected ? Colors.primaryBg : Colors.surface,
-                          minHeight: 64,
-                        }}
-                      >
-                        <View
-                          style={{
-                            width: 40,
-                            height: 40,
-                            borderRadius: 10,
-                            backgroundColor: selected ? Colors.primary + '20' : Colors.surfaceAlt,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          <Feather
-                            name={room.icon as any}
-                            size={20}
-                            color={selected ? Colors.primary : Colors.textSecondary}
-                          />
-                        </View>
-                        <View style={{ flex: 1 }}>
-                          <Txt
-                            w="semibold"
-                            style={{ fontSize: 15, color: selected ? Colors.primary : Colors.text }}
-                          >
-                            {room.label}
-                          </Txt>
-                          {room.examples && (
-                            <Txt style={{ fontSize: 12, color: Colors.textMuted, marginTop: 1 }}>
-                              {room.examples}
-                            </Txt>
-                          )}
-                        </View>
-                        {selected && <Feather name="check-circle" size={20} color={Colors.primary} />}
-                      </TouchableOpacity>
-                    );
-                  })}
-                </View>
-
-                {validationError && (
-                  <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
-                )}
-
-                <Button
-                  label={t('wizard.next')}
-                  onPress={handleNext}
-                  size="lg"
-                  fullWidth
-                  disabled={!draft.room}
-                  iconRight={<Feather name="arrow-right" size={18} color="#fff" />}
-                />
-              </>
-            )}
 
             {/* ════════════════════════════════════════════════════════════════
                 STEP 3 — JOB
@@ -896,182 +666,22 @@ export default function WizardScreen() {
             {/* ════════════════════════════════════════════════════════════════
                 STEP 4 — CONDITION
             ════════════════════════════════════════════════════════════════ */}
-            {step === 'condition' && (
-              <>
-                <View style={{ gap: 4 }}>
-                  <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    {t('wizard.conditionStep.title')}
-                  </Txt>
-                  <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {t('wizard.conditionStep.subtitle')}
-                  </Txt>
-                </View>
 
-                <View style={{ gap: 10 }}>
-                  {CONDITION_OPTIONS.map((opt) => (
-                    <OptionCard
-                      key={opt.id}
-                      option={opt}
-                      selected={draft.condition === opt.id}
-                      onPress={() => { patchDraft({ condition: opt.id }); setValidationError(null); }}
-                    />
-                  ))}
-                </View>
-
-                {draft.condition === 'poor' && (
-                  <WarnBox text={t('wizard.conditionStep.poorWarning')} />
-                )}
-
-                {validationError && (
-                  <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
-                )}
-
-                <Button
-                  label={t('wizard.next')}
-                  onPress={handleNext}
-                  size="lg"
-                  fullWidth
-                  disabled={!draft.condition}
-                  iconRight={<Feather name="arrow-right" size={18} color="#fff" />}
-                />
-              </>
-            )}
 
             {/* ════════════════════════════════════════════════════════════════
                 STEP 5 — DESIRED RESULT
             ════════════════════════════════════════════════════════════════ */}
-            {step === 'desired' && (
-              <>
-                <View style={{ gap: 4 }}>
-                  <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    {t('wizard.desiredStep.title')}
-                  </Txt>
-                  <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {t('wizard.desiredStep.subtitle')}
-                  </Txt>
-                </View>
 
-                <View style={{ gap: 10 }}>
-                  {DESIRED_OPTIONS.map((opt) => (
-                    <OptionCard
-                      key={opt.id}
-                      option={opt}
-                      selected={draft.desiredResult === opt.id}
-                      onPress={() => { patchDraft({ desiredResult: opt.id }); setValidationError(null); }}
-                    />
-                  ))}
-                </View>
-
-                {validationError && (
-                  <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
-                )}
-
-                <Button
-                  label={t('wizard.next')}
-                  onPress={handleNext}
-                  size="lg"
-                  fullWidth
-                  disabled={!draft.desiredResult}
-                  iconRight={<Feather name="arrow-right" size={18} color="#fff" />}
-                />
-              </>
-            )}
 
             {/* ════════════════════════════════════════════════════════════════
                 STEP 6 — BUDGET
             ════════════════════════════════════════════════════════════════ */}
-            {step === 'budget' && (
-              <>
-                <View style={{ gap: 4 }}>
-                  <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    {t('wizard.budgetStep.title')}
-                  </Txt>
-                  <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {t('wizard.budgetStep.subtitle')}
-                  </Txt>
-                </View>
 
-                <View style={{ gap: 10 }}>
-                  {BUDGET_OPTIONS.map((opt) => (
-                    <OptionCard
-                      key={opt.id}
-                      option={opt}
-                      selected={draft.budgetLevel === opt.id}
-                      onPress={() => { patchDraft({ budgetLevel: opt.id }); setValidationError(null); }}
-                    />
-                  ))}
-                </View>
-
-                <HintBox text={t('wizard.budgetStep.hint')} />
-
-                {validationError && (
-                  <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
-                )}
-
-                <Button
-                  label={t('wizard.next')}
-                  onPress={handleNext}
-                  size="lg"
-                  fullWidth
-                  disabled={!draft.budgetLevel}
-                  iconRight={<Feather name="arrow-right" size={18} color="#fff" />}
-                />
-              </>
-            )}
 
             {/* ════════════════════════════════════════════════════════════════
                 STEP 7 — DIY MODE
             ════════════════════════════════════════════════════════════════ */}
-            {step === 'diy' && (
-              <>
-                <View style={{ gap: 4 }}>
-                  <Txt w="bold" style={{ fontSize: 24, color: Colors.text, lineHeight: 32 }}>
-                    {t('wizard.diyStep.title')}
-                  </Txt>
-                  <Txt style={{ fontSize: 15, color: Colors.textSecondary }}>
-                    {t('wizard.diyStep.subtitle')}
-                  </Txt>
-                </View>
 
-                <View style={{ gap: 10 }}>
-                  {DIY_OPTIONS.map((opt) => (
-                    <OptionCard
-                      key={opt.id}
-                      option={opt}
-                      selected={draft.diyMode === opt.id}
-                      onPress={() => { patchDraft({ diyMode: opt.id }); setValidationError(null); }}
-                    />
-                  ))}
-                </View>
-
-                {selectedJob?.hireProfessionalRecommended && (
-                  <WarnBox
-                    text={t('wizard.diyStep.proWarning', { jobName: selectedJob.name })}
-                  />
-                )}
-
-                {draft.diyMode === 'hire' && (
-                  <HintBox
-                    icon="phone"
-                    text={t('wizard.diyStep.hireHint')}
-                  />
-                )}
-
-                {validationError && (
-                  <Txt style={{ fontSize: 13, color: Colors.danger }}>{validationError}</Txt>
-                )}
-
-                <Button
-                  label={draft.diyMode === 'hire' ? t('wizard.diyStep.hireCta') : t('wizard.next')}
-                  onPress={handleNext}
-                  size="lg"
-                  fullWidth
-                  disabled={!draft.diyMode}
-                  variant={draft.diyMode === 'hire' ? 'secondary' : 'primary'}
-                  iconRight={<Feather name="arrow-right" size={18} color="#fff" />}
-                />
-              </>
-            )}
 
             {/* ════════════════════════════════════════════════════════════════
                 STEP 8 — MEASUREMENTS
@@ -1134,6 +744,8 @@ export default function WizardScreen() {
                           <TextInput
                             style={{
                               flex: 1,
+                              minWidth: 0,
+                              width: 0,
                               backgroundColor: Colors.surface,
                               borderRadius: 14,
                               paddingHorizontal: 16,
@@ -1258,49 +870,14 @@ export default function WizardScreen() {
                     label={t('wizard.summary.rowCategory')}
                     value={CATEGORIES.find((c) => c.id === draft.categoryId)?.name ?? t('wizard.summary.dash')}
                     icon="layers"
-                    onEdit={() => goTo('category')}
-                    editLabel={t('wizard.edit')}
-                  />
-                  <SummaryRow
-                    label={t('wizard.summary.rowRoom')}
-                    value={roomLabel}
-                    icon="home"
-                    onEdit={() => goTo('room')}
+                    onEdit={() => router.replace('/wizard')}
                     editLabel={t('wizard.edit')}
                   />
                   <SummaryRow
                     label={t('wizard.summary.rowJob')}
                     value={selectedJob?.name ?? t('wizard.summary.dash')}
                     icon={selectedJob?.coverIcon ?? 'tool'}
-                    onEdit={() => goTo('job')}
-                    editLabel={t('wizard.edit')}
-                  />
-                  <SummaryRow
-                    label={t('wizard.summary.rowCondition')}
-                    value={draft.condition ? conditionLabel[draft.condition] : t('wizard.summary.dash')}
-                    icon="activity"
-                    onEdit={() => goTo('condition')}
-                    editLabel={t('wizard.edit')}
-                  />
-                  <SummaryRow
-                    label={t('wizard.summary.rowDesired')}
-                    value={draft.desiredResult ? desiredLabel[draft.desiredResult] : t('wizard.summary.dash')}
-                    icon="star"
-                    onEdit={() => goTo('desired')}
-                    editLabel={t('wizard.edit')}
-                  />
-                  <SummaryRow
-                    label={t('wizard.summary.rowBudget')}
-                    value={draft.budgetLevel ? budgetLabel[draft.budgetLevel] : t('wizard.summary.dash')}
-                    icon="tag"
-                    onEdit={() => goTo('budget')}
-                    editLabel={t('wizard.edit')}
-                  />
-                  <SummaryRow
-                    label={t('wizard.summary.rowDiy')}
-                    value={draft.diyMode ? diyLabel[draft.diyMode] : t('wizard.summary.dash')}
-                    icon="tool"
-                    onEdit={() => goTo('diy')}
+                    onEdit={() => { if (STEPS.includes('job')) goTo('job'); else router.replace('/wizard'); }}
                     editLabel={t('wizard.edit')}
                   />
 
@@ -1328,6 +905,18 @@ export default function WizardScreen() {
                       })}
                     </View>
                   )}
+                </View>
+
+                <View style={{gap:8}}>
+                  <Txt w="semibold">{language === 'pl' ? 'Pomieszczenie (opcjonalnie)' : 'Room (optional)'}</Txt>
+                  <View style={{flexDirection:'row',flexWrap:'wrap',gap:8}}>
+                    {ROOM_OPTIONS.map(room => <Button key={room.id} size="sm" variant={draft.room === room.id ? 'primary' : 'outline'} label={language === 'pl' ? room.label : room.id} onPress={() => patchDraft({room:draft.room===room.id?null:room.id})}/>) }
+                  </View>
+                </View>
+                <View style={{gap:8}}>
+                  <Txt w="semibold">{language === 'pl' ? 'Poziom materiałów do porównania' : 'Material level for comparison'}</Txt>
+                  <QualityTierSelector selected={wizardQualityTier(draft.budgetLevel)} includeCustom={false} onSelect={tier => patchDraft({budgetLevel: tier === 'better' ? 'premium' : tier === 'economy' ? 'economy' : 'standard'})}/>
+                  <Txt style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{language==='pl'?'Wybór zmienia produkty w porównaniu sklepów i wspólnym koszyku. Możesz go później zmienić w Kosztorysie projektu.':'This selects products for the store comparison and shared basket. Change it later in the project budget.'}</Txt>
                 </View>
 
                 {/* Project name input (optional customization) */}
@@ -1371,13 +960,7 @@ export default function WizardScreen() {
                   />
                 )}
 
-                {/* DIY compare hint */}
-                {draft.diyMode === 'compare' && (
-                  <HintBox
-                    icon="bar-chart"
-                    text={t('wizard.summary.compareHint')}
-                  />
-                )}
+
 
                 {saveError&&<View accessibilityRole="alert" style={{padding:14,borderRadius:12,backgroundColor:Colors.warningBg,gap:10}}>
                   <Txt style={{color:Colors.text,lineHeight:20}}>{saveError}</Txt>

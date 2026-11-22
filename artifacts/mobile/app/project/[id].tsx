@@ -1,3 +1,4 @@
+import { projectQualityTier } from '@/features/pricing/projectQuality';
 import { ProjectNavigation } from '@/components/project/ProjectNavigation';
 import {isWallPaintingMaterial} from '@/features/calculator/wallPaint';
 import { parseDecimal } from '@/shared/lib/number';
@@ -72,8 +73,7 @@ export default function ProjectDetailScreen() {
     getProjectActivities,
     logActivity,
     selectedRegion,
-    selectedQualityTier,
-    setSelectedQualityTier,
+    selectedQualityTier: defaultQualityTier,
     getProjectOverrides,
     upsertOverride,
     resetOverride,
@@ -97,6 +97,14 @@ export default function ProjectDetailScreen() {
   const deletedRef = useRef(false);
 
   const project = projects.find((p) => p.id === id);
+  const selectedQualityTier = project?.calculationResult?.pricingQualityTier === 'custom' ? 'custom' : projectQualityTier(project?.calculationResult, defaultQualityTier);
+  const [qualitySaveError, setQualitySaveError] = useState(false);
+  const setSelectedQualityTier = async (tier: import('@/types/pricing').QualityTier) => {
+    if (!project?.calculationResult) return;
+    setQualitySaveError(false);
+    try { await updateProject({...project, calculationResult:{...project.calculationResult, pricingQualityTier:tier}}); }
+    catch { setQualitySaveError(true); }
+  };
   const job = project ? getJobById(project.jobId) : null;
   const purchaseScope = JSON.stringify([project?.id, project?.calculationResult, selectedQualityTier, selectedRegion, shoppingLoadedProject, shoppingItems]);
   const onPurchaseSnapshot = useCallback((snapshot: PurchaseSnapshot | null) => {
@@ -473,11 +481,12 @@ export default function ProjectDetailScreen() {
 
       <ProjectNavigation selected={tab} onSelect={setTab} />
 
-      <ScrollView
+      <ScrollView key={tab}
         style={{ flex: 1, backgroundColor: Colors.background }}
-        contentContainerStyle={{ padding: 20, paddingBottom: bottomPad }}
+        contentContainerStyle={{ width:'100%', maxWidth:960, alignSelf:'center', padding: 20, paddingBottom: bottomPad }}
         showsVerticalScrollIndicator={false}
       >
+        {qualitySaveError && <Txt accessibilityRole="alert" style={{color:Colors.danger}}>{language==='pl'?'Nie zapisano poziomu materiałów. Spróbuj ponownie.':'Material level was not saved. Try again.'}</Txt>}
         {['overview', 'shopping', 'budget'].includes(tab) && <View style={{marginBottom:16}}><ProjectPurchaseSummary snapshot={lastPurchase?.scope === purchaseScope ? lastPurchase.snapshot : null} onCompare={() => setTab('estimate')}/></View>}
         {calc?.materials.some(line => line.quantityKnown === false && isWallPaintingMaterial(calc.jobId, line.material.id)) && ['overview', 'shopping', 'estimate', 'budget'].includes(tab) && <View accessibilityRole="alert" style={{ marginBottom: 16, gap: 10, padding: 16, borderWidth: 1, borderColor: Colors.warning, borderRadius: 16, backgroundColor: Colors.warningBg }}>
           <Txt w="semibold">{language === 'pl' ? 'Potwierdź ilości farby i gruntu' : 'Confirm paint and primer quantities'}</Txt>
@@ -508,7 +517,7 @@ export default function ProjectDetailScreen() {
         )}
 
         {tab === 'materials' && calc && (
-          <MaterialsTab
+          <MaterialsTab projectId={project.id} qualityTier={selectedQualityTier}
             calc={calc}
             hasShoppingItems={shoppingItems.length > 0}
             onGenerateShoppingList={handleGenerateShoppingList}
@@ -531,7 +540,7 @@ export default function ProjectDetailScreen() {
         )}
 
         {tab === 'shopping' && (
-          <ShoppingTab
+          <ShoppingTab projectId={project.id} qualityTier={selectedQualityTier}
             shoppingItems={shoppingItems}
             job={job}
             calc={calc}

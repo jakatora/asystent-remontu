@@ -16,6 +16,28 @@ test('backup size uses UTF-8 bytes for Polish text and supplementary characters'
   assert.throws(() => checkBackupSize(prefix + 'ł🧱a'), /backup_too_large/);
 });
 import {calculateMaterials} from '../calculator/engine';
+import {DELIVERY_POSTCODE_KEY,serializeSharedPostcode} from '../pricing/deliveryPostcode';
+
+test('project quality and shared postcode survive backup without carrying delivery fees',async t=>{
+  const from=await source(t),to=await fixture(t);
+  const row=from.sqlite.prepare('SELECT calculation_result FROM projects WHERE id=?').get('room')!;
+  const calc={...JSON.parse(String(row.calculation_result)),pricingQualityTier:'better'};
+  from.sqlite.prepare('UPDATE projects SET calculation_result=? WHERE id=?').run(JSON.stringify(calc),'room');
+  await from.storage.setItem(DELIVERY_POSTCODE_KEY,JSON.stringify({version:1,postalCode:'30-001',deliveryGrosze:0}));
+  const backup=await readProjectBackup(from.db,from.storage);
+  assert.deepEqual(JSON.parse(backup.preferences[DELIVERY_POSTCODE_KEY]),{version:1,postalCode:'30-001'});
+  await importProjectBackup(backup,to.db,to.storage);
+  assert.equal(await to.storage.getItem(DELIVERY_POSTCODE_KEY),serializeSharedPostcode('30-001'));
+  const restored=to.sqlite.prepare('SELECT calculation_result FROM projects WHERE id=?').get('room')!;
+  assert.equal(JSON.parse(String(restored.calculation_result)).pricingQualityTier,'better');
+});
+
+test('a cleared shared postcode remains cleared after backup',async t=>{
+  const from=await source(t),to=await fixture(t);
+  await from.storage.setItem(DELIVERY_POSTCODE_KEY,serializeSharedPostcode(undefined)!);
+  await importProjectBackup(await readProjectBackup(from.db,from.storage),to.db,to.storage);
+  assert.equal(await to.storage.getItem(DELIVERY_POSTCODE_KEY),serializeSharedPostcode(undefined));
+});
 import {getJobById} from '../content/registry';
 import {BASKET_TOOL_PREFIX,collectBasketTools} from '../pricing/basketTools';
 import {PRIMER_PACKAGE_CHOICE_PREFIX,parsePrimerPackageChoices,PRIMER_PACKAGE_PRODUCTS} from '../pricing/primerPackageChoice';

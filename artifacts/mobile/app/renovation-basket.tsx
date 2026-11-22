@@ -1,3 +1,5 @@
+import { PurchaseOverview } from '@/components/project/PurchaseOverview';
+import type { PurchaseSnapshot } from '@/features/pricing/purchaseSummary';
 import {type CeilingPaintChoice} from '@/features/pricing/ceilingPaintChoice';
 import {readCeilingPaintChoices} from '@/features/pricing/ceilingPaintStorage';
 import type {MapegumProductChoice} from '@/features/pricing/mapegumProductChoice';
@@ -19,7 +21,6 @@ import { Txt } from '@/components/ui/Txt';
 import { Button } from '@/components/ui/Button';
 import { Colors } from '@/constants/colors';
 import { CostEstimateTab } from '@/components/project/CostEstimateTab';
-import { QualityTierSelector } from '@/components/project/QualityTierSelector';
 import { BasketExtrasSection } from '@/components/project/BasketExtrasSection';
 import { BasketToolsSection } from '@/components/project/BasketToolsSection';
 import { BASKET_EXTRAS_KEY, parseBasketExtras, withBasketExtras, type BasketExtra } from '@/features/pricing/basketExtras';
@@ -37,7 +38,7 @@ import type { MaterialStockEntry } from '@/features/pricing/materialStock';
 import { readMaterialStock } from '@/features/pricing/materialStockStorage';
 
 export default function RenovationBasketScreen() {
-  const { projects, selectedQualityTier, setSelectedQualityTier, selectedRegion, refreshProjects } = useApp();
+  const { projects, selectedQualityTier, selectedRegion, refreshProjects } = useApp();
   const { language } = useLanguage();
   const pl = language === 'pl';
   const [selected, setSelected] = useState<string[]>([]);
@@ -151,13 +152,18 @@ export default function RenovationBasketScreen() {
     const current = selected.filter(key => projects.some(project => project.id === key));
     saveSelection(current.includes(id) ? current.filter(key => key !== id) : [...current, id]);
   };
+  const scrollRef=useRef<ScrollView>(null), comparisonY=useRef(0);
+  const [lastPurchase,setLastPurchase]=useState<{scope:string;snapshot:PurchaseSnapshot}|null>(null);
+  const purchaseScope=JSON.stringify([stages,selectedQualityTier,selectedRegion,loaded,itemsReady,extrasReady,toolsReady,basket.missingCalculations]);
+  const onPurchaseSnapshot=React.useCallback((snapshot:PurchaseSnapshot|null)=>setLastPurchase(snapshot?{scope:purchaseScope,snapshot}:null),[purchaseScope]);
   return <>
     <Stack.Screen options={{ headerShown: true, title: pl ? 'Koszyk całego remontu' : 'Whole renovation basket', headerBackTitle: pl ? 'Projekty' : 'Projects', headerStyle: { backgroundColor: Colors.background }, headerShadowVisible: false }} />
-    <ScrollView keyboardShouldPersistTaps="handled" style={{ flex: 1, backgroundColor: Colors.background }} contentContainerStyle={{ padding: 20, paddingBottom: 60, gap: 18 }}>
+    <ScrollView ref={scrollRef} keyboardShouldPersistTaps="handled" style={{ flex: 1, backgroundColor: Colors.background }} contentContainerStyle={{ width:'100%', maxWidth:960, alignSelf:'center', padding: 20, paddingBottom: 60, gap: 18 }}>
       <View style={{ gap: 8 }}>
         <Txt w="bold" style={{ fontSize: 24 }}>{pl ? 'Kup razem do całego remontu' : 'Buy together for your renovation'}</Txt>
         <Txt style={{ color: Colors.textSecondary, lineHeight: 22 }}>{pl ? 'Wybierz prace i pomieszczenia. Zsumujemy potrzebne materiały, dobierzemy opakowania raz i porównamy cały zestaw z dostawami.' : 'Choose works and rooms. We combine material requirements, round to packs once and compare the complete basket including deliveries.'}</Txt>
       </View>
+      {hasBasket && <PurchaseOverview snapshot={lastPurchase?.scope===purchaseScope?lastPurchase.snapshot:null} includesTools={toolPurchases.length>0} omissions={pendingTools+unpricedTools.length+rentedTools.length} onDetails={()=>scrollRef.current?.scrollTo({y:comparisonY.current,animated:false})}/>}
       {!loaded ? <ActivityIndicator color={Colors.primary} /> : <View style={{ gap: 8, padding:14, borderRadius:16, borderWidth:1, borderColor:Colors.border, backgroundColor:Colors.surface }}>
         <View style={{flexDirection:'row',alignItems:'center',gap:12}}>
           <Txt w="semibold" accessibilityLabel={pl?`Wybrane prace: ${selectedProjects.length}`:`Selected works: ${selectedProjects.length}`} style={{flex:1,fontSize:14,lineHeight:20}}>{pl ? `Prace: ${selectedProjects.length}` : `Works: ${selectedProjects.length}`}</Txt>
@@ -168,6 +174,7 @@ export default function RenovationBasketScreen() {
         </View>
         {!showProjects && selectedProjects.slice(0,3).map(project=><Txt key={project.id} numberOfLines={1} style={{fontSize:13,lineHeight:19,color:Colors.textSecondary}}>{[project.roomName,project.name].filter(Boolean).join(' · ')}</Txt>)}
         {!showProjects && selectedProjects.length > 3 && <Txt style={{fontSize:13,color:Colors.textSecondary}}>{pl?`Pozostałe wybrane prace: ${selectedProjects.length-3}.`:`Other selected works: ${selectedProjects.length-3}.`}</Txt>}
+        {!projects.length && <Button label={pl?'Utwórz projekt z obmiarami':'Create a measured project'} onPress={()=>router.push('/wizard')}/> }
         {!projects.length && <Txt>{pl ? 'Dodaj produkty z katalogu poniżej lub utwórz projekt z obmiarami.' : 'Add catalogue products below or create a project with measurements.'}</Txt>}
         {showProjects && measuredProjectCount > 0 && <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           <Button variant="outline" size="sm" label={pl ? `Wybierz prace z obmiarami (${Math.min(measuredProjectCount, MAX_BASKET_PROJECTS)})` : `Select measured works (${Math.min(measuredProjectCount, MAX_BASKET_PROJECTS)})`} onPress={() => saveSelection(measuredProjectIds)} />
@@ -191,8 +198,7 @@ export default function RenovationBasketScreen() {
       <BasketExtrasSection items={extras} onChange={updateExtras} ready={extrasReady} error={extrasReadFailed} onRetry={() => setExtrasRetry(value => value + 1)} />
       {extrasSaveFailed && <Txt accessibilityRole="alert" style={{ color: Colors.danger }}>{pl ? 'Nie zapisano dodatkowych materiałów. Bieżąca wycena je uwzględnia, ale po ponownym otwarciu sprawdź listę.' : 'Additional materials were not saved. They are in the current quote, but check the list when reopening.'}</Txt>}
       {selectedProjects.length > 0 && <View style={{ gap: 8 }}>
-        <QualityTierSelector selected={selectedQualityTier === 'custom' ? 'standard' : selectedQualityTier} onSelect={setSelectedQualityTier} includeCustom={false} />
-        <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Poziom wybiera warianty produktów do porównania. Możesz zmienić go i sprawdzić cenę całego zestawu.' : 'The level selects product variants for comparison. Change it to compare the complete basket price.'}</Txt>
+        <Txt style={{ color: Colors.textSecondary, fontSize: 13 }}>{pl ? 'Używamy poziomu materiałów zapisanego w każdej pracy. Zmienisz go w Kosztorysie danego projektu.' : 'We use the material level saved in each work. Change it in that project’s budget.'}</Txt>
       </View>}
       {selectedProjects.length > 0 && <View style={{ padding: 14, borderRadius: 14, backgroundColor: Colors.surface, gap: 6 }}>
         <Txt style={{ color: Colors.textSecondary, lineHeight: 20 }}>{pl ? 'Łączymy materiały z obmiarów, dopisane w Zakupach i dodane tutaj. Pomijamy pozycje oznaczone w Zakupach jako „Mam” lub „Kupione”.' : 'We combine measured materials, items added in Shopping and materials added here. Items marked Owned or Purchased are excluded.'}</Txt>
@@ -240,7 +246,7 @@ export default function RenovationBasketScreen() {
         </View>}
       </View>}
       {loaded && itemsReady && extrasReady && toolsReady && hasBasket && basket.missingCalculations === 0 && (stages.some(stage => stage.materials.length > 0)
-        ? <CostEstimateTab projectId="renovation-basket" stages={stages} shoppingContexts={basket.shoppingContexts} qualityTier={selectedQualityTier} region={selectedRegion} includesToolPurchases={toolPurchases.length > 0} />
+        ? <View onLayout={event=>{comparisonY.current=event.nativeEvent.layout.y;}}><CostEstimateTab hideOverview onPurchaseSnapshot={onPurchaseSnapshot} projectId="renovation-basket" stages={stages} shoppingContexts={basket.shoppingContexts} qualityTier={selectedQualityTier} region={selectedRegion} includesToolPurchases={toolPurchases.length > 0} /></View>
         : <Txt w="semibold">{pl ? 'Brak materiałów i narzędzi do wyceny w sklepach.' : 'There are no materials or tools to quote in stores.'}</Txt>)}
     </ScrollView>
   </>;
